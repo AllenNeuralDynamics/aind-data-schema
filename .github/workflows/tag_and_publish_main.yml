@@ -1,0 +1,108 @@
+name: Tag and Publish - main 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag_and_publish:
+    name: Parse version
+    runs-on: ubuntu-latest
+    outputs:
+      pkg_version: ${{ steps.output_version.outputs.pkg_version }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Get version from file
+      run: |
+        pkg_name=$(grep -P 'version = \{attr = .*\}' pyproject.toml | grep -oP '\w+.__version__')
+        init_file="./src/${pkg_name//.__version__}/__init__.py"
+        pkg_version=$(grep -Po '[0-9]+\.[0-9]+\.[0-9]+' "$init_file")
+        echo "tag=$pkg_version" >> "$GITHUB_ENV"
+    - name: Create git tag
+      run: |
+        git tag "v${{ env.tag }}"
+    - name: Push git tag
+      run: git push origin "v${{ env.tag }}"
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        pip install --upgrade setuptools wheel twine build
+        python -m build
+        twine check dist/*
+    - name: Publish on PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.AIND_PYPI_TOKEN }}
+
+  upload_schemas_prod:
+    needs: tag_and_publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_DATA_SCHEMA_ROLE: ${{ secrets.AWS_DATA_SCHEMA_ROLE_PROD}}
+      AWS_DATA_SCHEMA_BUCKET: ${{ vars.AWS_DATA_SCHEMA_BUCKET_PROD }}
+      AWS_REGION: ${{ vars.AWS_REGION_PROD }}
+      TEMP_DIR: 'temp_schemas'
+      S3_PREFIX: 'schemas'
+    steps:
+      - uses: actions/checkout@master
+      - name: Pull latest changes
+        run: git pull origin main
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_DATA_SCHEMA_ROLE }}
+          role-session-name: github-schema-upload-session
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Create and upload schemas
+        run: |
+          python -m pip install -e .
+          python -m aind_data_schema.utils.json_writer --output $TEMP_DIR --attach-version
+          python -m pip install awscli
+          aws s3 sync $TEMP_DIR s3://${AWS_DATA_SCHEMA_BUCKET}/$S3_PREFIX
+
+  upload_diagrams:
+    needs: tag_and_publish
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_DATA_SCHEMA_ROLE: ${{ secrets.AWS_DATA_SCHEMA_ROLE_PROD }}
+      AWS_DATA_SCHEMA_BUCKET: ${{ vars.AWS_DATA_SCHEMA_BUCKET_PROD }}
+      AWS_REGION : ${{ vars.AWS_REGION_PROD }}
+      DIAGRAM_DIRECTORY: ./docs/source/_static/diagrams
+    steps:
+      - uses: actions/checkout@master
+      - name: Pull latest changes
+        run: git pull origin main
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          sudo apt install graphviz libgraphviz-dev -y
+          python -m pip install -e .[docs] --no-cache-dir
+          python -m pip install awscli
+      - name: Generate erdantic diagrams
+        run: |
+          mkdir $DIAGRAM_DIRECTORY
+          python -m aind_data_schema.utils.diagrams $DIAGRAM_DIRECTORY
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_DATA_SCHEMA_ROLE }}
+          role-session-name: github-diagram-upload-session
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Create and upload diagrams
+        run: aws s3 sync $DIAGRAM_DIRECTORY s3://${AWS_DATA_SCHEMA_BUCKET}/diagrams

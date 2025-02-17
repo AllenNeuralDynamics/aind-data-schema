@@ -15,7 +15,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.platforms import Platform
-from pydantic import Field, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 
@@ -39,8 +39,8 @@ class DataDescription(AindCoreModel):
     """Description of a logical collection of data files"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.13.10"] = Field("0.13.10")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.0.4"]] = Field(default="1.0.4")
     license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
 
     platform: Platform.ONE_OF = Field(
@@ -120,7 +120,9 @@ class DataDescription(AindCoreModel):
         title="Related data",
         description="Path and description of data assets associated with this asset (eg. reference images)",
     )
-    data_summary: Optional[str] = Field(None, title="Data summary", description="Semantic summary of experimental goal")
+    data_summary: Optional[str] = Field(
+        default=None, title="Data summary", description="Semantic summary of experimental goal"
+    )
 
     @classmethod
     def parse_name(cls, name):

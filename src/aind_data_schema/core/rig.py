@@ -4,7 +4,7 @@ from datetime import date
 from typing import List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, ValidationInfo, field_serializer, field_validator, model_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AindCoreModel
@@ -43,18 +43,20 @@ STIMULUS_DEVICES = Annotated[Union[Monitor, Olfactometer, RewardDelivery, Speake
 RIG_DAQ_DEVICES = Annotated[
     Union[HarpDevice, NeuropixelsBasestation, OpenEphysAcquisitionBoard, DAQDevice], Field(discriminator="device_type")
 ]
+RIG_ID_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
 class Rig(AindCoreModel):
     """Description of a rig"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/rig.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.5.3"] = Field("0.5.3")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.0.4"]] = Field(default="1.0.4")
     rig_id: str = Field(
         ...,
         description="Unique rig identifier, name convention: <room>-<apparatus name>-<date modified YYYYMMDD>",
         title="Rig ID",
+        pattern=RIG_ID_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
     mouse_platform: MOUSE_PLATFORMS
@@ -75,7 +77,7 @@ class Rig(AindCoreModel):
     polygonal_scanners: List[PolygonalScanner] = Field(default=[], title="Polygonal scanners")
     pockels_cells: List[PockelsCell] = Field(default=[], title="Pockels cells")
     additional_devices: List[Device] = Field(default=[], title="Additional devices")
-    daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices", discriminator="device_type")
+    daqs: List[RIG_DAQ_DEVICES] = Field(default=[], title="Data acquisition devices")
     calibrations: List[Calibration] = Field(..., title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
         default=None,
@@ -88,9 +90,9 @@ class Rig(AindCoreModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_serializer("modalities", when_used="json")
-    def serialize_modalities(modalities: Set[Modality.ONE_OF]):
-        """sort modalities by name when serializing to JSON"""
-        return sorted(modalities, key=lambda x: x.name)
+    def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
+        """Dynamically serialize modalities based on their type."""
+        return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):
@@ -140,7 +142,7 @@ class Rig(AindCoreModel):
         reward_delivery_device_names = []
         for rd in reward_deliveries:
             for rs in rd.reward_spouts:
-                reward_delivery_device_names += [rs.name, rs.solenoid_valve.name]
+                reward_delivery_device_names += [rs.name, rs.solenoid_valve.name, rs.lick_sensor.name]
 
         all_device_names = (
             standard_device_names

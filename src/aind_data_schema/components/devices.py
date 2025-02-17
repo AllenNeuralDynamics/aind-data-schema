@@ -6,9 +6,16 @@ from enum import Enum
 from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.harp_types import HarpDeviceType
-from aind_data_schema_models.harp_types import Olfactometer as OlfactometerHarpType
-from aind_data_schema_models.organizations import InteruniversityMicroelectronicsCenter, Organization
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit, SpeedUnit, TemperatureUnit, UnitlessUnit
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import (
+    FrequencyUnit,
+    PowerUnit,
+    SizeUnit,
+    SpeedUnit,
+    TemperatureUnit,
+    UnitlessUnit,
+    VoltageUnit,
+)
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
@@ -243,7 +250,15 @@ class LickSensorType(str, Enum):
     """Type of lick sensor"""
 
     CAPACITIVE = "Capacitive"
+    CONDUCTIVE = "Conductive"
     PIEZOELECTIC = "Piezoelectric"
+
+
+class MyomatrixArrayType(str, Enum):
+    """Type of Myomatrix array"""
+
+    INJECTED = "Injected"
+    SUTURED = "Sutured"
 
 
 class Device(AindModel):
@@ -317,6 +332,8 @@ class Detector(Device):
     bin_height: Optional[int] = Field(default=None, title="Bin height")
     bin_unit: SizeUnit = Field(default=SizeUnit.PX, title="Bin size unit")
     gain: Optional[Decimal] = Field(default=None, title="Gain")
+    crop_offset_x: Optional[int] = Field(default=None, title="Crop offset x")
+    crop_offset_y: Optional[int] = Field(default=None, title="Crop offset y")
     crop_width: Optional[int] = Field(default=None, title="Crop width")
     crop_height: Optional[int] = Field(default=None, title="Crop width")
     crop_unit: SizeUnit = Field(default=SizeUnit.PX, title="Crop size unit")
@@ -512,7 +529,7 @@ class Laser(Device):
     power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
-        None,
+        default=None,
         title="Coupling efficiency (percent)",
         ge=0,
         le=100,
@@ -562,9 +579,7 @@ class NeuropixelsBasestation(DAQDevice):
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[
-        Union[InteruniversityMicroelectronicsCenter], Field(default=Organization.IMEC, discriminator="name")
-    ]
+    manufacturer: Annotated[Union[type(Organization.IMEC)], Field(default=Organization.IMEC, discriminator="name")]
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -686,10 +701,14 @@ class PockelsCell(Device):
     """Description of a Pockels Cell"""
 
     device_type: Literal["Pockels cell"] = "Pockels cell"
-    polygonal_scanner: str = Field(..., title="Polygonal scanner", description="Must match name of Polygonal scanner")
-    on_time: Decimal = Field(..., title="On time (fraction of cycle)")
-    off_time: Decimal = Field(..., title="Off time (fraction of cycle)")
-    time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="time setting unit")
+    polygonal_scanner: Optional[str] = Field(
+        default=None, title="Polygonal scanner", description="Must match name of Polygonal scanner"
+    )
+    on_time: Optional[Decimal] = Field(default=None, title="On time (fraction of cycle)")
+    off_time: Optional[Decimal] = Field(default=None, title="Off time (fraction of cycle)")
+    time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="Time setting unit")
+    beam_modulation: Optional[Decimal] = Field(default=None, title="Beam modulation (V)")
+    beam_modulation_unit: VoltageUnit = Field(default=VoltageUnit.V, title="Beam modulation unit")
 
 
 class Enclosure(Device):
@@ -758,6 +777,16 @@ class Treadmill(MousePlatform):
     device_type: Literal["Treadmill"] = "Treadmill"
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
+    encoder: Device = Field(..., title="Encoder")
+    pulse_per_revolution: int = Field(..., title="Pulse per revolution")
+
+
+class Arena(MousePlatform):
+    """Description of a rectangular arena"""
+
+    device_type: Literal["Arena"] = "Arena"
+    size: Size3d = Field(..., title="3D Size")
+    objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
 class Monitor(Device):
@@ -797,7 +826,7 @@ class RewardSpout(Device):
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
     spout_position: Optional[RelativePosition] = Field(default=None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
-    lick_sensor: Optional[Union[Device, DAQChannel]] = Field(default=None, title="Lick sensor")
+    lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -851,7 +880,7 @@ class Olfactometer(HarpDevice):
     device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
     harp_device_type: Annotated[
-        Union[OlfactometerHarpType], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
+        Union[type(HarpDeviceType.OLFACTOMETER)], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
     ]
     channels: List[OlfactometerChannel]
 
@@ -900,6 +929,13 @@ class Scanner(Device):
     magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
     #  TODO: Check if this should go into the units module.
     magnetic_strength_unit: str = Field(default="T", title="Magnetic strength unit")
+
+
+class MyomatrixArray(Device):
+    """Description of a Myomatrix array"""
+
+    device_type: Literal["Myomatrix Array"] = "Myomatrix Array"
+    array_type: MyomatrixArrayType = Field(..., title="Array type")
 
 
 LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]

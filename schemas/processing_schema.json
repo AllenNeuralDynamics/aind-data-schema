@@ -12,18 +12,22 @@
          "description": "Description of an Analysis",
          "properties": {
             "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ProcessName"
-                  }
-               ],
+               "$ref": "#/$defs/ProcessName",
                "default": "Analysis",
                "title": "Process name"
             },
             "software_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+               "title": "Version"
             },
             "start_date_time": {
                "format": "date-time",
@@ -36,9 +40,19 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
@@ -64,19 +78,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -92,6 +99,18 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "resources": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/ResourceUsage"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Process resource usage"
             },
             "analyst_full_name": {
                "description": "Name of person responsible for running analysis",
@@ -104,13 +123,11 @@
             }
          },
          "required": [
-            "software_version",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
             "code_url",
-            "parameters",
             "analyst_full_name",
             "description"
          ],
@@ -122,17 +139,21 @@
          "description": "Description of a single processing step",
          "properties": {
             "name": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/ProcessName"
-                  }
-               ],
+               "$ref": "#/$defs/ProcessName",
                "title": "Name"
             },
             "software_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+               "title": "Version"
             },
             "start_date_time": {
                "format": "date-time",
@@ -145,9 +166,19 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
@@ -173,19 +204,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "allOf": [
-                  {
-                     "$ref": "#/$defs/AindGeneric"
-                  }
-               ],
+               "$ref": "#/$defs/AindGeneric",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -201,20 +225,44 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "resources": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/ResourceUsage"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Process resource usage"
             }
          },
          "required": [
             "name",
-            "software_version",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
-            "parameters"
+            "code_url"
          ],
          "title": "DataProcess",
          "type": "object"
+      },
+      "MemoryUnit": {
+         "description": "Computer memory units",
+         "enum": [
+            "Byte",
+            "Kilobyte",
+            "Megabyte",
+            "Gigabyte",
+            "Terabyte",
+            "Petabyte",
+            "Exabyte"
+         ],
+         "title": "MemoryUnit",
+         "type": "string"
       },
       "PipelineProcess": {
          "additionalProperties": false,
@@ -279,7 +327,7 @@
          "type": "object"
       },
       "ProcessName": {
-         "description": "Data processing type labels",
+         "description": "Process names",
          "enum": [
             "Analysis",
             "Compression",
@@ -294,33 +342,212 @@
             "Fluorescence event detection",
             "Image atlas alignment",
             "Image background subtraction",
-            "Image cell segmentation",
             "Image cell classification",
             "Image cell quantification",
-            "Image mip visualization",
+            "Image cell segmentation",
+            "Image cross-image alignment",
             "Image destriping",
             "Image flat-field correction",
             "Image importing",
+            "Image mip visualization",
             "Image thresholding",
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
-            "Manual annotation",
+            "Image spot detection",
+            "Image spot spectral unmixing",
+            "Model evaluation",
+            "Model training",
             "Neuropil subtraction",
             "Other",
-            "Quality control and assessment",
             "Simulation",
             "Skull stripping",
-            "Spike sorting",
             "Spatial timeseries demixing",
+            "Spike sorting",
             "Video motion correction",
             "Video plane decrosstalk",
             "Video ROI classification",
+            "Video ROI cross session matching",
             "Video ROI segmentation",
             "Video ROI timeseries extraction"
          ],
          "title": "ProcessName",
          "type": "string"
+      },
+      "ResourceTimestamped": {
+         "additionalProperties": false,
+         "description": "Description of resource usage at a moment in time",
+         "properties": {
+            "timestamp": {
+               "format": "date-time",
+               "title": "Timestamp",
+               "type": "string"
+            },
+            "usage": {
+               "title": "Usage",
+               "type": "number"
+            }
+         },
+         "required": [
+            "timestamp",
+            "usage"
+         ],
+         "title": "ResourceTimestamped",
+         "type": "object"
+      },
+      "ResourceUsage": {
+         "additionalProperties": false,
+         "description": "Description of resources used by a process",
+         "properties": {
+            "os": {
+               "title": "Operating system",
+               "type": "string"
+            },
+            "architecture": {
+               "title": "Architecture",
+               "type": "string"
+            },
+            "cpu": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "CPU name"
+            },
+            "cpu_cores": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "CPU cores"
+            },
+            "gpu": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "GPU name"
+            },
+            "system_memory": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "System memory"
+            },
+            "system_memory_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "System memory unit"
+            },
+            "ram": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "System RAM"
+            },
+            "ram_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ram unit"
+            },
+            "cpu_usage": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ResourceTimestamped"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "CPU usage"
+            },
+            "gpu_usage": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ResourceTimestamped"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "GPU usage"
+            },
+            "ram_usage": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ResourceTimestamped"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "RAM usage"
+            },
+            "usage_unit": {
+               "default": "percent",
+               "title": "Usage unit",
+               "type": "string"
+            }
+         },
+         "required": [
+            "os",
+            "architecture"
+         ],
+         "title": "ResourceUsage",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -333,16 +560,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.4.8",
-         "default": "0.4.8",
-         "title": "Schema Version"
+         "const": "1.1.4",
+         "default": "1.1.4",
+         "title": "Schema Version",
+         "type": "string"
       },
       "processing_pipeline": {
-         "allOf": [
-            {
-               "$ref": "#/$defs/PipelineProcess"
-            }
-         ],
+         "$ref": "#/$defs/PipelineProcess",
          "description": "Pipeline used to process data",
          "title": "Processing Pipeline"
       },

@@ -113,6 +113,8 @@ rig = r.Rig(
             bin_width=4,
             bin_height=4,
             bin_mode="Additive",
+            crop_offset_x=0,
+            crop_offset_y=0,
             crop_width=200,
             crop_height=200,
             gain=2,
@@ -131,6 +133,8 @@ rig = r.Rig(
             bin_width=4,
             bin_height=4,
             bin_mode="Additive",
+            crop_offset_x=0,
+            crop_offset_y=0,
             crop_width=200,
             crop_height=200,
             gain=2,
@@ -257,16 +261,24 @@ rig = r.Rig(
         d.RewardDelivery(
             reward_spouts=[
                 d.RewardSpout(
-                    name="Lick-o-meter Left",
+                    name="Left spout",
                     side=d.SpoutSide.LEFT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                    lick_sensor=d.Device(
+                        name="Lick-o-meter Left",
+                        device_type="Lick detector",
+                    ),
                 ),
                 d.RewardSpout(
-                    name="Lick-o-meter Right",
+                    name="Right spout",
                     side=d.SpoutSide.RIGHT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                    lick_sensor=d.Device(
+                        name="Lick-o-meter Right",
+                        device_type="Lick detector",
+                    ),
                 ),
             ]
         )

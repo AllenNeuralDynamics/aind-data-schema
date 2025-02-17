@@ -1,5 +1,5 @@
-Rig/Instrument schema
-=====================
+Rig/Instrument
+==============
 
 **Q: What is a rig? What is an instrument?**
 

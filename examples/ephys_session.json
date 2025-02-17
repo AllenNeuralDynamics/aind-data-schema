@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.3.3",
+   "schema_version": "1.1.1",
    "protocol_id": [],
    "experimenter_full_name": [
       "Max Quibble",
@@ -10,7 +10,7 @@
    "session_end_time": "2023-04-25T03:16:00Z",
    "session_type": "Receptive field mapping",
    "iacuc_protocol": "2109",
-   "rig_id": "323_EPHYS2-RF_2023-04-24_01",
+   "rig_id": "323_EPHYS1_20231003",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "664484",
@@ -23,13 +23,13 @@
          "stream_start_time": "2023-04-25T02:45:00Z",
          "stream_end_time": "2023-04-25T03:16:00Z",
          "daq_names": [
-            "Basestation"
+            "Basestation Slot 3"
          ],
          "camera_names": [],
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "ephys module 1",
+               "assembly_name": "Ephys_assemblyA",
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -37,7 +37,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
-               "primary_targeted_structure": "LGd",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Dorsal part of the lateral geniculate complex",
+                  "acronym": "LGd",
+                  "id": "170"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -54,14 +59,15 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
                "implant_hole_number": null
             },
             {
-               "assembly_name": "ephys module 2",
+               "assembly_name": "Ephys_assemblyB",
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -69,7 +75,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
-               "primary_targeted_structure": "LC",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Locus ceruleus",
+                  "acronym": "LC",
+                  "id": "147"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -86,7 +97,8 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
@@ -140,7 +152,7 @@
          "fiber_connections": [],
          "fiber_modules": [],
          "ophys_fovs": [],
-         "slap_fovs": null,
+         "slap_fovs": [],
          "stack_parameters": null,
          "mri_scans": [],
          "stream_modalities": [
@@ -156,13 +168,13 @@
          "stream_start_time": "2023-04-25T02:35:00Z",
          "stream_end_time": "2023-04-25T02:45:00Z",
          "daq_names": [
-            "Basestation"
+            "Basestation Slot 3"
          ],
          "camera_names": [],
          "light_sources": [],
          "ephys_modules": [
             {
-               "assembly_name": "ephys module 1",
+               "assembly_name": "Ephys_assemblyA",
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -170,7 +182,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.npy",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording with a sudden shift in signals. Lots of motion. Maybe some implant motion.",
-               "primary_targeted_structure": "LGd",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Dorsal part of the lateral geniculate complex",
+                  "acronym": "LGd",
+                  "id": "170"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -187,14 +204,15 @@
                   "z": "11087.5",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
                "implant_hole_number": null
             },
             {
-               "assembly_name": "ephys module 2",
+               "assembly_name": "Ephys_assemblyB",
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -202,7 +220,12 @@
                "coordinate_transform": "behavior/calibration_info_np2_2023_04_24.py",
                "calibration_date": "2023-04-25T00:00:00Z",
                "notes": "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface bleeding/bruising. Initial Target: X;10070.3\tY:7476.6",
-               "primary_targeted_structure": "LC",
+               "primary_targeted_structure": {
+                  "atlas": "CCFv3",
+                  "name": "Locus ceruleus",
+                  "acronym": "LC",
+                  "id": "147"
+               },
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
@@ -219,7 +242,8 @@
                   "z": "13262",
                   "unit": "micrometer"
                },
-               "bregma_coordinates": null,
+               "anatomical_coordinates": null,
+               "anatomical_reference": null,
                "surface_z": null,
                "surface_z_unit": "micrometer",
                "dye": null,
@@ -236,36 +260,6 @@
                "coordinate_transform": null,
                "calibration_date": null,
                "notes": "did not record angles, did not calibrate."
-            },
-            {
-               "assembly_name": "stick microscope 2",
-               "arc_angle": "-180",
-               "module_angle": "-180",
-               "angle_unit": "degrees",
-               "rotation_angle": "0",
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": "Did not record angles, did not calibrate"
-            },
-            {
-               "assembly_name": "stick microscope 3",
-               "arc_angle": "-180",
-               "module_angle": "-180",
-               "angle_unit": "degrees",
-               "rotation_angle": "0",
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": "Did not record angles, did not calibrate"
-            },
-            {
-               "assembly_name": "stick microscope 4",
-               "arc_angle": "-180",
-               "module_angle": "-180",
-               "angle_unit": "degrees",
-               "rotation_angle": "0",
-               "coordinate_transform": null,
-               "calibration_date": null,
-               "notes": "Did not record angles, did not calibrate"
             }
          ],
          "manipulator_modules": [],
@@ -273,7 +267,7 @@
          "fiber_connections": [],
          "fiber_modules": [],
          "ophys_fovs": [],
-         "slap_fovs": null,
+         "slap_fovs": [],
          "stack_parameters": null,
          "mri_scans": [],
          "stream_modalities": [
@@ -332,6 +326,7 @@
          "stimulus_device_names": [],
          "speaker_config": null,
          "light_source_config": [],
+         "objects_in_arena": null,
          "output_parameters": {},
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",
@@ -374,6 +369,7 @@
          "stimulus_device_names": [],
          "speaker_config": null,
          "light_source_config": [],
+         "objects_in_arena": null,
          "output_parameters": {},
          "reward_consumed_during_epoch": null,
          "reward_consumed_unit": "microliter",
@@ -383,11 +379,11 @@
          "notes": null
       }
    ],
-   "mouse_platform_name": "mouse platform",
+   "mouse_platform_name": "Running Wheel",
    "active_mouse_platform": false,
    "headframe_registration": null,
    "reward_delivery": null,
    "reward_consumed_total": null,
-   "reward_consumed_unit": "microliter",
+   "reward_consumed_unit": "milliliter",
    "notes": null
 }

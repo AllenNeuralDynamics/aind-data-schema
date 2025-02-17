@@ -5,7 +5,7 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from aind_data_schema.base import AindGeneric, AindGenericType, AindModel
 
@@ -40,7 +40,7 @@ class OptoStimulation(AindModel):
     pulse_train_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Pulse train duration unit")
     fixed_pulse_train_interval: bool = Field(..., title="Fixed pulse train interval")
     pulse_train_interval: Optional[Decimal] = Field(
-        None, title="Pulse train interval (s)", description="Time between pulse trains"
+        default=None, title="Pulse train interval (s)", description="Time between pulse trains"
     )
     pulse_train_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Pulse train interval unit")
     baseline_duration: Decimal = Field(
@@ -124,7 +124,7 @@ class AuditoryStimulation(AindModel):
     """Description of an auditory stimulus"""
 
     stimulus_type: Literal["Auditory Stimulation"] = "Auditory Stimulation"
-    sitmulus_name: str = Field(..., title="Stimulus name")
+    stimulus_name: str = Field(..., title="Stimulus name")
     sample_frequency: Decimal = Field(..., title="Sample frequency")
     amplitude_modulation_frequency: Optional[int] = Field(default=None, title="Amplitude modulation frequency")
     frequency_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Tone frequency unit")
@@ -133,3 +133,10 @@ class AuditoryStimulation(AindModel):
     bandpass_filter_type: Optional[FilterType] = Field(default=None, title="Bandpass filter type")
     bandpass_order: Optional[int] = Field(default=None, title="Bandpass order")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="before")
+    def correct_typo(cls, values):
+        """Correct 'sitmulus_name' typo."""
+        if "sitmulus_name" in values:
+            values["stimulus_name"] = values.pop("sitmulus_name")
+        return values

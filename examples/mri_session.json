@@ -1,6 +1,6 @@
 {
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "0.3.3",
+   "schema_version": "1.1.1",
    "protocol_id": [
       "dx.doi.org/10.57824/protocols.io.bh7kl4n6"
    ],
@@ -33,7 +33,7 @@
          "fiber_connections": [],
          "fiber_modules": [],
          "ophys_fovs": [],
-         "slap_fovs": null,
+         "slap_fovs": [],
          "stack_parameters": null,
          "mri_scans": [
             {
@@ -153,6 +153,6 @@
    "headframe_registration": null,
    "reward_delivery": null,
    "reward_consumed_total": null,
-   "reward_consumed_unit": "microliter",
+   "reward_consumed_unit": "milliliter",
    "notes": "There was some information about this scan session"
 }

@@ -1,27 +1,44 @@
-General metadata
-================
+===================
+Metadata in general
+===================
 
 **Q: What is metadata?**
 
-Metadata is data about data. This documents the information about the data that enables us to be able to analyze and 
+Metadata is data about data. This documents information about acquired data that enables us to be able to analyze and 
 interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
 it moves through processing and analysis workflows, and the quality of the data. We use this metadata to keep track of 
 the data assets and to communicate the embodied context of those data.
 
-**Q: What metadata files are needed for each data asset?**
+**Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
-Each data asset needs:
+How acquisition software represents metadata evolves over time and often does not capture 
+everything we need to know to interpret data. These JSON files represent our ground truth 
+viewpoint on what is essential to know about our data in a single location. 
 
-* Data description
-* Subject
-* Procedures
-* Instrument or Rig
-* Acqusition or Session
-* Processing
+Additionally, JSON files are trivially both human- and machine-readable. They are viewable on 
+any system without additional software to be installed (a text editor is fine). They are easy 
+to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
 
-The contents of these will get compiled into a metadata.nd.json file by the data transfer service.
+**Q: Why JSON rather than CSV, YAML, or a SQL database?**
 
-**Q: Which fields do I have to provide within these?**
+There are many ways to store metadata. JSON is a common format, as are CSV, YAML, and others.
+CSV is ubiquitous but its tabular structure makes it difficult to represent complex biological
+data with many relationships. YAML is perhaps more human-readable than JSON, but the tooling
+around YAML is a bit less mature than JSON. 
+
+Databases are very important for reliable and performant querying, however they are 
+also barriers to external interpretability and reproducibility. They have complex schema with 
+extraneous information that make them difficult to interpret. They have query languages 
+(e.g. SQL) that require training to use properly. Information becomes distributed across 
+different locations and platforms. They may have security policies that make them difficult 
+to share with the public.  
+
+Files, particularly in cloud storage, are reliable and more persistent. By storing metadata 
+essential to interpreting an acquisition session alongside the acquisition in a human- and machine-readable 
+format, there will always be an interpretable record of what happened even if e.g. the 
+database stops working. 
+
+**Q: Which fields do I have to provide within these core schemas?**
 
 All required (non-optional) fields must be completed to create a “valid model”. 
 

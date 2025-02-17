@@ -1,9 +1,12 @@
-name: CI
+name: Run check in dev
 
 on:
   pull_request:
     branches:
-      - main
+      - dev
+  merge_group:
+    branches:
+      - dev
 
 jobs:
   linters:

@@ -21,6 +21,7 @@ from aind_data_schema.core import (  # A temporary workaround to fix NameError w
     rig,
     session,
     subject,
+    quality_control,
 )
 
 dummy_object = [
@@ -33,6 +34,7 @@ dummy_object = [
     rig,
     session,
     subject,
+    quality_control,
 ]  # A temporary workaround to bypass "Imported but unused" error
 
 INSTITUTE_NAME = "Allen Institute for Neural Dynamics"
@@ -55,6 +57,7 @@ extensions = [
     "sphinxcontrib.autodoc_pydantic",
     "sphinx.ext.napoleon",
     "sphinx_jinja",
+    "myst_parser",
 ]
 templates_path = ["_templates"]
 exclude_patterns = []
@@ -88,6 +91,7 @@ diagrams_list = [
     "rig",
     "session",
     "subject",
+    "quality_control",
 ]
 rst_epilog = ""
 for diagram in diagrams_list:

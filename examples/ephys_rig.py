@@ -84,8 +84,50 @@ laser_assembly = LaserAssembly(
     ),
 )
 
-probe_camera = Camera(
-    name="Probe Camera",
+probe_camera_1 = Camera(
+    name="stick microscope 1",
+    detector_type="Camera",
+    data_interface="USB",
+    manufacturer=Organization.FLIR,
+    computer_name=ephys_computer,
+    frame_rate=50,
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
+    chroma="Color",
+)
+
+probe_camera_2 = Camera(
+    name="stick microscope 2",
+    detector_type="Camera",
+    data_interface="USB",
+    manufacturer=Organization.FLIR,
+    computer_name=ephys_computer,
+    frame_rate=50,
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
+    chroma="Color",
+)
+
+probe_camera_3 = Camera(
+    name="stick microscope 3",
+    detector_type="Camera",
+    data_interface="USB",
+    manufacturer=Organization.FLIR,
+    computer_name=ephys_computer,
+    frame_rate=50,
+    sensor_width=1080,
+    sensor_height=570,
+    sensor_format="1/2.9",
+    sensor_format_unit="inches",
+    chroma="Color",
+)
+
+probe_camera_4 = Camera(
+    name="stick microscope 4",
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
@@ -100,10 +142,31 @@ probe_camera = Camera(
 
 stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
-microscope = CameraAssembly(
-    name="Stick_assembly",
+microscope_1 = CameraAssembly(
+    name="Stick_assembly_1",
     camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
-    camera=probe_camera,
+    camera=probe_camera_1,
+    lens=stick_lens,
+)
+
+microscope_2 = CameraAssembly(
+    name="Stick_assembly_2",
+    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    camera=probe_camera_2,
+    lens=stick_lens,
+)
+
+microscope_3 = CameraAssembly(
+    name="Stick_assembly_3",
+    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    camera=probe_camera_3,
+    lens=stick_lens,
+)
+
+microscope_4 = CameraAssembly(
+    name="Stick_assembly_4",
+    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    camera=probe_camera_4,
     lens=stick_lens,
 )
 
@@ -207,7 +270,7 @@ rig = Rig(
     cameras=[camassm1, camassm2],
     laser_assemblies=[laser_assembly],
     daqs=[basestation, harp],
-    stick_microscopes=[microscope],
+    stick_microscopes=[microscope_1, microscope_2, microscope_3, microscope_4],
     mouse_platform=running_wheel,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )

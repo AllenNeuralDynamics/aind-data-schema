@@ -9,7 +9,7 @@ import aind_data_schema.components.devices as d
 import aind_data_schema.core.rig as r
 
 r = r.Rig(
-    rig_id="447_FIP_Behavior_20000101",
+    rig_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
     cameras=[
@@ -98,17 +98,27 @@ r = r.Rig(
         d.RewardDelivery(
             reward_spouts=[
                 d.RewardSpout(
-                    name="Janelia_Lick_Detector Left",
+                    name="Left spout",
                     side=d.SpoutSide.LEFT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
+                    lick_sensor=d.Device(
+                        name="Janelia_Lick_Detector Left",
+                        device_type="Lick detector",
+                        manufacturer=d.Organization.JANELIA,
+                    ),
                     lick_sensor_type=d.LickSensorType("Capacitive"),
                 ),
                 d.RewardSpout(
-                    name="Janelia_Lick_Detector Right",
+                    name="Right spout",
                     side=d.SpoutSide.RIGHT,
                     spout_diameter=1.2,
                     solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
+                    lick_sensor=d.Device(
+                        name="Janelia_Lick_Detector Right",
+                        device_type="Lick detector",
+                        manufacturer=d.Organization.JANELIA,
+                    ),
                     lick_sensor_type=d.LickSensorType("Capacitive"),
                 ),
             ],
@@ -167,6 +177,8 @@ r = r.Rig(
             bin_width=4,
             bin_height=4,
             bin_mode="Additive",
+            crop_offset_x=0,
+            crop_offset_y=0,
             crop_width=200,
             crop_height=200,
             gain=2,
@@ -185,6 +197,8 @@ r = r.Rig(
             bin_width=4,
             bin_height=4,
             bin_mode="Additive",
+            crop_offset_x=0,
+            crop_offset_y=0,
             crop_width=200,
             crop_height=200,
             gain=2,

@@ -24,9 +24,9 @@ session = Session(
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
     iacuc_protocol="2109",
-    rig_id="323_EPHYS2-RF_2023-04-24_01",
+    rig_id="323_EPHYS1_20231003",
     active_mouse_platform=False,
-    mouse_platform_name="mouse platform",
+    mouse_platform_name="Running Wheel",
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -82,7 +82,7 @@ session = Session(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             stream_modalities=[Modality.ECEPHYS],
-            daq_names=["Basestation"],
+            daq_names=["Basestation Slot 3"],
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
@@ -118,7 +118,7 @@ session = Session(
                     targeted_ccf_coordinates=[
                         CcfCoords(ml=8150, ap=3250, dv=7800),
                     ],
-                    assembly_name="ephys module 1",
+                    assembly_name="Ephys_assemblyA",
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
@@ -135,7 +135,7 @@ session = Session(
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    assembly_name="ephys module 2",
+                    assembly_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
@@ -152,7 +152,7 @@ session = Session(
             stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
-            daq_names=["Basestation"],
+            daq_names=["Basestation Slot 3"],
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
@@ -161,27 +161,6 @@ session = Session(
                     module_angle=-180,
                     notes="did not record angles, did not calibrate.",
                 ),
-                DomeModule(
-                    rotation_angle=0,
-                    assembly_name="stick microscope 2",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="Did not record angles, did not calibrate",
-                ),
-                DomeModule(
-                    rotation_angle=0,
-                    assembly_name="stick microscope 3",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="Did not record angles, did not calibrate",
-                ),
-                DomeModule(
-                    rotation_angle=0,
-                    assembly_name="stick microscope 4",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="Did not record angles, did not calibrate",
-                ),
             ],
             ephys_modules=[
                 ManipulatorModule(
@@ -189,7 +168,7 @@ session = Session(
                     arc_angle=5.2,
                     module_angle=8,
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    assembly_name="ephys module 1",
+                    assembly_name="Ephys_assemblyA",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure="LGd",
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
@@ -204,7 +183,7 @@ session = Session(
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    assembly_name="ephys module 2",
+                    assembly_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure="LC",
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),

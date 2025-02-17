@@ -4,7 +4,7 @@ import datetime
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.registry import Registry
+from aind_data_schema_models.registries import Registry
 
 from aind_data_schema.core.procedures import (
     Anaesthetic,
@@ -146,7 +146,7 @@ p = Procedures(
             antibodies=[
                 Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
-                    source=Organization.THERMOFISHER,
+                    source=Organization.THERMO_FISHER_SCIENTIFIC,
                     rrid=PIDName(
                         name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                         registry=Registry.RRID,

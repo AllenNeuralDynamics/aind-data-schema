@@ -1,0 +1,586 @@
+{
+   "$defs": {
+      "QCEvaluation": {
+         "additionalProperties": false,
+         "description": "Description of one evaluation stage, with one or more metrics",
+         "properties": {
+            "modality": {
+               "discriminator": {
+                  "mapping": {
+                     "EMG": "#/$defs/_Emg",
+                     "ISI": "#/$defs/_Isi",
+                     "MRI": "#/$defs/_Mri",
+                     "SPIM": "#/$defs/_Spim",
+                     "behavior": "#/$defs/_Behavior",
+                     "behavior-videos": "#/$defs/_Behavior_Videos",
+                     "confocal": "#/$defs/_Confocal",
+                     "ecephys": "#/$defs/_Ecephys",
+                     "fMOST": "#/$defs/_Fmost",
+                     "fib": "#/$defs/_Fib",
+                     "icephys": "#/$defs/_Icephys",
+                     "merfish": "#/$defs/_Merfish",
+                     "pophys": "#/$defs/_Pophys",
+                     "slap": "#/$defs/_Slap"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Behavior"
+                  },
+                  {
+                     "$ref": "#/$defs/_Behavior_Videos"
+                  },
+                  {
+                     "$ref": "#/$defs/_Confocal"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ecephys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fib"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fmost"
+                  },
+                  {
+                     "$ref": "#/$defs/_Icephys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Isi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mri"
+                  },
+                  {
+                     "$ref": "#/$defs/_Merfish"
+                  },
+                  {
+                     "$ref": "#/$defs/_Pophys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Slap"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spim"
+                  }
+               ],
+               "title": "Modality"
+            },
+            "stage": {
+               "$ref": "#/$defs/Stage",
+               "title": "Evaluation stage"
+            },
+            "name": {
+               "title": "Evaluation name",
+               "type": "string"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Evaluation description"
+            },
+            "metrics": {
+               "items": {
+                  "$ref": "#/$defs/QCMetric"
+               },
+               "title": "QC metrics",
+               "type": "array"
+            },
+            "tags": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Tags can be used to group QCEvaluation objects into groups",
+               "title": "Tags"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "allow_failed_metrics": {
+               "default": false,
+               "description": "Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation.",
+               "title": "Allow metrics to fail",
+               "type": "boolean"
+            },
+            "latest_status": {
+               "$ref": "#/$defs/Status",
+               "default": null,
+               "title": "Evaluation status"
+            },
+            "created": {
+               "format": "date-time",
+               "title": "Evaluation creation date",
+               "type": "string"
+            }
+         },
+         "required": [
+            "modality",
+            "stage",
+            "name",
+            "metrics"
+         ],
+         "title": "QCEvaluation",
+         "type": "object"
+      },
+      "QCMetric": {
+         "description": "Description of a single quality control metric",
+         "properties": {
+            "name": {
+               "title": "Metric name",
+               "type": "string"
+            },
+            "value": {
+               "title": "Metric value"
+            },
+            "status_history": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/QCStatus"
+               },
+               "title": "Metric status history",
+               "type": "array"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Metric description"
+            },
+            "reference": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Metric reference image URL or plot type"
+            },
+            "evaluated_assets": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Set to None except when a metric's calculation required data coming from a different data asset.",
+               "title": "List of asset names that this metric depends on"
+            }
+         },
+         "required": [
+            "name",
+            "value"
+         ],
+         "title": "QCMetric",
+         "type": "object"
+      },
+      "QCStatus": {
+         "description": "Description of a QC status, set by an evaluator",
+         "properties": {
+            "evaluator": {
+               "title": "Status evaluator full name",
+               "type": "string"
+            },
+            "status": {
+               "$ref": "#/$defs/Status"
+            },
+            "timestamp": {
+               "format": "date-time",
+               "title": "Status date",
+               "type": "string"
+            }
+         },
+         "required": [
+            "evaluator",
+            "status",
+            "timestamp"
+         ],
+         "title": "QCStatus",
+         "type": "object"
+      },
+      "Stage": {
+         "description": "QCEvaluation Stage\n\nWhen during data processing the QC metrics were derived.",
+         "enum": [
+            "Raw data",
+            "Processing",
+            "Analysis",
+            "Multi-asset"
+         ],
+         "title": "Stage",
+         "type": "string"
+      },
+      "Status": {
+         "description": "QC Status",
+         "enum": [
+            "Fail",
+            "Pass",
+            "Pending"
+         ],
+         "title": "Status",
+         "type": "string"
+      },
+      "_Behavior": {
+         "additionalProperties": false,
+         "description": "Model behavior",
+         "properties": {
+            "name": {
+               "const": "Behavior",
+               "default": "Behavior",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Behavior",
+         "type": "object"
+      },
+      "_Behavior_Videos": {
+         "additionalProperties": false,
+         "description": "Model behavior-videos",
+         "properties": {
+            "name": {
+               "const": "Behavior videos",
+               "default": "Behavior videos",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior-videos",
+               "default": "behavior-videos",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Behavior_Videos",
+         "type": "object"
+      },
+      "_Confocal": {
+         "additionalProperties": false,
+         "description": "Model confocal",
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy",
+               "default": "Confocal microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Confocal",
+         "type": "object"
+      },
+      "_Ecephys": {
+         "additionalProperties": false,
+         "description": "Model ecephys",
+         "properties": {
+            "name": {
+               "const": "Extracellular electrophysiology",
+               "default": "Extracellular electrophysiology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ecephys",
+         "type": "object"
+      },
+      "_Emg": {
+         "additionalProperties": false,
+         "description": "Model EMG",
+         "properties": {
+            "name": {
+               "const": "Electromyography",
+               "default": "Electromyography",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EMG",
+               "default": "EMG",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Emg",
+         "type": "object"
+      },
+      "_Fib": {
+         "additionalProperties": false,
+         "description": "Model fib",
+         "properties": {
+            "name": {
+               "const": "Fiber photometry",
+               "default": "Fiber photometry",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "fib",
+               "default": "fib",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Fib",
+         "type": "object"
+      },
+      "_Fmost": {
+         "additionalProperties": false,
+         "description": "Model fMOST",
+         "properties": {
+            "name": {
+               "const": "Fluorescence micro-optical sectioning tomography",
+               "default": "Fluorescence micro-optical sectioning tomography",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "fMOST",
+               "default": "fMOST",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Fmost",
+         "type": "object"
+      },
+      "_Icephys": {
+         "additionalProperties": false,
+         "description": "Model icephys",
+         "properties": {
+            "name": {
+               "const": "Intracellular electrophysiology",
+               "default": "Intracellular electrophysiology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "icephys",
+               "default": "icephys",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Icephys",
+         "type": "object"
+      },
+      "_Isi": {
+         "additionalProperties": false,
+         "description": "Model ISI",
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging",
+               "default": "Intrinsic signal imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Isi",
+         "type": "object"
+      },
+      "_Merfish": {
+         "additionalProperties": false,
+         "description": "Model merfish",
+         "properties": {
+            "name": {
+               "const": "Multiplexed error-robust fluorescence in situ hybridization",
+               "default": "Multiplexed error-robust fluorescence in situ hybridization",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "merfish",
+               "default": "merfish",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Merfish",
+         "type": "object"
+      },
+      "_Mri": {
+         "additionalProperties": false,
+         "description": "Model MRI",
+         "properties": {
+            "name": {
+               "const": "Magnetic resonance imaging",
+               "default": "Magnetic resonance imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MRI",
+               "default": "MRI",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mri",
+         "type": "object"
+      },
+      "_Pophys": {
+         "additionalProperties": false,
+         "description": "Model pophys",
+         "properties": {
+            "name": {
+               "const": "Planar optical physiology",
+               "default": "Planar optical physiology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "pophys",
+               "default": "pophys",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Pophys",
+         "type": "object"
+      },
+      "_Slap": {
+         "additionalProperties": false,
+         "description": "Model slap",
+         "properties": {
+            "name": {
+               "const": "Scanned line projection imaging",
+               "default": "Scanned line projection imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "slap",
+               "default": "slap",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Slap",
+         "type": "object"
+      },
+      "_Spim": {
+         "additionalProperties": false,
+         "description": "Model SPIM",
+         "properties": {
+            "name": {
+               "const": "Selective plane illumination microscopy",
+               "default": "Selective plane illumination microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "SPIM",
+               "default": "SPIM",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Spim",
+         "type": "object"
+      }
+   },
+   "additionalProperties": false,
+   "description": "Description of quality metrics for a data asset",
+   "properties": {
+      "describedBy": {
+         "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
+         "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
+         "title": "Describedby",
+         "type": "string"
+      },
+      "schema_version": {
+         "const": "1.2.2",
+         "default": "1.2.2",
+         "title": "Schema Version",
+         "type": "string"
+      },
+      "evaluations": {
+         "items": {
+            "$ref": "#/$defs/QCEvaluation"
+         },
+         "title": "Evaluations",
+         "type": "array"
+      },
+      "notes": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Notes"
+      }
+   },
+   "required": [
+      "evaluations"
+   ],
+   "title": "QualityControl",
+   "type": "object"
+}

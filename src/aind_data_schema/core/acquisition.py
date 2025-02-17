@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.process_names import ProcessName
-from pydantic import Field, field_validator
+from pydantic import Field, SkipValidation, field_validator
 
 from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import AnatomicalDirection, AxisName, ImageAxis
@@ -29,13 +29,13 @@ class ProcessingSteps(AindModel):
             ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
             ProcessName.IMAGE_CELL_SEGMENTATION,
             ProcessName.IMAGE_DESTRIPING,
-            ProcessName.IMAGE_FLATFIELD_CORRECTION,
+            ProcessName.IMAGE_FLAT_FIELD_CORRECTION,
             ProcessName.IMAGE_IMPORTING,
             ProcessName.IMAGE_THRESHOLDING,
             ProcessName.IMAGE_TILE_ALIGNMENT,
             ProcessName.IMAGE_TILE_FUSING,
             ProcessName.IMAGE_TILE_PROJECTION,
-            ProcessName.FILE_CONVERSION,
+            ProcessName.FILE_FORMAT_CONVERSION,
         ]
     ] = Field(...)
 
@@ -44,8 +44,8 @@ class Acquisition(AindCoreModel):
     """Description of an imaging acquisition session"""
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
-    describedBy: str = Field(_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: Literal["0.6.19"] = Field("0.6.19")
+    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
+    schema_version: SkipValidation[Literal["1.0.4"]] = Field(default="1.0.4")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenter_full_name: List[str] = Field(
         ...,

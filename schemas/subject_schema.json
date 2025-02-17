@@ -1,46 +1,5 @@
 {
    "$defs": {
-      "AllenInstitute": {
-         "additionalProperties": false,
-         "description": "AllenInstitute",
-         "properties": {
-            "name": {
-               "const": "Allen Institute",
-               "default": "Allen Institute",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "AI",
-               "default": "AI",
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ResearchOrganizationRegistry"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "03cpe7c52",
-               "default": "03cpe7c52",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "AllenInstitute",
-         "type": "object"
-      },
       "BackgroundStrain": {
          "description": "Animal background strain name",
          "enum": [
@@ -112,95 +71,6 @@
          "title": "BreedingInfo",
          "type": "object"
       },
-      "CallithrixJacchus": {
-         "additionalProperties": false,
-         "description": "Callithrix Jacchus",
-         "properties": {
-            "name": {
-               "const": "Callithrix jacchus",
-               "default": "Callithrix jacchus",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "National Center for Biotechnology Information",
-                  "abbreviation": "NCBI"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "National Center for Biotechnology Information": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "NCBI:txid9483",
-               "default": "NCBI:txid9483",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "CallithrixJacchus",
-         "type": "object"
-      },
-      "ColumbiaUniversity": {
-         "additionalProperties": false,
-         "description": "ColumbiaUniversity",
-         "properties": {
-            "name": {
-               "const": "Columbia University",
-               "default": "Columbia University",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "Columbia",
-               "default": "Columbia",
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ResearchOrganizationRegistry"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "00hj8s172",
-               "default": "00hj8s172",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "ColumbiaUniversity",
-         "type": "object"
-      },
       "HomeCageEnrichment": {
          "description": "Materials provided in animal home cage",
          "enum": [
@@ -212,54 +82,6 @@
          ],
          "title": "HomeCageEnrichment",
          "type": "string"
-      },
-      "HomoSapiens": {
-         "additionalProperties": false,
-         "description": "Homo Sapiens",
-         "properties": {
-            "name": {
-               "const": "Homo sapiens",
-               "default": "Homo sapiens",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "National Center for Biotechnology Information",
-                  "abbreviation": "NCBI"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "National Center for Biotechnology Information": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "NCBI:txid9606",
-               "default": "NCBI:txid9606",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "HomoSapiens",
-         "type": "object"
       },
       "Housing": {
          "additionalProperties": false,
@@ -322,129 +144,6 @@
          "title": "Housing",
          "type": "object"
       },
-      "HuazhongUniversityOfScienceAndTechnology": {
-         "additionalProperties": false,
-         "description": "HuazhongUniversityOfScienceAndTechnology",
-         "properties": {
-            "name": {
-               "const": "Huazhong University of Science and Technology",
-               "default": "Huazhong University of Science and Technology",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "HUST",
-               "default": "HUST",
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ResearchOrganizationRegistry"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "00p991c53",
-               "default": "00p991c53",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "HuazhongUniversityOfScienceAndTechnology",
-         "type": "object"
-      },
-      "JacksonLaboratory": {
-         "additionalProperties": false,
-         "description": "JacksonLaboratory",
-         "properties": {
-            "name": {
-               "const": "Jackson Laboratory",
-               "default": "Jackson Laboratory",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "JAX",
-               "default": "JAX",
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ResearchOrganizationRegistry"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "021sy4w91",
-               "default": "021sy4w91",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "JacksonLaboratory",
-         "type": "object"
-      },
-      "JaneliaResearchCampus": {
-         "additionalProperties": false,
-         "description": "JaneliaResearchCampus",
-         "properties": {
-            "name": {
-               "const": "Janelia Research Campus",
-               "default": "Janelia Research Campus",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "Janelia",
-               "default": "Janelia",
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ResearchOrganizationRegistry"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "013sk6x84",
-               "default": "013sk6x84",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "JaneliaResearchCampus",
-         "type": "object"
-      },
       "LightCycle": {
          "additionalProperties": false,
          "description": "Description of vivarium light cycle times",
@@ -467,189 +166,6 @@
             "lights_off_time"
          ],
          "title": "LightCycle",
-         "type": "object"
-      },
-      "MacacaMulatta": {
-         "additionalProperties": false,
-         "description": "Macaca Mulatta",
-         "properties": {
-            "name": {
-               "const": "Macaca mulatta",
-               "default": "Macaca mulatta",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "National Center for Biotechnology Information",
-                  "abbreviation": "NCBI"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "National Center for Biotechnology Information": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "NCBI:txid9544",
-               "default": "NCBI:txid9544",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "MacacaMulatta",
-         "type": "object"
-      },
-      "MusMusculus": {
-         "additionalProperties": false,
-         "description": "Mus Musculus",
-         "properties": {
-            "name": {
-               "const": "Mus musculus",
-               "default": "Mus musculus",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "National Center for Biotechnology Information",
-                  "abbreviation": "NCBI"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "National Center for Biotechnology Information": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "NCBI:txid10090",
-               "default": "NCBI:txid10090",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "MusMusculus",
-         "type": "object"
-      },
-      "NationalCenterForBiotechnologyInformation": {
-         "additionalProperties": false,
-         "description": "NationalCenterForBiotechnologyInformation",
-         "properties": {
-            "name": {
-               "const": "National Center for Biotechnology Information",
-               "default": "National Center for Biotechnology Information",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "NCBI",
-               "default": "NCBI",
-               "title": "Abbreviation"
-            }
-         },
-         "title": "NationalCenterForBiotechnologyInformation",
-         "type": "object"
-      },
-      "NewYorkUniversity": {
-         "additionalProperties": false,
-         "description": "NewYorkUniversity",
-         "properties": {
-            "name": {
-               "const": "New York University",
-               "default": "New York University",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "NYU",
-               "default": "NYU",
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "Research Organization Registry": "#/$defs/ResearchOrganizationRegistry"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/ResearchOrganizationRegistry"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "0190ak572",
-               "default": "0190ak572",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "NewYorkUniversity",
-         "type": "object"
-      },
-      "Other": {
-         "additionalProperties": false,
-         "description": "Other",
-         "properties": {
-            "name": {
-               "const": "Other",
-               "default": "Other",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": null,
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "const": null,
-               "default": null,
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": null,
-               "default": null,
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "Other",
          "type": "object"
       },
       "PIDName": {
@@ -703,72 +219,6 @@
          "title": "PIDName",
          "type": "object"
       },
-      "RattusNorvegicus": {
-         "additionalProperties": false,
-         "description": "Rattus Norvegicus",
-         "properties": {
-            "name": {
-               "const": "Rattus norvegicus",
-               "default": "Rattus norvegicus",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "default": {
-                  "name": "National Center for Biotechnology Information",
-                  "abbreviation": "NCBI"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "National Center for Biotechnology Information": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/NationalCenterForBiotechnologyInformation"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "NCBI:txid10116",
-               "default": "NCBI:txid10116",
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "RattusNorvegicus",
-         "type": "object"
-      },
-      "ResearchOrganizationRegistry": {
-         "additionalProperties": false,
-         "description": "ResearchOrganizationRegistry",
-         "properties": {
-            "name": {
-               "const": "Research Organization Registry",
-               "default": "Research Organization Registry",
-               "title": "Name"
-            },
-            "abbreviation": {
-               "const": "ROR",
-               "default": "ROR",
-               "title": "Abbreviation"
-            }
-         },
-         "title": "ResearchOrganizationRegistry",
-         "type": "object"
-      },
       "Sex": {
          "description": "Subject sex name",
          "enum": [
@@ -798,6 +248,882 @@
          ],
          "title": "WellnessReport",
          "type": "object"
+      },
+      "_Addgene": {
+         "additionalProperties": false,
+         "description": "Model ADDGENE",
+         "properties": {
+            "name": {
+               "const": "Addgene",
+               "default": "Addgene",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ADDGENE",
+               "default": "ADDGENE",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Addgene",
+         "type": "object"
+      },
+      "_Allen_Institute": {
+         "description": "Model Allen Institute",
+         "properties": {
+            "name": {
+               "const": "Allen Institute",
+               "default": "Allen Institute",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "AI",
+               "default": "AI",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "03cpe7c52",
+               "default": "03cpe7c52",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Allen_Institute",
+         "type": "object"
+      },
+      "_Callithrix_Jacchus": {
+         "description": "Model Callithrix jacchus",
+         "properties": {
+            "name": {
+               "const": "Callithrix jacchus",
+               "default": "Callithrix jacchus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9483",
+               "default": "NCBI:txid9483",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Callithrix_Jacchus",
+         "type": "object"
+      },
+      "_Columbia_University": {
+         "description": "Model Columbia University",
+         "properties": {
+            "name": {
+               "const": "Columbia University",
+               "default": "Columbia University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "Columbia",
+               "default": "Columbia",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00hj8s172",
+               "default": "00hj8s172",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Columbia_University",
+         "type": "object"
+      },
+      "_Emapa": {
+         "additionalProperties": false,
+         "description": "Model EMAPA",
+         "properties": {
+            "name": {
+               "const": "Edinburgh Mouse Atlas Project",
+               "default": "Edinburgh Mouse Atlas Project",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EMAPA",
+               "default": "EMAPA",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Emapa",
+         "type": "object"
+      },
+      "_Homo_Sapiens": {
+         "description": "Model Homo sapiens",
+         "properties": {
+            "name": {
+               "const": "Homo sapiens",
+               "default": "Homo sapiens",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9606",
+               "default": "NCBI:txid9606",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Homo_Sapiens",
+         "type": "object"
+      },
+      "_Huazhong_University_Of_Science_And_Technology": {
+         "description": "Model Huazhong University of Science and Technology",
+         "properties": {
+            "name": {
+               "const": "Huazhong University of Science and Technology",
+               "default": "Huazhong University of Science and Technology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "HUST",
+               "default": "HUST",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00p991c53",
+               "default": "00p991c53",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Huazhong_University_Of_Science_And_Technology",
+         "type": "object"
+      },
+      "_Jackson_Laboratory": {
+         "description": "Model Jackson Laboratory",
+         "properties": {
+            "name": {
+               "const": "Jackson Laboratory",
+               "default": "Jackson Laboratory",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "JAX",
+               "default": "JAX",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "021sy4w91",
+               "default": "021sy4w91",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Jackson_Laboratory",
+         "type": "object"
+      },
+      "_Janelia_Research_Campus": {
+         "description": "Model Janelia Research Campus",
+         "properties": {
+            "name": {
+               "const": "Janelia Research Campus",
+               "default": "Janelia Research Campus",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "Janelia",
+               "default": "Janelia",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "013sk6x84",
+               "default": "013sk6x84",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Janelia_Research_Campus",
+         "type": "object"
+      },
+      "_Macaca_Mulatta": {
+         "description": "Model Macaca mulatta",
+         "properties": {
+            "name": {
+               "const": "Macaca mulatta",
+               "default": "Macaca mulatta",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9544",
+               "default": "NCBI:txid9544",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Macaca_Mulatta",
+         "type": "object"
+      },
+      "_Mgi": {
+         "additionalProperties": false,
+         "description": "Model MGI",
+         "properties": {
+            "name": {
+               "const": "Mouse Genome Informatics",
+               "default": "Mouse Genome Informatics",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MGI",
+               "default": "MGI",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mgi",
+         "type": "object"
+      },
+      "_Mus_Musculus": {
+         "description": "Model Mus musculus",
+         "properties": {
+            "name": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid10090",
+               "default": "NCBI:txid10090",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Mus_Musculus",
+         "type": "object"
+      },
+      "_Ncbi": {
+         "additionalProperties": false,
+         "description": "Model NCBI",
+         "properties": {
+            "name": {
+               "const": "National Center for Biotechnology Information",
+               "default": "National Center for Biotechnology Information",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NCBI",
+               "default": "NCBI",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ncbi",
+         "type": "object"
+      },
+      "_New_York_University": {
+         "description": "Model New York University",
+         "properties": {
+            "name": {
+               "const": "New York University",
+               "default": "New York University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "NYU",
+               "default": "NYU",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0190ak572",
+               "default": "0190ak572",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_New_York_University",
+         "type": "object"
+      },
+      "_Orcid": {
+         "additionalProperties": false,
+         "description": "Model ORCID",
+         "properties": {
+            "name": {
+               "const": "Open Researcher and Contributor ID",
+               "default": "Open Researcher and Contributor ID",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ORCID",
+               "default": "ORCID",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Orcid",
+         "type": "object"
+      },
+      "_Other": {
+         "description": "Model Other",
+         "properties": {
+            "name": {
+               "const": "Other",
+               "default": "Other",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Other",
+         "type": "object"
+      },
+      "_Rattus_Norvegicus": {
+         "description": "Model Rattus norvegicus",
+         "properties": {
+            "name": {
+               "const": "Rattus norvegicus",
+               "default": "Rattus norvegicus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid10116",
+               "default": "NCBI:txid10116",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Rattus_Norvegicus",
+         "type": "object"
+      },
+      "_Ror": {
+         "additionalProperties": false,
+         "description": "Model ROR",
+         "properties": {
+            "name": {
+               "const": "Research Organization Registry",
+               "default": "Research Organization Registry",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ROR",
+               "default": "ROR",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ror",
+         "type": "object"
+      },
+      "_Rrid": {
+         "additionalProperties": false,
+         "description": "Model RRID",
+         "properties": {
+            "name": {
+               "const": "Research Resource Identifiers",
+               "default": "Research Resource Identifiers",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "RRID",
+               "default": "RRID",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Rrid",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -810,9 +1136,10 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.5.9",
-         "default": "0.5.9",
-         "title": "Schema Version"
+         "const": "1.0.3",
+         "default": "1.0.3",
+         "title": "Schema Version",
+         "type": "string"
       },
       "subject_id": {
          "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -843,29 +1170,29 @@
       "species": {
          "discriminator": {
             "mapping": {
-               "Callithrix jacchus": "#/$defs/CallithrixJacchus",
-               "Homo sapiens": "#/$defs/HomoSapiens",
-               "Macaca mulatta": "#/$defs/MacacaMulatta",
-               "Mus musculus": "#/$defs/MusMusculus",
-               "Rattus norvegicus": "#/$defs/RattusNorvegicus"
+               "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
+               "Homo sapiens": "#/$defs/_Homo_Sapiens",
+               "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
+               "Mus musculus": "#/$defs/_Mus_Musculus",
+               "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
             },
             "propertyName": "name"
          },
          "oneOf": [
             {
-               "$ref": "#/$defs/CallithrixJacchus"
+               "$ref": "#/$defs/_Callithrix_Jacchus"
             },
             {
-               "$ref": "#/$defs/HomoSapiens"
+               "$ref": "#/$defs/_Homo_Sapiens"
             },
             {
-               "$ref": "#/$defs/MacacaMulatta"
+               "$ref": "#/$defs/_Macaca_Mulatta"
             },
             {
-               "$ref": "#/$defs/MusMusculus"
+               "$ref": "#/$defs/_Mus_Musculus"
             },
             {
-               "$ref": "#/$defs/RattusNorvegicus"
+               "$ref": "#/$defs/_Rattus_Norvegicus"
             }
          ],
          "title": "Species"
@@ -907,37 +1234,37 @@
          "description": "Where the subject was acquired from. If bred in-house, use Allen Institute.",
          "discriminator": {
             "mapping": {
-               "Allen Institute": "#/$defs/AllenInstitute",
-               "Columbia University": "#/$defs/ColumbiaUniversity",
-               "Huazhong University of Science and Technology": "#/$defs/HuazhongUniversityOfScienceAndTechnology",
-               "Jackson Laboratory": "#/$defs/JacksonLaboratory",
-               "Janelia Research Campus": "#/$defs/JaneliaResearchCampus",
-               "New York University": "#/$defs/NewYorkUniversity",
-               "Other": "#/$defs/Other"
+               "Allen Institute": "#/$defs/_Allen_Institute",
+               "Columbia University": "#/$defs/_Columbia_University",
+               "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+               "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+               "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+               "New York University": "#/$defs/_New_York_University",
+               "Other": "#/$defs/_Other"
             },
             "propertyName": "name"
          },
          "oneOf": [
             {
-               "$ref": "#/$defs/AllenInstitute"
+               "$ref": "#/$defs/_Allen_Institute"
             },
             {
-               "$ref": "#/$defs/ColumbiaUniversity"
+               "$ref": "#/$defs/_Columbia_University"
             },
             {
-               "$ref": "#/$defs/HuazhongUniversityOfScienceAndTechnology"
+               "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
             },
             {
-               "$ref": "#/$defs/JaneliaResearchCampus"
+               "$ref": "#/$defs/_Janelia_Research_Campus"
             },
             {
-               "$ref": "#/$defs/JacksonLaboratory"
+               "$ref": "#/$defs/_Jackson_Laboratory"
             },
             {
-               "$ref": "#/$defs/NewYorkUniversity"
+               "$ref": "#/$defs/_New_York_University"
             },
             {
-               "$ref": "#/$defs/Other"
+               "$ref": "#/$defs/_Other"
             }
          ],
          "title": "Source"
