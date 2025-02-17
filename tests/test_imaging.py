@@ -111,6 +111,7 @@ class ImagingTests(unittest.TestCase):
                 instrument_type="Other",
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Organization.OTHER,
+                components=[],
             )
 
         self.assertIn("instrument_id", repr(e1.exception))
@@ -124,6 +125,7 @@ class ImagingTests(unittest.TestCase):
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 instrument_type="diSPIM",
                 manufacturer=Organization.OTHER,
+                components=[],
             )
 
         self.assertIn("modality 'SPIM' requires at least one device", repr(e2.exception))
