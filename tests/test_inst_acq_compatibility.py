@@ -735,7 +735,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         ]
         stimulus_devices = [
             d.RewardDelivery(
-                name="Reward Delivery",
                 reward_spouts=[
                     d.RewardSpout(
                         name="Left spout",

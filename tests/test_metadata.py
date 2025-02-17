@@ -247,7 +247,6 @@ class TestMetadata(unittest.TestCase):
         )
 
         reward_delivery = RewardDelivery(
-            name="Reward Delivery",
             reward_spouts=[
                 RewardSpout(
                     name="Left spout",

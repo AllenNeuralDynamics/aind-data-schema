@@ -450,7 +450,7 @@ class CameraAssembly(DataModel):
     # required fields
     name: str = Field(..., title="Camera assembly name")
     device_type: Literal["Camera assembly"] = "Camera assembly"
-    camera_target: Union[CameraTarget, str] = Field(..., title="Camera target")
+    camera_target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 

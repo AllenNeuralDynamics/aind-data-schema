@@ -263,7 +263,6 @@ daq = d.HarpDevice(
 mouse_platform = d.Disc(name="mouse_disc", radius=8.5)
 
 stimulus_device = d.RewardDelivery(
-    name="Reward Delivery",
     reward_spouts=[
         d.RewardSpout(
             name="Left spout",
