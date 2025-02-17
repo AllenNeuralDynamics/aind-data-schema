@@ -162,7 +162,7 @@ class Instrument(DataCoreModel):
             Field(discriminator="device_type"),
         ]
     ] = Field(
-        default=[],
+        ...,
         title="Components",
         description="List of all devices in the rig",
     )
