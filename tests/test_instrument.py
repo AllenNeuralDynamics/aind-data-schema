@@ -111,7 +111,7 @@ lms = [
 cameras = [
     CameraAssembly(
         name="cam",
-        camera_target="Face bottom",
+        camera_target=CameraTarget.FACE_BOTTOM,
         lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
         camera=Camera(
             name="Camera A",
@@ -265,6 +265,79 @@ class InstrumentTests(unittest.TestCase):
                     device_names=["Olfactometer", "Laser A"],
                 )
             ],
+        )
+        self.assertIsNotNone(inst)
+
+    def test_other_camera_target(self):
+        """ Test that the camera_target being set to Other throws a validation error without notes """
+
+        camera_no_target = cameras[0].model_copy()
+        camera_no_target.camera_target = CameraTarget.OTHER
+
+        with self.assertRaises(ValidationError):
+            Instrument(
+                instrument_id="123_EPHYS1-OPTO_20220101",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                components=[
+                    *daqs,
+                    camera_no_target,
+                    *stick_microscopes,
+                    *light_sources,
+                    *lms,
+                    *ems,
+                    *detectors,
+                    *patch_cords,
+                    *stimulus_devices,
+                ],
+                mouse_platform=Disc(name="Disc A", radius=1),
+                calibrations=[
+                    Calibration(
+                        calibration_date=date(2020, 10, 10),
+                        device_name="Laser A",
+                        description="Laser power calibration",
+                        input={"power percent": [10, 40, 80]},
+                        output={"power mW": [2, 6, 10]},
+                    )
+                ],
+                connections=[
+                    Connection(
+                        device_names=["Olfactometer", "Laser A"],
+                    )
+                ],
+            )
+
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS, Modality.FIB],
+            components=[
+                *daqs,
+                camera_no_target,
+                *stick_microscopes,
+                *light_sources,
+                *lms,
+                *ems,
+                *detectors,
+                *patch_cords,
+                *stimulus_devices,
+            ],
+            mouse_platform=Disc(name="Disc A", radius=1),
+            calibrations=[
+                Calibration(
+                    calibration_date=date(2020, 10, 10),
+                    device_name="Laser A",
+                    description="Laser power calibration",
+                    input={"power percent": [10, 40, 80]},
+                    output={"power mW": [2, 6, 10]},
+                )
+            ],
+            connections=[
+                Connection(
+                    device_names=["Olfactometer", "Laser A"],
+                )
+            ],
+            notes="Camera target is Other",
         )
         self.assertIsNotNone(inst)
 
