@@ -52,10 +52,10 @@ from aind_data_schema.components.devices import (
 DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
-    Modality.POPHYS.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
-    Modality.SLAP.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Objective]],
+    Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
+    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[Olfactometer, RewardDelivery, Speaker, Monitor]],
+    Modality.BEHAVIOR.abbreviation: [[RewardDelivery]],
     Modality.SPIM.abbreviation: [Objective],
 }
 
