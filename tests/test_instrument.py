@@ -33,6 +33,9 @@ from aind_data_schema.components.devices import (
     Olfactometer,
     OlfactometerChannel,
     Patch,
+    RewardDelivery,
+    RewardSpout,
+    SpoutSide,
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 
@@ -213,6 +216,28 @@ stimulus_devices = [
                 channel_index=1,
                 channel_type=ChannelType.ODOR,
                 flow_capacity=100,
+            ),
+        ],
+    ),
+    RewardDelivery(
+        reward_spouts=[
+            RewardSpout(
+                name="Left spout",
+                side=SpoutSide.LEFT,
+                spout_diameter=1.2,
+                solenoid_valve=Device(name="Solenoid Left"),
+                lick_sensor=Device(
+                    name="Lick-o-meter Left",
+                ),
+            ),
+            RewardSpout(
+                name="Right spout",
+                side=SpoutSide.RIGHT,
+                spout_diameter=1.2,
+                solenoid_valve=Device(name="Solenoid Right"),
+                lick_sensor=Device(
+                    name="Lick-o-meter Right",
+                ),
             ),
         ],
     )
