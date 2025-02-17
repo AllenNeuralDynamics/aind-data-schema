@@ -859,7 +859,7 @@ class RewardSpout(Device):
         return self
 
 
-class RewardDelivery(Device):
+class RewardDelivery(DataModel):
     """Description of reward delivery system"""
 
     device_type: Literal["Reward delivery"] = "Reward delivery"
