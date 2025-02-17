@@ -18,24 +18,26 @@ s = Session(
     subject_id="12345",
     session_type="Mesoscope",
     iacuc_protocol="12345",
-    rig_id="MESO.1",
-    mouse_platform_name="disc",
+    rig_id="429_mesoscope_20220321",
+    mouse_platform_name="MindScope Running Disc",
     active_mouse_platform=True,
     data_streams=[
         Stream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
+            stream_modalities=[
+                Modality.POPHYS,
+                Modality.BEHAVIOR_VIDEOS,
+            ],
+            daq_names=["SYNC DAQ", "STIM DAQ", "VBEB DAQ"],
             camera_names=[
-                "Mesoscope",
-                "Eye",
-                "Face",
-                "Behavior",
-                "Vasculature",
+                "Behavior Camera",
+                "Eye Camera",
+                "Face Camera",
             ],
             light_sources=[
                 LaserConfig(
-                    name="Laser A",
+                    name="Axon 920-2 TPC",
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,

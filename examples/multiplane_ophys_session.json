@@ -9,7 +9,7 @@
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "Mesoscope",
    "iacuc_protocol": "12345",
-   "rig_id": "MESO.1",
+   "rig_id": "429_mesoscope_20220321",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "12345",
@@ -21,18 +21,20 @@
       {
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
-         "daq_names": [],
+         "daq_names": [
+            "SYNC DAQ",
+            "STIM DAQ",
+            "VBEB DAQ"
+         ],
          "camera_names": [
-            "Mesoscope",
-            "Eye",
-            "Face",
-            "Behavior",
-            "Vasculature"
+            "Behavior Camera",
+            "Eye Camera",
+            "Face Camera"
          ],
          "light_sources": [
             {
                "device_type": "Laser",
-               "name": "Laser A",
+               "name": "Axon 920-2 TPC",
                "wavelength": 920,
                "wavelength_unit": "nanometer",
                "excitation_power": "10",
@@ -306,10 +308,6 @@
             {
                "name": "Behavior videos",
                "abbreviation": "behavior-videos"
-            },
-            {
-               "name": "Confocal microscopy",
-               "abbreviation": "confocal"
             }
          ],
          "software": [],
@@ -317,7 +315,7 @@
       }
    ],
    "stimulus_epochs": [],
-   "mouse_platform_name": "disc",
+   "mouse_platform_name": "MindScope Running Disc",
    "active_mouse_platform": true,
    "headframe_registration": null,
    "reward_delivery": null,
