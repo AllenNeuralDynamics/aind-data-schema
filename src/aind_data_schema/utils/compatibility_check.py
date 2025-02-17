@@ -30,8 +30,6 @@ class InstrumentSessionCompatibility:
 
         component_names = [comp.name for comp in self.inst.components if hasattr(comp, "name")]
 
-        print((self.session.mouse_platform_name, component_names))
-
         if self.session.mouse_platform_name not in component_names:
             return ValueError(
                 f"Mouse platform {self.session.mouse_platform_name} can't be found in the instrument's components"
