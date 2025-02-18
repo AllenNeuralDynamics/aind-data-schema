@@ -58,10 +58,10 @@ DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
-    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective]],
+    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
     Modality.BEHAVIOR.abbreviation: [[RewardDelivery]],
-    Modality.SPIM.abbreviation: [Objective],
+    Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
 instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"

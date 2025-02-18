@@ -43,7 +43,7 @@ detectors = [
     ),
 ]
 
-light_sources = [
+lasers = [
     Laser(
         name="LAS-08307",
         coupling="Single-mode fiber",
@@ -221,7 +221,7 @@ inst = Instrument(
     components=[
         *objectives,
         *detectors,
-        *light_sources,
+        *lasers,
         *fluorescence_filters,
         *daqs,
         *scanning_stages,

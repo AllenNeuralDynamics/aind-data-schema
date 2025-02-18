@@ -15,7 +15,7 @@
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "BCI Photometry",
-   "instrument_id": "ophys_inst",
+   "instrument_id": "322_bergamo_20220705",
    "ethics_review_id": "2115",
    "calibrations": [],
    "maintenance": [],
