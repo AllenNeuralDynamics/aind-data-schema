@@ -37,8 +37,10 @@ from aind_data_schema.components.devices import (
     RewardSpout,
     SpoutSide,
     ScanningStage,
+    DigitalMicromirrorDevice,
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
+from aind_data_schema_models.units import SizeUnit
 
 daqs = [
     NeuropixelsBasestation(
@@ -146,6 +148,27 @@ scan_stage = ScanningStage(
     stage_axis_name="Z",
     travel=50,
 )
+
+# Example of a DigitalMicromirrorDevice
+dmd = DigitalMicromirrorDevice(
+    name="Example DMD",
+    device_type="Digital micromirror device",
+    max_dmd_patterns=1024,
+    double_bounce_design=True,
+    invert_pixel_values=False,
+    motion_padding_x=10,
+    motion_padding_y=10,
+    padding_unit=SizeUnit.PX,
+    pixel_size=13.68,
+    pixel_size_unit=SizeUnit.UM,
+    start_phase=0.5,
+    dmd_flip=True,
+    dmd_curtain=[0.1, 0.2, 0.3],
+    dmd_curtain_unit=SizeUnit.PX,
+    line_shear=[1, 2, 3],
+    line_shear_units=SizeUnit.PX,
+)
+
 stick_microscopes = [
     CameraAssembly(
         name="Assembly A",
@@ -255,7 +278,7 @@ stimulus_devices = [
                 ),
             ),
         ],
-    )
+    ),
 ]
 calibration = Calibration(
     calibration_date=date(2020, 10, 10),
@@ -311,7 +334,7 @@ class InstrumentTests(unittest.TestCase):
         self.assertIsNotNone(inst)
 
     def test_other_camera_target(self):
-        """ Test that the camera_target being set to Other throws a validation error without notes """
+        """Test that the camera_target being set to Other throws a validation error without notes"""
 
         camera_no_target = cameras[0].model_copy()
         camera_no_target.camera_target = CameraTarget.OTHER
@@ -401,6 +424,7 @@ class InstrumentTests(unittest.TestCase):
                     *patch_cords,
                     *stimulus_devices,
                     Disc(name="Disc A", radius=1),
+                    dmd,
                 ],
                 calibrations=[
                     Calibration(

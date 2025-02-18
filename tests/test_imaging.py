@@ -16,7 +16,7 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, Objective
+from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.core.instrument import Instrument
@@ -81,6 +81,13 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Instrument()
 
+        laser = Laser(
+            manufacturer=Organization.HAMAMATSU,
+            serial_number="1234",
+            name="Laser A",
+            wavelength=488,
+        )
+
         objective = Objective(
             name="TLX Objective",
             numerical_aperture=0.2,
@@ -91,13 +98,22 @@ class ImagingTests(unittest.TestCase):
             notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
         )
 
+        scan_stage = ScanningStage(
+            name="Sample stage Z",
+            model="LS-50",
+            manufacturer=Organization.ASI,
+            stage_axis_direction="Detection axis",
+            stage_axis_name="Z",
+            travel=50,
+        )
+
         i = Instrument(
             instrument_id="room_exaSPIM1-1_20231004",
             modalities=[Modality.SPIM],
             instrument_type="diSPIM",
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
-            components=[objective],
+            components=[objective, laser, scan_stage],
         )
 
         self.assertIsNotNone(i)

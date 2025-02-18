@@ -25,6 +25,7 @@ from aind_data_schema.components.devices import (
     RewardSpout,
     SpoutSide,
     ScanningStage,
+    Laser,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
@@ -54,6 +55,13 @@ ephys_assembly = EphysAssembly(
         serial_number="4321",
     ),
     name="Ephys_assemblyA",
+)
+
+laser = Laser(
+    manufacturer=Organization.HAMAMATSU,
+    serial_number="1234",
+    name="Laser A",
+    wavelength=488,
 )
 
 
@@ -294,7 +302,7 @@ class TestMetadata(unittest.TestCase):
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=[Modality.BEHAVIOR, Modality.SPIM],
-            components=[objective, reward_delivery, mouse_platform, scan_stage],
+            components=[objective, reward_delivery, mouse_platform, scan_stage, laser],
         )
         session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 

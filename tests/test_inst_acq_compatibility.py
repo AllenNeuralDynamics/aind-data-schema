@@ -874,7 +874,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         self.assertIsNone(example_ephys_check.run_compatibility_check())
 
     def test_compare_instrument_id_error(self):
-        """ Tests that an error is raised when instrument ids do not match"""
+        """Tests that an error is raised when instrument ids do not match"""
         self.ophys_session.instrument_id = "wrong_id"
         with self.assertRaises(ValueError):
             InstrumentSessionCompatibility(
@@ -882,7 +882,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_mouse_platform_name_error(self):
-        """ Tests that an error is raised when mouse platform names do not match"""
+        """Tests that an error is raised when mouse platform names do not match"""
         self.ophys_session.mouse_platform_name = "wrong_platform"
         with self.assertRaises(ValueError):
             InstrumentSessionCompatibility(
@@ -890,7 +890,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_daq_names_error(self):
-        """ Tests that an error is raised when daq names do not match"""
+        """Tests that an error is raised when daq names do not match"""
         self.ophys_session.data_streams[0].daq_names = ["wrong_daq"]
         with self.assertRaises(ValueError):
             InstrumentSessionCompatibility(
@@ -898,7 +898,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_camera_names_error(self):
-        """ Tests that an error is raised when camera names do not match"""
+        """Tests that an error is raised when camera names do not match"""
         self.ophys_session.data_streams[0].camera_names = ["wrong_camera"]
         with self.assertRaises(ValueError):
             InstrumentSessionCompatibility(
@@ -906,7 +906,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_light_sources_error(self):
-        """ Tests that an error is raised when light sources do not match"""
+        """Tests that an error is raised when light sources do not match"""
         self.ophys_session.data_streams[0].light_sources = [
             LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
         ]
@@ -916,7 +916,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_ephys_assemblies_error(self):
-        """ Tests that an error is raised when ephys assemblies do not match"""
+        """Tests that an error is raised when ephys assemblies do not match"""
         module = ManipulatorModule(
             targeted_ccf_coordinates=[
                 CcfCoords(ml=8150, ap=3250, dv=7800),
@@ -940,7 +940,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_stick_microscopes_error(self):
-        """ Tests that an error is raised when stick microscopes do not match"""
+        """Tests that an error is raised when stick microscopes do not match"""
         self.ophys_session.data_streams[0].stick_microscopes = [
             DomeModule(assembly_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
         ]
@@ -950,7 +950,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_manipulator_modules_error(self):
-        """ Tests that an error is raised when manipulator modules do not match"""
+        """Tests that an error is raised when manipulator modules do not match"""
         module = ManipulatorModule(
             targeted_ccf_coordinates=[
                 CcfCoords(ml=8150, ap=3250, dv=7800),
