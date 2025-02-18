@@ -6,7 +6,6 @@
    "subject_procedures": [
       {
          "data_type": "surgery",
-         "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
          "experimenters": [
@@ -34,7 +33,6 @@
          "procedures": [
             {
                "data_type": "craniotomy",
-               "procedure_type": "Craniotomy",
                "protocol_id": "1234",
                "craniotomy_type": "Visual Cortex",
                "craniotomy_hemisphere": "Left",
@@ -91,7 +89,6 @@
                   "id": "385"
                },
                "injection_hemisphere": "Left",
-               "procedure_type": "Nanoject injection",
                "injection_volume": [
                   "200"
                ],
@@ -102,7 +99,6 @@
       },
       {
          "data_type": "surgery",
-         "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-09-23",
          "experimenters": [
@@ -124,7 +120,6 @@
          "procedures": [
             {
                "data_type": "perfusion",
-               "procedure_type": "Perfusion",
                "protocol_id": "doi_of_protocol",
                "output_specimen_ids": [
                   "1",

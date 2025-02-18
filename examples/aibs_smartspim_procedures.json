@@ -6,7 +6,6 @@
    "subject_procedures": [
       {
          "data_type": "surgery",
-         "procedure_type": "Surgery",
          "protocol_id": "doi_of_protocol_surgery",
          "start_date": "2022-11-17",
          "experimenters": [
@@ -28,7 +27,6 @@
          "procedures": [
             {
                "data_type": "perfusion",
-               "procedure_type": "Perfusion",
                "protocol_id": "doi_of_protocol_perfusion",
                "output_specimen_ids": [
                   "651286"

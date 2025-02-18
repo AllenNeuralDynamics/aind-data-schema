@@ -6,7 +6,6 @@
    "subject_procedures": [
       {
          "data_type": "surgery",
-         "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
          "experimenters": [
@@ -34,7 +33,6 @@
          "procedures": [
             {
                "data_type": "headframe",
-               "procedure_type": "Headframe",
                "protocol_id": "2109",
                "headframe_type": "AI straight",
                "headframe_part_number": "TO ENTER",
@@ -87,7 +85,6 @@
                   "id": "749"
                },
                "injection_hemisphere": "Left",
-               "procedure_type": "Nanoject injection",
                "injection_volume": [
                   "400"
                ],
@@ -95,7 +92,6 @@
             },
             {
                "data_type": "fiber_implant",
-               "procedure_type": "Fiber implant",
                "protocol_id": "TO ENTER",
                "probes": [
                   {
@@ -143,7 +139,6 @@
       },
       {
          "data_type": "water_restriction",
-         "procedure_type": "Water restriction",
          "ethics_review_id": "1234",
          "target_fraction_weight": 25,
          "target_fraction_weight_unit": "percent",
@@ -156,7 +151,6 @@
       },
       {
          "data_type": "surgery",
-         "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2023-05-31",
          "experimenters": [
@@ -184,7 +178,6 @@
          "procedures": [
             {
                "data_type": "perfusion",
-               "procedure_type": "Perfusion",
                "protocol_id": "dx.doi.org/10.17504/protocols.io.bg5vjy66",
                "output_specimen_ids": [
                   "672640"

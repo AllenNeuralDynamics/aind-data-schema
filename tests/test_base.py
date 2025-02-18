@@ -239,8 +239,11 @@ class DataModelTests(unittest.TestCase):
     def test_data_type_unique(self):
         """Test that all subclasses of DataModel have unique data_type values"""
 
+        # For some reason duplicate subclasses can get generated at runtime
+        subclasses = set(DataModel.__subclasses__())
+
         data_types = {}
-        for subclass in DataModel.__subclasses__():
+        for subclass in subclasses:
             data_type = subclass._data_type_from_name()
             self.assertNotIn(data_type, data_types.values())
 
