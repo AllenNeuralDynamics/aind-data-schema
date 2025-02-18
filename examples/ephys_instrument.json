@@ -67,10 +67,8 @@
       {
          "data_type": "ephys_assembly",
          "name": "Ephys_assemblyA",
-         "device_type": "Ephys assembly",
          "manipulator": {
             "data_type": "manipulator",
-            "device_type": "Manipulator",
             "name": "Manipulator 1",
             "serial_number": "SN2938",
             "manufacturer": {
@@ -88,7 +86,6 @@
          "probes": [
             {
                "data_type": "ephys_probe",
-               "device_type": "Ephys probe",
                "name": "Probe A",
                "serial_number": "9291019",
                "manufacturer": null,
@@ -106,10 +103,8 @@
       {
          "data_type": "ephys_assembly",
          "name": "Ephys_assemblyB",
-         "device_type": "Ephys assembly",
          "manipulator": {
             "data_type": "manipulator",
-            "device_type": "Manipulator",
             "name": "Manipulator B",
             "serial_number": "SN2939",
             "manufacturer": {
@@ -127,7 +122,6 @@
          "probes": [
             {
                "data_type": "ephys_probe",
-               "device_type": "Ephys probe",
                "name": "Probe B",
                "serial_number": "9291020",
                "manufacturer": null,
@@ -145,11 +139,9 @@
       {
          "data_type": "camera_assembly",
          "name": "Face Camera Assembly",
-         "device_type": "Camera assembly",
          "camera_target": "Face side left",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "Face Camera",
             "serial_number": null,
             "manufacturer": {
@@ -196,7 +188,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
@@ -223,7 +214,6 @@
          },
          "filter": {
             "data_type": "filter",
-            "device_type": "Filter",
             "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
@@ -259,11 +249,9 @@
       {
          "data_type": "camera_assembly",
          "name": "Body Camera Assembly",
-         "device_type": "Camera assembly",
          "camera_target": "Body",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "Body Camera",
             "serial_number": null,
             "manufacturer": {
@@ -310,7 +298,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
@@ -337,7 +324,6 @@
          },
          "filter": {
             "data_type": "filter",
-            "device_type": "Filter",
             "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
@@ -373,10 +359,8 @@
       {
          "data_type": "laser_assembly",
          "name": "Laser_assemblyA",
-         "device_type": "Laser assembly",
          "manipulator": {
             "data_type": "manipulator",
-            "device_type": "Manipulator",
             "name": "Manipulator A",
             "serial_number": "SN2937",
             "manufacturer": {
@@ -394,7 +378,6 @@
          "lasers": [
             {
                "data_type": "laser",
-               "device_type": "Laser",
                "name": "Red Laser",
                "serial_number": null,
                "manufacturer": {
@@ -419,7 +402,6 @@
             },
             {
                "data_type": "laser",
-               "device_type": "Laser",
                "name": "Blue Laser",
                "serial_number": null,
                "manufacturer": {
@@ -445,7 +427,6 @@
          ],
          "collimator": {
             "data_type": "device",
-            "device_type": "device",
             "name": "Collimator A",
             "serial_number": null,
             "manufacturer": null,
@@ -457,7 +438,6 @@
          },
          "fiber": {
             "data_type": "patch",
-            "device_type": "Patch",
             "name": "Bundle Branching Fiber-optic Patch Cord",
             "serial_number": null,
             "manufacturer": {
@@ -481,7 +461,6 @@
       },
       {
          "data_type": "neuropixels_basestation",
-         "device_type": "Neuropixels basestation",
          "name": "Basestation Slot 3",
          "serial_number": null,
          "manufacturer": {
@@ -525,7 +504,6 @@
       },
       {
          "data_type": "harp_device",
-         "device_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
@@ -592,11 +570,9 @@
       {
          "data_type": "camera_assembly",
          "name": "Stick_assembly_1",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "stick microscope 1",
             "serial_number": null,
             "manufacturer": {
@@ -643,7 +619,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -674,11 +649,9 @@
       {
          "data_type": "camera_assembly",
          "name": "Stick_assembly_2",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "stick microscope 2",
             "serial_number": null,
             "manufacturer": {
@@ -725,7 +698,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -756,11 +728,9 @@
       {
          "data_type": "camera_assembly",
          "name": "Stick_assembly_3",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "stick microscope 3",
             "serial_number": null,
             "manufacturer": {
@@ -807,7 +777,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -838,11 +807,9 @@
       {
          "data_type": "camera_assembly",
          "name": "Stick_assembly_4",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "stick microscope 4",
             "serial_number": null,
             "manufacturer": {
@@ -889,7 +856,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -919,7 +885,6 @@
       },
       {
          "data_type": "disc",
-         "device_type": "Disc",
          "name": "Running Wheel",
          "serial_number": null,
          "manufacturer": null,

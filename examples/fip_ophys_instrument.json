@@ -46,11 +46,9 @@
       {
          "data_type": "camera_assembly",
          "name": "BehaviorVideography_FaceSide",
-         "device_type": "Camera assembly",
          "camera_target": "Face side left",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "Side face camera",
             "serial_number": null,
             "manufacturer": {
@@ -100,7 +98,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Xenocam 1",
             "serial_number": null,
             "manufacturer": {
@@ -128,11 +125,9 @@
       {
          "data_type": "camera_assembly",
          "name": "BehaviorVideography_FaceBottom",
-         "device_type": "Camera assembly",
          "camera_target": "Face bottom",
          "camera": {
             "data_type": "camera",
-            "device_type": "Detector",
             "name": "Bottom face Camera",
             "serial_number": null,
             "manufacturer": {
@@ -182,7 +177,6 @@
          },
          "lens": {
             "data_type": "lens",
-            "device_type": "Lens",
             "name": "Xenocam 2",
             "serial_number": null,
             "manufacturer": {
@@ -209,7 +203,6 @@
       },
       {
          "data_type": "patch",
-         "device_type": "Patch",
          "name": "Bundle Branching Fiber-optic Patch Cord",
          "serial_number": null,
          "manufacturer": {
@@ -232,7 +225,6 @@
       },
       {
          "data_type": "light_emitting_diode",
-         "device_type": "Light emitting diode",
          "name": "470nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -256,7 +248,6 @@
       },
       {
          "data_type": "light_emitting_diode",
-         "device_type": "Light emitting diode",
          "name": "415nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -280,7 +271,6 @@
       },
       {
          "data_type": "light_emitting_diode",
-         "device_type": "Light emitting diode",
          "name": "565nm LED",
          "serial_number": null,
          "manufacturer": {
@@ -304,7 +294,6 @@
       },
       {
          "data_type": "detector",
-         "device_type": "Detector",
          "name": "Green CMOS",
          "serial_number": "21396991",
          "manufacturer": {
@@ -351,7 +340,6 @@
       },
       {
          "data_type": "detector",
-         "device_type": "Detector",
          "name": "Red CMOS",
          "serial_number": "21396991",
          "manufacturer": {
@@ -398,7 +386,6 @@
       },
       {
          "data_type": "objective",
-         "device_type": "Objective",
          "name": "Objective",
          "serial_number": "128022336",
          "manufacturer": {
@@ -422,7 +409,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Green emission filter",
          "serial_number": null,
          "manufacturer": {
@@ -452,7 +438,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Red emission filter",
          "serial_number": null,
          "manufacturer": {
@@ -482,7 +467,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Emission Dichroic",
          "serial_number": null,
          "manufacturer": {
@@ -512,7 +496,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "dual-edge standard epi-fluorescence dichroic beamsplitter",
          "serial_number": null,
          "manufacturer": {
@@ -542,7 +525,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Excitation filter 410nm",
          "serial_number": null,
          "manufacturer": {
@@ -575,7 +557,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Excitation filter 470nm",
          "serial_number": null,
          "manufacturer": {
@@ -608,7 +589,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Excitation filter 560nm",
          "serial_number": null,
          "manufacturer": {
@@ -641,7 +621,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "450 Dichroic Longpass Filter",
          "serial_number": null,
          "manufacturer": {
@@ -674,7 +653,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "500 Dichroic Longpass Filter",
          "serial_number": null,
          "manufacturer": {
@@ -707,7 +685,6 @@
       },
       {
          "data_type": "lens",
-         "device_type": "Lens",
          "name": "Image focusing lens",
          "serial_number": null,
          "manufacturer": {
@@ -734,7 +711,6 @@
       },
       {
          "data_type": "harp_device",
-         "device_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
@@ -822,12 +798,10 @@
       },
       {
          "data_type": "reward_delivery",
-         "device_type": "Reward delivery",
          "stage_type": null,
          "reward_spouts": [
             {
                "data_type": "reward_spout",
-               "device_type": "Reward spout",
                "name": "Left spout",
                "serial_number": null,
                "manufacturer": null,
@@ -842,7 +816,6 @@
                "spout_position": null,
                "solenoid_valve": {
                   "data_type": "device",
-                  "device_type": "device",
                   "name": "Solenoid Left",
                   "serial_number": null,
                   "manufacturer": null,
@@ -854,7 +827,6 @@
                },
                "lick_sensor": {
                   "data_type": "device",
-                  "device_type": "device",
                   "name": "Lick-o-meter Left",
                   "serial_number": null,
                   "manufacturer": null,
@@ -868,7 +840,6 @@
             },
             {
                "data_type": "reward_spout",
-               "device_type": "Reward spout",
                "name": "Right spout",
                "serial_number": null,
                "manufacturer": null,
@@ -883,7 +854,6 @@
                "spout_position": null,
                "solenoid_valve": {
                   "data_type": "device",
-                  "device_type": "device",
                   "name": "Solenoid Right",
                   "serial_number": null,
                   "manufacturer": null,
@@ -895,7 +865,6 @@
                },
                "lick_sensor": {
                   "data_type": "device",
-                  "device_type": "device",
                   "name": "Lick-o-meter Right",
                   "serial_number": null,
                   "manufacturer": null,
@@ -911,7 +880,6 @@
       },
       {
          "data_type": "device",
-         "device_type": "device",
          "name": "Photometry Clock",
          "serial_number": null,
          "manufacturer": null,
@@ -923,7 +891,6 @@
       },
       {
          "data_type": "disc",
-         "device_type": "Disc",
          "name": "mouse_disc",
          "serial_number": null,
          "manufacturer": null,

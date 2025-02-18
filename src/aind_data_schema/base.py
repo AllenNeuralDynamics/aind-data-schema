@@ -13,7 +13,6 @@ from pydantic import (
     Field,
     NaiveDatetime,
     PrivateAttr,
-    SkipValidation,
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
@@ -100,6 +99,7 @@ class DataModel(BaseModel, Generic[GenericModelType]):
 
     Also performs validation checks / coercion / upgrades where necessary
     """
+
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
     data_type: ClassVar[str]  # This prevents Pydantic from treating it as a normal field
 
@@ -124,7 +124,7 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     @classmethod
     def _data_type_from_name(cls) -> str:
         """Convert a class name to a data_type"""
-        return re.sub(r'(?<!^)(?=[A-Z])', '_', cls.__name__).lower()
+        return re.sub(r"(?<!^)(?=[A-Z])", "_", cls.__name__).lower()
 
     @model_validator(mode="after")
     def unit_validator(cls, values):

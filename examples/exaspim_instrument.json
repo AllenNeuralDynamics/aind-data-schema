@@ -39,7 +39,6 @@
    "components": [
       {
          "data_type": "objective",
-         "device_type": "Objective",
          "name": "Custom Objective",
          "serial_number": null,
          "manufacturer": {
@@ -60,7 +59,6 @@
       },
       {
          "data_type": "detector",
-         "device_type": "Detector",
          "name": "Camera 1",
          "serial_number": "MB151BAY001",
          "manufacturer": {
@@ -104,7 +102,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "LAS-08307",
          "serial_number": "LAS-08307",
          "manufacturer": {
@@ -129,7 +126,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "LAS-08308",
          "serial_number": "LAS-08308",
          "manufacturer": {
@@ -154,7 +150,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "539251",
          "serial_number": "539251",
          "manufacturer": {
@@ -179,7 +174,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "LAS-08309",
          "serial_number": "LAS-08309",
          "manufacturer": {
@@ -204,7 +198,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Multiband filter",
          "serial_number": null,
          "manufacturer": {
@@ -234,7 +227,6 @@
       },
       {
          "data_type": "d_a_q_device",
-         "device_type": "DAQ Device",
          "name": "Dev2",
          "serial_number": null,
          "manufacturer": {
@@ -326,7 +318,6 @@
       },
       {
          "data_type": "scanning_stage",
-         "device_type": "Scanning stage",
          "name": "stage-x",
          "serial_number": null,
          "manufacturer": {
@@ -348,7 +339,6 @@
       },
       {
          "data_type": "scanning_stage",
-         "device_type": "Scanning stage",
          "name": "stage-y",
          "serial_number": null,
          "manufacturer": {
@@ -370,7 +360,6 @@
       },
       {
          "data_type": "scanning_stage",
-         "device_type": "Scanning stage",
          "name": "stage-z",
          "serial_number": null,
          "manufacturer": {
@@ -392,7 +381,6 @@
       },
       {
          "data_type": "additional_imaging_device",
-         "device_type": "Additional imaging device",
          "name": "TL-1",
          "serial_number": "01",
          "manufacturer": {
@@ -410,7 +398,6 @@
       },
       {
          "data_type": "additional_imaging_device",
-         "device_type": "Additional imaging device",
          "name": "RM-1",
          "serial_number": "01",
          "manufacturer": {
@@ -431,7 +418,6 @@
       },
       {
          "data_type": "additional_imaging_device",
-         "device_type": "Additional imaging device",
          "name": "LC-1",
          "serial_number": "L6CC-00513",
          "manufacturer": {
@@ -449,7 +435,6 @@
       },
       {
          "data_type": "optical_table",
-         "device_type": "Optical table",
          "name": "Table",
          "serial_number": null,
          "manufacturer": {

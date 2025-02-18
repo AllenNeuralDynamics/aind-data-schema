@@ -329,7 +329,6 @@
          "stimulus_parameters": [
             {
                "data_type": "visual_stimulation",
-               "stimulus_type": "Visual Stimulation",
                "stimulus_name": "Static Gratings",
                "stimulus_parameters": {
                   "grating_orientations": [
@@ -386,7 +385,6 @@
          "stimulus_parameters": [
             {
                "data_type": "visual_stimulation",
-               "stimulus_type": "Visual Stimulation",
                "stimulus_name": "Flashes",
                "stimulus_parameters": {
                   "flash_interval": 5.0,

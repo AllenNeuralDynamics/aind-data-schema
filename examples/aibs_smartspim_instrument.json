@@ -44,7 +44,6 @@
    "components": [
       {
          "data_type": "objective",
-         "device_type": "Objective",
          "name": "TLX Objective",
          "serial_number": null,
          "manufacturer": {
@@ -68,7 +67,6 @@
       },
       {
          "data_type": "detector",
-         "device_type": "Detector",
          "name": "Camera 1",
          "serial_number": "001107",
          "manufacturer": {
@@ -115,7 +113,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "Ex_488",
          "serial_number": "VL01222A11",
          "manufacturer": {
@@ -140,7 +137,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "Ex_561",
          "serial_number": "417927",
          "manufacturer": {
@@ -168,7 +164,6 @@
       },
       {
          "data_type": "laser",
-         "device_type": "Laser",
          "name": "Ex_647",
          "serial_number": "VL01222A10",
          "manufacturer": {
@@ -193,7 +188,6 @@
       },
       {
          "data_type": "motorized_stage",
-         "device_type": "Motorized stage",
          "name": "Focus stage",
          "serial_number": null,
          "manufacturer": {
@@ -213,7 +207,6 @@
       },
       {
          "data_type": "motorized_stage",
-         "device_type": "Motorized stage",
          "name": "Cylindrical lens #1",
          "serial_number": null,
          "manufacturer": {
@@ -233,7 +226,6 @@
       },
       {
          "data_type": "motorized_stage",
-         "device_type": "Motorized stage",
          "name": "Cylindrical lens #2",
          "serial_number": null,
          "manufacturer": {
@@ -253,7 +245,6 @@
       },
       {
          "data_type": "motorized_stage",
-         "device_type": "Motorized stage",
          "name": "Cylindrical lens #3",
          "serial_number": null,
          "manufacturer": {
@@ -273,7 +264,6 @@
       },
       {
          "data_type": "motorized_stage",
-         "device_type": "Motorized stage",
          "name": "Cylindrical lens #4",
          "serial_number": null,
          "manufacturer": {
@@ -293,7 +283,6 @@
       },
       {
          "data_type": "scanning_stage",
-         "device_type": "Scanning stage",
          "name": "Sample stage Z",
          "serial_number": null,
          "manufacturer": {
@@ -315,7 +304,6 @@
       },
       {
          "data_type": "scanning_stage",
-         "device_type": "Scanning stage",
          "name": "Sample stage X",
          "serial_number": null,
          "manufacturer": {
@@ -337,7 +325,6 @@
       },
       {
          "data_type": "scanning_stage",
-         "device_type": "Scanning stage",
          "name": "Sample stage Y",
          "serial_number": null,
          "manufacturer": {
@@ -359,7 +346,6 @@
       },
       {
          "data_type": "optical_table",
-         "device_type": "Optical table",
          "name": "Table",
          "serial_number": null,
          "manufacturer": {
@@ -380,7 +366,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Em_525",
          "serial_number": null,
          "manufacturer": {
@@ -410,7 +395,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Em_600",
          "serial_number": null,
          "manufacturer": {
@@ -440,7 +424,6 @@
       },
       {
          "data_type": "filter",
-         "device_type": "Filter",
          "name": "Em_690",
          "serial_number": null,
          "manufacturer": {
@@ -470,7 +453,6 @@
       },
       {
          "data_type": "additional_imaging_device",
-         "device_type": "Additional imaging device",
          "name": "Lens 1",
          "serial_number": null,
          "manufacturer": {
@@ -488,7 +470,6 @@
       },
       {
          "data_type": "additional_imaging_device",
-         "device_type": "Additional imaging device",
          "name": "Lens 2",
          "serial_number": null,
          "manufacturer": {
@@ -506,7 +487,6 @@
       },
       {
          "data_type": "additional_imaging_device",
-         "device_type": "Additional imaging device",
          "name": "Sample chamber",
          "serial_number": null,
          "manufacturer": {

@@ -37,7 +37,6 @@
          "light_sources": [
             {
                "data_type": "laser_config",
-               "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
@@ -125,7 +124,6 @@
          "stimulus_parameters": [
             {
                "data_type": "photo_stimulation",
-               "stimulus_type": "Photo Stimulation",
                "stimulus_name": "Two group stim",
                "number_groups": 2,
                "groups": [

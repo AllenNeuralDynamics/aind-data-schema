@@ -224,6 +224,7 @@ class DataModelTests(unittest.TestCase):
 
         class TestModel(DataModel):
             """Temporary test model"""
+
             value: str
 
         model_instance = TestModel(value="test")
@@ -231,6 +232,7 @@ class DataModelTests(unittest.TestCase):
 
         class AnotherTestModel(DataModel):
             """Another temporary test model"""
+
             value: str
 
         another_model_instance = AnotherTestModel(value="test")

@@ -98,7 +98,6 @@
                      "data_type": "ophys_probe",
                      "ophys_probe": {
                         "data_type": "fiber_probe",
-                        "device_type": "Fiber optic probe",
                         "name": "Probe A",
                         "serial_number": null,
                         "manufacturer": null,
