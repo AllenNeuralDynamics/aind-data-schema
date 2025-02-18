@@ -47,7 +47,7 @@ class Tile(DataModel):
                 Rotation3dTransform,
                 Affine3dTransform,
             ],
-            Field(discriminator="type"),
+            Field(discriminator="data_type"),
         ]
     ] = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")

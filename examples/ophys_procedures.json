@@ -1,9 +1,11 @@
 {
+   "data_type": "procedures",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
    "schema_version": "2.0.0",
    "subject_id": "625100",
    "subject_procedures": [
       {
+         "data_type": "surgery",
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
@@ -22,6 +24,7 @@
          "animal_weight_post": "22.3",
          "weight_unit": "gram",
          "anaesthesia": {
+            "data_type": "anaesthetic",
             "type": "Isoflurane",
             "duration": "180",
             "duration_unit": "minute",
@@ -30,6 +33,7 @@
          "workstation_id": "SWS 3",
          "procedures": [
             {
+               "data_type": "headframe",
                "procedure_type": "Headframe",
                "protocol_id": "2109",
                "headframe_type": "AI straight",
@@ -39,8 +43,10 @@
                "well_type": null
             },
             {
+               "data_type": "nanoject_injection",
                "injection_materials": [
                   {
+                     "data_type": "viral_material",
                      "material_type": "Virus",
                      "name": "AAV2/1-Syn-Flex-ChrimsonR-tdT",
                      "tars_identifiers": null,
@@ -88,11 +94,14 @@
                "injection_volume_unit": "nanoliter"
             },
             {
+               "data_type": "fiber_implant",
                "procedure_type": "Fiber implant",
                "protocol_id": "TO ENTER",
                "probes": [
                   {
+                     "data_type": "ophys_probe",
                      "ophys_probe": {
+                        "data_type": "fiber_probe",
                         "device_type": "Fiber optic probe",
                         "name": "Probe A",
                         "serial_number": null,
@@ -133,6 +142,7 @@
          "notes": null
       },
       {
+         "data_type": "water_restriction",
          "procedure_type": "Water restriction",
          "ethics_review_id": "1234",
          "target_fraction_weight": 25,
@@ -145,6 +155,7 @@
          "end_date": "2023-05-23"
       },
       {
+         "data_type": "surgery",
          "procedure_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2023-05-31",
@@ -163,6 +174,7 @@
          "animal_weight_post": null,
          "weight_unit": "gram",
          "anaesthesia": {
+            "data_type": "anaesthetic",
             "type": "Isoflurane",
             "duration": "30",
             "duration_unit": "minute",
@@ -171,6 +183,7 @@
          "workstation_id": "SWS 3",
          "procedures": [
             {
+               "data_type": "perfusion",
                "procedure_type": "Perfusion",
                "protocol_id": "dx.doi.org/10.17504/protocols.io.bg5vjy66",
                "output_specimen_ids": [
@@ -183,6 +196,7 @@
    ],
    "specimen_procedures": [
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Immunolabeling",
          "procedure_name": null,
          "specimen_id": "672640",
@@ -205,6 +219,7 @@
          "hcr_series": null,
          "antibodies": [
             {
+               "data_type": "antibody",
                "name": "Chicken polyclonal",
                "source": {
                   "name": "Abcam",
@@ -237,6 +252,7 @@
          "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Immunolabeling",
          "procedure_name": null,
          "specimen_id": "672640",
@@ -259,6 +275,7 @@
          "hcr_series": null,
          "antibodies": [
             {
+               "data_type": "antibody",
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {
                   "name": "Thermo Fisher Scientific",

@@ -1,4 +1,5 @@
 {
+   "data_type": "session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "2.0.0",
    "protocol_id": [],
@@ -26,12 +27,14 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "data_type": "stream",
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
          "camera_names": [],
          "light_sources": [
             {
+               "data_type": "laser_config",
                "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 405,
@@ -40,6 +43,7 @@
                "excitation_power_unit": "milliwatt"
             },
             {
+               "data_type": "laser_config",
                "device_type": "Laser",
                "name": "Laser B",
                "wavelength": 473,
@@ -53,6 +57,7 @@
          "manipulator_modules": [],
          "detectors": [
             {
+               "data_type": "detector_config",
                "name": "Hamamatsu Camera",
                "exposure_time": "10",
                "exposure_time_unit": "millisecond",
@@ -61,12 +66,14 @@
          ],
          "fiber_connections": [
             {
+               "data_type": "fiber_connection_config",
                "patch_cord_name": "Patch Cord A",
                "patch_cord_output_power": "40",
                "output_power_unit": "microwatt",
                "fiber_name": "Fiber A"
             },
             {
+               "data_type": "fiber_connection_config",
                "patch_cord_name": "Patch Cord B",
                "patch_cord_output_power": "43",
                "output_power_unit": "microwatt",

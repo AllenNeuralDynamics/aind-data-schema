@@ -170,28 +170,36 @@ class BaseTests(unittest.TestCase):
         """Test that schema version are bumped successfully
         and that validation errors prevent bumping"""
 
-        class Modelv1(DataCoreModel):
+        class TestModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
-        class Modelv2(DataCoreModel):
+        v1_init = TestModel()
+        self.assertEqual("1.0.0", v1_init.schema_version)
+
+        # Re-define TestModel with a bumped schema version
+        class TestModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv2"
             schema_version: SkipValidation[Literal["1.0.1"]] = "1.0.1"
             extra_field: str = "extra_field"
 
-        v1_init = Modelv1()
-        self.assertEqual("1.0.0", v1_init.schema_version)
-
-        v2_from_v1 = Modelv2(**v1_init.model_dump())
+        v2_from_v1 = TestModel(**v1_init.model_dump())
         self.assertEqual("1.0.1", v2_from_v1.schema_version)
+
+        # Re-re-define to make sure that the extra field is not allowed
+        class TestModel(DataCoreModel):
+            """test class"""
+
+            describedBy: str = "modelv1"
+            schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
         # Check that adding additional fields still fails validation
         # this is to ensure you can't get a bumped schema_version without passing validation
-        self.assertRaises(ValidationError, lambda: Modelv1(**v2_from_v1.model_dump()))
+        self.assertRaises(ValidationError, lambda: TestModel(**v2_from_v1.model_dump()))
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("logging.warning")
@@ -231,12 +239,12 @@ class DataModelTests(unittest.TestCase):
     def test_data_type_unique(self):
         """Test that all subclasses of DataModel have unique data_type values"""
 
-        data_types = set()
+        data_types = {}
         for subclass in DataModel.__subclasses__():
-            data_type = DataModel._data_type_from_name(subclass.__name__)
-            self.assertNotIn(data_type, data_types)
+            data_type = subclass._data_type_from_name()
+            self.assertNotIn(data_type, data_types.values())
 
-            data_types.add(data_type)
+            data_types[subclass.__name__] = data_type
 
 
 if __name__ == "__main__":

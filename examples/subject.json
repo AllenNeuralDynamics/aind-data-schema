@@ -1,4 +1,5 @@
 {
+   "data_type": "subject",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
    "schema_version": "2.0.0",
    "subject_id": "12345",
@@ -16,6 +17,7 @@
    "alleles": [],
    "background_strain": "C57BL/6J",
    "breeding_info": {
+      "data_type": "breeding_info",
       "breeding_group": "Emx1-IRES-Cre(ND)",
       "maternal_id": "546543",
       "maternal_genotype": "Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
@@ -35,6 +37,7 @@
    "restrictions": null,
    "wellness_reports": [],
    "housing": {
+      "data_type": "housing",
       "cage_id": "123",
       "room_id": null,
       "light_cycle": null,

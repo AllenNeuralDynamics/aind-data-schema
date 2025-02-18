@@ -1,4 +1,5 @@
 {
+   "data_type": "session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "2.0.0",
    "protocol_id": [],
@@ -26,6 +27,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "data_type": "stream",
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
@@ -38,6 +40,7 @@
          ],
          "light_sources": [
             {
+               "data_type": "laser_config",
                "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 920,
@@ -54,6 +57,7 @@
          "fiber_modules": [],
          "ophys_fovs": [
             {
+               "data_type": "field_of_view",
                "index": 0,
                "imaging_depth": 190,
                "imaging_depth_unit": "micrometer",
@@ -85,6 +89,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 1,
                "imaging_depth": 232,
                "imaging_depth_unit": "micrometer",
@@ -116,6 +121,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 2,
                "imaging_depth": 136,
                "imaging_depth_unit": "micrometer",
@@ -147,6 +153,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 3,
                "imaging_depth": 282,
                "imaging_depth_unit": "micrometer",
@@ -178,6 +185,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 4,
                "imaging_depth": 72,
                "imaging_depth_unit": "micrometer",
@@ -209,6 +217,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 5,
                "imaging_depth": 326,
                "imaging_depth_unit": "micrometer",
@@ -240,6 +249,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 6,
                "imaging_depth": 30,
                "imaging_depth_unit": "micrometer",
@@ -271,6 +281,7 @@
                "notes": null
             },
             {
+               "data_type": "field_of_view",
                "index": 7,
                "imaging_depth": 364,
                "imaging_depth_unit": "micrometer",

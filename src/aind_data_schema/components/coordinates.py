@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
@@ -45,39 +45,29 @@ class AnatomicalDirection(str, Enum):
     OTHER = "Other"
 
 
-class CoordinateTransform(DataModel):
-    """Generic base class for coordinate transform subtypes"""
-
-    type: str = Field(..., title="transformation type")
-
-
-class Scale3dTransform(CoordinateTransform):
+class Scale3dTransform(DataModel):
     """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
     Represents voxel spacing if used as the first applied coordinate transform.
     """
 
-    type: Literal["scale"] = "scale"
     scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
-class Translation3dTransform(CoordinateTransform):
+class Translation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
-    type: Literal["translation"] = "translation"
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
-class Rotation3dTransform(CoordinateTransform):
+class Rotation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
-    type: Literal["rotation"] = "rotation"
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
-class Affine3dTransform(CoordinateTransform):
+class Affine3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    type: Literal["affine"] = "affine"
     affine_transform: List[Decimal] = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
     )
@@ -172,7 +162,7 @@ class RelativePosition(DataModel):
     """Position and rotation of a device in a rig or instrument"""
 
     device_position_transformations: List[
-        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="type")]
+        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="data_type")]
     ] = Field(..., title="Device position transforms")
     device_origin: str = Field(
         ..., title="Device origin", description="Reference point on device for position information"

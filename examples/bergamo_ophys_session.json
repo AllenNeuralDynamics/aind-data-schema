@@ -1,4 +1,5 @@
 {
+   "data_type": "session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "2.0.0",
    "protocol_id": [],
@@ -26,6 +27,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "data_type": "stream",
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
@@ -34,6 +36,7 @@
          ],
          "light_sources": [
             {
+               "data_type": "laser_config",
                "device_type": "Laser",
                "name": "Laser A",
                "wavelength": 405,
@@ -47,6 +50,7 @@
          "manipulator_modules": [],
          "detectors": [
             {
+               "data_type": "detector_config",
                "name": "PMT A",
                "exposure_time": "0.1",
                "exposure_time_unit": "millisecond",
@@ -57,6 +61,7 @@
          "fiber_modules": [],
          "ophys_fovs": [
             {
+               "data_type": "field_of_view",
                "index": 0,
                "imaging_depth": 150,
                "imaging_depth_unit": "micrometer",
@@ -107,6 +112,7 @@
    ],
    "stimulus_epochs": [
       {
+         "data_type": "stimulus_epoch",
          "stimulus_start_time": "2022-07-12T07:00:00Z",
          "stimulus_end_time": "2022-07-12T07:00:00Z",
          "stimulus_name": "PhotoStimulation",
@@ -118,11 +124,13 @@
          ],
          "stimulus_parameters": [
             {
+               "data_type": "photo_stimulation",
                "stimulus_type": "Photo Stimulation",
                "stimulus_name": "Two group stim",
                "number_groups": 2,
                "groups": [
                   {
+                     "data_type": "photo_stimulation_group",
                      "group_index": 0,
                      "number_of_neurons": 12,
                      "stimulation_laser_power": "10",
@@ -137,6 +145,7 @@
                      "notes": null
                   },
                   {
+                     "data_type": "photo_stimulation_group",
                      "group_index": 2,
                      "number_of_neurons": 20,
                      "stimulation_laser_power": "10",

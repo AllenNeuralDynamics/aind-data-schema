@@ -1,9 +1,12 @@
 {
+   "data_type": "processing",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
    "schema_version": "2.0.0",
    "processing_pipeline": {
+      "data_type": "pipeline_process",
       "data_processes": [
          {
+            "data_type": "data_process",
             "name": "Image tile fusing",
             "software_version": "0.0.1",
             "start_date_time": "2022-11-22T08:43:00Z",
@@ -18,6 +21,7 @@
             "outputs": {},
             "notes": null,
             "resources": {
+               "data_type": "resource_usage",
                "os": "Ubuntu 20.04",
                "architecture": "x86-64",
                "cpu": "Intel Core i7",
@@ -29,30 +33,36 @@
                "ram_unit": "Gigabyte",
                "cpu_usage": [
                   {
+                     "data_type": "resource_timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 75.5
                   },
                   {
+                     "data_type": "resource_timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 80.0
                   }
                ],
                "gpu_usage": [
                   {
+                     "data_type": "resource_timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 60.0
                   },
                   {
+                     "data_type": "resource_timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 65.5
                   }
                ],
                "ram_usage": [
                   {
+                     "data_type": "resource_timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 70.0
                   },
                   {
+                     "data_type": "resource_timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 72.5
                   }
@@ -61,6 +71,7 @@
             }
          },
          {
+            "data_type": "data_process",
             "name": "File format conversion",
             "software_version": "0.0.1",
             "start_date_time": "2022-11-22T08:43:00Z",
@@ -78,6 +89,7 @@
             "resources": null
          },
          {
+            "data_type": "data_process",
             "name": "Image destriping",
             "software_version": "0.2.1",
             "start_date_time": "2022-11-22T08:43:00Z",
@@ -111,6 +123,7 @@
    },
    "analyses": [
       {
+         "data_type": "analysis_process",
          "name": "Analysis",
          "software_version": "0.0.1",
          "start_date_time": "2022-11-22T08:43:00Z",
@@ -138,6 +151,7 @@
          "description": "some description"
       },
       {
+         "data_type": "analysis_process",
          "name": "Analysis",
          "software_version": "0.0.1",
          "start_date_time": "2022-11-22T08:43:00Z",

@@ -4,7 +4,7 @@ import json
 import re
 import logging
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar, get_args
+from typing import Any, ClassVar, Generic, Literal, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -13,6 +13,7 @@ from pydantic import (
     Field,
     NaiveDatetime,
     PrivateAttr,
+    SkipValidation,
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
@@ -100,20 +101,30 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     Also performs validation checks / coercion / upgrades where necessary
     """
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
+    data_type: ClassVar[str]  # This prevents Pydantic from treating it as a normal field
 
-    data_type: str = Field(..., title="Data type", description="Unique. For use as a model discriminator")
-
-    @classmethod
-    def _data_type_from_name(cls, name: str) -> str:
-        """Convert a class name to a data_type"""
-        return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
+    def __init_subclass__(cls, **kwargs):
+        """Automatically set the correct `data_type` as a Literal[...]"""
+        super().__init_subclass__(**kwargs)
+        data_type_value = cls._data_type_from_name()
+        cls.__annotations__["data_type"] = Literal[data_type_value]  # Set literal type annotation
+        cls.data_type = data_type_value  # Set the value on the class itself
 
     @model_validator(mode="before")
+    def coerce_data_type(cls, values):
+        """Ensure that data_type is set to the correct value
+
+        This ensures that subclasses/parent classes can be deserialized correctly
+        """
+        cls_data_type = cls._data_type_from_name()
+        if "data_type" in values and values["data_type"] != cls_data_type:
+            values["data_type"] = cls_data_type
+        return values
+
     @classmethod
-    def generate_data_type(cls, data):
-        """Generate the data_type field based on the class name"""
-        data["data_type"] = cls._data_type_from_name(cls.__name__)
-        return data
+    def _data_type_from_name(cls) -> str:
+        """Convert a class name to a data_type"""
+        return re.sub(r'(?<!^)(?=[A-Z])', '_', cls.__name__).lower()
 
     @model_validator(mode="after")
     def unit_validator(cls, values):

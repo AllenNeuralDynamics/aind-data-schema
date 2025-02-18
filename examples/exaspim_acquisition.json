@@ -1,4 +1,5 @@
 {
+   "data_type": "acquisition",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
    "schema_version": "2.0.0",
    "protocol_id": [],
@@ -17,6 +18,7 @@
    "instrument_id": "###",
    "calibrations": [
       {
+         "data_type": "calibration",
          "calibration_date": "2022-11-22T08:43:00Z",
          "device_name": "Laser_1",
          "description": "Laser power calibration",
@@ -33,12 +35,14 @@
    ],
    "maintenance": [
       {
+         "data_type": "maintenance",
          "maintenance_date": "2022-11-22T08:43:00Z",
          "device_name": "Chamber",
          "description": "Clean chamber",
          "protocol_id": null,
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "reagent1",
                "source": {
                   "name": "Other",
@@ -67,9 +71,10 @@
    "session_type": null,
    "tiles": [
       {
+         "data_type": "acquisition_tile",
          "coordinate_transformations": [
             {
-               "type": "scale",
+               "data_type": "scale3d_transform",
                "scale": [
                   "0.748",
                   "0.748",
@@ -77,7 +82,7 @@
                ]
             },
             {
-               "type": "translation",
+               "data_type": "translation3d_transform",
                "translation": [
                   "0",
                   "0",
@@ -87,6 +92,7 @@
          ],
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
          "channel": {
+            "data_type": "channel",
             "channel_name": "488",
             "light_source_name": "Ex_488",
             "filter_names": [
@@ -110,9 +116,10 @@
          "acquisition_end_time": null
       },
       {
+         "data_type": "acquisition_tile",
          "coordinate_transformations": [
             {
-               "type": "scale",
+               "data_type": "scale3d_transform",
                "scale": [
                   "0.748",
                   "0.748",
@@ -120,7 +127,7 @@
                ]
             },
             {
-               "type": "translation",
+               "data_type": "translation3d_transform",
                "translation": [
                   "0",
                   "0",
@@ -130,6 +137,7 @@
          ],
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
          "channel": {
+            "data_type": "channel",
             "channel_name": "561",
             "light_source_name": "Ex_561",
             "filter_names": [
@@ -155,18 +163,21 @@
    ],
    "axes": [
       {
+         "data_type": "image_axis",
          "name": "X",
          "direction": "Left_to_right",
          "dimension": 2,
          "unit": "micrometer"
       },
       {
+         "data_type": "image_axis",
          "name": "Y",
          "direction": "Anterior_to_posterior",
          "dimension": 1,
          "unit": "micrometer"
       },
       {
+         "data_type": "image_axis",
          "name": "Z",
          "direction": "Inferior_to_superior",
          "dimension": 0,
@@ -174,6 +185,7 @@
       }
    ],
    "chamber_immersion": {
+      "data_type": "immersion",
       "medium": "PBS",
       "refractive_index": "1.33"
    },

@@ -1,8 +1,10 @@
 {
+   "data_type": "quality_control",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
    "schema_version": "2.0.0",
    "evaluations": [
       {
+         "data_type": "q_c_evaluation",
          "modality": {
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"
@@ -89,6 +91,7 @@
          "created": "2022-11-22T00:00:00Z"
       },
       {
+         "data_type": "q_c_evaluation",
          "modality": {
             "name": "Behavior videos",
             "abbreviation": "behavior-videos"
@@ -147,6 +150,7 @@
          "created": "2022-11-22T00:00:00Z"
       },
       {
+         "data_type": "q_c_evaluation",
          "modality": {
             "name": "Extracellular electrophysiology",
             "abbreviation": "ecephys"

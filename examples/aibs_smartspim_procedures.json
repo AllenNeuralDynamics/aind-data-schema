@@ -1,9 +1,11 @@
 {
+   "data_type": "procedures",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
    "schema_version": "2.0.0",
    "subject_id": "651286",
    "subject_procedures": [
       {
+         "data_type": "surgery",
          "procedure_type": "Surgery",
          "protocol_id": "doi_of_protocol_surgery",
          "start_date": "2022-11-17",
@@ -25,6 +27,7 @@
          "workstation_id": null,
          "procedures": [
             {
+               "data_type": "perfusion",
                "procedure_type": "Perfusion",
                "protocol_id": "doi_of_protocol_perfusion",
                "output_specimen_ids": [
@@ -37,6 +40,7 @@
    ],
    "specimen_procedures": [
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Fixation",
          "procedure_name": "SHIELD OFF",
          "specimen_id": "651286",
@@ -57,6 +61,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "SHIELD Buffer",
                "source": {
                   "name": "LifeCanvas",
@@ -69,6 +74,7 @@
                "expiration_date": null
             },
             {
+               "data_type": "reagent",
                "name": "SHIELD Epoxy",
                "source": {
                   "name": "LifeCanvas",
@@ -87,6 +93,7 @@
          "notes": null
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Fixation",
          "procedure_name": "SHIELD ON",
          "specimen_id": "651286",
@@ -107,6 +114,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "SHIELD On",
                "source": {
                   "name": "LifeCanvas",
@@ -125,6 +133,7 @@
          "notes": "40 deg. C"
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Soak",
          "procedure_name": null,
          "specimen_id": "651286",
@@ -145,6 +154,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "Delipidation Buffer",
                "source": {
                   "name": "Other",
@@ -163,6 +173,7 @@
          "notes": null
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Delipidation",
          "procedure_name": "Active Delipidation",
          "specimen_id": "651286",
@@ -183,6 +194,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "Delipidation Buffer",
                "source": {
                   "name": "Other",
@@ -195,6 +207,7 @@
                "expiration_date": null
             },
             {
+               "data_type": "reagent",
                "name": "Conductivity Buffer",
                "source": {
                   "name": "Other",
@@ -213,6 +226,7 @@
          "notes": null
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Soak",
          "procedure_name": "EasyIndex 50%",
          "specimen_id": "651286",
@@ -233,6 +247,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "Easy Index",
                "source": {
                   "name": "LifeCanvas",
@@ -245,6 +260,7 @@
                "expiration_date": null
             },
             {
+               "data_type": "reagent",
                "name": "Deionized water",
                "source": {
                   "name": "Other",
@@ -263,6 +279,7 @@
          "notes": null
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Soak",
          "procedure_name": "EasyIndex 100%",
          "specimen_id": "651286",
@@ -283,6 +300,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "Easy Index",
                "source": {
                   "name": "LifeCanvas",
@@ -301,6 +319,7 @@
          "notes": null
       },
       {
+         "data_type": "specimen_procedure",
          "procedure_type": "Embedding",
          "procedure_name": null,
          "specimen_id": "651286",
@@ -321,6 +340,7 @@
          ],
          "reagents": [
             {
+               "data_type": "reagent",
                "name": "Easy Index",
                "source": {
                   "name": "LifeCanvas",
@@ -333,6 +353,7 @@
                "expiration_date": null
             },
             {
+               "data_type": "reagent",
                "name": "Agarose",
                "source": {
                   "name": "Other",
