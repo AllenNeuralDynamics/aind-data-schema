@@ -1,7 +1,7 @@
 """Core Instrument model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set, Union
+from typing import List, Literal, Optional, Set, Union, Dict
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
@@ -74,13 +74,19 @@ class Com(DataModel):
     com_port: str = Field(..., title="COM port")
 
 
+class ConnectionData(DataModel):
+    """Data for a connection"""
+
+    input: Optional[bool] = Field(default=None, title="Input status")
+    output: Optional[bool] = Field(default=None, title="Output status")
+    channel: Optional[int] = Field(default=None, title="Connection channel")
+
+
 class Connection(DataModel):
     """Connection between two devices"""
 
     device_names: List[str] = Field(..., title="Names of connected devices")
-    inputs: Optional[List[bool]] = Field(default=None, title="Input status")
-    outputs: Optional[List[bool]] = Field(default=None, title="Output status")
-    channels: Optional[List[int]] = Field(default=None, title="Connection channels")
+    connection_data: Dict[str, ConnectionData] = Field(default={}, title="Connection data")
 
 
 class Instrument(DataCoreModel):
