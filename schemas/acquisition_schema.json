@@ -5747,8 +5747,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.6",
-         "default": "1.0.6",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5800,7 +5800,7 @@
       },
       "maintenance": {
          "default": [],
-         "description": "List of maintenance on rig prior to acquisition.",
+         "description": "List of maintenance on instrument prior to acquisition.",
          "items": {
             "$ref": "#/$defs/Maintenance"
          },
