@@ -41,7 +41,7 @@
       {
          "device_type": "Objective",
          "name": "TLX Objective 1",
-         "serial_number": "Unknown-1",
+         "serial_number": null,
          "manufacturer": {
             "name": "LifeCanvas",
             "abbreviation": null,
@@ -61,7 +61,7 @@
       {
          "device_type": "Objective",
          "name": "TLX Objective 2",
-         "serial_number": "Unknown-2",
+         "serial_number": null,
          "manufacturer": {
             "name": "LifeCanvas",
             "abbreviation": null,
@@ -271,7 +271,7 @@
       {
          "device_type": "Filter",
          "name": "Em_469",
-         "serial_number": "Unknown-0",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -300,7 +300,7 @@
       {
          "device_type": "Filter",
          "name": "Em_525",
-         "serial_number": "Unknown-1",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -329,7 +329,7 @@
       {
          "device_type": "Filter",
          "name": "Em_593",
-         "serial_number": "Unknown-2",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -358,7 +358,7 @@
       {
          "device_type": "Filter",
          "name": "Em_624",
-         "serial_number": "Unknown-3",
+         "serial_number": null,
          "manufacturer": {
             "name": "Semrock",
             "abbreviation": null,
@@ -387,7 +387,7 @@
       {
          "device_type": "Filter",
          "name": "Em_667",
-         "serial_number": "Unknown-4",
+         "serial_number": null,
          "manufacturer": {
             "name": "Chroma",
             "abbreviation": null,
@@ -416,7 +416,7 @@
       {
          "device_type": "Filter",
          "name": "Em_700",
-         "serial_number": "Unknown-5",
+         "serial_number": null,
          "manufacturer": {
             "name": "Thorlabs",
             "abbreviation": null,
@@ -448,7 +448,7 @@
       {
          "device_type": "Motorized stage",
          "name": "Focus stage",
-         "serial_number": "Unknown-1",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -467,7 +467,7 @@
       {
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #1",
-         "serial_number": "Unknown-5",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -486,7 +486,7 @@
       {
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #2",
-         "serial_number": "Unknown-6",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -505,7 +505,7 @@
       {
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #3",
-         "serial_number": "Unknown-7",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -524,7 +524,7 @@
       {
          "device_type": "Motorized stage",
          "name": "Cylindrical lens #4",
-         "serial_number": "Unknown-8",
+         "serial_number": null,
          "manufacturer": {
             "name": "IR Robot Co",
             "abbreviation": null,
@@ -543,7 +543,7 @@
       {
          "device_type": "Scanning stage",
          "name": "Sample stage Z",
-         "serial_number": "Unknown-2",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -564,7 +564,7 @@
       {
          "device_type": "Scanning stage",
          "name": "Sample stage X",
-         "serial_number": "Unknown-3",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -585,7 +585,7 @@
       {
          "device_type": "Scanning stage",
          "name": "Sample stage Y",
-         "serial_number": "Unknown-4",
+         "serial_number": null,
          "manufacturer": {
             "name": "Applied Scientific Instrumentation",
             "abbreviation": "ASI",
@@ -606,7 +606,7 @@
       {
          "device_type": "Optical table",
          "name": "Main optical table",
-         "serial_number": "Unknown",
+         "serial_number": null,
          "manufacturer": {
             "name": "MKS Newport",
             "abbreviation": null,

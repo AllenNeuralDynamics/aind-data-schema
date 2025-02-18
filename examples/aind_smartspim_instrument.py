@@ -23,7 +23,6 @@ objective_1 = Objective(
     manufacturer=Organization.LIFECANVAS,
     immersion="multi",
     notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-    serial_number="Unknown-1",
 )
 
 objective_2 = Objective(
@@ -33,7 +32,6 @@ objective_2 = Objective(
     manufacturer=Organization.LIFECANVAS,
     immersion="multi",
     notes="Thorlabs TL2X-SAP with LifeCanvas dipping cap and correction optics.",
-    serial_number="Unknown-2",
 )
 
 detector_1 = Detector(
@@ -109,7 +107,6 @@ filter_1 = Filter(
     thickness_unit=SizeUnit.MM,
     model="FF01-469/35-25",
     filter_wheel_index=0,
-    serial_number="Unknown-0",
 )
 
 filter_2 = Filter(
@@ -121,7 +118,6 @@ filter_2 = Filter(
     thickness_unit=SizeUnit.MM,
     model="FF01-525/45-25",
     filter_wheel_index=1,
-    serial_number="Unknown-1",
 )
 
 filter_3 = Filter(
@@ -133,7 +129,6 @@ filter_3 = Filter(
     thickness_unit=SizeUnit.MM,
     model="FF01-593/40-25",
     filter_wheel_index=2,
-    serial_number="Unknown-2",
 )
 
 filter_4 = Filter(
@@ -145,7 +140,6 @@ filter_4 = Filter(
     thickness_unit=SizeUnit.MM,
     model="FF01-624/40-25",
     filter_wheel_index=3,
-    serial_number="Unknown-3",
 )
 
 filter_5 = Filter(
@@ -157,7 +151,6 @@ filter_5 = Filter(
     thickness_unit=SizeUnit.MM,
     model="ET667/30m",
     filter_wheel_index=4,
-    serial_number="Unknown-4",
 )
 
 filter_6 = Filter(
@@ -169,13 +162,11 @@ filter_6 = Filter(
     thickness_unit=SizeUnit.MM,
     model="FELH0700",
     filter_wheel_index=5,
-    serial_number="Unknown-5",
 )
 
 motorized_stage_1 = MotorizedStage(
     model="LS-100",
     manufacturer=Organization.ASI,
-    serial_number="Unknown-1",
     travel=100,
     name="Focus stage",
 )
@@ -183,7 +174,6 @@ motorized_stage_1 = MotorizedStage(
 motorized_stage_2 = MotorizedStage(
     model="L12-20F-4",
     manufacturer=Organization.IR_ROBOT_CO,
-    serial_number="Unknown-5",
     travel=41,
     name="Cylindrical lens #1",
 )
@@ -191,7 +181,6 @@ motorized_stage_2 = MotorizedStage(
 motorized_stage_3 = MotorizedStage(
     model="L12-20F-4",
     manufacturer=Organization.IR_ROBOT_CO,
-    serial_number="Unknown-6",
     travel=41,
     name="Cylindrical lens #2",
 )
@@ -199,7 +188,6 @@ motorized_stage_3 = MotorizedStage(
 motorized_stage_4 = MotorizedStage(
     model="L12-20F-4",
     manufacturer=Organization.IR_ROBOT_CO,
-    serial_number="Unknown-7",
     travel=41,
     name="Cylindrical lens #3",
 )
@@ -207,7 +195,6 @@ motorized_stage_4 = MotorizedStage(
 motorized_stage_5 = MotorizedStage(
     model="L12-20F-4",
     manufacturer=Organization.IR_ROBOT_CO,
-    serial_number="Unknown-8",
     travel=41,
     name="Cylindrical lens #4",
 )
@@ -215,7 +202,6 @@ motorized_stage_5 = MotorizedStage(
 scanning_stage_1 = ScanningStage(
     model="LS-50",
     manufacturer=Organization.ASI,
-    serial_number="Unknown-2",
     stage_axis_direction="Detection axis",
     stage_axis_name="Z",
     travel=50,
@@ -225,7 +211,6 @@ scanning_stage_1 = ScanningStage(
 scanning_stage_2 = ScanningStage(
     model="LS-50",
     manufacturer=Organization.ASI,
-    serial_number="Unknown-3",
     stage_axis_direction="Illumination axis",
     stage_axis_name="X",
     travel=50,
@@ -235,7 +220,6 @@ scanning_stage_2 = ScanningStage(
 scanning_stage_3 = ScanningStage(
     model="LS-50",
     manufacturer=Organization.ASI,
-    serial_number="Unknown-4",
     stage_axis_direction="Perpendicular axis",
     stage_axis_name="Y",
     travel=50,
@@ -249,7 +233,6 @@ optical_table_1 = OpticalTable(
     vibration_control=False,
     model="VIS2424-IG2-125A",
     manufacturer=Organization.MKS_NEWPORT,
-    serial_number="Unknown",
 )
 
 objectives = [objective_1, objective_2]
