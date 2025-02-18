@@ -24,6 +24,7 @@ from aind_data_schema.components.devices import (
     RewardDelivery,
     RewardSpout,
     SpoutSide,
+    ScanningStage,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
@@ -281,11 +282,19 @@ class TestMetadata(unittest.TestCase):
                 ),
             ),
         )
+        scan_stage = ScanningStage(
+            name="Sample stage Z",
+            model="LS-50",
+            manufacturer=Organization.ASI,
+            stage_axis_direction="Detection axis",
+            stage_axis_name="Z",
+            travel=50,
+        )
 
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=[Modality.BEHAVIOR, Modality.SPIM],
-            components=[objective, reward_delivery, mouse_platform],
+            components=[objective, reward_delivery, mouse_platform, scan_stage],
         )
         session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 

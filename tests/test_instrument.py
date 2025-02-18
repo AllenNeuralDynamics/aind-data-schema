@@ -36,6 +36,7 @@ from aind_data_schema.components.devices import (
     RewardDelivery,
     RewardSpout,
     SpoutSide,
+    ScanningStage,
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 
@@ -85,6 +86,13 @@ ems = [
     )
 ]
 
+laser = Laser(
+    manufacturer=Organization.HAMAMATSU,
+    serial_number="1234",
+    name="Laser A",
+    wavelength=488,
+)
+
 lms = [
     LaserAssembly(
         lasers=[
@@ -130,6 +138,14 @@ cameras = [
         ),
     )
 ]
+scan_stage = ScanningStage(
+    name="Sample stage Z",
+    model="LS-50",
+    manufacturer=Organization.ASI,
+    stage_axis_direction="Detection axis",
+    stage_axis_name="Z",
+    travel=50,
+)
 stick_microscopes = [
     CameraAssembly(
         name="Assembly A",
@@ -269,10 +285,12 @@ class InstrumentTests(unittest.TestCase):
                 *stick_microscopes,
                 *light_sources,
                 *lms,
+                laser,
                 *ems,
                 *detectors,
                 *patch_cords,
                 *stimulus_devices,
+                scan_stage,
                 Disc(name="Disc A", radius=1),
             ],
             calibrations=[
