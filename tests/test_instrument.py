@@ -194,7 +194,6 @@ objectives = [
         manufacturer=Organization.LIFECANVAS,
         immersion="multi",
         notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-        serial_number="Unknown-1",
     )
 ]
 stimulus_devices = [

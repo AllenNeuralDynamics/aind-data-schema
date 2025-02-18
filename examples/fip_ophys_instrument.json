@@ -48,7 +48,7 @@
          "camera": {
             "device_type": "Detector",
             "name": "Side face camera",
-            "serial_number": "TBD",
+            "serial_number": null,
             "manufacturer": {
                "name": "Ailipu Technology Co",
                "abbreviation": "Ailipu",
@@ -96,7 +96,7 @@
          "lens": {
             "device_type": "Lens",
             "name": "Xenocam 1",
-            "serial_number": "unknown",
+            "serial_number": null,
             "manufacturer": {
                "name": "Other",
                "abbreviation": null,
@@ -126,7 +126,7 @@
          "camera": {
             "device_type": "Detector",
             "name": "Bottom face Camera",
-            "serial_number": "TBD",
+            "serial_number": null,
             "manufacturer": {
                "name": "Ailipu Technology Co",
                "abbreviation": "Ailipu",
@@ -174,7 +174,7 @@
          "lens": {
             "device_type": "Lens",
             "name": "Xenocam 2",
-            "serial_number": "unknown",
+            "serial_number": null,
             "manufacturer": {
                "name": "Other",
                "abbreviation": null,

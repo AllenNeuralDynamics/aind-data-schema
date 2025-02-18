@@ -492,7 +492,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 camera=d.Camera(
                     name="Side face camera",
                     detector_type="Camera",
-                    serial_number="TBD",
                     manufacturer=d.Organization.AILIPU,
                     model="ELP-USBFHD05MT-KL170IR",
                     notes="The light intensity sensor was removed; IR illumination is constantly on",
@@ -510,7 +509,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 lens=d.Lens(
                     name="Xenocam 1",
                     model="XC0922LENS",
-                    serial_number="unknown",
                     manufacturer=d.Organization.OTHER,
                     max_aperture="f/1.4",
                     notes='Focal Length 9-22mm 1/3" IR F1.4',
@@ -522,7 +520,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 camera=d.Camera(
                     name="Bottom face Camera",
                     detector_type="Camera",
-                    serial_number="TBD",
                     manufacturer=d.Organization.AILIPU,
                     model="ELP-USBFHD05MT-KL170IR",
                     notes="The light intensity sensor was removed; IR illumination is constantly on",
@@ -540,7 +537,6 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 lens=d.Lens(
                     name="Xenocam 2",
                     model="XC0922LENS",
-                    serial_number="unknown",
                     manufacturer=d.Organization.OTHER,
                     max_aperture="f/1.4",
                     notes='Focal Length 9-22mm 1/3" IR F1.4',
