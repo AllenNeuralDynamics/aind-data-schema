@@ -1,119 +1,54 @@
 {
-   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",
-   "schema_version": "1.0.5",
-   "rig_id": "428_FIP1_20231003",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
+   "schema_version": "2.0.0",
+   "instrument_id": "428_FIP1_20231003",
    "modification_date": "2023-10-03",
-   "mouse_platform": {
-      "device_type": "Disc",
-      "name": "mouse_disc",
-      "serial_number": null,
-      "manufacturer": null,
-      "model": null,
-      "path_to_cad": null,
-      "port_index": null,
-      "additional_settings": {},
-      "notes": null,
-      "surface_material": null,
-      "date_surface_replaced": null,
-      "radius": "8.5",
-      "radius_unit": "centimeter",
-      "output": null,
-      "encoder": null,
-      "decoder": null,
-      "encoder_firmware": null
-   },
-   "stimulus_devices": [
+   "calibrations": [
       {
-         "device_type": "Reward delivery",
-         "stage_type": null,
-         "reward_spouts": [
-            {
-               "device_type": "Reward spout",
-               "name": "Left spout",
-               "serial_number": null,
-               "manufacturer": null,
-               "model": null,
-               "path_to_cad": null,
-               "port_index": null,
-               "additional_settings": {},
-               "notes": null,
-               "side": "Left",
-               "spout_diameter": "1.2",
-               "spout_diameter_unit": "millimeter",
-               "spout_position": null,
-               "solenoid_valve": {
-                  "device_type": "Solenoid",
-                  "name": "Solenoid Left",
-                  "serial_number": null,
-                  "manufacturer": null,
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": {},
-                  "notes": null
-               },
-               "lick_sensor": {
-                  "device_type": "Lick detector",
-                  "name": "Lick-o-meter Left",
-                  "serial_number": null,
-                  "manufacturer": null,
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": {},
-                  "notes": null
-               },
-               "lick_sensor_type": null
-            },
-            {
-               "device_type": "Reward spout",
-               "name": "Right spout",
-               "serial_number": null,
-               "manufacturer": null,
-               "model": null,
-               "path_to_cad": null,
-               "port_index": null,
-               "additional_settings": {},
-               "notes": null,
-               "side": "Right",
-               "spout_diameter": "1.2",
-               "spout_diameter_unit": "millimeter",
-               "spout_position": null,
-               "solenoid_valve": {
-                  "device_type": "Solenoid",
-                  "name": "Solenoid Right",
-                  "serial_number": null,
-                  "manufacturer": null,
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": {},
-                  "notes": null
-               },
-               "lick_sensor": {
-                  "device_type": "Lick detector",
-                  "name": "Lick-o-meter Right",
-                  "serial_number": null,
-                  "manufacturer": null,
-                  "model": null,
-                  "path_to_cad": null,
-                  "port_index": null,
-                  "additional_settings": {},
-                  "notes": null
-               },
-               "lick_sensor_type": null
-            }
-         ]
+         "calibration_date": "2023-10-02T03:15:22Z",
+         "device_name": "470nm LED",
+         "description": "LED calibration",
+         "input": {
+            "Power setting": [
+               1,
+               2,
+               3
+            ]
+         },
+         "output": {
+            "Power mW": [
+               5,
+               10,
+               13
+            ]
+         },
+         "notes": null
       }
    ],
-   "cameras": [
+   "ccf_coordinate_transform": null,
+   "origin": null,
+   "instrument_axes": null,
+   "modalities": [
+      {
+         "name": "Fiber photometry",
+         "abbreviation": "fib"
+      }
+   ],
+   "com_ports": [],
+   "instrument_type": null,
+   "manufacturer": null,
+   "temperature_control": null,
+   "notes": null,
+   "connections": [],
+   "components": [
       {
          "name": "BehaviorVideography_FaceSide",
+         "device_type": "Camera assembly",
          "camera_target": "Face side left",
          "camera": {
             "device_type": "Detector",
             "name": "Side face camera",
-            "serial_number": "TBD",
+            "serial_number": null,
             "manufacturer": {
                "name": "Ailipu Technology Co",
                "abbreviation": "Ailipu",
@@ -123,7 +58,7 @@
             "model": "ELP-USBFHD05MT-KL170IR",
             "path_to_cad": null,
             "port_index": null,
-            "additional_settings": {},
+            "additional_settings": null,
             "notes": "The light intensity sensor was removed; IR illumination is constantly on",
             "detector_type": "Camera",
             "data_interface": "USB",
@@ -161,7 +96,7 @@
          "lens": {
             "device_type": "Lens",
             "name": "Xenocam 1",
-            "serial_number": "unknown",
+            "serial_number": null,
             "manufacturer": {
                "name": "Other",
                "abbreviation": null,
@@ -171,7 +106,7 @@
             "model": "XC0922LENS",
             "path_to_cad": null,
             "port_index": null,
-            "additional_settings": {},
+            "additional_settings": null,
             "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
             "focal_length": null,
             "focal_length_unit": null,
@@ -186,11 +121,12 @@
       },
       {
          "name": "BehaviorVideography_FaceBottom",
+         "device_type": "Camera assembly",
          "camera_target": "Face bottom",
          "camera": {
             "device_type": "Detector",
             "name": "Bottom face Camera",
-            "serial_number": "TBD",
+            "serial_number": null,
             "manufacturer": {
                "name": "Ailipu Technology Co",
                "abbreviation": "Ailipu",
@@ -200,7 +136,7 @@
             "model": "ELP-USBFHD05MT-KL170IR",
             "path_to_cad": null,
             "port_index": null,
-            "additional_settings": {},
+            "additional_settings": null,
             "notes": "The light intensity sensor was removed; IR illumination is constantly on",
             "detector_type": "Camera",
             "data_interface": "USB",
@@ -238,7 +174,7 @@
          "lens": {
             "device_type": "Lens",
             "name": "Xenocam 2",
-            "serial_number": "unknown",
+            "serial_number": null,
             "manufacturer": {
                "name": "Other",
                "abbreviation": null,
@@ -248,7 +184,7 @@
             "model": "XC0922LENS",
             "path_to_cad": null,
             "port_index": null,
-            "additional_settings": {},
+            "additional_settings": null,
             "notes": "Focal Length 9-22mm 1/3\" IR F1.4",
             "focal_length": null,
             "focal_length_unit": null,
@@ -260,14 +196,7 @@
          },
          "filter": null,
          "position": null
-      }
-   ],
-   "enclosure": null,
-   "ephys_assemblies": [],
-   "fiber_assemblies": [],
-   "stick_microscopes": [],
-   "laser_assemblies": [],
-   "patch_cords": [
+      },
       {
          "device_type": "Patch",
          "name": "Bundle Branching Fiber-optic Patch Cord",
@@ -284,14 +213,12 @@
          "model": "BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "core_diameter": "200",
          "numerical_aperture": "0.37",
          "photobleaching_date": null
-      }
-   ],
-   "light_sources": [
+      },
       {
          "device_type": "Light emitting diode",
          "name": "470nm LED",
@@ -308,7 +235,7 @@
          "model": "M470F3",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 470,
          "wavelength_unit": "nanometer",
@@ -331,7 +258,7 @@
          "model": "M415F3",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 415,
          "wavelength_unit": "nanometer",
@@ -354,15 +281,13 @@
          "model": "M565F3",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "wavelength": 565,
          "wavelength_unit": "nanometer",
          "bandwidth": null,
          "bandwidth_unit": null
-      }
-   ],
-   "detectors": [
+      },
       {
          "device_type": "Detector",
          "name": "Green CMOS",
@@ -379,7 +304,7 @@
          "model": "BFS-U3-20S40M",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -425,7 +350,7 @@
          "model": "BFS-U3-20S40M",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -454,9 +379,7 @@
          "recording_software": null,
          "driver": null,
          "driver_version": null
-      }
-   ],
-   "objectives": [
+      },
       {
          "device_type": "Objective",
          "name": "Objective",
@@ -473,15 +396,13 @@
          "model": "CFI Plan Apochromat Lambda D 10x",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "numerical_aperture": "0.45",
          "magnification": "10",
          "immersion": "air",
          "objective_type": null
-      }
-   ],
-   "filters": [
+      },
       {
          "device_type": "Filter",
          "name": "Green emission filter",
@@ -495,7 +416,7 @@
          "model": "FF01-520/35-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -524,7 +445,7 @@
          "model": "FF01-600/37-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -553,7 +474,7 @@
          "model": "FF562-Di03-25x36",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Dichroic",
          "diameter": null,
@@ -582,7 +503,7 @@
          "model": "FF493/574-Di01-25x36",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
          "filter_type": "Multiband",
          "diameter": null,
@@ -614,7 +535,7 @@
          "model": "FB410-10",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -646,7 +567,7 @@
          "model": "FB470-10",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -678,7 +599,7 @@
          "model": "FB560-10",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -710,7 +631,7 @@
          "model": "#69-898",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Dichroic",
          "diameter": null,
@@ -742,7 +663,7 @@
          "model": "#69-899",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Dichroic",
          "diameter": null,
@@ -757,9 +678,7 @@
          "center_wavelength": null,
          "wavelength_unit": "nanometer",
          "description": null
-      }
-   ],
-   "lenses": [
+      },
       {
          "device_type": "Lens",
          "name": "Image focusing lens",
@@ -776,7 +695,7 @@
          "model": "AC254-080-A-ML",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "focal_length": "80",
          "focal_length_unit": "millimeter",
@@ -785,25 +704,7 @@
          "optimized_wavelength_range": null,
          "wavelength_unit": "nanometer",
          "max_aperture": null
-      }
-   ],
-   "digital_micromirror_devices": [],
-   "polygonal_scanners": [],
-   "pockels_cells": [],
-   "additional_devices": [
-      {
-         "device_type": "Photometry Clock",
-         "name": "Photometry Clock",
-         "serial_number": null,
-         "manufacturer": null,
-         "model": null,
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null
-      }
-   ],
-   "daqs": [
+      },
       {
          "device_type": "Harp device",
          "name": "Harp Behavior",
@@ -820,7 +721,7 @@
          "model": null,
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "data_interface": "USB",
          "computer_name": "behavior_computer",
@@ -885,38 +786,118 @@
          "core_version": "2.1",
          "tag_version": null,
          "is_clock_generator": false
-      }
-   ],
-   "calibrations": [
+      },
       {
-         "calibration_date": "2023-10-02T03:15:22Z",
-         "device_name": "470nm LED",
-         "description": "LED calibration",
-         "input": {
-            "Power setting": [
-               1,
-               2,
-               3
-            ]
-         },
-         "output": {
-            "Power mW": [
-               5,
-               10,
-               13
-            ]
-         },
+         "device_type": "Reward delivery",
+         "stage_type": null,
+         "reward_spouts": [
+            {
+               "device_type": "Reward spout",
+               "name": "Left spout",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": null,
+               "notes": null,
+               "side": "Left",
+               "spout_diameter": "1.2",
+               "spout_diameter_unit": "millimeter",
+               "spout_position": null,
+               "solenoid_valve": {
+                  "device_type": "device",
+                  "name": "Solenoid Left",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor": {
+                  "device_type": "device",
+                  "name": "Lick-o-meter Left",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor_type": null
+            },
+            {
+               "device_type": "Reward spout",
+               "name": "Right spout",
+               "serial_number": null,
+               "manufacturer": null,
+               "model": null,
+               "path_to_cad": null,
+               "port_index": null,
+               "additional_settings": null,
+               "notes": null,
+               "side": "Right",
+               "spout_diameter": "1.2",
+               "spout_diameter_unit": "millimeter",
+               "spout_position": null,
+               "solenoid_valve": {
+                  "device_type": "device",
+                  "name": "Solenoid Right",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor": {
+                  "device_type": "device",
+                  "name": "Lick-o-meter Right",
+                  "serial_number": null,
+                  "manufacturer": null,
+                  "model": null,
+                  "path_to_cad": null,
+                  "port_index": null,
+                  "additional_settings": null,
+                  "notes": null
+               },
+               "lick_sensor_type": null
+            }
+         ]
+      },
+      {
+         "device_type": "device",
+         "name": "Photometry Clock",
+         "serial_number": null,
+         "manufacturer": null,
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
          "notes": null
-      }
-   ],
-   "ccf_coordinate_transform": null,
-   "origin": null,
-   "rig_axes": null,
-   "modalities": [
+      },
       {
-         "name": "Fiber photometry",
-         "abbreviation": "fib"
+         "device_type": "Disc",
+         "name": "mouse_disc",
+         "serial_number": null,
+         "manufacturer": null,
+         "model": null,
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "surface_material": null,
+         "date_surface_replaced": null,
+         "radius": "8.5",
+         "radius_unit": "centimeter",
+         "output": null,
+         "encoder": null,
+         "decoder": null,
+         "encoder_firmware": null
       }
-   ],
-   "notes": null
+   ]
 }

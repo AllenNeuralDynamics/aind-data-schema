@@ -13,7 +13,6 @@ from aind_data_schema_models.data_name_patterns import (
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.platforms import Platform
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
@@ -40,14 +39,9 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.0.5"]] = Field(default="1.0.5")
-    license: Literal["CC-BY-4.0"] = Field("CC-BY-4.0", title="License")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
+    license: Literal["CC-BY-4.0"] = Field(default="CC-BY-4.0", title="License")
 
-    platform: Platform.ONE_OF = Field(
-        ...,
-        description="Name for a standardized primary data collection system",
-        title="Platform",
-    )
     subject_id: str = Field(
         ...,
         pattern=DataRegex.NO_UNDERSCORES.value,
@@ -109,11 +103,11 @@ class DataDescription(DataCoreModel):
         description="Detail any restrictions on publishing or sharing these data",
         title="Restrictions",
     )
-    modality: List[Modality.ONE_OF] = Field(
+    modalities: List[Modality.ONE_OF] = Field(
         ...,
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
-        title="Modality",
+        title="Modalities",
     )
     related_data: List[RelatedData] = Field(
         default=[],
@@ -132,7 +126,7 @@ class DataDescription(DataCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             label=m.group("label"),
@@ -142,11 +136,13 @@ class DataDescription(DataCoreModel):
     @model_validator(mode="after")
     def build_name(self):
         """sets the name of the file"""
-        print(self)
-        if self.label is not None and self.name is None:
-            self.name = build_data_name(self.label, creation_datetime=self.creation_time)
-        elif self.name is None:
-            raise ValueError("Either label or name must be set")
+        if self.name is None:
+            self.name = build_data_name(self.subject_id, creation_datetime=self.creation_time)
+
+        # check that the name matches the name regex
+        if not re.match(DataRegex.DATA.value, self.name):
+            raise ValueError(f"Name({self.name}) does not match allowed Regex pattern")
+
         return self
 
 
@@ -174,7 +170,7 @@ class DerivedDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             process_name=m.group("process_name"),
@@ -244,8 +240,7 @@ class DerivedDataDescription(DataDescription):
             group=get_or_default("group"),
             investigators=get_or_default("investigators"),
             restrictions=get_or_default("restrictions"),
-            modality=get_or_default("modality"),
-            platform=get_or_default("platform"),
+            modalities=get_or_default("modalities"),
             project_name=get_or_default("project_name"),
             subject_id=get_or_default("subject_id"),
             related_data=get_or_default("related_data"),
@@ -255,7 +250,7 @@ class DerivedDataDescription(DataDescription):
 
 
 class RawDataDescription(DataDescription):
-    """A logical collection of data files as acquired from a rig or instrument"""
+    """A logical collection of data files as acquired from an instrument"""
 
     data_level: Literal[DataLevel.RAW] = Field(
         default=DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
@@ -264,8 +259,7 @@ class RawDataDescription(DataDescription):
     @model_validator(mode="after")
     def build_name(self):
         """sets the name of the file"""
-        platform_abbreviation = self.platform.abbreviation
-        self.name = build_data_name(f"{platform_abbreviation}_{self.subject_id}", creation_datetime=self.creation_time)
+        self.name = build_data_name(f"{self.subject_id}", creation_datetime=self.creation_time)
         return self
 
     @classmethod
@@ -277,13 +271,9 @@ class RawDataDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
-
-        platform_abbreviation = m.group("platform_abbreviation")
-        platform = Platform.from_abbreviation(platform_abbreviation)
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
-            platform=platform,
             subject_id=m.group("subject_id"),
             creation_time=creation_time,
         )
@@ -323,7 +313,7 @@ class AnalysisDescription(DataDescription):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_date"), m.group("c_time"))
+        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
         return dict(
             project_abbreviation=m.group("project_abbreviation"),
