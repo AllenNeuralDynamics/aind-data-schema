@@ -477,6 +477,8 @@ class InstrumentTests(unittest.TestCase):
                     *patch_cords,
                     *stimulus_devices,
                     *objectives,
+                    laser,
+                    dmd,
                 ],
                 calibrations=[],
             )
