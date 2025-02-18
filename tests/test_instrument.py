@@ -479,6 +479,7 @@ class InstrumentTests(unittest.TestCase):
                     *objectives,
                     laser,
                     dmd,
+                    scan_stage,
                 ],
                 calibrations=[],
             )
