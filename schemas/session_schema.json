@@ -541,7 +541,7 @@
                ],
                "default": null,
                "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
+               "title": "Transform from local manipulator axes to instrument"
             },
             "calibration_date": {
                "anyOf": [
@@ -675,7 +675,7 @@
                ],
                "default": null,
                "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
+               "title": "Transform from local manipulator axes to instrument"
             },
             "calibration_date": {
                "anyOf": [
@@ -11199,7 +11199,7 @@
                "type": "string"
             },
             "name": {
-               "description": "Must match rig json",
+               "description": "Must match instrument json",
                "title": "Name",
                "type": "string"
             },
@@ -11601,7 +11601,7 @@
                ],
                "default": null,
                "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
+               "title": "Transform from local manipulator axes to instrument"
             },
             "calibration_date": {
                "anyOf": [
@@ -19559,7 +19559,7 @@
          "properties": {
             "side": {
                "$ref": "#/$defs/SpoutSide",
-               "description": "Must match rig",
+               "description": "Must match instrument",
                "title": "Spout side"
             },
             "starting_position": {
@@ -20121,8 +20121,15 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional parameters"
             },
             "notes": {
@@ -23889,7 +23896,7 @@
          "description": "Description of auditory speaker configuration",
          "properties": {
             "name": {
-               "description": "Must match rig json",
+               "description": "Must match instrument json",
                "title": "Name",
                "type": "string"
             },
@@ -27891,7 +27898,7 @@
             },
             "stick_microscopes": {
                "default": [],
-               "description": "Must match stick microscope assemblies in rig file",
+               "description": "Must match stick microscope assemblies in instrument file",
                "items": {
                   "$ref": "#/$defs/DomeModule"
                },
@@ -59045,8 +59052,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.5",
-         "default": "1.1.5",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59089,6 +59096,10 @@
          "title": "Session type",
          "type": "string"
       },
+      "instrument_id": {
+         "title": "Instrument ID",
+         "type": "string"
+      },
       "ethics_review_id": {
          "anyOf": [
             {
@@ -59101,13 +59112,9 @@
          "default": null,
          "title": "Ethics review ID"
       },
-      "rig_id": {
-         "title": "Rig ID",
-         "type": "string"
-      },
       "calibrations": {
          "default": [],
-         "description": "Calibrations of rig devices prior to session",
+         "description": "Calibrations of instrument devices prior to session",
          "items": {
             "$ref": "#/$defs/Calibration"
          },
@@ -59116,7 +59123,7 @@
       },
       "maintenance": {
          "default": [],
-         "description": "Maintenance of rig devices prior to session",
+         "description": "Maintenance of instrument devices prior to session",
          "items": {
             "$ref": "#/$defs/Maintenance"
          },
@@ -59262,7 +59269,7 @@
    "required": [
       "session_start_time",
       "session_type",
-      "rig_id",
+      "instrument_id",
       "subject_id",
       "data_streams",
       "mouse_platform_name",

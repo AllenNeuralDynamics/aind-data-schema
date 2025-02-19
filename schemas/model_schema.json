@@ -5485,8 +5485,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.0.1",
-         "default": "0.0.1",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5915,7 +5915,7 @@
          "default": null,
          "title": "Institute where developed"
       },
-      "modality": {
+      "modalities": {
          "items": {
             "discriminator": {
                "mapping": {
@@ -5981,7 +5981,7 @@
                }
             ]
          },
-         "title": "Modality",
+         "title": "Modalities",
          "type": "array"
       },
       "architecture": {
@@ -6063,7 +6063,7 @@
    "required": [
       "name",
       "license",
-      "modality",
+      "modalities",
       "architecture",
       "intended_use"
    ],

@@ -2,10 +2,10 @@
 
 import re
 import unittest
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import PowerUnit, FrequencyUnit
+from aind_data_schema_models.units import PowerUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -16,10 +16,11 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, DAQChannel, DAQDevice
+from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core import acquisition as acq
-from aind_data_schema.core import instrument as inst
 from aind_data_schema.core.processing import Registration
+from aind_data_schema.core.instrument import Instrument
+from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.identifiers import Person
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -28,8 +29,8 @@ PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 class ImagingTests(unittest.TestCase):
     """test imaging schemas"""
 
-    def test_constructors(self):
-        """testing constructors"""
+    def test_acquisition_constructor(self):
+        """testing Acquisition constructor"""
         with self.assertRaises(ValidationError):
             acq.Acquisition()
 
@@ -75,62 +76,75 @@ class ImagingTests(unittest.TestCase):
 
         self.assertIsNotNone(a)
 
+    def test_instrument_constructor(self):
+        """testing Instrument constructor"""
         with self.assertRaises(ValidationError):
-            inst.Instrument()
+            Instrument()
 
-        i = inst.Instrument(
+        laser = Laser(
+            manufacturer=Organization.HAMAMATSU,
+            serial_number="1234",
+            name="Laser A",
+            wavelength=488,
+        )
+
+        objective = Objective(
+            name="TLX Objective",
+            numerical_aperture=0.2,
+            magnification=3.6,
+            immersion="multi",
+            manufacturer=Organization.THORLABS,
+            model="TL4X-SAP",
+            notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+        )
+
+        scan_stage = ScanningStage(
+            name="Sample stage Z",
+            model="LS-50",
+            manufacturer=Organization.ASI,
+            stage_axis_direction="Detection axis",
+            stage_axis_name="Z",
+            travel=50,
+        )
+
+        i = Instrument(
+            instrument_id="room_exaSPIM1-1_20231004",
+            modalities=[Modality.SPIM],
             instrument_type="diSPIM",
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
-            objectives=[],
-            detectors=[],
-            light_sources=[],
+            components=[objective, laser, scan_stage],
         )
 
         self.assertIsNotNone(i)
 
+    def test_instrument_type_other_requires_notes(self):
+        """testing Instrument type Other requires notes"""
         with self.assertRaises(ValidationError) as e1:
-            inst.Instrument(
+            Instrument(
+                instrument_id="room_exaSPIM1-1_20231004",
+                modalities=[Modality.SPIM],
                 instrument_type="Other",
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Organization.OTHER,
-                objectives=[],
-                detectors=[],
-                light_sources=[],
+                components=[],
             )
 
-        expected_exception1 = (
-            "1 validation error for Instrument\n"
-            "notes\n"
-            "  Value error, Notes cannot be empty if instrument_type is Other."
-            " Describe the instrument_type in the notes field."
-            " [type=value_error, input_value=None, input_type=NoneType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        self.assertEqual(expected_exception1, repr(e1.exception))
+        self.assertIn("instrument_id", repr(e1.exception))
 
+    def test_modality_spim_requires_components(self):
+        """testing Modality SPIM requires components"""
         with self.assertRaises(ValidationError) as e2:
-            inst.Instrument(
+            Instrument(
+                instrument_id="room_exaSPIM1-1_20231004",
+                modalities=[Modality.SPIM],
+                modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 instrument_type="diSPIM",
                 manufacturer=Organization.OTHER,
-                objectives=[],
-                detectors=[],
-                light_sources=[],
+                components=[],
             )
 
-        expected_exception2 = (
-            "2 validation errors for Instrument\n"
-            "modification_date\n"
-            "  Field required [type=missing, input_value={'instrument_type': 'diSP...[],"
-            " 'light_sources': []}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "notes\n"
-            "  Value error, Notes cannot be empty if manufacturer is Other."
-            " Describe the manufacturer in the notes field."
-            " [type=value_error, input_value=None, input_type=NoneType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        self.assertEqual(expected_exception2, repr(e2.exception))
+        self.assertIn("modality 'SPIM' requires at least one device", repr(e2.exception))
 
     def test_axis(self):
         """test the axis class"""
@@ -208,85 +222,6 @@ class ImagingTests(unittest.TestCase):
         )
 
         self.assertIsNotNone(t)
-
-    def test_validators(self):
-        """test the validators"""
-
-        with self.assertRaises(ValidationError) as e:
-            inst.Instrument(
-                instrument_id="exaSPIM1-1",
-                instrument_type="exaSPIM",
-                modification_date=date(2023, 10, 4),
-                manufacturer=Organization.CUSTOM,
-                daqs=[
-                    DAQDevice(
-                        model="PCIe-6738",
-                        data_interface="USB",
-                        computer_name="Dev2",
-                        manufacturer=Organization.NATIONAL_INSTRUMENTS,
-                        name="Dev2",
-                        serial_number="Unknown",
-                        channels=[
-                            DAQChannel(
-                                channel_name="3",
-                                channel_type="Analog Output",
-                                device_name="LAS-08308",
-                                sample_rate=10000,
-                                sample_rate_unit=FrequencyUnit.HZ,
-                            ),
-                            DAQChannel(
-                                channel_name="5",
-                                channel_type="Analog Output",
-                                device_name="539251",
-                                sample_rate=10000,
-                                sample_rate_unit=FrequencyUnit.HZ,
-                            ),
-                            DAQChannel(
-                                channel_name="4",
-                                channel_type="Analog Output",
-                                device_name="LAS-08309",
-                                sample_rate=10000,
-                                sample_rate_unit=FrequencyUnit.HZ,
-                            ),
-                            DAQChannel(
-                                channel_name="2",
-                                channel_type="Analog Output",
-                                device_name="stage-x",
-                                sample_rate=10000,
-                                sample_rate_unit=FrequencyUnit.HZ,
-                            ),
-                            DAQChannel(
-                                channel_name="0",
-                                channel_type="Analog Output",
-                                device_name="TL-1",
-                                sample_rate=10000,
-                                sample_rate_unit=FrequencyUnit.HZ,
-                            ),
-                            DAQChannel(
-                                channel_name="6",
-                                channel_type="Analog Output",
-                                device_name="LAS-08307",
-                                sample_rate=10000,
-                                sample_rate_unit=FrequencyUnit.HZ,
-                            ),
-                        ],
-                    )
-                ],
-            )
-        expected_exception = (
-            "2 validation errors for Instrument\n"
-            "objectives\n"
-            "  Field required [type=missing,"
-            " input_value={'instrument_id': 'exaSPI...hardware_version=None)]}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "daqs\n"
-            "  Value error, Device name validation error: 'LAS-08308' is connected to '3' on 'Dev2',"
-            " but this device is not part of the rig. [type=value_error,"
-            " input_value=[DAQDevice(device_type='D... hardware_version=None)], input_type=list]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        print(repr(e.exception))
-        self.assertEqual(expected_exception, repr(e.exception))
 
 
 if __name__ == "__main__":

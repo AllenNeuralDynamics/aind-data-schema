@@ -132,7 +132,14 @@
                "type": "boolean"
             },
             "latest_status": {
-               "$ref": "#/$defs/Status",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Status"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": null,
                "title": "Evaluation status"
             },
@@ -553,8 +560,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.2",
-         "default": "1.2.2",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
