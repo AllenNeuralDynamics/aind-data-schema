@@ -1,5 +1,5 @@
 {
-   "data_type": "raw_data_description",
+   "data_type": "Raw data description",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
    "schema_version": "2.0.0",
    "license": "CC-BY-4.0",
@@ -18,7 +18,7 @@
    },
    "funding_source": [
       {
-         "data_type": "funding",
+         "data_type": "Funding",
          "funder": {
             "name": "Allen Institute",
             "abbreviation": "AI",

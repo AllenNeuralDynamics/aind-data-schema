@@ -1,5 +1,5 @@
 {
-   "data_type": "session",
+   "data_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "2.0.0",
    "protocol_id": [
@@ -29,7 +29,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
-         "data_type": "stream",
+         "data_type": "Stream",
          "stream_start_time": "2024-03-12T16:27:55.584892Z",
          "stream_end_time": "2024-03-12T16:27:55.584892Z",
          "daq_names": [],
@@ -46,12 +46,12 @@
          "stack_parameters": null,
          "mri_scans": [
             {
-               "data_type": "m_r_i_scan",
+               "data_type": "M r i scan",
                "scan_index": 1,
                "scan_type": "Set Up",
                "primary_scan": false,
                "mri_scanner": {
-                  "data_type": "scanner",
+                  "data_type": "Scanner",
                   "name": "Scanner 72",
                   "serial_number": null,
                   "manufacturer": null,
@@ -75,7 +75,7 @@
                "vc_position": null,
                "subject_position": "Supine",
                "voxel_sizes": {
-                  "data_type": "scale3d_transform",
+                  "data_type": "Scale3d transform",
                   "scale": [
                      "0.5",
                      "0.4375",
@@ -87,12 +87,12 @@
                "notes": "Set up scan for the 3D scan."
             },
             {
-               "data_type": "m_r_i_scan",
+               "data_type": "M r i scan",
                "scan_index": 2,
                "scan_type": "3D Scan",
                "primary_scan": true,
                "mri_scanner": {
-                  "data_type": "scanner",
+                  "data_type": "Scanner",
                   "name": "Scanner 72",
                   "serial_number": null,
                   "manufacturer": null,
@@ -113,7 +113,7 @@
                "repetition_time": "500.0",
                "repetition_time_unit": "millisecond",
                "vc_orientation": {
-                  "data_type": "rotation3d_transform",
+                  "data_type": "Rotation3d transform",
                   "rotation": [
                      "1.0",
                      "0.0",
@@ -127,7 +127,7 @@
                   ]
                },
                "vc_position": {
-                  "data_type": "translation3d_transform",
+                  "data_type": "Translation3d transform",
                   "translation": [
                      "-6.1",
                      "-7.0",
@@ -136,7 +136,7 @@
                },
                "subject_position": "Supine",
                "voxel_sizes": {
-                  "data_type": "scale3d_transform",
+                  "data_type": "Scale3d transform",
                   "scale": [
                      "0.1",
                      "0.1",
