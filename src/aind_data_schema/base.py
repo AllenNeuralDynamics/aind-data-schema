@@ -22,7 +22,6 @@ from pydantic import (
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
-from aind_data_schema_models.brain_atlas import CCFStructure
 
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
@@ -77,7 +76,7 @@ def is_dict_corrupt(input_dict: dict) -> bool:
     return has_corrupt_keys(input_dict)
 
 
-class AindGeneric(BaseModel, extra="allow"):
+class GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
 
     # extra="allow" is needed because BaseModel by default drops extra parameters.
@@ -96,10 +95,10 @@ class AindGeneric(BaseModel, extra="allow"):
         return self
 
 
-AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
+GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
 
 
-class AindModel(BaseModel, Generic[AindGenericType]):
+class DataModel(BaseModel, Generic[GenericModelType]):
     """BaseModel that disallows extra fields
 
     Also performs validation checks / coercion / upgrades where necessary
@@ -107,18 +106,35 @@ class AindModel(BaseModel, Generic[AindGenericType]):
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
 
-    @model_validator(mode="before")
-    def coerce_targeted_structures(cls, values):
-        """If a user passes a targeted_structure as a str, convert to CCFStructure"""
-        for field_name, value in values.items():
-            if "targeted_structure" in field_name and isinstance(value, str):
-                if not hasattr(CCFStructure, value.upper()):
-                    raise ValueError(f"{value} is not a valid CCF structure")
-                values[field_name] = getattr(CCFStructure, value.upper())
+    @model_validator(mode="after")
+    def unit_validator(cls, values):
+        """Ensure that all fields matching the pattern variable_unit are set if
+        they have a matching variable that is set (!= None)
+
+        This also checks the multi-variable condition, i.e. variable_unit is set
+        if any of variable_* are set
+        """
+        # Accumulate a dictionary mapping variable : unit/unit_value
+        for unit_name, unit_value in values:
+            if "_unit" in unit_name and not unit_value:
+                var_name = unit_name.rsplit("_unit", 1)[0]
+
+                # Go through all the values again, if any value matches the variable name
+                # and is set, then the unit needs to be set as well
+                for variable_name, variable_value in values:
+                    if variable_name == var_name and variable_value:
+                        raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
+
+                # One more time, now looking for the multi-variable condition
+                for variable_name, variable_value in values:
+                    # skip the unit itself
+                    if var_name is not unit_name:
+                        if var_name in variable_name and variable_value:
+                            raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
         return values
 
 
-class AindCoreModel(AindModel):
+class DataCoreModel(DataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     _FILE_EXTENSION = PrivateAttr(default=".json")
@@ -142,7 +158,7 @@ class AindCoreModel(AindModel):
         """
         Returns standard filename in snakecase
         """
-        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != AindCoreModel.__name__]
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__]
 
         name = cls.__name__
 

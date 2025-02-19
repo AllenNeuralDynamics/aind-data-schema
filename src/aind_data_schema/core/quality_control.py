@@ -3,12 +3,11 @@
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
-import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 
 
 class Status(str, Enum):
@@ -72,7 +71,7 @@ class QCMetric(BaseModel):
         return v
 
 
-class QCEvaluation(AindModel):
+class QCEvaluation(DataModel):
     """Description of one evaluation stage, with one or more metrics"""
 
     modality: Modality.ONE_OF = Field(..., title="Modality")
@@ -92,21 +91,10 @@ class QCEvaluation(AindModel):
             " will allow individual metrics to fail while still passing the evaluation."
         ),
     )
-    latest_status: Status = Field(default=None, title="Evaluation status")
+    latest_status: Optional[Status] = Field(default=None, title="Evaluation status")
     created: AwareDatetimeWithDefault = Field(
         default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date"
     )
-
-    def status(self, date: datetime = datetime.now(tz=timezone.utc)) -> Status:
-        """DEPRECATED
-
-        Replace with QCEvaluation.status or QCEvaluation.evaluate_status()
-        """
-        warnings.warn(
-            "The status method is deprecated. Please use QCEvaluation.status or QCEvaluation.evaluate_status()",
-            DeprecationWarning,
-        )
-        return self.evaluate_status(date)
 
     @property
     def failed_metrics(self) -> Optional[List[QCMetric]]:
@@ -194,12 +182,12 @@ class QCEvaluation(AindModel):
         return v
 
 
-class QualityControl(AindCoreModel):
+class QualityControl(DataCoreModel):
     """Description of quality metrics for a data asset"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.2.2"]] = Field(default="1.2.2")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
 

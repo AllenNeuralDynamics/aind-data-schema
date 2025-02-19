@@ -80,9 +80,28 @@ There are several libraries used to run linters and check documentation. We've i
   ```
 **NOTE**: Please note that these linters are automatically run in github actions when a PR is opened. These linters must pass for a PR to merge. 
 
+### Units
+Unit types (i.e. anything from [aind_data_schema_models.units](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/units.py)) should always be paired with a variable in one of two patterns.
+
+When you have a single `variable` with a unit, you should add the `_unit` suffix on the name of the unit:
+
+```python
+variable: type = Field(...)
+variable_unit: XUnit = Field(...)
+```
+
+If the variable is `Optional[]` the unit should also be marked as optional.
+
+If you have multiple variables that map onto a single unit type, start each `variable` with the same prefix. The prefix should be unique within the class (watch out for inherited fields). 
+
+```python
+fov_width: type = Field(...)
+fov_height: type = Field(...)
+fov_unit: XUnit = Field(...)
+```
+
 ## Documentation and Style Guide
 Documentation is required for contributing to this project. We have settled on using Numpy's conventions as a default: [Numpy docstring standards](https://numpydoc.readthedocs.io/en/latest/format.html)
-
 
 ## Pull Requests
 For internal members, please create a branch. For external members, please fork the repo and open a pull request from the fork. We'll primarily use [Angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit) style for commit messages. Roughly, they should follow the pattern:

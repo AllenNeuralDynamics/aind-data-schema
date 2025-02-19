@@ -3,16 +3,18 @@
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import PowerUnit, SizeUnit
+from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
-    experimenter_full_name=["John Doe"],
+    experimenters=[Person(name="John Smith")],
     session_start_time=t,
     session_end_time=t,
     subject_id="12345",
@@ -41,7 +43,7 @@ s = Session(
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,
-                    excitation_power_unit="milliwatt",
+                    excitation_power_unit=PowerUnit.MW,
                 ),
             ],
             ophys_fovs=[
@@ -57,12 +59,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=5,
                     power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=190,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=230,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=1,
                 ),
                 FieldOfView(
@@ -77,11 +81,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=42,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=232,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=257,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=0,
                 ),
                 FieldOfView(
@@ -96,11 +103,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=28,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=136,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=176,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=3,
                 ),
                 FieldOfView(
@@ -115,11 +125,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=28,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=282,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=307,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=2,
                 ),
                 FieldOfView(
@@ -134,11 +147,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=12,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=72,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=112,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=5,
                 ),
                 FieldOfView(
@@ -153,11 +169,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=12,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=326,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=351,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=4,
                 ),
                 FieldOfView(
@@ -172,11 +191,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=5,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=30,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=70,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=7,
                 ),
                 FieldOfView(
@@ -191,11 +213,14 @@ s = Session(
                     magnification="10x",
                     fov_scale_factor=0.78,
                     frame_rate=9.48,
+                    frame_rate_unit=FrequencyUnit.HZ,
                     power=5,
+                    power_unit=PowerUnit.PERCENT,
                     scanimage_roi_index=0,
                     imaging_depth=364,
-                    targeted_structure="VISp",
+                    targeted_structure=CCFStructure.VISP,
                     scanfield_z=389,
+                    scanfield_z_unit=SizeUnit.UM,
                     coupled_fov_index=6,
                 ),
             ],

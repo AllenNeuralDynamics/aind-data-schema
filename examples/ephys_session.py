@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components.devices import Software
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -16,15 +17,16 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 session = Session(
-    experimenter_full_name=["Max Quibble", "Finn Tickle"],
+    experimenters=[Person(name="John Smith")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
-    iacuc_protocol="2109",
-    rig_id="323_EPHYS1_20231003",
+    instrument_id="323_EPHYS1_20231003",
+    ethics_review_id="2109",
     active_mouse_platform=False,
     mouse_platform_name="Running Wheel",
     stimulus_epochs=[
@@ -122,7 +124,7 @@ session = Session(
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -137,7 +139,7 @@ session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
                     assembly_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure="LC",
+                    primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -170,7 +172,7 @@ session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
                     assembly_name="Ephys_assemblyA",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -185,7 +187,7 @@ session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
                     assembly_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure="LC",
+                    primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(

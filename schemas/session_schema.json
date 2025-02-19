@@ -33,13 +33,6 @@
          "title": "Affine3dTransform",
          "type": "object"
       },
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "Anaesthetic": {
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
@@ -291,13 +284,13 @@
                "type": "string"
             },
             "input": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Calibration input",
                "title": "inputs"
             },
             "output": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Calibration output",
                "title": "outputs"
@@ -548,7 +541,7 @@
                ],
                "default": null,
                "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
+               "title": "Transform from local manipulator axes to instrument"
             },
             "calibration_date": {
                "anyOf": [
@@ -682,7 +675,7 @@
                ],
                "default": null,
                "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
+               "title": "Transform from local manipulator axes to instrument"
             },
             "calibration_date": {
                "anyOf": [
@@ -7516,8 +7509,15 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Surface z unit"
             },
             "dye": {
@@ -11031,8 +11031,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "coupled_fov_index": {
@@ -11065,8 +11072,15 @@
                "title": "Power"
             },
             "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "percent",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Power unit"
             },
             "power_ratio": {
@@ -11097,8 +11111,15 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Z stage position unit"
             },
             "scanimage_roi_index": {
@@ -11160,6 +11181,13 @@
          "title": "FrequencyUnit",
          "type": "string"
       },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
+         "type": "object"
+      },
       "LaserConfig": {
          "additionalProperties": false,
          "description": "Description of laser settings in a session",
@@ -11171,7 +11199,7 @@
                "type": "string"
             },
             "name": {
-               "description": "Must match rig json",
+               "description": "Must match instrument json",
                "title": "Name",
                "type": "string"
             },
@@ -11200,8 +11228,15 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Excitation power unit"
             }
          },
@@ -11242,8 +11277,15 @@
                "title": "Excitation power (mW)"
             },
             "excitation_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Excitation power unit"
             }
          },
@@ -11400,7 +11442,7 @@
                "type": "array"
             },
             "additional_scan_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "title": "Parameters"
             },
             "notes": {
@@ -11559,7 +11601,7 @@
                ],
                "default": null,
                "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to rig"
+               "title": "Transform from local manipulator axes to instrument"
             },
             "calibration_date": {
                "anyOf": [
@@ -18393,8 +18435,15 @@
                "title": "Surface z"
             },
             "surface_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Surface z unit"
             },
             "dye": {
@@ -18661,7 +18710,7 @@
                "title": "Baseline duration unit"
             },
             "other_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Other parameters"
             },
@@ -18742,6 +18791,37 @@
          "title": "PIDName",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "PhotoStimulation": {
          "additionalProperties": false,
          "description": "Description of a photostimulation session",
@@ -18784,7 +18864,7 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Other parameters"
             },
@@ -18879,7 +18959,7 @@
                "title": "Inter trial interval unit"
             },
             "other_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Other parameters"
             },
@@ -19479,7 +19559,7 @@
          "properties": {
             "side": {
                "$ref": "#/$defs/SpoutSide",
-               "description": "Must match rig",
+               "description": "Must match instrument",
                "title": "Spout side"
             },
             "starting_position": {
@@ -20041,8 +20121,15 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional parameters"
             },
             "notes": {
@@ -23570,8 +23657,15 @@
                "title": "Frame rate (Hz)"
             },
             "frame_rate_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Frame rate unit"
             },
             "coupled_fov_index": {
@@ -23604,8 +23698,15 @@
                "title": "Power"
             },
             "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "percent",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Power unit"
             },
             "power_ratio": {
@@ -23636,8 +23737,15 @@
                "title": "Z stage position of the fastz actuator for a given targeted depth"
             },
             "scanfield_z_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Z stage position unit"
             },
             "scanimage_roi_index": {
@@ -23763,7 +23871,7 @@
                "title": "URL to commit being used"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Software parameters"
             }
@@ -23788,7 +23896,7 @@
          "description": "Description of auditory speaker configuration",
          "properties": {
             "name": {
-               "description": "Must match rig json",
+               "description": "Must match instrument json",
                "title": "Name",
                "type": "string"
             },
@@ -23808,8 +23916,15 @@
                "title": "Volume (dB)"
             },
             "volume_unit": {
-               "$ref": "#/$defs/SoundIntensityUnit",
-               "default": "decibels",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Volume unit"
             }
          },
@@ -27398,8 +27513,15 @@
                "title": "Dilation (pixels)"
             },
             "dilation_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "pixel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Dilation unit"
             },
             "description": {
@@ -27602,9 +27724,24 @@
                "title": "Light source config"
             },
             "output_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Performance metrics"
+            },
+            "objects_in_arena": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Objects in arena"
             },
             "reward_consumed_during_epoch": {
                "anyOf": [
@@ -27688,6 +27825,7 @@
          "description": "Types of stimulus modalities",
          "enum": [
             "Auditory",
+            "Free moving",
             "Olfactory",
             "Optogenetics",
             "None",
@@ -27760,7 +27898,7 @@
             },
             "stick_microscopes": {
                "default": [],
-               "description": "Must match stick microscope assemblies in rig file",
+               "description": "Must match stick microscope assemblies in instrument file",
                "items": {
                   "$ref": "#/$defs/DomeModule"
                },
@@ -28019,7 +28157,7 @@
                "type": "string"
             },
             "stimulus_parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
                "title": "Stimulus parameters"
@@ -58914,8 +59052,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.1",
-         "default": "1.1.1",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -58928,12 +59066,12 @@
          "title": "Protocol ID",
          "type": "array"
       },
-      "experimenter_full_name": {
-         "description": "First and last name of the experimenter(s).",
+      "experimenters": {
+         "default": [],
          "items": {
-            "type": "string"
+            "$ref": "#/$defs/Person"
          },
-         "title": "Experimenter(s) full name",
+         "title": "experimenter(s)",
          "type": "array"
       },
       "session_start_time": {
@@ -58958,7 +59096,11 @@
          "title": "Session type",
          "type": "string"
       },
-      "iacuc_protocol": {
+      "instrument_id": {
+         "title": "Instrument ID",
+         "type": "string"
+      },
+      "ethics_review_id": {
          "anyOf": [
             {
                "type": "string"
@@ -58968,15 +59110,11 @@
             }
          ],
          "default": null,
-         "title": "IACUC protocol"
-      },
-      "rig_id": {
-         "title": "Rig ID",
-         "type": "string"
+         "title": "Ethics review ID"
       },
       "calibrations": {
          "default": [],
-         "description": "Calibrations of rig devices prior to session",
+         "description": "Calibrations of instrument devices prior to session",
          "items": {
             "$ref": "#/$defs/Calibration"
          },
@@ -58985,7 +59123,7 @@
       },
       "maintenance": {
          "default": [],
-         "description": "Maintenance of rig devices prior to session",
+         "description": "Maintenance of instrument devices prior to session",
          "items": {
             "$ref": "#/$defs/Maintenance"
          },
@@ -59129,10 +59267,9 @@
       }
    },
    "required": [
-      "experimenter_full_name",
       "session_start_time",
       "session_type",
-      "rig_id",
+      "instrument_id",
       "subject_id",
       "data_streams",
       "mouse_platform_name",

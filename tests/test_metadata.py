@@ -4,20 +4,32 @@ import json
 import re
 import unittest
 from datetime import datetime, time, timezone
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.platforms import Platform
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
-from aind_data_schema.components.devices import MousePlatform
+from aind_data_schema.components.devices import (
+    Device,
+    EphysAssembly,
+    EphysProbe,
+    LickSensorType,
+    Manipulator,
+    MotorizedStage,
+    MousePlatform,
+    Objective,
+    RewardDelivery,
+    RewardSpout,
+    SpoutSide,
+    ScanningStage,
+    Laser,
+)
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
     IontophoresisInjection,
@@ -27,11 +39,30 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
 )
 from aind_data_schema.core.processing import PipelineProcess, Processing
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
+from tests.resources.spim_instrument import inst
+from tests.resources.ephys_instrument import inst as ephys_inst
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
+
+ephys_assembly = EphysAssembly(
+    probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
+    manipulator=Manipulator(
+        name="Probe manipulator",
+        manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+        serial_number="4321",
+    ),
+    name="Ephys_assemblyA",
+)
+
+laser = Laser(
+    manufacturer=Organization.HAMAMATSU,
+    serial_number="1234",
+    name="Laser A",
+    wavelength=488,
+)
 
 
 class TestMetadata(unittest.TestCase):
@@ -40,6 +71,8 @@ class TestMetadata(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         """Set up the test class."""
+        cls.spim_instrument = inst
+
         subject = Subject(
             species=Species.MUS_MUSCULUS,
             subject_id="12345",
@@ -58,25 +91,23 @@ class TestMetadata(unittest.TestCase):
             background_strain="C57BL/6J",
         )
         dd = DataDescription(
-            label="test_data",
-            modality=[Modality.ECEPHYS],
-            platform=Platform.ECEPHYS,
+            modalities=[Modality.ECEPHYS],
             subject_id="123456",
             data_level="raw",
             creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[PIDName(name="Jane Smith")],
+            investigators=[Person(name="Jane Smith")],
         )
         procedures = Procedures(
             subject_id="12345",
         )
         processing = Processing(
-            processing_pipeline=PipelineProcess(processor_full_name="Processor", data_processes=[]),
+            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dan Processor")], data_processes=[]),
         )
 
-        cls.sample_name = "ecephys_655019_2023-04-03_18-17-09"
-        cls.sample_location = "s3://bucket/ecephys_655019_2023-04-03_18-17-09"
+        cls.sample_name = "655019_2023-04-03T181709"
+        cls.sample_location = "s3://bucket/655019_2023-04-03T181709"
         cls.subject = subject
         cls.dd = dd
         cls.procedures = procedures
@@ -105,8 +136,8 @@ class TestMetadata(unittest.TestCase):
             ),
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
-        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=s1)
-        self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
+        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=s1)
+        self.assertEqual("655019_2023-04-03T181709", d1.name)
         self.assertEqual("bucket", d1.location)
         self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
         self.assertEqual(s1, d1.subject)
@@ -116,11 +147,11 @@ class TestMetadata(unittest.TestCase):
         present"""
 
         d1 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
         )
         self.assertEqual(MetadataStatus.MISSING, d1.metadata_status)
-        self.assertEqual("ecephys_655019_2023-04-03_18-17-09", d1.name)
+        self.assertEqual("655019_2023-04-03T181709", d1.name)
         self.assertEqual("bucket", d1.location)
 
         # Assert at least a name and location are required
@@ -142,7 +173,7 @@ class TestMetadata(unittest.TestCase):
         metadata_status as INVALID"""
 
         # Invalid subject model
-        d1 = Metadata(name="ecephys_655019_2023-04-03_18-17-09", location="bucket", subject=Subject.model_construct())
+        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=Subject.model_construct())
         self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
 
         # Valid subject model, but invalid procedures model
@@ -162,7 +193,7 @@ class TestMetadata(unittest.TestCase):
             genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d2 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
             subject=s2,
             procedures=Procedures.model_construct(injection_materials=["some materials"]),
@@ -171,7 +202,7 @@ class TestMetadata(unittest.TestCase):
 
         # Tests constructed via dictionary
         d3 = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
             subject=json.loads(Subject.model_construct().model_dump_json()),
         )
@@ -183,68 +214,23 @@ class TestMetadata(unittest.TestCase):
 
     def test_validate_smartspim_metadata(self):
         """Tests that smartspim validator works as expected"""
-        viral_material = ViralMaterial.model_construct()
         nano_inj = NanojectInjection.model_construct()
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-
-        # Tests missing metadata
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.SMARTSPIM,
-                    creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
-                ),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                acquisition=Acquisition.model_construct(),
-            )
-        self.assertIn(
-            "SPIM metadata missing required file: subject",
-            str(context.exception),
-        )
-
-        # Tests excluded metadata getting included
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.SMARTSPIM,
-                    creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
-                ),
-                subject=Subject.model_construct(),
-                session=Session.model_construct(),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                acquisition=Acquisition.model_construct(),
-            )
-        self.assertIn(
-            "SPIM metadata includes excluded file: session",
-            str(context.exception),
-        )
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.SMARTSPIM,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.SPIM],
+                    modalities=[Modality.SPIM],
+                    subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(),
-                instrument=Instrument.model_construct(),
+                instrument=inst,
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -258,124 +244,140 @@ class TestMetadata(unittest.TestCase):
         surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
 
         mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
+
+        objective = Objective(
+            name="TLX Objective",
+            numerical_aperture=0.2,
+            magnification=3.6,
+            immersion="multi",
+            manufacturer=Organization.THORLABS,
+            model="TL4X-SAP",
+            notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
+        )
+
+        reward_delivery = RewardDelivery(
+            reward_spouts=[
+                RewardSpout(
+                    name="Left spout",
+                    side=SpoutSide.LEFT,
+                    spout_diameter=1.2,
+                    solenoid_valve=Device(name="Solenoid Left"),
+                    lick_sensor=Device(
+                        name="Janelia_Lick_Detector Left",
+                        manufacturer=Organization.JANELIA,
+                    ),
+                    lick_sensor_type=LickSensorType("Capacitive"),
+                ),
+                RewardSpout(
+                    name="Right spout",
+                    side=SpoutSide.RIGHT,
+                    spout_diameter=1.2,
+                    solenoid_valve=Device(name="Solenoid Right"),
+                    lick_sensor=Device(
+                        name="Janelia_Lick_Detector Right",
+                        manufacturer=Organization.JANELIA,
+                    ),
+                    lick_sensor_type=LickSensorType("Capacitive"),
+                ),
+            ],
+            stage_type=MotorizedStage(
+                name="NewScaleMotor for LickSpouts",
+                serial_number="xxxx",  # grabbing from GUI/SettingFiles
+                manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
+                travel=15.0,  # unit is mm
+                firmware=(
+                    "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
+                ),
+            ),
+        )
+        scan_stage = ScanningStage(
+            name="Sample stage Z",
+            model="LS-50",
+            manufacturer=Organization.ASI,
+            stage_axis_direction="Detection axis",
+            stage_axis_name="Z",
+            travel=50,
+        )
+
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            modalities=[Modality.BEHAVIOR, Modality.SPIM],
+            components=[objective, reward_delivery, mouse_platform, scan_stage, laser],
+        )
+        session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
         m = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
+            name="655019_2023-04-03T181709",
             location="bucket",
             data_description=DataDescription.model_construct(
-                label="some label",
-                platform=Platform.SMARTSPIM,
+                subject_id="655019",
                 creation_time=time(12, 12, 12),
-                modality=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
+                modalities=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
             ),
             subject=Subject.model_construct(),
             session=session,  # SPIM excludes session, but BEHAVIOR requires it
             procedures=Procedures.model_construct(subject_procedures=[surgery1]),
             acquisition=Acquisition.model_construct(),
-            rig=rig,
+            instrument=inst,
             processing=Processing.model_construct(),
-            instrument=Instrument.model_construct(),
         )
         self.assertIsNotNone(m)
 
     def test_validate_ecephys_metadata(self):
         """Tests that ecephys validator works as expected"""
-        viral_material = ViralMaterial.model_construct()
         nano_inj = NanojectInjection.model_construct()
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-
-        # Tests missing metadata
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
-                location="bucket",
-                data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.ECEPHYS,
-                    creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
-                ),
-                procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-                rig=Rig.model_construct(),
-            )
-        self.assertIn(
-            "ECEPHYS metadata missing required file: subject",
-            str(context.exception),
-        )
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
+        modalities = [Modality.ECEPHYS]
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=modalities,
+                    subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                rig=Rig.model_construct(),
+                instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 session=Session.model_construct(),
+                acquisition=Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
-    def test_validate_underscore_modality(self):
-        """Tests that ecephys validator works as expected"""
-        viral_material = ViralMaterial.model_construct()
-        nano_inj = NanojectInjection.model_construct(injection_materials=[viral_material])
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-        mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform1")
+    def test_validate_instrument_session_compatibility(self):
+        """Tests that instrument/session compatibility validator works as expected"""
 
-        # Tests missing metadata
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-        m = Metadata(
-            name="ecephys_655019_2023-04-03_18-17-09",
-            location="bucket",
-            data_description=DataDescription.model_construct(
-                label="some label",
-                platform=Platform.ECEPHYS,
-                creation_time=time(12, 12, 12),
-                modality=[Modality.BEHAVIOR_VIDEOS],
-            ),
-            subject=Subject.model_construct(),
-            procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-            rig=rig,
-            session=session,
+        modalities = [Modality.ECEPHYS]
+        mouse_platform = MousePlatform.model_construct(name="platform1")
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            modalities=modalities,
+            components=[ephys_assembly, mouse_platform],
         )
-        self.assertIsNotNone(m)
-
-    def test_validate_rig_session_compatibility(self):
-        """Tests that rig/session compatibility validator works as expected"""
-        mouse_platform = MousePlatform.model_construct(name="platform1")
-        rig = Rig.model_construct(rig_id="123_EPHYS1_20220101", mouse_platform=mouse_platform)
-        session = Session.model_construct(rig_id="123_EPHYS2_20230101", mouse_platform_name="platform2")
         with self.assertRaises(ValidationError) as context:
             Metadata(
-                name="ecephys_655019_2023-04-03_18-17-09",
+                name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    label="some label",
-                    platform=Platform.ECEPHYS,
                     creation_time=time(12, 12, 12),
-                    modality=[Modality.ECEPHYS],
+                    modalities=modalities,
+                    subject_id="655019",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
-                rig=rig,
+                instrument=inst,
                 processing=Processing.model_construct(),
-                session=session,
+                acquisition=Acquisition.model_construct(
+                    instrument_id="123_EPHYS2_20230101",
+                ),
+                session=Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"),
             )
         self.assertIn(
-            "Rig ID in session 123_EPHYS2_20230101 does not match the rig's 123_EPHYS1_20220101.",
+            "Instrument ID in session 123_EPHYS2_20230101 does not match the instrument's 123_EPHYS1_20220101.",
             str(context.exception),
         )
 
@@ -403,10 +405,9 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
         expected_md = Metadata(
@@ -418,11 +419,12 @@ class TestMetadata(unittest.TestCase):
         )
         expected_result = json.loads(expected_md.model_dump_json(by_alias=True))
         # there are some userwarnings when creating Subject from json
-        result = create_metadata_json(
-            name=self.sample_name,
-            location=self.sample_location,
-            core_jsons=core_jsons,
-        )
+        with self.assertWarns(UserWarning):
+            result = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons=core_jsons,
+            )
         # check that metadata was created with expected values
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
@@ -438,58 +440,87 @@ class TestMetadata(unittest.TestCase):
         expected_result["last_modified"] = result["last_modified"]
         self.assertDictEqual(expected_result, result)
 
+    def test_create_from_core_jsons_invalid(self):
+        """Tests metadata json creation with invalid inputs"""
+        core_jsons = {
+            "subject": self.subject_json,
+            "data_description": None,
+            "procedures": self.procedures_json,
+            "session": None,
+            "instrument": Instrument.model_construct().model_dump(),
+            "processing": Procedures.model_construct(injection_materials=["some materials"]).model_dump(),
+            "acquisition": None,
+            "quality_control": None,
+        }
+        # invalid core_jsons
+        metadata = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons=core_jsons,
+        )
+        self.assertEqual(MetadataStatus.INVALID.value, metadata["metadata_status"])
+
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""
         created = datetime(2024, 10, 31, 12, 0, 0, tzinfo=timezone.utc)
         external_links = {
             ExternalPlatforms.CODEOCEAN.value: ["123", "abc"],
         }
-        result = create_metadata_json(
-            name=self.sample_name,
-            location=self.sample_location,
-            core_jsons={
-                "subject": self.subject_json,
-            },
-            optional_created=created,
-            optional_external_links=external_links,
-        )
+        # there are some userwarnings when creating from json
+        with self.assertWarns(UserWarning):
+            result = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons={
+                    "subject": self.subject_json,
+                },
+                optional_created=created,
+                optional_external_links=external_links,
+            )
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual("2024-10-31T12:00:00Z", result["created"])
         self.assertEqual(external_links, result["external_links"])
 
     @patch("logging.warning")
-    def test_create_from_core_jsons_invalid(self, mock_warning: MagicMock):
-        """Tests that metadata json is marked invalid if there are errors"""
-        # data_description triggers cross-validation of other fields to fail
+    @patch("aind_data_schema.core.metadata.is_dict_corrupt")
+    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock, mock_warning: MagicMock):
+        """Tests metadata json creation ignores corrupt core jsons"""
+        # mock corrupt procedures and processing
+        mock_is_dict_corrupt.side_effect = lambda x: (x == self.procedures_json or x == self.processing_json)
         core_jsons = {
             "subject": self.subject_json,
-            "data_description": self.dd_json,
+            "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "rig": None,
+            "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
-            "instrument": None,
             "quality_control": None,
         }
-        result = create_metadata_json(
-            name=self.sample_name,
-            location=self.sample_location,
-            core_jsons=core_jsons,
-        )
+        # there are some userwarnings when creating Subject from json
+        with self.assertWarns(UserWarning):
+            result = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons=core_jsons,
+            )
         # check that metadata was still created
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual(self.subject_json, result["subject"])
-        self.assertEqual(self.dd_json, result["data_description"])
-        self.assertEqual(self.procedures_json, result["procedures"])
-        self.assertEqual(self.processing_json, result["processing"])
         self.assertIsNone(result["acquisition"])
-        # check that metadata was marked as invalid
-        self.assertEqual(MetadataStatus.INVALID.value, result["metadata_status"])
-        mock_warning.assert_called_once()
-        self.assertIn("Issue with metadata construction!", mock_warning.call_args_list[0].args[0])
+        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
+        # check that corrupt core jsons were ignored
+        self.assertIsNone(result["procedures"])
+        self.assertIsNone(result["processing"])
+        mock_warning.assert_has_calls(
+            [
+                call("Provided processing is corrupt! It will be ignored."),
+                call("Provided procedures is corrupt! It will be ignored."),
+            ],
+            any_order=True,
+        )
 
     def test_last_modified(self):
         """Test that the last_modified field enforces timezones"""

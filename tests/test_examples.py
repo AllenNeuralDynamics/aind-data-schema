@@ -24,7 +24,10 @@ class ExampleTests(unittest.TestCase):
         examples_generator.generate_all_examples()
 
     def test_examples(self):
-        """run through each example, compare to rendered json"""
+        """run through each example
+
+        Check that the existing examples/*.json files match what gets generated from .write_standard_file()
+        """
 
         for example_file in glob.glob(f"{EXAMPLES_DIR}/*.py"):
             logging.debug(f"testing {example_file}")

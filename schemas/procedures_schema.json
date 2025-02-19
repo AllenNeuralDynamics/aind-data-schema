@@ -1,12 +1,5 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "Anaesthetic": {
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
@@ -637,21 +630,8 @@
                "title": "Catheter port"
             },
             "targeted_structure": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_18609": "#/$defs/_Carotid_Artery",
-                     "EMAPA_18638": "#/$defs/_Jugular_Vein"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Carotid_Artery"
-                  },
-                  {
-                     "$ref": "#/$defs/_Jugular_Vein"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use options from MouseBloodVessels",
                "title": "Targeted blood vessel"
             }
          },
@@ -810,8 +790,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             }
          },
@@ -1348,8 +1335,15 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional parameters"
             },
             "notes": {
@@ -1462,6 +1456,13 @@
          ],
          "title": "Fluorophore",
          "type": "string"
+      },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
+         "type": "object"
       },
       "GroundWireMaterial": {
          "description": "Ground wire material name",
@@ -2666,8 +2667,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -2686,8 +2694,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -6268,8 +6283,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -6288,8 +6310,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -9870,8 +9899,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -9890,8 +9926,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -9997,8 +10040,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -10017,8 +10067,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -13570,6 +13627,64 @@
          "title": "MassUnit",
          "type": "string"
       },
+      "MouseAnatomyModel": {
+         "description": "Base model for mouse anatomy",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "registry",
+            "registry_identifier"
+         ],
+         "title": "MouseAnatomyModel",
+         "type": "object"
+      },
       "MyomatrixArray": {
          "additionalProperties": false,
          "description": "Description of a Myomatrix array",
@@ -14036,8 +14151,15 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/AindGeneric",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional parameters"
             },
             "notes": {
@@ -14078,37 +14200,8 @@
          "description": "\"Description of a contact on a myomatrix thread",
          "properties": {
             "body_part": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_16748": "#/$defs/_Tail",
-                     "EMAPA_17412": "#/$defs/_Forelimb",
-                     "EMAPA_17458": "#/$defs/_Hindlimb",
-                     "EMAPA_31857": "#/$defs/_Trunk",
-                     "EMAPA_31858": "#/$defs/_Head",
-                     "EMAPA_35587": "#/$defs/_Neck"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Forelimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Head"
-                  },
-                  {
-                     "$ref": "#/$defs/_Hindlimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Neck"
-                  },
-                  {
-                     "$ref": "#/$defs/_Tail"
-                  },
-                  {
-                     "$ref": "#/$defs/_Trunk"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use MouseBodyParts",
                "title": "Body part of contact insertion"
             },
             "side": {
@@ -14116,85 +14209,8 @@
                "title": "Body side"
             },
             "muscle": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_18177": "#/$defs/_Deltoid",
-                     "EMAPA_18179": "#/$defs/_Pectoralis_Major",
-                     "EMAPA_19108": "#/$defs/_Biceps_Brachii",
-                     "EMAPA_19111": "#/$defs/_Triceps_Brachii",
-                     "EMAPA_19319": "#/$defs/_Flexor_Digitorum_Profundus",
-                     "EMAPA_25053": "#/$defs/_Tendon_Of_Biceps_Brachii",
-                     "EMAPA_25054": "#/$defs/_Long_Head_Of_Biceps_Brachii",
-                     "EMAPA_25055": "#/$defs/_Short_Head_Of_Biceps_Brachii",
-                     "EMAPA_36163": "#/$defs/_Pars_Scapularis_Of_Deltoid",
-                     "EMAPA_36184": "#/$defs/_Lateral_Head_Of_Triceps_Brachii",
-                     "EMAPA_36185": "#/$defs/_Long_Head_Of_Triceps_Brachii",
-                     "EMAPA_36186": "#/$defs/_Medial_Head_Of_Triceps_Brachii",
-                     "EMAPA_36189": "#/$defs/_Extensor_Carpi_Radialis_Longus",
-                     "EMAPA_36190": "#/$defs/_Extensor_Carpi_Ulnaris",
-                     "EMAPA_36191": "#/$defs/_Extensor_Digitorum_Communis",
-                     "EMAPA_36192": "#/$defs/_Extensor_Digitorum_Lateralis",
-                     "EMAPA_36197": "#/$defs/_Flexor_Carpi_Radialis",
-                     "EMAPA_36198": "#/$defs/_Flexor_Carpi_Ulnaris"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Deltoid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Pectoralis_Major"
-                  },
-                  {
-                     "$ref": "#/$defs/_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Lateral_Head_Of_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Long_Head_Of_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Medial_Head_Of_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Long_Head_Of_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Short_Head_Of_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Tendon_Of_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Pars_Scapularis_Of_Deltoid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Carpi_Radialis_Longus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Digitorum_Communis"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Digitorum_Lateralis"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Carpi_Ulnaris"
-                  },
-                  {
-                     "$ref": "#/$defs/_Flexor_Carpi_Radialis"
-                  },
-                  {
-                     "$ref": "#/$defs/_Flexor_Carpi_Ulnaris"
-                  },
-                  {
-                     "$ref": "#/$defs/_Flexor_Digitorum_Profundus"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use MouseEmgMuscles",
                "title": "Muscle of contact insertion"
             },
             "in_muscle": {
@@ -14263,37 +14279,8 @@
          "description": "Description of a thread of a myomatrix array",
          "properties": {
             "ground_electrode_location": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_16748": "#/$defs/_Tail",
-                     "EMAPA_17412": "#/$defs/_Forelimb",
-                     "EMAPA_17458": "#/$defs/_Hindlimb",
-                     "EMAPA_31857": "#/$defs/_Trunk",
-                     "EMAPA_31858": "#/$defs/_Head",
-                     "EMAPA_35587": "#/$defs/_Neck"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Forelimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Head"
-                  },
-                  {
-                     "$ref": "#/$defs/_Hindlimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Neck"
-                  },
-                  {
-                     "$ref": "#/$defs/_Tail"
-                  },
-                  {
-                     "$ref": "#/$defs/_Trunk"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use MouseBodyParts",
                "title": "Location of ground electrode"
             },
             "contacts": {
@@ -14353,8 +14340,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -14373,8 +14367,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -18367,9 +18368,17 @@
                "title": "Concentration"
             },
             "concentration_unit": {
-               "default": "mg/mL",
-               "title": "Concentration unit",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For example, mg/mL",
+               "title": "Concentration unit"
             }
          },
          "required": [
@@ -22486,6 +22495,37 @@
          "title": "Perfusion",
          "type": "object"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "ProtectiveMaterial": {
          "description": "Name of material applied to craniotomy",
          "enum": [
@@ -22558,8 +22598,15 @@
                "title": "Ground wire diameter"
             },
             "ground_wire_diameter_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "inch",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Ground wire diameter unit"
             },
             "well_part_number": {
@@ -23535,8 +23582,15 @@
                "title": "Recovery time"
             },
             "recovery_time_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Recovery time unit"
             },
             "injection_duration": {
@@ -23555,8 +23609,15 @@
                "title": "Injection duration"
             },
             "injection_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "minute",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Injection duration unit"
             },
             "instrument_id": {
@@ -27205,10 +27266,13 @@
                "title": "End date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenter(s)",
+               "type": "array"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -27283,7 +27347,6 @@
             "specimen_id",
             "start_date",
             "end_date",
-            "experimenter_full_name",
             "protocol_id"
          ],
          "title": "SpecimenProcedure",
@@ -27750,8 +27813,20 @@
                "title": "Stain type"
             },
             "concentration": {
-               "$ref": "#/$defs/concentration",
-               "title": "Concentration (uM)"
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Concentration"
+            },
+            "concentration_unit": {
+               "$ref": "#/$defs/ConcentrationUnit",
+               "default": "micromolar",
+               "title": "Concentration unit"
             }
          },
          "required": [
@@ -27794,12 +27869,22 @@
                "title": "Start date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "experimenter(s)"
             },
-            "iacuc_protocol": {
+            "ethics_review_id": {
                "anyOf": [
                   {
                      "type": "string"
@@ -27809,7 +27894,7 @@
                   }
                ],
                "default": null,
-               "title": "IACUC protocol"
+               "title": "Ethics review ID"
             },
             "animal_weight_prior": {
                "anyOf": [
@@ -27962,7 +28047,6 @@
          "required": [
             "protocol_id",
             "start_date",
-            "experimenter_full_name",
             "procedures"
          ],
          "title": "Surgery",
@@ -28221,8 +28305,8 @@
                "title": "Procedure Type",
                "type": "string"
             },
-            "iacuc_protocol": {
-               "title": "IACUC protocol",
+            "ethics_review_id": {
+               "title": "Ethics review ID",
                "type": "string"
             },
             "target_fraction_weight": {
@@ -28287,7 +28371,7 @@
             }
          },
          "required": [
-            "iacuc_protocol",
+            "ethics_review_id",
             "target_fraction_weight",
             "minimum_water_per_day",
             "baseline_weight",
@@ -32065,67 +32149,6 @@
          "title": "_Bic",
          "type": "object"
       },
-      "_Biceps_Brachii": {
-         "description": "Model biceps brachii",
-         "properties": {
-            "name": {
-               "const": "biceps brachii",
-               "default": "biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_19108",
-               "default": "EMAPA_19108",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Biceps_Brachii",
-         "type": "object"
-      },
       "_Bla": {
          "description": "Model BLA",
          "properties": {
@@ -32746,67 +32769,6 @@
             }
          },
          "title": "_Carl_Zeiss",
-         "type": "object"
-      },
-      "_Carotid_Artery": {
-         "description": "Model carotid artery",
-         "properties": {
-            "name": {
-               "const": "carotid artery",
-               "default": "carotid artery",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18609",
-               "default": "EMAPA_18609",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Carotid_Artery",
          "type": "object"
       },
       "_Cb": {
@@ -34934,67 +34896,6 @@
          "title": "_Dec",
          "type": "object"
       },
-      "_Deltoid": {
-         "description": "Model deltoid",
-         "properties": {
-            "name": {
-               "const": "deltoid",
-               "default": "deltoid",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18177",
-               "default": "EMAPA_18177",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Deltoid",
-         "type": "object"
-      },
       "_Df": {
          "description": "Model df",
          "properties": {
@@ -36851,250 +36752,6 @@
          "title": "_Ew",
          "type": "object"
       },
-      "_Extensor_Carpi_Radialis_Longus": {
-         "description": "Model extensor carpi radialis longus",
-         "properties": {
-            "name": {
-               "const": "extensor carpi radialis longus",
-               "default": "extensor carpi radialis longus",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36189",
-               "default": "EMAPA_36189",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Carpi_Radialis_Longus",
-         "type": "object"
-      },
-      "_Extensor_Carpi_Ulnaris": {
-         "description": "Model extensor carpi ulnaris",
-         "properties": {
-            "name": {
-               "const": "extensor carpi ulnaris",
-               "default": "extensor carpi ulnaris",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36190",
-               "default": "EMAPA_36190",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Carpi_Ulnaris",
-         "type": "object"
-      },
-      "_Extensor_Digitorum_Communis": {
-         "description": "Model extensor digitorum communis",
-         "properties": {
-            "name": {
-               "const": "extensor digitorum communis",
-               "default": "extensor digitorum communis",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36191",
-               "default": "EMAPA_36191",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Digitorum_Communis",
-         "type": "object"
-      },
-      "_Extensor_Digitorum_Lateralis": {
-         "description": "Model extensor digitorum lateralis",
-         "properties": {
-            "name": {
-               "const": "extensor digitorum lateralis",
-               "default": "extensor digitorum lateralis",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36192",
-               "default": "EMAPA_36192",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Digitorum_Lateralis",
-         "type": "object"
-      },
       "_Fa": {
          "description": "Model fa",
          "properties": {
@@ -37281,189 +36938,6 @@
          "title": "_Fl",
          "type": "object"
       },
-      "_Flexor_Carpi_Radialis": {
-         "description": "Model flexor carpi radialis",
-         "properties": {
-            "name": {
-               "const": "flexor carpi radialis",
-               "default": "flexor carpi radialis",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36197",
-               "default": "EMAPA_36197",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Flexor_Carpi_Radialis",
-         "type": "object"
-      },
-      "_Flexor_Carpi_Ulnaris": {
-         "description": "Model flexor carpi ulnaris",
-         "properties": {
-            "name": {
-               "const": "flexor carpi ulnaris",
-               "default": "flexor carpi ulnaris",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36198",
-               "default": "EMAPA_36198",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Flexor_Carpi_Ulnaris",
-         "type": "object"
-      },
-      "_Flexor_Digitorum_Profundus": {
-         "description": "Model flexor digitorum profundus",
-         "properties": {
-            "name": {
-               "const": "flexor digitorum profundus",
-               "default": "flexor digitorum profundus",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_19319",
-               "default": "EMAPA_19319",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Flexor_Digitorum_Profundus",
-         "type": "object"
-      },
       "_Fn": {
          "description": "Model FN",
          "properties": {
@@ -37493,67 +36967,6 @@
             }
          },
          "title": "_Fn",
-         "type": "object"
-      },
-      "_Forelimb": {
-         "description": "Model forelimb",
-         "properties": {
-            "name": {
-               "const": "forelimb",
-               "default": "forelimb",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_17412",
-               "default": "EMAPA_17412",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Forelimb",
          "type": "object"
       },
       "_Fotu": {
@@ -38673,67 +38086,6 @@
          "title": "_Hc",
          "type": "object"
       },
-      "_Head": {
-         "description": "Model head",
-         "properties": {
-            "name": {
-               "const": "head",
-               "default": "head",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_31858",
-               "default": "EMAPA_31858",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Head",
-         "type": "object"
-      },
       "_Hem": {
          "description": "Model HEM",
          "properties": {
@@ -38763,67 +38115,6 @@
             }
          },
          "title": "_Hem",
-         "type": "object"
-      },
-      "_Hindlimb": {
-         "description": "Model hindlimb",
-         "properties": {
-            "name": {
-               "const": "hindlimb",
-               "default": "hindlimb",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_17458",
-               "default": "EMAPA_17458",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Hindlimb",
          "type": "object"
       },
       "_Hip": {
@@ -40893,67 +40184,6 @@
          "title": "_Janelia_Research_Campus",
          "type": "object"
       },
-      "_Jugular_Vein": {
-         "description": "Model jugular vein",
-         "properties": {
-            "name": {
-               "const": "jugular vein",
-               "default": "jugular vein",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18638",
-               "default": "EMAPA_18638",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Jugular_Vein",
-         "type": "object"
-      },
       "_Julabo": {
          "description": "Model Julabo",
          "properties": {
@@ -41141,67 +40371,6 @@
             }
          },
          "title": "_Lat",
-         "type": "object"
-      },
-      "_Lateral_Head_Of_Triceps_Brachii": {
-         "description": "Model lateral head of triceps brachii",
-         "properties": {
-            "name": {
-               "const": "lateral head of triceps brachii",
-               "default": "lateral head of triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36184",
-               "default": "EMAPA_36184",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Lateral_Head_Of_Triceps_Brachii",
          "type": "object"
       },
       "_Lav": {
@@ -41854,128 +41023,6 @@
             }
          },
          "title": "_Lm",
-         "type": "object"
-      },
-      "_Long_Head_Of_Biceps_Brachii": {
-         "description": "Model long head of biceps brachii",
-         "properties": {
-            "name": {
-               "const": "long head of biceps brachii",
-               "default": "long head of biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_25054",
-               "default": "EMAPA_25054",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Long_Head_Of_Biceps_Brachii",
-         "type": "object"
-      },
-      "_Long_Head_Of_Triceps_Brachii": {
-         "description": "Model long head of triceps brachii",
-         "properties": {
-            "name": {
-               "const": "long head of triceps brachii",
-               "default": "long head of triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36185",
-               "default": "EMAPA_36185",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Long_Head_Of_Triceps_Brachii",
          "type": "object"
       },
       "_Lot": {
@@ -43192,67 +42239,6 @@
             }
          },
          "title": "_Med",
-         "type": "object"
-      },
-      "_Medial_Head_Of_Triceps_Brachii": {
-         "description": "Model medial head of triceps brachii",
-         "properties": {
-            "name": {
-               "const": "medial head of triceps brachii",
-               "default": "medial head of triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36186",
-               "default": "EMAPA_36186",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Medial_Head_Of_Triceps_Brachii",
          "type": "object"
       },
       "_Mepo": {
@@ -45610,67 +44596,6 @@
          "title": "_Ndb",
          "type": "object"
       },
-      "_Neck": {
-         "description": "Model neck",
-         "properties": {
-            "name": {
-               "const": "neck",
-               "default": "neck",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_35587",
-               "default": "EMAPA_35587",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Neck",
-         "type": "object"
-      },
       "_Neurophotometrics": {
          "description": "Model Neurophotometrics",
          "properties": {
@@ -47900,67 +46825,6 @@
          "title": "_Parn",
          "type": "object"
       },
-      "_Pars_Scapularis_Of_Deltoid": {
-         "description": "Model pars scapularis of deltoid",
-         "properties": {
-            "name": {
-               "const": "pars scapularis of deltoid",
-               "default": "pars scapularis of deltoid",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36163",
-               "default": "EMAPA_36163",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Pars_Scapularis_Of_Deltoid",
-         "type": "object"
-      },
       "_Pas": {
          "description": "Model PAS",
          "properties": {
@@ -48238,67 +47102,6 @@
             }
          },
          "title": "_Pdtg",
-         "type": "object"
-      },
-      "_Pectoralis_Major": {
-         "description": "Model pectoralis major",
-         "properties": {
-            "name": {
-               "const": "pectoralis major",
-               "default": "pectoralis major",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18179",
-               "default": "EMAPA_18179",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Pectoralis_Major",
          "type": "object"
       },
       "_Pef": {
@@ -52447,67 +51250,6 @@
          "title": "_Sh",
          "type": "object"
       },
-      "_Short_Head_Of_Biceps_Brachii": {
-         "description": "Model short head of biceps brachii",
-         "properties": {
-            "name": {
-               "const": "short head of biceps brachii",
-               "default": "short head of biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_25055",
-               "default": "EMAPA_25055",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Short_Head_Of_Biceps_Brachii",
-         "type": "object"
-      },
       "_Si": {
          "description": "Model SI",
          "properties": {
@@ -55545,67 +54287,6 @@
          "title": "_Sv",
          "type": "object"
       },
-      "_Tail": {
-         "description": "Model tail",
-         "properties": {
-            "name": {
-               "const": "tail",
-               "default": "tail",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_16748",
-               "default": "EMAPA_16748",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Tail",
-         "type": "object"
-      },
       "_Tamron": {
          "description": "Model Tamron",
          "properties": {
@@ -56046,67 +54727,6 @@
          "title": "_Templeton_World_Charity_Foundation",
          "type": "object"
       },
-      "_Tendon_Of_Biceps_Brachii": {
-         "description": "Model tendon of biceps brachii",
-         "properties": {
-            "name": {
-               "const": "tendon of biceps brachii",
-               "default": "tendon of biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_25053",
-               "default": "EMAPA_25053",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Tendon_Of_Biceps_Brachii",
-         "type": "object"
-      },
       "_Th": {
          "description": "Model TH",
          "properties": {
@@ -56483,67 +55103,6 @@
          "title": "_Transducer_Techniques",
          "type": "object"
       },
-      "_Triceps_Brachii": {
-         "description": "Model triceps brachii",
-         "properties": {
-            "name": {
-               "const": "triceps brachii",
-               "default": "triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_19111",
-               "default": "EMAPA_19111",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Triceps_Brachii",
-         "type": "object"
-      },
       "_Trn": {
          "description": "Model TRN",
          "properties": {
@@ -56604,67 +55163,6 @@
             }
          },
          "title": "_Trs",
-         "type": "object"
-      },
-      "_Trunk": {
-         "description": "Model trunk",
-         "properties": {
-            "name": {
-               "const": "trunk",
-               "default": "trunk",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_31857",
-               "default": "EMAPA_31857",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Trunk",
          "type": "object"
       },
       "_Ts": {
@@ -60746,30 +59244,6 @@
          },
          "title": "_Addgene",
          "type": "object"
-      },
-      "concentration": {
-         "properties": {
-            "value": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Value"
-            },
-            "unit": {
-               "$ref": "#/$defs/ConcentrationUnit",
-               "default": "micromolar"
-            }
-         },
-         "required": [
-            "value"
-         ],
-         "title": "concentration",
-         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -60782,8 +59256,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.1",
-         "default": "1.2.1",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },

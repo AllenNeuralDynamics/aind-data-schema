@@ -1,10 +1,10 @@
 {
    "$defs": {
-      "AindGeneric": {
+      "GenericModel": {
          "additionalProperties": true,
          "description": "Base class for generic types that can be used in AIND schema",
          "properties": {},
-         "title": "AindGeneric",
+         "title": "GenericModel",
          "type": "object"
       },
       "MemoryUnit": {
@@ -51,7 +51,7 @@
                "title": "Layers"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
@@ -157,12 +157,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -281,12 +281,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -381,6 +381,37 @@
             "value"
          ],
          "title": "PerformanceMetric",
+         "type": "object"
+      },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
          "type": "object"
       },
       "ProcessName": {
@@ -631,7 +662,7 @@
                "title": "URL to commit being used"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Software parameters"
             }
@@ -5454,8 +5485,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.0.1",
-         "default": "0.0.1",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5467,11 +5498,11 @@
          "title": "License",
          "type": "string"
       },
-      "developer_full_name": {
+      "developers": {
          "anyOf": [
             {
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/Person"
                },
                "type": "array"
             },
@@ -5480,7 +5511,7 @@
             }
          ],
          "default": null,
-         "title": "Name of developer"
+         "title": "Name of developer(s)"
       },
       "developer_institution": {
          "anyOf": [
@@ -5884,7 +5915,7 @@
          "default": null,
          "title": "Institute where developed"
       },
-      "modality": {
+      "modalities": {
          "items": {
             "discriminator": {
                "mapping": {
@@ -5950,7 +5981,7 @@
                }
             ]
          },
-         "title": "Modality",
+         "title": "Modalities",
          "type": "array"
       },
       "architecture": {
@@ -6032,7 +6063,7 @@
    "required": [
       "name",
       "license",
-      "modality",
+      "modalities",
       "architecture",
       "intended_use"
    ],

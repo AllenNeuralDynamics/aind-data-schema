@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "aind-data-schema"
 description = "A library that defines AIND data schema and validates JSON files."
 license = {text = "MIT"}
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3"
 ]
@@ -14,7 +14,8 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=0.5.4, <1.0.0',
+    'aind-data-schema-models>=2.0.0',
+    'dictdiffer',
     'pydantic>=2.7',
     'semver'
 ]

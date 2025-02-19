@@ -16,6 +16,7 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import (
     DomeModule,
     ManipulatorModule,
@@ -25,6 +26,7 @@ from aind_data_schema.core.session import (
     Session,
     Stream,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -39,12 +41,12 @@ class ExampleTest(unittest.TestCase):
             sess = Session()
 
         sess = Session(
-            experimenter_full_name=["alice"],
+            experimenters=[Person(name="Mam Moth")],
             session_start_time=datetime.now(),
             session_end_time=datetime.now(),
             subject_id="1234",
             session_type="Test",
-            rig_id="1234",
+            instrument_id="1234",
             mouse_platform_name="Running wheel",
             active_mouse_platform=False,
             data_streams=[
@@ -64,7 +66,7 @@ class ExampleTest(unittest.TestCase):
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
-                            primary_targeted_structure="VISl",
+                            primary_targeted_structure=CCFStructure.VISL,
                             targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
                             manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
                         ),
@@ -118,14 +120,14 @@ class ExampleTest(unittest.TestCase):
         )
 
         mri = Session(
-            experimenter_full_name=["Frank Frankson"],
+            experimenters=[Person(name="Mam Moth")],
             subject_id="123456",
             session_start_time=datetime.now(tz=timezone.utc),
             session_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
-            iacuc_protocol="1234",
+            ethics_review_id="1234",
             session_type="3D MRI Volume",
-            rig_id="NA",
+            instrument_id="NA",
             animal_weight_prior=22.1,
             animal_weight_post=21.9,
             data_streams=[stream],

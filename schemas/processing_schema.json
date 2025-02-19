@@ -1,12 +1,5 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
       "AnalysisProcess": {
          "additionalProperties": false,
          "description": "Description of an Analysis",
@@ -78,12 +71,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -112,10 +105,13 @@
                "default": null,
                "title": "Process resource usage"
             },
-            "analyst_full_name": {
-               "description": "Name of person responsible for running analysis",
-               "title": "Analyst Full Name",
-               "type": "string"
+            "experimenters": {
+               "description": "experimenters responsible for analysis",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
             },
             "description": {
                "title": "Analysis Description",
@@ -128,7 +124,7 @@
             "input_location",
             "output_location",
             "code_url",
-            "analyst_full_name",
+            "experimenters",
             "description"
          ],
          "title": "AnalysisProcess",
@@ -204,12 +200,12 @@
                "title": "Code version"
             },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -250,6 +246,13 @@
          "title": "DataProcess",
          "type": "object"
       },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
+         "type": "object"
+      },
       "MemoryUnit": {
          "description": "Computer memory units",
          "enum": [
@@ -264,6 +267,37 @@
          "title": "MemoryUnit",
          "type": "string"
       },
+      "Person": {
+         "description": "Person identifier",
+         "properties": {
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "PipelineProcess": {
          "additionalProperties": false,
          "description": "Description of a Processing Pipeline",
@@ -275,10 +309,13 @@
                "title": "Data processing",
                "type": "array"
             },
-            "processor_full_name": {
-               "description": "Name of person responsible for processing pipeline",
-               "title": "Processor Full Name",
-               "type": "string"
+            "experimenters": {
+               "description": "experimenters responsible for processing pipeline",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
             },
             "pipeline_version": {
                "anyOf": [
@@ -321,7 +358,7 @@
          },
          "required": [
             "data_processes",
-            "processor_full_name"
+            "experimenters"
          ],
          "title": "PipelineProcess",
          "type": "object"
@@ -548,6 +585,26 @@
          ],
          "title": "ResourceUsage",
          "type": "object"
+      },
+      "_Orcid": {
+         "additionalProperties": false,
+         "description": "Model ORCID",
+         "properties": {
+            "name": {
+               "const": "Open Researcher and Contributor ID",
+               "default": "Open Researcher and Contributor ID",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ORCID",
+               "default": "ORCID",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Orcid",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -560,8 +617,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.4",
-         "default": "1.1.4",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },

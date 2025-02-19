@@ -5,11 +5,11 @@ import json
 import logging
 from datetime import datetime, timezone
 from enum import Enum
+import warnings
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
-from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import Modality
 from pydantic import (
     Field,
     PrivateAttr,
@@ -21,28 +21,33 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
 
 CORE_FILES = [
     "subject",
     "data_description",
     "procedures",
-    "session",
-    "rig",
+    "instrument",
     "processing",
     "acquisition",
-    "instrument",
     "quality_control",
+]
+
+REQUIRED_FILES = [
+    "subject",
+    "data_description",
+    "procedures",
+    "instrument",
+    "acquisition",
 ]
 
 
@@ -61,7 +66,7 @@ class ExternalPlatforms(str, Enum):
     CODEOCEAN = "Code Ocean"
 
 
-class Metadata(AindCoreModel):
+class Metadata(DataCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
@@ -70,9 +75,9 @@ class Metadata(AindCoreModel):
     # default
     _FILE_EXTENSION = PrivateAttr(default=".nd.json")
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.2"]] = Field(default="1.1.2")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -105,7 +110,7 @@ class Metadata(AindCoreModel):
     external_links: Dict[ExternalPlatforms, List[str]] = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
-    # We can make the AindCoreModel fields optional for now and do more
+    # We can make the DataCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
     # assets in S3 that don't have metadata attached. We'd still like to
     # index that data, but we can flag those instances as MISSING or UNKNOWN
@@ -121,13 +126,12 @@ class Metadata(AindCoreModel):
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
     session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
+    instrument: Optional[Instrument] = Field(
+        default=None, title="Instrument", description="Devices used to acquire data."
+    )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
         default=None, title="Acquisition", description="Imaging acquisition session"
-    )
-    instrument: Optional[Instrument] = Field(
-        default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
@@ -144,11 +148,13 @@ class Metadata(AindCoreModel):
         field_name = info.field_name
         field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if inspect.isclass(f)][0]
 
+        # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate(value)
-            except ValidationError as e:
-                logging.warning(f"Error in validating {field_name}: {e}")
+                core_model = field_class.model_validate_json(value)
+            # If a validation error is raised,
+            # we will construct the field without validation.
+            except ValidationError:
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -180,14 +186,14 @@ class Metadata(AindCoreModel):
                     [
                         f
                         for f in get_args(self.model_fields[field_name].annotation)
-                        if inspect.isclass(f) and issubclass(f, AindCoreModel)
+                        if inspect.isclass(f) and issubclass(f, DataCoreModel)
                     ]
                 )
             )
             if (
                 optional_classes
                 and inspect.isclass(optional_classes[0])
-                and issubclass(optional_classes[0], AindCoreModel)
+                and issubclass(optional_classes[0], DataCoreModel)
             ):
                 all_model_fields[field_name] = optional_classes[0]
 
@@ -201,8 +207,7 @@ class Metadata(AindCoreModel):
                 model_contents = model.model_dump()
                 try:
                     model_class(**model_contents)
-                except ValidationError as e:
-                    logging.warning(f"Error in {field_name}: {e}")
+                except ValidationError:
                     metadata_status = MetadataStatus.INVALID
         # For certain required fields, like subject, if they are not present,
         # mark the metadata record as missing
@@ -214,42 +219,11 @@ class Metadata(AindCoreModel):
 
     @model_validator(mode="after")
     def validate_expected_files_by_modality(self):
-        """Validator checks that all required/excluded files match the metadata model"""
-        if self.data_description:
-            modalities = self.data_description.modality
+        """Validator warns users if required files are missing"""
 
-            requirement_dict = {}
-
-            for modality in modalities:
-                abbreviation = modality.abbreviation.replace("-", "_").upper()
-
-                for file in CORE_FILES:
-                    #  For each field, check if this is a required/excluded file
-                    file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
-
-                    if file not in requirement_dict:
-                        requirement_dict[file] = (abbreviation, file_requirement)
-                    else:
-                        (prev_modality, prev_requirement) = requirement_dict[file]
-
-                        if (file_requirement == FileRequirement.REQUIRED) or (
-                            file_requirement == FileRequirement.OPTIONAL
-                            and prev_requirement == FileRequirement.EXCLUDED
-                        ):
-                            # override, required wins over all else, and optional wins over excluded
-                            requirement_dict[file] = (abbreviation, file_requirement)
-
-            for file in CORE_FILES:
-                # Unpack modality
-                (requirement_modality, file_requirement) = requirement_dict[file]
-
-                # Check required case
-                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
-                    raise ValueError(f"{requirement_modality} metadata missing required file: {file}")
-
-                # Check excluded case
-                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
-                    raise ValueError(f"{requirement_modality} metadata includes excluded file: {file}")
+        for file in REQUIRED_FILES:
+            if not getattr(self, file):
+                warnings.warn(f"Metadata missing required file: {file}")
 
         return self
 
@@ -259,7 +233,7 @@ class Metadata(AindCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
+            and any([modality == Modality.SPIM for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -277,7 +251,7 @@ class Metadata(AindCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
+            and any([modality == Modality.ECEPHYS for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -290,10 +264,10 @@ class Metadata(AindCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_rig_session_compatibility(self):
+    def validate_instrument_session_compatibility(self):
         """Validator for metadata"""
-        if self.rig and self.session:
-            check = RigSessionCompatibility(self.rig, self.session)
+        if self.instrument and self.session:
+            check = InstrumentSessionCompatibility(self.instrument, self.session)
             check.run_compatibility_check()
         return self
 
@@ -318,7 +292,10 @@ def create_metadata_json(
     core_fields = dict()
     for key, value in core_jsons.items():
         if key in CORE_FILES and value is not None:
-            core_fields[key] = value
+            if is_dict_corrupt(value):
+                logging.warning(f"Provided {key} is corrupt! It will be ignored.")
+            else:
+                core_fields[key] = value
     # Create Metadata object and convert to JSON
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid

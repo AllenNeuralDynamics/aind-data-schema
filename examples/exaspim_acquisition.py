@@ -5,11 +5,12 @@ from datetime import datetime, timezone
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerValue
+from aind_data_schema_models.units import PowerUnit
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
 from aind_data_schema.components.devices import Calibration, Maintenance
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import acquisition
 from aind_data_schema.core.procedures import Reagent
 
@@ -19,7 +20,7 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 
 acq = acquisition.Acquisition(
-    experimenter_full_name=["###"],
+    experimenters=[Person(name="John Smith")],
     specimen_id="###",
     subject_id="###",
     instrument_id="###",
@@ -44,8 +45,11 @@ acq = acquisition.Acquisition(
             calibration_date=t,
             device_name="Laser_1",
             description="Laser power calibration",
-            input={"power_setting": PowerValue(value=100.0, unit="percent")},
-            output={"power_measurement": PowerValue(value=50.0, unit="milliwatt")},
+            input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
+            output={
+                "power_measurement": 50.0,
+                "power_unit": PowerUnit.MW,
+            },
         )
     ],
     session_start_time=t,

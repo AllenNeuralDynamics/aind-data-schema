@@ -3,7 +3,9 @@
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import FrequencyUnit
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.stimulus import PhotoStimulation, PhotoStimulationGroup
 from aind_data_schema.core.session import (
     DetectorConfig,
@@ -14,19 +16,20 @@ from aind_data_schema.core.session import (
     StimulusModality,
     Stream,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
-    experimenter_full_name=["John Doe"],
+    experimenters=[Person(name="John Smith")],
     session_start_time=t,
     session_end_time=t,
     subject_id="652567",
     session_type="BCI Photometry",
-    iacuc_protocol="2115",
-    rig_id="ophys_rig",
+    instrument_id="322_bergamo_20220705",
+    ethics_review_id="2115",
     mouse_platform_name="Mouse tube",
     active_mouse_platform=False,
     data_streams=[
@@ -55,7 +58,7 @@ s = Session(
                 FieldOfView(
                     index=0,
                     imaging_depth=150,
-                    targeted_structure="MOp",
+                    targeted_structure=CCFStructure.MOP,
                     fov_coordinate_ml=1.5,
                     fov_coordinate_ap=1.5,
                     fov_reference="Bregma",
@@ -64,6 +67,7 @@ s = Session(
                     magnification="1x",
                     fov_scale_factor=1.5,
                     frame_rate=20,
+                    frame_rate_unit=FrequencyUnit.HZ,
                 ),
             ],
         ),

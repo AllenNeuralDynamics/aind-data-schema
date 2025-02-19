@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
@@ -19,15 +19,15 @@ from aind_data_schema_models.units import (
     TimeUnit,
     UnitlessUnit,
     VolumeUnit,
-    create_unit_with_value,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -202,13 +202,11 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
-    # TODO: It might be easier to maintain to avoid dynamic model creation
-    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(
-        ..., title="Concentration (uM)"
-    )
+    concentration: Decimal = Field(..., title="Concentration")
+    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
 
-class HybridizationChainReaction(AindModel):
+class HybridizationChainReaction(DataModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
@@ -222,7 +220,7 @@ class HybridizationChainReaction(AindModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(AindModel):
+class HCRSeries(DataModel):
     """Description of series of HCR staining rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
@@ -241,7 +239,7 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Sectioning(AindModel):
+class Sectioning(DataModel):
     """Description of a sectioning procedure"""
 
     procedure_type: Literal["Sectioning"] = "Sectioning"
@@ -268,7 +266,7 @@ class Sectioning(AindModel):
         return v
 
 
-class SpecimenProcedure(AindModel):
+class SpecimenProcedure(DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
@@ -278,10 +276,9 @@ class SpecimenProcedure(AindModel):
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: List[Person] = Field(
+        default=[],
+        title="experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -305,7 +302,7 @@ class SpecimenProcedure(AindModel):
         return self
 
 
-class Anaesthetic(AindModel):
+class Anaesthetic(DataModel):
     """Description of an anaesthetic"""
 
     type: str = Field(..., title="Type")
@@ -314,7 +311,7 @@ class Anaesthetic(AindModel):
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class OtherSubjectProcedure(AindModel):
+class OtherSubjectProcedure(DataModel):
     """Description of non-surgical procedure performed on a subject"""
 
     procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
@@ -323,7 +320,7 @@ class OtherSubjectProcedure(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class CatheterImplant(AindModel):
+class CatheterImplant(DataModel):
     """Description of a catheter implant procedure"""
 
     procedure_type: Literal["Catheter Implant"] = "Catheter implant"
@@ -331,10 +328,12 @@ class CatheterImplant(AindModel):
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_structure: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
+    targeted_structure: MouseAnatomyModel = Field(
+        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )
 
 
-class Craniotomy(AindModel):
+class Craniotomy(DataModel):
     """Description of craniotomy procedure"""
 
     procedure_type: Literal["Craniotomy"] = "Craniotomy"
@@ -349,10 +348,10 @@ class Craniotomy(AindModel):
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
+    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
 
-class Headframe(AindModel):
+class Headframe(DataModel):
     """Description of headframe procedure"""
 
     procedure_type: Literal["Headframe"] = "Headframe"
@@ -364,7 +363,7 @@ class Headframe(AindModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class ProtectiveMaterialReplacement(AindModel):
+class ProtectiveMaterialReplacement(DataModel):
     """Description of a protective material replacement procedure in preparation for ephys recording"""
 
     procedure_type: Literal["Ground wire"] = "Ground wire"
@@ -375,12 +374,12 @@ class ProtectiveMaterialReplacement(AindModel):
     ground_wire_hole: Optional[int] = Field(default=None, title="Ground wire hole")
     ground_wire_material: Optional[GroundWireMaterial] = Field(default=None, title="Ground wire material")
     ground_wire_diameter: Optional[Decimal] = Field(default=None, title="Ground wire diameter")
-    ground_wire_diameter_unit: SizeUnit = Field(default=SizeUnit.IN, title="Ground wire diameter unit")
+    ground_wire_diameter_unit: Optional[SizeUnit] = Field(default=None, title="Ground wire diameter unit")
     well_part_number: Optional[str] = Field(default=None, title="Well part number")
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class TarsVirusIdentifiers(AindModel):
+class TarsVirusIdentifiers(DataModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
@@ -399,7 +398,7 @@ class TarsVirusIdentifiers(AindModel):
     prep_protocol: Optional[str] = Field(default=None, title="Prep protocol")
 
 
-class ViralMaterial(AindModel):
+class ViralMaterial(DataModel):
     """Description of viral material for injections"""
 
     material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
@@ -427,19 +426,21 @@ class NonViralMaterial(Reagent):
     concentration: Optional[Decimal] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
-    concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
+    concentration_unit: Optional[str] = Field(
+        default=None, title="Concentration unit", description="For example, mg/mL"
+    )
 
 
-class Injection(AindModel):
+class Injection(DataModel):
     """Description of an injection procedure"""
 
     injection_materials: List[
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
+    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
     injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")
-    injection_duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Injection duration unit")
+    injection_duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
@@ -538,7 +539,7 @@ class IntraCisternalMagnaInjection(BrainInjection):
     injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
-class SampleCollection(AindModel):
+class SampleCollection(DataModel):
     """Description of a single sample collection"""
 
     procedure_type: Literal["Sample collection"] = "Sample collection"
@@ -549,7 +550,7 @@ class SampleCollection(AindModel):
     collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
 
 
-class TrainingProtocol(AindModel):
+class TrainingProtocol(DataModel):
     """Description of an animal training protocol"""
 
     procedure_type: Literal["Training"] = "Training"
@@ -560,7 +561,7 @@ class TrainingProtocol(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(AindModel):
+class OphysProbe(DataModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
@@ -584,7 +585,7 @@ class OphysProbe(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class FiberImplant(AindModel):
+class FiberImplant(DataModel):
     """Description of an implant procedure"""
 
     procedure_type: Literal["Fiber implant"] = "Fiber implant"
@@ -592,11 +593,11 @@ class FiberImplant(AindModel):
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
-class WaterRestriction(AindModel):
+class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
     procedure_type: Literal["Water restriction"] = "Water restriction"
-    iacuc_protocol: str = Field(..., title="IACUC protocol")
+    ethics_review_id: str = Field(..., title="Ethics review ID")
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
@@ -611,24 +612,26 @@ class WaterRestriction(AindModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(AindModel):
+class MyomatrixContact(DataModel):
     """ "Description of a contact on a myomatrix thread"""
 
-    body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
     side: Side = Field(..., title="Body side")
-    muscle: MouseAnatomicalStructure.EMG_MUSCLES = Field(..., title="Muscle of contact insertion")
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class MyomatrixThread(AindModel):
+class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use MouseBodyParts"
+    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
-class MyomatrixInsertion(AindModel):
+class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
     procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
@@ -637,7 +640,7 @@ class MyomatrixInsertion(AindModel):
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
 
 
-class Perfusion(AindModel):
+class Perfusion(DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
     procedure_type: Literal["Perfusion"] = "Perfusion"
@@ -654,18 +657,17 @@ class Perfusion(AindModel):
         return sorted(values)
 
 
-class Surgery(AindModel):
+class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
     procedure_type: Literal["Surgery"] = "Surgery"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: Optional[List[Person]] = Field(
+        default=None,
+        title="experimenter(s)",
     )
-    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     animal_weight_prior: Optional[Decimal] = Field(
         default=None, title="Animal weight (g)", description="Animal weight before procedure"
     )
@@ -700,13 +702,13 @@ class Surgery(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Procedures(AindCoreModel):
+class Procedures(DataCoreModel):
     """Description of all procedures performed on a subject"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["1.2.1"]] = Field(default="1.2.1")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

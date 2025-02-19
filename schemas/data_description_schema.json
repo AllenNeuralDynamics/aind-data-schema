@@ -1,32 +1,5 @@
 {
    "$defs": {
-      "BaseName": {
-         "additionalProperties": false,
-         "description": "A simple model associating a name with an abbreviation",
-         "properties": {
-            "name": {
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "BaseName",
-         "type": "object"
-      },
       "DataLevel": {
          "description": "Data level name",
          "enum": [
@@ -131,36 +104,16 @@
          "title": "Group",
          "type": "string"
       },
-      "PIDName": {
-         "additionalProperties": false,
-         "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
+      "Person": {
+         "description": "Person identifier",
          "properties": {
             "name": {
-               "title": "Name",
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
                "type": "string"
             },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
             "registry": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/BaseName"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
+               "$ref": "#/$defs/_Orcid",
                "title": "Registry"
             },
             "registry_identifier": {
@@ -173,13 +126,13 @@
                   }
                ],
                "default": null,
-               "title": "Registry identifier"
+               "title": "ORCID ID"
             }
          },
          "required": [
             "name"
          ],
-         "title": "PIDName",
+         "title": "Person",
          "type": "object"
       },
       "RelatedData": {
@@ -424,6 +377,26 @@
          "title": "_Allen_Institute_For_Neural_Dynamics",
          "type": "object"
       },
+      "_Behavior": {
+         "additionalProperties": false,
+         "description": "Model behavior",
+         "properties": {
+            "name": {
+               "const": "Behavior",
+               "default": "Behavior",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "behavior",
+               "default": "behavior",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Behavior",
+         "type": "object"
+      },
       "_Behavior_Videos": {
          "additionalProperties": false,
          "description": "Model behavior-videos",
@@ -578,6 +551,46 @@
          "title": "_Columbia_University",
          "type": "object"
       },
+      "_Confocal": {
+         "additionalProperties": false,
+         "description": "Model confocal",
+         "properties": {
+            "name": {
+               "const": "Confocal microscopy",
+               "default": "Confocal microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "confocal",
+               "default": "confocal",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Confocal",
+         "type": "object"
+      },
+      "_Ecephys": {
+         "additionalProperties": false,
+         "description": "Model ecephys",
+         "properties": {
+            "name": {
+               "const": "Extracellular electrophysiology",
+               "default": "Extracellular electrophysiology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ecephys",
+               "default": "ecephys",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Ecephys",
+         "type": "object"
+      },
       "_Emapa": {
          "additionalProperties": false,
          "description": "Model EMAPA",
@@ -618,25 +631,6 @@
          "title": "_Emg",
          "type": "object"
       },
-      "_Exaspim": {
-         "description": "Model exaSPIM",
-         "properties": {
-            "name": {
-               "const": "ExaSPIM platform",
-               "default": "ExaSPIM platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "exaSPIM",
-               "default": "exaSPIM",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Exaspim",
-         "type": "object"
-      },
       "_Fib": {
          "additionalProperties": false,
          "description": "Model fib",
@@ -657,25 +651,6 @@
          "title": "_Fib",
          "type": "object"
       },
-      "_Fip": {
-         "description": "Model FIP",
-         "properties": {
-            "name": {
-               "const": "Frame-projected independent-fiber photometry platform",
-               "default": "Frame-projected independent-fiber photometry platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "FIP",
-               "default": "FIP",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Fip",
-         "type": "object"
-      },
       "_Fmost": {
          "additionalProperties": false,
          "description": "Model fMOST",
@@ -694,44 +669,6 @@
             }
          },
          "title": "_Fmost",
-         "type": "object"
-      },
-      "_Hcr": {
-         "description": "Model HCR",
-         "properties": {
-            "name": {
-               "const": "Hybridization chain reaction platform",
-               "default": "Hybridization chain reaction platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "HCR",
-               "default": "HCR",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Hcr",
-         "type": "object"
-      },
-      "_Hsfp": {
-         "description": "Model HSFP",
-         "properties": {
-            "name": {
-               "const": "Hyperspectral fiber photometry platform",
-               "default": "Hyperspectral fiber photometry platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "HSFP",
-               "default": "HSFP",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Hsfp",
          "type": "object"
       },
       "_Huazhong_University_Of_Science_And_Technology": {
@@ -819,6 +756,26 @@
             }
          },
          "title": "_Icephys",
+         "type": "object"
+      },
+      "_Isi": {
+         "additionalProperties": false,
+         "description": "Model ISI",
+         "properties": {
+            "name": {
+               "const": "Intrinsic signal imaging",
+               "default": "Intrinsic signal imaging",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ISI",
+               "default": "ISI",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Isi",
          "type": "object"
       },
       "_Janelia_Research_Campus": {
@@ -955,23 +912,24 @@
          "title": "_Mbf_Bioscience",
          "type": "object"
       },
-      "_Mesospim": {
-         "description": "Model mesoSPIM",
+      "_Merfish": {
+         "additionalProperties": false,
+         "description": "Model merfish",
          "properties": {
             "name": {
-               "const": "MesoSPIM platform",
-               "default": "MesoSPIM platform",
+               "const": "Multiplexed error-robust fluorescence in situ hybridization",
+               "default": "Multiplexed error-robust fluorescence in situ hybridization",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "mesoSPIM",
-               "default": "mesoSPIM",
+               "const": "merfish",
+               "default": "merfish",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Mesospim",
+         "title": "_Merfish",
          "type": "object"
       },
       "_Mgi": {
@@ -1061,42 +1019,24 @@
          "title": "_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
          "type": "object"
       },
-      "_Motor_Observatory": {
-         "description": "Model motor-observatory",
+      "_Mri": {
+         "additionalProperties": false,
+         "description": "Model MRI",
          "properties": {
             "name": {
-               "const": "Motor observatory platform",
-               "default": "Motor observatory platform",
+               "const": "Magnetic resonance imaging",
+               "default": "Magnetic resonance imaging",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "motor-observatory",
-               "default": "motor-observatory",
+               "const": "MRI",
+               "default": "MRI",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Motor_Observatory",
-         "type": "object"
-      },
-      "_Multiplane_Ophys": {
-         "description": "Model multiplane-ophys",
-         "properties": {
-            "name": {
-               "const": "Multiplane optical physiology platform",
-               "default": "Multiplane optical physiology platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "multiplane-ophys",
-               "default": "multiplane-ophys",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Multiplane_Ophys",
+         "title": "_Mri",
          "type": "object"
       },
       "_National_Center_For_Complementary_And_Integrative_Health": {
@@ -1563,25 +1503,6 @@
          "title": "_Simons_Foundation",
          "type": "object"
       },
-      "_Single_Plane_Ophys": {
-         "description": "Model single-plane-ophys",
-         "properties": {
-            "name": {
-               "const": "Single-plane optical physiology platform",
-               "default": "Single-plane optical physiology platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "single-plane-ophys",
-               "default": "single-plane-ophys",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Single_Plane_Ophys",
-         "type": "object"
-      },
       "_Slap": {
          "additionalProperties": false,
          "description": "Model slap",
@@ -1600,44 +1521,6 @@
             }
          },
          "title": "_Slap",
-         "type": "object"
-      },
-      "_Slap2": {
-         "description": "Model SLAP2",
-         "properties": {
-            "name": {
-               "const": "SLAP2 platform",
-               "default": "SLAP2 platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "SLAP2",
-               "default": "SLAP2",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Slap2",
-         "type": "object"
-      },
-      "_Smartspim": {
-         "description": "Model SmartSPIM",
-         "properties": {
-            "name": {
-               "const": "SmartSPIM platform",
-               "default": "SmartSPIM platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "SmartSPIM",
-               "default": "SmartSPIM",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Smartspim",
          "type": "object"
       },
       "_Spim": {
@@ -1726,240 +1609,6 @@
          },
          "title": "_Templeton_World_Charity_Foundation",
          "type": "object"
-      },
-      "aind_data_schema_models__modalities___Behavior": {
-         "additionalProperties": false,
-         "description": "Model behavior",
-         "properties": {
-            "name": {
-               "const": "Behavior",
-               "default": "Behavior",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "behavior",
-               "default": "behavior",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Behavior",
-         "type": "object"
-      },
-      "aind_data_schema_models__modalities___Confocal": {
-         "additionalProperties": false,
-         "description": "Model confocal",
-         "properties": {
-            "name": {
-               "const": "Confocal microscopy",
-               "default": "Confocal microscopy",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "confocal",
-               "default": "confocal",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Confocal",
-         "type": "object"
-      },
-      "aind_data_schema_models__modalities___Ecephys": {
-         "additionalProperties": false,
-         "description": "Model ecephys",
-         "properties": {
-            "name": {
-               "const": "Extracellular electrophysiology",
-               "default": "Extracellular electrophysiology",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ecephys",
-               "default": "ecephys",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Ecephys",
-         "type": "object"
-      },
-      "aind_data_schema_models__modalities___Isi": {
-         "additionalProperties": false,
-         "description": "Model ISI",
-         "properties": {
-            "name": {
-               "const": "Intrinsic signal imaging",
-               "default": "Intrinsic signal imaging",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ISI",
-               "default": "ISI",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Isi",
-         "type": "object"
-      },
-      "aind_data_schema_models__modalities___Merfish": {
-         "additionalProperties": false,
-         "description": "Model merfish",
-         "properties": {
-            "name": {
-               "const": "Multiplexed error-robust fluorescence in situ hybridization",
-               "default": "Multiplexed error-robust fluorescence in situ hybridization",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "merfish",
-               "default": "merfish",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Merfish",
-         "type": "object"
-      },
-      "aind_data_schema_models__modalities___Mri": {
-         "additionalProperties": false,
-         "description": "Model MRI",
-         "properties": {
-            "name": {
-               "const": "Magnetic resonance imaging",
-               "default": "Magnetic resonance imaging",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MRI",
-               "default": "MRI",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Mri",
-         "type": "object"
-      },
-      "aind_data_schema_models__platforms___Behavior": {
-         "description": "Model behavior",
-         "properties": {
-            "name": {
-               "const": "Behavior platform",
-               "default": "Behavior platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "behavior",
-               "default": "behavior",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Behavior",
-         "type": "object"
-      },
-      "aind_data_schema_models__platforms___Confocal": {
-         "description": "Model confocal",
-         "properties": {
-            "name": {
-               "const": "Confocal microscopy platform",
-               "default": "Confocal microscopy platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "confocal",
-               "default": "confocal",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Confocal",
-         "type": "object"
-      },
-      "aind_data_schema_models__platforms___Ecephys": {
-         "description": "Model ecephys",
-         "properties": {
-            "name": {
-               "const": "Electrophysiology platform",
-               "default": "Electrophysiology platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ecephys",
-               "default": "ecephys",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Ecephys",
-         "type": "object"
-      },
-      "aind_data_schema_models__platforms___Isi": {
-         "description": "Model ISI",
-         "properties": {
-            "name": {
-               "const": "Intrinsic signal imaging platform",
-               "default": "Intrinsic signal imaging platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ISI",
-               "default": "ISI",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Isi",
-         "type": "object"
-      },
-      "aind_data_schema_models__platforms___Merfish": {
-         "description": "Model MERFISH",
-         "properties": {
-            "name": {
-               "const": "MERFISH platform",
-               "default": "MERFISH platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MERFISH",
-               "default": "MERFISH",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Merfish",
-         "type": "object"
-      },
-      "aind_data_schema_models__platforms___Mri": {
-         "description": "Model MRI",
-         "properties": {
-            "name": {
-               "const": "Magnetic resonance imaging platform",
-               "default": "Magnetic resonance imaging platform",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MRI",
-               "default": "MRI",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Mri",
-         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -1972,8 +1621,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.4",
-         "default": "1.0.4",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1982,81 +1631,6 @@
          "default": "CC-BY-4.0",
          "title": "License",
          "type": "string"
-      },
-      "platform": {
-         "description": "Name for a standardized primary data collection system",
-         "discriminator": {
-            "mapping": {
-               "Behavior platform": "#/$defs/aind_data_schema_models__platforms___Behavior",
-               "Confocal microscopy platform": "#/$defs/aind_data_schema_models__platforms___Confocal",
-               "Electrophysiology platform": "#/$defs/aind_data_schema_models__platforms___Ecephys",
-               "ExaSPIM platform": "#/$defs/_Exaspim",
-               "Frame-projected independent-fiber photometry platform": "#/$defs/_Fip",
-               "Hybridization chain reaction platform": "#/$defs/_Hcr",
-               "Hyperspectral fiber photometry platform": "#/$defs/_Hsfp",
-               "Intrinsic signal imaging platform": "#/$defs/aind_data_schema_models__platforms___Isi",
-               "MERFISH platform": "#/$defs/aind_data_schema_models__platforms___Merfish",
-               "Magnetic resonance imaging platform": "#/$defs/aind_data_schema_models__platforms___Mri",
-               "MesoSPIM platform": "#/$defs/_Mesospim",
-               "Motor observatory platform": "#/$defs/_Motor_Observatory",
-               "Multiplane optical physiology platform": "#/$defs/_Multiplane_Ophys",
-               "SLAP2 platform": "#/$defs/_Slap2",
-               "Single-plane optical physiology platform": "#/$defs/_Single_Plane_Ophys",
-               "SmartSPIM platform": "#/$defs/_Smartspim"
-            },
-            "propertyName": "name"
-         },
-         "oneOf": [
-            {
-               "$ref": "#/$defs/aind_data_schema_models__platforms___Behavior"
-            },
-            {
-               "$ref": "#/$defs/aind_data_schema_models__platforms___Confocal"
-            },
-            {
-               "$ref": "#/$defs/aind_data_schema_models__platforms___Ecephys"
-            },
-            {
-               "$ref": "#/$defs/_Exaspim"
-            },
-            {
-               "$ref": "#/$defs/_Fip"
-            },
-            {
-               "$ref": "#/$defs/_Hcr"
-            },
-            {
-               "$ref": "#/$defs/_Hsfp"
-            },
-            {
-               "$ref": "#/$defs/aind_data_schema_models__platforms___Isi"
-            },
-            {
-               "$ref": "#/$defs/aind_data_schema_models__platforms___Merfish"
-            },
-            {
-               "$ref": "#/$defs/aind_data_schema_models__platforms___Mri"
-            },
-            {
-               "$ref": "#/$defs/_Mesospim"
-            },
-            {
-               "$ref": "#/$defs/_Motor_Observatory"
-            },
-            {
-               "$ref": "#/$defs/_Multiplane_Ophys"
-            },
-            {
-               "$ref": "#/$defs/_Slap2"
-            },
-            {
-               "$ref": "#/$defs/_Single_Plane_Ophys"
-            },
-            {
-               "$ref": "#/$defs/_Smartspim"
-            }
-         ],
-         "title": "Platform"
       },
       "subject_id": {
          "description": "Unique identifier for the subject of data acquisition",
@@ -2165,7 +1739,7 @@
       "investigators": {
          "description": "Full name(s) of key investigators (e.g. PI, lead scientist, contact person)",
          "items": {
-            "$ref": "#/$defs/PIDName"
+            "$ref": "#/$defs/Person"
          },
          "minItems": 1,
          "title": "Investigators",
@@ -2198,23 +1772,23 @@
          "description": "Detail any restrictions on publishing or sharing these data",
          "title": "Restrictions"
       },
-      "modality": {
+      "modalities": {
          "description": "A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study",
          "items": {
             "discriminator": {
                "mapping": {
                   "EMG": "#/$defs/_Emg",
-                  "ISI": "#/$defs/aind_data_schema_models__modalities___Isi",
-                  "MRI": "#/$defs/aind_data_schema_models__modalities___Mri",
+                  "ISI": "#/$defs/_Isi",
+                  "MRI": "#/$defs/_Mri",
                   "SPIM": "#/$defs/_Spim",
-                  "behavior": "#/$defs/aind_data_schema_models__modalities___Behavior",
+                  "behavior": "#/$defs/_Behavior",
                   "behavior-videos": "#/$defs/_Behavior_Videos",
-                  "confocal": "#/$defs/aind_data_schema_models__modalities___Confocal",
-                  "ecephys": "#/$defs/aind_data_schema_models__modalities___Ecephys",
+                  "confocal": "#/$defs/_Confocal",
+                  "ecephys": "#/$defs/_Ecephys",
                   "fMOST": "#/$defs/_Fmost",
                   "fib": "#/$defs/_Fib",
                   "icephys": "#/$defs/_Icephys",
-                  "merfish": "#/$defs/aind_data_schema_models__modalities___Merfish",
+                  "merfish": "#/$defs/_Merfish",
                   "pophys": "#/$defs/_Pophys",
                   "slap": "#/$defs/_Slap"
                },
@@ -2222,19 +1796,19 @@
             },
             "oneOf": [
                {
-                  "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
+                  "$ref": "#/$defs/_Behavior"
                },
                {
                   "$ref": "#/$defs/_Behavior_Videos"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__modalities___Confocal"
+                  "$ref": "#/$defs/_Confocal"
                },
                {
                   "$ref": "#/$defs/_Emg"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__modalities___Ecephys"
+                  "$ref": "#/$defs/_Ecephys"
                },
                {
                   "$ref": "#/$defs/_Fib"
@@ -2246,13 +1820,13 @@
                   "$ref": "#/$defs/_Icephys"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__modalities___Isi"
+                  "$ref": "#/$defs/_Isi"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__modalities___Mri"
+                  "$ref": "#/$defs/_Mri"
                },
                {
-                  "$ref": "#/$defs/aind_data_schema_models__modalities___Merfish"
+                  "$ref": "#/$defs/_Merfish"
                },
                {
                   "$ref": "#/$defs/_Pophys"
@@ -2265,7 +1839,7 @@
                }
             ]
          },
-         "title": "Modality",
+         "title": "Modalities",
          "type": "array"
       },
       "related_data": {
@@ -2292,14 +1866,13 @@
       }
    },
    "required": [
-      "platform",
       "subject_id",
       "creation_time",
       "institution",
       "funding_source",
       "data_level",
       "investigators",
-      "modality"
+      "modalities"
    ],
    "title": "DataDescription",
    "type": "object"

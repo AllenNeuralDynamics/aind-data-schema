@@ -1,4 +1,4 @@
-"""Tests rig session compatibility check"""
+"""Tests instrument session compatibility check"""
 
 import json
 import unittest
@@ -8,10 +8,10 @@ from pathlib import Path
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
-from aind_data_schema.components.tile import Channel
-import aind_data_schema.core.rig as r
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
     Calibration,
     Camera,
@@ -33,7 +33,7 @@ from aind_data_schema.components.devices import (
     ProbePort,
     Software,
 )
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -49,16 +49,17 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
-EPHYS_RIG_JSON = EXAMPLES_DIR / "ephys_rig.json"
+EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
 EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
 
 behavior_computer = "W10DT72941"
 ephys_computer = "W10DT72942"
 
-running_wheel = Disc(name="Running Wheel", radius=15)
+disc_mouse_platform = Disc(name="Running Wheel", radius=15)
 
 digital_out0 = DAQChannel(channel_name="DO0", device_name="Face Camera", channel_type="Digital Output")
 
@@ -98,7 +99,7 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
-    collimator=Device(name="Collimator A", device_type="Collimator"),
+    collimator=Device(name="Collimator A"),
     fiber=Patch(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
@@ -115,6 +116,7 @@ probe_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -158,7 +160,13 @@ filt = Filter(
     description="850 nm longpass filter",
 )
 
-lens = Lens(name="Camera lens", focal_length=15, manufacturer=Organization.EDMUND_OPTICS, max_aperture="f/2")
+lens = Lens(
+    name="Camera lens",
+    focal_length=15,
+    focal_length_unit=SizeUnit.MM,
+    manufacturer=Organization.EDMUND_OPTICS,
+    max_aperture="f/2",
+)
 
 face_camera = Camera(
     name="Face Camera",
@@ -167,6 +175,7 @@ face_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -189,6 +198,7 @@ body_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -223,27 +233,32 @@ blue_laser_calibration = Calibration(
     output={"power mW": [1, 2, 7]},
 )
 
-ephys_rig = Rig(
-    rig_id="323_EPHYS1_20231003",
+ephys_inst = Instrument(
+    instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
-    cameras=[camassm1, camassm2],
-    laser_assemblies=[laser_assembly],
-    daqs=[basestation, harp],
-    stick_microscopes=[microscope],
-    mouse_platform=running_wheel,
+    components=[
+        ephys_assemblyA,
+        ephys_assemblyB,
+        camassm1,
+        camassm2,
+        laser_assembly,
+        basestation,
+        harp,
+        microscope,
+        disc_mouse_platform,
+    ],
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
 ephys_session = Session(
-    experimenter_full_name=["Max Quibble", "Finn Tickle"],
+    experimenters=[Person(name="Mam Moth")],
     subject_id="664484",
     session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     session_type="Receptive field mapping",
-    iacuc_protocol="2109",
-    rig_id="323_EPHYS2-RF_2023-04-24_01",
+    instrument_id="323_EPHYS2-RF_2023-04-24_01",
+    ethics_review_id="2109",
     active_mouse_platform=False,
     mouse_platform_name="mouse platform",
     stimulus_epochs=[
@@ -342,7 +357,7 @@ ephys_session = Session(
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -357,7 +372,7 @@ ephys_session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
                     assembly_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure="LC",
+                    primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -411,7 +426,7 @@ ephys_session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
                     assembly_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -428,7 +443,7 @@ ephys_session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
                     assembly_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure="LGd",
+                    primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -443,7 +458,7 @@ ephys_session = Session(
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
                     assembly_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure="LC",
+                    primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
@@ -457,8 +472,8 @@ ephys_session = Session(
 )
 
 
-class TestRigSessionCompatibility(unittest.TestCase):
-    """Tests RigSessionCompatibility class"""
+class TestInstrumentSessionCompatibility(unittest.TestCase):
+    """Tests InstrumentSessionCompatibility class"""
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -470,289 +485,299 @@ class TestRigSessionCompatibility(unittest.TestCase):
                 contents = json.load(f)
             return contents
 
-        cls.example_ephys_rig = Rig.model_validate_json(json.dumps(read_json(EPHYS_RIG_JSON)))
+        cameras = [
+            d.CameraAssembly(
+                name="BehaviorVideography_FaceSide",
+                camera_target=d.CameraTarget.FACE_SIDE_LEFT,
+                camera=d.Camera(
+                    name="Side face camera",
+                    detector_type="Camera",
+                    manufacturer=d.Organization.AILIPU,
+                    model="ELP-USBFHD05MT-KL170IR",
+                    notes="The light intensity sensor was removed; IR illumination is constantly on",
+                    data_interface="USB",
+                    computer_name="W10DTJK7N0M3",
+                    frame_rate=120,
+                    frame_rate_unit=FrequencyUnit.HZ,
+                    sensor_width=640,
+                    sensor_height=480,
+                    chroma="Color",
+                    cooling="Air",
+                    bin_mode="Additive",
+                    recording_software=d.Software(name="Bonsai", version="2.5"),
+                ),
+                lens=d.Lens(
+                    name="Xenocam 1",
+                    model="XC0922LENS",
+                    manufacturer=d.Organization.OTHER,
+                    max_aperture="f/1.4",
+                    notes='Focal Length 9-22mm 1/3" IR F1.4',
+                ),
+            ),
+            d.CameraAssembly(
+                name="BehaviorVideography_FaceBottom",
+                camera_target=d.CameraTarget.FACE_BOTTOM,
+                camera=d.Camera(
+                    name="Bottom face Camera",
+                    detector_type="Camera",
+                    manufacturer=d.Organization.AILIPU,
+                    model="ELP-USBFHD05MT-KL170IR",
+                    notes="The light intensity sensor was removed; IR illumination is constantly on",
+                    data_interface="USB",
+                    computer_name="W10DTJK7N0M3",
+                    frame_rate=120,
+                    frame_rate_unit=FrequencyUnit.HZ,
+                    sensor_width=640,
+                    sensor_height=480,
+                    chroma="Color",
+                    cooling="Air",
+                    bin_mode="Additive",
+                    recording_software=d.Software(name="Bonsai", version="2.5"),
+                ),
+                lens=d.Lens(
+                    name="Xenocam 2",
+                    model="XC0922LENS",
+                    manufacturer=d.Organization.OTHER,
+                    max_aperture="f/1.4",
+                    notes='Focal Length 9-22mm 1/3" IR F1.4',
+                ),
+            ),
+        ]
+        patch_cords = [
+            d.Patch(
+                name="Bundle Branching Fiber-optic Patch Cord",
+                manufacturer=d.Organization.DORIC,
+                model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
+                core_diameter=200,
+                numerical_aperture=0.37,
+            )
+        ]
+        light_sources = [
+            d.LightEmittingDiode(
+                name="470nm LED",
+                manufacturer=d.Organization.THORLABS,
+                model="M470F3",
+                wavelength=470,
+            ),
+            d.LightEmittingDiode(
+                name="415nm LED",
+                manufacturer=d.Organization.THORLABS,
+                model="M415F3",
+                wavelength=415,
+            ),
+            d.LightEmittingDiode(
+                name="565nm LED",
+                manufacturer=d.Organization.THORLABS,
+                model="M565F3",
+                wavelength=565,
+            ),
+        ]
+        detectors = [
+            d.Detector(
+                name="Green CMOS",
+                serial_number="21396991",
+                manufacturer=d.Organization.FLIR,
+                model="BFS-U3-20S40M",
+                detector_type="Camera",
+                data_interface="USB",
+                cooling="Air",
+                immersion="air",
+                bin_width=4,
+                bin_height=4,
+                bin_mode="Additive",
+                crop_width=200,
+                crop_height=200,
+                gain=2,
+                chroma="Monochrome",
+                bit_depth=16,
+            ),
+            d.Detector(
+                name="Red CMOS",
+                serial_number="21396991",
+                manufacturer=d.Organization.FLIR,
+                model="BFS-U3-20S40M",
+                detector_type="Camera",
+                data_interface="USB",
+                cooling="Air",
+                immersion="air",
+                bin_width=4,
+                bin_height=4,
+                bin_mode="Additive",
+                crop_width=200,
+                crop_height=200,
+                gain=2,
+                chroma="Monochrome",
+                bit_depth=16,
+            ),
+        ]
+        objectives = [
+            d.Objective(
+                name="Objective",
+                serial_number="128022336",
+                manufacturer=d.Organization.NIKON,
+                model="CFI Plan Apochromat Lambda D 10x",
+                numerical_aperture=0.45,
+                magnification=10,
+                immersion="air",
+            )
+        ]
+        filters = [
+            d.Filter(
+                name="Green emission filter",
+                manufacturer=d.Organization.SEMROCK,
+                model="FF01-520/35-25",
+                filter_type="Band pass",
+                center_wavelength=520,
+                diameter=25,
+            ),
+            d.Filter(
+                name="Red emission filter",
+                manufacturer=d.Organization.SEMROCK,
+                model="FF01-600/37-25",
+                filter_type="Band pass",
+                center_wavelength=600,
+                diameter=25,
+            ),
+            d.Filter(
+                name="Emission Dichroic",
+                model="FF562-Di03-25x36",
+                manufacturer=d.Organization.SEMROCK,
+                filter_type="Dichroic",
+                height=25,
+                width=36,
+                cut_off_wavelength=562,
+            ),
+            d.Filter(
+                name="dual-edge standard epi-fluorescence dichroic beamsplitter",
+                model="FF493/574-Di01-25x36",
+                manufacturer=d.Organization.SEMROCK,
+                notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
+                filter_type="Multiband",
+                width=36,
+                height=24,
+            ),
+            d.Filter(
+                name="Excitation filter 410nm",
+                manufacturer=d.Organization.THORLABS,
+                model="FB410-10",
+                filter_type="Band pass",
+                diameter=25,
+                center_wavelength=410,
+            ),
+            d.Filter(
+                name="Excitation filter 470nm",
+                manufacturer=d.Organization.THORLABS,
+                model="FB470-10",
+                filter_type="Band pass",
+                center_wavelength=470,
+                diameter=25,
+            ),
+            d.Filter(
+                name="Excitation filter 560nm",
+                manufacturer=d.Organization.THORLABS,
+                model="FB560-10",
+                filter_type="Band pass",
+                diameter=25,
+                center_wavelength=560,
+            ),
+            d.Filter(
+                name="450 Dichroic Longpass Filter",
+                manufacturer=d.Organization.EDMUND_OPTICS,
+                model="#69-898",
+                filter_type="Dichroic",
+                cut_off_wavelength=450,
+                width=35.6,
+                height=25.2,
+            ),
+            d.Filter(
+                name="500 Dichroic Longpass Filter",
+                manufacturer=d.Organization.EDMUND_OPTICS,
+                model="#69-899",
+                filter_type="Dichroic",
+                cut_off_wavelength=500,
+                width=35.6,
+                height=23.2,
+            ),
+        ]
+        lenses = [
+            d.Lens(
+                manufacturer=d.Organization.THORLABS,
+                model="AC254-080-A-ML",
+                name="Image focusing lens",
+                focal_length=80,
+                focal_length_unit=SizeUnit.MM,
+                size=1,
+            )
+        ]
+        daqs = [
+            d.HarpDevice(
+                name="Harp Behavior",
+                harp_device_type=d.HarpDeviceType.BEHAVIOR,
+                core_version="2.1",
+                computer_name="behavior_computer",
+                is_clock_generator=False,
+                channels=[
+                    d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
+                    d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
+                    d.DAQChannel(
+                        channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
+                    ),
+                    d.DAQChannel(
+                        channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
+                    ),
+                    d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
+                ],
+            )
+        ]
+        stimulus_devices = [
+            d.RewardDelivery(
+                reward_spouts=[
+                    d.RewardSpout(
+                        name="Left spout",
+                        side=d.SpoutSide.LEFT,
+                        spout_diameter=1.2,
+                        solenoid_valve=d.Device(name="Solenoid Left"),
+                        lick_sensor=d.Device(
+                            name="Janelia_Lick_Detector Left",
+                            manufacturer=d.Organization.JANELIA,
+                        ),
+                        lick_sensor_type=d.LickSensorType("Capacitive"),
+                    ),
+                    d.RewardSpout(
+                        name="Right spout",
+                        side=d.SpoutSide.RIGHT,
+                        spout_diameter=1.2,
+                        solenoid_valve=d.Device(name="Solenoid Right"),
+                        lick_sensor=d.Device(
+                            name="Janelia_Lick_Detector Right",
+                            manufacturer=d.Organization.JANELIA,
+                        ),
+                        lick_sensor_type=d.LickSensorType("Capacitive"),
+                    ),
+                ],
+            ),
+        ]
+        additional_devices = [d.Device(name="Photometry Clock")]
+
+        cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
         cls.example_ephys_session = Session.model_validate_json(json.dumps(read_json(EPHYS_SESSION_JSON)))
-        cls.ophys_rig = r.Rig(
-            rig_id="428_FIP1_20231003",
+        cls.ophys_instrument = Instrument(
+            instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],
-            cameras=[
-                d.CameraAssembly(
-                    name="BehaviorVideography_FaceSide",
-                    camera_target=d.CameraTarget.FACE_SIDE_LEFT,
-                    camera=d.Camera(
-                        name="Side face camera",
-                        detector_type="Camera",
-                        serial_number="TBD",
-                        manufacturer=d.Organization.AILIPU,
-                        model="ELP-USBFHD05MT-KL170IR",
-                        notes="The light intensity sensor was removed; IR illumination is constantly on",
-                        data_interface="USB",
-                        computer_name="W10DTJK7N0M3",
-                        frame_rate=120,
-                        sensor_width=640,
-                        sensor_height=480,
-                        chroma="Color",
-                        cooling="Air",
-                        bin_mode="Additive",
-                        recording_software=d.Software(name="Bonsai", version="2.5"),
-                    ),
-                    lens=d.Lens(
-                        name="Xenocam 1",
-                        model="XC0922LENS",
-                        serial_number="unknown",
-                        manufacturer=d.Organization.OTHER,
-                        max_aperture="f/1.4",
-                        notes='Focal Length 9-22mm 1/3" IR F1.4',
-                    ),
-                ),
-                d.CameraAssembly(
-                    name="BehaviorVideography_FaceBottom",
-                    camera_target=d.CameraTarget.FACE_BOTTOM,
-                    camera=d.Camera(
-                        name="Bottom face Camera",
-                        detector_type="Camera",
-                        serial_number="TBD",
-                        manufacturer=d.Organization.AILIPU,
-                        model="ELP-USBFHD05MT-KL170IR",
-                        notes="The light intensity sensor was removed; IR illumination is constantly on",
-                        data_interface="USB",
-                        computer_name="W10DTJK7N0M3",
-                        frame_rate=120,
-                        sensor_width=640,
-                        sensor_height=480,
-                        chroma="Color",
-                        cooling="Air",
-                        bin_mode="Additive",
-                        recording_software=d.Software(name="Bonsai", version="2.5"),
-                    ),
-                    lens=d.Lens(
-                        name="Xenocam 2",
-                        model="XC0922LENS",
-                        serial_number="unknown",
-                        manufacturer=d.Organization.OTHER,
-                        max_aperture="f/1.4",
-                        notes='Focal Length 9-22mm 1/3" IR F1.4',
-                    ),
-                ),
+            components=[
+                *cameras,
+                *patch_cords,
+                *light_sources,
+                *detectors,
+                *objectives,
+                *filters,
+                *lenses,
+                *daqs,
+                *stimulus_devices,
+                *additional_devices,
+                d.Disc(name="mouse_disc", radius=8.5),
             ],
-            patch_cords=[
-                d.Patch(
-                    name="Bundle Branching Fiber-optic Patch Cord",
-                    manufacturer=d.Organization.DORIC,
-                    model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
-                    core_diameter=200,
-                    numerical_aperture=0.37,
-                )
-            ],
-            light_sources=[
-                d.LightEmittingDiode(
-                    name="470nm LED",
-                    manufacturer=d.Organization.THORLABS,
-                    model="M470F3",
-                    wavelength=470,
-                ),
-                d.LightEmittingDiode(
-                    name="415nm LED",
-                    manufacturer=d.Organization.THORLABS,
-                    model="M415F3",
-                    wavelength=415,
-                ),
-                d.LightEmittingDiode(
-                    name="565nm LED",
-                    manufacturer=d.Organization.THORLABS,
-                    model="M565F3",
-                    wavelength=565,
-                ),
-            ],
-            detectors=[
-                d.Detector(
-                    name="Green CMOS",
-                    serial_number="21396991",
-                    manufacturer=d.Organization.FLIR,
-                    model="BFS-U3-20S40M",
-                    detector_type="Camera",
-                    data_interface="USB",
-                    cooling="Air",
-                    immersion="air",
-                    bin_width=4,
-                    bin_height=4,
-                    bin_mode="Additive",
-                    crop_width=200,
-                    crop_height=200,
-                    gain=2,
-                    chroma="Monochrome",
-                    bit_depth=16,
-                ),
-                d.Detector(
-                    name="Red CMOS",
-                    serial_number="21396991",
-                    manufacturer=d.Organization.FLIR,
-                    model="BFS-U3-20S40M",
-                    detector_type="Camera",
-                    data_interface="USB",
-                    cooling="Air",
-                    immersion="air",
-                    bin_width=4,
-                    bin_height=4,
-                    bin_mode="Additive",
-                    crop_width=200,
-                    crop_height=200,
-                    gain=2,
-                    chroma="Monochrome",
-                    bit_depth=16,
-                ),
-            ],
-            objectives=[
-                d.Objective(
-                    name="Objective",
-                    serial_number="128022336",
-                    manufacturer=d.Organization.NIKON,
-                    model="CFI Plan Apochromat Lambda D 10x",
-                    numerical_aperture=0.45,
-                    magnification=10,
-                    immersion="air",
-                )
-            ],
-            filters=[
-                d.Filter(
-                    name="Green emission filter",
-                    manufacturer=d.Organization.SEMROCK,
-                    model="FF01-520/35-25",
-                    filter_type="Band pass",
-                    center_wavelength=520,
-                    diameter=25,
-                ),
-                d.Filter(
-                    name="Red emission filter",
-                    manufacturer=d.Organization.SEMROCK,
-                    model="FF01-600/37-25",
-                    filter_type="Band pass",
-                    center_wavelength=600,
-                    diameter=25,
-                ),
-                d.Filter(
-                    name="Emission Dichroic",
-                    model="FF562-Di03-25x36",
-                    manufacturer=d.Organization.SEMROCK,
-                    filter_type="Dichroic",
-                    height=25,
-                    width=36,
-                    cut_off_wavelength=562,
-                ),
-                d.Filter(
-                    name="dual-edge standard epi-fluorescence dichroic beamsplitter",
-                    model="FF493/574-Di01-25x36",
-                    manufacturer=d.Organization.SEMROCK,
-                    notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
-                    filter_type="Multiband",
-                    width=36,
-                    height=24,
-                ),
-                d.Filter(
-                    name="Excitation filter 410nm",
-                    manufacturer=d.Organization.THORLABS,
-                    model="FB410-10",
-                    filter_type="Band pass",
-                    diameter=25,
-                    center_wavelength=410,
-                ),
-                d.Filter(
-                    name="Excitation filter 470nm",
-                    manufacturer=d.Organization.THORLABS,
-                    model="FB470-10",
-                    filter_type="Band pass",
-                    center_wavelength=470,
-                    diameter=25,
-                ),
-                d.Filter(
-                    name="Excitation filter 560nm",
-                    manufacturer=d.Organization.THORLABS,
-                    model="FB560-10",
-                    filter_type="Band pass",
-                    diameter=25,
-                    center_wavelength=560,
-                ),
-                d.Filter(
-                    name="450 Dichroic Longpass Filter",
-                    manufacturer=d.Organization.EDMUND_OPTICS,
-                    model="#69-898",
-                    filter_type="Dichroic",
-                    cut_off_wavelength=450,
-                    width=35.6,
-                    height=25.2,
-                ),
-                d.Filter(
-                    name="500 Dichroic Longpass Filter",
-                    manufacturer=d.Organization.EDMUND_OPTICS,
-                    model="#69-899",
-                    filter_type="Dichroic",
-                    cut_off_wavelength=500,
-                    width=35.6,
-                    height=23.2,
-                ),
-            ],
-            lenses=[
-                d.Lens(
-                    manufacturer=d.Organization.THORLABS,
-                    model="AC254-080-A-ML",
-                    name="Image focusing lens",
-                    focal_length=80,
-                    size=1,
-                )
-            ],
-            daqs=[
-                d.HarpDevice(
-                    name="Harp Behavior",
-                    harp_device_type=d.HarpDeviceType.BEHAVIOR,
-                    core_version="2.1",
-                    computer_name="behavior_computer",
-                    is_clock_generator=False,
-                    channels=[
-                        d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
-                        d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                        d.DAQChannel(
-                            channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
-                        ),
-                        d.DAQChannel(
-                            channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
-                        ),
-                        d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
-                    ],
-                )
-            ],
-            mouse_platform=d.Disc(name="mouse_disc", radius=8.5),
-            stimulus_devices=[
-                d.RewardDelivery(
-                    reward_spouts=[
-                        d.RewardSpout(
-                            name="Left spout",
-                            side=d.SpoutSide.LEFT,
-                            spout_diameter=1.2,
-                            solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Left"),
-                            lick_sensor=d.Device(
-                                name="Janelia_Lick_Detector Left",
-                                device_type="Lick detector",
-                                manufacturer=d.Organization.JANELIA,
-                            ),
-                            lick_sensor_type=d.LickSensorType("Capacitive"),
-                        ),
-                        d.RewardSpout(
-                            name="Right spout",
-                            side=d.SpoutSide.RIGHT,
-                            spout_diameter=1.2,
-                            solenoid_valve=d.Device(device_type="Solenoid", name="Solenoid Right"),
-                            lick_sensor=d.Device(
-                                name="Janelia_Lick_Detector Right",
-                                device_type="Lick detector",
-                                manufacturer=d.Organization.JANELIA,
-                            ),
-                            lick_sensor_type=d.LickSensorType("Capacitive"),
-                        ),
-                    ],
-                ),
-            ],
-            additional_devices=[d.Device(device_type="Photometry Clock", name="Photometry Clock")],
             calibrations=[
                 d.Calibration(
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
@@ -764,13 +789,13 @@ class TestRigSessionCompatibility(unittest.TestCase):
             ],
         )
         cls.ophys_session = Session(
-            experimenter_full_name=["John Doe"],
+            experimenters=[Person(name="Mam Moth")],
             session_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             session_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",
             session_type="Parameter Testing",
-            iacuc_protocol="2115",
-            rig_id="ophys_rig",
+            instrument_id="ophys_inst",
+            ethics_review_id="2115",
             mouse_platform_name="Disc",
             active_mouse_platform=False,
             data_streams=[
@@ -800,7 +825,7 @@ class TestRigSessionCompatibility(unittest.TestCase):
                             assembly_name="Fiber Module A",
                             arc_angle=30,
                             module_angle=180,
-                            primary_targeted_structure="VISp",
+                            primary_targeted_structure=CCFStructure.VISP,
                             manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
                         )
                     ],
@@ -810,32 +835,12 @@ class TestRigSessionCompatibility(unittest.TestCase):
                             patch_cord_output_power=40,
                             output_power_unit="microwatt",
                             fiber_name="Fiber A",
-                            channel=Channel(
-                                channel_name="Channel A",
-                                intended_measurement="Dopamine",
-                                light_source_name="Laser A",
-                                filter_names=["Excitation filter 410nm"],
-                                detector_name="Green CMOS",
-                                excitation_wavelength=410,
-                                excitation_power=10,
-                                emission_wavelength=600,
-                            )
                         ),
                         FiberConnectionConfig(
                             patch_cord_name="Patch Cord B",
                             patch_cord_output_power=43,
                             output_power_unit="microwatt",
                             fiber_name="Fiber B",
-                            channel=Channel(
-                                channel_name="Channel B",
-                                intended_measurement="Dopamine",
-                                light_source_name="Laser B",
-                                filter_names=["Excitation filter 560nm"],
-                                detector_name="Red CMOS",
-                                excitation_wavelength=560,
-                                excitation_power=7,
-                                emission_wavelength=700,
-                            )
                         ),
                     ],
                     notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
@@ -854,19 +859,119 @@ class TestRigSessionCompatibility(unittest.TestCase):
 
     def test_run_compatibility_check(self):
         """Tests compatibility check"""
-        expected_error = "Rig ID in session 323_EPHYS2-RF_2023-04-24_01 does not match the rig's 323_EPHYS1_20231003."
-        with self.assertRaises(ValueError) as context:
-            RigSessionCompatibility(rig=ephys_rig, session=ephys_session).run_compatibility_check()
-        self.assertIn(expected_error, str(context.exception))
 
         with self.assertRaises(ValueError):
-            RigSessionCompatibility(rig=self.ophys_rig, session=self.ophys_session).run_compatibility_check()
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
         # check that ephys session and rig are synced
-        example_ephys_check = RigSessionCompatibility(rig=self.example_ephys_rig, session=self.example_ephys_session)
+        example_ephys_check = InstrumentSessionCompatibility(
+            instrument=self.example_ephys_inst, session=self.example_ephys_session
+        )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
+
+    def test_compare_instrument_id_error(self):
+        """Tests that an error is raised when instrument ids do not match"""
+        self.ophys_session.instrument_id = "wrong_id"
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_mouse_platform_name_error(self):
+        """Tests that an error is raised when mouse platform names do not match"""
+        self.ophys_session.mouse_platform_name = "wrong_platform"
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_daq_names_error(self):
+        """Tests that an error is raised when daq names do not match"""
+        self.ophys_session.data_streams[0].daq_names = ["wrong_daq"]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_camera_names_error(self):
+        """Tests that an error is raised when camera names do not match"""
+        self.ophys_session.data_streams[0].camera_names = ["wrong_camera"]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_light_sources_error(self):
+        """Tests that an error is raised when light sources do not match"""
+        self.ophys_session.data_streams[0].light_sources = [
+            LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
+        ]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_ephys_assemblies_error(self):
+        """Tests that an error is raised when ephys assemblies do not match"""
+        module = ManipulatorModule(
+            targeted_ccf_coordinates=[
+                CcfCoords(ml=8150, ap=3250, dv=7800),
+            ],
+            assembly_name="fake module",
+            arc_angle=5.2,
+            module_angle=8,
+            coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+            primary_targeted_structure=CCFStructure.LGD,
+            manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+            calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+            notes=(
+                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+            ),
+        )
+        self.ophys_session.data_streams[0].ephys_modules = [module]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_stick_microscopes_error(self):
+        """Tests that an error is raised when stick microscopes do not match"""
+        self.ophys_session.data_streams[0].stick_microscopes = [
+            DomeModule(assembly_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
+        ]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
+
+    def test_compare_manipulator_modules_error(self):
+        """Tests that an error is raised when manipulator modules do not match"""
+        module = ManipulatorModule(
+            targeted_ccf_coordinates=[
+                CcfCoords(ml=8150, ap=3250, dv=7800),
+            ],
+            assembly_name="fake module",
+            arc_angle=5.2,
+            module_angle=8,
+            coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+            primary_targeted_structure=CCFStructure.LGD,
+            manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
+            calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+            notes=(
+                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+            ),
+        )
+        self.ophys_session.data_streams[0].manipulator_modules = [module]
+        with self.assertRaises(ValueError):
+            InstrumentSessionCompatibility(
+                instrument=self.ophys_instrument, session=self.ophys_session
+            ).run_compatibility_check()
 
 
 if __name__ == "__main__":

@@ -22,7 +22,13 @@ from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import (
+    DataCoreModel,
+    GenericModel,
+    GenericModelType,
+    DataModel,
+    AwareDatetimeWithDefault,
+)
 from aind_data_schema.components.coordinates import (
     Affine3dTransform,
     CcfCoords,
@@ -32,6 +38,7 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -57,7 +64,7 @@ class StimulusModality(str, Enum):
 
 
 # Ophys components
-class FiberConnectionConfig(AindModel):
+class FiberConnectionConfig(DataModel):
     """Description for a fiber photometry configuration"""
 
     patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
@@ -74,7 +81,7 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class DetectorConfig(AindModel):
+class DetectorConfig(DataModel):
     """Description of detector settings"""
 
     name: str = Field(..., title="Name")
@@ -83,16 +90,16 @@ class DetectorConfig(AindModel):
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
-class LightEmittingDiodeConfig(AindModel):
+class LightEmittingDiodeConfig(DataModel):
     """Description of LED settings"""
 
     device_type: Literal["Light emitting diode"] = "Light emitting diode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Excitation power unit")
+    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-class FieldOfView(AindModel):
+class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
     index: int = Field(..., title="Index")
@@ -114,20 +121,20 @@ class FieldOfView(AindModel):
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+    frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     coupled_fov_index: Optional[int] = Field(
         default=None, title="Coupled FOV", description="Coupled planes for multiscope"
     )
     power: Optional[Decimal] = Field(
         default=None, title="Power", description="For coupled planes, this power is shared by both planes"
     )
-    power_unit: PowerUnit = Field(default=PowerUnit.PERCENT, title="Power unit")
+    power_unit: Optional[PowerUnit] = Field(default=None, title="Power unit")
     power_ratio: Optional[Decimal] = Field(default=None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
         default=None,
         title="Z stage position of the fastz actuator for a given targeted depth",
     )
-    scanfield_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Z stage position unit")
+    scanfield_z_unit: Optional[SizeUnit] = Field(default=None, title="Z stage position unit")
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -140,7 +147,7 @@ class StackChannel(Channel):
     depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Depth unit")
 
 
-class Stack(AindModel):
+class Stack(DataModel):
     """Description of a two photon stack"""
 
     channels: List[StackChannel] = Field(..., title="Channels")
@@ -188,7 +195,7 @@ class SlapFieldOfView(FieldOfView):
 
 
 # Ephys Components
-class DomeModule(AindModel):
+class DomeModule(DataModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     assembly_name: str = Field(..., title="Assembly name")
@@ -198,7 +205,7 @@ class DomeModule(AindModel):
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
     coordinate_transform: Optional[str] = Field(
         default=None,
-        title="Transform from local manipulator axes to rig",
+        title="Transform from local manipulator axes to instrument",
         description="Path to coordinate transform",
     )
     calibration_date: Optional[datetime] = Field(
@@ -227,7 +234,7 @@ class ManipulatorModule(DomeModule):
         Field(default=None, title="Anatomical coordinate reference")
     )
     surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
-    surface_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Surface z unit")
+    surface_z_unit: Optional[SizeUnit] = Field(default=None, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
@@ -238,15 +245,15 @@ class FiberModule(ManipulatorModule):
     fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LaserConfig(AindModel):
+class LaserConfig(DataModel):
     """Description of laser settings in a session"""
 
     device_type: Literal["Laser"] = "Laser"
-    name: str = Field(..., title="Name", description="Must match rig json")
+    name: str = Field(..., title="Name", description="Must match instrument json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Excitation power unit")
+    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 LIGHT_SOURCE_CONFIGS = Annotated[
@@ -263,10 +270,10 @@ class RewardSolution(str, Enum):
     OTHER = "Other"
 
 
-class RewardSpoutConfig(AindModel):
+class RewardSpoutConfig(DataModel):
     """Reward spout session information"""
 
-    side: SpoutSide = Field(..., title="Spout side", description="Must match rig")
+    side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
         ...,
@@ -275,7 +282,7 @@ class RewardSpoutConfig(AindModel):
     )
 
 
-class RewardDeliveryConfig(AindModel):
+class RewardDeliveryConfig(DataModel):
     """Description of reward delivery configuration"""
 
     reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
@@ -293,12 +300,12 @@ class RewardDeliveryConfig(AindModel):
         return value
 
 
-class SpeakerConfig(AindModel):
+class SpeakerConfig(DataModel):
     """Description of auditory speaker configuration"""
 
-    name: str = Field(..., title="Name", description="Must match rig json")
+    name: str = Field(..., title="Name", description="Must match instrument json")
     volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
-    volume_unit: SoundIntensityUnit = Field(default=SoundIntensityUnit.DB, title="Volume unit")
+    volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
 
 # MRI components
@@ -323,7 +330,7 @@ class SubjectPosition(str, Enum):
     SUPINE = "Supine"
 
 
-class MRIScan(AindModel):
+class MRIScan(DataModel):
     """Description of a 3D scan"""
 
     scan_index: int = Field(..., title="Scan index")
@@ -352,7 +359,7 @@ class MRIScan(AindModel):
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
-    additional_scan_parameters: AindGenericType = Field(..., title="Parameters")
+    additional_scan_parameters: GenericModelType = Field(..., title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
@@ -377,7 +384,7 @@ class MRIScan(AindModel):
         return self
 
 
-class Stream(AindModel):
+class Stream(DataModel):
     """Data streams with a start and stop time"""
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
@@ -389,7 +396,7 @@ class Stream(AindModel):
     stick_microscopes: List[DomeModule] = Field(
         default=[],
         title="Stick microscopes",
-        description="Must match stick microscope assemblies in rig file",
+        description="Must match stick microscope assemblies in instrument file",
     )
     manipulator_modules: List[ManipulatorModule] = Field(default=[], title="Manipulator modules")
     detectors: List[DetectorConfig] = Field(default=[], title="Detectors")
@@ -486,7 +493,7 @@ class Stream(AindModel):
         return value
 
 
-class StimulusEpoch(AindModel):
+class StimulusEpoch(DataModel):
     """Description of stimulus used during session"""
 
     stimulus_start_time: AwareDatetimeWithDefault = Field(
@@ -525,8 +532,8 @@ class StimulusEpoch(AindModel):
     light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
         default=[], title="Light source config", description="Light sources for stimulation"
     )
+    output_parameters: GenericModelType = Field(default=GenericModel(), title="Performance metrics")
     objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in arena")
-    output_parameters: AindGenericType = Field(default=AindGeneric(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
@@ -535,32 +542,31 @@ class StimulusEpoch(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Session(AindCoreModel):
+class Session(DataCoreModel):
     """Description of a physiology and/or behavior session"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.1"]] = Field(default="1.1.1")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    experimenter_full_name: List[str] = Field(
-        ...,
-        description="First and last name of the experimenter(s).",
-        title="Experimenter(s) full name",
+    experimenters: List[Person] = Field(
+        default=[],
+        title="experimenter(s)",
     )
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Session end time")
     session_type: str = Field(..., title="Session type")
-    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
-    rig_id: str = Field(..., title="Rig ID")
+    instrument_id: str = Field(..., title="Instrument ID")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     calibrations: List[Calibration] = Field(
         default=[],
         title="Calibrations",
-        description="Calibrations of rig devices prior to session",
+        description="Calibrations of instrument devices prior to session",
     )
     maintenance: List[Maintenance] = Field(
         default=[],
         title="Maintenance",
-        description="Maintenance of rig devices prior to session",
+        description="Maintenance of instrument devices prior to session",
     )
     subject_id: str = Field(..., title="Subject ID")
     animal_weight_prior: Optional[Decimal] = Field(

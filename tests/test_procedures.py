@@ -5,10 +5,12 @@ import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import TimeUnit, ConcentrationUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
     IntraperitonealInjection,
@@ -23,6 +25,7 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -49,17 +52,19 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        experimenter_full_name="Chip Munk",
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             RetroOrbitalInjection(
                                 start_date=start_date,
-                                experimenter_full_name="Chip Munk",
+                                experimenters=[Person(name="Mam Moth")],
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
                                 injection_volume=1,
                                 injection_eye="Left",
                                 injection_duration=1,
+                                injection_duration_unit=TimeUnit.S,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -73,7 +78,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        experimenter_full_name="Chip Munk",
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             RetroOrbitalInjection(
                                 protocol_id="134",
@@ -81,7 +86,9 @@ class ProceduresTests(unittest.TestCase):
                                 injection_volume=1,
                                 injection_eye="Left",
                                 injection_duration=1,
+                                injection_duration_unit=TimeUnit.S,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -104,7 +111,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=start_date,
-                        experimenter_full_name="Chip Munk",
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             RetroOrbitalInjection(
                                 protocol_id="134",
@@ -112,7 +119,9 @@ class ProceduresTests(unittest.TestCase):
                                 injection_volume=1,
                                 injection_eye="Left",
                                 injection_duration=1,
+                                injection_duration_unit=TimeUnit.S,
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -135,8 +144,8 @@ class ProceduresTests(unittest.TestCase):
             subject_procedures=[
                 Surgery(
                     start_date=start_date,
-                    experimenter_full_name="Chip Munk",
-                    iacuc_protocol="234",
+                    experimenters=[Person(name="Mam Moth")],
+                    ethics_review_id="234",
                     protocol_id="123",
                     procedures=[
                         RetroOrbitalInjection(
@@ -156,7 +165,9 @@ class ProceduresTests(unittest.TestCase):
                             injection_volume=1,
                             injection_eye="Left",
                             injection_duration=1,
+                            injection_duration_unit=TimeUnit.S,
                             recovery_time=10,
+                            recovery_time_unit=TimeUnit.M,
                         ),
                         IntraperitonealInjection(
                             protocol_id="234",
@@ -167,6 +178,7 @@ class ProceduresTests(unittest.TestCase):
                                     source=Organization.AI,
                                     lot_number="12345",
                                     concentration=1,
+                                    concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
                             injection_volume=1,
@@ -186,6 +198,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             injection_duration=1,
+                            injection_duration_unit=TimeUnit.S,
                             injection_coordinate_ml=1,
                             injection_coordinate_ap=1,
                             injection_coordinate_depth=[1],
@@ -194,14 +207,14 @@ class ProceduresTests(unittest.TestCase):
                             injection_angle=1,
                             injection_volume=[1],
                             recovery_time=10,
-                            targeted_structure="VISpl6a",
+                            recovery_time_unit=TimeUnit.M,
+                            targeted_structure=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
                             probes=[
                                 OphysProbe(
                                     ophys_probe=FiberProbe(
-                                        device_type="Fiber optic probe",
                                         name="Probe A",
                                         manufacturer=Organization.DORIC,
                                         model="8",
@@ -210,7 +223,7 @@ class ProceduresTests(unittest.TestCase):
                                         ferrule_material="Ceramic",
                                         total_length=10,
                                     ),
-                                    targeted_structure="MOp",
+                                    targeted_structure=CCFStructure.MOP,
                                     stereotactic_coordinate_ap=1,
                                     stereotactic_coordinate_dv=2,
                                     stereotactic_coordinate_ml=3,
@@ -239,7 +252,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -259,7 +272,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Immunolabeling",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -279,7 +292,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Hybridization Chain Reaction",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -300,7 +313,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes="some extra information",
@@ -355,7 +368,7 @@ class ProceduresTests(unittest.TestCase):
             section_distance_from_reference=0.3,
             reference_location="Bregma",
             section_strategy="Whole Brain",
-            targeted_structure="MOp",
+            targeted_structure=CCFStructure.MOP,
         )
         self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
 
@@ -369,7 +382,7 @@ class ProceduresTests(unittest.TestCase):
                 section_distance_from_reference=0.3,
                 reference_location="Bregma",
                 section_strategy="Whole Brain",
-                targeted_structure="MOp",
+                targeted_structure=CCFStructure.MOP,
             )
 
 

@@ -6,20 +6,21 @@ from typing import List, Literal, Optional, Union
 from aind_data_schema_models.process_names import ProcessName
 from pydantic import Field, SkipValidation, field_validator
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import AnatomicalDirection, AxisName, ImageAxis
 from aind_data_schema.components.devices import Calibration, ImmersionMedium, Maintenance, Software
 from aind_data_schema.components.tile import AcquisitionTile
+from aind_data_schema.components.identifiers import Person
 
 
-class Immersion(AindModel):
+class Immersion(DataModel):
     """Description of immersion medium"""
 
     medium: ImmersionMedium = Field(..., title="Immersion medium")
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class ProcessingSteps(AindModel):
+class ProcessingSteps(DataModel):
     """Description of downstream processing steps"""
 
     channel_name: str = Field(..., title="Channel name")
@@ -40,17 +41,16 @@ class ProcessingSteps(AindModel):
     ] = Field(...)
 
 
-class Acquisition(AindCoreModel):
+class Acquisition(DataCoreModel):
     """Description of an imaging acquisition session"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.0.4"]] = Field(default="1.0.4")
+    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    experimenter_full_name: List[str] = Field(
-        ...,
-        description="First and last name of the experimenter(s).",
-        title="Experimenter(s) full name",
+    experimenters: List[Person] = Field(
+        default=[],
+        title="experimenter(s)",
     )
     specimen_id: str = Field(..., title="Specimen ID")
     subject_id: Optional[str] = Field(default=None, title="Subject ID")
@@ -61,7 +61,7 @@ class Acquisition(AindCoreModel):
         description="List of calibration measurements taken prior to acquisition.",
     )
     maintenance: List[Maintenance] = Field(
-        default=[], title="Maintenance", description="List of maintenance on rig prior to acquisition."
+        default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
     session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
     session_end_time: AwareDatetimeWithDefault = Field(..., title="Session end time")

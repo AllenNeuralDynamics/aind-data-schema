@@ -1,21 +1,21 @@
-""" tests for Subject """
+""" tests for base """
 
 import json
-import warnings
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from pydantic import ValidationError, create_model, SkipValidation
+from pydantic import ValidationError, create_model, SkipValidation, Field
 from typing import Literal
 
 from aind_data_schema.base import (
-    AindGeneric,
+    GenericModel,
     AwareDatetimeWithDefault,
     is_dict_corrupt,
-    AindModel,
-    AindCoreModel,
+    DataModel,
+    DataCoreModel,
     MAX_FILE_SIZE,
 )
 from aind_data_schema.core.subject import Subject
@@ -66,6 +66,40 @@ class BaseTests(unittest.TestCase):
         expected_json = '{"dt":"2020-10-10T01:02:03Z"}'
         self.assertEqual(expected_json, model_instance.model_dump_json())
 
+    def test_units(self):
+        """Test that models with value/value_unit pairs throw errors properly"""
+
+        class TestModel(DataModel):
+            """temporary test model"""
+
+            value: Optional[str] = Field(default=None)
+            value_unit: Optional[str] = Field(default=None)
+
+        self.assertRaises(ValidationError, lambda: TestModel(value="value"))
+
+        test0 = TestModel(value="value", value_unit="unit")
+        self.assertIsNotNone(test0)
+
+        # it's fine if units are set and the value isn't
+        test1 = TestModel(value_unit="unit")
+        self.assertIsNotNone(test1)
+
+        # Multi-unit condition
+        class MultiModel(DataModel):
+            """temporary test model with multiple variables"""
+
+            value_multi_one_with_depth: Optional[str] = Field(default=None)
+            value_multi_two_with_depth: Optional[str] = Field(default=None)
+            value_multi_unit: Optional[str] = Field(default=None)
+
+        self.assertRaises(ValidationError, lambda: MultiModel(value_multi_one_with_depth="value"))
+
+        test2 = MultiModel(value_multi_one_with_depth="value1", value_multi_unit="unit")
+        self.assertIsNotNone(test2)
+
+        test3 = MultiModel(value_multi_unit="unit")
+        self.assertIsNotNone(test3)
+
     def test_is_dict_corrupt(self):
         """Tests is_dict_corrupt method"""
         good_contents = [
@@ -98,33 +132,34 @@ class BaseTests(unittest.TestCase):
             with self.subTest(contents=contents):
                 self.assertTrue(is_dict_corrupt(contents))
 
-    def test_aind_generic_constructor(self):
-        """Tests default constructor for AindGeneric"""
-        model = AindGeneric()
+    def test_generic_model_constructor(self):
+        """Tests default constructor for GenericModel"""
+        model = GenericModel()
         self.assertEqual("{}", model.model_dump_json())
 
         params = {"foo": "bar"}
-        model = AindGeneric(**params)
+        model = GenericModel(**params)
         self.assertEqual('{"foo":"bar"}', model.model_dump_json())
 
-    def test_aind_generic_validate_fieldnames(self):
-        """Tests that fieldnames are validated in AindGeneric"""
+    def test_generic_model_validate_fieldnames(self):
+        """Tests that fieldnames are validated in GenericModel"""
+        expected_error = "1 validation error for GenericModel\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
-            with warnings.catch_warnings(record=True) as w:
-                warnings.simplefilter("always")
-                AindGeneric(**params)
-                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
-                AindGeneric.model_validate(params)
-                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
+            with self.assertRaises(ValidationError) as e:
+                GenericModel(**params)
+            self.assertIn(expected_error, repr(e.exception))
+            with self.assertRaises(ValidationError) as e:
+                GenericModel.model_validate(params)
+            self.assertIn(expected_error, repr(e.exception))
 
     def test_ccf_validator(self):
         """Tests that CCFStructure validator works"""
 
-        class StructureModel(AindModel):
+        class StructureModel(DataModel):
             """Test model with a targeted_structure"""
 
             targeted_structure: CCFStructure.ONE_OF
@@ -135,13 +170,13 @@ class BaseTests(unittest.TestCase):
         """Test that schema version are bumped successfully
         and that validation errors prevent bumping"""
 
-        class Modelv1(AindCoreModel):
+        class Modelv1(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
-        class Modelv2(AindCoreModel):
+        class Modelv2(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv2"
