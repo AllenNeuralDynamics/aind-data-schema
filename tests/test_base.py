@@ -228,7 +228,7 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         model_instance = TestModel(value="test")
-        self.assertEqual(model_instance.data_type, "test_model")
+        self.assertEqual(model_instance.data_type, "Test Model")
 
         class AnotherTestModel(DataModel):
             """Another temporary test model"""
@@ -236,7 +236,7 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         another_model_instance = AnotherTestModel(value="test")
-        self.assertEqual(another_model_instance.data_type, "another_test_model")
+        self.assertEqual(another_model_instance.data_type, "Another Test Model")
 
     def test_data_type_unique(self):
         """Test that all subclasses of DataModel have unique data_type values"""
