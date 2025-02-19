@@ -124,7 +124,8 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     @classmethod
     def _data_type_from_name(cls) -> str:
         """Convert a class name to a data_type"""
-        return re.sub(r"(?<!^)(?=[A-Z])", " ", cls.__name__)
+        name = re.sub(r"(?<!^)(?=[A-Z])", " ", cls.__name__)
+        return name[0].upper() + name[1:].lower()
 
     @model_validator(mode="after")
     def unit_validator(cls, values):
