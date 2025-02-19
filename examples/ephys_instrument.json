@@ -524,7 +524,7 @@
          "computer_name": "W10DT72941",
          "channels": [
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "DO0",
                "device_name": "Face Camera",
                "channel_type": "Digital Output",
@@ -535,7 +535,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "DO1",
                "device_name": "Body Camera",
                "channel_type": "Digital Output",
@@ -546,7 +546,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "AI0",
                "device_name": "Running Wheel",
                "channel_type": "Analog Input",

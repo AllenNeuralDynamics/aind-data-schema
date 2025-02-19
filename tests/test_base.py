@@ -238,6 +238,14 @@ class DataModelTests(unittest.TestCase):
         another_model_instance = AnotherTestModel(value="test")
         self.assertEqual(another_model_instance.data_type, "Another test model")
 
+        class QCModel(DataModel):
+            """Test model with two capital letters in a row"""
+
+            value: str
+
+        qc_model_instance = QCModel(value="test")
+        self.assertEqual(qc_model_instance.data_type, "QC model")
+
     def test_data_type_unique(self):
         """Test that all subclasses of DataModel have unique data_type values"""
 

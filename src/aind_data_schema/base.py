@@ -123,9 +123,24 @@ class DataModel(BaseModel, Generic[GenericModelType]):
 
     @classmethod
     def _data_type_from_name(cls) -> str:
-        """Convert a class name to a data_type"""
-        name = re.sub(r"(?<!^)(?=[A-Z])", " ", cls.__name__)
-        return name[0].upper() + name[1:].lower()
+        """Convert a class name to a data_type
+
+        Adds a space anytime a lowercase letter is followed by a capital letter
+        or when multiple capitals are followed by a lowercase
+
+        Then makes everything after the first space lowercase
+        """
+        # add spaces when a lowercase letter is followed by a capital letter
+        name_with_prespaces = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", cls.__name__)
+        # add spaces before the last capital letter in a series of capitals is followed by a lowercase letter
+        name_with_spaces = re.sub(r"(?<=\w)(?=[A-Z][a-z])", " ", name_with_prespaces)
+        name_split = name_with_spaces.split(" ", 1)
+        first_part = name_split[0]
+        if len(name_split) > 1:
+            second_part = " " + name_split[1].lower()
+        else:
+            second_part = ""
+        return first_part + second_part
 
     @model_validator(mode="after")
     def unit_validator(cls, values):

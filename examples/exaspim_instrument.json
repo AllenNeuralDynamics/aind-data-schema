@@ -226,7 +226,7 @@
          "description": null
       },
       {
-         "data_type": "D a q device",
+         "data_type": "DAQ device",
          "name": "Dev2",
          "serial_number": null,
          "manufacturer": {
@@ -247,7 +247,7 @@
          "computer_name": "Dev2",
          "channels": [
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "3",
                "device_name": "LAS-08308",
                "channel_type": "Analog Output",
@@ -258,7 +258,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "5",
                "device_name": "539251",
                "channel_type": "Analog Output",
@@ -269,7 +269,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "4",
                "device_name": "LAS-08309",
                "channel_type": "Analog Output",
@@ -280,7 +280,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "2",
                "device_name": "stage-x",
                "channel_type": "Analog Output",
@@ -291,7 +291,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "0",
                "device_name": "TL-1",
                "channel_type": "Analog Output",
@@ -302,7 +302,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "D a q channel",
+               "data_type": "DAQ channel",
                "channel_name": "6",
                "device_name": "LAS-08307",
                "channel_type": "Analog Output",

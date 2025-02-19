@@ -46,7 +46,7 @@
          "stack_parameters": null,
          "mri_scans": [
             {
-               "data_type": "M r i scan",
+               "data_type": "MRI scan",
                "scan_index": 1,
                "scan_type": "Set Up",
                "primary_scan": false,
@@ -87,7 +87,7 @@
                "notes": "Set up scan for the 3D scan."
             },
             {
-               "data_type": "M r i scan",
+               "data_type": "MRI scan",
                "scan_index": 2,
                "scan_type": "3D Scan",
                "primary_scan": true,
