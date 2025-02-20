@@ -40,6 +40,12 @@
          "additionalProperties": false,
          "description": "Description of breeding info for subject",
          "properties": {
+            "data_type": {
+               "const": "Breeding info",
+               "default": "Breeding info",
+               "title": "Data Type",
+               "type": "string"
+            },
             "breeding_group": {
                "title": "Breeding Group",
                "type": "string"
@@ -87,6 +93,12 @@
          "additionalProperties": false,
          "description": "Description of subject housing",
          "properties": {
+            "data_type": {
+               "const": "Housing",
+               "default": "Housing",
+               "title": "Data Type",
+               "type": "string"
+            },
             "cage_id": {
                "anyOf": [
                   {
@@ -148,6 +160,12 @@
          "additionalProperties": false,
          "description": "Description of vivarium light cycle times",
          "properties": {
+            "data_type": {
+               "const": "Light cycle",
+               "default": "Light cycle",
+               "title": "Data Type",
+               "type": "string"
+            },
             "lights_on_time": {
                "description": "Time in UTC that lights were turned on",
                "format": "time",
@@ -232,6 +250,12 @@
          "additionalProperties": false,
          "description": "Wellness report on animal health",
          "properties": {
+            "data_type": {
+               "const": "Wellness report",
+               "default": "Wellness report",
+               "title": "Data Type",
+               "type": "string"
+            },
             "date": {
                "format": "date",
                "title": "Date",
@@ -1129,6 +1153,12 @@
    "additionalProperties": false,
    "description": "Description of a subject of data collection",
    "properties": {
+      "data_type": {
+         "const": "Subject",
+         "default": "Subject",
+         "title": "Data Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
@@ -1136,8 +1166,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.1",
+         "default": "2.0.1",
          "title": "Schema Version",
          "type": "string"
       },

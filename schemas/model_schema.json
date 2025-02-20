@@ -25,6 +25,12 @@
          "additionalProperties": false,
          "description": "Description of model architecture",
          "properties": {
+            "data_type": {
+               "const": "Model architecture",
+               "default": "Model architecture",
+               "title": "Data Type",
+               "type": "string"
+            },
             "backbone": {
                "$ref": "#/$defs/ModelBackbone",
                "description": "Core network architecture",
@@ -90,6 +96,12 @@
          "additionalProperties": false,
          "description": "Description of model evaluation",
          "properties": {
+            "data_type": {
+               "const": "Model evaluation",
+               "default": "Model evaluation",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Model evaluation",
@@ -214,6 +226,12 @@
          "additionalProperties": false,
          "description": "Description of model training",
          "properties": {
+            "data_type": {
+               "const": "Model training",
+               "default": "Model training",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Model training",
@@ -368,6 +386,12 @@
          "additionalProperties": false,
          "description": "Description of a performance metric",
          "properties": {
+            "data_type": {
+               "const": "Performance metric",
+               "default": "Performance metric",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Metric name",
                "type": "string"
@@ -466,6 +490,12 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "data_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Data Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -487,6 +517,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "data_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Data Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -641,6 +677,12 @@
          "additionalProperties": false,
          "description": "Description of generic software",
          "properties": {
+            "data_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Software name",
                "type": "string"
@@ -5478,6 +5520,12 @@
    "additionalProperties": false,
    "description": "Description of an analysis model",
    "properties": {
+      "data_type": {
+         "const": "Model",
+         "default": "Model",
+         "title": "Data Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",

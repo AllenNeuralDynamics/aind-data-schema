@@ -4,6 +4,12 @@
          "additionalProperties": false,
          "description": "Description of an imaging acquisition session",
          "properties": {
+            "data_type": {
+               "const": "Acquisition",
+               "default": "Acquisition",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
@@ -11,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -215,16 +221,22 @@
          "additionalProperties": false,
          "description": "Description of acquisition tile",
          "properties": {
+            "data_type": {
+               "const": "Acquisition tile",
+               "default": "Acquisition tile",
+               "title": "Data Type",
+               "type": "string"
+            },
             "coordinate_transformations": {
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "affine": "#/$defs/Affine3dTransform",
-                        "rotation": "#/$defs/Rotation3dTransform",
-                        "scale": "#/$defs/Scale3dTransform",
-                        "translation": "#/$defs/Translation3dTransform"
+                        "Affine3d transform": "#/$defs/Affine3dTransform",
+                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
+                        "Scale3d transform": "#/$defs/Scale3dTransform",
+                        "Translation3d transform": "#/$defs/Translation3dTransform"
                      },
-                     "propertyName": "type"
+                     "propertyName": "data_type"
                   },
                   "oneOf": [
                      {
@@ -319,10 +331,10 @@
          "additionalProperties": false,
          "description": "Description of additional devices",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Additional imaging device",
                "default": "Additional imaging device",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -820,10 +832,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
          "properties": {
-            "type": {
-               "const": "affine",
-               "default": "affine",
-               "title": "Type",
+            "data_type": {
+               "const": "Affine3d transform",
+               "default": "Affine3d transform",
+               "title": "Data Type",
                "type": "string"
             },
             "affine_transform": {
@@ -853,6 +865,12 @@
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
          "properties": {
+            "data_type": {
+               "const": "Anaesthetic",
+               "default": "Anaesthetic",
+               "title": "Data Type",
+               "type": "string"
+            },
             "type": {
                "title": "Type",
                "type": "string"
@@ -902,6 +920,12 @@
          "additionalProperties": false,
          "description": "Description of an Analysis",
          "properties": {
+            "data_type": {
+               "const": "Analysis process",
+               "default": "Analysis process",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Analysis",
@@ -1055,6 +1079,12 @@
          "additionalProperties": false,
          "description": "Description of an antibody used in immunolableing",
          "properties": {
+            "data_type": {
+               "const": "Antibody",
+               "default": "Antibody",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -1541,10 +1571,10 @@
          "additionalProperties": false,
          "description": "Description of a rectangular arena",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Arena",
                "default": "Arena",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -2075,10 +2105,10 @@
          "additionalProperties": false,
          "description": "Description of an auditory stimulus",
          "properties": {
-            "stimulus_type": {
-               "const": "Auditory Stimulation",
-               "default": "Auditory Stimulation",
-               "title": "Stimulus Type",
+            "data_type": {
+               "const": "Auditory stimulation",
+               "default": "Auditory stimulation",
+               "title": "Data Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -2191,6 +2221,12 @@
          "additionalProperties": false,
          "description": "Description of an axis",
          "properties": {
+            "data_type": {
+               "const": "Axis",
+               "default": "Axis",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/AxisName",
                "title": "Axis"
@@ -2267,6 +2303,12 @@
          "additionalProperties": false,
          "description": "Description of breeding info for subject",
          "properties": {
+            "data_type": {
+               "const": "Breeding info",
+               "default": "Breeding info",
+               "title": "Data Type",
+               "type": "string"
+            },
             "breeding_group": {
                "title": "Breeding Group",
                "type": "string"
@@ -2302,6 +2344,12 @@
          "additionalProperties": false,
          "description": "Generic calibration class",
          "properties": {
+            "data_type": {
+               "const": "Calibration",
+               "default": "Calibration",
+               "title": "Data Type",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
@@ -2354,10 +2402,10 @@
          "additionalProperties": false,
          "description": "Camera Detector",
          "properties": {
-            "device_type": {
-               "const": "Detector",
-               "default": "Detector",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Camera",
+               "default": "Camera",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -2788,14 +2836,14 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "name": {
-               "title": "Camera assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "data_type": {
                "const": "Camera assembly",
                "default": "Camera assembly",
-               "title": "Device Type",
+               "title": "Data Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Camera assembly name",
                "type": "string"
             },
             "camera_target": {
@@ -2883,10 +2931,10 @@
          "additionalProperties": false,
          "description": "Description of a catheter implant procedure",
          "properties": {
-            "procedure_type": {
-               "const": "Catheter Implant",
+            "data_type": {
+               "const": "Catheter implant",
                "default": "Catheter implant",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "where_performed": {
@@ -2966,6 +3014,12 @@
          "additionalProperties": false,
          "description": "Coordinates in CCF template space",
          "properties": {
+            "data_type": {
+               "const": "Ccf coords",
+               "default": "Ccf coords",
+               "title": "Data Type",
+               "type": "string"
+            },
             "ml": {
                "anyOf": [
                   {
@@ -3030,6 +3084,12 @@
          "additionalProperties": false,
          "description": "Description of a channel",
          "properties": {
+            "data_type": {
+               "const": "Channel",
+               "default": "Channel",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "Channel",
                "type": "string"
@@ -3147,6 +3207,12 @@
          "additionalProperties": false,
          "description": "Description of a communication system",
          "properties": {
+            "data_type": {
+               "const": "Com",
+               "default": "Com",
+               "title": "Data Type",
+               "type": "string"
+            },
             "hardware_name": {
                "title": "Controlled hardware device",
                "type": "string"
@@ -3179,6 +3245,12 @@
          "additionalProperties": false,
          "description": "Connection between two devices",
          "properties": {
+            "data_type": {
+               "const": "Connection",
+               "default": "Connection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "device_names": {
                "items": {
                   "type": "string"
@@ -3205,6 +3277,12 @@
          "additionalProperties": false,
          "description": "Data for a connection",
          "properties": {
+            "data_type": {
+               "const": "Connection data",
+               "default": "Connection data",
+               "title": "Data Type",
+               "type": "string"
+            },
             "input": {
                "anyOf": [
                   {
@@ -3269,6 +3347,12 @@
          "additionalProperties": false,
          "description": "Coordinates in a 3D grid",
          "properties": {
+            "data_type": {
+               "const": "Coordinates3d",
+               "default": "Coordinates3d",
+               "title": "Data Type",
+               "type": "string"
+            },
             "x": {
                "anyOf": [
                   {
@@ -3331,10 +3415,10 @@
          "additionalProperties": false,
          "description": "Description of craniotomy procedure",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Craniotomy",
                "default": "Craniotomy",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -3475,6 +3559,12 @@
          "additionalProperties": false,
          "description": "Named input or output channel on a DAQ device",
          "properties": {
+            "data_type": {
+               "const": "DAQ channel",
+               "default": "DAQ channel",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "DAQ channel name",
                "type": "string"
@@ -3563,10 +3653,10 @@
          "additionalProperties": false,
          "description": "Data acquisition device containing multiple I/O channels",
          "properties": {
-            "device_type": {
-               "const": "DAQ Device",
-               "default": "DAQ Device",
-               "title": "Device Type",
+            "data_type": {
+               "const": "DAQ device",
+               "default": "DAQ device",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -3749,6 +3839,12 @@
          "additionalProperties": false,
          "description": "Description of a logical collection of data files",
          "properties": {
+            "data_type": {
+               "const": "Data description",
+               "default": "Data description",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
@@ -3756,8 +3852,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -4040,6 +4136,12 @@
          "additionalProperties": false,
          "description": "Description of a single processing step",
          "properties": {
+            "data_type": {
+               "const": "Data process",
+               "default": "Data process",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "title": "Name"
@@ -4156,10 +4258,10 @@
          "additionalProperties": false,
          "description": "Description of a generic detector",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Detector",
                "default": "Detector",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -4590,6 +4692,12 @@
          "additionalProperties": false,
          "description": "Description of detector settings",
          "properties": {
+            "data_type": {
+               "const": "Detector config",
+               "default": "Detector config",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -4637,10 +4745,10 @@
          "additionalProperties": false,
          "description": "Generic device",
          "properties": {
-            "device_type": {
-               "const": "device",
-               "default": "device",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Device",
+               "default": "Device",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -5143,10 +5251,10 @@
          "additionalProperties": false,
          "description": "Description of a Digital Micromirror Device (DMD)",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Digital micromirror device",
                "default": "Digital micromirror device",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -5736,10 +5844,10 @@
          "additionalProperties": false,
          "description": "Description of a running disc (i.e. MindScope Disc)",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Disc",
                "default": "Disc",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -6326,6 +6434,12 @@
          "additionalProperties": false,
          "description": "Movable module that is mounted on the ephys dome insertion system",
          "properties": {
+            "data_type": {
+               "const": "Dome module",
+               "default": "Dome module",
+               "title": "Data Type",
+               "type": "string"
+            },
             "assembly_name": {
                "title": "Assembly name",
                "type": "string"
@@ -6423,10 +6537,10 @@
          "additionalProperties": false,
          "description": "Description of an enclosure",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Enclosure",
                "default": "Enclosure",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -6949,14 +7063,14 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "name": {
-               "title": "Ephys assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "data_type": {
                "const": "Ephys assembly",
                "default": "Ephys assembly",
-               "title": "Device Type",
+               "title": "Data Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Ephys assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -6982,10 +7096,10 @@
          "additionalProperties": false,
          "description": "Named probe used in an ephys experiment",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Ephys probe",
                "default": "Ephys probe",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -7520,14 +7634,14 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "name": {
-               "title": "Fiber assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "data_type": {
                "const": "Fiber assembly",
                "default": "Fiber assembly",
-               "title": "Device Type",
+               "title": "Data Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Fiber assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -7553,6 +7667,12 @@
          "additionalProperties": false,
          "description": "Description for a fiber photometry configuration",
          "properties": {
+            "data_type": {
+               "const": "Fiber connection config",
+               "default": "Fiber connection config",
+               "title": "Data Type",
+               "type": "string"
+            },
             "patch_cord_name": {
                "title": "Patch cord name (must match rig)",
                "type": "string"
@@ -7590,10 +7710,10 @@
          "additionalProperties": false,
          "description": "Description of an implant procedure",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Fiber implant",
                "default": "Fiber implant",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -7620,6 +7740,12 @@
          "additionalProperties": false,
          "description": "Inserted fiber photometry probe recorded in a stream",
          "properties": {
+            "data_type": {
+               "const": "Fiber module",
+               "default": "Fiber module",
+               "title": "Data Type",
+               "type": "string"
+            },
             "assembly_name": {
                "title": "Assembly name",
                "type": "string"
@@ -14569,10 +14695,10 @@
          "additionalProperties": false,
          "description": "Description of a fiber optic probe",
          "properties": {
-            "device_type": {
-               "const": "Fiber optic probe",
-               "default": "Fiber optic probe",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Fiber probe",
+               "default": "Fiber probe",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -15139,6 +15265,12 @@
          "additionalProperties": false,
          "description": "Description of an imaging field of view",
          "properties": {
+            "data_type": {
+               "const": "Field of view",
+               "default": "Field of view",
+               "title": "Data Type",
+               "type": "string"
+            },
             "index": {
                "title": "Index",
                "type": "integer"
@@ -18738,10 +18870,10 @@
          "additionalProperties": false,
          "description": "Filter used in a light path",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Filter",
                "default": "Filter",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -19044,6 +19176,12 @@
          "additionalProperties": false,
          "description": "Description of funding sources",
          "properties": {
+            "data_type": {
+               "const": "Funding",
+               "default": "Funding",
+               "title": "Data Type",
+               "type": "string"
+            },
             "funder": {
                "discriminator": {
                   "mapping": {
@@ -19154,6 +19292,12 @@
          "additionalProperties": false,
          "description": "Description of an oligo probe used for HCR",
          "properties": {
+            "data_type": {
+               "const": "HCR probe",
+               "default": "HCR probe",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -19648,6 +19792,12 @@
          "additionalProperties": false,
          "description": "Description of a readout for HCR",
          "properties": {
+            "data_type": {
+               "const": "HCR readout",
+               "default": "HCR readout",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -20112,6 +20262,12 @@
          "additionalProperties": false,
          "description": "Description of series of HCR staining rounds for mFISH",
          "properties": {
+            "data_type": {
+               "const": "HCR series",
+               "default": "HCR series",
+               "title": "Data Type",
+               "type": "string"
+            },
             "codebook_name": {
                "title": "Codebook name",
                "type": "string"
@@ -20145,10 +20301,10 @@
          "additionalProperties": false,
          "description": "DAQ that uses the Harp protocol for synchronization and data transmission",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Harp device",
                "default": "Harp device",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -20432,10 +20588,10 @@
          "additionalProperties": false,
          "description": "Description of headframe procedure",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Headframe",
                "default": "Headframe",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -20510,10 +20666,10 @@
          "additionalProperties": false,
          "description": "Headstage used with an ephys probe",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Headstage",
                "default": "Headstage",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -21018,6 +21174,12 @@
          "additionalProperties": false,
          "description": "Description of subject housing",
          "properties": {
+            "data_type": {
+               "const": "Housing",
+               "default": "Housing",
+               "title": "Data Type",
+               "type": "string"
+            },
             "cage_id": {
                "anyOf": [
                   {
@@ -21079,6 +21241,12 @@
          "additionalProperties": false,
          "description": "Description of an HCR staining round",
          "properties": {
+            "data_type": {
+               "const": "Hybridization chain reaction",
+               "default": "Hybridization chain reaction",
+               "title": "Data Type",
+               "type": "string"
+            },
             "round_index": {
                "title": "Round index",
                "type": "integer"
@@ -21152,6 +21320,12 @@
          "additionalProperties": false,
          "description": "Description of an image axis",
          "properties": {
+            "data_type": {
+               "const": "Image axis",
+               "default": "Image axis",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/AxisName",
                "title": "Name"
@@ -21217,6 +21391,12 @@
          "additionalProperties": false,
          "description": "Description of immersion medium",
          "properties": {
+            "data_type": {
+               "const": "Immersion",
+               "default": "Immersion",
+               "title": "Data Type",
+               "type": "string"
+            },
             "medium": {
                "$ref": "#/$defs/ImmersionMedium",
                "title": "Immersion medium"
@@ -21270,6 +21450,12 @@
          "additionalProperties": false,
          "description": "Description of an instrument",
          "properties": {
+            "data_type": {
+               "const": "Instrument",
+               "default": "Instrument",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
@@ -21277,8 +21463,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -21882,8 +22068,9 @@
                         "Additional imaging device": "#/$defs/AdditionalImagingDevice",
                         "Arena": "#/$defs/Arena",
                         "Camera assembly": "#/$defs/CameraAssembly",
-                        "DAQ Device": "#/$defs/DAQDevice",
+                        "DAQ device": "#/$defs/DAQDevice",
                         "Detector": "#/$defs/Detector",
+                        "Device": "#/$defs/Device",
                         "Digital micromirror device": "#/$defs/DigitalMicromirrorDevice",
                         "Disc": "#/$defs/Disc",
                         "Enclosure": "#/$defs/Enclosure",
@@ -21902,7 +22089,7 @@
                         "Neuropixels basestation": "#/$defs/NeuropixelsBasestation",
                         "Objective": "#/$defs/Objective",
                         "Olfactometer": "#/$defs/Olfactometer",
-                        "Open Ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
+                        "Open ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
                         "Optical table": "#/$defs/OpticalTable",
                         "Patch": "#/$defs/Patch",
                         "Pockels cell": "#/$defs/PockelsCell",
@@ -21912,10 +22099,9 @@
                         "Speaker": "#/$defs/Speaker",
                         "Treadmill": "#/$defs/Treadmill",
                         "Tube": "#/$defs/Tube",
-                        "Wheel": "#/$defs/Wheel",
-                        "device": "#/$defs/Device"
+                        "Wheel": "#/$defs/Wheel"
                      },
-                     "propertyName": "device_type"
+                     "propertyName": "data_type"
                   },
                   "oneOf": [
                      {
@@ -22042,6 +22228,12 @@
          "additionalProperties": false,
          "description": "Description of an interacerebellar ventricle injection",
          "properties": {
+            "data_type": {
+               "const": "Intra cerebellar ventricle injection",
+               "default": "Intra cerebellar ventricle injection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -25614,12 +25806,6 @@
                ],
                "default": null,
                "title": "Injection hemisphere"
-            },
-            "procedure_type": {
-               "const": "ICV injection",
-               "default": "ICV injection",
-               "title": "Procedure Type",
-               "type": "string"
             },
             "injection_volume": {
                "description": "Injection volume, one value per location",
@@ -25658,6 +25844,12 @@
          "additionalProperties": false,
          "description": "Description of an interacisternal magna injection",
          "properties": {
+            "data_type": {
+               "const": "Intra cisternal magna injection",
+               "default": "Intra cisternal magna injection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -29231,12 +29423,6 @@
                "default": null,
                "title": "Injection hemisphere"
             },
-            "procedure_type": {
-               "const": "ICM injection",
-               "default": "ICM injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_volume": {
                "description": "Injection volume, one value per location",
                "items": {
@@ -29274,6 +29460,12 @@
          "additionalProperties": false,
          "description": "Description of an intraperitoneal injection procedure",
          "properties": {
+            "data_type": {
+               "const": "Intraperitoneal injection",
+               "default": "Intraperitoneal injection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -29365,12 +29557,6 @@
             "protocol_id": {
                "description": "DOI for protocols.io",
                "title": "Protocol ID",
-               "type": "string"
-            },
-            "procedure_type": {
-               "const": "Intraperitoneal injection",
-               "default": "Intraperitoneal injection",
-               "title": "Procedure Type",
                "type": "string"
             },
             "time": {
@@ -29415,6 +29601,12 @@
          "additionalProperties": false,
          "description": "Description of an iotophoresis injection procedure",
          "properties": {
+            "data_type": {
+               "const": "Iontophoresis injection",
+               "default": "Iontophoresis injection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -32988,12 +33180,6 @@
                "default": null,
                "title": "Injection hemisphere"
             },
-            "procedure_type": {
-               "const": "Iontophoresis injection",
-               "default": "Iontophoresis injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_current": {
                "anyOf": [
                   {
@@ -33032,10 +33218,10 @@
          "additionalProperties": false,
          "description": "Description of a Lamp lightsource",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Lamp",
                "default": "Lamp",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -33581,10 +33767,10 @@
          "additionalProperties": false,
          "description": "Laser module with a specific wavelength (may be a sub-component of a larger assembly)",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Laser",
                "default": "Laser",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -33787,14 +33973,14 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "name": {
-               "title": "Laser assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "data_type": {
                "const": "Laser assembly",
                "default": "Laser assembly",
-               "title": "Device Type",
+               "title": "Data Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Laser assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -33830,10 +34016,10 @@
          "additionalProperties": false,
          "description": "Description of laser settings in a session",
          "properties": {
-            "device_type": {
-               "const": "Laser",
-               "default": "Laser",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Laser config",
+               "default": "Laser config",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -33889,10 +34075,10 @@
          "additionalProperties": false,
          "description": "Lens",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Lens",
                "default": "Lens",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -34150,6 +34336,12 @@
          "additionalProperties": false,
          "description": "Description of vivarium light cycle times",
          "properties": {
+            "data_type": {
+               "const": "Light cycle",
+               "default": "Light cycle",
+               "title": "Data Type",
+               "type": "string"
+            },
             "lights_on_time": {
                "description": "Time in UTC that lights were turned on",
                "format": "time",
@@ -34174,10 +34366,10 @@
          "additionalProperties": false,
          "description": "Description of a Light Emitting Diode (LED) device",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Light emitting diode",
                "default": "Light emitting diode",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -34333,10 +34525,10 @@
          "additionalProperties": false,
          "description": "Description of LED settings",
          "properties": {
-            "device_type": {
-               "const": "Light emitting diode",
-               "default": "Light emitting diode",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Light emitting diode config",
+               "default": "Light emitting diode config",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -34381,6 +34573,12 @@
          "additionalProperties": false,
          "description": "Description of a 3D scan",
          "properties": {
+            "data_type": {
+               "const": "MRI scan",
+               "default": "MRI scan",
+               "title": "Data Type",
+               "type": "string"
+            },
             "scan_index": {
                "title": "Scan index",
                "type": "integer"
@@ -34566,6 +34764,12 @@
          "additionalProperties": false,
          "description": "Generic maintenance class",
          "properties": {
+            "data_type": {
+               "const": "Maintenance",
+               "default": "Maintenance",
+               "title": "Data Type",
+               "type": "string"
+            },
             "maintenance_date": {
                "format": "date-time",
                "title": "Date and time of maintenance",
@@ -34626,10 +34830,10 @@
          "additionalProperties": false,
          "description": "Manipulator used on a dome module",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Manipulator",
                "default": "Manipulator",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -34739,6 +34943,12 @@
          "additionalProperties": false,
          "description": "A dome module connected to a 3-axis manipulator",
          "properties": {
+            "data_type": {
+               "const": "Manipulator module",
+               "default": "Manipulator module",
+               "title": "Data Type",
+               "type": "string"
+            },
             "assembly_name": {
                "title": "Assembly name",
                "type": "string"
@@ -41717,10 +41927,10 @@
          "additionalProperties": false,
          "description": "Description of visual display for visual stimuli",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Monitor",
                "default": "Monitor",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -41914,10 +42124,10 @@
          "additionalProperties": false,
          "description": "Description of motorized stage",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Motorized stage",
                "default": "Motorized stage",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -42497,10 +42707,10 @@
          "additionalProperties": false,
          "description": "Description of a mouse platform",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Mouse platform",
                "default": "Mouse platform",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -43027,10 +43237,10 @@
          "additionalProperties": false,
          "description": "Description of a Myomatrix array",
          "properties": {
-            "device_type": {
-               "const": "Myomatrix Array",
-               "default": "Myomatrix Array",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Myomatrix array",
+               "default": "Myomatrix array",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -43537,6 +43747,12 @@
          "additionalProperties": false,
          "description": "\"Description of a contact on a myomatrix thread",
          "properties": {
+            "data_type": {
+               "const": "Myomatrix contact",
+               "default": "Myomatrix contact",
+               "title": "Data Type",
+               "type": "string"
+            },
             "body_part": {
                "$ref": "#/$defs/MouseAnatomyModel",
                "description": "Use MouseBodyParts",
@@ -43581,10 +43797,10 @@
          "additionalProperties": false,
          "description": "Description of a Myomatrix array insertion for EMG",
          "properties": {
-            "procedure_type": {
-               "const": "Myomatrix_Insertion",
-               "default": "Myomatrix_Insertion",
-               "title": "Procedure Type",
+            "data_type": {
+               "const": "Myomatrix insertion",
+               "default": "Myomatrix insertion",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -43616,6 +43832,12 @@
          "additionalProperties": false,
          "description": "Description of a thread of a myomatrix array",
          "properties": {
+            "data_type": {
+               "const": "Myomatrix thread",
+               "default": "Myomatrix thread",
+               "title": "Data Type",
+               "type": "string"
+            },
             "ground_electrode_location": {
                "$ref": "#/$defs/MouseAnatomyModel",
                "description": "Use MouseBodyParts",
@@ -43640,6 +43862,12 @@
          "additionalProperties": false,
          "description": "Description of a nanoject injection procedure",
          "properties": {
+            "data_type": {
+               "const": "Nanoject injection",
+               "default": "Nanoject injection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -47213,12 +47441,6 @@
                "default": null,
                "title": "Injection hemisphere"
             },
-            "procedure_type": {
-               "const": "Nanoject injection",
-               "default": "Nanoject injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_volume": {
                "description": "Injection volume, one value per location",
                "items": {
@@ -47256,10 +47478,10 @@
          "additionalProperties": false,
          "description": "PXI-based Neuropixels DAQ",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Neuropixels basestation",
                "default": "Neuropixels basestation",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -47439,6 +47661,12 @@
          "additionalProperties": false,
          "description": "Description of a non-viral injection material",
          "properties": {
+            "data_type": {
+               "const": "Non viral material",
+               "default": "Non viral material",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -47914,10 +48142,10 @@
          "additionalProperties": false,
          "description": "Description of an objective device",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Objective",
                "default": "Objective",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -48460,10 +48688,10 @@
          "additionalProperties": false,
          "description": "Description of an olfactometer for odor stimuli",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Olfactometer",
                "default": "Olfactometer",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -48690,6 +48918,12 @@
          "additionalProperties": false,
          "description": "description of a Olfactometer channel",
          "properties": {
+            "data_type": {
+               "const": "Olfactometer channel",
+               "default": "Olfactometer channel",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channel_index": {
                "title": "Channel index",
                "type": "integer"
@@ -48724,6 +48958,12 @@
          "additionalProperties": false,
          "description": "Description of olfactometer channel configurations",
          "properties": {
+            "data_type": {
+               "const": "Olfactometer channel config",
+               "default": "Olfactometer channel config",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channel_index": {
                "title": "Channel index",
                "type": "integer"
@@ -48773,10 +49013,10 @@
          "additionalProperties": false,
          "description": "Description of a olfactory stimulus",
          "properties": {
-            "stimulus_type": {
-               "const": "Olfactory Stimulation",
-               "default": "Olfactory Stimulation",
-               "title": "Stimulus Type",
+            "data_type": {
+               "const": "Olfactory stimulation",
+               "default": "Olfactory stimulation",
+               "title": "Data Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -48814,6 +49054,12 @@
          "additionalProperties": false,
          "description": "Description of an oligonucleotide probe",
          "properties": {
+            "data_type": {
+               "const": "Oligo probe",
+               "default": "Oligo probe",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -49302,10 +49548,10 @@
          "additionalProperties": false,
          "description": "Multichannel electrophysiology DAQ",
          "properties": {
-            "device_type": {
-               "const": "Open Ephys acquisition board",
-               "default": "Open Ephys acquisition board",
-               "title": "Device Type",
+            "data_type": {
+               "const": "Open ephys acquisition board",
+               "default": "Open ephys acquisition board",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -49494,6 +49740,12 @@
          "additionalProperties": false,
          "description": "Description of an implanted ophys probe",
          "properties": {
+            "data_type": {
+               "const": "Ophys probe",
+               "default": "Ophys probe",
+               "title": "Data Type",
+               "type": "string"
+            },
             "ophys_probe": {
                "$ref": "#/$defs/FiberProbe",
                "title": "Fiber probe"
@@ -52983,10 +53235,10 @@
          "additionalProperties": false,
          "description": "Description of Optical Table",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Optical table",
                "default": "Optical table",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -53528,10 +53780,10 @@
          "additionalProperties": false,
          "description": "Description of opto stimulation parameters",
          "properties": {
-            "stimulus_type": {
-               "const": "Opto Stimulation",
-               "default": "Opto Stimulation",
-               "title": "Stimulus Type",
+            "data_type": {
+               "const": "Opto stimulation",
+               "default": "Opto stimulation",
+               "title": "Data Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -53686,10 +53938,10 @@
          "additionalProperties": false,
          "description": "Description of non-surgical procedure performed on a subject",
          "properties": {
-            "procedure_type": {
-               "const": "Other Subject Procedure",
-               "default": "Other Subject Procedure",
-               "title": "Procedure Type",
+            "data_type": {
+               "const": "Other subject procedure",
+               "default": "Other subject procedure",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -53783,10 +54035,10 @@
          "additionalProperties": false,
          "description": "Description of a patch cord",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Patch",
                "default": "Patch",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -54316,10 +54568,10 @@
          "additionalProperties": false,
          "description": "Description of a perfusion procedure that creates a specimen",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Perfusion",
                "default": "Perfusion",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -54379,10 +54631,10 @@
          "additionalProperties": false,
          "description": "Description of a photostimulation session",
          "properties": {
-            "stimulus_type": {
-               "const": "Photo Stimulation",
-               "default": "Photo Stimulation",
-               "title": "Stimulus Type",
+            "data_type": {
+               "const": "Photo stimulation",
+               "default": "Photo stimulation",
+               "title": "Data Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -54447,6 +54699,12 @@
          "additionalProperties": false,
          "description": "Description of a photostimulation group",
          "properties": {
+            "data_type": {
+               "const": "Photo stimulation group",
+               "default": "Photo stimulation group",
+               "title": "Data Type",
+               "type": "string"
+            },
             "group_index": {
                "title": "Group index",
                "type": "integer"
@@ -54545,6 +54803,12 @@
          "additionalProperties": false,
          "description": "Description of a Processing Pipeline",
          "properties": {
+            "data_type": {
+               "const": "Pipeline process",
+               "default": "Pipeline process",
+               "title": "Data Type",
+               "type": "string"
+            },
             "data_processes": {
                "items": {
                   "$ref": "#/$defs/DataProcess"
@@ -54610,10 +54874,10 @@
          "additionalProperties": false,
          "description": "Description of a Pockels Cell",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Pockels cell",
                "default": "Pockels cell",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -55181,10 +55445,10 @@
          "additionalProperties": false,
          "description": "Description of a Polygonal scanner",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Polygonal scanner",
                "default": "Polygonal scanner",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -55718,6 +55982,12 @@
          "additionalProperties": false,
          "description": "Port for a probe connection",
          "properties": {
+            "data_type": {
+               "const": "Probe port",
+               "default": "Probe port",
+               "title": "Data Type",
+               "type": "string"
+            },
             "index": {
                "title": "One-based port index",
                "type": "integer"
@@ -55741,6 +56011,12 @@
          "additionalProperties": false,
          "description": "Description of all procedures performed on a subject",
          "properties": {
+            "data_type": {
+               "const": "Procedures",
+               "default": "Procedures",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
@@ -55748,8 +56024,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -55763,12 +56039,12 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Other Subject Procedure": "#/$defs/OtherSubjectProcedure",
+                        "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                         "Surgery": "#/$defs/Surgery",
-                        "Training": "#/$defs/TrainingProtocol",
+                        "Training protocol": "#/$defs/TrainingProtocol",
                         "Water restriction": "#/$defs/WaterRestriction"
                      },
-                     "propertyName": "procedure_type"
+                     "propertyName": "data_type"
                   },
                   "oneOf": [
                      {
@@ -55867,6 +56143,12 @@
          "additionalProperties": false,
          "description": "Description of all processes run on data",
          "properties": {
+            "data_type": {
+               "const": "Processing",
+               "default": "Processing",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
@@ -55874,8 +56156,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -55916,6 +56198,12 @@
          "additionalProperties": false,
          "description": "Description of downstream processing steps",
          "properties": {
+            "data_type": {
+               "const": "Processing steps",
+               "default": "Processing steps",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "Channel name",
                "type": "string"
@@ -55964,10 +56252,10 @@
          "additionalProperties": false,
          "description": "Description of a protective material replacement procedure in preparation for ephys recording",
          "properties": {
-            "procedure_type": {
-               "const": "Ground wire",
-               "default": "Ground wire",
-               "title": "Procedure Type",
+            "data_type": {
+               "const": "Protective material replacement",
+               "default": "Protective material replacement",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -56077,6 +56365,12 @@
          "additionalProperties": false,
          "description": "Description of one evaluation stage, with one or more metrics",
          "properties": {
+            "data_type": {
+               "const": "QC evaluation",
+               "default": "QC evaluation",
+               "title": "Data Type",
+               "type": "string"
+            },
             "modality": {
                "discriminator": {
                   "mapping": {
@@ -56325,6 +56619,12 @@
          "additionalProperties": false,
          "description": "Description of quality metrics for a data asset",
          "properties": {
+            "data_type": {
+               "const": "Quality control",
+               "default": "Quality control",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
@@ -56332,8 +56632,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -56367,6 +56667,12 @@
          "additionalProperties": false,
          "description": "Description of a readout",
          "properties": {
+            "data_type": {
+               "const": "Readout",
+               "default": "Readout",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -56826,6 +57132,12 @@
          "additionalProperties": false,
          "description": "Description of reagent used in procedure",
          "properties": {
+            "data_type": {
+               "const": "Reagent",
+               "default": "Reagent",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -57266,6 +57578,12 @@
          "additionalProperties": false,
          "description": "Description of related data asset",
          "properties": {
+            "data_type": {
+               "const": "Related data",
+               "default": "Related data",
+               "title": "Data Type",
+               "type": "string"
+            },
             "related_data_path": {
                "title": "Related data path",
                "type": "string"
@@ -57287,14 +57605,20 @@
          "additionalProperties": false,
          "description": "Position and rotation of a device in a rig or instrument",
          "properties": {
+            "data_type": {
+               "const": "Relative position",
+               "default": "Relative position",
+               "title": "Data Type",
+               "type": "string"
+            },
             "device_position_transformations": {
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "rotation": "#/$defs/Rotation3dTransform",
-                        "translation": "#/$defs/Translation3dTransform"
+                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
+                        "Translation3d transform": "#/$defs/Translation3dTransform"
                      },
-                     "propertyName": "type"
+                     "propertyName": "data_type"
                   },
                   "oneOf": [
                      {
@@ -57347,6 +57671,12 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "data_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Data Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -57368,6 +57698,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "data_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Data Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -57522,6 +57858,12 @@
          "additionalProperties": false,
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
+            "data_type": {
+               "const": "Retro orbital injection",
+               "default": "Retro orbital injection",
+               "title": "Data Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -57615,12 +57957,6 @@
                "title": "Protocol ID",
                "type": "string"
             },
-            "procedure_type": {
-               "const": "Retro-orbital injection",
-               "default": "Retro-orbital injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_volume": {
                "anyOf": [
                   {
@@ -57655,10 +57991,10 @@
          "additionalProperties": false,
          "description": "Description of reward delivery system",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Reward delivery",
                "default": "Reward delivery",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "stage_type": {
@@ -57691,6 +58027,12 @@
          "additionalProperties": false,
          "description": "Description of reward delivery configuration",
          "properties": {
+            "data_type": {
+               "const": "Reward delivery config",
+               "default": "Reward delivery config",
+               "title": "Data Type",
+               "type": "string"
+            },
             "reward_solution": {
                "$ref": "#/$defs/RewardSolution",
                "description": "If Other use notes",
@@ -57736,10 +58078,10 @@
          "additionalProperties": false,
          "description": "Description of a reward spout",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Reward spout",
                "default": "Reward spout",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -58289,6 +58631,12 @@
          "additionalProperties": false,
          "description": "Reward spout session information",
          "properties": {
+            "data_type": {
+               "const": "Reward spout config",
+               "default": "Reward spout config",
+               "title": "Data Type",
+               "type": "string"
+            },
             "side": {
                "$ref": "#/$defs/SpoutSide",
                "description": "Must match instrument",
@@ -58316,10 +58664,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "type": {
-               "const": "rotation",
-               "default": "rotation",
-               "title": "Type",
+            "data_type": {
+               "const": "Rotation3d transform",
+               "default": "Rotation3d transform",
+               "title": "Data Type",
                "type": "string"
             },
             "rotation": {
@@ -58349,10 +58697,10 @@
          "additionalProperties": false,
          "description": "Description of a single sample collection",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Sample collection",
                "default": "Sample collection",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "sample_type": {
@@ -58414,10 +58762,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.\nRepresents voxel spacing if used as the first applied coordinate transform.",
          "properties": {
-            "type": {
-               "const": "scale",
-               "default": "scale",
-               "title": "Type",
+            "data_type": {
+               "const": "Scale3d transform",
+               "default": "Scale3d transform",
+               "title": "Data Type",
                "type": "string"
             },
             "scale": {
@@ -58456,10 +58804,10 @@
          "additionalProperties": false,
          "description": "Description of a MRI Scanner",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Scanner",
                "default": "Scanner",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -58976,10 +59324,10 @@
          "additionalProperties": false,
          "description": "Description of a scanning motorized stages",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Scanning stage",
                "default": "Scanning stage",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -59530,10 +59878,10 @@
          "additionalProperties": false,
          "description": "Description of a sectioning procedure",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Sectioning",
                "default": "Sectioning",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "number_of_slices": {
@@ -62980,6 +63328,12 @@
          "additionalProperties": false,
          "description": "Description of a physiology and/or behavior session",
          "properties": {
+            "data_type": {
+               "const": "Session",
+               "default": "Session",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
@@ -62987,8 +63341,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -63236,6 +63590,12 @@
          "additionalProperties": false,
          "description": "3D size of an object",
          "properties": {
+            "data_type": {
+               "const": "Size3d",
+               "default": "Size3d",
+               "title": "Data Type",
+               "type": "string"
+            },
             "width": {
                "title": "Width",
                "type": "integer"
@@ -63280,6 +63640,12 @@
          "additionalProperties": false,
          "description": "Description of a Slap2 scan",
          "properties": {
+            "data_type": {
+               "const": "Slap field of view",
+               "default": "Slap field of view",
+               "title": "Data Type",
+               "type": "string"
+            },
             "index": {
                "title": "Index",
                "type": "integer"
@@ -66937,6 +67303,12 @@
          "additionalProperties": false,
          "description": "Description of generic software",
          "properties": {
+            "data_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Software name",
                "type": "string"
@@ -66982,10 +67354,10 @@
          "additionalProperties": false,
          "description": "Description of a speaker for auditory stimuli",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Speaker",
                "default": "Speaker",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -67115,6 +67487,12 @@
          "additionalProperties": false,
          "description": "Description of auditory speaker configuration",
          "properties": {
+            "data_type": {
+               "const": "Speaker config",
+               "default": "Speaker config",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "description": "Must match instrument json",
                "title": "Name",
@@ -67158,6 +67536,12 @@
          "additionalProperties": false,
          "description": "Description of surgical or other procedure performed on a specimen",
          "properties": {
+            "data_type": {
+               "const": "Specimen procedure",
+               "default": "Specimen procedure",
+               "title": "Data Type",
+               "type": "string"
+            },
             "procedure_type": {
                "$ref": "#/$defs/SpecimenProcedureType",
                "title": "Procedure type"
@@ -67323,6 +67707,12 @@
          "additionalProperties": false,
          "description": "Description of a two photon stack",
          "properties": {
+            "data_type": {
+               "const": "Stack",
+               "default": "Stack",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channels": {
                "items": {
                   "$ref": "#/$defs/StackChannel"
@@ -70819,6 +71209,12 @@
          "additionalProperties": false,
          "description": "Description of a Channel used in a Stack",
          "properties": {
+            "data_type": {
+               "const": "Stack channel",
+               "default": "Stack channel",
+               "title": "Data Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "Channel",
                "type": "string"
@@ -70973,6 +71369,12 @@
          "additionalProperties": false,
          "description": "Description of a non-oligo probe stain",
          "properties": {
+            "data_type": {
+               "const": "Stain",
+               "default": "Stain",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -71455,6 +71857,12 @@
          "additionalProperties": false,
          "description": "Description of stimulus used during session",
          "properties": {
+            "data_type": {
+               "const": "Stimulus epoch",
+               "default": "Stimulus epoch",
+               "title": "Data Type",
+               "type": "string"
+            },
             "stimulus_start_time": {
                "description": "When a specific stimulus begins. This might be the same as the session start time.",
                "format": "date-time",
@@ -71525,13 +71933,13 @@
                      "items": {
                         "discriminator": {
                            "mapping": {
-                              "Auditory Stimulation": "#/$defs/AuditoryStimulation",
-                              "Olfactory Stimulation": "#/$defs/OlfactoryStimulation",
-                              "Opto Stimulation": "#/$defs/OptoStimulation",
-                              "Photo Stimulation": "#/$defs/PhotoStimulation",
-                              "Visual Stimulation": "#/$defs/VisualStimulation"
+                              "Auditory stimulation": "#/$defs/AuditoryStimulation",
+                              "Olfactory stimulation": "#/$defs/OlfactoryStimulation",
+                              "Opto stimulation": "#/$defs/OptoStimulation",
+                              "Photo stimulation": "#/$defs/PhotoStimulation",
+                              "Visual stimulation": "#/$defs/VisualStimulation"
                            },
-                           "propertyName": "stimulus_type"
+                           "propertyName": "data_type"
                         },
                         "oneOf": [
                            {
@@ -71586,10 +71994,10 @@
                      "items": {
                         "discriminator": {
                            "mapping": {
-                              "Laser": "#/$defs/LaserConfig",
-                              "Light emitting diode": "#/$defs/LightEmittingDiodeConfig"
+                              "Laser config": "#/$defs/LaserConfig",
+                              "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
                            },
-                           "propertyName": "device_type"
+                           "propertyName": "data_type"
                         },
                         "oneOf": [
                            {
@@ -71727,6 +72135,12 @@
          "additionalProperties": false,
          "description": "Data streams with a start and stop time",
          "properties": {
+            "data_type": {
+               "const": "Stream",
+               "default": "Stream",
+               "title": "Data Type",
+               "type": "string"
+            },
             "stream_start_time": {
                "format": "date-time",
                "title": "Stream start time",
@@ -71758,10 +72172,10 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Laser": "#/$defs/LaserConfig",
-                        "Light emitting diode": "#/$defs/LightEmittingDiodeConfig"
+                        "Laser config": "#/$defs/LaserConfig",
+                        "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
                      },
-                     "propertyName": "device_type"
+                     "propertyName": "data_type"
                   },
                   "oneOf": [
                      {
@@ -71969,6 +72383,12 @@
          "additionalProperties": false,
          "description": "Description of a subject of data collection",
          "properties": {
+            "data_type": {
+               "const": "Subject",
+               "default": "Subject",
+               "title": "Data Type",
+               "type": "string"
+            },
             "describedBy": {
                "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
                "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/subject.py",
@@ -71976,8 +72396,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.0",
-               "default": "2.0.0",
+               "const": "2.0.1",
+               "default": "2.0.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -72191,10 +72611,10 @@
          "additionalProperties": false,
          "description": "Description of subject procedures performed at one time",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Surgery",
                "default": "Surgery",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "protocol_id": {
@@ -72299,23 +72719,23 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Catheter Implant": "#/$defs/CatheterImplant",
+                        "Catheter implant": "#/$defs/CatheterImplant",
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
-                        "Ground wire": "#/$defs/ProtectiveMaterialReplacement",
                         "Headframe": "#/$defs/Headframe",
-                        "ICM injection": "#/$defs/IntraCisternalMagnaInjection",
-                        "ICV injection": "#/$defs/IntraCerebellarVentricleInjection",
+                        "Intra cerebellar ventricle injection": "#/$defs/IntraCerebellarVentricleInjection",
+                        "Intra cisternal magna injection": "#/$defs/IntraCisternalMagnaInjection",
                         "Intraperitoneal injection": "#/$defs/IntraperitonealInjection",
                         "Iontophoresis injection": "#/$defs/IontophoresisInjection",
-                        "Myomatrix_Insertion": "#/$defs/MyomatrixInsertion",
+                        "Myomatrix insertion": "#/$defs/MyomatrixInsertion",
                         "Nanoject injection": "#/$defs/NanojectInjection",
-                        "Other Subject Procedure": "#/$defs/OtherSubjectProcedure",
+                        "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                         "Perfusion": "#/$defs/Perfusion",
-                        "Retro-orbital injection": "#/$defs/RetroOrbitalInjection",
+                        "Protective material replacement": "#/$defs/ProtectiveMaterialReplacement",
+                        "Retro orbital injection": "#/$defs/RetroOrbitalInjection",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
-                     "propertyName": "procedure_type"
+                     "propertyName": "data_type"
                   },
                   "oneOf": [
                      {
@@ -72394,6 +72814,12 @@
          "additionalProperties": false,
          "description": "TARS data for a viral prep",
          "properties": {
+            "data_type": {
+               "const": "Tars virus identifiers",
+               "default": "Tars virus identifiers",
+               "title": "Data Type",
+               "type": "string"
+            },
             "virus_tars_id": {
                "anyOf": [
                   {
@@ -72494,10 +72920,10 @@
          "additionalProperties": false,
          "description": "Description of an animal training protocol",
          "properties": {
-            "procedure_type": {
-               "const": "Training",
-               "default": "Training",
-               "title": "Procedure Type",
+            "data_type": {
+               "const": "Training protocol",
+               "default": "Training protocol",
+               "title": "Data Type",
                "type": "string"
             },
             "training_name": {
@@ -72551,10 +72977,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "type": {
-               "const": "translation",
-               "default": "translation",
-               "title": "Type",
+            "data_type": {
+               "const": "Translation3d transform",
+               "default": "Translation3d transform",
+               "title": "Data Type",
                "type": "string"
             },
             "translation": {
@@ -72584,10 +73010,10 @@
          "additionalProperties": false,
          "description": "Description of treadmill platform",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Treadmill",
                "default": "Treadmill",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -73141,10 +73567,10 @@
          "additionalProperties": false,
          "description": "Description of a tube platform",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Tube",
                "default": "Tube",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -73689,6 +74115,12 @@
          "additionalProperties": false,
          "description": "Description of viral material for injections",
          "properties": {
+            "data_type": {
+               "const": "Viral material",
+               "default": "Viral material",
+               "title": "Data Type",
+               "type": "string"
+            },
             "material_type": {
                "const": "Virus",
                "default": "Virus",
@@ -73764,10 +74196,10 @@
          "additionalProperties": false,
          "description": "Description of visual stimulus parameters. Provides a high level description of stimulus.",
          "properties": {
-            "stimulus_type": {
-               "const": "Visual Stimulation",
-               "default": "Visual Stimulation",
-               "title": "Stimulus Type",
+            "data_type": {
+               "const": "Visual stimulation",
+               "default": "Visual stimulation",
+               "title": "Data Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -73831,10 +74263,10 @@
          "additionalProperties": false,
          "description": "Description of a water restriction procedure",
          "properties": {
-            "procedure_type": {
+            "data_type": {
                "const": "Water restriction",
                "default": "Water restriction",
-               "title": "Procedure Type",
+               "title": "Data Type",
                "type": "string"
             },
             "ethics_review_id": {
@@ -73916,6 +74348,12 @@
          "additionalProperties": false,
          "description": "Wellness report on animal health",
          "properties": {
+            "data_type": {
+               "const": "Wellness report",
+               "default": "Wellness report",
+               "title": "Data Type",
+               "type": "string"
+            },
             "date": {
                "format": "date",
                "title": "Date",
@@ -73937,10 +74375,10 @@
          "additionalProperties": false,
          "description": "Description of a running wheel",
          "properties": {
-            "device_type": {
+            "data_type": {
                "const": "Wheel",
                "default": "Wheel",
-               "title": "Device Type",
+               "title": "Data Type",
                "type": "string"
             },
             "name": {
@@ -106015,6 +106453,12 @@
    "additionalProperties": false,
    "description": "The records in the Data Asset Collection needs to contain certain fields\nto easily query and index the data.",
    "properties": {
+      "data_type": {
+         "const": "Metadata",
+         "default": "Metadata",
+         "title": "Data Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/metadata.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/metadata.py",
@@ -106022,8 +106466,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.1",
+         "default": "2.0.1",
          "title": "Schema Version",
          "type": "string"
       },
