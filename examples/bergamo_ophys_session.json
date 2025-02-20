@@ -1,5 +1,5 @@
 {
-   "data_type": "Session",
+   "object_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
    "schema_version": "2.0.1",
    "protocol_id": [],
@@ -27,7 +27,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
-         "data_type": "Stream",
+         "object_type": "Stream",
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
@@ -36,7 +36,7 @@
          ],
          "light_sources": [
             {
-               "data_type": "Laser config",
+               "object_type": "Laser config",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
@@ -49,7 +49,7 @@
          "manipulator_modules": [],
          "detectors": [
             {
-               "data_type": "Detector config",
+               "object_type": "Detector config",
                "name": "PMT A",
                "exposure_time": "0.1",
                "exposure_time_unit": "millisecond",
@@ -60,7 +60,7 @@
          "fiber_modules": [],
          "ophys_fovs": [
             {
-               "data_type": "Field of view",
+               "object_type": "Field of view",
                "index": 0,
                "imaging_depth": 150,
                "imaging_depth_unit": "micrometer",
@@ -111,7 +111,7 @@
    ],
    "stimulus_epochs": [
       {
-         "data_type": "Stimulus epoch",
+         "object_type": "Stimulus epoch",
          "stimulus_start_time": "2022-07-12T07:00:00Z",
          "stimulus_end_time": "2022-07-12T07:00:00Z",
          "stimulus_name": "PhotoStimulation",
@@ -123,12 +123,12 @@
          ],
          "stimulus_parameters": [
             {
-               "data_type": "Photo stimulation",
+               "object_type": "Photo stimulation",
                "stimulus_name": "Two group stim",
                "number_groups": 2,
                "groups": [
                   {
-                     "data_type": "Photo stimulation group",
+                     "object_type": "Photo stimulation group",
                      "group_index": 0,
                      "number_of_neurons": 12,
                      "stimulation_laser_power": "10",
@@ -143,7 +143,7 @@
                      "notes": null
                   },
                   {
-                     "data_type": "Photo stimulation group",
+                     "object_type": "Photo stimulation group",
                      "group_index": 2,
                      "number_of_neurons": 20,
                      "stimulation_laser_power": "10",
