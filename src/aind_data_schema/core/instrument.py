@@ -165,7 +165,7 @@ class Instrument(DataCoreModel):
                 DAQDevice,
                 Device,  # note that order matters in the Union, DAQDevice and Device should go last
             ],
-            Field(discriminator="data_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(
         ...,

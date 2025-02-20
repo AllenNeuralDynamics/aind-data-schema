@@ -553,7 +553,7 @@ class LightAssembly(DataModel):
 
     # required fields
     name: str = Field(..., title="Light assembly name")
-    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="data_type")]
+    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
     lens: Lens = Field(..., title="Lens")
 
     # optional fields

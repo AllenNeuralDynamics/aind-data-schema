@@ -219,8 +219,8 @@ class BaseTests(unittest.TestCase):
 class DataModelTests(unittest.TestCase):
     """Tests for DataModel"""
 
-    def test_generate_data_type(self):
-        """Test that generate_data_type correctly sets the data_type field"""
+    def test_generate_object_type(self):
+        """Test that generate_object_type correctly sets the object_type field"""
 
         class TestModel(DataModel):
             """Temporary test model"""
@@ -228,7 +228,7 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         model_instance = TestModel(value="test")
-        self.assertEqual(model_instance.data_type, "Test model")
+        self.assertEqual(model_instance.object_type, "Test model")
 
         class AnotherTestModel(DataModel):
             """Another temporary test model"""
@@ -236,7 +236,7 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         another_model_instance = AnotherTestModel(value="test")
-        self.assertEqual(another_model_instance.data_type, "Another test model")
+        self.assertEqual(another_model_instance.object_type, "Another test model")
 
         class QCModel(DataModel):
             """Test model with two capital letters in a row"""
@@ -244,20 +244,20 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         qc_model_instance = QCModel(value="test")
-        self.assertEqual(qc_model_instance.data_type, "QC model")
+        self.assertEqual(qc_model_instance.object_type, "QC model")
 
-    def test_data_type_unique(self):
-        """Test that all subclasses of DataModel have unique data_type values"""
+    def test_object_type_unique(self):
+        """Test that all subclasses of DataModel have unique object_type values"""
 
         # For some reason duplicate subclasses can get generated at runtime
         subclasses = set(DataModel.__subclasses__())
 
-        data_types = {}
+        object_types = {}
         for subclass in subclasses:
-            data_type = subclass._data_type_from_name()
-            self.assertNotIn(data_type, data_types.values())
+            object_type = subclass._object_type_from_name()
+            self.assertNotIn(object_type, object_types.values())
 
-            data_types[subclass.__name__] = data_type
+            object_types[subclass.__name__] = object_type
 
 
 if __name__ == "__main__":

@@ -162,7 +162,7 @@ class RelativePosition(DataModel):
     """Position and rotation of a device in a rig or instrument"""
 
     device_position_transformations: List[
-        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="data_type")]
+        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="object_type")]
     ] = Field(..., title="Device position transforms")
     device_origin: str = Field(
         ..., title="Device origin", description="Reference point on device for position information"
