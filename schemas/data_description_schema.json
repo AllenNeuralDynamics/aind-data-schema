@@ -14,6 +14,12 @@
          "additionalProperties": false,
          "description": "Description of funding sources",
          "properties": {
+            "data_type": {
+               "const": "Funding",
+               "default": "Funding",
+               "title": "Data Type",
+               "type": "string"
+            },
             "funder": {
                "discriminator": {
                   "mapping": {
@@ -139,6 +145,12 @@
          "additionalProperties": false,
          "description": "Description of related data asset",
          "properties": {
+            "data_type": {
+               "const": "Related data",
+               "default": "Related data",
+               "title": "Data Type",
+               "type": "string"
+            },
             "related_data_path": {
                "title": "Related data path",
                "type": "string"
@@ -1614,6 +1626,12 @@
    "additionalProperties": false,
    "description": "Description of a logical collection of data files",
    "properties": {
+      "data_type": {
+         "const": "Data description",
+         "default": "Data description",
+         "title": "Data Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
@@ -1621,8 +1639,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.1",
+         "default": "2.0.1",
          "title": "Schema Version",
          "type": "string"
       },

@@ -4,6 +4,12 @@
          "additionalProperties": false,
          "description": "Description of an Analysis",
          "properties": {
+            "data_type": {
+               "const": "Analysis process",
+               "default": "Analysis process",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Analysis",
@@ -134,6 +140,12 @@
          "additionalProperties": false,
          "description": "Description of a single processing step",
          "properties": {
+            "data_type": {
+               "const": "Data process",
+               "default": "Data process",
+               "title": "Data Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "title": "Name"
@@ -302,6 +314,12 @@
          "additionalProperties": false,
          "description": "Description of a Processing Pipeline",
          "properties": {
+            "data_type": {
+               "const": "Pipeline process",
+               "default": "Pipeline process",
+               "title": "Data Type",
+               "type": "string"
+            },
             "data_processes": {
                "items": {
                   "$ref": "#/$defs/DataProcess"
@@ -415,6 +433,12 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "data_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Data Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -436,6 +460,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "data_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Data Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -610,6 +640,12 @@
    "additionalProperties": false,
    "description": "Description of all processes run on data",
    "properties": {
+      "data_type": {
+         "const": "Processing",
+         "default": "Processing",
+         "title": "Data Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
@@ -617,8 +653,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.1",
+         "default": "2.0.1",
          "title": "Schema Version",
          "type": "string"
       },
