@@ -4,10 +4,10 @@
          "additionalProperties": false,
          "description": "Description of additional devices",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Additional imaging device",
                "default": "Additional imaging device",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -505,10 +505,10 @@
          "additionalProperties": false,
          "description": "Description of a rectangular arena",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Arena",
                "default": "Arena",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1039,10 +1039,10 @@
          "additionalProperties": false,
          "description": "Description of an axis",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Axis",
                "default": "Axis",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1085,10 +1085,10 @@
          "additionalProperties": false,
          "description": "Generic calibration class",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Calibration",
                "default": "Calibration",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "calibration_date": {
@@ -1143,10 +1143,10 @@
          "additionalProperties": false,
          "description": "Camera Detector",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Camera",
                "default": "Camera",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1577,10 +1577,10 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Camera assembly",
                "default": "Camera assembly",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1671,10 +1671,10 @@
          "additionalProperties": false,
          "description": "Description of a communication system",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Com",
                "default": "Com",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "hardware_name": {
@@ -1697,10 +1697,10 @@
          "additionalProperties": false,
          "description": "Connection between two devices",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Connection",
                "default": "Connection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "device_names": {
@@ -1729,10 +1729,10 @@
          "additionalProperties": false,
          "description": "Data for a connection",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Connection data",
                "default": "Connection data",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "input": {
@@ -1800,10 +1800,10 @@
          "additionalProperties": false,
          "description": "Named input or output channel on a DAQ device",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "DAQ channel",
                "default": "DAQ channel",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "channel_name": {
@@ -1894,10 +1894,10 @@
          "additionalProperties": false,
          "description": "Data acquisition device containing multiple I/O channels",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "DAQ device",
                "default": "DAQ device",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -2094,10 +2094,10 @@
          "additionalProperties": false,
          "description": "Description of a generic detector",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Detector",
                "default": "Detector",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -2538,10 +2538,10 @@
          "additionalProperties": false,
          "description": "Generic device",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Device",
                "default": "Device",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -3044,10 +3044,10 @@
          "additionalProperties": false,
          "description": "Description of a Digital Micromirror Device (DMD)",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Digital micromirror device",
                "default": "Digital micromirror device",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -3637,10 +3637,10 @@
          "additionalProperties": false,
          "description": "Description of a running disc (i.e. MindScope Disc)",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Disc",
                "default": "Disc",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -4227,10 +4227,10 @@
          "additionalProperties": false,
          "description": "Description of an enclosure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Enclosure",
                "default": "Enclosure",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -4753,10 +4753,10 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Ephys assembly",
                "default": "Ephys assembly",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -4786,10 +4786,10 @@
          "additionalProperties": false,
          "description": "Named probe used in an ephys experiment",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Ephys probe",
                "default": "Ephys probe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -5316,10 +5316,10 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Fiber assembly",
                "default": "Fiber assembly",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -5349,10 +5349,10 @@
          "additionalProperties": false,
          "description": "Description of a fiber optic probe",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Fiber probe",
                "default": "Fiber probe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -5919,10 +5919,10 @@
          "additionalProperties": false,
          "description": "Filter used in a light path",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Filter",
                "default": "Filter",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -6228,10 +6228,10 @@
          "additionalProperties": false,
          "description": "DAQ that uses the Harp protocol for synchronization and data transmission",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Harp device",
                "default": "Harp device",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -6515,10 +6515,10 @@
          "additionalProperties": false,
          "description": "Headstage used with an ephys probe",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Headstage",
                "default": "Headstage",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7061,10 +7061,10 @@
          "additionalProperties": false,
          "description": "Description of a Lamp lightsource",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Lamp",
                "default": "Lamp",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7610,10 +7610,10 @@
          "additionalProperties": false,
          "description": "Laser module with a specific wavelength (may be a sub-component of a larger assembly)",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Laser",
                "default": "Laser",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7816,10 +7816,10 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Laser assembly",
                "default": "Laser assembly",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7859,10 +7859,10 @@
          "additionalProperties": false,
          "description": "Lens",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Lens",
                "default": "Lens",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8120,10 +8120,10 @@
          "additionalProperties": false,
          "description": "Description of a Light Emitting Diode (LED) device",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Light emitting diode",
                "default": "Light emitting diode",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8279,10 +8279,10 @@
          "additionalProperties": false,
          "description": "Manipulator used on a dome module",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Manipulator",
                "default": "Manipulator",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8392,10 +8392,10 @@
          "additionalProperties": false,
          "description": "Description of visual display for visual stimuli",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Monitor",
                "default": "Monitor",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8589,10 +8589,10 @@
          "additionalProperties": false,
          "description": "Description of motorized stage",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Motorized stage",
                "default": "Motorized stage",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -9114,10 +9114,10 @@
          "additionalProperties": false,
          "description": "Description of a mouse platform",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Mouse platform",
                "default": "Mouse platform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -9635,10 +9635,10 @@
          "additionalProperties": false,
          "description": "PXI-based Neuropixels DAQ",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Neuropixels basestation",
                "default": "Neuropixels basestation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -9818,10 +9818,10 @@
          "additionalProperties": false,
          "description": "Description of an objective device",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Objective",
                "default": "Objective",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -10364,10 +10364,10 @@
          "additionalProperties": false,
          "description": "Description of an olfactometer for odor stimuli",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Olfactometer",
                "default": "Olfactometer",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -10594,10 +10594,10 @@
          "additionalProperties": false,
          "description": "description of a Olfactometer channel",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Olfactometer channel",
                "default": "Olfactometer channel",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "channel_index": {
@@ -10634,10 +10634,10 @@
          "additionalProperties": false,
          "description": "Multichannel electrophysiology DAQ",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Open ephys acquisition board",
                "default": "Open ephys acquisition board",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -10826,10 +10826,10 @@
          "additionalProperties": false,
          "description": "Description of Optical Table",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Optical table",
                "default": "Optical table",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -11381,10 +11381,10 @@
          "additionalProperties": false,
          "description": "Description of a patch cord",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Patch",
                "default": "Patch",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -11914,10 +11914,10 @@
          "additionalProperties": false,
          "description": "Description of a Pockels Cell",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Pockels cell",
                "default": "Pockels cell",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -12485,10 +12485,10 @@
          "additionalProperties": false,
          "description": "Description of a Polygonal scanner",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Polygonal scanner",
                "default": "Polygonal scanner",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -13022,10 +13022,10 @@
          "additionalProperties": false,
          "description": "Port for a probe connection",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Probe port",
                "default": "Probe port",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "index": {
@@ -13051,10 +13051,10 @@
          "additionalProperties": false,
          "description": "Position and rotation of a device in a rig or instrument",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Relative position",
                "default": "Relative position",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "device_position_transformations": {
@@ -13064,7 +13064,7 @@
                         "Rotation3d transform": "#/$defs/Rotation3dTransform",
                         "Translation3d transform": "#/$defs/Translation3dTransform"
                      },
-                     "propertyName": "data_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -13117,10 +13117,10 @@
          "additionalProperties": false,
          "description": "Description of reward delivery system",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Reward delivery",
                "default": "Reward delivery",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stage_type": {
@@ -13153,10 +13153,10 @@
          "additionalProperties": false,
          "description": "Description of a reward spout",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Reward spout",
                "default": "Reward spout",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -13706,10 +13706,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Rotation3d transform",
                "default": "Rotation3d transform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "rotation": {
@@ -13739,10 +13739,10 @@
          "additionalProperties": false,
          "description": "Description of a scanning motorized stages",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Scanning stage",
                "default": "Scanning stage",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -14274,10 +14274,10 @@
          "additionalProperties": false,
          "description": "3D size of an object",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Size3d",
                "default": "Size3d",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "width": {
@@ -14324,10 +14324,10 @@
          "additionalProperties": false,
          "description": "Description of generic software",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Software",
                "default": "Software",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -14367,10 +14367,10 @@
          "additionalProperties": false,
          "description": "Description of a speaker for auditory stimuli",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Speaker",
                "default": "Speaker",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -14548,10 +14548,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Translation3d transform",
                "default": "Translation3d transform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "translation": {
@@ -14581,10 +14581,10 @@
          "additionalProperties": false,
          "description": "Description of treadmill platform",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Treadmill",
                "default": "Treadmill",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -15129,10 +15129,10 @@
          "additionalProperties": false,
          "description": "Description of a tube platform",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Tube",
                "default": "Tube",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -15685,10 +15685,10 @@
          "additionalProperties": false,
          "description": "Description of a running wheel",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Wheel",
                "default": "Wheel",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -21395,10 +21395,10 @@
    "additionalProperties": false,
    "description": "Description of an instrument",
    "properties": {
-      "data_type": {
+      "object_type": {
          "const": "Instrument",
          "default": "Instrument",
-         "title": "Data Type",
+         "title": "Object Type",
          "type": "string"
       },
       "describedBy": {
@@ -21408,8 +21408,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.1",
-         "default": "2.0.1",
+         "const": "2.0.2",
+         "default": "2.0.2",
          "title": "Schema Version",
          "type": "string"
       },
@@ -22046,7 +22046,7 @@
                   "Tube": "#/$defs/Tube",
                   "Wheel": "#/$defs/Wheel"
                },
-               "propertyName": "data_type"
+               "propertyName": "object_type"
             },
             "oneOf": [
                {

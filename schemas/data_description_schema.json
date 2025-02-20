@@ -14,10 +14,10 @@
          "additionalProperties": false,
          "description": "Description of funding sources",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Funding",
                "default": "Funding",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "funder": {
@@ -145,10 +145,10 @@
          "additionalProperties": false,
          "description": "Description of related data asset",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Related data",
                "default": "Related data",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "related_data_path": {
@@ -1626,10 +1626,10 @@
    "additionalProperties": false,
    "description": "Description of a logical collection of data files",
    "properties": {
-      "data_type": {
+      "object_type": {
          "const": "Data description",
          "default": "Data description",
-         "title": "Data Type",
+         "title": "Object Type",
          "type": "string"
       },
       "describedBy": {
@@ -1639,8 +1639,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.1",
-         "default": "2.0.1",
+         "const": "2.0.2",
+         "default": "2.0.2",
          "title": "Schema Version",
          "type": "string"
       },

@@ -1,7 +1,7 @@
 {
    "object_type": "Instrument",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "2.0.1",
+   "schema_version": "2.0.2",
    "instrument_id": "447_FIP-Behavior_20000101",
    "modification_date": "2000-01-01",
    "calibrations": [

@@ -4,10 +4,10 @@
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Anaesthetic",
                "default": "Anaesthetic",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "type": {
@@ -68,10 +68,10 @@
          "additionalProperties": false,
          "description": "Description of an antibody used in immunolableing",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Antibody",
                "default": "Antibody",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -597,10 +597,10 @@
          "additionalProperties": false,
          "description": "Description of a catheter implant procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Catheter implant",
                "default": "Catheter implant",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "where_performed": {
@@ -702,10 +702,10 @@
          "additionalProperties": false,
          "description": "Description of craniotomy procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Craniotomy",
                "default": "Craniotomy",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -855,10 +855,10 @@
          "additionalProperties": false,
          "description": "Description of an implant procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Fiber implant",
                "default": "Fiber implant",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -885,10 +885,10 @@
          "additionalProperties": false,
          "description": "Description of a fiber optic probe",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Fiber probe",
                "default": "Fiber probe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1489,10 +1489,10 @@
          "additionalProperties": false,
          "description": "Description of an oligo probe used for HCR",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "HCR probe",
                "default": "HCR probe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1989,10 +1989,10 @@
          "additionalProperties": false,
          "description": "Description of a readout for HCR",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "HCR readout",
                "default": "HCR readout",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -2459,10 +2459,10 @@
          "additionalProperties": false,
          "description": "Description of series of HCR staining rounds for mFISH",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "HCR series",
                "default": "HCR series",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "codebook_name": {
@@ -2498,10 +2498,10 @@
          "additionalProperties": false,
          "description": "Description of headframe procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Headframe",
                "default": "Headframe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -2576,10 +2576,10 @@
          "additionalProperties": false,
          "description": "Description of an HCR staining round",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Hybridization chain reaction",
                "default": "Hybridization chain reaction",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "round_index": {
@@ -2665,10 +2665,10 @@
          "additionalProperties": false,
          "description": "Description of an interacerebellar ventricle injection",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Intra cerebellar ventricle injection",
                "default": "Intra cerebellar ventricle injection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "injection_materials": {
@@ -6281,10 +6281,10 @@
          "additionalProperties": false,
          "description": "Description of an interacisternal magna injection",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Intra cisternal magna injection",
                "default": "Intra cisternal magna injection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "injection_materials": {
@@ -9897,10 +9897,10 @@
          "additionalProperties": false,
          "description": "Description of an intraperitoneal injection procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Intraperitoneal injection",
                "default": "Intraperitoneal injection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "injection_materials": {
@@ -10038,10 +10038,10 @@
          "additionalProperties": false,
          "description": "Description of an iotophoresis injection procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Iontophoresis injection",
                "default": "Iontophoresis injection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "injection_materials": {
@@ -13725,10 +13725,10 @@
          "additionalProperties": false,
          "description": "Description of a Myomatrix array",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Myomatrix array",
                "default": "Myomatrix array",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -14235,10 +14235,10 @@
          "additionalProperties": false,
          "description": "\"Description of a contact on a myomatrix thread",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Myomatrix contact",
                "default": "Myomatrix contact",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "body_part": {
@@ -14285,10 +14285,10 @@
          "additionalProperties": false,
          "description": "Description of a Myomatrix array insertion for EMG",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Myomatrix insertion",
                "default": "Myomatrix insertion",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -14320,10 +14320,10 @@
          "additionalProperties": false,
          "description": "Description of a thread of a myomatrix array",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Myomatrix thread",
                "default": "Myomatrix thread",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "ground_electrode_location": {
@@ -14350,10 +14350,10 @@
          "additionalProperties": false,
          "description": "Description of a nanoject injection procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Nanoject injection",
                "default": "Nanoject injection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "injection_materials": {
@@ -17966,10 +17966,10 @@
          "additionalProperties": false,
          "description": "Description of a non-viral injection material",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Non viral material",
                "default": "Non viral material",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -18447,10 +18447,10 @@
          "additionalProperties": false,
          "description": "Description of an oligonucleotide probe",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Oligo probe",
                "default": "Oligo probe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -18941,10 +18941,10 @@
          "additionalProperties": false,
          "description": "Description of an implanted ophys probe",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Ophys probe",
                "default": "Ophys probe",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "ophys_probe": {
@@ -22436,10 +22436,10 @@
          "additionalProperties": false,
          "description": "Description of non-surgical procedure performed on a subject",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Other subject procedure",
                "default": "Other subject procedure",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -22533,10 +22533,10 @@
          "additionalProperties": false,
          "description": "Description of a perfusion procedure that creates a specimen",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Perfusion",
                "default": "Perfusion",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -22608,10 +22608,10 @@
          "additionalProperties": false,
          "description": "Description of a protective material replacement procedure in preparation for ephys recording",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Protective material replacement",
                "default": "Protective material replacement",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -22711,10 +22711,10 @@
          "additionalProperties": false,
          "description": "Description of a readout",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Readout",
                "default": "Readout",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -23176,10 +23176,10 @@
          "additionalProperties": false,
          "description": "Description of reagent used in procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Reagent",
                "default": "Reagent",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -23622,10 +23622,10 @@
          "additionalProperties": false,
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Retro orbital injection",
                "default": "Retro orbital injection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "injection_materials": {
@@ -23755,10 +23755,10 @@
          "additionalProperties": false,
          "description": "Description of a single sample collection",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Sample collection",
                "default": "Sample collection",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "sample_type": {
@@ -23839,10 +23839,10 @@
          "additionalProperties": false,
          "description": "Description of a sectioning procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Sectioning",
                "default": "Sectioning",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "number_of_slices": {
@@ -27313,10 +27313,10 @@
          "additionalProperties": false,
          "description": "Description of surgical or other procedure performed on a specimen",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Specimen procedure",
                "default": "Specimen procedure",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "procedure_type": {
@@ -27465,10 +27465,10 @@
          "additionalProperties": false,
          "description": "Description of a non-oligo probe stain",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Stain",
                "default": "Stain",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -27943,10 +27943,10 @@
          "additionalProperties": false,
          "description": "Description of subject procedures performed at one time",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Surgery",
                "default": "Surgery",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -28067,7 +28067,7 @@
                         "Retro orbital injection": "#/$defs/RetroOrbitalInjection",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
-                     "propertyName": "data_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -28146,10 +28146,10 @@
          "additionalProperties": false,
          "description": "TARS data for a viral prep",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Tars virus identifiers",
                "default": "Tars virus identifiers",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "virus_tars_id": {
@@ -28243,10 +28243,10 @@
          "additionalProperties": false,
          "description": "Description of an animal training protocol",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Training protocol",
                "default": "Training protocol",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "training_name": {
@@ -28309,10 +28309,10 @@
          "additionalProperties": false,
          "description": "Description of viral material for injections",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Viral material",
                "default": "Viral material",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "material_type": {
@@ -28401,10 +28401,10 @@
          "additionalProperties": false,
          "description": "Description of a water restriction procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Water restriction",
                "default": "Water restriction",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "ethics_review_id": {
@@ -59351,10 +59351,10 @@
    "additionalProperties": false,
    "description": "Description of all procedures performed on a subject",
    "properties": {
-      "data_type": {
+      "object_type": {
          "const": "Procedures",
          "default": "Procedures",
-         "title": "Data Type",
+         "title": "Object Type",
          "type": "string"
       },
       "describedBy": {
@@ -59364,8 +59364,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.1",
-         "default": "2.0.1",
+         "const": "2.0.2",
+         "default": "2.0.2",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59384,7 +59384,7 @@
                   "Training protocol": "#/$defs/TrainingProtocol",
                   "Water restriction": "#/$defs/WaterRestriction"
                },
-               "propertyName": "data_type"
+               "propertyName": "object_type"
             },
             "oneOf": [
                {

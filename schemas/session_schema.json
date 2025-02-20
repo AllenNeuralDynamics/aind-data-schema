@@ -4,10 +4,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Affine3d transform",
                "default": "Affine3d transform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "affine_transform": {
@@ -37,10 +37,10 @@
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Anaesthetic",
                "default": "Anaesthetic",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "type": {
@@ -101,10 +101,10 @@
          "additionalProperties": false,
          "description": "Description of an auditory stimulus",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Auditory stimulation",
                "default": "Auditory stimulation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -217,10 +217,10 @@
          "additionalProperties": false,
          "description": "Description of an axis",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Axis",
                "default": "Axis",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -280,10 +280,10 @@
          "additionalProperties": false,
          "description": "Generic calibration class",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Calibration",
                "default": "Calibration",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "calibration_date": {
@@ -338,10 +338,10 @@
          "additionalProperties": false,
          "description": "Coordinates in CCF template space",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Ccf coords",
                "default": "Ccf coords",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "ml": {
@@ -420,10 +420,10 @@
          "additionalProperties": false,
          "description": "Coordinates in a 3D grid",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Coordinates3d",
                "default": "Coordinates3d",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "x": {
@@ -477,10 +477,10 @@
          "additionalProperties": false,
          "description": "Description of detector settings",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Detector config",
                "default": "Detector config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -520,10 +520,10 @@
          "additionalProperties": false,
          "description": "Movable module that is mounted on the ephys dome insertion system",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Dome module",
                "default": "Dome module",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "assembly_name": {
@@ -623,10 +623,10 @@
          "additionalProperties": false,
          "description": "Description for a fiber photometry configuration",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Fiber connection config",
                "default": "Fiber connection config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "patch_cord_name": {
@@ -666,10 +666,10 @@
          "additionalProperties": false,
          "description": "Inserted fiber photometry probe recorded in a stream",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Fiber module",
                "default": "Fiber module",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "assembly_name": {
@@ -7621,10 +7621,10 @@
          "additionalProperties": false,
          "description": "Description of an imaging field of view",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Field of view",
                "default": "Field of view",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "index": {
@@ -11252,10 +11252,10 @@
          "additionalProperties": false,
          "description": "Description of laser settings in a session",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Laser config",
                "default": "Laser config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -11311,10 +11311,10 @@
          "additionalProperties": false,
          "description": "Description of LED settings",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Light emitting diode config",
                "default": "Light emitting diode config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -11359,10 +11359,10 @@
          "additionalProperties": false,
          "description": "Description of a 3D scan",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "MRI scan",
                "default": "MRI scan",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "scan_index": {
@@ -11550,10 +11550,10 @@
          "additionalProperties": false,
          "description": "Generic maintenance class",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Maintenance",
                "default": "Maintenance",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "maintenance_date": {
@@ -11616,10 +11616,10 @@
          "additionalProperties": false,
          "description": "A dome module connected to a 3-axis manipulator",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Manipulator module",
                "default": "Manipulator module",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "assembly_name": {
@@ -18584,10 +18584,10 @@
          "additionalProperties": false,
          "description": "Description of olfactometer channel configurations",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Olfactometer channel config",
                "default": "Olfactometer channel config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "channel_index": {
@@ -18639,10 +18639,10 @@
          "additionalProperties": false,
          "description": "Description of a olfactory stimulus",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Olfactory stimulation",
                "default": "Olfactory stimulation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -18680,10 +18680,10 @@
          "additionalProperties": false,
          "description": "Description of opto stimulation parameters",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Opto stimulation",
                "default": "Opto stimulation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -18910,10 +18910,10 @@
          "additionalProperties": false,
          "description": "Description of a photostimulation session",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Photo stimulation",
                "default": "Photo stimulation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -18978,10 +18978,10 @@
          "additionalProperties": false,
          "description": "Description of a photostimulation group",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Photo stimulation group",
                "default": "Photo stimulation group",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "group_index": {
@@ -19102,10 +19102,10 @@
          "additionalProperties": false,
          "description": "Description of reagent used in procedure",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Reagent",
                "default": "Reagent",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -19548,10 +19548,10 @@
          "additionalProperties": false,
          "description": "Position and rotation of a device in a rig or instrument",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Relative position",
                "default": "Relative position",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "device_position_transformations": {
@@ -19561,7 +19561,7 @@
                         "Rotation3d transform": "#/$defs/Rotation3dTransform",
                         "Translation3d transform": "#/$defs/Translation3dTransform"
                      },
-                     "propertyName": "data_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -19614,10 +19614,10 @@
          "additionalProperties": false,
          "description": "Description of reward delivery configuration",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Reward delivery config",
                "default": "Reward delivery config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "reward_solution": {
@@ -19665,10 +19665,10 @@
          "additionalProperties": false,
          "description": "Reward spout session information",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Reward spout config",
                "default": "Reward spout config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "side": {
@@ -19698,10 +19698,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Rotation3d transform",
                "default": "Rotation3d transform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "rotation": {
@@ -19731,10 +19731,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.\nRepresents voxel spacing if used as the first applied coordinate transform.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Scale3d transform",
                "default": "Scale3d transform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "scale": {
@@ -19773,10 +19773,10 @@
          "additionalProperties": false,
          "description": "Description of a MRI Scanner",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Scanner",
                "default": "Scanner",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -20307,10 +20307,10 @@
          "additionalProperties": false,
          "description": "Description of a Slap2 scan",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Slap field of view",
                "default": "Slap field of view",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "index": {
@@ -23970,10 +23970,10 @@
          "additionalProperties": false,
          "description": "Description of generic software",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Software",
                "default": "Software",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -24021,10 +24021,10 @@
          "additionalProperties": false,
          "description": "Description of auditory speaker configuration",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Speaker config",
                "default": "Speaker config",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -24081,10 +24081,10 @@
          "additionalProperties": false,
          "description": "Description of a two photon stack",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Stack",
                "default": "Stack",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "channels": {
@@ -27583,10 +27583,10 @@
          "additionalProperties": false,
          "description": "Description of a Channel used in a Stack",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Stack channel",
                "default": "Stack channel",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "channel_name": {
@@ -27712,10 +27712,10 @@
          "additionalProperties": false,
          "description": "Description of stimulus used during session",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Stimulus epoch",
                "default": "Stimulus epoch",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stimulus_start_time": {
@@ -27794,7 +27794,7 @@
                               "Photo stimulation": "#/$defs/PhotoStimulation",
                               "Visual stimulation": "#/$defs/VisualStimulation"
                            },
-                           "propertyName": "data_type"
+                           "propertyName": "object_type"
                         },
                         "oneOf": [
                            {
@@ -27852,7 +27852,7 @@
                               "Laser config": "#/$defs/LaserConfig",
                               "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
                            },
-                           "propertyName": "data_type"
+                           "propertyName": "object_type"
                         },
                         "oneOf": [
                            {
@@ -27990,10 +27990,10 @@
          "additionalProperties": false,
          "description": "Data streams with a start and stop time",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Stream",
                "default": "Stream",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stream_start_time": {
@@ -28030,7 +28030,7 @@
                         "Laser config": "#/$defs/LaserConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
                      },
-                     "propertyName": "data_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -28260,10 +28260,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Translation3d transform",
                "default": "Translation3d transform",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "translation": {
@@ -28302,10 +28302,10 @@
          "additionalProperties": false,
          "description": "Description of visual stimulus parameters. Provides a high level description of stimulus.",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Visual stimulation",
                "default": "Visual stimulation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stimulus_name": {
@@ -59201,10 +59201,10 @@
    "additionalProperties": false,
    "description": "Description of a physiology and/or behavior session",
    "properties": {
-      "data_type": {
+      "object_type": {
          "const": "Session",
          "default": "Session",
-         "title": "Data Type",
+         "title": "Object Type",
          "type": "string"
       },
       "describedBy": {
@@ -59214,8 +59214,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.1",
-         "default": "2.0.1",
+         "const": "2.0.2",
+         "default": "2.0.2",
          "title": "Schema Version",
          "type": "string"
       },

@@ -4,10 +4,10 @@
          "additionalProperties": false,
          "description": "Description of an Analysis",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Analysis process",
                "default": "Analysis process",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -140,10 +140,10 @@
          "additionalProperties": false,
          "description": "Description of a single processing step",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Data process",
                "default": "Data process",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -314,10 +314,10 @@
          "additionalProperties": false,
          "description": "Description of a Processing Pipeline",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Pipeline process",
                "default": "Pipeline process",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "data_processes": {
@@ -433,10 +433,10 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Resource timestamped",
                "default": "Resource timestamped",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "timestamp": {
@@ -460,10 +460,10 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Resource usage",
                "default": "Resource usage",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "os": {
@@ -640,10 +640,10 @@
    "additionalProperties": false,
    "description": "Description of all processes run on data",
    "properties": {
-      "data_type": {
+      "object_type": {
          "const": "Processing",
          "default": "Processing",
-         "title": "Data Type",
+         "title": "Object Type",
          "type": "string"
       },
       "describedBy": {
@@ -653,8 +653,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.1",
-         "default": "2.0.1",
+         "const": "2.0.2",
+         "default": "2.0.2",
          "title": "Schema Version",
          "type": "string"
       },

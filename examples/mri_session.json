@@ -1,7 +1,7 @@
 {
    "object_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "2.0.1",
+   "schema_version": "2.0.2",
    "protocol_id": [
       "dx.doi.org/10.57824/protocols.io.bh7kl4n6"
    ],

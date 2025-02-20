@@ -1,7 +1,7 @@
 {
    "object_type": "Quality control",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
-   "schema_version": "2.0.1",
+   "schema_version": "2.0.2",
    "evaluations": [
       {
          "object_type": "QC evaluation",

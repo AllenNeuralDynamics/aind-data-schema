@@ -25,10 +25,10 @@
          "additionalProperties": false,
          "description": "Description of model architecture",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Model architecture",
                "default": "Model architecture",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "backbone": {
@@ -96,10 +96,10 @@
          "additionalProperties": false,
          "description": "Description of model evaluation",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Model evaluation",
                "default": "Model evaluation",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -226,10 +226,10 @@
          "additionalProperties": false,
          "description": "Description of model training",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Model training",
                "default": "Model training",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -386,10 +386,10 @@
          "additionalProperties": false,
          "description": "Description of a performance metric",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Performance metric",
                "default": "Performance metric",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -490,10 +490,10 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Resource timestamped",
                "default": "Resource timestamped",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "timestamp": {
@@ -517,10 +517,10 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Resource usage",
                "default": "Resource usage",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "os": {
@@ -677,10 +677,10 @@
          "additionalProperties": false,
          "description": "Description of generic software",
          "properties": {
-            "data_type": {
+            "object_type": {
                "const": "Software",
                "default": "Software",
-               "title": "Data Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -5520,10 +5520,10 @@
    "additionalProperties": false,
    "description": "Description of an analysis model",
    "properties": {
-      "data_type": {
+      "object_type": {
          "const": "Model",
          "default": "Model",
-         "title": "Data Type",
+         "title": "Object Type",
          "type": "string"
       },
       "describedBy": {
