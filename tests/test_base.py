@@ -69,19 +69,19 @@ class BaseTests(unittest.TestCase):
     def test_units(self):
         """Test that models with value/value_unit pairs throw errors properly"""
 
-        class TestModel(DataModel):
+        class UnitValueModel(DataModel):
             """temporary test model"""
 
             value: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
-        self.assertRaises(ValidationError, lambda: TestModel(value="value"))
+        self.assertRaises(ValidationError, lambda: UnitValueModel(value="value"))
 
-        test0 = TestModel(value="value", value_unit="unit")
+        test0 = UnitValueModel(value="value", value_unit="unit")
         self.assertIsNotNone(test0)
 
         # it's fine if units are set and the value isn't
-        test1 = TestModel(value_unit="unit")
+        test1 = UnitValueModel(value_unit="unit")
         self.assertIsNotNone(test1)
 
         # Multi-unit condition
