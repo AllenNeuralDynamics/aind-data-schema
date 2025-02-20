@@ -93,7 +93,6 @@ class DetectorConfig(DataModel):
 class LightEmittingDiodeConfig(DataModel):
     """Description of LED settings"""
 
-    device_type: Literal["Light emitting diode"] = "Light emitting diode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
@@ -248,7 +247,6 @@ class FiberModule(ManipulatorModule):
 class LaserConfig(DataModel):
     """Description of laser settings in a session"""
 
-    device_type: Literal["Laser"] = "Laser"
     name: str = Field(..., title="Name", description="Must match instrument json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
@@ -258,7 +256,7 @@ class LaserConfig(DataModel):
 
 LIGHT_SOURCE_CONFIGS = Annotated[
     Union[LightEmittingDiodeConfig, LaserConfig],
-    Field(discriminator="device_type"),
+    Field(discriminator="data_type"),
 ]
 
 
@@ -523,7 +521,7 @@ class StimulusEpoch(DataModel):
         List[
             Annotated[
                 Union[AuditoryStimulation, OptoStimulation, OlfactoryStimulation, PhotoStimulation, VisualStimulation],
-                Field(discriminator="stimulus_type"),
+                Field(discriminator="data_type"),
             ]
         ]
     ] = Field(default=None, title="Stimulus parameters")

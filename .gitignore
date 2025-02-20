@@ -143,3 +143,4 @@ notebook/
 
 # aind-data-schema files
 examples/*.json
+*.vscode
