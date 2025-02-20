@@ -152,7 +152,6 @@ scan_stage = ScanningStage(
 # Example of a DigitalMicromirrorDevice
 dmd = DigitalMicromirrorDevice(
     name="Example DMD",
-    device_type="Digital micromirror device",
     max_dmd_patterns=1024,
     double_bounce_design=True,
     invert_pixel_values=False,
