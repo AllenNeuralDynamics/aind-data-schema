@@ -19,8 +19,9 @@ class Channel(DataModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
-    intended_measurement: Optional[str] = Field(default=None, title="Intended measurement",
-                                                description="What signal is this channel measuring")
+    intended_measurement: Optional[str] = Field(
+        default=None, title="Intended measurement", description="What signal is this channel measuring"
+    )
     light_source_name: str = Field(..., title="Light source name", description="Must match device name")
     filter_names: List[str] = Field(..., title="Filter names", description="Must match device names")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")

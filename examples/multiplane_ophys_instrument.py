@@ -54,7 +54,7 @@ mouse_platform = Disc(
     ),
 )
 
-stimulus_devices=[
+stimulus_devices = [
     Monitor(
         name="Stimulus Screen",
         serial_number=None,
@@ -108,7 +108,7 @@ stimulus_devices=[
         brightness=None,
     )
 ]
-cameras=[
+cameras = [
     CameraAssembly(
         name="Behavior Camera",
         camera_target="Body",
@@ -464,13 +464,13 @@ cameras=[
         ),
     ),
 ]
-enclosure=None
-ephys_assemblies=[]
-fiber_assemblies=[]
-stick_microscopes=[]
-laser_assemblies=[]
-patch_cords=[]
-light_sources=[
+enclosure = None
+ephys_assemblies = []
+fiber_assemblies = []
+stick_microscopes = []
+laser_assemblies = []
+patch_cords = []
+light_sources = [
     Laser(
         name="Axon 920-2 TPC",
         wavelength=920,
@@ -479,7 +479,7 @@ light_sources=[
         manufacturer=Organization.COHERENT_SCIENTIFIC,
     ),
 ]
-detectors=[
+detectors = [
     Detector(
         name="H11706-40",
         detector_type="Photomultiplier Tube",
@@ -487,7 +487,7 @@ detectors=[
         data_interface=DataInterface.PCIE,
     )
 ]
-objectives=[
+objectives = [
     Objective(
         name="Mesoscope JenOptik Objective",
         numerical_aperture=0.8,
@@ -498,11 +498,11 @@ objectives=[
         serial_number="110",
     )
 ]
-filters=[]
-lenses=[]
-digital_micromirror_devices=[]
-polygonal_scanners=[]
-pockels_cells=[
+filters = []
+lenses = []
+digital_micromirror_devices = []
+polygonal_scanners = []
+pockels_cells = [
     PockelsCell(
         name="Pockels Cell 1",
         polygonal_scanner="",
@@ -513,11 +513,11 @@ pockels_cells=[
         serial_number="354683BK",
     )
 ]
-additional_devices=[
+additional_devices = [
     Device(name="MESO1STIM"),
     Device(name="MESO1SYNC"),
 ]
-daqs=[
+daqs = [
     DAQDevice(
         name="VBEB DAQ",
         serial_number=None,

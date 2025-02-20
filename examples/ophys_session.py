@@ -57,7 +57,7 @@ s = Session(
                         excitation_wavelength=410,
                         excitation_power=10,
                         emission_wavelength=600,
-                    )
+                    ),
                 ),
                 FiberConnectionConfig(
                     patch_cord_name="Patch Cord B",
@@ -73,7 +73,7 @@ s = Session(
                         excitation_wavelength=560,
                         excitation_power=7,
                         emission_wavelength=700,
-                    )
+                    ),
                 ),
             ],
             notes="Internal trigger.",
