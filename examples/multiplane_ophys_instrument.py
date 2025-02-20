@@ -7,7 +7,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
-from aind_data_schema.base import AindGeneric
+from aind_data_schema.base import GenericModel
 from aind_data_schema.components.coordinates import Axis, RelativePosition, Rotation3dTransform, Translation3dTransform
 from aind_data_schema.components.devices import (
     BinMode,
@@ -30,15 +30,14 @@ from aind_data_schema.components.devices import (
 from aind_data_schema.core.instrument import Objective
 from aind_data_schema.core.instrument import Monitor, Instrument
 
-mouse_platform=Disc(
-    device_type="Disc",
+mouse_platform = Disc(
     name="MindScope Running Disc",
     serial_number=None,
     manufacturer=Organization.AIND,
     model=None,
     path_to_cad=None,
     port_index=None,
-    additional_settings=AindGeneric(),
+    additional_settings=GenericModel(),
     notes=None,
     surface_material="Kittrich Magic Cover Solid Grip Liner",
     date_surface_replaced=None,
@@ -51,19 +50,19 @@ mouse_platform=Disc(
         name="ls7366r_quadrature_counter",
         version="0.1.6",
         url="https://eng-gitlab/hardware/ls7366r_quadrature_counter",
-        parameters=AindGeneric(),
+        parameters=GenericModel(),
     ),
-),
+)
+
 stimulus_devices=[
     Monitor(
-        device_type="Monitor",
         name="Stimulus Screen",
         serial_number=None,
         manufacturer=Organization.ASUS,
         model="PA248Q",
         path_to_cad=None,
         port_index=None,
-        additional_settings=AindGeneric(),
+        additional_settings=GenericModel(),
         notes="viewing distance is from screen normal to bregma",
         refresh_rate=60,
         width=1920,
@@ -74,7 +73,6 @@ stimulus_devices=[
         position=RelativePosition(
             device_position_transformations=[
                 Rotation3dTransform(
-                    type="rotation",
                     rotation=[
                         Decimal("-0.80914"),
                         Decimal("-0.58761"),
@@ -88,7 +86,6 @@ stimulus_devices=[
                     ],
                 ),
                 Translation3dTransform(
-                    type="translation",
                     translation=[
                         Decimal("0.08751"),
                         Decimal("-0.12079"),
@@ -110,20 +107,19 @@ stimulus_devices=[
         contrast=None,
         brightness=None,
     )
-],
+]
 cameras=[
     CameraAssembly(
         name="Behavior Camera",
         camera_target="Body",
         camera=Camera(
-            device_type="Detector",
             name="Behavior Camera",
             serial_number=None,
             manufacturer=Organization.ALLIED,
             model="Mako G-32B",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             detector_type="Camera",
             data_interface="Ethernet",
@@ -151,20 +147,19 @@ cameras=[
                 name="MultiVideoRecorder",
                 version="1.1.7",
                 url=None,
-                parameters=AindGeneric(),
+                parameters=GenericModel(),
             ),
             driver="Vimba",
             driver_version="Vimba GigE Transport Layer 1.6.0",
         ),
         lens=Lens(
-            device_type="Lens",
             name="Behavior Camera Lens",
             serial_number=None,
             manufacturer=Organization.THORLABS,
             model="MVL6WA",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             focal_length=Decimal("6"),
             focal_length_unit=SizeUnit.MM,
@@ -175,14 +170,13 @@ cameras=[
             max_aperture="f/1.4",
         ),
         filter=Filter(
-            device_type="Filter",
             name="Behavior Camera Filter",
             serial_number=None,
             manufacturer=Organization.SEMROCK,
             model="FF01-747/33-25",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             filter_type="Band pass",
             diameter=None,
@@ -201,7 +195,6 @@ cameras=[
         position=RelativePosition(
             device_position_transformations=[
                 Rotation3dTransform(
-                    type="rotation",
                     rotation=[
                         Decimal("-1"),
                         Decimal("0"),
@@ -215,7 +208,6 @@ cameras=[
                     ],
                 ),
                 Translation3dTransform(
-                    type="translation",
                     translation=[
                         Decimal("-0.03617"),
                         Decimal("0.23887"),
@@ -239,14 +231,13 @@ cameras=[
         name="Eye Camera",
         camera_target="Eye",
         camera=Camera(
-            device_type="Detector",
             name="Eye Camera",
             serial_number=None,
             manufacturer=Organization.ALLIED,
             model="Mako G-32B",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             detector_type="Camera",
             data_interface="Ethernet",
@@ -274,20 +265,19 @@ cameras=[
                 name="MultiVideoRecorder",
                 version="1.1.7",
                 url=None,
-                parameters=AindGeneric(),
+                parameters=GenericModel(),
             ),
             driver="Vimba",
             driver_version="Vimba GigE Transport Layer 1.6.0",
         ),
         lens=Lens(
-            device_type="Lens",
             name="Eye Camera Lens",
             serial_number=None,
             manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
             model="213073",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             focal_length=None,
             focal_length_unit=SizeUnit.MM,
@@ -298,14 +288,13 @@ cameras=[
             max_aperture=None,
         ),
         filter=Filter(
-            device_type="Filter",
             name="Eye Camera Filter",
             serial_number=None,
             manufacturer=Organization.SEMROCK,
             model="FF01-850/10-25",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             filter_type="Band pass",
             diameter=None,
@@ -324,7 +313,6 @@ cameras=[
         position=RelativePosition(
             device_position_transformations=[
                 Rotation3dTransform(
-                    type="rotation",
                     rotation=[
                         Decimal("-0.5"),
                         Decimal("-0.86603"),
@@ -338,7 +326,6 @@ cameras=[
                     ],
                 ),
                 Translation3dTransform(
-                    type="translation",
                     translation=[
                         Decimal("-0.14259"),
                         Decimal("0.06209"),
@@ -362,14 +349,13 @@ cameras=[
         name="Face Camera",
         camera_target="Face forward",
         camera=Camera(
-            device_type="Detector",
             name="Face Camera",
             serial_number=None,
             manufacturer=Organization.ALLIED,
             model="Mako G-32B",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             detector_type="Camera",
             data_interface="Ethernet",
@@ -397,20 +383,19 @@ cameras=[
                 name="MultiVideoRecorder",
                 version="1.1.7",
                 url=None,
-                parameters=AindGeneric(),
+                parameters=GenericModel(),
             ),
             driver="Vimba",
             driver_version="Vimba GigE Transport Layer 1.6.0",
         ),
         lens=Lens(
-            device_type="Lens",
             name="Face Camera Lens",
             serial_number=None,
             manufacturer=Organization.EDMUND_OPTICS,
             model="86-604",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             focal_length=Decimal("8.5"),
             focal_length_unit=SizeUnit.MM,
@@ -421,14 +406,13 @@ cameras=[
             max_aperture="f/8",
         ),
         filter=Filter(
-            device_type="Filter",
             name="Face Camera Filter",
             serial_number=None,
             manufacturer=Organization.SEMROCK,
             model="FF01-715/LP-25",
             path_to_cad=None,
             port_index=None,
-            additional_settings=AindGeneric(),
+            additional_settings=GenericModel(),
             notes=None,
             filter_type="Long pass",
             diameter=None,
@@ -447,7 +431,6 @@ cameras=[
         position=RelativePosition(
             device_position_transformations=[
                 Rotation3dTransform(
-                    type="rotation",
                     rotation=[
                         Decimal("-0.17365"),
                         Decimal("0.98481"),
@@ -461,7 +444,6 @@ cameras=[
                     ],
                 ),
                 Translation3dTransform(
-                    type="translation",
                     translation=[
                         Decimal("0.154"),
                         Decimal("0.03078"),
@@ -481,23 +463,22 @@ cameras=[
             notes=None,
         ),
     ),
-],
-enclosure=None,
-ephys_assemblies=[],
-fiber_assemblies=[],
-stick_microscopes=[],
-laser_assemblies=[],
-patch_cords=[],
+]
+enclosure=None
+ephys_assemblies=[]
+fiber_assemblies=[]
+stick_microscopes=[]
+laser_assemblies=[]
+patch_cords=[]
 light_sources=[
     Laser(
-        device_type="Laser",
         name="Axon 920-2 TPC",
         wavelength=920,
         wavelength_unit=SizeUnit.NM,
         serial_number="GDP.1007S.3490",
         manufacturer=Organization.COHERENT_SCIENTIFIC,
     ),
-],
+]
 detectors=[
     Detector(
         name="H11706-40",
@@ -505,7 +486,7 @@ detectors=[
         manufacturer=Organization.HAMAMATSU,
         data_interface=DataInterface.PCIE,
     )
-],
+]
 objectives=[
     Objective(
         name="Mesoscope JenOptik Objective",
@@ -516,11 +497,11 @@ objectives=[
         notes="Part from JenOptik: 14163000",
         serial_number="110",
     )
-],
-filters=[],
-lenses=[],
-digital_micromirror_devices=[],
-polygonal_scanners=[],
+]
+filters=[]
+lenses=[]
+digital_micromirror_devices=[]
+polygonal_scanners=[]
 pockels_cells=[
     PockelsCell(
         name="Pockels Cell 1",
@@ -531,14 +512,13 @@ pockels_cells=[
         model="350-80",
         serial_number="354683BK",
     )
-],
+]
 additional_devices=[
-    Device(device_type="Computer", name="MESO1STIM"),
-    Device(device_type="Computer", name="MESO1SYNC"),
-],
+    Device(name="MESO1STIM"),
+    Device(name="MESO1SYNC"),
+]
 daqs=[
     DAQDevice(
-        device_type="DAQ Device",
         name="VBEB DAQ",
         serial_number=None,
         manufacturer=Organization.NATIONAL_INSTRUMENTS,
@@ -546,7 +526,7 @@ daqs=[
         model="USB-6001",
         path_to_cad=None,
         port_index=None,
-        additional_settings=AindGeneric(),
+        additional_settings=GenericModel(),
         notes=None,
         data_interface="USB",
         computer_name="STIM",
@@ -554,14 +534,13 @@ daqs=[
         hardware_version=None,
     ),
     DAQDevice(
-        device_type="DAQ Device",
         name="SYNC DAQ",
         serial_number=None,
         manufacturer=Organization.NATIONAL_INSTRUMENTS,
         model="PCIe-6612",
         path_to_cad=None,
         port_index=None,
-        additional_settings=AindGeneric(),
+        additional_settings=GenericModel(),
         notes=None,
         data_interface="PCIe",
         computer_name="SYNC",
@@ -580,14 +559,13 @@ daqs=[
         hardware_version=None,
     ),
     DAQDevice(
-        device_type="DAQ Device",
         name="STIM DAQ",
         serial_number=None,
         manufacturer=Organization.NATIONAL_INSTRUMENTS,
         model="PCIe-6321",
         path_to_cad=None,
         port_index=None,
-        additional_settings=AindGeneric(),
+        additional_settings=GenericModel(),
         notes=None,
         data_interface="PCIe",
         computer_name="STIM",
@@ -599,27 +577,15 @@ daqs=[
 
 
 inst = Instrument(
-    describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/rig.py",  # noqa
-    schema_version="1.0.1",
     instrument_id="429_mesoscope_20220321",
     modification_date=date(2024, 10, 16),
     components=[
         mouse_platform,
         *stimulus_devices,
         *cameras,
-        *enclosure,
-        *ephys_assemblies,
-        *fiber_assemblies,
-        *stick_microscopes,
-        *laser_assemblies,
-        *patch_cords,
         *light_sources,
         *detectors,
         *objectives,
-        *filters,
-        *lenses,
-        *digital_micromirror_devices,
-        *polygonal_scanners,
         *pockels_cells,
         *additional_devices,
         *daqs,
@@ -627,7 +593,7 @@ inst = Instrument(
     calibrations=[],
     ccf_coordinate_transform=None,
     origin="Bregma",
-    rig_axes=[
+    instrument_axes=[
         Axis(
             name="X",
             direction="lays on the Mouse Sagittal Plane, Positive direction is towards the nose of the mouse",
@@ -644,4 +610,4 @@ inst = Instrument(
 
 serialized = inst.model_dump_json()
 deserialized = inst.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="multiplane_ophys_instrument")
+deserialized.write_standard_file(prefix="multiplane_ophys")
