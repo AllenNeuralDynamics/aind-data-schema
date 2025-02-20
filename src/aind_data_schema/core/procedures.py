@@ -677,7 +677,7 @@ class Surgery(DataModel):
                 RetroOrbitalInjection,
                 SampleCollection,
             ],
-            Field(discriminator="data_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -698,7 +698,7 @@ class Procedures(DataCoreModel):
     subject_procedures: List[
         Annotated[
             Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
-            Field(discriminator="data_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")

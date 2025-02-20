@@ -255,7 +255,7 @@ class LaserConfig(DataModel):
 
 LIGHT_SOURCE_CONFIGS = Annotated[
     Union[LightEmittingDiodeConfig, LaserConfig],
-    Field(discriminator="data_type"),
+    Field(discriminator="object_type"),
 ]
 
 
@@ -520,7 +520,7 @@ class StimulusEpoch(DataModel):
         List[
             Annotated[
                 Union[AuditoryStimulation, OptoStimulation, OlfactoryStimulation, PhotoStimulation, VisualStimulation],
-                Field(discriminator="data_type"),
+                Field(discriminator="object_type"),
             ]
         ]
     ] = Field(default=None, title="Stimulus parameters")

@@ -1,5 +1,5 @@
 {
-   "data_type": "Instrument",
+   "object_type": "Instrument",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
    "schema_version": "2.0.1",
    "instrument_id": "440_exaSPIM1_20231004",
@@ -16,12 +16,12 @@
    ],
    "com_ports": [
       {
-         "data_type": "Com",
+         "object_type": "Com",
          "hardware_name": "Laser Launch",
          "com_port": "COM2"
       },
       {
-         "data_type": "Com",
+         "object_type": "Com",
          "hardware_name": "ASI Tiger",
          "com_port": "COM5"
       }
@@ -38,7 +38,7 @@
    "connections": [],
    "components": [
       {
-         "data_type": "Objective",
+         "object_type": "Objective",
          "name": "Custom Objective",
          "serial_number": null,
          "manufacturer": {
@@ -58,7 +58,7 @@
          "objective_type": null
       },
       {
-         "data_type": "Detector",
+         "object_type": "Detector",
          "name": "Camera 1",
          "serial_number": "MB151BAY001",
          "manufacturer": {
@@ -101,7 +101,7 @@
          "driver_version": null
       },
       {
-         "data_type": "Laser",
+         "object_type": "Laser",
          "name": "LAS-08307",
          "serial_number": "LAS-08307",
          "manufacturer": {
@@ -125,7 +125,7 @@
          "item_number": null
       },
       {
-         "data_type": "Laser",
+         "object_type": "Laser",
          "name": "LAS-08308",
          "serial_number": "LAS-08308",
          "manufacturer": {
@@ -149,7 +149,7 @@
          "item_number": null
       },
       {
-         "data_type": "Laser",
+         "object_type": "Laser",
          "name": "539251",
          "serial_number": "539251",
          "manufacturer": {
@@ -173,7 +173,7 @@
          "item_number": null
       },
       {
-         "data_type": "Laser",
+         "object_type": "Laser",
          "name": "LAS-08309",
          "serial_number": "LAS-08309",
          "manufacturer": {
@@ -197,7 +197,7 @@
          "item_number": null
       },
       {
-         "data_type": "Filter",
+         "object_type": "Filter",
          "name": "Multiband filter",
          "serial_number": null,
          "manufacturer": {
@@ -226,7 +226,7 @@
          "description": null
       },
       {
-         "data_type": "DAQ device",
+         "object_type": "DAQ device",
          "name": "Dev2",
          "serial_number": null,
          "manufacturer": {
@@ -247,7 +247,7 @@
          "computer_name": "Dev2",
          "channels": [
             {
-               "data_type": "DAQ channel",
+               "object_type": "DAQ channel",
                "channel_name": "3",
                "device_name": "LAS-08308",
                "channel_type": "Analog Output",
@@ -258,7 +258,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "DAQ channel",
+               "object_type": "DAQ channel",
                "channel_name": "5",
                "device_name": "539251",
                "channel_type": "Analog Output",
@@ -269,7 +269,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "DAQ channel",
+               "object_type": "DAQ channel",
                "channel_name": "4",
                "device_name": "LAS-08309",
                "channel_type": "Analog Output",
@@ -280,7 +280,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "DAQ channel",
+               "object_type": "DAQ channel",
                "channel_name": "2",
                "device_name": "stage-x",
                "channel_type": "Analog Output",
@@ -291,7 +291,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "DAQ channel",
+               "object_type": "DAQ channel",
                "channel_name": "0",
                "device_name": "TL-1",
                "channel_type": "Analog Output",
@@ -302,7 +302,7 @@
                "event_based_sampling": null
             },
             {
-               "data_type": "DAQ channel",
+               "object_type": "DAQ channel",
                "channel_name": "6",
                "device_name": "LAS-08307",
                "channel_type": "Analog Output",
@@ -317,7 +317,7 @@
          "hardware_version": null
       },
       {
-         "data_type": "Scanning stage",
+         "object_type": "Scanning stage",
          "name": "stage-x",
          "serial_number": null,
          "manufacturer": {
@@ -338,7 +338,7 @@
          "stage_axis_name": "X"
       },
       {
-         "data_type": "Scanning stage",
+         "object_type": "Scanning stage",
          "name": "stage-y",
          "serial_number": null,
          "manufacturer": {
@@ -359,7 +359,7 @@
          "stage_axis_name": "Y"
       },
       {
-         "data_type": "Scanning stage",
+         "object_type": "Scanning stage",
          "name": "stage-z",
          "serial_number": null,
          "manufacturer": {
@@ -380,7 +380,7 @@
          "stage_axis_name": "Z"
       },
       {
-         "data_type": "Additional imaging device",
+         "object_type": "Additional imaging device",
          "name": "TL-1",
          "serial_number": "01",
          "manufacturer": {
@@ -397,7 +397,7 @@
          "imaging_device_type": "Tunable lens"
       },
       {
-         "data_type": "Additional imaging device",
+         "object_type": "Additional imaging device",
          "name": "RM-1",
          "serial_number": "01",
          "manufacturer": {
@@ -417,7 +417,7 @@
          "imaging_device_type": "Rotation mount"
       },
       {
-         "data_type": "Additional imaging device",
+         "object_type": "Additional imaging device",
          "name": "LC-1",
          "serial_number": "L6CC-00513",
          "manufacturer": {
@@ -434,7 +434,7 @@
          "imaging_device_type": "Laser combiner"
       },
       {
-         "data_type": "Optical table",
+         "object_type": "Optical table",
          "name": "Table",
          "serial_number": null,
          "manufacturer": {

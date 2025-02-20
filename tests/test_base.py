@@ -69,19 +69,19 @@ class BaseTests(unittest.TestCase):
     def test_units(self):
         """Test that models with value/value_unit pairs throw errors properly"""
 
-        class TestModel(DataModel):
+        class UnitValueModel(DataModel):
             """temporary test model"""
 
             value: Optional[str] = Field(default=None)
             value_unit: Optional[str] = Field(default=None)
 
-        self.assertRaises(ValidationError, lambda: TestModel(value="value"))
+        self.assertRaises(ValidationError, lambda: UnitValueModel(value="value"))
 
-        test0 = TestModel(value="value", value_unit="unit")
+        test0 = UnitValueModel(value="value", value_unit="unit")
         self.assertIsNotNone(test0)
 
         # it's fine if units are set and the value isn't
-        test1 = TestModel(value_unit="unit")
+        test1 = UnitValueModel(value_unit="unit")
         self.assertIsNotNone(test1)
 
         # Multi-unit condition
@@ -170,28 +170,28 @@ class BaseTests(unittest.TestCase):
         """Test that schema version are bumped successfully
         and that validation errors prevent bumping"""
 
-        class TestModel(DataCoreModel):
+        class TestCoreModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
-        v1_init = TestModel()
+        v1_init = TestCoreModel()
         self.assertEqual("1.0.0", v1_init.schema_version)
 
-        # Re-define TestModel with a bumped schema version
-        class TestModel(DataCoreModel):
+        # Re-define TestCoreModel with a bumped schema version
+        class TestCoreModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv2"
             schema_version: SkipValidation[Literal["1.0.1"]] = "1.0.1"
             extra_field: str = "extra_field"
 
-        v2_from_v1 = TestModel(**v1_init.model_dump())
+        v2_from_v1 = TestCoreModel(**v1_init.model_dump())
         self.assertEqual("1.0.1", v2_from_v1.schema_version)
 
         # Re-re-define to make sure that the extra field is not allowed
-        class TestModel(DataCoreModel):
+        class TestCoreModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
@@ -199,7 +199,7 @@ class BaseTests(unittest.TestCase):
 
         # Check that adding additional fields still fails validation
         # this is to ensure you can't get a bumped schema_version without passing validation
-        self.assertRaises(ValidationError, lambda: TestModel(**v2_from_v1.model_dump()))
+        self.assertRaises(ValidationError, lambda: TestCoreModel(**v2_from_v1.model_dump()))
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("logging.warning")
@@ -219,8 +219,8 @@ class BaseTests(unittest.TestCase):
 class DataModelTests(unittest.TestCase):
     """Tests for DataModel"""
 
-    def test_generate_data_type(self):
-        """Test that generate_data_type correctly sets the data_type field"""
+    def test_generate_object_type(self):
+        """Test that generate_object_type correctly sets the object_type field"""
 
         class TestModel(DataModel):
             """Temporary test model"""
@@ -228,7 +228,7 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         model_instance = TestModel(value="test")
-        self.assertEqual(model_instance.data_type, "Test model")
+        self.assertEqual(model_instance.object_type, "Test model")
 
         class AnotherTestModel(DataModel):
             """Another temporary test model"""
@@ -236,7 +236,7 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         another_model_instance = AnotherTestModel(value="test")
-        self.assertEqual(another_model_instance.data_type, "Another test model")
+        self.assertEqual(another_model_instance.object_type, "Another test model")
 
         class QCModel(DataModel):
             """Test model with two capital letters in a row"""
@@ -244,20 +244,20 @@ class DataModelTests(unittest.TestCase):
             value: str
 
         qc_model_instance = QCModel(value="test")
-        self.assertEqual(qc_model_instance.data_type, "QC model")
+        self.assertEqual(qc_model_instance.object_type, "QC model")
 
-    def test_data_type_unique(self):
-        """Test that all subclasses of DataModel have unique data_type values"""
+    def test_object_type_unique(self):
+        """Test that all subclasses of DataModel have unique object_type values"""
 
         # For some reason duplicate subclasses can get generated at runtime
         subclasses = set(DataModel.__subclasses__())
 
-        data_types = {}
+        object_types = {}
         for subclass in subclasses:
-            data_type = subclass._data_type_from_name()
-            self.assertNotIn(data_type, data_types.values())
+            object_type = subclass._object_type_from_name()
+            self.assertNotIn(object_type, object_types.values())
 
-            data_types[subclass.__name__] = data_type
+            object_types[subclass.__name__] = object_type
 
 
 if __name__ == "__main__":
