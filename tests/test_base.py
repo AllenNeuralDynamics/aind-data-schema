@@ -170,28 +170,28 @@ class BaseTests(unittest.TestCase):
         """Test that schema version are bumped successfully
         and that validation errors prevent bumping"""
 
-        class TestModel(DataCoreModel):
+        class TestCoreModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
             schema_version: SkipValidation[Literal["1.0.0"]] = "1.0.0"
 
-        v1_init = TestModel()
+        v1_init = TestCoreModel()
         self.assertEqual("1.0.0", v1_init.schema_version)
 
-        # Re-define TestModel with a bumped schema version
-        class TestModel(DataCoreModel):
+        # Re-define TestCoreModel with a bumped schema version
+        class TestCoreModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv2"
             schema_version: SkipValidation[Literal["1.0.1"]] = "1.0.1"
             extra_field: str = "extra_field"
 
-        v2_from_v1 = TestModel(**v1_init.model_dump())
+        v2_from_v1 = TestCoreModel(**v1_init.model_dump())
         self.assertEqual("1.0.1", v2_from_v1.schema_version)
 
         # Re-re-define to make sure that the extra field is not allowed
-        class TestModel(DataCoreModel):
+        class TestCoreModel(DataCoreModel):
             """test class"""
 
             describedBy: str = "modelv1"
@@ -199,7 +199,7 @@ class BaseTests(unittest.TestCase):
 
         # Check that adding additional fields still fails validation
         # this is to ensure you can't get a bumped schema_version without passing validation
-        self.assertRaises(ValidationError, lambda: TestModel(**v2_from_v1.model_dump()))
+        self.assertRaises(ValidationError, lambda: TestCoreModel(**v2_from_v1.model_dump()))
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("logging.warning")
