@@ -8,9 +8,9 @@ from pydantic import Field, SkipValidation, field_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import AnatomicalDirection, AxisName, ImageAxis
-from aind_data_schema.components.devices import Calibration, ImmersionMedium, Maintenance, Software
+from aind_data_schema.components.devices import Calibration, ImmersionMedium, Maintenance
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Software
 
 
 class Immersion(DataModel):
@@ -78,7 +78,7 @@ class Acquisition(DataCoreModel):
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
-    software: Optional[List[Software]] = Field(default=[], title="Acquisition software version data")
+    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_validator("axes", mode="before")

@@ -89,9 +89,7 @@
             "recording_software": {
                "object_type": "Software",
                "name": "Bonsai",
-               "version": "2.5",
-               "url": null,
-               "parameters": {}
+               "version": "2.5"
             },
             "driver": null,
             "driver_version": null
@@ -168,9 +166,7 @@
             "recording_software": {
                "object_type": "Software",
                "name": "Bonsai",
-               "version": "2.5",
-               "url": null,
-               "parameters": {}
+               "version": "2.5"
             },
             "driver": null,
             "driver_version": null

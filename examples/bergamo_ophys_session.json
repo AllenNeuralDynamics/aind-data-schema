@@ -5,6 +5,7 @@
    "protocol_id": [],
    "experimenters": [
       {
+         "object_type": "Person",
          "name": "John Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",
@@ -116,8 +117,7 @@
          "stimulus_end_time": "2022-07-12T07:00:00Z",
          "stimulus_name": "PhotoStimulation",
          "session_number": null,
-         "software": [],
-         "script": null,
+         "code": null,
          "stimulus_modalities": [
             "Optogenetics"
          ],

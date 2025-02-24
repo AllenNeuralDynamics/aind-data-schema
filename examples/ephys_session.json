@@ -5,6 +5,7 @@
    "protocol_id": [],
    "experimenters": [
       {
+         "object_type": "Person",
          "name": "John Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",
@@ -313,16 +314,19 @@
          "stimulus_end_time": "2023-04-25T03:10:00Z",
          "stimulus_name": "Visual Stimulation",
          "session_number": null,
-         "software": [
-            {
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+            "version": null,
+            "software": {
                "object_type": "Software",
                "name": "Bonsai",
-               "version": "2.7",
-               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-               "parameters": {}
-            }
-         ],
-         "script": null,
+               "version": "2.7"
+            },
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
          "stimulus_modalities": [
             "Visual"
          ],
@@ -369,16 +373,19 @@
          "stimulus_end_time": "2023-04-25T03:16:00Z",
          "stimulus_name": "Visual Stimulation",
          "session_number": null,
-         "software": [
-            {
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+            "version": null,
+            "software": {
                "object_type": "Software",
                "name": "Bonsai",
-               "version": "2.7",
-               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-               "parameters": {}
-            }
-         ],
-         "script": null,
+               "version": "2.7"
+            },
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
          "stimulus_modalities": [
             "Visual"
          ],
