@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field

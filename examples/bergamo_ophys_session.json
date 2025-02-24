@@ -1,6 +1,7 @@
 {
+   "object_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.1.5",
+   "schema_version": "2.0.2",
    "protocol_id": [],
    "experimenters": [
       {
@@ -15,8 +16,8 @@
    "session_start_time": "2022-07-12T07:00:00Z",
    "session_end_time": "2022-07-12T07:00:00Z",
    "session_type": "BCI Photometry",
+   "instrument_id": "322_bergamo_20220705",
    "ethics_review_id": "2115",
-   "rig_id": "ophys_rig",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "652567",
@@ -26,6 +27,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "object_type": "Stream",
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
@@ -34,7 +36,7 @@
          ],
          "light_sources": [
             {
-               "device_type": "Laser",
+               "object_type": "Laser config",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
@@ -47,6 +49,7 @@
          "manipulator_modules": [],
          "detectors": [
             {
+               "object_type": "Detector config",
                "name": "PMT A",
                "exposure_time": "0.1",
                "exposure_time_unit": "millisecond",
@@ -57,6 +60,7 @@
          "fiber_modules": [],
          "ophys_fovs": [
             {
+               "object_type": "Field of view",
                "index": 0,
                "imaging_depth": 150,
                "imaging_depth_unit": "micrometer",
@@ -107,6 +111,7 @@
    ],
    "stimulus_epochs": [
       {
+         "object_type": "Stimulus epoch",
          "stimulus_start_time": "2022-07-12T07:00:00Z",
          "stimulus_end_time": "2022-07-12T07:00:00Z",
          "stimulus_name": "PhotoStimulation",
@@ -118,11 +123,12 @@
          ],
          "stimulus_parameters": [
             {
-               "stimulus_type": "Photo Stimulation",
+               "object_type": "Photo stimulation",
                "stimulus_name": "Two group stim",
                "number_groups": 2,
                "groups": [
                   {
+                     "object_type": "Photo stimulation group",
                      "group_index": 0,
                      "number_of_neurons": 12,
                      "stimulation_laser_power": "10",
@@ -137,6 +143,7 @@
                      "notes": null
                   },
                   {
+                     "object_type": "Photo stimulation group",
                      "group_index": 2,
                      "number_of_neurons": 20,
                      "stimulation_laser_power": "10",

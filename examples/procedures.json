@@ -1,10 +1,11 @@
 {
+   "object_type": "Procedures",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "1.2.6",
+   "schema_version": "2.0.2",
    "subject_id": "625100",
    "subject_procedures": [
       {
-         "procedure_type": "Surgery",
+         "object_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
          "experimenters": [
@@ -22,6 +23,7 @@
          "animal_weight_post": "22.3",
          "weight_unit": "gram",
          "anaesthesia": {
+            "object_type": "Anaesthetic",
             "type": "Isoflurane",
             "duration": "1",
             "duration_unit": "minute",
@@ -30,7 +32,7 @@
          "workstation_id": "SWS 3",
          "procedures": [
             {
-               "procedure_type": "Craniotomy",
+               "object_type": "Craniotomy",
                "protocol_id": "1234",
                "craniotomy_type": "Visual Cortex",
                "craniotomy_hemisphere": "Left",
@@ -43,11 +45,14 @@
                "recovery_time_unit": null
             },
             {
+               "object_type": "Nanoject injection",
                "injection_materials": [
                   {
+                     "object_type": "Viral material",
                      "material_type": "Virus",
                      "name": "AAV2-Flex-ChrimsonR",
                      "tars_identifiers": {
+                        "object_type": "Tars virus identifiers",
                         "virus_tars_id": "AiV222",
                         "plasmid_tars_alias": "AiP222",
                         "prep_lot_number": "VT222",
@@ -84,7 +89,6 @@
                   "id": "385"
                },
                "injection_hemisphere": "Left",
-               "procedure_type": "Nanoject injection",
                "injection_volume": [
                   "200"
                ],
@@ -94,7 +98,7 @@
          "notes": null
       },
       {
-         "procedure_type": "Surgery",
+         "object_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-09-23",
          "experimenters": [
@@ -115,7 +119,7 @@
          "workstation_id": null,
          "procedures": [
             {
-               "procedure_type": "Perfusion",
+               "object_type": "Perfusion",
                "protocol_id": "doi_of_protocol",
                "output_specimen_ids": [
                   "1",

@@ -1,6 +1,7 @@
 {
+   "object_type": "Acquisition",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
-   "schema_version": "1.0.6",
+   "schema_version": "2.0.2",
    "protocol_id": [],
    "experimenters": [
       {
@@ -17,6 +18,7 @@
    "instrument_id": "###",
    "calibrations": [
       {
+         "object_type": "Calibration",
          "calibration_date": "2022-11-22T08:43:00Z",
          "device_name": "Laser_1",
          "description": "Laser power calibration",
@@ -33,12 +35,14 @@
    ],
    "maintenance": [
       {
+         "object_type": "Maintenance",
          "maintenance_date": "2022-11-22T08:43:00Z",
          "device_name": "Chamber",
          "description": "Clean chamber",
          "protocol_id": null,
          "reagents": [
             {
+               "object_type": "Reagent",
                "name": "reagent1",
                "source": {
                   "name": "Other",
@@ -67,9 +71,10 @@
    "session_type": null,
    "tiles": [
       {
+         "object_type": "Acquisition tile",
          "coordinate_transformations": [
             {
-               "type": "scale",
+               "object_type": "Scale3d transform",
                "scale": [
                   "0.748",
                   "0.748",
@@ -77,7 +82,7 @@
                ]
             },
             {
-               "type": "translation",
+               "object_type": "Translation3d transform",
                "translation": [
                   "0",
                   "0",
@@ -87,6 +92,7 @@
          ],
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_488.ims",
          "channel": {
+            "object_type": "Channel",
             "channel_name": "488",
             "light_source_name": "Ex_488",
             "filter_names": [
@@ -110,9 +116,10 @@
          "acquisition_end_time": null
       },
       {
+         "object_type": "Acquisition tile",
          "coordinate_transformations": [
             {
-               "type": "scale",
+               "object_type": "Scale3d transform",
                "scale": [
                   "0.748",
                   "0.748",
@@ -120,7 +127,7 @@
                ]
             },
             {
-               "type": "translation",
+               "object_type": "Translation3d transform",
                "translation": [
                   "0",
                   "0",
@@ -130,6 +137,7 @@
          ],
          "file_name": "tile_X_0000_Y_0000_Z_0000_CH_561.ims",
          "channel": {
+            "object_type": "Channel",
             "channel_name": "561",
             "light_source_name": "Ex_561",
             "filter_names": [
@@ -155,18 +163,21 @@
    ],
    "axes": [
       {
+         "object_type": "Image axis",
          "name": "X",
          "direction": "Left_to_right",
          "dimension": 2,
          "unit": "micrometer"
       },
       {
+         "object_type": "Image axis",
          "name": "Y",
          "direction": "Anterior_to_posterior",
          "dimension": 1,
          "unit": "micrometer"
       },
       {
+         "object_type": "Image axis",
          "name": "Z",
          "direction": "Inferior_to_superior",
          "dimension": 0,
@@ -174,6 +185,7 @@
       }
    ],
    "chamber_immersion": {
+      "object_type": "Immersion",
       "medium": "PBS",
       "refractive_index": "1.33"
    },

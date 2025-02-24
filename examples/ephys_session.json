@@ -1,6 +1,7 @@
 {
+   "object_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "1.1.5",
+   "schema_version": "2.0.2",
    "protocol_id": [],
    "experimenters": [
       {
@@ -15,8 +16,8 @@
    "session_start_time": "2023-04-25T02:35:00Z",
    "session_end_time": "2023-04-25T03:16:00Z",
    "session_type": "Receptive field mapping",
+   "instrument_id": "323_EPHYS1_20231003",
    "ethics_review_id": "2109",
-   "rig_id": "323_EPHYS1_20231003",
    "calibrations": [],
    "maintenance": [],
    "subject_id": "664484",
@@ -26,6 +27,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "object_type": "Stream",
          "stream_start_time": "2023-04-25T02:45:00Z",
          "stream_end_time": "2023-04-25T03:16:00Z",
          "daq_names": [
@@ -35,6 +37,7 @@
          "light_sources": [],
          "ephys_modules": [
             {
+               "object_type": "Manipulator module",
                "assembly_name": "Ephys_assemblyA",
                "arc_angle": "5.2",
                "module_angle": "8",
@@ -52,6 +55,7 @@
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
+                     "object_type": "Ccf coords",
                      "ml": "8150",
                      "ap": "3250",
                      "dv": "7800",
@@ -60,6 +64,7 @@
                   }
                ],
                "manipulator_coordinates": {
+                  "object_type": "Coordinates3d",
                   "x": "8422",
                   "y": "4205",
                   "z": "11087.5",
@@ -73,6 +78,7 @@
                "implant_hole_number": null
             },
             {
+               "object_type": "Manipulator module",
                "assembly_name": "Ephys_assemblyB",
                "arc_angle": "25",
                "module_angle": "-22",
@@ -90,6 +96,7 @@
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
+                     "object_type": "Ccf coords",
                      "ml": "6637.28",
                      "ap": "4265.02",
                      "dv": "10707.35",
@@ -98,6 +105,7 @@
                   }
                ],
                "manipulator_coordinates": {
+                  "object_type": "Coordinates3d",
                   "x": "9015",
                   "y": "7144",
                   "z": "13262",
@@ -113,6 +121,7 @@
          ],
          "stick_microscopes": [
             {
+               "object_type": "Dome module",
                "assembly_name": "stick microscope 1",
                "arc_angle": "-180",
                "module_angle": "-180",
@@ -123,6 +132,7 @@
                "notes": "did not record angles, did not calibrate."
             },
             {
+               "object_type": "Dome module",
                "assembly_name": "stick microscope 2",
                "arc_angle": "-180",
                "module_angle": "-180",
@@ -133,6 +143,7 @@
                "notes": "Did not record angles, did not calibrate"
             },
             {
+               "object_type": "Dome module",
                "assembly_name": "stick microscope 3",
                "arc_angle": "-180",
                "module_angle": "-180",
@@ -143,6 +154,7 @@
                "notes": "Did not record angles, did not calibrate"
             },
             {
+               "object_type": "Dome module",
                "assembly_name": "stick microscope 4",
                "arc_angle": "-180",
                "module_angle": "-180",
@@ -171,6 +183,7 @@
          "notes": null
       },
       {
+         "object_type": "Stream",
          "stream_start_time": "2023-04-25T02:35:00Z",
          "stream_end_time": "2023-04-25T02:45:00Z",
          "daq_names": [
@@ -180,6 +193,7 @@
          "light_sources": [],
          "ephys_modules": [
             {
+               "object_type": "Manipulator module",
                "assembly_name": "Ephys_assemblyA",
                "arc_angle": "5.2",
                "module_angle": "8",
@@ -197,6 +211,7 @@
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
+                     "object_type": "Ccf coords",
                      "ml": "8150",
                      "ap": "3250",
                      "dv": "7800",
@@ -205,6 +220,7 @@
                   }
                ],
                "manipulator_coordinates": {
+                  "object_type": "Coordinates3d",
                   "x": "8422",
                   "y": "4205",
                   "z": "11087.5",
@@ -218,6 +234,7 @@
                "implant_hole_number": null
             },
             {
+               "object_type": "Manipulator module",
                "assembly_name": "Ephys_assemblyB",
                "arc_angle": "25",
                "module_angle": "-22",
@@ -235,6 +252,7 @@
                "other_targeted_structure": null,
                "targeted_ccf_coordinates": [
                   {
+                     "object_type": "Ccf coords",
                      "ml": "6637.28",
                      "ap": "4265.02",
                      "dv": "10707.35",
@@ -243,6 +261,7 @@
                   }
                ],
                "manipulator_coordinates": {
+                  "object_type": "Coordinates3d",
                   "x": "9015",
                   "y": "7144",
                   "z": "13262",
@@ -258,6 +277,7 @@
          ],
          "stick_microscopes": [
             {
+               "object_type": "Dome module",
                "assembly_name": "stick microscope 1",
                "arc_angle": "-180",
                "module_angle": "-180",
@@ -288,12 +308,14 @@
    ],
    "stimulus_epochs": [
       {
+         "object_type": "Stimulus epoch",
          "stimulus_start_time": "2023-04-25T02:45:00Z",
          "stimulus_end_time": "2023-04-25T03:10:00Z",
          "stimulus_name": "Visual Stimulation",
          "session_number": null,
          "software": [
             {
+               "object_type": "Software",
                "name": "Bonsai",
                "version": "2.7",
                "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
@@ -306,7 +328,7 @@
          ],
          "stimulus_parameters": [
             {
-               "stimulus_type": "Visual Stimulation",
+               "object_type": "Visual stimulation",
                "stimulus_name": "Static Gratings",
                "stimulus_parameters": {
                   "grating_orientations": [
@@ -342,12 +364,14 @@
          "notes": null
       },
       {
+         "object_type": "Stimulus epoch",
          "stimulus_start_time": "2023-04-25T03:10:00Z",
          "stimulus_end_time": "2023-04-25T03:16:00Z",
          "stimulus_name": "Visual Stimulation",
          "session_number": null,
          "software": [
             {
+               "object_type": "Software",
                "name": "Bonsai",
                "version": "2.7",
                "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
@@ -360,7 +384,7 @@
          ],
          "stimulus_parameters": [
             {
-               "stimulus_type": "Visual Stimulation",
+               "object_type": "Visual stimulation",
                "stimulus_name": "Flashes",
                "stimulus_parameters": {
                   "flash_interval": 5.0,

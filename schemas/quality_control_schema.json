@@ -4,6 +4,12 @@
          "additionalProperties": false,
          "description": "Description of one evaluation stage, with one or more metrics",
          "properties": {
+            "object_type": {
+               "const": "QC evaluation",
+               "default": "QC evaluation",
+               "title": "Object Type",
+               "type": "string"
+            },
             "modality": {
                "discriminator": {
                   "mapping": {
@@ -132,7 +138,14 @@
                "type": "boolean"
             },
             "latest_status": {
-               "$ref": "#/$defs/Status",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Status"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": null,
                "title": "Evaluation status"
             },
@@ -546,6 +559,12 @@
    "additionalProperties": false,
    "description": "Description of quality metrics for a data asset",
    "properties": {
+      "object_type": {
+         "const": "Quality control",
+         "default": "Quality control",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/quality_control.py",
@@ -553,8 +572,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.2",
-         "default": "1.2.2",
+         "const": "2.0.2",
+         "default": "2.0.2",
          "title": "Schema Version",
          "type": "string"
       },

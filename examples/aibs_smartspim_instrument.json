@@ -1,8 +1,36 @@
 {
+   "object_type": "Instrument",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "1.0.5",
+   "schema_version": "2.0.2",
    "instrument_id": "440_SmartSPIM2_20231004",
    "modification_date": "2023-10-04",
+   "calibrations": null,
+   "ccf_coordinate_transform": null,
+   "origin": null,
+   "instrument_axes": null,
+   "modalities": [
+      {
+         "name": "Selective plane illumination microscopy",
+         "abbreviation": "SPIM"
+      }
+   ],
+   "com_ports": [
+      {
+         "object_type": "Com",
+         "hardware_name": "Laser Launch",
+         "com_port": "COM3"
+      },
+      {
+         "object_type": "Com",
+         "hardware_name": "ASI Tiger",
+         "com_port": "COM5"
+      },
+      {
+         "object_type": "Com",
+         "hardware_name": "MightyZap",
+         "com_port": "COM4"
+      }
+   ],
    "instrument_type": "SmartSPIM",
    "manufacturer": {
       "name": "LifeCanvas",
@@ -11,32 +39,11 @@
       "registry_identifier": null
    },
    "temperature_control": false,
-   "optical_tables": [
+   "notes": null,
+   "connections": [],
+   "components": [
       {
-         "device_type": "Optical table",
-         "name": "Table",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Technical Manufacturing Corporation",
-            "abbreviation": "TMC",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "CleanTop",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "length": "35",
-         "width": "29",
-         "table_size_unit": "inch",
-         "vibration_control": true
-      }
-   ],
-   "enclosure": null,
-   "objectives": [
-      {
-         "device_type": "Objective",
+         "object_type": "Objective",
          "name": "TLX Objective",
          "serial_number": null,
          "manufacturer": {
@@ -51,17 +58,15 @@
          "model": "TL4X-SAP",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
          "numerical_aperture": "0.2",
          "magnification": "3.6",
          "immersion": "multi",
          "objective_type": null
-      }
-   ],
-   "detectors": [
+      },
       {
-         "device_type": "Detector",
+         "object_type": "Detector",
          "name": "Camera 1",
          "serial_number": "001107",
          "manufacturer": {
@@ -76,7 +81,7 @@
          "model": "C14440-20UP",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "detector_type": "Camera",
          "data_interface": "USB",
@@ -105,11 +110,9 @@
          "recording_software": null,
          "driver": null,
          "driver_version": null
-      }
-   ],
-   "light_sources": [
+      },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_488",
          "serial_number": "VL01222A11",
          "manufacturer": {
@@ -121,7 +124,7 @@
          "model": "Stradus",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 488,
          "wavelength_unit": "nanometer",
@@ -133,7 +136,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_561",
          "serial_number": "417927",
          "manufacturer": {
@@ -148,7 +151,7 @@
          "model": "Obis",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 561,
          "wavelength_unit": "nanometer",
@@ -160,7 +163,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_647",
          "serial_number": "VL01222A10",
          "manufacturer": {
@@ -172,7 +175,7 @@
          "model": "Stradus",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": "All lasers controlled via Vortran VersaLase System",
          "wavelength": 647,
          "wavelength_unit": "nanometer",
@@ -182,12 +185,187 @@
          "coupling_efficiency": null,
          "coupling_efficiency_unit": "percent",
          "item_number": null
-      }
-   ],
-   "lenses": [],
-   "fluorescence_filters": [
+      },
       {
-         "device_type": "Filter",
+         "object_type": "Motorized stage",
+         "name": "Focus stage",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-100",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "100",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "object_type": "Motorized stage",
+         "name": "Cylindrical lens #1",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "object_type": "Motorized stage",
+         "name": "Cylindrical lens #2",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "object_type": "Motorized stage",
+         "name": "Cylindrical lens #3",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "object_type": "Motorized stage",
+         "name": "Cylindrical lens #4",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "IR Robot Co",
+            "abbreviation": null,
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "L12-20F-4",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "41",
+         "travel_unit": "millimeter",
+         "firmware": null
+      },
+      {
+         "object_type": "Scanning stage",
+         "name": "Sample stage Z",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-50",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "50",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Detection axis",
+         "stage_axis_name": "Z"
+      },
+      {
+         "object_type": "Scanning stage",
+         "name": "Sample stage X",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-50",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "50",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Illumination axis",
+         "stage_axis_name": "X"
+      },
+      {
+         "object_type": "Scanning stage",
+         "name": "Sample stage Y",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Applied Scientific Instrumentation",
+            "abbreviation": "ASI",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "LS-50",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "travel": "50",
+         "travel_unit": "millimeter",
+         "firmware": null,
+         "stage_axis_direction": "Perpendicular axis",
+         "stage_axis_name": "Y"
+      },
+      {
+         "object_type": "Optical table",
+         "name": "Table",
+         "serial_number": null,
+         "manufacturer": {
+            "name": "Technical Manufacturing Corporation",
+            "abbreviation": "TMC",
+            "registry": null,
+            "registry_identifier": null
+         },
+         "model": "CleanTop",
+         "path_to_cad": null,
+         "port_index": null,
+         "additional_settings": null,
+         "notes": null,
+         "length": "35",
+         "width": "29",
+         "table_size_unit": "inch",
+         "vibration_control": true
+      },
+      {
+         "object_type": "Filter",
          "name": "Em_525",
          "serial_number": null,
          "manufacturer": {
@@ -199,7 +377,7 @@
          "model": "FF03-525/50-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -216,7 +394,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_600",
          "serial_number": null,
          "manufacturer": {
@@ -228,7 +406,7 @@
          "model": "FF01-600/52-25",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -245,7 +423,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_690",
          "serial_number": null,
          "manufacturer": {
@@ -257,7 +435,7 @@
          "model": "ET690/50m",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "filter_type": "Band pass",
          "diameter": "25",
@@ -272,173 +450,9 @@
          "center_wavelength": null,
          "wavelength_unit": "nanometer",
          "description": null
-      }
-   ],
-   "motorized_stages": [
-      {
-         "device_type": "Motorized stage",
-         "name": "Focus stage",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "LS-100",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "100",
-         "travel_unit": "millimeter",
-         "firmware": null
       },
       {
-         "device_type": "Motorized stage",
-         "name": "Cylindrical lens #1",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "IR Robot Co",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "L12-20F-4",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "41",
-         "travel_unit": "millimeter",
-         "firmware": null
-      },
-      {
-         "device_type": "Motorized stage",
-         "name": "Cylindrical lens #2",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "IR Robot Co",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "L12-20F-4",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "41",
-         "travel_unit": "millimeter",
-         "firmware": null
-      },
-      {
-         "device_type": "Motorized stage",
-         "name": "Cylindrical lens #3",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "IR Robot Co",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "L12-20F-4",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "41",
-         "travel_unit": "millimeter",
-         "firmware": null
-      },
-      {
-         "device_type": "Motorized stage",
-         "name": "Cylindrical lens #4",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "IR Robot Co",
-            "abbreviation": null,
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "L12-20F-4",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "41",
-         "travel_unit": "millimeter",
-         "firmware": null
-      }
-   ],
-   "scanning_stages": [
-      {
-         "device_type": "Motorized stage",
-         "name": "Sample stage Z",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "LS-50",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "50",
-         "travel_unit": "millimeter",
-         "firmware": null,
-         "stage_axis_direction": "Detection axis",
-         "stage_axis_name": "Z"
-      },
-      {
-         "device_type": "Motorized stage",
-         "name": "Sample stage X",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "LS-50",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "50",
-         "travel_unit": "millimeter",
-         "firmware": null,
-         "stage_axis_direction": "Illumination axis",
-         "stage_axis_name": "X"
-      },
-      {
-         "device_type": "Motorized stage",
-         "name": "Sample stage Y",
-         "serial_number": null,
-         "manufacturer": {
-            "name": "Applied Scientific Instrumentation",
-            "abbreviation": "ASI",
-            "registry": null,
-            "registry_identifier": null
-         },
-         "model": "LS-50",
-         "path_to_cad": null,
-         "port_index": null,
-         "additional_settings": {},
-         "notes": null,
-         "travel": "50",
-         "travel_unit": "millimeter",
-         "firmware": null,
-         "stage_axis_direction": "Perpendicular axis",
-         "stage_axis_name": "Y"
-      }
-   ],
-   "additional_devices": [
-      {
-         "device_type": "Additional imaging device",
+         "object_type": "Additional imaging device",
          "name": "Lens 1",
          "serial_number": null,
          "manufacturer": {
@@ -450,12 +464,12 @@
          "model": "EL-16-40-TC",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "imaging_device_type": "Tunable lens"
       },
       {
-         "device_type": "Additional imaging device",
+         "object_type": "Additional imaging device",
          "name": "Lens 2",
          "serial_number": null,
          "manufacturer": {
@@ -467,12 +481,12 @@
          "model": "EL-16-40-TC",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "imaging_device_type": "Tunable lens"
       },
       {
-         "device_type": "Additional imaging device",
+         "object_type": "Additional imaging device",
          "name": "Sample chamber",
          "serial_number": null,
          "manufacturer": {
@@ -484,27 +498,9 @@
          "model": "Large-uncoated-glass",
          "path_to_cad": null,
          "port_index": null,
-         "additional_settings": {},
+         "additional_settings": null,
          "notes": null,
          "imaging_device_type": "Sample Chamber"
       }
-   ],
-   "calibration_date": null,
-   "calibration_data": null,
-   "com_ports": [
-      {
-         "hardware_name": "Laser Launch",
-         "com_port": "COM3"
-      },
-      {
-         "hardware_name": "ASI Tiger",
-         "com_port": "COM5"
-      },
-      {
-         "hardware_name": "MightyZap",
-         "com_port": "COM4"
-      }
-   ],
-   "daqs": [],
-   "notes": null
+   ]
 }

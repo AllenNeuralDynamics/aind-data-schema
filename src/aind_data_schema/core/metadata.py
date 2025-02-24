@@ -5,11 +5,11 @@ import json
 import logging
 from datetime import datetime, timezone
 from enum import Enum
+import warnings
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
-from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import Modality
 from pydantic import (
     Field,
     PrivateAttr,
@@ -24,25 +24,30 @@ from pydantic import (
 from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
 
 CORE_FILES = [
     "subject",
     "data_description",
     "procedures",
-    "session",
-    "rig",
+    "instrument",
     "processing",
     "acquisition",
-    "instrument",
     "quality_control",
+]
+
+REQUIRED_FILES = [
+    "subject",
+    "data_description",
+    "procedures",
+    "instrument",
+    "acquisition",
 ]
 
 
@@ -72,7 +77,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.7"]] = Field(default="1.1.7")
+    schema_version: SkipValidation[Literal["2.0.2"]] = Field(default="2.0.2")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -121,13 +126,12 @@ class Metadata(DataCoreModel):
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
     session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
+    instrument: Optional[Instrument] = Field(
+        default=None, title="Instrument", description="Devices used to acquire data."
+    )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
         default=None, title="Acquisition", description="Imaging acquisition session"
-    )
-    instrument: Optional[Instrument] = Field(
-        default=None, title="Instrument", description="Instrument, which is a collection of devices"
     )
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
@@ -215,42 +219,11 @@ class Metadata(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_expected_files_by_modality(self):
-        """Validator checks that all required/excluded files match the metadata model"""
-        if self.data_description:
-            modalities = self.data_description.modality
+        """Validator warns users if required files are missing"""
 
-            requirement_dict = {}
-
-            for modality in modalities:
-                abbreviation = modality.abbreviation.replace("-", "_").upper()
-
-                for file in CORE_FILES:
-                    #  For each field, check if this is a required/excluded file
-                    file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
-
-                    if file not in requirement_dict:
-                        requirement_dict[file] = (abbreviation, file_requirement)
-                    else:
-                        (prev_modality, prev_requirement) = requirement_dict[file]
-
-                        if (file_requirement == FileRequirement.REQUIRED) or (
-                            file_requirement == FileRequirement.OPTIONAL
-                            and prev_requirement == FileRequirement.EXCLUDED
-                        ):
-                            # override, required wins over all else, and optional wins over excluded
-                            requirement_dict[file] = (abbreviation, file_requirement)
-
-            for file in CORE_FILES:
-                # Unpack modality
-                (requirement_modality, file_requirement) = requirement_dict[file]
-
-                # Check required case
-                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
-                    raise ValueError(f"{requirement_modality} metadata missing required file: {file}")
-
-                # Check excluded case
-                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
-                    raise ValueError(f"{requirement_modality} metadata includes excluded file: {file}")
+        for file in REQUIRED_FILES:
+            if not getattr(self, file):
+                warnings.warn(f"Metadata missing required file: {file}")
 
         return self
 
@@ -260,7 +233,7 @@ class Metadata(DataCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
+            and any([modality == Modality.SPIM for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -278,7 +251,7 @@ class Metadata(DataCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
+            and any([modality == Modality.ECEPHYS for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -291,10 +264,10 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_rig_session_compatibility(self):
+    def validate_instrument_session_compatibility(self):
         """Validator for metadata"""
-        if self.rig and self.session:
-            check = RigSessionCompatibility(self.rig, self.session)
+        if self.instrument and self.session:
+            check = InstrumentSessionCompatibility(self.instrument, self.session)
             check.run_compatibility_check()
         return self
 

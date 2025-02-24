@@ -27,7 +27,7 @@ from aind_data_schema.components.devices import (
     Patch,
     ProbePort,
 )
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -75,7 +75,7 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
-    collimator=Device(name="Collimator A", device_type="Collimator"),
+    collimator=Device(name="Collimator A"),
     fiber=Patch(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
@@ -275,18 +275,26 @@ blue_laser_calibration = Calibration(
     output={"power mW": [1, 2, 7]},
 )
 
-rig = Rig(
-    rig_id="323_EPHYS1_20231003",
+inst = Instrument(
+    instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
-    cameras=[camassm1, camassm2],
-    laser_assemblies=[laser_assembly],
-    daqs=[basestation, harp],
-    stick_microscopes=[microscope_1, microscope_2, microscope_3, microscope_4],
-    mouse_platform=running_wheel,
+    components=[
+        ephys_assemblyA,
+        ephys_assemblyB,
+        camassm1,
+        camassm2,
+        laser_assembly,
+        basestation,
+        harp,
+        microscope_1,
+        microscope_2,
+        microscope_3,
+        microscope_4,
+        running_wheel,
+    ],
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
-serialized = rig.model_dump_json()
-deserialized = Rig.model_validate_json(serialized)
+serialized = inst.model_dump_json()
+deserialized = Instrument.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="ephys")

@@ -25,6 +25,12 @@
          "additionalProperties": false,
          "description": "Description of model architecture",
          "properties": {
+            "object_type": {
+               "const": "Model architecture",
+               "default": "Model architecture",
+               "title": "Object Type",
+               "type": "string"
+            },
             "backbone": {
                "$ref": "#/$defs/ModelBackbone",
                "description": "Core network architecture",
@@ -90,6 +96,12 @@
          "additionalProperties": false,
          "description": "Description of model evaluation",
          "properties": {
+            "object_type": {
+               "const": "Model evaluation",
+               "default": "Model evaluation",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Model evaluation",
@@ -214,6 +226,12 @@
          "additionalProperties": false,
          "description": "Description of model training",
          "properties": {
+            "object_type": {
+               "const": "Model training",
+               "default": "Model training",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Model training",
@@ -368,6 +386,12 @@
          "additionalProperties": false,
          "description": "Description of a performance metric",
          "properties": {
+            "object_type": {
+               "const": "Performance metric",
+               "default": "Performance metric",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Metric name",
                "type": "string"
@@ -466,6 +490,12 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "object_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Object Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -487,6 +517,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "object_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Object Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -641,6 +677,12 @@
          "additionalProperties": false,
          "description": "Description of generic software",
          "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Software name",
                "type": "string"
@@ -5478,6 +5520,12 @@
    "additionalProperties": false,
    "description": "Description of an analysis model",
    "properties": {
+      "object_type": {
+         "const": "Model",
+         "default": "Model",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
@@ -5485,8 +5533,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.0.1",
-         "default": "0.0.1",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5915,7 +5963,7 @@
          "default": null,
          "title": "Institute where developed"
       },
-      "modality": {
+      "modalities": {
          "items": {
             "discriminator": {
                "mapping": {
@@ -5981,7 +6029,7 @@
                }
             ]
          },
-         "title": "Modality",
+         "title": "Modalities",
          "type": "array"
       },
       "architecture": {
@@ -6063,7 +6111,7 @@
    "required": [
       "name",
       "license",
-      "modality",
+      "modalities",
       "architecture",
       "intended_use"
    ],

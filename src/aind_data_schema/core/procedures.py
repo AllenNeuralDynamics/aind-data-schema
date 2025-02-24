@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Set, Union
 
-from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
@@ -242,7 +242,6 @@ class Antibody(Reagent):
 class Sectioning(DataModel):
     """Description of a sectioning procedure"""
 
-    procedure_type: Literal["Sectioning"] = "Sectioning"
     number_of_slices: int = Field(..., title="Number of slices")
     output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
@@ -314,7 +313,6 @@ class Anaesthetic(DataModel):
 class OtherSubjectProcedure(DataModel):
     """Description of non-surgical procedure performed on a subject"""
 
-    procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -323,18 +321,18 @@ class OtherSubjectProcedure(DataModel):
 class CatheterImplant(DataModel):
     """Description of a catheter implant procedure"""
 
-    procedure_type: Literal["Catheter Implant"] = "Catheter implant"
     where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
     catheter_material: CatheterMaterial = Field(..., title="Catheter material")
     catheter_design: CatheterDesign = Field(..., title="Catheter design")
     catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_structure: MouseAnatomicalStructure.BLOOD_VESSELS = Field(..., title="Targeted blood vessel")
+    targeted_structure: MouseAnatomyModel = Field(
+        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )
 
 
 class Craniotomy(DataModel):
     """Description of craniotomy procedure"""
 
-    procedure_type: Literal["Craniotomy"] = "Craniotomy"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
@@ -352,7 +350,6 @@ class Craniotomy(DataModel):
 class Headframe(DataModel):
     """Description of headframe procedure"""
 
-    procedure_type: Literal["Headframe"] = "Headframe"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
@@ -364,7 +361,6 @@ class Headframe(DataModel):
 class ProtectiveMaterialReplacement(DataModel):
     """Description of a protective material replacement procedure in preparation for ephys recording"""
 
-    procedure_type: Literal["Ground wire"] = "Ground wire"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     protective_material: ProtectiveMaterial = Field(
         ..., title="Protective material", description="New material being applied"
@@ -446,7 +442,6 @@ class Injection(DataModel):
 class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
-    procedure_type: Literal["Retro-orbital injection"] = "Retro-orbital injection"
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
@@ -455,7 +450,6 @@ class RetroOrbitalInjection(Injection):
 class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
 
-    procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
     time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
     injection_volume: Decimal = Field(..., title="Injection volume (uL)")
     injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
@@ -484,7 +478,6 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    procedure_type: Literal["Nanoject injection"] = "Nanoject injection"
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -507,7 +500,6 @@ class NanojectInjection(BrainInjection):
 class IontophoresisInjection(BrainInjection):
     """Description of an iotophoresis injection procedure"""
 
-    procedure_type: Literal["Iontophoresis injection"] = "Iontophoresis injection"
     injection_current: Decimal = Field(..., title="Injection current (uA)")
     injection_current_unit: CurrentUnit = Field(default=CurrentUnit.UA, title="Injection current unit")
     alternating_current: str = Field(..., title="Alternating current")
@@ -516,7 +508,6 @@ class IontophoresisInjection(BrainInjection):
 class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
-    procedure_type: Literal["ICV injection"] = "ICV injection"
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -528,7 +519,6 @@ class IntraCerebellarVentricleInjection(BrainInjection):
 class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
-    procedure_type: Literal["ICM injection"] = "ICM injection"
     injection_volume: List[Decimal] = Field(
         ...,
         title="Injection volume (nL)",
@@ -540,7 +530,6 @@ class IntraCisternalMagnaInjection(BrainInjection):
 class SampleCollection(DataModel):
     """Description of a single sample collection"""
 
-    procedure_type: Literal["Sample collection"] = "Sample collection"
     sample_type: SampleType = Field(..., title="Sample type")
     time: AwareDatetimeWithDefault = Field(..., title="Collection time")
     collection_volume: Decimal = Field(..., title="Collection volume")
@@ -551,7 +540,6 @@ class SampleCollection(DataModel):
 class TrainingProtocol(DataModel):
     """Description of an animal training protocol"""
 
-    procedure_type: Literal["Training"] = "Training"
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
     start_date: date = Field(..., title="Training protocol start date")
@@ -586,7 +574,6 @@ class OphysProbe(DataModel):
 class FiberImplant(DataModel):
     """Description of an implant procedure"""
 
-    procedure_type: Literal["Fiber implant"] = "Fiber implant"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
@@ -594,7 +581,6 @@ class FiberImplant(DataModel):
 class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
-    procedure_type: Literal["Water restriction"] = "Water restriction"
     ethics_review_id: str = Field(..., title="Ethics review ID")
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
@@ -613,9 +599,9 @@ class WaterRestriction(DataModel):
 class MyomatrixContact(DataModel):
     """ "Description of a contact on a myomatrix thread"""
 
-    body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
     side: Side = Field(..., title="Body side")
-    muscle: MouseAnatomicalStructure.EMG_MUSCLES = Field(..., title="Muscle of contact insertion")
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -623,14 +609,15 @@ class MyomatrixContact(DataModel):
 class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use MouseBodyParts"
+    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
 class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
-    procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
@@ -639,7 +626,6 @@ class MyomatrixInsertion(DataModel):
 class Perfusion(DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
-    procedure_type: Literal["Perfusion"] = "Perfusion"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: Set[str] = Field(
         ...,
@@ -656,7 +642,6 @@ class Perfusion(DataModel):
 class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
-    procedure_type: Literal["Surgery"] = "Surgery"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenters: Optional[List[Person]] = Field(
@@ -692,7 +677,7 @@ class Surgery(DataModel):
                 RetroOrbitalInjection,
                 SampleCollection,
             ],
-            Field(discriminator="procedure_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -704,7 +689,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["1.2.6"]] = Field(default="1.2.6")
+    schema_version: SkipValidation[Literal["2.0.2"]] = Field(default="2.0.2")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -713,7 +698,7 @@ class Procedures(DataCoreModel):
     subject_procedures: List[
         Annotated[
             Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
-            Field(discriminator="procedure_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
