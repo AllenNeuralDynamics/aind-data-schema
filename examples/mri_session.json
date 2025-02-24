@@ -1,11 +1,13 @@
 {
+   "object_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.3",
    "protocol_id": [
       "dx.doi.org/10.57824/protocols.io.bh7kl4n6"
    ],
    "experimenters": [
       {
+         "object_type": "Person",
          "name": "John Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",
@@ -28,6 +30,7 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "object_type": "Stream",
          "stream_start_time": "2024-03-12T16:27:55.584892Z",
          "stream_end_time": "2024-03-12T16:27:55.584892Z",
          "daq_names": [],
@@ -44,11 +47,12 @@
          "stack_parameters": null,
          "mri_scans": [
             {
+               "object_type": "MRI scan",
                "scan_index": 1,
                "scan_type": "Set Up",
                "primary_scan": false,
                "mri_scanner": {
-                  "device_type": "Scanner",
+                  "object_type": "Scanner",
                   "name": "Scanner 72",
                   "serial_number": null,
                   "manufacturer": null,
@@ -72,7 +76,7 @@
                "vc_position": null,
                "subject_position": "Supine",
                "voxel_sizes": {
-                  "type": "scale",
+                  "object_type": "Scale3d transform",
                   "scale": [
                      "0.5",
                      "0.4375",
@@ -84,11 +88,12 @@
                "notes": "Set up scan for the 3D scan."
             },
             {
+               "object_type": "MRI scan",
                "scan_index": 2,
                "scan_type": "3D Scan",
                "primary_scan": true,
                "mri_scanner": {
-                  "device_type": "Scanner",
+                  "object_type": "Scanner",
                   "name": "Scanner 72",
                   "serial_number": null,
                   "manufacturer": null,
@@ -109,7 +114,7 @@
                "repetition_time": "500.0",
                "repetition_time_unit": "millisecond",
                "vc_orientation": {
-                  "type": "rotation",
+                  "object_type": "Rotation3d transform",
                   "rotation": [
                      "1.0",
                      "0.0",
@@ -123,7 +128,7 @@
                   ]
                },
                "vc_position": {
-                  "type": "translation",
+                  "object_type": "Translation3d transform",
                   "translation": [
                      "-6.1",
                      "-7.0",
@@ -132,7 +137,7 @@
                },
                "subject_position": "Supine",
                "voxel_sizes": {
-                  "type": "scale",
+                  "object_type": "Scale3d transform",
                   "scale": [
                      "0.1",
                      "0.1",

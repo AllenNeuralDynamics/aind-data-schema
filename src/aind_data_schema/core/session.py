@@ -37,8 +37,8 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, SpoutSide
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -92,7 +92,6 @@ class DetectorConfig(DataModel):
 class LightEmittingDiodeConfig(DataModel):
     """Description of LED settings"""
 
-    device_type: Literal["Light emitting diode"] = "Light emitting diode"
     name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
@@ -247,7 +246,6 @@ class FiberModule(ManipulatorModule):
 class LaserConfig(DataModel):
     """Description of laser settings in a session"""
 
-    device_type: Literal["Laser"] = "Laser"
     name: str = Field(..., title="Name", description="Must match instrument json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
@@ -257,7 +255,7 @@ class LaserConfig(DataModel):
 
 LIGHT_SOURCE_CONFIGS = Annotated[
     Union[LightEmittingDiodeConfig, LaserConfig],
-    Field(discriminator="device_type"),
+    Field(discriminator="object_type"),
 ]
 
 
@@ -406,7 +404,7 @@ class Stream(DataModel):
     stack_parameters: Optional[Stack] = Field(default=None, title="Stack parameters")
     mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    software: Optional[List[Software]] = Field(default=[], title="Data stream software information")
+    software: Optional[List[Software]] = Field(default=[], title="Software packages")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @staticmethod
@@ -507,22 +505,17 @@ class StimulusEpoch(DataModel):
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     session_number: Optional[int] = Field(default=None, title="Session number")
-    software: Optional[List[Software]] = Field(
-        default=[],
-        title="Software",
-        description="The software used to control the behavior/stimulus (e.g. Bonsai)",
-    )
-    script: Optional[Software] = Field(
+    code: Optional[Code] = Field(
         default=None,
-        title="Script",
-        description="provide URL to the commit of the script and the parameters used",
+        title="Code or script",
+        description="Custom code or script used to control the behavior/stimulus",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     stimulus_parameters: Optional[
         List[
             Annotated[
                 Union[AuditoryStimulation, OptoStimulation, OlfactoryStimulation, PhotoStimulation, VisualStimulation],
-                Field(discriminator="stimulus_type"),
+                Field(discriminator="object_type"),
             ]
         ]
     ] = Field(default=None, title="Stimulus parameters")
@@ -546,7 +539,7 @@ class Session(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.0"]] = Field(default="2.0.0")
+    schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     experimenters: List[Person] = Field(
         default=[],

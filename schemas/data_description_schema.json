@@ -14,6 +14,12 @@
          "additionalProperties": false,
          "description": "Description of funding sources",
          "properties": {
+            "object_type": {
+               "const": "Funding",
+               "default": "Funding",
+               "title": "Object Type",
+               "type": "string"
+            },
             "funder": {
                "discriminator": {
                   "mapping": {
@@ -105,8 +111,15 @@
          "type": "string"
       },
       "Person": {
+         "additionalProperties": false,
          "description": "Person identifier",
          "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "description": "First and last name OR anonymous ID",
                "title": "Person's name",
@@ -139,6 +152,12 @@
          "additionalProperties": false,
          "description": "Description of related data asset",
          "properties": {
+            "object_type": {
+               "const": "Related data",
+               "default": "Related data",
+               "title": "Object Type",
+               "type": "string"
+            },
             "related_data_path": {
                "title": "Related data path",
                "type": "string"
@@ -1614,6 +1633,12 @@
    "additionalProperties": false,
    "description": "Description of a logical collection of data files",
    "properties": {
+      "object_type": {
+         "const": "Data description",
+         "default": "Data description",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
@@ -1621,8 +1646,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },

@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Optional
 
 from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 from pydantic import Field, model_validator
@@ -28,7 +28,6 @@ class FilterType(str, Enum):
 class OptoStimulation(DataModel):
     """Description of opto stimulation parameters"""
 
-    stimulus_type: Literal["Opto Stimulation"] = "Opto Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     pulse_shape: PulseShape = Field(..., title="Pulse shape")
     pulse_frequency: List[Decimal] = Field(..., title="Pulse frequency (Hz)")
@@ -56,7 +55,6 @@ class OptoStimulation(DataModel):
 class VisualStimulation(DataModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
-    stimulus_type: Literal["Visual Stimulation"] = "Visual Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     stimulus_parameters: GenericModelType = Field(
         GenericModel(),
@@ -91,7 +89,6 @@ class PhotoStimulationGroup(DataModel):
 class PhotoStimulation(DataModel):
     """Description of a photostimulation session"""
 
-    stimulus_type: Literal["Photo Stimulation"] = "Photo Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
@@ -114,7 +111,6 @@ class OlfactometerChannelConfig(DataModel):
 class OlfactoryStimulation(DataModel):
     """Description of a olfactory stimulus"""
 
-    stimulus_type: Literal["Olfactory Stimulation"] = "Olfactory Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     channels: List[OlfactometerChannelConfig]
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -123,7 +119,6 @@ class OlfactoryStimulation(DataModel):
 class AuditoryStimulation(DataModel):
     """Description of an auditory stimulus"""
 
-    stimulus_type: Literal["Auditory Stimulation"] = "Auditory Stimulation"
     stimulus_name: str = Field(..., title="Stimulus name")
     sample_frequency: Decimal = Field(..., title="Sample frequency")
     amplitude_modulation_frequency: Optional[int] = Field(default=None, title="Amplitude modulation frequency")

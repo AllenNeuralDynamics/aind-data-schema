@@ -4,23 +4,20 @@
          "additionalProperties": false,
          "description": "Description of an Analysis",
          "properties": {
+            "object_type": {
+               "const": "Analysis process",
+               "default": "Analysis process",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Analysis",
                "title": "Process name"
             },
-            "software_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the software used",
-               "title": "Version"
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
             },
             "start_date_time": {
                "format": "date-time",
@@ -51,24 +48,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
             },
             "parameters": {
                "$ref": "#/$defs/GenericModel",
@@ -119,26 +98,33 @@
             }
          },
          "required": [
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
             "experimenters",
             "description"
          ],
          "title": "AnalysisProcess",
          "type": "object"
       },
-      "DataProcess": {
+      "Code": {
          "additionalProperties": false,
-         "description": "Description of a single processing step",
+         "description": "Code or script identifier",
          "properties": {
-            "name": {
-               "$ref": "#/$defs/ProcessName",
-               "title": "Name"
+            "object_type": {
+               "const": "Code",
+               "default": "Code",
+               "title": "Object Type",
+               "type": "string"
             },
-            "software_version": {
+            "url": {
+               "description": "Path to code repository",
+               "title": "Code URL",
+               "type": "string"
+            },
+            "version": {
                "anyOf": [
                   {
                      "type": "string"
@@ -148,8 +134,83 @@
                   }
                ],
                "default": null,
-               "description": "Version of the software used",
-               "title": "Version"
+               "title": "Code version"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Software package",
+               "title": "Software"
+            },
+            "language": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Programming language used",
+               "title": "Programming language"
+            },
+            "language_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Programming language version"
+            },
+            "parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters used in the code or script",
+               "title": "Parameters"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "Code",
+         "type": "object"
+      },
+      "DataProcess": {
+         "additionalProperties": false,
+         "description": "Description of a single processing step",
+         "properties": {
+            "object_type": {
+               "const": "Data process",
+               "default": "Data process",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "$ref": "#/$defs/ProcessName",
+               "title": "Name"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
             },
             "start_date_time": {
                "format": "date-time",
@@ -180,24 +241,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
             },
             "parameters": {
                "$ref": "#/$defs/GenericModel",
@@ -237,11 +280,11 @@
          },
          "required": [
             "name",
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
-            "output_location",
-            "code_url"
+            "output_location"
          ],
          "title": "DataProcess",
          "type": "object"
@@ -268,8 +311,15 @@
          "type": "string"
       },
       "Person": {
+         "additionalProperties": false,
          "description": "Person identifier",
          "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "description": "First and last name OR anonymous ID",
                "title": "Person's name",
@@ -302,6 +352,12 @@
          "additionalProperties": false,
          "description": "Description of a Processing Pipeline",
          "properties": {
+            "object_type": {
+               "const": "Pipeline process",
+               "default": "Pipeline process",
+               "title": "Object Type",
+               "type": "string"
+            },
             "data_processes": {
                "items": {
                   "$ref": "#/$defs/DataProcess"
@@ -415,6 +471,12 @@
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "object_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Object Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -436,6 +498,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "object_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Object Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -586,6 +654,41 @@
          "title": "ResourceUsage",
          "type": "object"
       },
+      "Software": {
+         "additionalProperties": false,
+         "description": "Software package identifier",
+         "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "Name of the software package",
+               "title": "Software name",
+               "type": "string"
+            },
+            "version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Version of the software package",
+               "title": "Software version"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Software",
+         "type": "object"
+      },
       "_Orcid": {
          "additionalProperties": false,
          "description": "Model ORCID",
@@ -610,6 +713,12 @@
    "additionalProperties": false,
    "description": "Description of all processes run on data",
    "properties": {
+      "object_type": {
+         "const": "Processing",
+         "default": "Processing",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
@@ -617,8 +726,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },

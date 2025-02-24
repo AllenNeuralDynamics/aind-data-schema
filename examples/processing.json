@@ -1,23 +1,33 @@
 {
+   "object_type": "Processing",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.3",
    "processing_pipeline": {
+      "object_type": "Pipeline process",
       "data_processes": [
          {
+            "object_type": "Data process",
             "name": "Image tile fusing",
-            "software_version": "0.0.1",
+            "code": {
+               "object_type": "Code",
+               "url": "https://github.com/abcd",
+               "version": "0.1",
+               "software": null,
+               "language": null,
+               "language_version": null,
+               "parameters": null
+            },
             "start_date_time": "2022-11-22T08:43:00Z",
             "end_date_time": "2022-11-22T08:43:00Z",
             "input_location": "/path/to/inputs",
             "output_location": "/path/to/outputs",
-            "code_url": "https://github.com/abcd",
-            "code_version": "0.1",
             "parameters": {
                "size": 7
             },
             "outputs": {},
             "notes": null,
             "resources": {
+               "object_type": "Resource usage",
                "os": "Ubuntu 20.04",
                "architecture": "x86-64",
                "cpu": "Intel Core i7",
@@ -29,30 +39,36 @@
                "ram_unit": "Gigabyte",
                "cpu_usage": [
                   {
+                     "object_type": "Resource timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 75.5
                   },
                   {
+                     "object_type": "Resource timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 80.0
                   }
                ],
                "gpu_usage": [
                   {
+                     "object_type": "Resource timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 60.0
                   },
                   {
+                     "object_type": "Resource timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 65.5
                   }
                ],
                "ram_usage": [
                   {
+                     "object_type": "Resource timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 70.0
                   },
                   {
+                     "object_type": "Resource timestamped",
                      "timestamp": "2024-09-13T00:00:00Z",
                      "usage": 72.5
                   }
@@ -61,14 +77,21 @@
             }
          },
          {
+            "object_type": "Data process",
             "name": "File format conversion",
-            "software_version": "0.0.1",
+            "code": {
+               "object_type": "Code",
+               "url": "https://github.com/abcd",
+               "version": "0.1",
+               "software": null,
+               "language": null,
+               "language_version": null,
+               "parameters": null
+            },
             "start_date_time": "2022-11-22T08:43:00Z",
             "end_date_time": "2022-11-22T08:43:00Z",
             "input_location": "/path/to/inputs",
             "output_location": "/path/to/outputs",
-            "code_url": "https://github.com/asdf",
-            "code_version": "0.1",
             "parameters": {
                "u": 7,
                "z": true
@@ -78,14 +101,21 @@
             "resources": null
          },
          {
+            "object_type": "Data process",
             "name": "Image destriping",
-            "software_version": "0.2.1",
+            "code": {
+               "object_type": "Code",
+               "url": "https://github.com/abcd",
+               "version": "0.1",
+               "software": null,
+               "language": null,
+               "language_version": null,
+               "parameters": null
+            },
             "start_date_time": "2022-11-22T08:43:00Z",
             "end_date_time": "2022-11-22T08:43:00Z",
             "input_location": "/path/to/input",
             "output_location": "/path/to/output",
-            "code_url": "https://github.com/fdsa",
-            "code_version": "0.3",
             "parameters": {
                "a": 2,
                "b": -2
@@ -97,6 +127,7 @@
       ],
       "experimenters": [
          {
+            "object_type": "Person",
             "name": "Dr. Dan",
             "registry": {
                "name": "Open Researcher and Contributor ID",
@@ -111,14 +142,21 @@
    },
    "analyses": [
       {
+         "object_type": "Analysis process",
          "name": "Analysis",
-         "software_version": "0.0.1",
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/abcd",
+            "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
          "start_date_time": "2022-11-22T08:43:00Z",
          "end_date_time": "2022-11-22T08:43:00Z",
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
-         "code_url": "https://github.com/abcd",
-         "code_version": "0.1",
          "parameters": {
             "size": 7
          },
@@ -127,6 +165,7 @@
          "resources": null,
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Some Analyzer",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -138,14 +177,21 @@
          "description": "some description"
       },
       {
+         "object_type": "Analysis process",
          "name": "Analysis",
-         "software_version": "0.0.1",
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/abcd",
+            "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
          "start_date_time": "2022-11-22T08:43:00Z",
          "end_date_time": "2022-11-22T08:43:00Z",
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
-         "code_url": "https://github.com/asdf",
-         "code_version": "0.1",
          "parameters": {
             "u": 7,
             "z": true
@@ -155,6 +201,7 @@
          "resources": null,
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Some Analyzer",
                "registry": {
                   "name": "Open Researcher and Contributor ID",

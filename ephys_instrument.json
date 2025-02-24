@@ -1,10 +1,12 @@
 {
+   "object_type": "Instrument",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.2",
    "instrument_id": "323_EPHYS1_20231003",
    "modification_date": "2023-10-03",
    "calibrations": [
       {
+         "object_type": "Calibration",
          "calibration_date": "2023-10-02T10:22:13Z",
          "device_name": "Red Laser",
          "description": "Laser power calibration",
@@ -25,6 +27,7 @@
          "notes": null
       },
       {
+         "object_type": "Calibration",
          "calibration_date": "2023-10-02T10:22:13Z",
          "device_name": "Blue Laser",
          "description": "Laser power calibration",
@@ -62,10 +65,10 @@
    "connections": [],
    "components": [
       {
+         "object_type": "Ephys assembly",
          "name": "Ephys_assemblyA",
-         "device_type": "Ephys assembly",
          "manipulator": {
-            "device_type": "Manipulator",
+            "object_type": "Manipulator",
             "name": "Manipulator 1",
             "serial_number": "SN2938",
             "manufacturer": {
@@ -82,7 +85,7 @@
          },
          "probes": [
             {
-               "device_type": "Ephys probe",
+               "object_type": "Ephys probe",
                "name": "Probe A",
                "serial_number": "9291019",
                "manufacturer": null,
@@ -98,10 +101,10 @@
          ]
       },
       {
+         "object_type": "Ephys assembly",
          "name": "Ephys_assemblyB",
-         "device_type": "Ephys assembly",
          "manipulator": {
-            "device_type": "Manipulator",
+            "object_type": "Manipulator",
             "name": "Manipulator B",
             "serial_number": "SN2939",
             "manufacturer": {
@@ -118,7 +121,7 @@
          },
          "probes": [
             {
-               "device_type": "Ephys probe",
+               "object_type": "Ephys probe",
                "name": "Probe B",
                "serial_number": "9291020",
                "manufacturer": null,
@@ -134,11 +137,11 @@
          ]
       },
       {
+         "object_type": "Camera assembly",
          "name": "Face Camera Assembly",
-         "device_type": "Camera assembly",
          "camera_target": "Face side left",
          "camera": {
-            "device_type": "Detector",
+            "object_type": "Camera",
             "name": "Face Camera",
             "serial_number": null,
             "manufacturer": {
@@ -184,7 +187,7 @@
             "driver_version": null
          },
          "lens": {
-            "device_type": "Lens",
+            "object_type": "Lens",
             "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
@@ -210,7 +213,7 @@
             "max_aperture": "f/2"
          },
          "filter": {
-            "device_type": "Filter",
+            "object_type": "Filter",
             "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
@@ -244,11 +247,11 @@
          "position": null
       },
       {
+         "object_type": "Camera assembly",
          "name": "Body Camera Assembly",
-         "device_type": "Camera assembly",
          "camera_target": "Body",
          "camera": {
-            "device_type": "Detector",
+            "object_type": "Camera",
             "name": "Body Camera",
             "serial_number": null,
             "manufacturer": {
@@ -294,7 +297,7 @@
             "driver_version": null
          },
          "lens": {
-            "device_type": "Lens",
+            "object_type": "Lens",
             "name": "Camera lens",
             "serial_number": null,
             "manufacturer": {
@@ -320,7 +323,7 @@
             "max_aperture": "f/2"
          },
          "filter": {
-            "device_type": "Filter",
+            "object_type": "Filter",
             "name": "LP filter",
             "serial_number": null,
             "manufacturer": {
@@ -354,10 +357,10 @@
          "position": null
       },
       {
+         "object_type": "Laser assembly",
          "name": "Laser_assemblyA",
-         "device_type": "Laser assembly",
          "manipulator": {
-            "device_type": "Manipulator",
+            "object_type": "Manipulator",
             "name": "Manipulator A",
             "serial_number": "SN2937",
             "manufacturer": {
@@ -374,7 +377,7 @@
          },
          "lasers": [
             {
-               "device_type": "Laser",
+               "object_type": "Laser",
                "name": "Red Laser",
                "serial_number": null,
                "manufacturer": {
@@ -398,7 +401,7 @@
                "item_number": null
             },
             {
-               "device_type": "Laser",
+               "object_type": "Laser",
                "name": "Blue Laser",
                "serial_number": null,
                "manufacturer": {
@@ -423,7 +426,7 @@
             }
          ],
          "collimator": {
-            "device_type": "device",
+            "object_type": "Device",
             "name": "Collimator A",
             "serial_number": null,
             "manufacturer": null,
@@ -434,7 +437,7 @@
             "notes": null
          },
          "fiber": {
-            "device_type": "Patch",
+            "object_type": "Patch",
             "name": "Bundle Branching Fiber-optic Patch Cord",
             "serial_number": null,
             "manufacturer": {
@@ -457,7 +460,7 @@
          }
       },
       {
-         "device_type": "Neuropixels basestation",
+         "object_type": "Neuropixels basestation",
          "name": "Basestation Slot 3",
          "serial_number": null,
          "manufacturer": {
@@ -484,12 +487,14 @@
          "slot": 3,
          "ports": [
             {
+               "object_type": "Probe port",
                "index": 1,
                "probes": [
                   "Probe A"
                ]
             },
             {
+               "object_type": "Probe port",
                "index": 2,
                "probes": [
                   "Probe B"
@@ -498,7 +503,7 @@
          ]
       },
       {
-         "device_type": "Harp device",
+         "object_type": "Harp device",
          "name": "Harp Behavior",
          "serial_number": null,
          "manufacturer": {
@@ -519,6 +524,7 @@
          "computer_name": "W10DT72941",
          "channels": [
             {
+               "object_type": "DAQ channel",
                "channel_name": "DO0",
                "device_name": "Face Camera",
                "channel_type": "Digital Output",
@@ -529,6 +535,7 @@
                "event_based_sampling": null
             },
             {
+               "object_type": "DAQ channel",
                "channel_name": "DO1",
                "device_name": "Body Camera",
                "channel_type": "Digital Output",
@@ -539,6 +546,7 @@
                "event_based_sampling": null
             },
             {
+               "object_type": "DAQ channel",
                "channel_name": "AI0",
                "device_name": "Running Wheel",
                "channel_type": "Analog Input",
@@ -560,11 +568,11 @@
          "is_clock_generator": false
       },
       {
+         "object_type": "Camera assembly",
          "name": "Stick_assembly_1",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
-            "device_type": "Detector",
+            "object_type": "Camera",
             "name": "stick microscope 1",
             "serial_number": null,
             "manufacturer": {
@@ -610,7 +618,7 @@
             "driver_version": null
          },
          "lens": {
-            "device_type": "Lens",
+            "object_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -639,11 +647,11 @@
          "position": null
       },
       {
+         "object_type": "Camera assembly",
          "name": "Stick_assembly_2",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
-            "device_type": "Detector",
+            "object_type": "Camera",
             "name": "stick microscope 2",
             "serial_number": null,
             "manufacturer": {
@@ -689,7 +697,7 @@
             "driver_version": null
          },
          "lens": {
-            "device_type": "Lens",
+            "object_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -718,11 +726,11 @@
          "position": null
       },
       {
+         "object_type": "Camera assembly",
          "name": "Stick_assembly_3",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
-            "device_type": "Detector",
+            "object_type": "Camera",
             "name": "stick microscope 3",
             "serial_number": null,
             "manufacturer": {
@@ -768,7 +776,7 @@
             "driver_version": null
          },
          "lens": {
-            "device_type": "Lens",
+            "object_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -797,11 +805,11 @@
          "position": null
       },
       {
+         "object_type": "Camera assembly",
          "name": "Stick_assembly_4",
-         "device_type": "Camera assembly",
          "camera_target": "Brain surface",
          "camera": {
-            "device_type": "Detector",
+            "object_type": "Camera",
             "name": "stick microscope 4",
             "serial_number": null,
             "manufacturer": {
@@ -847,7 +855,7 @@
             "driver_version": null
          },
          "lens": {
-            "device_type": "Lens",
+            "object_type": "Lens",
             "name": "Probe lens",
             "serial_number": null,
             "manufacturer": {
@@ -876,7 +884,7 @@
          "position": null
       },
       {
-         "device_type": "Disc",
+         "object_type": "Disc",
          "name": "Running Wheel",
          "serial_number": null,
          "manufacturer": null,

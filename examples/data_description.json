@@ -1,6 +1,7 @@
 {
+   "object_type": "Raw data description",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/data_description.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.3",
    "license": "CC-BY-4.0",
    "subject_id": "12345",
    "creation_time": "2022-02-21T16:30:01Z",
@@ -17,6 +18,7 @@
    },
    "funding_source": [
       {
+         "object_type": "Funding",
          "funder": {
             "name": "Allen Institute",
             "abbreviation": "AI",
@@ -34,6 +36,7 @@
    "group": null,
    "investigators": [
       {
+         "object_type": "Person",
          "name": "Jane Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",

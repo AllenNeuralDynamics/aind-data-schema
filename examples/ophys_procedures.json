@@ -1,14 +1,16 @@
 {
+   "object_type": "Procedures",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.3",
    "subject_id": "625100",
    "subject_procedures": [
       {
-         "procedure_type": "Surgery",
+         "object_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2022-07-12",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -22,6 +24,7 @@
          "animal_weight_post": "22.3",
          "weight_unit": "gram",
          "anaesthesia": {
+            "object_type": "Anaesthetic",
             "type": "Isoflurane",
             "duration": "180",
             "duration_unit": "minute",
@@ -30,7 +33,7 @@
          "workstation_id": "SWS 3",
          "procedures": [
             {
-               "procedure_type": "Headframe",
+               "object_type": "Headframe",
                "protocol_id": "2109",
                "headframe_type": "AI straight",
                "headframe_part_number": "TO ENTER",
@@ -39,8 +42,10 @@
                "well_type": null
             },
             {
+               "object_type": "Nanoject injection",
                "injection_materials": [
                   {
+                     "object_type": "Viral material",
                      "material_type": "Virus",
                      "name": "AAV2/1-Syn-Flex-ChrimsonR-tdT",
                      "tars_identifiers": null,
@@ -81,19 +86,19 @@
                   "id": "749"
                },
                "injection_hemisphere": "Left",
-               "procedure_type": "Nanoject injection",
                "injection_volume": [
                   "400"
                ],
                "injection_volume_unit": "nanoliter"
             },
             {
-               "procedure_type": "Fiber implant",
+               "object_type": "Fiber implant",
                "protocol_id": "TO ENTER",
                "probes": [
                   {
+                     "object_type": "Ophys probe",
                      "ophys_probe": {
-                        "device_type": "Fiber optic probe",
+                        "object_type": "Fiber probe",
                         "name": "Probe A",
                         "serial_number": null,
                         "manufacturer": null,
@@ -133,7 +138,7 @@
          "notes": null
       },
       {
-         "procedure_type": "Water restriction",
+         "object_type": "Water restriction",
          "ethics_review_id": "1234",
          "target_fraction_weight": 25,
          "target_fraction_weight_unit": "percent",
@@ -145,11 +150,12 @@
          "end_date": "2023-05-23"
       },
       {
-         "procedure_type": "Surgery",
+         "object_type": "Surgery",
          "protocol_id": "doi",
          "start_date": "2023-05-31",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -163,6 +169,7 @@
          "animal_weight_post": null,
          "weight_unit": "gram",
          "anaesthesia": {
+            "object_type": "Anaesthetic",
             "type": "Isoflurane",
             "duration": "30",
             "duration_unit": "minute",
@@ -171,7 +178,7 @@
          "workstation_id": "SWS 3",
          "procedures": [
             {
-               "procedure_type": "Perfusion",
+               "object_type": "Perfusion",
                "protocol_id": "dx.doi.org/10.17504/protocols.io.bg5vjy66",
                "output_specimen_ids": [
                   "672640"
@@ -183,6 +190,7 @@
    ],
    "specimen_procedures": [
       {
+         "object_type": "Specimen procedure",
          "procedure_type": "Immunolabeling",
          "procedure_name": null,
          "specimen_id": "672640",
@@ -190,6 +198,7 @@
          "end_date": "2023-06-12",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -205,6 +214,7 @@
          "hcr_series": null,
          "antibodies": [
             {
+               "object_type": "Antibody",
                "name": "Chicken polyclonal",
                "source": {
                   "name": "Abcam",
@@ -237,6 +247,7 @@
          "notes": "Primary dilution factor 1:1000 ---final concentration is 10ug/ml"
       },
       {
+         "object_type": "Specimen procedure",
          "procedure_type": "Immunolabeling",
          "procedure_name": null,
          "specimen_id": "672640",
@@ -244,6 +255,7 @@
          "end_date": "2023-06-13",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -259,6 +271,7 @@
          "hcr_series": null,
          "antibodies": [
             {
+               "object_type": "Antibody",
                "name": "Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                "source": {
                   "name": "Thermo Fisher Scientific",

@@ -4,10 +4,10 @@
          "additionalProperties": false,
          "description": "Description of additional devices",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Additional imaging device",
                "default": "Additional imaging device",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -505,10 +505,10 @@
          "additionalProperties": false,
          "description": "Description of a rectangular arena",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Arena",
                "default": "Arena",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1039,6 +1039,12 @@
          "additionalProperties": false,
          "description": "Description of an axis",
          "properties": {
+            "object_type": {
+               "const": "Axis",
+               "default": "Axis",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/AxisName",
                "title": "Axis"
@@ -1079,6 +1085,12 @@
          "additionalProperties": false,
          "description": "Generic calibration class",
          "properties": {
+            "object_type": {
+               "const": "Calibration",
+               "default": "Calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
@@ -1131,10 +1143,10 @@
          "additionalProperties": false,
          "description": "Camera Detector",
          "properties": {
-            "device_type": {
-               "const": "Detector",
-               "default": "Detector",
-               "title": "Device Type",
+            "object_type": {
+               "const": "Camera",
+               "default": "Camera",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -1565,14 +1577,14 @@
          "additionalProperties": false,
          "description": "Named assembly of a camera and lens (and optionally a filter)",
          "properties": {
-            "name": {
-               "title": "Camera assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "object_type": {
                "const": "Camera assembly",
                "default": "Camera assembly",
-               "title": "Device Type",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Camera assembly name",
                "type": "string"
             },
             "camera_target": {
@@ -1659,6 +1671,12 @@
          "additionalProperties": false,
          "description": "Description of a communication system",
          "properties": {
+            "object_type": {
+               "const": "Com",
+               "default": "Com",
+               "title": "Object Type",
+               "type": "string"
+            },
             "hardware_name": {
                "title": "Controlled hardware device",
                "type": "string"
@@ -1679,6 +1697,12 @@
          "additionalProperties": false,
          "description": "Connection between two devices",
          "properties": {
+            "object_type": {
+               "const": "Connection",
+               "default": "Connection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "device_names": {
                "items": {
                   "type": "string"
@@ -1705,6 +1729,12 @@
          "additionalProperties": false,
          "description": "Data for a connection",
          "properties": {
+            "object_type": {
+               "const": "Connection data",
+               "default": "Connection data",
+               "title": "Object Type",
+               "type": "string"
+            },
             "input": {
                "anyOf": [
                   {
@@ -1770,6 +1800,12 @@
          "additionalProperties": false,
          "description": "Named input or output channel on a DAQ device",
          "properties": {
+            "object_type": {
+               "const": "DAQ channel",
+               "default": "DAQ channel",
+               "title": "Object Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "DAQ channel name",
                "type": "string"
@@ -1858,10 +1894,10 @@
          "additionalProperties": false,
          "description": "Data acquisition device containing multiple I/O channels",
          "properties": {
-            "device_type": {
-               "const": "DAQ Device",
-               "default": "DAQ Device",
-               "title": "Device Type",
+            "object_type": {
+               "const": "DAQ device",
+               "default": "DAQ device",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -2058,10 +2094,10 @@
          "additionalProperties": false,
          "description": "Description of a generic detector",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Detector",
                "default": "Detector",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -2502,10 +2538,10 @@
          "additionalProperties": false,
          "description": "Generic device",
          "properties": {
-            "device_type": {
-               "const": "device",
-               "default": "device",
-               "title": "Device Type",
+            "object_type": {
+               "const": "Device",
+               "default": "Device",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -3008,10 +3044,10 @@
          "additionalProperties": false,
          "description": "Description of a Digital Micromirror Device (DMD)",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Digital micromirror device",
                "default": "Digital micromirror device",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -3601,10 +3637,10 @@
          "additionalProperties": false,
          "description": "Description of a running disc (i.e. MindScope Disc)",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Disc",
                "default": "Disc",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -4191,10 +4227,10 @@
          "additionalProperties": false,
          "description": "Description of an enclosure",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Enclosure",
                "default": "Enclosure",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -4717,14 +4753,14 @@
          "additionalProperties": false,
          "description": "Module for electrophysiological recording",
          "properties": {
-            "name": {
-               "title": "Ephys assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "object_type": {
                "const": "Ephys assembly",
                "default": "Ephys assembly",
-               "title": "Device Type",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Ephys assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -4750,10 +4786,10 @@
          "additionalProperties": false,
          "description": "Named probe used in an ephys experiment",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Ephys probe",
                "default": "Ephys probe",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -5280,14 +5316,14 @@
          "additionalProperties": false,
          "description": "Module for inserted fiber photometry recording",
          "properties": {
-            "name": {
-               "title": "Fiber assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "object_type": {
                "const": "Fiber assembly",
                "default": "Fiber assembly",
-               "title": "Device Type",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Fiber assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -5313,10 +5349,10 @@
          "additionalProperties": false,
          "description": "Description of a fiber optic probe",
          "properties": {
-            "device_type": {
-               "const": "Fiber optic probe",
-               "default": "Fiber optic probe",
-               "title": "Device Type",
+            "object_type": {
+               "const": "Fiber probe",
+               "default": "Fiber probe",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -5883,10 +5919,10 @@
          "additionalProperties": false,
          "description": "Filter used in a light path",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Filter",
                "default": "Filter",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -6192,10 +6228,10 @@
          "additionalProperties": false,
          "description": "DAQ that uses the Harp protocol for synchronization and data transmission",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Harp device",
                "default": "Harp device",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -6479,10 +6515,10 @@
          "additionalProperties": false,
          "description": "Headstage used with an ephys probe",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Headstage",
                "default": "Headstage",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7025,10 +7061,10 @@
          "additionalProperties": false,
          "description": "Description of a Lamp lightsource",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Lamp",
                "default": "Lamp",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7574,10 +7610,10 @@
          "additionalProperties": false,
          "description": "Laser module with a specific wavelength (may be a sub-component of a larger assembly)",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Laser",
                "default": "Laser",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -7780,14 +7816,14 @@
          "additionalProperties": false,
          "description": "Assembly for optogenetic stimulation",
          "properties": {
-            "name": {
-               "title": "Laser assembly name",
-               "type": "string"
-            },
-            "device_type": {
+            "object_type": {
                "const": "Laser assembly",
                "default": "Laser assembly",
-               "title": "Device Type",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Laser assembly name",
                "type": "string"
             },
             "manipulator": {
@@ -7823,10 +7859,10 @@
          "additionalProperties": false,
          "description": "Lens",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Lens",
                "default": "Lens",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8084,10 +8120,10 @@
          "additionalProperties": false,
          "description": "Description of a Light Emitting Diode (LED) device",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Light emitting diode",
                "default": "Light emitting diode",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8243,10 +8279,10 @@
          "additionalProperties": false,
          "description": "Manipulator used on a dome module",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Manipulator",
                "default": "Manipulator",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8356,10 +8392,10 @@
          "additionalProperties": false,
          "description": "Description of visual display for visual stimuli",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Monitor",
                "default": "Monitor",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -8553,10 +8589,10 @@
          "additionalProperties": false,
          "description": "Description of motorized stage",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Motorized stage",
                "default": "Motorized stage",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -9078,10 +9114,10 @@
          "additionalProperties": false,
          "description": "Description of a mouse platform",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Mouse platform",
                "default": "Mouse platform",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -9599,10 +9635,10 @@
          "additionalProperties": false,
          "description": "PXI-based Neuropixels DAQ",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Neuropixels basestation",
                "default": "Neuropixels basestation",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -9782,10 +9818,10 @@
          "additionalProperties": false,
          "description": "Description of an objective device",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Objective",
                "default": "Objective",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -10328,10 +10364,10 @@
          "additionalProperties": false,
          "description": "Description of an olfactometer for odor stimuli",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Olfactometer",
                "default": "Olfactometer",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -10558,6 +10594,12 @@
          "additionalProperties": false,
          "description": "description of a Olfactometer channel",
          "properties": {
+            "object_type": {
+               "const": "Olfactometer channel",
+               "default": "Olfactometer channel",
+               "title": "Object Type",
+               "type": "string"
+            },
             "channel_index": {
                "title": "Channel index",
                "type": "integer"
@@ -10592,10 +10634,10 @@
          "additionalProperties": false,
          "description": "Multichannel electrophysiology DAQ",
          "properties": {
-            "device_type": {
-               "const": "Open Ephys acquisition board",
-               "default": "Open Ephys acquisition board",
-               "title": "Device Type",
+            "object_type": {
+               "const": "Open ephys acquisition board",
+               "default": "Open ephys acquisition board",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -10784,10 +10826,10 @@
          "additionalProperties": false,
          "description": "Description of Optical Table",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Optical table",
                "default": "Optical table",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -11339,10 +11381,10 @@
          "additionalProperties": false,
          "description": "Description of a patch cord",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Patch",
                "default": "Patch",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -11872,10 +11914,10 @@
          "additionalProperties": false,
          "description": "Description of a Pockels Cell",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Pockels cell",
                "default": "Pockels cell",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -12443,10 +12485,10 @@
          "additionalProperties": false,
          "description": "Description of a Polygonal scanner",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Polygonal scanner",
                "default": "Polygonal scanner",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -12980,6 +13022,12 @@
          "additionalProperties": false,
          "description": "Port for a probe connection",
          "properties": {
+            "object_type": {
+               "const": "Probe port",
+               "default": "Probe port",
+               "title": "Object Type",
+               "type": "string"
+            },
             "index": {
                "title": "One-based port index",
                "type": "integer"
@@ -13003,14 +13051,20 @@
          "additionalProperties": false,
          "description": "Position and rotation of a device in a rig or instrument",
          "properties": {
+            "object_type": {
+               "const": "Relative position",
+               "default": "Relative position",
+               "title": "Object Type",
+               "type": "string"
+            },
             "device_position_transformations": {
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "rotation": "#/$defs/Rotation3dTransform",
-                        "translation": "#/$defs/Translation3dTransform"
+                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
+                        "Translation3d transform": "#/$defs/Translation3dTransform"
                      },
-                     "propertyName": "type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -13063,10 +13117,10 @@
          "additionalProperties": false,
          "description": "Description of reward delivery system",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Reward delivery",
                "default": "Reward delivery",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "stage_type": {
@@ -13099,10 +13153,10 @@
          "additionalProperties": false,
          "description": "Description of a reward spout",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Reward spout",
                "default": "Reward spout",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -13652,10 +13706,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "type": {
-               "const": "rotation",
-               "default": "rotation",
-               "title": "Type",
+            "object_type": {
+               "const": "Rotation3d transform",
+               "default": "Rotation3d transform",
+               "title": "Object Type",
                "type": "string"
             },
             "rotation": {
@@ -13685,10 +13739,10 @@
          "additionalProperties": false,
          "description": "Description of a scanning motorized stages",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Scanning stage",
                "default": "Scanning stage",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -14220,6 +14274,12 @@
          "additionalProperties": false,
          "description": "3D size of an object",
          "properties": {
+            "object_type": {
+               "const": "Size3d",
+               "default": "Size3d",
+               "title": "Object Type",
+               "type": "string"
+            },
             "width": {
                "title": "Width",
                "type": "integer"
@@ -14262,17 +14322,20 @@
       },
       "Software": {
          "additionalProperties": false,
-         "description": "Description of generic software",
+         "description": "Software package identifier",
          "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
+               "description": "Name of the software package",
                "title": "Software name",
                "type": "string"
             },
             "version": {
-               "title": "Software version",
-               "type": "string"
-            },
-            "url": {
                "anyOf": [
                   {
                      "type": "string"
@@ -14282,17 +14345,12 @@
                   }
                ],
                "default": null,
-               "title": "URL to commit being used"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Software parameters"
+               "description": "Version of the software package",
+               "title": "Software version"
             }
          },
          "required": [
-            "name",
-            "version"
+            "name"
          ],
          "title": "Software",
          "type": "object"
@@ -14301,10 +14359,10 @@
          "additionalProperties": false,
          "description": "Description of a speaker for auditory stimuli",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Speaker",
                "default": "Speaker",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -14482,10 +14540,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "type": {
-               "const": "translation",
-               "default": "translation",
-               "title": "Type",
+            "object_type": {
+               "const": "Translation3d transform",
+               "default": "Translation3d transform",
+               "title": "Object Type",
                "type": "string"
             },
             "translation": {
@@ -14515,10 +14573,10 @@
          "additionalProperties": false,
          "description": "Description of treadmill platform",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Treadmill",
                "default": "Treadmill",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -15063,10 +15121,10 @@
          "additionalProperties": false,
          "description": "Description of a tube platform",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Tube",
                "default": "Tube",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -15619,10 +15677,10 @@
          "additionalProperties": false,
          "description": "Description of a running wheel",
          "properties": {
-            "device_type": {
+            "object_type": {
                "const": "Wheel",
                "default": "Wheel",
-               "title": "Device Type",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -21329,6 +21387,12 @@
    "additionalProperties": false,
    "description": "Description of an instrument",
    "properties": {
+      "object_type": {
+         "const": "Instrument",
+         "default": "Instrument",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
@@ -21336,8 +21400,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },
@@ -21941,8 +22005,9 @@
                   "Additional imaging device": "#/$defs/AdditionalImagingDevice",
                   "Arena": "#/$defs/Arena",
                   "Camera assembly": "#/$defs/CameraAssembly",
-                  "DAQ Device": "#/$defs/DAQDevice",
+                  "DAQ device": "#/$defs/DAQDevice",
                   "Detector": "#/$defs/Detector",
+                  "Device": "#/$defs/Device",
                   "Digital micromirror device": "#/$defs/DigitalMicromirrorDevice",
                   "Disc": "#/$defs/Disc",
                   "Enclosure": "#/$defs/Enclosure",
@@ -21961,7 +22026,7 @@
                   "Neuropixels basestation": "#/$defs/NeuropixelsBasestation",
                   "Objective": "#/$defs/Objective",
                   "Olfactometer": "#/$defs/Olfactometer",
-                  "Open Ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
+                  "Open ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
                   "Optical table": "#/$defs/OpticalTable",
                   "Patch": "#/$defs/Patch",
                   "Pockels cell": "#/$defs/PockelsCell",
@@ -21971,10 +22036,9 @@
                   "Speaker": "#/$defs/Speaker",
                   "Treadmill": "#/$defs/Treadmill",
                   "Tube": "#/$defs/Tube",
-                  "Wheel": "#/$defs/Wheel",
-                  "device": "#/$defs/Device"
+                  "Wheel": "#/$defs/Wheel"
                },
-               "propertyName": "device_type"
+               "propertyName": "object_type"
             },
             "oneOf": [
                {

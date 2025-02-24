@@ -1,6 +1,7 @@
 {
+   "object_type": "Instrument",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.3",
    "instrument_id": "440_SmartSPIM1_20231004",
    "modification_date": "2023-10-04",
    "calibrations": null,
@@ -15,14 +16,17 @@
    ],
    "com_ports": [
       {
+         "object_type": "Com",
          "hardware_name": "Laser Launch",
          "com_port": "COM4"
       },
       {
+         "object_type": "Com",
          "hardware_name": "ASI Tiger",
          "com_port": "COM3"
       },
       {
+         "object_type": "Com",
          "hardware_name": "MightyZap",
          "com_port": "COM9"
       }
@@ -39,7 +43,7 @@
    "connections": [],
    "components": [
       {
-         "device_type": "Objective",
+         "object_type": "Objective",
          "name": "TLX Objective 1",
          "serial_number": null,
          "manufacturer": {
@@ -59,7 +63,7 @@
          "objective_type": null
       },
       {
-         "device_type": "Objective",
+         "object_type": "Objective",
          "name": "TLX Objective 2",
          "serial_number": null,
          "manufacturer": {
@@ -79,7 +83,7 @@
          "objective_type": null
       },
       {
-         "device_type": "Detector",
+         "object_type": "Detector",
          "name": "Camera 1",
          "serial_number": "001284",
          "manufacturer": {
@@ -125,7 +129,7 @@
          "driver_version": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_445",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -149,7 +153,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_488",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -173,7 +177,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_561",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -197,7 +201,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_594",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -221,7 +225,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_639",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -245,7 +249,7 @@
          "item_number": null
       },
       {
-         "device_type": "Laser",
+         "object_type": "Laser",
          "name": "Ex_690",
          "serial_number": "VL08223M03",
          "manufacturer": {
@@ -269,7 +273,7 @@
          "item_number": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_469",
          "serial_number": null,
          "manufacturer": {
@@ -298,7 +302,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_525",
          "serial_number": null,
          "manufacturer": {
@@ -327,7 +331,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_593",
          "serial_number": null,
          "manufacturer": {
@@ -356,7 +360,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_624",
          "serial_number": null,
          "manufacturer": {
@@ -385,7 +389,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_667",
          "serial_number": null,
          "manufacturer": {
@@ -414,7 +418,7 @@
          "description": null
       },
       {
-         "device_type": "Filter",
+         "object_type": "Filter",
          "name": "Em_700",
          "serial_number": null,
          "manufacturer": {
@@ -446,7 +450,7 @@
          "description": null
       },
       {
-         "device_type": "Motorized stage",
+         "object_type": "Motorized stage",
          "name": "Focus stage",
          "serial_number": null,
          "manufacturer": {
@@ -465,7 +469,7 @@
          "firmware": null
       },
       {
-         "device_type": "Motorized stage",
+         "object_type": "Motorized stage",
          "name": "Cylindrical lens #1",
          "serial_number": null,
          "manufacturer": {
@@ -484,7 +488,7 @@
          "firmware": null
       },
       {
-         "device_type": "Motorized stage",
+         "object_type": "Motorized stage",
          "name": "Cylindrical lens #2",
          "serial_number": null,
          "manufacturer": {
@@ -503,7 +507,7 @@
          "firmware": null
       },
       {
-         "device_type": "Motorized stage",
+         "object_type": "Motorized stage",
          "name": "Cylindrical lens #3",
          "serial_number": null,
          "manufacturer": {
@@ -522,7 +526,7 @@
          "firmware": null
       },
       {
-         "device_type": "Motorized stage",
+         "object_type": "Motorized stage",
          "name": "Cylindrical lens #4",
          "serial_number": null,
          "manufacturer": {
@@ -541,7 +545,7 @@
          "firmware": null
       },
       {
-         "device_type": "Scanning stage",
+         "object_type": "Scanning stage",
          "name": "Sample stage Z",
          "serial_number": null,
          "manufacturer": {
@@ -562,7 +566,7 @@
          "stage_axis_name": "Z"
       },
       {
-         "device_type": "Scanning stage",
+         "object_type": "Scanning stage",
          "name": "Sample stage X",
          "serial_number": null,
          "manufacturer": {
@@ -583,7 +587,7 @@
          "stage_axis_name": "X"
       },
       {
-         "device_type": "Scanning stage",
+         "object_type": "Scanning stage",
          "name": "Sample stage Y",
          "serial_number": null,
          "manufacturer": {
@@ -604,7 +608,7 @@
          "stage_axis_name": "Y"
       },
       {
-         "device_type": "Optical table",
+         "object_type": "Optical table",
          "name": "Main optical table",
          "serial_number": null,
          "manufacturer": {

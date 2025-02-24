@@ -1,9 +1,11 @@
 {
+   "object_type": "Session",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-   "schema_version": "2.0.0",
+   "schema_version": "2.0.3",
    "protocol_id": [],
    "experimenters": [
       {
+         "object_type": "Person",
          "name": "Scientist Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",
@@ -26,13 +28,14 @@
    "anaesthesia": null,
    "data_streams": [
       {
+         "object_type": "Stream",
          "stream_start_time": "2022-07-12T07:00:00Z",
          "stream_end_time": "2022-07-12T07:00:00Z",
          "daq_names": [],
          "camera_names": [],
          "light_sources": [
             {
-               "device_type": "Laser",
+               "object_type": "Laser config",
                "name": "Laser A",
                "wavelength": 405,
                "wavelength_unit": "nanometer",
@@ -40,7 +43,7 @@
                "excitation_power_unit": "milliwatt"
             },
             {
-               "device_type": "Laser",
+               "object_type": "Laser config",
                "name": "Laser B",
                "wavelength": 473,
                "wavelength_unit": "nanometer",
@@ -53,6 +56,7 @@
          "manipulator_modules": [],
          "detectors": [
             {
+               "object_type": "Detector config",
                "name": "Hamamatsu Camera",
                "exposure_time": "10",
                "exposure_time_unit": "millisecond",
@@ -61,12 +65,14 @@
          ],
          "fiber_connections": [
             {
+               "object_type": "Fiber connection config",
                "patch_cord_name": "Patch Cord A",
                "patch_cord_output_power": "40",
                "output_power_unit": "microwatt",
                "fiber_name": "Fiber A"
             },
             {
+               "object_type": "Fiber connection config",
                "patch_cord_name": "Patch Cord B",
                "patch_cord_output_power": "43",
                "output_power_unit": "microwatt",

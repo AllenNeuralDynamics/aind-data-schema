@@ -4,7 +4,7 @@ import json
 import re
 import logging
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar, get_args
+from typing import Any, ClassVar, Generic, Literal, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -101,6 +101,46 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     """
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
+    object_type: ClassVar[str]  # This prevents Pydantic from treating it as a normal field
+
+    def __init_subclass__(cls, **kwargs):
+        """Automatically set the correct `object_type` as a Literal[...]"""
+        super().__init_subclass__(**kwargs)
+        object_type_value = cls._object_type_from_name()
+        cls.__annotations__["object_type"] = Literal[object_type_value]  # Set literal type annotation
+        cls.object_type = object_type_value  # Set the value on the class itself
+
+    @model_validator(mode="before")
+    def coerce_object_type(cls, values):
+        """Ensure that object_type is set to the correct value
+
+        This ensures that subclasses/parent classes can be deserialized correctly
+        """
+        cls_object_type = cls._object_type_from_name()
+        if values and "object_type" in values and values["object_type"] != cls_object_type:
+            values["object_type"] = cls_object_type
+        return values
+
+    @classmethod
+    def _object_type_from_name(cls) -> str:
+        """Convert a class name to a object_type
+
+        Adds a space anytime a lowercase letter is followed by a capital letter
+        or when multiple capitals are followed by a lowercase
+
+        Then makes everything after the first space lowercase
+        """
+        # add spaces when a lowercase letter is followed by a capital letter
+        name_with_prespaces = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", cls.__name__)
+        # add spaces before the last capital letter in a series of capitals is followed by a lowercase letter
+        name_with_spaces = re.sub(r"(?<=\w)(?=[A-Z][a-z])", " ", name_with_prespaces)
+        name_split = name_with_spaces.split(" ", 1)
+        first_part = name_split[0]
+        if len(name_split) > 1:
+            second_part = " " + name_split[1].lower()
+        else:
+            second_part = ""
+        return first_part + second_part
 
     @model_validator(mode="after")
     def unit_validator(cls, values):

@@ -21,7 +21,7 @@ from aind_data_schema.core import acquisition as acq
 from aind_data_schema.core.processing import Registration
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -197,12 +197,11 @@ class ImagingTests(unittest.TestCase):
 
         t = Registration(
             name="Image tile alignment",
-            software_version="2.3",
             start_date_time=datetime.now(tz=timezone.utc),
             end_date_time=datetime.now(tz=timezone.utc),
             input_location="/some/path",
             output_location="/some/path",
-            code_url="http://foo",
+            code=Code(url="https://github.com/abcd"),
             parameters={},
             registration_type="Intra-channel",
             tiles=[

@@ -4,16 +4,22 @@
          "additionalProperties": false,
          "description": "Description of acquisition tile",
          "properties": {
+            "object_type": {
+               "const": "Acquisition tile",
+               "default": "Acquisition tile",
+               "title": "Object Type",
+               "type": "string"
+            },
             "coordinate_transformations": {
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "affine": "#/$defs/Affine3dTransform",
-                        "rotation": "#/$defs/Rotation3dTransform",
-                        "scale": "#/$defs/Scale3dTransform",
-                        "translation": "#/$defs/Translation3dTransform"
+                        "Affine3d transform": "#/$defs/Affine3dTransform",
+                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
+                        "Scale3d transform": "#/$defs/Scale3dTransform",
+                        "Translation3d transform": "#/$defs/Translation3dTransform"
                      },
-                     "propertyName": "type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -108,10 +114,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
          "properties": {
-            "type": {
-               "const": "affine",
-               "default": "affine",
-               "title": "Type",
+            "object_type": {
+               "const": "Affine3d transform",
+               "default": "Affine3d transform",
+               "title": "Object Type",
                "type": "string"
             },
             "affine_transform": {
@@ -201,6 +207,12 @@
          "additionalProperties": false,
          "description": "Generic calibration class",
          "properties": {
+            "object_type": {
+               "const": "Calibration",
+               "default": "Calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
@@ -253,6 +265,12 @@
          "additionalProperties": false,
          "description": "Description of a channel",
          "properties": {
+            "object_type": {
+               "const": "Channel",
+               "default": "Channel",
+               "title": "Object Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "Channel",
                "type": "string"
@@ -368,6 +386,12 @@
          "additionalProperties": false,
          "description": "Description of an image axis",
          "properties": {
+            "object_type": {
+               "const": "Image axis",
+               "default": "Image axis",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/AxisName",
                "title": "Name"
@@ -399,6 +423,12 @@
          "additionalProperties": false,
          "description": "Description of immersion medium",
          "properties": {
+            "object_type": {
+               "const": "Immersion",
+               "default": "Immersion",
+               "title": "Object Type",
+               "type": "string"
+            },
             "medium": {
                "$ref": "#/$defs/ImmersionMedium",
                "title": "Immersion medium"
@@ -442,6 +472,12 @@
          "additionalProperties": false,
          "description": "Generic maintenance class",
          "properties": {
+            "object_type": {
+               "const": "Maintenance",
+               "default": "Maintenance",
+               "title": "Object Type",
+               "type": "string"
+            },
             "maintenance_date": {
                "format": "date-time",
                "title": "Date and time of maintenance",
@@ -550,8 +586,15 @@
          "type": "object"
       },
       "Person": {
+         "additionalProperties": false,
          "description": "Person identifier",
          "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "description": "First and last name OR anonymous ID",
                "title": "Person's name",
@@ -594,6 +637,12 @@
          "additionalProperties": false,
          "description": "Description of downstream processing steps",
          "properties": {
+            "object_type": {
+               "const": "Processing steps",
+               "default": "Processing steps",
+               "title": "Object Type",
+               "type": "string"
+            },
             "channel_name": {
                "title": "Channel name",
                "type": "string"
@@ -630,6 +679,12 @@
          "additionalProperties": false,
          "description": "Description of reagent used in procedure",
          "properties": {
+            "object_type": {
+               "const": "Reagent",
+               "default": "Reagent",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -1070,10 +1125,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "type": {
-               "const": "rotation",
-               "default": "rotation",
-               "title": "Type",
+            "object_type": {
+               "const": "Rotation3d transform",
+               "default": "Rotation3d transform",
+               "title": "Object Type",
                "type": "string"
             },
             "rotation": {
@@ -1103,10 +1158,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.\nRepresents voxel spacing if used as the first applied coordinate transform.",
          "properties": {
-            "type": {
-               "const": "scale",
-               "default": "scale",
-               "title": "Type",
+            "object_type": {
+               "const": "Scale3d transform",
+               "default": "Scale3d transform",
+               "title": "Object Type",
                "type": "string"
             },
             "scale": {
@@ -1148,17 +1203,20 @@
       },
       "Software": {
          "additionalProperties": false,
-         "description": "Description of generic software",
+         "description": "Software package identifier",
          "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
+               "description": "Name of the software package",
                "title": "Software name",
                "type": "string"
             },
             "version": {
-               "title": "Software version",
-               "type": "string"
-            },
-            "url": {
                "anyOf": [
                   {
                      "type": "string"
@@ -1168,17 +1226,12 @@
                   }
                ],
                "default": null,
-               "title": "URL to commit being used"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Software parameters"
+               "description": "Version of the software package",
+               "title": "Software version"
             }
          },
          "required": [
-            "name",
-            "version"
+            "name"
          ],
          "title": "Software",
          "type": "object"
@@ -1187,10 +1240,10 @@
          "additionalProperties": false,
          "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
          "properties": {
-            "type": {
-               "const": "translation",
-               "default": "translation",
-               "title": "Type",
+            "object_type": {
+               "const": "Translation3d transform",
+               "default": "Translation3d transform",
+               "title": "Object Type",
                "type": "string"
             },
             "translation": {
@@ -5740,6 +5793,12 @@
    "additionalProperties": false,
    "description": "Description of an imaging acquisition session",
    "properties": {
+      "object_type": {
+         "const": "Acquisition",
+         "default": "Acquisition",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
@@ -5747,8 +5806,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.0",
-         "default": "2.0.0",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5920,7 +5979,7 @@
             }
          ],
          "default": [],
-         "title": "Acquisition software version data"
+         "title": "Acquisition software"
       },
       "notes": {
          "anyOf": [
