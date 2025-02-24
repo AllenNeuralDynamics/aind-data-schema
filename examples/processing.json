@@ -1,7 +1,7 @@
 {
    "object_type": "Processing",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
-   "schema_version": "2.0.2",
+   "schema_version": "2.0.3",
    "processing_pipeline": {
       "object_type": "Pipeline process",
       "data_processes": [

@@ -111,8 +111,15 @@
          "type": "string"
       },
       "Person": {
+         "additionalProperties": false,
          "description": "Person identifier",
          "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "description": "First and last name OR anonymous ID",
                "title": "Person's name",
@@ -1639,8 +1646,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.2",
-         "default": "2.0.2",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },

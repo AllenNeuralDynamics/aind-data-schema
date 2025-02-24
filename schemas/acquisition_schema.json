@@ -586,8 +586,15 @@
          "type": "object"
       },
       "Person": {
+         "additionalProperties": false,
          "description": "Person identifier",
          "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "description": "First and last name OR anonymous ID",
                "title": "Person's name",
@@ -1196,7 +1203,7 @@
       },
       "Software": {
          "additionalProperties": false,
-         "description": "Description of generic software",
+         "description": "Software package identifier",
          "properties": {
             "object_type": {
                "const": "Software",
@@ -1205,14 +1212,11 @@
                "type": "string"
             },
             "name": {
+               "description": "Name of the software package",
                "title": "Software name",
                "type": "string"
             },
             "version": {
-               "title": "Software version",
-               "type": "string"
-            },
-            "url": {
                "anyOf": [
                   {
                      "type": "string"
@@ -1222,17 +1226,12 @@
                   }
                ],
                "default": null,
-               "title": "URL to commit being used"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Software parameters"
+               "description": "Version of the software package",
+               "title": "Software version"
             }
          },
          "required": [
-            "name",
-            "version"
+            "name"
          ],
          "title": "Software",
          "type": "object"
@@ -5807,8 +5806,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.2",
-         "default": "2.0.2",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5980,7 +5979,7 @@
             }
          ],
          "default": [],
-         "title": "Acquisition software version data"
+         "title": "Acquisition software"
       },
       "notes": {
          "anyOf": [

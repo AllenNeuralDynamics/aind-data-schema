@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.2",
-               "default": "2.0.2",
+               "const": "2.0.3",
+               "default": "2.0.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -190,7 +190,7 @@
                   }
                ],
                "default": [],
-               "title": "Acquisition software version data"
+               "title": "Acquisition software"
             },
             "notes": {
                "anyOf": [
@@ -931,18 +931,9 @@
                "default": "Analysis",
                "title": "Process name"
             },
-            "software_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the software used",
-               "title": "Version"
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
             },
             "start_date_time": {
                "format": "date-time",
@@ -973,24 +964,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
             },
             "parameters": {
                "$ref": "#/$defs/GenericModel",
@@ -1041,11 +1014,11 @@
             }
          },
          "required": [
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
             "experimenters",
             "description"
          ],
@@ -3203,6 +3176,91 @@
          "title": "ChannelType",
          "type": "string"
       },
+      "Code": {
+         "additionalProperties": false,
+         "description": "Code or script identifier",
+         "properties": {
+            "object_type": {
+               "const": "Code",
+               "default": "Code",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "Path to code repository",
+               "title": "Code URL",
+               "type": "string"
+            },
+            "version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Code version"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Software package",
+               "title": "Software"
+            },
+            "language": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Programming language used",
+               "title": "Programming language"
+            },
+            "language_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Programming language version"
+            },
+            "parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters used in the code or script",
+               "title": "Parameters"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "Code",
+         "type": "object"
+      },
       "Com": {
          "additionalProperties": false,
          "description": "Description of a communication system",
@@ -3852,8 +3910,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.2",
-               "default": "2.0.2",
+               "const": "2.0.3",
+               "default": "2.0.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -4146,18 +4204,9 @@
                "$ref": "#/$defs/ProcessName",
                "title": "Name"
             },
-            "software_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the software used",
-               "title": "Version"
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
             },
             "start_date_time": {
                "format": "date-time",
@@ -4188,24 +4237,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
             },
             "parameters": {
                "$ref": "#/$defs/GenericModel",
@@ -4245,11 +4276,11 @@
          },
          "required": [
             "name",
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
-            "output_location",
-            "code_url"
+            "output_location"
          ],
          "title": "DataProcess",
          "type": "object"
@@ -21463,8 +21494,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.2",
-               "default": "2.0.2",
+               "const": "2.0.3",
+               "default": "2.0.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -54597,8 +54628,15 @@
          "type": "object"
       },
       "Person": {
+         "additionalProperties": false,
          "description": "Person identifier",
          "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "description": "First and last name OR anonymous ID",
                "title": "Person's name",
@@ -56024,8 +56062,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.2",
-               "default": "2.0.2",
+               "const": "2.0.3",
+               "default": "2.0.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -56156,8 +56194,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.2",
-               "default": "2.0.2",
+               "const": "2.0.3",
+               "default": "2.0.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -63341,8 +63379,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.2",
-               "default": "2.0.2",
+               "const": "2.0.3",
+               "default": "2.0.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -67301,7 +67339,7 @@
       },
       "Software": {
          "additionalProperties": false,
-         "description": "Description of generic software",
+         "description": "Software package identifier",
          "properties": {
             "object_type": {
                "const": "Software",
@@ -67310,14 +67348,11 @@
                "type": "string"
             },
             "name": {
+               "description": "Name of the software package",
                "title": "Software name",
                "type": "string"
             },
             "version": {
-               "title": "Software version",
-               "type": "string"
-            },
-            "url": {
                "anyOf": [
                   {
                      "type": "string"
@@ -67327,17 +67362,12 @@
                   }
                ],
                "default": null,
-               "title": "URL to commit being used"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Software parameters"
+               "description": "Version of the software package",
+               "title": "Software version"
             }
          },
          "required": [
-            "name",
-            "version"
+            "name"
          ],
          "title": "Software",
          "type": "object"
@@ -71891,34 +71921,18 @@
                "default": null,
                "title": "Session number"
             },
-            "software": {
+            "code": {
                "anyOf": [
                   {
-                     "items": {
-                        "$ref": "#/$defs/Software"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": [],
-               "description": "The software used to control the behavior/stimulus (e.g. Bonsai)",
-               "title": "Software"
-            },
-            "script": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Software"
+                     "$ref": "#/$defs/Code"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "provide URL to the commit of the script and the parameters used",
-               "title": "Script"
+               "description": "Custom code or script used to control the behavior/stimulus",
+               "title": "Code or script"
             },
             "stimulus_modalities": {
                "items": {
@@ -72356,7 +72370,7 @@
                   }
                ],
                "default": [],
-               "title": "Data stream software information"
+               "title": "Software packages"
             },
             "notes": {
                "anyOf": [
@@ -106466,8 +106480,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.2",
-         "default": "2.0.2",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },
