@@ -8,8 +8,7 @@ from aind_data_schema_models.system_architecture import ModelBackbone
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
-from aind_data_schema.components.devices import Software
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
 

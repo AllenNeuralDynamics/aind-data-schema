@@ -5,6 +5,7 @@
    "protocol_id": [],
    "experimenters": [
       {
+         "object_type": "Person",
          "name": "John Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",
@@ -316,10 +317,10 @@
          "software": [
             {
                "object_type": "Software",
+               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                "name": "Bonsai",
                "version": "2.7",
-               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-               "parameters": {}
+               "parameters": null
             }
          ],
          "script": null,
@@ -372,10 +373,10 @@
          "software": [
             {
                "object_type": "Software",
+               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                "name": "Bonsai",
                "version": "2.7",
-               "url": "https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-               "parameters": {}
+               "parameters": null
             }
          ],
          "script": null,

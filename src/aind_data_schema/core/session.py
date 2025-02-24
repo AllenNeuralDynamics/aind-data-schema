@@ -37,8 +37,8 @@ from aind_data_schema.components.coordinates import (
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, SpoutSide
+from aind_data_schema.components.identifiers import Person, Software
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,

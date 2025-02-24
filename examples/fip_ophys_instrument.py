@@ -7,6 +7,7 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
+from aind_data_schema.components.identifiers import Software
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -26,7 +27,7 @@ camera_assembly_1 = d.CameraAssembly(
         chroma="Color",
         cooling="Air",
         bin_mode="Additive",
-        recording_software=d.Software(name="Bonsai", version="2.5"),
+        recording_software=Software(name="Bonsai", version="2.5", url="https://github.com/bonsai-rx/bonsai"),
     ),
     lens=d.Lens(
         name="Xenocam 1",
@@ -55,7 +56,7 @@ camera_assembly_2 = d.CameraAssembly(
         chroma="Color",
         cooling="Air",
         bin_mode="Additive",
-        recording_software=d.Software(name="Bonsai", version="2.5"),
+        recording_software=Software(name="Bonsai", version="2.5", url="https://github.com/bonsai-rx/bonsai"),
     ),
     lens=d.Lens(
         name="Xenocam 2",

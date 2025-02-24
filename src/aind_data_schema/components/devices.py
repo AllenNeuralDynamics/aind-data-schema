@@ -22,6 +22,7 @@ from typing_extensions import Annotated
 from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import RelativePosition, Size3d
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.identifiers import Software
 
 
 class ImagingDeviceType(str, Enum):
@@ -274,15 +275,6 @@ class Device(DataModel):
     port_index: Optional[str] = Field(default=None, title="Port index")
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class Software(DataModel):
-    """Description of generic software"""
-
-    name: str = Field(..., title="Software name")
-    version: str = Field(..., title="Software version")
-    url: Optional[str] = Field(default=None, title="URL to commit being used")
-    parameters: GenericModelType = Field(GenericModel(), title="Software parameters")
 
 
 class Calibration(DataModel):

@@ -8,13 +8,17 @@
          {
             "object_type": "Data process",
             "name": "Image tile fusing",
-            "software_version": "0.0.1",
+            "software": {
+               "object_type": "Software",
+               "url": "https://github.com/abcd",
+               "name": null,
+               "version": "0.1",
+               "parameters": null
+            },
             "start_date_time": "2022-11-22T08:43:00Z",
             "end_date_time": "2022-11-22T08:43:00Z",
             "input_location": "/path/to/inputs",
             "output_location": "/path/to/outputs",
-            "code_url": "https://github.com/abcd",
-            "code_version": "0.1",
             "parameters": {
                "size": 7
             },
@@ -73,13 +77,17 @@
          {
             "object_type": "Data process",
             "name": "File format conversion",
-            "software_version": "0.0.1",
+            "software": {
+               "object_type": "Software",
+               "url": "https://github.com/abcd",
+               "name": null,
+               "version": "0.1",
+               "parameters": null
+            },
             "start_date_time": "2022-11-22T08:43:00Z",
             "end_date_time": "2022-11-22T08:43:00Z",
             "input_location": "/path/to/inputs",
             "output_location": "/path/to/outputs",
-            "code_url": "https://github.com/asdf",
-            "code_version": "0.1",
             "parameters": {
                "u": 7,
                "z": true
@@ -91,13 +99,17 @@
          {
             "object_type": "Data process",
             "name": "Image destriping",
-            "software_version": "0.2.1",
+            "software": {
+               "object_type": "Software",
+               "url": "https://github.com/abcd",
+               "name": null,
+               "version": "0.1",
+               "parameters": null
+            },
             "start_date_time": "2022-11-22T08:43:00Z",
             "end_date_time": "2022-11-22T08:43:00Z",
             "input_location": "/path/to/input",
             "output_location": "/path/to/output",
-            "code_url": "https://github.com/fdsa",
-            "code_version": "0.3",
             "parameters": {
                "a": 2,
                "b": -2
@@ -109,6 +121,7 @@
       ],
       "experimenters": [
          {
+            "object_type": "Person",
             "name": "Dr. Dan",
             "registry": {
                "name": "Open Researcher and Contributor ID",
@@ -125,13 +138,17 @@
       {
          "object_type": "Analysis process",
          "name": "Analysis",
-         "software_version": "0.0.1",
+         "software": {
+            "object_type": "Software",
+            "url": "https://github.com/abcd",
+            "name": null,
+            "version": "0.1",
+            "parameters": null
+         },
          "start_date_time": "2022-11-22T08:43:00Z",
          "end_date_time": "2022-11-22T08:43:00Z",
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
-         "code_url": "https://github.com/abcd",
-         "code_version": "0.1",
          "parameters": {
             "size": 7
          },
@@ -140,6 +157,7 @@
          "resources": null,
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Some Analyzer",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -153,13 +171,17 @@
       {
          "object_type": "Analysis process",
          "name": "Analysis",
-         "software_version": "0.0.1",
+         "software": {
+            "object_type": "Software",
+            "url": "https://github.com/abcd",
+            "name": null,
+            "version": "0.1",
+            "parameters": null
+         },
          "start_date_time": "2022-11-22T08:43:00Z",
          "end_date_time": "2022-11-22T08:43:00Z",
          "input_location": "/path/to/inputs",
          "output_location": "/path/to/outputs",
-         "code_url": "https://github.com/asdf",
-         "code_version": "0.1",
          "parameters": {
             "u": 7,
             "z": true
@@ -169,6 +191,7 @@
          "resources": null,
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Some Analyzer",
                "registry": {
                   "name": "Open Researcher and Contributor ID",

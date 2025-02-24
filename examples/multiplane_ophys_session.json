@@ -5,6 +5,7 @@
    "protocol_id": [],
    "experimenters": [
       {
+         "object_type": "Person",
          "name": "John Smith",
          "registry": {
             "name": "Open Researcher and Contributor ID",

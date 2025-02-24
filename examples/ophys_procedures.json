@@ -10,6 +10,7 @@
          "start_date": "2022-07-12",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -154,6 +155,7 @@
          "start_date": "2023-05-31",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -196,6 +198,7 @@
          "end_date": "2023-06-12",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -252,6 +255,7 @@
          "end_date": "2023-06-13",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",

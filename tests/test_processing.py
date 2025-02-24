@@ -50,7 +50,7 @@ class ProcessingTest(unittest.TestCase):
             "output_location\n"
             "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "code_url\n"
+            "software\n"
             "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
             "notes\n"

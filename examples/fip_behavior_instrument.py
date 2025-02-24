@@ -18,7 +18,6 @@ from aind_data_schema.components.devices import (
     DAQChannel,
     RewardDelivery,
     RewardSpout,
-    Software,
     SpoutSide,
     Device,
     LickSensorType,
@@ -31,6 +30,7 @@ from aind_data_schema.components.devices import (
     Tube,
 )
 from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.components.identifiers import Software
 
 camera1 = CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -50,7 +50,7 @@ camera1 = CameraAssembly(
         chroma="Color",
         cooling="Air",
         bin_mode="Additive",
-        recording_software=Software(name="Bonsai", version="2.5"),
+        recording_software=Software(name="Bonsai", version="2.5", url="https://github.com/bonsai-rx/bonsai"),
     ),
     lens=Lens(
         name="Xenocam 1",
@@ -79,7 +79,7 @@ camera2 = CameraAssembly(
         chroma="Color",
         cooling="Air",
         bin_mode="Additive",
-        recording_software=Software(name="Bonsai", version="2.5"),
+        recording_software=Software(name="Bonsai", version="2.5", url="https://github.com/bonsai-rx/bonsai"),
     ),
     lens=Lens(
         name="Xenocam 2",

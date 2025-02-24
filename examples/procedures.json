@@ -10,6 +10,7 @@
          "start_date": "2022-07-12",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
@@ -103,6 +104,7 @@
          "start_date": "2022-09-23",
          "experimenters": [
             {
+               "object_type": "Person",
                "name": "Scientist Smith",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
