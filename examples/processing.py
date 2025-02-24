@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.processing import (
     AnalysisProcess,
     DataProcess,
