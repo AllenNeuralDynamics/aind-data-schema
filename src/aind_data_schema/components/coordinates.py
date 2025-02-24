@@ -61,7 +61,6 @@ class Scale3dTransform(DataModel):
     Represents voxel spacing if used as the first applied coordinate transform.
     """
 
-    data_type: Literal["scale"] = "scale"
     scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
@@ -69,7 +68,6 @@ class Scale3dTransform(DataModel):
 class Translation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
-    data_type: Literal["translation"] = "translation"
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
@@ -77,7 +75,6 @@ class Translation3dTransform(DataModel):
 class Rotation3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
-    data_type: Literal["rotation"] = "rotation"
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
@@ -85,7 +82,6 @@ class Rotation3dTransform(DataModel):
 class Affine3dTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
-    data_type: Literal["affine"] = "affine"
     affine_transform: List[Decimal] = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
     )
@@ -112,7 +108,6 @@ class CoordinateSpace(DataModel):
     """3D space definition
     """
 
-    data_type: Literal["space"] = "space"
     name: str = Field(..., title="Space name")
     dimensions: Vector3 = Field(..., title="Dimensions")
     resolution: Vector3 = Field(..., title="Resolution")
@@ -131,7 +126,6 @@ class AtlasSpace(CoordinateSpace):
     The default orientation follows the right hand rule for AP/SI/LR
     """
 
-    data_type: Literal["atlas_space"] = "atlas_space"
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
 
@@ -139,7 +133,6 @@ class AtlasSpace(CoordinateSpace):
 class AtlasTransformed(AtlasSpace):
     """Transformation from one atlas to another"""
 
-    data_type: Literal["atlas_transformed"] = "atlas_transformed"
     transforms: List[
         Annotated[
             Union[Translation3dTransform, Rotation3dTransform, Scale3dTransform, str], Field(discriminator="type")
@@ -174,7 +167,7 @@ class AtlasCoordinate(DataModel):
     Angles can be optionally provided
     """
 
-    atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="data_type")]
+    atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="object_type")]
     coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
     reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
                                           title="Reference coordinate")
