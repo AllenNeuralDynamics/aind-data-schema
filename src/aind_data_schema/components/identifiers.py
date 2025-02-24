@@ -21,6 +21,12 @@ class Software(DataModel):
     url: str = Field(..., title="Software URL", description="Path to code repository")
     name: Optional[str] = Field(default=None, title="Software name", description="Name of the software used")
     version: Optional[str] = Field(default=None, title="Software version", description="Version of the software used")
+
+    language: Optional[str] = Field(default=None, title="Software language", description="Programming language used")
+    language_version: Optional[str] = Field(
+        default=None, title="Software language version", description="Version of the programming language used"
+    )
+
     parameters: Optional[GenericModelType] = Field(
         default=None, title="Parameters", description="Parameters used in the software"
     )
