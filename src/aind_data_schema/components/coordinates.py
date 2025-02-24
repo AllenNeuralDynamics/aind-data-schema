@@ -121,8 +121,8 @@ class CoordinateSpace(DataModel):
 
     @model_validator("reference_coordinate", mode="before")
     def validate_reference_coordinate(cls, v):
-        if v == ReferenceCoordinate.ORIGIN and cls.__name__ == "CoordinateSpace":
-            raise ValueError("CoordinateSpaces cannot have an origin reference coordinate")
+        if v['reference_coordinate'] == ReferenceCoordinate.ORIGIN and cls.__name__ == "CoordinateSpace":
+            raise ValueError("CoordinateSpace objects cannot have an origin reference coordinate, you should use an anatomical landmark")
         return v
 
 
@@ -179,9 +179,6 @@ class AtlasCoordinate(DataModel):
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="object_type")]
     coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
-    reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
-                                          title="Reference coordinate")
-
     angles: Optional[Angles] = Field(default=None, title="Orientation in atlas space")
 
 
