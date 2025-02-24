@@ -5,7 +5,6 @@ from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from aind_data_schema.core.quality_control import Stage
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator
 
 from aind_data_schema.base import (
@@ -16,7 +15,13 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.tile import Tile
+
+
+class ProcessStage(str, Enum):
+    """Stages of processing"""
+
+    PROCESSING = "Processing"
+    ANALYSIS = "Analysis"
 
 
 class RegistrationType(str, Enum):
@@ -56,11 +61,12 @@ class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    stage: Stage = Field(..., title="Processing stage")
+    stage: ProcessStage = Field(..., title="Processing stage")
     experimenters: List[Person] = Field(
         ..., title="experimenters", description="People responsible for processing"
     )
     code: Code = Field(..., title="Code used for processing")
+    pipeline_steps: Optional[List[str]] = Field(default=None, title="Pipeline steps", description="For pipeline processes, these should be the names of the DataProcess objects that are part of the pipeline.")
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
