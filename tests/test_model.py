@@ -8,7 +8,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.core.model import Model, ModelArchitecture, ModelEvaluation, ModelTraining, PerformanceMetric
 
 
@@ -40,7 +40,6 @@ class ModelTests(unittest.TestCase):
                 software=[
                     Software(
                         name="tensorflow",
-                        url="https://www.tensorflow.org/",
                         version="2.11.0",
                     )
                 ],
@@ -51,7 +50,7 @@ class ModelTests(unittest.TestCase):
                 ModelTraining(
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path to trained model asset",
-                    software=Software(url="url for training code repo"),
+                    code=Code(url="url for training code repo"),
                     start_date_time=now,
                     end_date_time=now,
                     train_performance=[
@@ -75,7 +74,7 @@ class ModelTests(unittest.TestCase):
                 ModelEvaluation(
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path (output asset or trained model asset if no output)",
-                    software=Software(url="url for training code repo"),
+                    code=Code(url="url for training code repo"),
                     start_date_time=now,
                     end_date_time=now,
                     performance=[PerformanceMetric(name="precision", value=0.8)],

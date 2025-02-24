@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.core.processing import (
     AnalysisProcess,
     DataProcess,
@@ -40,6 +40,11 @@ file_io_usage_list = [
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=6.0),
 ]
 
+example_code = Code(
+    url="https://github.com/abcd",
+    version="0.1",
+)
+
 p = Processing(
     processing_pipeline=PipelineProcess(
         experimenters=[Person(name="Dr. Dan")],
@@ -52,7 +57,7 @@ p = Processing(
                 end_date_time=t,
                 input_location="/path/to/inputs",
                 output_location="/path/to/outputs",
-                software=Software(url="https://github.com/abcd", version="0.1"),
+                code=example_code,
                 parameters={"size": 7},
                 resources=ResourceUsage(
                     os=OperatingSystem.UBUNTU_20_04,
@@ -75,7 +80,7 @@ p = Processing(
                 end_date_time=t,
                 input_location="/path/to/inputs",
                 output_location="/path/to/outputs",
-                software=Software(url="https://github.com/abcd", version="0.1"),
+                code=example_code,
                 parameters={"u": 7, "z": True},
             ),
             DataProcess(
@@ -84,7 +89,7 @@ p = Processing(
                 end_date_time=t,
                 input_location="/path/to/input",
                 output_location="/path/to/output",
-                software=Software(url="https://github.com/abcd", version="0.1"),
+                code=example_code,
                 parameters={"a": 2, "b": -2},
             ),
         ],
@@ -98,7 +103,7 @@ p = Processing(
             end_date_time=t,
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
-            software=Software(url="https://github.com/abcd", version="0.1"),
+            code=example_code,
             parameters={"size": 7},
         ),
         AnalysisProcess(
@@ -109,7 +114,7 @@ p = Processing(
             end_date_time=t,
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
-            software=Software(url="https://github.com/abcd", version="0.1"),
+            code=example_code,
             parameters={"u": 7, "z": True},
         ),
     ],

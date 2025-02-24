@@ -8,11 +8,13 @@
          {
             "object_type": "Data process",
             "name": "Image tile fusing",
-            "software": {
-               "object_type": "Software",
+            "code": {
+               "object_type": "Code",
                "url": "https://github.com/abcd",
-               "name": null,
                "version": "0.1",
+               "software": null,
+               "language": null,
+               "language_version": null,
                "parameters": null
             },
             "start_date_time": "2022-11-22T08:43:00Z",
@@ -77,11 +79,13 @@
          {
             "object_type": "Data process",
             "name": "File format conversion",
-            "software": {
-               "object_type": "Software",
+            "code": {
+               "object_type": "Code",
                "url": "https://github.com/abcd",
-               "name": null,
                "version": "0.1",
+               "software": null,
+               "language": null,
+               "language_version": null,
                "parameters": null
             },
             "start_date_time": "2022-11-22T08:43:00Z",
@@ -99,11 +103,13 @@
          {
             "object_type": "Data process",
             "name": "Image destriping",
-            "software": {
-               "object_type": "Software",
+            "code": {
+               "object_type": "Code",
                "url": "https://github.com/abcd",
-               "name": null,
                "version": "0.1",
+               "software": null,
+               "language": null,
+               "language_version": null,
                "parameters": null
             },
             "start_date_time": "2022-11-22T08:43:00Z",
@@ -138,11 +144,13 @@
       {
          "object_type": "Analysis process",
          "name": "Analysis",
-         "software": {
-            "object_type": "Software",
+         "code": {
+            "object_type": "Code",
             "url": "https://github.com/abcd",
-            "name": null,
             "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
             "parameters": null
          },
          "start_date_time": "2022-11-22T08:43:00Z",
@@ -171,11 +179,13 @@
       {
          "object_type": "Analysis process",
          "name": "Analysis",
-         "software": {
-            "object_type": "Software",
+         "code": {
+            "object_type": "Code",
             "url": "https://github.com/abcd",
-            "name": null,
             "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
             "parameters": null
          },
          "start_date_time": "2022-11-22T08:43:00Z",

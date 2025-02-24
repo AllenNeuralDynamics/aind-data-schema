@@ -88,10 +88,8 @@
             "crop_unit": "pixel",
             "recording_software": {
                "object_type": "Software",
-               "url": "https://github.com/bonsai-rx/bonsai",
                "name": "Bonsai",
-               "version": "2.5",
-               "parameters": null
+               "version": "2.5"
             },
             "driver": null,
             "driver_version": null
@@ -167,10 +165,8 @@
             "crop_unit": "pixel",
             "recording_software": {
                "object_type": "Software",
-               "url": "https://github.com/bonsai-rx/bonsai",
                "name": "Bonsai",
-               "version": "2.5",
-               "parameters": null
+               "version": "2.5"
             },
             "driver": null,
             "driver_version": null

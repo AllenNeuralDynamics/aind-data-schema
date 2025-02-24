@@ -38,7 +38,7 @@ class ProcessingTest(unittest.TestCase):
 
         expected_exception = (
             "6 validation errors for DataProcess\n"
-            "software\n"
+            "code\n"
             "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
             "start_date_time\n"

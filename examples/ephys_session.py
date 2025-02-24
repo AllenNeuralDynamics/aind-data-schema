@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.core.session import (
     CcfCoords,
     Coordinates3d,
@@ -17,6 +17,8 @@ from aind_data_schema.core.session import (
     VisualStimulation,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
+
+bonsai_software = Software(name="Bonsai", version="2.7")
 
 session = Session(
     experimenters=[Person(name="John Smith")],
@@ -34,13 +36,10 @@ session = Session(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
-            software=[
-                Software(
-                    name="Bonsai",
-                    version="2.7",
-                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                )
-            ],
+            code=Code(
+                url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+                software=bonsai_software,
+            ),
             stimulus_parameters=[
                 VisualStimulation(
                     stimulus_name="Static Gratings",
@@ -58,13 +57,10 @@ session = Session(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            software=[
-                Software(
-                    name="Bonsai",
-                    version="2.7",
-                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                )
-            ],
+            code=Code(
+                url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+                software=bonsai_software,
+            ),
             stimulus_parameters=[
                 VisualStimulation(
                     stimulus_name="Flashes",

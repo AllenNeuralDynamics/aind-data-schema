@@ -31,7 +31,6 @@ from aind_data_schema.components.devices import (
     NeuropixelsBasestation,
     Patch,
     ProbePort,
-    Software,
 )
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import (
@@ -51,6 +50,7 @@ from aind_data_schema.core.session import (
 )
 from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.identifiers import Code, Software
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -251,6 +251,14 @@ ephys_inst = Instrument(
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
+grating_code = Code(
+    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
+    software=Software(
+        name="Bonsai",
+        version="2.7",
+    ),
+)
+
 ephys_session = Session(
     experimenters=[Person(name="Mam Moth")],
     subject_id="664484",
@@ -267,13 +275,7 @@ ephys_session = Session(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
-            software=[
-                Software(
-                    name="Bonsai",
-                    version="2.7",
-                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                )
-            ],
+            code=grating_code,
             stimulus_parameters=[
                 VisualStimulation(
                     stimulus_name="Static Gratings",
@@ -291,13 +293,7 @@ ephys_session = Session(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            software=[
-                Software(
-                    name="Bonsai",
-                    version="2.7",
-                    url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                )
-            ],
+            code=grating_code,
             stimulus_parameters=[
                 VisualStimulation(
                     stimulus_name="Flashes",
@@ -504,8 +500,8 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     chroma="Color",
                     cooling="Air",
                     bin_mode="Additive",
-                    recording_software=d.Software(
-                        name="Bonsai", url="https://github.com/bonsai-rx/bonsai", version="2.5"
+                    recording_software=Software(
+                        name="Bonsai", version="2.5"
                     ),
                 ),
                 lens=d.Lens(
@@ -534,8 +530,8 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     chroma="Color",
                     cooling="Air",
                     bin_mode="Additive",
-                    recording_software=d.Software(
-                        name="Bonsai", url="https://github.com/bonsai-rx/bonsai", version="2.5"
+                    recording_software=Software(
+                        name="Bonsai", version="2.5"
                     ),
                 ),
                 lens=d.Lens(

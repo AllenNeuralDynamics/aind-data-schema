@@ -117,7 +117,7 @@ class DataModel(BaseModel, Generic[GenericModelType]):
         This ensures that subclasses/parent classes can be deserialized correctly
         """
         cls_object_type = cls._object_type_from_name()
-        if "object_type" in values and values["object_type"] != cls_object_type:
+        if values and "object_type" in values and values["object_type"] != cls_object_type:
             values["object_type"] = cls_object_type
         return values
 

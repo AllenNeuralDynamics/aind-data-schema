@@ -14,7 +14,7 @@ from aind_data_schema.base import (
     DataModel,
     AwareDatetimeWithDefault,
 )
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.tile import Tile
 
 
@@ -55,7 +55,7 @@ class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    software: Software = Field(..., title="Software")
+    code: Code = Field(default=None, title="Code used for processing")
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future

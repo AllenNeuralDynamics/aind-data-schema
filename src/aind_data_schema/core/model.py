@@ -8,7 +8,7 @@ from aind_data_schema_models.system_architecture import ModelBackbone
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
 
@@ -16,7 +16,7 @@ class ModelArchitecture(DataModel):
     """Description of model architecture"""
 
     backbone: ModelBackbone = Field(..., title="Backbone", description="Core network architecture")
-    software: List[Software] = Field(default=[], title="Software frameworks")
+    software: List[Software] = Field(default=[], title="Software packages")
     layers: Optional[int] = Field(default=None, title="Layers")
     parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -60,6 +60,7 @@ class Model(DataCoreModel):
 
     name: str = Field(..., title="Name")
     license: str = Field(..., title="License")
+    code: Optional[Code] = Field(default=None, title="Model code")
     developers: Optional[List[Person]] = Field(default=None, title="Name of developer(s)")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")

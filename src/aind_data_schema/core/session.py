@@ -38,7 +38,7 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, SpoutSide
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
     OlfactoryStimulation,
@@ -404,7 +404,7 @@ class Stream(DataModel):
     stack_parameters: Optional[Stack] = Field(default=None, title="Stack parameters")
     mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
     stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    software: Optional[List[Software]] = Field(default=[], title="Data stream software information")
+    software: Optional[List[Software]] = Field(default=[], title="Software packages")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @staticmethod
@@ -505,15 +505,10 @@ class StimulusEpoch(DataModel):
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     session_number: Optional[int] = Field(default=None, title="Session number")
-    software: Optional[List[Software]] = Field(
-        default=[],
-        title="Software",
-        description="The software used to control the behavior/stimulus (e.g. Bonsai)",
-    )
-    script: Optional[Software] = Field(
+    code: Optional[Code] = Field(
         default=None,
-        title="Script",
-        description="provide URL to the commit of the script and the parameters used",
+        title="Code or script",
+        description="Custom code or script used to control the behavior/stimulus",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     stimulus_parameters: Optional[
