@@ -19,7 +19,9 @@ class Software(DataModel):
     """Software package identifier"""
 
     name: str = Field(..., title="Software name", description="Name of the software package")
-    version: Optional[str] = Field(default=None, title="Software version", description="Version of the software package")
+    version: Optional[str] = Field(
+        default=None, title="Software version", description="Version of the software package"
+    )
 
 
 class Code(DataModel):
@@ -28,14 +30,10 @@ class Code(DataModel):
     url: str = Field(..., title="Code URL", description="Path to code repository")
     version: Optional[str] = Field(default=None, title="Code version")
 
-    software: Optional[Software] = Field(
-        default=None, title="Software", description="Software package"
-    )
+    software: Optional[Software] = Field(default=None, title="Software", description="Software package")
 
     language: Optional[str] = Field(default=None, title="Programming language", description="Programming language used")
-    language_version: Optional[str] = Field(
-        default=None, title="Programming language version"
-    )
+    language_version: Optional[str] = Field(default=None, title="Programming language version")
 
     parameters: Optional[GenericModelType] = Field(
         default=None, title="Parameters", description="Parameters used in the code or script"

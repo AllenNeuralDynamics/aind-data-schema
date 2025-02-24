@@ -55,7 +55,7 @@ class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
-    code: Code = Field(default=None, title="Code used for processing")
+    code: Code = Field(..., title="Code used for processing")
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future

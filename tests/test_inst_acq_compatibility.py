@@ -500,9 +500,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     chroma="Color",
                     cooling="Air",
                     bin_mode="Additive",
-                    recording_software=Software(
-                        name="Bonsai", version="2.5"
-                    ),
+                    recording_software=Software(name="Bonsai", version="2.5"),
                 ),
                 lens=d.Lens(
                     name="Xenocam 1",
@@ -530,9 +528,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     chroma="Color",
                     cooling="Air",
                     bin_mode="Additive",
-                    recording_software=Software(
-                        name="Bonsai", version="2.5"
-                    ),
+                    recording_software=Software(name="Bonsai", version="2.5"),
                 ),
                 lens=d.Lens(
                     name="Xenocam 2",
