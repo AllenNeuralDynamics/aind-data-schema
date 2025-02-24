@@ -30,12 +30,12 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
+    AffineTransform,
     CcfCoords,
     Coordinates3d,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    Rotate,
+    Scale,
+    Translate,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
 from aind_data_schema.components.identifiers import Person
@@ -344,11 +344,11 @@ class MRIScan(DataModel):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Optional[Rotation3dTransform] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Translation3dTransform] = Field(default=None, title="Scan position")
+    vc_orientation: Optional[Rotate] = Field(default=None, title="Scan orientation")
+    vc_position: Optional[Translate] = Field(default=None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Optional[Scale3dTransform] = Field(default=None, title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
@@ -591,7 +591,7 @@ class Session(DataCoreModel):
     active_mouse_platform: bool = Field(
         ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
     )
-    headframe_registration: Optional[Affine3dTransform] = Field(
+    headframe_registration: Optional[AffineTransform] = Field(
         default=None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")

@@ -5,7 +5,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field
+from pydantic import Field, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
@@ -21,6 +21,7 @@ class AtlasName(str, Enum):
 class ReferenceCoordinate(str, Enum):
     """Reference coordinate position"""
 
+    ORIGIN = "Origin"  # only exists in Atlases
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
 
@@ -56,7 +57,7 @@ class RotationDirection(str, Enum):
     CCW = "Counter-clockwise"
 
 
-class Scale3dTransform(DataModel):
+class Scale(DataModel):
     """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
     Represents voxel spacing if used as the first applied coordinate transform.
     """
@@ -64,22 +65,19 @@ class Scale3dTransform(DataModel):
     scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
 
 
-# TODO: rename "Translation"
-class Translation3dTransform(DataModel):
+class Translate(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
     translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
 
 
-# TODO: rename "Rotatoin"
-class Rotation3dTransform(DataModel):
+class Rotate(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
 
     rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
 
 
-# TODO: rename "etc"
-class Affine3dTransform(DataModel):
+class AffineTransform(DataModel):
     """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
 
     affine_transform: List[Decimal] = Field(
@@ -105,21 +103,31 @@ class Vector3(DataModel):
 
 
 class CoordinateSpace(DataModel):
-    """3D space definition
+    """3D space relative to an animal's brain
     """
 
     name: str = Field(..., title="Space name")
-    dimensions: Vector3 = Field(..., title="Dimensions")
-    resolution: Vector3 = Field(..., title="Resolution")
-    reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
-                                          title="Reference coordinate")
-    orientation: List[AnatomicalDirection] = Field(
-        default=[AnatomicalDirection.AP, AnatomicalDirection.SI, AnatomicalDirection.LR], title="Atlas orientation"
+    reference_coordinate: ReferenceCoordinate = Field(
+        ...,
+        title="Reference coordinate",
+        description="Defines the position of (0,0,0) in the space"
     )
+    orientation: List[AnatomicalDirection] = Field(
+        default=[AnatomicalDirection.PA, AnatomicalDirection.LR, AnatomicalDirection.IS],
+        title="Axis orientation"
+    )
+    dimensions: Optional[Vector3] = Field(default=None, title="Dimensions")
+    resolution: Optional[Vector3] = Field(default=None, title="Resolution")
+
+    @model_validator("reference_coordinate", mode="before")
+    def validate_reference_coordinate(cls, v):
+        if v == ReferenceCoordinate.ORIGIN and cls.__name__ == "CoordinateSpace":
+            raise ValueError("CoordinateSpaces cannot have an origin reference coordinate")
+        return v
 
 
 class AtlasSpace(CoordinateSpace):
-    """Atlas definition
+    """3D space relative to an atlas
 
     The default Origin of an atlas is the anterior, left, superior corner
 
@@ -128,6 +136,8 @@ class AtlasSpace(CoordinateSpace):
 
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
+    dimensions: Vector3 = Field(..., title="Dimensions")
+    resolution: Vector3 = Field(..., title="Resolution")
 
 
 class AtlasTransformed(AtlasSpace):
@@ -135,7 +145,7 @@ class AtlasTransformed(AtlasSpace):
 
     transforms: List[
         Annotated[
-            Union[Translation3dTransform, Rotation3dTransform, Scale3dTransform, str], Field(discriminator="type")
+            Union[Translate, Rotate, Scale, str], Field(discriminator="object_type")
         ]
     ] = Field(
         ...,
@@ -171,23 +181,32 @@ class AtlasCoordinate(DataModel):
     coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
     reference_coordinate: Vector3 = Field(default_factory=lambda: Vector3(x=0, y=0, z=0, unit=SizeUnit.PX),
                                           title="Reference coordinate")
+
     angles: Optional[Angles] = Field(default=None, title="Orientation in atlas space")
 
 
 class InVivoCoordinate(DataModel):
-    """A coordinate in a brain relative to a reference coordinate on the skull"""
+    """A coordinate in a brain relative to a reference coordinate
 
+    Angles can be optionally provided
+    """
+
+    space: CoordinateSpace = Field(..., title="In vivo space definition")
     coordinates: Vector3 = Field(..., title="Coordinates in in vivo space")
-    reference_coordinate: ReferenceCoordinate = Field(..., title="Reference coordinate")
+
     angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
 
 
 class InVivoSurfaceCoordinate(DataModel):
     """A coordinate in a brain relative to a point on the brain surface, which is itself relative to a reference
-    coordinate on the skull"""
+    coordinate on the skull
 
+    Angles can be optionally provided
+    """
+
+    space: CoordinateSpace = Field(..., title="In vivo space definition")
     surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
     depth: Decimal = Field(..., title="Depth from surface")
-    projection_axis: AxisName = Field(AxisName.SI, title="Axis used to project AP/ML coordinate onto surface")
-    reference_coordinate: ReferenceCoordinate = Field(..., title="Reference coordinate")
+    projection_axis: AxisName = Field(default=AxisName.DEPTH, title="Surface projection axis", description="Axis used to project AP/ML coordinate onto surface")
+
     angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
