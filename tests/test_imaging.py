@@ -201,7 +201,7 @@ class ImagingTests(unittest.TestCase):
             end_date_time=datetime.now(tz=timezone.utc),
             input_location="/some/path",
             output_location="/some/path",
-            software=Code(url="https://github.com/abcd"),
+            code=Code(url="https://github.com/abcd"),
             parameters={},
             registration_type="Intra-channel",
             tiles=[
