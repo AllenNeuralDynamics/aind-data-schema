@@ -109,7 +109,11 @@ class Processing(DataCoreModel):
             # No data processes, this is probably a test asset
             return values
 
-        for process in values["data_processes"]:
+        data_processes = values["data_processes"]
+        # Coerce types if needed
+        data_processes = [DataProcess(**process) if not isinstance(process, DataProcess) else process for process in data_processes]
+
+        for process in data_processes:
             # For each process, make sure it's either a pipeline and has all its processes downstream
 
             if process.name == ProcessName.PIPELINE:
@@ -119,7 +123,7 @@ class Processing(DataCoreModel):
 
                 # Validate that all steps show up in the data_processes list
                 for step in process.pipeline_steps:
-                    if step not in [p.name for p in values["data_processes"]]:
+                    if step not in [p.name for p in data_processes]:
                         raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
             # Or make sure it doesn't have any pipeline steps
             elif hasattr(process, "pipeline_steps") and process.pipeline_steps:
