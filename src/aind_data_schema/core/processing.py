@@ -118,7 +118,7 @@ class Processing(DataCoreModel):
 
             if process.name == ProcessName.PIPELINE:
 
-                if not hasattr(process, "pipeline_steps"):
+                if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
                     raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
 
                 # Validate that all steps show up in the data_processes list

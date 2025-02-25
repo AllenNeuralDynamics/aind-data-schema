@@ -114,6 +114,112 @@ class ProcessingTest(unittest.TestCase):
 
         self.assertTrue(expected_exception in repr(e.exception))
 
+    def test_validate_pipeline_steps(self):
+        """Test the validate_pipeline_steps method"""
+
+        # Test with no data_processes
+        p = Processing(data_processes=[])
+        self.assertIsNotNone(p)
+
+        # Test with a valid pipeline process
+        p = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.PIPELINE,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                    pipeline_steps=[ProcessName.COMPRESSION],
+                ),
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.COMPRESSION,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/analysis",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
+        )
+        self.assertIsNotNone(p)
+
+        # Test with a pipeline process missing pipeline_steps
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    DataProcess(
+                        experimenters=[Person(name="Dr. Dan")],
+                        name=ProcessName.PIPELINE,
+                        stage=ProcessStage.PROCESSING,
+                        input_location="/path/to/inputs",
+                        output_location="/path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(
+                            url="https://url/for/pipeline",
+                            version="0.1.1",
+                        ),
+                    ),
+                ]
+            )
+        self.assertIn("Pipeline processes should have a pipeline_steps attribute.", str(e.exception))
+
+        # Test with a pipeline process having invalid pipeline_steps
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    DataProcess(
+                        experimenters=[Person(name="Dr. Dan")],
+                        name=ProcessName.PIPELINE,
+                        stage=ProcessStage.PROCESSING,
+                        input_location="/path/to/inputs",
+                        output_location="/path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(
+                            url="https://url/for/pipeline",
+                            version="0.1.1",
+                        ),
+                        pipeline_steps=[ProcessName.ANALYSIS],
+                    ),
+                ]
+            )
+        self.assertIn("Pipeline step 'Analysis' not found in data_processes.", str(e.exception))
+
+        # Test with a non-pipeline process having pipeline_steps
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    DataProcess(
+                        experimenters=[Person(name="Dr. Dan")],
+                        name=ProcessName.ANALYSIS,
+                        stage=ProcessStage.PROCESSING,
+                        input_location="/path/to/inputs",
+                        output_location="/path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(
+                            url="https://url/for/analysis",
+                            version="0.1.1",
+                        ),
+                        pipeline_steps=[ProcessName.ANALYSIS],
+                    ),
+                ]
+            )
+        self.assertIn("pipeline_steps should only be provided for ProcessName.PIPELINE processes.", str(e.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
