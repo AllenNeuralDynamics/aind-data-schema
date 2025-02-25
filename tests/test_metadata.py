@@ -44,8 +44,13 @@ from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
+from pathlib import Path
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
+
+EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
+EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
+EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -74,7 +79,7 @@ class TestMetadata(unittest.TestCase):
     def setUpClass(cls) -> None:
         """Set up the test class."""
         cls.spim_instrument = inst
-
+        
         subject = Subject(
             species=Species.MUS_MUSCULUS,
             subject_id="12345",
@@ -421,9 +426,9 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "session": None,
-            "instrument": None,
+            "instrument": json.loads(ephys_inst.model_dump_json()),
             "processing": self.processing_json,
-            "acquisition": None,
+            "acquisition": Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
             "quality_control": None,
         }
         expected_md = Metadata(
@@ -444,11 +449,11 @@ class TestMetadata(unittest.TestCase):
         # check that metadata was created with expected values
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         self.assertEqual(self.subject_json, result["subject"])
         self.assertEqual(self.procedures_json, result["procedures"])
         self.assertEqual(self.processing_json, result["processing"])
         self.assertIsNone(result["acquisition"])
+        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         # also check the other fields
         # small hack to mock the _id, created, and last_modified fields
         expected_result["_id"] = result["_id"]
