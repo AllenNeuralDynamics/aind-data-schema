@@ -55,6 +55,8 @@ p = Processing(
                 ProcessName.IMAGE_DESTRIPING,
             ],
             stage=ProcessStage.PROCESSING,
+            input_location="/path/to/inputs",
+            output_location="/path/to/outputs",
             start_date_time=t,
             end_date_time=t,
             code=Code(
@@ -64,6 +66,7 @@ p = Processing(
         ),
         DataProcess(
             name=ProcessName.IMAGE_TILE_FUSING,
+            experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
@@ -88,6 +91,7 @@ p = Processing(
         ),
         DataProcess(
             name=ProcessName.FILE_FORMAT_CONVERSION,
+            experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
@@ -98,6 +102,7 @@ p = Processing(
         ),
         DataProcess(
             name=ProcessName.IMAGE_DESTRIPING,
+            experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
@@ -109,7 +114,6 @@ p = Processing(
         DataProcess(
             stage=ProcessStage.ANALYSIS,
             experimenters=[Person(name="Some Analyzer")],
-            description="some description",
             name=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
@@ -121,7 +125,6 @@ p = Processing(
         DataProcess(
             stage=ProcessStage.ANALYSIS,
             experimenters=[Person(name="Some Analyzer")],
-            description="some description",
             name=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,

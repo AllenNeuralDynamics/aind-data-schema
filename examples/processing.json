@@ -2,148 +2,60 @@
    "object_type": "Processing",
    "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
    "schema_version": "2.0.3",
-   "processing_pipeline": {
-      "object_type": "Pipeline process",
-      "data_processes": [
-         {
-            "object_type": "Data process",
-            "name": "Image tile fusing",
-            "code": {
-               "object_type": "Code",
-               "url": "https://github.com/abcd",
-               "version": "0.1",
-               "software": null,
-               "language": null,
-               "language_version": null,
-               "parameters": null
-            },
-            "start_date_time": "2022-11-22T08:43:00Z",
-            "end_date_time": "2022-11-22T08:43:00Z",
-            "input_location": "/path/to/inputs",
-            "output_location": "/path/to/outputs",
-            "parameters": {
-               "size": 7
-            },
-            "outputs": {},
-            "notes": null,
-            "resources": {
-               "object_type": "Resource usage",
-               "os": "Ubuntu 20.04",
-               "architecture": "x86-64",
-               "cpu": "Intel Core i7",
-               "cpu_cores": 8,
-               "gpu": "NVIDIA GeForce RTX 3080",
-               "system_memory": 32.0,
-               "system_memory_unit": "Gigabyte",
-               "ram": 16.0,
-               "ram_unit": "Gigabyte",
-               "cpu_usage": [
-                  {
-                     "object_type": "Resource timestamped",
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 75.5
-                  },
-                  {
-                     "object_type": "Resource timestamped",
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 80.0
-                  }
-               ],
-               "gpu_usage": [
-                  {
-                     "object_type": "Resource timestamped",
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 60.0
-                  },
-                  {
-                     "object_type": "Resource timestamped",
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 65.5
-                  }
-               ],
-               "ram_usage": [
-                  {
-                     "object_type": "Resource timestamped",
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 70.0
-                  },
-                  {
-                     "object_type": "Resource timestamped",
-                     "timestamp": "2024-09-13T00:00:00Z",
-                     "usage": 72.5
-                  }
-               ],
-               "usage_unit": "percent"
-            }
-         },
-         {
-            "object_type": "Data process",
-            "name": "File format conversion",
-            "code": {
-               "object_type": "Code",
-               "url": "https://github.com/abcd",
-               "version": "0.1",
-               "software": null,
-               "language": null,
-               "language_version": null,
-               "parameters": null
-            },
-            "start_date_time": "2022-11-22T08:43:00Z",
-            "end_date_time": "2022-11-22T08:43:00Z",
-            "input_location": "/path/to/inputs",
-            "output_location": "/path/to/outputs",
-            "parameters": {
-               "u": 7,
-               "z": true
-            },
-            "outputs": {},
-            "notes": null,
-            "resources": null
-         },
-         {
-            "object_type": "Data process",
-            "name": "Image destriping",
-            "code": {
-               "object_type": "Code",
-               "url": "https://github.com/abcd",
-               "version": "0.1",
-               "software": null,
-               "language": null,
-               "language_version": null,
-               "parameters": null
-            },
-            "start_date_time": "2022-11-22T08:43:00Z",
-            "end_date_time": "2022-11-22T08:43:00Z",
-            "input_location": "/path/to/input",
-            "output_location": "/path/to/output",
-            "parameters": {
-               "a": 2,
-               "b": -2
-            },
-            "outputs": {},
-            "notes": null,
-            "resources": null
-         }
-      ],
-      "experimenters": [
-         {
-            "object_type": "Person",
-            "name": "Dr. Dan",
-            "registry": {
-               "name": "Open Researcher and Contributor ID",
-               "abbreviation": "ORCID"
-            },
-            "registry_identifier": null
-         }
-      ],
-      "pipeline_version": "0.1.1",
-      "pipeline_url": "https://url/for/pipeline",
-      "note": null
-   },
-   "analyses": [
+   "data_processes": [
       {
-         "object_type": "Analysis process",
-         "name": "Analysis",
+         "object_type": "Data process",
+         "name": "Pipeline",
+         "stage": "Processing",
+         "experimenters": [
+            {
+               "object_type": "Person",
+               "name": "Dr. Dan",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
+         "code": {
+            "object_type": "Code",
+            "url": "https://url/for/pipeline",
+            "version": "0.1.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
+         "pipeline_steps": [
+            "Image tile fusing",
+            "File format conversion",
+            "Image destriping"
+         ],
+         "start_date_time": "2022-11-22T08:43:00Z",
+         "end_date_time": "2022-11-22T08:43:00Z",
+         "input_location": "/path/to/inputs",
+         "output_location": "/path/to/outputs",
+         "parameters": {},
+         "outputs": {},
+         "notes": null,
+         "resources": null
+      },
+      {
+         "object_type": "Data process",
+         "name": "Image tile fusing",
+         "stage": "Processing",
+         "experimenters": [
+            {
+               "object_type": "Person",
+               "name": "Dr. Dan",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
          "code": {
             "object_type": "Code",
             "url": "https://github.com/abcd",
@@ -153,6 +65,7 @@
             "language_version": null,
             "parameters": null
          },
+         "pipeline_steps": null,
          "start_date_time": "2022-11-22T08:43:00Z",
          "end_date_time": "2022-11-22T08:43:00Z",
          "input_location": "/path/to/inputs",
@@ -162,11 +75,64 @@
          },
          "outputs": {},
          "notes": null,
-         "resources": null,
+         "resources": {
+            "object_type": "Resource usage",
+            "os": "Ubuntu 20.04",
+            "architecture": "x86-64",
+            "cpu": "Intel Core i7",
+            "cpu_cores": 8,
+            "gpu": "NVIDIA GeForce RTX 3080",
+            "system_memory": 32.0,
+            "system_memory_unit": "Gigabyte",
+            "ram": 16.0,
+            "ram_unit": "Gigabyte",
+            "cpu_usage": [
+               {
+                  "object_type": "Resource timestamped",
+                  "timestamp": "2024-09-13T00:00:00Z",
+                  "usage": 75.5
+               },
+               {
+                  "object_type": "Resource timestamped",
+                  "timestamp": "2024-09-13T00:00:00Z",
+                  "usage": 80.0
+               }
+            ],
+            "gpu_usage": [
+               {
+                  "object_type": "Resource timestamped",
+                  "timestamp": "2024-09-13T00:00:00Z",
+                  "usage": 60.0
+               },
+               {
+                  "object_type": "Resource timestamped",
+                  "timestamp": "2024-09-13T00:00:00Z",
+                  "usage": 65.5
+               }
+            ],
+            "ram_usage": [
+               {
+                  "object_type": "Resource timestamped",
+                  "timestamp": "2024-09-13T00:00:00Z",
+                  "usage": 70.0
+               },
+               {
+                  "object_type": "Resource timestamped",
+                  "timestamp": "2024-09-13T00:00:00Z",
+                  "usage": 72.5
+               }
+            ],
+            "usage_unit": "percent"
+         }
+      },
+      {
+         "object_type": "Data process",
+         "name": "File format conversion",
+         "stage": "Processing",
          "experimenters": [
             {
                "object_type": "Person",
-               "name": "Some Analyzer",
+               "name": "Dr. Dan",
                "registry": {
                   "name": "Open Researcher and Contributor ID",
                   "abbreviation": "ORCID"
@@ -174,11 +140,6 @@
                "registry_identifier": null
             }
          ],
-         "description": "some description"
-      },
-      {
-         "object_type": "Analysis process",
-         "name": "Analysis",
          "code": {
             "object_type": "Code",
             "url": "https://github.com/abcd",
@@ -188,6 +149,7 @@
             "language_version": null,
             "parameters": null
          },
+         "pipeline_steps": null,
          "start_date_time": "2022-11-22T08:43:00Z",
          "end_date_time": "2022-11-22T08:43:00Z",
          "input_location": "/path/to/inputs",
@@ -198,7 +160,49 @@
          },
          "outputs": {},
          "notes": null,
-         "resources": null,
+         "resources": null
+      },
+      {
+         "object_type": "Data process",
+         "name": "Image destriping",
+         "stage": "Processing",
+         "experimenters": [
+            {
+               "object_type": "Person",
+               "name": "Dr. Dan",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/abcd",
+            "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
+         "pipeline_steps": null,
+         "start_date_time": "2022-11-22T08:43:00Z",
+         "end_date_time": "2022-11-22T08:43:00Z",
+         "input_location": "/path/to/input",
+         "output_location": "/path/to/output",
+         "parameters": {
+            "a": 2,
+            "b": -2
+         },
+         "outputs": {},
+         "notes": null,
+         "resources": null
+      },
+      {
+         "object_type": "Data process",
+         "name": "Analysis",
+         "stage": "Analysis",
          "experimenters": [
             {
                "object_type": "Person",
@@ -210,7 +214,63 @@
                "registry_identifier": null
             }
          ],
-         "description": "some description"
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/abcd",
+            "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
+         "pipeline_steps": null,
+         "start_date_time": "2022-11-22T08:43:00Z",
+         "end_date_time": "2022-11-22T08:43:00Z",
+         "input_location": "/path/to/inputs",
+         "output_location": "/path/to/outputs",
+         "parameters": {
+            "size": 7
+         },
+         "outputs": {},
+         "notes": null,
+         "resources": null
+      },
+      {
+         "object_type": "Data process",
+         "name": "Analysis",
+         "stage": "Analysis",
+         "experimenters": [
+            {
+               "object_type": "Person",
+               "name": "Some Analyzer",
+               "registry": {
+                  "name": "Open Researcher and Contributor ID",
+                  "abbreviation": "ORCID"
+               },
+               "registry_identifier": null
+            }
+         ],
+         "code": {
+            "object_type": "Code",
+            "url": "https://github.com/abcd",
+            "version": "0.1",
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": null
+         },
+         "pipeline_steps": null,
+         "start_date_time": "2022-11-22T08:43:00Z",
+         "end_date_time": "2022-11-22T08:43:00Z",
+         "input_location": "/path/to/inputs",
+         "output_location": "/path/to/outputs",
+         "parameters": {
+            "u": 7,
+            "z": true
+         },
+         "outputs": {},
+         "notes": null,
+         "resources": null
       }
    ],
    "notes": null
