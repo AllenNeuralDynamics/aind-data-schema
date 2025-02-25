@@ -91,10 +91,11 @@ class Translation(DataModel):
 class Rotation(DataModel):
     """Set of rotations in 3D space
 
-    By default, angles are defined by three rotations:
-        1. The AP angle, rotating clockwise around ML
-        2. The ML angle, rotating clockwise around AP
-        3. The rotation angle, rotating clockwise around the object's depth axis
+    Defaults to MIS insertion conventions)
+
+    1. The AP angle, rotating clockwise around ML
+    2. The ML angle, rotating clockwise around AP
+    3. The rotation angle, rotating counter-clockwise around the object's depth axis
     """
 
     angles: Vector3 = Field(..., title="Angles in 3D space")
