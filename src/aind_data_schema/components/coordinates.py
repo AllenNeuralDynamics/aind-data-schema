@@ -174,7 +174,7 @@ class AtlasCoordinate(DataModel):
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="object_type")]
     coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
-    angles: Optional[Angles] = Field(default=None, title="Orientation in atlas space")
+    angles: Optional[Rotation] = Field(default=None, title="Orientation in atlas space")
 
 
 class InVivoCoordinate(DataModel):
@@ -186,7 +186,7 @@ class InVivoCoordinate(DataModel):
     space: CoordinateSpace = Field(..., title="In vivo space definition")
     coordinates: Vector3 = Field(..., title="Coordinates in in vivo space")
 
-    angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
+    angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
 
 
 class InVivoSurfaceCoordinate(DataModel):
@@ -201,4 +201,4 @@ class InVivoSurfaceCoordinate(DataModel):
     depth: Decimal = Field(..., title="Depth from surface")
     projection_axis: AxisName = Field(default=AxisName.DEPTH, title="Surface projection axis", description="Axis used to project AP/ML coordinate onto surface")
 
-    angles: Optional[Angles] = Field(default=None, title="Orientation in in vivo space")
+    angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
