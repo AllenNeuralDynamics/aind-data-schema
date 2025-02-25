@@ -57,34 +57,6 @@ class RotationDirection(str, Enum):
     CCW = "Counter-clockwise"
 
 
-class Scale(DataModel):
-    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
-    Represents voxel spacing if used as the first applied coordinate transform.
-    """
-
-    scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
-
-
-class Translate(DataModel):
-    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
-
-    translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
-
-
-class Rotate(DataModel):
-    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
-
-    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
-
-
-class AffineTransform(DataModel):
-    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
-
-    affine_transform: List[Decimal] = Field(
-        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
-    )
-
-
 class Vector2(DataModel):
     """XY vector"""
 
@@ -100,6 +72,45 @@ class Vector3(DataModel):
     y: Decimal = Field(..., title="Y")
     z: Decimal = Field(..., title="Z")
     unit: SizeUnit = Field(..., title="Vector unit")
+
+
+class Scaling(DataModel):
+    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
+    Represents voxel spacing if used as the first applied coordinate transform.
+    """
+
+    scale: Vector3 = Field(..., title="Scale parameters", min_length=3, max_length=3)
+
+
+class Translation(DataModel):
+    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
+
+    translation: Vector3 = Field(..., title="Translatino parameters", min_length=3, max_length=3)
+
+
+class Rotation(DataModel):
+    """Set of rotations in 3D space
+
+    By default, angles are defined by three rotations:
+        1. The AP angle, rotating clockwise around ML
+        2. The ML angle, rotating clockwise around AP
+        3. The rotation angle, rotating clockwise around the object's depth axis
+    """
+
+    angles: Vector3 = Field(..., title="Angles in 3D space")
+    rotation_axes: List[AxisName] = Field(default=[AxisName.ML, AxisName.AP, AxisName.DEPTH], title="Rotation axes")
+    rotation_direction: List[RotationDirection] = Field(
+        default=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW], title="Rotation directions"
+    )
+    angles_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
+
+
+class AffineTransform(DataModel):
+    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
+
+    affine_transform: List[Decimal] = Field(
+        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
+    )
 
 
 class CoordinateSpace(DataModel):
@@ -145,30 +156,13 @@ class AtlasTransformed(AtlasSpace):
 
     transforms: List[
         Annotated[
-            Union[Translate, Rotate, Scale, str], Field(discriminator="object_type")
+            Union[Translation, Rotation, Scaling, str], Field(discriminator="object_type")
         ]
     ] = Field(
         ...,
         title="Transformations from in vivo to atlas space",
         description="Non-linear transformations should be stored in a relative file path",
     )
-
-
-class Angles(DataModel):
-    """Set of rotations in 3D space
-
-    By default, angles are defined by three rotations:
-        1. The AP angle, rotating clockwise around ML
-        2. The ML angle, rotating clockwise around AP
-        3. The rotation angle, rotating clockwise around the object's depth axis
-    """
-
-    angles: Vector3 = Field(..., title="Angles in 3D space")
-    rotation_axes: List[AxisName] = Field(default=[AxisName.ML, AxisName.AP, AxisName.DEPTH], title="Rotation axes")
-    rotation_direction: List[RotationDirection] = Field(
-        default=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW], title="Rotation directions"
-    )
-    angles_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class AtlasCoordinate(DataModel):

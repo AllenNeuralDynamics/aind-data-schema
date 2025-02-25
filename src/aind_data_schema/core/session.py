@@ -33,9 +33,9 @@ from aind_data_schema.components.coordinates import (
     AffineTransform,
     CcfCoords,
     Coordinates3d,
-    Rotate,
-    Scale,
-    Translate,
+    Rotation,
+    Scaling,
+    Translation,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
 from aind_data_schema.components.identifiers import Person
@@ -344,11 +344,11 @@ class MRIScan(DataModel):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Optional[Rotate] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Translate] = Field(default=None, title="Scan position")
+    vc_orientation: Optional[Rotation] = Field(default=None, title="Scan orientation")
+    vc_position: Optional[Translation] = Field(default=None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scaling] = Field(default=None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
