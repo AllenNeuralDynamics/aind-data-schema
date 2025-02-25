@@ -130,3 +130,12 @@ class Processing(DataCoreModel):
                 raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
 
         return values
+
+    @field_validator("data_processes", mode="after")
+    def validate_data_processes(cls, value: List[DataProcess]) -> List[DataProcess]:
+        """Validator for data_processes"""
+
+        if any([isinstance(process, list) for process in value]):
+            raise ValueError("data_processes should not be a list of lists.")
+
+        return value

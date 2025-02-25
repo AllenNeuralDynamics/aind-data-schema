@@ -220,6 +220,52 @@ class ProcessingTest(unittest.TestCase):
             )
         self.assertIn("pipeline_steps should only be provided for ProcessName.PIPELINE processes.", str(e.exception))
 
+    def test_validate_data_processes(self):
+        """Test the validate_data_processes method"""
+
+        # Test with valid data_processes
+        p = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.ANALYSIS,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/analysis",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
+        )
+        self.assertIsNotNone(p)
+
+        # Test with data_processes as a list of lists
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    [
+                        DataProcess(
+                            experimenters=[Person(name="Dr. Dan")],
+                            name=ProcessName.ANALYSIS,
+                            stage=ProcessStage.PROCESSING,
+                            input_location="/path/to/inputs",
+                            output_location="/path/to/outputs",
+                            start_date_time=t,
+                            end_date_time=t,
+                            code=Code(
+                                url="https://url/for/analysis",
+                                version="0.1.1",
+                            ),
+                        ),
+                    ]
+                ]
+            )
+        self.assertIn("data_processes should not be a list of lists.", str(e.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
