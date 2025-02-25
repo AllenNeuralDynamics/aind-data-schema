@@ -62,7 +62,7 @@ p = Processing(
             code=Code(
                 url="https://url/for/pipeline",
                 version="0.1.1",
-            )
+            ),
         ),
         DataProcess(
             name=ProcessName.IMAGE_TILE_FUSING,

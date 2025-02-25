@@ -62,11 +62,13 @@ class DataProcess(DataModel):
 
     name: ProcessName = Field(..., title="Name")
     stage: ProcessStage = Field(..., title="Processing stage")
-    experimenters: List[Person] = Field(
-        ..., title="experimenters", description="People responsible for processing"
-    )
+    experimenters: List[Person] = Field(..., title="experimenters", description="People responsible for processing")
     code: Code = Field(..., title="Code used for processing")
-    pipeline_steps: Optional[List[str]] = Field(default=None, title="Pipeline steps", description="For pipeline processes, these should be the names of the DataProcess objects that are part of the pipeline.")
+    pipeline_steps: Optional[List[str]] = Field(
+        default=None,
+        title="Pipeline steps",
+        description="For pipeline processes, these should be the names of the DataProcess objects that are part of the pipeline.",
+    )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
