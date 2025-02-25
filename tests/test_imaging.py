@@ -11,10 +11,10 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    AffineTransform,
+    Rotation,
+    Scaling,
+    Translation,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core import acquisition as acq
@@ -57,8 +57,8 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.AcquisitionTile(
                     coordinate_transformations=[
-                        Scale3dTransform(scale=[1, 1, 1]),
-                        Translation3dTransform(translation=[1, 1, 1]),
+                        Scaling(scale=[1, 1, 1]),
+                        Translation(translation=[1, 1, 1]),
                     ],
                     channel=tile.Channel(
                         channel_name="488",
@@ -174,8 +174,8 @@ class ImagingTests(unittest.TestCase):
                 tiles=[
                     tile.AcquisitionTile(
                         coordinate_transformations=[
-                            Scale3dTransform(scale=[1, 1, 1]),
-                            Translation3dTransform(translation=[1, 1, 1]),
+                            Scaling(scale=[1, 1, 1]),
+                            Translation(translation=[1, 1, 1]),
                         ],
                         channel=tile.Channel(
                             channel_name="488",
@@ -207,14 +207,14 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
-                        Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+                        AffineTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
                     ]
                 ),
                 tile.Tile(
                     coordinate_transformations=[
-                        Translation3dTransform(translation=[0, 1, 2]),
-                        Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                        Scale3dTransform(scale=[1, 2, 3]),
+                        Translation(translation=[0, 1, 2]),
+                        Rotation(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                        Scaling(scale=[1, 2, 3]),
                     ]
                 ),
             ],
