@@ -5,7 +5,7 @@ from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from pydantic import Field, SkipValidation, ValidationInfo, field_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import (
     DataCoreModel,
@@ -15,7 +15,13 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.tile import Tile
+
+
+class ProcessStage(str, Enum):
+    """Stages of processing"""
+
+    PROCESSING = "Processing"
+    ANALYSIS = "Analysis"
 
 
 class RegistrationType(str, Enum):
@@ -55,7 +61,17 @@ class DataProcess(DataModel):
     """Description of a single processing step"""
 
     name: ProcessName = Field(..., title="Name")
+    stage: ProcessStage = Field(..., title="Processing stage")
+    experimenters: List[Person] = Field(..., title="experimenters", description="People responsible for processing")
     code: Code = Field(..., title="Code used for processing")
+    pipeline_steps: Optional[List[ProcessName]] = Field(
+        default=None,
+        title="Pipeline steps",
+        description=(
+            "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+            " that are part of the pipeline. Each object must show up in the data_processes list.",
+        ),
+    )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
@@ -75,47 +91,6 @@ class DataProcess(DataModel):
         return value
 
 
-class PipelineProcess(DataModel):
-    """Description of a Processing Pipeline"""
-
-    data_processes: List[DataProcess] = Field(..., title="Data processing")
-    experimenters: List[Person] = Field(
-        ..., title="experimenters", description="experimenters responsible for processing pipeline"
-    )
-    pipeline_version: Optional[str] = Field(
-        default=None, description="Version of the pipeline", title="Pipeline version"
-    )
-    pipeline_url: Optional[str] = Field(default=None, description="URL to the pipeline code", title="Pipeline URL")
-    note: Optional[str] = Field(default=None, title="Notes")
-
-
-class AnalysisProcess(DataProcess):
-    """Description of an Analysis"""
-
-    name: ProcessName = Field(ProcessName.ANALYSIS, title="Process name")
-    experimenters: List[Person] = Field(
-        ..., title="experimenters", description="experimenters responsible for analysis"
-    )
-    description: str = Field(..., title="Analysis Description")
-
-
-#  TODO: Check where this class is supposed to be invoked?
-class Registration(DataProcess):
-    """Description of tile alignment coordinate transformations"""
-
-    registration_type: RegistrationType = Field(
-        ...,
-        title="Registration type",
-        description="Either inter channel across different channels or intra channel",
-    )
-    registration_channel: Optional[int] = Field(
-        default=None,
-        title="Registration channel",
-        description="Channel registered to when inter channel",
-    )
-    tiles: List[Tile] = Field(..., title="Data tiles")
-
-
 class Processing(DataCoreModel):
     """Description of all processes run on data"""
 
@@ -123,10 +98,42 @@ class Processing(DataCoreModel):
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
 
-    processing_pipeline: PipelineProcess = Field(
-        ..., description="Pipeline used to process data", title="Processing Pipeline"
-    )
-    analyses: List[AnalysisProcess] = Field(
-        default=[], description="Analysis steps taken after processing", title="Analysis Steps"
-    )
+    data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="before")
+    def validate_pipeline_steps(cls, values):
+        """Validator for pipeline_steps"""
+
+        if not values.get("data_processes"):
+            # No data processes, this is probably a test asset
+            return values
+
+        data_processes = values["data_processes"]
+        # Coerce types if needed
+        try:
+            data_processes = [
+                DataProcess(**process) if not isinstance(process, DataProcess)
+                else process
+                for process in data_processes
+            ]
+        except Exception as e:
+            raise ValueError(f"data_processes should be a list of DataProcess objects or dictionaries. {e}")
+
+        for process in data_processes:
+            # For each process, make sure it's either a pipeline and has all its processes downstream
+
+            if process.name == ProcessName.PIPELINE:
+
+                if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
+                    raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
+
+                # Validate that all steps show up in the data_processes list
+                for step in process.pipeline_steps:
+                    if step not in [p.name for p in data_processes]:
+                        raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
+            # Or make sure it doesn't have any pipeline steps
+            elif hasattr(process, "pipeline_steps") and process.pipeline_steps:
+                raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
+
+        return values

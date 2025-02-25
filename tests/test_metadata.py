@@ -27,7 +27,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Laser,
 )
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
@@ -38,14 +38,19 @@ from aind_data_schema.core.procedures import (
     Surgery,
     ViralMaterial,
 )
-from aind_data_schema.core.processing import PipelineProcess, Processing
+from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
+from pathlib import Path
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
+
+EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
+EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
+EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -63,6 +68,8 @@ laser = Laser(
     name="Laser A",
     wavelength=488,
 )
+
+t = datetime.fromisoformat("2024-09-13T14:00:00")
 
 
 class TestMetadata(unittest.TestCase):
@@ -103,7 +110,21 @@ class TestMetadata(unittest.TestCase):
             subject_id="12345",
         )
         processing = Processing(
-            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dan Processor")], data_processes=[]),
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.ANALYSIS,
+                    stage=ProcessStage.ANALYSIS,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
         )
 
         cls.sample_name = "655019_2023-04-03T181709"
@@ -402,7 +423,7 @@ class TestMetadata(unittest.TestCase):
         """Tests metadata json can be created with valid inputs"""
         core_jsons = {
             "subject": self.subject_json,
-            "data_description": None,
+            "data_description": self.dd_json,
             "procedures": self.procedures_json,
             "session": None,
             "instrument": None,
@@ -413,6 +434,7 @@ class TestMetadata(unittest.TestCase):
         expected_md = Metadata(
             name=self.sample_name,
             location=self.sample_location,
+            data_description=self.dd,
             subject=self.subject,
             procedures=self.procedures,
             processing=self.processing,
@@ -428,11 +450,11 @@ class TestMetadata(unittest.TestCase):
         # check that metadata was created with expected values
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         self.assertEqual(self.subject_json, result["subject"])
         self.assertEqual(self.procedures_json, result["procedures"])
         self.assertEqual(self.processing_json, result["processing"])
         self.assertIsNone(result["acquisition"])
+        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         # also check the other fields
         # small hack to mock the _id, created, and last_modified fields
         expected_result["_id"] = result["_id"]

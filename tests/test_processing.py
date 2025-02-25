@@ -8,16 +8,18 @@ import pydantic
 from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
 from aind_data_schema_models.units import MemoryUnit
 
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.processing import (
     DataProcess,
-    PipelineProcess,
+    ProcessName,
     Processing,
     ResourceTimestamped,
     ResourceUsage,
+    ProcessStage,
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
+t = datetime.fromisoformat("2024-09-13T14:00:00")
 
 
 class ProcessingTest(unittest.TestCase):
@@ -29,38 +31,36 @@ class ProcessingTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             Processing()
 
+        # Create a valid Processing object
         p = Processing(
-            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dr. Dan")], data_processes=[]),
-        )
-
-        with self.assertRaises(pydantic.ValidationError) as e:
-            DataProcess(name="Other", notes="")
-
-        expected_exception = (
-            "6 validation errors for DataProcess\n"
-            "code\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "start_date_time\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "end_date_time\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "input_location\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "output_location\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "notes\n"
-            "  Value error, Notes cannot be empty if 'name' is Other. Describe the process name in the notes field."
-            " [type=value_error, input_value='', input_type=str]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.ANALYSIS,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
         )
 
         self.assertIsNotNone(p)
-        self.assertEqual(expected_exception, repr(e.exception))
+
+        with self.assertRaises(pydantic.ValidationError) as e:
+            DataProcess(name="Other", notes="")
+        self.assertIn("stage", repr(e.exception))
+        self.assertIn("code", repr(e.exception))
+        self.assertIn("start_date_time", repr(e.exception))
+        self.assertIn("end_date_time", repr(e.exception))
+        self.assertIn("input_location", repr(e.exception))
+        self.assertIn("output_location", repr(e.exception))
+        self.assertIn("notes", repr(e.exception))
 
     def test_resource_usage(self):
         """Test the ResourceUsage class"""
@@ -113,6 +113,158 @@ class ProcessingTest(unittest.TestCase):
         expected_exception = "Unit system_memory_unit is required when system_memory is set"
 
         self.assertTrue(expected_exception in repr(e.exception))
+
+    def test_validate_pipeline_steps(self):
+        """Test the validate_pipeline_steps method"""
+
+        # Test with no data_processes
+        p = Processing(data_processes=[])
+        self.assertIsNotNone(p)
+
+        # Test with a valid pipeline process
+        p = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.PIPELINE,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                    pipeline_steps=[ProcessName.COMPRESSION],
+                ),
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.COMPRESSION,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/analysis",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
+        )
+        self.assertIsNotNone(p)
+
+        # Test with a pipeline process missing pipeline_steps
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    DataProcess(
+                        experimenters=[Person(name="Dr. Dan")],
+                        name=ProcessName.PIPELINE,
+                        stage=ProcessStage.PROCESSING,
+                        input_location="/path/to/inputs",
+                        output_location="/path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(
+                            url="https://url/for/pipeline",
+                            version="0.1.1",
+                        ),
+                    ),
+                ]
+            )
+        self.assertIn("Pipeline processes should have a pipeline_steps attribute.", str(e.exception))
+
+        # Test with a pipeline process having invalid pipeline_steps
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    DataProcess(
+                        experimenters=[Person(name="Dr. Dan")],
+                        name=ProcessName.PIPELINE,
+                        stage=ProcessStage.PROCESSING,
+                        input_location="/path/to/inputs",
+                        output_location="/path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(
+                            url="https://url/for/pipeline",
+                            version="0.1.1",
+                        ),
+                        pipeline_steps=[ProcessName.ANALYSIS],
+                    ),
+                ]
+            )
+        self.assertIn("Pipeline step 'Analysis' not found in data_processes.", str(e.exception))
+
+        # Test with a non-pipeline process having pipeline_steps
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    DataProcess(
+                        experimenters=[Person(name="Dr. Dan")],
+                        name=ProcessName.ANALYSIS,
+                        stage=ProcessStage.PROCESSING,
+                        input_location="/path/to/inputs",
+                        output_location="/path/to/outputs",
+                        start_date_time=t,
+                        end_date_time=t,
+                        code=Code(
+                            url="https://url/for/analysis",
+                            version="0.1.1",
+                        ),
+                        pipeline_steps=[ProcessName.ANALYSIS],
+                    ),
+                ]
+            )
+        self.assertIn("pipeline_steps should only be provided for ProcessName.PIPELINE processes.", str(e.exception))
+
+    def test_validate_data_processes(self):
+        """Test the validate_data_processes method"""
+
+        # Test with valid data_processes
+        p = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.ANALYSIS,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/analysis",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
+        )
+        self.assertIsNotNone(p)
+
+        # Test with data_processes as a list of lists
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[
+                    [
+                        DataProcess(
+                            experimenters=[Person(name="Dr. Dan")],
+                            name=ProcessName.ANALYSIS,
+                            stage=ProcessStage.PROCESSING,
+                            input_location="/path/to/inputs",
+                            output_location="/path/to/outputs",
+                            start_date_time=t,
+                            end_date_time=t,
+                            code=Code(
+                                url="https://url/for/analysis",
+                                version="0.1.1",
+                            ),
+                        ),
+                    ]
+                ]
+            )
+        self.assertIn("data_processes should be a list of DataProcess objects or dictionaries", str(e.exception))
 
 
 if __name__ == "__main__":

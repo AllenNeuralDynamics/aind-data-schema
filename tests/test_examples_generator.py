@@ -14,13 +14,15 @@ class ExamplesGeneratorTest(unittest.TestCase):
         """Test generate_all_examples method"""
 
         ExamplesGenerator().generate_all_examples()
+        self.assertTrue(True)
 
     @patch("aind_data_schema.base.DataCoreModel.write_standard_file")
     def test_generate_example(self, mocked_run_path):
         """Test generate_example method"""
 
-        ExamplesGenerator().generate_example(
-            "C:/Users/mae.moninghoff/Documents/GitHub/aind-data-schema/examples/subject.py"
-        )
-
         ExamplesGenerator().generate_example("fake/path/to/example.py")
+        self.assertTrue(True)
+
+
+if __name__ == "__main__":
+    unittest.main()

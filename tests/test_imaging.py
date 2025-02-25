@@ -18,7 +18,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core import acquisition as acq
-from aind_data_schema.core.processing import Registration
+from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.identifiers import Person, Code
@@ -195,29 +195,32 @@ class ImagingTests(unittest.TestCase):
     def test_registration(self):
         """test the tile models"""
 
-        t = Registration(
-            name="Image tile alignment",
+        t = DataProcess(
+            name=ProcessName.IMAGE_TILE_ALIGNMENT,
+            stage=ProcessStage.PROCESSING,
+            experimenters=[Person(name="Dr. Dan")],
             start_date_time=datetime.now(tz=timezone.utc),
             end_date_time=datetime.now(tz=timezone.utc),
             input_location="/some/path",
             output_location="/some/path",
             code=Code(url="https://github.com/abcd"),
-            parameters={},
-            registration_type="Intra-channel",
-            tiles=[
-                tile.Tile(
-                    coordinate_transformations=[
-                        Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
-                    ]
-                ),
-                tile.Tile(
-                    coordinate_transformations=[
-                        Translation3dTransform(translation=[0, 1, 2]),
-                        Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                        Scale3dTransform(scale=[1, 2, 3]),
-                    ]
-                ),
-            ],
+            parameters={
+                "tiles": [
+                    tile.Tile(
+                        coordinate_transformations=[
+                            Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+                        ]
+                    ),
+                    tile.Tile(
+                        coordinate_transformations=[
+                            Translation3dTransform(translation=[0, 1, 2]),
+                            Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+                            Scale3dTransform(scale=[1, 2, 3]),
+                        ]
+                    ),
+                ],
+            },
+            notes="Intra-channel",
         )
 
         self.assertIsNotNone(t)
