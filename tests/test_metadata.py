@@ -434,6 +434,7 @@ class TestMetadata(unittest.TestCase):
         expected_md = Metadata(
             name=self.sample_name,
             location=self.sample_location,
+            data_description=self.dd,
             subject=self.subject,
             procedures=self.procedures,
             processing=self.processing,
