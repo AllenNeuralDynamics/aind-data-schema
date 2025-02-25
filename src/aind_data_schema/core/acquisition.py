@@ -211,9 +211,11 @@ class Acquisition(DataCoreModel):
         default=[],
         title="experimenter(s)",
     )
-    specimen_id: str = Field(..., title="Specimen ID")
-    subject_id: Optional[str] = Field(default=None, title="Subject ID")
+    subject_id: str = Field(default=None, title="Subject ID")
+    specimen_id: Optional[str] = Field(..., title="Specimen ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
+
     calibrations: List[Calibration] = Field(
         default=[],
         title="Calibrations",
@@ -230,3 +232,30 @@ class Acquisition(DataCoreModel):
 
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    data_streams: List[Stream] = Field(
+        ...,
+        title="Data streams",
+        description=(
+            "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
+            " multiple streams (e.g., if the manipulators are moved to a new location)"
+        ),
+    )
+    stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
+
+    # Fields coming from session
+    animal_weight_prior: Optional[Decimal] = Field(
+        default=None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
+    )
+    animal_weight_post: Optional[Decimal] = Field(
+        default=None,
+        title="Animal weight (g)",
+        description="Animal weight after procedure",
+    )
+
+    # Todo: validator for subject + specimen ID, compare first six digits
+    
+    # Todo: modality -> specimen ID validator
+
