@@ -15,7 +15,7 @@ from aind_data_schema.core.processing import (
     Processing,
     ResourceTimestamped,
     ResourceUsage,
-    ProcessStage
+    ProcessStage,
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)

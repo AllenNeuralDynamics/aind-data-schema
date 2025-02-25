@@ -109,7 +109,6 @@ class TestMetadata(unittest.TestCase):
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
                     name=ProcessName.ANALYSIS,
-                    pipeline_steps=[],
                     stage=ProcessStage.ANALYSIS,
                     input_location="/path/to/inputs",
                     output_location="/path/to/outputs",
