@@ -8,17 +8,18 @@ import pydantic
 from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
 from aind_data_schema_models.units import MemoryUnit
 
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.processing import (
     DataProcess,
-    PipelineProcess,
+    ProcessName,
     Processing,
     ResourceTimestamped,
     ResourceUsage,
+    ProcessStage
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
-
+t = datetime.fromisoformat("2024-09-13T14:00:00")
 
 class ProcessingTest(unittest.TestCase):
     """tests for processing schema"""
@@ -29,38 +30,41 @@ class ProcessingTest(unittest.TestCase):
         with self.assertRaises(pydantic.ValidationError):
             Processing()
 
+        # Create a valid Processing object
         p = Processing(
-            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dr. Dan")], data_processes=[]),
-        )
-
-        with self.assertRaises(pydantic.ValidationError) as e:
-            DataProcess(name="Other", notes="")
-
-        expected_exception = (
-            "6 validation errors for DataProcess\n"
-            "code\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "start_date_time\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "end_date_time\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "input_location\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "output_location\n"
-            "  Field required [type=missing, input_value={'name': 'Other', 'notes': ''}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "notes\n"
-            "  Value error, Notes cannot be empty if 'name' is Other. Describe the process name in the notes field."
-            " [type=value_error, input_value='', input_type=str]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.PIPELINE,
+                    pipeline_steps=[
+                        ProcessName.IMAGE_TILE_FUSING,
+                        ProcessName.FILE_FORMAT_CONVERSION,
+                        ProcessName.IMAGE_DESTRIPING,
+                    ],
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
         )
 
         self.assertIsNotNone(p)
-        self.assertEqual(expected_exception, repr(e.exception))
+
+        with self.assertRaises(pydantic.ValidationError) as e:
+            DataProcess(name="Other", notes="")
+        self.assertIn("stage", repr(e.exception))
+        self.assertIn("code", repr(e.exception))
+        self.assertIn("start_date_time", repr(e.exception))
+        self.assertIn("end_date_time", repr(e.exception))
+        self.assertIn("input_location", repr(e.exception))
+        self.assertIn("output_location", repr(e.exception))
+        self.assertIn("notes", repr(e.exception))
 
     def test_resource_usage(self):
         """Test the ResourceUsage class"""

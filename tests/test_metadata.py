@@ -38,7 +38,7 @@ from aind_data_schema.core.procedures import (
     Surgery,
     ViralMaterial,
 )
-from aind_data_schema.core.processing import PipelineProcess, Processing
+from aind_data_schema.core.processing import Processing, DataProcess, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
@@ -103,7 +103,13 @@ class TestMetadata(unittest.TestCase):
             subject_id="12345",
         )
         processing = Processing(
-            processing_pipeline=PipelineProcess(experimenters=[Person(name="Dan Processor")], data_processes=[]),
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dan Processor")],
+                    name=ProcessName.PIPELINE,
+                    pipeline_steps=[],
+                ),
+            ]
         )
 
         cls.sample_name = "655019_2023-04-03T181709"
