@@ -64,12 +64,12 @@ class DataProcess(DataModel):
     stage: ProcessStage = Field(..., title="Processing stage")
     experimenters: List[Person] = Field(..., title="experimenters", description="People responsible for processing")
     code: Code = Field(..., title="Code used for processing")
-    pipeline_steps: Optional[List[str]] = Field(
+    pipeline_steps: Optional[List[ProcessName]] = Field(
         default=None,
         title="Pipeline steps",
         description=(
-            "For pipeline processes, these should be the names of the",
-            " DataProcess objects that are part of the pipeline.",
+            "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+            " that are part of the pipeline. Each object must show up in the data_processes list.",
         ),
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
