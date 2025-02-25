@@ -192,9 +192,40 @@
                "default": "Model evaluation",
                "title": "Process name"
             },
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
+            },
             "code": {
                "$ref": "#/$defs/Code",
                "title": "Code used for processing"
+            },
+            "pipeline_steps": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ProcessName"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
             },
             "start_date_time": {
                "format": "date-time",
@@ -270,6 +301,8 @@
             }
          },
          "required": [
+            "stage",
+            "experimenters",
             "code",
             "start_date_time",
             "end_date_time",
@@ -295,9 +328,40 @@
                "default": "Model training",
                "title": "Process name"
             },
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
+            },
             "code": {
                "$ref": "#/$defs/Code",
                "title": "Code used for processing"
+            },
+            "pipeline_steps": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ProcessName"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
             },
             "start_date_time": {
                "format": "date-time",
@@ -403,6 +467,8 @@
             }
          },
          "required": [
+            "stage",
+            "experimenters",
             "code",
             "start_date_time",
             "end_date_time",
@@ -480,6 +546,7 @@
          "description": "Process names",
          "enum": [
             "Analysis",
+            "Pipeline",
             "Compression",
             "Denoising",
             "dF/F estimation",
@@ -522,6 +589,15 @@
             "Video ROI timeseries extraction"
          ],
          "title": "ProcessName",
+         "type": "string"
+      },
+      "ProcessStage": {
+         "description": "Stages of processing",
+         "enum": [
+            "Processing",
+            "Analysis"
+         ],
+         "title": "ProcessStage",
          "type": "string"
       },
       "ResourceTimestamped": {

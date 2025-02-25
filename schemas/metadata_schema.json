@@ -916,115 +916,6 @@
          "title": "Anaesthetic",
          "type": "object"
       },
-      "AnalysisProcess": {
-         "additionalProperties": false,
-         "description": "Description of an Analysis",
-         "properties": {
-            "object_type": {
-               "const": "Analysis process",
-               "default": "Analysis process",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "$ref": "#/$defs/ProcessName",
-               "default": "Analysis",
-               "title": "Process name"
-            },
-            "code": {
-               "$ref": "#/$defs/Code",
-               "title": "Code used for processing"
-            },
-            "start_date_time": {
-               "format": "date-time",
-               "title": "Start date time",
-               "type": "string"
-            },
-            "end_date_time": {
-               "format": "date-time",
-               "title": "End date time",
-               "type": "string"
-            },
-            "input_location": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
-                  }
-               ],
-               "description": "Path(s) to data inputs",
-               "title": "Input location"
-            },
-            "output_location": {
-               "description": "Path to data outputs",
-               "title": "Output location",
-               "type": "string"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Parameters"
-            },
-            "outputs": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "description": "Output parameters",
-               "title": "Outputs"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "resources": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/ResourceUsage"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Process resource usage"
-            },
-            "experimenters": {
-               "description": "experimenters responsible for analysis",
-               "items": {
-                  "$ref": "#/$defs/Person"
-               },
-               "title": "experimenters",
-               "type": "array"
-            },
-            "description": {
-               "title": "Analysis Description",
-               "type": "string"
-            }
-         },
-         "required": [
-            "code",
-            "start_date_time",
-            "end_date_time",
-            "input_location",
-            "output_location",
-            "experimenters",
-            "description"
-         ],
-         "title": "AnalysisProcess",
-         "type": "object"
-      },
       "AnatomicalDirection": {
          "description": "Anatomical direction name",
          "enum": [
@@ -4204,9 +4095,40 @@
                "$ref": "#/$defs/ProcessName",
                "title": "Name"
             },
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
+            },
             "code": {
                "$ref": "#/$defs/Code",
                "title": "Code used for processing"
+            },
+            "pipeline_steps": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ProcessName"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
             },
             "start_date_time": {
                "format": "date-time",
@@ -4276,6 +4198,8 @@
          },
          "required": [
             "name",
+            "stage",
+            "experimenters",
             "code",
             "start_date_time",
             "end_date_time",
@@ -54837,77 +54761,6 @@
          "title": "PhotoStimulationGroup",
          "type": "object"
       },
-      "PipelineProcess": {
-         "additionalProperties": false,
-         "description": "Description of a Processing Pipeline",
-         "properties": {
-            "object_type": {
-               "const": "Pipeline process",
-               "default": "Pipeline process",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "data_processes": {
-               "items": {
-                  "$ref": "#/$defs/DataProcess"
-               },
-               "title": "Data processing",
-               "type": "array"
-            },
-            "experimenters": {
-               "description": "experimenters responsible for processing pipeline",
-               "items": {
-                  "$ref": "#/$defs/Person"
-               },
-               "title": "experimenters",
-               "type": "array"
-            },
-            "pipeline_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the pipeline",
-               "title": "Pipeline version"
-            },
-            "pipeline_url": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "URL to the pipeline code",
-               "title": "Pipeline URL"
-            },
-            "note": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "data_processes",
-            "experimenters"
-         ],
-         "title": "PipelineProcess",
-         "type": "object"
-      },
       "PockelsCell": {
          "additionalProperties": false,
          "description": "Description of a Pockels Cell",
@@ -56133,6 +55986,7 @@
          "description": "Process names",
          "enum": [
             "Analysis",
+            "Pipeline",
             "Compression",
             "Denoising",
             "dF/F estimation",
@@ -56177,6 +56031,15 @@
          "title": "ProcessName",
          "type": "string"
       },
+      "ProcessStage": {
+         "description": "Stages of processing",
+         "enum": [
+            "Processing",
+            "Analysis"
+         ],
+         "title": "ProcessStage",
+         "type": "string"
+      },
       "Processing": {
          "additionalProperties": false,
          "description": "Description of all processes run on data",
@@ -56194,23 +56057,16 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.3",
-               "default": "2.0.3",
+               "const": "2.0.4",
+               "default": "2.0.4",
                "title": "Schema Version",
                "type": "string"
             },
-            "processing_pipeline": {
-               "$ref": "#/$defs/PipelineProcess",
-               "description": "Pipeline used to process data",
-               "title": "Processing Pipeline"
-            },
-            "analyses": {
-               "default": [],
-               "description": "Analysis steps taken after processing",
+            "data_processes": {
                "items": {
-                  "$ref": "#/$defs/AnalysisProcess"
+                  "$ref": "#/$defs/DataProcess"
                },
-               "title": "Analysis Steps",
+               "title": "Data processing",
                "type": "array"
             },
             "notes": {
@@ -56227,7 +56083,7 @@
             }
          },
          "required": [
-            "processing_pipeline"
+            "data_processes"
          ],
          "title": "Processing",
          "type": "object"
@@ -106480,8 +106336,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.3",
-         "default": "2.0.3",
+         "const": "2.0.4",
+         "default": "2.0.4",
          "title": "Schema Version",
          "type": "string"
       },
