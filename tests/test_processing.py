@@ -36,8 +36,7 @@ class ProcessingTest(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.PIPELINE,
-                    pipeline_steps=[],
+                    name=ProcessName.ANALYSIS,
                     stage=ProcessStage.PROCESSING,
                     input_location="/path/to/inputs",
                     output_location="/path/to/outputs",

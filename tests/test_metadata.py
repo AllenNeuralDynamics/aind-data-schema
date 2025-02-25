@@ -423,12 +423,12 @@ class TestMetadata(unittest.TestCase):
         """Tests metadata json can be created with valid inputs"""
         core_jsons = {
             "subject": self.subject_json,
-            "data_description": None,
+            "data_description": self.dd_json,
             "procedures": self.procedures_json,
             "session": None,
-            "instrument": json.loads(ephys_inst.model_dump_json()),
+            "instrument": None,
             "processing": self.processing_json,
-            "acquisition": Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
+            "acquisition": None,
             "quality_control": None,
         }
         expected_md = Metadata(

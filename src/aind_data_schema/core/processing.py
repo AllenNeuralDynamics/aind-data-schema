@@ -101,23 +101,28 @@ class Processing(DataCoreModel):
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @model_validator(mode="after")
-    def validate_pipeline_steps(self):
+    @model_validator(mode="before")
+    def validate_pipeline_steps(cls, values):
         """Validator for pipeline_steps"""
 
-        if not hasattr(self, "data_processes"):  # Only occurs during testing, can be remove without model_construct()
-            return self
+        if not values.get("data_processes"):
+            # No data processes, this is probably a test asset
+            return values
 
-        for process in self.data_processes:
-            # For each process, make sure it's either a pipeline and has all it's processes downstream
+        for process in values["data_processes"]:
+            # For each process, make sure it's either a pipeline and has all its processes downstream
 
             if process.name == ProcessName.PIPELINE:
+
+                if not hasattr(process, "pipeline_steps"):
+                    raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
+
                 # Validate that all steps show up in the data_processes list
                 for step in process.pipeline_steps:
-                    if step not in [process.name for process in self.data_processes]:
+                    if step not in [p.name for p in values["data_processes"]]:
                         raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
             # Or make sure it doesn't have any pipeline steps
-            elif process.pipeline_steps is not None:
+            elif hasattr(process, "pipeline_steps") and process.pipeline_steps:
                 raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
 
-        return self
+        return values
