@@ -111,7 +111,14 @@ class Processing(DataCoreModel):
 
         data_processes = values["data_processes"]
         # Coerce types if needed
-        data_processes = [DataProcess(**process) if not isinstance(process, DataProcess) else process for process in data_processes]
+        try:
+            data_processes = [
+                DataProcess(**process) if not isinstance(process, DataProcess)
+                else process
+                for process in data_processes
+            ]
+        except Exception as e:
+            raise ValueError(f"data_processes should be a list of DataProcess objects or dictionaries. {e}")
 
         for process in data_processes:
             # For each process, make sure it's either a pipeline and has all its processes downstream
@@ -130,12 +137,3 @@ class Processing(DataCoreModel):
                 raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
 
         return values
-
-    @field_validator("data_processes", mode="after")
-    def validate_data_processes(cls, value: List[DataProcess]) -> List[DataProcess]:
-        """Validator for data_processes"""
-
-        if any([isinstance(process, list) for process in value]):
-            raise ValueError("data_processes should not be a list of lists.")
-
-        return value

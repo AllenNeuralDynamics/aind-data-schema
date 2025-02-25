@@ -264,7 +264,7 @@ class ProcessingTest(unittest.TestCase):
                     ]
                 ]
             )
-        self.assertIn("data_processes should not be a list of lists.", str(e.exception))
+        self.assertIn("data_processes should be a list of DataProcess objects or dictionaries", str(e.exception))
 
 
 if __name__ == "__main__":

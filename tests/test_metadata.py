@@ -79,7 +79,7 @@ class TestMetadata(unittest.TestCase):
     def setUpClass(cls) -> None:
         """Set up the test class."""
         cls.spim_instrument = inst
-        
+
         subject = Subject(
             species=Species.MUS_MUSCULUS,
             subject_id="12345",
