@@ -75,6 +75,8 @@ class ModelTests(unittest.TestCase):
             ],
             evaluations=[
                 ModelEvaluation(
+                    stage=ProcessStage.PROCESSING,
+                    experimenters=[Person(name="Dr. Dan")],
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path (output asset or trained model asset if no output)",
                     code=Code(url="url for training code repo"),

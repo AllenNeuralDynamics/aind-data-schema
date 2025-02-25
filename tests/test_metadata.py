@@ -27,7 +27,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Laser,
 )
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
@@ -38,7 +38,7 @@ from aind_data_schema.core.procedures import (
     Surgery,
     ViralMaterial,
 )
-from aind_data_schema.core.processing import Processing, DataProcess, ProcessName
+from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
@@ -63,6 +63,8 @@ laser = Laser(
     name="Laser A",
     wavelength=488,
 )
+
+t = datetime.fromisoformat("2024-09-13T14:00:00")
 
 
 class TestMetadata(unittest.TestCase):
@@ -105,9 +107,18 @@ class TestMetadata(unittest.TestCase):
         processing = Processing(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dan Processor")],
-                    name=ProcessName.PIPELINE,
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.ANALYSIS,
                     pipeline_steps=[],
+                    stage=ProcessStage.ANALYSIS,
+                    input_location="/path/to/inputs",
+                    output_location="/path/to/outputs",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
                 ),
             ]
         )

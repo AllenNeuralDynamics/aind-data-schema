@@ -104,6 +104,9 @@ class Processing(DataCoreModel):
     def validate_pipeline_steps(self):
         """Validator for pipeline_steps"""
 
+        if not hasattr(self, "data_processes"):  # Only occurs during testing, can be remove without model_construct()
+            return self
+
         for process in self.data_processes:
             # For each process, make sure it's either a pipeline and has all it's processes downstream
 

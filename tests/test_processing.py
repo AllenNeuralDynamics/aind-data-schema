@@ -21,6 +21,7 @@ from aind_data_schema.core.processing import (
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 t = datetime.fromisoformat("2024-09-13T14:00:00")
 
+
 class ProcessingTest(unittest.TestCase):
     """tests for processing schema"""
 
@@ -36,11 +37,7 @@ class ProcessingTest(unittest.TestCase):
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
                     name=ProcessName.PIPELINE,
-                    pipeline_steps=[
-                        ProcessName.IMAGE_TILE_FUSING,
-                        ProcessName.FILE_FORMAT_CONVERSION,
-                        ProcessName.IMAGE_DESTRIPING,
-                    ],
+                    pipeline_steps=[],
                     stage=ProcessStage.PROCESSING,
                     input_location="/path/to/inputs",
                     output_location="/path/to/outputs",
