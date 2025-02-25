@@ -5,7 +5,7 @@ from typing import List, Literal, Optional, Union
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from pydantic import Field, SkipValidation, ValidationInfo, field_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import (
     DataCoreModel,
@@ -84,23 +84,6 @@ class DataProcess(DataModel):
         if info.data.get("name") == ProcessName.OTHER and not value:
             raise ValueError("Notes cannot be empty if 'name' is Other. Describe the process name in the notes field.")
         return value
-    
-    @field_validator("pipeline_steps", mode="after")
-    def validate_pipeline_steps(cls, value: Optional[List[str]], info: ValidationInfo) -> Optional[List[str]]:
-        """Validator for pipeline_steps"""
-
-        if info.data.get("name") == ProcessName.Pipeline:
-            # Validate that all steps show up in the data_processes list
-            if value:
-                for step in value:
-                    if step not in [process.name for process in info.data.get("data_processes")]:
-                        raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
-            else:
-                raise ValueError("Pipeline steps must be provided for processes with name 'Pipeline'.")
-        if info.data.get("name") != ProcessName.PIPELINE and value:
-            raise ValueError("Pipeline steps should only be provided for processes with name 'Pipeline'.")
-
-        return value
 
 
 class Processing(DataCoreModel):
@@ -112,3 +95,21 @@ class Processing(DataCoreModel):
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="after")
+    def validate_pipeline_steps(self):
+        """Validator for pipeline_steps"""
+
+        for process in self.data_processes:
+            # For each process, make sure it's either a pipeline and has all it's processes downstream
+
+            if process.name == ProcessName.PIPELINE:
+                # Validate that all steps show up in the data_processes list
+                for step in process.pipeline_steps:
+                    if step not in [process.name for process in self.data_processes]:
+                        raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
+            # Or make sure it doesn't have any pipeline steps
+            elif process.pipeline_steps is not None:
+                raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
+
+        return self
