@@ -67,7 +67,9 @@ class DataProcess(DataModel):
     pipeline_steps: Optional[List[str]] = Field(
         default=None,
         title="Pipeline steps",
-        description="For pipeline processes, these should be the names of the DataProcess objects that are part of the pipeline.",
+        description=(
+            "For pipeline processes, these should be the names of the",
+            " DataProcess objects that are part of the pipeline.")
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
