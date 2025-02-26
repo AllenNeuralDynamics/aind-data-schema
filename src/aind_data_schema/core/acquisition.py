@@ -8,6 +8,8 @@ from pydantic import Field, SkipValidation, Annotated, model_validator
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
 from aind_data_schema.components.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import Calibration, Maintenance, Camera, CameraAssembly
+from aind_data_schema.components.coordinates import Affine3dTransform
+from aind_data_schema.procedures import Anaesthetic
 from aind_data_schema.components.identifiers import Person, Software
 
 from aind_data_schema.components.configs import (
@@ -24,6 +26,7 @@ from aind_data_schema.components.configs import (
     ArenaConfig,
     Stack,
     MRIScan,
+    RewardDeliveryConfig,
 )
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
@@ -148,19 +151,23 @@ class StimulusEpoch(DataModel):
 class Acquisition(DataCoreModel):
     """Description of an imaging acquisition session"""
 
+    # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
-    protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
+
+    # Acquisition metadata
+    subject_id: str = Field(default=..., title="Subject ID")
+    specimen_id: Optional[str] = Field(default=None, title="Specimen ID")
     experimenters: List[Person] = Field(
         default=[],
         title="experimenter(s)",
     )
-    subject_id: str = Field(default=..., title="Subject ID")
-    specimen_id: Optional[str] = Field(default=None, title="Specimen ID")
-    instrument_id: str = Field(..., title="Instrument ID")
+    protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
+    instrument_id: str = Field(..., title="Instrument ID")
 
+    # Instrument metadata
     calibrations: List[Calibration] = Field(
         default=[],
         title="Calibrations",
@@ -169,15 +176,17 @@ class Acquisition(DataCoreModel):
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
+
+    # Information about the acquisition
     acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
     acquisition_type: Optional[str] = Field(default=None, title="Acquisition type")
     local_storage_directory: Optional[str] = Field(default=None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(default=None, title="External storage directory")
-
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    # Acquisition data
     data_streams: List[Stream] = Field(
         ...,
         title="Data streams",
@@ -188,7 +197,7 @@ class Acquisition(DataCoreModel):
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
 
-    # Fields coming from session
+    # Fields coming from session [TODO] figure out how to get rid of these, maybe these are actually a data stream?
     animal_weight_prior: Optional[Decimal] = Field(
         default=None,
         title="Animal weight (g)",
