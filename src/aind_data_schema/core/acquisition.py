@@ -115,11 +115,17 @@ class Stream(DataModel):
     ] = Field(..., title="Active devices")
 
     @model_validator(mode="after")
-    def check_modality_config_requirements(cls, v):
-        for modality in v.modalities:
+    def check_modality_config_requirements(self):
+        for modality in self.modalities:
+            if modality not in CONFIG_REQUIREMENTS:
+                # No configuration requirements for this modality
+                continue
+
             for group in CONFIG_REQUIREMENTS[modality]:
-                if not any([any([isinstance(config, device) for device in group]) for config in v.configurations]):
-                    raise ValueError(f"Missing required devices for modality {modality} in {v.configurations}")
+                if not any([any([isinstance(config, device) for device in group]) for config in self.configurations]):
+                    raise ValueError(f"Missing required devices for modality {modality} in {self.configurations}")
+
+        return self
 
 
 class StimulusEpoch(DataModel):
@@ -227,22 +233,28 @@ class Acquisition(DataCoreModel):
     subject_details: Optional[SubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
-    def subject_details_if_not_specimen(cls, v):
+    def subject_details_if_not_specimen(self):
         """Check that subject details are present if no specimen ID"""
-        if not v.specimen_id and not v.subject_details:
+        if not self.specimen_id and not self.subject_details:
             raise ValueError("Subject details are required for in vivo experiments")
 
-    @model_validator(mode="after")
-    def check_subject_specimen_id(cls, v):
-        """Check if specimen ID is required for in vitro imaging modalities"""
-        if v.specimen_id and v.subject_id:
-            if v.specimen_id[:6] != v.subject_id[:6]:
-                raise ValueError(f"Subject ID {v.subject_id} and Specimen ID {v.specimen_id} do not match")
+        return self
 
     @model_validator(mode="after")
-    def specimen_required(cls, v):
+    def check_subject_specimen_id(self):
         """Check if specimen ID is required for in vitro imaging modalities"""
-        if not v.specimen_id:
-            for stream in v.data_streams:
-                if any([modality.abbreviation in SPECIMEN_MODALITIES for modality in stream.modalities]):
+        if self.specimen_id and self.subject_id:
+            if self.specimen_id[:6] != self.subject_id[:6]:
+                raise ValueError(f"Subject ID {self.subject_id} and Specimen ID {self.specimen_id} do not match")
+
+        return self
+
+    @model_validator(mode="after")
+    def specimen_required(self):
+        """Check if specimen ID is required for in vitro imaging modalities"""
+        for stream in self.data_streams:
+            if any([modality.abbreviation in SPECIMEN_MODALITIES for modality in stream.modalities]):
+                if not self.specimen_id:
                     raise ValueError(f"Specimen ID is required for modalities {stream.modalities}")
+
+        return self
