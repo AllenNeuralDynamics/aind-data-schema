@@ -3,11 +3,11 @@
 from decimal import Decimal
 from typing import List, Literal, Optional, Union
 
-from pydantic import Field, SkipValidation, field_validator, Annotated
-from pydantic_core.core_schema import ValidationInfo
+from pydantic import Field, SkipValidation, Annotated, model_validator
 
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.devices import Calibration, Maintenance
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
+from aind_data_schema.components.units import VolumeUnit
+from aind_data_schema.components.devices import Calibration, Maintenance, Camera, CameraAssembly
 from aind_data_schema.components.identifiers import Person, Software
 
 from aind_data_schema.components.configs import (
@@ -34,6 +34,25 @@ from aind_data_schema.components.stimulus import (
 )
 
 from aind_data_schema_models.modalities import Modality, StimulusModality
+
+# Define the requirements for each modality
+# Define the mapping of modalities to their required device types
+# The list of list pattern is used to allow for multiple options within a group, so e.g.
+# FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
+CONFIG_REQUIREMENTS = {
+    Modality.ECEPHYS: [[DomeModule, ManipulatorModule]],
+    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [FiberConnectionConfig], [FiberModule]],
+    Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
+    Modality.MRI: [[MRIScan]],
+}
+
+# This is ugly but one of the validators was just checking that the cameras were active in the device name list
+# so to replace that I'm going to add a validator that searches the instrument to make sure the active_devices
+# list contains a valid Camera and/or CameraAssembly. Note that this validator has to go in the `metadata` class
+# [TODO]
+DEVICE_REQUIREMENTS = {
+    Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
+}
 
 
 class Stream(DataModel):
@@ -66,87 +85,12 @@ class Stream(DataModel):
         ]
     ] = Field(..., title="Active devices")
 
-    @staticmethod
-    def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
-        if Modality.ECEPHYS in value:
-            ephys_modules = info.data["ephys_modules"]
-            for k, v in {
-                "ephys_modules": ephys_modules,
-            }.items():
-                if not v:
-                    return f"{k} field must be utilized for Ecephys modality"
-        return None
-
-    @staticmethod
-    def _validate_fib_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate FIB modality has light_sources, detectors, and fiber_connections"""
-        if Modality.FIB in value:
-            light_source = info.data["light_sources"]
-            detector = info.data["detectors"]
-            fiber_connections = info.data["fiber_connections"]
-            for k, v in {
-                "light_sources": light_source,
-                "detectors": detector,
-                "fiber_connections": fiber_connections,
-            }.items():
-                if not v:
-                    return f"{k} field must be utilized for FIB modality"
-        return None
-
-    @staticmethod
-    def _validate_pophys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate POPHYS modality has ophys_fovs and stack_parameters"""
-        if Modality.POPHYS in value:
-            ophys_fovs = info.data["ophys_fovs"]
-            stack_parameters = info.data["stack_parameters"]
-            if not ophys_fovs and not stack_parameters:
-                return "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality"
-        else:
-            return None
-
-    @staticmethod
-    def _validate_behavior_videos_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate BEHAVIOR_VIDEOS modality has cameras"""
-        if Modality.BEHAVIOR_VIDEOS in value and len(info.data["camera_names"]) == 0:
-            return "camera_names field must be utilized for Behavior Videos modality"
-        else:
-            return None
-
-    @staticmethod
-    def _validate_mri_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate MRI modality has scans"""
-        if Modality.MRI in value:
-            scans = info.data["mri_scans"]
-            if not scans:
-                return "mri_scans field must be utilized for MRI modality"
-        else:
-            return None
-
-    @field_validator("stream_modalities", mode="after")
-    def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
-        """Validate each modality in stream_modalities field has associated data"""
-        errors = []
-        ephys_errors = cls._validate_ephys_modality(value, info)
-        fib_errors = cls._validate_fib_modality(value, info)
-        pophys_errors = cls._validate_pophys_modality(value, info)
-        behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        mri_errors = cls._validate_mri_modality(value, info)
-
-        if ephys_errors is not None:
-            errors.append(ephys_errors)
-        if fib_errors is not None:
-            errors.append(fib_errors)
-        if pophys_errors is not None:
-            errors.append(pophys_errors)
-        if behavior_vids_errors is not None:
-            errors.append(behavior_vids_errors)
-        if mri_errors is not None:
-            errors.append(mri_errors)
-        if len(errors) > 0:
-            message = "\n     ".join(errors)
-            raise ValueError(message)
-        return value
+    @model_validator(mode="after")
+    def check_modality_config_requirements(cls, v):
+        for modality in v.modalities:
+            for group in CONFIG_REQUIREMENTS[modality]:
+                if not any([any([isinstance(config, device) for device in group]) for config in v.configurations]):
+                    raise ValueError(f"Missing required devices for modality {modality} in {v.configurations}")
 
 
 class StimulusEpoch(DataModel):
@@ -198,7 +142,7 @@ class StimulusEpoch(DataModel):
             ],
             Field(discriminator="object_type"),
         ]
-    ] = Field(default=[], title="Active devices")
+    ] = Field(default=[], title="Device configurations")
 
 
 class Acquisition(DataCoreModel):
@@ -212,8 +156,8 @@ class Acquisition(DataCoreModel):
         default=[],
         title="experimenter(s)",
     )
-    subject_id: str = Field(default=None, title="Subject ID")
-    specimen_id: Optional[str] = Field(..., title="Specimen ID")
+    subject_id: str = Field(default=..., title="Subject ID")
+    specimen_id: Optional[str] = Field(default=None, title="Specimen ID")
     instrument_id: str = Field(..., title="Instrument ID")
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
 
@@ -256,6 +200,6 @@ class Acquisition(DataCoreModel):
         description="Animal weight after procedure",
     )
 
-    # Todo: validator for subject + specimen ID, compare first six digits
+    # [TODO] : validator for subject + specimen ID, compare first six digits
 
-    # Todo: modality -> specimen ID validator
+    # [TODO] : modality -> specimen ID validator
