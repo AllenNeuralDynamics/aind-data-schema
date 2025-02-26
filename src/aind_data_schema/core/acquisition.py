@@ -6,7 +6,7 @@ from typing import List, Literal, Optional, Union
 from pydantic import Field, SkipValidation, Annotated, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
-from aind_data_schema.components.units import VolumeUnit
+from aind_data_schema.components.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import Calibration, Maintenance, Camera, CameraAssembly
 from aind_data_schema.components.identifiers import Person, Software
 
@@ -199,6 +199,18 @@ class Acquisition(DataCoreModel):
         title="Animal weight (g)",
         description="Animal weight after procedure",
     )
+    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
+    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    mouse_platform_name: str = Field(..., title="Mouse platform")
+    active_mouse_platform: bool = Field(
+        ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
+    )
+    headframe_registration: Optional[Affine3dTransform] = Field(
+        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
+    )
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
+    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
 
     # [TODO] : validator for subject + specimen ID, compare first six digits
 
