@@ -1,6 +1,5 @@
 """ Configurations for devices, software, and other components """
 
-
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
@@ -64,14 +63,19 @@ class StimulusModality(str, Enum):
     WHEEL_FRICTION = "Wheel friction"
 
 
+class DeviceConfig(DataModel):
+    """Parent class for all configurations"""
+
+    device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
+
+
 # Ophys components
-class FiberConnectionConfig(DataModel):
+class FiberConnectionConfig(DeviceConfig):
     """Description for a fiber photometry configuration"""
 
     patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
     patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
-    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
 
 class TriggerType(str, Enum):
@@ -81,19 +85,17 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class DetectorConfig(DataModel):
+class DetectorConfig(DeviceConfig):
     """Description of detector settings"""
 
-    name: str = Field(..., title="Name")
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
-class LightEmittingDiodeConfig(DataModel):
+class LightEmittingDiodeConfig(DeviceConfig):
     """Description of LED settings"""
 
-    name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
@@ -194,7 +196,8 @@ class SlapFieldOfView(FieldOfView):
 
 
 class ArenaConfig(DataModel):
-    """ Configuration for Arena """
+    """Configuration for Arena"""
+
     objects_in_area: List[str] = Field(..., title="Objects in area")
 
 
@@ -249,10 +252,9 @@ class FiberModule(ManipulatorModule):
     fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LaserConfig(DataModel):
+class LaserConfig(DeviceConfig):
     """Description of laser settings in a session"""
 
-    name: str = Field(..., title="Name", description="Must match instrument json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
@@ -297,10 +299,9 @@ class RewardDeliveryConfig(DataModel):
         return value
 
 
-class SpeakerConfig(DataModel):
+class SpeakerConfig(DeviceConfig):
     """Description of auditory speaker configuration"""
 
-    name: str = Field(..., title="Name", description="Must match instrument json")
     volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
@@ -327,7 +328,7 @@ class SubjectPosition(str, Enum):
     SUPINE = "Supine"
 
 
-class MRIScan(DataModel):
+class MRIScan(DeviceConfig):
     """Description of a 3D scan"""
 
     scan_index: int = Field(..., title="Scan index")
@@ -335,7 +336,6 @@ class MRIScan(DataModel):
     primary_scan: bool = Field(
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
-    mri_scanner: Optional[Scanner] = Field(default=None, title="MRI scanner")
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     rare_factor: Optional[int] = Field(default=None, title="RARE factor")
     echo_time: Decimal = Field(..., title="Echo time (ms)")
@@ -422,6 +422,7 @@ class ImagingConfig(DataModel):
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
+
     @field_validator("axes", mode="before")
     def from_direction_code(cls, v: Union[str, List[ImageAxis]]) -> List[ImageAxis]:
         """Map direction codes to Axis model"""
