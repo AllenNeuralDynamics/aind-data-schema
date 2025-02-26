@@ -5,49 +5,35 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
     AngleUnit,
     FrequencyUnit,
-    MassUnit,
     PowerUnit,
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
-    VolumeUnit,
 )
-from aind_data_schema_models.brain_atlas import CCFStructure
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from aind_data_schema.components.devices import ImmersionMedium
+from aind_data_schema.components.tile import AcquisitionTile
+from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName
+from aind_data_schema_models.brain_atlas import CCFStructure, CcfCoords
+from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
-from typing_extensions import Annotated
 
 from aind_data_schema.base import (
-    DataCoreModel,
-    GenericModel,
     GenericModelType,
     DataModel,
-    AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
-    CcfCoords,
     Coordinates3d,
     Rotation3dTransform,
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, SpoutSide
-from aind_data_schema.components.identifiers import Person, Software, Code
-from aind_data_schema.components.stimulus import (
-    AuditoryStimulation,
-    OlfactoryStimulation,
-    OptoStimulation,
-    PhotoStimulation,
-    VisualStimulation,
-)
+from aind_data_schema.components.devices import RelativePosition, SpoutSide
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import Anaesthetic, CoordinateReferenceLocation
+from aind_data_schema.core.procedures import CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
