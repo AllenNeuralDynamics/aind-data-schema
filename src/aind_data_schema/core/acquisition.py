@@ -1,15 +1,15 @@
 """ schema describing imaging acquisition """
 
 from decimal import Decimal
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union, Annotated
 
-from pydantic import Field, SkipValidation, Annotated, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
-from aind_data_schema.components.units import VolumeUnit, MassUnit
+from aind_data_schema_models.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import Calibration, Maintenance, Camera, CameraAssembly
-from aind_data_schema.procedures import Anaesthetic
-from aind_data_schema.components.identifiers import Person, Software
+from aind_data_schema.core.procedures import Anaesthetic
+from aind_data_schema.components.identifiers import Person, Software, Code
 
 from aind_data_schema.components.configs import (
     DomeModule,
@@ -26,6 +26,7 @@ from aind_data_schema.components.configs import (
     Stack,
     MRIScan,
     RewardDeliveryConfig,
+    StimulusModality,
 )
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
@@ -35,7 +36,7 @@ from aind_data_schema.components.stimulus import (
     VisualStimulation,
 )
 
-from aind_data_schema_models.modalities import Modality, StimulusModality
+from aind_data_schema_models.modalities import Modality
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -158,9 +159,9 @@ class StimulusEpoch(DataModel):
         ]
     ] = Field(default=[], title="Stimulus parameters")
 
-    active_devices = List[str] = Field(..., title="Active devices")
+    active_devices: List[str] = Field(..., title="Active devices")
 
-    configurations = List[
+    configurations: List[
         Annotated[
             Union[
                 SpeakerConfig,

@@ -17,15 +17,15 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.configs import (
     DomeModule,
     ManipulatorModule,
     MRIScan,
     RewardDeliveryConfig,
-    Scanner,
 )
 from aind_data_schema.core.acquisition import (
-    Session,
+    Acquisition,
     Stream,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -40,9 +40,9 @@ class ExampleTest(unittest.TestCase):
         """always returns true"""
 
         with self.assertRaises(pydantic.ValidationError):
-            sess = Session()
+            sess = Acquisition()
 
-        sess = Session(
+        sess = Acquisition(
             experimenters=[Person(name="Mam Moth")],
             session_start_time=datetime.now(),
             session_end_time=datetime.now(),
@@ -121,7 +121,7 @@ class ExampleTest(unittest.TestCase):
             stream_modalities=[Modality.MRI],
         )
 
-        mri = Session(
+        mri = Acquisition(
             experimenters=[Person(name="Mam Moth")],
             subject_id="123456",
             session_start_time=datetime.now(tz=timezone.utc),

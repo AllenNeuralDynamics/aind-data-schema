@@ -18,8 +18,8 @@ from aind_data_schema.components.coordinates import Affine3dTransform
 
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName
-from aind_data_schema_models.brain_atlas import CCFStructure, CcfCoords
+from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, CcfCoords
+from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
