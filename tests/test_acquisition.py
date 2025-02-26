@@ -17,12 +17,14 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.session import (
+from aind_data_schema.components.configs import (
     DomeModule,
     ManipulatorModule,
     MRIScan,
     RewardDeliveryConfig,
     Scanner,
+)
+from aind_data_schema.core.acquisition import (
     Session,
     Stream,
 )
