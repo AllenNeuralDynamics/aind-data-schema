@@ -1,4 +1,4 @@
-""" example unit test file """
+""" Test for the acquisition.json """
 
 import re
 import unittest
@@ -17,7 +17,6 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.configs import (
     DomeModule,
     ManipulatorModule,
@@ -27,43 +26,45 @@ from aind_data_schema.components.configs import (
 from aind_data_schema.core.acquisition import (
     Acquisition,
     Stream,
+    SubjectDetails,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
-class ExampleTest(unittest.TestCase):
-    """an example test"""
+class AcquisitionTest(unittest.TestCase):
+    """Group of tests for the Acquisition class"""
 
     def test_constructors(self):
-        """always returns true"""
+        """Test constructing acquisition files"""
 
         with self.assertRaises(pydantic.ValidationError):
-            sess = Acquisition()
+            acquisition = Acquisition()
 
-        sess = Acquisition(
+        acquisition = Acquisition(
             experimenters=[Person(name="Mam Moth")],
-            session_start_time=datetime.now(),
-            session_end_time=datetime.now(),
+            acquisition_start_time=datetime.now(),
+            acquisition_end_time=datetime.now(),
             subject_id="1234",
-            session_type="Test",
+            acquisition_type="Test",
             instrument_id="1234",
-            mouse_platform_name="Running wheel",
-            active_mouse_platform=False,
+            subject_details=SubjectDetails(
+                mouse_platform_name="Running wheel",
+                active_mouse_platform=False,
+            ),
             data_streams=[
                 Stream(
                     stream_start_time=datetime.now(),
                     stream_end_time=datetime.now(),
-                    stream_modalities=[Modality.ECEPHYS],
-                    stick_microscopes=[
+                    modalities=[Modality.ECEPHYS],
+                    active_devices=["Stick_assembly", "Ephys_assemblyA"],
+                    configurations=[
                         DomeModule(
                             assembly_name="Stick_assembly",
                             arc_angle=24,
                             module_angle=10,
-                        )
-                    ],
-                    ephys_modules=[
+                        ),
                         ManipulatorModule(
                             assembly_name="Ephys_assemblyA",
                             arc_angle=0,
@@ -77,7 +78,7 @@ class ExampleTest(unittest.TestCase):
             ],
         )
 
-        assert sess is not None
+        self.assertIsNotNone(acquisition)
 
         with self.assertRaises(pydantic.ValidationError):
             RewardDeliveryConfig()
@@ -93,10 +94,17 @@ class ExampleTest(unittest.TestCase):
         with self.assertRaises(ValidationError):
             MRIScan(scan_sequence_type="Other", notes="")
 
+        # mri_scanner=Scanner(
+        #     name="Scanner 72",
+        #     scanner_location="Fred Hutch",
+        #     magnetic_strength="7",
+        # )
+
         stream = Stream(
             stream_start_time="2024-03-12T16:27:55.584892Z",
             stream_end_time="2024-03-12T16:27:55.584892Z",
-            mri_scans=[
+            active_devices=["Scanner 72"],
+            configurations=[
                 MRIScan(
                     scan_index=1,
                     scan_type="3D Scan",
@@ -111,82 +119,145 @@ class ExampleTest(unittest.TestCase):
                     effective_echo_time=2.0,
                     repetition_time=1.2,
                     additional_scan_parameters={"number_averages": 3},
-                    mri_scanner=Scanner(
-                        name="Scanner 72",
-                        scanner_location="Fred Hutch",
-                        magnetic_strength="7",
-                    ),
+                    device_name="Scanner 72",
                 )
             ],
-            stream_modalities=[Modality.MRI],
+            modalities=[Modality.MRI],
         )
 
         mri = Acquisition(
             experimenters=[Person(name="Mam Moth")],
             subject_id="123456",
-            session_start_time=datetime.now(tz=timezone.utc),
-            session_end_time=datetime.now(tz=timezone.utc),
+            acquisition_start_time=datetime.now(tz=timezone.utc),
+            acquisition_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
             ethics_review_id="1234",
-            session_type="3D MRI Volume",
+            acquisition_type="3D MRI Volume",
             instrument_id="NA",
-            animal_weight_prior=22.1,
-            animal_weight_post=21.9,
+            subject_details=SubjectDetails(
+                animal_weight_prior=22.1,
+                animal_weight_post=21.9,
+                mouse_platform_name="NA",
+                active_mouse_platform=False,
+            ),
             data_streams=[stream],
-            mouse_platform_name="NA",
-            active_mouse_platform=False,
         )
 
         assert mri is not None
 
-    def test_validators(self):
-        """Test the session file validators"""
-
-        with self.assertRaises(pydantic.ValidationError) as e:
-            Stream(
-                stream_start_time=datetime.now(),
-                stream_end_time=datetime.now(),
-                stream_modalities=[
-                    Modality.ECEPHYS,
-                    Modality.SLAP,
-                    Modality.FIB,
-                    Modality.BEHAVIOR_VIDEOS,
-                    Modality.POPHYS,
-                    Modality.BEHAVIOR,
-                    Modality.MRI,
+    def test_subject_details_if_not_specimen(self):
+        """Test that subject details are required if no specimen ID"""
+        with self.assertRaises(ValueError):
+            Acquisition(
+                experimenters=[Person(name="Mam Moth")],
+                acquisition_start_time=datetime.now(),
+                acquisition_end_time=datetime.now(),
+                subject_id="1234",
+                acquisition_type="Test",
+                instrument_id="1234",
+                data_streams=[
+                    Stream(
+                        stream_start_time=datetime.now(),
+                        stream_end_time=datetime.now(),
+                        modalities=[Modality.ECEPHYS],
+                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
+                        configurations=[
+                            DomeModule(
+                                assembly_name="Stick_assembly",
+                                arc_angle=24,
+                                module_angle=10,
+                            ),
+                            ManipulatorModule(
+                                assembly_name="Ephys_assemblyA",
+                                arc_angle=0,
+                                module_angle=10,
+                                primary_targeted_structure=CCFStructure.VISL,
+                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
+                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                            ),
+                        ],
+                    )
                 ],
             )
 
-        self.assertTrue("ephys_modules field must be utilized for Ecephys modality" in repr(e.exception))
-        self.assertTrue("light_sources field must be utilized for FIB modality" in repr(e.exception))
-        self.assertTrue(
-            "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality" in repr(e.exception)
-        )
-        self.assertTrue("camera_names field must be utilized for Behavior Videos modality" in repr(e.exception))
-        self.assertTrue("mri_scans field must be utilized for MRI modality" in repr(e.exception))
-
-        with self.assertRaises(ValueError) as e:
-            MRIScan(
-                scan_index=1,
-                scan_type="3D Scan",
-                scan_sequence_type="RARE",
-                rare_factor=4,
-                primary_scan=True,
-                subject_position="Supine",
-                voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
-                echo_time=2.2,
-                effective_echo_time=2.0,
-                repetition_time=1.2,
-                additional_scan_parameters={"number_averages": 3},
+    def test_check_subject_specimen_id(self):
+        """Test that subject and specimen IDs match"""
+        with self.assertRaises(ValueError):
+            Acquisition(
+                experimenters=[Person(name="Mam Moth")],
+                acquisition_start_time=datetime.now(),
+                acquisition_end_time=datetime.now(),
+                subject_id="123456",
+                specimen_id="654321",
+                acquisition_type="Test",
+                instrument_id="1234",
+                subject_details=SubjectDetails(
+                    mouse_platform_name="Running wheel",
+                    active_mouse_platform=False,
+                ),
+                data_streams=[
+                    Stream(
+                        stream_start_time=datetime.now(),
+                        stream_end_time=datetime.now(),
+                        modalities=[Modality.ECEPHYS],
+                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
+                        configurations=[
+                            DomeModule(
+                                assembly_name="Stick_assembly",
+                                arc_angle=24,
+                                module_angle=10,
+                            ),
+                            ManipulatorModule(
+                                assembly_name="Ephys_assemblyA",
+                                arc_angle=0,
+                                module_angle=10,
+                                primary_targeted_structure=CCFStructure.VISL,
+                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
+                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                            ),
+                        ],
+                    )
+                ],
             )
 
-        expected_exception = (
-            "1 validation error for MRIScan\n"
-            "  Value error, Primary scan must have vc_orientation, vc_position, and voxel_sizes fields "
-            "[type=value_error, input_value={'scan_index': 1, 'scan_t... {'number_averages': 3}}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+    def test_specimen_required(self):
+        """Test that specimen ID is required for in vitro imaging modalities"""
+        with self.assertRaises(ValueError):
+            Acquisition(
+                experimenters=[Person(name="Mam Moth")],
+                acquisition_start_time=datetime.now(),
+                acquisition_end_time=datetime.now(),
+                subject_id="123456",
+                acquisition_type="Test",
+                instrument_id="1234",
+                subject_details=SubjectDetails(
+                    mouse_platform_name="Running wheel",
+                    active_mouse_platform=False,
+                ),
+                data_streams=[
+                    Stream(
+                        stream_start_time=datetime.now(),
+                        stream_end_time=datetime.now(),
+                        modalities=[Modality.SPIM],
+                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
+                        configurations=[
+                            DomeModule(
+                                assembly_name="Stick_assembly",
+                                arc_angle=24,
+                                module_angle=10,
+                            ),
+                            ManipulatorModule(
+                                assembly_name="Ephys_assemblyA",
+                                arc_angle=0,
+                                module_angle=10,
+                                primary_targeted_structure=CCFStructure.VISL,
+                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
+                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                            ),
+                        ],
+                    )
+                ],
+            )
 
 
 if __name__ == "__main__":
