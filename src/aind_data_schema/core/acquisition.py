@@ -57,6 +57,8 @@ DEVICE_REQUIREMENTS = {
     Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
 }
 
+SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
+
 
 class Stream(DataModel):
     """Data streams with a start and stop time"""
@@ -155,10 +157,12 @@ class Acquisition(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
+    
+    # ID
+    subject_id: str = Field(default=..., title="Subject ID")
+    specimen_id: Optional[str] = Field(default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities")
 
     # Acquisition metadata
-    subject_id: str = Field(default=..., title="Subject ID")
-    specimen_id: Optional[str] = Field(default=None, title="Specimen ID")
     experimenters: List[Person] = Field(
         default=[],
         title="experimenter(s)",
@@ -221,6 +225,17 @@ class Acquisition(DataCoreModel):
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
 
-    # [TODO] : validator for subject + specimen ID, compare first six digits
+    @model_validator(mode="after")
+    def check_subject_specimen_id(cls, v):
+        """Check if specimen ID is required for in vitro imaging modalities"""
+        if v.specimen_id and v.subject_id:
+            if v.specimen_id[:6] != v.subject_id[:6]:
+                raise ValueError(f"Subject ID {v.subject_id} and Specimen ID {v.specimen_id} do not match")
 
-    # [TODO] : modality -> specimen ID validator
+    @model_validator(mode="after")
+    def specimen_required(cls, v):
+        """Check if specimen ID is required for in vitro imaging modalities"""
+        if not v.specimen_id:
+            for stream in v.data_streams:
+                if any([modality.abbreviation in SPECIMEN_MODALITIES for modality in stream.modalities]):
+                    raise ValueError(f"Specimen ID is required for modalities {stream.modalities}")
