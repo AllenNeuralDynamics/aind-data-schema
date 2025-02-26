@@ -49,6 +49,7 @@ from aind_data_schema.components.devices import (
     Treadmill,
     Tube,
     Wheel,
+    Scanner,
 )
 
 # Define the mapping of modalities to their required device types
@@ -144,6 +145,7 @@ class Instrument(DataCoreModel):
                 Lamp,
                 Detector,
                 Objective,
+                Scanner,
                 Filter,
                 Lens,
                 DigitalMicromirrorDevice,

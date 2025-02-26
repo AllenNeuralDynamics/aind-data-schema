@@ -50,22 +50,24 @@ class Stream(DataModel):
 
     active_devices: List[str] = Field(..., title="Active devices")
 
-    configurations: List[Annotated[Union[
-        LightEmittingDiodeConfig,
-        LaserConfig,
-        ManipulatorModule,
-        DomeModule,
-        DetectorConfig,
-        FiberConnectionConfig,
-        FiberModule,
-        FieldOfView,
-        SlapFieldOfView,
-        Stack,
-        MRIScan,
-        ],
-        Field(discriminator="object_type")]] = Field(
-        ..., title="Active devices"
-    )
+    configurations: List[
+        Annotated[
+            Union[
+                LightEmittingDiodeConfig,
+                LaserConfig,
+                ManipulatorModule,
+                DomeModule,
+                DetectorConfig,
+                FiberConnectionConfig,
+                FiberModule,
+                FieldOfView,
+                SlapFieldOfView,
+                Stack,
+                MRIScan,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(..., title="Active devices")
 
     @staticmethod
     def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
@@ -189,15 +191,17 @@ class StimulusEpoch(DataModel):
 
     active_devices = List[str] = Field(..., title="Active devices")
 
-    configurations = List[Annotated[Union[
-        SpeakerConfig,
-        LightEmittingDiodeConfig,
-        LaserConfig,
-        ArenaConfig,
-        ],
-        Field(discriminator="object_type")]] = Field(
-        default=[], title="Active devices"
-    )
+    configurations = List[
+        Annotated[
+            Union[
+                SpeakerConfig,
+                LightEmittingDiodeConfig,
+                LaserConfig,
+                ArenaConfig,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(default=[], title="Active devices")
 
 
 class Acquisition(DataCoreModel):
@@ -256,6 +260,5 @@ class Acquisition(DataCoreModel):
     )
 
     # Todo: validator for subject + specimen ID, compare first six digits
-    
-    # Todo: modality -> specimen ID validator
 
+    # Todo: modality -> specimen ID validator
