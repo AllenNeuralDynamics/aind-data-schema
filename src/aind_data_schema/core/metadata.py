@@ -91,13 +91,13 @@ class Metadata(DataCoreModel):
     )
     created: AwareDatetimeWithDefault = Field(
         default_factory=lambda: datetime.now(tz=timezone.utc),
-        title="Created",
-        description="The utc date and time the data asset created.",
+        title="Asset creation data",
+        description="The utc date and time the data asset was created on the cloud",
     )
     last_modified: AwareDatetimeWithDefault = Field(
         default_factory=lambda: datetime.now(tz=timezone.utc),
         title="Last Modified",
-        description="The utc date and time that the data asset was last modified.",
+        description="The utc date and time that the data asset metadata was last modified.",
     )
     location: str = Field(
         ...,
