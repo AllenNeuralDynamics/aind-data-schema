@@ -14,6 +14,8 @@ from aind_data_schema_models.units import (
     SoundIntensityUnit,
     TimeUnit,
 )
+from aind_data_schema.components.coordinates import Affine3dTransform
+
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName
@@ -317,6 +319,9 @@ class SubjectPosition(str, Enum):
 class MRIScan(DeviceConfig):
     """Description of a 3D scan"""
 
+    headframe_registration: Optional[Affine3dTransform] = Field(
+        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
+    )
     scan_index: int = Field(..., title="Scan index")
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(

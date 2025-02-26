@@ -8,7 +8,6 @@ from pydantic import Field, SkipValidation, Annotated, model_validator
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
 from aind_data_schema.components.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import Calibration, Maintenance, Camera, CameraAssembly
-from aind_data_schema.components.coordinates import Affine3dTransform
 from aind_data_schema.procedures import Anaesthetic
 from aind_data_schema.components.identifiers import Person, Software
 
@@ -58,6 +57,30 @@ DEVICE_REQUIREMENTS = {
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
+
+
+class SubjectDetails(DataModel):
+    """Details about the subject"""
+
+    animal_weight_prior: Optional[Decimal] = Field(
+        default=None,
+        title="Animal weight (g)",
+        description="Animal weight before procedure",
+    )
+    animal_weight_post: Optional[Decimal] = Field(
+        default=None,
+        title="Animal weight (g)",
+        description="Animal weight after procedure",
+    )
+    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
+    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    mouse_platform_name: str = Field(..., title="Mouse platform")
+    active_mouse_platform: bool = Field(
+        ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
+    )
+    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
+    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
+    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
 
 
 class Stream(DataModel):
@@ -157,7 +180,7 @@ class Acquisition(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
-    
+
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
     specimen_id: Optional[str] = Field(default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities")
@@ -200,30 +223,13 @@ class Acquisition(DataCoreModel):
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
+    subject_details: Optional[SubjectDetails] = Field(default=None, title="Subject details")
 
-    # Fields coming from session [TODO] figure out how to get rid of these, maybe these are actually a data stream?
-    animal_weight_prior: Optional[Decimal] = Field(
-        default=None,
-        title="Animal weight (g)",
-        description="Animal weight before procedure",
-    )
-    animal_weight_post: Optional[Decimal] = Field(
-        default=None,
-        title="Animal weight (g)",
-        description="Animal weight after procedure",
-    )
-    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
-    mouse_platform_name: str = Field(..., title="Mouse platform")
-    active_mouse_platform: bool = Field(
-        ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
-    )
-    headframe_registration: Optional[Affine3dTransform] = Field(
-        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
-    )
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
+    @model_validator(mode="after")
+    def subject_details_if_not_specimen(cls, v):
+        """Check that subject details are present if no specimen ID"""
+        if not v.specimen_id and not v.subject_details:
+            raise ValueError("Subject details are required for in vivo experiments")
 
     @model_validator(mode="after")
     def check_subject_specimen_id(cls, v):
