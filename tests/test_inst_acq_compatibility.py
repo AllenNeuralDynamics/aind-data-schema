@@ -33,7 +33,13 @@ from aind_data_schema.components.devices import (
     ProbePort,
 )
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.session import (
+from aind_data_schema.core.acquisition import (
+    Acquisition,
+    StimulusEpoch,
+    DataStream,
+    SubjectDetails,
+)
+from aind_data_schema.components.configs import (
     CcfCoords,
     Coordinates3d,
     DetectorConfig,
@@ -42,12 +48,9 @@ from aind_data_schema.core.session import (
     FiberModule,
     LaserConfig,
     ManipulatorModule,
-    Session,
-    StimulusEpoch,
     StimulusModality,
-    DataStream,
-    VisualStimulation,
 )
+from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
@@ -259,7 +262,7 @@ grating_code = Code(
     ),
 )
 
-ephys_session = Session(
+ephys_acquisition = Acquisition(
     experimenters=[Person(name="Mam Moth")],
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
@@ -267,8 +270,10 @@ ephys_session = Session(
     acquisition_type="Receptive field mapping",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
     ethics_review_id="2109",
-    active_mouse_platform=False,
-    mouse_platform_name="mouse platform",
+    subject_details=SubjectDetails(
+        active_mouse_platform=False,
+        mouse_platform_name="mouse platform",
+    ),
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -312,9 +317,17 @@ ephys_session = Session(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             modalities=[Modality.ECEPHYS],
-            daq_names=["Basestation"],
-            camera_names=["some_camera_name"],
-            stick_microscopes=[
+            active_devices=[
+                "Basestation",
+                "some_camera_name",
+                "stick microscope 1",
+                "stick microscope 2",
+                "stick microscope 3",
+                "stick microscope 4",
+                "ephys module 1",
+                "ephys module 2",
+            ],
+            configurations=[
                 DomeModule(
                     rotation_angle=0,
                     device_name="stick microscope 1",
@@ -343,8 +356,6 @@ ephys_session = Session(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-            ],
-            ephys_modules=[
                 ManipulatorModule(
                     targeted_ccf_coordinates=[
                         CcfCoords(ml=8150, ap=3250, dv=7800),
@@ -383,8 +394,16 @@ ephys_session = Session(
             stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
-            daq_names=["Basestation"],
-            stick_microscopes=[
+            active_devices=[
+                "Basestation",
+                "stick microscope 1",
+                "stick microscope 2",
+                "stick microscope 3",
+                "stick microscope 4",
+                "ephys module 1",
+                "ephys module 2",
+            ],
+            configurations=[
                 DomeModule(
                     rotation_angle=0,
                     device_name="stick microscope 1",
@@ -413,8 +432,6 @@ ephys_session = Session(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-            ],
-            manipulator_modules=[
                 ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=5.2,
@@ -430,8 +447,6 @@ ephys_session = Session(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-            ],
-            ephys_modules=[
                 ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=5.2,

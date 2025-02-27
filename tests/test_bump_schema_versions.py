@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, call, patch
 
 from semver import Version
 
-from aind_data_schema.core.session import Session
+from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.utils.json_writer import SchemaWriter
@@ -22,7 +22,7 @@ class SchemaVersionTests(unittest.TestCase):
         mock_open_return_values = []
         for core_model in SchemaWriter.get_schemas():
             contents = core_model.model_json_schema()
-            if core_model in [Session, Subject]:
+            if core_model in [Acquisition, Subject]:
                 contents["description"] = "I HAVE CHANGED!"
             mock_open_return_values.append(contents)
         cls.mock_open_values = mock_open_return_values
@@ -37,7 +37,7 @@ class SchemaVersionTests(unittest.TestCase):
 
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         models_that_changed = handler._get_list_of_models_that_changed()
-        self.assertTrue(Session in models_that_changed)
+        self.assertTrue(Acquisition in models_that_changed)
         self.assertTrue(Subject in models_that_changed)
 
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_schema_json")
@@ -47,20 +47,20 @@ class SchemaVersionTests(unittest.TestCase):
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         old_subject_version = Subject.model_fields["schema_version"].default
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
-        old_session_version = Acquisition.model_fields["schema_version"].default
-        new_session_version = str(Version.parse(old_session_version).bump_patch())
+        old_acquisition_version = Acquisition.model_fields["schema_version"].default
+        new_acquisition_version = str(Version.parse(old_acquisition_version).bump_patch())
 
         def side_effect(model):
             """Side effect for mock_get_schema"""
             if model == Subject:
                 return {"properties": {"schema_version": {"default": old_subject_version}}}
-            elif model == Session:
-                return {"properties": {"schema_version": {"default": old_session_version}}}
+            elif model == Acquisition:
+                return {"properties": {"schema_version": {"default": old_acquisition_version}}}
 
         mock_get_schema.side_effect = side_effect
 
-        model_map = handler._get_incremented_versions_map([Subject, Session])
-        expected_model_map = {Subject: new_subject_version, Session: new_session_version}
+        model_map = handler._get_incremented_versions_map([Subject, Acquisition])
+        expected_model_map = {Subject: new_subject_version, Acquisition: new_acquisition_version}
         self.assertEqual(expected_model_map, model_map)
 
     @patch("builtins.open")
@@ -132,21 +132,21 @@ class SchemaVersionTests(unittest.TestCase):
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         old_subject_version = Subject.model_fields["schema_version"].default
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
-        old_session_version = Acquisition.model_fields["schema_version"].default
-        new_session_version = str(Version.parse(old_session_version).bump_patch())
+        old_acquisition_version = Acquisition.model_fields["schema_version"].default
+        new_acquisition_version = str(Version.parse(old_acquisition_version).bump_patch())
         old_inst_version = Instrument.model_fields["schema_version"].default
         new_inst_version = str(Version.parse(old_inst_version).bump_minor())
         # Pycharm raises a warning about types that we can ignore
         # noinspection PyTypeChecker
         handler._update_files(
-            {Subject: new_subject_version, Session: new_session_version, Instrument: new_inst_version}
+            {Subject: new_subject_version, Acquisition: new_acquisition_version, Instrument: new_inst_version}
         )
 
         expected_line_change0 = (
             f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field(default="{new_subject_version}")'
         )
         expected_line_change1 = (
-            f'schema_version: SkipValidation[Literal["{new_session_version}"]] = Field(default="{new_session_version}")'
+            f'schema_version: SkipValidation[Literal["{new_acquisition_version}"]] = Field(default="{new_acquisition_version}")'
         )
 
         mock_write_args0 = mock_write.mock_calls[0].args
@@ -154,7 +154,7 @@ class SchemaVersionTests(unittest.TestCase):
         self.assertTrue(expected_line_change0 in str(mock_write_args0[0]))
         self.assertTrue("subject.py" in str(mock_write_args0[1]))
         self.assertTrue(expected_line_change1 in str(mock_write_args1[0]))
-        self.assertTrue("session.py" in str(mock_write_args1[1]))
+        self.assertTrue("acquisition.py" in str(mock_write_args1[1]))
 
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_schema_json")
     @patch("aind_data_schema.utils.schema_version_bump.SchemaVersionHandler._get_list_of_models_that_changed")
@@ -166,23 +166,23 @@ class SchemaVersionTests(unittest.TestCase):
 
         old_subject_version = Subject.model_fields["schema_version"].default
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
-        old_session_version = Acquisition.model_fields["schema_version"].default
-        new_session_version = str(Version.parse(old_session_version).bump_patch())
+        old_acquisition_version = Acquisition.model_fields["schema_version"].default
+        new_acquisition_version = str(Version.parse(old_acquisition_version).bump_patch())
 
-        mock_get_list_of_models.return_value = [Subject, Session]
+        mock_get_list_of_models.return_value = [Subject, Acquisition]
 
         def side_effect(model):
             """Return values for get_schema_json"""
             if model == Subject:
                 return {"properties": {"schema_version": {"default": old_subject_version}}}
-            elif model == Session:
-                return {"properties": {"schema_version": {"default": old_session_version}}}
+            elif model == Acquisition:
+                return {"properties": {"schema_version": {"default": old_acquisition_version}}}
 
         mock_get_schema.side_effect = side_effect
 
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         handler.run_job()
-        mock_update_files.assert_called_once_with({Subject: new_subject_version, Session: new_session_version})
+        mock_update_files.assert_called_once_with({Subject: new_subject_version, Acquisition: new_acquisition_version})
 
 
 if __name__ == "__main__":

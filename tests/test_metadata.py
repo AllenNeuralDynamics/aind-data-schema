@@ -40,7 +40,6 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
@@ -50,7 +49,7 @@ PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
-EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
+EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
