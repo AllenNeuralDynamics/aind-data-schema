@@ -824,7 +824,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                         "Fiber A",
                         "Fiber B",
                     ],
-                    light_sources=[
+                    configurations=[
                         LaserConfig(
                             device_name="Laser A",
                             wavelength=405,
@@ -839,18 +839,14 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                             excitation_power=7,
                             excitation_power_unit="milliwatt",
                         ),
-                    ],
-                    detectors=[DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
-                    fiber_modules=[
+                        DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
                         FiberModule(
                             device_name="Fiber Module A",
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
                             manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
-                        )
-                    ],
-                    fiber_connections=[
+                        ),
                         FiberConnectionConfig(
                             patch_cord_name="Patch Cord A",
                             patch_cord_output_power=40,
