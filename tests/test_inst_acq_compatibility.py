@@ -900,91 +900,29 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
 
     def test_compare_mouse_platform_name_error(self):
         """Tests that an error is raised when mouse platform names do not match"""
-        self.ophys_acquisition.mouse_platform_name = "wrong_platform"
+        self.ophys_acquisition.subject_details.mouse_platform_name = "wrong_platform"
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-    def test_compare_daq_names_error(self):
+    def test_compare_active_devices(self):
         """Tests that an error is raised when daq names do not match"""
-        self.ophys_acquisition.data_streams[0].daq_names = ["wrong_daq"]
+        self.ophys_acquisition.data_streams[0].active_devices = ["wrong_daq"]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-    def test_compare_camera_names_error(self):
-        """Tests that an error is raised when camera names do not match"""
         self.ophys_acquisition.data_streams[0].camera_names = ["wrong_camera"]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-    def test_compare_light_sources_error(self):
-        """Tests that an error is raised when light sources do not match"""
-        self.ophys_acquisition.data_streams[0].light_sources = [
-            LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
-        ]
-        with self.assertRaises(ValueError):
-            InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
-            ).run_compatibility_check()
-
-    def test_compare_ephys_assemblies_error(self):
-        """Tests that an error is raised when ephys assemblies do not match"""
-        module = ManipulatorModule(
-            targeted_ccf_coordinates=[
-                CcfCoords(ml=8150, ap=3250, dv=7800),
-            ],
-            device_name="fake module",
-            arc_angle=5.2,
-            module_angle=8,
-            coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-            primary_targeted_structure=CCFStructure.LGD,
-            manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-            calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-            notes=(
-                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-            ),
-        )
-        self.ophys_acquisition.data_streams[0].ephys_modules = [module]
-        with self.assertRaises(ValueError):
-            InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
-            ).run_compatibility_check()
-
-    def test_compare_stick_microscopes_error(self):
-        """Tests that an error is raised when stick microscopes do not match"""
         self.ophys_acquisition.data_streams[0].configurations = [
-            DomeModule(device_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
+            LaserConfig(device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
         ]
-        with self.assertRaises(ValueError):
-            InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
-            ).run_compatibility_check()
-
-    def test_compare_manipulator_modules_error(self):
-        """Tests that an error is raised when manipulator modules do not match"""
-        module = ManipulatorModule(
-            targeted_ccf_coordinates=[
-                CcfCoords(ml=8150, ap=3250, dv=7800),
-            ],
-            device_name="fake module",
-            arc_angle=5.2,
-            module_angle=8,
-            coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-            primary_targeted_structure=CCFStructure.LGD,
-            manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-            calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-            notes=(
-                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-            ),
-        )
-        self.ophys_acquisition.data_streams[0].manipulator_modules = [module]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
