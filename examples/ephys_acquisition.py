@@ -38,7 +38,7 @@ session = Acquisition(
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            stimulus_modalities=[StimulusModality.VISUAL],
+            modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=Code(
@@ -59,7 +59,7 @@ session = Acquisition(
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            stimulus_modalities=[StimulusModality.VISUAL],
+            modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=Code(
@@ -83,7 +83,7 @@ session = Acquisition(
         DataStream(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            stream_modalities=[Modality.ECEPHYS],
+            modalities=[Modality.ECEPHYS],
             active_devices=[
                 "Basestation Slot 3",
                 "stick microscope 1",
@@ -158,7 +158,7 @@ session = Acquisition(
         DataStream(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
-            stream_modalities=[Modality.ECEPHYS],
+            modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             active_devices=[
                 "Basestation Slot 3",

@@ -45,7 +45,7 @@ from aind_data_schema.core.session import (
     Session,
     StimulusEpoch,
     StimulusModality,
-    Stream,
+    DataStream,
     VisualStimulation,
 )
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
@@ -272,7 +272,7 @@ ephys_session = Session(
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            stimulus_modalities=[StimulusModality.VISUAL],
+            modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=grating_code,
@@ -290,7 +290,7 @@ ephys_session = Session(
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            stimulus_modalities=[StimulusModality.VISUAL],
+            modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=grating_code,
@@ -308,10 +308,10 @@ ephys_session = Session(
         ),
     ],
     data_streams=[
-        Stream(
+        DataStream(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            stream_modalities=[Modality.ECEPHYS],
+            modalities=[Modality.ECEPHYS],
             daq_names=["Basestation"],
             camera_names=["some_camera_name"],
             stick_microscopes=[
@@ -378,10 +378,10 @@ ephys_session = Session(
                 ),
             ],
         ),
-        Stream(
+        DataStream(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
-            stream_modalities=[Modality.ECEPHYS],
+            modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             daq_names=["Basestation"],
             stick_microscopes=[
@@ -795,10 +795,10 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             mouse_platform_name="Disc",
             active_mouse_platform=False,
             data_streams=[
-                Stream(
+                DataStream(
                     stream_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stream_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
-                    stream_modalities=[Modality.FIB],
+                    modalities=[Modality.FIB],
                     light_sources=[
                         LaserConfig(
                             name="Laser A",
@@ -847,7 +847,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     stimulus_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stimulus_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stimulus_name="Some Stimulus Name",
-                    stimulus_modalities=[StimulusModality.AUDITORY],
+                    modalities=[StimulusModality.AUDITORY],
                     stimulus_device_names=["Stimulus Device A", "Stimulus Device B"],
                 )
             ],

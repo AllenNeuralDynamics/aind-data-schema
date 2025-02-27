@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.session import DetectorConfig, FiberConnectionConfig, LaserConfig, Session, Stream
+from aind_data_schema.core.session import DetectorConfig, FiberConnectionConfig, LaserConfig, Session, DataStream
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
@@ -20,10 +20,10 @@ s = Session(
     mouse_platform_name="Disc",
     active_mouse_platform=False,
     data_streams=[
-        Stream(
+        DataStream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.FIB],
+            modalities=[Modality.FIB],
             light_sources=[
                 LaserConfig(
                     name="Laser A",

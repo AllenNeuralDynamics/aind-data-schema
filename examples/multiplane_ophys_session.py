@@ -6,14 +6,20 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.session import FieldOfView, LaserConfig, Session, Stream
+from aind_data_schema.core.acquisition import (
+    Acquisition,
+    StimulusEpoch,
+    DataStream,
+    SubjectDetails,
+)
+from aind_data_schema.core.session import FieldOfView, LaserConfig
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
-s = Session(
+a = Acquisition(
     experimenters=[Person(name="John Smith")],
     acquisition_start_time=t,
     acquisition_end_time=t,
@@ -21,13 +27,15 @@ s = Session(
     acquisition_type="Mesoscope",
     instrument_id="MESO.1",
     ethics_review_id="12345",
-    mouse_platform_name="disc",
-    active_mouse_platform=True,
+    subject_details=SubjectDetails(
+        active_mouse_platform=True,
+        mouse_platform_name="disc",
+    ),
     data_streams=[
-        Stream(
+        DataStream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
+            modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
             camera_names=[
                 "Mesoscope",
                 "Eye",
