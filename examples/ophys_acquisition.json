@@ -1,0 +1,104 @@
+{
+   "object_type": "Acquisition",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
+   "schema_version": "2.0.3",
+   "subject_id": "652567",
+   "specimen_id": null,
+   "experimenters": [
+      {
+         "object_type": "Person",
+         "name": "Scientist Smith",
+         "registry": {
+            "name": "Open Researcher and Contributor ID",
+            "abbreviation": "ORCID"
+         },
+         "registry_identifier": null
+      }
+   ],
+   "protocol_id": [],
+   "ethics_review_id": "2115",
+   "instrument_id": "ophys_inst",
+   "calibrations": [],
+   "maintenance": [],
+   "acquisition_start_time": "2022-07-12T07:00:00Z",
+   "acquisition_end_time": "2022-07-12T07:00:00Z",
+   "acquisition_type": "Parameter Testing",
+   "local_storage_directory": null,
+   "external_storage_directory": null,
+   "software": [],
+   "notes": null,
+   "data_streams": [
+      {
+         "object_type": "Data stream",
+         "stream_start_time": "2022-07-12T07:00:00Z",
+         "stream_end_time": "2022-07-12T07:00:00Z",
+         "modalities": [
+            {
+               "name": "Fiber photometry",
+               "abbreviation": "fib"
+            }
+         ],
+         "software": [],
+         "notes": "Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
+         "active_devices": [
+            "Laser A",
+            "Laser B",
+            "Hamamatsu Camera",
+            "Fiber A",
+            "Fiber B"
+         ],
+         "configurations": [
+            {
+               "object_type": "Laser config",
+               "device_name": "Laser A",
+               "wavelength": 405,
+               "wavelength_unit": "nanometer",
+               "excitation_power": "10",
+               "excitation_power_unit": "milliwatt"
+            },
+            {
+               "object_type": "Laser config",
+               "device_name": "Laser B",
+               "wavelength": 473,
+               "wavelength_unit": "nanometer",
+               "excitation_power": "7",
+               "excitation_power_unit": "milliwatt"
+            },
+            {
+               "object_type": "Detector config",
+               "device_name": "Hamamatsu Camera",
+               "exposure_time": "10",
+               "exposure_time_unit": "millisecond",
+               "trigger_type": "Internal"
+            },
+            {
+               "object_type": "Fiber connection config",
+               "device_name": "Fiber A",
+               "patch_cord_name": "Patch Cord A",
+               "patch_cord_output_power": "40",
+               "output_power_unit": "microwatt"
+            },
+            {
+               "object_type": "Fiber connection config",
+               "device_name": "Fiber B",
+               "patch_cord_name": "Patch Cord B",
+               "patch_cord_output_power": "43",
+               "output_power_unit": "microwatt"
+            }
+         ]
+      }
+   ],
+   "stimulus_epochs": [],
+   "subject_details": {
+      "object_type": "Subject details",
+      "animal_weight_prior": null,
+      "animal_weight_post": null,
+      "weight_unit": "gram",
+      "anaesthesia": null,
+      "mouse_platform_name": "Disc",
+      "active_mouse_platform": false,
+      "reward_delivery": null,
+      "reward_consumed_total": null,
+      "reward_consumed_unit": "milliliter"
+   }
+}

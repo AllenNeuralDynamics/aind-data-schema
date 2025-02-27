@@ -27,6 +27,7 @@ from aind_data_schema.components.configs import (
     MRIScan,
     RewardDeliveryConfig,
     StimulusModality,
+    ImagingConfig,
 )
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
@@ -57,7 +58,7 @@ DEVICE_REQUIREMENTS = {
     Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
 }
 
-SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
+SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation]
 
 
 class SubjectDetails(DataModel):
@@ -109,6 +110,7 @@ class DataStream(DataModel):
                 SlapFieldOfView,
                 Stack,
                 MRIScan,
+                ImagingConfig,
             ],
             Field(discriminator="object_type"),
         ]
