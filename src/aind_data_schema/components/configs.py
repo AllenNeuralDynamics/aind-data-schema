@@ -190,10 +190,9 @@ class ArenaConfig(DataModel):
 
 
 # Ephys Components
-class DomeModule(DataModel):
+class DomeModule(DeviceConfig):
     """Movable module that is mounted on the ephys dome insertion system"""
 
-    assembly_name: str = Field(..., title="Assembly name")
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")

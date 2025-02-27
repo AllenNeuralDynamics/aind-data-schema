@@ -317,28 +317,28 @@ ephys_session = Session(
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 1",
+                    device_name="stick microscope 1",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="did not record angles, did not calibrate.",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 2",
+                    device_name="stick microscope 2",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 3",
+                    device_name="stick microscope 3",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 4",
+                    device_name="stick microscope 4",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
@@ -349,7 +349,7 @@ ephys_session = Session(
                     targeted_ccf_coordinates=[
                         CcfCoords(ml=8150, ap=3250, dv=7800),
                     ],
-                    assembly_name="ephys module 1",
+                    device_name="ephys module 1",
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
@@ -366,7 +366,7 @@ ephys_session = Session(
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    assembly_name="ephys module 2",
+                    device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
@@ -387,28 +387,28 @@ ephys_session = Session(
             stick_microscopes=[
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 1",
+                    device_name="stick microscope 1",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="did not record angles, did not calibrate.",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 2",
+                    device_name="stick microscope 2",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 3",
+                    device_name="stick microscope 3",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 4",
+                    device_name="stick microscope 4",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
@@ -420,7 +420,7 @@ ephys_session = Session(
                     arc_angle=5.2,
                     module_angle=8,
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    assembly_name="ephys module 1",
+                    device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
@@ -437,7 +437,7 @@ ephys_session = Session(
                     arc_angle=5.2,
                     module_angle=8,
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    assembly_name="ephys module 1",
+                    device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
@@ -452,7 +452,7 @@ ephys_session = Session(
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    assembly_name="ephys module 2",
+                    device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
@@ -818,7 +818,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     detectors=[DetectorConfig(name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
                     fiber_modules=[
                         FiberModule(
-                            assembly_name="Fiber Module A",
+                            device_name="Fiber Module A",
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
@@ -917,7 +917,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             targeted_ccf_coordinates=[
                 CcfCoords(ml=8150, ap=3250, dv=7800),
             ],
-            assembly_name="fake module",
+            device_name="fake module",
             arc_angle=5.2,
             module_angle=8,
             coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
@@ -938,7 +938,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
     def test_compare_stick_microscopes_error(self):
         """Tests that an error is raised when stick microscopes do not match"""
         self.ophys_session.data_streams[0].stick_microscopes = [
-            DomeModule(assembly_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
+            DomeModule(device_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
         ]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
@@ -951,7 +951,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             targeted_ccf_coordinates=[
                 CcfCoords(ml=8150, ap=3250, dv=7800),
             ],
-            assembly_name="fake module",
+            device_name="fake module",
             arc_angle=5.2,
             module_angle=8,
             coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",

@@ -61,12 +61,12 @@ class AcquisitionTest(unittest.TestCase):
                     active_devices=["Stick_assembly", "Ephys_assemblyA"],
                     configurations=[
                         DomeModule(
-                            assembly_name="Stick_assembly",
+                            device_name="Stick_assembly",
                             arc_angle=24,
                             module_angle=10,
                         ),
                         ManipulatorModule(
-                            assembly_name="Ephys_assemblyA",
+                            device_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
                             primary_targeted_structure=CCFStructure.VISL,
@@ -163,12 +163,12 @@ class AcquisitionTest(unittest.TestCase):
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
                             DomeModule(
-                                assembly_name="Stick_assembly",
+                                device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
                             ),
                             ManipulatorModule(
-                                assembly_name="Ephys_assemblyA",
+                                device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
@@ -203,12 +203,12 @@ class AcquisitionTest(unittest.TestCase):
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
                             DomeModule(
-                                assembly_name="Stick_assembly",
+                                device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
                             ),
                             ManipulatorModule(
-                                assembly_name="Ephys_assemblyA",
+                                device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
@@ -242,12 +242,12 @@ class AcquisitionTest(unittest.TestCase):
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
                             DomeModule(
-                                assembly_name="Stick_assembly",
+                                device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
                             ),
                             ManipulatorModule(
-                                assembly_name="Ephys_assemblyA",
+                                device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
