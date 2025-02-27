@@ -907,19 +907,21 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
 
     def test_compare_active_devices(self):
-        """Tests that an error is raised when daq names do not match"""
+        """Tests that an error is raised when active_devices do not match"""
         self.ophys_acquisition.data_streams[0].active_devices = ["wrong_daq"]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-        self.ophys_acquisition.data_streams[0].camera_names = ["wrong_camera"]
+        self.ophys_acquisition.data_streams[0].active_devices = ["wrong_camera"]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
+    def test_compare_configurations(self):
+        """Tests that an error is raised when configuration names do not match"""
         self.ophys_acquisition.data_streams[0].configurations = [
             LaserConfig(device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
         ]

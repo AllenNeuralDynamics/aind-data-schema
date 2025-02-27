@@ -212,10 +212,10 @@ class ImagingTests(unittest.TestCase):
                                 axes=test_code,
                             ),
                         ],
-                    )  
+                    )
                 ],
             )
-            self.assertEqual(3, len(a.axes))
+            self.assertEqual(3, len(a.data_streams[0].configurations[0].axes))
 
     def test_registration(self):
         """test the tile models"""
