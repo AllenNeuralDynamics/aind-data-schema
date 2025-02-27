@@ -41,25 +41,25 @@ a = Acquisition(
         DataStream(
             stream_start_time=t,
             stream_end_time=t,
-            stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
-            light_sources=[
+            modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
+            active_devices=[
+                "Laser A",
+                "PMT A",
+                "Face Camera",
+            ],
+            configurations=[
                 LaserConfig(
-                    name="Laser A",
+                    device_name="Laser A",
                     wavelength=405,
                     wavelength_unit="nanometer",
                     excitation_power=10,
                     excitation_power_unit="milliwatt",
                 ),
-            ],
-            detectors=[
                 DetectorConfig(
-                    name="PMT A",
+                    device_name="PMT A",
                     exposure_time=0.1,
                     trigger_type="Internal",
                 ),
-            ],
-            camera_names=["Face Camera"],
-            ophys_fovs=[
                 FieldOfView(
                     index=0,
                     imaging_depth=150,
@@ -80,7 +80,7 @@ a = Acquisition(
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="PhotoStimulation",
-            stimulus_modalities=[StimulusModality.OPTOGENETICS],
+            modalities=[StimulusModality.OPTOGENETICS],
             stimulus_parameters=[
                 PhotoStimulation(
                     stimulus_name="Two group stim",

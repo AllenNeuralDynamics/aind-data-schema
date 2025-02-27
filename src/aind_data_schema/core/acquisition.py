@@ -61,7 +61,7 @@ SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviatio
 
 
 class SubjectDetails(DataModel):
-    """Details about the subject"""
+    """Details about the subject during an acquisition"""
 
     animal_weight_prior: Optional[Decimal] = Field(
         default=None,
@@ -129,17 +129,17 @@ class DataStream(DataModel):
 
 
 class StimulusEpoch(DataModel):
-    """Description of stimulus used during session"""
+    """Description of stimulus used during data acquisition"""
 
     stimulus_start_time: AwareDatetimeWithDefault = Field(
         ...,
         title="Stimulus start time",
-        description="When a specific stimulus begins. This might be the same as the session start time.",
+        description="When a specific stimulus begins. This might be the same as the acquisition start time.",
     )
     stimulus_end_time: AwareDatetimeWithDefault = Field(
         ...,
         title="Stimulus end time",
-        description="When a specific stimulus ends. This might be the same as the session end time.",
+        description="When a specific stimulus ends. This might be the same as the acquisition end time.",
     )
     stimulus_name: str = Field(..., title="Stimulus name")
     code: Optional[Code] = Field(
@@ -165,7 +165,7 @@ class StimulusEpoch(DataModel):
         ]
     ] = Field(default=[], title="Stimulus parameters")
 
-    active_devices: List[str] = Field(..., title="Active devices")
+    active_devices: List[str] = Field(default=[], title="Active devices")
 
     configurations: List[
         Annotated[
