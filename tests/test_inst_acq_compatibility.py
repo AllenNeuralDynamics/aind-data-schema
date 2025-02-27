@@ -958,7 +958,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
 
     def test_compare_stick_microscopes_error(self):
         """Tests that an error is raised when stick microscopes do not match"""
-        self.ophys_acquisition.data_streams[0].stick_microscopes = [
+        self.ophys_acquisition.data_streams[0].configurations = [
             DomeModule(device_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
         ]
         with self.assertRaises(ValueError):

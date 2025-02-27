@@ -38,8 +38,8 @@ class ImagingTests(unittest.TestCase):
         a = Acquisition(
             experimenters=[Person(name="alice bob")],
             acquisition_start_time=datetime.now(tz=timezone.utc),
-            specimen_id="12345",
-            subject_id="1234",
+            specimen_id="123456-brain",
+            subject_id="123456",
             instrument_id="1234",
             calibrations=[
                 Calibration(
@@ -167,8 +167,8 @@ class ImagingTests(unittest.TestCase):
             a = Acquisition(
                 experimenters=[Person(name="alice bob")],
                 acquisition_start_time=datetime.now(tz=timezone.utc),
-                specimen_id="12345",
-                subject_id="1234",
+                specimen_id="123456-brain",
+                subject_id="123456",
                 instrument_id="1234",
                 calibrations=[
                     Calibration(
