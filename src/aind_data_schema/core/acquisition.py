@@ -118,6 +118,7 @@ class DataStream(DataModel):
 
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
+        """ Check that the required devices are present for the modalities """
         for modality in self.modalities:
             if modality not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
