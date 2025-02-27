@@ -44,7 +44,7 @@ from aind_data_schema_models.modalities import Modality
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
     Modality.ECEPHYS: [[DomeModule, ManipulatorModule]],
-    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [FiberConnectionConfig], [FiberModule]],
+    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [FiberConnectionConfig, FiberModule]],
     Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
     Modality.MRI: [[MRIScan]],
 }
@@ -190,7 +190,9 @@ class Acquisition(DataCoreModel):
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
-    specimen_id: Optional[str] = Field(default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities")
+    specimen_id: Optional[str] = Field(
+        default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
+    )
 
     # Acquisition metadata
     experimenters: List[Person] = Field(

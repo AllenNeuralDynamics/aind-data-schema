@@ -8,11 +8,10 @@ from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
-    StimulusEpoch,
     DataStream,
     SubjectDetails,
 )
-from aind_data_schema.core.session import FieldOfView, LaserConfig
+from aind_data_schema.components.configs import FieldOfView, LaserConfig
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -36,23 +35,22 @@ a = Acquisition(
             stream_start_time=t,
             stream_end_time=t,
             modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
-            camera_names=[
+            active_devices=[
                 "Mesoscope",
                 "Eye",
                 "Face",
                 "Behavior",
                 "Vasculature",
+                "Laser A",
             ],
-            light_sources=[
+            configurations=[
                 LaserConfig(
-                    name="Laser A",
+                    device_name="Laser A",
                     wavelength=920,
                     wavelength_unit="nanometer",
                     excitation_power=10,
                     excitation_power_unit=PowerUnit.MW,
                 ),
-            ],
-            ophys_fovs=[
                 FieldOfView(
                     index=0,
                     fov_coordinate_ml=1.5,
@@ -233,6 +231,6 @@ a = Acquisition(
         )
     ],
 )
-serialized = s.model_dump_json()
+serialized = a.model_dump_json()
 deserialized = Acquisition.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="multiplane_ophys")

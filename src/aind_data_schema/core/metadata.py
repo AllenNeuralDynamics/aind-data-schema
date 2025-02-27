@@ -128,9 +128,7 @@ class Metadata(DataCoreModel):
         default=None, title="Instrument", description="Devices used to acquire data."
     )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(
-        default=None, title="Acquisition", description="Data acquisition"
-    )
+    acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Data acquisition")
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
     )

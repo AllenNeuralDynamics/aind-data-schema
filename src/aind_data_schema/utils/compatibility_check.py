@@ -35,9 +35,7 @@ class InstrumentAcquisitionCompatibility:
 
         for device in active_devices:
             if device not in component_names:
-                return ValueError(
-                    f"Active device {device} in acquisition does not match any device in the instrument."
-                )
+                return ValueError(f"Active device {device} in acquisition does not match any device in the instrument.")
 
     # def _compare_mouse_platform_name(self) -> Optional[ValueError]:
     #     """Compares mouse_platform_name"""

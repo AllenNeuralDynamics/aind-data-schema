@@ -17,8 +17,8 @@ from aind_data_schema.components.configs import (
     DomeModule,
     ManipulatorModule,
     StimulusModality,
-    VisualStimulation,
 )
+from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 bonsai_software = Software(name="Bonsai", version="2.7")

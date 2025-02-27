@@ -395,7 +395,9 @@ class TestMetadata(unittest.TestCase):
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
                 ),
-                session=Acquisition.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"),
+                session=Acquisition.model_construct(
+                    instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"
+                ),
             )
         self.assertIn(
             "Instrument ID in session 123_EPHYS2_20230101 does not match the instrument's 123_EPHYS1_20220101.",
