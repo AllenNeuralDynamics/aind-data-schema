@@ -17,7 +17,8 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
-from aind_data_schema.core import acquisition as acq
+from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.components.configs import Immersion
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
@@ -32,9 +33,9 @@ class ImagingTests(unittest.TestCase):
     def test_acquisition_constructor(self):
         """testing Acquisition constructor"""
         with self.assertRaises(ValidationError):
-            acq.Acquisition()
+            Acquisition()
 
-        a = acq.Acquisition(
+        a = Acquisition(
             experimenters=[Person(name="alice bob")],
             acquisition_start_time=datetime.now(tz=timezone.utc),
             specimen_id="12345",
@@ -53,7 +54,7 @@ class ImagingTests(unittest.TestCase):
                 ),
             ],
             acquisition_end_time=datetime.now(tz=timezone.utc),
-            chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
+            chamber_immersion=Immersion(medium="PBS", refractive_index=1),
             tiles=[
                 tile.AcquisitionTile(
                     coordinate_transformations=[
@@ -151,7 +152,7 @@ class ImagingTests(unittest.TestCase):
         # test that a few work
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
-            a = acq.Acquisition(
+            a = Acquisition(
                 experimenters=[Person(name="alice bob")],
                 acquisition_start_time=datetime.now(tz=timezone.utc),
                 specimen_id="12345",
@@ -170,7 +171,7 @@ class ImagingTests(unittest.TestCase):
                     ),
                 ],
                 acquisition_end_time=datetime.now(tz=timezone.utc),
-                chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
+                chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                 tiles=[
                     tile.AcquisitionTile(
                         coordinate_transformations=[

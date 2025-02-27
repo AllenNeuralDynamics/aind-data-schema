@@ -28,7 +28,7 @@ from aind_data_schema.components.devices import (
     Laser,
 )
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
@@ -324,7 +324,7 @@ class TestMetadata(unittest.TestCase):
             modalities=[Modality.BEHAVIOR, Modality.SPIM],
             components=[objective, reward_delivery, mouse_platform, scan_stage, laser],
         )
-        session = Acquisition.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
+        acquisition = Acquisition.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
         m = Metadata(
             name="655019_2023-04-03T181709",
@@ -335,7 +335,7 @@ class TestMetadata(unittest.TestCase):
                 modalities=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
             ),
             subject=Subject.model_construct(),
-            session=session,  # SPIM excludes session, but BEHAVIOR requires it
+            acquisition=acquisition,  # SPIM excludes acquisition, but BEHAVIOR requires it
             procedures=Procedures.model_construct(subject_procedures=[surgery1]),
             acquisition=Acquisition.model_construct(),
             instrument=inst,
@@ -363,8 +363,10 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
-                session=Acquisition.model_construct(),
-                acquisition=Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
+                acquisition=Acquisition.model_construct(
+                    instrument_id="323_EPHYS1_20231003",
+                    subject_details=SubjectDetails.model_construct()
+                ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
@@ -393,9 +395,7 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
-                ),
-                session=Acquisition.model_construct(
-                    instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"
+                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
             )
         self.assertIn(

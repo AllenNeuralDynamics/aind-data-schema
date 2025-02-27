@@ -57,7 +57,7 @@ from aind_data_schema.components.identifiers import Code, Software
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
-EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
+EPHYS_ACQUISITION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
 behavior_computer = "W10DT72941"
 ephys_computer = "W10DT72942"
@@ -771,7 +771,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         additional_devices = [d.Device(name="Photometry Clock")]
 
         cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
-        cls.example_ephys_session = Acquisition.model_validate_json(json.dumps(read_json(EPHYS_SESSION_JSON)))
+        cls.example_ephys_acquisition = Acquisition.model_validate_json(json.dumps(read_json(EPHYS_ACQUISITION_JSON)))
         cls.ophys_instrument = Instrument(
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
@@ -799,7 +799,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 )
             ],
         )
-        cls.ophys_session = Session(
+        cls.ophys_acquisition = Acquisition(
             experimenters=[Person(name="Mam Moth")],
             acquisition_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             acquisition_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
@@ -807,23 +807,33 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             acquisition_type="Parameter Testing",
             instrument_id="ophys_inst",
             ethics_review_id="2115",
-            mouse_platform_name="Disc",
-            active_mouse_platform=False,
+            subject_details=SubjectDetails(
+                mouse_platform_name="Disc",
+                active_mouse_platform=False,
+            ),
             data_streams=[
                 DataStream(
                     stream_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stream_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     modalities=[Modality.FIB],
+                    active_devices=[
+                        "Laser A",
+                        "Laser B",
+                        "Hamamatsu Camera",
+                        "Fiber Module A",
+                        "Fiber A",
+                        "Fiber B",
+                    ],
                     light_sources=[
                         LaserConfig(
-                            name="Laser A",
+                            device_name="Laser A",
                             wavelength=405,
                             wavelength_unit="nanometer",
                             excitation_power=10,
                             excitation_power_unit="milliwatt",
                         ),
                         LaserConfig(
-                            name="Laser B",
+                            device_name="Laser B",
                             wavelength=473,
                             wavelength_unit="nanometer",
                             excitation_power=7,
@@ -845,13 +855,13 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                             patch_cord_name="Patch Cord A",
                             patch_cord_output_power=40,
                             output_power_unit="microwatt",
-                            fiber_name="Fiber A",
+                            device_name="Fiber A",
                         ),
                         FiberConnectionConfig(
                             patch_cord_name="Patch Cord B",
                             patch_cord_output_power=43,
                             output_power_unit="microwatt",
-                            fiber_name="Fiber B",
+                            device_name="Fiber B",
                         ),
                     ],
                     notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
@@ -863,7 +873,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     stimulus_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stimulus_name="Some Stimulus Name",
                     modalities=[StimulusModality.AUDITORY],
-                    stimulus_device_names=["Stimulus Device A", "Stimulus Device B"],
+                    active_devices=["Stimulus Device A", "Stimulus Device B"],
                 )
             ],
         )
@@ -873,57 +883,57 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
         # check that ephys session and rig are synced
         example_ephys_check = InstrumentAcquisitionCompatibility(
-            instrument=self.example_ephys_inst, session=self.example_ephys_session
+            instrument=self.example_ephys_inst, acquisition=self.example_ephys_acquisition
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
 
     def test_compare_instrument_id_error(self):
         """Tests that an error is raised when instrument ids do not match"""
-        self.ophys_session.instrument_id = "wrong_id"
+        self.ophys_acquisition.instrument_id = "wrong_id"
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_mouse_platform_name_error(self):
         """Tests that an error is raised when mouse platform names do not match"""
-        self.ophys_session.mouse_platform_name = "wrong_platform"
+        self.ophys_acquisition.mouse_platform_name = "wrong_platform"
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_daq_names_error(self):
         """Tests that an error is raised when daq names do not match"""
-        self.ophys_session.data_streams[0].daq_names = ["wrong_daq"]
+        self.ophys_acquisition.data_streams[0].daq_names = ["wrong_daq"]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_camera_names_error(self):
         """Tests that an error is raised when camera names do not match"""
-        self.ophys_session.data_streams[0].camera_names = ["wrong_camera"]
+        self.ophys_acquisition.data_streams[0].camera_names = ["wrong_camera"]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_light_sources_error(self):
         """Tests that an error is raised when light sources do not match"""
-        self.ophys_session.data_streams[0].light_sources = [
+        self.ophys_acquisition.data_streams[0].light_sources = [
             LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
         ]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_ephys_assemblies_error(self):
@@ -944,20 +954,20 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
             ),
         )
-        self.ophys_session.data_streams[0].ephys_modules = [module]
+        self.ophys_acquisition.data_streams[0].ephys_modules = [module]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_stick_microscopes_error(self):
         """Tests that an error is raised when stick microscopes do not match"""
-        self.ophys_session.data_streams[0].stick_microscopes = [
+        self.ophys_acquisition.data_streams[0].stick_microscopes = [
             DomeModule(device_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
         ]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_manipulator_modules_error(self):
@@ -978,10 +988,10 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
             ),
         )
-        self.ophys_session.data_streams[0].manipulator_modules = [module]
+        self.ophys_acquisition.data_streams[0].manipulator_modules = [module]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
 
