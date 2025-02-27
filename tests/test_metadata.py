@@ -13,18 +13,10 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import (
-    Device,
     EphysAssembly,
     EphysProbe,
-    LickSensorType,
     Manipulator,
-    MotorizedStage,
     MousePlatform,
-    Objective,
-    RewardDelivery,
-    RewardSpout,
-    SpoutSide,
-    ScanningStage,
     Laser,
 )
 from aind_data_schema.components.identifiers import Person, Code
@@ -32,11 +24,9 @@ from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
-    IontophoresisInjection,
     NanojectInjection,
     Procedures,
     Surgery,
-    ViralMaterial,
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
@@ -276,8 +266,7 @@ class TestMetadata(unittest.TestCase):
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
-                    instrument_id="323_EPHYS1_20231003",
-                    subject_details=SubjectDetails.model_construct()
+                    instrument_id="323_EPHYS1_20231003", subject_details=SubjectDetails.model_construct()
                 ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))

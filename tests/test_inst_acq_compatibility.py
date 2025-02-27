@@ -923,7 +923,9 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
     def test_compare_configurations(self):
         """Tests that an error is raised when configuration names do not match"""
         self.ophys_acquisition.data_streams[0].configurations = [
-            LaserConfig(device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
+            LaserConfig(
+                device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"
+            ),
         ]
         with self.assertRaises(ValueError):
             InstrumentAcquisitionCompatibility(

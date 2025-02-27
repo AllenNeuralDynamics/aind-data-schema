@@ -82,9 +82,9 @@ class ImagingTests(unittest.TestCase):
                             ],
                             axes=[],
                         ),
-                    ]
+                    ],
                 )
-            ]
+            ],
         )
 
         self.assertIsNotNone(a)

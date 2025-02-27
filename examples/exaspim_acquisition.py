@@ -120,7 +120,7 @@ acq = Acquisition(
                         ),
                     ],
                 ),
-            ]
+            ],
         )
     ],
     acquisition_start_time=t,

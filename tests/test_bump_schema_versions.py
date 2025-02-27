@@ -146,7 +146,8 @@ class SchemaVersionTests(unittest.TestCase):
             f'schema_version: SkipValidation[Literal["{new_subject_version}"]] = Field(default="{new_subject_version}")'
         )
         expected_line_change1 = (
-            f'schema_version: SkipValidation[Literal["{new_acquisition_version}"]] = Field(default="{new_acquisition_version}")'
+            f'schema_version: SkipValidation[Literal["{new_acquisition_version}"]]'
+            f' = Field(default="{new_acquisition_version}")'
         )
 
         mock_write_args0 = mock_write.mock_calls[0].args
