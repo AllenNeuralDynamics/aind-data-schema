@@ -58,7 +58,7 @@ DEVICE_REQUIREMENTS = {
     Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
 }
 
-SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation]
+SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
 
 
 class SubjectDetails(DataModel):

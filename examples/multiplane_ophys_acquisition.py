@@ -34,7 +34,7 @@ a = Acquisition(
         DataStream(
             stream_start_time=t,
             stream_end_time=t,
-            modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS, Modality.CONFOCAL],
+            modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             active_devices=[
                 "Mesoscope",
                 "Eye",
