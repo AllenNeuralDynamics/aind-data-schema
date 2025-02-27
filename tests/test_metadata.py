@@ -337,7 +337,6 @@ class TestMetadata(unittest.TestCase):
             subject=Subject.model_construct(),
             acquisition=acquisition,  # SPIM excludes acquisition, but BEHAVIOR requires it
             procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-            acquisition=Acquisition.model_construct(),
             instrument=inst,
             processing=Processing.model_construct(),
         )

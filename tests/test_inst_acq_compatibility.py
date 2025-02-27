@@ -840,7 +840,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                             excitation_power_unit="milliwatt",
                         ),
                     ],
-                    detectors=[DetectorConfig(name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
+                    detectors=[DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
                     fiber_modules=[
                         FiberModule(
                             device_name="Fiber Module A",
