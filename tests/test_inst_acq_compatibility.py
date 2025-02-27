@@ -48,7 +48,7 @@ from aind_data_schema.core.session import (
     Stream,
     VisualStimulation,
 )
-from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 
@@ -857,14 +857,14 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         """Tests compatibility check"""
 
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
         # check that ephys session and rig are synced
-        example_ephys_check = InstrumentSessionCompatibility(
+        example_ephys_check = InstrumentAcquisitionCompatibility(
             instrument=self.example_ephys_inst, session=self.example_ephys_session
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
@@ -873,7 +873,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         """Tests that an error is raised when instrument ids do not match"""
         self.ophys_session.instrument_id = "wrong_id"
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -881,7 +881,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         """Tests that an error is raised when mouse platform names do not match"""
         self.ophys_session.mouse_platform_name = "wrong_platform"
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -889,7 +889,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         """Tests that an error is raised when daq names do not match"""
         self.ophys_session.data_streams[0].daq_names = ["wrong_daq"]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -897,7 +897,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         """Tests that an error is raised when camera names do not match"""
         self.ophys_session.data_streams[0].camera_names = ["wrong_camera"]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -907,7 +907,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
         ]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -931,7 +931,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         )
         self.ophys_session.data_streams[0].ephys_modules = [module]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -941,7 +941,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             DomeModule(assembly_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
         ]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 
@@ -965,7 +965,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         )
         self.ophys_session.data_streams[0].manipulator_modules = [module]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
+            InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, session=self.ophys_session
             ).run_compatibility_check()
 

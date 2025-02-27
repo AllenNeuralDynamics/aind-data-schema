@@ -28,9 +28,8 @@ from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
 CORE_FILES = [
     "subject",
@@ -125,13 +124,12 @@ class Metadata(DataCoreModel):
     procedures: Optional[Procedures] = Field(
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
-    session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
     instrument: Optional[Instrument] = Field(
         default=None, title="Instrument", description="Devices used to acquire data."
     )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
     acquisition: Optional[Acquisition] = Field(
-        default=None, title="Acquisition", description="Imaging acquisition session"
+        default=None, title="Acquisition", description="Data acquisition"
     )
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
@@ -264,10 +262,10 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_instrument_session_compatibility(self):
+    def validate_instrument_acquisition_compatibility(self):
         """Validator for metadata"""
-        if self.instrument and self.session:
-            check = InstrumentSessionCompatibility(self.instrument, self.session)
+        if self.instrument and self.acquisition:
+            check = InstrumentAcquisitionCompatibility(self.instrument, self.acquisition)
             check.run_compatibility_check()
         return self
 
