@@ -36,7 +36,7 @@ class ImagingTests(unittest.TestCase):
 
         a = acq.Acquisition(
             experimenters=[Person(name="alice bob")],
-            session_start_time=datetime.now(tz=timezone.utc),
+            acquisition_start_time=datetime.now(tz=timezone.utc),
             specimen_id="12345",
             subject_id="1234",
             instrument_id="1234",
@@ -52,7 +52,7 @@ class ImagingTests(unittest.TestCase):
                     },
                 ),
             ],
-            session_end_time=datetime.now(tz=timezone.utc),
+            acquisition_end_time=datetime.now(tz=timezone.utc),
             chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
             tiles=[
                 tile.AcquisitionTile(
@@ -153,7 +153,7 @@ class ImagingTests(unittest.TestCase):
         for test_code in test_codes:
             a = acq.Acquisition(
                 experimenters=[Person(name="alice bob")],
-                session_start_time=datetime.now(tz=timezone.utc),
+                acquisition_start_time=datetime.now(tz=timezone.utc),
                 specimen_id="12345",
                 subject_id="1234",
                 instrument_id="1234",
@@ -169,7 +169,7 @@ class ImagingTests(unittest.TestCase):
                         },
                     ),
                 ],
-                session_end_time=datetime.now(tz=timezone.utc),
+                acquisition_end_time=datetime.now(tz=timezone.utc),
                 chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
                 tiles=[
                     tile.AcquisitionTile(

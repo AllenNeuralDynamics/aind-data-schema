@@ -84,7 +84,7 @@ class SubjectDetails(DataModel):
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
 
 
-class Stream(DataModel):
+class DataStream(DataModel):
     """Data streams with a start and stop time"""
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
@@ -221,7 +221,7 @@ class Acquisition(DataCoreModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     # Acquisition data
-    data_streams: List[Stream] = Field(
+    data_streams: List[DataStream] = Field(
         ...,
         title="Data streams",
         description=(

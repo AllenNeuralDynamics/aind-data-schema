@@ -52,8 +52,8 @@ acq = acquisition.Acquisition(
             },
         )
     ],
-    session_start_time=t,
-    session_end_time=t,
+    acquisition_start_time=t,
+    acquisition_end_time=t,
     local_storage_directory="D:",
     external_storage_directory="Z:",
     chamber_immersion=acquisition.Immersion(

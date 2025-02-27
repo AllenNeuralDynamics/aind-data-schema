@@ -89,7 +89,7 @@ def plot_timeline(
     # Date of data acquisition
     da = session or acquisition
     if da:
-        acq_start_date = datetime.fromisoformat(da["session_start_time"]).date()
+        acq_start_date = datetime.fromisoformat(da["acquisition_start_time"]).date()
         plot_date_of_acquisition(ax, acq_start_date, date_of_birth)
 
     # Formatting x-axis

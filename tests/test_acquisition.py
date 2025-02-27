@@ -25,7 +25,7 @@ from aind_data_schema.components.configs import (
 )
 from aind_data_schema.core.acquisition import (
     Acquisition,
-    Stream,
+    DataStream,
     SubjectDetails,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -54,7 +54,7 @@ class AcquisitionTest(unittest.TestCase):
                 active_mouse_platform=False,
             ),
             data_streams=[
-                Stream(
+                DataStream(
                     stream_start_time=datetime.now(),
                     stream_end_time=datetime.now(),
                     modalities=[Modality.ECEPHYS],
@@ -100,7 +100,7 @@ class AcquisitionTest(unittest.TestCase):
         #     magnetic_strength="7",
         # )
 
-        stream = Stream(
+        stream = DataStream(
             stream_start_time="2024-03-12T16:27:55.584892Z",
             stream_end_time="2024-03-12T16:27:55.584892Z",
             active_devices=["Scanner 72"],
@@ -156,7 +156,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_type="Test",
                 instrument_id="1234",
                 data_streams=[
-                    Stream(
+                    DataStream(
                         stream_start_time=datetime.now(),
                         stream_end_time=datetime.now(),
                         modalities=[Modality.ECEPHYS],
@@ -196,7 +196,7 @@ class AcquisitionTest(unittest.TestCase):
                     active_mouse_platform=False,
                 ),
                 data_streams=[
-                    Stream(
+                    DataStream(
                         stream_start_time=datetime.now(),
                         stream_end_time=datetime.now(),
                         modalities=[Modality.ECEPHYS],
@@ -235,7 +235,7 @@ class AcquisitionTest(unittest.TestCase):
                     active_mouse_platform=False,
                 ),
                 data_streams=[
-                    Stream(
+                    DataStream(
                         stream_start_time=datetime.now(),
                         stream_end_time=datetime.now(),
                         modalities=[Modality.SPIM],

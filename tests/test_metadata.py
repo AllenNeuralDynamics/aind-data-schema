@@ -325,7 +325,7 @@ class TestMetadata(unittest.TestCase):
             modalities=[Modality.BEHAVIOR, Modality.SPIM],
             components=[objective, reward_delivery, mouse_platform, scan_stage, laser],
         )
-        session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
+        session = Acquisition.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
 
         m = Metadata(
             name="655019_2023-04-03T181709",
@@ -364,7 +364,7 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
-                session=Session.model_construct(),
+                session=Acquisition.model_construct(),
                 acquisition=Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -395,7 +395,7 @@ class TestMetadata(unittest.TestCase):
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
                 ),
-                session=Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"),
+                session=Acquisition.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"),
             )
         self.assertIn(
             "Instrument ID in session 123_EPHYS2_20230101 does not match the instrument's 123_EPHYS1_20220101.",

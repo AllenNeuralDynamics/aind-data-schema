@@ -61,12 +61,12 @@ stream = Stream(
 
 sess = Session(
     subject_id="123456",
-    session_start_time="2024-03-12T16:27:55.584892Z",
-    session_end_time="2024-03-12T16:27:55.584892Z",
+    acquisition_start_time="2024-03-12T16:27:55.584892Z",
+    acquisition_end_time="2024-03-12T16:27:55.584892Z",
     experimenters=[Person(name="John Smith")],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
     ethics_review_id="1234",
-    session_type="3D MRI Volume",
+    acquisition_type="3D MRI Volume",
     instrument_id="NA",
     data_streams=[stream],
     mouse_platform_name="NA",
@@ -74,5 +74,5 @@ sess = Session(
     notes="There was some information about this scan session",
 )
 serialized = sess.model_dump_json()
-deserialized = Session.model_validate_json(serialized)
+deserialized = Acquisition.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="mri")

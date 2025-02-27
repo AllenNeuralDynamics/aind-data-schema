@@ -11,10 +11,10 @@ t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
     experimenters=[Person(name="Scientist Smith")],
-    session_start_time=t,
-    session_end_time=t,
+    acquisition_start_time=t,
+    acquisition_end_time=t,
     subject_id="652567",
-    session_type="Parameter Testing",
+    acquisition_type="Parameter Testing",
     instrument_id="ophys_inst",
     ethics_review_id="2115",
     mouse_platform_name="Disc",
@@ -60,5 +60,5 @@ s = Session(
     ],
 )
 serialized = s.model_dump_json()
-deserialized = Session.model_validate_json(serialized)
+deserialized = Acquisition.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="ophys")

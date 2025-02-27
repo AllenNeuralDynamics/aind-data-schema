@@ -47,7 +47,7 @@ class SchemaVersionTests(unittest.TestCase):
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         old_subject_version = Subject.model_fields["schema_version"].default
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
-        old_session_version = Session.model_fields["schema_version"].default
+        old_session_version = Acquisition.model_fields["schema_version"].default
         new_session_version = str(Version.parse(old_session_version).bump_patch())
 
         def side_effect(model):
@@ -132,7 +132,7 @@ class SchemaVersionTests(unittest.TestCase):
         handler = SchemaVersionHandler(json_schemas_location=Path("."))
         old_subject_version = Subject.model_fields["schema_version"].default
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
-        old_session_version = Session.model_fields["schema_version"].default
+        old_session_version = Acquisition.model_fields["schema_version"].default
         new_session_version = str(Version.parse(old_session_version).bump_patch())
         old_inst_version = Instrument.model_fields["schema_version"].default
         new_inst_version = str(Version.parse(old_inst_version).bump_minor())
@@ -166,7 +166,7 @@ class SchemaVersionTests(unittest.TestCase):
 
         old_subject_version = Subject.model_fields["schema_version"].default
         new_subject_version = str(Version.parse(old_subject_version).bump_patch())
-        old_session_version = Session.model_fields["schema_version"].default
+        old_session_version = Acquisition.model_fields["schema_version"].default
         new_session_version = str(Version.parse(old_session_version).bump_patch())
 
         mock_get_list_of_models.return_value = [Subject, Session]

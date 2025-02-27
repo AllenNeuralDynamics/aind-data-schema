@@ -10,14 +10,13 @@ from aind_data_schema.components.stimulus import PhotoStimulation, PhotoStimulat
 from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
-    Stream,
+    DataStream,
     SubjectDetails,
 )
 from aind_data_schema.components.configs import (
     DetectorConfig,
     FieldOfView,
     LaserConfig,
-    Session,
     StimulusModality,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -39,7 +38,7 @@ a = Acquisition(
         active_mouse_platform=False,
     ),
     data_streams=[
-        Stream(
+        DataStream(
             stream_start_time=t,
             stream_end_time=t,
             stream_modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
@@ -116,5 +115,5 @@ a = Acquisition(
 )
 
 serialized = a.model_dump_json()
-deserialized = Session.model_validate_json(serialized)
+deserialized = Acquisition.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="bergamo_ophys")

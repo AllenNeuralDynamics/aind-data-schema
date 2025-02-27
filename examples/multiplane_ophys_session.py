@@ -15,10 +15,10 @@ t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 s = Session(
     experimenters=[Person(name="John Smith")],
-    session_start_time=t,
-    session_end_time=t,
+    acquisition_start_time=t,
+    acquisition_end_time=t,
     subject_id="12345",
-    session_type="Mesoscope",
+    acquisition_type="Mesoscope",
     instrument_id="MESO.1",
     ethics_review_id="12345",
     mouse_platform_name="disc",
@@ -226,5 +226,5 @@ s = Session(
     ],
 )
 serialized = s.model_dump_json()
-deserialized = Session.model_validate_json(serialized)
+deserialized = Acquisition.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="multiplane_ophys")

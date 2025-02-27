@@ -174,7 +174,7 @@ class SlapSessionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    session_type: SlapSessionType = Field(..., title="Session type")
+    acquisition_type: SlapSessionType = Field(..., title="Session type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
