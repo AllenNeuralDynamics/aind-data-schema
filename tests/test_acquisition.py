@@ -269,8 +269,7 @@ class AcquisitionTest(unittest.TestCase):
                 stream_end_time=datetime.now(),
                 modalities=[Modality.ECEPHYS],
                 active_devices=[],
-                configurations=[
-                ],
+                configurations=[],
             )
 
         # Test valid configuration for ECEPHYS modality
