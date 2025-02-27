@@ -259,6 +259,44 @@ class AcquisitionTest(unittest.TestCase):
                 ],
             )
 
+    def test_check_modality_config_requirements(self):
+        """Test that modality configuration requirements are enforced"""
+
+        # Test missing required devices for ECEPHYS modality
+        with self.assertRaises(ValueError):
+            DataStream(
+                stream_start_time=datetime.now(),
+                stream_end_time=datetime.now(),
+                modalities=[Modality.ECEPHYS],
+                active_devices=[],
+                configurations=[
+                ],
+            )
+
+        # Test valid configuration for ECEPHYS modality
+        stream = DataStream(
+            stream_start_time=datetime.now(),
+            stream_end_time=datetime.now(),
+            modalities=[Modality.ECEPHYS],
+            active_devices=["Stick_assembly", "Ephys_assemblyA"],
+            configurations=[
+                DomeModule(
+                    device_name="Stick_assembly",
+                    arc_angle=24,
+                    module_angle=10,
+                ),
+                ManipulatorModule(
+                    device_name="Ephys_assemblyA",
+                    arc_angle=0,
+                    module_angle=10,
+                    primary_targeted_structure=CCFStructure.VISL,
+                    targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
+                    manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                ),
+            ],
+        )
+        self.assertIsNotNone(stream)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -119,12 +119,12 @@ class DataStream(DataModel):
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
         for modality in self.modalities:
-            if modality not in CONFIG_REQUIREMENTS:
+            if modality not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
                 continue
 
             for group in CONFIG_REQUIREMENTS[modality]:
-                if not any([any([isinstance(config, device) for device in group]) for config in self.configurations]):
+                if not any(isinstance(config, device) for config in self.configurations for device in group):
                     raise ValueError(f"Missing required devices for modality {modality} in {self.configurations}")
 
         return self
