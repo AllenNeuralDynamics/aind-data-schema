@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 from pydantic import ValidationError
-from aind_data_schema.components.configs import MRIScan, Rotation3dTransform, Translation3dTransform, Scale3dTransform, SubjectPosition, MriScanSequence, ProcessName, TimeUnit
+from aind_data_schema.components.configs import MRIScan, Rotation3dTransform, Translation3dTransform, Scale3dTransform
 
 
 class TestMRIScan(unittest.TestCase):
