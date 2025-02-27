@@ -256,6 +256,10 @@ class Acquisition(DataCoreModel):
     @model_validator(mode="after")
     def specimen_required(self):
         """Check if specimen ID is required for in vitro imaging modalities"""
+
+        if not hasattr(self, "data_streams"):  # bypass for testing
+            return self
+
         for stream in self.data_streams:
             if any([modality.abbreviation in SPECIMEN_MODALITIES for modality in stream.modalities]):
                 if not self.specimen_id:

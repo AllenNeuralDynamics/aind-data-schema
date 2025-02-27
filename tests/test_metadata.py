@@ -249,7 +249,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(),
+                acquisition=Acquisition.model_construct(subject_details=SubjectDetails.model_construct()),
                 instrument=inst,
                 processing=Processing.model_construct(),
             )
