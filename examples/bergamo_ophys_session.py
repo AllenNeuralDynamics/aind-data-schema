@@ -7,14 +7,18 @@ from aind_data_schema_models.units import FrequencyUnit
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.stimulus import PhotoStimulation, PhotoStimulationGroup
-from aind_data_schema.core.session import (
+from aind_data_schema.core.acquisition import (
+    Acquisition,
+    StimulusEpoch,
+    Stream,
+    SubjectDetails,
+)
+from aind_data_schema.components.configs import (
     DetectorConfig,
     FieldOfView,
     LaserConfig,
     Session,
-    StimulusEpoch,
     StimulusModality,
-    Stream,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -22,16 +26,18 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
-s = Session(
+a = Acquisition(
     experimenters=[Person(name="John Smith")],
-    session_start_time=t,
-    session_end_time=t,
+    acquisition_start_time=t,
+    acquisition_end_time=t,
     subject_id="652567",
-    session_type="BCI Photometry",
+    acquisition_type="BCI Photometry",
     instrument_id="322_bergamo_20220705",
     ethics_review_id="2115",
-    mouse_platform_name="Mouse tube",
-    active_mouse_platform=False,
+    subject_details=SubjectDetails(
+        mouse_platform_name="Mouse tube",
+        active_mouse_platform=False,
+    ),
     data_streams=[
         Stream(
             stream_start_time=t,
@@ -109,6 +115,6 @@ s = Session(
     ],
 )
 
-serialized = s.model_dump_json()
+serialized = a.model_dump_json()
 deserialized = Session.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="bergamo_ophys")
