@@ -1,4 +1,4 @@
-""" Configurations for devices, software, and other components """
+""" Configurations for devices, software, and other components during acquisition """
 
 from datetime import datetime
 from decimal import Decimal
