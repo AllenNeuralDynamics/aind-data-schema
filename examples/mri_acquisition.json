@@ -49,7 +49,6 @@
             {
                "object_type": "MRI scan",
                "device_name": "Scanner 72",
-               "headframe_registration": null,
                "scan_index": 1,
                "scan_type": "Set Up",
                "primary_scan": false,
@@ -78,7 +77,6 @@
             {
                "object_type": "MRI scan",
                "device_name": "Scanner 72",
-               "headframe_registration": null,
                "scan_index": 2,
                "scan_type": "3D Scan",
                "primary_scan": true,
