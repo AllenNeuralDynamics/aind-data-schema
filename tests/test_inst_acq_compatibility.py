@@ -280,7 +280,6 @@ ephys_acquisition = Acquisition(
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
     ethics_review_id="2109",
     subject_details=SubjectDetails(
-        active_mouse_platform=False,
         mouse_platform_name="mouse platform",
     ),
     stimulus_epochs=[
@@ -796,7 +795,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ethics_review_id="2115",
             subject_details=SubjectDetails(
                 mouse_platform_name="Disc",
-                active_mouse_platform=False,
             ),
             data_streams=[
                 DataStream(

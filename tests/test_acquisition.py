@@ -51,7 +51,6 @@ class AcquisitionTest(unittest.TestCase):
             instrument_id="1234",
             subject_details=SubjectDetails(
                 mouse_platform_name="Running wheel",
-                active_mouse_platform=False,
             ),
             data_streams=[
                 DataStream(
@@ -138,7 +137,6 @@ class AcquisitionTest(unittest.TestCase):
                 animal_weight_prior=22.1,
                 animal_weight_post=21.9,
                 mouse_platform_name="NA",
-                active_mouse_platform=False,
             ),
             data_streams=[stream],
         )
@@ -193,7 +191,6 @@ class AcquisitionTest(unittest.TestCase):
                 instrument_id="1234",
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
-                    active_mouse_platform=False,
                 ),
                 data_streams=[
                     DataStream(
@@ -232,7 +229,6 @@ class AcquisitionTest(unittest.TestCase):
                 instrument_id="1234",
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
-                    active_mouse_platform=False,
                 ),
                 data_streams=[
                     DataStream(

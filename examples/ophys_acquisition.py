@@ -23,7 +23,6 @@ a = Acquisition(
     instrument_id="ophys_inst",
     ethics_review_id="2115",
     subject_details=SubjectDetails(
-        active_mouse_platform=False,
         mouse_platform_name="Disc",
     ),
     data_streams=[
