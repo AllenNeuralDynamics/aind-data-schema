@@ -12507,19 +12507,33 @@
                "title": "Width unit"
             },
             "encoder": {
-               "$ref": "#/$defs/Device",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Encoder"
             },
             "pulse_per_revolution": {
-               "title": "Pulse per revolution",
-               "type": "integer"
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pulse per revolution"
             }
          },
          "required": [
             "name",
-            "treadmill_width",
-            "encoder",
-            "pulse_per_revolution"
+            "treadmill_width"
          ],
          "title": "Treadmill",
          "type": "object"
@@ -18787,8 +18801,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.0",
-         "default": "1.1.0",
+         "const": "1.1.1",
+         "default": "1.1.1",
          "title": "Schema Version",
          "type": "string"
       },
