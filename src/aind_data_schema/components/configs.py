@@ -187,7 +187,11 @@ class MousePlatformConfig(DeviceConfig):
     """Configuration for mouse platforms"""
 
     objects_in_arena: List[str] = Field(..., title="Objects in area")
-    active_control: Optional[bool] = Field(default=None, title="Active control", description="True if position or rotation of mouse platform is in any way controlled by the experimenter")
+    active_control: Optional[bool] = Field(
+        default=None,
+        title="Active control",
+        description="True if position or rotation of mouse platform is in any way controlled by the experimenter",
+    )
 
 
 # Ephys Components

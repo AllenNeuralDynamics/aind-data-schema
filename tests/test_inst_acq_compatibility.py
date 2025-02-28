@@ -268,7 +268,7 @@ grating_code = Code(
             "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
             "grating_spatial_frequency_unit": "cycles/degree",
         },
-    )
+    ),
 )
 
 ephys_acquisition = Acquisition(

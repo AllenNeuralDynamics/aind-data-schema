@@ -112,7 +112,7 @@ class DataStream(DataModel):
 
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
-        """ Check that the required devices are present for the modalities """
+        """Check that the required devices are present for the modalities"""
         for modality in self.modalities:
             if modality not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
@@ -173,7 +173,7 @@ class StimulusEpoch(DataModel):
 
 
 class Acquisition(DataCoreModel):
-    """Description of an imaging acquisition """
+    """Description of an imaging acquisition"""
 
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
