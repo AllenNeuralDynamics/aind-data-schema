@@ -37,7 +37,7 @@ acquisition = Acquisition(
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            modalities=[StimulusModality.VISUAL],
+            stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=Code(
@@ -56,7 +56,7 @@ acquisition = Acquisition(
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            modalities=[StimulusModality.VISUAL],
+            stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=Code(

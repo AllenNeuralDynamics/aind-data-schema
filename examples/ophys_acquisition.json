@@ -96,7 +96,6 @@
       "weight_unit": "gram",
       "anaesthesia": null,
       "mouse_platform_name": "Disc",
-      "active_mouse_platform": false,
       "reward_delivery": null,
       "reward_consumed_total": null,
       "reward_consumed_unit": "milliliter"

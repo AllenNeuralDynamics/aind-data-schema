@@ -28,7 +28,7 @@
    "local_storage_directory": null,
    "external_storage_directory": null,
    "software": [],
-   "notes": "There was some information about this scan session",
+   "notes": "There was some information about this scan acquisition",
    "data_streams": [
       {
          "object_type": "Data stream",
@@ -135,7 +135,6 @@
       "weight_unit": "gram",
       "anaesthesia": null,
       "mouse_platform_name": "NA",
-      "active_mouse_platform": false,
       "reward_delivery": null,
       "reward_consumed_total": null,
       "reward_consumed_unit": "milliliter"

@@ -285,14 +285,14 @@ ephys_acquisition = Acquisition(
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            modalities=[StimulusModality.VISUAL],
+            stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=grating_code,
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
-            modalities=[StimulusModality.VISUAL],
+            stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=grating_code,
@@ -853,7 +853,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     stimulus_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stimulus_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stimulus_name="Some Stimulus Name",
-                    modalities=[StimulusModality.AUDITORY],
+                    stimulus_modalities=[StimulusModality.AUDITORY],
                     active_devices=["Stimulus Device A", "Stimulus Device B"],
                 )
             ],

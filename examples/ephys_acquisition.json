@@ -310,21 +310,7 @@
             },
             "language": null,
             "language_version": null,
-            "parameters": null
-         },
-         "modalities": [
-            "Visual"
-         ],
-         "output_parameters": {},
-         "reward_consumed_during_epoch": null,
-         "reward_consumed_unit": "microliter",
-         "trials_total": null,
-         "trials_finished": null,
-         "trials_rewarded": null,
-         "notes": null,
-         "stimulus_parameters": [
-            {
-               "object_type": "Visual stimulation",
+            "parameters": {
                "stimulus_name": "Static Gratings",
                "stimulus_parameters": {
                   "grating_orientations": [
@@ -346,7 +332,17 @@
                "stimulus_template_name": [],
                "notes": null
             }
+         },
+         "stimulus_modalities": [
+            "Visual"
          ],
+         "output_parameters": {},
+         "reward_consumed_during_epoch": null,
+         "reward_consumed_unit": "microliter",
+         "trials_total": null,
+         "trials_finished": null,
+         "trials_rewarded": null,
+         "notes": null,
          "active_devices": [],
          "configurations": []
       },
@@ -366,21 +362,7 @@
             },
             "language": null,
             "language_version": null,
-            "parameters": null
-         },
-         "modalities": [
-            "Visual"
-         ],
-         "output_parameters": {},
-         "reward_consumed_during_epoch": null,
-         "reward_consumed_unit": "microliter",
-         "trials_total": null,
-         "trials_finished": null,
-         "trials_rewarded": null,
-         "notes": null,
-         "stimulus_parameters": [
-            {
-               "object_type": "Visual stimulation",
+            "parameters": {
                "stimulus_name": "Flashes",
                "stimulus_parameters": {
                   "flash_interval": 5.0,
@@ -391,7 +373,17 @@
                "stimulus_template_name": [],
                "notes": null
             }
+         },
+         "stimulus_modalities": [
+            "Visual"
          ],
+         "output_parameters": {},
+         "reward_consumed_during_epoch": null,
+         "reward_consumed_unit": "microliter",
+         "trials_total": null,
+         "trials_finished": null,
+         "trials_rewarded": null,
+         "notes": null,
          "active_devices": [],
          "configurations": []
       }
@@ -403,7 +395,6 @@
       "weight_unit": "gram",
       "anaesthesia": null,
       "mouse_platform_name": "Running Wheel",
-      "active_mouse_platform": false,
       "reward_delivery": null,
       "reward_consumed_total": null,
       "reward_consumed_unit": "milliliter"

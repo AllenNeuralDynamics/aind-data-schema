@@ -70,7 +70,7 @@
    ],
    "acquisition_start_time": "2022-11-22T08:43:00Z",
    "acquisition_end_time": "2022-11-22T08:43:00Z",
-   "acquisition_type": null,
+   "acquisition_type": "ExaSPIM",
    "local_storage_directory": "D:",
    "external_storage_directory": "Z:",
    "software": [],
@@ -91,7 +91,7 @@
          "active_devices": [],
          "configurations": [
             {
-               "object_type": "Imaging config",
+               "object_type": "In vitro imaging config",
                "tiles": [
                   {
                      "object_type": "Acquisition tile",

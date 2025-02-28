@@ -144,7 +144,7 @@ class StimulusEpoch(DataModel):
         title="Code or script",
         description="Custom code or script used to control the behavior/stimulus",
     )
-    modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
+    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     output_parameters: GenericModelType = Field(default=GenericModel(), title="Performance metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
@@ -154,7 +154,7 @@ class StimulusEpoch(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
-        ...,
+        default=[],
         title="Active devices",
         description="Device names must match devices in the Instrument",
     )

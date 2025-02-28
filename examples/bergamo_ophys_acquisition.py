@@ -79,7 +79,7 @@ a = Acquisition(
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="PhotoStimulation",
-            modalities=[StimulusModality.OPTOGENETICS],
+            stimulus_modalities=[StimulusModality.OPTOGENETICS],
             code=Code(
                 url="https://www.github.com/AllenInstitute/aind-photo-stim",
                 parameters=PhotoStimulation(

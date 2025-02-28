@@ -106,20 +106,14 @@
          "stimulus_start_time": "2022-07-12T07:00:00Z",
          "stimulus_end_time": "2022-07-12T07:00:00Z",
          "stimulus_name": "PhotoStimulation",
-         "code": null,
-         "modalities": [
-            "Optogenetics"
-         ],
-         "output_parameters": {},
-         "reward_consumed_during_epoch": null,
-         "reward_consumed_unit": "microliter",
-         "trials_total": null,
-         "trials_finished": null,
-         "trials_rewarded": null,
-         "notes": null,
-         "stimulus_parameters": [
-            {
-               "object_type": "Photo stimulation",
+         "code": {
+            "object_type": "Code",
+            "url": "https://www.github.com/AllenInstitute/aind-photo-stim",
+            "version": null,
+            "software": null,
+            "language": null,
+            "language_version": null,
+            "parameters": {
                "stimulus_name": "Two group stim",
                "number_groups": 2,
                "groups": [
@@ -159,7 +153,17 @@
                "other_parameters": {},
                "notes": null
             }
+         },
+         "stimulus_modalities": [
+            "Optogenetics"
          ],
+         "output_parameters": {},
+         "reward_consumed_during_epoch": null,
+         "reward_consumed_unit": "microliter",
+         "trials_total": null,
+         "trials_finished": null,
+         "trials_rewarded": null,
+         "notes": null,
          "active_devices": [],
          "configurations": []
       }
@@ -171,7 +175,6 @@
       "weight_unit": "gram",
       "anaesthesia": null,
       "mouse_platform_name": "Mouse tube",
-      "active_mouse_platform": false,
       "reward_delivery": null,
       "reward_consumed_total": null,
       "reward_consumed_unit": "milliliter"

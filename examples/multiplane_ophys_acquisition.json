@@ -40,10 +40,6 @@
             {
                "name": "Behavior videos",
                "abbreviation": "behavior-videos"
-            },
-            {
-               "name": "Confocal microscopy",
-               "abbreviation": "confocal"
             }
          ],
          "software": [],
@@ -332,7 +328,6 @@
       "weight_unit": "gram",
       "anaesthesia": null,
       "mouse_platform_name": "disc",
-      "active_mouse_platform": true,
       "reward_delivery": null,
       "reward_consumed_total": null,
       "reward_consumed_unit": "milliliter"
