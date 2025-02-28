@@ -411,7 +411,6 @@ class InVitroImagingConfig(DataModel):
     axes: List[ImageAxis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
-    active_objectives: Optional[List[str]] = Field(default=None, title="List of objectives used in this acquisition.")
     processing_steps: List[ProcessingSteps] = Field(
         default=[],
         title="Processing steps",
