@@ -32,7 +32,6 @@ session = Acquisition(
     instrument_id="323_EPHYS1_20231003",
     ethics_review_id="2109",
     subject_details=SubjectDetails(
-        active_mouse_platform=False,
         mouse_platform_name="Running Wheel",
     ),
     stimulus_epochs=[

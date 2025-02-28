@@ -183,10 +183,11 @@ class SlapFieldOfView(FieldOfView):
     path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
 
 
-class ArenaConfig(DataModel):
-    """Configuration for Arena"""
+class MousePlatformConfig(DeviceConfig):
+    """Configuration for mouse platforms"""
 
-    objects_in_area: List[str] = Field(..., title="Objects in area")
+    objects_in_arena: List[str] = Field(..., title="Objects in area")
+    active_control: Optional[bool] = Field(default=None, title="Active control", description="True if position or rotation of mouse platform is in any way controlled by the experimenter")
 
 
 # Ephys Components

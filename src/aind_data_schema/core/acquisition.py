@@ -22,7 +22,7 @@ from aind_data_schema.components.configs import (
     SpeakerConfig,
     LightEmittingDiodeConfig,
     LaserConfig,
-    ArenaConfig,
+    MousePlatformConfig,
     Stack,
     MRIScan,
     RewardDeliveryConfig,
@@ -77,9 +77,6 @@ class SubjectDetails(DataModel):
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     mouse_platform_name: str = Field(..., title="Mouse platform")
-    active_mouse_platform: bool = Field(
-        ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
-    )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
@@ -176,7 +173,7 @@ class StimulusEpoch(DataModel):
                 SpeakerConfig,
                 LightEmittingDiodeConfig,
                 LaserConfig,
-                ArenaConfig,
+                MousePlatformConfig,
             ],
             Field(discriminator="object_type"),
         ]

@@ -27,7 +27,6 @@ a = Acquisition(
     instrument_id="MESO.1",
     ethics_review_id="12345",
     subject_details=SubjectDetails(
-        active_mouse_platform=True,
         mouse_platform_name="disc",
     ),
     data_streams=[

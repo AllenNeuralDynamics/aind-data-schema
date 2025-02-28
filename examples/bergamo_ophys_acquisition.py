@@ -35,7 +35,6 @@ a = Acquisition(
     ethics_review_id="2115",
     subject_details=SubjectDetails(
         mouse_platform_name="Mouse tube",
-        active_mouse_platform=False,
     ),
     data_streams=[
         DataStream(

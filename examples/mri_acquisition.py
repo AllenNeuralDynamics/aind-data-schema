@@ -74,7 +74,6 @@ acquisition = Acquisition(
     acquisition_type="3D MRI Volume",
     instrument_id="NA",
     subject_details=SubjectDetails(
-        active_mouse_platform=False,
         mouse_platform_name="NA",
     ),
     data_streams=[stream],
