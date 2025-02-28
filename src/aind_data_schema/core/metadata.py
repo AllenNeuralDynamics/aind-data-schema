@@ -21,7 +21,7 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import AindCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
+from aind_data_schema.base import AindCoreModel, AwareDatetimeWithDefault
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -72,7 +72,7 @@ class Metadata(AindCoreModel):
 
     _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.2"]] = Field(default="1.1.2")
+    schema_version: SkipValidation[Literal["1.2.1"]] = Field(default="1.2.1")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -144,13 +144,11 @@ class Metadata(AindCoreModel):
         field_name = info.field_name
         field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if inspect.isclass(f)][0]
 
-        # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate_json(value)
-            # If a validation error is raised,
-            # we will construct the field without validation.
-            except ValidationError:
+                core_model = field_class.model_validate(value)
+            except ValidationError as e:
+                logging.warning(f"Error in validating {field_name}: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -203,7 +201,8 @@ class Metadata(AindCoreModel):
                 model_contents = model.model_dump()
                 try:
                     model_class(**model_contents)
-                except ValidationError:
+                except ValidationError as e:
+                    logging.warning(f"Error in {field_name}: {e}")
                     metadata_status = MetadataStatus.INVALID
         # For certain required fields, like subject, if they are not present,
         # mark the metadata record as missing
@@ -319,10 +318,7 @@ def create_metadata_json(
     core_fields = dict()
     for key, value in core_jsons.items():
         if key in CORE_FILES and value is not None:
-            if is_dict_corrupt(value):
-                logging.warning(f"Provided {key} is corrupt! It will be ignored.")
-            else:
-                core_fields[key] = value
+            core_fields[key] = value
     # Create Metadata object and convert to JSON
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid
