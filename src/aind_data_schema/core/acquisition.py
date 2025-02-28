@@ -239,8 +239,8 @@ class Acquisition(DataCoreModel):
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
-            if self.specimen_id not in self.subject_id:
-                raise ValueError(f"Expected {self.specimen_id} to appear in {self.subject_id}")
+            if self.subject_id not in self.specimen_id:
+                raise ValueError(f"Expected {self.subject_id} to appear in {self.specimen_id}")
 
         return self
 
