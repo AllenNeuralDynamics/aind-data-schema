@@ -2,6 +2,7 @@
 
 from decimal import Decimal
 from typing import List, Literal, Optional, Union, Annotated
+import warnings
 
 from pydantic import Field, SkipValidation, model_validator
 
@@ -236,10 +237,10 @@ class Acquisition(DataCoreModel):
 
     @model_validator(mode="after")
     def check_subject_specimen_id(self):
-        """Check if specimen ID is required for in vitro imaging modalities"""
+        """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
-            if self.specimen_id[:6] != self.subject_id[:6]:
-                raise ValueError(f"Subject ID {self.subject_id} and Specimen ID {self.specimen_id} do not match")
+            if self.specimen_id not in self.subject_id:
+                raise ValueError(f"Expected {self.specimen_id} to appear in {self.subject_id}")
 
         return self
 
