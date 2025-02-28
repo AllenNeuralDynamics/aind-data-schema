@@ -207,7 +207,7 @@ class Acquisition(DataCoreModel):
     # Information about the acquisition
     acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
-    acquisition_type: Optional[str] = Field(default=None, title="Acquisition type")
+    acquisition_type: str = Field(default=None, title="Acquisition type")
     local_storage_directory: Optional[str] = Field(default=None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(default=None, title="External storage directory")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
