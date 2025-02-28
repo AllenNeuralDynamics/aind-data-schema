@@ -12505,6 +12505,30 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "centimeter",
                "title": "Width unit"
+            },
+            "encoder": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Encoder"
+            },
+            "pulse_per_revolution": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pulse per revolution"
             }
          },
          "required": [
@@ -18777,8 +18801,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.0.4",
-         "default": "1.0.4",
+         "const": "1.1.1",
+         "default": "1.1.1",
          "title": "Schema Version",
          "type": "string"
       },
