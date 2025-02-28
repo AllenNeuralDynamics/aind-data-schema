@@ -29,7 +29,7 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    Patch,
+    PatchCord,
     ProbePort,
 )
 from aind_data_schema.core.instrument import Instrument
@@ -44,8 +44,8 @@ from aind_data_schema.components.configs import (
     Coordinates3d,
     DetectorConfig,
     DomeModule,
-    FiberConnectionConfig,
-    FiberModule,
+    PatchCordConfig,
+    FiberAssemblyConfig,
     LaserConfig,
     ManipulatorModule,
     StimulusModality,
@@ -103,7 +103,7 @@ laser_assembly = LaserAssembly(
     ),
     lasers=[red_laser, blue_laser],
     collimator=Device(name="Collimator A"),
-    fiber=Patch(
+    fiber=PatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -541,7 +541,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
         ]
         patch_cords = [
-            d.Patch(
+            d.PatchCord(
                 name="Bundle Branching Fiber-optic Patch Cord",
                 manufacturer=d.Organization.DORIC,
                 model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -825,20 +825,20 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             excitation_power_unit="milliwatt",
                         ),
                         DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
-                        FiberModule(
+                        FiberAssemblyConfig(
                             device_name="Fiber Module A",
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
                             manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
                         ),
-                        FiberConnectionConfig(
+                        PatchCordConfig(
                             patch_cord_name="Patch Cord A",
                             patch_cord_output_power=40,
                             output_power_unit="microwatt",
                             device_name="Fiber A",
                         ),
-                        FiberConnectionConfig(
+                        PatchCordConfig(
                             patch_cord_name="Patch Cord B",
                             patch_cord_output_power=43,
                             output_power_unit="microwatt",

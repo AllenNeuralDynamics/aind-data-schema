@@ -58,11 +58,10 @@ class DeviceConfig(DataModel):
 
 
 # Ophys components
-class FiberConnectionConfig(DeviceConfig):
-    """Description for a fiber photometry configuration"""
+class PatchCordConfig(DeviceConfig):
+    """Description of a patch cord and its output power to another device"""
 
-    patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
-    patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
+    output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
 
 
@@ -198,9 +197,6 @@ class MousePlatformConfig(DeviceConfig):
 class DomeModule(DeviceConfig):
     """Movable module that is mounted on the ephys dome insertion system"""
 
-    headframe_registration: Optional[Affine3dTransform] = Field(
-        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
-    )
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
@@ -241,10 +237,10 @@ class ManipulatorModule(DomeModule):
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
 
-class FiberModule(ManipulatorModule):
+class FiberAssemblyConfig(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
+    fiber_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
 class LaserConfig(DeviceConfig):

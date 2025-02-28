@@ -10,7 +10,7 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     SubjectDetails,
 )
-from aind_data_schema.components.configs import DetectorConfig, FiberConnectionConfig, LaserConfig
+from aind_data_schema.components.configs import DetectorConfig, PatchCordConfig, LaserConfig
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
@@ -53,13 +53,13 @@ a = Acquisition(
                     excitation_power_unit="milliwatt",
                 ),
                 DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
-                FiberConnectionConfig(
+                PatchCordConfig(
                     patch_cord_name="Patch Cord A",
                     patch_cord_output_power=40,
                     output_power_unit="microwatt",
                     device_name="Fiber A",
                 ),
-                FiberConnectionConfig(
+                PatchCordConfig(
                     patch_cord_name="Patch Cord B",
                     patch_cord_output_power=43,
                     output_power_unit="microwatt",

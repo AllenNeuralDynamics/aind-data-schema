@@ -7,14 +7,16 @@ from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
 from aind_data_schema_models.units import VolumeUnit, MassUnit
-from aind_data_schema.components.devices import Calibration, Maintenance, Camera, CameraAssembly
+from aind_data_schema.components.devices import (
+    Calibration, Maintenance, Camera, CameraAssembly, EphysAssembly, FiberAssembly
+)
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.components.identifiers import Person, Software, Code
 
 from aind_data_schema.components.configs import (
     DomeModule,
-    FiberConnectionConfig,
-    FiberModule,
+    PatchCordConfig,
+    FiberAssemblyConfig,
     ManipulatorModule,
     DetectorConfig,
     FieldOfView,
@@ -28,7 +30,9 @@ from aind_data_schema.components.configs import (
     RewardDeliveryConfig,
     StimulusModality,
     InVitroImagingConfig,
+    FiberAssemblyConfig,
 )
+from aind_data_schema.components.coordinates import Affine3dTransform
 
 from aind_data_schema_models.modalities import Modality
 
@@ -38,7 +42,7 @@ from aind_data_schema_models.modalities import Modality
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
     Modality.ECEPHYS: [[DomeModule, ManipulatorModule]],
-    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [FiberConnectionConfig, FiberModule]],
+    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
     Modality.MRI: [[MRIScan]],
 }
@@ -47,8 +51,12 @@ CONFIG_REQUIREMENTS = {
 # so to replace that I'm going to add a validator that searches the instrument to make sure the active_devices
 # list contains a valid Camera and/or CameraAssembly. Note that this validator has to go in the `metadata` class
 # [TODO]
-DEVICE_REQUIREMENTS = {
+MODALITY_DEVICE_REQUIREMENTS = {
     Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
+}
+CONFIG_DEVICE_REQUIREMENTS = {
+    DomeModule: [EphysAssembly],
+    FiberAssemblyConfig: [FiberAssembly],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
@@ -98,8 +106,8 @@ class DataStream(DataModel):
                 ManipulatorModule,
                 DomeModule,
                 DetectorConfig,
-                FiberConnectionConfig,
-                FiberModule,
+                PatchCordConfig,
+                FiberAssemblyConfig,
                 FieldOfView,
                 SlapFieldOfView,
                 Stack,
@@ -204,7 +212,6 @@ class Acquisition(DataCoreModel):
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
-
     # Information about the acquisition
     acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
@@ -212,6 +219,9 @@ class Acquisition(DataCoreModel):
     local_storage_directory: Optional[str] = Field(default=None, title="Local storage directory")
     external_storage_directory: Optional[str] = Field(default=None, title="External storage directory")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
+    headframe_registration: Optional[Affine3dTransform] = Field(
+        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     # Acquisition data

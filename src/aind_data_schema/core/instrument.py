@@ -40,7 +40,7 @@ from aind_data_schema.components.devices import (
     Olfactometer,
     OpenEphysAcquisitionBoard,
     OpticalTable,
-    Patch,
+    PatchCord,
     PockelsCell,
     PolygonalScanner,
     RewardDelivery,
@@ -57,7 +57,7 @@ from aind_data_schema.components.devices import (
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
-    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
+    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [PatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
@@ -139,7 +139,7 @@ class Instrument(DataCoreModel):
                 EphysAssembly,
                 FiberAssembly,
                 LaserAssembly,
-                Patch,
+                PatchCord,
                 Laser,
                 LightEmittingDiode,
                 Lamp,
