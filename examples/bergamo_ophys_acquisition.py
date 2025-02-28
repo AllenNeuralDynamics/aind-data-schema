@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import FrequencyUnit
 
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.stimulus import PhotoStimulation, PhotoStimulationGroup
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -80,8 +80,9 @@ a = Acquisition(
         StimulusEpoch(
             stimulus_name="PhotoStimulation",
             modalities=[StimulusModality.OPTOGENETICS],
-            stimulus_parameters=[
-                PhotoStimulation(
+            code=Code(
+                url="https://www.github.com/AllenInstitute/aind-photo-stim",
+                parameters=PhotoStimulation(
                     stimulus_name="Two group stim",
                     number_groups=2,
                     groups=[
@@ -106,7 +107,7 @@ a = Acquisition(
                     ],
                     inter_trial_interval=10,
                 ),
-            ],
+            ),
             stimulus_start_time=t,
             stimulus_end_time=t,
         ),

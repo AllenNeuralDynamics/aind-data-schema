@@ -260,6 +260,15 @@ grating_code = Code(
         name="Bonsai",
         version="2.7",
     ),
+    parameters=VisualStimulation(
+        stimulus_name="Static Gratings",
+        stimulus_parameters={
+            "grating_orientations": [0, 45, 90, 135],
+            "grating_orientation_unit": "degrees",
+            "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
+            "grating_spatial_frequency_unit": "cycles/degree",
+        },
+    )
 )
 
 ephys_acquisition = Acquisition(
@@ -281,17 +290,6 @@ ephys_acquisition = Acquisition(
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=grating_code,
-            stimulus_parameters=[
-                VisualStimulation(
-                    stimulus_name="Static Gratings",
-                    stimulus_parameters={
-                        "grating_orientations": [0, 45, 90, 135],
-                        "grating_orientation_unit": "degrees",
-                        "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
-                        "grating_spatial_frequency_unit": "cycles/degree",
-                    },
-                )
-            ],
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -299,17 +297,6 @@ ephys_acquisition = Acquisition(
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=grating_code,
-            stimulus_parameters=[
-                VisualStimulation(
-                    stimulus_name="Flashes",
-                    stimulus_parameters={
-                        "flash_interval": 5.0,
-                        "flash_interval_unit": "seconds",
-                        "flash_duration": 0.5,
-                        "flash_duration_unit": "seconds",
-                    },
-                )
-            ],
         ),
     ],
     data_streams=[

@@ -156,15 +156,6 @@ class StimulusEpoch(DataModel):
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    stimulus_parameters: Optional[
-        List[
-            Annotated[
-                Union[AuditoryStimulation, OptoStimulation, OlfactoryStimulation, PhotoStimulation, VisualStimulation],
-                Field(discriminator="object_type"),
-            ]
-        ]
-    ] = Field(default=[], title="Stimulus parameters")
-
     active_devices: List[str] = Field(default=[], title="Active devices")
 
     configurations: List[
