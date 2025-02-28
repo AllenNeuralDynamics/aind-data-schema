@@ -2,7 +2,6 @@
 
 from decimal import Decimal
 from typing import List, Literal, Optional, Union, Annotated
-import warnings
 
 from pydantic import Field, SkipValidation, model_validator
 
