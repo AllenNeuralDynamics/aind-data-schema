@@ -213,7 +213,6 @@
                   "refractive_index": "1.33"
                },
                "sample_immersion": null,
-               "active_objectives": null,
                "processing_steps": []
             }
          ]
