@@ -1,4 +1,4 @@
-"""Generates an example JSON file for an ephys session"""
+"""Generates an example JSON file for an ephys acquisition"""
 
 from datetime import datetime, timezone
 

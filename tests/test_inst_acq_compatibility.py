@@ -1,4 +1,4 @@
-"""Tests instrument session compatibility check"""
+"""Tests instrument acquisition compatibility check"""
 
 import json
 import unittest
@@ -483,8 +483,8 @@ ephys_acquisition = Acquisition(
 )
 
 
-class TestInstrumentSessionCompatibility(unittest.TestCase):
-    """Tests InstrumentSessionCompatibility class"""
+class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
+    """Tests InstrumentAcquisitionCompatibility class"""
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -884,7 +884,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
-        # check that ephys session and rig are synced
+        # check that ephys acquisition and rig are synced
         example_ephys_check = InstrumentAcquisitionCompatibility(
             instrument=self.example_ephys_inst, acquisition=self.example_ephys_acquisition
         )

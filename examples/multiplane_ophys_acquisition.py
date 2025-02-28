@@ -1,4 +1,4 @@
-""" example fiber photometry session """
+""" example fiber photometry acquisition """
 
 from datetime import datetime, timezone
 

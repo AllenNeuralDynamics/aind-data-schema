@@ -164,8 +164,8 @@ class Stack(DataModel):
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
 
-class SlapSessionType(str, Enum):
-    """Type of slap session"""
+class SlapAcquisitionType(str, Enum):
+    """Type of slap acquisition"""
 
     PARENT = "Parent"
     BRANCH = "Branch"
@@ -174,7 +174,7 @@ class SlapSessionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    acquisition_type: SlapSessionType = Field(..., title="Session type")
+    acquisition_type: SlapAcquisitionType = Field(..., title="Acquisition type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
@@ -241,7 +241,7 @@ class FiberModule(ManipulatorModule):
 
 
 class LaserConfig(DeviceConfig):
-    """Description of laser settings in a session"""
+    """Description of laser settings in an acquisition"""
 
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
@@ -258,14 +258,14 @@ class RewardSolution(str, Enum):
 
 
 class RewardSpoutConfig(DataModel):
-    """Reward spout session information"""
+    """Reward spout acquisition information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
         ...,
         title="Variable position",
-        description="True if spout position changes during session as tracked in data",
+        description="True if spout position changes during acquisition as tracked in data",
     )
 
 

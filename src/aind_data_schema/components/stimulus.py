@@ -1,4 +1,4 @@
-""" schema for session stimulus """
+""" schema for acquisition stimulus """
 
 from decimal import Decimal
 from enum import Enum
@@ -87,7 +87,7 @@ class PhotoStimulationGroup(DataModel):
 
 
 class PhotoStimulation(DataModel):
-    """Description of a photostimulation session"""
+    """Description of a photostimulation acquisition"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")

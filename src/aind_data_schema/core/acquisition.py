@@ -181,7 +181,7 @@ class StimulusEpoch(DataModel):
 
 
 class Acquisition(DataCoreModel):
-    """Description of an imaging acquisition session"""
+    """Description of an imaging acquisition """
 
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
@@ -227,7 +227,7 @@ class Acquisition(DataCoreModel):
         ...,
         title="Data streams",
         description=(
-            "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
+            "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include"
             " multiple streams (e.g., if the manipulators are moved to a new location)"
         ),
     )

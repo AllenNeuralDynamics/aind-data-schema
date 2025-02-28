@@ -1,4 +1,4 @@
-"""example MRISession and MRIScan"""
+"""example MRIAcquisition and MRIScan"""
 
 from decimal import Decimal
 
@@ -77,7 +77,7 @@ acquisition = Acquisition(
         mouse_platform_name="NA",
     ),
     data_streams=[stream],
-    notes="There was some information about this scan session",
+    notes="There was some information about this scan acquisition",
 )
 serialized = acquisition.model_dump_json()
 deserialized = Acquisition.model_validate_json(serialized)

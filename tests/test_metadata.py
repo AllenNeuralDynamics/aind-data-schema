@@ -271,8 +271,8 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
-    def test_validate_instrument_session_compatibility(self):
-        """Tests that instrument/session compatibility validator works as expected"""
+    def test_validate_instrument_acquisition_compatibility(self):
+        """Tests that instrument/acquisition compatibility validator works as expected"""
 
         modalities = [Modality.ECEPHYS]
         mouse_platform = MousePlatform.model_construct(name="platform1")
@@ -327,7 +327,6 @@ class TestMetadata(unittest.TestCase):
             "subject": self.subject_json,
             "data_description": self.dd_json,
             "procedures": self.procedures_json,
-            "session": None,
             "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
@@ -370,7 +369,6 @@ class TestMetadata(unittest.TestCase):
             "subject": self.subject_json,
             "data_description": None,
             "procedures": self.procedures_json,
-            "session": None,
             "instrument": Instrument.model_construct().model_dump(),
             "processing": Procedures.model_construct(injection_materials=["some materials"]).model_dump(),
             "acquisition": None,
@@ -416,7 +414,6 @@ class TestMetadata(unittest.TestCase):
             "subject": self.subject_json,
             "data_description": None,
             "procedures": self.procedures_json,
-            "session": None,
             "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,

@@ -1,4 +1,4 @@
-""" example Bergamo ophys session """
+""" example Bergamo ophys acquisition """
 
 from datetime import datetime, timezone
 

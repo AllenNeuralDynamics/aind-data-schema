@@ -10,7 +10,7 @@ class InstrumentAcquisitionCompatibility:
     """Class of methods to check compatibility between instrument and acquisition"""
 
     def __init__(self, instrument: Instrument, acquisition: Acquisition) -> None:
-        """Initiate InstrumentSessionCompatibility class"""
+        """Initiate InstrumentAcquisitionCompatibility class"""
         self.inst = instrument
         self.acquisition = acquisition
 
