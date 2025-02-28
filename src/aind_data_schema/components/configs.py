@@ -400,7 +400,7 @@ class ProcessingSteps(DataModel):
     ] = Field(...)
 
 
-class ImagingConfig(DataModel):
+class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")

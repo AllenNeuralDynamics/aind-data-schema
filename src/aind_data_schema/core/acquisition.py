@@ -27,14 +27,7 @@ from aind_data_schema.components.configs import (
     MRIScan,
     RewardDeliveryConfig,
     StimulusModality,
-    ImagingConfig,
-)
-from aind_data_schema.components.stimulus import (
-    AuditoryStimulation,
-    OlfactoryStimulation,
-    OptoStimulation,
-    PhotoStimulation,
-    VisualStimulation,
+    InVitroImagingConfig,
 )
 
 from aind_data_schema_models.modalities import Modality
@@ -91,7 +84,11 @@ class DataStream(DataModel):
     software: Optional[List[Software]] = Field(default=[], title="Software packages")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    active_devices: List[str] = Field(..., title="Active devices")
+    active_devices: List[str] = Field(
+        ...,
+        title="Active devices",
+        description="Device names must match devices in the Instrument",
+    )
 
     configurations: List[
         Annotated[
@@ -107,11 +104,11 @@ class DataStream(DataModel):
                 SlapFieldOfView,
                 Stack,
                 MRIScan,
-                ImagingConfig,
+                InVitroImagingConfig,
             ],
             Field(discriminator="object_type"),
         ]
-    ] = Field(..., title="Active devices")
+    ] = Field(..., title="Device configurations")
 
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
@@ -156,7 +153,11 @@ class StimulusEpoch(DataModel):
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    active_devices: List[str] = Field(default=[], title="Active devices")
+    active_devices: List[str] = Field(
+        ...,
+        title="Active devices",
+        description="Device names must match devices in the Instrument",
+    )
 
     configurations: List[
         Annotated[

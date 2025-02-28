@@ -13,7 +13,7 @@ from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform,
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, ImagingConfig
+from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.procedures import Reagent
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -61,7 +61,7 @@ acq = Acquisition(
             modalities=[Modality.SPIM],
             active_devices=[],
             configurations=[
-                ImagingConfig(
+                InVitroImagingConfig(
                     chamber_immersion=Immersion(
                         medium="PBS",
                         refractive_index=1.33,
