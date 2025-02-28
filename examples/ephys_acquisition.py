@@ -23,7 +23,7 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 
 bonsai_software = Software(name="Bonsai", version="2.7")
 
-session = Acquisition(
+acquisition = Acquisition(
     experimenters=[Person(name="John Smith")],
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
@@ -43,9 +43,7 @@ session = Acquisition(
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 software=bonsai_software,
-            ),
-            stimulus_parameters=[
-                VisualStimulation(
+                parameters=VisualStimulation(
                     stimulus_name="Static Gratings",
                     stimulus_parameters={
                         "grating_orientations": [0, 45, 90, 135],
@@ -54,7 +52,7 @@ session = Acquisition(
                         "grating_spatial_frequency_unit": "cycles/degree",
                     },
                 )
-            ],
+            ),
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -64,9 +62,7 @@ session = Acquisition(
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 software=bonsai_software,
-            ),
-            stimulus_parameters=[
-                VisualStimulation(
+                parameters=VisualStimulation(
                     stimulus_name="Flashes",
                     stimulus_parameters={
                         "flash_interval": 5.0,
@@ -75,7 +71,7 @@ session = Acquisition(
                         "flash_duration_unit": "seconds",
                     },
                 )
-            ],
+            ),
         ),
     ],
     data_streams=[
@@ -208,6 +204,6 @@ session = Acquisition(
     ],
 )
 
-serialized = session.model_dump_json()
+serialized = acquisition.model_dump_json()
 deserialized = Acquisition.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="ephys")
