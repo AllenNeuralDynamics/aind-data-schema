@@ -198,6 +198,9 @@ class MousePlatformConfig(DeviceConfig):
 class DomeModule(DeviceConfig):
     """Movable module that is mounted on the ephys dome insertion system"""
 
+    headframe_registration: Optional[Affine3dTransform] = Field(
+        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
+    )
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
@@ -323,9 +326,6 @@ class SubjectPosition(str, Enum):
 class MRIScan(DeviceConfig):
     """Description of a 3D scan"""
 
-    headframe_registration: Optional[Affine3dTransform] = Field(
-        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
-    )
     scan_index: int = Field(..., title="Scan index")
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(
