@@ -121,6 +121,40 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
+        modalities = [Modality.ECEPHYS]
+        inst = Instrument.model_construct(
+            instrument_id="123_EPHYS1_20220101",
+            modalities=modalities,
+            components=[ephys_assembly],
+        )
+        m = Metadata(
+            name="655019_2023-04-03T181709",
+            location="bucket",
+            data_description=DataDescription.model_construct(
+                creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
+                modalities=modalities,
+                subject_id="655019",
+            ),
+            subject=Subject.model_construct(),
+            procedures=Procedures.model_construct(),
+            instrument=inst,
+            processing=Processing.model_construct(),
+            acquisition=Acquisition.model_construct(
+                instrument_id="123_EPHYS1_20220101",
+                data_streams=[
+                    DataStream(
+                        stream_start_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
+                        stream_end_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
+                        modalities=[Modality.ECEPHYS],
+                        active_devices=[],
+                        configurations=[DomeModule.model_construct()],
+                    ),
+                ],
+                subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+            ),
+        )
+        self.assertIsNotNone(m)
+
 
 if __name__ == "__main__":
     unittest.main()
