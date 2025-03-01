@@ -47,7 +47,7 @@ class AcquisitionTest(unittest.TestCase):
             acquisition_start_time=datetime.now(),
             acquisition_end_time=datetime.now(),
             subject_id="1234",
-            acquisition_type="Test",
+            experiment_type="Test",
             instrument_id="1234",
             subject_details=SubjectDetails(
                 mouse_platform_name="Running wheel",
@@ -131,7 +131,7 @@ class AcquisitionTest(unittest.TestCase):
             acquisition_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
             ethics_review_id="1234",
-            acquisition_type="3D MRI Volume",
+            experiment_type="3D MRI Volume",
             instrument_id="NA",
             subject_details=SubjectDetails(
                 animal_weight_prior=22.1,
@@ -151,7 +151,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
                 subject_id="1234",
-                acquisition_type="Test",
+                experiment_type="Test",
                 instrument_id="1234",
                 data_streams=[
                     DataStream(
@@ -187,7 +187,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_end_time=datetime.now(),
                 subject_id="123456",
                 specimen_id="654321",
-                acquisition_type="Test",
+                experiment_type="Test",
                 instrument_id="1234",
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
@@ -225,7 +225,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
                 subject_id="123456",
-                acquisition_type="Test",
+                experiment_type="Test",
                 instrument_id="1234",
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",

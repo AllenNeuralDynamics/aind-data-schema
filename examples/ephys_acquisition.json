@@ -22,10 +22,9 @@
    "maintenance": [],
    "acquisition_start_time": "2023-04-25T02:35:00Z",
    "acquisition_end_time": "2023-04-25T03:16:00Z",
-   "acquisition_type": "Receptive field mapping",
-   "local_storage_directory": null,
-   "external_storage_directory": null,
+   "experiment_type": "Receptive field mapping",
    "software": [],
+   "headframe_registration": null,
    "notes": null,
    "data_streams": [
       {
@@ -53,7 +52,6 @@
             {
                "object_type": "Dome module",
                "device_name": "Stick_assembly_1",
-               "headframe_registration": null,
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -65,7 +63,6 @@
             {
                "object_type": "Dome module",
                "device_name": "Stick_assembly_2",
-               "headframe_registration": null,
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -77,7 +74,6 @@
             {
                "object_type": "Dome module",
                "device_name": "Stick_assembly_3",
-               "headframe_registration": null,
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -89,7 +85,6 @@
             {
                "object_type": "Dome module",
                "device_name": "Stick_assembly_4",
-               "headframe_registration": null,
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -101,7 +96,6 @@
             {
                "object_type": "Manipulator module",
                "device_name": "Ephys_assemblyA",
-               "headframe_registration": null,
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -143,7 +137,6 @@
             {
                "object_type": "Manipulator module",
                "device_name": "Ephys_assemblyB",
-               "headframe_registration": null,
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -206,7 +199,6 @@
             {
                "object_type": "Dome module",
                "device_name": "Stick_assembly_1",
-               "headframe_registration": null,
                "arc_angle": "-180",
                "module_angle": "-180",
                "angle_unit": "degrees",
@@ -218,7 +210,6 @@
             {
                "object_type": "Manipulator module",
                "device_name": "Ephys_assemblyA",
-               "headframe_registration": null,
                "arc_angle": "5.2",
                "module_angle": "8",
                "angle_unit": "degrees",
@@ -260,7 +251,6 @@
             {
                "object_type": "Manipulator module",
                "device_name": "Ephys_assemblyB",
-               "headframe_registration": null,
                "arc_angle": "25",
                "module_angle": "-22",
                "angle_unit": "degrees",
@@ -345,12 +335,7 @@
          "stimulus_modalities": [
             "Visual"
          ],
-         "output_parameters": {},
-         "reward_consumed_during_epoch": null,
-         "reward_consumed_unit": "microliter",
-         "trials_total": null,
-         "trials_finished": null,
-         "trials_rewarded": null,
+         "summary": null,
          "notes": null,
          "active_devices": [],
          "configurations": []
@@ -386,12 +371,7 @@
          "stimulus_modalities": [
             "Visual"
          ],
-         "output_parameters": {},
-         "reward_consumed_during_epoch": null,
-         "reward_consumed_unit": "microliter",
-         "trials_total": null,
-         "trials_finished": null,
-         "trials_rewarded": null,
+         "summary": null,
          "notes": null,
          "active_devices": [],
          "configurations": []

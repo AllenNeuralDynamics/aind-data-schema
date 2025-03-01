@@ -22,10 +22,9 @@
    "maintenance": [],
    "acquisition_start_time": "2022-07-12T07:00:00Z",
    "acquisition_end_time": "2022-07-12T07:00:00Z",
-   "acquisition_type": "Mesoscope",
-   "local_storage_directory": null,
-   "external_storage_directory": null,
+   "experiment_type": "Mesoscope",
    "software": [],
+   "headframe_registration": null,
    "notes": null,
    "data_streams": [
       {

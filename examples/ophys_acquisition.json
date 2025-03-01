@@ -22,10 +22,9 @@
    "maintenance": [],
    "acquisition_start_time": "2022-07-12T07:00:00Z",
    "acquisition_end_time": "2022-07-12T07:00:00Z",
-   "acquisition_type": "Parameter Testing",
-   "local_storage_directory": null,
-   "external_storage_directory": null,
+   "experiment_type": "Parameter Testing",
    "software": [],
+   "headframe_registration": null,
    "notes": null,
    "data_streams": [
       {
@@ -44,8 +43,8 @@
             "Laser A",
             "Laser B",
             "Hamamatsu Camera",
-            "Fiber A",
-            "Fiber B"
+            "Patch Cord A",
+            "Patch Cord B"
          ],
          "configurations": [
             {
@@ -72,17 +71,15 @@
                "trigger_type": "Internal"
             },
             {
-               "object_type": "Fiber connection config",
-               "device_name": "Fiber A",
-               "patch_cord_name": "Patch Cord A",
-               "patch_cord_output_power": "40",
+               "object_type": "Patch cord config",
+               "device_name": "Patch Cord A",
+               "output_power": "40",
                "output_power_unit": "microwatt"
             },
             {
-               "object_type": "Fiber connection config",
-               "device_name": "Fiber B",
-               "patch_cord_name": "Patch Cord B",
-               "patch_cord_output_power": "43",
+               "object_type": "Patch cord config",
+               "device_name": "Patch Cord B",
+               "output_power": "43",
                "output_power_unit": "microwatt"
             }
          ]

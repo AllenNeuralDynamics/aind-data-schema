@@ -71,7 +71,7 @@ acquisition = Acquisition(
     experimenters=[Person(name="John Smith")],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
     ethics_review_id="1234",
-    acquisition_type="3D MRI Volume",
+    experiment_type="3D MRI Volume",
     instrument_id="NA",
     subject_details=SubjectDetails(
         mouse_platform_name="NA",

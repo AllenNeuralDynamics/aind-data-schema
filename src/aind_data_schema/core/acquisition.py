@@ -54,6 +54,7 @@ CONFIG_REQUIREMENTS = {
 MODALITY_DEVICE_REQUIREMENTS = {
     Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
 }
+# [TODO] Enforce these requirements in the metadata class
 CONFIG_DEVICE_REQUIREMENTS = {
     DomeModule: [EphysAssembly],
     FiberAssemblyConfig: [FiberAssembly],
@@ -81,6 +82,17 @@ class SubjectDetails(DataModel):
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
+
+
+class EpochSummary(DataModel):
+    """Summary of a StimulusEpoch"""
+
+    output_parameters: GenericModelType = Field(default=GenericModel(), title="Performance metrics")
+    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
+    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
+    trials_total: Optional[int] = Field(default=None, title="Total trials")
+    trials_finished: Optional[int] = Field(default=None, title="Finished trials")
+    trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
 
 
 class DataStream(DataModel):
@@ -150,15 +162,10 @@ class StimulusEpoch(DataModel):
     code: Optional[Code] = Field(
         default=None,
         title="Code or script",
-        description="Custom code or script used to control the behavior/stimulus",
+        description="Custom code/script used to control the behavior/stimulus and parameters",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    output_parameters: GenericModelType = Field(default=GenericModel(), title="Performance metrics")
-    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: Optional[int] = Field(default=None, title="Total trials")
-    trials_finished: Optional[int] = Field(default=None, title="Finished trials")
-    trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
+    summary: Optional[EpochSummary] = Field(default=None, title="Summary")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
@@ -215,9 +222,7 @@ class Acquisition(DataCoreModel):
     # Information about the acquisition
     acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
-    acquisition_type: str = Field(default=None, title="Acquisition type")
-    local_storage_directory: Optional[str] = Field(default=None, title="Local storage directory")
-    external_storage_directory: Optional[str] = Field(default=None, title="External storage directory")
+    experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     headframe_registration: Optional[Affine3dTransform] = Field(
         default=None, title="Headframe registration", description="MRI transform matrix for headframe"

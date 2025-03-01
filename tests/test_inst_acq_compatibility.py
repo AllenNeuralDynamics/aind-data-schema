@@ -276,7 +276,7 @@ ephys_acquisition = Acquisition(
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-    acquisition_type="Receptive field mapping",
+    experiment_type="Receptive field mapping",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
     ethics_review_id="2109",
     subject_details=SubjectDetails(
@@ -790,7 +790,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             acquisition_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             acquisition_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",
-            acquisition_type="Parameter Testing",
+            experiment_type="Parameter Testing",
             instrument_id="ophys_inst",
             ethics_review_id="2115",
             subject_details=SubjectDetails(

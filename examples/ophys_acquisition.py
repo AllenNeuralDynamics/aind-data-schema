@@ -19,7 +19,7 @@ a = Acquisition(
     acquisition_start_time=t,
     acquisition_end_time=t,
     subject_id="652567",
-    acquisition_type="Parameter Testing",
+    experiment_type="Parameter Testing",
     instrument_id="ophys_inst",
     ethics_review_id="2115",
     subject_details=SubjectDetails(
@@ -34,8 +34,8 @@ a = Acquisition(
                 "Laser A",
                 "Laser B",
                 "Hamamatsu Camera",
-                "Fiber A",
-                "Fiber B",
+                "Patch Cord A",
+                "Patch Cord B",
             ],
             configurations=[
                 LaserConfig(
@@ -54,16 +54,14 @@ a = Acquisition(
                 ),
                 DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
                 PatchCordConfig(
-                    patch_cord_name="Patch Cord A",
-                    patch_cord_output_power=40,
+                    device_name="Patch Cord A",
+                    output_power=40,
                     output_power_unit="microwatt",
-                    device_name="Fiber A",
                 ),
                 PatchCordConfig(
-                    patch_cord_name="Patch Cord B",
-                    patch_cord_output_power=43,
+                    device_name="Patch Cord B",
+                    output_power=43,
                     output_power_unit="microwatt",
-                    device_name="Fiber B",
                 ),
             ],
             notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",

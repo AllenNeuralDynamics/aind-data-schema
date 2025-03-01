@@ -173,7 +173,7 @@ class SlapAcquisitionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    acquisition_type: SlapAcquisitionType = Field(..., title="Acquisition type")
+    experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
@@ -185,7 +185,7 @@ class SlapFieldOfView(FieldOfView):
 class MousePlatformConfig(DeviceConfig):
     """Configuration for mouse platforms"""
 
-    objects_in_arena: List[str] = Field(..., title="Objects in area")
+    objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in area")
     active_control: Optional[bool] = Field(
         default=None,
         title="Active control",

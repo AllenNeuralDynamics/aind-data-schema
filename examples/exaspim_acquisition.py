@@ -125,9 +125,7 @@ acq = Acquisition(
     ],
     acquisition_start_time=t,
     acquisition_end_time=t,
-    acquisition_type="ExaSPIM",
-    local_storage_directory="D:",
-    external_storage_directory="Z:",
+    experiment_type="ExaSPIM",
 )
 
 serialized = acq.model_dump_json()
