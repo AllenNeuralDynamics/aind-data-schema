@@ -316,7 +316,9 @@ class Metadata(DataCoreModel):
                 group = CONFIG_DEVICE_REQUIREMENTS[type(config).__name__]
                 if not self._check_for_device(group):
                     requirement = ", ".join(device.__name__ for device in group)
-                    raise ValueError(f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument")
+                    raise ValueError(
+                        f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument"
+                    )
 
         return self
 
