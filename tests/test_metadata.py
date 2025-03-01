@@ -20,7 +20,7 @@ from aind_data_schema.components.devices import (
     Laser,
 )
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
+from aind_data_schema.core.acquisition import Acquisition, SubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
@@ -31,6 +31,9 @@ from aind_data_schema.core.procedures import (
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
+
+from aind_data_schema.components.configs import DomeModule
+
 from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
 from pathlib import Path
