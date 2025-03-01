@@ -60,8 +60,8 @@ MODALITY_DEVICE_REQUIREMENTS = {
 }
 # [TODO] Enforce these requirements in the metadata class
 CONFIG_DEVICE_REQUIREMENTS = {
-    DomeModule: [EphysAssembly],
-    FiberAssemblyConfig: [FiberAssembly],
+    "DomeModule": [EphysAssembly],
+    "FiberAssemblyConfig": [FiberAssembly],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]

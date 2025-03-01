@@ -81,19 +81,20 @@ class TestMetadata(unittest.TestCase):
 
     def test_validate_acquisition_config_requirements(self):
         """Tests that the acquisition config requirements validator works as expected"""
-        modalities = [Modality.BEHAVIOR_VIDEOS]
-        mouse_platform = MousePlatform.model_construct(name="platform1")
+
+        # Warning if we ever add a requirement for confocal this Instrument will stop being valid
+        modalities = [Modality.CONFOCAL]
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
-            components=[mouse_platform],
+            components=[],
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
+                    creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
                     modalities=modalities,
                     subject_id="655019",
                 ),
@@ -107,7 +108,7 @@ class TestMetadata(unittest.TestCase):
                         DataStream(
                             stream_start_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
                             stream_end_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
-                            modalities=[Modality.BEHAVIOR_VIDEOS],
+                            modalities=[Modality.ECEPHYS],
                             active_devices=[],
                             configurations=[DomeModule.model_construct()],
                         ),
@@ -116,7 +117,7 @@ class TestMetadata(unittest.TestCase):
                 ),
             )
         self.assertIn(
-            "modality 'behavior-videos' requires at least one",
+            "Configuration 'DomeModule' requires one of",
             str(context.exception),
         )
 

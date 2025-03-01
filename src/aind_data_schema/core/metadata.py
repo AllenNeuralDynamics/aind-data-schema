@@ -312,10 +312,11 @@ class Metadata(DataCoreModel):
         ]
 
         for config in configurations:
-            if any(isinstance(config, config_type) for config_type in CONFIG_DEVICE_REQUIREMENTS.keys()):
-                group = CONFIG_DEVICE_REQUIREMENTS[config]
+            if any(type(config).__name__ == config_type for config_type in CONFIG_DEVICE_REQUIREMENTS.keys()):
+                group = CONFIG_DEVICE_REQUIREMENTS[type(config).__name__]
                 if not self._check_for_device(group):
-                    raise ValueError(f"Configuration '{config}' requires a '{group}' in instrument")
+                    requirement = ", ".join(device.__name__ for device in group)
+                    raise ValueError(f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument")
 
         return self
 
