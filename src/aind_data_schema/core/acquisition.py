@@ -8,7 +8,12 @@ from pydantic import Field, SkipValidation, model_validator
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
 from aind_data_schema_models.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import (
-    Calibration, Maintenance, Camera, CameraAssembly, EphysAssembly, FiberAssembly
+    Calibration,
+    Maintenance,
+    Camera,
+    CameraAssembly,
+    EphysAssembly,
+    FiberAssembly,
 )
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.components.identifiers import Person, Software, Code
@@ -30,7 +35,6 @@ from aind_data_schema.components.configs import (
     RewardDeliveryConfig,
     StimulusModality,
     InVitroImagingConfig,
-    FiberAssemblyConfig,
 )
 from aind_data_schema.components.coordinates import Affine3dTransform
 

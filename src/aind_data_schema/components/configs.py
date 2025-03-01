@@ -14,7 +14,6 @@ from aind_data_schema_models.units import (
     SoundIntensityUnit,
     TimeUnit,
 )
-from aind_data_schema.components.coordinates import Affine3dTransform
 
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
