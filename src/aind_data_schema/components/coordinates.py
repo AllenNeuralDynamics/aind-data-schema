@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from aind_data_schema_models.units import AngleUnit
+from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field, model_validator
 from typing_extensions import Annotated
 
@@ -186,7 +186,10 @@ class AtlasCoordinate(DataModel):
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="object_type")]
     position: Position = Field(..., title="Coordinate in atlas space")
+    position_unit: SizeUnit = Field(default=SizeUnit.UM, title="Position unit")
+
     angles: Optional[Rotation] = Field(default=None, title="Orientation in atlas space")
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
 class InVivoCoordinate(DataModel):
@@ -196,8 +199,10 @@ class InVivoCoordinate(DataModel):
     """
 
     position: Position = Field(..., title="Coordinates in in vivo space")
+    position_unit: SizeUnit = Field(default=SizeUnit.UM, title="Position unit")
 
     angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
 class InVivoSurfaceCoordinate(DataModel):
@@ -208,6 +213,7 @@ class InVivoSurfaceCoordinate(DataModel):
     """
 
     surface_position: Position = Field(..., title="Surface coordinates (AP/ML, optional SI)")
+    surface_position_unit: SizeUnit = Field(default=SizeUnit.UM, title="Position unit")
     depth: Decimal = Field(..., title="Depth from brain surface")
     projection_axis: AxisName = Field(
         default=AxisName.DEPTH,
