@@ -231,3 +231,25 @@ class QualityControl(DataCoreModel):
             return Status.PENDING
 
         return Status.PASS
+
+    def __add__(self, other: "QualityControl") -> "QualityControl":
+        """Combine two QualityControl objects"""
+
+        # Check for schema version incompability
+        if self.schema_version != other.schema_version:
+            raise ValueError(
+                f"Cannot combine QualityControl objects with different schema versions: {self.schema_version} and {other.schema_version}"
+            )
+
+        # Combine
+        evaluations = self.evaluations + other.evaluations
+        if self.notes and other.notes:
+            notes = self.notes + "\n" + other.notes
+        elif self.notes:
+            notes = self.notes
+        elif other.notes:
+            notes = other.notes
+        else:
+            notes = None
+
+        return QualityControl(evaluations=evaluations, notes=notes)

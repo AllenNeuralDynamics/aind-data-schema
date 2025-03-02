@@ -499,6 +499,69 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(qc.status(date=t2_5), Status.PENDING)
         self.assertEqual(qc.status(date=t3_5), Status.PASS)
 
+    def test_add(self):
+        """Test adding two QualityControl objects"""
+
+        test_eval = QCEvaluation(
+            name="Drift map",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            metrics=[
+                QCMetric(
+                    name="Dict example",
+                    value={"stuff": "in_a_dict"},
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                    ],
+                ),
+                QCMetric(
+                    name="Drift map pass/fail",
+                    value=False,
+                    description="Manual evaluation of whether the drift map looks good",
+                    reference="s3://some-data-somewhere",
+                    status_history=[
+                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                    ],
+                ),
+            ],
+        )
+
+        q1 = QualityControl(
+            evaluations=[test_eval, test_eval],
+        )
+
+        q2 = QualityControl(
+            evaluations=[test_eval],
+        )
+
+        q3 = q1 + q2
+        self.assertIsNotNone(q3)
+        self.assertTrue(len(q3.evaluations) == 3)
+
+        # Test incompatible schema versions
+        q1_orig_schema_v = q1.schema_version
+        q1.schema_version = "0.1.0"
+
+        with self.assertRaises(ValueError) as context:
+            q1 + q2
+        self.assertTrue("Cannot combine QualityControl objects with different schema versions" in repr(context.exception))
+
+        # Test various versions of concatenating notes
+        q1.schema_version = q1_orig_schema_v
+        q1.notes = "note1"
+        q2.notes = "note2"
+        q3 = q1 + q2
+        self.assertTrue(q3.notes == "note1\nnote2")
+
+        q1.notes = None
+        q3 = q1 + q2
+        self.assertTrue(q3.notes == "note2")
+
+        q1.notes = "note1"
+        q2.notes = None
+        q3 = q1 + q2
+        self.assertTrue(q3.notes == "note1")
+
 
 if __name__ == "__main__":
     unittest.main()
