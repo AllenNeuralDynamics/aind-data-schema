@@ -54,11 +54,9 @@ CONFIG_REQUIREMENTS = {
 # This is ugly but one of the validators was just checking that the cameras were active in the device name list
 # so to replace that I'm going to add a validator that searches the instrument to make sure the active_devices
 # list contains a valid Camera and/or CameraAssembly. Note that this validator has to go in the `metadata` class
-# [TODO]
 MODALITY_DEVICE_REQUIREMENTS = {
     Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
 }
-# [TODO] Enforce these requirements in the metadata class
 CONFIG_DEVICE_REQUIREMENTS = {
     "DomeModule": [EphysAssembly],
     "FiberAssemblyConfig": [FiberAssembly],
