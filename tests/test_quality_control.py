@@ -544,7 +544,9 @@ class QualityControlTests(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             q1 + q2
-        self.assertTrue("Cannot combine QualityControl objects with different schema versions" in repr(context.exception))
+        self.assertTrue(
+            "Cannot combine QualityControl objects with different schema versions" in repr(context.exception)
+        )
 
         # Test various versions of concatenating notes
         q1.schema_version = q1_orig_schema_v
