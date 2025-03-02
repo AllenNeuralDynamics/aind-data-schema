@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Axis, Origin
+from aind_data_schema.components.coordinates import Axis, BrainOrigin, CoordinateSpace, AtlasTransformed
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -106,13 +106,17 @@ class Instrument(DataCoreModel):
     )
     modification_date: date = Field(..., title="Date of modification")
     calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
+    coordinate_space: Optional[CoordinateSpace] = Field(default=None, title="Coordinate space")
+    atlas_transform: Optional[AtlasTransformed] = Field(
+        default=None,
+        title="Atlas transform",
+        description="Transformation from CCF to in vivo coordinates",
+    )
     ccf_coordinate_transform: Optional[str] = Field(
         default=None,
         title="CCF coordinate transform",
         description="Path to file that details the CCF-to-lab coordinate transform",
     )
-    origin: Optional[Origin] = Field(default=None, title="Origin point for instrument position transforms")
-    instrument_axes: Optional[List[Axis]] = Field(default=None, title="Instrument axes", min_length=3, max_length=3)
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     com_ports: List[Com] = Field(default=[], title="COM ports")
     instrument_type: Optional[ImagingInstrumentType] = Field(default=None, title="Instrument type")
@@ -163,7 +167,7 @@ class Instrument(DataCoreModel):
                 Arena,
                 MousePlatform,
                 DAQDevice,
-                Device,  # note that order matters in the Union, DAQDevice and Device should go last
+                Device,
             ],
             Field(discriminator="object_type"),
         ]

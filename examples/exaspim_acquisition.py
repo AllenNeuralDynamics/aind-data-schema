@@ -8,7 +8,7 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import ImageAxis, Scaling, Translation
+from aind_data_schema.components.coordinates import ImageAxis, Scale, Position
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import acquisition
@@ -81,8 +81,8 @@ acq = acquisition.Acquisition(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transformations=[
-                Scaling(scale=[0.748, 0.748, 1]),
-                Translation(translation=[0, 0, 0]),
+                Scale(scale=[0.748, 0.748, 1]),
+                Position(translation=[0, 0, 0]),
             ],
             channel=tile.Channel(
                 channel_name="488",
@@ -98,8 +98,8 @@ acq = acquisition.Acquisition(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
             coordinate_transformations=[
-                Scaling(scale=[0.748, 0.748, 1]),
-                Translation(translation=[0, 0, 0]),
+                Scale(scale=[0.748, 0.748, 1]),
+                Position(translation=[0, 0, 0]),
             ],
             channel=tile.Channel(
                 channel_name="561",

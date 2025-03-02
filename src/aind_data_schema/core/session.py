@@ -30,14 +30,14 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.coordinates import (
-    AffineTransform,
+    AffineTransformMatrix,
     CcfCoords,
     Coordinates3d,
     Rotation,
-    Scaling,
-    Translation,
+    Scale,
+    Position,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, Software, SpoutSide
+from aind_data_schema.components.devices import Calibration, Maintenance, AnatomicalRelative, Scanner, Software, SpoutSide
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.stimulus import (
     AuditoryStimulation,
@@ -271,7 +271,7 @@ class RewardSpoutConfig(DataModel):
     """Reward spout session information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
-    starting_position: RelativePosition = Field(..., title="Starting position")
+    starting_position: AnatomicalRelative = Field(..., title="Starting position")
     variable_position: bool = Field(
         ...,
         title="Variable position",
@@ -345,10 +345,10 @@ class MRIScan(DataModel):
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
     vc_orientation: Optional[Rotation] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Translation] = Field(default=None, title="Scan position")
+    vc_position: Optional[Position] = Field(default=None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Optional[Scaling] = Field(default=None, title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
@@ -591,7 +591,7 @@ class Session(DataCoreModel):
     active_mouse_platform: bool = Field(
         ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
     )
-    headframe_registration: Optional[AffineTransform] = Field(
+    headframe_registration: Optional[AffineTransformMatrix] = Field(
         default=None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")

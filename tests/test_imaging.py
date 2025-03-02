@@ -11,10 +11,10 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import (
-    AffineTransform,
+    AffineTransformMatrix,
     Rotation,
-    Scaling,
-    Translation,
+    Scale,
+    Position,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core import acquisition as acq
@@ -57,8 +57,8 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.AcquisitionTile(
                     coordinate_transformations=[
-                        Scaling(scale=[1, 1, 1]),
-                        Translation(translation=[1, 1, 1]),
+                        Scale(scale=[1, 1, 1]),
+                        Position(translation=[1, 1, 1]),
                     ],
                     channel=tile.Channel(
                         channel_name="488",
@@ -174,8 +174,8 @@ class ImagingTests(unittest.TestCase):
                 tiles=[
                     tile.AcquisitionTile(
                         coordinate_transformations=[
-                            Scaling(scale=[1, 1, 1]),
-                            Translation(translation=[1, 1, 1]),
+                            Scale(scale=[1, 1, 1]),
+                            Position(translation=[1, 1, 1]),
                         ],
                         channel=tile.Channel(
                             channel_name="488",
@@ -208,14 +208,14 @@ class ImagingTests(unittest.TestCase):
             tiles=[
                 tile.Tile(
                     coordinate_transformations=[
-                        AffineTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+                        AffineTransformMatrix(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
                     ]
                 ),
                 tile.Tile(
                     coordinate_transformations=[
-                        Translation(translation=[0, 1, 2]),
+                        Position(translation=[0, 1, 2]),
                         Rotation(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                        Scaling(scale=[1, 2, 3]),
+                        Scale(scale=[1, 2, 3]),
                     ]
                 ),
             ],

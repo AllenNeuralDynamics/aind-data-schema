@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 
-from aind_data_schema_models.units import AngleUnit, SizeUnit
+from aind_data_schema_models.units import AngleUnit
 from pydantic import Field, model_validator
 from typing_extensions import Annotated
 
@@ -18,16 +18,16 @@ class AtlasName(str, Enum):
     CUSTOM = "Custom"
 
 
-class ReferenceCoordinate(str, Enum):
-    """Reference coordinate position"""
+class BrainOrigin(str, Enum):
+    """Reference coordinate positions in a brain or atlas"""
 
-    ORIGIN = "Origin"  # only exists in Atlases
+    ATLAS_ORIGIN = "Atlas_origin"  # only exists in Atlases
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
 
 
 class AxisName(str, Enum):
-    """Image axis name"""
+    """Axis name"""
 
     X = "X"
     Y = "Y"
@@ -50,6 +50,19 @@ class AnatomicalDirection(str, Enum):
     OTHER = "Other"
 
 
+class AnatomicalRelative(str, Enum):
+    """Relative positions in 3D space"""
+
+    SUPERIOR = "Superior"
+    INFERIOR = "Inferior"
+    ANTERIOR = "Anterior"
+    POSTERIOR = "Posterior"
+    LEFT = "Left"
+    RIGHT = "Right"
+    MEDIAL = "Medial"
+    LATERAL = "Lateral"
+
+
 class RotationDirection(str, Enum):
     """Rotation direction"""
 
@@ -57,35 +70,30 @@ class RotationDirection(str, Enum):
     CCW = "Counter-clockwise"
 
 
-class Vector2(DataModel):
-    """XY vector"""
+class FloatAxis(DataModel):
+    """Float value and axis"""
 
-    x: Decimal = Field(..., title="X")
-    y: Decimal = Field(..., title="Y")
-    unit: SizeUnit = Field(..., title="Vector unit")
-
-
-class Vector3(DataModel):
-    """XYZ vector"""
-
-    x: Decimal = Field(..., title="X")
-    y: Decimal = Field(..., title="Y")
-    z: Decimal = Field(..., title="Z")
-    unit: SizeUnit = Field(..., title="Vector unit")
+    value: float = Field(..., title="Value")
+    axis: AxisName = Field(..., title="Axis")
 
 
-class Scaling(DataModel):
-    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
-    Represents voxel spacing if used as the first applied coordinate transform.
+class Scale(DataModel):
+    """Values to be vector-multiplied with a 3D position
     """
 
-    scale: Vector3 = Field(..., title="Scale parameters", min_length=3, max_length=3)
+    scale: List[FloatAxis] = Field(..., title="Scale parameters", min_length=3, max_length=3)
 
 
-class Translation(DataModel):
-    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
+class Position(DataModel):
+    """Values to be vector-added to a 3D position"""
 
-    translation: Vector3 = Field(..., title="Translatino parameters", min_length=3, max_length=3)
+    position: List[FloatAxis] = Field(..., title="Position", min_length=3, max_length=3)
+
+
+class RelativePosition(DataModel):
+    """Relative position in 3D space"""
+
+    position: List[AnatomicalRelative] = Field(..., title="Relative position")
 
 
 class Rotation(DataModel):
@@ -98,16 +106,19 @@ class Rotation(DataModel):
     3. The rotation angle, rotating counter-clockwise around the object's depth axis
     """
 
-    angles: Vector3 = Field(..., title="Angles in 3D space")
-    rotation_axes: List[AxisName] = Field(default=[AxisName.ML, AxisName.AP, AxisName.DEPTH], title="Rotation axes")
+    angles: List[FloatAxis] = Field(..., title="Angles and axes in 3D space", min_length=3, max_length=3)
     rotation_direction: List[RotationDirection] = Field(
-        default=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW], title="Rotation directions"
+        ...,
+        title="Rotation directions",
+        description="Defined looking in the negative direction of the axis",
+        min_length=3,
+        max_length=3,
     )
     angles_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
-class AffineTransform(DataModel):
-    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
+class AffineTransformMatrix(DataModel):
+    """Definition of an affine transform 3x4 matrix"""
 
     affine_transform: List[Decimal] = Field(
         ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
@@ -119,22 +130,23 @@ class CoordinateSpace(DataModel):
     """
 
     name: str = Field(..., title="Space name")
-    reference_coordinate: ReferenceCoordinate = Field(
+    origin: BrainOrigin = Field(
         ...,
-        title="Reference coordinate",
-        description="Defines the position of (0,0,0) in the space"
+        title="Origin",
+        description="Defines the position of (0,0,0) relative to the brain or atlas"
     )
     orientation: List[AnatomicalDirection] = Field(
         default=[AnatomicalDirection.PA, AnatomicalDirection.LR, AnatomicalDirection.IS],
         title="Axis orientation"
     )
-    dimensions: Optional[Vector3] = Field(default=None, title="Dimensions")
-    resolution: Optional[Vector3] = Field(default=None, title="Resolution")
+    dimensions: Optional[List[FloatAxis]] = Field(default=None, title="Dimensions", min_length=3, max_length=3)
+    resolution: Optional[List[FloatAxis]] = Field(default=None, title="Resolution", min_length=3, max_length=3)
 
-    @model_validator("reference_coordinate", mode="before")
+    @model_validator("origin", mode="before")
     def validate_reference_coordinate(cls, v):
-        if v['reference_coordinate'] == ReferenceCoordinate.ORIGIN and cls.__name__ == "CoordinateSpace":
-            raise ValueError("CoordinateSpace objects cannot have an origin reference coordinate, you should use an anatomical landmark")
+        if v['origin'] == BrainOrigin.ATLAS_ORIGIN and cls.__name__ == "CoordinateSpace":
+            raise ValueError("CoordinateSpace objects cannot use the atlas origin, "
+                             "you should use an anatomical landmark")
         return v
 
 
@@ -148,8 +160,8 @@ class AtlasSpace(CoordinateSpace):
 
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    dimensions: Vector3 = Field(..., title="Dimensions")
-    resolution: Vector3 = Field(..., title="Resolution")
+    dimensions: List[FloatAxis] = Field(..., title="Dimensions", min_length=3, max_length=3)
+    resolution: List[FloatAxis] = Field(..., title="Resolution", min_length=3, max_length=3)
 
 
 class AtlasTransformed(AtlasSpace):
@@ -157,7 +169,7 @@ class AtlasTransformed(AtlasSpace):
 
     transforms: List[
         Annotated[
-            Union[Translation, Rotation, Scaling, str], Field(discriminator="object_type")
+            Union[Position, Rotation, Scale, AffineTransformMatrix, str], Field(discriminator="object_type")
         ]
     ] = Field(
         ...,
@@ -173,7 +185,7 @@ class AtlasCoordinate(DataModel):
     """
 
     atlas: Annotated[Union[AtlasSpace, AtlasTransformed], Field(title="Atlas definition", discriminator="object_type")]
-    coordinates: Vector3 = Field(..., title="Coordinate in atlas space")
+    position: Position = Field(..., title="Coordinate in atlas space")
     angles: Optional[Rotation] = Field(default=None, title="Orientation in atlas space")
 
 
@@ -183,22 +195,24 @@ class InVivoCoordinate(DataModel):
     Angles can be optionally provided
     """
 
-    space: CoordinateSpace = Field(..., title="In vivo space definition")
-    coordinates: Vector3 = Field(..., title="Coordinates in in vivo space")
+    position: Position = Field(..., title="Coordinates in in vivo space")
 
     angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
 
 
 class InVivoSurfaceCoordinate(DataModel):
     """A coordinate in a brain relative to a point on the brain surface, which is itself relative to a reference
-    coordinate on the skull
+    coordinate, usually on the skull
 
     Angles can be optionally provided
     """
 
-    space: CoordinateSpace = Field(..., title="In vivo space definition")
-    surface_coordinates: Vector2 = Field(..., title="Surface coordinates (AP/ML)")
-    depth: Decimal = Field(..., title="Depth from surface")
-    projection_axis: AxisName = Field(default=AxisName.DEPTH, title="Surface projection axis", description="Axis used to project AP/ML coordinate onto surface")
-
+    surface_position: Position = Field(..., title="Surface coordinates (AP/ML, optional SI)")
+    depth: Decimal = Field(..., title="Depth from brain surface")
+    projection_axis: AxisName = Field(
+        default=AxisName.DEPTH,
+        title="Surface projection axis",
+        description="Axis used to project surface_position onto the brain surface"
+    )
     angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")

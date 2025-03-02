@@ -29,6 +29,10 @@ from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDef
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.coordinates import (
+    InVivoSurfaceCoordinate, CoordinateSpace, BrainOrigin,
+    InVivoCoordinate,
+)
 
 
 class ImmunolabelClass(str, Enum):
@@ -105,14 +109,6 @@ class CraniotomyType(str, Enum):
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
     OTHER = "Other"
-
-
-class CoordinateReferenceLocation(str, Enum):
-    """Name of reference point for Coordinates"""
-
-    BREGMA = "Bregma"
-    LAMBDA = "Lambda"
-    MIDLINE = "Midline"
 
 
 class HeadframeMaterial(str, Enum):
@@ -249,7 +245,7 @@ class Sectioning(DataModel):
     section_thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Section thickness unit")
     section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
     section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
-    reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
+    reference_location: BrainOrigin = Field(..., title="Reference location for distance measurement")
     section_strategy: SectionStrategy = Field(..., title="Slice strategy")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
@@ -336,10 +332,6 @@ class Craniotomy(DataModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
@@ -458,19 +450,7 @@ class IntraperitonealInjection(Injection):
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
-    injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")
-    injection_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Injection coordinate unit")
-    injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        default=None, title="Injection coordinate reference"
-    )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
-    injection_angle: Decimal = Field(..., title="Injection angle (deg)")
-    injection_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Injection angle unit")
+    injection_coordinates: List[InVivoSurfaceCoordinate] = Field(..., title="Injection coordinate")
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
     injection_hemisphere: Optional[Side] = Field(default=None, title="Injection hemisphere")
 
@@ -551,21 +531,10 @@ class OphysProbe(DataModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
+    manipulator_coordinate: Union[InVivoCoordinate, InVivoSurfaceCoordinate] = Field(
+        ..., title="Manipulator coordinate"
+    )
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
-    stereotactic_coordinate_dv: Decimal = Field(
-        ...,
-        title="Stereotactic coordinate D/V (mm)",
-    )
-    stereotactic_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Sterotactic coordinate unit")
-    stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        default=None, title="Stereotactic coordinate reference"
-    )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     angle: Decimal = Field(..., title="Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -642,13 +611,22 @@ class Perfusion(DataModel):
 class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
+    # Meta-metadata
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
+    
     experimenters: Optional[List[Person]] = Field(
         default=None,
         title="experimenter(s)",
     )
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
+
+    # Subject metadata
+    coordinate_space: Optional[CoordinateSpace] = Field(default=None, title="Coordinate space")
+    bregma_to_lambda_distance: Optional[Decimal] = Field(
+        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
+    )
+    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     animal_weight_prior: Optional[Decimal] = Field(
         default=None, title="Animal weight (g)", description="Animal weight before procedure"
     )
@@ -680,6 +658,8 @@ class Surgery(DataModel):
             Field(discriminator="object_type"),
         ]
     ] = Field(title="Procedures", min_length=1)
+
+    # Additional surgery fields    
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

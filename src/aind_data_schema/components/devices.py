@@ -20,7 +20,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import RelativePosition, Size3d
+from aind_data_schema.components.coordinates import Position, RelativePosition, Scale
 from aind_data_schema.components.reagent import Reagent
 
 
@@ -166,14 +166,9 @@ class CameraTarget(str, Enum):
     """Target of camera"""
 
     BODY = "Body"
-    BOTTOM = "Bottom"
-    BRAIN_SURFACE = "Brain surface"
+    BRAIN = "Brain"
     EYE = "Eye"
-    FACE_BOTTOM = "Face bottom"
-    FACE_FORWARD = "Face forward"
-    FACE_SIDE_LEFT = "Face side left"
-    FACE_SIDE_RIGHT = "Face side right"
-    SIDE = "Side"
+    FACE = "Face"
     TONGUE = "Tongue"
     OTHER = "Other"
 
@@ -274,6 +269,17 @@ class Device(DataModel):
     port_index: Optional[str] = Field(default=None, title="Port index")
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    # Position information
+    position: Optional[Annotated[
+        Union[
+            Position,
+            RelativePosition,
+        ], Field(discriminator="object_type")
+    ]] = Field(
+        default=None,
+        title="Position",
+        description="Position of the device in the instrument's CoordinateSpace",)
 
 
 class Software(DataModel):
@@ -448,7 +454,6 @@ class CameraAssembly(DataModel):
 
     # optional fields
     filter: Optional[Filter] = Field(default=None, title="Filter")
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of this assembly")
 
 
 class DAQChannel(DataModel):
@@ -702,7 +707,7 @@ class PockelsCell(Device):
 class Enclosure(Device):
     """Description of an enclosure"""
 
-    size: Size3d = Field(..., title="Size")
+    size: Scale = Field(..., title="Size")
     internal_material: str = Field(..., title="Internal material")
     external_material: str = Field(..., title="External material")
     grounded: bool = Field(..., title="Grounded")
@@ -766,7 +771,7 @@ class Treadmill(MousePlatform):
 class Arena(MousePlatform):
     """Description of a rectangular arena"""
 
-    size: Size3d = Field(..., title="3D Size")
+    size: Scale = Field(..., title="3D Size")
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
@@ -780,7 +785,6 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of the monitor")
     contrast: Optional[int] = Field(
         default=None,
         description="Monitor's contrast setting",
@@ -803,7 +807,6 @@ class RewardSpout(Device):
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
-    spout_position: Optional[RelativePosition] = Field(default=None, title="Spout stage position")
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
@@ -832,7 +835,6 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of the speaker")
 
 
 class ChannelType(Enum):

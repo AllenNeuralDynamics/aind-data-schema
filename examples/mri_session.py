@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.coordinates import Rotation, Scaling, Translation
+from aind_data_schema.components.coordinates import Rotation, Scale, Position
 from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import MRIScan, MriScanSequence, ScanType, Session, Stream, SubjectPosition
@@ -23,7 +23,7 @@ scan1 = MRIScan(
     echo_time=Decimal("3.42"),
     repetition_time=Decimal("100.0"),
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scaling(scale=[0.5, 0.4375, 0.52]),
+    voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),
     processing_steps=[],
     additional_scan_parameters={},
     notes="Set up scan for the 3D scan.",
@@ -44,9 +44,9 @@ scan2 = MRIScan(
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
     vc_orientation=Rotation(rotation=[1.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0]),
-    vc_position=Translation(translation=[-6.1, -7.0, 7.9]),
+    vc_position=Position(translation=[-6.1, -7.0, 7.9]),
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scaling(scale=[0.1, 0.1, 0.1]),
+    voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
     processing_steps=[],
     additional_scan_parameters={},
     notes=None,

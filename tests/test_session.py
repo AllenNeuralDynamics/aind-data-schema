@@ -13,8 +13,8 @@ from aind_data_schema.components.coordinates import (
     CcfCoords,
     Coordinates3d,
     Rotation,
-    Scaling,
-    Translation,
+    Scale,
+    Position,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.session import (
@@ -102,9 +102,9 @@ class ExampleTest(unittest.TestCase):
                     rare_factor=4,
                     primary_scan=True,
                     vc_orientation=Rotation(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                    vc_position=Translation(translation=[1, 1, 1]),
+                    vc_position=Position(translation=[1, 1, 1]),
                     subject_position="Supine",
-                    voxel_sizes=Scaling(scale=[0.1, 0.1, 0.1]),
+                    voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
@@ -171,7 +171,7 @@ class ExampleTest(unittest.TestCase):
                 rare_factor=4,
                 primary_scan=True,
                 subject_position="Supine",
-                voxel_sizes=Scaling(scale=[0.1, 0.1, 0.1]),
+                voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
                 echo_time=2.2,
                 effective_echo_time=2.0,
                 repetition_time=1.2,
