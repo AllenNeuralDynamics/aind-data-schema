@@ -436,12 +436,12 @@ class NonViralMaterial(Reagent):
 class InjectionDynamics(DataModel):
     """Description of the volume and rate of an injection"""
 
-    volume: Decimal = Field(..., title="Injection volume (uL)")
-    volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
-    rate: Decimal = Field(..., title="Injection rate (uL/min)")
-    rate_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection rate unit")
-    duration: Decimal = Field(..., title="Injection duration (min)")
-    duration_unit: TimeUnit = Field(default=TimeUnit.MIN, title="Injection duration unit")
+    volume: Decimal = Field(..., title="Injection volume")
+    volume_unit: VolumeUnit = Field(..., title="Injection volume unit")
+    rate: Optional[Decimal] = Field(default=None, title="Injection rate")
+    rate_unit: Optional[VolumeUnit] = Field(default=None, title="Injection rate unit")
+    duration: Optional[Decimal] = Field(default=None, title="Injection duration")
+    duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
 
 
 class Injection(DataModel):
