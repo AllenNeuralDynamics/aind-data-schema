@@ -185,10 +185,10 @@ class MousePlatformConfig(DeviceConfig):
     """Configuration for mouse platforms"""
 
     objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in area")
-    active_control: Optional[bool] = Field(
-        default=None,
+    active_control: bool = Field(
+        default=False,
         title="Active control",
-        description="True if position or rotation of mouse platform is in any way controlled by the experimenter",
+        description="True when movement of the mouse platform is in any way controlled by the experimenter",
     )
 
 
