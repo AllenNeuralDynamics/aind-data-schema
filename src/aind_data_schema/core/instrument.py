@@ -40,7 +40,7 @@ from aind_data_schema.components.devices import (
     Olfactometer,
     OpenEphysAcquisitionBoard,
     OpticalTable,
-    Patch,
+    PatchCord,
     PockelsCell,
     PolygonalScanner,
     RewardDelivery,
@@ -49,6 +49,7 @@ from aind_data_schema.components.devices import (
     Treadmill,
     Tube,
     Wheel,
+    Scanner,
 )
 
 # Define the mapping of modalities to their required device types
@@ -56,7 +57,7 @@ from aind_data_schema.components.devices import (
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
-    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [Patch]],
+    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [PatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
@@ -138,12 +139,13 @@ class Instrument(DataCoreModel):
                 EphysAssembly,
                 FiberAssembly,
                 LaserAssembly,
-                Patch,
+                PatchCord,
                 Laser,
                 LightEmittingDiode,
                 Lamp,
                 Detector,
                 Objective,
+                Scanner,
                 Filter,
                 Lens,
                 DigitalMicromirrorDevice,
@@ -267,7 +269,9 @@ class Instrument(DataCoreModel):
                         f"Device type validation error: modality '{modality.abbreviation}' "
                         "requires at least one device of type(s) "
                     )
-                    errors.append(f"{', '.join(device.__name__ for device in required_group)} in the rig components.")
+                    errors.append(
+                        f"{', '.join(device.__name__ for device in required_group)} " "in the instrument components."
+                    )
 
         # Raise an error if there are validation issues
         if errors:

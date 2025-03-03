@@ -286,9 +286,9 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertTrue(expected_exception in repr(context.exception))
 
-    def test_multi_session(self):
+    def test_multi_acquisition(self):
         """Ensure that the multi-asset QCEvaluation validator checks for evaluated_assets"""
-        # Check for non-multi-session that all evaluated_assets are None
+        # Check for non-multi-acquisition that all evaluated_assets are None
         t0 = datetime.fromisoformat("2020-10-10")
 
         evaluation = QCEvaluation(

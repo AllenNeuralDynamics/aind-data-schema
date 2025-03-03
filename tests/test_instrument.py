@@ -32,7 +32,7 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OlfactometerChannel,
-    Patch,
+    PatchCord,
     RewardDelivery,
     RewardSpout,
     SpoutSide,
@@ -112,7 +112,7 @@ lms = [
         ),
         name="Laser_assembly",
         collimator=Device(name="Collimator A"),
-        fiber=Patch(
+        fiber=PatchCord(
             name="Bundle Branching Fiber-optic Patch Cord",
             manufacturer=Organization.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -216,7 +216,7 @@ detectors = [
     )
 ]
 patch_cords = [
-    Patch(
+    PatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",

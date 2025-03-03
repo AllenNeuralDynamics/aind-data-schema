@@ -1,4 +1,4 @@
-""" schema for session stimulus """
+""" schema for acquisition stimulus """
 
 from decimal import Decimal
 from enum import Enum
@@ -25,7 +25,7 @@ class FilterType(str, Enum):
     OTHER = "Other"
 
 
-class OptoStimulation(DataModel):
+class OptoStimulation(GenericModel):
     """Description of opto stimulation parameters"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -52,7 +52,7 @@ class OptoStimulation(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class VisualStimulation(DataModel):
+class VisualStimulation(GenericModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -86,8 +86,8 @@ class PhotoStimulationGroup(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class PhotoStimulation(DataModel):
-    """Description of a photostimulation session"""
+class PhotoStimulation(GenericModel):
+    """Description of a photostimulation acquisition"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
     number_groups: int = Field(..., title="Number of groups")
@@ -108,7 +108,7 @@ class OlfactometerChannelConfig(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OlfactoryStimulation(DataModel):
+class OlfactoryStimulation(GenericModel):
     """Description of a olfactory stimulus"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
@@ -116,7 +116,7 @@ class OlfactoryStimulation(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class AuditoryStimulation(DataModel):
+class AuditoryStimulation(GenericModel):
     """Description of an auditory stimulus"""
 
     stimulus_name: str = Field(..., title="Stimulus name")

@@ -28,8 +28,8 @@ drift_value_with_flags = {
     "value": "",
     "options": [
         "No Drift",
-        "Drift visible in part of session",
-        "Drift visible in entire session",
+        "Drift visible in part of acquisition",
+        "Drift visible in entire acquisition",
         "Sudden movement event",
     ],
     "status": ["Pass", "Pass", "Fail", "Fail"],

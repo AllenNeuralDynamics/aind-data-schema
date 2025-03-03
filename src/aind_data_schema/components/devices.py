@@ -590,7 +590,7 @@ class Manipulator(Device):
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
 
 
-class Patch(Device):
+class PatchCord(Device):
     """Description of a patch cord"""
 
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
@@ -605,7 +605,7 @@ class LaserAssembly(DataModel):
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
     collimator: Device = Field(..., title="Collimator")
-    fiber: Patch = Field(..., title="Fiber patch")
+    fiber: PatchCord = Field(..., title="Fiber patch")
 
 
 class Headstage(Device):

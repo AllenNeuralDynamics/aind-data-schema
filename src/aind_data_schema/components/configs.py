@@ -1,53 +1,40 @@
-""" Schemas for Physiology and/or Behavior Sessions """
+""" Configurations for devices, software, and other components during acquisition """
 
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
-from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
     AngleUnit,
     FrequencyUnit,
-    MassUnit,
     PowerUnit,
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
-    VolumeUnit,
 )
+
+from aind_data_schema.components.devices import ImmersionMedium
+from aind_data_schema.components.tile import AcquisitionTile
+from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, CcfCoords
 from aind_data_schema_models.brain_atlas import CCFStructure
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
-from typing_extensions import Annotated
 
 from aind_data_schema.base import (
-    DataCoreModel,
-    GenericModel,
     GenericModelType,
     DataModel,
-    AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
-    CcfCoords,
     Coordinates3d,
     Rotation3dTransform,
     Scale3dTransform,
     Translation3dTransform,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance, RelativePosition, Scanner, SpoutSide
-from aind_data_schema.components.identifiers import Person, Software, Code
-from aind_data_schema.components.stimulus import (
-    AuditoryStimulation,
-    OlfactoryStimulation,
-    OptoStimulation,
-    PhotoStimulation,
-    VisualStimulation,
-)
+from aind_data_schema.components.devices import RelativePosition, SpoutSide
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import Anaesthetic, CoordinateReferenceLocation
+from aind_data_schema.core.procedures import CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
@@ -63,12 +50,17 @@ class StimulusModality(str, Enum):
     WHEEL_FRICTION = "Wheel friction"
 
 
-# Ophys components
-class FiberConnectionConfig(DataModel):
-    """Description for a fiber photometry configuration"""
+class DeviceConfig(DataModel):
+    """Parent class for all configurations"""
 
-    patch_cord_name: str = Field(..., title="Patch cord name (must match rig)")
-    patch_cord_output_power: Decimal = Field(..., title="Output power (uW)")
+    device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
+
+
+# Ophys components
+class PatchCordConfig(DeviceConfig):
+    """Description of a patch cord and its output power to another device"""
+
+    output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
@@ -80,19 +72,17 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class DetectorConfig(DataModel):
+class DetectorConfig(DeviceConfig):
     """Description of detector settings"""
 
-    name: str = Field(..., title="Name")
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
-class LightEmittingDiodeConfig(DataModel):
+class LightEmittingDiodeConfig(DeviceConfig):
     """Description of LED settings"""
 
-    name: str = Field(..., title="Name")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
@@ -173,8 +163,8 @@ class Stack(DataModel):
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
 
-class SlapSessionType(str, Enum):
-    """Type of slap session"""
+class SlapAcquisitionType(str, Enum):
+    """Type of slap acquisition"""
 
     PARENT = "Parent"
     BRANCH = "Branch"
@@ -183,7 +173,7 @@ class SlapSessionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    session_type: SlapSessionType = Field(..., title="Session type")
+    experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
@@ -192,11 +182,21 @@ class SlapFieldOfView(FieldOfView):
     path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
 
 
+class MousePlatformConfig(DeviceConfig):
+    """Configuration for mouse platforms"""
+
+    objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in area")
+    active_control: bool = Field(
+        default=False,
+        title="Active control",
+        description="True when movement of the mouse platform is in any way controlled by the experimenter",
+    )
+
+
 # Ephys Components
-class DomeModule(DataModel):
+class DomeModule(DeviceConfig):
     """Movable module that is mounted on the ephys dome insertion system"""
 
-    assembly_name: str = Field(..., title="Assembly name")
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
@@ -237,26 +237,19 @@ class ManipulatorModule(DomeModule):
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
 
-class FiberModule(ManipulatorModule):
+class FiberAssemblyConfig(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Fiber photometry devices")
+    patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LaserConfig(DataModel):
-    """Description of laser settings in a session"""
+class LaserConfig(DeviceConfig):
+    """Description of laser settings in an acquisition"""
 
-    name: str = Field(..., title="Name", description="Must match instrument json")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
-
-
-LIGHT_SOURCE_CONFIGS = Annotated[
-    Union[LightEmittingDiodeConfig, LaserConfig],
-    Field(discriminator="object_type"),
-]
 
 
 # Behavior components
@@ -268,14 +261,14 @@ class RewardSolution(str, Enum):
 
 
 class RewardSpoutConfig(DataModel):
-    """Reward spout session information"""
+    """Reward spout acquisition information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
     starting_position: RelativePosition = Field(..., title="Starting position")
     variable_position: bool = Field(
         ...,
         title="Variable position",
-        description="True if spout position changes during session as tracked in data",
+        description="True if spout position changes during acquisition as tracked in data",
     )
 
 
@@ -297,10 +290,9 @@ class RewardDeliveryConfig(DataModel):
         return value
 
 
-class SpeakerConfig(DataModel):
+class SpeakerConfig(DeviceConfig):
     """Description of auditory speaker configuration"""
 
-    name: str = Field(..., title="Name", description="Must match instrument json")
     volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
@@ -327,7 +319,7 @@ class SubjectPosition(str, Enum):
     SUPINE = "Supine"
 
 
-class MRIScan(DataModel):
+class MRIScan(DeviceConfig):
     """Description of a 3D scan"""
 
     scan_index: int = Field(..., title="Scan index")
@@ -335,7 +327,6 @@ class MRIScan(DataModel):
     primary_scan: bool = Field(
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
-    mri_scanner: Optional[Scanner] = Field(default=None, title="MRI scanner")
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     rare_factor: Optional[int] = Field(default=None, title="RARE factor")
     echo_time: Decimal = Field(..., title="Echo time (ms)")
@@ -381,215 +372,66 @@ class MRIScan(DataModel):
         return self
 
 
-class Stream(DataModel):
-    """Data streams with a start and stop time"""
+class Immersion(DataModel):
+    """Description of immersion medium"""
 
-    stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
-    stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
-    daq_names: List[str] = Field(default=[], title="DAQ devices")
-    camera_names: List[str] = Field(default=[], title="Cameras")
-    light_sources: List[LIGHT_SOURCE_CONFIGS] = Field(default=[], title="Light Sources")
-    ephys_modules: List[ManipulatorModule] = Field(default=[], title="Ephys modules")
-    stick_microscopes: List[DomeModule] = Field(
-        default=[],
-        title="Stick microscopes",
-        description="Must match stick microscope assemblies in instrument file",
-    )
-    manipulator_modules: List[ManipulatorModule] = Field(default=[], title="Manipulator modules")
-    detectors: List[DetectorConfig] = Field(default=[], title="Detectors")
-    fiber_connections: List[FiberConnectionConfig] = Field(default=[], title="Implanted fiber photometry devices")
-    fiber_modules: List[FiberModule] = Field(default=[], title="Inserted fiber modules")
-    ophys_fovs: List[FieldOfView] = Field(default=[], title="Fields of view")
-    slap_fovs: List[SlapFieldOfView] = Field(default=[], title="Slap2 fields of view")
-    stack_parameters: Optional[Stack] = Field(default=None, title="Stack parameters")
-    mri_scans: List[MRIScan] = Field(default=[], title="MRI scans")
-    stream_modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    software: Optional[List[Software]] = Field(default=[], title="Software packages")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-    @staticmethod
-    def _validate_ephys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate ecephys modality has ephys_assemblies and stick_microscopes"""
-        if Modality.ECEPHYS in value:
-            ephys_modules = info.data["ephys_modules"]
-            for k, v in {
-                "ephys_modules": ephys_modules,
-            }.items():
-                if not v:
-                    return f"{k} field must be utilized for Ecephys modality"
-        return None
-
-    @staticmethod
-    def _validate_fib_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate FIB modality has light_sources, detectors, and fiber_connections"""
-        if Modality.FIB in value:
-            light_source = info.data["light_sources"]
-            detector = info.data["detectors"]
-            fiber_connections = info.data["fiber_connections"]
-            for k, v in {
-                "light_sources": light_source,
-                "detectors": detector,
-                "fiber_connections": fiber_connections,
-            }.items():
-                if not v:
-                    return f"{k} field must be utilized for FIB modality"
-        return None
-
-    @staticmethod
-    def _validate_pophys_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate POPHYS modality has ophys_fovs and stack_parameters"""
-        if Modality.POPHYS in value:
-            ophys_fovs = info.data["ophys_fovs"]
-            stack_parameters = info.data["stack_parameters"]
-            if not ophys_fovs and not stack_parameters:
-                return "ophys_fovs field OR stack_parameters field must be utilized for Pophys modality"
-        else:
-            return None
-
-    @staticmethod
-    def _validate_behavior_videos_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate BEHAVIOR_VIDEOS modality has cameras"""
-        if Modality.BEHAVIOR_VIDEOS in value and len(info.data["camera_names"]) == 0:
-            return "camera_names field must be utilized for Behavior Videos modality"
-        else:
-            return None
-
-    @staticmethod
-    def _validate_mri_modality(value: List[Modality.ONE_OF], info: ValidationInfo) -> Optional[str]:
-        """Validate MRI modality has scans"""
-        if Modality.MRI in value:
-            scans = info.data["mri_scans"]
-            if not scans:
-                return "mri_scans field must be utilized for MRI modality"
-        else:
-            return None
-
-    @field_validator("stream_modalities", mode="after")
-    def validate_stream_modalities(cls, value: List[Modality.ONE_OF], info: ValidationInfo) -> List[Modality.ONE_OF]:
-        """Validate each modality in stream_modalities field has associated data"""
-        errors = []
-        ephys_errors = cls._validate_ephys_modality(value, info)
-        fib_errors = cls._validate_fib_modality(value, info)
-        pophys_errors = cls._validate_pophys_modality(value, info)
-        behavior_vids_errors = cls._validate_behavior_videos_modality(value, info)
-        mri_errors = cls._validate_mri_modality(value, info)
-
-        if ephys_errors is not None:
-            errors.append(ephys_errors)
-        if fib_errors is not None:
-            errors.append(fib_errors)
-        if pophys_errors is not None:
-            errors.append(pophys_errors)
-        if behavior_vids_errors is not None:
-            errors.append(behavior_vids_errors)
-        if mri_errors is not None:
-            errors.append(mri_errors)
-        if len(errors) > 0:
-            message = "\n     ".join(errors)
-            raise ValueError(message)
-        return value
+    medium: ImmersionMedium = Field(..., title="Immersion medium")
+    refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class StimulusEpoch(DataModel):
-    """Description of stimulus used during session"""
+class ProcessingSteps(DataModel):
+    """Description of downstream processing steps"""
 
-    stimulus_start_time: AwareDatetimeWithDefault = Field(
-        ...,
-        title="Stimulus start time",
-        description="When a specific stimulus begins. This might be the same as the session start time.",
-    )
-    stimulus_end_time: AwareDatetimeWithDefault = Field(
-        ...,
-        title="Stimulus end time",
-        description="When a specific stimulus ends. This might be the same as the session end time.",
-    )
-    stimulus_name: str = Field(..., title="Stimulus name")
-    session_number: Optional[int] = Field(default=None, title="Session number")
-    code: Optional[Code] = Field(
-        default=None,
-        title="Code or script",
-        description="Custom code or script used to control the behavior/stimulus",
-    )
-    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    stimulus_parameters: Optional[
-        List[
-            Annotated[
-                Union[AuditoryStimulation, OptoStimulation, OlfactoryStimulation, PhotoStimulation, VisualStimulation],
-                Field(discriminator="object_type"),
-            ]
+    channel_name: str = Field(..., title="Channel name")
+    process_name: List[
+        Literal[
+            ProcessName.IMAGE_ATLAS_ALIGNMENT,
+            ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
+            ProcessName.IMAGE_CELL_SEGMENTATION,
+            ProcessName.IMAGE_DESTRIPING,
+            ProcessName.IMAGE_FLAT_FIELD_CORRECTION,
+            ProcessName.IMAGE_IMPORTING,
+            ProcessName.IMAGE_THRESHOLDING,
+            ProcessName.IMAGE_TILE_ALIGNMENT,
+            ProcessName.IMAGE_TILE_FUSING,
+            ProcessName.IMAGE_TILE_PROJECTION,
+            ProcessName.FILE_FORMAT_CONVERSION,
         ]
-    ] = Field(default=None, title="Stimulus parameters")
-    stimulus_device_names: List[str] = Field(default=[], title="Stimulus devices")
-    speaker_config: Optional[SpeakerConfig] = Field(default=None, title="Speaker Config")
-    light_source_config: Optional[List[LIGHT_SOURCE_CONFIGS]] = Field(
-        default=[], title="Light source config", description="Light sources for stimulation"
-    )
-    output_parameters: GenericModelType = Field(default=GenericModel(), title="Performance metrics")
-    objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in arena")
-    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
-    trials_total: Optional[int] = Field(default=None, title="Total trials")
-    trials_finished: Optional[int] = Field(default=None, title="Finished trials")
-    trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
-    notes: Optional[str] = Field(default=None, title="Notes")
+    ] = Field(...)
 
 
-class Session(DataCoreModel):
-    """Description of a physiology and/or behavior session"""
+class InVitroImagingConfig(DataModel):
+    """Configuration of an imaging instrument"""
 
-    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/session.py"
-    describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
-    protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    experimenters: List[Person] = Field(
+    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
+    axes: List[ImageAxis] = Field(..., title="Acquisition axes")
+    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
+    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+    processing_steps: List[ProcessingSteps] = Field(
         default=[],
-        title="experimenter(s)",
+        title="Processing steps",
+        description="List of downstream processing steps planned for each channel",
     )
-    session_start_time: AwareDatetimeWithDefault = Field(..., title="Session start time")
-    session_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Session end time")
-    session_type: str = Field(..., title="Session type")
-    instrument_id: str = Field(..., title="Instrument ID")
-    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
-    calibrations: List[Calibration] = Field(
-        default=[],
-        title="Calibrations",
-        description="Calibrations of instrument devices prior to session",
-    )
-    maintenance: List[Maintenance] = Field(
-        default=[],
-        title="Maintenance",
-        description="Maintenance of instrument devices prior to session",
-    )
-    subject_id: str = Field(..., title="Subject ID")
-    animal_weight_prior: Optional[Decimal] = Field(
-        default=None,
-        title="Animal weight (g)",
-        description="Animal weight before procedure",
-    )
-    animal_weight_post: Optional[Decimal] = Field(
-        default=None,
-        title="Animal weight (g)",
-        description="Animal weight after procedure",
-    )
-    weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
-    data_streams: List[Stream] = Field(
-        ...,
-        title="Data streams",
-        description=(
-            "A data stream is a collection of devices that are recorded simultaneously. Each session can include"
-            " multiple streams (e.g., if the manipulators are moved to a new location)"
-        ),
-    )
-    stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
-    mouse_platform_name: str = Field(..., title="Mouse platform")
-    active_mouse_platform: bool = Field(
-        ..., title="Active mouse platform", description="Is the mouse platform being actively controlled"
-    )
-    headframe_registration: Optional[Affine3dTransform] = Field(
-        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
-    )
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
-    reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+
+    @field_validator("axes", mode="before")
+    def from_direction_code(cls, v: Union[str, List[ImageAxis]]) -> List[ImageAxis]:
+        """Map direction codes to Axis model"""
+        if type(v) is str:
+            direction_lookup = {
+                "L": AnatomicalDirection.LR,
+                "R": AnatomicalDirection.RL,
+                "A": AnatomicalDirection.AP,
+                "P": AnatomicalDirection.PA,
+                "I": AnatomicalDirection.IS,
+                "S": AnatomicalDirection.SI,
+            }
+
+            name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
+
+            axes = []
+            for i, c in enumerate(v):
+                axis = ImageAxis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
+                axes.append(axis)
+            return axes
+        else:
+            return v

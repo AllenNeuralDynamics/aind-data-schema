@@ -1,7 +1,7 @@
 """ Generic metadata classes for data """
 
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, List, Literal, Optional
 
 from aind_data_schema_models.data_name_patterns import (
@@ -230,7 +230,9 @@ class DerivedDataDescription(DataDescription):
             else:
                 return getattr(DerivedDataDescription.model_fields.get(field_name), "default")
 
-        creation_time = datetime.utcnow() if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        creation_time = (
+            datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        )
 
         return cls(
             creation_time=creation_time,

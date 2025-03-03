@@ -113,8 +113,7 @@ class Processing(DataCoreModel):
         # Coerce types if needed
         try:
             data_processes = [
-                DataProcess(**process) if not isinstance(process, DataProcess)
-                else process
+                DataProcess(**process) if not isinstance(process, DataProcess) else process
                 for process in data_processes
             ]
         except Exception as e:
