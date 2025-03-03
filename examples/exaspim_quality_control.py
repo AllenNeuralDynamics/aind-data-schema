@@ -52,7 +52,7 @@ eval0 = QCEvaluation(
             status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
     ],
-    created=datetime(2024,7,12),
+    created=datetime(2024, 7, 12),
 )
 
 eval1 = QCEvaluation(
@@ -112,4 +112,3 @@ q = QualityControl(evaluations=[eval0, eval1])
 serialized = q.model_dump_json()
 deserialized = QualityControl.model_validate_json(serialized)
 q.write_standard_file(prefix="exaspim")
-# q.write_standard_file()
