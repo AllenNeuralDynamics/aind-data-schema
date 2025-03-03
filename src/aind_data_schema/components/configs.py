@@ -62,6 +62,7 @@ class PatchCordConfig(DeviceConfig):
 
     output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
+    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
 
 
 class TriggerType(str, Enum):
