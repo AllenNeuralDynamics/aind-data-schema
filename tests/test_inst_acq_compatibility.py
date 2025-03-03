@@ -836,11 +836,13 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             device_name="Patch Cord A",
                             output_power=40,
                             output_power_unit="microwatt",
+                            fiber_name="Fiber A",
                         ),
                         PatchCordConfig(
                             device_name="Patch Cord B",
                             output_power=43,
                             output_power_unit="microwatt",
+                            fiber_name="Fiber B",
                         ),
                     ],
                     notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
