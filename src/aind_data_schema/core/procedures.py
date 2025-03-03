@@ -167,6 +167,14 @@ class SampleType(str, Enum):
     OTHER = "Other"
 
 
+class InjectionProfile(str, Enum):
+    """Injection profile"""
+
+    BOLUS = "Bolus"
+    CONTINUOUS = "Continuous"
+    PULSED = "Pulsed"
+
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -425,6 +433,17 @@ class NonViralMaterial(Reagent):
     )
 
 
+class InjectionDynamics(DataModel):
+    """Description of the volume and rate of an injection"""
+
+    volume: Decimal = Field(..., title="Injection volume (uL)")
+    volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
+    rate: Decimal = Field(..., title="Injection rate (uL/min)")
+    rate_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection rate unit")
+    duration: Decimal = Field(..., title="Injection duration (min)")
+    duration_unit: TimeUnit = Field(default=TimeUnit.MIN, title="Injection duration unit")
+
+
 class Injection(DataModel):
     """Description of an injection procedure"""
 
@@ -433,8 +452,11 @@ class Injection(DataModel):
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
-    injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")
-    injection_duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
+    dynamics: List[InjectionDynamics] = Field(
+        ...,
+        title="Injection dynamics",
+        description="List of injection events, pattern should match the profile")
+    profile: InjectionProfile = Field(..., title="Injection profile")
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
