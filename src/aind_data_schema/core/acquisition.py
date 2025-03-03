@@ -86,10 +86,10 @@ class SubjectDetails(DataModel):
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
 
 
-class EpochSummary(DataModel):
+class PerformanceMetrics(DataModel):
     """Summary of a StimulusEpoch"""
 
-    output_parameters: GenericModelType = Field(default=GenericModel(), title="Performance metrics")
+    output_parameters: GenericModelType = Field(default=GenericModel(), title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
@@ -167,7 +167,7 @@ class StimulusEpoch(DataModel):
         description="Custom code/script used to control the behavior/stimulus and parameters",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    summary: Optional[EpochSummary] = Field(default=None, title="Summary")
+    summary: Optional[PerformanceMetrics] = Field(default=None, title="Summary")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
