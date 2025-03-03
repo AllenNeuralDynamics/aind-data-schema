@@ -1,6 +1,6 @@
 """Example quality control processing"""
 
-from datetime import datetime, timezone
+from datetime import datetime
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -21,7 +21,7 @@ eval0 = QCEvaluation(
                 "AP": 10885.395,
                 "DV": 11673.58,
             },
-            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024,7,12))],
+            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
         QCMetric(
             name="CCF coordinate",
@@ -31,25 +31,25 @@ eval0 = QCEvaluation(
                 "AP": 4270.0208,
                 "DV": 6984.054
             },
-            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024,7,12))],
+            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
         QCMetric(
             name="CCF soma compartment",
             description="Location of soma in CCF space",
             value=CCFStructure.RT,
-            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024,7,12))],
+            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
         QCMetric(
             name="Manual estimate soma compartment",
             description="Unknown",
             value=CCFStructure.AV,
-            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024,7,12))],
+            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
         QCMetric(
             name="Soma group",
             description="Unknown",
             value="Thalamus",
-            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024,7,12))],
+            status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
     ],
     created=datetime(2024,7,12),
@@ -69,7 +69,7 @@ eval1 = QCEvaluation(
                 "AP": 11628.111,
                 "DV": 16348.68,
             },
-            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024,7,11))],
+            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
         ),
         QCMetric(
             name="CCF coordinate",
@@ -79,28 +79,28 @@ eval1 = QCEvaluation(
                 "AP": 4076.2764,
                 "DV": 5190.3741,
             },
-            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024,7,11))],
+            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
         ),
         QCMetric(
             name="CCF soma compartment",
             description="Location of soma in CCF space",
             value=CCFStructure.PT,
-            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024,7,11))],
+            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
         ),
         QCMetric(
             name="Manual estimate soma compartment",
             description="Unknown",
             value=CCFStructure.AV,
-            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024,7,11))],
+            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
         ),
         QCMetric(
             name="Soma group",
             description="Unknown",
             value="Thalamus",
-            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024,7,11))],
+            status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
         )
     ],
-    created=datetime(2024,7,11),
+    created=datetime(2024, 7, 11),
 )
 
 q = QualityControl(evaluations=[eval0, eval1])
