@@ -240,7 +240,7 @@ class ManipulatorModule(DomeModule):
 class FiberAssemblyConfig(ManipulatorModule):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    fiber_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
+    patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
 class LaserConfig(DeviceConfig):
