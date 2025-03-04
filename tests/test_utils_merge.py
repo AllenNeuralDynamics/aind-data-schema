@@ -3,7 +3,7 @@ from aind_data_schema.utils.merge import merge_notes
 
 
 class TestMergeNotes(unittest.TestCase):
-    """ Tests for merge_notes function """
+    """Tests for merge_notes function"""
 
     def test_both_notes_present(self):
         """Test merging when both notes are present"""

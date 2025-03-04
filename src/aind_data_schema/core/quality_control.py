@@ -239,8 +239,8 @@ class QualityControl(DataCoreModel):
         # Check for schema version incompability
         if self.schema_version != other.schema_version:
             raise ValueError(
-                "Cannot combine QualityControl objects with different schema " +
-                f"versions: {self.schema_version} and {other.schema_version}"
+                "Cannot combine QualityControl objects with different schema "
+                + f"versions: {self.schema_version} and {other.schema_version}"
             )
 
         # Combine

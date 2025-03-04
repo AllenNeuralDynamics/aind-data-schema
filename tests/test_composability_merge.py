@@ -23,7 +23,7 @@ from aind_data_schema.components import tile
 
 
 class TestComposability(unittest.TestCase):
-    """ Tests for merge functions """
+    """Tests for merge functions"""
 
     def test_merge_quality_control(self):
         """Test adding two QualityControl objects"""
@@ -109,7 +109,9 @@ class TestComposability(unittest.TestCase):
                         Reagent(
                             name="reagent1",
                             source=Organization.OTHER,
-                            rrid=PIDName(name="xxx", abbreviation="xx", registry=Registry.RRID, registry_identifier="100"),
+                            rrid=PIDName(
+                                name="xxx", abbreviation="xx", registry=Registry.RRID, registry_identifier="100"
+                            ),
                             lot_number="xxx",
                             expiration_date=t.date(),
                         ),
@@ -199,7 +201,9 @@ class TestComposability(unittest.TestCase):
                         Reagent(
                             name="reagent2",
                             source=Organization.OTHER,
-                            rrid=PIDName(name="yyy", abbreviation="yy", registry=Registry.RRID, registry_identifier="200"),
+                            rrid=PIDName(
+                                name="yyy", abbreviation="yy", registry=Registry.RRID, registry_identifier="200"
+                            ),
                             lot_number="yyy",
                             expiration_date=t.date(),
                         ),
@@ -291,9 +295,7 @@ class TestComposability(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             acq1 + acq2
-        self.assertTrue(
-            "Cannot combine Acquisition objects with different schema versions" in repr(context.exception)
-        )
+        self.assertTrue("Cannot combine Acquisition objects with different schema versions" in repr(context.exception))
 
         acq1.schema_version = acq1_orig_schema_v
 
@@ -301,9 +303,7 @@ class TestComposability(unittest.TestCase):
         acq2.subject_id = "different_id"
         with self.assertRaises(ValueError) as context:
             acq1 + acq2
-        self.assertTrue(
-            "Cannot combine Acquisition objects that differ in key fields" in repr(context.exception)
-        )
+        self.assertTrue("Cannot combine Acquisition objects that differ in key fields" in repr(context.exception))
 
         # Test incompatible SubjectDetails
         acq2.subject_id = acq1.subject_id
@@ -315,9 +315,7 @@ class TestComposability(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             acq1 + acq2
-        self.assertTrue(
-            "SubjectDetails cannot be combined in Acquisition" in repr(context.exception)
-        )
+        self.assertTrue("SubjectDetails cannot be combined in Acquisition" in repr(context.exception))
 
         # Test notes merge
 

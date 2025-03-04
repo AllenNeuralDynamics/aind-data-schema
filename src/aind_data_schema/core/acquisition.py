@@ -281,8 +281,8 @@ class Acquisition(DataCoreModel):
         # Check for schema version incompability
         if self.schema_version != other.schema_version:
             raise ValueError(
-                "Cannot combine Acquisition objects with different schema " +
-                f"versions: {self.schema_version} and {other.schema_version}"
+                "Cannot combine Acquisition objects with different schema "
+                + f"versions: {self.schema_version} and {other.schema_version}"
             )
 
         # Check for incompatible key fields
@@ -291,13 +291,7 @@ class Acquisition(DataCoreModel):
         ethics_check = self.ethics_review_id != other.ethics_review_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.experiment_type != other.experiment_type
-        if any([
-            subj_check,
-            spec_check,
-            ethics_check,
-            inst_check,
-            exp_type_check
-                ]):
+        if any([subj_check, spec_check, ethics_check, inst_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
@@ -348,4 +342,3 @@ class Acquisition(DataCoreModel):
             stimulus_epochs=stimulus_epochs,
             subject_details=self.subject_details if self.subject_details else other.subject_details,
         )
-
