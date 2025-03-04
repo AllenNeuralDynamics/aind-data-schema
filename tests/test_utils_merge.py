@@ -1,3 +1,5 @@
+""" Tests for merge utilities """
+
 import unittest
 from aind_data_schema.utils.merge import merge_notes
 
