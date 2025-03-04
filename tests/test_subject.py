@@ -52,7 +52,7 @@ class SubjectTests(unittest.TestCase):
         self.assertIsNotNone(s)
 
     def test_breedinginfo_validator(self):
-        """ Test the breeding info validator """
+        """Test the breeding info validator"""
 
         now = datetime.datetime.now()
 
@@ -77,7 +77,7 @@ class SubjectTests(unittest.TestCase):
         self.assertIn("Breeding info should be provided for subjects bred in house", str(context.exception))
 
     def test_genotype_validator(self):
-        """ Test the genotype validator """
+        """Test the genotype validator"""
         now = datetime.datetime.now()
 
         with self.assertRaises(ValueError) as context:
@@ -96,7 +96,7 @@ class SubjectTests(unittest.TestCase):
                 ),
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
-        
+
         self.assertIn("Full genotype should be provided for mouse subjects", str(context.exception))
 
     def test_strain_species(self):

@@ -150,7 +150,11 @@ class Subject(DataCoreModel):
             # This code is necessary because of the create_metadata_json function and how it doesn't correctly
             # re-validate the fields of core files into their respective models
             name = value.species["name"] if isinstance(value.species, dict) else value.species.name
-            species = value.background_strain["species"] if isinstance(value.background_strain, dict) else value.background_strain.species
+            species = (
+                value.background_strain["species"]
+                if isinstance(value.background_strain, dict)
+                else value.background_strain.species
+            )
             if name != species:
                 raise ValueError("The animal species and it's strain's species do not match")
 
