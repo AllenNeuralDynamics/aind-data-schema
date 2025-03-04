@@ -39,6 +39,7 @@ from aind_data_schema.components.configs import (
 from aind_data_schema.components.coordinates import Affine3dTransform
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema.utils.merge import merge_notes
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -298,7 +299,12 @@ class Acquisition(DataCoreModel):
             exp_type_check
                 ]):
             raise ValueError(
-                "Cannot combine Acquisition objects with different subject or specimen IDs"
+                "Cannot combine Acquisition objects that differ in key fields:\n"
+                f"subject_id: {self.subject_id}/{other.subject_id}\n"
+                f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
+                f"ethics_review_id: {self.ethics_review_id}/{other.ethics_review_id}\n"
+                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
+                f"experiment_type: {self.experiment_type}/{other.experiment_type}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -316,11 +322,8 @@ class Acquisition(DataCoreModel):
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
-        # Combine
-        if self.notes and other.notes:
-            notes = self.notes + "\n" + other.notes
-        else:
-            notes = self.notes if self.notes else other.notes
+        # Combine notes
+        notes = merge_notes(self.notes, other.notes)
 
         # Handle start and end time
         start_time = min(self.acquisition_start_time, other.acquisition_start_time)

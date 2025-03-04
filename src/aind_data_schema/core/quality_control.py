@@ -8,6 +8,7 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.utils.merge import merge_notes
 
 
 class Status(str, Enum):
@@ -244,13 +245,6 @@ class QualityControl(DataCoreModel):
 
         # Combine
         evaluations = self.evaluations + other.evaluations
-        if self.notes and other.notes:
-            notes = self.notes + "\n" + other.notes
-        elif self.notes:
-            notes = self.notes
-        elif other.notes:
-            notes = other.notes
-        else:
-            notes = None
+        notes = merge_notes(self.notes, other.notes)
 
         return QualityControl(evaluations=evaluations, notes=notes)
