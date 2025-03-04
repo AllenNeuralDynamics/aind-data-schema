@@ -133,7 +133,7 @@ class Subject(DataCoreModel):
     @model_validator(mode="after")
     def validate_genotype(value):
         """Validator for mice genotype"""
-        
+
         if not hasattr(value, "species"):  # bypass for tests
             return value
 
@@ -147,7 +147,11 @@ class Subject(DataCoreModel):
         """Ensure that the species and strain.species match"""
 
         if value.background_strain:
-            if value.species.name != value.background_strain.species:
+            # This code is necessary because of the create_metadata_json function and how it doesn't correctly
+            # re-validate the fields of core files into their respective models
+            name = value.species["name"] if isinstance(value.species, dict) else value.species.name
+            species = value.background_strain["species"] if isinstance(value.background_strain, dict) else value.background_strain.species
+            if name != species:
                 raise ValueError("The animal species and it's strain's species do not match")
 
         return value

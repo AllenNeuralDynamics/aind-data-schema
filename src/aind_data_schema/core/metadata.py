@@ -332,6 +332,8 @@ def create_metadata_json(
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
     # Extract basic parameters and non-corrupt core schema fields
+    
+    print("\n\n\n\n\n")
     params = {
         "name": name,
         "location": location,
@@ -351,13 +353,17 @@ def create_metadata_json(
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid
     try:
-        metadata = Metadata.model_validate({**params, **core_fields})
+        metadata = Metadata.model_validate(params | core_fields)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
     except Exception as e:
         logging.warning(f"Issue with metadata construction! {e.args}")
+        logging.warning(f"{repr(e)}")
         metadata = Metadata.model_validate(params)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
         for key, value in core_fields.items():
             metadata_json[key] = value
         metadata_json["metadata_status"] = MetadataStatus.INVALID.value
+        
+    print("\n\n\n\n\n")
+
     return metadata_json

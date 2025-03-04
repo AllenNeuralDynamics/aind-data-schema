@@ -32,9 +32,9 @@ from aind_data_schema.core.processing import Processing, DataProcess, ProcessNam
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
 
+from pathlib import Path
 from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
-from pathlib import Path
 
 from aind_data_schema_models.species import Strain
 
