@@ -433,7 +433,7 @@ class TestComposability(unittest.TestCase):
 
         # Test with incompatible schema versions
         p3 = p2
-        p3.schema_version = "2.0.6"
+        p3.schema_version = "0.0.0"
 
         with self.assertRaises(ValueError) as e:
             _ = p1 + p3
