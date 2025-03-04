@@ -142,3 +142,4 @@ dmypy.json
 notebook/
 *.vscode
 ephys_instrument.json
+examples/*.json
