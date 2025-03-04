@@ -134,7 +134,7 @@ class Subject(DataCoreModel):
     def validate_genotype(value):
         """Validator for mice genotype"""
 
-        if not hasattr(value, "species"):  # bypass for tests
+        if not hasattr(value, "species"):  # pragma: no cover
             return value
 
         if value.species is Species.MUS_MUSCULUS and value.genotype is None:

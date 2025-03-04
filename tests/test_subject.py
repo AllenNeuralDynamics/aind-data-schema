@@ -51,13 +51,13 @@ class SubjectTests(unittest.TestCase):
 
         self.assertIsNotNone(s)
 
-    def test_validators(self):
-        """test validators"""
+    def test_breedinginfo_validator(self):
+        """ Test the breeding info validator """
 
         now = datetime.datetime.now()
 
         # missing BreedingInfo when source is AI
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as context:
             Subject(
                 species=Species.MUS_MUSCULUS,
                 subject_id="1234",
@@ -74,14 +74,19 @@ class SubjectTests(unittest.TestCase):
                 ),
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
+        self.assertIn("Breeding info should be provided for subjects bred in house", str(context.exception))
 
-        with self.assertRaises(ValueError):
+    def test_genotype_validator(self):
+        """ Test the genotype validator """
+        now = datetime.datetime.now()
+
+        with self.assertRaises(ValueError) as context:
             Subject(
                 species=Species.MUS_MUSCULUS,
                 subject_id="1234",
                 sex="Male",
                 date_of_birth=now.date(),
-                source=Organization.AI,
+                source=Organization.JAX,
                 housing=Housing(
                     light_cycle=LightCycle(
                         lights_on_time=now.time(),
@@ -91,6 +96,8 @@ class SubjectTests(unittest.TestCase):
                 ),
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
+        
+        self.assertIn("Full genotype should be provided for mouse subjects", str(context.exception))
 
     def test_strain_species(self):
         """Test the strain/species validator"""
@@ -105,7 +112,7 @@ class SubjectTests(unittest.TestCase):
                 sex="Male",
                 date_of_birth=now.date(),
                 genotype="wt",
-                source=Organization.AI,
+                source=Organization.JAX,
                 housing=Housing(
                     light_cycle=LightCycle(
                         lights_on_time=now.time(),
