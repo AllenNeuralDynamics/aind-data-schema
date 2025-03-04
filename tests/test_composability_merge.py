@@ -1,12 +1,12 @@
 """ Test for merge functions """
 
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 
 from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
 
 from aind_data_schema.core.acquisition import Acquisition, DataStream, SubjectDetails
-from aind_data_schema.core.procedures import Reagent
+from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaesthetic, Craniotomy, Perfusion
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
@@ -317,7 +317,65 @@ class TestComposability(unittest.TestCase):
             acq1 + acq2
         self.assertTrue("SubjectDetails cannot be combined in Acquisition" in repr(context.exception))
 
-        # Test notes merge
+    def test_procedures_add(self):
+        """Test the __add__ method of Procedures"""
+
+        t = date(2022, 7, 12)
+        t2 = date(2022, 9, 23)
+
+        p1 = Procedures(
+            subject_id="625100",
+            subject_procedures=[
+                Surgery(
+                    start_date=t,
+                    protocol_id="doi",
+                    experimenters=[Person(name="Scientist Smith")],
+                    ethics_review_id="2109",
+                    animal_weight_prior=22.6,
+                    animal_weight_post=22.3,
+                    anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
+                    workstation_id="SWS 3",
+                    procedures=[
+                        Craniotomy(
+                            craniotomy_type="Visual Cortex",
+                            protocol_id="1234",
+                            craniotomy_hemisphere="Left",
+                            bregma_to_lambda_distance=4.1,
+                        )
+                    ],
+                )
+            ],
+        )
+
+        p2 = Procedures(
+            subject_id="625100",
+            subject_procedures=[
+                Surgery(
+                    start_date=t2,
+                    protocol_id="doi",
+                    experimenters=[Person(name="Scientist Smith")],
+                    ethics_review_id="2109",
+                    procedures=[
+                        Perfusion(
+                            protocol_id="doi_of_protocol",
+                            output_specimen_ids=["2", "1"],
+                        )
+                    ],
+                )
+            ],
+        )
+
+        combined = p1 + p2
+
+        self.assertEqual(combined.subject_id, "625100")
+        self.assertEqual(len(combined.subject_procedures), 2)
+        self.assertEqual(combined.subject_procedures[0].start_date, t)
+        self.assertEqual(combined.subject_procedures[1].start_date, t2)
+
+        # Test combining with different subject IDs raises ValueError
+        p3 = Procedures(subject_id="different_id")
+        with self.assertRaises(ValueError):
+            _ = p1 + p3
 
 
 if __name__ == "__main__":
