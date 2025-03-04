@@ -93,7 +93,7 @@ class Subject(DataCoreModel):
     
     # Genetic info
     species: Species.ONE_OF = Field(..., title="Species")
-    bakground_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
+    background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     genotype: Optional[str] = Field(
         default=None,
@@ -130,14 +130,14 @@ class Subject(DataCoreModel):
 
         return v
 
-    @field_validator("species", mode="after")
-    def validate_genotype(cls, v: Species.ONE_OF, info: ValidationInfo):
+    @model_validator(mode="after")
+    def validate_genotype(value):
         """Validator for mice genotype"""
 
-        if v is Species.MUS_MUSCULUS and info.data.get("genotype") is None:
+        if value.species is Species.MUS_MUSCULUS and value.genotype is None:
             raise ValueError("Full genotype should be provided for mouse subjects")
 
-        return v
+        return value
 
     @model_validator(mode="after")
     def validate_species_strain(value):
