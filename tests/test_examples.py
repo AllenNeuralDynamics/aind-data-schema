@@ -3,11 +3,13 @@
 import glob
 import importlib.util
 import json
+import os
 import logging
 import sys
 import unittest
 from pathlib import Path
 from unittest.mock import mock_open, patch
+from aind_data_schema.utils.examples_generator import ExamplesGenerator
 
 import dictdiffer
 
@@ -16,6 +18,15 @@ EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
 class ExampleTests(unittest.TestCase):
     """tests for examples"""
+
+    def setUpClass():
+        """Build the examples"""
+
+        # Move to the examples directory
+        os.chdir(EXAMPLES_DIR)
+        ExamplesGenerator().generate_all_examples()
+        # Return to the original directory
+        os.chdir(Path(__file__).parents[1])
 
     def test_examples(self):
         """run through each example
