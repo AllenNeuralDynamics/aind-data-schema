@@ -15,6 +15,7 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.utils.merge import merge_notes
 
 
 class ProcessStage(str, Enum):
@@ -136,3 +137,14 @@ class Processing(DataCoreModel):
                 raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
 
         return values
+
+    def __add__(self, other: "Processing") -> "Processing":
+        """Combine two Processing objects"""
+
+        # Check for incompatible schema_version
+        if self.schema_version != other.schema_version:
+            raise ValueError("Cannot add Processing objects with different schema versions.")
+
+        return Processing(
+            data_processes=self.data_processes + other.data_processes, notes=merge_notes(self.notes, other.notes)
+        )

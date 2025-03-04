@@ -8,6 +8,7 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.utils.merge import merge_notes
 
 
 class Status(str, Enum):
@@ -231,3 +232,19 @@ class QualityControl(DataCoreModel):
             return Status.PENDING
 
         return Status.PASS
+
+    def __add__(self, other: "QualityControl") -> "QualityControl":
+        """Combine two QualityControl objects"""
+
+        # Check for schema version incompability
+        if self.schema_version != other.schema_version:
+            raise ValueError(
+                "Cannot combine QualityControl objects with different schema "
+                + f"versions: {self.schema_version} and {other.schema_version}"
+            )
+
+        # Combine
+        evaluations = self.evaluations + other.evaluations
+        notes = merge_notes(self.notes, other.notes)
+
+        return QualityControl(evaluations=evaluations, notes=notes)
