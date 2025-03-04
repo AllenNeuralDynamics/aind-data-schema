@@ -1,4 +1,4 @@
-"""Tests instrument session compatibility check"""
+"""Tests instrument acquisition compatibility check"""
 
 import json
 import unittest
@@ -29,32 +29,35 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    Patch,
+    PatchCord,
     ProbePort,
 )
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.session import (
+from aind_data_schema.core.acquisition import (
+    Acquisition,
+    StimulusEpoch,
+    DataStream,
+    SubjectDetails,
+)
+from aind_data_schema.components.configs import (
     CcfCoords,
     Coordinates3d,
     DetectorConfig,
     DomeModule,
-    FiberConnectionConfig,
-    FiberModule,
+    PatchCordConfig,
+    FiberAssemblyConfig,
     LaserConfig,
     ManipulatorModule,
-    Session,
-    StimulusEpoch,
     StimulusModality,
-    Stream,
-    VisualStimulation,
 )
-from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
+from aind_data_schema.components.stimulus import VisualStimulation
+from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
-EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
+EPHYS_ACQUISITION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
 behavior_computer = "W10DT72941"
 ephys_computer = "W10DT72942"
@@ -100,7 +103,7 @@ laser_assembly = LaserAssembly(
     ),
     lasers=[red_laser, blue_laser],
     collimator=Device(name="Collimator A"),
-    fiber=Patch(
+    fiber=PatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -257,18 +260,28 @@ grating_code = Code(
         name="Bonsai",
         version="2.7",
     ),
+    parameters=VisualStimulation(
+        stimulus_name="Static Gratings",
+        stimulus_parameters={
+            "grating_orientations": [0, 45, 90, 135],
+            "grating_orientation_unit": "degrees",
+            "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
+            "grating_spatial_frequency_unit": "cycles/degree",
+        },
+    ),
 )
 
-ephys_session = Session(
+ephys_acquisition = Acquisition(
     experimenters=[Person(name="Mam Moth")],
     subject_id="664484",
-    session_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
-    session_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-    session_type="Receptive field mapping",
+    acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
+    acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
+    experiment_type="Receptive field mapping",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
     ethics_review_id="2109",
-    active_mouse_platform=False,
-    mouse_platform_name="mouse platform",
+    subject_details=SubjectDetails(
+        mouse_platform_name="mouse platform",
+    ),
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -276,17 +289,6 @@ ephys_session = Session(
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=grating_code,
-            stimulus_parameters=[
-                VisualStimulation(
-                    stimulus_name="Static Gratings",
-                    stimulus_parameters={
-                        "grating_orientations": [0, 45, 90, 135],
-                        "grating_orientation_unit": "degrees",
-                        "grating_spatial_frequencies": [0.02, 0.04, 0.08, 0.16, 0.32],
-                        "grating_spatial_frequency_unit": "cycles/degree",
-                    },
-                )
-            ],
         ),
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -294,62 +296,57 @@ ephys_session = Session(
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=grating_code,
-            stimulus_parameters=[
-                VisualStimulation(
-                    stimulus_name="Flashes",
-                    stimulus_parameters={
-                        "flash_interval": 5.0,
-                        "flash_interval_unit": "seconds",
-                        "flash_duration": 0.5,
-                        "flash_duration_unit": "seconds",
-                    },
-                )
-            ],
         ),
     ],
     data_streams=[
-        Stream(
+        DataStream(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            stream_modalities=[Modality.ECEPHYS],
-            daq_names=["Basestation"],
-            camera_names=["some_camera_name"],
-            stick_microscopes=[
+            modalities=[Modality.ECEPHYS],
+            active_devices=[
+                "Basestation",
+                "some_camera_name",
+                "stick microscope 1",
+                "stick microscope 2",
+                "stick microscope 3",
+                "stick microscope 4",
+                "ephys module 1",
+                "ephys module 2",
+            ],
+            configurations=[
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 1",
+                    device_name="stick microscope 1",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="did not record angles, did not calibrate.",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 2",
+                    device_name="stick microscope 2",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 3",
+                    device_name="stick microscope 3",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 4",
+                    device_name="stick microscope 4",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-            ],
-            ephys_modules=[
                 ManipulatorModule(
                     targeted_ccf_coordinates=[
                         CcfCoords(ml=8150, ap=3250, dv=7800),
                     ],
-                    assembly_name="ephys module 1",
+                    device_name="ephys module 1",
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
@@ -366,7 +363,7 @@ ephys_session = Session(
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    assembly_name="ephys module 2",
+                    device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
@@ -378,49 +375,55 @@ ephys_session = Session(
                 ),
             ],
         ),
-        Stream(
+        DataStream(
             stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
             stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
-            stream_modalities=[Modality.ECEPHYS],
+            modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
-            daq_names=["Basestation"],
-            stick_microscopes=[
+            active_devices=[
+                "Basestation",
+                "stick microscope 1",
+                "stick microscope 2",
+                "stick microscope 3",
+                "stick microscope 4",
+                "ephys module 1",
+                "ephys module 2",
+            ],
+            configurations=[
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 1",
+                    device_name="stick microscope 1",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="did not record angles, did not calibrate.",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 2",
+                    device_name="stick microscope 2",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 3",
+                    device_name="stick microscope 3",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
                 DomeModule(
                     rotation_angle=0,
-                    assembly_name="stick microscope 4",
+                    device_name="stick microscope 4",
                     arc_angle=-180,
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-            ],
-            manipulator_modules=[
                 ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    assembly_name="ephys module 1",
+                    device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
@@ -430,14 +433,12 @@ ephys_session = Session(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-            ],
-            ephys_modules=[
                 ManipulatorModule(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
                     targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    assembly_name="ephys module 1",
+                    device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
@@ -452,7 +453,7 @@ ephys_session = Session(
                     arc_angle=25,
                     module_angle=-22,
                     targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    assembly_name="ephys module 2",
+                    device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
@@ -468,8 +469,8 @@ ephys_session = Session(
 )
 
 
-class TestInstrumentSessionCompatibility(unittest.TestCase):
-    """Tests InstrumentSessionCompatibility class"""
+class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
+    """Tests InstrumentAcquisitionCompatibility class"""
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -540,7 +541,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
             ),
         ]
         patch_cords = [
-            d.Patch(
+            d.PatchCord(
                 name="Bundle Branching Fiber-optic Patch Cord",
                 manufacturer=d.Organization.DORIC,
                 model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -756,7 +757,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         additional_devices = [d.Device(name="Photometry Clock")]
 
         cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
-        cls.example_ephys_session = Session.model_validate_json(json.dumps(read_json(EPHYS_SESSION_JSON)))
+        cls.example_ephys_acquisition = Acquisition.model_validate_json(json.dumps(read_json(EPHYS_ACQUISITION_JSON)))
         cls.ophys_instrument = Instrument(
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
@@ -784,57 +785,62 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                 )
             ],
         )
-        cls.ophys_session = Session(
+        cls.ophys_acquisition = Acquisition(
             experimenters=[Person(name="Mam Moth")],
-            session_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
-            session_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
+            acquisition_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
+            acquisition_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",
-            session_type="Parameter Testing",
+            experiment_type="Parameter Testing",
             instrument_id="ophys_inst",
             ethics_review_id="2115",
-            mouse_platform_name="Disc",
-            active_mouse_platform=False,
+            subject_details=SubjectDetails(
+                mouse_platform_name="Disc",
+            ),
             data_streams=[
-                Stream(
+                DataStream(
                     stream_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stream_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
-                    stream_modalities=[Modality.FIB],
-                    light_sources=[
+                    modalities=[Modality.FIB],
+                    active_devices=[
+                        "Laser A",
+                        "Laser B",
+                        "Hamamatsu Camera",
+                        "Fiber Module A",
+                        "Fiber A",
+                        "Fiber B",
+                    ],
+                    configurations=[
                         LaserConfig(
-                            name="Laser A",
+                            device_name="Laser A",
                             wavelength=405,
                             wavelength_unit="nanometer",
                             excitation_power=10,
                             excitation_power_unit="milliwatt",
                         ),
                         LaserConfig(
-                            name="Laser B",
+                            device_name="Laser B",
                             wavelength=473,
                             wavelength_unit="nanometer",
                             excitation_power=7,
                             excitation_power_unit="milliwatt",
                         ),
-                    ],
-                    detectors=[DetectorConfig(name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal")],
-                    fiber_modules=[
-                        FiberModule(
-                            assembly_name="Fiber Module A",
+                        DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
+                        FiberAssemblyConfig(
+                            device_name="Fiber Module A",
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
                             manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
-                        )
-                    ],
-                    fiber_connections=[
-                        FiberConnectionConfig(
-                            patch_cord_name="Patch Cord A",
-                            patch_cord_output_power=40,
+                        ),
+                        PatchCordConfig(
+                            device_name="Patch Cord A",
+                            output_power=40,
                             output_power_unit="microwatt",
                             fiber_name="Fiber A",
                         ),
-                        FiberConnectionConfig(
-                            patch_cord_name="Patch Cord B",
-                            patch_cord_output_power=43,
+                        PatchCordConfig(
+                            device_name="Patch Cord B",
+                            output_power=43,
                             output_power_unit="microwatt",
                             fiber_name="Fiber B",
                         ),
@@ -848,7 +854,7 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
                     stimulus_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
                     stimulus_name="Some Stimulus Name",
                     stimulus_modalities=[StimulusModality.AUDITORY],
-                    stimulus_device_names=["Stimulus Device A", "Stimulus Device B"],
+                    active_devices=["Stimulus Device A", "Stimulus Device B"],
                 )
             ],
         )
@@ -857,116 +863,58 @@ class TestInstrumentSessionCompatibility(unittest.TestCase):
         """Tests compatibility check"""
 
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
-        # check that ephys session and rig are synced
-        example_ephys_check = InstrumentSessionCompatibility(
-            instrument=self.example_ephys_inst, session=self.example_ephys_session
+        # check that ephys acquisition and rig are synced
+        example_ephys_check = InstrumentAcquisitionCompatibility(
+            instrument=self.example_ephys_inst, acquisition=self.example_ephys_acquisition
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
 
     def test_compare_instrument_id_error(self):
         """Tests that an error is raised when instrument ids do not match"""
-        self.ophys_session.instrument_id = "wrong_id"
+        self.ophys_acquisition.instrument_id = "wrong_id"
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
     def test_compare_mouse_platform_name_error(self):
         """Tests that an error is raised when mouse platform names do not match"""
-        self.ophys_session.mouse_platform_name = "wrong_platform"
+        self.ophys_acquisition.subject_details.mouse_platform_name = "wrong_platform"
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-    def test_compare_daq_names_error(self):
-        """Tests that an error is raised when daq names do not match"""
-        self.ophys_session.data_streams[0].daq_names = ["wrong_daq"]
+    def test_compare_active_devices(self):
+        """Tests that an error is raised when active_devices do not match"""
+        self.ophys_acquisition.data_streams[0].active_devices = ["wrong_daq"]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-    def test_compare_camera_names_error(self):
-        """Tests that an error is raised when camera names do not match"""
-        self.ophys_session.data_streams[0].camera_names = ["wrong_camera"]
+        self.ophys_acquisition.data_streams[0].active_devices = ["wrong_camera"]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
-    def test_compare_light_sources_error(self):
-        """Tests that an error is raised when light sources do not match"""
-        self.ophys_session.data_streams[0].light_sources = [
-            LaserConfig(name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"),
+    def test_compare_configurations(self):
+        """Tests that an error is raised when configuration names do not match"""
+        self.ophys_acquisition.data_streams[0].configurations = [
+            LaserConfig(
+                device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"
+            ),
         ]
         with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
-            ).run_compatibility_check()
-
-    def test_compare_ephys_assemblies_error(self):
-        """Tests that an error is raised when ephys assemblies do not match"""
-        module = ManipulatorModule(
-            targeted_ccf_coordinates=[
-                CcfCoords(ml=8150, ap=3250, dv=7800),
-            ],
-            assembly_name="fake module",
-            arc_angle=5.2,
-            module_angle=8,
-            coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-            primary_targeted_structure=CCFStructure.LGD,
-            manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-            calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-            notes=(
-                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-            ),
-        )
-        self.ophys_session.data_streams[0].ephys_modules = [module]
-        with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
-            ).run_compatibility_check()
-
-    def test_compare_stick_microscopes_error(self):
-        """Tests that an error is raised when stick microscopes do not match"""
-        self.ophys_session.data_streams[0].stick_microscopes = [
-            DomeModule(assembly_name="wrong_microscope", rotation_angle=0, arc_angle=-180, module_angle=-180)
-        ]
-        with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
-            ).run_compatibility_check()
-
-    def test_compare_manipulator_modules_error(self):
-        """Tests that an error is raised when manipulator modules do not match"""
-        module = ManipulatorModule(
-            targeted_ccf_coordinates=[
-                CcfCoords(ml=8150, ap=3250, dv=7800),
-            ],
-            assembly_name="fake module",
-            arc_angle=5.2,
-            module_angle=8,
-            coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-            primary_targeted_structure=CCFStructure.LGD,
-            manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-            calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-            notes=(
-                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-            ),
-        )
-        self.ophys_session.data_streams[0].manipulator_modules = [module]
-        with self.assertRaises(ValueError):
-            InstrumentSessionCompatibility(
-                instrument=self.ophys_instrument, session=self.ophys_session
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
             ).run_compatibility_check()
 
 

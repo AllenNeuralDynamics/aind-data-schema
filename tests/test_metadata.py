@@ -13,35 +13,25 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import (
-    Device,
     EphysAssembly,
     EphysProbe,
-    LickSensorType,
     Manipulator,
-    MotorizedStage,
     MousePlatform,
-    Objective,
-    RewardDelivery,
-    RewardSpout,
-    SpoutSide,
-    ScanningStage,
     Laser,
 )
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
-    IontophoresisInjection,
     NanojectInjection,
     Procedures,
     Surgery,
-    ViralMaterial,
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
+
 from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
 from pathlib import Path
@@ -50,7 +40,7 @@ PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
-EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_session.json"
+EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -233,8 +223,8 @@ class TestMetadata(unittest.TestCase):
         """Tests that the default file extension used is as expected."""
         self.assertEqual(".nd.json", Metadata._FILE_EXTENSION.default)
 
-    def test_validate_smartspim_metadata(self):
-        """Tests that smartspim validator works as expected"""
+    def test_injection_material_validator_spim(self):
+        """Tests that the injection validator works for SPIM"""
         nano_inj = NanojectInjection.model_construct()
 
         # Tests missing injection materials
@@ -250,102 +240,14 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(),
+                acquisition=Acquisition.model_construct(subject_details=SubjectDetails.model_construct()),
                 instrument=inst,
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
-    def test_multi_modal_metadata(self):
-        """Test that metadata with multiple modalities correctly prioritizes REQUIRED > OPTIONAL > EXCLUDED"""
-        # Tests excluded metadata getting included
-        viral_material = ViralMaterial.model_construct()
-        nano_inj = NanojectInjection.model_construct(injection_materials=[viral_material])
-        ionto_inj = IontophoresisInjection.model_construct(injection_materials=[viral_material])
-        surgery1 = Surgery.model_construct(procedures=[nano_inj, ionto_inj])
-
-        mouse_platform = MousePlatform.model_construct(name="platform1")
-
-        objective = Objective(
-            name="TLX Objective",
-            numerical_aperture=0.2,
-            magnification=3.6,
-            immersion="multi",
-            manufacturer=Organization.THORLABS,
-            model="TL4X-SAP",
-            notes="Thorlabs TL4X-SAP with LifeCanvas dipping cap and correction optics.",
-        )
-
-        reward_delivery = RewardDelivery(
-            reward_spouts=[
-                RewardSpout(
-                    name="Left spout",
-                    side=SpoutSide.LEFT,
-                    spout_diameter=1.2,
-                    solenoid_valve=Device(name="Solenoid Left"),
-                    lick_sensor=Device(
-                        name="Janelia_Lick_Detector Left",
-                        manufacturer=Organization.JANELIA,
-                    ),
-                    lick_sensor_type=LickSensorType("Capacitive"),
-                ),
-                RewardSpout(
-                    name="Right spout",
-                    side=SpoutSide.RIGHT,
-                    spout_diameter=1.2,
-                    solenoid_valve=Device(name="Solenoid Right"),
-                    lick_sensor=Device(
-                        name="Janelia_Lick_Detector Right",
-                        manufacturer=Organization.JANELIA,
-                    ),
-                    lick_sensor_type=LickSensorType("Capacitive"),
-                ),
-            ],
-            stage_type=MotorizedStage(
-                name="NewScaleMotor for LickSpouts",
-                serial_number="xxxx",  # grabbing from GUI/SettingFiles
-                manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
-                travel=15.0,  # unit is mm
-                firmware=(
-                    "https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"
-                ),
-            ),
-        )
-        scan_stage = ScanningStage(
-            name="Sample stage Z",
-            model="LS-50",
-            manufacturer=Organization.ASI,
-            stage_axis_direction="Detection axis",
-            stage_axis_name="Z",
-            travel=50,
-        )
-
-        inst = Instrument.model_construct(
-            instrument_id="123_EPHYS1_20220101",
-            modalities=[Modality.BEHAVIOR, Modality.SPIM],
-            components=[objective, reward_delivery, mouse_platform, scan_stage, laser],
-        )
-        session = Session.model_construct(instrument_id="123_EPHYS1_20220101", mouse_platform_name="platform1")
-
-        m = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-            data_description=DataDescription.model_construct(
-                subject_id="655019",
-                creation_time=time(12, 12, 12),
-                modalities=[Modality.BEHAVIOR, Modality.SPIM],  # technically this is impossible, but we need to test it
-            ),
-            subject=Subject.model_construct(),
-            session=session,  # SPIM excludes session, but BEHAVIOR requires it
-            procedures=Procedures.model_construct(subject_procedures=[surgery1]),
-            acquisition=Acquisition.model_construct(),
-            instrument=inst,
-            processing=Processing.model_construct(),
-        )
-        self.assertIsNotNone(m)
-
-    def test_validate_ecephys_metadata(self):
-        """Tests that ecephys validator works as expected"""
+    def test_injection_material_validator_ephys(self):
+        """Test that the injection validator works for ephys"""
         nano_inj = NanojectInjection.model_construct()
 
         # Tests missing injection materials
@@ -364,13 +266,14 @@ class TestMetadata(unittest.TestCase):
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
-                session=Session.model_construct(),
-                acquisition=Acquisition.model_construct(instrument_id="323_EPHYS1_20231003"),
+                acquisition=Acquisition.model_construct(
+                    instrument_id="323_EPHYS1_20231003", subject_details=SubjectDetails.model_construct()
+                ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
 
-    def test_validate_instrument_session_compatibility(self):
-        """Tests that instrument/session compatibility validator works as expected"""
+    def test_validate_instrument_acquisition_compatibility(self):
+        """Tests that instrument/acquisition compatibility validator works as expected"""
 
         modalities = [Modality.ECEPHYS]
         mouse_platform = MousePlatform.model_construct(name="platform1")
@@ -394,11 +297,11 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
+                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
-                session=Session.model_construct(instrument_id="123_EPHYS2_20230101", mouse_platform_name="platform1"),
             )
         self.assertIn(
-            "Instrument ID in session 123_EPHYS2_20230101 does not match the instrument's 123_EPHYS1_20220101.",
+            "Instrument ID in acquisition 123_EPHYS2_20230101 does not match the instrument's 123_EPHYS1_20220101.",
             str(context.exception),
         )
 
@@ -425,7 +328,6 @@ class TestMetadata(unittest.TestCase):
             "subject": self.subject_json,
             "data_description": self.dd_json,
             "procedures": self.procedures_json,
-            "session": None,
             "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
@@ -468,7 +370,6 @@ class TestMetadata(unittest.TestCase):
             "subject": self.subject_json,
             "data_description": None,
             "procedures": self.procedures_json,
-            "session": None,
             "instrument": Instrument.model_construct().model_dump(),
             "processing": Procedures.model_construct(injection_materials=["some materials"]).model_dump(),
             "acquisition": None,
@@ -514,7 +415,6 @@ class TestMetadata(unittest.TestCase):
             "subject": self.subject_json,
             "data_description": None,
             "procedures": self.procedures_json,
-            "session": None,
             "instrument": None,
             "processing": self.processing_json,
             "acquisition": None,
