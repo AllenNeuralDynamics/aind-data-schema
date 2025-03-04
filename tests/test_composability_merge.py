@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
 
-from aind_data_schema.core.acquisition import Acquisition, DataStream
+from aind_data_schema.core.acquisition import Acquisition, DataStream, SubjectDetails
 from aind_data_schema.core.procedures import Reagent
 
 from aind_data_schema.components.identifiers import Person
@@ -302,8 +302,24 @@ class TestComposability(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             acq1 + acq2
         self.assertTrue(
-            "Cannot combine Acquisition objects with different subject or specimen IDs" in repr(context.exception)
+            "Cannot combine Acquisition objects that differ in key fields" in repr(context.exception)
         )
+
+        # Test incompatible SubjectDetails
+        acq2.subject_id = acq1.subject_id
+        subject_details = SubjectDetails(
+            mouse_platform_name="mouse_platform_name",
+        )
+        acq1.subject_details = subject_details
+        acq2.subject_details = subject_details
+
+        with self.assertRaises(ValueError) as context:
+            acq1 + acq2
+        self.assertTrue(
+            "SubjectDetails cannot be combined in Acquisition" in repr(context.exception)
+        )
+
+        # Test notes merge
 
 
 if __name__ == "__main__":
