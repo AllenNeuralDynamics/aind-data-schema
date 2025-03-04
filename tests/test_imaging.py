@@ -17,7 +17,8 @@ from aind_data_schema.components.coordinates import (
     Translation3dTransform,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
-from aind_data_schema.core import acquisition as acq
+from aind_data_schema.core.acquisition import Acquisition, DataStream
+from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
@@ -32,13 +33,13 @@ class ImagingTests(unittest.TestCase):
     def test_acquisition_constructor(self):
         """testing Acquisition constructor"""
         with self.assertRaises(ValidationError):
-            acq.Acquisition()
+            Acquisition()
 
-        a = acq.Acquisition(
+        a = Acquisition(
             experimenters=[Person(name="alice bob")],
-            session_start_time=datetime.now(tz=timezone.utc),
-            specimen_id="12345",
-            subject_id="1234",
+            acquisition_start_time=datetime.now(tz=timezone.utc),
+            specimen_id="123456-brain",
+            subject_id="123456",
             instrument_id="1234",
             calibrations=[
                 Calibration(
@@ -52,26 +53,38 @@ class ImagingTests(unittest.TestCase):
                     },
                 ),
             ],
-            session_end_time=datetime.now(tz=timezone.utc),
-            chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
-            tiles=[
-                tile.AcquisitionTile(
-                    coordinate_transformations=[
-                        Scale3dTransform(scale=[1, 1, 1]),
-                        Translation3dTransform(translation=[1, 1, 1]),
+            acquisition_end_time=datetime.now(tz=timezone.utc),
+            data_streams=[
+                DataStream(
+                    stream_start_time=datetime.now(tz=timezone.utc),
+                    stream_end_time=datetime.now(tz=timezone.utc),
+                    modalities=[Modality.SPIM],
+                    active_devices=[],
+                    configurations=[
+                        InVitroImagingConfig(
+                            chamber_immersion=Immersion(medium="PBS", refractive_index=1),
+                            tiles=[
+                                tile.AcquisitionTile(
+                                    coordinate_transformations=[
+                                        Scale3dTransform(scale=[1, 1, 1]),
+                                        Translation3dTransform(translation=[1, 1, 1]),
+                                    ],
+                                    channel=tile.Channel(
+                                        channel_name="488",
+                                        light_source_name="Ex_488",
+                                        filter_names=["Em_600"],
+                                        detector_name="PMT_1",
+                                        excitation_wavelength=488,
+                                        excitation_power=0.1,
+                                        filter_wheel_index=0,
+                                    ),
+                                )
+                            ],
+                            axes=[],
+                        ),
                     ],
-                    channel=tile.Channel(
-                        channel_name="488",
-                        light_source_name="Ex_488",
-                        filter_names=["Em_600"],
-                        detector_name="PMT_1",
-                        excitation_wavelength=488,
-                        excitation_power=0.1,
-                        filter_wheel_index=0,
-                    ),
                 )
             ],
-            axes=[],
         )
 
         self.assertIsNotNone(a)
@@ -151,11 +164,11 @@ class ImagingTests(unittest.TestCase):
         # test that a few work
         test_codes = ["RAS", "LSP", "RAI", "PAR"]
         for test_code in test_codes:
-            a = acq.Acquisition(
+            a = Acquisition(
                 experimenters=[Person(name="alice bob")],
-                session_start_time=datetime.now(tz=timezone.utc),
-                specimen_id="12345",
-                subject_id="1234",
+                acquisition_start_time=datetime.now(tz=timezone.utc),
+                specimen_id="123456-brain",
+                subject_id="123456",
                 instrument_id="1234",
                 calibrations=[
                     Calibration(
@@ -169,28 +182,40 @@ class ImagingTests(unittest.TestCase):
                         },
                     ),
                 ],
-                session_end_time=datetime.now(tz=timezone.utc),
-                chamber_immersion=acq.Immersion(medium="PBS", refractive_index=1),
-                tiles=[
-                    tile.AcquisitionTile(
-                        coordinate_transformations=[
-                            Scale3dTransform(scale=[1, 1, 1]),
-                            Translation3dTransform(translation=[1, 1, 1]),
+                acquisition_end_time=datetime.now(tz=timezone.utc),
+                data_streams=[
+                    DataStream(
+                        stream_start_time=datetime.now(tz=timezone.utc),
+                        stream_end_time=datetime.now(tz=timezone.utc),
+                        modalities=[Modality.SPIM],
+                        active_devices=[],
+                        configurations=[
+                            InVitroImagingConfig(
+                                chamber_immersion=Immersion(medium="PBS", refractive_index=1),
+                                tiles=[
+                                    tile.AcquisitionTile(
+                                        coordinate_transformations=[
+                                            Scale3dTransform(scale=[1, 1, 1]),
+                                            Translation3dTransform(translation=[1, 1, 1]),
+                                        ],
+                                        channel=tile.Channel(
+                                            channel_name="488",
+                                            light_source_name="Ex_488",
+                                            filter_names=["Em_600"],
+                                            detector_name="PMT_1",
+                                            excitation_wavelength=488,
+                                            excitation_power=0.1,
+                                            filter_wheel_index=0,
+                                        ),
+                                    )
+                                ],
+                                axes=test_code,
+                            ),
                         ],
-                        channel=tile.Channel(
-                            channel_name="488",
-                            light_source_name="Ex_488",
-                            filter_names=["Em_600"],
-                            detector_name="PMT_1",
-                            excitation_wavelength=488,
-                            excitation_power=0.1,
-                            filter_wheel_index=0,
-                        ),
                     )
                 ],
-                axes=test_code,
             )
-            self.assertEqual(3, len(a.axes))
+            self.assertEqual(3, len(a.data_streams[0].configurations[0].axes))
 
     def test_registration(self):
         """test the tile models"""

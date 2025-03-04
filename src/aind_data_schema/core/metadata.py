@@ -22,15 +22,14 @@ from pydantic import (
 )
 
 from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
-from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.core.acquisition import Acquisition, MODALITY_DEVICE_REQUIREMENTS, CONFIG_DEVICE_REQUIREMENTS
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.session import Session
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import InstrumentSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
 CORE_FILES = [
     "subject",
@@ -77,7 +76,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -125,14 +124,11 @@ class Metadata(DataCoreModel):
     procedures: Optional[Procedures] = Field(
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
-    session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
     instrument: Optional[Instrument] = Field(
         default=None, title="Instrument", description="Devices used to acquire data."
     )
     processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(
-        default=None, title="Acquisition", description="Imaging acquisition session"
-    )
+    acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Data acquisition")
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
     )
@@ -264,11 +260,66 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_instrument_session_compatibility(self):
+    def validate_instrument_acquisition_compatibility(self):
         """Validator for metadata"""
-        if self.instrument and self.session:
-            check = InstrumentSessionCompatibility(self.instrument, self.session)
+        if self.instrument and self.acquisition:
+            check = InstrumentAcquisitionCompatibility(self.instrument, self.acquisition)
             check.run_compatibility_check()
+        return self
+
+    def _check_for_device(self, device_type_group):
+        """Check if the instrument has a device of a certain type"""
+        for component in self.instrument.components:
+            if any(isinstance(component, device_type) for device_type in device_type_group):
+                return True
+        return False
+
+    @model_validator(mode="after")
+    def validate_acquisition_modality_requirements(self):
+        """Validator for acquisition modality -> device requirements
+
+        For certain modalities in acquisition, check that the instrument has the appropriate components
+        """
+
+        if not self.acquisition:
+            return self
+
+        # get all modalities from all data_streams
+        modalities = [modality for data_stream in self.acquisition.data_streams for modality in data_stream.modalities]
+        for modality in modalities:
+            if modality in MODALITY_DEVICE_REQUIREMENTS.keys():
+                for group in MODALITY_DEVICE_REQUIREMENTS[modality]:
+                    if not self._check_for_device(group):
+                        requirement = ", ".join(device.__name__ for device in group)
+                        raise ValueError(
+                            f"Modality '{modality.abbreviation}' requires one " f"of '{requirement}' in instrument"
+                        )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_acquisition_config_requirements(self):
+        """Validator for acquisition config -> device requirements
+
+        For certain config files in acquisition, check that the instrument has the appropriate devices
+        """
+
+        if not self.acquisition:
+            return self
+
+        configurations = [
+            config for data_stream in self.acquisition.data_streams for config in data_stream.configurations
+        ]
+
+        for config in configurations:
+            if any(type(config).__name__ == config_type for config_type in CONFIG_DEVICE_REQUIREMENTS.keys()):
+                group = CONFIG_DEVICE_REQUIREMENTS[type(config).__name__]
+                if not self._check_for_device(group):
+                    requirement = ", ".join(device.__name__ for device in group)
+                    raise ValueError(
+                        f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument"
+                    )
+
         return self
 
 

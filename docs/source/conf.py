@@ -18,7 +18,6 @@ from aind_data_schema.core import (  # A temporary workaround to fix NameError w
     metadata,
     procedures,
     processing,
-    session,
     subject,
     quality_control,
 )
@@ -31,7 +30,6 @@ dummy_object = [
     procedures,
     processing,
     instrument,
-    session,
     subject,
     quality_control,
 ]  # A temporary workaround to bypass "Imported but unused" error
@@ -87,7 +85,6 @@ diagrams_list = [
     "metadata.nd",
     "procedures",
     "processing",
-    "session",
     "subject",
     "quality_control",
 ]
