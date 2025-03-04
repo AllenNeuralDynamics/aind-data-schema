@@ -338,7 +338,6 @@ def create_metadata_json(
     """Creates a Metadata dict from dictionary of core schema fields."""
     # Extract basic parameters and non-corrupt core schema fields
 
-    print("\n\n\n\n\n")
     params = {
         "name": name,
         "location": location,
@@ -368,7 +367,4 @@ def create_metadata_json(
         for key, value in core_fields.items():
             metadata_json[key] = value
         metadata_json["metadata_status"] = MetadataStatus.INVALID.value
-
-    print("\n\n\n\n\n")
-
     return metadata_json
