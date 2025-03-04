@@ -147,10 +147,12 @@ class Metadata(DataCoreModel):
         # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate_json(value)
+                core_model = field_class.model_validate(value)
             # If a validation error is raised,
             # we will construct the field without validation.
-            except ValidationError:
+            except ValidationError as e:
+                logging.error(f"Validation error for {field_name}. Constructing without validation -- object subfields may incorrectly show up as dictionaries.")
+                logging.error(f"Error: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
