@@ -151,7 +151,10 @@ class Metadata(DataCoreModel):
             # If a validation error is raised,
             # we will construct the field without validation.
             except ValidationError as e:
-                logging.error(f"Validation error for {field_name}. Constructing without validation -- object subfields may incorrectly show up as dictionaries.")
+                logging.error(
+                    f"Validation error for {field_name}. Constructing without validation "
+                    "-- object subfields may incorrectly show up as dictionaries."
+                )
                 logging.error(f"Error: {e}")
                 core_model = field_class.model_construct(**value)
         else:
