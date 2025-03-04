@@ -379,7 +379,7 @@ class TestComposability(unittest.TestCase):
 
     def test_add_processing_objects(self):
         """Test the __add__ method of Processing"""
-        
+
         t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
         # Create two simple Processing objects
@@ -399,7 +399,7 @@ class TestComposability(unittest.TestCase):
                     ),
                 ),
             ],
-            notes="First processing object"
+            notes="First processing object",
         )
 
         p2 = Processing(
@@ -418,7 +418,7 @@ class TestComposability(unittest.TestCase):
                     ),
                 ),
             ],
-            notes="Second processing object"
+            notes="Second processing object",
         )
 
         # Combine the two Processing objects
