@@ -377,6 +377,12 @@ class TestComposability(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = p1 + p3
 
+        p2.schema_version = "0.0.0"
+        with self.assertRaises(ValueError) as context:
+            _ = p1 + p2
+
+        self.assertIn("Schema versions must match to combine Procedures", str(context.exception))
+
     def test_add_processing_objects(self):
         """Test the __add__ method of Processing"""
 

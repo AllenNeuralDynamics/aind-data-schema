@@ -707,6 +707,9 @@ class Procedures(DataCoreModel):
 
     def __add__(self, other: "Procedures") -> "Procedures":
         """Combine two Procedures objects"""
+        
+        if not self.schema_version == other.schema_version:
+            raise ValueError("Schema versions must match to combine Procedures")
 
         if not self.subject_id == other.subject_id:
             raise ValueError("Subject IDs must match to combine Procedures objects.")
