@@ -4,11 +4,11 @@ from datetime import date as date_type
 from datetime import time
 from enum import Enum
 from typing import List, Literal, Optional
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species
-from pydantic import Field, SkipValidation, field_validator
+from aind_data_schema_models.species import Species, Strain
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataCoreModel, DataModel
@@ -19,13 +19,6 @@ class Sex(str, Enum):
 
     FEMALE = "Female"
     MALE = "Male"
-
-
-class BackgroundStrain(str, Enum):
-    """Animal background strain name"""
-
-    BALB_c = "BALB/c"
-    C57BL_6J = "C57BL/6J"
 
 
 class HomeCageEnrichment(str, Enum):
@@ -97,15 +90,18 @@ class Subject(DataCoreModel):
     )
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
+    
+    # Genetic info
+    species: Species.ONE_OF = Field(..., title="Species")
+    bakground_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
+    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     genotype: Optional[str] = Field(
         default=None,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    species: Species.ONE_OF = Field(..., title="Species")
-    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
-    background_strain: Optional[BackgroundStrain] = Field(default=None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
+    
     source: Organization.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
@@ -142,3 +138,13 @@ class Subject(DataCoreModel):
             raise ValueError("Full genotype should be provided for mouse subjects")
 
         return v
+
+    @model_validator(mode="after")
+    def validate_species_strain(value):
+        """ Ensure that the species and strain.species match """
+
+        if value.background_strain:
+            if value.species.name != value.background_strain.species:
+                raise ValueError("The animal species and it's strain's species do not match")
+
+        return value
