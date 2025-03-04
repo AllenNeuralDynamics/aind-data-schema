@@ -2,7 +2,7 @@
    "$defs": {
       "Acquisition": {
          "additionalProperties": false,
-         "description": "Description of an imaging acquisition session",
+         "description": "Description of an imaging acquisition",
          "properties": {
             "object_type": {
                "const": "Acquisition",
@@ -17,10 +17,35 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.3",
-               "default": "2.0.3",
+               "const": "2.0.4",
+               "default": "2.0.4",
                "title": "Schema Version",
                "type": "string"
+            },
+            "subject_id": {
+               "title": "Subject ID",
+               "type": "string"
+            },
+            "specimen_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Specimen ID is required for in vitro imaging modalities",
+               "title": "Specimen ID"
+            },
+            "experimenters": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenter(s)",
+               "type": "array"
             },
             "protocol_id": {
                "default": [],
@@ -31,19 +56,7 @@
                "title": "Protocol ID",
                "type": "array"
             },
-            "experimenters": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/Person"
-               },
-               "title": "experimenter(s)",
-               "type": "array"
-            },
-            "specimen_id": {
-               "title": "Specimen ID",
-               "type": "string"
-            },
-            "subject_id": {
+            "ethics_review_id": {
                "anyOf": [
                   {
                      "type": "string"
@@ -53,7 +66,7 @@
                   }
                ],
                "default": null,
-               "title": "Subject ID"
+               "title": "Ethics review ID"
             },
             "instrument_id": {
                "title": "Instrument ID",
@@ -77,105 +90,20 @@
                "title": "Maintenance",
                "type": "array"
             },
-            "session_start_time": {
+            "acquisition_start_time": {
                "format": "date-time",
-               "title": "Session start time",
+               "title": "Acquisition start time",
                "type": "string"
             },
-            "session_end_time": {
+            "acquisition_end_time": {
                "format": "date-time",
-               "title": "Session end time",
+               "title": "Acquisition end time",
                "type": "string"
             },
-            "session_type": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
+            "experiment_type": {
                "default": null,
-               "title": "Session type"
-            },
-            "tiles": {
-               "items": {
-                  "$ref": "#/$defs/AcquisitionTile"
-               },
-               "title": "Acquisition tiles",
-               "type": "array"
-            },
-            "axes": {
-               "items": {
-                  "$ref": "#/$defs/ImageAxis"
-               },
-               "title": "Acquisition axes",
-               "type": "array"
-            },
-            "chamber_immersion": {
-               "$ref": "#/$defs/Immersion",
-               "title": "Acquisition chamber immersion data"
-            },
-            "sample_immersion": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Immersion"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Acquisition sample immersion data"
-            },
-            "active_objectives": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "List of objectives used in this acquisition."
-            },
-            "local_storage_directory": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Local storage directory"
-            },
-            "external_storage_directory": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "External storage directory"
-            },
-            "processing_steps": {
-               "default": [],
-               "description": "List of downstream processing steps planned for each channel",
-               "items": {
-                  "$ref": "#/$defs/ProcessingSteps"
-               },
-               "title": "Processing steps",
-               "type": "array"
+               "title": "Experiment type",
+               "type": "string"
             },
             "software": {
                "anyOf": [
@@ -192,6 +120,19 @@
                "default": [],
                "title": "Acquisition software"
             },
+            "headframe_registration": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Affine3dTransform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "MRI transform matrix for headframe",
+               "title": "Headframe registration"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -203,16 +144,42 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "data_streams": {
+               "description": "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location)",
+               "items": {
+                  "$ref": "#/$defs/DataStream"
+               },
+               "title": "Data streams",
+               "type": "array"
+            },
+            "stimulus_epochs": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/StimulusEpoch"
+               },
+               "title": "Stimulus",
+               "type": "array"
+            },
+            "subject_details": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SubjectDetails"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Subject details"
             }
          },
          "required": [
-            "specimen_id",
+            "subject_id",
             "instrument_id",
-            "session_start_time",
-            "session_end_time",
-            "tiles",
-            "axes",
-            "chamber_immersion"
+            "acquisition_start_time",
+            "acquisition_end_time",
+            "data_streams"
          ],
          "title": "Acquisition",
          "type": "object"
@@ -1963,122 +1930,6 @@
             "size"
          ],
          "title": "Arena",
-         "type": "object"
-      },
-      "AuditoryStimulation": {
-         "additionalProperties": false,
-         "description": "Description of an auditory stimulus",
-         "properties": {
-            "object_type": {
-               "const": "Auditory stimulation",
-               "default": "Auditory stimulation",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "stimulus_name": {
-               "title": "Stimulus name",
-               "type": "string"
-            },
-            "sample_frequency": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Sample frequency"
-            },
-            "amplitude_modulation_frequency": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Amplitude modulation frequency"
-            },
-            "frequency_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
-               "title": "Tone frequency unit"
-            },
-            "bandpass_low_frequency": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Bandpass low frequency"
-            },
-            "bandpass_high_frequency": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Bandpass high frequency"
-            },
-            "bandpass_filter_type": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema__components__stimulus__FilterType"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Bandpass filter type"
-            },
-            "bandpass_order": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Bandpass order"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "stimulus_name",
-            "sample_frequency"
-         ],
-         "title": "AuditoryStimulation",
          "type": "object"
       },
       "Axis": {
@@ -4209,6 +4060,202 @@
          "title": "DataProcess",
          "type": "object"
       },
+      "DataStream": {
+         "additionalProperties": false,
+         "description": "Data streams with a start and stop time",
+         "properties": {
+            "object_type": {
+               "const": "Data stream",
+               "default": "Data stream",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "stream_start_time": {
+               "format": "date-time",
+               "title": "Stream start time",
+               "type": "string"
+            },
+            "stream_end_time": {
+               "format": "date-time",
+               "title": "Stream stop time",
+               "type": "string"
+            },
+            "modalities": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "EMG": "#/$defs/_Emg",
+                        "ISI": "#/$defs/_Isi",
+                        "MRI": "#/$defs/_Mri",
+                        "SPIM": "#/$defs/_Spim",
+                        "behavior": "#/$defs/aind_data_schema_models__modalities___Behavior",
+                        "behavior-videos": "#/$defs/_Behavior_Videos",
+                        "confocal": "#/$defs/_Confocal",
+                        "ecephys": "#/$defs/_Ecephys",
+                        "fMOST": "#/$defs/_Fmost",
+                        "fib": "#/$defs/_Fib",
+                        "icephys": "#/$defs/_Icephys",
+                        "merfish": "#/$defs/_Merfish",
+                        "pophys": "#/$defs/_Pophys",
+                        "slap": "#/$defs/_Slap"
+                     },
+                     "propertyName": "abbreviation"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
+                     },
+                     {
+                        "$ref": "#/$defs/_Behavior_Videos"
+                     },
+                     {
+                        "$ref": "#/$defs/_Confocal"
+                     },
+                     {
+                        "$ref": "#/$defs/_Emg"
+                     },
+                     {
+                        "$ref": "#/$defs/_Ecephys"
+                     },
+                     {
+                        "$ref": "#/$defs/_Fib"
+                     },
+                     {
+                        "$ref": "#/$defs/_Fmost"
+                     },
+                     {
+                        "$ref": "#/$defs/_Icephys"
+                     },
+                     {
+                        "$ref": "#/$defs/_Isi"
+                     },
+                     {
+                        "$ref": "#/$defs/_Mri"
+                     },
+                     {
+                        "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_Pophys"
+                     },
+                     {
+                        "$ref": "#/$defs/_Slap"
+                     },
+                     {
+                        "$ref": "#/$defs/_Spim"
+                     }
+                  ]
+               },
+               "title": "Modalities",
+               "type": "array"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Software"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": [],
+               "title": "Software packages"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "active_devices": {
+               "description": "Device names must match devices in the Instrument",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Active devices",
+               "type": "array"
+            },
+            "configurations": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Detector config": "#/$defs/DetectorConfig",
+                        "Dome module": "#/$defs/DomeModule",
+                        "Fiber assembly config": "#/$defs/FiberAssemblyConfig",
+                        "Field of view": "#/$defs/FieldOfView",
+                        "In vitro imaging config": "#/$defs/InVitroImagingConfig",
+                        "Laser config": "#/$defs/LaserConfig",
+                        "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
+                        "MRI scan": "#/$defs/MRIScan",
+                        "Manipulator module": "#/$defs/ManipulatorModule",
+                        "Patch cord config": "#/$defs/PatchCordConfig",
+                        "Slap field of view": "#/$defs/SlapFieldOfView",
+                        "Stack": "#/$defs/Stack"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/LightEmittingDiodeConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/LaserConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/ManipulatorModule"
+                     },
+                     {
+                        "$ref": "#/$defs/DomeModule"
+                     },
+                     {
+                        "$ref": "#/$defs/DetectorConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/PatchCordConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/FiberAssemblyConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/FieldOfView"
+                     },
+                     {
+                        "$ref": "#/$defs/SlapFieldOfView"
+                     },
+                     {
+                        "$ref": "#/$defs/Stack"
+                     },
+                     {
+                        "$ref": "#/$defs/MRIScan"
+                     },
+                     {
+                        "$ref": "#/$defs/InVitroImagingConfig"
+                     }
+                  ]
+               },
+               "title": "Device configurations",
+               "type": "array"
+            }
+         },
+         "required": [
+            "stream_start_time",
+            "stream_end_time",
+            "modalities",
+            "active_devices",
+            "configurations"
+         ],
+         "title": "DataStream",
+         "type": "object"
+      },
       "Detector": {
          "additionalProperties": false,
          "description": "Description of a generic detector",
@@ -4653,8 +4700,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "name": {
-               "title": "Name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "exposure_time": {
@@ -4679,7 +4727,7 @@
             }
          },
          "required": [
-            "name",
+            "device_name",
             "exposure_time",
             "trigger_type"
          ],
@@ -6395,8 +6443,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "assembly_name": {
-               "title": "Assembly name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "arc_angle": {
@@ -6481,7 +6530,7 @@
             }
          },
          "required": [
-            "assembly_name",
+            "device_name",
             "arc_angle",
             "module_angle"
          ],
@@ -7618,91 +7667,19 @@
          "title": "FiberAssembly",
          "type": "object"
       },
-      "FiberConnectionConfig": {
-         "additionalProperties": false,
-         "description": "Description for a fiber photometry configuration",
-         "properties": {
-            "object_type": {
-               "const": "Fiber connection config",
-               "default": "Fiber connection config",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "patch_cord_name": {
-               "title": "Patch cord name (must match rig)",
-               "type": "string"
-            },
-            "patch_cord_output_power": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Output power (uW)"
-            },
-            "output_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "microwatt",
-               "title": "Output power unit"
-            },
-            "fiber_name": {
-               "title": "Fiber name (must match procedure)",
-               "type": "string"
-            }
-         },
-         "required": [
-            "patch_cord_name",
-            "patch_cord_output_power",
-            "fiber_name"
-         ],
-         "title": "FiberConnectionConfig",
-         "type": "object"
-      },
-      "FiberImplant": {
-         "additionalProperties": false,
-         "description": "Description of an implant procedure",
-         "properties": {
-            "object_type": {
-               "const": "Fiber implant",
-               "default": "Fiber implant",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "protocol_id": {
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
-            },
-            "probes": {
-               "items": {
-                  "$ref": "#/$defs/OphysProbe"
-               },
-               "title": "Ophys Probes",
-               "type": "array"
-            }
-         },
-         "required": [
-            "protocol_id",
-            "probes"
-         ],
-         "title": "FiberImplant",
-         "type": "object"
-      },
-      "FiberModule": {
+      "FiberAssemblyConfig": {
          "additionalProperties": false,
          "description": "Inserted fiber photometry probe recorded in a stream",
          "properties": {
             "object_type": {
-               "const": "Fiber module",
-               "default": "Fiber module",
+               "const": "Fiber assembly config",
+               "default": "Fiber assembly config",
                "title": "Object Type",
                "type": "string"
             },
-            "assembly_name": {
-               "title": "Assembly name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "arc_angle": {
@@ -14627,23 +14604,53 @@
                "default": null,
                "title": "Implant hole number"
             },
-            "fiber_connections": {
+            "patch_cord_connections": {
                "default": [],
                "items": {
-                  "$ref": "#/$defs/FiberConnectionConfig"
+                  "$ref": "#/$defs/PatchCordConfig"
                },
                "title": "Fiber photometry devices",
                "type": "array"
             }
          },
          "required": [
-            "assembly_name",
+            "device_name",
             "arc_angle",
             "module_angle",
             "primary_targeted_structure",
             "manipulator_coordinates"
          ],
-         "title": "FiberModule",
+         "title": "FiberAssemblyConfig",
+         "type": "object"
+      },
+      "FiberImplant": {
+         "additionalProperties": false,
+         "description": "Description of an implant procedure",
+         "properties": {
+            "object_type": {
+               "const": "Fiber implant",
+               "default": "Fiber implant",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "protocol_id": {
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID",
+               "type": "string"
+            },
+            "probes": {
+               "items": {
+                  "$ref": "#/$defs/OphysProbe"
+               },
+               "title": "Ophys Probes",
+               "type": "array"
+            }
+         },
+         "required": [
+            "protocol_id",
+            "probes"
+         ],
+         "title": "FiberImplant",
          "type": "object"
       },
       "FiberProbe": {
@@ -18943,7 +18950,7 @@
                "title": "Notes"
             },
             "filter_type": {
-               "$ref": "#/$defs/aind_data_schema__components__devices__FilterType",
+               "$ref": "#/$defs/FilterType",
                "title": "Type of filter"
             },
             "diameter": {
@@ -19098,6 +19105,20 @@
          ],
          "title": "Filter",
          "type": "object"
+      },
+      "FilterType": {
+         "description": "Filter type",
+         "enum": [
+            "Band pass",
+            "Dichroic",
+            "Long pass",
+            "Multiband",
+            "Neutral density",
+            "Notch",
+            "Short pass"
+         ],
+         "title": "FilterType",
+         "type": "string"
       },
       "Fluorophore": {
          "description": "Fluorophores used in HCR and Immunolabeling",
@@ -21401,6 +21422,64 @@
          "title": "ImmunolabelClass",
          "type": "string"
       },
+      "InVitroImagingConfig": {
+         "additionalProperties": false,
+         "description": "Configuration of an imaging instrument",
+         "properties": {
+            "object_type": {
+               "const": "In vitro imaging config",
+               "default": "In vitro imaging config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "tiles": {
+               "items": {
+                  "$ref": "#/$defs/AcquisitionTile"
+               },
+               "title": "Acquisition tiles",
+               "type": "array"
+            },
+            "axes": {
+               "items": {
+                  "$ref": "#/$defs/ImageAxis"
+               },
+               "title": "Acquisition axes",
+               "type": "array"
+            },
+            "chamber_immersion": {
+               "$ref": "#/$defs/Immersion",
+               "title": "Acquisition chamber immersion data"
+            },
+            "sample_immersion": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Immersion"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Acquisition sample immersion data"
+            },
+            "processing_steps": {
+               "default": [],
+               "description": "List of downstream processing steps planned for each channel",
+               "items": {
+                  "$ref": "#/$defs/ProcessingSteps"
+               },
+               "title": "Processing steps",
+               "type": "array"
+            }
+         },
+         "required": [
+            "tiles",
+            "axes",
+            "chamber_immersion"
+         ],
+         "title": "InVitroImagingConfig",
+         "type": "object"
+      },
       "Instrument": {
          "additionalProperties": false,
          "description": "Description of an instrument",
@@ -21418,8 +21497,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.3",
-               "default": "2.0.3",
+               "const": "2.0.4",
+               "default": "2.0.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -22046,10 +22125,11 @@
                         "Olfactometer": "#/$defs/Olfactometer",
                         "Open ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
                         "Optical table": "#/$defs/OpticalTable",
-                        "Patch": "#/$defs/Patch",
+                        "Patch cord": "#/$defs/PatchCord",
                         "Pockels cell": "#/$defs/PockelsCell",
                         "Polygonal scanner": "#/$defs/PolygonalScanner",
                         "Reward delivery": "#/$defs/RewardDelivery",
+                        "Scanner": "#/$defs/Scanner",
                         "Scanning stage": "#/$defs/ScanningStage",
                         "Speaker": "#/$defs/Speaker",
                         "Treadmill": "#/$defs/Treadmill",
@@ -22087,7 +22167,7 @@
                         "$ref": "#/$defs/LaserAssembly"
                      },
                      {
-                        "$ref": "#/$defs/Patch"
+                        "$ref": "#/$defs/PatchCord"
                      },
                      {
                         "$ref": "#/$defs/Laser"
@@ -22103,6 +22183,9 @@
                      },
                      {
                         "$ref": "#/$defs/Objective"
+                     },
+                     {
+                        "$ref": "#/$defs/Scanner"
                      },
                      {
                         "$ref": "#/$defs/Filter"
@@ -33953,7 +34036,7 @@
                "title": "Collimator"
             },
             "fiber": {
-               "$ref": "#/$defs/Patch",
+               "$ref": "#/$defs/PatchCord",
                "title": "Fiber patch"
             }
          },
@@ -33969,7 +34052,7 @@
       },
       "LaserConfig": {
          "additionalProperties": false,
-         "description": "Description of laser settings in a session",
+         "description": "Description of laser settings in an acquisition",
          "properties": {
             "object_type": {
                "const": "Laser config",
@@ -33977,9 +34060,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "name": {
-               "description": "Must match instrument json",
-               "title": "Name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "wavelength": {
@@ -34020,7 +34103,7 @@
             }
          },
          "required": [
-            "name",
+            "device_name",
             "wavelength"
          ],
          "title": "LaserConfig",
@@ -34486,8 +34569,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "name": {
-               "title": "Name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "excitation_power": {
@@ -34519,7 +34603,7 @@
             }
          },
          "required": [
-            "name"
+            "device_name"
          ],
          "title": "LightEmittingDiodeConfig",
          "type": "object"
@@ -34534,6 +34618,11 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "scan_index": {
                "title": "Scan index",
                "type": "integer"
@@ -34546,18 +34635,6 @@
                "description": "Indicates the primary scan used for downstream analysis",
                "title": "Primary scan",
                "type": "boolean"
-            },
-            "mri_scanner": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Scanner"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "MRI scanner"
             },
             "scan_sequence_type": {
                "$ref": "#/$defs/MriScanSequence",
@@ -34694,6 +34771,7 @@
             }
          },
          "required": [
+            "device_name",
             "scan_index",
             "scan_type",
             "primary_scan",
@@ -34904,8 +34982,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "assembly_name": {
-               "title": "Assembly name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "arc_angle": {
@@ -41832,7 +41911,7 @@
             }
          },
          "required": [
-            "assembly_name",
+            "device_name",
             "arc_angle",
             "module_angle",
             "primary_targeted_structure",
@@ -43177,6 +43256,49 @@
             "name"
          ],
          "title": "MousePlatform",
+         "type": "object"
+      },
+      "MousePlatformConfig": {
+         "additionalProperties": false,
+         "description": "Configuration for mouse platforms",
+         "properties": {
+            "object_type": {
+               "const": "Mouse platform config",
+               "default": "Mouse platform config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "objects_in_arena": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Objects in area"
+            },
+            "active_control": {
+               "default": false,
+               "description": "True when movement of the mouse platform is in any way controlled by the experimenter",
+               "title": "Active control",
+               "type": "boolean"
+            }
+         },
+         "required": [
+            "device_name"
+         ],
+         "title": "MousePlatformConfig",
          "type": "object"
       },
       "MriScanSequence": {
@@ -48909,102 +49031,6 @@
          "title": "OlfactometerChannel",
          "type": "object"
       },
-      "OlfactometerChannelConfig": {
-         "additionalProperties": false,
-         "description": "Description of olfactometer channel configurations",
-         "properties": {
-            "object_type": {
-               "const": "Olfactometer channel config",
-               "default": "Olfactometer channel config",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "channel_index": {
-               "title": "Channel index",
-               "type": "integer"
-            },
-            "odorant": {
-               "title": "Odorant",
-               "type": "string"
-            },
-            "odorant_dilution": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Odorant dilution"
-            },
-            "odorant_dilution_unit": {
-               "$ref": "#/$defs/ConcentrationUnit",
-               "default": "% v/v",
-               "title": "Dilution unit"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "channel_index",
-            "odorant",
-            "odorant_dilution"
-         ],
-         "title": "OlfactometerChannelConfig",
-         "type": "object"
-      },
-      "OlfactoryStimulation": {
-         "additionalProperties": false,
-         "description": "Description of a olfactory stimulus",
-         "properties": {
-            "object_type": {
-               "const": "Olfactory stimulation",
-               "default": "Olfactory stimulation",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "stimulus_name": {
-               "title": "Stimulus name",
-               "type": "string"
-            },
-            "channels": {
-               "items": {
-                  "$ref": "#/$defs/OlfactometerChannelConfig"
-               },
-               "title": "Channels",
-               "type": "array"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "stimulus_name",
-            "channels"
-         ],
-         "title": "OlfactoryStimulation",
-         "type": "object"
-      },
       "OligoProbe": {
          "additionalProperties": false,
          "description": "Description of an oligonucleotide probe",
@@ -53731,154 +53757,6 @@
          "title": "OpticalTable",
          "type": "object"
       },
-      "OptoStimulation": {
-         "additionalProperties": false,
-         "description": "Description of opto stimulation parameters",
-         "properties": {
-            "object_type": {
-               "const": "Opto stimulation",
-               "default": "Opto stimulation",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "stimulus_name": {
-               "title": "Stimulus name",
-               "type": "string"
-            },
-            "pulse_shape": {
-               "$ref": "#/$defs/PulseShape",
-               "title": "Pulse shape"
-            },
-            "pulse_frequency": {
-               "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
-               },
-               "title": "Pulse frequency (Hz)",
-               "type": "array"
-            },
-            "pulse_frequency_unit": {
-               "$ref": "#/$defs/FrequencyUnit",
-               "default": "hertz",
-               "title": "Pulse frequency unit"
-            },
-            "number_pulse_trains": {
-               "items": {
-                  "type": "integer"
-               },
-               "title": "Number of pulse trains",
-               "type": "array"
-            },
-            "pulse_width": {
-               "items": {
-                  "type": "integer"
-               },
-               "title": "Pulse width (ms)",
-               "type": "array"
-            },
-            "pulse_width_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "millisecond",
-               "title": "Pulse width unit"
-            },
-            "pulse_train_duration": {
-               "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
-               },
-               "title": "Pulse train duration (s)",
-               "type": "array"
-            },
-            "pulse_train_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "second",
-               "title": "Pulse train duration unit"
-            },
-            "fixed_pulse_train_interval": {
-               "title": "Fixed pulse train interval",
-               "type": "boolean"
-            },
-            "pulse_train_interval": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Time between pulse trains",
-               "title": "Pulse train interval (s)"
-            },
-            "pulse_train_interval_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "second",
-               "title": "Pulse train interval unit"
-            },
-            "baseline_duration": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "description": "Duration of baseline recording prior to first pulse train",
-               "title": "Baseline duration (s)"
-            },
-            "baseline_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "second",
-               "title": "Baseline duration unit"
-            },
-            "other_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Other parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "stimulus_name",
-            "pulse_shape",
-            "pulse_frequency",
-            "number_pulse_trains",
-            "pulse_width",
-            "pulse_train_duration",
-            "fixed_pulse_train_interval",
-            "baseline_duration"
-         ],
-         "title": "OptoStimulation",
-         "type": "object"
-      },
       "Origin": {
          "description": "Coordinate reference origin point",
          "enum": [
@@ -53986,13 +53864,13 @@
          "title": "PIDName",
          "type": "object"
       },
-      "Patch": {
+      "PatchCord": {
          "additionalProperties": false,
          "description": "Description of a patch cord",
          "properties": {
             "object_type": {
-               "const": "Patch",
-               "default": "Patch",
+               "const": "Patch cord",
+               "default": "Patch cord",
                "title": "Object Type",
                "type": "string"
             },
@@ -54516,7 +54394,126 @@
             "core_diameter",
             "numerical_aperture"
          ],
-         "title": "Patch",
+         "title": "PatchCord",
+         "type": "object"
+      },
+      "PatchCordConfig": {
+         "additionalProperties": false,
+         "description": "Description of a patch cord and its output power to another device",
+         "properties": {
+            "object_type": {
+               "const": "Patch cord config",
+               "default": "Patch cord config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "output_power": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Output power (uW)"
+            },
+            "output_power_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "default": "microwatt",
+               "title": "Output power unit"
+            },
+            "fiber_name": {
+               "title": "Fiber name (must match procedure)",
+               "type": "string"
+            }
+         },
+         "required": [
+            "device_name",
+            "output_power",
+            "fiber_name"
+         ],
+         "title": "PatchCordConfig",
+         "type": "object"
+      },
+      "PerformanceMetrics": {
+         "additionalProperties": false,
+         "description": "Summary of a StimulusEpoch",
+         "properties": {
+            "object_type": {
+               "const": "Performance metrics",
+               "default": "Performance metrics",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "output_parameters": {
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
+               "title": "Additional metrics"
+            },
+            "reward_consumed_during_epoch": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward consumed during training (uL)"
+            },
+            "reward_consumed_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "default": "microliter",
+               "title": "Reward consumed unit"
+            },
+            "trials_total": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total trials"
+            },
+            "trials_finished": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Finished trials"
+            },
+            "trials_rewarded": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Rewarded trials"
+            }
+         },
+         "title": "PerformanceMetrics",
          "type": "object"
       },
       "Perfusion": {
@@ -54587,178 +54584,6 @@
             "name"
          ],
          "title": "Person",
-         "type": "object"
-      },
-      "PhotoStimulation": {
-         "additionalProperties": false,
-         "description": "Description of a photostimulation session",
-         "properties": {
-            "object_type": {
-               "const": "Photo stimulation",
-               "default": "Photo stimulation",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "stimulus_name": {
-               "title": "Stimulus name",
-               "type": "string"
-            },
-            "number_groups": {
-               "title": "Number of groups",
-               "type": "integer"
-            },
-            "groups": {
-               "items": {
-                  "$ref": "#/$defs/PhotoStimulationGroup"
-               },
-               "title": "Groups",
-               "type": "array"
-            },
-            "inter_trial_interval": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Inter trial interval (s)"
-            },
-            "inter_trial_interval_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "second",
-               "title": "Inter trial interval unit"
-            },
-            "other_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Other parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "stimulus_name",
-            "number_groups",
-            "groups",
-            "inter_trial_interval"
-         ],
-         "title": "PhotoStimulation",
-         "type": "object"
-      },
-      "PhotoStimulationGroup": {
-         "additionalProperties": false,
-         "description": "Description of a photostimulation group",
-         "properties": {
-            "object_type": {
-               "const": "Photo stimulation group",
-               "default": "Photo stimulation group",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "group_index": {
-               "title": "Group index",
-               "type": "integer"
-            },
-            "number_of_neurons": {
-               "title": "Number of neurons",
-               "type": "integer"
-            },
-            "stimulation_laser_power": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Stimulation laser power (mW)"
-            },
-            "stimulation_laser_power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
-               "title": "Stimulation laser power unit"
-            },
-            "number_trials": {
-               "title": "Number of trials",
-               "type": "integer"
-            },
-            "number_spirals": {
-               "title": "Number of spirals",
-               "type": "integer"
-            },
-            "spiral_duration": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Spiral duration (s)"
-            },
-            "spiral_duration_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "second",
-               "title": "Spiral duration unit"
-            },
-            "inter_spiral_interval": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Inter trial interval (s)"
-            },
-            "inter_spiral_interval_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "default": "second",
-               "title": "Inter trial interval unit"
-            },
-            "other_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Other parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "group_index",
-            "number_of_neurons",
-            "stimulation_laser_power",
-            "number_trials",
-            "number_spirals",
-            "spiral_duration",
-            "inter_spiral_interval"
-         ],
-         "title": "PhotoStimulationGroup",
          "type": "object"
       },
       "PockelsCell": {
@@ -56057,8 +55882,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.5",
-               "default": "2.0.5",
+               "const": "2.0.6",
+               "default": "2.0.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -56244,16 +56069,6 @@
          ],
          "title": "ProtectiveMaterialReplacement",
          "type": "object"
-      },
-      "PulseShape": {
-         "description": "Types of Opto stim pulse shapes",
-         "enum": [
-            "Square",
-            "Ramp",
-            "Sinusoidal"
-         ],
-         "title": "PulseShape",
-         "type": "string"
       },
       "QCEvaluation": {
          "additionalProperties": false,
@@ -58523,7 +58338,7 @@
       },
       "RewardSpoutConfig": {
          "additionalProperties": false,
-         "description": "Reward spout session information",
+         "description": "Reward spout acquisition information",
          "properties": {
             "object_type": {
                "const": "Reward spout config",
@@ -58541,7 +58356,7 @@
                "title": "Starting position"
             },
             "variable_position": {
-               "description": "True if spout position changes during session as tracked in data",
+               "description": "True if spout position changes during acquisition as tracked in data",
                "title": "Variable position",
                "type": "boolean"
             }
@@ -63218,249 +63033,6 @@
          "title": "Sectioning",
          "type": "object"
       },
-      "Session": {
-         "additionalProperties": false,
-         "description": "Description of a physiology and/or behavior session",
-         "properties": {
-            "object_type": {
-               "const": "Session",
-               "default": "Session",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "describedBy": {
-               "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-               "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/session.py",
-               "title": "Describedby",
-               "type": "string"
-            },
-            "schema_version": {
-               "const": "2.0.3",
-               "default": "2.0.3",
-               "title": "Schema Version",
-               "type": "string"
-            },
-            "protocol_id": {
-               "default": [],
-               "description": "DOI for protocols.io",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Protocol ID",
-               "type": "array"
-            },
-            "experimenters": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/Person"
-               },
-               "title": "experimenter(s)",
-               "type": "array"
-            },
-            "session_start_time": {
-               "format": "date-time",
-               "title": "Session start time",
-               "type": "string"
-            },
-            "session_end_time": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Session end time"
-            },
-            "session_type": {
-               "title": "Session type",
-               "type": "string"
-            },
-            "instrument_id": {
-               "title": "Instrument ID",
-               "type": "string"
-            },
-            "ethics_review_id": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ethics review ID"
-            },
-            "calibrations": {
-               "default": [],
-               "description": "Calibrations of instrument devices prior to session",
-               "items": {
-                  "$ref": "#/$defs/Calibration"
-               },
-               "title": "Calibrations",
-               "type": "array"
-            },
-            "maintenance": {
-               "default": [],
-               "description": "Maintenance of instrument devices prior to session",
-               "items": {
-                  "$ref": "#/$defs/Maintenance"
-               },
-               "title": "Maintenance",
-               "type": "array"
-            },
-            "subject_id": {
-               "title": "Subject ID",
-               "type": "string"
-            },
-            "animal_weight_prior": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight before procedure",
-               "title": "Animal weight (g)"
-            },
-            "animal_weight_post": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight after procedure",
-               "title": "Animal weight (g)"
-            },
-            "weight_unit": {
-               "$ref": "#/$defs/MassUnit",
-               "default": "gram",
-               "title": "Weight unit"
-            },
-            "anaesthesia": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Anaesthetic"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Anaesthesia"
-            },
-            "data_streams": {
-               "description": "A data stream is a collection of devices that are recorded simultaneously. Each session can include multiple streams (e.g., if the manipulators are moved to a new location)",
-               "items": {
-                  "$ref": "#/$defs/Stream"
-               },
-               "title": "Data streams",
-               "type": "array"
-            },
-            "stimulus_epochs": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/StimulusEpoch"
-               },
-               "title": "Stimulus",
-               "type": "array"
-            },
-            "mouse_platform_name": {
-               "title": "Mouse platform",
-               "type": "string"
-            },
-            "active_mouse_platform": {
-               "description": "Is the mouse platform being actively controlled",
-               "title": "Active mouse platform",
-               "type": "boolean"
-            },
-            "headframe_registration": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Affine3dTransform"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "MRI transform matrix for headframe",
-               "title": "Headframe registration"
-            },
-            "reward_delivery": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/RewardDeliveryConfig"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward delivery"
-            },
-            "reward_consumed_total": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total reward consumed (mL)"
-            },
-            "reward_consumed_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "default": "milliliter",
-               "title": "Reward consumed unit"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "session_start_time",
-            "session_type",
-            "instrument_id",
-            "subject_id",
-            "data_streams",
-            "mouse_platform_name",
-            "active_mouse_platform"
-         ],
-         "title": "Session",
-         "type": "object"
-      },
       "Sex": {
          "description": "Subject sex name",
          "enum": [
@@ -63528,6 +63100,15 @@
             "pixel"
          ],
          "title": "SizeUnit",
+         "type": "string"
+      },
+      "SlapAcquisitionType": {
+         "description": "Type of slap acquisition",
+         "enum": [
+            "Parent",
+            "Branch"
+         ],
+         "title": "SlapAcquisitionType",
          "type": "string"
       },
       "SlapFieldOfView": {
@@ -67119,9 +66700,9 @@
                "default": null,
                "title": "Notes"
             },
-            "session_type": {
-               "$ref": "#/$defs/SlapSessionType",
-               "title": "Session type"
+            "experiment_type": {
+               "$ref": "#/$defs/SlapAcquisitionType",
+               "title": "Acquisition type"
             },
             "dmd_dilation_x": {
                "title": "DMD Dilation X (pixels)",
@@ -67176,22 +66757,13 @@
             "fov_height",
             "magnification",
             "fov_scale_factor",
-            "session_type",
+            "experiment_type",
             "dmd_dilation_x",
             "dmd_dilation_y",
             "path_to_array_of_frame_rates"
          ],
          "title": "SlapFieldOfView",
          "type": "object"
-      },
-      "SlapSessionType": {
-         "description": "Type of slap session",
-         "enum": [
-            "Parent",
-            "Branch"
-         ],
-         "title": "SlapSessionType",
-         "type": "string"
       },
       "Software": {
          "additionalProperties": false,
@@ -67379,9 +66951,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "name": {
-               "description": "Must match instrument json",
-               "title": "Name",
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
                "type": "string"
             },
             "volume": {
@@ -67413,7 +66985,7 @@
             }
          },
          "required": [
-            "name"
+            "device_name"
          ],
          "title": "SpeakerConfig",
          "type": "object"
@@ -71741,7 +71313,7 @@
       },
       "StimulusEpoch": {
          "additionalProperties": false,
-         "description": "Description of stimulus used during session",
+         "description": "Description of stimulus used during data acquisition",
          "properties": {
             "object_type": {
                "const": "Stimulus epoch",
@@ -71750,13 +71322,13 @@
                "type": "string"
             },
             "stimulus_start_time": {
-               "description": "When a specific stimulus begins. This might be the same as the session start time.",
+               "description": "When a specific stimulus begins. This might be the same as the acquisition start time.",
                "format": "date-time",
                "title": "Stimulus start time",
                "type": "string"
             },
             "stimulus_end_time": {
-               "description": "When a specific stimulus ends. This might be the same as the session end time.",
+               "description": "When a specific stimulus ends. This might be the same as the acquisition end time.",
                "format": "date-time",
                "title": "Stimulus end time",
                "type": "string"
@@ -71764,18 +71336,6 @@
             "stimulus_name": {
                "title": "Stimulus name",
                "type": "string"
-            },
-            "session_number": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Session number"
             },
             "code": {
                "anyOf": [
@@ -71787,7 +71347,7 @@
                   }
                ],
                "default": null,
-               "description": "Custom code or script used to control the behavior/stimulus",
+               "description": "Custom code/script used to control the behavior/stimulus and parameters",
                "title": "Code or script"
             },
             "stimulus_modalities": {
@@ -71797,172 +71357,17 @@
                "title": "Stimulus modalities",
                "type": "array"
             },
-            "stimulus_parameters": {
+            "summary": {
                "anyOf": [
                   {
-                     "items": {
-                        "discriminator": {
-                           "mapping": {
-                              "Auditory stimulation": "#/$defs/AuditoryStimulation",
-                              "Olfactory stimulation": "#/$defs/OlfactoryStimulation",
-                              "Opto stimulation": "#/$defs/OptoStimulation",
-                              "Photo stimulation": "#/$defs/PhotoStimulation",
-                              "Visual stimulation": "#/$defs/VisualStimulation"
-                           },
-                           "propertyName": "object_type"
-                        },
-                        "oneOf": [
-                           {
-                              "$ref": "#/$defs/AuditoryStimulation"
-                           },
-                           {
-                              "$ref": "#/$defs/OptoStimulation"
-                           },
-                           {
-                              "$ref": "#/$defs/OlfactoryStimulation"
-                           },
-                           {
-                              "$ref": "#/$defs/PhotoStimulation"
-                           },
-                           {
-                              "$ref": "#/$defs/VisualStimulation"
-                           }
-                        ]
-                     },
-                     "type": "array"
+                     "$ref": "#/$defs/PerformanceMetrics"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Stimulus parameters"
-            },
-            "stimulus_device_names": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "Stimulus devices",
-               "type": "array"
-            },
-            "speaker_config": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SpeakerConfig"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Speaker Config"
-            },
-            "light_source_config": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "discriminator": {
-                           "mapping": {
-                              "Laser config": "#/$defs/LaserConfig",
-                              "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
-                           },
-                           "propertyName": "object_type"
-                        },
-                        "oneOf": [
-                           {
-                              "$ref": "#/$defs/LightEmittingDiodeConfig"
-                           },
-                           {
-                              "$ref": "#/$defs/LaserConfig"
-                           }
-                        ]
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": [],
-               "description": "Light sources for stimulation",
-               "title": "Light source config"
-            },
-            "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Performance metrics"
-            },
-            "objects_in_arena": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Objects in arena"
-            },
-            "reward_consumed_during_epoch": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward consumed during training (uL)"
-            },
-            "reward_consumed_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "default": "microliter",
-               "title": "Reward consumed unit"
-            },
-            "trials_total": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total trials"
-            },
-            "trials_finished": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Finished trials"
-            },
-            "trials_rewarded": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Rewarded trials"
+               "title": "Summary"
             },
             "notes": {
                "anyOf": [
@@ -71975,6 +71380,45 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "active_devices": {
+               "default": [],
+               "description": "Device names must match devices in the Instrument",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Active devices",
+               "type": "array"
+            },
+            "configurations": {
+               "default": [],
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Laser config": "#/$defs/LaserConfig",
+                        "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
+                        "Mouse platform config": "#/$defs/MousePlatformConfig",
+                        "Speaker config": "#/$defs/SpeakerConfig"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/SpeakerConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/LightEmittingDiodeConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/LaserConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/MousePlatformConfig"
+                     }
+                  ]
+               },
+               "title": "Device configurations",
+               "type": "array"
             }
          },
          "required": [
@@ -72000,254 +71444,6 @@
          ],
          "title": "StimulusModality",
          "type": "string"
-      },
-      "Stream": {
-         "additionalProperties": false,
-         "description": "Data streams with a start and stop time",
-         "properties": {
-            "object_type": {
-               "const": "Stream",
-               "default": "Stream",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "stream_start_time": {
-               "format": "date-time",
-               "title": "Stream start time",
-               "type": "string"
-            },
-            "stream_end_time": {
-               "format": "date-time",
-               "title": "Stream stop time",
-               "type": "string"
-            },
-            "daq_names": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "DAQ devices",
-               "type": "array"
-            },
-            "camera_names": {
-               "default": [],
-               "items": {
-                  "type": "string"
-               },
-               "title": "Cameras",
-               "type": "array"
-            },
-            "light_sources": {
-               "default": [],
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "Laser config": "#/$defs/LaserConfig",
-                        "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
-                     },
-                     "propertyName": "object_type"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/LightEmittingDiodeConfig"
-                     },
-                     {
-                        "$ref": "#/$defs/LaserConfig"
-                     }
-                  ]
-               },
-               "title": "Light Sources",
-               "type": "array"
-            },
-            "ephys_modules": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/ManipulatorModule"
-               },
-               "title": "Ephys modules",
-               "type": "array"
-            },
-            "stick_microscopes": {
-               "default": [],
-               "description": "Must match stick microscope assemblies in instrument file",
-               "items": {
-                  "$ref": "#/$defs/DomeModule"
-               },
-               "title": "Stick microscopes",
-               "type": "array"
-            },
-            "manipulator_modules": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/ManipulatorModule"
-               },
-               "title": "Manipulator modules",
-               "type": "array"
-            },
-            "detectors": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/DetectorConfig"
-               },
-               "title": "Detectors",
-               "type": "array"
-            },
-            "fiber_connections": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/FiberConnectionConfig"
-               },
-               "title": "Implanted fiber photometry devices",
-               "type": "array"
-            },
-            "fiber_modules": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/FiberModule"
-               },
-               "title": "Inserted fiber modules",
-               "type": "array"
-            },
-            "ophys_fovs": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/FieldOfView"
-               },
-               "title": "Fields of view",
-               "type": "array"
-            },
-            "slap_fovs": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/SlapFieldOfView"
-               },
-               "title": "Slap2 fields of view",
-               "type": "array"
-            },
-            "stack_parameters": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Stack"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Stack parameters"
-            },
-            "mri_scans": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/MRIScan"
-               },
-               "title": "MRI scans",
-               "type": "array"
-            },
-            "stream_modalities": {
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "EMG": "#/$defs/_Emg",
-                        "ISI": "#/$defs/_Isi",
-                        "MRI": "#/$defs/_Mri",
-                        "SPIM": "#/$defs/_Spim",
-                        "behavior": "#/$defs/aind_data_schema_models__modalities___Behavior",
-                        "behavior-videos": "#/$defs/_Behavior_Videos",
-                        "confocal": "#/$defs/_Confocal",
-                        "ecephys": "#/$defs/_Ecephys",
-                        "fMOST": "#/$defs/_Fmost",
-                        "fib": "#/$defs/_Fib",
-                        "icephys": "#/$defs/_Icephys",
-                        "merfish": "#/$defs/_Merfish",
-                        "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
-                     },
-                     "propertyName": "abbreviation"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
-                     },
-                     {
-                        "$ref": "#/$defs/_Behavior_Videos"
-                     },
-                     {
-                        "$ref": "#/$defs/_Confocal"
-                     },
-                     {
-                        "$ref": "#/$defs/_Emg"
-                     },
-                     {
-                        "$ref": "#/$defs/_Ecephys"
-                     },
-                     {
-                        "$ref": "#/$defs/_Fib"
-                     },
-                     {
-                        "$ref": "#/$defs/_Fmost"
-                     },
-                     {
-                        "$ref": "#/$defs/_Icephys"
-                     },
-                     {
-                        "$ref": "#/$defs/_Isi"
-                     },
-                     {
-                        "$ref": "#/$defs/_Mri"
-                     },
-                     {
-                        "$ref": "#/$defs/_Merfish"
-                     },
-                     {
-                        "$ref": "#/$defs/_Pophys"
-                     },
-                     {
-                        "$ref": "#/$defs/_Slap"
-                     },
-                     {
-                        "$ref": "#/$defs/_Spim"
-                     }
-                  ]
-               },
-               "title": "Modalities",
-               "type": "array"
-            },
-            "software": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "$ref": "#/$defs/Software"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": [],
-               "title": "Software packages"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "stream_start_time",
-            "stream_end_time",
-            "stream_modalities"
-         ],
-         "title": "Stream",
-         "type": "object"
       },
       "Subject": {
          "additionalProperties": false,
@@ -72466,6 +71662,108 @@
             "source"
          ],
          "title": "Subject",
+         "type": "object"
+      },
+      "SubjectDetails": {
+         "additionalProperties": false,
+         "description": "Details about the subject during an acquisition",
+         "properties": {
+            "object_type": {
+               "const": "Subject details",
+               "default": "Subject details",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "animal_weight_prior": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight before procedure",
+               "title": "Animal weight (g)"
+            },
+            "animal_weight_post": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight after procedure",
+               "title": "Animal weight (g)"
+            },
+            "weight_unit": {
+               "$ref": "#/$defs/MassUnit",
+               "default": "gram",
+               "title": "Weight unit"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
+            },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "reward_delivery": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/RewardDeliveryConfig"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward delivery"
+            },
+            "reward_consumed_total": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total reward consumed (mL)"
+            },
+            "reward_consumed_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "default": "milliliter",
+               "title": "Reward consumed unit"
+            }
+         },
+         "required": [
+            "mouse_platform_name"
+         ],
+         "title": "SubjectDetails",
          "type": "object"
       },
       "SubjectPosition": {
@@ -74061,54 +73359,6 @@
          ],
          "title": "VirusPrepType",
          "type": "string"
-      },
-      "VisualStimulation": {
-         "additionalProperties": false,
-         "description": "Description of visual stimulus parameters. Provides a high level description of stimulus.",
-         "properties": {
-            "object_type": {
-               "const": "Visual stimulation",
-               "default": "Visual stimulation",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "stimulus_name": {
-               "title": "Stimulus name",
-               "type": "string"
-            },
-            "stimulus_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "description": "Define and list the parameter values used (e.g. all TF or orientation values)",
-               "title": "Stimulus parameters"
-            },
-            "stimulus_template_name": {
-               "default": [],
-               "description": "Name of image set or movie displayed",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Stimulus template name",
-               "type": "array"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "stimulus_name"
-         ],
-         "title": "VisualStimulation",
-         "type": "object"
       },
       "VoltageUnit": {
          "description": "Voltage units",
@@ -106170,29 +105420,6 @@
          "title": "_Zi",
          "type": "object"
       },
-      "aind_data_schema__components__devices__FilterType": {
-         "description": "Filter type",
-         "enum": [
-            "Band pass",
-            "Dichroic",
-            "Long pass",
-            "Multiband",
-            "Neutral density",
-            "Notch",
-            "Short pass"
-         ],
-         "title": "FilterType",
-         "type": "string"
-      },
-      "aind_data_schema__components__stimulus__FilterType": {
-         "description": "Types of bandpass filters for auditory stim",
-         "enum": [
-            "Butterworth",
-            "Other"
-         ],
-         "title": "FilterType",
-         "type": "string"
-      },
       "aind_data_schema_models__harp_types___Behavior": {
          "description": "Model Behavior",
          "properties": {
@@ -106336,8 +105563,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.6",
+         "default": "2.0.6",
          "title": "Schema Version",
          "type": "string"
       },
@@ -106429,19 +105656,6 @@
          "description": "All procedures performed on a subject.",
          "title": "Procedures"
       },
-      "session": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/Session"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "Description of a session.",
-         "title": "Session"
-      },
       "instrument": {
          "anyOf": [
             {
@@ -106478,7 +105692,7 @@
             }
          ],
          "default": null,
-         "description": "Imaging acquisition session",
+         "description": "Data acquisition",
          "title": "Acquisition"
       },
       "quality_control": {
