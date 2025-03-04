@@ -90,7 +90,7 @@ class Subject(DataCoreModel):
     )
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
-    
+
     # Genetic info
     species: Species.ONE_OF = Field(..., title="Species")
     background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
@@ -101,7 +101,7 @@ class Subject(DataCoreModel):
         title="Genotype",
     )
     breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
-    
+
     source: Organization.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
@@ -141,7 +141,7 @@ class Subject(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_species_strain(value):
-        """ Ensure that the species and strain.species match """
+        """Ensure that the species and strain.species match"""
 
         if value.background_strain:
             if value.species.name != value.background_strain.species:

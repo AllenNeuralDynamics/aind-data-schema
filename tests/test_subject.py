@@ -93,7 +93,7 @@ class SubjectTests(unittest.TestCase):
             )
 
     def test_strain_species(self):
-        """ Test the strain/species validator """
+        """Test the strain/species validator"""
 
         now = datetime.datetime.now()
 
