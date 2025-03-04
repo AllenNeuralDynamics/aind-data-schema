@@ -273,3 +273,76 @@ class Acquisition(DataCoreModel):
                     raise ValueError(f"Specimen ID is required for modalities {stream.modalities}")
 
         return self
+
+    def __add__(self, other: "Acquisition") -> "Acquisition":
+        """Combine two Acquisition objects"""
+
+        # Check for schema version incompability
+        if self.schema_version != other.schema_version:
+            raise ValueError(
+                "Cannot combine Acquisition objects with different schema " +
+                f"versions: {self.schema_version} and {other.schema_version}"
+            )
+
+        # Check for incompatible key fields
+        subj_check = self.subject_id != other.subject_id
+        spec_check = self.specimen_id != other.specimen_id
+        ethics_check = self.ethics_review_id != other.ethics_review_id
+        inst_check = self.instrument_id != other.instrument_id
+        exp_type_check = self.experiment_type != other.experiment_type
+        if any([
+            subj_check,
+            spec_check,
+            ethics_check,
+            inst_check,
+            exp_type_check
+                ]):
+            raise ValueError(
+                "Cannot combine Acquisition objects with different subject or specimen IDs"
+            )
+
+        details_check = self.subject_details and other.subject_details
+        if details_check:
+            raise ValueError(
+                "SubjectDetails cannot be combined in Acquisition. Only a single set of details is allowed."
+            )
+
+        # Combine
+        experimenters = self.experimenters + other.experimenters
+        protocol_id = self.protocol_id + other.protocol_id
+        calibrations = self.calibrations + other.calibrations
+        maintenance = self.maintenance + other.maintenance
+        software = self.software + other.software
+        data_streams = self.data_streams + other.data_streams
+        stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
+
+        # Combine
+        if self.notes and other.notes:
+            notes = self.notes + "\n" + other.notes
+        else:
+            notes = self.notes if self.notes else other.notes
+
+        # Handle start and end time
+        start_time = min(self.acquisition_start_time, other.acquisition_start_time)
+        end_time = max(self.acquisition_end_time, other.acquisition_end_time)
+
+        return Acquisition(
+            subject_id=self.subject_id,
+            specimen_id=self.specimen_id,
+            experimenters=experimenters,
+            protocol_id=protocol_id,
+            ethics_review_id=self.ethics_review_id,
+            instrument_id=self.instrument_id,
+            calibrations=calibrations,
+            maintenance=maintenance,
+            acquisition_start_time=start_time,
+            acquisition_end_time=end_time,
+            experiment_type=self.experiment_type,
+            software=software,
+            headframe_registration=self.headframe_registration,  # Note: this is changing in a separate PR
+            notes=notes,
+            data_streams=data_streams,
+            stimulus_epochs=stimulus_epochs,
+            subject_details=self.subject_details if self.subject_details else other.subject_details,
+        )
+
