@@ -36,6 +36,8 @@ from tests.resources.spim_instrument import inst
 from tests.resources.ephys_instrument import inst as ephys_inst
 from pathlib import Path
 
+from aind_data_schema_models.species import Strain
+
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
@@ -85,7 +87,7 @@ class TestMetadata(unittest.TestCase):
             ),
             genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
             housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
-            background_strain="C57BL/6J",
+            background_strain=Strain.C57BL_6J,
         )
         dd = DataDescription(
             modalities=[Modality.ECEPHYS],
