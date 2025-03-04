@@ -377,65 +377,65 @@ class TestComposability(unittest.TestCase):
         with self.assertRaises(ValueError):
             _ = p1 + p3
 
-        def test_add_processing_objects(self):
-            """Test the __add__ method of Processing"""
+    def test_add_processing_objects(self):
+        """Test the __add__ method of Processing"""
 
-            # Create two simple Processing objects
-            p1 = Processing(
-                data_processes=[
-                    DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
-                        name=ProcessName.ANALYSIS,
-                        stage=ProcessStage.PROCESSING,
-                        input_location="/path/to/inputs1",
-                        output_location="/path/to/outputs1",
-                        start_date_time=t,
-                        end_date_time=t,
-                        code=Code(
-                            url="https://url/for/analysis1",
-                            version="0.1.1",
-                        ),
+        # Create two simple Processing objects
+        p1 = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    name=ProcessName.ANALYSIS,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs1",
+                    output_location="/path/to/outputs1",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/analysis1",
+                        version="0.1.1",
                     ),
-                ],
-                notes="First processing object"
-            )
+                ),
+            ],
+            notes="First processing object"
+        )
 
-            p2 = Processing(
-                data_processes=[
-                    DataProcess(
-                        experimenters=[Person(name="Dr. Jane")],
-                        name=ProcessName.COMPRESSION,
-                        stage=ProcessStage.PROCESSING,
-                        input_location="/path/to/inputs2",
-                        output_location="/path/to/outputs2",
-                        start_date_time=t,
-                        end_date_time=t,
-                        code=Code(
-                            url="https://url/for/compression",
-                            version="0.1.1",
-                        ),
+        p2 = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Jane")],
+                    name=ProcessName.COMPRESSION,
+                    stage=ProcessStage.PROCESSING,
+                    input_location="/path/to/inputs2",
+                    output_location="/path/to/outputs2",
+                    start_date_time=t,
+                    end_date_time=t,
+                    code=Code(
+                        url="https://url/for/compression",
+                        version="0.1.1",
                     ),
-                ],
-                notes="Second processing object"
-            )
+                ),
+            ],
+            notes="Second processing object"
+        )
 
-            # Combine the two Processing objects
-            combined = p1 + p2
+        # Combine the two Processing objects
+        combined = p1 + p2
 
-            # Check that the combined object has the correct data_processes and notes
-            self.assertEqual(len(combined.data_processes), 2)
-            self.assertEqual(combined.data_processes[0].name, ProcessName.ANALYSIS)
-            self.assertEqual(combined.data_processes[1].name, ProcessName.COMPRESSION)
-            self.assertIn("First processing object", combined.notes)
-            self.assertIn("Second processing object", combined.notes)
+        # Check that the combined object has the correct data_processes and notes
+        self.assertEqual(len(combined.data_processes), 2)
+        self.assertEqual(combined.data_processes[0].name, ProcessName.ANALYSIS)
+        self.assertEqual(combined.data_processes[1].name, ProcessName.COMPRESSION)
+        self.assertIn("First processing object", combined.notes)
+        self.assertIn("Second processing object", combined.notes)
 
-            # Test with incompatible schema versions
-            p3 = p2
-            p3.schema_version = "2.0.6"
+        # Test with incompatible schema versions
+        p3 = p2
+        p3.schema_version = "2.0.6"
 
-            with self.assertRaises(ValueError) as e:
-                _ = p1 + p3
-            self.assertIn("Cannot add Processing objects with different schema versions.", str(e.exception))
+        with self.assertRaises(ValueError) as e:
+            _ = p1 + p3
+        self.assertIn("Cannot add Processing objects with different schema versions.", str(e.exception))
 
 
 if __name__ == "__main__":
