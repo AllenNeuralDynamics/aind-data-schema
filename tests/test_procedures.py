@@ -5,7 +5,7 @@ import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import TimeUnit, ConcentrationUnit
+from aind_data_schema_models.units import TimeUnit, ConcentrationUnit, VolumeUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
@@ -24,6 +24,8 @@ from aind_data_schema.core.procedures import (
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
+    InjectionDynamics,
+    InjectionProfile,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -59,10 +61,14 @@ class ProceduresTests(unittest.TestCase):
                                 experimenters=[Person(name="Mam Moth")],
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
-                                injection_volume=1,
                                 injection_eye="Left",
-                                injection_duration=1,
-                                injection_duration_unit=TimeUnit.S,
+                                dynamics=[InjectionDynamics(]
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                )],
+                                profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -83,10 +89,14 @@ class ProceduresTests(unittest.TestCase):
                             RetroOrbitalInjection(
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
-                                injection_volume=1,
                                 injection_eye="Left",
-                                injection_duration=1,
-                                injection_duration_unit=TimeUnit.S,
+                                dynamics=[InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                )],
+                                profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -116,10 +126,14 @@ class ProceduresTests(unittest.TestCase):
                             RetroOrbitalInjection(
                                 protocol_id="134",
                                 injection_materials=None,
-                                injection_volume=1,
                                 injection_eye="Left",
-                                injection_duration=1,
-                                injection_duration_unit=TimeUnit.S,
+                                dynamics=[InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                )],
+                                profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -162,10 +176,14 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            injection_volume=1,
                             injection_eye="Left",
-                            injection_duration=1,
-                            injection_duration_unit=TimeUnit.S,
+                            dynamics=[InjectionDynamics(]
+                                volume=1,
+                                volume_unit=VolumeUnit.UL,
+                                duration=1,
+                                duration_unit=TimeUnit.S,
+                            )],
+                            profile=InjectionProfile.BOLUS,
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
                         ),
@@ -197,15 +215,19 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            injection_duration=1,
-                            injection_duration_unit=TimeUnit.S,
+                            dynamics=[InjectionDynamics(
+                                volume=1,
+                                volume_unit=VolumeUnit.UL,
+                                duration=1,
+                                duration_unit=TimeUnit.S,
+                            )],
+                            profile=InjectionProfile.BOLUS,
                             injection_coordinate_ml=1,
                             injection_coordinate_ap=1,
                             injection_coordinate_depth=[1],
                             injection_coordinate_reference="Bregma",
                             bregma_to_lambda_distance=4.1,
                             injection_angle=1,
-                            injection_volume=[1],
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
                             targeted_structure=CCFStructure.VISP6A,

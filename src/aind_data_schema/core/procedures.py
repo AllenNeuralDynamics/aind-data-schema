@@ -465,17 +465,11 @@ class Injection(DataModel):
 class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
 
 
 class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
-
-    time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
 
 
 class BrainInjection(Injection):
@@ -501,13 +495,6 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
-
     @field_validator("injection_volume")
     def check_dv_and_vol_list_lengths(cls, v, info: ValidationInfo):
         """Validator for list length of injection volumes and depths"""
@@ -531,23 +518,9 @@ class IontophoresisInjection(BrainInjection):
 class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
-
 
 class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
-
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
 class SampleCollection(DataModel):
