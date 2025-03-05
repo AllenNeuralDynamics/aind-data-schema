@@ -384,9 +384,9 @@ class TarsVirusIdentifiers(DataModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
-    plasmid_tars_alias: Optional[str] = Field(
+    plasmid_tars_alias: Optional[List[str]] = Field(
         default=None,
-        title="Plasmid alias",
+        title="List of plasmid aliases",
         description="Alias used to reference the plasmid, usually begins 'AiP'",
     )
     prep_lot_number: str = Field(..., title="Preparation lot number")
@@ -690,7 +690,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
