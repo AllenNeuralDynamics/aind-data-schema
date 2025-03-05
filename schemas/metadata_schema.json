@@ -19474,6 +19474,79 @@
          "title": "GenericModel",
          "type": "object"
       },
+      "GroundWireImplant": {
+         "additionalProperties": false,
+         "description": "Ground wire implant procedure",
+         "properties": {
+            "object_type": {
+               "const": "Ground wire implant",
+               "default": "Ground wire implant",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "ground_electrode_location": {
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "title": "Location of ground electrode"
+            },
+            "ground_wire_hole": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For SHIELD implants, the hole number for the ground wire",
+               "title": "Ground wire hole"
+            },
+            "ground_wire_material": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GroundWireMaterial"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire material"
+            },
+            "ground_wire_diameter": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter"
+            },
+            "ground_wire_diameter_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter unit"
+            }
+         },
+         "required": [
+            "ground_electrode_location"
+         ],
+         "title": "GroundWireImplant",
+         "type": "object"
+      },
       "GroundWireMaterial": {
          "description": "Ground wire material name",
          "enum": [
@@ -44303,6 +44376,10 @@
                "title": "Object Type",
                "type": "string"
             },
+            "ground_electrode": {
+               "$ref": "#/$defs/GroundWireImplant",
+               "title": "Ground electrode"
+            },
             "protocol_id": {
                "description": "DOI for protocols.io",
                "title": "Protocol ID",
@@ -44321,6 +44398,7 @@
             }
          },
          "required": [
+            "ground_electrode",
             "protocol_id",
             "myomatrix_array",
             "threads"
@@ -44340,7 +44418,7 @@
             },
             "ground_electrode_location": {
                "$ref": "#/$defs/MouseAnatomyModel",
-               "description": "Use MouseBodyParts",
+               "description": "Use GroundWireLocations",
                "title": "Location of ground electrode"
             },
             "contacts": {
@@ -56331,8 +56409,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.4",
-               "default": "2.0.4",
+               "const": "2.0.5",
+               "default": "2.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -56473,8 +56551,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.9",
-               "default": "2.0.9",
+               "const": "2.0.10",
+               "default": "2.0.10",
                "title": "Schema Version",
                "type": "string"
             },
@@ -56557,109 +56635,6 @@
          ],
          "title": "ProtectiveMaterial",
          "type": "string"
-      },
-      "ProtectiveMaterialReplacement": {
-         "additionalProperties": false,
-         "description": "Description of a protective material replacement procedure in preparation for ephys recording",
-         "properties": {
-            "object_type": {
-               "const": "Protective material replacement",
-               "default": "Protective material replacement",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "protocol_id": {
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
-            },
-            "protective_material": {
-               "$ref": "#/$defs/ProtectiveMaterial",
-               "description": "New material being applied",
-               "title": "Protective material"
-            },
-            "ground_wire_hole": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire hole"
-            },
-            "ground_wire_material": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/GroundWireMaterial"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire material"
-            },
-            "ground_wire_diameter": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire diameter"
-            },
-            "ground_wire_diameter_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire diameter unit"
-            },
-            "well_part_number": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Well part number"
-            },
-            "well_type": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Well type"
-            }
-         },
-         "required": [
-            "protocol_id",
-            "protective_material"
-         ],
-         "title": "ProtectiveMaterialReplacement",
-         "type": "object"
       },
       "QCEvaluation": {
          "additionalProperties": false,
@@ -72648,7 +72623,6 @@
                         "Nanoject injection": "#/$defs/NanojectInjection",
                         "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                         "Perfusion": "#/$defs/Perfusion",
-                        "Protective material replacement": "#/$defs/ProtectiveMaterialReplacement",
                         "Retro orbital injection": "#/$defs/RetroOrbitalInjection",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
@@ -72690,9 +72664,6 @@
                      },
                      {
                         "$ref": "#/$defs/Perfusion"
-                     },
-                     {
-                        "$ref": "#/$defs/ProtectiveMaterialReplacement"
                      },
                      {
                         "$ref": "#/$defs/RetroOrbitalInjection"
@@ -106882,8 +106853,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.9",
-         "default": "2.0.9",
+         "const": "2.0.10",
+         "default": "2.0.10",
          "title": "Schema Version",
          "type": "string"
       },
