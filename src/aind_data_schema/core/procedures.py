@@ -376,9 +376,9 @@ class TarsVirusIdentifiers(DataModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
-    plasmid_tars_alias: Optional[str] = Field(
+    plasmid_tars_alias: Optional[List[str]] = Field(
         default=None,
-        title="Plasmid alias",
+        title="List of plasmid aliases",
         description="Alias used to reference the plasmid, usually begins 'AiP'",
     )
     prep_lot_number: str = Field(..., title="Preparation lot number")
