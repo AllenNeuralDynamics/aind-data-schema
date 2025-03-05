@@ -436,6 +436,73 @@
          "title": "_Behavior_Videos",
          "type": "object"
       },
+      "_Boston_University": {
+         "description": "Model Boston University",
+         "properties": {
+            "name": {
+               "const": "Boston University",
+               "default": "Boston University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BU",
+               "default": "BU",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05qwgg493",
+               "default": "05qwgg493",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Boston_University",
+         "type": "object"
+      },
       "_Chan_Zuckerberg_Initiative": {
          "description": "Model Chan Zuckerberg Initiative",
          "properties": {
@@ -864,6 +931,140 @@
          "title": "_Janelia_Research_Campus",
          "type": "object"
       },
+      "_Johns_Hopkins_University": {
+         "description": "Model Johns Hopkins University",
+         "properties": {
+            "name": {
+               "const": "Johns Hopkins University",
+               "default": "Johns Hopkins University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "JHU",
+               "default": "JHU",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00za53h95",
+               "default": "00za53h95",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Johns_Hopkins_University",
+         "type": "object"
+      },
+      "_Massachusetts_Institute_Of_Technology": {
+         "description": "Model Massachusetts Institute of Technology",
+         "properties": {
+            "name": {
+               "const": "Massachusetts Institute of Technology",
+               "default": "Massachusetts Institute of Technology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIT",
+               "default": "MIT",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "042nb2s44",
+               "default": "042nb2s44",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Massachusetts_Institute_Of_Technology",
+         "type": "object"
+      },
       "_Mbf_Bioscience": {
          "description": "Model MBF Bioscience",
          "properties": {
@@ -929,6 +1130,73 @@
             }
          },
          "title": "_Mbf_Bioscience",
+         "type": "object"
+      },
+      "_Mcgovern_Institute_For_Brain_Research": {
+         "description": "Model McGovern Institute for Brain Research",
+         "properties": {
+            "name": {
+               "const": "McGovern Institute for Brain Research",
+               "default": "McGovern Institute for Brain Research",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIBR",
+               "default": "MIBR",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05ymca674",
+               "default": "05ymca674",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Mcgovern_Institute_For_Brain_Research",
          "type": "object"
       },
       "_Merfish": {
@@ -1036,6 +1304,35 @@
             }
          },
          "title": "_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
+         "type": "object"
+      },
+      "_Mit_Department_Of_Brain_And_Cognitive_Sciences": {
+         "description": "Model MIT Department of Brain and Cognitive Sciences",
+         "properties": {
+            "name": {
+               "const": "MIT Department of Brain and Cognitive Sciences",
+               "default": "MIT Department of Brain and Cognitive Sciences",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIT-BCS",
+               "default": "MIT-BCS",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Mit_Department_Of_Brain_And_Cognitive_Sciences",
          "type": "object"
       },
       "_Mri": {
@@ -1628,6 +1925,73 @@
          },
          "title": "_Templeton_World_Charity_Foundation",
          "type": "object"
+      },
+      "_University_Of_California_San_Diego": {
+         "description": "Model University of California, San Diego",
+         "properties": {
+            "name": {
+               "const": "University of California, San Diego",
+               "default": "University of California, San Diego",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UCSD",
+               "default": "UCSD",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0168r3w48",
+               "default": "0168r3w48",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_University_Of_California_San_Diego",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -1646,8 +2010,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.3",
-         "default": "2.0.3",
+         "const": "2.0.4",
+         "default": "2.0.4",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1701,11 +2065,17 @@
             "mapping": {
                "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
                "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+               "Boston University": "#/$defs/_Boston_University",
                "Columbia University": "#/$defs/_Columbia_University",
                "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
                "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+               "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
+               "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
+               "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+               "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                "New York University": "#/$defs/_New_York_University",
-               "Other": "#/$defs/_Other"
+               "Other": "#/$defs/_Other",
+               "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego"
             },
             "propertyName": "name"
          },
@@ -1717,6 +2087,12 @@
                "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
             },
             {
+               "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+            },
+            {
+               "$ref": "#/$defs/_Boston_University"
+            },
+            {
                "$ref": "#/$defs/_Columbia_University"
             },
             {
@@ -1726,7 +2102,19 @@
                "$ref": "#/$defs/_Janelia_Research_Campus"
             },
             {
+               "$ref": "#/$defs/_Johns_Hopkins_University"
+            },
+            {
+               "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+            },
+            {
+               "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+            },
+            {
                "$ref": "#/$defs/_New_York_University"
+            },
+            {
+               "$ref": "#/$defs/_University_Of_California_San_Diego"
             },
             {
                "$ref": "#/$defs/_Other"

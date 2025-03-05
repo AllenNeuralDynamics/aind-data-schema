@@ -1,14 +1,5 @@
 {
    "$defs": {
-      "BackgroundStrain": {
-         "description": "Animal background strain name",
-         "enum": [
-            "BALB/c",
-            "C57BL/6J"
-         ],
-         "title": "BackgroundStrain",
-         "type": "string"
-      },
       "BaseName": {
          "additionalProperties": false,
          "description": "A simple model associating a name with an abbreviation",
@@ -358,6 +349,140 @@
             }
          },
          "title": "_Allen_Institute",
+         "type": "object"
+      },
+      "_Balb_C": {
+         "description": "Model BALB/c",
+         "properties": {
+            "name": {
+               "const": "BALB/c",
+               "default": "BALB/c",
+               "title": "Name",
+               "type": "string"
+            },
+            "species": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Species",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Mouse Genome Informatics",
+                  "abbreviation": "MGI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "MGI:2159737",
+               "default": "MGI:2159737",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Balb_C",
+         "type": "object"
+      },
+      "_C57Bl_6J": {
+         "description": "Model C57BL/6J",
+         "properties": {
+            "name": {
+               "const": "C57BL/6J",
+               "default": "C57BL/6J",
+               "title": "Name",
+               "type": "string"
+            },
+            "species": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Species",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Mouse Genome Informatics",
+                  "abbreviation": "MGI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "MGI:3028467",
+               "default": "MGI:3028467",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_C57Bl_6J",
          "type": "object"
       },
       "_Callithrix_Jacchus": {
@@ -1166,8 +1291,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.2",
-         "default": "2.0.2",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1183,19 +1308,6 @@
          "format": "date",
          "title": "Date of birth",
          "type": "string"
-      },
-      "genotype": {
-         "anyOf": [
-            {
-               "type": "string"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "Genotype of the animal providing both alleles",
-         "title": "Genotype"
       },
       "species": {
          "discriminator": {
@@ -1227,6 +1339,32 @@
          ],
          "title": "Species"
       },
+      "background_strain": {
+         "anyOf": [
+            {
+               "discriminator": {
+                  "mapping": {
+                     "BALB/c": "#/$defs/_Balb_C",
+                     "C57BL/6J": "#/$defs/_C57Bl_6J"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_C57Bl_6J"
+                  },
+                  {
+                     "$ref": "#/$defs/_Balb_C"
+                  }
+               ]
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Strain"
+      },
       "alleles": {
          "default": [],
          "description": "Allele names and persistent IDs",
@@ -1236,17 +1374,18 @@
          "title": "Alleles",
          "type": "array"
       },
-      "background_strain": {
+      "genotype": {
          "anyOf": [
             {
-               "$ref": "#/$defs/BackgroundStrain"
+               "type": "string"
             },
             {
                "type": "null"
             }
          ],
          "default": null,
-         "title": "Background strain"
+         "description": "Genotype of the animal providing both alleles",
+         "title": "Genotype"
       },
       "breeding_info": {
          "anyOf": [
