@@ -30,7 +30,6 @@ from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 
 
 class ImmunolabelClass(str, Enum):
