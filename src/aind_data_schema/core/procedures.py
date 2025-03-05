@@ -29,6 +29,7 @@ from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDef
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.utils.merge import merge_notes
 
 
 class ImmunolabelClass(str, Enum):
@@ -711,7 +712,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
+    schema_version: SkipValidation[Literal["2.0.4"]] = Field(default="2.0.4")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -725,3 +726,19 @@ class Procedures(DataCoreModel):
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    def __add__(self, other: "Procedures") -> "Procedures":
+        """Combine two Procedures objects"""
+
+        if not self.schema_version == other.schema_version:
+            raise ValueError("Schema versions must match to combine Procedures")
+
+        if not self.subject_id == other.subject_id:
+            raise ValueError("Subject IDs must match to combine Procedures objects.")
+
+        return Procedures(
+            subject_id=self.subject_id,
+            subject_procedures=self.subject_procedures + other.subject_procedures,
+            specimen_procedures=self.specimen_procedures + other.specimen_procedures,
+            notes=merge_notes(self.notes, other.notes),
+        )

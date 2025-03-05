@@ -15,6 +15,7 @@ from aind_data_schema.base import (
     AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.utils.merge import merge_notes
 
 
 class ProcessStage(str, Enum):
@@ -96,7 +97,7 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
+    schema_version: SkipValidation[Literal["2.0.8"]] = Field(default="2.0.8")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -136,3 +137,14 @@ class Processing(DataCoreModel):
                 raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
 
         return values
+
+    def __add__(self, other: "Processing") -> "Processing":
+        """Combine two Processing objects"""
+
+        # Check for incompatible schema_version
+        if self.schema_version != other.schema_version:
+            raise ValueError("Cannot add Processing objects with different schema versions.")
+
+        return Processing(
+            data_processes=self.data_processes + other.data_processes, notes=merge_notes(self.notes, other.notes)
+        )
