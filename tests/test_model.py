@@ -8,8 +8,9 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
-from aind_data_schema.components.devices import Software
+from aind_data_schema.components.identifiers import Person, Software, Code
 from aind_data_schema.core.model import Model, ModelArchitecture, ModelEvaluation, ModelTraining, PerformanceMetric
+from aind_data_schema.core.processing import ProcessStage
 
 
 class ModelTests(unittest.TestCase):
@@ -26,9 +27,9 @@ class ModelTests(unittest.TestCase):
         m = Model(
             name="2024_01_01_ResNet18_SmartSPIM.h5",
             license="CC-BY-4.0",
-            developer_full_name=["Joe Schmoe"],
+            developers=[Person(name="Dr. Dan")],
             developer_institution=Organization.AIND,
-            modality=[Modality.SPIM],
+            modalities=[Modality.SPIM],
             pretrained_source_url="url pretrained weights are from",
             architecture=ModelArchitecture(
                 backbone=ModelBackbone.RESNET,
@@ -48,9 +49,11 @@ class ModelTests(unittest.TestCase):
             limitations="Only trained on 488 channel",
             training=[
                 ModelTraining(
+                    stage=ProcessStage.PROCESSING,
+                    experimenters=[Person(name="Dr. Dan")],
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path to trained model asset",
-                    code_url="url for training code repo",
+                    code=Code(url="url for training code repo"),
                     start_date_time=now,
                     end_date_time=now,
                     train_performance=[
@@ -72,9 +75,11 @@ class ModelTests(unittest.TestCase):
             ],
             evaluations=[
                 ModelEvaluation(
+                    stage=ProcessStage.PROCESSING,
+                    experimenters=[Person(name="Dr. Dan")],
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path (output asset or trained model asset if no output)",
-                    code_url="url for evaluation code repo (or capsule?)",
+                    code=Code(url="url for training code repo"),
                     start_date_time=now,
                     end_date_time=now,
                     performance=[PerformanceMetric(name="precision", value=0.8)],

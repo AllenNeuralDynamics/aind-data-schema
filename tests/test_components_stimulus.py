@@ -10,7 +10,6 @@ class StimulusTests(unittest.TestCase):
     def test_typo(self):
         """tests that the sitmulus typo is corrected"""
         a = AuditoryStimulation(
-            stimulus_type="Auditory Stimulation",
             stimulus_name="test",
             sample_frequency=0.5,
         )

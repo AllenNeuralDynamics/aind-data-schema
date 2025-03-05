@@ -6,6 +6,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Antibody,
@@ -31,7 +32,7 @@ p = Procedures(
     subject_procedures=[
         Surgery(
             start_date=t.date(),
-            experimenter_full_name="John Apple",
+            experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
@@ -102,7 +103,7 @@ p = Procedures(
         ),
         Surgery(
             start_date="2023-05-31",
-            experimenter_full_name="John Apple",
+            experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
@@ -118,7 +119,7 @@ p = Procedures(
             specimen_id="672640",
             start_date="2023-06-09",
             end_date="2023-06-12",
-            experimenter_full_name="John Apple",
+            experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             reagents=[],
             antibodies=[
@@ -141,7 +142,7 @@ p = Procedures(
             specimen_id="672640",
             start_date="2023-06-12",
             end_date="2023-06-13",
-            experimenter_full_name="John Apple",
+            experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             reagents=[],
             antibodies=[

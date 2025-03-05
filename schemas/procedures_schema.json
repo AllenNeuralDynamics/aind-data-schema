@@ -4,6 +4,12 @@
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
          "properties": {
+            "object_type": {
+               "const": "Anaesthetic",
+               "default": "Anaesthetic",
+               "title": "Object Type",
+               "type": "string"
+            },
             "type": {
                "title": "Type",
                "type": "string"
@@ -62,6 +68,12 @@
          "additionalProperties": false,
          "description": "Description of an antibody used in immunolableing",
          "properties": {
+            "object_type": {
+               "const": "Antibody",
+               "default": "Antibody",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -81,6 +93,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -112,6 +125,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -119,8 +133,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -162,6 +179,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -456,6 +474,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -585,10 +621,10 @@
          "additionalProperties": false,
          "description": "Description of a catheter implant procedure",
          "properties": {
-            "procedure_type": {
-               "const": "Catheter Implant",
+            "object_type": {
+               "const": "Catheter implant",
                "default": "Catheter implant",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "where_performed": {
@@ -630,21 +666,8 @@
                "title": "Catheter port"
             },
             "targeted_structure": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_18609": "#/$defs/_Carotid_Artery",
-                     "EMAPA_18638": "#/$defs/_Jugular_Vein"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Carotid_Artery"
-                  },
-                  {
-                     "$ref": "#/$defs/_Jugular_Vein"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use options from MouseBloodVessels",
                "title": "Targeted blood vessel"
             }
          },
@@ -703,10 +726,10 @@
          "additionalProperties": false,
          "description": "Description of craniotomy procedure",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Craniotomy",
                "default": "Craniotomy",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -856,10 +879,10 @@
          "additionalProperties": false,
          "description": "Description of an implant procedure",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Fiber implant",
                "default": "Fiber implant",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -886,10 +909,10 @@
          "additionalProperties": false,
          "description": "Description of a fiber optic probe",
          "properties": {
-            "device_type": {
-               "const": "Fiber optic probe",
-               "default": "Fiber optic probe",
-               "title": "Device Type",
+            "object_type": {
+               "const": "Fiber probe",
+               "default": "Fiber probe",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -925,6 +948,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -956,6 +980,7 @@
                            "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                           "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
@@ -963,8 +988,11 @@
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                           "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
                            "MPI": "#/$defs/_Mpi",
+                           "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                           "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                            "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -1006,6 +1034,7 @@
                            "Thorlabs": "#/$defs/_Thorlabs",
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
+                           "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -1300,6 +1329,24 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -1348,8 +1395,15 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional parameters"
             },
             "notes": {
@@ -1483,6 +1537,12 @@
          "additionalProperties": false,
          "description": "Description of an oligo probe used for HCR",
          "properties": {
+            "object_type": {
+               "const": "HCR probe",
+               "default": "HCR probe",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -1502,6 +1562,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -1533,6 +1594,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -1540,8 +1602,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -1583,6 +1648,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -1877,6 +1943,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -1977,6 +2061,12 @@
          "additionalProperties": false,
          "description": "Description of a readout for HCR",
          "properties": {
+            "object_type": {
+               "const": "HCR readout",
+               "default": "HCR readout",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -1996,6 +2086,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -2027,6 +2118,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -2034,8 +2126,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -2077,6 +2172,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -2371,6 +2467,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -2441,6 +2555,12 @@
          "additionalProperties": false,
          "description": "Description of series of HCR staining rounds for mFISH",
          "properties": {
+            "object_type": {
+               "const": "HCR series",
+               "default": "HCR series",
+               "title": "Object Type",
+               "type": "string"
+            },
             "codebook_name": {
                "title": "Codebook name",
                "type": "string"
@@ -2474,10 +2594,10 @@
          "additionalProperties": false,
          "description": "Description of headframe procedure",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Headframe",
                "default": "Headframe",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -2552,6 +2672,12 @@
          "additionalProperties": false,
          "description": "Description of an HCR staining round",
          "properties": {
+            "object_type": {
+               "const": "Hybridization chain reaction",
+               "default": "Hybridization chain reaction",
+               "title": "Object Type",
+               "type": "string"
+            },
             "round_index": {
                "title": "Round index",
                "type": "integer"
@@ -2635,6 +2761,12 @@
          "additionalProperties": false,
          "description": "Description of an interacerebellar ventricle injection",
          "properties": {
+            "object_type": {
+               "const": "Intra cerebellar ventricle injection",
+               "default": "Intra cerebellar ventricle injection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -6207,12 +6339,6 @@
                ],
                "default": null,
                "title": "Injection hemisphere"
-            },
-            "procedure_type": {
-               "const": "ICV injection",
-               "default": "ICV injection",
-               "title": "Procedure Type",
-               "type": "string"
             },
             "injection_volume": {
                "description": "Injection volume, one value per location",
@@ -6251,6 +6377,12 @@
          "additionalProperties": false,
          "description": "Description of an interacisternal magna injection",
          "properties": {
+            "object_type": {
+               "const": "Intra cisternal magna injection",
+               "default": "Intra cisternal magna injection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -9824,12 +9956,6 @@
                "default": null,
                "title": "Injection hemisphere"
             },
-            "procedure_type": {
-               "const": "ICM injection",
-               "default": "ICM injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_volume": {
                "description": "Injection volume, one value per location",
                "items": {
@@ -9867,6 +9993,12 @@
          "additionalProperties": false,
          "description": "Description of an intraperitoneal injection procedure",
          "properties": {
+            "object_type": {
+               "const": "Intraperitoneal injection",
+               "default": "Intraperitoneal injection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -9958,12 +10090,6 @@
             "protocol_id": {
                "description": "DOI for protocols.io",
                "title": "Protocol ID",
-               "type": "string"
-            },
-            "procedure_type": {
-               "const": "Intraperitoneal injection",
-               "default": "Intraperitoneal injection",
-               "title": "Procedure Type",
                "type": "string"
             },
             "time": {
@@ -10008,6 +10134,12 @@
          "additionalProperties": false,
          "description": "Description of an iotophoresis injection procedure",
          "properties": {
+            "object_type": {
+               "const": "Iontophoresis injection",
+               "default": "Iontophoresis injection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -13580,12 +13712,6 @@
                ],
                "default": null,
                "title": "Injection hemisphere"
-            },
-            "procedure_type": {
-               "const": "Iontophoresis injection",
-               "default": "Iontophoresis injection",
-               "title": "Procedure Type",
-               "type": "string"
             },
             "injection_current": {
                "anyOf": [
@@ -13633,14 +13759,72 @@
          "title": "MassUnit",
          "type": "string"
       },
+      "MouseAnatomyModel": {
+         "description": "Base model for mouse anatomy",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "registry",
+            "registry_identifier"
+         ],
+         "title": "MouseAnatomyModel",
+         "type": "object"
+      },
       "MyomatrixArray": {
          "additionalProperties": false,
          "description": "Description of a Myomatrix array",
          "properties": {
-            "device_type": {
-               "const": "Myomatrix Array",
-               "default": "Myomatrix Array",
-               "title": "Device Type",
+            "object_type": {
+               "const": "Myomatrix array",
+               "default": "Myomatrix array",
+               "title": "Object Type",
                "type": "string"
             },
             "name": {
@@ -13676,6 +13860,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -13707,6 +13892,7 @@
                            "Item": "#/$defs/_Item",
                            "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                            "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                           "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
                            "LG": "#/$defs/_Lg",
@@ -13714,8 +13900,11 @@
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                           "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
                            "MPI": "#/$defs/_Mpi",
+                           "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                           "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                            "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -13757,6 +13946,7 @@
                            "Thorlabs": "#/$defs/_Thorlabs",
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
+                           "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -14051,6 +14241,24 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -14099,8 +14307,15 @@
                "title": "Port index"
             },
             "additional_settings": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional parameters"
             },
             "notes": {
@@ -14140,38 +14355,15 @@
          "additionalProperties": false,
          "description": "\"Description of a contact on a myomatrix thread",
          "properties": {
+            "object_type": {
+               "const": "Myomatrix contact",
+               "default": "Myomatrix contact",
+               "title": "Object Type",
+               "type": "string"
+            },
             "body_part": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_16748": "#/$defs/_Tail",
-                     "EMAPA_17412": "#/$defs/_Forelimb",
-                     "EMAPA_17458": "#/$defs/_Hindlimb",
-                     "EMAPA_31857": "#/$defs/_Trunk",
-                     "EMAPA_31858": "#/$defs/_Head",
-                     "EMAPA_35587": "#/$defs/_Neck"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Forelimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Head"
-                  },
-                  {
-                     "$ref": "#/$defs/_Hindlimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Neck"
-                  },
-                  {
-                     "$ref": "#/$defs/_Tail"
-                  },
-                  {
-                     "$ref": "#/$defs/_Trunk"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use MouseBodyParts",
                "title": "Body part of contact insertion"
             },
             "side": {
@@ -14179,85 +14371,8 @@
                "title": "Body side"
             },
             "muscle": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_18177": "#/$defs/_Deltoid",
-                     "EMAPA_18179": "#/$defs/_Pectoralis_Major",
-                     "EMAPA_19108": "#/$defs/_Biceps_Brachii",
-                     "EMAPA_19111": "#/$defs/_Triceps_Brachii",
-                     "EMAPA_19319": "#/$defs/_Flexor_Digitorum_Profundus",
-                     "EMAPA_25053": "#/$defs/_Tendon_Of_Biceps_Brachii",
-                     "EMAPA_25054": "#/$defs/_Long_Head_Of_Biceps_Brachii",
-                     "EMAPA_25055": "#/$defs/_Short_Head_Of_Biceps_Brachii",
-                     "EMAPA_36163": "#/$defs/_Pars_Scapularis_Of_Deltoid",
-                     "EMAPA_36184": "#/$defs/_Lateral_Head_Of_Triceps_Brachii",
-                     "EMAPA_36185": "#/$defs/_Long_Head_Of_Triceps_Brachii",
-                     "EMAPA_36186": "#/$defs/_Medial_Head_Of_Triceps_Brachii",
-                     "EMAPA_36189": "#/$defs/_Extensor_Carpi_Radialis_Longus",
-                     "EMAPA_36190": "#/$defs/_Extensor_Carpi_Ulnaris",
-                     "EMAPA_36191": "#/$defs/_Extensor_Digitorum_Communis",
-                     "EMAPA_36192": "#/$defs/_Extensor_Digitorum_Lateralis",
-                     "EMAPA_36197": "#/$defs/_Flexor_Carpi_Radialis",
-                     "EMAPA_36198": "#/$defs/_Flexor_Carpi_Ulnaris"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Deltoid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Pectoralis_Major"
-                  },
-                  {
-                     "$ref": "#/$defs/_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Lateral_Head_Of_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Long_Head_Of_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Medial_Head_Of_Triceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Long_Head_Of_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Short_Head_Of_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Tendon_Of_Biceps_Brachii"
-                  },
-                  {
-                     "$ref": "#/$defs/_Pars_Scapularis_Of_Deltoid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Carpi_Radialis_Longus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Digitorum_Communis"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Digitorum_Lateralis"
-                  },
-                  {
-                     "$ref": "#/$defs/_Extensor_Carpi_Ulnaris"
-                  },
-                  {
-                     "$ref": "#/$defs/_Flexor_Carpi_Radialis"
-                  },
-                  {
-                     "$ref": "#/$defs/_Flexor_Carpi_Ulnaris"
-                  },
-                  {
-                     "$ref": "#/$defs/_Flexor_Digitorum_Profundus"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use MouseEmgMuscles",
                "title": "Muscle of contact insertion"
             },
             "in_muscle": {
@@ -14290,10 +14405,10 @@
          "additionalProperties": false,
          "description": "Description of a Myomatrix array insertion for EMG",
          "properties": {
-            "procedure_type": {
-               "const": "Myomatrix_Insertion",
-               "default": "Myomatrix_Insertion",
-               "title": "Procedure Type",
+            "object_type": {
+               "const": "Myomatrix insertion",
+               "default": "Myomatrix insertion",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -14325,38 +14440,15 @@
          "additionalProperties": false,
          "description": "Description of a thread of a myomatrix array",
          "properties": {
+            "object_type": {
+               "const": "Myomatrix thread",
+               "default": "Myomatrix thread",
+               "title": "Object Type",
+               "type": "string"
+            },
             "ground_electrode_location": {
-               "discriminator": {
-                  "mapping": {
-                     "EMAPA_16748": "#/$defs/_Tail",
-                     "EMAPA_17412": "#/$defs/_Forelimb",
-                     "EMAPA_17458": "#/$defs/_Hindlimb",
-                     "EMAPA_31857": "#/$defs/_Trunk",
-                     "EMAPA_31858": "#/$defs/_Head",
-                     "EMAPA_35587": "#/$defs/_Neck"
-                  },
-                  "propertyName": "registry_identifier"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Forelimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Head"
-                  },
-                  {
-                     "$ref": "#/$defs/_Hindlimb"
-                  },
-                  {
-                     "$ref": "#/$defs/_Neck"
-                  },
-                  {
-                     "$ref": "#/$defs/_Tail"
-                  },
-                  {
-                     "$ref": "#/$defs/_Trunk"
-                  }
-               ],
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use MouseBodyParts",
                "title": "Location of ground electrode"
             },
             "contacts": {
@@ -14378,6 +14470,12 @@
          "additionalProperties": false,
          "description": "Description of a nanoject injection procedure",
          "properties": {
+            "object_type": {
+               "const": "Nanoject injection",
+               "default": "Nanoject injection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -17951,12 +18049,6 @@
                "default": null,
                "title": "Injection hemisphere"
             },
-            "procedure_type": {
-               "const": "Nanoject injection",
-               "default": "Nanoject injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_volume": {
                "description": "Injection volume, one value per location",
                "items": {
@@ -17994,6 +18086,12 @@
          "additionalProperties": false,
          "description": "Description of a non-viral injection material",
          "properties": {
+            "object_type": {
+               "const": "Non viral material",
+               "default": "Non viral material",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -18013,6 +18111,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -18044,6 +18143,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -18051,8 +18151,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -18094,6 +18197,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -18388,6 +18492,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -18469,6 +18591,12 @@
          "additionalProperties": false,
          "description": "Description of an oligonucleotide probe",
          "properties": {
+            "object_type": {
+               "const": "Oligo probe",
+               "default": "Oligo probe",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -18488,6 +18616,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -18519,6 +18648,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -18526,8 +18656,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -18569,6 +18702,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -18863,6 +18997,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -18957,6 +19109,12 @@
          "additionalProperties": false,
          "description": "Description of an implanted ophys probe",
          "properties": {
+            "object_type": {
+               "const": "Ophys probe",
+               "default": "Ophys probe",
+               "title": "Object Type",
+               "type": "string"
+            },
             "ophys_probe": {
                "$ref": "#/$defs/FiberProbe",
                "title": "Fiber probe"
@@ -22446,10 +22604,10 @@
          "additionalProperties": false,
          "description": "Description of non-surgical procedure performed on a subject",
          "properties": {
-            "procedure_type": {
-               "const": "Other Subject Procedure",
-               "default": "Other Subject Procedure",
-               "title": "Procedure Type",
+            "object_type": {
+               "const": "Other subject procedure",
+               "default": "Other subject procedure",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -22543,10 +22701,10 @@
          "additionalProperties": false,
          "description": "Description of a perfusion procedure that creates a specimen",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Perfusion",
                "default": "Perfusion",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -22571,6 +22729,44 @@
          "title": "Perfusion",
          "type": "object"
       },
+      "Person": {
+         "additionalProperties": false,
+         "description": "Person identifier",
+         "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "ProtectiveMaterial": {
          "description": "Name of material applied to craniotomy",
          "enum": [
@@ -22587,10 +22783,10 @@
          "additionalProperties": false,
          "description": "Description of a protective material replacement procedure in preparation for ephys recording",
          "properties": {
-            "procedure_type": {
-               "const": "Ground wire",
-               "default": "Ground wire",
-               "title": "Procedure Type",
+            "object_type": {
+               "const": "Protective material replacement",
+               "default": "Protective material replacement",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -22690,6 +22886,12 @@
          "additionalProperties": false,
          "description": "Description of a readout",
          "properties": {
+            "object_type": {
+               "const": "Readout",
+               "default": "Readout",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -22709,6 +22911,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -22740,6 +22943,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -22747,8 +22951,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -22790,6 +22997,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -23084,6 +23292,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -23149,6 +23375,12 @@
          "additionalProperties": false,
          "description": "Description of reagent used in procedure",
          "properties": {
+            "object_type": {
+               "const": "Reagent",
+               "default": "Reagent",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -23168,6 +23400,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -23199,6 +23432,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -23206,8 +23440,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -23249,6 +23486,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -23543,6 +23781,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -23589,6 +23845,12 @@
          "additionalProperties": false,
          "description": "Description of a retro-orbital injection procedure",
          "properties": {
+            "object_type": {
+               "const": "Retro orbital injection",
+               "default": "Retro orbital injection",
+               "title": "Object Type",
+               "type": "string"
+            },
             "injection_materials": {
                "items": {
                   "discriminator": {
@@ -23682,12 +23944,6 @@
                "title": "Protocol ID",
                "type": "string"
             },
-            "procedure_type": {
-               "const": "Retro-orbital injection",
-               "default": "Retro-orbital injection",
-               "title": "Procedure Type",
-               "type": "string"
-            },
             "injection_volume": {
                "anyOf": [
                   {
@@ -23722,10 +23978,10 @@
          "additionalProperties": false,
          "description": "Description of a single sample collection",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Sample collection",
                "default": "Sample collection",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "sample_type": {
@@ -23806,10 +24062,10 @@
          "additionalProperties": false,
          "description": "Description of a sectioning procedure",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Sectioning",
                "default": "Sectioning",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "number_of_slices": {
@@ -27280,6 +27536,12 @@
          "additionalProperties": false,
          "description": "Description of surgical or other procedure performed on a specimen",
          "properties": {
+            "object_type": {
+               "const": "Specimen procedure",
+               "default": "Specimen procedure",
+               "title": "Object Type",
+               "type": "string"
+            },
             "procedure_type": {
                "$ref": "#/$defs/SpecimenProcedureType",
                "title": "Procedure type"
@@ -27311,10 +27573,13 @@
                "title": "End date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenter(s)",
+               "type": "array"
             },
             "protocol_id": {
                "description": "DOI for protocols.io",
@@ -27389,7 +27654,6 @@
             "specimen_id",
             "start_date",
             "end_date",
-            "experimenter_full_name",
             "protocol_id"
          ],
          "title": "SpecimenProcedure",
@@ -27424,6 +27688,12 @@
          "additionalProperties": false,
          "description": "Description of a non-oligo probe stain",
          "properties": {
+            "object_type": {
+               "const": "Stain",
+               "default": "Stain",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Name",
                "type": "string"
@@ -27443,6 +27713,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -27474,6 +27745,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -27481,8 +27753,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -27524,6 +27799,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -27818,6 +28094,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -27896,10 +28190,10 @@
          "additionalProperties": false,
          "description": "Description of subject procedures performed at one time",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Surgery",
                "default": "Surgery",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "protocol_id": {
@@ -27912,10 +28206,20 @@
                "title": "Start date",
                "type": "string"
             },
-            "experimenter_full_name": {
-               "description": "First and last name of the experimenter.",
-               "title": "Experimenter full name",
-               "type": "string"
+            "experimenters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "experimenter(s)"
             },
             "ethics_review_id": {
                "anyOf": [
@@ -27994,23 +28298,23 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Catheter Implant": "#/$defs/CatheterImplant",
+                        "Catheter implant": "#/$defs/CatheterImplant",
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
-                        "Ground wire": "#/$defs/ProtectiveMaterialReplacement",
                         "Headframe": "#/$defs/Headframe",
-                        "ICM injection": "#/$defs/IntraCisternalMagnaInjection",
-                        "ICV injection": "#/$defs/IntraCerebellarVentricleInjection",
+                        "Intra cerebellar ventricle injection": "#/$defs/IntraCerebellarVentricleInjection",
+                        "Intra cisternal magna injection": "#/$defs/IntraCisternalMagnaInjection",
                         "Intraperitoneal injection": "#/$defs/IntraperitonealInjection",
                         "Iontophoresis injection": "#/$defs/IontophoresisInjection",
-                        "Myomatrix_Insertion": "#/$defs/MyomatrixInsertion",
+                        "Myomatrix insertion": "#/$defs/MyomatrixInsertion",
                         "Nanoject injection": "#/$defs/NanojectInjection",
-                        "Other Subject Procedure": "#/$defs/OtherSubjectProcedure",
+                        "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                         "Perfusion": "#/$defs/Perfusion",
-                        "Retro-orbital injection": "#/$defs/RetroOrbitalInjection",
+                        "Protective material replacement": "#/$defs/ProtectiveMaterialReplacement",
+                        "Retro orbital injection": "#/$defs/RetroOrbitalInjection",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
-                     "propertyName": "procedure_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -28080,7 +28384,6 @@
          "required": [
             "protocol_id",
             "start_date",
-            "experimenter_full_name",
             "procedures"
          ],
          "title": "Surgery",
@@ -28090,6 +28393,12 @@
          "additionalProperties": false,
          "description": "TARS data for a viral prep",
          "properties": {
+            "object_type": {
+               "const": "Tars virus identifiers",
+               "default": "Tars virus identifiers",
+               "title": "Object Type",
+               "type": "string"
+            },
             "virus_tars_id": {
                "anyOf": [
                   {
@@ -28181,10 +28490,10 @@
          "additionalProperties": false,
          "description": "Description of an animal training protocol",
          "properties": {
-            "procedure_type": {
-               "const": "Training",
-               "default": "Training",
-               "title": "Procedure Type",
+            "object_type": {
+               "const": "Training protocol",
+               "default": "Training protocol",
+               "title": "Object Type",
                "type": "string"
             },
             "training_name": {
@@ -28247,6 +28556,12 @@
          "additionalProperties": false,
          "description": "Description of viral material for injections",
          "properties": {
+            "object_type": {
+               "const": "Viral material",
+               "default": "Viral material",
+               "title": "Object Type",
+               "type": "string"
+            },
             "material_type": {
                "const": "Virus",
                "default": "Virus",
@@ -28333,10 +28648,10 @@
          "additionalProperties": false,
          "description": "Description of a water restriction procedure",
          "properties": {
-            "procedure_type": {
+            "object_type": {
                "const": "Water restriction",
                "default": "Water restriction",
-               "title": "Procedure Type",
+               "title": "Object Type",
                "type": "string"
             },
             "ethics_review_id": {
@@ -32183,67 +32498,6 @@
          "title": "_Bic",
          "type": "object"
       },
-      "_Biceps_Brachii": {
-         "description": "Model biceps brachii",
-         "properties": {
-            "name": {
-               "const": "biceps brachii",
-               "default": "biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_19108",
-               "default": "EMAPA_19108",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Biceps_Brachii",
-         "type": "object"
-      },
       "_Bla": {
          "description": "Model BLA",
          "properties": {
@@ -32459,6 +32713,73 @@
             }
          },
          "title": "_Bmap",
+         "type": "object"
+      },
+      "_Boston_University": {
+         "description": "Model Boston University",
+         "properties": {
+            "name": {
+               "const": "Boston University",
+               "default": "Boston University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BU",
+               "default": "BU",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05qwgg493",
+               "default": "05qwgg493",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Boston_University",
          "type": "object"
       },
       "_Bs": {
@@ -32864,67 +33185,6 @@
             }
          },
          "title": "_Carl_Zeiss",
-         "type": "object"
-      },
-      "_Carotid_Artery": {
-         "description": "Model carotid artery",
-         "properties": {
-            "name": {
-               "const": "carotid artery",
-               "default": "carotid artery",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18609",
-               "default": "EMAPA_18609",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Carotid_Artery",
          "type": "object"
       },
       "_Cb": {
@@ -35052,67 +35312,6 @@
          "title": "_Dec",
          "type": "object"
       },
-      "_Deltoid": {
-         "description": "Model deltoid",
-         "properties": {
-            "name": {
-               "const": "deltoid",
-               "default": "deltoid",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18177",
-               "default": "EMAPA_18177",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Deltoid",
-         "type": "object"
-      },
       "_Df": {
          "description": "Model df",
          "properties": {
@@ -36969,250 +37168,6 @@
          "title": "_Ew",
          "type": "object"
       },
-      "_Extensor_Carpi_Radialis_Longus": {
-         "description": "Model extensor carpi radialis longus",
-         "properties": {
-            "name": {
-               "const": "extensor carpi radialis longus",
-               "default": "extensor carpi radialis longus",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36189",
-               "default": "EMAPA_36189",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Carpi_Radialis_Longus",
-         "type": "object"
-      },
-      "_Extensor_Carpi_Ulnaris": {
-         "description": "Model extensor carpi ulnaris",
-         "properties": {
-            "name": {
-               "const": "extensor carpi ulnaris",
-               "default": "extensor carpi ulnaris",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36190",
-               "default": "EMAPA_36190",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Carpi_Ulnaris",
-         "type": "object"
-      },
-      "_Extensor_Digitorum_Communis": {
-         "description": "Model extensor digitorum communis",
-         "properties": {
-            "name": {
-               "const": "extensor digitorum communis",
-               "default": "extensor digitorum communis",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36191",
-               "default": "EMAPA_36191",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Digitorum_Communis",
-         "type": "object"
-      },
-      "_Extensor_Digitorum_Lateralis": {
-         "description": "Model extensor digitorum lateralis",
-         "properties": {
-            "name": {
-               "const": "extensor digitorum lateralis",
-               "default": "extensor digitorum lateralis",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36192",
-               "default": "EMAPA_36192",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Extensor_Digitorum_Lateralis",
-         "type": "object"
-      },
       "_Fa": {
          "description": "Model fa",
          "properties": {
@@ -37399,189 +37354,6 @@
          "title": "_Fl",
          "type": "object"
       },
-      "_Flexor_Carpi_Radialis": {
-         "description": "Model flexor carpi radialis",
-         "properties": {
-            "name": {
-               "const": "flexor carpi radialis",
-               "default": "flexor carpi radialis",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36197",
-               "default": "EMAPA_36197",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Flexor_Carpi_Radialis",
-         "type": "object"
-      },
-      "_Flexor_Carpi_Ulnaris": {
-         "description": "Model flexor carpi ulnaris",
-         "properties": {
-            "name": {
-               "const": "flexor carpi ulnaris",
-               "default": "flexor carpi ulnaris",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36198",
-               "default": "EMAPA_36198",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Flexor_Carpi_Ulnaris",
-         "type": "object"
-      },
-      "_Flexor_Digitorum_Profundus": {
-         "description": "Model flexor digitorum profundus",
-         "properties": {
-            "name": {
-               "const": "flexor digitorum profundus",
-               "default": "flexor digitorum profundus",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_19319",
-               "default": "EMAPA_19319",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Flexor_Digitorum_Profundus",
-         "type": "object"
-      },
       "_Fn": {
          "description": "Model FN",
          "properties": {
@@ -37611,67 +37383,6 @@
             }
          },
          "title": "_Fn",
-         "type": "object"
-      },
-      "_Forelimb": {
-         "description": "Model forelimb",
-         "properties": {
-            "name": {
-               "const": "forelimb",
-               "default": "forelimb",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_17412",
-               "default": "EMAPA_17412",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Forelimb",
          "type": "object"
       },
       "_Fotu": {
@@ -38791,67 +38502,6 @@
          "title": "_Hc",
          "type": "object"
       },
-      "_Head": {
-         "description": "Model head",
-         "properties": {
-            "name": {
-               "const": "head",
-               "default": "head",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_31858",
-               "default": "EMAPA_31858",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Head",
-         "type": "object"
-      },
       "_Hem": {
          "description": "Model HEM",
          "properties": {
@@ -38881,67 +38531,6 @@
             }
          },
          "title": "_Hem",
-         "type": "object"
-      },
-      "_Hindlimb": {
-         "description": "Model hindlimb",
-         "properties": {
-            "name": {
-               "const": "hindlimb",
-               "default": "hindlimb",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_17458",
-               "default": "EMAPA_17458",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Hindlimb",
          "type": "object"
       },
       "_Hip": {
@@ -41011,19 +40600,25 @@
          "title": "_Janelia_Research_Campus",
          "type": "object"
       },
-      "_Jugular_Vein": {
-         "description": "Model jugular vein",
+      "_Johns_Hopkins_University": {
+         "description": "Model Johns Hopkins University",
          "properties": {
             "name": {
-               "const": "jugular vein",
-               "default": "jugular vein",
+               "const": "Johns Hopkins University",
+               "default": "Johns Hopkins University",
                "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "JHU",
+               "default": "JHU",
+               "title": "Abbreviation",
                "type": "string"
             },
             "registry": {
                "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
                },
                "discriminator": {
                   "mapping": {
@@ -41063,13 +40658,13 @@
                "title": "Registry"
             },
             "registry_identifier": {
-               "const": "EMAPA_18638",
-               "default": "EMAPA_18638",
+               "const": "00za53h95",
+               "default": "00za53h95",
                "title": "Registry Identifier",
                "type": "string"
             }
          },
-         "title": "_Jugular_Vein",
+         "title": "_Johns_Hopkins_University",
          "type": "object"
       },
       "_Julabo": {
@@ -41259,67 +40854,6 @@
             }
          },
          "title": "_Lat",
-         "type": "object"
-      },
-      "_Lateral_Head_Of_Triceps_Brachii": {
-         "description": "Model lateral head of triceps brachii",
-         "properties": {
-            "name": {
-               "const": "lateral head of triceps brachii",
-               "default": "lateral head of triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36184",
-               "default": "EMAPA_36184",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Lateral_Head_Of_Triceps_Brachii",
          "type": "object"
       },
       "_Lav": {
@@ -41974,128 +41508,6 @@
          "title": "_Lm",
          "type": "object"
       },
-      "_Long_Head_Of_Biceps_Brachii": {
-         "description": "Model long head of biceps brachii",
-         "properties": {
-            "name": {
-               "const": "long head of biceps brachii",
-               "default": "long head of biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_25054",
-               "default": "EMAPA_25054",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Long_Head_Of_Biceps_Brachii",
-         "type": "object"
-      },
-      "_Long_Head_Of_Triceps_Brachii": {
-         "description": "Model long head of triceps brachii",
-         "properties": {
-            "name": {
-               "const": "long head of triceps brachii",
-               "default": "long head of triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36185",
-               "default": "EMAPA_36185",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Long_Head_Of_Triceps_Brachii",
-         "type": "object"
-      },
       "_Lot": {
          "description": "Model lot",
          "properties": {
@@ -42744,6 +42156,73 @@
          "title": "_Marn",
          "type": "object"
       },
+      "_Massachusetts_Institute_Of_Technology": {
+         "description": "Model Massachusetts Institute of Technology",
+         "properties": {
+            "name": {
+               "const": "Massachusetts Institute of Technology",
+               "default": "Massachusetts Institute of Technology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIT",
+               "default": "MIT",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "042nb2s44",
+               "default": "042nb2s44",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Massachusetts_Institute_Of_Technology",
+         "type": "object"
+      },
       "_Mb": {
          "description": "Model MB",
          "properties": {
@@ -42964,6 +42443,73 @@
             }
          },
          "title": "_Mbsta",
+         "type": "object"
+      },
+      "_Mcgovern_Institute_For_Brain_Research": {
+         "description": "Model McGovern Institute for Brain Research",
+         "properties": {
+            "name": {
+               "const": "McGovern Institute for Brain Research",
+               "default": "McGovern Institute for Brain Research",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIBR",
+               "default": "MIBR",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05ymca674",
+               "default": "05ymca674",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Mcgovern_Institute_For_Brain_Research",
          "type": "object"
       },
       "_Mcp": {
@@ -43310,67 +42856,6 @@
             }
          },
          "title": "_Med",
-         "type": "object"
-      },
-      "_Medial_Head_Of_Triceps_Brachii": {
-         "description": "Model medial head of triceps brachii",
-         "properties": {
-            "name": {
-               "const": "medial head of triceps brachii",
-               "default": "medial head of triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36186",
-               "default": "EMAPA_36186",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Medial_Head_Of_Triceps_Brachii",
          "type": "object"
       },
       "_Mepo": {
@@ -43921,6 +43406,35 @@
             }
          },
          "title": "_Midwest_Optical_Systems_Inc_",
+         "type": "object"
+      },
+      "_Mit_Department_Of_Brain_And_Cognitive_Sciences": {
+         "description": "Model MIT Department of Brain and Cognitive Sciences",
+         "properties": {
+            "name": {
+               "const": "MIT Department of Brain and Cognitive Sciences",
+               "default": "MIT Department of Brain and Cognitive Sciences",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIT-BCS",
+               "default": "MIT-BCS",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Mit_Department_Of_Brain_And_Cognitive_Sciences",
          "type": "object"
       },
       "_Mitutuyo": {
@@ -45726,67 +45240,6 @@
             }
          },
          "title": "_Ndb",
-         "type": "object"
-      },
-      "_Neck": {
-         "description": "Model neck",
-         "properties": {
-            "name": {
-               "const": "neck",
-               "default": "neck",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_35587",
-               "default": "EMAPA_35587",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Neck",
          "type": "object"
       },
       "_Neurophotometrics": {
@@ -48018,67 +47471,6 @@
          "title": "_Parn",
          "type": "object"
       },
-      "_Pars_Scapularis_Of_Deltoid": {
-         "description": "Model pars scapularis of deltoid",
-         "properties": {
-            "name": {
-               "const": "pars scapularis of deltoid",
-               "default": "pars scapularis of deltoid",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_36163",
-               "default": "EMAPA_36163",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Pars_Scapularis_Of_Deltoid",
-         "type": "object"
-      },
       "_Pas": {
          "description": "Model PAS",
          "properties": {
@@ -48356,67 +47748,6 @@
             }
          },
          "title": "_Pdtg",
-         "type": "object"
-      },
-      "_Pectoralis_Major": {
-         "description": "Model pectoralis major",
-         "properties": {
-            "name": {
-               "const": "pectoralis major",
-               "default": "pectoralis major",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_18179",
-               "default": "EMAPA_18179",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Pectoralis_Major",
          "type": "object"
       },
       "_Pef": {
@@ -52565,67 +51896,6 @@
          "title": "_Sh",
          "type": "object"
       },
-      "_Short_Head_Of_Biceps_Brachii": {
-         "description": "Model short head of biceps brachii",
-         "properties": {
-            "name": {
-               "const": "short head of biceps brachii",
-               "default": "short head of biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_25055",
-               "default": "EMAPA_25055",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Short_Head_Of_Biceps_Brachii",
-         "type": "object"
-      },
       "_Si": {
          "description": "Model SI",
          "properties": {
@@ -55663,67 +54933,6 @@
          "title": "_Sv",
          "type": "object"
       },
-      "_Tail": {
-         "description": "Model tail",
-         "properties": {
-            "name": {
-               "const": "tail",
-               "default": "tail",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_16748",
-               "default": "EMAPA_16748",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Tail",
-         "type": "object"
-      },
       "_Tamron": {
          "description": "Model Tamron",
          "properties": {
@@ -56164,67 +55373,6 @@
          "title": "_Templeton_World_Charity_Foundation",
          "type": "object"
       },
-      "_Tendon_Of_Biceps_Brachii": {
-         "description": "Model tendon of biceps brachii",
-         "properties": {
-            "name": {
-               "const": "tendon of biceps brachii",
-               "default": "tendon of biceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_25053",
-               "default": "EMAPA_25053",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Tendon_Of_Biceps_Brachii",
-         "type": "object"
-      },
       "_Th": {
          "description": "Model TH",
          "properties": {
@@ -56601,67 +55749,6 @@
          "title": "_Transducer_Techniques",
          "type": "object"
       },
-      "_Triceps_Brachii": {
-         "description": "Model triceps brachii",
-         "properties": {
-            "name": {
-               "const": "triceps brachii",
-               "default": "triceps brachii",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_19111",
-               "default": "EMAPA_19111",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Triceps_Brachii",
-         "type": "object"
-      },
       "_Trn": {
          "description": "Model TRN",
          "properties": {
@@ -56722,67 +55809,6 @@
             }
          },
          "title": "_Trs",
-         "type": "object"
-      },
-      "_Trunk": {
-         "description": "Model trunk",
-         "properties": {
-            "name": {
-               "const": "trunk",
-               "default": "trunk",
-               "title": "Name",
-               "type": "string"
-            },
-            "registry": {
-               "default": {
-                  "name": "Edinburgh Mouse Atlas Project",
-                  "abbreviation": "EMAPA"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
-                  },
-                  {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  }
-               ],
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "const": "EMAPA_31857",
-               "default": "EMAPA_31857",
-               "title": "Registry Identifier",
-               "type": "string"
-            }
-         },
-         "title": "_Trunk",
          "type": "object"
       },
       "_Ts": {
@@ -57091,6 +56117,73 @@
             }
          },
          "title": "_Uf",
+         "type": "object"
+      },
+      "_University_Of_California_San_Diego": {
+         "description": "Model University of California, San Diego",
+         "properties": {
+            "name": {
+               "const": "University of California, San Diego",
+               "default": "University of California, San Diego",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UCSD",
+               "default": "UCSD",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0168r3w48",
+               "default": "0168r3w48",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_University_Of_California_San_Diego",
          "type": "object"
       },
       "_Uvu": {
@@ -60869,6 +59962,12 @@
    "additionalProperties": false,
    "description": "Description of all procedures performed on a subject",
    "properties": {
+      "object_type": {
+         "const": "Procedures",
+         "default": "Procedures",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/procedures.py",
@@ -60876,8 +59975,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.2.5",
-         "default": "1.2.5",
+         "const": "2.0.4",
+         "default": "2.0.4",
          "title": "Schema Version",
          "type": "string"
       },
@@ -60891,12 +59990,12 @@
          "items": {
             "discriminator": {
                "mapping": {
-                  "Other Subject Procedure": "#/$defs/OtherSubjectProcedure",
+                  "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                   "Surgery": "#/$defs/Surgery",
-                  "Training": "#/$defs/TrainingProtocol",
+                  "Training protocol": "#/$defs/TrainingProtocol",
                   "Water restriction": "#/$defs/WaterRestriction"
                },
-               "propertyName": "procedure_type"
+               "propertyName": "object_type"
             },
             "oneOf": [
                {

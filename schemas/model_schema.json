@@ -1,5 +1,90 @@
 {
    "$defs": {
+      "Code": {
+         "additionalProperties": false,
+         "description": "Code or script identifier",
+         "properties": {
+            "object_type": {
+               "const": "Code",
+               "default": "Code",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "Path to code repository",
+               "title": "Code URL",
+               "type": "string"
+            },
+            "version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Code version"
+            },
+            "software": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Software package",
+               "title": "Software"
+            },
+            "language": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Programming language used",
+               "title": "Programming language"
+            },
+            "language_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Programming language version"
+            },
+            "parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters used in the code or script",
+               "title": "Parameters"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "Code",
+         "type": "object"
+      },
       "GenericModel": {
          "additionalProperties": true,
          "description": "Base class for generic types that can be used in AIND schema",
@@ -25,6 +110,12 @@
          "additionalProperties": false,
          "description": "Description of model architecture",
          "properties": {
+            "object_type": {
+               "const": "Model architecture",
+               "default": "Model architecture",
+               "title": "Object Type",
+               "type": "string"
+            },
             "backbone": {
                "$ref": "#/$defs/ModelBackbone",
                "description": "Core network architecture",
@@ -35,7 +126,7 @@
                "items": {
                   "$ref": "#/$defs/Software"
                },
-               "title": "Software frameworks",
+               "title": "Software packages",
                "type": "array"
             },
             "layers": {
@@ -90,23 +181,51 @@
          "additionalProperties": false,
          "description": "Description of model evaluation",
          "properties": {
+            "object_type": {
+               "const": "Model evaluation",
+               "default": "Model evaluation",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Model evaluation",
                "title": "Process name"
             },
-            "software_version": {
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
+            },
+            "pipeline_steps": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "items": {
+                        "$ref": "#/$defs/ProcessName"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "Version of the software used",
-               "title": "Version"
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
             },
             "start_date_time": {
                "format": "date-time",
@@ -137,24 +256,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
             },
             "parameters": {
                "$ref": "#/$defs/GenericModel",
@@ -200,11 +301,13 @@
             }
          },
          "required": [
+            "stage",
+            "experimenters",
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
             "performance"
          ],
          "title": "ModelEvaluation",
@@ -214,23 +317,51 @@
          "additionalProperties": false,
          "description": "Description of model training",
          "properties": {
+            "object_type": {
+               "const": "Model training",
+               "default": "Model training",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "default": "Model training",
                "title": "Process name"
             },
-            "software_version": {
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
+            },
+            "pipeline_steps": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "items": {
+                        "$ref": "#/$defs/ProcessName"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "Version of the software used",
-               "title": "Version"
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
             },
             "start_date_time": {
                "format": "date-time",
@@ -261,24 +392,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
             },
             "parameters": {
                "$ref": "#/$defs/GenericModel",
@@ -354,11 +467,13 @@
             }
          },
          "required": [
+            "stage",
+            "experimenters",
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
             "output_location",
-            "code_url",
             "train_performance"
          ],
          "title": "ModelTraining",
@@ -368,6 +483,12 @@
          "additionalProperties": false,
          "description": "Description of a performance metric",
          "properties": {
+            "object_type": {
+               "const": "Performance metric",
+               "default": "Performance metric",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Metric name",
                "type": "string"
@@ -383,10 +504,49 @@
          "title": "PerformanceMetric",
          "type": "object"
       },
+      "Person": {
+         "additionalProperties": false,
+         "description": "Person identifier",
+         "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "ProcessName": {
          "description": "Process names",
          "enum": [
             "Analysis",
+            "Pipeline",
             "Compression",
             "Denoising",
             "dF/F estimation",
@@ -431,10 +591,25 @@
          "title": "ProcessName",
          "type": "string"
       },
+      "ProcessStage": {
+         "description": "Stages of processing",
+         "enum": [
+            "Processing",
+            "Analysis"
+         ],
+         "title": "ProcessStage",
+         "type": "string"
+      },
       "ResourceTimestamped": {
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "object_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Object Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -456,6 +631,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "object_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Object Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -608,17 +789,20 @@
       },
       "Software": {
          "additionalProperties": false,
-         "description": "Description of generic software",
+         "description": "Software package identifier",
          "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
+               "description": "Name of the software package",
                "title": "Software name",
                "type": "string"
             },
             "version": {
-               "title": "Software version",
-               "type": "string"
-            },
-            "url": {
                "anyOf": [
                   {
                      "type": "string"
@@ -628,17 +812,12 @@
                   }
                ],
                "default": null,
-               "title": "URL to commit being used"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Software parameters"
+               "description": "Version of the software package",
+               "title": "Software version"
             }
          },
          "required": [
-            "name",
-            "version"
+            "name"
          ],
          "title": "Software",
          "type": "object"
@@ -1257,6 +1436,73 @@
             }
          },
          "title": "_Behavior_Videos",
+         "type": "object"
+      },
+      "_Boston_University": {
+         "description": "Model Boston University",
+         "properties": {
+            "name": {
+               "const": "Boston University",
+               "default": "Boston University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BU",
+               "default": "BU",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05qwgg493",
+               "default": "05qwgg493",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Boston_University",
          "type": "object"
       },
       "_Cambridge_Technology": {
@@ -2926,6 +3172,73 @@
          "title": "_Janelia_Research_Campus",
          "type": "object"
       },
+      "_Johns_Hopkins_University": {
+         "description": "Model Johns Hopkins University",
+         "properties": {
+            "name": {
+               "const": "Johns Hopkins University",
+               "default": "Johns Hopkins University",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "JHU",
+               "default": "JHU",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00za53h95",
+               "default": "00za53h95",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Johns_Hopkins_University",
+         "type": "object"
+      },
       "_Julabo": {
          "description": "Model Julabo",
          "properties": {
@@ -3176,6 +3489,73 @@
          "title": "_Lumen_Dynamics",
          "type": "object"
       },
+      "_Massachusetts_Institute_Of_Technology": {
+         "description": "Model Massachusetts Institute of Technology",
+         "properties": {
+            "name": {
+               "const": "Massachusetts Institute of Technology",
+               "default": "Massachusetts Institute of Technology",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIT",
+               "default": "MIT",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "042nb2s44",
+               "default": "042nb2s44",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Massachusetts_Institute_Of_Technology",
+         "type": "object"
+      },
       "_Mbf_Bioscience": {
          "description": "Model MBF Bioscience",
          "properties": {
@@ -3241,6 +3621,73 @@
             }
          },
          "title": "_Mbf_Bioscience",
+         "type": "object"
+      },
+      "_Mcgovern_Institute_For_Brain_Research": {
+         "description": "Model McGovern Institute for Brain Research",
+         "properties": {
+            "name": {
+               "const": "McGovern Institute for Brain Research",
+               "default": "McGovern Institute for Brain Research",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIBR",
+               "default": "MIBR",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05ymca674",
+               "default": "05ymca674",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Mcgovern_Institute_For_Brain_Research",
          "type": "object"
       },
       "_Meadowlark_Optics": {
@@ -3444,6 +3891,35 @@
             }
          },
          "title": "_Midwest_Optical_Systems_Inc_",
+         "type": "object"
+      },
+      "_Mit_Department_Of_Brain_And_Cognitive_Sciences": {
+         "description": "Model MIT Department of Brain and Cognitive Sciences",
+         "properties": {
+            "name": {
+               "const": "MIT Department of Brain and Cognitive Sciences",
+               "default": "MIT Department of Brain and Cognitive Sciences",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MIT-BCS",
+               "default": "MIT-BCS",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Mit_Department_Of_Brain_And_Cognitive_Sciences",
          "type": "object"
       },
       "_Mitutuyo": {
@@ -5298,6 +5774,73 @@
          "title": "_Tymphany",
          "type": "object"
       },
+      "_University_Of_California_San_Diego": {
+         "description": "Model University of California, San Diego",
+         "properties": {
+            "name": {
+               "const": "University of California, San Diego",
+               "default": "University of California, San Diego",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UCSD",
+               "default": "UCSD",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "0168r3w48",
+               "default": "0168r3w48",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_University_Of_California_San_Diego",
+         "type": "object"
+      },
       "_Vieworks": {
          "description": "Model Vieworks",
          "properties": {
@@ -5447,6 +5990,12 @@
    "additionalProperties": false,
    "description": "Description of an analysis model",
    "properties": {
+      "object_type": {
+         "const": "Model",
+         "default": "Model",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
@@ -5454,8 +6003,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "0.0.1",
-         "default": "0.0.1",
+         "const": "2.0.0",
+         "default": "2.0.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -5467,11 +6016,23 @@
          "title": "License",
          "type": "string"
       },
-      "developer_full_name": {
+      "code": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/Code"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Model code"
+      },
+      "developers": {
          "anyOf": [
             {
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/Person"
                },
                "type": "array"
             },
@@ -5480,7 +6041,7 @@
             }
          ],
          "default": null,
-         "title": "Name of developer"
+         "title": "Name of developer(s)"
       },
       "developer_institution": {
          "anyOf": [
@@ -5499,6 +6060,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -5530,6 +6092,7 @@
                      "Item": "#/$defs/_Item",
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
                      "LG": "#/$defs/_Lg",
@@ -5537,8 +6100,11 @@
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
+                     "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
                      "MPI": "#/$defs/_Mpi",
+                     "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
+                     "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                      "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
@@ -5580,6 +6146,7 @@
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
+                     "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -5874,6 +6441,24 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Boston_University"
                   }
                ]
             },
@@ -5884,7 +6469,7 @@
          "default": null,
          "title": "Institute where developed"
       },
-      "modality": {
+      "modalities": {
          "items": {
             "discriminator": {
                "mapping": {
@@ -5950,7 +6535,7 @@
                }
             ]
          },
-         "title": "Modality",
+         "title": "Modalities",
          "type": "array"
       },
       "architecture": {
@@ -6032,7 +6617,7 @@
    "required": [
       "name",
       "license",
-      "modality",
+      "modalities",
       "architecture",
       "intended_use"
    ],

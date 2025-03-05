@@ -5,11 +5,11 @@ import json
 import logging
 from datetime import datetime, timezone
 from enum import Enum
+import warnings
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
-from aind_data_schema_models.modalities import ExpectedFiles, FileRequirement
-from aind_data_schema_models.platforms import Platform
+from aind_data_schema_models.modalities import Modality
 from pydantic import (
     Field,
     PrivateAttr,
@@ -22,27 +22,31 @@ from pydantic import (
 )
 
 from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
-from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.core.acquisition import Acquisition, MODALITY_DEVICE_REQUIREMENTS, CONFIG_DEVICE_REQUIREMENTS
 from aind_data_schema.core.data_description import DataDescription
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
-from aind_data_schema.core.rig import Rig
-from aind_data_schema.core.session import Session
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.utils.compatibility_check import RigSessionCompatibility
+from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
 CORE_FILES = [
     "subject",
     "data_description",
     "procedures",
-    "session",
-    "rig",
+    "instrument",
     "processing",
     "acquisition",
-    "instrument",
     "quality_control",
+]
+
+REQUIRED_FILES = [
+    "subject",
+    "data_description",
+    "procedures",
+    "instrument",
+    "acquisition",
 ]
 
 
@@ -72,7 +76,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.1.6"]] = Field(default="1.1.6")
+    schema_version: SkipValidation[Literal["2.0.8"]] = Field(default="2.0.8")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",
@@ -120,15 +124,11 @@ class Metadata(DataCoreModel):
     procedures: Optional[Procedures] = Field(
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
-    session: Optional[Session] = Field(default=None, title="Session", description="Description of a session.")
-    rig: Optional[Rig] = Field(default=None, title="Rig", description="Rig.")
-    processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
-    acquisition: Optional[Acquisition] = Field(
-        default=None, title="Acquisition", description="Imaging acquisition session"
-    )
     instrument: Optional[Instrument] = Field(
-        default=None, title="Instrument", description="Instrument, which is a collection of devices"
+        default=None, title="Instrument", description="Devices used to acquire data."
     )
+    processing: Optional[Processing] = Field(default=None, title="Processing", description="All processes run on data.")
+    acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Data acquisition")
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
     )
@@ -147,10 +147,15 @@ class Metadata(DataCoreModel):
         # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate_json(value)
+                core_model = field_class.model_validate(value)
             # If a validation error is raised,
             # we will construct the field without validation.
-            except ValidationError:
+            except ValidationError as e:
+                logging.error(
+                    f"Validation error for {field_name}. Constructing without validation "
+                    "-- object subfields may incorrectly show up as dictionaries."
+                )
+                logging.error(f"Error: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -215,42 +220,11 @@ class Metadata(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_expected_files_by_modality(self):
-        """Validator checks that all required/excluded files match the metadata model"""
-        if self.data_description:
-            modalities = self.data_description.modality
+        """Validator warns users if required files are missing"""
 
-            requirement_dict = {}
-
-            for modality in modalities:
-                abbreviation = modality.abbreviation.replace("-", "_").upper()
-
-                for file in CORE_FILES:
-                    #  For each field, check if this is a required/excluded file
-                    file_requirement = getattr(getattr(ExpectedFiles, abbreviation), file)
-
-                    if file not in requirement_dict:
-                        requirement_dict[file] = (abbreviation, file_requirement)
-                    else:
-                        (prev_modality, prev_requirement) = requirement_dict[file]
-
-                        if (file_requirement == FileRequirement.REQUIRED) or (
-                            file_requirement == FileRequirement.OPTIONAL
-                            and prev_requirement == FileRequirement.EXCLUDED
-                        ):
-                            # override, required wins over all else, and optional wins over excluded
-                            requirement_dict[file] = (abbreviation, file_requirement)
-
-            for file in CORE_FILES:
-                # Unpack modality
-                (requirement_modality, file_requirement) = requirement_dict[file]
-
-                # Check required case
-                if file_requirement == FileRequirement.REQUIRED and not getattr(self, file):
-                    raise ValueError(f"{requirement_modality} metadata missing required file: {file}")
-
-                # Check excluded case
-                if file_requirement == FileRequirement.EXCLUDED and getattr(self, file):
-                    raise ValueError(f"{requirement_modality} metadata includes excluded file: {file}")
+        for file in REQUIRED_FILES:
+            if not getattr(self, file):
+                warnings.warn(f"Metadata missing required file: {file}")
 
         return self
 
@@ -260,7 +234,7 @@ class Metadata(DataCoreModel):
 
         if (
             self.data_description
-            and self.data_description.platform == Platform.SMARTSPIM
+            and any([modality == Modality.SPIM for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -278,7 +252,7 @@ class Metadata(DataCoreModel):
         """Validator for metadata"""
         if (
             self.data_description
-            and self.data_description.platform == Platform.ECEPHYS
+            and any([modality == Modality.ECEPHYS for modality in self.data_description.modalities])
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
@@ -291,11 +265,66 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_rig_session_compatibility(self):
+    def validate_instrument_acquisition_compatibility(self):
         """Validator for metadata"""
-        if self.rig and self.session:
-            check = RigSessionCompatibility(self.rig, self.session)
+        if self.instrument and self.acquisition:
+            check = InstrumentAcquisitionCompatibility(self.instrument, self.acquisition)
             check.run_compatibility_check()
+        return self
+
+    def _check_for_device(self, device_type_group):
+        """Check if the instrument has a device of a certain type"""
+        for component in self.instrument.components:
+            if any(isinstance(component, device_type) for device_type in device_type_group):
+                return True
+        return False
+
+    @model_validator(mode="after")
+    def validate_acquisition_modality_requirements(self):
+        """Validator for acquisition modality -> device requirements
+
+        For certain modalities in acquisition, check that the instrument has the appropriate components
+        """
+
+        if not self.acquisition:
+            return self
+
+        # get all modalities from all data_streams
+        modalities = [modality for data_stream in self.acquisition.data_streams for modality in data_stream.modalities]
+        for modality in modalities:
+            if modality in MODALITY_DEVICE_REQUIREMENTS.keys():
+                for group in MODALITY_DEVICE_REQUIREMENTS[modality]:
+                    if not self._check_for_device(group):
+                        requirement = ", ".join(device.__name__ for device in group)
+                        raise ValueError(
+                            f"Modality '{modality.abbreviation}' requires one " f"of '{requirement}' in instrument"
+                        )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_acquisition_config_requirements(self):
+        """Validator for acquisition config -> device requirements
+
+        For certain config files in acquisition, check that the instrument has the appropriate devices
+        """
+
+        if not self.acquisition:
+            return self
+
+        configurations = [
+            config for data_stream in self.acquisition.data_streams for config in data_stream.configurations
+        ]
+
+        for config in configurations:
+            if any(type(config).__name__ == config_type for config_type in CONFIG_DEVICE_REQUIREMENTS.keys()):
+                group = CONFIG_DEVICE_REQUIREMENTS[type(config).__name__]
+                if not self._check_for_device(group):
+                    requirement = ", ".join(device.__name__ for device in group)
+                    raise ValueError(
+                        f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument"
+                    )
+
         return self
 
 
@@ -308,6 +337,7 @@ def create_metadata_json(
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
     # Extract basic parameters and non-corrupt core schema fields
+
     params = {
         "name": name,
         "location": location,
@@ -327,7 +357,7 @@ def create_metadata_json(
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid
     try:
-        metadata = Metadata.model_validate({**params, **core_fields})
+        metadata = Metadata.model_validate(params | core_fields)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
     except Exception as e:
         logging.warning(f"Issue with metadata construction! {e.args}")

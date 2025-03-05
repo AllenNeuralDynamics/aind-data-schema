@@ -53,10 +53,10 @@ jobs:
       - uses: actions/checkout@master
       - name: Pull latest changes
         run: git pull origin main
-      - name: Set up Python 3.8
+      - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8
+          python-version: '3.10'
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -85,10 +85,10 @@ jobs:
       - uses: actions/checkout@master
       - name: Pull latest changes
         run: git pull origin main
-      - name: Set up Python 3.8
+      - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8
+          python-version: '3.10'
       - name: Install dependencies
         run: |
           sudo apt install graphviz libgraphviz-dev -y

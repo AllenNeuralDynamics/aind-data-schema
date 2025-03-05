@@ -35,11 +35,9 @@ class DeviceTests(unittest.TestCase):
                 name="test_reward_spout",
                 spout_diameter=0.5,
                 solenoid_valve=Device(
-                    device_type="solenoid",
                     name="test_solenoid",
                 ),
                 lick_sensor=Device(
-                    device_type="Lick sensor",
                     name="Sensor_test",
                 ),
                 side=SpoutSide.OTHER,
@@ -52,7 +50,6 @@ class DeviceTests(unittest.TestCase):
             " [type=value_error, input_value={'name': 'test_reward_spo...outSide.OTHER: 'Other'>}, input_type=dict]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
         )
-
         self.assertEqual(repr(e1.exception), expected_e1)
 
         with self.assertRaises(ValueError) as e2:
@@ -128,3 +125,7 @@ class DeviceTests(unittest.TestCase):
         )
 
         self.assertEqual(repr(e5.exception), expected_e5)
+
+
+if __name__ == "__main__":
+    unittest.main()

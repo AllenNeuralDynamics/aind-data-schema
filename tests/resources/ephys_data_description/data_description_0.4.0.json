@@ -9,7 +9,7 @@
       "name": "Allen Institute for Neural Dynamics",
       "abbreviation": "AIND"
    },
-   "investigators": ["John Doe"],
+   "experimenters": ["John Doe"],
    "ror_id": null,
    "funding_source": [
       {
