@@ -147,10 +147,15 @@ class Metadata(DataCoreModel):
         # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
-                core_model = field_class.model_validate_json(value)
+                core_model = field_class.model_validate(value)
             # If a validation error is raised,
             # we will construct the field without validation.
-            except ValidationError:
+            except ValidationError as e:
+                logging.error(
+                    f"Validation error for {field_name}. Constructing without validation "
+                    "-- object subfields may incorrectly show up as dictionaries."
+                )
+                logging.error(f"Error: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -332,6 +337,7 @@ def create_metadata_json(
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
     # Extract basic parameters and non-corrupt core schema fields
+
     params = {
         "name": name,
         "location": location,
@@ -351,7 +357,7 @@ def create_metadata_json(
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid
     try:
-        metadata = Metadata.model_validate({**params, **core_fields})
+        metadata = Metadata.model_validate(params | core_fields)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
     except Exception as e:
         logging.warning(f"Issue with metadata construction! {e.args}")

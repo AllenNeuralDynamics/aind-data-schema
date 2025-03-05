@@ -7,6 +7,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.core.procedures import NanojectInjection, Perfusion, Procedures, Surgery, ViralMaterial
 from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subject
+from aind_data_schema_models.species import Strain
 
 from aind_data_schema.components.identifiers import Person
 
@@ -66,7 +67,7 @@ for session_idx, session in sessions_df.iterrows():
             home_cage_enrichment=["Running wheel"],  # all subjects had a running wheel in their cage
             cage_id="unknown",  # not in spreadsheet
         ),
-        background_strain="C57BL/6J",
+        background_strain=Strain.C57BL_6J,
         source=Organization.OTHER,
     )
     s.write_standard_file(output_directory=d.name)
