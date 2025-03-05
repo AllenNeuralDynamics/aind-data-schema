@@ -707,7 +707,7 @@ class Procedures(DataCoreModel):
 
     @field_validator("specimen_procedures", mode="after")
     def validate_identical_specimen_ids(cls, v, values):
-        """Validate that all specimen_id fields are identical"""
+        """Validate that all specimen_id fields are identical in the specimen_procedures """
 
         if v:
             specimen_ids = [spec_proc.specimen_id for spec_proc in v]
