@@ -174,7 +174,6 @@ class InjectionProfile(str, Enum):
 
     BOLUS = "Bolus"
     CONTINUOUS = "Continuous"
-    PULSED = "Pulsed"
 
 
 class Readout(Reagent):
@@ -435,12 +434,20 @@ class NonViralMaterial(Reagent):
 class InjectionDynamics(DataModel):
     """Description of the volume and rate of an injection"""
 
-    volume: Decimal = Field(..., title="Injection volume")
-    volume_unit: VolumeUnit = Field(..., title="Injection volume unit")
+    profile: InjectionProfile = Field(..., title="Injection profile")
+
+    volume: Optional[Decimal] = Field(default=None, title="Injection volume")
+    volume_unit: Optional[VolumeUnit] = Field(default=None, title="Injection volume unit")
+
     rate: Optional[Decimal] = Field(default=None, title="Injection rate")
     rate_unit: Optional[VolumeUnit] = Field(default=None, title="Injection rate unit")
+
     duration: Optional[Decimal] = Field(default=None, title="Injection duration")
     duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
+
+    injection_current: Optional[Decimal] = Field(default=None, title="Injection current (uA)")
+    injection_current_unit: Optional[CurrentUnit] = Field(default=None, title="Injection current unit")
+    alternating_current: Optional[str] = Field(default=None, title="Alternating current")
 
 
 class Injection(DataModel):
@@ -451,20 +458,12 @@ class Injection(DataModel):
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
+    # [TODO] Placeholder for injection target/coordinate information
     dynamics: List[InjectionDynamics] = Field(
-        ..., title="Injection dynamics", description="List of injection events, pattern should match the profile"
+        ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    profile: InjectionProfile = Field(..., title="Injection profile")
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-
-    @model_validator(mode="after")
-    def profile_validator(values):
-        """Check that the profile is allowed given the dynamics"""
-
-        if len(values.dynamics) > 1 and values.profile == InjectionProfile.BOLUS:
-            raise AssertionError("Bolus profile is not allowed for multiple injection events")
-        return values
 
 
 class RetroOrbitalInjection(Injection):
@@ -475,6 +474,8 @@ class RetroOrbitalInjection(Injection):
 
 class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
+
+    time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
 
 
 class BrainInjection(Injection):
@@ -510,14 +511,6 @@ class NanojectInjection(BrainInjection):
         if dynamics_len != coords_len:
             raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
         return values
-
-
-class IontophoresisInjection(BrainInjection):
-    """Description of an iotophoresis injection procedure"""
-
-    injection_current: Decimal = Field(..., title="Injection current (uA)")
-    injection_current_unit: CurrentUnit = Field(default=CurrentUnit.UA, title="Injection current unit")
-    alternating_current: str = Field(..., title="Alternating current")
 
 
 class IntraCerebellarVentricleInjection(BrainInjection):

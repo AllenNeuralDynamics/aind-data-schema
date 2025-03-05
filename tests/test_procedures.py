@@ -69,9 +69,9 @@ class ProceduresTests(unittest.TestCase):
                                         volume_unit=VolumeUnit.UL,
                                         duration=1,
                                         duration_unit=TimeUnit.S,
+                                        profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -99,9 +99,9 @@ class ProceduresTests(unittest.TestCase):
                                         volume_unit=VolumeUnit.UL,
                                         duration=1,
                                         duration_unit=TimeUnit.S,
+                                        profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -138,9 +138,9 @@ class ProceduresTests(unittest.TestCase):
                                         volume_unit=VolumeUnit.UL,
                                         duration=1,
                                         duration_unit=TimeUnit.S,
+                                        profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -190,9 +190,9 @@ class ProceduresTests(unittest.TestCase):
                                     volume_unit=VolumeUnit.UL,
                                     duration=1,
                                     duration_unit=TimeUnit.S,
+                                    profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            profile=InjectionProfile.BOLUS,
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
                         ),
@@ -212,9 +212,9 @@ class ProceduresTests(unittest.TestCase):
                                 InjectionDynamics(
                                     volume=1,
                                     volume_unit=VolumeUnit.UL,
+                                    profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            profile=InjectionProfile.BOLUS,
                         ),
                         NanojectInjection(
                             protocol_id="bca",
@@ -236,9 +236,9 @@ class ProceduresTests(unittest.TestCase):
                                     volume_unit=VolumeUnit.UL,
                                     duration=1,
                                     duration_unit=TimeUnit.S,
+                                    profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            profile=InjectionProfile.BOLUS,
                             injection_coordinate_ml=1,
                             injection_coordinate_ap=1,
                             injection_coordinate_depth=[1],
@@ -373,13 +373,14 @@ class ProceduresTests(unittest.TestCase):
                 InjectionDynamics(
                     volume=1,
                     volume_unit=VolumeUnit.UL,
+                    profile=InjectionProfile.PULSED,
                 ),
                 InjectionDynamics(
                     volume=2,
                     volume_unit=VolumeUnit.UL,
+                    profile=InjectionProfile.PULSED,
                 ),
             ],
-            profile=InjectionProfile.PULSED,
             injection_materials=[
                 ViralMaterial(
                     material_type="Virus",
@@ -419,13 +420,14 @@ class ProceduresTests(unittest.TestCase):
                     InjectionDynamics(
                         volume=1,
                         volume_unit=VolumeUnit.UL,
+                        profile=InjectionProfile.PULSED,
                     ),
                     InjectionDynamics(
                         volume=2,
                         volume_unit=VolumeUnit.UL,
+                        profile=InjectionProfile.PULSED,
                     ),
                 ],
-                profile=InjectionProfile.PULSED,
             )
 
         self.assertIn("Unmatched list sizes for injection volumes and coordinate depths", repr(e.exception))
@@ -480,41 +482,11 @@ class ProceduresTests(unittest.TestCase):
                 InjectionDynamics(
                     volume=1,
                     volume_unit=VolumeUnit.UL,
+                    profile=InjectionProfile.BOLUS,
                 )
             ],
-            profile=InjectionProfile.BOLUS,
         )
         self.assertEqual(inj1.profile, InjectionProfile.BOLUS)
-
-        # Should raise an error with multiple injection events and BOLUS profile
-        with self.assertRaises(ValidationError) as e:
-            Injection(
-                protocol_id="abc",
-                injection_materials=[
-                    ViralMaterial(
-                        material_type="Virus",
-                        name="AAV2-Flex-ChrimsonR",
-                        tars_identifiers=TarsVirusIdentifiers(
-                            virus_tars_id="AiV222",
-                            plasmid_tars_alias="AiP222",
-                            prep_lot_number="VT222",
-                        ),
-                        titer=2300000000,
-                    )
-                ],
-                dynamics=[
-                    InjectionDynamics(
-                        volume=1,
-                        volume_unit=VolumeUnit.UL,
-                    ),
-                    InjectionDynamics(
-                        volume=2,
-                        volume_unit=VolumeUnit.UL,
-                    ),
-                ],
-                profile=InjectionProfile.BOLUS,
-            )
-        self.assertIn("Bolus profile is not allowed for multiple injection events", repr(e.exception))
 
     def test_validate_identical_specimen_ids(self):
         """Test that all specimen_id fields are identical in specimen_procedures"""
