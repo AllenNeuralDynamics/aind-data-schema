@@ -174,6 +174,7 @@ class InjectionProfile(str, Enum):
 
     BOLUS = "Bolus"
     CONTINUOUS = "Continuous"
+    PULSED = "Pulsed"
 
 
 class Readout(Reagent):
