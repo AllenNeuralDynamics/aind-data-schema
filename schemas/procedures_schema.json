@@ -28385,7 +28385,10 @@
             "plasmid_tars_alias": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
@@ -28393,7 +28396,7 @@
                ],
                "default": null,
                "description": "Alias used to reference the plasmid, usually begins 'AiP'",
-               "title": "Plasmid alias"
+               "title": "List of plasmid aliases"
             },
             "prep_lot_number": {
                "title": "Preparation lot number",
@@ -59946,8 +59949,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.6",
+         "default": "2.0.6",
          "title": "Schema Version",
          "type": "string"
       },
