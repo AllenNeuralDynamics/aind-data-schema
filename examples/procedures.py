@@ -13,6 +13,7 @@ from aind_data_schema.core.procedures import (
     TarsVirusIdentifiers,
     ViralMaterial,
     InjectionDynamics,
+    InjectionProfile,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import VolumeUnit
@@ -65,6 +66,7 @@ p = Procedures(
                     bregma_to_lambda_distance=4.1,
                     injection_angle=10,
                     dynamics=[InjectionDynamics(volume=200, volume_unit=VolumeUnit.NL)],
+                    profile=InjectionProfile.BOLUS,
                     targeted_structure=CCFStructure.VISP,
                 ),
             ],

@@ -22,6 +22,7 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     WaterRestriction,
     InjectionDynamics,
+    InjectionProfile,
 )
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -76,6 +77,7 @@ p = Procedures(
                             volume_unit=VolumeUnit.NL,
                         )
                     ],
+                    profile=InjectionProfile.BOLUS,
                     targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(

@@ -213,6 +213,7 @@ class ProceduresTests(unittest.TestCase):
                                     volume_unit=VolumeUnit.UL,
                                 )
                             ],
+                            profile=InjectionProfile.BOLUS,
                         ),
                         NanojectInjection(
                             protocol_id="bca",
@@ -377,6 +378,7 @@ class ProceduresTests(unittest.TestCase):
                     volume_unit=VolumeUnit.UL,
                 ),
             ],
+            profile=InjectionProfile.PULSED,
             injection_materials=[
                 ViralMaterial(
                     material_type="Virus",
@@ -410,6 +412,7 @@ class ProceduresTests(unittest.TestCase):
                         volume_unit=VolumeUnit.UL,
                     ),
                 ],
+                profile=InjectionProfile.PULSED,
             )
 
     def test_sectioning(self):
