@@ -62,12 +62,14 @@ class ProceduresTests(unittest.TestCase):
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
                                 injection_eye="Left",
-                                dynamics=[InjectionDynamics(]
-                                    volume=1,
-                                    volume_unit=VolumeUnit.UL,
-                                    duration=1,
-                                    duration_unit=TimeUnit.S,
-                                )],
+                                dynamics=[
+                                    InjectionDynamics(
+                                        volume=1,
+                                        volume_unit=VolumeUnit.UL,
+                                        duration=1,
+                                        duration_unit=TimeUnit.S,
+                                    )
+                                ],
                                 profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -90,12 +92,14 @@ class ProceduresTests(unittest.TestCase):
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
                                 injection_eye="Left",
-                                dynamics=[InjectionDynamics(
-                                    volume=1,
-                                    volume_unit=VolumeUnit.UL,
-                                    duration=1,
-                                    duration_unit=TimeUnit.S,
-                                )],
+                                dynamics=[
+                                    InjectionDynamics(
+                                        volume=1,
+                                        volume_unit=VolumeUnit.UL,
+                                        duration=1,
+                                        duration_unit=TimeUnit.S,
+                                    )
+                                ],
                                 profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -127,12 +131,14 @@ class ProceduresTests(unittest.TestCase):
                                 protocol_id="134",
                                 injection_materials=None,
                                 injection_eye="Left",
-                                dynamics=[InjectionDynamics(
-                                    volume=1,
-                                    volume_unit=VolumeUnit.UL,
-                                    duration=1,
-                                    duration_unit=TimeUnit.S,
-                                )],
+                                dynamics=[
+                                    InjectionDynamics(
+                                        volume=1,
+                                        volume_unit=VolumeUnit.UL,
+                                        duration=1,
+                                        duration_unit=TimeUnit.S,
+                                    )
+                                ],
                                 profile=InjectionProfile.BOLUS,
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -177,12 +183,14 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             injection_eye="Left",
-                            dynamics=[InjectionDynamics(]
-                                volume=1,
-                                volume_unit=VolumeUnit.UL,
-                                duration=1,
-                                duration_unit=TimeUnit.S,
-                            )],
+                            dynamics=[
+                                InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                )
+                            ],
                             profile=InjectionProfile.BOLUS,
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
@@ -199,10 +207,12 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            dynamics=[InjectionDynamics(
-                                volume=1,
-                                volume_unit=VolumeUnit.UL,
-                            )],
+                            dynamics=[
+                                InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                )
+                            ],
                         ),
                         NanojectInjection(
                             protocol_id="bca",
@@ -218,12 +228,14 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            dynamics=[InjectionDynamics(
-                                volume=1,
-                                volume_unit=VolumeUnit.UL,
-                                duration=1,
-                                duration_unit=TimeUnit.S,
-                            )],
+                            dynamics=[
+                                InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                )
+                            ],
                             profile=InjectionProfile.BOLUS,
                             injection_coordinate_ml=1,
                             injection_coordinate_ap=1,
@@ -357,12 +369,12 @@ class ProceduresTests(unittest.TestCase):
             injection_coordinate_depth=[0, 1],
             dynamics=[
                 InjectionDynamics(
-                volume=1,
-                volume_unit=VolumeUnit.UL,
+                    volume=1,
+                    volume_unit=VolumeUnit.UL,
                 ),
                 InjectionDynamics(
-                volume=2,
-                volume_unit=VolumeUnit.UL,
+                    volume=2,
+                    volume_unit=VolumeUnit.UL,
                 ),
             ],
             injection_materials=[
@@ -388,14 +400,16 @@ class ProceduresTests(unittest.TestCase):
                 injection_coordinate_ap=1,
                 injection_angle=1,
                 injection_coordinate_depth=[0.1],
-                dynamics=[InjectionDynamics(
-                    volume=1,
-                    volume_unit=VolumeUnit.UL,
-                ),
-                          InjectionDynamics(
-                    volume=2,
-                    volume_unit=VolumeUnit.UL,
-                )],
+                dynamics=[
+                    InjectionDynamics(
+                        volume=1,
+                        volume_unit=VolumeUnit.UL,
+                    ),
+                    InjectionDynamics(
+                        volume=2,
+                        volume_unit=VolumeUnit.UL,
+                    ),
+                ],
             )
 
     def test_sectioning(self):

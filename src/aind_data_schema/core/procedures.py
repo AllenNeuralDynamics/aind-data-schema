@@ -454,9 +454,8 @@ class Injection(DataModel):
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
     dynamics: List[InjectionDynamics] = Field(
-        ...,
-        title="Injection dynamics",
-        description="List of injection events, pattern should match the profile")
+        ..., title="Injection dynamics", description="List of injection events, pattern should match the profile"
+    )
     profile: InjectionProfile = Field(..., title="Injection profile")
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")

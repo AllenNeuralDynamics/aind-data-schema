@@ -70,10 +70,12 @@ p = Procedures(
                     injection_coordinate_depth=[-4.2],
                     injection_coordinate_reference="Bregma",
                     injection_angle=0,
-                    dynamics=[InjectionDynamics(
-                        volume=400,
-                        volume_unit=VolumeUnit.NL,
-                    )],
+                    dynamics=[
+                        InjectionDynamics(
+                            volume=400,
+                            volume_unit=VolumeUnit.NL,
+                        )
+                    ],
                     targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(
