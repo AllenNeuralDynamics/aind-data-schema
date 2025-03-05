@@ -705,6 +705,32 @@ class Procedures(DataCoreModel):
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    @field_validator("specimen_procedures", mode="after")
+    def validate_identical_specimen_ids(cls, v, values):
+        """ Validate that all specimen_id fields are identical """
+
+        if v:
+            specimen_ids = [spec_proc.specimen_id for spec_proc in v]
+
+            if any(spec_id != specimen_ids[0] for spec_id in specimen_ids):
+                raise ValueError("All specimen_id must be identical in the specimen_procedures.")
+
+        return v
+
+    @model_validator(mode="after")
+    def validate_subject_specimen_ids(values):
+        """ Validate that the subject_id and specimen_id match """
+
+        # Return if no specimen procedures
+        if values.specimen_procedures:
+            subject_id = values.subject_id
+            specimen_ids = [spec_proc.specimen_id for spec_proc in values.specimen_procedures]
+
+            if any(subject_id not in spec_id for spec_id in specimen_ids):
+                raise ValueError("specimen_id must be an extension of the subject_id.")
+
+        return values
+
     def __add__(self, other: "Procedures") -> "Procedures":
         """Combine two Procedures objects"""
 
