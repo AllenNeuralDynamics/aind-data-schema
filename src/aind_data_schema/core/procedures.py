@@ -30,6 +30,7 @@ from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.compatibility_check import subject_specimen_id_compatibility
 
 
 class ImmunolabelClass(str, Enum):
@@ -707,7 +708,7 @@ class Procedures(DataCoreModel):
 
     @field_validator("specimen_procedures", mode="after")
     def validate_identical_specimen_ids(cls, v, values):
-        """Validate that all specimen_id fields are identical in the specimen_procedures """
+        """Validate that all specimen_id fields are identical in the specimen_procedures"""
 
         if v:
             specimen_ids = [spec_proc.specimen_id for spec_proc in v]
@@ -726,7 +727,7 @@ class Procedures(DataCoreModel):
             subject_id = values.subject_id
             specimen_ids = [spec_proc.specimen_id for spec_proc in values.specimen_procedures]
 
-            if any(subject_id not in spec_id for spec_id in specimen_ids):
+            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
 
         return values

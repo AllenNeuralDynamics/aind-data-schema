@@ -6,6 +6,11 @@ from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.acquisition import Acquisition
 
 
+def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
+    """Check whether a subject_id and specimen_id are compatible"""
+    return subject_id in specimen_id
+
+
 class InstrumentAcquisitionCompatibility:
     """Class of methods to check compatibility between instrument and acquisition"""
 
