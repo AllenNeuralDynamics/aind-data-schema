@@ -75,9 +75,9 @@ p = Procedures(
                         InjectionDynamics(
                             volume=400,
                             volume_unit=VolumeUnit.NL,
+                            profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    profile=InjectionProfile.BOLUS,
                     targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(

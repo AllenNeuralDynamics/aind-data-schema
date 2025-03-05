@@ -118,9 +118,9 @@ for session_idx, session in sessions_df.iterrows():
                             InjectionDynamics(
                                 volume=proc_row["injection_volume"],
                                 volume_unit=VolumeUnit.NL,
+                                profile=InjectionProfile.BOLUS,
                             )
                         ],
-                        profile=InjectionProfile.BOLUS,
                     )
                 ],
             ),
