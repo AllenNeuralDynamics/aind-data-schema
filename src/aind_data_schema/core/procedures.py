@@ -663,7 +663,6 @@ class Surgery(DataModel):
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
                 IntraperitonealInjection,
-                IontophoresisInjection,
                 MyomatrixInsertion,
                 NanojectInjection,
                 OtherSubjectProcedure,
