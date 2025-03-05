@@ -396,13 +396,25 @@ class ProceduresTests(unittest.TestCase):
         self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.dynamics))
 
         # Different coord_depth and inj_vol list lengths should raise an error
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as e:
             NanojectInjection(
                 protocol_id="abc",
                 injection_coordinate_ml=1,
                 injection_coordinate_ap=1,
                 injection_angle=1,
                 injection_coordinate_depth=[0.1],
+                injection_materials=[
+                    ViralMaterial(
+                        material_type="Virus",
+                        name="AAV2-Flex-ChrimsonR",
+                        tars_identifiers=TarsVirusIdentifiers(
+                            virus_tars_id="AiV222",
+                            plasmid_tars_alias="AiP222",
+                            prep_lot_number="VT222",
+                        ),
+                        titer=2300000000,
+                    )
+                ],
                 dynamics=[
                     InjectionDynamics(
                         volume=1,
@@ -415,6 +427,8 @@ class ProceduresTests(unittest.TestCase):
                 ],
                 profile=InjectionProfile.PULSED,
             )
+
+        self.assertIn("Unmatched list sizes for injection volumes and coordinate depths", repr(e.exception))
 
     def test_sectioning(self):
         """Test sectioning"""
