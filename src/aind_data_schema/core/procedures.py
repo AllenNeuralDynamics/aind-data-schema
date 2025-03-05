@@ -494,17 +494,16 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    # [TODO] This validator needs to be refactored in the Atlas refactor
-    @field_validator("dynamics")
-    def check_dv_and_vol_list_lengths(cls, v, info: ValidationInfo):
+    @model_validator(mode="after")
+    def check_dv_and_vol_list_lengths(values):
         """Validator for list length of injection volumes and depths"""
 
-        injection_vol_len = len(v)
-        coords_len = len(info.data["injection_coordinate_depth"])
+        dynamics_len = len(values.dynamics)
+        coords_len = len(values.injection_coordinate_depth)
 
-        if injection_vol_len != coords_len:
+        if dynamics_len != coords_len:
             raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
-        return v
+        return values
 
 
 class IontophoresisInjection(BrainInjection):
