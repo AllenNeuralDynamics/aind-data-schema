@@ -37,7 +37,7 @@ from aind_data_schema.components.configs import (
     InVitroImagingConfig,
 )
 from aind_data_schema.components.coordinates import Affine3dTransform
-from aind_data_schema.utils.compatibility_check import subject_specimen_id_compatibility
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.utils.merge import merge_notes

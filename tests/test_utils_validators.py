@@ -1,7 +1,7 @@
 """ Tests for compatibility check utilities """
 
 import unittest
-from aind_data_schema.utils.compatibility_check import subject_specimen_id_compatibility
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
 class TestCompatibilityCheck(unittest.TestCase):
