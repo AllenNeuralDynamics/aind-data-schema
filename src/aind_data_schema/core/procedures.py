@@ -707,7 +707,7 @@ class Procedures(DataCoreModel):
 
     @field_validator("specimen_procedures", mode="after")
     def validate_identical_specimen_ids(cls, v, values):
-        """ Validate that all specimen_id fields are identical """
+        """Validate that all specimen_id fields are identical"""
 
         if v:
             specimen_ids = [spec_proc.specimen_id for spec_proc in v]
@@ -719,7 +719,7 @@ class Procedures(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_subject_specimen_ids(values):
-        """ Validate that the subject_id and specimen_id match """
+        """Validate that the subject_id and specimen_id match"""
 
         # Return if no specimen procedures
         if values.specimen_procedures:
