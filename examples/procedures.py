@@ -65,7 +65,13 @@ p = Procedures(
                     injection_coordinate_reference="Lambda",
                     bregma_to_lambda_distance=4.1,
                     injection_angle=10,
-                    dynamics=[InjectionDynamics(volume=200, volume_unit=VolumeUnit.NL,profile=InjectionProfile.BOLUS,)],
+                    dynamics=[
+                        InjectionDynamics(
+                            volume=200,
+                            volume_unit=VolumeUnit.NL,
+                            profile=InjectionProfile.BOLUS,
+                        )
+                    ],
                     targeted_structure=CCFStructure.VISP,
                 ),
             ],
