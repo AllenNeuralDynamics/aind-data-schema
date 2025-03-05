@@ -199,7 +199,10 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            injection_volume=1,
+                            dynamics=[InjectionDynamics(
+                                volume=1,
+                                volume_unit=VolumeUnit.UL,
+                            )],
                         ),
                         NanojectInjection(
                             protocol_id="bca",
@@ -352,7 +355,16 @@ class ProceduresTests(unittest.TestCase):
             injection_coordinate_ap=1,
             injection_angle=1,
             injection_coordinate_depth=[0, 1],
-            injection_volume=[1, 2],
+            dynamics=[
+                InjectionDynamics(
+                volume=1,
+                volume_unit=VolumeUnit.UL,
+                ),
+                InjectionDynamics(
+                volume=2,
+                volume_unit=VolumeUnit.UL,
+                ),
+            ],
             injection_materials=[
                 ViralMaterial(
                     material_type="Virus",
@@ -366,7 +378,7 @@ class ProceduresTests(unittest.TestCase):
                 )
             ],
         )
-        self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.injection_volume))
+        self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.dynamics))
 
         # Different coord_depth and inj_vol list lengths should raise an error
         with self.assertRaises(ValidationError):
@@ -376,7 +388,14 @@ class ProceduresTests(unittest.TestCase):
                 injection_coordinate_ap=1,
                 injection_angle=1,
                 injection_coordinate_depth=[0.1],
-                injection_volume=[1, 2],
+                dynamics=[InjectionDynamics(
+                    volume=1,
+                    volume_unit=VolumeUnit.UL,
+                ),
+                          InjectionDynamics(
+                    volume=2,
+                    volume_unit=VolumeUnit.UL,
+                )],
             )
 
     def test_sectioning(self):

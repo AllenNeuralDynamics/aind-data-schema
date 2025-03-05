@@ -495,7 +495,8 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    @field_validator("injection_volume")
+    # [TODO] This validator needs to be refactored in the Atlas refactor
+    @field_validator("dynamics")
     def check_dv_and_vol_list_lengths(cls, v, info: ValidationInfo):
         """Validator for list length of injection volumes and depths"""
 

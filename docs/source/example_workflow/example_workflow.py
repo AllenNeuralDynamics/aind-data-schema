@@ -5,9 +5,10 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription
-from aind_data_schema.core.procedures import NanojectInjection, Perfusion, Procedures, Surgery, ViralMaterial
+from aind_data_schema.core.procedures import NanojectInjection, Perfusion, Procedures, Surgery, ViralMaterial, InjectionDynamics
 from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subject
 from aind_data_schema_models.species import Strain
+from aind_data_schema_models.units import VolumeUnit
 
 from aind_data_schema.components.identifiers import Person
 
@@ -105,7 +106,10 @@ for session_idx, session in sessions_df.iterrows():
                         injection_angle=float(coords[3]),
                         # multiple injection volumes at different depths are allowed, but that's not happening here
                         injection_coordinate_depth=[float(coords[2])],
-                        injection_volume=[float(proc_row["injection_volume"])],
+                        dynamics=[InjectionDynamics(
+                            volume=proc_row["injection_volume"],
+                            volume_unit=VolumeUnit.NL,
+                        )],
                     )
                 ],
             ),
