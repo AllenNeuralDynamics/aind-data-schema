@@ -13,6 +13,7 @@ from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
+    Injection,
     IntraperitonealInjection,
     NanojectInjection,
     NonViralMaterial,
@@ -442,6 +443,64 @@ class ProceduresTests(unittest.TestCase):
                 section_strategy="Whole Brain",
                 targeted_structure=CCFStructure.MOP,
             )
+
+    def test_profile_validator(self):
+        """Test that the profile validator works correctly"""
+
+        # Should be okay with single injection event and BOLUS profile
+        inj1 = Injection(
+            protocol_id="abc",
+            injection_materials=[
+                ViralMaterial(
+                    material_type="Virus",
+                    name="AAV2-Flex-ChrimsonR",
+                    tars_identifiers=TarsVirusIdentifiers(
+                        virus_tars_id="AiV222",
+                        plasmid_tars_alias="AiP222",
+                        prep_lot_number="VT222",
+                    ),
+                    titer=2300000000,
+                )
+            ],
+            dynamics=[
+                InjectionDynamics(
+                    volume=1,
+                    volume_unit=VolumeUnit.UL,
+                )
+            ],
+            profile=InjectionProfile.BOLUS,
+        )
+        self.assertEqual(inj1.profile, InjectionProfile.BOLUS)
+
+        # Should raise an error with multiple injection events and BOLUS profile
+        with self.assertRaises(ValidationError) as e:
+            Injection(
+                protocol_id="abc",
+                injection_materials=[
+                    ViralMaterial(
+                        material_type="Virus",
+                        name="AAV2-Flex-ChrimsonR",
+                        tars_identifiers=TarsVirusIdentifiers(
+                            virus_tars_id="AiV222",
+                            plasmid_tars_alias="AiP222",
+                            prep_lot_number="VT222",
+                        ),
+                        titer=2300000000,
+                    )
+                ],
+                dynamics=[
+                    InjectionDynamics(
+                        volume=1,
+                        volume_unit=VolumeUnit.UL,
+                    ),
+                    InjectionDynamics(
+                        volume=2,
+                        volume_unit=VolumeUnit.UL,
+                    ),
+                ],
+                profile=InjectionProfile.BOLUS,
+            )
+        self.assertIn("Bolus profile is not allowed for multiple injection events", repr(e.exception))
 
 
 if __name__ == "__main__":

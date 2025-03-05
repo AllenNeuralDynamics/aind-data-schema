@@ -460,6 +460,14 @@ class Injection(DataModel):
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
+    @model_validator(mode="after")
+    def profile_validator(values):
+        """ Check that the profile is allowed given the dynamics """
+
+        if len(values.dynamics) > 1 and values.profile == InjectionProfile.BOLUS:
+            raise AssertionError("Bolus profile is not allowed for multiple injection events")
+        return values
+
 
 class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
