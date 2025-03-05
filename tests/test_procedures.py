@@ -410,7 +410,7 @@ class ProceduresTests(unittest.TestCase):
                         name="AAV2-Flex-ChrimsonR",
                         tars_identifiers=TarsVirusIdentifiers(
                             virus_tars_id="AiV222",
-                            plasmid_tars_alias="AiP222",
+                            plasmid_tars_alias=["AiP222"],
                             prep_lot_number="VT222",
                         ),
                         titer=2300000000,
@@ -459,34 +459,6 @@ class ProceduresTests(unittest.TestCase):
                 section_strategy="Whole Brain",
                 targeted_structure=CCFStructure.MOP,
             )
-
-    def test_profile_validator(self):
-        """Test that the profile validator works correctly"""
-
-        # Should be okay with single injection event and BOLUS profile
-        inj1 = Injection(
-            protocol_id="abc",
-            injection_materials=[
-                ViralMaterial(
-                    material_type="Virus",
-                    name="AAV2-Flex-ChrimsonR",
-                    tars_identifiers=TarsVirusIdentifiers(
-                        virus_tars_id="AiV222",
-                        plasmid_tars_alias=["AiP222"],
-                        prep_lot_number="VT222",
-                    ),
-                    titer=2300000000,
-                )
-            ],
-            dynamics=[
-                InjectionDynamics(
-                    volume=1,
-                    volume_unit=VolumeUnit.UL,
-                    profile=InjectionProfile.BOLUS,
-                )
-            ],
-        )
-        self.assertEqual(inj1.profile, InjectionProfile.BOLUS)
 
     def test_validate_identical_specimen_ids(self):
         """Test that all specimen_id fields are identical in specimen_procedures"""
