@@ -37,6 +37,7 @@ from aind_data_schema.components.configs import (
     InVitroImagingConfig,
 )
 from aind_data_schema.components.coordinates import Affine3dTransform
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.utils.merge import merge_notes
@@ -256,7 +257,7 @@ class Acquisition(DataCoreModel):
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
-            if self.subject_id not in self.specimen_id:
+            if not subject_specimen_id_compatibility(self.subject_id, self.specimen_id):
                 raise ValueError(f"Expected {self.subject_id} to appear in {self.specimen_id}")
 
         return self
