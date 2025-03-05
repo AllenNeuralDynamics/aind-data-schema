@@ -360,19 +360,16 @@ class Headframe(DataModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class ProtectiveMaterialReplacement(DataModel):
-    """Description of a protective material replacement procedure in preparation for ephys recording"""
+class GroundWireImplant(DataModel):
+    """Ground wire implant procedure"""
 
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    protective_material: ProtectiveMaterial = Field(
-        ..., title="Protective material", description="New material being applied"
+    ground_electrode_location: MouseAnatomyModel = Field(..., title="Location of ground electrode")
+    ground_wire_hole: Optional[int] = Field(
+        default=None, title="Ground wire hole", description="For SHIELD implants, the hole number for the ground wire"
     )
-    ground_wire_hole: Optional[int] = Field(default=None, title="Ground wire hole")
     ground_wire_material: Optional[GroundWireMaterial] = Field(default=None, title="Ground wire material")
     ground_wire_diameter: Optional[Decimal] = Field(default=None, title="Ground wire diameter")
     ground_wire_diameter_unit: Optional[SizeUnit] = Field(default=None, title="Ground wire diameter unit")
-    well_part_number: Optional[str] = Field(default=None, title="Well part number")
-    well_type: Optional[str] = Field(default=None, title="Well type")
 
 
 class TarsVirusIdentifiers(DataModel):
@@ -612,7 +609,7 @@ class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
     ground_electrode_location: MouseAnatomyModel = Field(
-        ..., title="Location of ground electrode", description="Use MouseBodyParts"
+        ..., title="Location of ground electrode", description="Use GroundWireLocations"
     )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
@@ -620,6 +617,7 @@ class MyomatrixThread(DataModel):
 class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
+    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
@@ -675,7 +673,6 @@ class Surgery(DataModel):
                 NanojectInjection,
                 OtherSubjectProcedure,
                 Perfusion,
-                ProtectiveMaterialReplacement,
                 RetroOrbitalInjection,
                 SampleCollection,
             ],
