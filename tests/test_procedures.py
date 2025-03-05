@@ -13,7 +13,6 @@ from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
-    Injection,
     IntraperitonealInjection,
     NanojectInjection,
     NonViralMaterial,
