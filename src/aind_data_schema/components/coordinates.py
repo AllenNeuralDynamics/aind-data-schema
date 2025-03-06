@@ -144,7 +144,7 @@ class CoordinateSpace(DataModel):
     dimensions: Optional[List[FloatAxis]] = Field(default=None, title="Dimensions", min_length=3, max_length=3)
     resolution: Optional[List[FloatAxis]] = Field(default=None, title="Resolution", min_length=3, max_length=3)
 
-    @model_validator("origin", mode="before")
+    @model_validator(mode="before")
     def validate_reference_coordinate(cls, v):
         if v['origin'] == BrainOrigin.ATLAS_ORIGIN and cls.__name__ == "CoordinateSpace":
             raise ValueError("CoordinateSpace objects cannot use the atlas origin, "
@@ -162,8 +162,8 @@ class AtlasSpace(CoordinateSpace):
 
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    dimensions: List[FloatAxis] = Field(..., title="Dimensions", min_length=3, max_length=3)
-    resolution: List[FloatAxis] = Field(..., title="Resolution", min_length=3, max_length=3)
+    dimensions: List[FloatAxis] = Field(..., title="Dimensions", min_length=3, max_length=3)  # type: ignore
+    resolution: List[FloatAxis] = Field(..., title="Resolution", min_length=3, max_length=3)  # type: ignore
 
 
 class AtlasTransformed(AtlasSpace):
@@ -194,7 +194,7 @@ class Coordinate(DataModel):
 
 
 class SurfaceCoordinate(Coordinate):
-    """A coordinate relative to a point on the brain surface
+    """A coordinate relative to a point on the brain surface, which is itself relative to the CoordinateSpace origin
 
     Angles can be optionally provided
     """
@@ -203,5 +203,5 @@ class SurfaceCoordinate(Coordinate):
     projection_axis: AxisName = Field(
         default=AxisName.DEPTH,
         title="Surface projection axis",
-        description="Axis used to project surface_position onto the brain surface"
+        description="Axis used to project the surface position onto the brain surface, defaults to the depth axis",
     )
