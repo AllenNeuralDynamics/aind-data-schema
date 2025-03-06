@@ -5,7 +5,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field, model_validator
+from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
@@ -18,10 +18,10 @@ class AtlasName(str, Enum):
     CUSTOM = "Custom"
 
 
-class BrainOrigin(str, Enum):
-    """Reference coordinate positions in a brain or atlas"""
+class Origin(str, Enum):
+    """Origin positions in a brain or atlas"""
 
-    ATLAS_ORIGIN = "Atlas_origin"  # only exists in Atlases
+    ORIGIN = "Origin"  # only exists in Atlases / Images
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
     C1 = "C1"
@@ -84,38 +84,39 @@ class FloatAxis(DataModel):
     axis: AxisName = Field(..., title="Axis")
 
 
+class Axis(DataModel):
+    """Linked direction and axis"""
+
+    name: AxisName = Field(..., title="Axis")
+    direction: AnatomicalDirection = Field(..., title="Direction")
+
+
 class Scale(DataModel):
-    """Scale in a 3D space
-    """
+    """Scale"""
 
-    scale: List[FloatAxis] = Field(..., title="Scale parameters", min_length=3, max_length=3)
-
-
-class Position(DataModel):
-    """Position in a 3D space"""
-
-    position: List[FloatAxis] = Field(..., title="Position", min_length=3, max_length=3)
+    scale: List[FloatAxis] = Field(..., title="Scale parameters")
 
 
-class RelativePosition(DataModel):
-    """Relative position in 3D space"""
+class Translation(DataModel):
+    """Translation"""
 
-    position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    translation: List[FloatAxis] = Field(..., title="Translation parameters")
 
 
 class Rotation(DataModel):
-    """Set of rotations in 3D space
-    """
+    """Rotation"""
 
-    angles: List[FloatAxis] = Field(..., title="Angles and axes in 3D space", min_length=3, max_length=3)
+    angles: List[FloatAxis] = Field(..., title="Angles and axes in 3D space")
+    order: List[AxisName] = Field(
+        default=[AxisName.AP, AxisName.ML, AxisName.SI],
+        title="Rotation order",
+        description="Order of rotation axes"
+    )
     rotation_direction: List[RotationDirection] = Field(
         ...,
         title="Rotation directions",
-        description="Defined looking in the negative direction of the axis",
-        min_length=3,
-        max_length=3,
+        description="CCW for right-hand rule. Defined looking in the negative direction of the axis",
     )
-    angles_unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
 
 
 class AffineTransformMatrix(DataModel):
@@ -126,52 +127,48 @@ class AffineTransformMatrix(DataModel):
     )
 
 
-class CoordinateSpace(DataModel):
-    """Definition of a 3D space relative to a brain
+class Point(DataModel):
+    """Point in a coordinate system """
+
+    position: List[FloatAxis] = Field(..., title="Position")
+
+
+class RelativePosition(DataModel):
+    """Relative position in a coordinate system"""
+
+    position: List[AnatomicalRelative] = Field(..., title="Relative position")
+
+
+class CoordinateSystem(DataModel):
+    """Definition of a coordinate system relative to a brain
     """
 
     name: str = Field(..., title="Space name")
-    origin: BrainOrigin = Field(
+    origin: Origin = Field(
         ...,
         title="Origin",
         description="Defines the position of (0,0,0) relative to the brain or atlas"
     )
-    orientation: List[AnatomicalDirection] = Field(
-        default=[AnatomicalDirection.PA, AnatomicalDirection.LR, AnatomicalDirection.IS],
-        title="Axis orientation",
-        description="Defines the positive axis directions in the space",
-    )
-    dimensions: Optional[List[FloatAxis]] = Field(default=None, title="Dimensions", min_length=3, max_length=3)
-    resolution: Optional[List[FloatAxis]] = Field(default=None, title="Resolution", min_length=3, max_length=3)
-
-    @model_validator(mode="before")
-    def validate_reference_coordinate(cls, v):
-        if v['origin'] == BrainOrigin.ATLAS_ORIGIN and cls.__name__ == "CoordinateSpace":
-            raise ValueError("CoordinateSpace objects cannot use the atlas origin, "
-                             "you should use an anatomical landmark")
-        return v
+    axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
+    axes_unit: SizeUnit = Field(..., title="Axis unit")
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
-class AtlasSpace(CoordinateSpace):
-    """Definition of a 3D space relative to an atlas
-
-    The default Origin of an atlas is the anterior, left, superior corner
-
-    The default orientation follows the right hand rule for AP/SI/LR
+class Atlas(CoordinateSystem):
+    """Definition an atlas
     """
 
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    dimensions: List[FloatAxis] = Field(..., title="Dimensions", min_length=3, max_length=3)  # type: ignore
-    resolution: List[FloatAxis] = Field(..., title="Resolution", min_length=3, max_length=3)  # type: ignore
+    dimensions: List[FloatAxis] = Field(..., title="Dimensions")
+    resolution: List[FloatAxis] = Field(..., title="Resolution")
 
 
-class AtlasTransformed(AtlasSpace):
-    """Transformation from one atlas to another"""
-
-    transforms: List[
+class Transform(DataModel):
+    """Affine and non-linear transformations"""
+    trasnform: List[
         Annotated[
-            Union[Position, Rotation, Scale, AffineTransformMatrix, str], Field(discriminator="object_type")
+            Union[Translation, Rotation, Scale, AffineTransformMatrix, str], Field(discriminator="object_type")
         ]
     ] = Field(
         ...,
@@ -180,20 +177,24 @@ class AtlasTransformed(AtlasSpace):
     )
 
 
-class Transform(DataModel):
+class CoordinateTransform(DataModel):
+    """Transformation from one CoordinateSystem to another"""
+    input: CoordinateSystem = Field(..., title="Input coordinate system")
+    output: CoordinateSystem = Field(..., title="Output coordinate system")
+    transform: Transform = Field(..., title="Transformation from input to output coordinate system")
+
+
+class Coordinate(DataModel):
     """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
 
     Angles can be optionally provided
     """
 
-    position: Position = Field(..., title="Coordinates in in vivo space")
-    position_unit: SizeUnit = Field(default=SizeUnit.UM, title="Position unit")
-
+    position: Point = Field(..., title="Coordinates in in vivo space")
     angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
-    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
-class SurfaceTransform(Transform):
+class SurfaceCoordinate(Coordinate):
     """A coordinate relative to a point on the brain surface, which is itself relative to the CoordinateSpace origin
 
     Angles can be optionally provided
