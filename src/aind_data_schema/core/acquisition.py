@@ -40,7 +40,7 @@ from aind_data_schema.components.coordinates import Affine3dTransform
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -313,7 +313,7 @@ class Acquisition(DataCoreModel):
         protocol_id = self.protocol_id + other.protocol_id
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        software = self.software + other.software
+        software = merge_optional_list(self.software, other.software)
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
