@@ -9,7 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
+from aind_data_schema.components.coordinates import AxisName, FloatAxis, ImageAxis, Scale, Position
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -19,6 +19,73 @@ from aind_data_schema.core.procedures import Reagent
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+
+tile_scale = Scale(scale=[
+    FloatAxis(value=0.748, axis=AxisName.X),
+    FloatAxis(value=0.748, axis=AxisName.Y),
+    FloatAxis(value=1, axis=AxisName.Z)
+]),
+
+tile0 = tile.AcquisitionTile(
+    file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
+    coordinate_transformations=[
+        tile_scale,
+    ],
+    channel=tile.Channel(
+        channel_name="488",
+        excitation_wavelength=488,
+        excitation_power=200,
+        light_source_name="Ex_488",
+        filter_names=["Em_600"],
+        detector_name="PMT_1",
+        filter_wheel_index=0,
+    ),
+    notes="these are my notes",
+)
+tile1 = tile.AcquisitionTile(
+    file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
+    coordinate_transformations=[
+        tile_scale,
+    ],
+    channel=tile.Channel(
+        channel_name="561",
+        excitation_wavelength=561,
+        excitation_power=200,
+        light_source_name="Ex_561",
+        filter_names=["Em_600"],
+        detector_name="PMT_1",
+        filter_wheel_index=0,
+    ),
+    notes="these are my notes",
+)
+
+invitro_config = InVitroImagingConfig(
+    chamber_immersion=Immersion(
+        medium="PBS",
+        refractive_index=1.33,
+    ),
+    axes=[
+        ImageAxis(
+            name="X",
+            dimension=2,
+            direction="Left_to_right",
+        ),
+        ImageAxis(
+            name="Y",
+            dimension=1,
+            direction="Anterior_to_posterior",
+        ),
+        ImageAxis(
+            name="Z",
+            dimension=0,
+            direction="Inferior_to_superior",
+        ),
+    ],
+    tiles=[
+        tile0,
+        tile1,
+    ],
+)
 
 
 acq = Acquisition(
@@ -60,67 +127,7 @@ acq = Acquisition(
             stream_end_time=t,
             modalities=[Modality.SPIM],
             active_devices=[],
-            configurations=[
-                InVitroImagingConfig(
-                    chamber_immersion=Immersion(
-                        medium="PBS",
-                        refractive_index=1.33,
-                    ),
-                    axes=[
-                        ImageAxis(
-                            name="X",
-                            dimension=2,
-                            direction="Left_to_right",
-                        ),
-                        ImageAxis(
-                            name="Y",
-                            dimension=1,
-                            direction="Anterior_to_posterior",
-                        ),
-                        ImageAxis(
-                            name="Z",
-                            dimension=0,
-                            direction="Inferior_to_superior",
-                        ),
-                    ],
-                    tiles=[
-                        tile.AcquisitionTile(
-                            file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-                            coordinate_transformations=[
-                                Scale3dTransform(scale=[0.748, 0.748, 1]),
-                                Translation3dTransform(translation=[0, 0, 0]),
-                            ],
-                            channel=tile.Channel(
-                                channel_name="488",
-                                excitation_wavelength=488,
-                                excitation_power=200,
-                                light_source_name="Ex_488",
-                                filter_names=["Em_600"],
-                                detector_name="PMT_1",
-                                filter_wheel_index=0,
-                            ),
-                            notes="these are my notes",
-                        ),
-                        tile.AcquisitionTile(
-                            file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-                            coordinate_transformations=[
-                                Scale3dTransform(scale=[0.748, 0.748, 1]),
-                                Translation3dTransform(translation=[0, 0, 0]),
-                            ],
-                            channel=tile.Channel(
-                                channel_name="561",
-                                excitation_wavelength=561,
-                                excitation_power=200,
-                                light_source_name="Ex_561",
-                                filter_names=["Em_600"],
-                                detector_name="PMT_1",
-                                filter_wheel_index=0,
-                            ),
-                            notes="these are my notes",
-                        ),
-                    ],
-                ),
-            ],
+            configurations=[invitro_config],
         )
     ],
     acquisition_start_time=t,

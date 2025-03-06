@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Axis, Origin
+from aind_data_schema.components.coordinates import Axis, CoordinateSpace, Origin
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -106,15 +106,13 @@ class Instrument(DataCoreModel):
         pattern=instrument_id_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
-    calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
-    ccf_coordinate_transform: Optional[str] = Field(
-        default=None,
-        title="CCF coordinate transform",
-        description="Path to file that details the CCF-to-lab coordinate transform",
-    )
-    origin: Optional[Origin] = Field(default=None, title="Origin point for instrument position transforms")
-    instrument_axes: Optional[List[Axis]] = Field(default=None, title="Instrument axes", min_length=3, max_length=3)
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+    calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
+
+    # coordinate space definition
+    space: CoordinateSpace = Field(..., title="Coordinate space")
+
+    # instrument details
     com_ports: List[Com] = Field(default=[], title="COM ports")
     instrument_type: Optional[ImagingInstrumentType] = Field(default=None, title="Instrument type")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")

@@ -9,9 +9,9 @@ from typing_extensions import Annotated
 from aind_data_schema.base import DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
     Affine3dTransform,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    Rotation,
+    Scale,
+    Position,
 )
 
 
@@ -42,9 +42,9 @@ class Tile(DataModel):
     coordinate_transformations: List[
         Annotated[
             Union[
-                Scale3dTransform,
-                Translation3dTransform,
-                Rotation3dTransform,
+                Scale,
+                Position,
+                Rotation,
                 Affine3dTransform,
             ],
             Field(discriminator="object_type"),

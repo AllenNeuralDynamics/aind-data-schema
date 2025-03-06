@@ -4,6 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
@@ -17,7 +18,7 @@ from aind_data_schema_models.units import (
 
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, CcfCoords
+from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, CcfCoords, Transform
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -28,9 +29,9 @@ from aind_data_schema.base import (
 )
 from aind_data_schema.components.coordinates import (
     Coordinates3d,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    Rotation,
+    Scale,
+    Position,
 )
 from aind_data_schema.components.devices import RelativePosition, SpoutSide
 from aind_data_schema.components.tile import Channel
@@ -264,7 +265,7 @@ class RewardSpoutConfig(DataModel):
     """Reward spout acquisition information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
-    starting_position: RelativePosition = Field(..., title="Starting position")
+    starting_position: Transform = Field(..., title="Relative position of the monitor")
     variable_position: bool = Field(
         ...,
         title="Variable position",
@@ -335,11 +336,11 @@ class MRIScan(DeviceConfig):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Optional[Rotation3dTransform] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Translation3dTransform] = Field(default=None, title="Scan position")
+    vc_orientation: Optional[Rotation] = Field(default=None, title="Scan orientation")
+    vc_position: Optional[Position] = Field(default=None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Optional[Scale3dTransform] = Field(default=None, title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,

@@ -180,7 +180,7 @@ class AtlasTransformed(AtlasSpace):
     )
 
 
-class Coordinate(DataModel):
+class Transform(DataModel):
     """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
 
     Angles can be optionally provided
@@ -193,7 +193,7 @@ class Coordinate(DataModel):
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
-class SurfaceCoordinate(Coordinate):
+class SurfaceTransform(Transform):
     """A coordinate relative to a point on the brain surface, which is itself relative to the CoordinateSpace origin
 
     Angles can be optionally provided

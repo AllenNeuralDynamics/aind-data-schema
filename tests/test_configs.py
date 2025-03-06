@@ -3,7 +3,7 @@
 import unittest
 from decimal import Decimal
 from pydantic import ValidationError
-from aind_data_schema.components.configs import MRIScan, Rotation3dTransform, Translation3dTransform, Scale3dTransform
+from aind_data_schema.components.configs import MRIScan, Rotation, Position, Scale
 
 
 class TestMRIScan(unittest.TestCase):
@@ -21,9 +21,9 @@ class TestMRIScan(unittest.TestCase):
             "repetition_time": Decimal("2000.0"),
             "subject_position": "Prone",
             "additional_scan_parameters": {},
-            "vc_orientation": Rotation3dTransform(rotation=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-            "vc_position": Translation3dTransform(translation=[0.0, 0.0, 0.0]),
-            "voxel_sizes": Scale3dTransform(scale=[1.0, 1.0, 1.0]),
+            "vc_orientation": Rotation(rotation=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+            "vc_position": Position(translation=[0.0, 0.0, 0.0]),
+            "voxel_sizes": Scale(scale=[1.0, 1.0, 1.0]),
         }
         scan = MRIScan(**valid_data)
         self.assertTrue(scan.primary_scan)

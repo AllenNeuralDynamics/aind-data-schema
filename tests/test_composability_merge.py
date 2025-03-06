@@ -10,7 +10,7 @@ from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaes
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
-from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
+from aind_data_schema.components.coordinates import ImageAxis, Scale, Position
 from aind_data_schema.components.devices import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization
@@ -163,8 +163,8 @@ class TestComposability(unittest.TestCase):
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
                                     coordinate_transformations=[
-                                        Scale3dTransform(scale=[0.748, 0.748, 1]),
-                                        Translation3dTransform(translation=[0, 0, 0]),
+                                        Scale(scale=[0.748, 0.748, 1]),
+                                        Position(translation=[0, 0, 0]),
                                     ],
                                     channel=tile.Channel(
                                         channel_name="488",
@@ -255,8 +255,8 @@ class TestComposability(unittest.TestCase):
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     coordinate_transformations=[
-                                        Scale3dTransform(scale=[0.748, 0.748, 1]),
-                                        Translation3dTransform(translation=[0, 0, 0]),
+                                        Scale(scale=[0.748, 0.748, 1]),
+                                        Position(translation=[0, 0, 0]),
                                     ],
                                     channel=tile.Channel(
                                         channel_name="561",
