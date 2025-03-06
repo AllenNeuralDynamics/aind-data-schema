@@ -4,7 +4,7 @@ from typing import Any, List, Optional
 
 
 def merge_optional_list(a: Optional[List[Any]], b: Optional[List[Any]]) -> Optional[List[Any]]:
-    """Merge two optional values"""
+    """Merge two Optional[List[Any]] values"""
 
     merged = (a or []) + (b or [])
     return merged or None
