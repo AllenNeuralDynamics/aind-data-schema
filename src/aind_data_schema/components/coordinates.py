@@ -274,14 +274,14 @@ class NonlinearTransform(DataModel):
 class Transform(DataModel):
     """Affine and non-linear transformations"""
 
-    trasnform: List[
+    transform: List[
         Annotated[
             Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
             Field(discriminator="object_type"),
         ]
     ] = Field(
         ...,
-        title="Transformations from in vivo to atlas space",
+        title="Group of transformations",
         description="Non-linear transformations should be stored in a relative file path",
     )
 
