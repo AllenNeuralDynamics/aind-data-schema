@@ -20,11 +20,15 @@ from aind_data_schema.core.procedures import Reagent
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
-tile_scale = Scale(scale=[
-    FloatAxis(value=0.748, axis=AxisName.X),
-    FloatAxis(value=0.748, axis=AxisName.Y),
-    FloatAxis(value=1, axis=AxisName.Z)
-]),
+tile_scale = (
+    Scale(
+        scale=[
+            FloatAxis(value=0.748, axis=AxisName.X),
+            FloatAxis(value=0.748, axis=AxisName.Y),
+            FloatAxis(value=1, axis=AxisName.Z),
+        ]
+    ),
+)
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",

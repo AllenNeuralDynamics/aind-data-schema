@@ -764,9 +764,9 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-    position: Optional[
-        Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]
-    ] = Field(default=None, title="Relative position of the monitor")
+    position: Optional[Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]] = Field(
+        default=None, title="Relative position of the monitor"
+    )
     contrast: Optional[int] = Field(
         default=None,
         description="Monitor's contrast setting",
@@ -789,9 +789,9 @@ class RewardSpout(Device):
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
-    position: Optional[
-        Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]
-    ] = Field(default=None, title="Relative position of the monitor")
+    position: Optional[Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]] = Field(
+        default=None, title="Relative position of the monitor"
+    )
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
@@ -820,9 +820,9 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-    position: Optional[
-        Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]
-    ] = Field(default=None, title="Relative position of the monitor")
+    position: Optional[Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]] = Field(
+        default=None, title="Relative position of the monitor"
+    )
 
 
 class ChannelType(Enum):
