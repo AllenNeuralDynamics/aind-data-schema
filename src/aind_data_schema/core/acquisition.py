@@ -228,10 +228,12 @@ class Acquisition(DataCoreModel):
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
-    
+
     # Atlas and transform information
     atlas: Optional[Atlas] = Field(default=None, title="Atlas")
-    transform: Optional[Transform] = Field(default=None, title="Transform", description="Atlas to CoordinateSystem transform matrix")
+    transform: Optional[Transform] = Field(
+        default=None, title="Transform", description="Atlas to CoordinateSystem transform matrix"
+    )
 
     # Acquisition data
     data_streams: List[DataStream] = Field(

@@ -166,7 +166,9 @@ class Rotation(DataModel):
         try:
             from scipy.spatial.transform import Rotation as R
         except ImportError:
-            raise ImportError("Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for Rotation.to_matrix")
+            raise ImportError(
+                "Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for Rotation.to_matrix"
+            )
 
         if not self.angles:
             return []
@@ -224,7 +226,8 @@ class AffineTransformMatrix(DataModel):
     """Definition of an affine transform 3x4 matrix"""
 
     affine_transform: List[List[float]] = Field(
-        ..., title="Affine transform matrix",
+        ...,
+        title="Affine transform matrix",
     )
 
     @classmethod
@@ -244,7 +247,9 @@ class AffineTransformMatrix(DataModel):
         try:
             import numpy as np
         except ImportError:
-            raise ImportError("Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for Rotation.to_matrix")
+            raise ImportError(
+                "Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for rotation support"
+            )
 
         matrices = [t.to_matrix() for t in transform]
 

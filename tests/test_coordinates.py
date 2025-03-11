@@ -140,12 +140,7 @@ class TestAffineTransformMatrix(unittest.TestCase):
         translation = Translation(translation=translation_data)
         affine_transform = AffineTransformMatrix(affine_transform=[])
         composed_transform = affine_transform.compose([translation])
-        expected_matrix = [
-            [1.0, 0.0, 0.0, 2.0],
-            [0.0, 1.0, 0.0, 3.0],
-            [0.0, 0.0, 1.0, 4.0],
-            [0.0, 0.0, 0.0, 1.0]
-        ]
+        expected_matrix = [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
 
     def test_compose_with_rotation(self):
@@ -173,12 +168,7 @@ class TestAffineTransformMatrix(unittest.TestCase):
         scale = Scale(scale=scale_data)
         affine_transform = AffineTransformMatrix(affine_transform=[])
         composed_transform = affine_transform.compose([scale])
-        expected_matrix = [
-            [2.0, 0.0, 0.0, 0.0],
-            [0.0, 3.0, 0.0, 0.0],
-            [0.0, 0.0, 4.0, 0.0],
-            [0.0, 0.0, 0.0, 1.0]
-        ]
+        expected_matrix = [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
 
     def test_compose_with_multiple_transforms(self):
@@ -199,7 +189,8 @@ class TestAffineTransformMatrix(unittest.TestCase):
             order=[AxisName.X, AxisName.Y, AxisName.Z],
             rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
-        scale = Scale(scale=[
+        scale = Scale(
+            scale=[
                 FloatAxis(value=2.0, axis=AxisName.X),
                 FloatAxis(value=3.0, axis=AxisName.Y),
                 FloatAxis(value=4.0, axis=AxisName.Z),
@@ -209,8 +200,12 @@ class TestAffineTransformMatrix(unittest.TestCase):
         composed_transform = affine_transform.compose([rotation, translation, scale])
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
-        expected_matrix = np.matmul(expected_matrix, [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]).tolist()
-        expected_matrix = np.matmul(expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]).tolist()
+        expected_matrix = np.matmul(
+            expected_matrix, [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]
+        ).tolist()
+        expected_matrix = np.matmul(
+            expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
+        ).tolist()
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
 
 
@@ -219,69 +214,29 @@ class TestMultiplyMatrix(unittest.TestCase):
 
     def test_multiply_identity_matrix(self):
         """Test multiplying with identity matrix"""
-        matrix1 = [
-            [1, 0, 0],
-            [0, 1, 0],
-            [0, 0, 1]
-        ]
-        matrix2 = [
-            [5, 6, 7],
-            [8, 9, 10],
-            [11, 12, 13]
-        ]
-        expected_result = [
-            [5, 6, 7],
-            [8, 9, 10],
-            [11, 12, 13]
-        ]
+        matrix1 = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+        matrix2 = [[5, 6, 7], [8, 9, 10], [11, 12, 13]]
+        expected_result = [[5, 6, 7], [8, 9, 10], [11, 12, 13]]
         self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
     def test_multiply_zero_matrix(self):
         """Test multiplying with zero matrix"""
-        matrix1 = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-        matrix2 = [
-            [5, 6, 7],
-            [8, 9, 10],
-            [11, 12, 13]
-        ]
-        expected_result = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
+        matrix1 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        matrix2 = [[5, 6, 7], [8, 9, 10], [11, 12, 13]]
+        expected_result = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
     def test_multiply_non_square_matrix(self):
         """Test multiplying non-square matrices"""
-        matrix1 = [
-            [1, 2, 3],
-            [4, 5, 6]
-        ]
-        matrix2 = [
-            [7, 8],
-            [9, 10],
-            [11, 12]
-        ]
-        expected_result = [
-            [58, 64],
-            [139, 154]
-        ]
+        matrix1 = [[1, 2, 3], [4, 5, 6]]
+        matrix2 = [[7, 8], [9, 10], [11, 12]]
+        expected_result = [[58, 64], [139, 154]]
         self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
     def test_multiply_varied_size(self):
         """Test multiplying incompatible matrices"""
-        matrix1 = [
-            [1, 2],
-            [3, 4]
-        ]
-        matrix2 = [
-            [5, 6, 7],
-            [8, 9, 10]
-        ]
+        matrix1 = [[1, 2], [3, 4]]
+        matrix2 = [[5, 6, 7], [8, 9, 10]]
         expected_result = [[21, 24, 27], [47, 54, 61]]
         self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
