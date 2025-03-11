@@ -451,7 +451,9 @@ class Injection(DataModel):
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
-    target: Optional[MouseAnatomyModel] = Field(default=None, title="Injection target", description="Use InjectionTargets")
+    target: Optional[MouseAnatomyModel] = Field(
+        default=None, title="Injection target", description="Use InjectionTargets"
+    )
     relative_position: Optional[RelativePosition] = Field(default=None, title="Relative position")
 
     dynamics: List[InjectionDynamics] = Field(

@@ -53,8 +53,8 @@ class AxisName(str, Enum):
     DEPTH = "Depth"
 
 
-class AnatomicalDirection(str, Enum):
-    """Anatomical direction name"""
+class Direction(str, Enum):
+    """Local and anatomical directions"""
 
     LR = "Left_to_right"
     RL = "Right_to_left"
@@ -89,7 +89,9 @@ class Axis(DataModel):
     """Linked direction and axis"""
 
     name: AxisName = Field(..., title="Axis")
-    direction: AnatomicalDirection = Field(..., title="Direction")
+    direction: Direction = Field(
+        ..., title="Direction", description="Use Other for device-defined axes, such as on manipulators"
+    )
 
 
 class Scale(DataModel):
@@ -200,7 +202,7 @@ class Rotation(DataModel):
 
     @model_validator(mode="after")
     def validate_matched_axes(cls, values):
-        """ Validate that the axis names match the angles """
+        """Validate that the axis names match the angles"""
 
         angles = values.angles
         order = values.order

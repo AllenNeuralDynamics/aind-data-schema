@@ -17,7 +17,14 @@ from aind_data_schema_models.units import (
 
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, Transform, Coordinate, SurfaceCoordinate
+from aind_data_schema.components.coordinates import (
+    ImageAxis,
+    Direction,
+    AxisName,
+    Transform,
+    Coordinate,
+    SurfaceCoordinate,
+)
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -410,12 +417,12 @@ class InVitroImagingConfig(DataModel):
         """Map direction codes to Axis model"""
         if type(v) is str:
             direction_lookup = {
-                "L": AnatomicalDirection.LR,
-                "R": AnatomicalDirection.RL,
-                "A": AnatomicalDirection.AP,
-                "P": AnatomicalDirection.PA,
-                "I": AnatomicalDirection.IS,
-                "S": AnatomicalDirection.SI,
+                "L": Direction.LR,
+                "R": Direction.RL,
+                "A": Direction.AP,
+                "P": Direction.PA,
+                "I": Direction.IS,
+                "S": Direction.SI,
             }
 
             name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]

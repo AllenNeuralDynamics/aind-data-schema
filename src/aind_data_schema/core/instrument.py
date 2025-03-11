@@ -285,7 +285,5 @@ class Instrument(DataCoreModel):
 
     #     # Check fields recursively, if the field is an ORDERED_AXIS_TYPE check that
     #     # it matches the coordinate system's axes order
-        
-    #     def 
-        
 
+    #     def

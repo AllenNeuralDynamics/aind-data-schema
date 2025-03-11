@@ -20,7 +20,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import AxisName, RelativePosition, Scale, Transform
+from aind_data_schema.components.coordinates import AxisName, RelativePosition, Scale, Transform, CoordinateSystem
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.identifiers import Software
 
@@ -578,6 +578,7 @@ class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
+    coordinate_system: CoordinateSystem = Field(..., title="Manipulator coordinate system")
 
 
 class PatchCord(Device):
