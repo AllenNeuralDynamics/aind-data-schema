@@ -228,7 +228,7 @@ class ManipulatorModule(DomeModule):
         default=[],
         title="Targeted CCF coordinates",
     )
-    manipulator_coordinates: SurfaceCoordinate = Field(
+    manipulator_coordinates: List[SurfaceCoordinate] = Field(
         ...,
         title="Manipulator coordinates",
     )
