@@ -124,7 +124,7 @@ lms = [
 cameras = [
     CameraAssembly(
         name="cam",
-        camera_target=CameraTarget.FACE_BOTTOM,
+        target=CameraTarget.FACE_BOTTOM,
         lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
         camera=Camera(
             name="Camera A",
@@ -183,7 +183,7 @@ stick_microscopes = [
             sensor_height=1,
             chroma="Color",
         ),
-        camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS A VALUE
+        target=CameraTarget.BRAIN_SURFACE,  # NEEDS A VALUE
         lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
     )
 ]
@@ -336,7 +336,7 @@ class InstrumentTests(unittest.TestCase):
         """Test that the camera_target being set to Other throws a validation error without notes"""
 
         camera_no_target = cameras[0].model_copy()
-        camera_no_target.camera_target = CameraTarget.OTHER
+        camera_no_target.target = CameraTarget.OTHER
 
         with self.assertRaises(ValidationError):
             Instrument(

@@ -184,7 +184,7 @@ class Instrument(DataCoreModel):
 
         if self.notes is None:
             for component in self.components:
-                if isinstance(component, CameraAssembly) and component.camera_target == CameraTarget.OTHER:
+                if isinstance(component, CameraAssembly) and component.target == CameraTarget.OTHER:
                     raise ValueError(
                         f"Notes cannot be empty if a camera target contains an 'Other' field. "
                         f"Describe the camera target from ({component.name}) in the notes field"

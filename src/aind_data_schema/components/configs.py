@@ -224,16 +224,16 @@ class ManipulatorConfig(DomeModule):
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-    atlas_coordinates: List[Coordinate] = Field(
-        default=[],
+    atlas_coordinates: Optional[List[Coordinate]] = Field(
+        default=None,
         title="Targeted coordinates in the Acquisition Atlas",
     )
     manipulator_coordinates: Optional[List[SurfaceCoordinate]] = Field(
-        default=[],
+        default=None,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )
-    manipulator_axis_position: List[Coordinate] = Field(
-        ...,
+    manipulator_axis_position: Optional[List[Coordinate]] = Field(
+        default=None,
         title="Manipulator local axis positions",
     )
     dye: Optional[str] = Field(default=None, title="Dye")

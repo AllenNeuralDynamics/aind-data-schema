@@ -16,11 +16,106 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate, Axis, FloatAxis
+from aind_data_schema.components.coordinates import Coordinate, FloatAxis, AxisName
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 bonsai_software = Software(name="Bonsai", version="2.7")
+
+
+ephys_config_a = ManipulatorConfig(
+    rotation_angle=0,
+    arc_angle=5.2,
+    module_angle=8,
+    atlas_coordinates=[
+        Coordinate(
+            position=[
+                FloatAxis(value=8150, axis=AxisName.ML),
+                FloatAxis(value=3250, axis=AxisName.AP),
+                FloatAxis(value=7800, axis=AxisName.SI),
+            ]
+        ),
+    ],
+    device_name="Ephys_assemblyA",
+    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+    primary_targeted_structure=CCFStructure.LGD,
+    manipulator_axis_position=[
+        Coordinate(
+            position=[
+                FloatAxis(value=8422, axis=AxisName.ML),
+                FloatAxis(value=4205, axis=AxisName.AP),
+                FloatAxis(value=11087.5, axis=AxisName.SI),
+            ]
+        ),
+    ],
+    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+    notes=(
+        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+    ),
+)
+
+ephys_config_b = ManipulatorConfig(
+    rotation_angle=0,
+    arc_angle=25,
+    module_angle=-22,
+    atlas_coordinates=[
+        Coordinate(
+            position=[
+                FloatAxis(value=8150, axis=AxisName.ML),
+                FloatAxis(value=3250, axis=AxisName.AP),
+                FloatAxis(value=7800, axis=AxisName.SI),
+            ]
+        ),
+    ],
+    device_name="Ephys_assemblyB",
+    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
+    primary_targeted_structure=CCFStructure.LC,
+    manipulator_axis_position=[
+        Coordinate(
+            position=[
+                FloatAxis(value=8422, axis=AxisName.ML),
+                FloatAxis(value=4205, axis=AxisName.AP),
+                FloatAxis(value=11087.5, axis=AxisName.SI),
+            ]
+        ),
+    ],
+    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+    notes=(
+        "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
+        " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
+    ),
+)
+
+
+stick_config_1 = DomeModule(
+    rotation_angle=0,
+    device_name="Stick_assembly_1",
+    arc_angle=-180,
+    module_angle=-180,
+    notes="did not record angles, did not calibrate.",
+)
+stick_config_2 = DomeModule(
+    rotation_angle=0,
+    device_name="Stick_assembly_2",
+    arc_angle=-180,
+    module_angle=-180,
+    notes="Did not record angles, did not calibrate",
+)
+stick_config_3 = DomeModule(
+    rotation_angle=0,
+    device_name="Stick_assembly_3",
+    arc_angle=-180,
+    module_angle=-180,
+    notes="Did not record angles, did not calibrate",
+)
+stick_config_4 = DomeModule(
+    rotation_angle=0,
+    device_name="Stick_assembly_4",
+    arc_angle=-180,
+    module_angle=-180,
+    notes="Did not record angles, did not calibrate",
+)
 
 acquisition = Acquisition(
     experimenters=[Person(name="John Smith")],
@@ -88,79 +183,12 @@ acquisition = Acquisition(
                 "Ephys_assemblyB",
             ],
             configurations=[
-                DomeModule(
-                    rotation_angle=0,
-                    device_name="Stick_assembly_1",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="did not record angles, did not calibrate.",
-                ),
-                DomeModule(
-                    rotation_angle=0,
-                    device_name="Stick_assembly_2",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="Did not record angles, did not calibrate",
-                ),
-                DomeModule(
-                    rotation_angle=0,
-                    device_name="Stick_assembly_3",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="Did not record angles, did not calibrate",
-                ),
-                DomeModule(
-                    rotation_angle=0,
-                    device_name="Stick_assembly_4",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="Did not record angles, did not calibrate",
-                ),
-                ManipulatorConfig(
-                    targeted_ccf_coordinates=[
-                        Coordinate(
-                            position=[
-                                FloatAxis(value=8150, axis=Axis.ML),
-                                FloatAxis(value=3250, axis=Axis.AP),
-                                FloatAxis(value=7800, axis=Axis.SI),
-                            ]
-                        ),
-                    ],
-                    device_name="Ephys_assemblyA",
-                    arc_angle=5.2,
-                    module_angle=8,
-                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-                    notes=(
-                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-                    ),
-                ),
-                ManipulatorConfig(
-                    rotation_angle=0,
-                    arc_angle=25,
-                    module_angle=-22,
-                    targeted_ccf_coordinates=[
-                        Coordinate(
-                            position=[
-                                FloatAxis(value=6637.28, axis=Axis.ML),
-                                FloatAxis(value=4265.02, axis=Axis.AP),
-                                FloatAxis(value=10707.35, axis=Axis.SI),
-                            ]
-                        ),
-                    ],
-                    device_name="Ephys_assemblyB",
-                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure=CCFStructure.LC,
-                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-                    notes=(
-                        "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
-                        " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
-                    ),
-                ),
+                ephys_config_a,
+                ephys_config_b,
+                stick_config_1,
+                stick_config_2,
+                stick_config_3,
+                stick_config_4,
             ],
         ),
         DataStream(
@@ -175,43 +203,7 @@ acquisition = Acquisition(
                 "Ephys_assemblyB",
             ],
             configurations=[
-                DomeModule(
-                    rotation_angle=0,
-                    device_name="Stick_assembly_1",
-                    arc_angle=-180,
-                    module_angle=-180,
-                    notes="did not record angles, did not calibrate.",
-                ),
-                ManipulatorConfig(
-                    rotation_angle=0,
-                    arc_angle=5.2,
-                    module_angle=8,
-                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
-                    device_name="Ephys_assemblyA",
-                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
-                    primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-                    notes=(
-                        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-                        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-                    ),
-                ),
-                ManipulatorConfig(
-                    rotation_angle=0,
-                    arc_angle=25,
-                    module_angle=-22,
-                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
-                    device_name="Ephys_assemblyB",
-                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-                    primary_targeted_structure=CCFStructure.LC,
-                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-                    notes=(
-                        "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
-                        " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
-                    ),
-                ),
+                stick_config_1,
             ],
         ),
     ],

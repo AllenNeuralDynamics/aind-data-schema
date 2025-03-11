@@ -149,28 +149,28 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope_1 = CameraAssembly(
     name="Stick_assembly_1",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera_1,
     lens=stick_lens,
 )
 
 microscope_2 = CameraAssembly(
     name="Stick_assembly_2",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera_2,
     lens=stick_lens,
 )
 
 microscope_3 = CameraAssembly(
     name="Stick_assembly_3",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera_3,
     lens=stick_lens,
 )
 
 microscope_4 = CameraAssembly(
     name="Stick_assembly_4",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera_4,
     lens=stick_lens,
 )
@@ -228,7 +228,7 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side left",
+    target="Face side left",
     filter=filt,
     lens=lens,
 )
@@ -251,7 +251,7 @@ body_camera = Camera(
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
     camera=body_camera,
-    camera_target="Body",
+    target="Body",
     filter=filt,
     lens=lens,
 )

@@ -131,7 +131,7 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope = CameraAssembly(
     name="Stick_assembly",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
     camera=probe_camera,
     lens=stick_lens,
 )
@@ -189,7 +189,7 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side left",
+    target="Face side left",
     filter=filt,
     lens=lens,
 )
@@ -212,7 +212,7 @@ body_camera = Camera(
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
     camera=body_camera,
-    camera_target="Body",
+    target="Body",
     filter=filt,
     lens=lens,
 )
@@ -485,7 +485,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         cameras = [
             d.CameraAssembly(
                 name="BehaviorVideography_FaceSide",
-                camera_target=d.CameraTarget.FACE_SIDE_LEFT,
+                target=d.CameraTarget.FACE_SIDE_LEFT,
                 camera=d.Camera(
                     name="Side face camera",
                     detector_type="Camera",
@@ -513,7 +513,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
             d.CameraAssembly(
                 name="BehaviorVideography_FaceBottom",
-                camera_target=d.CameraTarget.FACE_BOTTOM,
+                target=d.CameraTarget.FACE_BOTTOM,
                 camera=d.Camera(
                     name="Bottom face Camera",
                     detector_type="Camera",

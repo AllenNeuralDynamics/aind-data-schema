@@ -423,7 +423,7 @@ class CameraAssembly(DataModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     name: str = Field(..., title="Camera assembly name")
-    camera_target: CameraTarget = Field(..., title="Camera target")
+    target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 

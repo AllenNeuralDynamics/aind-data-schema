@@ -289,7 +289,6 @@ class Transform(DataModel):
 class CoordinateSystem(DataModel):
     """Definition of a coordinate system relative to a brain"""
 
-    name: str = Field(..., title="Space name")
     origin: Origin = Field(
         ..., title="Origin", description="Defines the position of (0,0,0) relative to the brain or atlas"
     )
