@@ -262,8 +262,7 @@ class Transform(DataModel):
         ]
     ] = Field(
         ...,
-        title="Group of transformations",
-        description="Non-linear transformations should be stored in a relative file path",
+        title="Transforms",
     )
 
 

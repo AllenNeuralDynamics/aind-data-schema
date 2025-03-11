@@ -36,7 +36,7 @@ from aind_data_schema.components.configs import (
     StimulusModality,
     InVitroImagingConfig,
 )
-from aind_data_schema.components.coordinates import AffineTransformMatrix
+from aind_data_schema.components.coordinates import Transform, Atlas
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
@@ -206,6 +206,8 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition metadata
+    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
+    acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
     experimenters: List[Person] = Field(
         default=[],
         title="experimenter(s)",
@@ -213,6 +215,9 @@ class Acquisition(DataCoreModel):
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    experiment_type: str = Field(default=None, title="Experiment type")
+    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
     # Instrument metadata
     calibrations: List[Calibration] = Field(
@@ -223,15 +228,10 @@ class Acquisition(DataCoreModel):
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
-    # Information about the acquisition
-    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
-    acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
-    experiment_type: str = Field(default=None, title="Experiment type")
-    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
-    headframe_registration: Optional[AffineTransformMatrix] = Field(
-        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
-    )
-    notes: Optional[str] = Field(default=None, title="Notes")
+    
+    # Atlas and transform information
+    atlas: Optional[Atlas] = Field(default=None, title="Atlas")
+    transform: Optional[Transform] = Field(default=None, title="Transform", description="Atlas to CoordinateSystem transform matrix")
 
     # Acquisition data
     data_streams: List[DataStream] = Field(

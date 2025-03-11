@@ -109,7 +109,7 @@ class Instrument(DataCoreModel):
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
 
-    # coordinate system definition
+    # coordinate system
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
 
     # instrument details
