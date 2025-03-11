@@ -34,6 +34,7 @@ from aind_data_schema.base import (
 )
 from aind_data_schema.components.coordinates import (
     Rotation,
+    Translation,
     Scale,
     Axis,
 )
@@ -339,7 +340,7 @@ class MRIScan(DeviceConfig):
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
     vc_orientation: Optional[Rotation] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Position] = Field(default=None, title="Scan position")
+    vc_position: Optional[Translation] = Field(default=None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
     voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
