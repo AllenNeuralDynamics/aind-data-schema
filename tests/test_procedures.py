@@ -16,7 +16,7 @@ from aind_data_schema.core.procedures import (
     IntraperitonealInjection,
     NanojectInjection,
     NonViralMaterial,
-    OphysProbe,
+    OphysProbeImplant,
     Procedures,
     RetroOrbitalInjection,
     Sectioning,
@@ -251,7 +251,7 @@ class ProceduresTests(unittest.TestCase):
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
                             probes=[
-                                OphysProbe(
+                                OphysProbeImplant(
                                     ophys_probe=FiberProbe(
                                         name="Probe A",
                                         manufacturer=Organization.DORIC,

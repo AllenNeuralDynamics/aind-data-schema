@@ -14,7 +14,7 @@ from aind_data_schema.core.procedures import (
     FiberProbe,
     Headframe,
     NanojectInjection,
-    OphysProbe,
+    OphysProbeImplant,
     Perfusion,
     Procedures,
     SpecimenProcedure,
@@ -83,7 +83,7 @@ p = Procedures(
                 FiberImplant(
                     protocol_id="TO ENTER",
                     probes=[
-                        OphysProbe(
+                        OphysProbeImplant(
                             ophys_probe=FiberProbe(
                                 name="Probe A",
                                 core_diameter=200,
