@@ -169,6 +169,14 @@ class SampleType(str, Enum):
     OTHER = "Other"
 
 
+class InjectionProfile(str, Enum):
+    """Injection profile"""
+
+    BOLUS = "Bolus"
+    CONTINUOUS = "Continuous"
+    PULSED = "Pulsed"
+
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -424,6 +432,25 @@ class NonViralMaterial(Reagent):
     )
 
 
+class InjectionDynamics(DataModel):
+    """Description of the volume and rate of an injection"""
+
+    profile: InjectionProfile = Field(..., title="Injection profile")
+
+    volume: Optional[Decimal] = Field(default=None, title="Injection volume")
+    volume_unit: Optional[VolumeUnit] = Field(default=None, title="Injection volume unit")
+
+    rate: Optional[Decimal] = Field(default=None, title="Injection rate")
+    rate_unit: Optional[VolumeUnit] = Field(default=None, title="Injection rate unit")
+
+    duration: Optional[Decimal] = Field(default=None, title="Injection duration")
+    duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
+
+    injection_current: Optional[Decimal] = Field(default=None, title="Injection current (uA)")
+    injection_current_unit: Optional[CurrentUnit] = Field(default=None, title="Injection current unit")
+    alternating_current: Optional[str] = Field(default=None, title="Alternating current")
+
+
 class Injection(DataModel):
     """Description of an injection procedure"""
 
@@ -432,8 +459,10 @@ class Injection(DataModel):
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
-    injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")
-    injection_duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
+    # [TODO] Placeholder for injection target/coordinate information
+    dynamics: List[InjectionDynamics] = Field(
+        ..., title="Injection dynamics", description="List of injection events, one per location/depth"
+    )
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
@@ -441,8 +470,6 @@ class Injection(DataModel):
 class RetroOrbitalInjection(Injection):
     """Description of a retro-orbital injection procedure"""
 
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
     injection_eye: Side = Field(..., title="Injection eye")
 
 
@@ -450,8 +477,6 @@ class IntraperitonealInjection(Injection):
     """Description of an intraperitoneal injection procedure"""
 
     time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
 
 
 class BrainInjection(Injection):
@@ -477,53 +502,24 @@ class BrainInjection(Injection):
 class NanojectInjection(BrainInjection):
     """Description of a nanoject injection procedure"""
 
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
-
-    @field_validator("injection_volume")
-    def check_dv_and_vol_list_lengths(cls, v, info: ValidationInfo):
+    @model_validator(mode="after")
+    def check_dv_and_vol_list_lengths(values):
         """Validator for list length of injection volumes and depths"""
 
-        injection_vol_len = len(v)
-        coords_len = len(info.data["injection_coordinate_depth"])
+        dynamics_len = len(values.dynamics)
+        coords_len = len(values.injection_coordinate_depth)
 
-        if injection_vol_len != coords_len:
+        if dynamics_len != coords_len:
             raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
-        return v
-
-
-class IontophoresisInjection(BrainInjection):
-    """Description of an iotophoresis injection procedure"""
-
-    injection_current: Decimal = Field(..., title="Injection current (uA)")
-    injection_current_unit: CurrentUnit = Field(default=CurrentUnit.UA, title="Injection current unit")
-    alternating_current: str = Field(..., title="Alternating current")
+        return values
 
 
 class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
-
 
 class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
-
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
 
 
 class SampleCollection(DataModel):
@@ -668,7 +664,6 @@ class Surgery(DataModel):
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
                 IntraperitonealInjection,
-                IontophoresisInjection,
                 MyomatrixInsertion,
                 NanojectInjection,
                 OtherSubjectProcedure,
@@ -688,7 +683,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
+    schema_version: SkipValidation[Literal["2.0.7"]] = Field(default="2.0.7")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

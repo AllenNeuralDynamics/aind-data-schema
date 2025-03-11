@@ -1,7 +1,7 @@
 """ Tests for merge utilities """
 
 import unittest
-from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 
 
 class TestMergeNotes(unittest.TestCase):
@@ -34,6 +34,38 @@ class TestMergeNotes(unittest.TestCase):
         notes2 = None
         result = merge_notes(notes1, notes2)
         self.assertIsNone(result)
+
+
+class MergeOptionalListTests(unittest.TestCase):
+    """Tests for merge_optional_list"""
+
+    def test_both_none(self):
+        """Test when both inputs are None"""
+        self.assertIsNone(merge_optional_list(None, None))
+
+    def test_first_none(self):
+        """Test when first input is None"""
+        self.assertEqual(merge_optional_list(None, [1, 2, 3]), [1, 2, 3])
+
+    def test_second_none(self):
+        """Test when second input is None"""
+        self.assertEqual(merge_optional_list([1, 2, 3], None), [1, 2, 3])
+
+    def test_both_empty(self):
+        """Test when both inputs are empty lists"""
+        self.assertIsNone(merge_optional_list([], []))
+
+    def test_first_empty(self):
+        """Test when first input is an empty list"""
+        self.assertEqual(merge_optional_list([], [1, 2, 3]), [1, 2, 3])
+
+    def test_second_empty(self):
+        """Test when second input is an empty list"""
+        self.assertEqual(merge_optional_list([1, 2, 3], []), [1, 2, 3])
+
+    def test_both_non_empty(self):
+        """Test when both inputs are non-empty lists"""
+        self.assertEqual(merge_optional_list([1, 2], [3, 4]), [1, 2, 3, 4])
 
 
 if __name__ == "__main__":

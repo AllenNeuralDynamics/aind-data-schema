@@ -21,7 +21,10 @@ from aind_data_schema.core.procedures import (
     Surgery,
     ViralMaterial,
     WaterRestriction,
+    InjectionDynamics,
+    InjectionProfile,
 )
+from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
@@ -68,7 +71,13 @@ p = Procedures(
                     injection_coordinate_depth=[-4.2],
                     injection_coordinate_reference="Bregma",
                     injection_angle=0,
-                    injection_volume=[400],
+                    dynamics=[
+                        InjectionDynamics(
+                            volume=400,
+                            volume_unit=VolumeUnit.NL,
+                            profile=InjectionProfile.BOLUS,
+                        )
+                    ],
                     targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(

@@ -12,8 +12,11 @@ from aind_data_schema.core.procedures import (
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
+    InjectionDynamics,
+    InjectionProfile,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.units import VolumeUnit
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -62,7 +65,13 @@ p = Procedures(
                     injection_coordinate_reference="Lambda",
                     bregma_to_lambda_distance=4.1,
                     injection_angle=10,
-                    injection_volume=[200],
+                    dynamics=[
+                        InjectionDynamics(
+                            volume=200,
+                            volume_unit=VolumeUnit.NL,
+                            profile=InjectionProfile.BOLUS,
+                        )
+                    ],
                     targeted_structure=CCFStructure.VISP,
                 ),
             ],
