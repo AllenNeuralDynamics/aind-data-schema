@@ -94,13 +94,21 @@ class Axis(DataModel):
     )
 
 
+def multiply_matrices(matrix1: List[List[float]], matrix2: List[List[float]]) -> List[List[float]]:
+    """ Multiply two matrices stored as lists of lists """
+    return [
+        [sum(a * b for a, b in zip(matrix1_row, matrix2_col)) for matrix2_col in zip(*matrix2)]
+        for matrix1_row in matrix1
+    ]
+
+
 class Scale(DataModel):
     """Scale"""
 
     scale: List[FloatAxis] = Field(..., title="Scale parameters")
 
     def to_matrix(self) -> List[List[float]]:
-        """Return the scale matrix for arbitrary sized lists
+        """Return the affine scale matrix for arbitrary sized lists
 
         Returns
         -------
@@ -123,7 +131,7 @@ class Translation(DataModel):
     translation: List[FloatAxis] = Field(..., title="Translation parameters")
 
     def to_matrix(self) -> List[List[float]]:
-        """Return the translation matrix for arbitrary sized lists.
+        """Return the affine translation matrix for arbitrary sized lists.
 
         Returns
         -------
@@ -156,17 +164,17 @@ class Rotation(DataModel):
     )
 
     def to_matrix(self) -> List[List[float]]:
-        """Return the rotation matrix for arbtirary sized lists.
+        """Return the affine rotation matrix for arbtirary sized lists.
 
         Returns
         -------
         List[List[float]]
-            Rotation matrix.
+            Affine rotation matrix.
         """
         try:
             from scipy.spatial.transform import Rotation as R
         except ImportError:
-            raise ImportError("Please run `pip install aind-data-schema[transforms]` to use Rotation.to_matrix")
+            raise ImportError("Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for Rotation.to_matrix")
 
         if not self.angles:
             return []
@@ -196,9 +204,12 @@ class Rotation(DataModel):
 
         # Create the rotation matrix
         rotation = R.from_euler(axes, angles)
-        rotation_matrix = rotation.as_matrix()
+        rotation_matrix = rotation.as_matrix().tolist()
 
-        return rotation_matrix.tolist()
+        size = len(self.angles)
+        rotation_matrix = [row + [0.0] for row in rotation_matrix] + [[0.0] * size + [1.0]]
+
+        return rotation_matrix
 
     @model_validator(mode="after")
     def validate_matched_axes(cls, values):
@@ -220,11 +231,12 @@ class Rotation(DataModel):
 class AffineTransformMatrix(DataModel):
     """Definition of an affine transform 3x4 matrix"""
 
-    affine_transform: List[Decimal] = Field(
-        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
+    affine_transform: List[List[float]] = Field(
+        ..., title="Affine transform matrix",
     )
 
-    def compose(self, transform: List[Union[Translation, Rotation, Scale]]) -> "AffineTransformMatrix":
+    @classmethod
+    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "AffineTransformMatrix":
         """Compose an affine transform matrix from a list of transforms
 
         Parameters
@@ -237,13 +249,19 @@ class AffineTransformMatrix(DataModel):
         AffineTransformMatrix
             Composed transform
         """
-        # Create an empty 4x4 matrix with 1s on the diagonal
-        transform_matrix = [[1.0 if i == j else 0.0 for j in range(4)] for i in range(4)]
+        matrices = [t.to_matrix() for t in transform]
 
-        for t in transform:
-            transform_matrix = t.to_matrix() @ transform_matrix
+        # Check that all the transforms are the same size
+        size = len(matrices[0])
+        if not all(len(matrix) == size for matrix in matrices):
+            raise ValueError("All transforms must be the same size")
 
-        return AffineTransformMatrix(affine_transform=[Decimal(v) for row in transform_matrix for v in row])
+        transform_matrix = matrices[0]
+
+        for matrix in matrices[1:]:
+            transform_matrix = multiply_matrices(transform_matrix, matrix)
+
+        return AffineTransformMatrix(affine_transform=transform_matrix)
 
 
 class NonlinearTransform(DataModel):

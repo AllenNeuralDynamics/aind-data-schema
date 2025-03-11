@@ -6,6 +6,8 @@ from src.aind_data_schema.components.coordinates import (
     Translation,
     Rotation,
     RotationDirection,
+    AffineTransformMatrix,
+    multiply_matrices,
 )
 from scipy.spatial.transform import Rotation as R
 
@@ -76,6 +78,7 @@ class TestRotation(unittest.TestCase):
             rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
+        expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
         self.maxDiff = None
         self.assertEqual(rotation.to_matrix(), expected_matrix)
 
@@ -92,6 +95,7 @@ class TestRotation(unittest.TestCase):
             rotation_direction=[RotationDirection.CCW, RotationDirection.CCW, RotationDirection.CCW],
         )
         expected_matrix = R.from_euler("xyz", [-90, -45, -30], degrees=True).as_matrix().tolist()
+        expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(rotation.to_matrix(), expected_matrix)
 
     def test_to_matrix_partial_axes(self):
@@ -103,6 +107,7 @@ class TestRotation(unittest.TestCase):
             rotation_direction=[RotationDirection.CW, RotationDirection.CW],
         )
         expected_matrix = R.from_euler("xy", [90, 45], degrees=True).as_matrix().tolist()
+        expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 1.0]]
         self.assertEqual(rotation.to_matrix(), expected_matrix)
 
     def test_to_matrix_no_rotation(self):
@@ -118,7 +123,167 @@ class TestRotation(unittest.TestCase):
             rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
         expected_matrix = R.from_euler("xyz", [0, 0, 0], degrees=True).as_matrix().tolist()
+        expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(rotation.to_matrix(), expected_matrix)
+
+
+class TestAffineTransformMatrix(unittest.TestCase):
+    """Tests for the AffineTransformMatrix class"""
+
+    def test_compose_with_translation(self):
+        """Test compose method with translation"""
+        translation_data = [
+            FloatAxis(value=2.0, axis=AxisName.X),
+            FloatAxis(value=3.0, axis=AxisName.Y),
+            FloatAxis(value=4.0, axis=AxisName.Z),
+        ]
+        translation = Translation(translation=translation_data)
+        affine_transform = AffineTransformMatrix(affine_transform=[])
+        composed_transform = affine_transform.compose([translation])
+        expected_matrix = [
+            [1.0, 0.0, 0.0, 2.0],
+            [0.0, 1.0, 0.0, 3.0],
+            [0.0, 0.0, 1.0, 4.0],
+            [0.0, 0.0, 0.0, 1.0]
+        ]
+        self.assertEqual(composed_transform.affine_transform, expected_matrix)
+
+    def test_compose_with_rotation(self):
+        """Test compose method with rotation"""
+        rotation_data = [
+            FloatAxis(value=90.0, axis=AxisName.X),
+            FloatAxis(value=45.0, axis=AxisName.Y),
+            FloatAxis(value=30.0, axis=AxisName.Z),
+        ]
+        rotation = Rotation(
+            angles=rotation_data,
+            order=[AxisName.X, AxisName.Y, AxisName.Z],
+            rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
+        )
+        composed_transform = AffineTransformMatrix.compose([rotation])
+        self.assertEqual(composed_transform.affine_transform, rotation.to_matrix())
+
+    def test_compose_with_scale(self):
+        """Test compose method with scale"""
+        scale_data = [
+            FloatAxis(value=2.0, axis=AxisName.X),
+            FloatAxis(value=3.0, axis=AxisName.Y),
+            FloatAxis(value=4.0, axis=AxisName.Z),
+        ]
+        scale = Scale(scale=scale_data)
+        affine_transform = AffineTransformMatrix(affine_transform=[])
+        composed_transform = affine_transform.compose([scale])
+        expected_matrix = [
+            [2.0, 0.0, 0.0, 0.0],
+            [0.0, 3.0, 0.0, 0.0],
+            [0.0, 0.0, 4.0, 0.0],
+            [0.0, 0.0, 0.0, 1.0]
+        ]
+        self.assertEqual(composed_transform.affine_transform, expected_matrix)
+
+    def test_compose_with_multiple_transforms(self):
+        """Test compose method with multiple transforms"""
+        translation = Translation(
+            translation=[
+                FloatAxis(value=2.0, axis=AxisName.X),
+                FloatAxis(value=3.0, axis=AxisName.Y),
+                FloatAxis(value=4.0, axis=AxisName.Z),
+            ]
+        )
+        rotation = Rotation(
+            angles=[
+                FloatAxis(value=90.0, axis=AxisName.X),
+                FloatAxis(value=45.0, axis=AxisName.Y),
+                FloatAxis(value=30.0, axis=AxisName.Z),
+            ],
+            order=[AxisName.X, AxisName.Y, AxisName.Z],
+            rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
+        )
+        scale = Scale(scale=[
+                FloatAxis(value=2.0, axis=AxisName.X),
+                FloatAxis(value=3.0, axis=AxisName.Y),
+                FloatAxis(value=4.0, axis=AxisName.Z),
+            ]
+        )
+        affine_transform = AffineTransformMatrix(affine_transform=[])
+        composed_transform = affine_transform.compose([rotation, translation, scale])
+        expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
+        expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
+        expected_matrix = multiply_matrices(expected_matrix, [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]])
+        expected_matrix = multiply_matrices(expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]])
+        self.assertEqual(composed_transform.affine_transform, expected_matrix)
+
+
+class TestMultiplyMatrix(unittest.TestCase):
+    """Tests for the multiply_matrix function"""
+
+    def test_multiply_identity_matrix(self):
+        """Test multiplying with identity matrix"""
+        matrix1 = [
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1]
+        ]
+        matrix2 = [
+            [5, 6, 7],
+            [8, 9, 10],
+            [11, 12, 13]
+        ]
+        expected_result = [
+            [5, 6, 7],
+            [8, 9, 10],
+            [11, 12, 13]
+        ]
+        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+
+    def test_multiply_zero_matrix(self):
+        """Test multiplying with zero matrix"""
+        matrix1 = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+        matrix2 = [
+            [5, 6, 7],
+            [8, 9, 10],
+            [11, 12, 13]
+        ]
+        expected_result = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+
+    def test_multiply_non_square_matrix(self):
+        """Test multiplying non-square matrices"""
+        matrix1 = [
+            [1, 2, 3],
+            [4, 5, 6]
+        ]
+        matrix2 = [
+            [7, 8],
+            [9, 10],
+            [11, 12]
+        ]
+        expected_result = [
+            [58, 64],
+            [139, 154]
+        ]
+        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+
+    def test_multiply_varied_size(self):
+        """Test multiplying incompatible matrices"""
+        matrix1 = [
+            [1, 2],
+            [3, 4]
+        ]
+        matrix2 = [
+            [5, 6, 7],
+            [8, 9, 10]
+        ]
+        expected_result = [[21, 24, 27], [47, 54, 61]]
+        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
 
 
 if __name__ == "__main__":
