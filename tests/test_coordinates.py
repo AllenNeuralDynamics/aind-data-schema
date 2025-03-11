@@ -7,7 +7,13 @@ from src.aind_data_schema.components.coordinates import (
     Rotation,
     RotationDirection,
     AffineTransformMatrix,
+    Axis,
+    Direction,
+    AtlasName,
+    Atlas,
+    Origin,
 )
+from aind_data_schema_models.units import SizeUnit
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
@@ -239,6 +245,93 @@ class TestMultiplyMatrix(unittest.TestCase):
         matrix2 = [[5, 6, 7], [8, 9, 10]]
         expected_result = [[21, 24, 27], [47, 54, 61]]
         self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
+
+
+class TestAtlas(unittest.TestCase):
+    """Tests for the Atlas class"""
+
+    def setUp(self):
+        """ Set up pieces to use for testing """
+        self.axes = [
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.AP),
+            Axis(name=AxisName.Z, direction=Direction.SI),
+        ]
+        self.size = [
+            FloatAxis(value=10.0, axis=AxisName.X),
+            FloatAxis(value=20.0, axis=AxisName.Y),
+            FloatAxis(value=30.0, axis=AxisName.Z),
+        ]
+        self.resolution = [
+            FloatAxis(value=0.1, axis=AxisName.X),
+            FloatAxis(value=0.2, axis=AxisName.Y),
+            FloatAxis(value=0.3, axis=AxisName.Z),
+        ]
+
+    def test_validate_atlas_valid(self):
+        """Test validate_atlas method with valid data"""
+
+        axes = self.axes
+        size = self.size
+        resolution = self.resolution
+
+        atlas = Atlas(
+            name=AtlasName.CCF,
+            version="1.0",
+            size=size,
+            size_unit=SizeUnit.MM,
+            resolution=resolution,
+            resolution_unit=SizeUnit.MM,
+            axes=axes,
+            origin=Origin.BREGMA,
+        )
+        self.assertIsNotNone(atlas)
+
+    def test_validate_atlas_invalid_size_axis(self):
+        """Test validate_atlas method with invalid size axis"""
+
+        axes = self.axes
+        size = self.size
+        resolution = self.resolution
+
+        size[0].axis = AxisName.Y.value
+        size[1].axis = AxisName.X.value
+
+        with self.assertRaises(ValueError) as context:
+            Atlas(
+                name=AtlasName.CCF,
+                version="1.0",
+                size=size,
+                size_unit=SizeUnit.MM,
+                resolution=resolution,
+                resolution_unit=SizeUnit.MM,
+                axes=axes,
+                origin=Origin.BREGMA,
+            )
+        self.assertIn("Size axis Y does not match the axis name X", str(context.exception))
+
+    def test_validate_atlas_invalid_resolution_axis(self):
+        """Test validate_atlas method with invalid resolution axis"""
+
+        axes = self.axes
+        size = self.size
+        resolution = self.resolution
+
+        resolution[0].axis = AxisName.Y.value
+        resolution[1].axis = AxisName.X.value
+
+        with self.assertRaises(ValueError) as context:
+            Atlas(
+                name=AtlasName.CCF,
+                version="1.0",
+                size=size,
+                size_unit=SizeUnit.MM,
+                resolution=resolution,
+                resolution_unit=SizeUnit.MM,
+                axes=axes,
+                origin=Origin.BREGMA,
+            )
+        self.assertIn("Resolution axis Y does not match the axis name X", str(context.exception))
 
 
 if __name__ == "__main__":

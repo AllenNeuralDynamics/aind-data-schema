@@ -319,6 +319,20 @@ class Atlas(CoordinateSystem):
     resolution: List[FloatAxis] = Field(..., title="Resolution")
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
+    @model_validator(mode="after")
+    def validate_atlas(cls, values):
+        """ Ensure that all FloatAxis axis names match the axes names in order """
+
+        axes = [axis.name for axis in values.axes]
+        for i, fa in enumerate(values.size):
+            if fa.axis != axes[i]:
+                raise ValueError(f"Size axis {fa.axis} does not match the axis name {axes[i]}")
+        for i, fa in enumerate(values.resolution):
+            if fa.axis != axes[i]:
+                raise ValueError(f"Resolution axis {fa.axis} does not match the axis name {axes[i]}")
+
+        return values
+
 
 class CoordinateTransform(DataModel):
     """Transformation from one CoordinateSystem to another"""
