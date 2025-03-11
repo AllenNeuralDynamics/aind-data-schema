@@ -31,7 +31,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.identifiers import Software
-from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative, CoordinateSystem
+from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative, CoordinateSystem, Origin, Axis, AxisName, Direction
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
@@ -314,6 +314,8 @@ lens = Lens(
     size=1,
 )
 
+tube = Tube(name="mouse_tube_foraging", diameter=4.0)
+
 additional_device = Device(name="Photometry Clock")
 
 calibrations = [
@@ -346,7 +348,12 @@ inst = Instrument(
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
     coordinate_system=CoordinateSystem(
-
+        origin=Origin.BREGMA,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.AP),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+        ]
     ),
     components=[
         camera1,
@@ -360,7 +367,6 @@ inst = Instrument(
         *filters,
         lens,
         additional_device,
-        Tube(name="mouse_tube_foraging", diameter=4.0),
     ],
     calibrations=calibrations,
 )
