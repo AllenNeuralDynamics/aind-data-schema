@@ -41,6 +41,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 from aind_data_schema_models.units import SizeUnit
+from aind_data_schema.components.coordinates import AnatomicalRelative, RelativePosition
 
 daqs = [
     NeuropixelsBasestation(
@@ -183,7 +184,8 @@ stick_microscopes = [
             sensor_height=1,
             chroma="Color",
         ),
-        target=CameraTarget.BRAIN_SURFACE,  # NEEDS A VALUE
+        target=CameraTarget.BRAIN,
+        position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
         lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
     )
 ]

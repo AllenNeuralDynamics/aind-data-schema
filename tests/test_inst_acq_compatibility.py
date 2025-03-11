@@ -40,8 +40,6 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema.components.configs import (
-    CcfCoords,
-    Coordinates3d,
     DetectorConfig,
     DomeModule,
     PatchCordConfig,
@@ -54,6 +52,7 @@ from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
+from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -131,7 +130,8 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope = CameraAssembly(
     name="Stick_assembly",
-    target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
     camera=probe_camera,
     lens=stick_lens,
 )

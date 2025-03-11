@@ -18,6 +18,13 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.core.instrument import Com, Instrument
+from aind_data_schema.components.coordinates import (
+    Axis,
+    AxisName,
+    CoordinateSystem,
+    Direction,
+    Origin,
+)
 
 objective = Objective(
     name="TLX Objective",
@@ -182,6 +189,14 @@ inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
     instrument_type=ImagingInstrumentType.SMARTSPIM,
+    coordinate_system=CoordinateSystem(
+        origin=Origin.BREGMA,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.AP),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+        ]
+    ),
     modalities=[Modality.SPIM],
     manufacturer=Organization.LIFECANVAS,
     temperature_control=False,
