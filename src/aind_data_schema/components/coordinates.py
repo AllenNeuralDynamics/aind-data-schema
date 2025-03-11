@@ -94,14 +94,6 @@ class Axis(DataModel):
     )
 
 
-def multiply_matrices(matrix1: List[List[float]], matrix2: List[List[float]]) -> List[List[float]]:
-    """ Multiply two matrices stored as lists of lists """
-    return [
-        [sum(a * b for a, b in zip(matrix1_row, matrix2_col)) for matrix2_col in zip(*matrix2)]
-        for matrix1_row in matrix1
-    ]
-
-
 class Scale(DataModel):
     """Scale"""
 
@@ -249,6 +241,11 @@ class AffineTransformMatrix(DataModel):
         AffineTransformMatrix
             Composed transform
         """
+        try:
+            import numpy as np
+        except ImportError:
+            raise ImportError("Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for Rotation.to_matrix")
+
         matrices = [t.to_matrix() for t in transform]
 
         # Check that all the transforms are the same size
@@ -259,7 +256,7 @@ class AffineTransformMatrix(DataModel):
         transform_matrix = matrices[0]
 
         for matrix in matrices[1:]:
-            transform_matrix = multiply_matrices(transform_matrix, matrix)
+            transform_matrix = np.matmul(transform_matrix, matrix).tolist()
 
         return AffineTransformMatrix(affine_transform=transform_matrix)
 

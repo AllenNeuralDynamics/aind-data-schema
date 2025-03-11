@@ -7,8 +7,8 @@ from src.aind_data_schema.components.coordinates import (
     Rotation,
     RotationDirection,
     AffineTransformMatrix,
-    multiply_matrices,
 )
+import numpy as np
 from scipy.spatial.transform import Rotation as R
 
 """ Tests for the coordinates module """
@@ -209,8 +209,8 @@ class TestAffineTransformMatrix(unittest.TestCase):
         composed_transform = affine_transform.compose([rotation, translation, scale])
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
-        expected_matrix = multiply_matrices(expected_matrix, [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]])
-        expected_matrix = multiply_matrices(expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]])
+        expected_matrix = np.matmul(expected_matrix, [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]).tolist()
+        expected_matrix = np.matmul(expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]).tolist()
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
 
 
@@ -234,7 +234,7 @@ class TestMultiplyMatrix(unittest.TestCase):
             [8, 9, 10],
             [11, 12, 13]
         ]
-        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+        self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
     def test_multiply_zero_matrix(self):
         """Test multiplying with zero matrix"""
@@ -253,7 +253,7 @@ class TestMultiplyMatrix(unittest.TestCase):
             [0, 0, 0],
             [0, 0, 0]
         ]
-        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+        self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
     def test_multiply_non_square_matrix(self):
         """Test multiplying non-square matrices"""
@@ -270,7 +270,7 @@ class TestMultiplyMatrix(unittest.TestCase):
             [58, 64],
             [139, 154]
         ]
-        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+        self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
     def test_multiply_varied_size(self):
         """Test multiplying incompatible matrices"""
@@ -283,7 +283,7 @@ class TestMultiplyMatrix(unittest.TestCase):
             [8, 9, 10]
         ]
         expected_result = [[21, 24, 27], [47, 54, 61]]
-        self.assertEqual(multiply_matrices(matrix1, matrix2), expected_result)
+        self.assertEqual(np.matmul(matrix1, matrix2).tolist(), expected_result)
 
 
 if __name__ == "__main__":
