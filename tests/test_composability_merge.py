@@ -10,7 +10,7 @@ from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaes
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
-from aind_data_schema.components.coordinates import ImageAxis, Scale, Position
+from aind_data_schema.components.coordinates import Scale, Axis, Translation, Transform, AxisName
 from aind_data_schema.components.devices import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization
@@ -21,6 +21,47 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
 
+invitro_config = InVitroImagingConfig(
+    chamber_immersion=Immersion(
+        medium="PBS",
+        refractive_index=1.33,
+    ),
+    axes=[
+        Axis(
+            name=AxisName.X,
+            direction="Left_to_right",
+        ),
+        Axis(
+            name=AxisName.Y,
+            direction="Anterior_to_posterior",
+        ),
+        Axis(
+            name=AxisName.Z,
+            direction="Inferior_to_superior",
+        ),
+    ],
+    tiles=[
+        tile.AcquisitionTile(
+            file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
+            coordinate_transformations=Transform(
+                transform=[
+                    Scale(scale=[0.748, 0.748, 1]),
+                    Translation(translation=[0, 0, 0]),
+                ]
+            ),
+            channel=tile.Channel(
+                channel_name="488",
+                excitation_wavelength=488,
+                excitation_power=200,
+                light_source_name="Ex_488",
+                filter_names=["Em_600"],
+                detector_name="PMT_1",
+                filter_wheel_index=0,
+            ),
+            notes="these are my notes",
+        ),
+    ],
+)
 
 class TestComposability(unittest.TestCase):
     """Tests for merge functions"""
@@ -137,48 +178,7 @@ class TestComposability(unittest.TestCase):
                     modalities=[Modality.SPIM],
                     active_devices=[],
                     configurations=[
-                        InVitroImagingConfig(
-                            chamber_immersion=Immersion(
-                                medium="PBS",
-                                refractive_index=1.33,
-                            ),
-                            axes=[
-                                ImageAxis(
-                                    name="X",
-                                    dimension=2,
-                                    direction="Left_to_right",
-                                ),
-                                ImageAxis(
-                                    name="Y",
-                                    dimension=1,
-                                    direction="Anterior_to_posterior",
-                                ),
-                                ImageAxis(
-                                    name="Z",
-                                    dimension=0,
-                                    direction="Inferior_to_superior",
-                                ),
-                            ],
-                            tiles=[
-                                tile.AcquisitionTile(
-                                    file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-                                    coordinate_transformations=[
-                                        Scale(scale=[0.748, 0.748, 1]),
-                                        Position(translation=[0, 0, 0]),
-                                    ],
-                                    channel=tile.Channel(
-                                        channel_name="488",
-                                        excitation_wavelength=488,
-                                        excitation_power=200,
-                                        light_source_name="Ex_488",
-                                        filter_names=["Em_600"],
-                                        detector_name="PMT_1",
-                                        filter_wheel_index=0,
-                                    ),
-                                    notes="these are my notes",
-                                ),
-                            ],
-                        ),
+                        invitro_config
                     ],
                 )
             ],
@@ -235,19 +235,16 @@ class TestComposability(unittest.TestCase):
                                 refractive_index=1.33,
                             ),
                             axes=[
-                                ImageAxis(
+                                Axis(
                                     name="X",
-                                    dimension=2,
                                     direction="Left_to_right",
                                 ),
-                                ImageAxis(
+                                Axis(
                                     name="Y",
-                                    dimension=1,
                                     direction="Anterior_to_posterior",
                                 ),
-                                ImageAxis(
+                                Axis(
                                     name="Z",
-                                    dimension=0,
                                     direction="Inferior_to_superior",
                                 ),
                             ],
@@ -256,7 +253,7 @@ class TestComposability(unittest.TestCase):
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     coordinate_transformations=[
                                         Scale(scale=[0.748, 0.748, 1]),
-                                        Position(translation=[0, 0, 0]),
+                                        Translation(translation=[0, 0, 0]),
                                     ],
                                     channel=tile.Channel(
                                         channel_name="561",

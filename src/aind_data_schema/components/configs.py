@@ -18,7 +18,6 @@ from aind_data_schema_models.units import (
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.components.coordinates import (
-    ImageAxis,
     Direction,
     AxisName,
     Transform,
@@ -36,7 +35,7 @@ from aind_data_schema.base import (
 from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
-    Position,
+    Axis,
 )
 from aind_data_schema.components.devices import SpoutSide
 from aind_data_schema.components.tile import Channel
@@ -224,6 +223,7 @@ class ManipulatorConfig(DomeModule):
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
+
     atlas_coordinates: Optional[List[Coordinate]] = Field(
         default=None,
         title="Targeted coordinates in the Acquisition Atlas",
@@ -407,7 +407,7 @@ class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
-    axes: List[ImageAxis] = Field(..., title="Acquisition axes")
+    axes: List[Axis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
     processing_steps: List[ProcessingSteps] = Field(
@@ -417,7 +417,7 @@ class InVitroImagingConfig(DataModel):
     )
 
     @field_validator("axes", mode="before")
-    def from_direction_code(cls, v: Union[str, List[ImageAxis]]) -> List[ImageAxis]:
+    def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:
         """Map direction codes to Axis model"""
         if type(v) is str:
             direction_lookup = {
@@ -433,7 +433,7 @@ class InVitroImagingConfig(DataModel):
 
             axes = []
             for i, c in enumerate(v):
-                axis = ImageAxis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
+                axis = Axis(name=name_lookup[i], direction=direction_lookup[c])
                 axes.append(axis)
             return axes
         else:

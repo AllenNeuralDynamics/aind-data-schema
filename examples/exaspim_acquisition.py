@@ -9,7 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import AxisName, FloatAxis, ImageAxis, Scale, Position
+from aind_data_schema.components.coordinates import AxisName, FloatAxis, Axis, Scale, Transform
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -20,21 +20,19 @@ from aind_data_schema.core.procedures import Reagent
 # script will be used as default
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
-tile_scale = (
-    Scale(
-        scale=[
-            FloatAxis(value=0.748, axis=AxisName.X),
-            FloatAxis(value=0.748, axis=AxisName.Y),
-            FloatAxis(value=1, axis=AxisName.Z),
-        ]
-    ),
+tile_scale = Scale(
+    scale=[
+        FloatAxis(value=0.748, axis=AxisName.X),
+        FloatAxis(value=0.748, axis=AxisName.Y),
+        FloatAxis(value=1, axis=AxisName.Z),
+    ]
 )
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    coordinate_transformations=[
+    coordinate_transformations=Transform(transform=[
         tile_scale,
-    ],
+    ]),
     channel=tile.Channel(
         channel_name="488",
         excitation_wavelength=488,
@@ -69,19 +67,16 @@ invitro_config = InVitroImagingConfig(
         refractive_index=1.33,
     ),
     axes=[
-        ImageAxis(
+        Axis(
             name="X",
-            dimension=2,
             direction="Left_to_right",
         ),
-        ImageAxis(
+        Axis(
             name="Y",
-            dimension=1,
             direction="Anterior_to_posterior",
         ),
-        ImageAxis(
+        Axis(
             name="Z",
-            dimension=0,
             direction="Inferior_to_superior",
         ),
     ],
