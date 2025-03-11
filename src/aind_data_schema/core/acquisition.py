@@ -36,7 +36,7 @@ from aind_data_schema.components.configs import (
     StimulusModality,
     InVitroImagingConfig,
 )
-from aind_data_schema.components.coordinates import Affine3dTransform
+from aind_data_schema.components.coordinates import AffineTransformMatrix
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
@@ -228,7 +228,7 @@ class Acquisition(DataCoreModel):
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
     experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
-    headframe_registration: Optional[Affine3dTransform] = Field(
+    headframe_registration: Optional[AffineTransformMatrix] = Field(
         default=None, title="Headframe registration", description="MRI transform matrix for headframe"
     )
     notes: Optional[str] = Field(default=None, title="Notes")

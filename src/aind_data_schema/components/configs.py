@@ -4,7 +4,6 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
-from typing_extensions import Annotated
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
@@ -18,7 +17,7 @@ from aind_data_schema_models.units import (
 
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, CcfCoords, Transform
+from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, Transform, Coordinate, SurfaceCoordinate
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -28,14 +27,12 @@ from aind_data_schema.base import (
     DataModel,
 )
 from aind_data_schema.components.coordinates import (
-    Coordinates3d,
     Rotation,
     Scale,
     Position,
 )
-from aind_data_schema.components.devices import RelativePosition, SpoutSide
+from aind_data_schema.components.devices import SpoutSide
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
@@ -220,20 +217,14 @@ class ManipulatorModule(DomeModule):
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-    targeted_ccf_coordinates: List[CcfCoords] = Field(
+    targeted_ccf_coordinates: List[Coordinate] = Field(
         default=[],
         title="Targeted CCF coordinates",
     )
-    manipulator_coordinates: Coordinates3d = Field(
+    manipulator_coordinates: SurfaceCoordinate = Field(
         ...,
         title="Manipulator coordinates",
     )
-    anatomical_coordinates: Optional[Coordinates3d] = Field(default=None, title="Anatomical coordinates")
-    anatomical_reference: Optional[Literal[CoordinateReferenceLocation.BREGMA, CoordinateReferenceLocation.LAMBDA]] = (
-        Field(default=None, title="Anatomical coordinate reference")
-    )
-    surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
-    surface_z_unit: Optional[SizeUnit] = Field(default=None, title="Surface z unit")
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
