@@ -22,7 +22,7 @@ from aind_data_schema.components.configs import (
     DomeModule,
     PatchCordConfig,
     FiberAssemblyConfig,
-    ManipulatorModule,
+    ManipulatorConfig,
     DetectorConfig,
     FieldOfView,
     SlapFieldOfView,
@@ -47,7 +47,7 @@ from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[DomeModule, ManipulatorModule]],
+    Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
     Modality.MRI: [[MRIScan]],
@@ -119,7 +119,7 @@ class DataStream(DataModel):
             Union[
                 LightEmittingDiodeConfig,
                 LaserConfig,
-                ManipulatorModule,
+                ManipulatorConfig,
                 DomeModule,
                 DetectorConfig,
                 PatchCordConfig,

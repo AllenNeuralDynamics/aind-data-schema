@@ -19,7 +19,7 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
     DomeModule,
-    ManipulatorModule,
+    ManipulatorConfig,
     MRIScan,
     RewardDeliveryConfig,
 )
@@ -64,7 +64,7 @@ class AcquisitionTest(unittest.TestCase):
                             arc_angle=24,
                             module_angle=10,
                         ),
-                        ManipulatorModule(
+                        ManipulatorConfig(
                             device_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
@@ -165,7 +165,7 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorModule(
+                            ManipulatorConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
@@ -204,7 +204,7 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorModule(
+                            ManipulatorConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
@@ -242,7 +242,7 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorModule(
+                            ManipulatorConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
@@ -280,7 +280,7 @@ class AcquisitionTest(unittest.TestCase):
                     arc_angle=24,
                     module_angle=10,
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     device_name="Ephys_assemblyA",
                     arc_angle=0,
                     module_angle=10,

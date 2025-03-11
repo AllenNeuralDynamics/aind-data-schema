@@ -47,7 +47,7 @@ from aind_data_schema.components.configs import (
     PatchCordConfig,
     FiberAssemblyConfig,
     LaserConfig,
-    ManipulatorModule,
+    ManipulatorConfig,
     StimulusModality,
 )
 from aind_data_schema.components.stimulus import VisualStimulation
@@ -342,7 +342,7 @@ ephys_acquisition = Acquisition(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     targeted_ccf_coordinates=[
                         CcfCoords(ml=8150, ap=3250, dv=7800),
                     ],
@@ -358,7 +358,7 @@ ephys_acquisition = Acquisition(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
@@ -418,7 +418,7 @@ ephys_acquisition = Acquisition(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
@@ -433,7 +433,7 @@ ephys_acquisition = Acquisition(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
@@ -448,7 +448,7 @@ ephys_acquisition = Acquisition(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,

@@ -217,26 +217,30 @@ class DomeModule(DeviceConfig):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class ManipulatorModule(DomeModule):
+class ManipulatorConfig(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
     primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-    targeted_ccf_coordinates: List[Coordinate] = Field(
+    atlas_coordinates: List[Coordinate] = Field(
         default=[],
-        title="Targeted CCF coordinates",
+        title="Targeted coordinates in the Acquisition Atlas",
     )
-    manipulator_coordinates: List[SurfaceCoordinate] = Field(
+    manipulator_coordinates: Optional[List[SurfaceCoordinate]] = Field(
+        default=[],
+        title="Targeted coordinates in the Instrument CoordinateSystem",
+    )
+    manipulator_axis_position: List[Coordinate] = Field(
         ...,
-        title="Manipulator coordinates",
+        title="Manipulator local axis positions",
     )
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
 
-class FiberAssemblyConfig(ManipulatorModule):
+class FiberAssemblyConfig(ManipulatorConfig):
     """Inserted fiber photometry probe recorded in a stream"""
 
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")

@@ -12,12 +12,11 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema.components.configs import (
-    CcfCoords,
-    Coordinates3d,
     DomeModule,
-    ManipulatorModule,
+    ManipulatorConfig,
     StimulusModality,
 )
+from aind_data_schema.components.coordinates import Coordinate, Axis, FloatAxis
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -117,9 +116,15 @@ acquisition = Acquisition(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     targeted_ccf_coordinates=[
-                        CcfCoords(ml=8150, ap=3250, dv=7800),
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=8150, axis=Axis.ML),
+                                FloatAxis(value=3250, axis=Axis.AP),
+                                FloatAxis(value=7800, axis=Axis.SI),
+                            ]
+                        ),
                     ],
                     device_name="Ephys_assemblyA",
                     arc_angle=5.2,
@@ -133,11 +138,19 @@ acquisition = Acquisition(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
-                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    targeted_ccf_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=6637.28, axis=Axis.ML),
+                                FloatAxis(value=4265.02, axis=Axis.AP),
+                                FloatAxis(value=10707.35, axis=Axis.SI),
+                            ]
+                        ),
+                    ],
                     device_name="Ephys_assemblyB",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
@@ -169,7 +182,7 @@ acquisition = Acquisition(
                     module_angle=-180,
                     notes="did not record angles, did not calibrate.",
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
@@ -184,7 +197,7 @@ acquisition = Acquisition(
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
