@@ -6,7 +6,7 @@ from typing import List, Optional, Union
 import math
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field
+from pydantic import Field, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
@@ -97,28 +97,20 @@ class Scale(DataModel):
 
     scale: List[FloatAxis] = Field(..., title="Scale parameters")
 
-    def to_matrix(self, axis_order: Optional[List[AxisName]] = None) -> List[List[float]]:
+    def to_matrix(self) -> List[List[float]]:
         """Return the scale matrix for arbitrary sized lists
-
-        Parameters
-        ----------
-        axis_order : Optional[List[AxisName]], optional
-            Order of the axes, by default None
 
         Returns
         -------
         List[List[float]]
-            Affine transform matrix
+            Affine scale matrix
         """
-        if axis_order is None:
-            axis_order = [fa.axis for fa in self.scale]
 
-        size = len(axis_order)
+        size = len(self.scale)
         scale_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
 
-        for scale_axis in self.scale:
-            axis_index = axis_order.index(scale_axis.axis)
-            scale_matrix[axis_index][axis_index] = scale_axis.value
+        for i, fa in enumerate(self.scale):
+            scale_matrix[i][i] = fa.value
 
         return scale_matrix
 
@@ -128,13 +120,8 @@ class Translation(DataModel):
 
     translation: List[FloatAxis] = Field(..., title="Translation parameters")
 
-    def to_matrix(self, axis_order: Optional[List[AxisName]] = None) -> List[List[float]]:
+    def to_matrix(self) -> List[List[float]]:
         """Return the translation matrix for arbitrary sized lists.
-
-        Parameters
-        ----------
-        axis_order : Optional[List[AxisName]], optional
-            Order of the axes, by default None.
 
         Returns
         -------
@@ -142,20 +129,14 @@ class Translation(DataModel):
             Affine transform matrix.
         """
 
-        if axis_order is None:
-            axis_order = [fa.axis for fa in self.translation]
-
-        size = len(axis_order)
+        size = len(self.translation)
 
         # Create (size + 1) x (size + 1) identity matrix
         translation_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
 
-        axis_to_value = {fa.axis: fa.value for fa in self.translation}
-
         # Populate the translation part (last column except for bottom-right corner)
-        for i, axis in enumerate(axis_order):
-            if axis in axis_to_value:
-                translation_matrix[i][-1] = axis_to_value[axis]
+        for i, fa in enumerate(self.translation):
+            translation_matrix[i][-1] = fa.value
 
         return translation_matrix
 
@@ -165,75 +146,73 @@ class Rotation(DataModel):
 
     angles: List[FloatAxis] = Field(..., title="Angles and axes in 3D space")
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    order: List[AxisName] = Field(
-        default=[AxisName.AP, AxisName.ML, AxisName.SI], title="Rotation order", description="Order of rotation axes"
-    )
+    order: List[AxisName] = Field(..., title="Rotation order", description="Order of rotation axes")
     rotation_direction: List[RotationDirection] = Field(
         ...,
         title="Rotation directions",
         description="CCW for right-hand rule. Defined looking in the negative direction of the axis",
     )
 
-    def to_matrix(self, axis_order: Optional[List[AxisName]] = None) -> List[List[float]]:
-        """Return the rotation matrix for arbitrary axis orders and directions.
-
-        Parameters
-        ----------
-        axis_order : Optional[List[AxisName]], optional
-            Order of the axes, by default None.
+    def to_matrix(self) -> List[List[float]]:
+        """Return the rotation matrix for arbtirary sized lists.
 
         Returns
         -------
         List[List[float]]
             Rotation matrix.
         """
-        if axis_order is None:
-            axis_order = [fa.axis for fa in self.angles]
+        try:
+            from scipy.spatial.transform import Rotation as R
+        except ImportError:
+            raise ImportError("Please run `pip install aind-data-schema[transforms]` to use Rotation.to_matrix")
 
         if not self.angles:
             return []
-
-        size = len(axis_order)
-
-        # Create identity matrix of appropriate size
-        rotation_matrix = [[1.0 if i == j else 0.0 for j in range(size)] for i in range(size)]
 
         # Map angles and directions to their axes
         axis_to_angle = {fa.axis: fa.value for fa in self.angles}
         axis_to_direction = {axis: direction for axis, direction in zip(self.order, self.rotation_direction)}
 
-        # Helper to generate a rotation matrix for a given axis
-        def axis_rotation_matrix(axis: AxisName, angle: float, direction: RotationDirection) -> List[List[float]]:
-            sign = 1 if direction == RotationDirection.CCW else -1
-            theta = math.radians(angle) * sign
-
-            cos_theta = math.cos(theta)
-            sin_theta = math.sin(theta)
-
-            if axis == AxisName.X:  # Rotate around x-axis
-                return [[1, 0, 0], [0, cos_theta, -sin_theta], [0, sin_theta, cos_theta]]
-            elif axis == AxisName.Y:  # Rotate around y-axis
-                return [[cos_theta, 0, sin_theta], [0, 1, 0], [-sin_theta, 0, cos_theta]]
-            elif axis == AxisName.Z:  # Rotate around z-axis
-                return [[cos_theta, -sin_theta, 0], [sin_theta, cos_theta, 0], [0, 0, 1]]
-
-        # Apply rotations in the specified order
-        for axis in self.order:
-            if axis in axis_to_angle and axis in axis_to_direction:
+        # Prepare the angles and axes for scipy Rotation
+        angles = []
+        axes = ""
+        for fa in self.angles:
+            if fa.axis in axis_to_angle and fa.axis in axis_to_direction:
+                # Get the angle, convert if needed
+                axis = fa.axis
                 angle = axis_to_angle[axis]
-                direction = axis_to_direction[axis]
-                R = axis_rotation_matrix(axis, angle, direction)
+                if self.angles_unit == AngleUnit.DEG:
+                    angle = math.radians(angle)
 
-                # Matrix multiplication: rotation_matrix = rotation_matrix @ R
-                rotation_matrix = [
-                    [sum(rotation_matrix[i][k] * R[k][j] for k in range(3)) for j in range(3)] for i in range(3)
-                ]
+                # Switch sign for CCW rotations
+                sign = 1 if axis_to_direction[axis] == RotationDirection.CW else -1
+                angles.append(angle * sign)
 
-        # Reorder axes if necessary
-        axis_index = {axis: i for i, axis in enumerate([AxisName.AP, AxisName.ML, AxisName.SI])}
-        permuted_indices = [axis_index[axis] for axis in axis_order]
+                # Get the axis order
+                index = self.order.index(axis)
+                axes += "xyz"[index]
 
-        return [[rotation_matrix[i][j] for j in permuted_indices] for i in permuted_indices]
+        # Create the rotation matrix
+        rotation = R.from_euler(axes, angles)
+        rotation_matrix = rotation.as_matrix()
+
+        return rotation_matrix.tolist()
+
+    @model_validator(mode="after")
+    def validate_matched_axes(cls, values):
+        """ Validate that the axis names match the angles """
+
+        angles = values.angles
+        order = values.order
+
+        if len(angles) != len(order):
+            raise ValueError("Number of angles must match the number of axes in the order")
+
+        for angle, axis in zip(angles, order):
+            if angle.axis != axis:
+                raise ValueError("Angle axis must match the order of rotation axes")
+
+        return values
 
 
 class AffineTransformMatrix(DataModel):
@@ -294,19 +273,19 @@ class CoordinateSystem(DataModel):
         ..., title="Origin", description="Defines the position of (0,0,0) relative to the brain or atlas"
     )
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
-    axes_unit: SizeUnit = Field(..., title="Axis unit")
-    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
     size: Optional[List[FloatAxis]] = Field(
         default=None,
         title="Size",
         description="Size of the coordinate system in the same unit as the axes",
     )
+    size_unit: Optional[SizeUnit] = Field(default=None, title="Size unit")
     resolution: Optional[List[FloatAxis]] = Field(
         default=None,
         title="Resolution",
         description="Resolution of the coordinate system when axes_unit is Pixels",
     )
+    resolution_unit: Optional[SizeUnit] = Field(default=None, title="Resolution unit")
 
 
 class Atlas(CoordinateSystem):
@@ -314,8 +293,10 @@ class Atlas(CoordinateSystem):
 
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    size: List[FloatAxis] = Field(..., title="Size")  # type: ignore
-    resolution: List[FloatAxis] = Field(..., title="Resolution")  # type: ignore
+    size: List[FloatAxis] = Field(..., title="Size")
+    size_unit: SizeUnit = Field(..., title="Size unit")
+    resolution: List[FloatAxis] = Field(..., title="Resolution")
+    resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
 
 class CoordinateTransform(DataModel):
@@ -340,6 +321,7 @@ class Coordinate(DataModel):
 
     position: List[FloatAxis] = Field(..., title="Coordinates in in vivo space")
     angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
 class SurfaceCoordinate(Coordinate):
@@ -354,3 +336,6 @@ class SurfaceCoordinate(Coordinate):
         title="Surface projection axis",
         description="Axis used to project the surface position onto the brain surface, defaults to the depth axis",
     )
+
+
+ORDERED_AXIS_TYPES = [Translation, Rotation, Scale, Coordinate, SurfaceCoordinate]

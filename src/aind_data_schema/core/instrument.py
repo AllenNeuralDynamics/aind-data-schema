@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Axis, CoordinateSpace, Origin
+from aind_data_schema.components.coordinates import Axis, CoordinateSystem, Origin, ORDERED_AXIS_TYPES
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -109,8 +109,8 @@ class Instrument(DataCoreModel):
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
 
-    # coordinate space definition
-    space: CoordinateSpace = Field(..., title="Coordinate space")
+    # coordinate system definition
+    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
 
     # instrument details
     com_ports: List[Com] = Field(default=[], title="COM ports")
@@ -276,3 +276,16 @@ class Instrument(DataCoreModel):
             raise ValueError("\n".join(errors))
 
         return value
+
+    # @model_validator(mode="after")
+    # def coordinate_validator(cls, values):
+    #     """ Validate that all coordinates are valid in the instrument's coordinate system """
+
+    #     axis_order = [axis.name for axis in values.coordinate_system.axes]
+
+    #     # Check fields recursively, if the field is an ORDERED_AXIS_TYPE check that
+    #     # it matches the coordinate system's axes order
+        
+    #     def 
+        
+
