@@ -195,7 +195,8 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    target="Face side left",
+    target=CameraTarget.FACE,
+    position=RelativePosition(position=[AnatomicalRelative.LEFT]),
     filter=filt,
     lens=lens,
 )
@@ -218,7 +219,8 @@ body_camera = Camera(
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
     camera=body_camera,
-    target="Body",
+    target=CameraTarget.BODY,
+    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
     filter=filt,
     lens=lens,
 )

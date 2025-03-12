@@ -14,9 +14,8 @@ from aind_data_schema.components.coordinates import (
     Transform,
     Rotation,
     Scale,
-    Position,
-    AffineTransformMatrix,
     Translation,
+    AffineTransformMatrix,
     FloatAxis,
     AxisName,
 )
@@ -69,10 +68,24 @@ class ImagingTests(unittest.TestCase):
                             chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                             tiles=[
                                 tile.AcquisitionTile(
-                                    coordinate_transformations=[
-                                        Scale(scale=[1, 1, 1]),
-                                        Position(translation=[1, 1, 1]),
-                                    ],
+                                    coordinate_transformations=Transform(
+                                        transform=[
+                                            Scale(
+                                                scale=[
+                                                    FloatAxis(value=1, axis=AxisName.X),
+                                                    FloatAxis(value=1, axis=AxisName.Y),
+                                                    FloatAxis(value=1, axis=AxisName.Z),
+                                                ]
+                                            ),
+                                            Translation(
+                                                translation=[
+                                                    FloatAxis(value=1, axis=AxisName.X),
+                                                    FloatAxis(value=1, axis=AxisName.Y),
+                                                    FloatAxis(value=1, axis=AxisName.Z),
+                                                ]
+                                            ),
+                                        ]
+                                    ),
                                     channel=tile.Channel(
                                         channel_name="488",
                                         light_source_name="Ex_488",
@@ -198,10 +211,24 @@ class ImagingTests(unittest.TestCase):
                                 chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                                 tiles=[
                                     tile.AcquisitionTile(
-                                        coordinate_transformations=[
-                                            Scale(scale=[1, 1, 1]),
-                                            Position(translation=[1, 1, 1]),
-                                        ],
+                                        coordinate_transformations=Transform(
+                                            transform=[
+                                                Scale(
+                                                    scale=[
+                                                        FloatAxis(value=1, axis=AxisName.X),
+                                                        FloatAxis(value=1, axis=AxisName.Y),
+                                                        FloatAxis(value=1, axis=AxisName.Z),
+                                                    ]
+                                                ),
+                                                Translation(
+                                                    translation=[
+                                                        FloatAxis(value=1, axis=AxisName.X),
+                                                        FloatAxis(value=1, axis=AxisName.Y),
+                                                        FloatAxis(value=1, axis=AxisName.Z),
+                                                    ]
+                                                ),
+                                            ]
+                                        ),
                                         channel=tile.Channel(
                                             channel_name="488",
                                             light_source_name="Ex_488",
