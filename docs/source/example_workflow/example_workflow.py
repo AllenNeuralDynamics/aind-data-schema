@@ -6,7 +6,7 @@ from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.core.procedures import (
-    NanojectInjection,
+    BrainInjection,
     Perfusion,
     Procedures,
     Surgery,
@@ -99,7 +99,7 @@ for session_idx, session in sessions_df.iterrows():
                 ethics_review_id=ethics_review_id,
                 experimenters=[experimenter],
                 procedures=[
-                    NanojectInjection(
+                    BrainInjection(
                         protocol_id=protocol,
                         injection_materials=[
                             ViralMaterial(

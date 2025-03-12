@@ -13,7 +13,7 @@ from aind_data_schema.core.procedures import (
     FiberImplant,
     FiberProbe,
     Headframe,
-    NanojectInjection,
+    BrainInjection,
     OphysProbe,
     Perfusion,
     Procedures,
@@ -49,7 +49,7 @@ p = Procedures(
                     headframe_part_number="TO ENTER",
                     headframe_material="Titanium",
                 ),
-                NanojectInjection(
+                BrainInjection(
                     protocol_id="5678",
                     injection_materials=[
                         ViralMaterial(

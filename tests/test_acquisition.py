@@ -113,7 +113,7 @@ class AcquisitionTest(unittest.TestCase):
                     rare_factor=4,
                     primary_scan=True,
                     vc_orientation=Rotation(
-                        rotation=[
+                        angles=[
                             FloatAxis(value=1.0, axis=AxisName.ML),
                             FloatAxis(value=1.0, axis=AxisName.DV),
                             FloatAxis(value=1.0, axis=AxisName.AP),
@@ -128,7 +128,13 @@ class AcquisitionTest(unittest.TestCase):
                         ]
                     ),
                     subject_position="Supine",
-                    voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
+                    voxel_sizes=Scale(
+                        scale=[
+                            FloatAxis(value=0.5, axis=AxisName.AP),
+                            FloatAxis(value=0.4375, axis=AxisName.ML),
+                            FloatAxis(value=0.52, axis=AxisName.SI),
+                        ]
+                    ),
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,

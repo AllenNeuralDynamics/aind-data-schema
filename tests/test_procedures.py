@@ -14,7 +14,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
     IntraperitonealInjection,
-    NanojectInjection,
+    BrainInjection,
     NonViralMaterial,
     OphysProbeImplant,
     Procedures,
@@ -215,7 +215,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                         ),
-                        NanojectInjection(
+                        BrainInjection(
                             protocol_id="bca",
                             injection_materials=[
                                 ViralMaterial(
@@ -359,10 +359,10 @@ class ProceduresTests(unittest.TestCase):
         )
 
     def test_coordinate_volume_validator(self):
-        """Test validator for list lengths on NanojectInjection"""
+        """Test validator for list lengths on BrainInjection"""
 
         # Should be okay
-        inj1 = NanojectInjection(
+        inj1 = BrainInjection(
             protocol_id="abc",
             injection_coordinate_ml=1,
             injection_coordinate_ap=1,
@@ -397,7 +397,7 @@ class ProceduresTests(unittest.TestCase):
 
         # Different coord_depth and inj_vol list lengths should raise an error
         with self.assertRaises(ValidationError) as e:
-            NanojectInjection(
+            BrainInjection(
                 protocol_id="abc",
                 injection_coordinate_ml=1,
                 injection_coordinate_ap=1,

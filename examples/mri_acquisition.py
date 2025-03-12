@@ -31,7 +31,13 @@ scan1 = MRIScan(
     echo_time=Decimal("3.42"),
     repetition_time=Decimal("100.0"),
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),
+    voxel_sizes=Scale(
+        scale=[
+            FloatAxis(value=0.5, axis=AxisName.AP),
+            FloatAxis(value=0.4375, axis=AxisName.ML),
+            FloatAxis(value=0.52, axis=AxisName.SI),
+        ]
+    ),
     processing_steps=[],
     additional_scan_parameters={},
     notes="Set up scan for the 3D scan.",
@@ -47,7 +53,14 @@ scan2 = MRIScan(
     echo_time=Decimal(5.33333333333333),
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
-    vc_orientation=Rotation(rotation=[1.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0]),
+    vc_orientation=Rotation(
+        angles=[
+            FloatAxis(value=-6.1, axis=AxisName.AP),
+            FloatAxis(value=-7.0, axis=AxisName.ML),
+            FloatAxis(value=7.9, axis=AxisName.SI),
+        ],
+        order=[AxisName.AP, AxisName.ML, AxisName.SI],
+    ),
     vc_position=Translation(
         translation=[
             FloatAxis(value=-6.1, axis=AxisName.AP),
@@ -56,7 +69,13 @@ scan2 = MRIScan(
         ]
     ),
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
+    voxel_sizes=Scale(
+        scale=[
+            FloatAxis(value=0.5, axis=AxisName.AP),
+            FloatAxis(value=0.4375, axis=AxisName.ML),
+            FloatAxis(value=0.52, axis=AxisName.SI),
+        ]
+    ),
     processing_steps=[],
     additional_scan_parameters={},
     notes=None,

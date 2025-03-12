@@ -6,7 +6,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Craniotomy,
-    NanojectInjection,
+    BrainInjection,
     Perfusion,
     Procedures,
     Surgery,
@@ -42,7 +42,7 @@ p = Procedures(
                     craniotomy_hemisphere="Left",
                     bregma_to_lambda_distance=4.1,
                 ),
-                NanojectInjection(
+                BrainInjection(
                     protocol_id="5678",
                     injection_materials=[
                         ViralMaterial(

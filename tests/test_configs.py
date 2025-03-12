@@ -4,6 +4,7 @@ import unittest
 from decimal import Decimal
 from pydantic import ValidationError
 from aind_data_schema.components.configs import MRIScan, Rotation, Translation, Scale
+from aind_data_schema.components.coordinates import FloatAxis, AxisName
 
 
 class TestMRIScan(unittest.TestCase):
@@ -21,9 +22,28 @@ class TestMRIScan(unittest.TestCase):
             "repetition_time": Decimal("2000.0"),
             "subject_position": "Prone",
             "additional_scan_parameters": {},
-            "vc_orientation": Rotation(rotation=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-            "vc_position": Translation(translation=[0.0, 0.0, 0.0]),
-            "voxel_sizes": Scale(scale=[1.0, 1.0, 1.0]),
+            "vc_orientation": Rotation(
+                        angles=[
+                            FloatAxis(value=1.0, axis=AxisName.ML),
+                            FloatAxis(value=1.0, axis=AxisName.DV),
+                            FloatAxis(value=1.0, axis=AxisName.AP),
+                        ],
+                        order=[AxisName.AP, AxisName.DV, AxisName.ML],
+                    ),
+            "vc_position": Translation(
+                        translation=[
+                            FloatAxis(value=1.0, axis=AxisName.ML),
+                            FloatAxis(value=1.0, axis=AxisName.DV),
+                            FloatAxis(value=1.0, axis=AxisName.AP),
+                        ]
+                    ),
+            "voxel_sizes": Scale(
+                        scale=[
+                            FloatAxis(value=0.5, axis=AxisName.AP),
+                            FloatAxis(value=0.4375, axis=AxisName.ML),
+                            FloatAxis(value=0.52, axis=AxisName.SI),
+                        ]
+                    ),
         }
         scan = MRIScan(**valid_data)
         self.assertTrue(scan.primary_scan)
