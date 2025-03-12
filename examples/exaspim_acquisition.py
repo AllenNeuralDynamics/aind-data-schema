@@ -27,7 +27,7 @@ tile_scale = Scale(
         FloatAxis(value=1, axis=AxisName.Z),
     ]
 )
-transform = Transform(transform=[tile_scale])
+transform = Transform(transforms=[tile_scale])
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",

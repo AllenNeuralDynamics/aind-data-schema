@@ -268,8 +268,12 @@ class ImagingTests(unittest.TestCase):
                 "tiles": [
                     tile.Tile(
                         coordinate_transformations=[
-                            AffineTransformMatrix(
-                                affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
+                            Transform(
+                                transforms=[
+                                    AffineTransformMatrix(
+                                        affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
+                                    )
+                                ]
                             )
                         ]
                     ),
