@@ -330,14 +330,6 @@ class Atlas(CoordinateSystem):
         return values
 
 
-class CoordinateTransform(DataModel):
-    """Transformation from one CoordinateSystem to another"""
-
-    input: CoordinateSystem = Field(..., title="Input coordinate system")
-    output: CoordinateSystem = Field(..., title="Output coordinate system")
-    transform: Transform = Field(..., title="Transformation from input to output coordinate system")
-
-
 class RelativePosition(DataModel):
     """Relative position in a coordinate system"""
 
