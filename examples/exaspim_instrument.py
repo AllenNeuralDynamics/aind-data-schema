@@ -18,7 +18,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Instrument, Com
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.components.coordinates import DEFAULT_SYSTEM
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 objectives = [
     Objective(
@@ -219,7 +219,7 @@ inst = Instrument(
     instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
     manufacturer=Organization.CUSTOM,
-    coordinate_system=DEFAULT_SYSTEM,
+    coordinate_system=CoordinateSystemLibrary.DEFAULT,
     components=[
         *objectives,
         *detectors,
