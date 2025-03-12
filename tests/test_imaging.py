@@ -18,6 +18,7 @@ from aind_data_schema.components.coordinates import (
     AffineTransformMatrix,
     FloatAxis,
     AxisName,
+    CoordinateSystemLibrary,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -69,7 +70,7 @@ class ImagingTests(unittest.TestCase):
                             tiles=[
                                 tile.AcquisitionTile(
                                     coordinate_transformations=Transform(
-                                        transform=[
+                                        transforms=[
                                             Scale(
                                                 scale=[
                                                     FloatAxis(value=1, axis=AxisName.X),
@@ -141,6 +142,7 @@ class ImagingTests(unittest.TestCase):
             instrument_id="room_exaSPIM1-1_20231004",
             modalities=[Modality.SPIM],
             instrument_type="diSPIM",
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
             components=[objective, laser, scan_stage],
@@ -155,6 +157,7 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="room_exaSPIM1-1_20231004",
                 modalities=[Modality.SPIM],
                 instrument_type="Other",
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 manufacturer=Organization.OTHER,
                 components=[],
@@ -169,6 +172,7 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="room_exaSPIM1-1_20231004",
                 modalities=[Modality.SPIM],
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 instrument_type="diSPIM",
                 manufacturer=Organization.OTHER,
                 components=[],
@@ -212,7 +216,7 @@ class ImagingTests(unittest.TestCase):
                                 tiles=[
                                     tile.AcquisitionTile(
                                         coordinate_transformations=Transform(
-                                            transform=[
+                                            transforms=[
                                                 Scale(
                                                     scale=[
                                                         FloatAxis(value=1, axis=AxisName.X),
@@ -271,7 +275,7 @@ class ImagingTests(unittest.TestCase):
                     ),
                     tile.Tile(
                         coordinate_transformations=Transform(
-                            transform=[
+                            transforms=[
                                 Translation(
                                     translation=[
                                         FloatAxis(value=0, axis=AxisName.X),

@@ -53,7 +53,7 @@ invitro_config = InVitroImagingConfig(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transformations=Transform(
-                transform=[
+                transforms=[
                     Scale(scale=[0.748, 0.748, 1]),
                     Translation(translation=[0, 0, 0]),
                 ]
@@ -351,14 +351,14 @@ class TestComposability(unittest.TestCase):
                         Origin.BREGMA: Coordinate(
                             position=[
                                 FloatAxis(value=0.0, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
                             ]
                         ),
                         Origin.LAMBDA: Coordinate(
                             position=[
                                 FloatAxis(value=-4.1, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
                             ]
                         ),

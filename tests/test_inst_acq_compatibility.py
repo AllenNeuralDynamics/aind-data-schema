@@ -58,6 +58,7 @@ from aind_data_schema.components.coordinates import (
     Coordinate,
     FloatAxis,
     AxisName,
+    CoordinateSystemLibrary,
 )
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
@@ -248,6 +249,7 @@ ephys_inst = Instrument(
     instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
+    coordinate_system=CoordinateSystemLibrary.DEFAULT,
     components=[
         ephys_assemblyA,
         ephys_assemblyB,
@@ -357,7 +359,7 @@ ephys_acquisition = Acquisition(
                             position=[
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
-                                FloatAxis(value=7800, axis=AxisName.DV),
+                                FloatAxis(value=7800, axis=AxisName.SI),
                             ]
                         ),
                     ],
@@ -387,7 +389,7 @@ ephys_acquisition = Acquisition(
                             position=[
                                 FloatAxis(value=6637.28, axis=AxisName.ML),
                                 FloatAxis(value=4265.02, axis=AxisName.AP),
-                                FloatAxis(value=10707.35, axis=AxisName.DV),
+                                FloatAxis(value=10707.35, axis=AxisName.SI),
                             ]
                         ),
                     ],
@@ -461,7 +463,7 @@ ephys_acquisition = Acquisition(
                             position=[
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
-                                FloatAxis(value=7800, axis=AxisName.DV),
+                                FloatAxis(value=7800, axis=AxisName.SI),
                             ]
                         ),
                     ],
@@ -490,7 +492,7 @@ ephys_acquisition = Acquisition(
                             position=[
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
-                                FloatAxis(value=7800, axis=AxisName.DV),
+                                FloatAxis(value=7800, axis=AxisName.SI),
                             ]
                         ),
                     ],
@@ -519,7 +521,7 @@ ephys_acquisition = Acquisition(
                             position=[
                                 FloatAxis(value=6637.28, axis=AxisName.ML),
                                 FloatAxis(value=4265.02, axis=AxisName.AP),
-                                FloatAxis(value=10707.35, axis=AxisName.DV),
+                                FloatAxis(value=10707.35, axis=AxisName.SI),
                             ]
                         ),
                     ],
@@ -844,6 +846,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],
+            coordinate_system=CoordinatesSystemLibrary.DEFAULT,
             components=[
                 *cameras,
                 *patch_cords,

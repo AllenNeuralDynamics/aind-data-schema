@@ -32,7 +32,7 @@ transform = Transform(transform=[tile_scale])
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
     coordinate_transformations=Transform(
-        transform=[
+        transforms=[
             tile_scale,
         ]
     ),

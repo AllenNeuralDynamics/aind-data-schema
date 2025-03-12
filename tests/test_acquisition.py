@@ -75,7 +75,7 @@ class AcquisitionTest(unittest.TestCase):
                                     position=[
                                         FloatAxis(value=1.0, axis=AxisName.ML),
                                         FloatAxis(value=1.0, axis=AxisName.AP),
-                                        FloatAxis(value=1.0, axis=AxisName.DV),
+                                        FloatAxis(value=1.0, axis=AxisName.SI),
                                     ]
                                 ),
                             ],
@@ -128,15 +128,15 @@ class AcquisitionTest(unittest.TestCase):
                     vc_orientation=Rotation(
                         angles=[
                             FloatAxis(value=1.0, axis=AxisName.ML),
-                            FloatAxis(value=1.0, axis=AxisName.DV),
+                            FloatAxis(value=1.0, axis=AxisName.SI),
                             FloatAxis(value=1.0, axis=AxisName.AP),
                         ],
-                        order=[AxisName.AP, AxisName.DV, AxisName.ML],
+                        order=[AxisName.AP, AxisName.SI, AxisName.ML],
                     ),
                     vc_position=Translation(
                         translation=[
                             FloatAxis(value=1.0, axis=AxisName.ML),
-                            FloatAxis(value=1.0, axis=AxisName.DV),
+                            FloatAxis(value=1.0, axis=AxisName.SI),
                             FloatAxis(value=1.0, axis=AxisName.AP),
                         ]
                     ),
@@ -209,7 +209,7 @@ class AcquisitionTest(unittest.TestCase):
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
-                                            FloatAxis(value=1.0, axis=AxisName.DV),
+                                            FloatAxis(value=1.0, axis=AxisName.SI),
                                         ]
                                     ),
                                 ],
@@ -262,7 +262,7 @@ class AcquisitionTest(unittest.TestCase):
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
-                                            FloatAxis(value=1.0, axis=AxisName.DV),
+                                            FloatAxis(value=1.0, axis=AxisName.SI),
                                         ]
                                     ),
                                 ],
@@ -314,7 +314,7 @@ class AcquisitionTest(unittest.TestCase):
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
-                                            FloatAxis(value=1.0, axis=AxisName.DV),
+                                            FloatAxis(value=1.0, axis=AxisName.SI),
                                         ]
                                     ),
                                 ],
@@ -366,7 +366,7 @@ class AcquisitionTest(unittest.TestCase):
                             position=[
                                 FloatAxis(value=1.0, axis=AxisName.ML),
                                 FloatAxis(value=1.0, axis=AxisName.AP),
-                                FloatAxis(value=1.0, axis=AxisName.DV),
+                                FloatAxis(value=1.0, axis=AxisName.SI),
                             ]
                         ),
                     ],

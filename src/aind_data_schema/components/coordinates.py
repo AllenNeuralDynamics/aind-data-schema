@@ -283,7 +283,7 @@ class NonlinearTransform(DataModel):
 class Transform(DataModel):
     """Affine and non-linear transformations"""
 
-    transform: List[
+    transforms: List[
         Annotated[
             Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
             Field(discriminator="object_type"),

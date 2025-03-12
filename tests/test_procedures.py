@@ -171,14 +171,14 @@ class ProceduresTests(unittest.TestCase):
                         Origin.BREGMA: Coordinate(
                             position=[
                                 FloatAxis(value=0.0, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
                             ]
                         ),
                         Origin.LAMBDA: Coordinate(
                             position=[
                                 FloatAxis(value=-4.1, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
                             ]
                         ),
