@@ -251,8 +251,19 @@ class AffineTransformMatrix(DataModel):
         matrices = [t.to_matrix() for t in transform]
 
         # Check that all the transforms are the same size
-        size = len(matrices[0])
-        if not all(len(matrix) == size for matrix in matrices):
+        def get_shape(list_of_lists):
+            """Get the shape of a list of lists"""
+            len0 = len(list_of_lists)
+            len1 = len(list_of_lists[0])
+
+            # Check that all the lists are the same size
+            if not all(len(lst) == len1 for lst in list_of_lists):  # pragma: no cover
+                raise ValueError("Cannot get the shape of a non-rectangular list of lists")
+
+            return (len0, len1)
+
+        shape = get_shape(matrices[0])
+        if not all(get_shape(matrix) == shape for matrix in matrices):
             raise ValueError("All transforms must be the same size")
 
         transform_matrix = matrices[0]
@@ -365,7 +376,7 @@ ORDERED_AXIS_TYPES = [Translation, Rotation, Scale, Coordinate, SurfaceCoordinat
 
 
 class CoordinateSystemLibrary:
-    """ Library of common coordinate systems """
+    """Library of common coordinate systems"""
 
     BREGMA_ARI = CoordinateSystem(
         origin=Origin.BREGMA,
