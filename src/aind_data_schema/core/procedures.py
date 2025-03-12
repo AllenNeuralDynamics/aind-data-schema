@@ -616,7 +616,7 @@ class Surgery(DataModel):
     )
 
     # Measured coordinates
-    measured_coordinates = Optional[Dict[Origin, Coordinate]] = Field(
+    measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
         default=None,
         title="Measured coordinates",
         description="Coordinates measured during the procedure",

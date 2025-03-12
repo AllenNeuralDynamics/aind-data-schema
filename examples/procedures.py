@@ -40,7 +40,6 @@ p = Procedures(
                     craniotomy_type="Visual Cortex",
                     protocol_id="1234",
                     craniotomy_hemisphere="Left",
-                    bregma_to_lambda_distance=4.1,
                 ),
                 BrainInjection(
                     protocol_id="5678",
@@ -63,7 +62,6 @@ p = Procedures(
                     injection_coordinate_ap=-3.8,
                     injection_coordinate_depth=[-3.3],
                     injection_coordinate_reference="Lambda",
-                    bregma_to_lambda_distance=4.1,
                     injection_angle=10,
                     dynamics=[
                         InjectionDynamics(
