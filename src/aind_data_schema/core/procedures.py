@@ -516,8 +516,6 @@ class OphysProbe(DataModel):
 
     coordinate: SurfaceCoordinate = Field(..., title="Stereotactic coordinate")
 
-    notes: Optional[str] = Field(default=None, title="Notes")
-
 
 class FiberImplant(DataModel):
     """Description of an implant procedure"""
@@ -551,7 +549,6 @@ class MyomatrixContact(DataModel):
     side: Side = Field(..., title="Body side")
     muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class MyomatrixThread(DataModel):
