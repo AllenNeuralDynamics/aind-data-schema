@@ -31,11 +31,7 @@ transform = Transform(transforms=[tile_scale])
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    coordinate_transformations=Transform(
-        transforms=[
-            tile_scale,
-        ]
-    ),
+    coordinate_transformations=transform,
     channel=tile.Channel(
         channel_name="488",
         excitation_wavelength=488,

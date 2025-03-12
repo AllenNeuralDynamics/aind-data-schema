@@ -259,10 +259,12 @@ class TestComposability(unittest.TestCase):
                             tiles=[
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-                                    coordinate_transformations=[
-                                        Scale(scale=[0.748, 0.748, 1]),
-                                        Translation(translation=[0, 0, 0]),
-                                    ],
+                                    coordinate_transformations=Transform(
+                                        transforms=[
+                                            Scale(scale=[0.748, 0.748, 1]),
+                                            Translation(translation=[0, 0, 0]),
+                                        ]
+                                    ),
                                     channel=tile.Channel(
                                         channel_name="561",
                                         excitation_wavelength=561,
