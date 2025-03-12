@@ -23,27 +23,27 @@ class TestMRIScan(unittest.TestCase):
             "subject_position": "Prone",
             "additional_scan_parameters": {},
             "vc_orientation": Rotation(
-                        angles=[
-                            FloatAxis(value=1.0, axis=AxisName.ML),
-                            FloatAxis(value=1.0, axis=AxisName.DV),
-                            FloatAxis(value=1.0, axis=AxisName.AP),
-                        ],
-                        order=[AxisName.AP, AxisName.DV, AxisName.ML],
-                    ),
+                angles=[
+                    FloatAxis(value=1.0, axis=AxisName.ML),
+                    FloatAxis(value=1.0, axis=AxisName.DV),
+                    FloatAxis(value=1.0, axis=AxisName.AP),
+                ],
+                order=[AxisName.AP, AxisName.DV, AxisName.ML],
+            ),
             "vc_position": Translation(
-                        translation=[
-                            FloatAxis(value=1.0, axis=AxisName.ML),
-                            FloatAxis(value=1.0, axis=AxisName.DV),
-                            FloatAxis(value=1.0, axis=AxisName.AP),
-                        ]
-                    ),
+                translation=[
+                    FloatAxis(value=1.0, axis=AxisName.ML),
+                    FloatAxis(value=1.0, axis=AxisName.DV),
+                    FloatAxis(value=1.0, axis=AxisName.AP),
+                ]
+            ),
             "voxel_sizes": Scale(
-                        scale=[
-                            FloatAxis(value=0.5, axis=AxisName.AP),
-                            FloatAxis(value=0.4375, axis=AxisName.ML),
-                            FloatAxis(value=0.52, axis=AxisName.SI),
-                        ]
-                    ),
+                scale=[
+                    FloatAxis(value=0.5, axis=AxisName.AP),
+                    FloatAxis(value=0.4375, axis=AxisName.ML),
+                    FloatAxis(value=0.52, axis=AxisName.SI),
+                ]
+            ),
         }
         scan = MRIScan(**valid_data)
         self.assertTrue(scan.primary_scan)

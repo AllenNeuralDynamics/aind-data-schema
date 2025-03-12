@@ -11,10 +11,14 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
+    Transform,
     Rotation,
     Scale,
     Position,
+    AffineTransformMatrix,
+    Translation,
+    FloatAxis,
+    AxisName,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -233,15 +237,38 @@ class ImagingTests(unittest.TestCase):
                 "tiles": [
                     tile.Tile(
                         coordinate_transformations=[
-                            Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+                            AffineTransformMatrix(
+                                affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
+                            )
                         ]
                     ),
                     tile.Tile(
-                        coordinate_transformations=[
-                            Position(translation=[0, 1, 2]),
-                            Rotation(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                            Scale(scale=[1, 2, 3]),
-                        ]
+                        coordinate_transformations=Transform(
+                            transform=[
+                                Translation(
+                                    translation=[
+                                        FloatAxis(value=0, axis=AxisName.X),
+                                        FloatAxis(value=1, axis=AxisName.Y),
+                                        FloatAxis(value=2, axis=AxisName.Z),
+                                    ]
+                                ),
+                                Rotation(
+                                    angles=[
+                                        FloatAxis(value=1, axis=AxisName.X),
+                                        FloatAxis(value=2, axis=AxisName.Y),
+                                        FloatAxis(value=3, axis=AxisName.Z),
+                                    ],
+                                    order=[AxisName.X, AxisName.Y, AxisName.Z],
+                                ),
+                                Scale(
+                                    scale=[
+                                        FloatAxis(value=1, axis=AxisName.X),
+                                        FloatAxis(value=2, axis=AxisName.Y),
+                                        FloatAxis(value=3, axis=AxisName.Z),
+                                    ]
+                                ),
+                            ]
+                        ),
                     ),
                 ],
             },

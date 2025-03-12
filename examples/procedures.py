@@ -17,7 +17,16 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import VolumeUnit
-from aind_data_schema.components.coordinates import SurfaceCoordinate, FloatAxis, AxisName, CoordinateSystem, Rotation, Origin, Axis, Direction
+from aind_data_schema.components.coordinates import (
+    SurfaceCoordinate,
+    FloatAxis,
+    AxisName,
+    CoordinateSystem,
+    Rotation,
+    Origin,
+    Axis,
+    Direction,
+)
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -41,7 +50,7 @@ p = Procedures(
                     Axis(name=AxisName.ML, direction=Direction.LR),
                     Axis(name=AxisName.AP, direction=Direction.PA),
                     Axis(name=AxisName.SI, direction=Direction.SI),
-                ]
+                ],
             ),
             workstation_id="SWS 3",
             procedures=[

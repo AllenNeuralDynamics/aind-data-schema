@@ -52,7 +52,13 @@ from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
-from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative, Coordinate, FloatAxis, AxisName
+from aind_data_schema.components.coordinates import (
+    RelativePosition,
+    AnatomicalRelative,
+    Coordinate,
+    FloatAxis,
+    AxisName,
+)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -350,7 +356,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
                                 FloatAxis(value=7800, axis=AxisName.DV),
-                            ]  
+                            ]
                         ),
                     ],
                     manipulator_axis_position=Coordinate(
@@ -380,7 +386,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=6637.28, axis=AxisName.ML),
                                 FloatAxis(value=4265.02, axis=AxisName.AP),
                                 FloatAxis(value=10707.35, axis=AxisName.DV),
-                            ]  
+                            ]
                         ),
                     ],
                     manipulator_axis_position=Coordinate(
@@ -454,7 +460,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
                                 FloatAxis(value=7800, axis=AxisName.DV),
-                            ]  
+                            ]
                         ),
                     ],
                     manipulator_axis_position=Coordinate(
@@ -483,7 +489,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
                                 FloatAxis(value=7800, axis=AxisName.DV),
-                            ]  
+                            ]
                         ),
                     ],
                     manipulator_axis_position=Coordinate(
@@ -512,7 +518,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=6637.28, axis=AxisName.ML),
                                 FloatAxis(value=4265.02, axis=AxisName.AP),
                                 FloatAxis(value=10707.35, axis=AxisName.DV),
-                            ]  
+                            ]
                         ),
                     ],
                     manipulator_axis_position=Coordinate(

@@ -10,7 +10,16 @@ from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaes
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
-from aind_data_schema.components.coordinates import Scale, Axis, Translation, Transform, AxisName, Origin, Coordinate, FloatAxis
+from aind_data_schema.components.coordinates import (
+    Scale,
+    Axis,
+    Translation,
+    Transform,
+    AxisName,
+    Origin,
+    Coordinate,
+    FloatAxis,
+)
 from aind_data_schema.components.devices import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization

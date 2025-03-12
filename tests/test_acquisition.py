@@ -76,7 +76,7 @@ class AcquisitionTest(unittest.TestCase):
                                         FloatAxis(value=1.0, axis=AxisName.ML),
                                         FloatAxis(value=1.0, axis=AxisName.AP),
                                         FloatAxis(value=1.0, axis=AxisName.DV),
-                                    ]  
+                                    ]
                                 ),
                             ],
                             manipulator_axis_position=Coordinate(
@@ -210,7 +210,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
                                             FloatAxis(value=1.0, axis=AxisName.DV),
-                                        ]  
+                                        ]
                                     ),
                                 ],
                                 manipulator_axis_position=Coordinate(
@@ -263,7 +263,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
                                             FloatAxis(value=1.0, axis=AxisName.DV),
-                                        ]  
+                                        ]
                                     ),
                                 ],
                                 manipulator_axis_position=Coordinate(
@@ -315,7 +315,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
                                             FloatAxis(value=1.0, axis=AxisName.DV),
-                                        ]  
+                                        ]
                                     ),
                                 ],
                                 manipulator_axis_position=Coordinate(
@@ -367,7 +367,7 @@ class AcquisitionTest(unittest.TestCase):
                                 FloatAxis(value=1.0, axis=AxisName.ML),
                                 FloatAxis(value=1.0, axis=AxisName.AP),
                                 FloatAxis(value=1.0, axis=AxisName.DV),
-                            ]  
+                            ]
                         ),
                     ],
                     manipulator_axis_position=Coordinate(
