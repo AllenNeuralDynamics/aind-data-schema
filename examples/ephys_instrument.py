@@ -300,7 +300,7 @@ inst = Instrument(
             Axis(name=AxisName.AP, direction=Direction.AP),
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.SI, direction=Direction.SI),
-        ]
+        ],
     ),
     components=[
         ephys_assemblyA,

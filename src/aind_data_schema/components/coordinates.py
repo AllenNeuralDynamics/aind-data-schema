@@ -144,16 +144,16 @@ class Translation(DataModel):
 
 
 class Rotation(DataModel):
-    """Rotation"""
+    """Rotation
 
-    angles: List[FloatAxis] = Field(..., title="Angles and axes in 3D space")
+    Angles follow right-hand rule, with positive angles rotating counter-clockwise.
+    """
+
+    angles: List[FloatAxis] = Field(
+        ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
+    )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     order: List[AxisName] = Field(..., title="Rotation order", description="Order of rotation axes")
-    rotation_direction: List[RotationDirection] = Field(
-        ...,
-        title="Rotation directions",
-        description="CCW for right-hand rule. Defined looking in the negative direction of the axis",
-    )
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine rotation matrix for arbtirary sized lists.
@@ -175,22 +175,19 @@ class Rotation(DataModel):
 
         # Map angles and directions to their axes
         axis_to_angle = {fa.axis: fa.value for fa in self.angles}
-        axis_to_direction = {axis: direction for axis, direction in zip(self.order, self.rotation_direction)}
 
         # Prepare the angles and axes for scipy Rotation
         angles = []
         axes = ""
         for fa in self.angles:
-            if fa.axis in axis_to_angle and fa.axis in axis_to_direction:
+            if fa.axis in axis_to_angle:
                 # Get the angle, convert if needed
                 axis = fa.axis
                 angle = axis_to_angle[axis]
                 if self.angles_unit == AngleUnit.DEG:
                     angle = math.radians(angle)
 
-                # Switch sign for CCW rotations
-                sign = 1 if axis_to_direction[axis] == RotationDirection.CW else -1
-                angles.append(angle * sign)
+                angles.append(angle)
 
                 # Get the axis order
                 index = self.order.index(axis)
@@ -320,7 +317,7 @@ class Atlas(CoordinateSystem):
 
     @model_validator(mode="after")
     def validate_atlas(cls, values):
-        """ Ensure that all FloatAxis axis names match the axes names in order """
+        """Ensure that all FloatAxis axis names match the axes names in order"""
 
         axes = [axis.name for axis in values.axes]
         for i, fa in enumerate(values.size):

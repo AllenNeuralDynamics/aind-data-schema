@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.coordinates import Rotation, Scale, Position
+from aind_data_schema.components.coordinates import Rotation, Scale, Translation, FloatAxis, AxisName
 from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
@@ -48,7 +48,13 @@ scan2 = MRIScan(
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
     vc_orientation=Rotation(rotation=[1.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0]),
-    vc_position=Position(translation=[-6.1, -7.0, 7.9]),
+    vc_position=Translation(
+        translation=[
+            FloatAxis(value=-6.1, axis=AxisName.AP),
+            FloatAxis(value=-7.0, axis=AxisName.ML),
+            FloatAxis(value=7.9, axis=AxisName.SI),
+        ]
+    ),
     subject_position=SubjectPosition.SUPINE,
     voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
     processing_steps=[],

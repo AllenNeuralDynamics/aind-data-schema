@@ -31,7 +31,15 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.identifiers import Software
-from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative, CoordinateSystem, Origin, Axis, AxisName, Direction
+from aind_data_schema.components.coordinates import (
+    RelativePosition,
+    AnatomicalRelative,
+    CoordinateSystem,
+    Origin,
+    Axis,
+    AxisName,
+    Direction,
+)
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
@@ -353,7 +361,7 @@ inst = Instrument(
             Axis(name=AxisName.AP, direction=Direction.AP),
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.SI, direction=Direction.SI),
-        ]
+        ],
     ),
     components=[
         camera1,

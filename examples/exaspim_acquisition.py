@@ -27,12 +27,15 @@ tile_scale = Scale(
         FloatAxis(value=1, axis=AxisName.Z),
     ]
 )
+transform = Transform(transform=[tile_scale])
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    coordinate_transformations=Transform(transform=[
-        tile_scale,
-    ]),
+    coordinate_transformations=Transform(
+        transform=[
+            tile_scale,
+        ]
+    ),
     channel=tile.Channel(
         channel_name="488",
         excitation_wavelength=488,
@@ -46,9 +49,7 @@ tile0 = tile.AcquisitionTile(
 )
 tile1 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-    coordinate_transformations=[
-        tile_scale,
-    ],
+    coordinate_transformations=transform,
     channel=tile.Channel(
         channel_name="561",
         excitation_wavelength=561,

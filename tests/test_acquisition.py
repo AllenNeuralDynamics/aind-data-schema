@@ -14,7 +14,9 @@ from aind_data_schema.components.coordinates import (
     Coordinates3d,
     Rotation,
     Scale,
-    Position,
+    Translation,
+    FloatAxis,
+    AxisName,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
@@ -110,8 +112,21 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_orientation=Rotation(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                    vc_position=Position(translation=[1, 1, 1]),
+                    vc_orientation=Rotation(
+                        rotation=[
+                            FloatAxis(value=1.0, axis=AxisName.ML),
+                            FloatAxis(value=1.0, axis=AxisName.DV),
+                            FloatAxis(value=1.0, axis=AxisName.AP),
+                        ],
+                        order=[AxisName.AP, AxisName.DV, AxisName.ML],
+                    ),
+                    vc_position=Translation(
+                        translation=[
+                            FloatAxis(value=1.0, axis=AxisName.ML),
+                            FloatAxis(value=1.0, axis=AxisName.DV),
+                            FloatAxis(value=1.0, axis=AxisName.AP),
+                        ]
+                    ),
                     subject_position="Supine",
                     voxel_sizes=Scale(scale=[0.1, 0.1, 0.1]),
                     echo_time=2.2,

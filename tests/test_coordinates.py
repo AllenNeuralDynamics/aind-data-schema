@@ -81,24 +81,22 @@ class TestRotation(unittest.TestCase):
         rotation = Rotation(
             angles=rotation_data,
             order=[AxisName.AP, AxisName.ML, AxisName.SI],
-            rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
         self.maxDiff = None
         self.assertEqual(rotation.to_matrix(), expected_matrix)
 
-    def test_to_matrix_mixed_directions(self):
-        """Test to_matrix method with mixed rotation directions"""
+    def test_to_matrix_negative_directions(self):
+        """Test to_matrix method with inverted rotation directions"""
         rotation_data = [
-            FloatAxis(value=90.0, axis=AxisName.AP),
-            FloatAxis(value=45.0, axis=AxisName.ML),
-            FloatAxis(value=30.0, axis=AxisName.SI),
+            FloatAxis(value=-90.0, axis=AxisName.AP),
+            FloatAxis(value=-45.0, axis=AxisName.ML),
+            FloatAxis(value=-30.0, axis=AxisName.SI),
         ]
         rotation = Rotation(
             angles=rotation_data,
             order=[AxisName.AP, AxisName.ML, AxisName.SI],
-            rotation_direction=[RotationDirection.CCW, RotationDirection.CCW, RotationDirection.CCW],
         )
         expected_matrix = R.from_euler("xyz", [-90, -45, -30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -110,7 +108,6 @@ class TestRotation(unittest.TestCase):
         rotation = Rotation(
             angles=rotation_data,
             order=[AxisName.AP, AxisName.ML],
-            rotation_direction=[RotationDirection.CW, RotationDirection.CW],
         )
         expected_matrix = R.from_euler("xy", [90, 45], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 1.0]]
@@ -126,7 +123,6 @@ class TestRotation(unittest.TestCase):
         rotation = Rotation(
             angles=rotation_data,
             order=[AxisName.AP, AxisName.ML, AxisName.SI],
-            rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
         expected_matrix = R.from_euler("xyz", [0, 0, 0], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -159,7 +155,6 @@ class TestAffineTransformMatrix(unittest.TestCase):
         rotation = Rotation(
             angles=rotation_data,
             order=[AxisName.X, AxisName.Y, AxisName.Z],
-            rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
         composed_transform = AffineTransformMatrix.compose([rotation])
         self.assertEqual(composed_transform.affine_transform, rotation.to_matrix())
@@ -193,7 +188,6 @@ class TestAffineTransformMatrix(unittest.TestCase):
                 FloatAxis(value=30.0, axis=AxisName.Z),
             ],
             order=[AxisName.X, AxisName.Y, AxisName.Z],
-            rotation_direction=[RotationDirection.CW, RotationDirection.CW, RotationDirection.CW],
         )
         scale = Scale(
             scale=[
@@ -251,7 +245,7 @@ class TestAtlas(unittest.TestCase):
     """Tests for the Atlas class"""
 
     def setUp(self):
-        """ Set up pieces to use for testing """
+        """Set up pieces to use for testing"""
         self.axes = [
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.AP),

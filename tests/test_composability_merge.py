@@ -63,6 +63,7 @@ invitro_config = InVitroImagingConfig(
     ],
 )
 
+
 class TestComposability(unittest.TestCase):
     """Tests for merge functions"""
 
@@ -177,9 +178,7 @@ class TestComposability(unittest.TestCase):
                     stream_end_time=t,
                     modalities=[Modality.SPIM],
                     active_devices=[],
-                    configurations=[
-                        invitro_config
-                    ],
+                    configurations=[invitro_config],
                 )
             ],
             acquisition_start_time=t,
