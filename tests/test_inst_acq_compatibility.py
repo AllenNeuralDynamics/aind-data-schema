@@ -52,7 +52,7 @@ from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
-from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative
+from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative, Coordinate, FloatAxis, AxisName
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -343,15 +343,27 @@ ephys_acquisition = Acquisition(
                     notes="Did not record angles, did not calibrate",
                 ),
                 ManipulatorConfig(
-                    targeted_ccf_coordinates=[
-                        CcfCoords(ml=8150, ap=3250, dv=7800),
-                    ],
                     device_name="ephys module 1",
+                    atlas_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=8150, axis=AxisName.ML),
+                                FloatAxis(value=3250, axis=AxisName.AP),
+                                FloatAxis(value=7800, axis=AxisName.DV),
+                            ]  
+                        ),
+                    ],
+                    manipulator_axis_position=Coordinate(
+                        position=[
+                            FloatAxis(value=8422, axis=AxisName.X),
+                            FloatAxis(value=4205, axis=AxisName.Y),
+                            FloatAxis(value=11087.5, axis=AxisName.Z),
+                        ]
+                    ),
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
@@ -362,11 +374,25 @@ ephys_acquisition = Acquisition(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
-                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=6637.28, axis=AxisName.ML),
+                                FloatAxis(value=4265.02, axis=AxisName.AP),
+                                FloatAxis(value=10707.35, axis=AxisName.DV),
+                            ]  
+                        ),
+                    ],
+                    manipulator_axis_position=Coordinate(
+                        position=[
+                            FloatAxis(value=9015, axis=AxisName.X),
+                            FloatAxis(value=7144, axis=AxisName.Y),
+                            FloatAxis(value=13262, axis=AxisName.Z),
+                        ]
+                    ),
                     device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
-                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
@@ -422,11 +448,25 @@ ephys_acquisition = Acquisition(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
-                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=8150, axis=AxisName.ML),
+                                FloatAxis(value=3250, axis=AxisName.AP),
+                                FloatAxis(value=7800, axis=AxisName.DV),
+                            ]  
+                        ),
+                    ],
+                    manipulator_axis_position=Coordinate(
+                        position=[
+                            FloatAxis(value=8422, axis=AxisName.X),
+                            FloatAxis(value=4205, axis=AxisName.Y),
+                            FloatAxis(value=11087.5, axis=AxisName.Z),
+                        ]
+                    ),
                     device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
@@ -437,11 +477,25 @@ ephys_acquisition = Acquisition(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
-                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=8150, axis=AxisName.ML),
+                                FloatAxis(value=3250, axis=AxisName.AP),
+                                FloatAxis(value=7800, axis=AxisName.DV),
+                            ]  
+                        ),
+                    ],
+                    manipulator_axis_position=Coordinate(
+                        position=[
+                            FloatAxis(value=8422, axis=AxisName.X),
+                            FloatAxis(value=4205, axis=AxisName.Y),
+                            FloatAxis(value=11087.5, axis=AxisName.Z),
+                        ]
+                    ),
                     device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
@@ -452,11 +506,25 @@ ephys_acquisition = Acquisition(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
-                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=6637.28, axis=AxisName.ML),
+                                FloatAxis(value=4265.02, axis=AxisName.AP),
+                                FloatAxis(value=10707.35, axis=AxisName.DV),
+                            ]  
+                        ),
+                    ],
+                    manipulator_axis_position=Coordinate(
+                        position=[
+                            FloatAxis(value=9015, axis=AxisName.X),
+                            FloatAxis(value=7144, axis=AxisName.Y),
+                            FloatAxis(value=13262, axis=AxisName.Z),
+                        ]
+                    ),
                     device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
-                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"

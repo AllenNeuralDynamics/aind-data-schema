@@ -10,13 +10,12 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.coordinates import (
-    CcfCoords,
-    Coordinates3d,
     Rotation,
     Scale,
     Translation,
     FloatAxis,
     AxisName,
+    Coordinate,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
@@ -71,8 +70,22 @@ class AcquisitionTest(unittest.TestCase):
                             arc_angle=0,
                             module_angle=10,
                             primary_targeted_structure=CCFStructure.VISL,
-                            targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                            manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                            atlas_coordinates=[
+                                Coordinate(
+                                    position=[
+                                        FloatAxis(value=1.0, axis=AxisName.ML),
+                                        FloatAxis(value=1.0, axis=AxisName.AP),
+                                        FloatAxis(value=1.0, axis=AxisName.DV),
+                                    ]  
+                                ),
+                            ],
+                            manipulator_axis_position=Coordinate(
+                                position=[
+                                    FloatAxis(value=1.0, axis=AxisName.X),
+                                    FloatAxis(value=1.0, axis=AxisName.Y),
+                                    FloatAxis(value=1.0, axis=AxisName.Z),
+                                ]
+                            ),
                         ),
                     ],
                 )
@@ -191,8 +204,22 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
-                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                                atlas_coordinates=[
+                                    Coordinate(
+                                        position=[
+                                            FloatAxis(value=1.0, axis=AxisName.ML),
+                                            FloatAxis(value=1.0, axis=AxisName.AP),
+                                            FloatAxis(value=1.0, axis=AxisName.DV),
+                                        ]  
+                                    ),
+                                ],
+                                manipulator_axis_position=Coordinate(
+                                    position=[
+                                        FloatAxis(value=1.0, axis=AxisName.X),
+                                        FloatAxis(value=1.0, axis=AxisName.Y),
+                                        FloatAxis(value=1.0, axis=AxisName.Z),
+                                    ]
+                                ),
                             ),
                         ],
                     )
@@ -230,8 +257,22 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
-                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                                atlas_coordinates=[
+                                    Coordinate(
+                                        position=[
+                                            FloatAxis(value=1.0, axis=AxisName.ML),
+                                            FloatAxis(value=1.0, axis=AxisName.AP),
+                                            FloatAxis(value=1.0, axis=AxisName.DV),
+                                        ]  
+                                    ),
+                                ],
+                                manipulator_axis_position=Coordinate(
+                                    position=[
+                                        FloatAxis(value=1.0, axis=AxisName.X),
+                                        FloatAxis(value=1.0, axis=AxisName.Y),
+                                        FloatAxis(value=1.0, axis=AxisName.Z),
+                                    ]
+                                ),
                             ),
                         ],
                     )
@@ -268,8 +309,22 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
-                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                                atlas_coordinates=[
+                                    Coordinate(
+                                        position=[
+                                            FloatAxis(value=1.0, axis=AxisName.ML),
+                                            FloatAxis(value=1.0, axis=AxisName.AP),
+                                            FloatAxis(value=1.0, axis=AxisName.DV),
+                                        ]  
+                                    ),
+                                ],
+                                manipulator_axis_position=Coordinate(
+                                    position=[
+                                        FloatAxis(value=1.0, axis=AxisName.X),
+                                        FloatAxis(value=1.0, axis=AxisName.Y),
+                                        FloatAxis(value=1.0, axis=AxisName.Z),
+                                    ]
+                                ),
                             ),
                         ],
                     )
@@ -306,8 +361,22 @@ class AcquisitionTest(unittest.TestCase):
                     arc_angle=0,
                     module_angle=10,
                     primary_targeted_structure=CCFStructure.VISL,
-                    targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                    manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                    atlas_coordinates=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=1.0, axis=AxisName.ML),
+                                FloatAxis(value=1.0, axis=AxisName.AP),
+                                FloatAxis(value=1.0, axis=AxisName.DV),
+                            ]  
+                        ),
+                    ],
+                    manipulator_axis_position=Coordinate(
+                        position=[
+                            FloatAxis(value=1.0, axis=AxisName.X),
+                            FloatAxis(value=1.0, axis=AxisName.Y),
+                            FloatAxis(value=1.0, axis=AxisName.Z),
+                        ]
+                    ),
                 ),
             ],
         )
