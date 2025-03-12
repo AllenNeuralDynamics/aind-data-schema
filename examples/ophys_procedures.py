@@ -26,6 +26,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import FloatAxis, SurfaceCoordinate, AxisName
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -65,12 +66,15 @@ p = Procedures(
                     ],
                     recovery_time=0,
                     instrument_id=None,
-                    injection_hemisphere="Left",
-                    injection_coordinate_ml=-0.6,
-                    injection_coordinate_ap=-3.05,
-                    injection_coordinate_depth=[-4.2],
-                    injection_coordinate_reference="Bregma",
-                    injection_angle=0,
+                    coordinates=[
+                        SurfaceCoordinate(
+                            position=[
+                                FloatAxis(value=-0.6, axis=AxisName.ML),
+                                FloatAxis(value=-3.05, axis=AxisName.AP),
+                            ],
+                            depth=-4.2,
+                        ),
+                    ],
                     dynamics=[
                         InjectionDynamics(
                             volume=400,
@@ -78,7 +82,7 @@ p = Procedures(
                             profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    targeted_structure=CCFStructure.VTA,
+                    target=CCFStructure.VTA,
                 ),
                 FiberImplant(
                     protocol_id="TO ENTER",
