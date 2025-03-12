@@ -8,7 +8,7 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.components.identifiers import Software
-from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative
+from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative, DEFAULT_SYSTEM
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
@@ -305,6 +305,7 @@ instrument = r.Instrument(
     instrument_id="428_FIP1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
+    coordinate_system=DEFAULT_SYSTEM,
     components=[
         camera_assembly_1,
         camera_assembly_2,
