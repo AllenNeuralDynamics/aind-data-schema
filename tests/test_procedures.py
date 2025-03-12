@@ -28,6 +28,7 @@ from aind_data_schema.core.procedures import (
     InjectionProfile,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import Coordinate, FloatAxis, AxisName, Origin
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -167,6 +168,22 @@ class ProceduresTests(unittest.TestCase):
                     experimenters=[Person(name="Mam Moth")],
                     ethics_review_id="234",
                     protocol_id="123",
+                    measured_coordinates={
+                        Origin.BREGMA: Coordinate(
+                            position=[
+                                FloatAxis(value=0.0, axis=AxisName.AP),
+                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.ML),
+                            ]
+                        ),
+                        Origin.LAMBDA: Coordinate(
+                            position=[
+                                FloatAxis(value=-4.1, axis=AxisName.AP),
+                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.ML),
+                            ]
+                        ),
+                    },
                     procedures=[
                         RetroOrbitalInjection(
                             protocol_id="134",
@@ -242,7 +259,6 @@ class ProceduresTests(unittest.TestCase):
                             injection_coordinate_ap=1,
                             injection_coordinate_depth=[1],
                             injection_coordinate_reference="Bregma",
-                            bregma_to_lambda_distance=4.1,
                             injection_angle=1,
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
@@ -266,7 +282,6 @@ class ProceduresTests(unittest.TestCase):
                                     stereotactic_coordinate_dv=2,
                                     stereotactic_coordinate_ml=3,
                                     stereotactic_coordinate_reference="Bregma",
-                                    bregma_to_lambda_distance=4.1,
                                     angle=10,
                                 )
                             ],

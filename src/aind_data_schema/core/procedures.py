@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Set, Union
+from typing import List, Literal, Optional, Set, Union, Dict
 
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
@@ -11,7 +11,6 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
-    AngleUnit,
     ConcentrationUnit,
     CurrentUnit,
     MassUnit,
@@ -29,7 +28,7 @@ from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDef
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, RelativePosition, SurfaceCoordinate
+from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, RelativePosition, SurfaceCoordinate, Origin
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -616,10 +615,12 @@ class Surgery(DataModel):
         description="Only required if the coordinate system differs from the instrument",
     )
 
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
+    # Measured coordinates
+    measured_coordinates = Optional[Dict[Origin, Coordinate]] = Field(
+        default=None,
+        title="Measured coordinates",
+        description="Coordinates measured during the procedure",
     )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
 
     procedures: List[
         Annotated[

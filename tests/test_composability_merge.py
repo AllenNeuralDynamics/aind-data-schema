@@ -10,7 +10,7 @@ from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaes
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
-from aind_data_schema.components.coordinates import Scale, Axis, Translation, Transform, AxisName
+from aind_data_schema.components.coordinates import Scale, Axis, Translation, Transform, AxisName, Origin, Coordinate, FloatAxis
 from aind_data_schema.components.devices import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization
@@ -336,9 +336,24 @@ class TestComposability(unittest.TestCase):
                             craniotomy_type="Visual Cortex",
                             protocol_id="1234",
                             craniotomy_hemisphere="Left",
-                            bregma_to_lambda_distance=4.1,
                         )
                     ],
+                    measured_coordinates={
+                        Origin.BREGMA: Coordinate(
+                            position=[
+                                FloatAxis(value=0.0, axis=AxisName.AP),
+                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.ML),
+                            ]
+                        ),
+                        Origin.LAMBDA: Coordinate(
+                            position=[
+                                FloatAxis(value=-4.1, axis=AxisName.AP),
+                                FloatAxis(value=0.0, axis=AxisName.DV),
+                                FloatAxis(value=0.0, axis=AxisName.ML),
+                            ]
+                        ),
+                    },
                 )
             ],
         )
