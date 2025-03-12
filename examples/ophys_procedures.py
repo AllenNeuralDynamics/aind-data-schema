@@ -96,11 +96,13 @@ p = Procedures(
                                 total_length=0.5,
                             ),
                             targeted_structure=CCFStructure.VTA,
-                            angle=0,
-                            stereotactic_coordinate_ap=-3.05,
-                            stereotactic_coordinate_ml=-0.6,
-                            stereotactic_coordinate_dv=-4,
-                            stereotactic_coordinate_reference="Bregma",
+                            coordinate=SurfaceCoordinate(
+                                position=[
+                                    FloatAxis(value=-0.6, axis=AxisName.ML),
+                                    FloatAxis(value=-3.05, axis=AxisName.AP),
+                                ],
+                                depth=-4.2,
+                            ),
                         )
                     ],
                 ),
