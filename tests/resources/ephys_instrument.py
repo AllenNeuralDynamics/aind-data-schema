@@ -1,4 +1,4 @@
-"""Generates an example JSON file for an ephys instrument"""
+"""Generates an example JSON file for an ephys rig"""
 
 from datetime import date, datetime, timezone
 
@@ -6,6 +6,15 @@ from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema.components.coordinates import (
+    RelativePosition,
+    AnatomicalRelative,
+    CoordinateSystem,
+    Origin,
+    Axis,
+    AxisName,
+    Direction,
+)
 
 from aind_data_schema.components.devices import (
     Calibration,
@@ -28,15 +37,6 @@ from aind_data_schema.components.devices import (
     ProbePort,
 )
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.components.coordinates import (
-    RelativePosition,
-    AnatomicalRelative,
-    CoordinateSystem,
-    Origin,
-    Axis,
-    AxisName,
-    Direction,
-)
 
 # Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -240,6 +240,7 @@ face_camera = Camera(
 
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
+    camera=face_camera,
     target=CameraTarget.FACE,
     position=RelativePosition(position=[AnatomicalRelative.LEFT]),
     filter=filt,

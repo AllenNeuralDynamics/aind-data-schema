@@ -14,6 +14,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 objective_1 = Objective(
     name="TLX Objective 1",
@@ -247,6 +248,7 @@ inst = Instrument(
     instrument_type=ImagingInstrumentType.SMARTSPIM,
     manufacturer=Organization.LIFECANVAS,
     modification_date=datetime.date(2023, 10, 4),
+    coordinate_system=CoordinateSystemLibrary.DEFAULT,
     modalities=[Modality.SPIM],
     components=[
         *objectives,

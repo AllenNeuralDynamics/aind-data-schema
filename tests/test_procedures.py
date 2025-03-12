@@ -13,10 +13,9 @@ from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
-    IntraperitonealInjection,
     BrainInjection,
     NonViralMaterial,
-    OphysProbeImplant,
+    OphysProbe,
     Procedures,
     RetroOrbitalInjection,
     Sectioning,
@@ -212,7 +211,7 @@ class ProceduresTests(unittest.TestCase):
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
                         ),
-                        IntraperitonealInjection(
+                        BrainInjection(
                             protocol_id="234",
                             injection_materials=[
                                 NonViralMaterial(
@@ -267,7 +266,7 @@ class ProceduresTests(unittest.TestCase):
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
                             probes=[
-                                OphysProbeImplant(
+                                OphysProbe(
                                     ophys_probe=FiberProbe(
                                         name="Probe A",
                                         manufacturer=Organization.DORIC,

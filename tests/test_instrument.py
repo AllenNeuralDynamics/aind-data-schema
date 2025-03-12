@@ -41,7 +41,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 from aind_data_schema_models.units import SizeUnit
-from aind_data_schema.components.coordinates import AnatomicalRelative, RelativePosition
+from aind_data_schema.components.coordinates import AnatomicalRelative, RelativePosition, CoordinateSystemLibrary
 
 daqs = [
     NeuropixelsBasestation(
@@ -306,6 +306,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             components=[
                 *daqs,
                 *cameras,
@@ -348,6 +349,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 components=[
                     *daqs,
                     camera_no_target,
@@ -380,6 +382,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             components=[
                 *daqs,
                 camera_no_target,
@@ -417,6 +420,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 components=[
                     *daqs,
                     *cameras,
@@ -455,6 +459,7 @@ class InstrumentTests(unittest.TestCase):
                 Instrument(
                     modalities=[Modality.from_abbreviation(modality_abbreviation)],
                     instrument_id="123_EPHYS1-OPTO_20220101",
+                    coordinate_system=CoordinateSystemLibrary.DEFAULT,
                     modification_date=date(2020, 10, 10),
                     components=[],
                     calibrations=[],
@@ -470,6 +475,7 @@ class InstrumentTests(unittest.TestCase):
                 modalities=[Modality.from_abbreviation(modality_abbreviation)],
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 components=[
                     *daqs,
                     *cameras,
@@ -497,6 +503,7 @@ class InstrumentTests(unittest.TestCase):
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 modalities=[Modality.ECEPHYS],
                 components=[*daqs, *ems],
                 instrument_type=ImagingInstrumentType.OTHER,
@@ -509,6 +516,7 @@ class InstrumentTests(unittest.TestCase):
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 modalities=[Modality.ECEPHYS],
                 components=[*daqs, *ems],
                 instrument_type=ImagingInstrumentType.CONFOCAL,
@@ -521,6 +529,7 @@ class InstrumentTests(unittest.TestCase):
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 modalities=[Modality.ECEPHYS],
                 components=[*daqs, *ems],
                 instrument_type=ImagingInstrumentType.OTHER,
@@ -532,6 +541,7 @@ class InstrumentTests(unittest.TestCase):
         inst = Instrument(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             modalities=[Modality.ECEPHYS],
             components=[*daqs, *ems],
             instrument_type=ImagingInstrumentType.OTHER,
@@ -544,6 +554,7 @@ class InstrumentTests(unittest.TestCase):
         inst = Instrument(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             modalities=[Modality.ECEPHYS],
             components=[*daqs, *ems],
             instrument_type=ImagingInstrumentType.CONFOCAL,
@@ -556,6 +567,7 @@ class InstrumentTests(unittest.TestCase):
         inst = Instrument(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             modalities=[Modality.ECEPHYS],
             components=[*daqs, *ems],
             instrument_type=ImagingInstrumentType.OTHER,
@@ -572,6 +584,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 components=[
                     *daqs,
                     *cameras,
@@ -591,6 +604,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS-OPTO_2020-01-01",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 components=[
                     *daqs,
                     *cameras,
