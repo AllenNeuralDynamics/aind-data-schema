@@ -125,7 +125,10 @@ lms = [
 cameras = [
     CameraAssembly(
         name="cam",
-        target=CameraTarget.FACE_BOTTOM,
+        target=CameraTarget.FACE,
+        position=RelativePosition(
+            position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
+        ),
         lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
         camera=Camera(
             name="Camera A",

@@ -516,7 +516,10 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
             d.CameraAssembly(
                 name="BehaviorVideography_FaceBottom",
-                target=d.CameraTarget.FACE_BOTTOM,
+                target=d.CameraTarget.FACE,
+                position=RelativePosition(
+                    position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
+                ),
                 camera=d.Camera(
                     name="Bottom face Camera",
                     detector_type="Camera",
