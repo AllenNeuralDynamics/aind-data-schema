@@ -370,3 +370,11 @@ class SurfaceCoordinate(Coordinate):
 
 
 ORDERED_AXIS_TYPES = [Translation, Rotation, Scale, Coordinate, SurfaceCoordinate]
+DEFAULT_SYSTEM = CoordinateSystem(
+    origin=Origin.BREGMA,
+    axes=[
+        Axis(name=AxisName.AP, direction=Direction.AP),
+        Axis(name=AxisName.ML, direction=Direction.LR),
+        Axis(name=AxisName.SI, direction=Direction.SI),
+    ],
+)

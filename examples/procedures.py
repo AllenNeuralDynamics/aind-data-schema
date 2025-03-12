@@ -17,6 +17,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import VolumeUnit
+from aind_data_schema.components.coordinates import SurfaceCoordinate, FloatAxis, AxisName, CoordinateSystem, Rotation, Origin, Axis, Direction
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -34,6 +35,14 @@ p = Procedures(
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
+            coordinate_system=CoordinateSystem(
+                origin=Origin.LAMBDA,
+                axes=[
+                    Axis(name=AxisName.ML, direction=Direction.LR),
+                    Axis(name=AxisName.AP, direction=Direction.PA),
+                    Axis(name=AxisName.SI, direction=Direction.SI),
+                ]
+            ),
             workstation_id="SWS 3",
             procedures=[
                 Craniotomy(
@@ -57,12 +66,22 @@ p = Procedures(
                     ],
                     recovery_time=0,
                     instrument_id=None,
-                    injection_hemisphere="Left",
-                    injection_coordinate_ml=-0.87,
-                    injection_coordinate_ap=-3.8,
-                    injection_coordinate_depth=[-3.3],
-                    injection_coordinate_reference="Lambda",
-                    injection_angle=10,
+                    coordinates=[
+                        SurfaceCoordinate(
+                            position=[
+                                FloatAxis(value=-0.85, axis=AxisName.ML),
+                                FloatAxis(value=-3.8, axis=AxisName.AP),
+                                FloatAxis(value=0, axis=AxisName.SI),
+                            ],
+                            depth=3.3,
+                            angles=Rotation(
+                                angles=[
+                                    FloatAxis(value=10, axis=AxisName.AP),
+                                ],
+                                order=[AxisName.AP],
+                            ),
+                        ),
+                    ],
                     dynamics=[
                         InjectionDynamics(
                             volume=200,
@@ -70,7 +89,7 @@ p = Procedures(
                             profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    targeted_structure=CCFStructure.VISP,
+                    target=CCFStructure.VISP,
                 ),
             ],
         ),

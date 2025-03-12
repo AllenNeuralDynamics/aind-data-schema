@@ -8,12 +8,16 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.components.identifiers import Software
+from aind_data_schema.components.coordinates import RelativePosition, AnatomicalRelative
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
-    target=d.CameraTarget.FACE_SIDE_LEFT,
+    target=d.CameraTarget.FACE,
+    position=RelativePosition(
+        position=[AnatomicalRelative.LEFT],
+    ),
     camera=d.Camera(
         name="Side face camera",
         detector_type="Camera",

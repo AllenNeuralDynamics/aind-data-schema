@@ -485,7 +485,10 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         cameras = [
             d.CameraAssembly(
                 name="BehaviorVideography_FaceSide",
-                target=d.CameraTarget.FACE_SIDE_LEFT,
+                target=d.CameraTarget.FACE,
+                position=RelativePosition(
+                    position=[AnatomicalRelative.LEFT],
+                ),
                 camera=d.Camera(
                     name="Side face camera",
                     detector_type="Camera",
