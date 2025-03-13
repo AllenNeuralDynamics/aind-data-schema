@@ -17,30 +17,35 @@ def check_order(axes_to_check: List[AxisName], order: List[AxisName]):
     return True
 
 
+def _recurse_helper(data, axis_order: List[AxisName]):
+    """ Helper function for recursive_axis_order_check: recurse calls for lists and objects only """
+    if isinstance(data, list):
+        for item in data:
+            recursive_axis_order_check(item, axis_order)
+        return
+    elif hasattr(data, "__dict__"):
+        for attr_name, attr_value in data.__dict__.items():
+            if attr_name == "object_type":
+                continue  # skip object_type
+            if callable(attr_value):
+                continue  # skip methods
+
+            recursive_axis_order_check(attr_value, axis_order)
+
+
 def recursive_axis_order_check(data, axis_order: List[AxisName]):
     """Recursively check fields, see if they match a List[FloatAxis]"""
 
-    if not data or not hasattr(data, "__dict__"):
-        return  # If data is not a class, return
+    if not data:
+        return
 
     # Check if data matches an ordered axis type
-    if isinstance(data, list) and all(isinstance(item, FloatAxis) for item in data):
-        if not check_order([axis.axis for axis in data], axis_order):
+    if isinstance(data, list) and all(hasattr(item, "object_type") and item.object_type == "Float axis" for item in data):
+        data_order = [axis.axis for axis in data]
+        if not check_order(data_order, axis_order):
             raise ValueError(
-                f"Axis order mismatch: {data} does not match the Instrument's coordinate system axes order"
+                f"Axis order mismatch: {data_order} does not match the Instrument's coordinate system {axis_order}"
             )
 
-    for attr_name, attr_value in data.__dict__.items():
-        if attr_name == "object_type":
-            continue
-
-        # Skip methods and other callables
-        if callable(attr_value):
-            continue
-
-        # Recurse through lists and other objects
-        if isinstance(attr_value, list):
-            for item in attr_value:
-                recursive_axis_order_check(item, axis_order)
-        else:
-            recursive_axis_order_check(attr_value, axis_order)
+    _recurse_helper(data, axis_order)
+    # implicit return if data is not a list or object

@@ -677,9 +677,9 @@ class InstrumentTests(unittest.TestCase):
                 transforms=[
                     Translation(
                         translation=[
-                            FloatAxis(value=1.0, axis=AxisName.X),
-                            FloatAxis(value=2.0, axis=AxisName.Y),
-                            FloatAxis(value=3.0, axis=AxisName.Z),
+                            FloatAxis(value=1.0, axis=AxisName.AP),
+                            FloatAxis(value=2.0, axis=AxisName.ML),
+                            FloatAxis(value=3.0, axis=AxisName.SI),
                         ],
                     ),
                 ],
