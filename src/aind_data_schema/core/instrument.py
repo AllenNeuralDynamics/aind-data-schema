@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Axis, CoordinateSystem, Origin, ORDERED_AXIS_TYPES
+from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -51,6 +51,7 @@ from aind_data_schema.components.devices import (
     Wheel,
     Scanner,
 )
+from aind_data_schema.utils.validators import recursive_axis_order_check
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
@@ -277,13 +278,12 @@ class Instrument(DataCoreModel):
 
         return value
 
-    # @model_validator(mode="after")
-    # def coordinate_validator(cls, values):
-    #     """ Validate that all coordinates are valid in the instrument's coordinate system """
+    @model_validator(mode="after")
+    def coordinate_validator(cls, data):
+        """Validate that all coordinates are valid in the instrument's coordinate system"""
 
-    #     axis_order = [axis.name for axis in values.coordinate_system.axes]
+        axis_order = [axis.name for axis in data.coordinate_system.axes]
 
-    #     # Check fields recursively, if the field is an ORDERED_AXIS_TYPE check that
-    #     # it matches the coordinate system's axes order
+        recursive_axis_order_check(data, axis_order)
 
-    #     def
+        return data

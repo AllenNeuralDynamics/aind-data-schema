@@ -41,7 +41,15 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 from aind_data_schema_models.units import SizeUnit
-from aind_data_schema.components.coordinates import AnatomicalRelative, RelativePosition, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import (
+    AnatomicalRelative,
+    RelativePosition,
+    CoordinateSystemLibrary,
+    Transform,
+    FloatAxis,
+    Translation,
+    AxisName,
+)
 
 daqs = [
     NeuropixelsBasestation(
@@ -644,6 +652,91 @@ class InstrumentTests(unittest.TestCase):
 
             instrument_unknown_modality.model_dump_json()
         self.assertIn("Error calling function `serialize_modalities`", str(context.exception))
+
+    def test_coordinate_validator(self):
+        """Test the coordinate_validator function"""
+
+        # Create a matching CameraAssembly
+        camera = CameraAssembly(
+            name="Assembly A",
+            camera=Camera(
+                name="Camera A",
+                detector_type=DetectorType.CAMERA,
+                manufacturer=Organization.OTHER,
+                data_interface="USB",
+                computer_name="ASDF",
+                frame_rate=144,
+                frame_rate_unit=FrequencyUnit.HZ,
+                sensor_width=1,
+                sensor_height=1,
+                chroma="Color",
+            ),
+            target=CameraTarget.BRAIN,
+            position=Transform(
+                transforms=[
+                    Translation(
+                        translation=[
+                            FloatAxis(value=1.0, axis=AxisName.X),
+                            FloatAxis(value=2.0, axis=AxisName.Y),
+                            FloatAxis(value=3.0, axis=AxisName.Z),
+                        ],
+                    ),
+                ],
+            ),
+            lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+        )
+
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS, Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,  # order is AP, ML, SI
+            components=[
+                *daqs,
+                *cameras,
+                *stick_microscopes,
+                *light_sources,
+                *lms,
+                laser,
+                *ems,
+                *detectors,
+                *patch_cords,
+                *stimulus_devices,
+                scan_stage,
+                Disc(name="Disc A", radius=1),
+                camera,
+            ],
+            calibrations=[],
+            connections=[],
+        )
+        self.assertIsNotNone(inst)
+
+        # Test with invalid CameraAssembly
+
+        # camera.position.transforms[0].translation[0].axis = AxisName.AP
+
+        # with self.assertRaises(ValueError):
+        #     Instrument(
+        #         instrument_id="123_EPHYS1-OPTO_20220101",
+        #         modification_date=date(2020, 10, 10),
+        #         modalities=[Modality.ECEPHYS, Modality.FIB],
+        #         coordinate_system=invalid_coordinate_system,
+        #         components=valid_components,
+        #         calibrations=[
+        #             Calibration(
+        #                 calibration_date=date(2020, 10, 10),
+        #                 device_name="Laser A",
+        #                 description="Laser power calibration",
+        #                 input={"power percent": [10, 40, 80]},
+        #                 output={"power mW": [2, 6, 10]},
+        #             )
+        #         ],
+        #         connections=[
+        #             Connection(
+        #                 device_names=["Olfactometer", "Laser A"],
+        #             )
+        #         ],
+        #     )
 
 
 if __name__ == "__main__":

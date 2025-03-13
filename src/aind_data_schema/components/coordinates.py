@@ -363,7 +363,7 @@ class SurfaceCoordinate(Coordinate):
     )
 
 
-ORDERED_AXIS_TYPES = [Translation, Rotation, Scale, Coordinate, SurfaceCoordinate]
+OBJECTS_WITH_AXES = ["coordinate", "surface_coordinate", "translation", "rotation", "scale"]
 
 
 class CoordinateSystemLibrary:
