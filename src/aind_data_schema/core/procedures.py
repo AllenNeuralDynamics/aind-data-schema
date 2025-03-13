@@ -36,7 +36,7 @@ from aind_data_schema.components.coordinates import (
     Origin,
 )
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_axis_order_check
 
 
 class ImmunolabelClass(str, Enum):
@@ -615,7 +615,7 @@ class Surgery(DataModel):
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
-        description="Only required if the coordinate system differs from the instrument",
+        description="Only include when the Surgery coordinate system differs from the instrument",
     )
 
     # Measured coordinates
@@ -645,6 +645,17 @@ class Surgery(DataModel):
         ]
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="after")
+    def coordinate_validator(cls, data):
+        """Validate that all coordinates are valid in the instrument's coordinate system"""
+
+        if data.coordinate_system:
+            axis_order = [axis.name for axis in data.coordinate_system.axes]
+
+            recursive_axis_order_check(data, axis_order)
+
+        return data
 
 
 class Procedures(DataCoreModel):

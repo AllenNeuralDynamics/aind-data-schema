@@ -20,7 +20,7 @@ class AtlasName(str, Enum):
 
 
 class Origin(str, Enum):
-    """Origin positions in a brain or atlas"""
+    """Origin positions for coordinate systems """
 
     ORIGIN = "Origin"  # only exists in Atlases / Images
     BREGMA = "Bregma"
@@ -32,6 +32,8 @@ class Origin(str, Enum):
     C5 = "C5"
     C6 = "C6"
     C7 = "C7"
+    TIP = "Tip"  # of a probe
+    FRONT_CENTER = "Front_center"  # front center of a device, e.g. camera
 
 
 class AxisName(str, Enum):
@@ -55,7 +57,12 @@ class Direction(str, Enum):
     PA = "Posterior_to_anterior"
     IS = "Inferior_to_superior"
     SI = "Superior_to_inferior"
+    FB = "Front_to_back"
+    BF = "Back_to_front"
+    TB = "Top_to_bottom"
+    BT = "Bottom_to_top"
     OTHER = "Other"
+    # Expand to local directions for devices, top/bottom, front/back
 
 
 class AnatomicalRelative(str, Enum):
@@ -367,7 +374,8 @@ OBJECTS_WITH_AXES = ["coordinate", "surface_coordinate", "translation", "rotatio
 
 
 class CoordinateSystemLibrary:
-    """Library of common coordinate systems"""
+    """Library of common coordinate systems
+    """
 
     BREGMA_ARI = CoordinateSystem(
         origin=Origin.BREGMA,
@@ -383,6 +391,60 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.SI, direction=Direction.SI),
+        ],
+    )
+
+    BREGMA_SIPE = CoordinateSystem(
+        origin=Origin.BREGMA,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.PA),
+            Axis(name=AxisName.Y, direction=Direction.RL),
+            Axis(name=AxisName.Z, direction=Direction.IS),
+        ],
+    )
+
+    LAMBDA_SIPE = CoordinateSystem(
+        origin=Origin.LAMBDA,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.PA),
+            Axis(name=AxisName.Y, direction=Direction.RL),
+            Axis(name=AxisName.Z, direction=Direction.IS),
+        ],
+    )
+
+    CAMERA_SIPE = CoordinateSystem(
+        origin=Origin.FRONT_CENTER,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    SPEAKER_SIPE = CoordinateSystem(
+        origin=Origin.FRONT_CENTER,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    MONITOR_SIPE = CoordinateSystem(
+        origin=Origin.FRONT_CENTER,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    PROBE_ARI = CoordinateSystem(
+        origin=Origin.ORIGIN,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.IS),
+            Axis(name=AxisName.Z, direction=Direction.AP),
         ],
     )
 
