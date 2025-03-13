@@ -34,6 +34,7 @@ from aind_data_schema.components.coordinates import (
     Origin,
     RelativePosition,
     AnatomicalRelative,
+    SurfaceCoordinate,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 
@@ -392,10 +393,22 @@ class ProceduresTests(unittest.TestCase):
         # Should be okay
         inj1 = BrainInjection(
             protocol_id="abc",
-            injection_coordinate_ml=1,
-            injection_coordinate_ap=1,
-            injection_angle=1,
-            injection_coordinate_depth=[0, 1],
+            coordinates=[
+                SurfaceCoordinate(
+                    position=[
+                        FloatAxis(value=0.5, axis=AxisName.AP),
+                        FloatAxis(value=1, axis=AxisName.ML),
+                    ],
+                    depth=0,
+                ),
+                SurfaceCoordinate(
+                    position=[
+                        FloatAxis(value=0.5, axis=AxisName.AP),
+                        FloatAxis(value=1, axis=AxisName.ML),
+                    ],
+                    depth=1,
+                ),
+            ],
             dynamics=[
                 InjectionDynamics(
                     volume=1,
@@ -427,10 +440,22 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             BrainInjection(
                 protocol_id="abc",
-                injection_coordinate_ml=1,
-                injection_coordinate_ap=1,
-                injection_angle=1,
-                injection_coordinate_depth=[0.1],
+                coordinates=[
+                    SurfaceCoordinate(
+                        position=[
+                            FloatAxis(value=0.5, axis=AxisName.AP),
+                            FloatAxis(value=1, axis=AxisName.ML),
+                        ],
+                        depth=0,
+                    ),
+                    SurfaceCoordinate(
+                        position=[
+                            FloatAxis(value=0.5, axis=AxisName.AP),
+                            FloatAxis(value=1, axis=AxisName.ML),
+                        ],
+                        depth=1,
+                    ),
+                ],
                 injection_materials=[
                     ViralMaterial(
                         material_type="Virus",
