@@ -242,7 +242,7 @@ class ManipulatorConfig(DomeModule):
 
     @model_validator(mode="after")
     def validate_len_coordinates(self):
-        """ Check that the length of atlas_ maipulator_ and manipulator_axis_ coordinates are the same """
+        """Check that the length of atlas_ maipulator_ and manipulator_axis_ coordinates are the same"""
 
         lengths = []
         if self.atlas_coordinates:
@@ -253,7 +253,9 @@ class ManipulatorConfig(DomeModule):
             lengths.append(len(self.manipulator_axis_positions))
 
         if len(set(lengths)) > 1:
-            raise ValueError("Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same")
+            raise ValueError(
+                "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same"
+            )
 
         return self
 

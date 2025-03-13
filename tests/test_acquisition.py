@@ -79,13 +79,15 @@ class AcquisitionTest(unittest.TestCase):
                                     ]
                                 ),
                             ],
-                            manipulator_axis_positions=[Coordinate(
-                                position=[
-                                    FloatAxis(value=1.0, axis=AxisName.X),
-                                    FloatAxis(value=1.0, axis=AxisName.Y),
-                                    FloatAxis(value=1.0, axis=AxisName.Z),
-                                ]
-                            )],
+                            manipulator_axis_positions=[
+                                Coordinate(
+                                    position=[
+                                        FloatAxis(value=1.0, axis=AxisName.X),
+                                        FloatAxis(value=1.0, axis=AxisName.Y),
+                                        FloatAxis(value=1.0, axis=AxisName.Z),
+                                    ]
+                                )
+                            ],
                         ),
                     ],
                 )
@@ -213,13 +215,15 @@ class AcquisitionTest(unittest.TestCase):
                                         ]
                                     ),
                                 ],
-                                manipulator_axis_positions=[Coordinate(
-                                    position=[
-                                        FloatAxis(value=1.0, axis=AxisName.X),
-                                        FloatAxis(value=1.0, axis=AxisName.Y),
-                                        FloatAxis(value=1.0, axis=AxisName.Z),
-                                    ]
-                                )],
+                                manipulator_axis_positions=[
+                                    Coordinate(
+                                        position=[
+                                            FloatAxis(value=1.0, axis=AxisName.X),
+                                            FloatAxis(value=1.0, axis=AxisName.Y),
+                                            FloatAxis(value=1.0, axis=AxisName.Z),
+                                        ]
+                                    )
+                                ],
                             ),
                         ],
                     )
@@ -266,13 +270,15 @@ class AcquisitionTest(unittest.TestCase):
                                         ]
                                     ),
                                 ],
-                                manipulator_axis_positions=[Coordinate(
-                                    position=[
-                                        FloatAxis(value=1.0, axis=AxisName.X),
-                                        FloatAxis(value=1.0, axis=AxisName.Y),
-                                        FloatAxis(value=1.0, axis=AxisName.Z),
-                                    ]
-                                )],
+                                manipulator_axis_positions=[
+                                    Coordinate(
+                                        position=[
+                                            FloatAxis(value=1.0, axis=AxisName.X),
+                                            FloatAxis(value=1.0, axis=AxisName.Y),
+                                            FloatAxis(value=1.0, axis=AxisName.Z),
+                                        ]
+                                    )
+                                ],
                             ),
                         ],
                     )
@@ -318,13 +324,15 @@ class AcquisitionTest(unittest.TestCase):
                                         ]
                                     ),
                                 ],
-                                manipulator_axis_positions=[Coordinate(
-                                    position=[
-                                        FloatAxis(value=1.0, axis=AxisName.X),
-                                        FloatAxis(value=1.0, axis=AxisName.Y),
-                                        FloatAxis(value=1.0, axis=AxisName.Z),
-                                    ]
-                                )],
+                                manipulator_axis_positions=[
+                                    Coordinate(
+                                        position=[
+                                            FloatAxis(value=1.0, axis=AxisName.X),
+                                            FloatAxis(value=1.0, axis=AxisName.Y),
+                                            FloatAxis(value=1.0, axis=AxisName.Z),
+                                        ]
+                                    )
+                                ],
                             ),
                         ],
                     )
@@ -370,13 +378,15 @@ class AcquisitionTest(unittest.TestCase):
                             ]
                         ),
                     ],
-                    manipulator_axis_positions=[Coordinate(
-                        position=[
-                            FloatAxis(value=1.0, axis=AxisName.X),
-                            FloatAxis(value=1.0, axis=AxisName.Y),
-                            FloatAxis(value=1.0, axis=AxisName.Z),
-                        ]
-                    )],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            position=[
+                                FloatAxis(value=1.0, axis=AxisName.X),
+                                FloatAxis(value=1.0, axis=AxisName.Y),
+                                FloatAxis(value=1.0, axis=AxisName.Z),
+                            ]
+                        )
+                    ],
                 ),
             ],
         )
