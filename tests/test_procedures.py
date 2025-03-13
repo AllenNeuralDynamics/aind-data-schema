@@ -223,7 +223,7 @@ class ProceduresTests(unittest.TestCase):
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
                         ),
-                        BrainInjection(
+                        Injection(
                             protocol_id="234",
                             injection_materials=[
                                 NonViralMaterial(
@@ -235,6 +235,7 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
+                            target=InjectionTargets.PERITONEAL_CAVITY,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
@@ -243,7 +244,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                         ),
-                        BrainInjection(
+                        Injection(
                             protocol_id="bca",
                             injection_materials=[
                                 ViralMaterial(
@@ -257,6 +258,7 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
+                            target=InjectionTargets.PERITONEAL_CAVITY,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
