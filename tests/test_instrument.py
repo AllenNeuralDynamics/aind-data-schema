@@ -714,30 +714,34 @@ class InstrumentTests(unittest.TestCase):
 
         # Test with invalid CameraAssembly
 
-        # camera.position.transforms[0].translation[0].axis = AxisName.AP
+        camera.position.transforms[0].translation[0].axis = AxisName.X
 
-        # with self.assertRaises(ValueError):
-        #     Instrument(
-        #         instrument_id="123_EPHYS1-OPTO_20220101",
-        #         modification_date=date(2020, 10, 10),
-        #         modalities=[Modality.ECEPHYS, Modality.FIB],
-        #         coordinate_system=invalid_coordinate_system,
-        #         components=valid_components,
-        #         calibrations=[
-        #             Calibration(
-        #                 calibration_date=date(2020, 10, 10),
-        #                 device_name="Laser A",
-        #                 description="Laser power calibration",
-        #                 input={"power percent": [10, 40, 80]},
-        #                 output={"power mW": [2, 6, 10]},
-        #             )
-        #         ],
-        #         connections=[
-        #             Connection(
-        #                 device_names=["Olfactometer", "Laser A"],
-        #             )
-        #         ],
-        #     )
+        with self.assertRaises(ValueError) as context:
+            Instrument(
+                instrument_id="123_EPHYS1-OPTO_20220101",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,  # order is AP, ML, SI
+                components=[
+                    *daqs,
+                    *cameras,
+                    *stick_microscopes,
+                    *light_sources,
+                    *lms,
+                    laser,
+                    *ems,
+                    *detectors,
+                    *patch_cords,
+                    *stimulus_devices,
+                    scan_stage,
+                    Disc(name="Disc A", radius=1),
+                    camera,
+                ],
+                calibrations=[],
+                connections=[],
+            )
+        
+        self.assertIn("Axis order mismatch", str(context.exception))
 
 
 if __name__ == "__main__":

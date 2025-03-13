@@ -140,7 +140,6 @@ class ProceduresTests(unittest.TestCase):
                             Injection(
                                 protocol_id="134",
                                 injection_materials=None,
-                                injection_eye="Left",
                                 dynamics=[
                                     InjectionDynamics(
                                         volume=1,
@@ -467,7 +466,7 @@ class ProceduresTests(unittest.TestCase):
             section_orientation="Coronal",
             section_thickness=0.2,
             section_distance_from_reference=0.3,
-            reference_location="Bregma",
+            reference=Origin.BREGMA,
             section_strategy="Whole Brain",
             targeted_structure=CCFStructure.MOP,
         )
@@ -481,7 +480,7 @@ class ProceduresTests(unittest.TestCase):
                 section_orientation="Coronal",
                 section_thickness=0.2,
                 section_distance_from_reference=0.3,
-                reference_location="Bregma",
+                reference=Origin.BREGMA,
                 section_strategy="Whole Brain",
                 targeted_structure=CCFStructure.MOP,
             )

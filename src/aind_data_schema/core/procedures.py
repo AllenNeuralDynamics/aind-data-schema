@@ -259,7 +259,7 @@ class Sectioning(DataModel):
     section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
     section_strategy: SectionStrategy = Field(..., title="Slice strategy")
 
-    reference: Coordinate = Field(..., title="Reference coordinate")
+    reference: Origin = Field(..., title="Reference origin")
 
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
