@@ -233,12 +233,29 @@ class ManipulatorConfig(DomeModule):
         default=None,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )
-    manipulator_axis_position: Optional[List[Coordinate]] = Field(
+    manipulator_axis_positions: Optional[List[Coordinate]] = Field(
         default=None,
         title="Manipulator local axis positions",
     )
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
+
+    @model_validator(mode="after")
+    def validate_len_coordinates(self):
+        """ Check that the length of atlas_ maipulator_ and manipulator_axis_ coordinates are the same """
+
+        lengths = []
+        if self.atlas_coordinates:
+            lengths.append(len(self.atlas_coordinates))
+        if self.manipulator_coordinates:
+            lengths.append(len(self.manipulator_coordinates))
+        if self.manipulator_axis_positions:
+            lengths.append(len(self.manipulator_axis_positions))
+
+        if len(set(lengths)) > 1:
+            raise ValueError("Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same")
+
+        return self
 
 
 class FiberAssemblyConfig(ManipulatorConfig):
