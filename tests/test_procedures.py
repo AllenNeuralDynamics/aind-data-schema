@@ -28,6 +28,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import Coordinate, FloatAxis, AxisName, Origin
+from aind_data_schema_models.mouse_anatomy import 
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

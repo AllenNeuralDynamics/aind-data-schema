@@ -24,9 +24,7 @@ def recursive_axis_order_check(data, axis_order: List[AxisName]):
         return  # If data is not a class, return
 
     # Check if data matches an ordered axis type
-    print(data)
     if isinstance(data, list) and all(isinstance(item, FloatAxis) for item in data):
-        print((data, axis_order))
         if not check_order([axis.axis for axis in data], axis_order):
             raise ValueError(
                 f"Axis order mismatch: {data} does not match the Instrument's coordinate system axes order"
