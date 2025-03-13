@@ -17,7 +17,6 @@ from aind_data_schema.core.procedures import (
     NonViralMaterial,
     OphysProbe,
     Procedures,
-    RetroOrbitalInjection,
     Sectioning,
     SpecimenProcedure,
     Surgery,
@@ -25,10 +24,13 @@ from aind_data_schema.core.procedures import (
     ViralMaterial,
     InjectionDynamics,
     InjectionProfile,
+    Injection,
+    RelativePosition,
+    AnatomicalRelative,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import Coordinate, FloatAxis, AxisName, Origin
-from aind_data_schema_models.mouse_anatomy import 
+from aind_data_schema_models.mouse_anatomy import InjectionTargets
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -57,12 +59,11 @@ class ProceduresTests(unittest.TestCase):
                         start_date=start_date,
                         experimenters=[Person(name="Mam Moth")],
                         procedures=[
-                            RetroOrbitalInjection(
+                            Injection(
                                 start_date=start_date,
                                 experimenters=[Person(name="Mam Moth")],
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
-                                injection_eye="Left",
                                 dynamics=[
                                     InjectionDynamics(
                                         volume=1,
@@ -70,8 +71,10 @@ class ProceduresTests(unittest.TestCase):
                                         duration=1,
                                         duration_unit=TimeUnit.S,
                                         profile=InjectionProfile.BOLUS,
-                                    )
+                                    ),
                                 ],
+                                target=InjectionTargets.VENOUS_SINUS,
+                                relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -89,10 +92,9 @@ class ProceduresTests(unittest.TestCase):
                         start_date=start_date,
                         experimenters=[Person(name="Mam Moth")],
                         procedures=[
-                            RetroOrbitalInjection(
+                            Injection(
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
-                                injection_eye="Left",
                                 dynamics=[
                                     InjectionDynamics(
                                         volume=1,
@@ -102,6 +104,8 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
+                                target=InjectionTargets.VENOUS_SINUS,
+                                relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -110,7 +114,7 @@ class ProceduresTests(unittest.TestCase):
                 ],
             )
         expected_exception = (
-            "1 validation error for RetroOrbitalInjection\n"
+            "1 validation error for Injection\n"
             "injection_materials\n"
             "  List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], "
             "input_type=list]\n"
@@ -128,7 +132,7 @@ class ProceduresTests(unittest.TestCase):
                         start_date=start_date,
                         experimenters=[Person(name="Mam Moth")],
                         procedures=[
-                            RetroOrbitalInjection(
+                            Injection(
                                 protocol_id="134",
                                 injection_materials=None,
                                 injection_eye="Left",
@@ -141,6 +145,8 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
+                                target=InjectionTargets.VENOUS_SINUS,
+                                relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -150,7 +156,7 @@ class ProceduresTests(unittest.TestCase):
             )
 
         expected_exception = (
-            "1 validation error for RetroOrbitalInjection\n"
+            "1 validation error for Injection\n"
             "injection_materials\n"
             "  Input should be a valid list [type=list_type, input_value=None, input_type=NoneType]\n"
             f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/list_type"
@@ -185,7 +191,7 @@ class ProceduresTests(unittest.TestCase):
                         ),
                     },
                     procedures=[
-                        RetroOrbitalInjection(
+                        Injection(
                             protocol_id="134",
                             injection_materials=[
                                 ViralMaterial(
@@ -199,7 +205,8 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            injection_eye="Left",
+                            target=InjectionTargets.VENOUS_SINUS,
+                            relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
