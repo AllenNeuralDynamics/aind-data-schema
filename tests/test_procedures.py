@@ -35,6 +35,7 @@ from aind_data_schema.components.coordinates import (
     RelativePosition,
     AnatomicalRelative,
     SurfaceCoordinate,
+    Rotation,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 
@@ -245,7 +246,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                         ),
-                        Injection(
+                        BrainInjection(
                             protocol_id="bca",
                             injection_materials=[
                                 ViralMaterial(
@@ -259,7 +260,6 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            target=InjectionTargets.PERITONEAL_CAVITY,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
@@ -269,14 +269,18 @@ class ProceduresTests(unittest.TestCase):
                                     profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            injection_coordinate_ml=1,
-                            injection_coordinate_ap=1,
-                            injection_coordinate_depth=[1],
-                            injection_coordinate_reference="Bregma",
-                            injection_angle=1,
+                            coordinates=[
+                                SurfaceCoordinate(
+                                    position=[
+                                        FloatAxis(value=0.5, axis=AxisName.AP),
+                                        FloatAxis(value=1, axis=AxisName.ML),
+                                    ],
+                                    depth=1,
+                                ),
+                            ],
                             recovery_time=10,
                             recovery_time_unit=TimeUnit.M,
-                            targeted_structure=CCFStructure.VISP6A,
+                            target=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
@@ -292,11 +296,17 @@ class ProceduresTests(unittest.TestCase):
                                         total_length=10,
                                     ),
                                     targeted_structure=CCFStructure.MOP,
-                                    stereotactic_coordinate_ap=1,
-                                    stereotactic_coordinate_dv=2,
-                                    stereotactic_coordinate_ml=3,
-                                    stereotactic_coordinate_reference="Bregma",
-                                    angle=10,
+                                    coordinate=SurfaceCoordinate(
+                                        position=[
+                                            FloatAxis(value=1, axis=AxisName.AP),
+                                            FloatAxis(value=3, axis=AxisName.ML),
+                                        ],
+                                        depth=2,
+                                        angles=Rotation(
+                                            angles=FloatAxis(value=10, axis=AxisName.AP),
+                                            order=[AxisName.AP],
+                                        )
+                                    ),
                                 )
                             ],
                         ),
@@ -434,7 +444,7 @@ class ProceduresTests(unittest.TestCase):
                 )
             ],
         )
-        self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.dynamics))
+        self.assertEqual(len(inj1.coordinates), len(inj1.dynamics))
 
         # Different coord_depth and inj_vol list lengths should raise an error
         with self.assertRaises(ValidationError) as e:
