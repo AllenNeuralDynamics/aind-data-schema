@@ -133,7 +133,7 @@ class AcquisitionTest(unittest.TestCase):
                             FloatAxis(value=1.0, axis=AxisName.SI),
                             FloatAxis(value=1.0, axis=AxisName.AP),
                         ],
-                        order=[AxisName.AP, AxisName.SI, AxisName.ML],
+                        order=[AxisName.ML, AxisName.SI, AxisName.AP],
                     ),
                     vc_position=Translation(
                         translation=[

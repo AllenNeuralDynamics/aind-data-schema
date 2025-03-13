@@ -244,15 +244,15 @@ class TestComposability(unittest.TestCase):
                             ),
                             axes=[
                                 Axis(
-                                    name="X",
+                                    name=AxisName.X,
                                     direction="Left_to_right",
                                 ),
                                 Axis(
-                                    name="Y",
+                                    name=AxisName.Y,
                                     direction="Anterior_to_posterior",
                                 ),
                                 Axis(
-                                    name="Z",
+                                    name=AxisName.Z,
                                     direction="Inferior_to_superior",
                                 ),
                             ],
@@ -261,8 +261,20 @@ class TestComposability(unittest.TestCase):
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     coordinate_transformations=Transform(
                                         transforms=[
-                                            Scale(scale=[0.748, 0.748, 1]),
-                                            Translation(translation=[0, 0, 0]),
+                                            Scale(
+                                                scale=[
+                                                    FloatAxis(value=0.748, axis=AxisName.X),
+                                                    FloatAxis(value=0.748, axis=AxisName.Y),
+                                                    FloatAxis(value=1, axis=AxisName.Z),
+                                                ]
+                                            ),
+                                            Translation(
+                                                translation=[
+                                                    FloatAxis(value=0, axis=AxisName.X),
+                                                    FloatAxis(value=0, axis=AxisName.Y),
+                                                    FloatAxis(value=0, axis=AxisName.Z),
+                                                ]
+                                            ),
                                         ]
                                     ),
                                     channel=tile.Channel(

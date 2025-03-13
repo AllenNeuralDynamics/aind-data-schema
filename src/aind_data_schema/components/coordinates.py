@@ -206,10 +206,6 @@ class Rotation(DataModel):
         if len(angles) != len(order):
             raise ValueError("Number of angles must match the number of axes in the order")
 
-        for angle, axis in zip(angles, order):
-            if angle.axis != axis:
-                raise ValueError("Angle axis must match the order of rotation axes")
-
         return values
 
 
