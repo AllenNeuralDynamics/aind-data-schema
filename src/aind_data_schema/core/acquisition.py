@@ -339,7 +339,6 @@ class Acquisition(DataCoreModel):
             acquisition_end_time=end_time,
             experiment_type=self.experiment_type,
             software=software,
-            headframe_registration=self.headframe_registration,  # Note: this is changing in a separate PR
             notes=notes,
             data_streams=data_streams,
             stimulus_epochs=stimulus_epochs,
