@@ -19,6 +19,7 @@ from aind_data_schema.components.devices import (
     MousePlatform,
     Laser,
 )
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -283,6 +284,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly, mouse_platform],
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(

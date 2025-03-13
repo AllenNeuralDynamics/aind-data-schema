@@ -635,6 +635,7 @@ class InstrumentTests(unittest.TestCase):
         instrument_instance_modality = Instrument.model_construct(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modalities={Modality.ECEPHYS},  # Example with a valid Modality instance
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
         )
         instrument_json = instrument_instance_modality.model_dump_json()
         instrument_data = json.loads(instrument_json)

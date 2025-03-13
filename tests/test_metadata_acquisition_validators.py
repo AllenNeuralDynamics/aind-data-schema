@@ -22,6 +22,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.core.data_description import DataDescription
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 
 ephys_assembly = EphysAssembly(
@@ -46,6 +47,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly, mouse_platform],
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(
@@ -87,6 +89,7 @@ class TestMetadata(unittest.TestCase):
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             components=[],
         )
         with self.assertRaises(ValidationError) as context:
@@ -126,6 +129,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly],
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
         )
         m = Metadata(
             name="655019_2023-04-03T181709",
