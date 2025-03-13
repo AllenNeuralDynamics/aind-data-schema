@@ -34,13 +34,6 @@ class Origin(str, Enum):
     C7 = "C7"
 
 
-class RotationDirection(str, Enum):
-    """Rotation direction"""
-
-    CW = "Clockwise"
-    CCW = "Counter-clockwise"
-
-
 class AxisName(str, Enum):
     """Axis name"""
 
@@ -167,7 +160,8 @@ class Rotation(DataModel):
             from scipy.spatial.transform import Rotation as R
         except ImportError:
             raise ImportError(
-                "Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for Rotation.to_matrix"
+                "Please run `pip install aind-data-schema[transforms]` to "
+                "install necessary dependencies for Rotation.to_matrix"
             )
 
         if not self.angles:
@@ -245,7 +239,8 @@ class AffineTransformMatrix(DataModel):
             import numpy as np
         except ImportError:
             raise ImportError(
-                "Please run `pip install aind-data-schema[transforms]` to install necessary dependencies for rotation support"
+                "Please run `pip install aind-data-schema[transforms]` "
+                "to install necessary dependencies for rotation support"
             )
 
         matrices = [t.to_matrix() for t in transform]

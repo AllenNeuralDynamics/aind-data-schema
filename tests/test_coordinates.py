@@ -5,7 +5,6 @@ from src.aind_data_schema.components.coordinates import (
     FloatAxis,
     Translation,
     Rotation,
-    RotationDirection,
     AffineTransformMatrix,
     Axis,
     Direction,

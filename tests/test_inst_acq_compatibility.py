@@ -856,7 +856,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],
-            coordinate_system=CoordinatesSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.DEFAULT,
             components=[
                 *cameras,
                 *patch_cords,
@@ -925,7 +925,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
-                            manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
                         ),
                         PatchCordConfig(
                             device_name="Patch Cord A",

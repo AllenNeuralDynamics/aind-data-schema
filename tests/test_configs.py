@@ -167,8 +167,11 @@ class TestManipulatorConfig(unittest.TestCase):
                     ),
                 ],
             )
-            
-        self.assertIn("Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same", str(context.exception))
+
+        self.assertIn(
+            "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same",
+            str(context.exception),
+        )
 
 
 if __name__ == "__main__":
