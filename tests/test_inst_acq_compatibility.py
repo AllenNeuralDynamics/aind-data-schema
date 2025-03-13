@@ -363,13 +363,13 @@ ephys_acquisition = Acquisition(
                             ]
                         ),
                     ],
-                    manipulator_axis_position=Coordinate(
+                    manipulator_axis_positions=[Coordinate(
                         position=[
                             FloatAxis(value=8422, axis=AxisName.X),
                             FloatAxis(value=4205, axis=AxisName.Y),
                             FloatAxis(value=11087.5, axis=AxisName.Z),
                         ]
-                    ),
+                    )],
                     arc_angle=5.2,
                     module_angle=8,
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
@@ -393,13 +393,13 @@ ephys_acquisition = Acquisition(
                             ]
                         ),
                     ],
-                    manipulator_axis_position=Coordinate(
+                    manipulator_axis_positions=[Coordinate(
                         position=[
                             FloatAxis(value=9015, axis=AxisName.X),
                             FloatAxis(value=7144, axis=AxisName.Y),
                             FloatAxis(value=13262, axis=AxisName.Z),
                         ]
-                    ),
+                    )],
                     device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
@@ -467,13 +467,13 @@ ephys_acquisition = Acquisition(
                             ]
                         ),
                     ],
-                    manipulator_axis_position=Coordinate(
+                    manipulator_axis_positions=[Coordinate(
                         position=[
                             FloatAxis(value=8422, axis=AxisName.X),
                             FloatAxis(value=4205, axis=AxisName.Y),
                             FloatAxis(value=11087.5, axis=AxisName.Z),
                         ]
-                    ),
+                    )],
                     device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
@@ -496,13 +496,13 @@ ephys_acquisition = Acquisition(
                             ]
                         ),
                     ],
-                    manipulator_axis_position=Coordinate(
+                    manipulator_axis_positions=[Coordinate(
                         position=[
                             FloatAxis(value=8422, axis=AxisName.X),
                             FloatAxis(value=4205, axis=AxisName.Y),
                             FloatAxis(value=11087.5, axis=AxisName.Z),
                         ]
-                    ),
+                    )],
                     device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
@@ -525,13 +525,13 @@ ephys_acquisition = Acquisition(
                             ]
                         ),
                     ],
-                    manipulator_axis_position=Coordinate(
+                    manipulator_axis_positions=[Coordinate(
                         position=[
                             FloatAxis(value=9015, axis=AxisName.X),
                             FloatAxis(value=7144, axis=AxisName.Y),
                             FloatAxis(value=13262, axis=AxisName.Z),
                         ]
-                    ),
+                    )],
                     device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,

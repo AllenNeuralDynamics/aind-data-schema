@@ -39,7 +39,7 @@ ephys_config_a = ManipulatorConfig(
     device_name="Ephys_assemblyA",
     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
     primary_targeted_structure=CCFStructure.LGD,
-    manipulator_axis_position=[
+    manipulator_axis_positions=[
         Coordinate(
             position=[
                 FloatAxis(value=8422, axis=AxisName.ML),
@@ -71,7 +71,7 @@ ephys_config_b = ManipulatorConfig(
     device_name="Ephys_assemblyB",
     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
     primary_targeted_structure=CCFStructure.LC,
-    manipulator_axis_position=[
+    manipulator_axis_positions=[
         Coordinate(
             position=[
                 FloatAxis(value=8422, axis=AxisName.ML),
