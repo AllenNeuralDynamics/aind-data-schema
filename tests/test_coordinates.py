@@ -4,7 +4,6 @@ import unittest
 from aind_data_schema.components.coordinates import (
     Scale,
     AxisName,
-    FloatAxis,
     Translation,
     Rotation,
     AffineTransformMatrix,
@@ -24,19 +23,13 @@ class TestScale(unittest.TestCase):
 
     def test_to_matrix_default_order(self):
         """Test to_matrix method with default axis order"""
-        scale_data = [
-            FloatAxis(value=2.0, axis=AxisName.X),
-            FloatAxis(value=3.0, axis=AxisName.Y),
-            FloatAxis(value=4.0, axis=AxisName.Z),
-        ]
-        scale = Scale(scale=scale_data)
+        scale = Scale(scale=[2, 3, 4])
         expected_matrix = [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(scale.to_matrix(), expected_matrix)
 
     def test_to_matrix_partial_axes(self):
         """Test to_matrix method with partial axes"""
-        scale_data = [FloatAxis(value=2.0, axis=AxisName.X), FloatAxis(value=3.0, axis=AxisName.Y)]
-        scale = Scale(scale=scale_data)
+        scale = Scale(scale=[2, 3])
         expected_matrix = [
             [2.0, 0.0, 0.0],
             [0.0, 3.0, 0.0],
@@ -50,19 +43,13 @@ class TestTranslation(unittest.TestCase):
 
     def test_to_matrix_default_order(self):
         """Test to_matrix method with default axis order"""
-        translation_data = [
-            FloatAxis(value=2.0, axis=AxisName.X),
-            FloatAxis(value=3.0, axis=AxisName.Y),
-            FloatAxis(value=4.0, axis=AxisName.Z),
-        ]
-        translation = Translation(translation=translation_data)
+        translation = Translation(translation=[2, 3, 4])
         expected_matrix = [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(translation.to_matrix(), expected_matrix)
 
     def test_to_matrix_partial_axes(self):
         """Test to_matrix method with partial axes"""
-        translation_data = [FloatAxis(value=2.0, axis=AxisName.X), FloatAxis(value=3.0, axis=AxisName.Y)]
-        translation = Translation(translation=translation_data)
+        translation = Translation(translation=[2, 3])
         expected_matrix = [[1.0, 0.0, 2.0], [0.0, 1.0, 3.0], [0.0, 0.0, 1.0]]
         self.assertEqual(translation.to_matrix(), expected_matrix)
 
@@ -72,14 +59,10 @@ class TestRotation(unittest.TestCase):
 
     def test_to_matrix_default_order(self):
         """Test to_matrix method with default axis order"""
-        rotation_data = [
-            FloatAxis(value=90.0, axis=AxisName.AP),
-            FloatAxis(value=45.0, axis=AxisName.ML),
-            FloatAxis(value=30.0, axis=AxisName.SI),
-        ]
+
         rotation = Rotation(
-            angles=rotation_data,
-            order=[AxisName.AP, AxisName.ML, AxisName.SI],
+            angles=[90, 45, 30],
+            order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -88,14 +71,10 @@ class TestRotation(unittest.TestCase):
 
     def test_to_matrix_negative_directions(self):
         """Test to_matrix method with inverted rotation directions"""
-        rotation_data = [
-            FloatAxis(value=-90.0, axis=AxisName.AP),
-            FloatAxis(value=-45.0, axis=AxisName.ML),
-            FloatAxis(value=-30.0, axis=AxisName.SI),
-        ]
+
         rotation = Rotation(
-            angles=rotation_data,
-            order=[AxisName.AP, AxisName.ML, AxisName.SI],
+            angles=[-90, -45, -30],
+            order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [-90, -45, -30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -103,10 +82,9 @@ class TestRotation(unittest.TestCase):
 
     def test_to_matrix_partial_axes(self):
         """Test to_matrix method with partial axes"""
-        rotation_data = [FloatAxis(value=90.0, axis=AxisName.AP), FloatAxis(value=45.0, axis=AxisName.ML)]
         rotation = Rotation(
-            angles=rotation_data,
-            order=[AxisName.AP, AxisName.ML],
+            angles=[90, 45],
+            order=[0, 1],
         )
         expected_matrix = R.from_euler("xy", [90, 45], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 1.0]]
@@ -114,14 +92,10 @@ class TestRotation(unittest.TestCase):
 
     def test_to_matrix_no_rotation(self):
         """Test to_matrix method with no rotation"""
-        rotation_data = [
-            FloatAxis(value=0, axis=AxisName.AP),
-            FloatAxis(value=0, axis=AxisName.ML),
-            FloatAxis(value=0, axis=AxisName.SI),
-        ]
+
         rotation = Rotation(
-            angles=rotation_data,
-            order=[AxisName.AP, AxisName.ML, AxisName.SI],
+            angles=[0, 0, 0,],
+            order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [0, 0, 0], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -133,12 +107,8 @@ class TestAffineTransformMatrix(unittest.TestCase):
 
     def test_compose_with_translation(self):
         """Test compose method with translation"""
-        translation_data = [
-            FloatAxis(value=2.0, axis=AxisName.X),
-            FloatAxis(value=3.0, axis=AxisName.Y),
-            FloatAxis(value=4.0, axis=AxisName.Z),
-        ]
-        translation = Translation(translation=translation_data)
+
+        translation = Translation(translation=[2, 3, 4])
         affine_transform = AffineTransformMatrix(affine_transform=[])
         composed_transform = affine_transform.compose([translation])
         expected_matrix = [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]
@@ -146,26 +116,18 @@ class TestAffineTransformMatrix(unittest.TestCase):
 
     def test_compose_with_rotation(self):
         """Test compose method with rotation"""
-        rotation_data = [
-            FloatAxis(value=90.0, axis=AxisName.X),
-            FloatAxis(value=45.0, axis=AxisName.Y),
-            FloatAxis(value=30.0, axis=AxisName.Z),
-        ]
+
         rotation = Rotation(
-            angles=rotation_data,
-            order=[AxisName.X, AxisName.Y, AxisName.Z],
+            angles=[90, 45, 30],
+            order=[0, 1, 2],
         )
         composed_transform = AffineTransformMatrix.compose([rotation])
         self.assertEqual(composed_transform.affine_transform, rotation.to_matrix())
 
     def test_compose_with_scale(self):
         """Test compose method with scale"""
-        scale_data = [
-            FloatAxis(value=2.0, axis=AxisName.X),
-            FloatAxis(value=3.0, axis=AxisName.Y),
-            FloatAxis(value=4.0, axis=AxisName.Z),
-        ]
-        scale = Scale(scale=scale_data)
+
+        scale = Scale(scale=[2, 3, 4])
         affine_transform = AffineTransformMatrix(affine_transform=[])
         composed_transform = affine_transform.compose([scale])
         expected_matrix = [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
@@ -174,26 +136,14 @@ class TestAffineTransformMatrix(unittest.TestCase):
     def test_compose_with_multiple_transforms(self):
         """Test compose method with multiple transforms"""
         translation = Translation(
-            translation=[
-                FloatAxis(value=2.0, axis=AxisName.X),
-                FloatAxis(value=3.0, axis=AxisName.Y),
-                FloatAxis(value=4.0, axis=AxisName.Z),
-            ]
+            translation=[2, 3, 4]
         )
         rotation = Rotation(
-            angles=[
-                FloatAxis(value=90.0, axis=AxisName.X),
-                FloatAxis(value=45.0, axis=AxisName.Y),
-                FloatAxis(value=30.0, axis=AxisName.Z),
-            ],
-            order=[AxisName.X, AxisName.Y, AxisName.Z],
+            angles=[90, 45, 30],
+            order=[0, 1, 2],
         )
         scale = Scale(
-            scale=[
-                FloatAxis(value=2.0, axis=AxisName.X),
-                FloatAxis(value=3.0, axis=AxisName.Y),
-                FloatAxis(value=4.0, axis=AxisName.Z),
-            ]
+            scale=[2, 3, 4]
         )
         affine_transform = AffineTransformMatrix(affine_transform=[])
         composed_transform = affine_transform.compose([rotation, translation, scale])
@@ -250,16 +200,8 @@ class TestAtlas(unittest.TestCase):
             Axis(name=AxisName.Y, direction=Direction.AP),
             Axis(name=AxisName.Z, direction=Direction.SI),
         ]
-        self.size = [
-            FloatAxis(value=10.0, axis=AxisName.X),
-            FloatAxis(value=20.0, axis=AxisName.Y),
-            FloatAxis(value=30.0, axis=AxisName.Z),
-        ]
-        self.resolution = [
-            FloatAxis(value=0.1, axis=AxisName.X),
-            FloatAxis(value=0.2, axis=AxisName.Y),
-            FloatAxis(value=0.3, axis=AxisName.Z),
-        ]
+        self.size = [10, 20, 30]
+        self.resolution = [0.1, 0.1, 0.1]
 
     def test_validate_atlas_valid(self):
         """Test validate_atlas method with valid data"""
@@ -279,52 +221,6 @@ class TestAtlas(unittest.TestCase):
             origin=Origin.BREGMA,
         )
         self.assertIsNotNone(atlas)
-
-    def test_validate_atlas_invalid_size_axis(self):
-        """Test validate_atlas method with invalid size axis"""
-
-        axes = self.axes
-        size = self.size
-        resolution = self.resolution
-
-        size[0].axis = AxisName.Y.value
-        size[1].axis = AxisName.X.value
-
-        with self.assertRaises(ValueError) as context:
-            Atlas(
-                name=AtlasName.CCF,
-                version="1.0",
-                size=size,
-                size_unit=SizeUnit.MM,
-                resolution=resolution,
-                resolution_unit=SizeUnit.MM,
-                axes=axes,
-                origin=Origin.BREGMA,
-            )
-        self.assertIn("Size axis Y does not match the axis name X", str(context.exception))
-
-    def test_validate_atlas_invalid_resolution_axis(self):
-        """Test validate_atlas method with invalid resolution axis"""
-
-        axes = self.axes
-        size = self.size
-        resolution = self.resolution
-
-        resolution[0].axis = AxisName.Y.value
-        resolution[1].axis = AxisName.X.value
-
-        with self.assertRaises(ValueError) as context:
-            Atlas(
-                name=AtlasName.CCF,
-                version="1.0",
-                size=size,
-                size_unit=SizeUnit.MM,
-                resolution=resolution,
-                resolution_unit=SizeUnit.MM,
-                axes=axes,
-                origin=Origin.BREGMA,
-            )
-        self.assertIn("Resolution axis Y does not match the axis name X", str(context.exception))
 
 
 if __name__ == "__main__":

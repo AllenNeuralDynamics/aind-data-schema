@@ -36,7 +36,7 @@ from aind_data_schema.components.configs import (
     StimulusModality,
     InVitroImagingConfig,
 )
-from aind_data_schema.components.coordinates import Transform, Atlas
+from aind_data_schema.components.coordinates import Transform, Atlas, CoordinateSystem
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
@@ -229,7 +229,8 @@ class Acquisition(DataCoreModel):
         default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
 
-    # Atlas and transform information
+    # Coordinate system, atlas, and transform information
+    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     atlas: Optional[Atlas] = Field(default=None, title="Atlas")
     transform: Optional[Transform] = Field(
         default=None, title="Transform", description="Atlas to CoordinateSystem transform matrix"

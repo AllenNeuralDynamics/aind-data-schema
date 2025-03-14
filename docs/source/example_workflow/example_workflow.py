@@ -19,7 +19,6 @@ from aind_data_schema_models.species import Strain
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema.components.coordinates import (
     AxisName,
-    FloatAxis,
     Rotation,
     SurfaceCoordinate,
 )
@@ -118,16 +117,11 @@ for session_idx, session in sessions_df.iterrows():
                         coordinates=[
                             SurfaceCoordinate(
                                 system_name="Bregma ARI",
-                                position=[
-                                    FloatAxis(value=float(coords[1]), axis=AxisName.ML),
-                                    FloatAxis(value=float(coords[0]), axis=AxisName.AP),
-                                ],
+                                position=[coords[1], coords[0]],
                                 depth=float(coords[2]),
                                 angles=Rotation(
-                                    angles=[
-                                        FloatAxis(value=float(coords[3]), axis=AxisName.AP),
-                                    ],
-                                    order=[AxisName.AP],
+                                    angles=[coords[3]],
+                                    order=[0],
                                 ),
                             ),
                         ],

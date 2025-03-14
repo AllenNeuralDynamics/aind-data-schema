@@ -1,7 +1,6 @@
 """ Validator utility functions """
 
-from typing import List
-from aind_data_schema.components.coordinates import AxisName
+from typing import List, Any
 
 
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
@@ -9,15 +8,7 @@ def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool
     return subject_id in specimen_id
 
 
-def check_order(axes_to_check: List[AxisName], order: List[AxisName]):
-    """Check that the order of axes matches a defined order"""
-    for axis0, axis1 in zip(axes_to_check, order):
-        if axis0 != axis1:
-            return False
-    return True
-
-
-def _recurse_helper(data, system_name: str, system_axes: List[AxisName]):
+def _recurse_helper(data, system_name: str, system_axes: List[Any]):
     """Helper function for recursive_axis_order_check: recurse calls for lists and objects only"""
     if isinstance(data, list):
         for item in data:
@@ -33,7 +24,7 @@ def _recurse_helper(data, system_name: str, system_axes: List[AxisName]):
             recursive_axis_order_check(attr_value, system_name, system_axes)
 
 
-def recursive_axis_order_check(data, system_name: str, system_axes: List[AxisName]):
+def recursive_axis_order_check(data, system_name: str, system_axes: List[Any]):
     """Recursively check fields, see if they are Coordinates and check if they match a List[FloatAxis]
 
     Note that we just need to check if the axes all show up, not necessarily in matching order

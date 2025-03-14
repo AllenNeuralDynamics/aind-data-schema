@@ -612,17 +612,16 @@ class Surgery(DataModel):
     workstation_id: Optional[str] = Field(default=None, title="Workstation ID")
 
     # Coordinate system
-    coordinate_system: Optional[CoordinateSystem] = Field(
-        default=None,
+    coordinate_system: CoordinateSystem = Field(
+        ...,
         title="Coordinate system",
-        description="Only include when the Surgery coordinate system differs from the instrument",
     )
 
     # Measured coordinates
     measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
         default=None,
         title="Measured coordinates",
-        description="Coordinates measured during the procedure",
+        description="Coordinates measured during the procedure, for example Bregma and Lambda",
     )
 
     procedures: List[

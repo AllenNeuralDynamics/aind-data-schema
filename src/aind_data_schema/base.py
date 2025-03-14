@@ -21,6 +21,7 @@ from pydantic import (
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
+from aind_data_schema.utils.validators import recursive_axis_order_check
 
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
@@ -242,3 +243,18 @@ class DataCoreModel(DataModel):
         # Check that size doesn't exceed the maximum
         if len(self.model_dump_json(indent=3)) > MAX_FILE_SIZE:
             logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
+
+    @model_validator(mode="after")
+    def coordinate_validator(cls, data):
+        """Validate that all coordinates are valid in the instrument's coordinate system"""
+
+        if data.coordinate_system is None:
+            return data
+
+        # This core model has a coordinate_system -- check that all subfields match the defined axes
+        system_name = data.coordinate_system.name
+        system_axes = [axis.name for axis in data.coordinate_system.axes]
+
+        recursive_axis_order_check(data, system_name, system_axes)
+
+        return data

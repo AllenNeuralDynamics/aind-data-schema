@@ -78,13 +78,6 @@ class AnatomicalRelative(str, Enum):
     LATERAL = "Lateral"
 
 
-class FloatAxis(DataModel):
-    """Linked value and axis"""
-
-    value: float = Field(..., title="Value")
-    axis: AxisName = Field(..., title="Axis")
-
-
 class Axis(DataModel):
     """Linked direction and axis"""
 
@@ -97,7 +90,7 @@ class Axis(DataModel):
 class Scale(DataModel):
     """Scale"""
 
-    scale: List[FloatAxis] = Field(..., title="Scale parameters")
+    scale: List[float] = Field(..., title="Scale parameters")
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine scale matrix for arbitrary sized lists
@@ -111,8 +104,8 @@ class Scale(DataModel):
         size = len(self.scale)
         scale_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
 
-        for i, fa in enumerate(self.scale):
-            scale_matrix[i][i] = fa.value
+        for i, value in enumerate(self.scale):
+            scale_matrix[i][i] = value
 
         return scale_matrix
 
@@ -120,7 +113,7 @@ class Scale(DataModel):
 class Translation(DataModel):
     """Translation"""
 
-    translation: List[FloatAxis] = Field(..., title="Translation parameters")
+    translation: List[float] = Field(..., title="Translation parameters")
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine translation matrix for arbitrary sized lists.
@@ -137,8 +130,8 @@ class Translation(DataModel):
         translation_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
 
         # Populate the translation part (last column except for bottom-right corner)
-        for i, fa in enumerate(self.translation):
-            translation_matrix[i][-1] = fa.value
+        for i, value in enumerate(self.translation):
+            translation_matrix[i][-1] = value
 
         return translation_matrix
 
@@ -149,11 +142,11 @@ class Rotation(DataModel):
     Angles follow right-hand rule, with positive angles rotating counter-clockwise.
     """
 
-    angles: List[FloatAxis] = Field(
+    angles: List[float] = Field(
         ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
     )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    order: List[AxisName] = Field(..., title="Rotation order", description="Order of rotation axes")
+    order: List[int] = Field(..., title="Rotation order", description="Order of rotation axes")
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine rotation matrix for arbitrary sized lists.
@@ -174,25 +167,18 @@ class Rotation(DataModel):
         if not self.angles:
             return []
 
-        # Map angles and directions to their axes
-        axis_to_angle = {fa.axis: fa.value for fa in self.angles}
-
         # Prepare the angles and axes for scipy Rotation
         angles = []
         axes = ""
-        for fa in self.angles:
-            if fa.axis in axis_to_angle:
-                # Get the angle, convert if needed
-                axis = fa.axis
-                angle = axis_to_angle[axis]
-                if self.angles_unit == AngleUnit.DEG:
-                    angle = math.radians(angle)
+        for i, angle in enumerate(self.angles):
+            # Get the angle, convert if needed
+            if self.angles_unit == AngleUnit.DEG:
+                angle = math.radians(angle)
 
-                angles.append(angle)
+            angles.append(angle)
 
-                # Get the axis order
-                index = self.order.index(axis)
-                axes += "xyz"[index]
+            # Get the axis order
+            axes += "xyz"[self.order[i]]
 
         # Create the rotation matrix
         rotation = R.from_euler(axes, angles)
@@ -281,6 +267,7 @@ class NonlinearTransform(DataModel):
 class Transform(DataModel):
     """Affine and non-linear transformations"""
 
+    system_name: str = Field(..., title="Coordinate system name")
     transforms: List[
         Annotated[
             Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
@@ -290,6 +277,13 @@ class Transform(DataModel):
         ...,
         title="Transforms",
     )
+
+
+class CoordinateTransform(DataModel):
+    """ Transformation from one CoordinateSystem to another """
+    input: str = Field(..., title="Input coordinate system")
+    output: str = Field(..., title="Output coordinate system")
+    transform: Transform = Field(..., title="Transform")
 
 
 class CoordinateSystem(DataModel):
@@ -302,13 +296,13 @@ class CoordinateSystem(DataModel):
     )
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
 
-    size: Optional[List[FloatAxis]] = Field(
+    size: Optional[List[float]] = Field(
         default=None,
         title="Size",
         description="Size of the coordinate system in the same unit as the axes",
     )
     size_unit: Optional[SizeUnit] = Field(default=None, title="Size unit")
-    resolution: Optional[List[FloatAxis]] = Field(
+    resolution: Optional[List[float]] = Field(
         default=None,
         title="Resolution",
         description="Resolution of the coordinate system when axes_unit is Pixels",
@@ -321,24 +315,10 @@ class Atlas(CoordinateSystem):
 
     name: AtlasName = Field(..., title="Atlas name")
     version: str = Field(..., title="Atlas version")
-    size: List[FloatAxis] = Field(..., title="Size")
+    size: List[float] = Field(..., title="Size")
     size_unit: SizeUnit = Field(..., title="Size unit")
-    resolution: List[FloatAxis] = Field(..., title="Resolution")
+    resolution: List[float] = Field(..., title="Resolution")
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
-
-    @model_validator(mode="after")
-    def validate_atlas(cls, values):
-        """Ensure that all FloatAxis axis names match the axes names in order"""
-
-        axes = [axis.name for axis in values.axes]
-        for i, fa in enumerate(values.size):
-            if fa.axis != axes[i]:
-                raise ValueError(f"Size axis {fa.axis} does not match the axis name {axes[i]}")
-        for i, fa in enumerate(values.resolution):
-            if fa.axis != axes[i]:
-                raise ValueError(f"Resolution axis {fa.axis} does not match the axis name {axes[i]}")
-
-        return values
 
 
 class RelativePosition(DataModel):
@@ -354,8 +334,9 @@ class Coordinate(DataModel):
     """
 
     system_name: str = Field(..., title="Coordinate system name")
-    position: List[FloatAxis] = Field(..., title="Coordinates in in vivo space")
-    angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
+    position: List[float] = Field(..., title="Position in coordinate system")
+    position_unit: SizeUnit = Field(..., title="Position unit")
+    angles: Optional[Rotation] = Field(default=None, title="Orientation in coordinate system")
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
@@ -380,7 +361,7 @@ class CoordinateSystemLibrary:
     """Library of common coordinate systems"""
 
     BREGMA_ARI = CoordinateSystem(
-        name="Bregma ARI",
+        name="BREGMA_ARI",
         origin=Origin.BREGMA,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -389,7 +370,7 @@ class CoordinateSystemLibrary:
         ],
     )
     LAMBDA_ARI = CoordinateSystem(
-        name="Lambda ARI",
+        name="LAMBDA_ARI",
         origin=Origin.LAMBDA,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -399,7 +380,7 @@ class CoordinateSystemLibrary:
     )
 
     BREGMA_SIPE = CoordinateSystem(
-        name="Bregma SIPE",
+        name="BREGMA_SIPE",
         origin=Origin.BREGMA,
         axes=[
             Axis(name=AxisName.X, direction=Direction.PA),
@@ -409,7 +390,7 @@ class CoordinateSystemLibrary:
     )
 
     LAMBDA_SIPE = CoordinateSystem(
-        name="Lambda SIPE",
+        name="LAMBDA_SIPE",
         origin=Origin.LAMBDA,
         axes=[
             Axis(name=AxisName.X, direction=Direction.PA),
@@ -419,7 +400,7 @@ class CoordinateSystemLibrary:
     )
 
     CAMERA_SIPE = CoordinateSystem(
-        name="Camera SIPE",
+        name="CAMERA_SIPE",
         origin=Origin.FRONT_CENTER,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
@@ -429,7 +410,7 @@ class CoordinateSystemLibrary:
     )
 
     SPEAKER_SIPE = CoordinateSystem(
-        name="Speaker SIPE",
+        name="SPEAKER_SIPE",
         origin=Origin.FRONT_CENTER,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
@@ -439,7 +420,7 @@ class CoordinateSystemLibrary:
     )
 
     MONITOR_SIPE = CoordinateSystem(
-        name="Monitor SIPE",
+        name="MONITOR_SIPE",
         origin=Origin.FRONT_CENTER,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
@@ -448,14 +429,39 @@ class CoordinateSystemLibrary:
         ],
     )
 
+    PROBE_MIS = CoordinateSystem(
+        name="PROBE_MIS",
+        origin=Origin.TIP,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.FB),
+            Axis(name=AxisName.Y, direction=Direction.RL),
+            Axis(name=AxisName.Z, direction=Direction.TB),
+        ],
+    )
+
     PROBE_ARI = CoordinateSystem(
-        name="Probe ARI",
-        origin=Origin.ORIGIN,
+        name="PROBE_ARI",
+        origin=Origin.TIP,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
             Axis(name=AxisName.Z, direction=Direction.AP),
         ],
+    )
+
+    CCFv3 = Atlas(
+        name=AtlasName.CCF,
+        version="3",
+        origin=Origin.ORIGIN,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.AP),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+        ],
+        size=[1320, 800, 1140],
+        size_unit=SizeUnit.PX,
+        resolution=[10, 10, 10],
+        resolution_unit=SizeUnit.UM,
     )
 
     DEFAULT = BREGMA_ARI
