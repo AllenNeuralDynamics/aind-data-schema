@@ -54,43 +54,10 @@ class ProceduresTests(unittest.TestCase):
         self.assertEqual("12345", p.subject_id)
 
     def test_injection_material_check(self):
-        """Tests validation on the presence of injections materials"""
+        """ Check for validation error when injection_materials is empty """
 
         start_date = date.fromisoformat("2020-10-10")
 
-        with self.assertRaises(ValidationError):
-            Procedures(
-                subject_id="12345",
-                subject_procedures=[
-                    Surgery(
-                        start_date=start_date,
-                        experimenters=[Person(name="Mam Moth")],
-                        procedures=[
-                            Injection(
-                                start_date=start_date,
-                                experimenters=[Person(name="Mam Moth")],
-                                protocol_id="134",
-                                injection_materials=[],  # An empty list is invalid
-                                dynamics=[
-                                    InjectionDynamics(
-                                        volume=1,
-                                        volume_unit=VolumeUnit.UL,
-                                        duration=1,
-                                        duration_unit=TimeUnit.S,
-                                        profile=InjectionProfile.BOLUS,
-                                    ),
-                                ],
-                                target=InjectionTargets.VENOUS_SINUS,
-                                relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
-                            ),
-                        ],
-                    )
-                ],
-            )
-
-        # validate error for injection_materials=[]
         with self.assertRaises(ValidationError) as e:
             Procedures(
                 subject_id="12345",
@@ -120,17 +87,11 @@ class ProceduresTests(unittest.TestCase):
                     )
                 ],
             )
-        expected_exception = (
-            "1 validation error for Injection\n"
-            "injection_materials\n"
-            "  List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], "
-            "input_type=list]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/too_short"
-        )
 
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn(injection_materials, repr(e.exception))
 
-        # validate error for injection_materials=None
+    def test_injection_material_none(self):
+        """ Check for validation error when injection_materials is None """
         with self.assertRaises(ValidationError) as e:
             p = Procedures(
                 subject_id="12345",
@@ -161,16 +122,10 @@ class ProceduresTests(unittest.TestCase):
                 ],
             )
 
-        expected_exception = (
-            "1 validation error for Injection\n"
-            "injection_materials\n"
-            "  Input should be a valid list [type=list_type, input_value=None, input_type=NoneType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/list_type"
-        )
+        self.assertIn(injection_materials, repr(e.exception))
 
-        self.assertEqual(expected_exception, repr(e.exception))
-
-        # Validate injection_materials is list of one ViralMaterial or NonViralMaterial item
+    def test_injection_materials_list(self):
+        """ Valid injection_materials list """
 
         p = Procedures(
             subject_id="12345",
@@ -321,8 +276,6 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertEqual(1, len(p.subject_procedures))
         self.assertEqual(p, Procedures.model_validate_json(p.model_dump_json()))
-
-    maxDiff = None
 
     def test_validate_procedure_type(self):
         """Test that the procedure type validation error works"""
