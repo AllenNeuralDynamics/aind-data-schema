@@ -23,6 +23,8 @@ from aind_data_schema.components.coordinates import (
     Coordinate,
     SurfaceCoordinate,
     CoordinateTransform,
+    Transform,
+    RelativePosition,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
@@ -287,7 +289,7 @@ class RewardSpoutConfig(DataModel):
     """Reward spout acquisition information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
-    starting_position: Transform = Field(..., title="Relative position of the monitor")
+    starting_position: Union[Transform, RelativePosition] = Field(..., title="Starting position")
     variable_position: bool = Field(
         ...,
         title="Variable position",

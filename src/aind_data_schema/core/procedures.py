@@ -650,9 +650,8 @@ class Surgery(DataModel):
         """Validate that all coordinates are valid in the instrument's coordinate system"""
 
         if data.coordinate_system:
-            system_axes = [axis.name for axis in data.coordinate_system.axes]
 
-            recursive_coord_system_check(data, data.coordinate_system.name, system_axes)
+            recursive_coord_system_check(data, data.coordinate_system.name)
 
         return data
 
