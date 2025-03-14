@@ -1,5 +1,5 @@
 import unittest
-from src.aind_data_schema.components.coordinates import (
+from aind_data_schema.components.coordinates import (
     Scale,
     AxisName,
     FloatAxis,
