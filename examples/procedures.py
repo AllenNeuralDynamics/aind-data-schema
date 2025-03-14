@@ -43,7 +43,7 @@ surgery1 = Surgery(
     coordinate_system=CoordinateSystem(
         name="SurgerySystem",
         origin=Origin.LAMBDA,
-        coordinate_units=SizeUnit.MM,
+        translation_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),

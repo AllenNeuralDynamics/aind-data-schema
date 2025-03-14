@@ -22,6 +22,7 @@ from typing_extensions import Annotated
 from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
     AxisName,
+    Transform,
     RelativePosition,
     Scale,
     CoordinateSystem,
@@ -436,15 +437,9 @@ class CameraAssembly(DataModel):
     lens: Lens = Field(..., title="Lens")
 
     # position information
-    position: RelativePosition = Field(..., title="Relative position")
-    exact_position: Optional[
-        List[
-            Annotated[
-                Union[Translation, Rotation, Scale, AffineTransformMatrix],
-                Field(discriminator="object_type"),
-            ]
-        ]
-    ] = Field(default=None, title="Exact position")
+    position: Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")] = Field(
+        ..., title="Relative position"
+    )
 
     filter: Optional[Filter] = Field(default=None, title="Filter")
 

@@ -37,7 +37,7 @@ ephys_config_a = ManipulatorConfig(
     coordinate_transform=CoordinateTransform(
         input="BREGMA_ARI",
         output="CCFv3",
-        transform=[
+        transforms=[
             NonlinearTransform(
                 path="behavior/calibration_info_np2_2023_04_24.py",
             )
@@ -71,7 +71,7 @@ ephys_config_b = ManipulatorConfig(
     coordinate_transform=CoordinateTransform(
         input="BREGMA_ARI",
         output="CCFv3",
-        transform=[
+        transforms=[
             NonlinearTransform(
                 path="behavior/calibration_info_np2_2023_04_24.py",
             )
