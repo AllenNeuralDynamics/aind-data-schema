@@ -94,7 +94,11 @@ class TestRotation(unittest.TestCase):
         """Test to_matrix method with no rotation"""
 
         rotation = Rotation(
-            angles=[0, 0, 0,],
+            angles=[
+                0,
+                0,
+                0,
+            ],
             order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [0, 0, 0], degrees=True).as_matrix().tolist()
@@ -135,16 +139,12 @@ class TestAffineTransformMatrix(unittest.TestCase):
 
     def test_compose_with_multiple_transforms(self):
         """Test compose method with multiple transforms"""
-        translation = Translation(
-            translation=[2, 3, 4]
-        )
+        translation = Translation(translation=[2, 3, 4])
         rotation = Rotation(
             angles=[90, 45, 30],
             order=[0, 1, 2],
         )
-        scale = Scale(
-            scale=[2, 3, 4]
-        )
+        scale = Scale(scale=[2, 3, 4])
         affine_transform = AffineTransformMatrix(affine_transform=[])
         composed_transform = affine_transform.compose([rotation, translation, scale])
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()

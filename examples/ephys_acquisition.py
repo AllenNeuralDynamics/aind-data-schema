@@ -16,7 +16,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate, FloatAxis, AxisName
+from aind_data_schema.components.coordinates import Coordinate, CoordinateTransform, NonlinearTransform
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -30,24 +30,24 @@ ephys_config_a = ManipulatorConfig(
     atlas_coordinates=[
         Coordinate(
             system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=8150, axis=AxisName.ML),
-                FloatAxis(value=3250, axis=AxisName.AP),
-                FloatAxis(value=7800, axis=AxisName.SI),
-            ],
+            position=[8150, 3250, 7800],
         ),
     ],
     device_name="Ephys_assemblyA",
-    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
+    coordinate_transform=CoordinateTransform(
+        input="Bregma ARI",
+        output="CCFv3",
+        transform=[
+            NonlinearTransform(
+                path="behavior/calibration_info_np2_2023_04_24.py",
+            )
+        ],
+    ),
     primary_targeted_structure=CCFStructure.LGD,
     manipulator_axis_positions=[
         Coordinate(
             system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=8422, axis=AxisName.ML),
-                FloatAxis(value=4205, axis=AxisName.AP),
-                FloatAxis(value=11087.5, axis=AxisName.SI),
-            ],
+            position=[8422, 4205, 11087.5],
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
@@ -64,24 +64,24 @@ ephys_config_b = ManipulatorConfig(
     atlas_coordinates=[
         Coordinate(
             system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=8150, axis=AxisName.ML),
-                FloatAxis(value=3250, axis=AxisName.AP),
-                FloatAxis(value=7800, axis=AxisName.SI),
-            ],
+            position=[8150, 3250, 7800],
         ),
     ],
     device_name="Ephys_assemblyB",
-    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
+    coordinate_transform=CoordinateTransform(
+        input="Bregma ARI",
+        output="CCFv3",
+        transform=[
+            NonlinearTransform(
+                path="behavior/calibration_info_np2_2023_04_24.py",
+            )
+        ],
+    ),
     primary_targeted_structure=CCFStructure.LC,
     manipulator_axis_positions=[
         Coordinate(
             system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=8422, axis=AxisName.ML),
-                FloatAxis(value=4205, axis=AxisName.AP),
-                FloatAxis(value=11087.5, axis=AxisName.SI),
-            ],
+            position=[8422, 4205, 11087.5],
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),

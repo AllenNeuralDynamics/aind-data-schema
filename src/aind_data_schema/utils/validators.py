@@ -8,11 +8,11 @@ def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool
     return subject_id in specimen_id
 
 
-def _recurse_helper(data, system_name: str, system_axes: List[Any]):
+def _recurse_helper(data, system_name: str):
     """Helper function for recursive_axis_order_check: recurse calls for lists and objects only"""
     if isinstance(data, list):
         for item in data:
-            recursive_axis_order_check(item, system_name, system_axes)
+            recursive_coord_system_check(item, system_name)
         return
     elif hasattr(data, "__dict__"):
         for attr_name, attr_value in data.__dict__.items():
@@ -21,11 +21,11 @@ def _recurse_helper(data, system_name: str, system_axes: List[Any]):
             if callable(attr_value):
                 continue  # skip methods
 
-            recursive_axis_order_check(attr_value, system_name, system_axes)
+            recursive_coord_system_check(attr_value, system_name)
 
 
-def recursive_axis_order_check(data, system_name: str, system_axes: List[Any]):
-    """Recursively check fields, see if they are Coordinates and check if they match a List[FloatAxis]
+def recursive_coord_system_check(data, system_name: str):
+    """Recursively check fields, see if they are Coordinates and check if they match a List[values]
 
     Note that we just need to check if the axes all show up, not necessarily in matching order
     """
@@ -40,13 +40,5 @@ def recursive_axis_order_check(data, system_name: str, system_axes: List[Any]):
                 f"System name mismatch: {data.system_name} does not match the top-level coordinate system {system_name}"
             )
 
-    # Check if data matches an ordered axis type
-    if isinstance(data, list) and all(
-        hasattr(item, "object_type") and item.object_type == "Float axis" for item in data
-    ):
-        data_axes = [axis.axis for axis in data]
-        if not all(axis in system_axes for axis in data_axes):
-            raise ValueError(f"Axis mismatch: at least one of {data_axes} does not appear in {system_axes}")
-
-    _recurse_helper(data, system_name, system_axes)
+    _recurse_helper(data, system_name)
     # implicit return if data is not a list or object

@@ -26,7 +26,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import FloatAxis, SurfaceCoordinate, AxisName
+from aind_data_schema.components.coordinates import SurfaceCoordinate
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -69,10 +69,7 @@ p = Procedures(
                     coordinates=[
                         SurfaceCoordinate(
                             system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=-0.6, axis=AxisName.ML),
-                                FloatAxis(value=-3.05, axis=AxisName.AP),
-                            ],
+                            position=[-600, -3050],
                             depth=-4.2,
                         ),
                     ],
@@ -99,10 +96,7 @@ p = Procedures(
                             targeted_structure=CCFStructure.VTA,
                             coordinate=SurfaceCoordinate(
                                 system_name="Bregma ARI",
-                                position=[
-                                    FloatAxis(value=-0.6, axis=AxisName.ML),
-                                    FloatAxis(value=-3.05, axis=AxisName.AP),
-                                ],
+                                position=[-600, -3050],
                                 depth=-4.2,
                             ),
                         )

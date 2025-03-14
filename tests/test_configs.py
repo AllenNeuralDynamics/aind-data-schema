@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from pydantic import ValidationError
 from aind_data_schema.components.configs import MRIScan, Rotation, Translation, Scale, ManipulatorConfig
-from aind_data_schema.components.coordinates import FloatAxis, AxisName, Coordinate, SurfaceCoordinate
+from aind_data_schema.components.coordinates import AxisName, Coordinate, SurfaceCoordinate
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 

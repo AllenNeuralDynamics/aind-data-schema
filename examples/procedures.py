@@ -16,10 +16,9 @@ from aind_data_schema.core.procedures import (
     InjectionProfile,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.units import VolumeUnit
+from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
     SurfaceCoordinate,
-    FloatAxis,
     AxisName,
     CoordinateSystem,
     Rotation,
@@ -44,6 +43,7 @@ surgery1 = Surgery(
     coordinate_system=CoordinateSystem(
         name="SurgerySystem",
         origin=Origin.LAMBDA,
+        coordinate_units=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -76,17 +76,11 @@ surgery1 = Surgery(
             coordinates=[
                 SurfaceCoordinate(
                     system_name="SurgerySystem",
-                    position=[
-                        FloatAxis(value=-0.85, axis=AxisName.ML),
-                        FloatAxis(value=-3.8, axis=AxisName.AP),
-                        FloatAxis(value=0, axis=AxisName.SI),
-                    ],
+                    position=[-0.85, -3.8, 0],
                     depth=3.3,
                     angles=Rotation(
-                        angles=[
-                            FloatAxis(value=10, axis=AxisName.AP),
-                        ],
-                        order=[AxisName.AP],
+                        angles=[0, 10, 0],
+                        order=[0, 1, 2],
                     ),
                 ),
             ],

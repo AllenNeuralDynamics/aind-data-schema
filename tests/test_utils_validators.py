@@ -1,7 +1,11 @@
 """ Tests for compatibility check utilities """
 
 import unittest
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, _recurse_helper, recursive_axis_order_check
+from aind_data_schema.utils.validators import (
+    subject_specimen_id_compatibility,
+    _recurse_helper,
+    recursive_coord_system_check,
+)
 from aind_data_schema.components.coordinates import FloatAxis, AxisName, Coordinate
 
 
@@ -97,7 +101,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             ],
         )
         try:
-            recursive_axis_order_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name, self.system_axes)
         except ValueError:
             self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
 
@@ -111,7 +115,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             ],
         )
         with self.assertRaises(ValueError):
-            recursive_axis_order_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name, self.system_axes)
 
     def test_recursive_axis_order_check_with_invalid_axes(self):
         """Test recursive_axis_order_check with invalid axes"""
@@ -123,13 +127,13 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             ],
         )
         with self.assertRaises(ValueError):
-            recursive_axis_order_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name, self.system_axes)
 
     def test_recursive_axis_order_check_with_empty_data(self):
         """Test recursive_axis_order_check with empty data"""
         data = None
         try:
-            recursive_axis_order_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name, self.system_axes)
         except ValueError:
             self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
 
@@ -152,7 +156,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             ),
         ]
         try:
-            recursive_axis_order_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name, self.system_axes)
         except ValueError:
             self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
 

@@ -62,7 +62,6 @@ class Direction(str, Enum):
     TB = "Top_to_bottom"
     BT = "Bottom_to_top"
     OTHER = "Other"
-    # Expand to local directions for devices, top/bottom, front/back
 
 
 class AnatomicalRelative(str, Enum):
@@ -264,26 +263,17 @@ class NonlinearTransform(DataModel):
     path: str = Field(..., title="Path to nonlinear transform file")
 
 
-class Transform(DataModel):
-    """Affine and non-linear transformations"""
+class CoordinateTransform(DataModel):
+    """Transformation from one CoordinateSystem to another"""
 
-    system_name: str = Field(..., title="Coordinate system name")
-    transforms: List[
+    input: str = Field(..., title="Input coordinate system")
+    output: str = Field(..., title="Output coordinate system")
+    transform: List[
         Annotated[
             Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
             Field(discriminator="object_type"),
         ]
-    ] = Field(
-        ...,
-        title="Transforms",
-    )
-
-
-class CoordinateTransform(DataModel):
-    """ Transformation from one CoordinateSystem to another """
-    input: str = Field(..., title="Input coordinate system")
-    output: str = Field(..., title="Output coordinate system")
-    transform: Transform = Field(..., title="Transform")
+    ] = Field(..., title="Transform")
 
 
 class CoordinateSystem(DataModel):
@@ -295,6 +285,8 @@ class CoordinateSystem(DataModel):
         ..., title="Origin", description="Defines the position of (0,0,0) relative to the brain or atlas"
     )
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
+
+    coordinate_units: SizeUnit = Field(..., title="Unit for all coordinates in the system")
 
     size: Optional[List[float]] = Field(
         default=None,
@@ -334,8 +326,9 @@ class Coordinate(DataModel):
     """
 
     system_name: str = Field(..., title="Coordinate system name")
-    position: List[float] = Field(..., title="Position in coordinate system")
-    position_unit: SizeUnit = Field(..., title="Position unit")
+    position: List[float] = Field(
+        ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
+    )
     angles: Optional[Rotation] = Field(default=None, title="Orientation in coordinate system")
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
@@ -363,6 +356,7 @@ class CoordinateSystemLibrary:
     BREGMA_ARI = CoordinateSystem(
         name="BREGMA_ARI",
         origin=Origin.BREGMA,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
@@ -372,6 +366,7 @@ class CoordinateSystemLibrary:
     LAMBDA_ARI = CoordinateSystem(
         name="LAMBDA_ARI",
         origin=Origin.LAMBDA,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
@@ -382,6 +377,7 @@ class CoordinateSystemLibrary:
     BREGMA_SIPE = CoordinateSystem(
         name="BREGMA_SIPE",
         origin=Origin.BREGMA,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.PA),
             Axis(name=AxisName.Y, direction=Direction.RL),
@@ -392,6 +388,7 @@ class CoordinateSystemLibrary:
     LAMBDA_SIPE = CoordinateSystem(
         name="LAMBDA_SIPE",
         origin=Origin.LAMBDA,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.PA),
             Axis(name=AxisName.Y, direction=Direction.RL),
@@ -402,6 +399,7 @@ class CoordinateSystemLibrary:
     CAMERA_SIPE = CoordinateSystem(
         name="CAMERA_SIPE",
         origin=Origin.FRONT_CENTER,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BT),
@@ -412,6 +410,7 @@ class CoordinateSystemLibrary:
     SPEAKER_SIPE = CoordinateSystem(
         name="SPEAKER_SIPE",
         origin=Origin.FRONT_CENTER,
+        coordinate_units=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BT),
@@ -422,6 +421,7 @@ class CoordinateSystemLibrary:
     MONITOR_SIPE = CoordinateSystem(
         name="MONITOR_SIPE",
         origin=Origin.FRONT_CENTER,
+        coordinate_units=SizeUnit.CM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BT),
@@ -432,6 +432,7 @@ class CoordinateSystemLibrary:
     PROBE_MIS = CoordinateSystem(
         name="PROBE_MIS",
         origin=Origin.TIP,
+        coordinate_units=SizeUnit.CM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.FB),
             Axis(name=AxisName.Y, direction=Direction.RL),
@@ -442,6 +443,18 @@ class CoordinateSystemLibrary:
     PROBE_ARI = CoordinateSystem(
         name="PROBE_ARI",
         origin=Origin.TIP,
+        coordinate_units=SizeUnit.CM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.IS),
+            Axis(name=AxisName.Z, direction=Direction.AP),
+        ],
+    )
+
+    SPIM = CoordinateSystem(
+        name="SPIM",
+        origin=Origin.ORIGIN,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
@@ -453,6 +466,7 @@ class CoordinateSystemLibrary:
         name=AtlasName.CCF,
         version="3",
         origin=Origin.ORIGIN,
+        coordinate_units=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.AP),
             Axis(name=AxisName.SI, direction=Direction.SI),

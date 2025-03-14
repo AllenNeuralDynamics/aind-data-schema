@@ -9,7 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import AxisName, FloatAxis, Axis, Scale, Transform
+from aind_data_schema.components.coordinates import AxisName, Axis, Scale, Transform
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -21,13 +21,9 @@ from aind_data_schema.core.procedures import Reagent
 t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
 tile_scale = Scale(
-    scale=[
-        FloatAxis(value=0.748, axis=AxisName.X),
-        FloatAxis(value=0.748, axis=AxisName.Y),
-        FloatAxis(value=1, axis=AxisName.Z),
-    ]
+    scale=[0.748, 0.748, 1],
 )
-transform = Transform(transforms=[tile_scale])
+transform = Transform(system_name="SPIM", transforms=[tile_scale])
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
@@ -65,15 +61,15 @@ invitro_config = InVitroImagingConfig(
     ),
     axes=[
         Axis(
-            name="X",
+            name=AxisName.X,
             direction="Left_to_right",
         ),
         Axis(
-            name="Y",
+            name=AxisName.Y,
             direction="Anterior_to_posterior",
         ),
         Axis(
-            name="Z",
+            name=AxisName.Z,
             direction="Inferior_to_superior",
         ),
     ],

@@ -20,7 +20,15 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import AxisName, RelativePosition, Scale, Transform, CoordinateSystem
+from aind_data_schema.components.coordinates import (
+    AxisName,
+    RelativePosition,
+    Scale,
+    CoordinateSystem,
+    Translation,
+    Rotation,
+    AffineTransformMatrix,
+)
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.identifiers import Software
 
@@ -428,7 +436,15 @@ class CameraAssembly(DataModel):
     lens: Lens = Field(..., title="Lens")
 
     # position information
-    position: Union[Transform, RelativePosition] = Field(..., title="Position")
+    position: RelativePosition = Field(..., title="Relative position")
+    exact_position: Optional[
+        List[
+            Annotated[
+                Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
+                Field(discriminator="object_type"),
+            ]
+        ]
+    ] = Field(default=None, title="Exact position")
 
     filter: Optional[Filter] = Field(default=None, title="Filter")
 

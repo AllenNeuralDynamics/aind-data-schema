@@ -13,7 +13,6 @@ from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
     Translation,
-    FloatAxis,
     AxisName,
     Coordinate,
 )
@@ -73,21 +72,13 @@ class AcquisitionTest(unittest.TestCase):
                             atlas_coordinates=[
                                 Coordinate(
                                     system_name="Bregma ARI",
-                                    position=[
-                                        FloatAxis(value=1.0, axis=AxisName.ML),
-                                        FloatAxis(value=1.0, axis=AxisName.AP),
-                                        FloatAxis(value=1.0, axis=AxisName.SI),
-                                    ],
+                                    position=[1, 1, 1],
                                 ),
                             ],
                             manipulator_axis_positions=[
                                 Coordinate(
                                     system_name="Bregma ARI",
-                                    position=[
-                                        FloatAxis(value=1.0, axis=AxisName.X),
-                                        FloatAxis(value=1.0, axis=AxisName.Y),
-                                        FloatAxis(value=1.0, axis=AxisName.Z),
-                                    ],
+                                    position=[1, 1, 1],
                                 )
                             ],
                         ),
@@ -130,27 +121,15 @@ class AcquisitionTest(unittest.TestCase):
                     rare_factor=4,
                     primary_scan=True,
                     vc_orientation=Rotation(
-                        angles=[
-                            FloatAxis(value=1.0, axis=AxisName.ML),
-                            FloatAxis(value=1.0, axis=AxisName.SI),
-                            FloatAxis(value=1.0, axis=AxisName.AP),
-                        ],
+                        angles=[1, 1, 1],
                         order=[AxisName.ML, AxisName.SI, AxisName.AP],
                     ),
                     vc_position=Translation(
-                        translation=[
-                            FloatAxis(value=1.0, axis=AxisName.ML),
-                            FloatAxis(value=1.0, axis=AxisName.SI),
-                            FloatAxis(value=1.0, axis=AxisName.AP),
-                        ]
+                        translation=[1, 1, 1],
                     ),
                     subject_position="Supine",
                     voxel_sizes=Scale(
-                        scale=[
-                            FloatAxis(value=0.5, axis=AxisName.AP),
-                            FloatAxis(value=0.4375, axis=AxisName.ML),
-                            FloatAxis(value=0.52, axis=AxisName.SI),
-                        ]
+                        scale=[0.5, 0.4375, 0.52],
                     ),
                     echo_time=2.2,
                     effective_echo_time=2.0,
@@ -211,21 +190,13 @@ class AcquisitionTest(unittest.TestCase):
                                 atlas_coordinates=[
                                     Coordinate(
                                         system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1.0, axis=AxisName.ML),
-                                            FloatAxis(value=1.0, axis=AxisName.AP),
-                                            FloatAxis(value=1.0, axis=AxisName.SI),
-                                        ],
+                                        position=[1, 1, 1],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
                                         system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1.0, axis=AxisName.X),
-                                            FloatAxis(value=1.0, axis=AxisName.Y),
-                                            FloatAxis(value=1.0, axis=AxisName.Z),
-                                        ],
+                                        position=[1, 1, 1],
                                     )
                                 ],
                             ),
@@ -268,21 +239,13 @@ class AcquisitionTest(unittest.TestCase):
                                 atlas_coordinates=[
                                     Coordinate(
                                         system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1.0, axis=AxisName.ML),
-                                            FloatAxis(value=1.0, axis=AxisName.AP),
-                                            FloatAxis(value=1.0, axis=AxisName.SI),
-                                        ],
+                                        position=[1, 1, 1],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
                                         system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1.0, axis=AxisName.X),
-                                            FloatAxis(value=1.0, axis=AxisName.Y),
-                                            FloatAxis(value=1.0, axis=AxisName.Z),
-                                        ],
+                                        position=[1, 1, 1],
                                     )
                                 ],
                             ),
@@ -324,21 +287,13 @@ class AcquisitionTest(unittest.TestCase):
                                 atlas_coordinates=[
                                     Coordinate(
                                         system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1.0, axis=AxisName.ML),
-                                            FloatAxis(value=1.0, axis=AxisName.AP),
-                                            FloatAxis(value=1.0, axis=AxisName.SI),
-                                        ],
+                                        position=[1, 1, 1],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
                                         system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1.0, axis=AxisName.X),
-                                            FloatAxis(value=1.0, axis=AxisName.Y),
-                                            FloatAxis(value=1.0, axis=AxisName.Z),
-                                        ],
+                                        position=[1, 1, 1],
                                     )
                                 ],
                             ),
@@ -380,21 +335,13 @@ class AcquisitionTest(unittest.TestCase):
                     atlas_coordinates=[
                         Coordinate(
                             system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=1.0, axis=AxisName.ML),
-                                FloatAxis(value=1.0, axis=AxisName.AP),
-                                FloatAxis(value=1.0, axis=AxisName.SI),
-                            ],
+                            position=[1, 1, 1],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
                             system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=1.0, axis=AxisName.X),
-                                FloatAxis(value=1.0, axis=AxisName.Y),
-                                FloatAxis(value=1.0, axis=AxisName.Z),
-                            ],
+                            position=[1, 1, 1],
                         )
                     ],
                 ),

@@ -18,7 +18,6 @@ from aind_data_schema.components.coordinates import (
     AxisName,
     Origin,
     Coordinate,
-    FloatAxis,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance
 
@@ -55,18 +54,10 @@ invitro_config = InVitroImagingConfig(
             coordinate_transformations=Transform(
                 transforms=[
                     Scale(
-                        scale=[
-                            FloatAxis(value=0.748, axis=AxisName.X),
-                            FloatAxis(value=0.748, axis=AxisName.Y),
-                            FloatAxis(value=1, axis=AxisName.Z),
-                        ]
+                        scale=[0.748, 0.748, 1],
                     ),
                     Translation(
-                        translation=[
-                            FloatAxis(value=0, axis=AxisName.X),
-                            FloatAxis(value=0, axis=AxisName.Y),
-                            FloatAxis(value=0, axis=AxisName.Z),
-                        ]
+                        translation=[0, 0, 0],
                     ),
                 ]
             ),
@@ -274,18 +265,10 @@ class TestComposability(unittest.TestCase):
                                     coordinate_transformations=Transform(
                                         transforms=[
                                             Scale(
-                                                scale=[
-                                                    FloatAxis(value=0.748, axis=AxisName.X),
-                                                    FloatAxis(value=0.748, axis=AxisName.Y),
-                                                    FloatAxis(value=1, axis=AxisName.Z),
-                                                ]
+                                                scale=[0.748, 0.748, 1],
                                             ),
                                             Translation(
-                                                translation=[
-                                                    FloatAxis(value=0, axis=AxisName.X),
-                                                    FloatAxis(value=0, axis=AxisName.Y),
-                                                    FloatAxis(value=0, axis=AxisName.Z),
-                                                ]
+                                                translation=[0, 0, 0],
                                             ),
                                         ]
                                     ),
@@ -376,19 +359,11 @@ class TestComposability(unittest.TestCase):
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
                             system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=0.0, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.SI),
-                                FloatAxis(value=0.0, axis=AxisName.ML),
-                            ],
+                            position=[0.0, 0.0, 0.0],
                         ),
                         Origin.LAMBDA: Coordinate(
                             system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=-4.1, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.SI),
-                                FloatAxis(value=0.0, axis=AxisName.ML),
-                            ],
+                            position=[-4.1, 0.0, 0.0],
                         ),
                     },
                 )

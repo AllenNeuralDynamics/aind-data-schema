@@ -20,9 +20,9 @@ from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.components.coordinates import (
     Direction,
     AxisName,
-    Transform,
     Coordinate,
     SurfaceCoordinate,
+    CoordinateTransform,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
@@ -206,7 +206,7 @@ class DomeModule(DeviceConfig):
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
-    coordinate_transform: Optional[str] = Field(
+    coordinate_transform: Optional[CoordinateTransform] = Field(
         default=None,
         title="Transform from local manipulator axes to instrument",
         description="Path to coordinate transform",

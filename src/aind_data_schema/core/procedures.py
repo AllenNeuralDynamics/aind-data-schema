@@ -36,7 +36,7 @@ from aind_data_schema.components.coordinates import (
     Origin,
 )
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_axis_order_check
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
 
 
 class ImmunolabelClass(str, Enum):
@@ -652,7 +652,7 @@ class Surgery(DataModel):
         if data.coordinate_system:
             system_axes = [axis.name for axis in data.coordinate_system.axes]
 
-            recursive_axis_order_check(data, data.coordinate_system.name, system_axes)
+            recursive_coord_system_check(data, data.coordinate_system.name, system_axes)
 
         return data
 

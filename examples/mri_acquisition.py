@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.coordinates import Rotation, Scale, Translation, FloatAxis, AxisName
+from aind_data_schema.components.coordinates import Rotation, Scale, Translation, AxisName
 from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
@@ -31,13 +31,7 @@ scan1 = MRIScan(
     echo_time=Decimal("3.42"),
     repetition_time=Decimal("100.0"),
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scale(
-        scale=[
-            FloatAxis(value=0.5, axis=AxisName.AP),
-            FloatAxis(value=0.4375, axis=AxisName.ML),
-            FloatAxis(value=0.52, axis=AxisName.SI),
-        ]
-    ),
+    voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),
     processing_steps=[],
     additional_scan_parameters={},
     notes="Set up scan for the 3D scan.",
@@ -54,28 +48,14 @@ scan2 = MRIScan(
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
     vc_orientation=Rotation(
-        angles=[
-            FloatAxis(value=-6.1, axis=AxisName.AP),
-            FloatAxis(value=-7.0, axis=AxisName.ML),
-            FloatAxis(value=7.9, axis=AxisName.SI),
-        ],
-        order=[AxisName.AP, AxisName.ML, AxisName.SI],
+        angles=[-6.1, 7.0, 7.9],
+        order=[0, 1, 2],
     ),
     vc_position=Translation(
-        translation=[
-            FloatAxis(value=-6.1, axis=AxisName.AP),
-            FloatAxis(value=-7.0, axis=AxisName.ML),
-            FloatAxis(value=7.9, axis=AxisName.SI),
-        ]
+        translation=[-6.1, 7.0, 7.9],
     ),
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scale(
-        scale=[
-            FloatAxis(value=0.5, axis=AxisName.AP),
-            FloatAxis(value=0.4375, axis=AxisName.ML),
-            FloatAxis(value=0.52, axis=AxisName.SI),
-        ]
-    ),
+    voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),
     processing_steps=[],
     additional_scan_parameters={},
     notes=None,
