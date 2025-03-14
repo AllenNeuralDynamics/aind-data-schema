@@ -47,14 +47,14 @@ def recursive_axis_order_check(data, system_name: str, system_axes: List[AxisNam
         if data.system_name != system_name:
             raise ValueError(
                 f"System name mismatch: {data.system_name} does not match the top-level coordinate system {system_name}"
-            )        
+            )
 
     # Check if data matches an ordered axis type
     if isinstance(data, list) and all(hasattr(item, "object_type") and item.object_type == "Float axis" for item in data):
         data_axes = [axis.axis for axis in data]
         if not all(axis in system_axes for axis in data_axes):
             raise ValueError(
-                f"Axis mismatch: at least one of {[axis.axis for axis in data_axes]} does not appear in {[axis.axis for axis in system_axes]}"
+                f"Axis mismatch: at least one of {[axis.axis for axis in data_axes]} does not appear in {system_axes}"
             )
 
     _recurse_helper(data, system_name, system_axes)
