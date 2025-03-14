@@ -282,8 +282,9 @@ class Instrument(DataCoreModel):
     def coordinate_validator(cls, data):
         """Validate that all coordinates are valid in the instrument's coordinate system"""
 
-        axis_order = [axis.name for axis in data.coordinate_system.axes]
+        system_name = data.coordinate_system.name
+        system_axes = [axis.name for axis in data.coordinate_system.axes]
 
-        recursive_axis_order_check(data, axis_order)
+        recursive_axis_order_check(data, system_name, system_axes)
 
         return data

@@ -17,11 +17,11 @@ def check_order(axes_to_check: List[AxisName], order: List[AxisName]):
     return True
 
 
-def _recurse_helper(data, axis_order: List[AxisName]):
+def _recurse_helper(data, system_name: str, system_axes: List[AxisName]):
     """ Helper function for recursive_axis_order_check: recurse calls for lists and objects only """
     if isinstance(data, list):
         for item in data:
-            recursive_axis_order_check(item, axis_order)
+            recursive_axis_order_check(item, system_name, system_axes)
         return
     elif hasattr(data, "__dict__"):
         for attr_name, attr_value in data.__dict__.items():
@@ -30,22 +30,32 @@ def _recurse_helper(data, axis_order: List[AxisName]):
             if callable(attr_value):
                 continue  # skip methods
 
-            recursive_axis_order_check(attr_value, axis_order)
+            recursive_axis_order_check(attr_value, system_name, system_axes)
 
 
-def recursive_axis_order_check(data, systems: Dict[str, List[AxisName]]):
-    """Recursively check fields, see if they match a List[FloatAxis]"""
+def recursive_axis_order_check(data, system_name: str, system_axes: List[AxisName]):
+    """Recursively check fields, see if they are Coordinates and check if they match a List[FloatAxis]
+
+    Note that we just need to check if the axes all show up, not necessarily in matching order
+    """
 
     if not data:
         return
 
+    # Check if the object we are looking at has a system_name field
+    if hasattr(data, "system_name"):
+        if data.system_name != system_name:
+            raise ValueError(
+                f"System name mismatch: {data.system_name} does not match the top-level coordinate system {system_name}"
+            )        
+
     # Check if data matches an ordered axis type
     if isinstance(data, list) and all(hasattr(item, "object_type") and item.object_type == "Float axis" for item in data):
-        data_order = [axis.axis for axis in data]
-        if not check_order(data_order, axis_order):
+        data_axes = [axis.axis for axis in data]
+        if not all(axis in system_axes for axis in data_axes):
             raise ValueError(
-                f"Axis order mismatch: {data_order} does not match the Instrument's coordinate system {axis_order}"
+                f"Axis mismatch: at least one of {[axis.axis for axis in data_axes]} does not appear in {[axis.axis for axis in system_axes]}"
             )
 
-    _recurse_helper(data, axis_order)
+    _recurse_helper(data, system_name, system_axes)
     # implicit return if data is not a list or object

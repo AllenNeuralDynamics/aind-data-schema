@@ -72,6 +72,7 @@ class AcquisitionTest(unittest.TestCase):
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
                                 Coordinate(
+                                system_name="Bregma ARI",
                                     position=[
                                         FloatAxis(value=1.0, axis=AxisName.ML),
                                         FloatAxis(value=1.0, axis=AxisName.AP),
@@ -81,6 +82,7 @@ class AcquisitionTest(unittest.TestCase):
                             ],
                             manipulator_axis_positions=[
                                 Coordinate(
+                                system_name="Bregma ARI",
                                     position=[
                                         FloatAxis(value=1.0, axis=AxisName.X),
                                         FloatAxis(value=1.0, axis=AxisName.Y),
@@ -208,6 +210,7 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
+                                        system_name="Bregma ARI",
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
@@ -217,6 +220,7 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
+                                        system_name="Bregma ARI",
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.X),
                                             FloatAxis(value=1.0, axis=AxisName.Y),
@@ -263,6 +267,7 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
+                                        system_name="Bregma ARI",
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
@@ -272,6 +277,7 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
+                                        system_name="Bregma ARI",
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.X),
                                             FloatAxis(value=1.0, axis=AxisName.Y),
@@ -317,6 +323,7 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
+                                        system_name="Bregma ARI",
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
@@ -326,6 +333,7 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
+                                        system_name="Bregma ARI",
                                         position=[
                                             FloatAxis(value=1.0, axis=AxisName.X),
                                             FloatAxis(value=1.0, axis=AxisName.Y),
@@ -371,6 +379,7 @@ class AcquisitionTest(unittest.TestCase):
                     primary_targeted_structure=CCFStructure.VISL,
                     atlas_coordinates=[
                         Coordinate(
+                            system_name="Bregma ARI",
                             position=[
                                 FloatAxis(value=1.0, axis=AxisName.ML),
                                 FloatAxis(value=1.0, axis=AxisName.AP),
@@ -380,6 +389,7 @@ class AcquisitionTest(unittest.TestCase):
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
+                            system_name="Bregma ARI",
                             position=[
                                 FloatAxis(value=1.0, axis=AxisName.X),
                                 FloatAxis(value=1.0, axis=AxisName.Y),

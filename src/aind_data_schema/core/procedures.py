@@ -651,9 +651,9 @@ class Surgery(DataModel):
         """Validate that all coordinates are valid in the instrument's coordinate system"""
 
         if data.coordinate_system:
-            axis_order = [axis.name for axis in data.coordinate_system.axes]
+            system_axes = [axis.name for axis in data.coordinate_system.axes]
 
-            recursive_axis_order_check(data, axis_order)
+            recursive_axis_order_check(data, data.coordinate_system.name, system_axes)
 
         return data
 

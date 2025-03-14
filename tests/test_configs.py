@@ -72,6 +72,7 @@ class TestManipulatorConfig(unittest.TestCase):
     def test_validate_len_coordinates_success(self):
         """Test validate_len_coordinates method with valid coordinate lengths"""
         coordinate1 = Coordinate(
+            system_name="Bregma ARI",
             position=[
                 FloatAxis(value=1.0, axis=AxisName.AP),
                 FloatAxis(value=2.0, axis=AxisName.ML),
@@ -79,6 +80,7 @@ class TestManipulatorConfig(unittest.TestCase):
             ]
         )
         coordinate2 = Coordinate(
+            system_name="Bregma ARI",
             position=[
                 FloatAxis(value=4.0, axis=AxisName.X),
                 FloatAxis(value=5.0, axis=AxisName.Y),
@@ -86,6 +88,7 @@ class TestManipulatorConfig(unittest.TestCase):
             ]
         )
         coordinate1_surface = SurfaceCoordinate(
+            system_name="Bregma ARI",
             position=[
                 FloatAxis(value=1.0, axis=AxisName.AP),
                 FloatAxis(value=2.0, axis=AxisName.ML),
@@ -94,6 +97,7 @@ class TestManipulatorConfig(unittest.TestCase):
             depth=1,
         )
         coordinate2_surface = SurfaceCoordinate(
+            system_name="Bregma ARI",
             position=[
                 FloatAxis(value=4.0, axis=AxisName.X),
                 FloatAxis(value=5.0, axis=AxisName.Y),
@@ -125,6 +129,7 @@ class TestManipulatorConfig(unittest.TestCase):
                 primary_targeted_structure=CCFStructure.HPF,
                 atlas_coordinates=[
                     Coordinate(
+                        system_name="Bregma ARI",
                         position=[
                             FloatAxis(value=1.0, axis=AxisName.X),
                             FloatAxis(value=2.0, axis=AxisName.Y),
@@ -134,6 +139,7 @@ class TestManipulatorConfig(unittest.TestCase):
                 ],
                 manipulator_coordinates=[
                     SurfaceCoordinate(
+                        system_name="Bregma ARI",
                         position=[
                             FloatAxis(value=1.0, axis=AxisName.X),
                             FloatAxis(value=2.0, axis=AxisName.Y),
@@ -142,6 +148,7 @@ class TestManipulatorConfig(unittest.TestCase):
                         depth=1,
                     ),
                     SurfaceCoordinate(
+                        system_name="Bregma ARI",
                         position=[
                             FloatAxis(value=4.0, axis=AxisName.X),
                             FloatAxis(value=5.0, axis=AxisName.Y),
@@ -152,6 +159,7 @@ class TestManipulatorConfig(unittest.TestCase):
                 ],
                 manipulator_axis_positions=[
                     Coordinate(
+                        system_name="Bregma ARI",
                         position=[
                             FloatAxis(value=1.0, axis=AxisName.X),
                             FloatAxis(value=2.0, axis=AxisName.Y),
@@ -159,6 +167,7 @@ class TestManipulatorConfig(unittest.TestCase):
                         ]
                     ),
                     Coordinate(
+                        system_name="Bregma ARI",
                         position=[
                             FloatAxis(value=4.0, axis=AxisName.X),
                             FloatAxis(value=5.0, axis=AxisName.Y),

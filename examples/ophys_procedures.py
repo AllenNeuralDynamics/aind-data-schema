@@ -68,6 +68,7 @@ p = Procedures(
                     instrument_id=None,
                     coordinates=[
                         SurfaceCoordinate(
+                            system_name="Bregma ARI",
                             position=[
                                 FloatAxis(value=-0.6, axis=AxisName.ML),
                                 FloatAxis(value=-3.05, axis=AxisName.AP),
@@ -97,6 +98,7 @@ p = Procedures(
                             ),
                             targeted_structure=CCFStructure.VTA,
                             coordinate=SurfaceCoordinate(
+                                system_name="Bregma ARI",
                                 position=[
                                     FloatAxis(value=-0.6, axis=AxisName.ML),
                                     FloatAxis(value=-3.05, axis=AxisName.AP),
