@@ -54,7 +54,7 @@ def recursive_axis_order_check(data, system_name: str, system_axes: List[AxisNam
         data_axes = [axis.axis for axis in data]
         if not all(axis in system_axes for axis in data_axes):
             raise ValueError(
-                f"Axis mismatch: at least one of {[axis.axis for axis in data_axes]} does not appear in {system_axes}"
+                f"Axis mismatch: at least one of {data_axes} does not appear in {system_axes}"
             )
 
     _recurse_helper(data, system_name, system_axes)
