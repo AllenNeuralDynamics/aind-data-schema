@@ -45,6 +45,10 @@ PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 class ProceduresTests(unittest.TestCase):
     """test Procedures"""
 
+    def setUp(self):
+        """ Set up test data """
+        self.start_date = date.fromisoformat("2020-10-10")
+
     def test_required_field_validation_check(self):
         """Tests that validation error is thrown if subject_id is not set."""
         with self.assertRaises(ValidationError):
@@ -56,14 +60,12 @@ class ProceduresTests(unittest.TestCase):
     def test_injection_material_check(self):
         """ Check for validation error when injection_materials is empty """
 
-        start_date = date.fromisoformat("2020-10-10")
-
         with self.assertRaises(ValidationError) as e:
             Procedures(
                 subject_id="12345",
                 subject_procedures=[
                     Surgery(
-                        start_date=start_date,
+                        start_date=self.start_date,
                         experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             Injection(
@@ -88,7 +90,7 @@ class ProceduresTests(unittest.TestCase):
                 ],
             )
 
-        self.assertIn(injection_materials, repr(e.exception))
+        self.assertIn("injection_materials", repr(e.exception))
 
     def test_injection_material_none(self):
         """ Check for validation error when injection_materials is None """
@@ -97,7 +99,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_id="12345",
                 subject_procedures=[
                     Surgery(
-                        start_date=start_date,
+                        start_date=self.start_date,
                         experimenters=[Person(name="Mam Moth")],
                         procedures=[
                             Injection(
@@ -122,7 +124,7 @@ class ProceduresTests(unittest.TestCase):
                 ],
             )
 
-        self.assertIn(injection_materials, repr(e.exception))
+        self.assertIn("injection_materials", repr(e.exception))
 
     def test_injection_materials_list(self):
         """ Valid injection_materials list """
@@ -131,7 +133,7 @@ class ProceduresTests(unittest.TestCase):
             subject_id="12345",
             subject_procedures=[
                 Surgery(
-                    start_date=start_date,
+                    start_date=self.start_date,
                     experimenters=[Person(name="Mam Moth")],
                     ethics_review_id="234",
                     protocol_id="123",
@@ -284,7 +286,7 @@ class ProceduresTests(unittest.TestCase):
             SpecimenProcedure(
                 specimen_id="1000",
                 procedure_type="Other",
-                start_date=date.fromisoformat("2020-10-10"),
+                start_date=self.start_date,
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
@@ -304,7 +306,7 @@ class ProceduresTests(unittest.TestCase):
             SpecimenProcedure(
                 specimen_id="1000",
                 procedure_type="Immunolabeling",
-                start_date=date.fromisoformat("2020-10-10"),
+                start_date=self.start_date,
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
