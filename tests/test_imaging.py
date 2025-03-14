@@ -11,12 +11,10 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import (
-    Transform,
     Rotation,
     Scale,
     Translation,
     AffineTransformMatrix,
-    FloatAxis,
     AxisName,
     CoordinateSystemLibrary,
 )
@@ -69,21 +67,12 @@ class ImagingTests(unittest.TestCase):
                             chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                             tiles=[
                                 tile.AcquisitionTile(
-                                    coordinate_transformations=Transform(
-                                        transforms=[
+                                    coordinate_transformations=[
                                             Scale(
-                                                scale=[
-                                                    FloatAxis(value=1, axis=AxisName.X),
-                                                    FloatAxis(value=1, axis=AxisName.Y),
-                                                    FloatAxis(value=1, axis=AxisName.Z),
-                                                ]
+                                                scale=[1, 1, 1],
                                             ),
                                             Translation(
-                                                translation=[
-                                                    FloatAxis(value=1, axis=AxisName.X),
-                                                    FloatAxis(value=1, axis=AxisName.Y),
-                                                    FloatAxis(value=1, axis=AxisName.Z),
-                                                ]
+                                                translation=[1, 1, 1],
                                             ),
                                         ]
                                     ),
@@ -215,21 +204,12 @@ class ImagingTests(unittest.TestCase):
                                 chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                                 tiles=[
                                     tile.AcquisitionTile(
-                                        coordinate_transformations=Transform(
-                                            transforms=[
+                                        coordinate_transformations=[
                                                 Scale(
-                                                    scale=[
-                                                        FloatAxis(value=1, axis=AxisName.X),
-                                                        FloatAxis(value=1, axis=AxisName.Y),
-                                                        FloatAxis(value=1, axis=AxisName.Z),
-                                                    ]
+                                                    scale=[1, 1, 1],
                                                 ),
                                                 Translation(
-                                                    translation=[
-                                                        FloatAxis(value=1, axis=AxisName.X),
-                                                        FloatAxis(value=1, axis=AxisName.Y),
-                                                        FloatAxis(value=1, axis=AxisName.Z),
-                                                    ]
+                                                    translation=[1, 1, 1],
                                                 ),
                                             ]
                                         ),
@@ -267,41 +247,25 @@ class ImagingTests(unittest.TestCase):
             parameters={
                 "tiles": [
                     tile.Tile(
-                        coordinate_transformations=Transform(
-                            transforms=[
-                                AffineTransformMatrix(
-                                    affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
-                                )
-                            ]
-                        ),
+                        coordinate_transformations=[
+                            AffineTransformMatrix(
+                                affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
+                            ),
+                        ],
                     ),
                     tile.Tile(
-                        coordinate_transformations=Transform(
-                            transforms=[
-                                Translation(
-                                    translation=[
-                                        FloatAxis(value=0, axis=AxisName.X),
-                                        FloatAxis(value=1, axis=AxisName.Y),
-                                        FloatAxis(value=2, axis=AxisName.Z),
-                                    ]
-                                ),
-                                Rotation(
-                                    angles=[
-                                        FloatAxis(value=1, axis=AxisName.X),
-                                        FloatAxis(value=2, axis=AxisName.Y),
-                                        FloatAxis(value=3, axis=AxisName.Z),
-                                    ],
-                                    order=[AxisName.X, AxisName.Y, AxisName.Z],
-                                ),
-                                Scale(
-                                    scale=[
-                                        FloatAxis(value=1, axis=AxisName.X),
-                                        FloatAxis(value=2, axis=AxisName.Y),
-                                        FloatAxis(value=3, axis=AxisName.Z),
-                                    ]
-                                ),
-                            ]
-                        ),
+                        coordinate_transformations=[
+                            Translation(
+                                translation=[0, 1, 2],
+                            ),
+                            Rotation(
+                                angles=[1, 2, 3],
+                                order=[0, 1, 2],
+                            ),
+                            Scale(
+                                scale=[1, 2, 3],
+                            ),
+                        ]
                     ),
                 ],
             },

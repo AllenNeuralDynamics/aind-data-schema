@@ -45,8 +45,6 @@ from aind_data_schema.components.coordinates import (
     AnatomicalRelative,
     RelativePosition,
     CoordinateSystemLibrary,
-    Transform,
-    FloatAxis,
     Translation,
     AxisName,
 )
@@ -673,17 +671,12 @@ class InstrumentTests(unittest.TestCase):
                 chroma="Color",
             ),
             target=CameraTarget.BRAIN,
-            position=Transform(
-                transforms=[
+            position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+            exact_position=[
                     Translation(
-                        translation=[
-                            FloatAxis(value=1.0, axis=AxisName.AP),
-                            FloatAxis(value=2.0, axis=AxisName.ML),
-                            FloatAxis(value=3.0, axis=AxisName.SI),
-                        ],
+                        translation=[1, 2, 3],
                     ),
-                ],
-            ),
+            ],
             lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
         )
 
@@ -711,37 +704,6 @@ class InstrumentTests(unittest.TestCase):
             connections=[],
         )
         self.assertIsNotNone(inst)
-
-        # Test with invalid CameraAssembly
-
-        camera.position.transforms[0].translation[0].axis = AxisName.X
-
-        with self.assertRaises(ValueError) as context:
-            Instrument(
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,  # order is AP, ML, SI
-                components=[
-                    *daqs,
-                    *cameras,
-                    *stick_microscopes,
-                    *light_sources,
-                    *lms,
-                    laser,
-                    *ems,
-                    *detectors,
-                    *patch_cords,
-                    *stimulus_devices,
-                    scan_stage,
-                    Disc(name="Disc A", radius=1),
-                    camera,
-                ],
-                calibrations=[],
-                connections=[],
-            )
-
-        self.assertIn("Axis mismatch", str(context.exception))
 
 
 if __name__ == "__main__":

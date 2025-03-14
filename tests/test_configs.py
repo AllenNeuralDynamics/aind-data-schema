@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from pydantic import ValidationError
 from aind_data_schema.components.configs import MRIScan, Rotation, Translation, Scale, ManipulatorConfig
-from aind_data_schema.components.coordinates import AxisName, Coordinate, SurfaceCoordinate
+from aind_data_schema.components.coordinates import Coordinate, SurfaceCoordinate, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 
@@ -25,27 +25,16 @@ class TestMRIScan(unittest.TestCase):
             subject_position="Prone",
             additional_scan_parameters={},
             vc_orientation=Rotation(
-                angles=[
-                    FloatAxis(value=1.0, axis=AxisName.AP),
-                    FloatAxis(value=1.0, axis=AxisName.SI),
-                    FloatAxis(value=1.0, axis=AxisName.ML),
-                ],
-                order=[AxisName.AP, AxisName.SI, AxisName.ML],
+                angles=[1, 2, 3],
+                order=[0, 1, 2],
             ),
             vc_position=Translation(
-                translation=[
-                    FloatAxis(value=1.0, axis=AxisName.AP),
-                    FloatAxis(value=1.0, axis=AxisName.SI),
-                    FloatAxis(value=1.0, axis=AxisName.ML),
-                ]
+                translation=[1, 2, 3],
             ),
             voxel_sizes=Scale(
-                scale=[
-                    FloatAxis(value=0.5, axis=AxisName.AP),
-                    FloatAxis(value=0.4375, axis=AxisName.SI),
-                    FloatAxis(value=0.52, axis=AxisName.ML),
-                ]
+                scale=[0.5, 0.4375, 0.52],
             ),
+            processing_steps=[],
         )
         self.assertIsNotNone(scan)
 
@@ -72,37 +61,21 @@ class TestManipulatorConfig(unittest.TestCase):
     def test_validate_len_coordinates_success(self):
         """Test validate_len_coordinates method with valid coordinate lengths"""
         coordinate1 = Coordinate(
-            system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=1.0, axis=AxisName.AP),
-                FloatAxis(value=2.0, axis=AxisName.ML),
-                FloatAxis(value=3.0, axis=AxisName.SI),
-            ],
+            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+            position=[1, 2, 3],
         )
         coordinate2 = Coordinate(
-            system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=4.0, axis=AxisName.X),
-                FloatAxis(value=5.0, axis=AxisName.Y),
-                FloatAxis(value=6.0, axis=AxisName.Z),
-            ],
+            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+            position=[4, 5, 6],
         )
         coordinate1_surface = SurfaceCoordinate(
-            system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=1.0, axis=AxisName.AP),
-                FloatAxis(value=2.0, axis=AxisName.ML),
-                FloatAxis(value=3.0, axis=AxisName.SI),
-            ],
+            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+            position=[1, 2, 3],
             depth=1,
         )
         coordinate2_surface = SurfaceCoordinate(
-            system_name="Bregma ARI",
-            position=[
-                FloatAxis(value=4.0, axis=AxisName.X),
-                FloatAxis(value=5.0, axis=AxisName.Y),
-                FloatAxis(value=6.0, axis=AxisName.Z),
-            ],
+            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+            position=[4, 5, 6],
             depth=2,
         )
         config = ManipulatorConfig(
@@ -129,50 +102,30 @@ class TestManipulatorConfig(unittest.TestCase):
                 primary_targeted_structure=CCFStructure.HPF,
                 atlas_coordinates=[
                     Coordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=1.0, axis=AxisName.X),
-                            FloatAxis(value=2.0, axis=AxisName.Y),
-                            FloatAxis(value=3.0, axis=AxisName.Z),
-                        ],
+                        system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+                        position=[1, 2, 3],
                     ),
                 ],
                 manipulator_coordinates=[
                     SurfaceCoordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=1.0, axis=AxisName.X),
-                            FloatAxis(value=2.0, axis=AxisName.Y),
-                            FloatAxis(value=3.0, axis=AxisName.Z),
-                        ],
+                        system_name=CoordinateSystemLibrary.PROBE_ARI.name,
+                        position=[1, 2, 3],
                         depth=1,
                     ),
                     SurfaceCoordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=4.0, axis=AxisName.X),
-                            FloatAxis(value=5.0, axis=AxisName.Y),
-                            FloatAxis(value=6.0, axis=AxisName.Z),
-                        ],
+                        system_name=CoordinateSystemLibrary.PROBE_ARI.name,
+                        position=[4, 5, 6],
                         depth=2,
                     ),
                 ],
                 manipulator_axis_positions=[
                     Coordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=1.0, axis=AxisName.X),
-                            FloatAxis(value=2.0, axis=AxisName.Y),
-                            FloatAxis(value=3.0, axis=AxisName.Z),
-                        ],
+                        system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+                        position=[1, 2, 3],
                     ),
                     Coordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=4.0, axis=AxisName.X),
-                            FloatAxis(value=5.0, axis=AxisName.Y),
-                            FloatAxis(value=6.0, axis=AxisName.Z),
-                        ],
+                        system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
+                        position=[4, 5, 6],
                     ),
                 ],
             )

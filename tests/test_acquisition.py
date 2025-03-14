@@ -71,13 +71,13 @@ class AcquisitionTest(unittest.TestCase):
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
                                 Coordinate(
-                                    system_name="Bregma ARI",
+                                    system_name="BREGMA_ARI",
                                     position=[1, 1, 1],
                                 ),
                             ],
                             manipulator_axis_positions=[
                                 Coordinate(
-                                    system_name="Bregma ARI",
+                                    system_name="BREGMA_ARI",
                                     position=[1, 1, 1],
                                 )
                             ],
@@ -189,13 +189,13 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="Bregma ARI",
+                                        system_name="BREGMA_ARI",
                                         position=[1, 1, 1],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="Bregma ARI",
+                                        system_name="BREGMA_ARI",
                                         position=[1, 1, 1],
                                     )
                                 ],
@@ -238,13 +238,13 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="Bregma ARI",
+                                        system_name="BREGMA_ARI",
                                         position=[1, 1, 1],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="Bregma ARI",
+                                        system_name="BREGMA_ARI",
                                         position=[1, 1, 1],
                                     )
                                 ],
@@ -286,13 +286,13 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="Bregma ARI",
+                                        system_name="BREGMA_ARI",
                                         position=[1, 1, 1],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="Bregma ARI",
+                                        system_name="BREGMA_ARI",
                                         position=[1, 1, 1],
                                     )
                                 ],
@@ -334,13 +334,13 @@ class AcquisitionTest(unittest.TestCase):
                     primary_targeted_structure=CCFStructure.VISL,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="Bregma ARI",
+                            system_name="BREGMA_ARI",
                             position=[1, 1, 1],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="Bregma ARI",
+                            system_name="BREGMA_ARI",
                             position=[1, 1, 1],
                         )
                     ],

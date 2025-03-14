@@ -68,7 +68,7 @@ p = Procedures(
                     instrument_id=None,
                     coordinates=[
                         SurfaceCoordinate(
-                            system_name="Bregma ARI",
+                            system_name="BREGMA_ARI",
                             position=[-600, -3050],
                             depth=-4.2,
                         ),
@@ -95,7 +95,7 @@ p = Procedures(
                             ),
                             targeted_structure=CCFStructure.VTA,
                             coordinate=SurfaceCoordinate(
-                                system_name="Bregma ARI",
+                                system_name="BREGMA_ARI",
                                 position=[-600, -3050],
                                 depth=-4.2,
                             ),

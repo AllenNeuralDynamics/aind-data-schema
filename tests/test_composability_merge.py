@@ -358,11 +358,11 @@ class TestComposability(unittest.TestCase):
                     ],
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
-                            system_name="Bregma ARI",
+                            system_name="BREGMA_ARI",
                             position=[0.0, 0.0, 0.0],
                         ),
                         Origin.LAMBDA: Coordinate(
-                            system_name="Bregma ARI",
+                            system_name="BREGMA_ARI",
                             position=[-4.1, 0.0, 0.0],
                         ),
                     },

@@ -6,7 +6,8 @@ from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import Transform
+from aind_data_schema.components.coordinates import Translation, Rotation, Scale, AffineTransformMatrix
+from typing import Union, Annotated
 
 
 class Channel(DataModel):
@@ -33,7 +34,12 @@ class Channel(DataModel):
 class Tile(DataModel):
     """Description of an image tile"""
 
-    coordinate_transformations: Transform = Field(..., title="Tile coordinate transformations")
+    coordinate_transformations: List[
+        Annotated[
+            Union[Translation, Rotation, Scale, AffineTransformMatrix],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
 
 

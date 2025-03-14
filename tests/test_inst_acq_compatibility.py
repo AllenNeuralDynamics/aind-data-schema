@@ -56,7 +56,6 @@ from aind_data_schema.components.coordinates import (
     RelativePosition,
     AnatomicalRelative,
     Coordinate,
-    FloatAxis,
     AxisName,
     CoordinateSystemLibrary,
 )
@@ -356,22 +355,14 @@ ephys_acquisition = Acquisition(
                     device_name="ephys module 1",
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=8150, axis=AxisName.ML),
-                                FloatAxis(value=3250, axis=AxisName.AP),
-                                FloatAxis(value=7800, axis=AxisName.SI),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[8150, 3250, 7800],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=8422, axis=AxisName.X),
-                                FloatAxis(value=4205, axis=AxisName.Y),
-                                FloatAxis(value=11087.5, axis=AxisName.Z),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[84222, 4205, 11087.5],
                         )
                     ],
                     arc_angle=5.2,
@@ -390,22 +381,14 @@ ephys_acquisition = Acquisition(
                     module_angle=-22,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=6637.28, axis=AxisName.ML),
-                                FloatAxis(value=4265.02, axis=AxisName.AP),
-                                FloatAxis(value=10707.35, axis=AxisName.SI),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[6637.28, 4265.02, 10707.35],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=9015, axis=AxisName.X),
-                                FloatAxis(value=7144, axis=AxisName.Y),
-                                FloatAxis(value=13262, axis=AxisName.Z),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[9015, 7144, 13262],
                         )
                     ],
                     device_name="ephys module 2",
@@ -468,22 +451,14 @@ ephys_acquisition = Acquisition(
                     module_angle=8,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=8150, axis=AxisName.ML),
-                                FloatAxis(value=3250, axis=AxisName.AP),
-                                FloatAxis(value=7800, axis=AxisName.SI),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[8150, 3250, 7800],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=8422, axis=AxisName.X),
-                                FloatAxis(value=4205, axis=AxisName.Y),
-                                FloatAxis(value=11087.5, axis=AxisName.Z),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[8422, 4205, 11087.5],
                         )
                     ],
                     device_name="ephys module 1",
@@ -501,22 +476,14 @@ ephys_acquisition = Acquisition(
                     module_angle=8,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=8150, axis=AxisName.ML),
-                                FloatAxis(value=3250, axis=AxisName.AP),
-                                FloatAxis(value=7800, axis=AxisName.SI),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[8150, 3250, 7800],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=8422, axis=AxisName.X),
-                                FloatAxis(value=4205, axis=AxisName.Y),
-                                FloatAxis(value=11087.5, axis=AxisName.Z),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[84222, 4205, 11087.5],
                         )
                     ],
                     device_name="ephys module 1",
@@ -534,22 +501,14 @@ ephys_acquisition = Acquisition(
                     module_angle=-22,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=6637.28, axis=AxisName.ML),
-                                FloatAxis(value=4265.02, axis=AxisName.AP),
-                                FloatAxis(value=10707.35, axis=AxisName.SI),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[6637.28, 4265.02, 10707.35],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=9015, axis=AxisName.X),
-                                FloatAxis(value=7144, axis=AxisName.Y),
-                                FloatAxis(value=13262, axis=AxisName.Z),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[9015, 7144, 13262],
                         )
                     ],
                     device_name="ephys module 2",

@@ -29,13 +29,13 @@ ephys_config_a = ManipulatorConfig(
     module_angle=8,
     atlas_coordinates=[
         Coordinate(
-            system_name="Bregma ARI",
+            system_name="BREGMA_ARI",
             position=[8150, 3250, 7800],
         ),
     ],
     device_name="Ephys_assemblyA",
     coordinate_transform=CoordinateTransform(
-        input="Bregma ARI",
+        input="BREGMA_ARI",
         output="CCFv3",
         transform=[
             NonlinearTransform(
@@ -46,7 +46,7 @@ ephys_config_a = ManipulatorConfig(
     primary_targeted_structure=CCFStructure.LGD,
     manipulator_axis_positions=[
         Coordinate(
-            system_name="Bregma ARI",
+            system_name="BREGMA_ARI",
             position=[8422, 4205, 11087.5],
         ),
     ],
@@ -63,13 +63,13 @@ ephys_config_b = ManipulatorConfig(
     module_angle=-22,
     atlas_coordinates=[
         Coordinate(
-            system_name="Bregma ARI",
+            system_name="BREGMA_ARI",
             position=[8150, 3250, 7800],
         ),
     ],
     device_name="Ephys_assemblyB",
     coordinate_transform=CoordinateTransform(
-        input="Bregma ARI",
+        input="BREGMA_ARI",
         output="CCFv3",
         transform=[
             NonlinearTransform(
@@ -80,7 +80,7 @@ ephys_config_b = ManipulatorConfig(
     primary_targeted_structure=CCFStructure.LC,
     manipulator_axis_positions=[
         Coordinate(
-            system_name="Bregma ARI",
+            system_name="BREGMA_ARI",
             position=[8422, 4205, 11087.5],
         ),
     ],

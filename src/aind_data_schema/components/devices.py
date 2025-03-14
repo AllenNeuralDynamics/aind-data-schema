@@ -440,7 +440,7 @@ class CameraAssembly(DataModel):
     exact_position: Optional[
         List[
             Annotated[
-                Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
+                Union[Translation, Rotation, Scale, AffineTransformMatrix],
                 Field(discriminator="object_type"),
             ]
         ]

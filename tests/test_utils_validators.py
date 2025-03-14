@@ -6,7 +6,7 @@ from aind_data_schema.utils.validators import (
     _recurse_helper,
     recursive_coord_system_check,
 )
-from aind_data_schema.components.coordinates import FloatAxis, AxisName, Coordinate
+from aind_data_schema.components.coordinates import AxisName, Coordinate
 
 
 class TestCompatibilityCheck(unittest.TestCase):
@@ -30,29 +30,22 @@ class TestRecurseHelper(unittest.TestCase):
 
     def setUp(self):
         """Set up test data"""
-        self.system_name = "Bregma ARI"
-        self.system_axes = [AxisName.AP, AxisName.ML, AxisName.SI]
+        self.system_name = "BREGMA_ARI"
 
     def test_recurse_helper_with_list(self):
         """Test _recurse_helper with a list of coordinates"""
         data = [
             Coordinate(
                 system_name=self.system_name,
-                position=[
-                    FloatAxis(value=0.5, axis=AxisName.AP),
-                    FloatAxis(value=1, axis=AxisName.ML),
-                ],
+                position=[0.5, 1],
             ),
             Coordinate(
                 system_name=self.system_name,
-                position=[
-                    FloatAxis(value=0.5, axis=AxisName.AP),
-                    FloatAxis(value=1, axis=AxisName.ML),
-                ],
+                position=[0.5, 1],
             ),
         ]
         try:
-            _recurse_helper(data, self.system_name, self.system_axes)
+            _recurse_helper(data, self.system_name)
         except ValueError:
             self.fail("_recurse_helper raised ValueError unexpectedly!")
 
@@ -60,13 +53,10 @@ class TestRecurseHelper(unittest.TestCase):
         """Test _recurse_helper with a single coordinate object"""
         data = Coordinate(
             system_name=self.system_name,
-            position=[
-                FloatAxis(value=0.5, axis=AxisName.AP),
-                FloatAxis(value=1, axis=AxisName.ML),
-            ],
+            position=[0.5, 1],
         )
         try:
-            _recurse_helper(data, self.system_name, self.system_axes)
+            _recurse_helper(data, self.system_name)
         except ValueError:
             self.fail("_recurse_helper raised ValueError unexpectedly!")
 
@@ -74,13 +64,10 @@ class TestRecurseHelper(unittest.TestCase):
         """Test _recurse_helper with invalid axes"""
         data = Coordinate(
             system_name=self.system_name,
-            position=[
-                FloatAxis(value=0.5, axis=AxisName.AP),
-                FloatAxis(value=1, axis=AxisName.X),
-            ],
+            position=[0.5, 1],
         )
         with self.assertRaises(ValueError):
-            _recurse_helper(data, self.system_name, self.system_axes)
+            _recurse_helper(data, self.system_name)
 
 
 class TestRecursiveAxisOrderCheck(unittest.TestCase):
@@ -88,20 +75,16 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
 
     def setUp(self):
         """Set up test data"""
-        self.system_name = "Bregma ARI"
-        self.system_axes = [AxisName.AP, AxisName.ML, AxisName.SI]
+        self.system_name = "BREGMA_ARI"
 
     def test_recursive_axis_order_check_with_valid_data(self):
         """Test recursive_axis_order_check with valid data"""
         data = Coordinate(
             system_name=self.system_name,
-            position=[
-                FloatAxis(value=0.5, axis=AxisName.AP),
-                FloatAxis(value=1, axis=AxisName.ML),
-            ],
+            position=[0.5, 1],
         )
         try:
-            recursive_coord_system_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name)
         except ValueError:
             self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
 
@@ -109,31 +92,25 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
         """Test recursive_axis_order_check with invalid system name"""
         data = Coordinate(
             system_name="Invalid System",
-            position=[
-                FloatAxis(value=0.5, axis=AxisName.AP),
-                FloatAxis(value=1, axis=AxisName.ML),
-            ],
+            position=[0.5, 1],
         )
         with self.assertRaises(ValueError):
-            recursive_coord_system_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name)
 
     def test_recursive_axis_order_check_with_invalid_axes(self):
         """Test recursive_axis_order_check with invalid axes"""
         data = Coordinate(
             system_name=self.system_name,
-            position=[
-                FloatAxis(value=0.5, axis=AxisName.AP),
-                FloatAxis(value=1, axis=AxisName.X),
-            ],
+            position=[0.5, 1],
         )
         with self.assertRaises(ValueError):
-            recursive_coord_system_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name)
 
     def test_recursive_axis_order_check_with_empty_data(self):
         """Test recursive_axis_order_check with empty data"""
         data = None
         try:
-            recursive_coord_system_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name)
         except ValueError:
             self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
 
@@ -142,21 +119,15 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
         data = [
             Coordinate(
                 system_name=self.system_name,
-                position=[
-                    FloatAxis(value=0.5, axis=AxisName.AP),
-                    FloatAxis(value=1, axis=AxisName.ML),
-                ],
+                position=[0.5, 1],
             ),
             Coordinate(
                 system_name=self.system_name,
-                position=[
-                    FloatAxis(value=0.5, axis=AxisName.AP),
-                    FloatAxis(value=1, axis=AxisName.ML),
-                ],
+                position=[0.5, 1],
             ),
         ]
         try:
-            recursive_coord_system_check(data, self.system_name, self.system_axes)
+            recursive_coord_system_check(data, self.system_name)
         except ValueError:
             self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
 

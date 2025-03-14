@@ -29,8 +29,6 @@ from aind_data_schema.core.procedures import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
     Coordinate,
-    FloatAxis,
-    AxisName,
     Origin,
     RelativePosition,
     AnatomicalRelative,
@@ -139,20 +137,12 @@ class ProceduresTests(unittest.TestCase):
                     protocol_id="123",
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=0.0, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.SI),
-                                FloatAxis(value=0.0, axis=AxisName.ML),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[0, 0, 0],
                         ),
                         Origin.LAMBDA: Coordinate(
-                            system_name="Bregma ARI",
-                            position=[
-                                FloatAxis(value=-4.1, axis=AxisName.AP),
-                                FloatAxis(value=0.0, axis=AxisName.SI),
-                                FloatAxis(value=0.0, axis=AxisName.ML),
-                            ],
+                            system_name="BREGMA_ARI",
+                            position=[-4.1, 0, 0],
                         ),
                     },
                     procedures=[
@@ -230,11 +220,8 @@ class ProceduresTests(unittest.TestCase):
                             ],
                             coordinates=[
                                 SurfaceCoordinate(
-                                    system_name="Bregma ARI",
-                                    position=[
-                                        FloatAxis(value=0.5, axis=AxisName.AP),
-                                        FloatAxis(value=1, axis=AxisName.ML),
-                                    ],
+                                    system_name="BREGMA_ARI",
+                                    position=[0.5, 1],
                                     depth=1,
                                 ),
                             ],
@@ -257,15 +244,12 @@ class ProceduresTests(unittest.TestCase):
                                     ),
                                     targeted_structure=CCFStructure.MOP,
                                     coordinate=SurfaceCoordinate(
-                                        system_name="Bregma ARI",
-                                        position=[
-                                            FloatAxis(value=1, axis=AxisName.AP),
-                                            FloatAxis(value=3, axis=AxisName.ML),
-                                        ],
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 2],
                                         depth=2,
                                         angles=Rotation(
-                                            angles=[FloatAxis(value=10, axis=AxisName.AP)],
-                                            order=[AxisName.AP],
+                                            angles=[10, 0, 0],
+                                            order=[0, 1, 3],
                                         ),
                                     ),
                                 )
@@ -364,19 +348,13 @@ class ProceduresTests(unittest.TestCase):
             protocol_id="abc",
             coordinates=[
                 SurfaceCoordinate(
-                    system_name="Bregma ARI",
-                    position=[
-                        FloatAxis(value=0.5, axis=AxisName.AP),
-                        FloatAxis(value=1, axis=AxisName.ML),
-                    ],
+                    system_name="BREGMA_ARI",
+                    position=[0.5, 1],
                     depth=0,
                 ),
                 SurfaceCoordinate(
-                    system_name="Bregma ARI",
-                    position=[
-                        FloatAxis(value=0.5, axis=AxisName.AP),
-                        FloatAxis(value=1, axis=AxisName.ML),
-                    ],
+                    system_name="BREGMA_ARI",
+                    position=[0.5, 1],
                     depth=1,
                 ),
             ],
@@ -413,19 +391,13 @@ class ProceduresTests(unittest.TestCase):
                 protocol_id="abc",
                 coordinates=[
                     SurfaceCoordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=0.5, axis=AxisName.AP),
-                            FloatAxis(value=1, axis=AxisName.ML),
-                        ],
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 1],
                         depth=0,
                     ),
                     SurfaceCoordinate(
-                        system_name="Bregma ARI",
-                        position=[
-                            FloatAxis(value=0.5, axis=AxisName.AP),
-                            FloatAxis(value=1, axis=AxisName.ML),
-                        ],
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 1],
                         depth=1,
                     ),
                 ],

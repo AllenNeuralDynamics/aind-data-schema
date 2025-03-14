@@ -295,7 +295,7 @@ inst = Instrument(
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
     coordinate_system=CoordinateSystem(
-        name="Bregma ARI",
+        name="BREGMA_ARI",
         origin=Origin.BREGMA,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.AP),

@@ -614,7 +614,7 @@ class Surgery(DataModel):
     # Coordinate system
     coordinate_system: CoordinateSystem = Field(
         ...,
-        title="Coordinate system",
+        title="Coordinate system for surgical procedures",
     )
 
     # Measured coordinates

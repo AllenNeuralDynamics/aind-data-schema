@@ -116,7 +116,7 @@ for session_idx, session in sessions_df.iterrows():
                         targeted_structure=proc_row["brain_area"],
                         coordinates=[
                             SurfaceCoordinate(
-                                system_name="Bregma ARI",
+                                system_name="BREGMA_ARI",
                                 position=[coords[1], coords[0]],
                                 depth=float(coords[2]),
                                 angles=Rotation(
