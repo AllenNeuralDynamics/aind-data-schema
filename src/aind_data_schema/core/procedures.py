@@ -482,7 +482,7 @@ class BrainInjection(Injection):
         coords_len = len(values.coordinates)
 
         if dynamics_len != coords_len:
-            raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
+            raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
         return values
 
 

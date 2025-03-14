@@ -452,7 +452,7 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertEqual(len(inj1.coordinates), len(inj1.dynamics))
 
-        # Different coord_depth and inj_vol list lengths should raise an error
+        # Different coordinates and dynamics list lengths should raise an error
         with self.assertRaises(ValidationError) as e:
             BrainInjection(
                 protocol_id="abc",
@@ -489,11 +489,6 @@ class ProceduresTests(unittest.TestCase):
                 dynamics=[
                     InjectionDynamics(
                         volume=1,
-                        volume_unit=VolumeUnit.UL,
-                        profile=InjectionProfile.PULSED,
-                    ),
-                    InjectionDynamics(
-                        volume=2,
                         volume_unit=VolumeUnit.UL,
                         profile=InjectionProfile.PULSED,
                     ),

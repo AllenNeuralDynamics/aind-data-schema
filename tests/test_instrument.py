@@ -741,7 +741,7 @@ class InstrumentTests(unittest.TestCase):
                 connections=[],
             )
         
-        self.assertIn("Axis order mismatch", str(context.exception))
+        self.assertIn("Axis mismatch", str(context.exception))
 
 
 if __name__ == "__main__":
