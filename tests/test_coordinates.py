@@ -1,3 +1,5 @@
+""" Tests for the coordinates module """
+
 import unittest
 from aind_data_schema.components.coordinates import (
     Scale,
@@ -15,8 +17,6 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema_models.units import SizeUnit
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-
-""" Tests for the coordinates module """
 
 
 class TestScale(unittest.TestCase):
