@@ -156,7 +156,7 @@ class Rotation(DataModel):
     order: List[AxisName] = Field(..., title="Rotation order", description="Order of rotation axes")
 
     def to_matrix(self) -> List[List[float]]:
-        """Return the affine rotation matrix for arbtirary sized lists.
+        """Return the affine rotation matrix for arbitrary sized lists.
 
         Returns
         -------
