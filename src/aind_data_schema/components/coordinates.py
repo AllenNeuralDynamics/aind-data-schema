@@ -295,6 +295,8 @@ class Transform(DataModel):
 class CoordinateSystem(DataModel):
     """Definition of a coordinate system relative to a brain"""
 
+    name: str = Field(..., title="Name")
+
     origin: Origin = Field(
         ..., title="Origin", description="Defines the position of (0,0,0) relative to the brain or atlas"
     )
@@ -351,6 +353,7 @@ class Coordinate(DataModel):
     Angles can be optionally provided
     """
 
+    system_name: str = Field(..., title="Coordinate system name")
     position: List[FloatAxis] = Field(..., title="Coordinates in in vivo space")
     angles: Optional[Rotation] = Field(default=None, title="Orientation in in vivo space")
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
@@ -378,6 +381,7 @@ class CoordinateSystemLibrary:
     """
 
     BREGMA_ARI = CoordinateSystem(
+        name="Bregma ARI",
         origin=Origin.BREGMA,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -386,6 +390,7 @@ class CoordinateSystemLibrary:
         ],
     )
     LAMBDA_ARI = CoordinateSystem(
+        name="Lambda ARI",
         origin=Origin.LAMBDA,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -395,6 +400,7 @@ class CoordinateSystemLibrary:
     )
 
     BREGMA_SIPE = CoordinateSystem(
+        name="Bregma SIPE",
         origin=Origin.BREGMA,
         axes=[
             Axis(name=AxisName.X, direction=Direction.PA),
@@ -404,6 +410,7 @@ class CoordinateSystemLibrary:
     )
 
     LAMBDA_SIPE = CoordinateSystem(
+        name="Lambda SIPE",
         origin=Origin.LAMBDA,
         axes=[
             Axis(name=AxisName.X, direction=Direction.PA),
@@ -413,6 +420,7 @@ class CoordinateSystemLibrary:
     )
 
     CAMERA_SIPE = CoordinateSystem(
+        name="Camera SIPE",
         origin=Origin.FRONT_CENTER,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
@@ -422,6 +430,7 @@ class CoordinateSystemLibrary:
     )
 
     SPEAKER_SIPE = CoordinateSystem(
+        name="Speaker SIPE",
         origin=Origin.FRONT_CENTER,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
@@ -431,6 +440,7 @@ class CoordinateSystemLibrary:
     )
 
     MONITOR_SIPE = CoordinateSystem(
+        name="Monitor SIPE",
         origin=Origin.FRONT_CENTER,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
@@ -440,6 +450,7 @@ class CoordinateSystemLibrary:
     )
 
     PROBE_ARI = CoordinateSystem(
+        name="Probe ARI",
         origin=Origin.ORIGIN,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
