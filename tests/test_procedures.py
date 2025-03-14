@@ -264,7 +264,7 @@ class ProceduresTests(unittest.TestCase):
                                         ],
                                         depth=2,
                                         angles=Rotation(
-                                            angles=FloatAxis(value=10, axis=AxisName.AP),
+                                            angles=[FloatAxis(value=10, axis=AxisName.AP)],
                                             order=[AxisName.AP],
                                         )
                                     ),
