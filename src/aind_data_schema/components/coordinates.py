@@ -20,7 +20,7 @@ class AtlasName(str, Enum):
 
 
 class Origin(str, Enum):
-    """Origin positions for coordinate systems """
+    """Origin positions for coordinate systems"""
 
     ORIGIN = "Origin"  # only exists in Atlases / Images
     BREGMA = "Bregma"
@@ -377,8 +377,7 @@ OBJECTS_WITH_AXES = ["coordinate", "surface_coordinate", "translation", "rotatio
 
 
 class CoordinateSystemLibrary:
-    """Library of common coordinate systems
-    """
+    """Library of common coordinate systems"""
 
     BREGMA_ARI = CoordinateSystem(
         name="Bregma ARI",

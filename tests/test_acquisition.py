@@ -72,22 +72,22 @@ class AcquisitionTest(unittest.TestCase):
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
                                 Coordinate(
-                                system_name="Bregma ARI",
+                                    system_name="Bregma ARI",
                                     position=[
                                         FloatAxis(value=1.0, axis=AxisName.ML),
                                         FloatAxis(value=1.0, axis=AxisName.AP),
                                         FloatAxis(value=1.0, axis=AxisName.SI),
-                                    ]
+                                    ],
                                 ),
                             ],
                             manipulator_axis_positions=[
                                 Coordinate(
-                                system_name="Bregma ARI",
+                                    system_name="Bregma ARI",
                                     position=[
                                         FloatAxis(value=1.0, axis=AxisName.X),
                                         FloatAxis(value=1.0, axis=AxisName.Y),
                                         FloatAxis(value=1.0, axis=AxisName.Z),
-                                    ]
+                                    ],
                                 )
                             ],
                         ),
@@ -215,7 +215,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
                                             FloatAxis(value=1.0, axis=AxisName.SI),
-                                        ]
+                                        ],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
@@ -225,7 +225,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.X),
                                             FloatAxis(value=1.0, axis=AxisName.Y),
                                             FloatAxis(value=1.0, axis=AxisName.Z),
-                                        ]
+                                        ],
                                     )
                                 ],
                             ),
@@ -272,7 +272,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
                                             FloatAxis(value=1.0, axis=AxisName.SI),
-                                        ]
+                                        ],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
@@ -282,7 +282,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.X),
                                             FloatAxis(value=1.0, axis=AxisName.Y),
                                             FloatAxis(value=1.0, axis=AxisName.Z),
-                                        ]
+                                        ],
                                     )
                                 ],
                             ),
@@ -328,7 +328,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.ML),
                                             FloatAxis(value=1.0, axis=AxisName.AP),
                                             FloatAxis(value=1.0, axis=AxisName.SI),
-                                        ]
+                                        ],
                                     ),
                                 ],
                                 manipulator_axis_positions=[
@@ -338,7 +338,7 @@ class AcquisitionTest(unittest.TestCase):
                                             FloatAxis(value=1.0, axis=AxisName.X),
                                             FloatAxis(value=1.0, axis=AxisName.Y),
                                             FloatAxis(value=1.0, axis=AxisName.Z),
-                                        ]
+                                        ],
                                     )
                                 ],
                             ),
@@ -384,7 +384,7 @@ class AcquisitionTest(unittest.TestCase):
                                 FloatAxis(value=1.0, axis=AxisName.ML),
                                 FloatAxis(value=1.0, axis=AxisName.AP),
                                 FloatAxis(value=1.0, axis=AxisName.SI),
-                            ]
+                            ],
                         ),
                     ],
                     manipulator_axis_positions=[
@@ -394,7 +394,7 @@ class AcquisitionTest(unittest.TestCase):
                                 FloatAxis(value=1.0, axis=AxisName.X),
                                 FloatAxis(value=1.0, axis=AxisName.Y),
                                 FloatAxis(value=1.0, axis=AxisName.Z),
-                            ]
+                            ],
                         )
                     ],
                 ),

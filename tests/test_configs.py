@@ -77,7 +77,7 @@ class TestManipulatorConfig(unittest.TestCase):
                 FloatAxis(value=1.0, axis=AxisName.AP),
                 FloatAxis(value=2.0, axis=AxisName.ML),
                 FloatAxis(value=3.0, axis=AxisName.SI),
-            ]
+            ],
         )
         coordinate2 = Coordinate(
             system_name="Bregma ARI",
@@ -85,7 +85,7 @@ class TestManipulatorConfig(unittest.TestCase):
                 FloatAxis(value=4.0, axis=AxisName.X),
                 FloatAxis(value=5.0, axis=AxisName.Y),
                 FloatAxis(value=6.0, axis=AxisName.Z),
-            ]
+            ],
         )
         coordinate1_surface = SurfaceCoordinate(
             system_name="Bregma ARI",
@@ -134,7 +134,7 @@ class TestManipulatorConfig(unittest.TestCase):
                             FloatAxis(value=1.0, axis=AxisName.X),
                             FloatAxis(value=2.0, axis=AxisName.Y),
                             FloatAxis(value=3.0, axis=AxisName.Z),
-                        ]
+                        ],
                     ),
                 ],
                 manipulator_coordinates=[
@@ -164,7 +164,7 @@ class TestManipulatorConfig(unittest.TestCase):
                             FloatAxis(value=1.0, axis=AxisName.X),
                             FloatAxis(value=2.0, axis=AxisName.Y),
                             FloatAxis(value=3.0, axis=AxisName.Z),
-                        ]
+                        ],
                     ),
                     Coordinate(
                         system_name="Bregma ARI",
@@ -172,7 +172,7 @@ class TestManipulatorConfig(unittest.TestCase):
                             FloatAxis(value=4.0, axis=AxisName.X),
                             FloatAxis(value=5.0, axis=AxisName.Y),
                             FloatAxis(value=6.0, axis=AxisName.Z),
-                        ]
+                        ],
                     ),
                 ],
             )

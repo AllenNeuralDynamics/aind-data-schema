@@ -34,7 +34,7 @@ ephys_config_a = ManipulatorConfig(
                 FloatAxis(value=8150, axis=AxisName.ML),
                 FloatAxis(value=3250, axis=AxisName.AP),
                 FloatAxis(value=7800, axis=AxisName.SI),
-            ]
+            ],
         ),
     ],
     device_name="Ephys_assemblyA",
@@ -47,7 +47,7 @@ ephys_config_a = ManipulatorConfig(
                 FloatAxis(value=8422, axis=AxisName.ML),
                 FloatAxis(value=4205, axis=AxisName.AP),
                 FloatAxis(value=11087.5, axis=AxisName.SI),
-            ]
+            ],
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
@@ -68,7 +68,7 @@ ephys_config_b = ManipulatorConfig(
                 FloatAxis(value=8150, axis=AxisName.ML),
                 FloatAxis(value=3250, axis=AxisName.AP),
                 FloatAxis(value=7800, axis=AxisName.SI),
-            ]
+            ],
         ),
     ],
     device_name="Ephys_assemblyB",
@@ -81,7 +81,7 @@ ephys_config_b = ManipulatorConfig(
                 FloatAxis(value=8422, axis=AxisName.ML),
                 FloatAxis(value=4205, axis=AxisName.AP),
                 FloatAxis(value=11087.5, axis=AxisName.SI),
-            ]
+            ],
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),

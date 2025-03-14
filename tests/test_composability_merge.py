@@ -380,7 +380,7 @@ class TestComposability(unittest.TestCase):
                                 FloatAxis(value=0.0, axis=AxisName.AP),
                                 FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
-                            ]
+                            ],
                         ),
                         Origin.LAMBDA: Coordinate(
                             system_name="Bregma ARI",
@@ -388,7 +388,7 @@ class TestComposability(unittest.TestCase):
                                 FloatAxis(value=-4.1, axis=AxisName.AP),
                                 FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
-                            ]
+                            ],
                         ),
                     },
                 )

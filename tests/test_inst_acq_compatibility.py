@@ -361,7 +361,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
                                 FloatAxis(value=7800, axis=AxisName.SI),
-                            ]
+                            ],
                         ),
                     ],
                     manipulator_axis_positions=[
@@ -371,7 +371,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8422, axis=AxisName.X),
                                 FloatAxis(value=4205, axis=AxisName.Y),
                                 FloatAxis(value=11087.5, axis=AxisName.Z),
-                            ]
+                            ],
                         )
                     ],
                     arc_angle=5.2,
@@ -395,7 +395,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=6637.28, axis=AxisName.ML),
                                 FloatAxis(value=4265.02, axis=AxisName.AP),
                                 FloatAxis(value=10707.35, axis=AxisName.SI),
-                            ]
+                            ],
                         ),
                     ],
                     manipulator_axis_positions=[
@@ -405,7 +405,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=9015, axis=AxisName.X),
                                 FloatAxis(value=7144, axis=AxisName.Y),
                                 FloatAxis(value=13262, axis=AxisName.Z),
-                            ]
+                            ],
                         )
                     ],
                     device_name="ephys module 2",
@@ -473,7 +473,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
                                 FloatAxis(value=7800, axis=AxisName.SI),
-                            ]
+                            ],
                         ),
                     ],
                     manipulator_axis_positions=[
@@ -483,7 +483,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8422, axis=AxisName.X),
                                 FloatAxis(value=4205, axis=AxisName.Y),
                                 FloatAxis(value=11087.5, axis=AxisName.Z),
-                            ]
+                            ],
                         )
                     ],
                     device_name="ephys module 1",
@@ -506,7 +506,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8150, axis=AxisName.ML),
                                 FloatAxis(value=3250, axis=AxisName.AP),
                                 FloatAxis(value=7800, axis=AxisName.SI),
-                            ]
+                            ],
                         ),
                     ],
                     manipulator_axis_positions=[
@@ -516,7 +516,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=8422, axis=AxisName.X),
                                 FloatAxis(value=4205, axis=AxisName.Y),
                                 FloatAxis(value=11087.5, axis=AxisName.Z),
-                            ]
+                            ],
                         )
                     ],
                     device_name="ephys module 1",
@@ -539,7 +539,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=6637.28, axis=AxisName.ML),
                                 FloatAxis(value=4265.02, axis=AxisName.AP),
                                 FloatAxis(value=10707.35, axis=AxisName.SI),
-                            ]
+                            ],
                         ),
                     ],
                     manipulator_axis_positions=[
@@ -549,7 +549,7 @@ ephys_acquisition = Acquisition(
                                 FloatAxis(value=9015, axis=AxisName.X),
                                 FloatAxis(value=7144, axis=AxisName.Y),
                                 FloatAxis(value=13262, axis=AxisName.Z),
-                            ]
+                            ],
                         )
                     ],
                     device_name="ephys module 2",

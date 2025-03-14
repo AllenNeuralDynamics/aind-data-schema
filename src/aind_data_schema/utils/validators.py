@@ -18,7 +18,7 @@ def check_order(axes_to_check: List[AxisName], order: List[AxisName]):
 
 
 def _recurse_helper(data, system_name: str, system_axes: List[AxisName]):
-    """ Helper function for recursive_axis_order_check: recurse calls for lists and objects only """
+    """Helper function for recursive_axis_order_check: recurse calls for lists and objects only"""
     if isinstance(data, list):
         for item in data:
             recursive_axis_order_check(item, system_name, system_axes)
@@ -50,12 +50,12 @@ def recursive_axis_order_check(data, system_name: str, system_axes: List[AxisNam
             )
 
     # Check if data matches an ordered axis type
-    if isinstance(data, list) and all(hasattr(item, "object_type") and item.object_type == "Float axis" for item in data):
+    if isinstance(data, list) and all(
+        hasattr(item, "object_type") and item.object_type == "Float axis" for item in data
+    ):
         data_axes = [axis.axis for axis in data]
         if not all(axis in system_axes for axis in data_axes):
-            raise ValueError(
-                f"Axis mismatch: at least one of {data_axes} does not appear in {system_axes}"
-            )
+            raise ValueError(f"Axis mismatch: at least one of {data_axes} does not appear in {system_axes}")
 
     _recurse_helper(data, system_name, system_axes)
     # implicit return if data is not a list or object

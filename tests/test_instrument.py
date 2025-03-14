@@ -740,7 +740,7 @@ class InstrumentTests(unittest.TestCase):
                 calibrations=[],
                 connections=[],
             )
-        
+
         self.assertIn("Axis mismatch", str(context.exception))
 
 

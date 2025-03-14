@@ -15,9 +15,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.components.coordinates import (
-    CoordinateSystemLibrary
-)
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 objective_1 = Objective(
     name="TLX Objective 1",

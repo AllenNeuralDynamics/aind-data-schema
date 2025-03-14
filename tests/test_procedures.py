@@ -46,7 +46,7 @@ class ProceduresTests(unittest.TestCase):
     """test Procedures"""
 
     def setUp(self):
-        """ Set up test data """
+        """Set up test data"""
         self.start_date = date.fromisoformat("2020-10-10")
 
     def test_required_field_validation_check(self):
@@ -58,7 +58,7 @@ class ProceduresTests(unittest.TestCase):
         self.assertEqual("12345", p.subject_id)
 
     def test_injection_material_check(self):
-        """ Check for validation error when injection_materials is empty """
+        """Check for validation error when injection_materials is empty"""
 
         with self.assertRaises(ValidationError) as e:
             Procedures(
@@ -93,7 +93,7 @@ class ProceduresTests(unittest.TestCase):
         self.assertIn("injection_materials", repr(e.exception))
 
     def test_injection_material_none(self):
-        """ Check for validation error when injection_materials is None """
+        """Check for validation error when injection_materials is None"""
         with self.assertRaises(ValidationError) as e:
             p = Procedures(
                 subject_id="12345",
@@ -127,7 +127,7 @@ class ProceduresTests(unittest.TestCase):
         self.assertIn("injection_materials", repr(e.exception))
 
     def test_injection_materials_list(self):
-        """ Valid injection_materials list """
+        """Valid injection_materials list"""
 
         p = Procedures(
             subject_id="12345",
@@ -144,7 +144,7 @@ class ProceduresTests(unittest.TestCase):
                                 FloatAxis(value=0.0, axis=AxisName.AP),
                                 FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
-                            ]
+                            ],
                         ),
                         Origin.LAMBDA: Coordinate(
                             system_name="Bregma ARI",
@@ -152,7 +152,7 @@ class ProceduresTests(unittest.TestCase):
                                 FloatAxis(value=-4.1, axis=AxisName.AP),
                                 FloatAxis(value=0.0, axis=AxisName.SI),
                                 FloatAxis(value=0.0, axis=AxisName.ML),
-                            ]
+                            ],
                         ),
                     },
                     procedures=[
@@ -266,7 +266,7 @@ class ProceduresTests(unittest.TestCase):
                                         angles=Rotation(
                                             angles=[FloatAxis(value=10, axis=AxisName.AP)],
                                             order=[AxisName.AP],
-                                        )
+                                        ),
                                     ),
                                 )
                             ],
