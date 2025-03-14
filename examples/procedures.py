@@ -25,6 +25,7 @@ from aind_data_schema.components.coordinates import (
     Origin,
     Axis,
     Direction,
+    CoordinateSystemLibrary,
 )
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -43,7 +44,7 @@ surgery1 = Surgery(
     coordinate_system=CoordinateSystem(
         name="SurgerySystem",
         origin=Origin.LAMBDA,
-        translation_unit=SizeUnit.MM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -105,6 +106,7 @@ p = Procedures(
             experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
             protocol_id="doi",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             procedures=[
                 Perfusion(
                     protocol_id="doi_of_protocol",

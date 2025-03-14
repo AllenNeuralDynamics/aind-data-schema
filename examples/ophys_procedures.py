@@ -26,7 +26,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import SurfaceCoordinate
+from aind_data_schema.components.coordinates import SurfaceCoordinate, CoordinateSystemLibrary
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -43,6 +43,7 @@ p = Procedures(
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             protocol_id="doi",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             procedures=[
                 Headframe(
                     protocol_id="2109",

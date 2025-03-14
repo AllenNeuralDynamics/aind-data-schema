@@ -612,8 +612,8 @@ class Surgery(DataModel):
     workstation_id: Optional[str] = Field(default=None, title="Workstation ID")
 
     # Coordinate system
-    coordinate_system: CoordinateSystem = Field(
-        ...,
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
         title="Coordinate system for surgical procedures",
     )
 
