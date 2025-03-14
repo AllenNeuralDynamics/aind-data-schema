@@ -95,7 +95,7 @@ class ProceduresTests(unittest.TestCase):
     def test_injection_material_none(self):
         """Check for validation error when injection_materials is None"""
         with self.assertRaises(ValidationError) as e:
-            p = Procedures(
+            Procedures(
                 subject_id="12345",
                 subject_procedures=[
                     Surgery(

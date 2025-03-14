@@ -1,7 +1,7 @@
 """ Validator utility functions """
 
-from typing import Dict, List
-from aind_data_schema.components.coordinates import AxisName, FloatAxis
+from typing import List
+from aind_data_schema.components.coordinates import AxisName
 
 
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
