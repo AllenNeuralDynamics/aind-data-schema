@@ -1,6 +1,6 @@
 """ Validator utility functions """
 
-from typing import List
+from typing import Dict, List
 from aind_data_schema.components.coordinates import AxisName, FloatAxis
 
 
@@ -33,7 +33,7 @@ def _recurse_helper(data, axis_order: List[AxisName]):
             recursive_axis_order_check(attr_value, axis_order)
 
 
-def recursive_axis_order_check(data, axis_order: List[AxisName]):
+def recursive_axis_order_check(data, systems: Dict[str, List[AxisName]]):
     """Recursively check fields, see if they match a List[FloatAxis]"""
 
     if not data:

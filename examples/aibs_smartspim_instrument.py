@@ -24,6 +24,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateSystem,
     Direction,
     Origin,
+    CoordinateSystemLibrary,
 )
 
 objective = Objective(
@@ -189,14 +190,7 @@ inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
     instrument_type=ImagingInstrumentType.SMARTSPIM,
-    coordinate_system=CoordinateSystem(
-        origin=Origin.BREGMA,
-        axes=[
-            Axis(name=AxisName.AP, direction=Direction.AP),
-            Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
-        ],
-    ),
+    coordinate_system=CoordinateSystemLibrary.DEFAULT,
     modalities=[Modality.SPIM],
     manufacturer=Organization.LIFECANVAS,
     temperature_control=False,

@@ -16,11 +16,7 @@ from aind_data_schema.components.devices import (
 from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import (
-    Axis,
-    AxisName,
-    CoordinateSystem,
-    Direction,
-    Origin,
+    CoordinateSystemLibrary
 )
 
 objective_1 = Objective(
@@ -255,14 +251,7 @@ inst = Instrument(
     instrument_type=ImagingInstrumentType.SMARTSPIM,
     manufacturer=Organization.LIFECANVAS,
     modification_date=date(2023, 10, 4),
-    coordinate_system=CoordinateSystem(
-        origin=Origin.BREGMA,
-        axes=[
-            Axis(name=AxisName.AP, direction=Direction.AP),
-            Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
-        ],
-    ),
+    coordinate_system=CoordinateSystemLibrary.DEFAULT,
     modalities=[Modality.SPIM],
     components=[
         *objectives,
