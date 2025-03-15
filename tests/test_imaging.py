@@ -36,7 +36,7 @@ class ImagingTests(unittest.TestCase):
         """testing Acquisition constructor"""
         with self.assertRaises(ValidationError):
             Acquisition()
-            
+
         data_stream = DataStream(
             stream_start_time=datetime.now(tz=timezone.utc),
             stream_end_time=datetime.now(tz=timezone.utc),
@@ -197,6 +197,7 @@ class ImagingTests(unittest.TestCase):
                     ),
                     tile.Tile(
                         transforms=Transform(
+                            system_name="BREGMA_ARI",
                             transforms=[
                                 Translation(
                                     translation=[0, 1, 2],

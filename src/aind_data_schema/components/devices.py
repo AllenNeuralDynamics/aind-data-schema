@@ -26,9 +26,6 @@ from aind_data_schema.components.coordinates import (
     RelativePosition,
     Scale,
     CoordinateSystem,
-    Translation,
-    Rotation,
-    AffineTransformMatrix,
 )
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.identifiers import Software

@@ -45,8 +45,6 @@ from aind_data_schema.components.coordinates import (
     AnatomicalRelative,
     RelativePosition,
     CoordinateSystemLibrary,
-    Translation,
-    AxisName,
 )
 
 daqs = [

@@ -6,7 +6,7 @@ from aind_data_schema.utils.validators import (
     _recurse_helper,
     recursive_coord_system_check,
 )
-from aind_data_schema.components.coordinates import AxisName, Coordinate
+from aind_data_schema.components.coordinates import Coordinate
 
 
 class TestCompatibilityCheck(unittest.TestCase):

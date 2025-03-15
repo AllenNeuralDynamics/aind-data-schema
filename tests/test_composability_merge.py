@@ -12,10 +12,8 @@ from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
 from aind_data_schema.components.coordinates import (
     Scale,
-    Axis,
     Translation,
     Transform,
-    AxisName,
     Origin,
     Coordinate,
     CoordinateSystemLibrary,
@@ -48,7 +46,7 @@ invitro_config = InVitroImagingConfig(
                     Translation(
                         translation=[0, 0, 0],
                     ),
-                ]
+                ],
             ),
             channel=tile.Channel(
                 channel_name="488",
@@ -247,7 +245,7 @@ class TestComposability(unittest.TestCase):
                                             Translation(
                                                 translation=[0, 0, 0],
                                             ),
-                                        ]
+                                        ],
                                     ),
                                     channel=tile.Channel(
                                         channel_name="561",

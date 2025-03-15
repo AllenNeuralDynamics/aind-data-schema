@@ -13,7 +13,6 @@ from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
     Translation,
-    AxisName,
     Coordinate,
 )
 from aind_data_schema.components.identifiers import Person

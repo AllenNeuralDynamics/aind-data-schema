@@ -56,7 +56,6 @@ from aind_data_schema.components.coordinates import (
     RelativePosition,
     AnatomicalRelative,
     Coordinate,
-    AxisName,
     CoordinateSystemLibrary,
 )
 

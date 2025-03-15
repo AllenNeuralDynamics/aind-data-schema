@@ -51,7 +51,6 @@ from aind_data_schema.components.devices import (
     Wheel,
     Scanner,
 )
-from aind_data_schema.utils.validators import recursive_coord_system_check
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.

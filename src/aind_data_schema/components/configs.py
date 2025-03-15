@@ -18,11 +18,8 @@ from aind_data_schema_models.units import (
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.components.coordinates import (
-    Direction,
-    AxisName,
     Coordinate,
     SurfaceCoordinate,
-    CoordinateTransform,
     Transform,
     RelativePosition,
     CoordinateSystem,
@@ -39,7 +36,6 @@ from aind_data_schema.components.coordinates import (
     Rotation,
     Translation,
     Scale,
-    Axis,
 )
 from aind_data_schema.components.devices import SpoutSide
 from aind_data_schema.components.tile import Channel
@@ -212,7 +208,9 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[str] = Field(default=None, title="Path to coordinate transform file")  # [TODO] Remove
+    coordinate_transform: Optional[str] = Field(
+        default=None, title="Path to coordinate transform file"
+    )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

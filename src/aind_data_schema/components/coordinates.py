@@ -1,6 +1,5 @@
 """Classes to define device positions, orientations, and coordinates"""
 
-from decimal import Decimal
 from enum import Enum
 from typing import List, Optional, Union
 import math

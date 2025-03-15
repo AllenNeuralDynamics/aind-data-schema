@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.coordinates import Rotation, Scale, Translation, AxisName
+from aind_data_schema.components.coordinates import Rotation, Scale, Translation
 from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
