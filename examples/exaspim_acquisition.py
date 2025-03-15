@@ -27,7 +27,7 @@ transform = Transform(system_name="SPIM_YXZ", transforms=[tile_scale])
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    coordinate_transformations=transform,
+    transforms=transform,
     channel=tile.Channel(
         channel_name="488",
         excitation_wavelength=488,
@@ -41,7 +41,7 @@ tile0 = tile.AcquisitionTile(
 )
 tile1 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-    coordinate_transformations=transform,
+    transforms=transform,
     channel=tile.Channel(
         channel_name="561",
         excitation_wavelength=561,

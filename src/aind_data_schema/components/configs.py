@@ -212,7 +212,7 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: str = Field(..., title="Path to coordinate transform file")  # [TODO] Remove
+    coordinate_transform: Optional[str] = Field(default=None, title="Path to coordinate transform file")  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

@@ -16,7 +16,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate, CoordinateTransform, NonlinearTransform
+from aind_data_schema.components.coordinates import Coordinate
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
