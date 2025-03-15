@@ -9,11 +9,7 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
     RelativePosition,
     AnatomicalRelative,
-    CoordinateSystem,
-    Origin,
-    Axis,
-    AxisName,
-    Direction,
+    CoordinateSystemLibrary,
 )
 
 from aind_data_schema.components.devices import (
@@ -294,15 +290,7 @@ inst = Instrument(
     instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    coordinate_system=CoordinateSystem(
-        name="BREGMA_ARI",
-        origin=Origin.BREGMA,
-        axes=[
-            Axis(name=AxisName.AP, direction=Direction.AP),
-            Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
-        ],
-    ),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         ephys_assemblyA,
         ephys_assemblyB,
