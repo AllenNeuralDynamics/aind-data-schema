@@ -9,7 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import AxisName, Axis, Scale, Transform
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, Transform
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -59,20 +59,7 @@ invitro_config = InVitroImagingConfig(
         medium="PBS",
         refractive_index=1.33,
     ),
-    axes=[
-        Axis(
-            name=AxisName.X,
-            direction="Left_to_right",
-        ),
-        Axis(
-            name=AxisName.Y,
-            direction="Anterior_to_posterior",
-        ),
-        Axis(
-            name=AxisName.Z,
-            direction="Inferior_to_superior",
-        ),
-    ],
+    coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
     tiles=[
         tile0,
         tile1,
