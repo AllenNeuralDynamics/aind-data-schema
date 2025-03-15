@@ -438,26 +438,3 @@ class InVitroImagingConfig(DataModel):
         title="Processing steps",
         description="List of downstream processing steps planned for each channel",
     )
-
-    @field_validator("axes", mode="before")
-    def from_direction_code(cls, v: Union[str, List[Axis]]) -> List[Axis]:
-        """Map direction codes to Axis model"""
-        if type(v) is str:
-            direction_lookup = {
-                "L": Direction.LR,
-                "R": Direction.RL,
-                "A": Direction.AP,
-                "P": Direction.PA,
-                "I": Direction.IS,
-                "S": Direction.SI,
-            }
-
-            name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
-
-            axes = []
-            for i, c in enumerate(v):
-                axis = Axis(name=name_lookup[i], direction=direction_lookup[c])
-                axes.append(axis)
-            return axes
-        else:
-            return v
