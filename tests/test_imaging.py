@@ -36,6 +36,40 @@ class ImagingTests(unittest.TestCase):
         """testing Acquisition constructor"""
         with self.assertRaises(ValidationError):
             Acquisition()
+            
+        data_stream = DataStream(
+            stream_start_time=datetime.now(tz=timezone.utc),
+            stream_end_time=datetime.now(tz=timezone.utc),
+            modalities=[Modality.SPIM],
+            active_devices=[],
+            configurations=[
+                InVitroImagingConfig(
+                    chamber_immersion=Immersion(medium="PBS", refractive_index=1),
+                    tiles=[
+                        tile.AcquisitionTile(
+                            coordinate_transformations=[
+                                    Scale(
+                                        scale=[1, 1, 1],
+                                    ),
+                                    Translation(
+                                        translation=[1, 1, 1],
+                                    ),
+                                ]
+                            channel=tile.Channel(
+                                channel_name="488",
+                                light_source_name="Ex_488",
+                                filter_names=["Em_600"],
+                                detector_name="PMT_1",
+                                excitation_wavelength=488,
+                                excitation_power=0.1,
+                                filter_wheel_index=0,
+                            ),
+                        ),
+                    ],
+                    axes=[],
+                ),
+            ],
+        )
 
         a = Acquisition(
             experimenters=[Person(name="alice bob")],
@@ -56,42 +90,7 @@ class ImagingTests(unittest.TestCase):
                 ),
             ],
             acquisition_end_time=datetime.now(tz=timezone.utc),
-            data_streams=[
-                DataStream(
-                    stream_start_time=datetime.now(tz=timezone.utc),
-                    stream_end_time=datetime.now(tz=timezone.utc),
-                    modalities=[Modality.SPIM],
-                    active_devices=[],
-                    configurations=[
-                        InVitroImagingConfig(
-                            chamber_immersion=Immersion(medium="PBS", refractive_index=1),
-                            tiles=[
-                                tile.AcquisitionTile(
-                                    coordinate_transformations=[
-                                            Scale(
-                                                scale=[1, 1, 1],
-                                            ),
-                                            Translation(
-                                                translation=[1, 1, 1],
-                                            ),
-                                        ]
-                                    ),
-                                    channel=tile.Channel(
-                                        channel_name="488",
-                                        light_source_name="Ex_488",
-                                        filter_names=["Em_600"],
-                                        detector_name="PMT_1",
-                                        excitation_wavelength=488,
-                                        excitation_power=0.1,
-                                        filter_wheel_index=0,
-                                    ),
-                                )
-                            ],
-                            axes=[],
-                        ),
-                    ],
-                )
-            ],
+            data_streams=[data_stream],
         )
 
         self.assertIsNotNone(a)
