@@ -18,6 +18,7 @@ from aind_data_schema.components.coordinates import (
     AxisName,
     Origin,
     Coordinate,
+    CoordinateSystemLibrary,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance
 
@@ -34,20 +35,7 @@ invitro_config = InVitroImagingConfig(
         medium="PBS",
         refractive_index=1.33,
     ),
-    axes=[
-        Axis(
-            name=AxisName.X,
-            direction="Left_to_right",
-        ),
-        Axis(
-            name=AxisName.Y,
-            direction="Anterior_to_posterior",
-        ),
-        Axis(
-            name=AxisName.Z,
-            direction="Inferior_to_superior",
-        ),
-    ],
+    coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
     tiles=[
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
@@ -246,20 +234,7 @@ class TestComposability(unittest.TestCase):
                                 medium="PBS",
                                 refractive_index=1.33,
                             ),
-                            axes=[
-                                Axis(
-                                    name=AxisName.X,
-                                    direction="Left_to_right",
-                                ),
-                                Axis(
-                                    name=AxisName.Y,
-                                    direction="Anterior_to_posterior",
-                                ),
-                                Axis(
-                                    name=AxisName.Z,
-                                    direction="Inferior_to_superior",
-                                ),
-                            ],
+                            coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
                             tiles=[
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",

@@ -36,7 +36,6 @@ from aind_data_schema.components.configs import (
     StimulusModality,
     InVitroImagingConfig,
 )
-from aind_data_schema.components.coordinates import Transform, Atlas, CoordinateSystem
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality

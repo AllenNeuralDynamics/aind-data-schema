@@ -54,7 +54,7 @@ class ImagingTests(unittest.TestCase):
                                     Translation(
                                         translation=[1, 1, 1],
                                     ),
-                                ]
+                                ],
                             channel=tile.Channel(
                                 channel_name="488",
                                 light_source_name="Ex_488",
@@ -66,7 +66,7 @@ class ImagingTests(unittest.TestCase):
                             ),
                         ),
                     ],
-                    axes=[],
+                    coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
                 ),
             ],
         )
@@ -167,69 +167,6 @@ class ImagingTests(unittest.TestCase):
             )
 
         self.assertIn("modality 'SPIM' requires at least one device", repr(e2.exception))
-
-    def test_axis(self):
-        """test the axis class"""
-        # test that a few work
-        test_codes = ["RAS", "LSP", "RAI", "PAR"]
-        for test_code in test_codes:
-            a = Acquisition(
-                experimenters=[Person(name="alice bob")],
-                acquisition_start_time=datetime.now(tz=timezone.utc),
-                specimen_id="123456-brain",
-                subject_id="123456",
-                instrument_id="1234",
-                calibrations=[
-                    Calibration(
-                        calibration_date=datetime.now(tz=timezone.utc),
-                        description="Laser power calibration",
-                        device_name="Laser 1",
-                        input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-                        output={
-                            "power_measurement": 50.0,
-                            "power_unit": PowerUnit.MW,
-                        },
-                    ),
-                ],
-                acquisition_end_time=datetime.now(tz=timezone.utc),
-                data_streams=[
-                    DataStream(
-                        stream_start_time=datetime.now(tz=timezone.utc),
-                        stream_end_time=datetime.now(tz=timezone.utc),
-                        modalities=[Modality.SPIM],
-                        active_devices=[],
-                        configurations=[
-                            InVitroImagingConfig(
-                                chamber_immersion=Immersion(medium="PBS", refractive_index=1),
-                                tiles=[
-                                    tile.AcquisitionTile(
-                                        coordinate_transformations=[
-                                                Scale(
-                                                    scale=[1, 1, 1],
-                                                ),
-                                                Translation(
-                                                    translation=[1, 1, 1],
-                                                ),
-                                            ]
-                                        ),
-                                        channel=tile.Channel(
-                                            channel_name="488",
-                                            light_source_name="Ex_488",
-                                            filter_names=["Em_600"],
-                                            detector_name="PMT_1",
-                                            excitation_wavelength=488,
-                                            excitation_power=0.1,
-                                            filter_wheel_index=0,
-                                        ),
-                                    )
-                                ],
-                                axes=test_code,
-                            ),
-                        ],
-                    )
-                ],
-            )
-            self.assertEqual(3, len(a.data_streams[0].configurations[0].axes))
 
     def test_registration(self):
         """test the tile models"""
