@@ -245,11 +245,11 @@ class DataCoreModel(DataModel):
             logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
 
     @model_validator(mode="after")
-    def coordinate_validator(cls, data):
-        """Validate that all coordinates are valid in the instrument's coordinate system"""
+    def coordinate_system_validator(cls, data):
+        """Validate that all coordinates match the defined coordinate system"""
 
         if hasattr(data, "coordinate_system") and data.coordinate_system is not None:
-            # This core model has a coordinate_system -- check that all subfields match the defined axes
+            # This core model has a coordinate_system -- check that all subfields refer to this system
             system_name = data.coordinate_system.name
 
             recursive_coord_system_check(data, system_name)
