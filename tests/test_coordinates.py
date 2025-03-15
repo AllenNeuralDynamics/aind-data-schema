@@ -105,6 +105,16 @@ class TestRotation(unittest.TestCase):
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(rotation.to_matrix(), expected_matrix)
 
+    def test_error_invalid_order(self):
+        """Test error with invalid order"""
+        with self.assertRaises(ValueError) as context:
+            Rotation(
+                angles=[90, 45, 30],
+                order=[0, 1],
+            )
+
+        self.assertIn("Number of angles must match the number of axes in the order", str(context.exception))
+
 
 class TestAffineTransformMatrix(unittest.TestCase):
     """Tests for the AffineTransformMatrix class"""
@@ -156,6 +166,20 @@ class TestAffineTransformMatrix(unittest.TestCase):
             expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
         ).tolist()
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
+    
+    def test_compose_invalid_sizes(self):
+        """ Raise error when composing matrices of different sizes """
+        translation = Translation(translation=[2, 3, 4])
+        rotation = Rotation(
+            angles=[90, 45, 30],
+            order=[0, 1, 2],
+        )
+        scale = Scale(scale=[2, 3])
+        affine_transform = AffineTransformMatrix(affine_transform=[])
+        with self.assertRaises(ValueError) as context:
+            affine_transform.compose([rotation, translation, scale])
+
+        self.assertIn("All transforms must be the same size", str(context.exception))
 
 
 class TestMultiplyMatrix(unittest.TestCase):

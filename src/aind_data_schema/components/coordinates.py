@@ -156,14 +156,11 @@ class Rotation(DataModel):
         """
         try:
             from scipy.spatial.transform import Rotation as R
-        except ImportError:
+        except ImportError:  # pragma: no cover
             raise ImportError(
                 "Please run `pip install aind-data-schema[transforms]` to "
                 "install necessary dependencies for Rotation.to_matrix"
             )
-
-        if not self.angles:
-            return []
 
         # Prepare the angles and axes for scipy Rotation
         angles = []
@@ -188,8 +185,8 @@ class Rotation(DataModel):
         return rotation_matrix
 
     @model_validator(mode="after")
-    def validate_matched_axes(cls, values):
-        """Validate that the axis names match the angles"""
+    def validate_lengths(cls, values):
+        """Validate that number of angles and order match in length """
 
         angles = values.angles
         order = values.order
@@ -224,7 +221,7 @@ class AffineTransformMatrix(DataModel):
         """
         try:
             import numpy as np
-        except ImportError:
+        except ImportError:  # pragma: no cover
             raise ImportError(
                 "Please run `pip install aind-data-schema[transforms]` "
                 "to install necessary dependencies for rotation support"
