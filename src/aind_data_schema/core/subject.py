@@ -1,9 +1,8 @@
 """ schema for mostly mouse metadata """
 
-from datetime import date as date_type
-from datetime import time
+from datetime import date, time
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Annotated, Union
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema_models.organizations import Organization
@@ -49,7 +48,7 @@ class LightCycle(DataModel):
 class WellnessReport(DataModel):
     """Wellness report on animal health"""
 
-    date: date_type = Field(..., title="Date")
+    date: date = Field(..., title="Date")
     report: str = Field(..., title="Report")
 
 
@@ -77,6 +76,43 @@ class BreedingInfo(DataModel):
     paternal_genotype: str = Field(..., title="Paternal genotype")
 
 
+class MouseSubject(DataModel):
+    """Description of a mouse subject"""
+
+    sex: Sex = Field(..., title="Sex")
+    date_of_birth: date = Field(..., title="Date of birth")
+
+    # Genetic info
+    species: Species.ONE_OF = Field(..., title="Species")
+    background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
+    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
+    genotype: Optional[str] = Field(
+        default=None,
+        description="Genotype of the animal providing both alleles",
+        title="Genotype",
+    )
+
+    breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
+    source: Organization.SUBJECT_SOURCES = Field(
+        ...,
+        description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
+        title="Source",
+    )
+    rrid: Optional[PIDName] = Field(
+        default=None,
+        description="RRID of mouse if acquired from supplier",
+        title="RRID",
+    )
+    wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
+    housing: Optional[Housing] = Field(default=None, title="Housing")
+
+
+class HumanSubject(DataModel):
+    """Description of a human subject"""
+
+    date_of_birth: date = Field(..., title="Date of birth")
+
+
 class Subject(DataCoreModel):
     """Description of a subject of data collection"""
 
@@ -88,37 +124,16 @@ class Subject(DataCoreModel):
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    sex: Sex = Field(..., title="Sex")
-    date_of_birth: date_type = Field(..., title="Date of birth")
-
-    # Genetic info
-    species: Species.ONE_OF = Field(..., title="Species")
-    background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
-    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
-    genotype: Optional[str] = Field(
-        default=None,
-        description="Genotype of the animal providing both alleles",
-        title="Genotype",
-    )
-    breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
-
-    source: Organization.SUBJECT_SOURCES = Field(
+    subject_details: Annotated[Union[MouseSubject, HumanSubject], Field(discriminator="object_type")] = Field(
         ...,
-        description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
-        title="Source",
+        title="Subject details",
     )
-    rrid: Optional[PIDName] = Field(
-        default=None,
-        description="RRID of mouse if acquired from supplier",
-        title="RRID",
-    )
+
     restrictions: Optional[str] = Field(
         default=None,
         description="Any restrictions on use or publishing based on subject source",
         title="Restrictions",
     )
-    wellness_reports: List[WellnessReport] = Field(default=[], title="Wellness Report")
-    housing: Optional[Housing] = Field(default=None, title="Housing")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_validator("source", mode="after")
