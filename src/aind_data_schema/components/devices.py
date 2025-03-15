@@ -42,19 +42,6 @@ class ImagingDeviceType(str, Enum):
     OTHER = "Other"
 
 
-class ImagingInstrumentType(str, Enum):
-    """Experiment type name"""
-
-    CONFOCAL = "confocal"
-    DISPIM = "diSPIM"
-    EXASPIM = "exaSPIM"
-    ECEPHYS = "ecephys"
-    MESOSPIM = "mesoSPIM"
-    OTHER = "Other"
-    SMARTSPIM = "SmartSPIM"
-    TWO_PHOTON = "Two photon"
-
-
 class StageAxisDirection(str, Enum):
     """Direction of motion for motorized stage"""
 
