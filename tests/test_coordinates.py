@@ -166,7 +166,7 @@ class TestAffineTransformMatrix(unittest.TestCase):
             expected_matrix, [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
         ).tolist()
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
-    
+
     def test_compose_invalid_sizes(self):
         """ Raise error when composing matrices of different sizes """
         translation = Translation(translation=[2, 3, 4])
