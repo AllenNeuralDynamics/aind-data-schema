@@ -213,6 +213,7 @@ class TestAtlas(unittest.TestCase):
         atlas = Atlas(
             name=AtlasName.CCF,
             version="1.0",
+            axis_unit=SizeUnit.UM,
             size=size,
             size_unit=SizeUnit.MM,
             resolution=resolution,

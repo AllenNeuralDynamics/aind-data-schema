@@ -367,7 +367,6 @@ ephys_acquisition = Acquisition(
                     ],
                     arc_angle=5.2,
                     module_angle=8,
-                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(

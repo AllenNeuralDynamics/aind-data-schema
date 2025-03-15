@@ -15,8 +15,8 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
     AffineTransformMatrix,
-    AxisName,
     CoordinateSystemLibrary,
+    Transform,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -47,7 +47,8 @@ class ImagingTests(unittest.TestCase):
                     chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                     tiles=[
                         tile.AcquisitionTile(
-                            coordinate_transformations=[
+                            coordinate_transformations=Transform(
+                                transforms=[
                                     Scale(
                                         scale=[1, 1, 1],
                                     ),
@@ -55,6 +56,7 @@ class ImagingTests(unittest.TestCase):
                                         translation=[1, 1, 1],
                                     ),
                                 ],
+                            ),
                             channel=tile.Channel(
                                 channel_name="488",
                                 light_source_name="Ex_488",
@@ -183,25 +185,29 @@ class ImagingTests(unittest.TestCase):
             parameters={
                 "tiles": [
                     tile.Tile(
-                        coordinate_transformations=[
-                            AffineTransformMatrix(
-                                affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
-                            ),
-                        ],
+                        coordinate_transformations=Transform(
+                            transforms=[
+                                AffineTransformMatrix(
+                                    affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
+                                ),
+                            ],
+                        ),
                     ),
                     tile.Tile(
-                        coordinate_transformations=[
-                            Translation(
-                                translation=[0, 1, 2],
-                            ),
-                            Rotation(
-                                angles=[1, 2, 3],
-                                order=[0, 1, 2],
-                            ),
-                            Scale(
-                                scale=[1, 2, 3],
-                            ),
-                        ]
+                        coordinate_transformations=Transform(
+                            transforms=[
+                                Translation(
+                                    translation=[0, 1, 2],
+                                ),
+                                Rotation(
+                                    angles=[1, 2, 3],
+                                    order=[0, 1, 2],
+                                ),
+                                Scale(
+                                    scale=[1, 2, 3],
+                                ),
+                            ],
+                        ),
                     ),
                 ],
             },

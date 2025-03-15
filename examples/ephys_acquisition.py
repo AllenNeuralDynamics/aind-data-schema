@@ -34,15 +34,7 @@ ephys_config_a = ManipulatorConfig(
         ),
     ],
     device_name="Ephys_assemblyA",
-    coordinate_transform=CoordinateTransform(
-        input="BREGMA_ARI",
-        output="CCFv3",
-        transforms=[
-            NonlinearTransform(
-                path="behavior/calibration_info_np2_2023_04_24.py",
-            )
-        ],
-    ),
+    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
     primary_targeted_structure=CCFStructure.LGD,
     manipulator_axis_positions=[
         Coordinate(
@@ -68,15 +60,7 @@ ephys_config_b = ManipulatorConfig(
         ),
     ],
     device_name="Ephys_assemblyB",
-    coordinate_transform=CoordinateTransform(
-        input="BREGMA_ARI",
-        output="CCFv3",
-        transforms=[
-            NonlinearTransform(
-                path="behavior/calibration_info_np2_2023_04_24.py",
-            )
-        ],
-    ),
+    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
     primary_targeted_structure=CCFStructure.LC,
     manipulator_axis_positions=[
         Coordinate(

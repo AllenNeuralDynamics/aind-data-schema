@@ -209,14 +209,10 @@ class DomeModule(DeviceConfig):
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
-    coordinate_transform: Optional[CoordinateTransform] = Field(
-        default=None,
-        title="Transform from local manipulator axes to instrument",
-        description="Path to coordinate transform",
-    )
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
+    coordinate_transform: str = Field(..., title="Path to coordinate transform file")  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

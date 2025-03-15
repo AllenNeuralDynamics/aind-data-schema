@@ -33,7 +33,7 @@ class Channel(DataModel):
 class Tile(DataModel):
     """Description of an image tile"""
 
-    coordinate_transformations: Transform = Field(..., title="Tile coordinate transformations")
+    transforms: Transform = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
 
 

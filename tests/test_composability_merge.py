@@ -239,6 +239,7 @@ class TestComposability(unittest.TestCase):
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     coordinate_transformations=Transform(
+                                        system_name="SPIM_YXZ",
                                         transforms=[
                                             Scale(
                                                 scale=[0.748, 0.748, 1],
