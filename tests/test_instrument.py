@@ -672,11 +672,6 @@ class InstrumentTests(unittest.TestCase):
             ),
             target=CameraTarget.BRAIN,
             position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
-            exact_position=[
-                Translation(
-                    translation=[1, 2, 3],
-                ),
-            ],
             lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
         )
 
