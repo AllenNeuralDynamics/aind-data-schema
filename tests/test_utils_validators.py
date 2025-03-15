@@ -44,10 +44,7 @@ class TestRecurseHelper(unittest.TestCase):
                 position=[0.5, 1],
             ),
         ]
-        try:
-            _recurse_helper(data, self.system_name)
-        except ValueError:
-            self.fail("_recurse_helper raised ValueError unexpectedly!")
+        _recurse_helper(data, self.system_name)
 
     def test_recurse_helper_with_object(self):
         """Test _recurse_helper with a single coordinate object"""
@@ -55,10 +52,7 @@ class TestRecurseHelper(unittest.TestCase):
             system_name=self.system_name,
             position=[0.5, 1],
         )
-        try:
-            _recurse_helper(data, self.system_name)
-        except ValueError:
-            self.fail("_recurse_helper raised ValueError unexpectedly!")
+        _recurse_helper(data, self.system_name)
 
 
 class TestRecursiveAxisOrderCheck(unittest.TestCase):
@@ -74,10 +68,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             system_name=self.system_name,
             position=[0.5, 1],
         )
-        try:
-            recursive_coord_system_check(data, self.system_name)
-        except ValueError:
-            self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
+        recursive_coord_system_check(data, self.system_name)
 
     def test_recursive_axis_order_check_with_invalid_system_name(self):
         """Test recursive_axis_order_check with invalid system name"""
@@ -91,10 +82,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
     def test_recursive_axis_order_check_with_empty_data(self):
         """Test recursive_axis_order_check with empty data"""
         data = None
-        try:
-            recursive_coord_system_check(data, self.system_name)
-        except ValueError:
-            self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
+        recursive_coord_system_check(data, self.system_name)
 
     def test_recursive_axis_order_check_with_list_of_coordinates(self):
         """Test recursive_axis_order_check with a list of coordinates"""
@@ -108,10 +96,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
                 position=[0.5, 1],
             ),
         ]
-        try:
-            recursive_coord_system_check(data, self.system_name)
-        except ValueError:
-            self.fail("recursive_axis_order_check raised ValueError unexpectedly!")
+        recursive_coord_system_check(data, self.system_name)
 
 
 if __name__ == "__main__":
