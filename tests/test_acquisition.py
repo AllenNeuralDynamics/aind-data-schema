@@ -122,7 +122,7 @@ class AcquisitionTest(unittest.TestCase):
                     primary_scan=True,
                     vc_orientation=Rotation(
                         angles=[1, 1, 1],
-                        order=[AxisName.ML, AxisName.SI, AxisName.AP],
+                        order=[0, 1, 2],
                     ),
                     vc_position=Translation(
                         translation=[1, 1, 1],

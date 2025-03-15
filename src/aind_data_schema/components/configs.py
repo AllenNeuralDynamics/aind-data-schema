@@ -429,7 +429,7 @@ class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
-    axes: List[Axis] = Field(..., title="Acquisition axes")
+    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
     processing_steps: List[ProcessingSteps] = Field(

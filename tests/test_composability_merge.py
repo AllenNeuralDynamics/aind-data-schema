@@ -52,6 +52,7 @@ invitro_config = InVitroImagingConfig(
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transformations=Transform(
+                system_name="SPIM",
                 transforms=[
                     Scale(
                         scale=[0.748, 0.748, 1],

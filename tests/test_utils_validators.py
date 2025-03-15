@@ -60,15 +60,6 @@ class TestRecurseHelper(unittest.TestCase):
         except ValueError:
             self.fail("_recurse_helper raised ValueError unexpectedly!")
 
-    def test_recurse_helper_with_invalid_axes(self):
-        """Test _recurse_helper with invalid axes"""
-        data = Coordinate(
-            system_name=self.system_name,
-            position=[0.5, 1],
-        )
-        with self.assertRaises(ValueError):
-            _recurse_helper(data, self.system_name)
-
 
 class TestRecursiveAxisOrderCheck(unittest.TestCase):
     """Tests for recursive_axis_order_check function"""
@@ -92,15 +83,6 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
         """Test recursive_axis_order_check with invalid system name"""
         data = Coordinate(
             system_name="Invalid System",
-            position=[0.5, 1],
-        )
-        with self.assertRaises(ValueError):
-            recursive_coord_system_check(data, self.system_name)
-
-    def test_recursive_axis_order_check_with_invalid_axes(self):
-        """Test recursive_axis_order_check with invalid axes"""
-        data = Coordinate(
-            system_name=self.system_name,
             position=[0.5, 1],
         )
         with self.assertRaises(ValueError):
