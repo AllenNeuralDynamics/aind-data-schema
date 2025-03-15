@@ -25,6 +25,8 @@ from pydantic_core.core_schema import ValidationInfo
 from aind_data_schema.base import (
     GenericModelType,
     DataModel,
+    GenericModel,
+    AwareDatetimeWithDefault,
 )
 from aind_data_schema.components.coordinates import (
     Coordinates3d,
@@ -36,7 +38,6 @@ from aind_data_schema.components.devices import RelativePosition, SpoutSide
 from aind_data_schema.components.tile import Channel
 from aind_data_schema.core.procedures import CoordinateReferenceLocation
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.base import GenericModel, GenericModelType, AwareDatetimeWithDefault
 
 
 class StimulusModality(str, Enum):
@@ -63,9 +64,17 @@ class Calibration(DeviceConfig):
 
     date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
-    output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
+    input: GenericModelType = Field(GenericModel(), title="Input values")
+    output: GenericModelType = Field(GenericModel(), title="Measured output values")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class WaterCalibration(Calibration):
+    """ Water calibration """
+
+    description: Literal["Water calibration"] = "Water calibration"
+    input: List[float] = Field(..., title="Input values")
+    output: List[float] = Field(..., title="Measured output values")
 
 
 class Maintenance(DeviceConfig):
