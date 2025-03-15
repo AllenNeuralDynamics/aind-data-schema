@@ -102,7 +102,7 @@ class TestComposability(unittest.TestCase):
             instrument_id="###",
             maintenance=[
                 Maintenance(
-                    maintenance_date=t,
+                    date=t,
                     device_name="Chamber",
                     description="Clean chamber",
                     reagents=[
@@ -120,7 +120,7 @@ class TestComposability(unittest.TestCase):
             ],
             calibrations=[
                 Calibration(
-                    calibration_date=t,
+                    date=t,
                     device_name="Laser_1",
                     description="Laser power calibration",
                     input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
@@ -194,7 +194,7 @@ class TestComposability(unittest.TestCase):
             instrument_id="###",
             maintenance=[
                 Maintenance(
-                    maintenance_date=t,
+                    date=t,
                     device_name="Chamber",
                     description="Clean chamber",
                     reagents=[
@@ -212,7 +212,7 @@ class TestComposability(unittest.TestCase):
             ],
             calibrations=[
                 Calibration(
-                    calibration_date=t,
+                    date=t,
                     device_name="Laser_2",
                     description="Laser power calibration",
                     input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},

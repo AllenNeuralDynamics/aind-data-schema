@@ -28,7 +28,7 @@ acq = Acquisition(
     instrument_id="###",
     maintenance=[
         Maintenance(
-            maintenance_date=t,
+            date=t,
             device_name="Chamber",
             description="Clean chamber",
             reagents=[
@@ -44,7 +44,7 @@ acq = Acquisition(
     ],
     calibrations=[
         Calibration(
-            calibration_date=t,
+            date=t,
             device_name="Laser_1",
             description="Laser power calibration",
             input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},

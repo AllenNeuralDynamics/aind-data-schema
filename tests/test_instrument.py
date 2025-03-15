@@ -280,7 +280,7 @@ stimulus_devices = [
     ),
 ]
 calibration = Calibration(
-    calibration_date=date(2020, 10, 10),
+    date=date(2020, 10, 10),
     device_name="Laser A",
     description="Laser power calibration",
     input={"power percent": [10, 40, 80]},
@@ -317,7 +317,7 @@ class InstrumentTests(unittest.TestCase):
             ],
             calibrations=[
                 Calibration(
-                    calibration_date=date(2020, 10, 10),
+                    date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
                     input={"power percent": [10, 40, 80]},
@@ -357,7 +357,7 @@ class InstrumentTests(unittest.TestCase):
                 ],
                 calibrations=[
                     Calibration(
-                        calibration_date=date(2020, 10, 10),
+                        date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
                         input={"power percent": [10, 40, 80]},
@@ -389,7 +389,7 @@ class InstrumentTests(unittest.TestCase):
             ],
             calibrations=[
                 Calibration(
-                    calibration_date=date(2020, 10, 10),
+                    date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
                     input={"power percent": [10, 40, 80]},
@@ -427,7 +427,7 @@ class InstrumentTests(unittest.TestCase):
                 ],
                 calibrations=[
                     Calibration(
-                        calibration_date=date(2020, 10, 10),
+                        date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
                         input={"power percent": [10, 40, 80]},

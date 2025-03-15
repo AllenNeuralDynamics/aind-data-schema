@@ -35,6 +35,8 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema.components.devices import RelativePosition, SpoutSide
 from aind_data_schema.components.tile import Channel
 from aind_data_schema.core.procedures import CoordinateReferenceLocation
+from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.base import GenericModel, GenericModelType, AwareDatetimeWithDefault
 
 
 class StimulusModality(str, Enum):
@@ -53,7 +55,27 @@ class StimulusModality(str, Enum):
 class DeviceConfig(DataModel):
     """Parent class for all configurations"""
 
-    device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
+    device_name: str = Field(..., title="Device name", description="Must match a device defined in the Instrument")
+
+
+class Calibration(DeviceConfig):
+    """Generic calibration class"""
+
+    date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
+    description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
+    input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
+    output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class Maintenance(DeviceConfig):
+    """Generic maintenance class"""
+
+    date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
+    description: str = Field(..., title="Description", description="Description on maintenance procedure")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
+    reagents: List[Reagent] = Field(default=[], title="Reagents")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 # Ophys components
@@ -206,7 +228,7 @@ class DomeModule(DeviceConfig):
         title="Transform from local manipulator axes to instrument",
         description="Path to coordinate transform",
     )
-    calibration_date: Optional[datetime] = Field(
+    date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
     notes: Optional[str] = Field(default=None, title="Notes")

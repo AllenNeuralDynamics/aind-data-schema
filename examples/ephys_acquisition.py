@@ -127,7 +127,7 @@ acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -142,7 +142,7 @@ acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -178,7 +178,7 @@ acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -193,7 +193,7 @@ acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"

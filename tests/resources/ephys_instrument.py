@@ -260,7 +260,7 @@ camassm2 = CameraAssembly(
 # script will be used as default
 
 red_laser_calibration = Calibration(
-    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
+    date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -268,7 +268,7 @@ red_laser_calibration = Calibration(
 )
 
 blue_laser_calibration = Calibration(
-    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
+    date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},

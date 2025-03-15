@@ -221,7 +221,7 @@ camassm2 = CameraAssembly(
 # script will be used as default
 
 red_laser_calibration = Calibration(
-    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
+    date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -229,7 +229,7 @@ red_laser_calibration = Calibration(
 )
 
 blue_laser_calibration = Calibration(
-    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
+    date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -352,7 +352,7 @@ ephys_acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -367,7 +367,7 @@ ephys_acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -427,7 +427,7 @@ ephys_acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -442,7 +442,7 @@ ephys_acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
                     manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
@@ -457,7 +457,7 @@ ephys_acquisition = Acquisition(
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
                     manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -777,7 +777,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ],
             calibrations=[
                 d.Calibration(
-                    calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
+                    date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
                     device_name="470nm LED",
                     description="LED calibration",
                     input={"Power setting": [1, 2, 3]},
