@@ -25,6 +25,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateTransform,
     Transform,
     RelativePosition,
+    CoordinateSystem,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
