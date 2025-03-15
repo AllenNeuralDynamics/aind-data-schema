@@ -13,7 +13,6 @@ from aind_data_schema.components.coordinates import Axis, Origin
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
-    Calibration,
     CameraAssembly,
     CameraTarget,
     DAQDevice,
@@ -51,6 +50,7 @@ from aind_data_schema.components.devices import (
     Wheel,
     Scanner,
 )
+from aind_data_schema.components.configs import Calibration, WaterCalibration
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
@@ -106,7 +106,9 @@ class Instrument(DataCoreModel):
         pattern=instrument_id_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
-    calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
+    calibrations: Optional[
+        List[Annotated[Union[Calibration, WaterCalibration], Field(discriminator="object_type")]]
+    ] = Field(default=None, title="Full calibration of devices")
     ccf_coordinate_transform: Optional[str] = Field(
         default=None,
         title="CCF coordinate transform",

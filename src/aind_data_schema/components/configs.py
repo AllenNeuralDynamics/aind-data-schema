@@ -70,7 +70,7 @@ class Calibration(DeviceConfig):
 
 
 class WaterCalibration(Calibration):
-    """ Water calibration """
+    """Water calibration"""
 
     description: Literal["Water calibration"] = "Water calibration"
     input: List[float] = Field(..., title="Input values")
@@ -237,9 +237,7 @@ class DomeModule(DeviceConfig):
         title="Transform from local manipulator axes to instrument",
         description="Path to coordinate transform",
     )
-    date: Optional[datetime] = Field(
-        default=None, title="Date on which coordinate transform was last calibrated"
-    )
+    date: Optional[datetime] = Field(default=None, title="Date on which coordinate transform was last calibrated")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

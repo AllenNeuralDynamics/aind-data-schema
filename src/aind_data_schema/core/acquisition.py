@@ -8,8 +8,6 @@ from pydantic import Field, SkipValidation, model_validator
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
 from aind_data_schema_models.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import (
-    Calibration,
-    Maintenance,
     Camera,
     CameraAssembly,
     EphysAssembly,
@@ -35,6 +33,9 @@ from aind_data_schema.components.configs import (
     RewardDeliveryConfig,
     StimulusModality,
     InVitroImagingConfig,
+    Calibration,
+    WaterCalibration,
+    Maintenance,
 )
 from aind_data_schema.components.coordinates import Affine3dTransform
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
@@ -215,7 +216,7 @@ class Acquisition(DataCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
     # Instrument metadata
-    calibrations: List[Calibration] = Field(
+    calibrations: List[Annotated[Union[Calibration, WaterCalibration], Field(discriminator="object_type")]] = Field(
         default=[],
         title="Calibrations",
         description="List of calibration measurements taken prior to acquisition.",
