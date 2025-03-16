@@ -125,7 +125,7 @@ class DataDescription(DataCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
-    
+
     @model_validator(mode="after")
     def input_data_when_derived(self):
         """Ensure that input_data is set when data_level is DERIVED"""
@@ -186,9 +186,7 @@ def derived_data_description(cls, data_description: DataDescription, process_nam
         else:
             return getattr(DataDescription.model_fields.get(field_name), "default")
 
-    creation_time = (
-        datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
-    )
+    creation_time = datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
 
     # Upgrade name
     derived_name = f"{data_description.name}_{process_name}_{creation_time.isoformat("YYYY-MM-DDThhmmss")}"
