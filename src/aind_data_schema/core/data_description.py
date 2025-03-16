@@ -102,11 +102,6 @@ class DataDescription(DataCoreModel):
         "of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
-    # related_data: List[RelatedData] = Field(
-    #     default=[],
-    #     title="Related data",
-    #     description="Path and description of data assets associated with this asset (eg. reference images)",
-    # )
     input_data: Optional[str] = Field(
         default=None,
         title="Input data",
@@ -195,18 +190,24 @@ def derived_data_description(cls, data_description: DataDescription, process_nam
         datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
     )
 
+    # Upgrade name
+    derived_name = f"{data_description.name}_{process_name}_{creation_time.isoformat("YYYY-MM-DDThhmmss")}"
+    if not re.match(DataRegex.DERIVED.value, derived_name):
+        raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
+
     return cls(
+        subject_id=get_or_default("subject_id"),
         creation_time=creation_time,
-        process_name=process_name,
+        tags=get_or_default("tags"),
+        name=derived_name,
         institution=get_or_default("institution"),
         funding_source=get_or_default("funding_source"),
+        data_level=DataLevel.DERIVED,
         group=get_or_default("group"),
         investigators=get_or_default("investigators"),
+        project_name=get_or_default("project_name"),
         restrictions=get_or_default("restrictions"),
         modalities=get_or_default("modalities"),
-        project_name=get_or_default("project_name"),
-        subject_id=get_or_default("subject_id"),
-        related_data=get_or_default("related_data"),
+        input_data=data_description.name,
         data_summary=get_or_default("data_summary"),
-        input_data_name=data_description.name,
     )
