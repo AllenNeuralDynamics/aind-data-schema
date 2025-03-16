@@ -27,13 +27,6 @@ class Funding(DataModel):
     fundee: Optional[str] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
-class RelatedData(DataModel):
-    """Description of related data asset"""
-
-    related_data_path: str = Field(..., title="Related data path")
-    relation: str = Field(..., title="Relation", description="Relation of data to this asset")
-
-
 class DataDescription(DataCoreModel):
     """Description of a logical collection of data files"""
 
@@ -53,10 +46,10 @@ class DataDescription(DataCoreModel):
         description="Time that data files were created, used to uniquely identify the data",
         title="Creation Time",
     )
-    label: Optional[str] = Field(
+    tags: Optional[List[str]] = Field(
         default=None,
-        description="A short name for the data, used in file names and labels",
-        title="Label",
+        description="Descriptive strings to help categorize and search for data",
+        title="Tags",
     )
     name: Optional[str] = Field(
         default=None,
@@ -109,10 +102,15 @@ class DataDescription(DataCoreModel):
         "of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
-    related_data: List[RelatedData] = Field(
-        default=[],
-        title="Related data",
-        description="Path and description of data assets associated with this asset (eg. reference images)",
+    # related_data: List[RelatedData] = Field(
+    #     default=[],
+    #     title="Related data",
+    #     description="Path and description of data assets associated with this asset (eg. reference images)",
+    # )
+    input_data: Optional[str] = Field(
+        default=None,
+        title="Input data",
+        description="Name of the data asset that was used as input to the process that created this asset",
     )
     data_summary: Optional[str] = Field(
         default=None, title="Data summary", description="Semantic summary of experimental goal"
@@ -132,6 +130,13 @@ class DataDescription(DataCoreModel):
             label=m.group("label"),
             creation_time=creation_time,
         )
+    
+    @model_validator(mode="after")
+    def input_data_when_derived(self):
+        """Ensure that input_data is set when data_level is DERIVED"""
+        if self.data_level == DataLevel.DERIVED and self.input_data is None:
+            raise ValueError("input_data must be set when data_level is DERIVED")
+        return self
 
     @model_validator(mode="after")
     def build_name(self):
@@ -146,179 +151,62 @@ class DataDescription(DataCoreModel):
         return self
 
 
-class DerivedDataDescription(DataDescription):
-    """A logical collection of data files derived via processing"""
+def derived_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
+    """
+    Create a DataLevel.DERIVED DataDescription from a DataLevel.RAW DataDescription object.
 
-    input_data_name: str
-    data_level: Literal[DataLevel.DERIVED] = Field(
-        default=DataLevel.DERIVED, description="level of processing that data has undergone", title="Data Level"
-    )
-    process_name: Optional[str] = Field(
-        default=None,
-        pattern=DataRegex.NO_SPECIAL_CHARS.value,
-        description="Name of the process that created the data",
-        title="Process name",
-    )
+    Parameters
+    ----------
+    data_description : DataDescription
+        The DataDescription object to use as the base for the Derived
+    process_name : str
+        Name of the process that created the data
+    kwargs
+        DerivedDataDescription fields can be explicitly set and will override
+        values pulled from DataDescription
 
-    @classmethod
-    def parse_name(cls, name):
-        """decompose DerivedDataDescription name into parts"""
+    """
 
-        # look for input data name
-        m = re.match(f"{DataRegex.DERIVED.value}", name)
-
-        if m is None:
-            raise ValueError(f"name({name}) does not match pattern")
-
-        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
-
-        return dict(
-            process_name=m.group("process_name"),
-            creation_time=creation_time,
-            input_data_name=m.group("input"),
-        )
-
-    @model_validator(mode="after")
-    def build_name(self):
-        """sets the name of the file"""
-        if self.process_name:
-            self.name = build_data_name(
-                f"{self.input_data_name}_{self.process_name}", creation_datetime=self.creation_time
-            )
-        else:
-            self.name = build_data_name(f"{self.input_data_name}", creation_datetime=self.creation_time)
-        return self
-
-    @classmethod
-    def from_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
+    def get_or_default(field_name: str) -> Any:
         """
-        Create a DerivedDataDescription from a DataDescription object.
-
+        If the field is set in kwargs, use that value. Otherwise, check if
+        the field is set in the DataDescription object. If not, pull from
+        the field default value if the field has a default value. Otherwise,
+        return None and allow pydantic to raise a Validation Error if field
+        is not Optional.
         Parameters
         ----------
-        data_description : DataDescription
-            The DataDescription object to use as the base for the Derived
-        process_name : str
-            Name of the process that created the data
-        kwargs
-            DerivedDataDescription fields can be explicitly set and will override
-            values pulled from DataDescription
+        field_name : str
+            Name of the field to set
+
+        Returns
+        -------
+        Any
 
         """
+        if kwargs.get(field_name) is not None:
+            return kwargs.get(field_name)
+        elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+            return getattr(data_description, field_name)
+        else:
+            return getattr(DataDescription.model_fields.get(field_name), "default")
 
-        def get_or_default(field_name: str) -> Any:
-            """
-            If the field is set in kwargs, use that value. Otherwise, check if
-            the field is set in the DataDescription object. If not, pull from
-            the field default value if the field has a default value. Otherwise,
-            return None and allow pydantic to raise a Validation Error if field
-            is not Optional.
-            Parameters
-            ----------
-            field_name : str
-              Name of the field to set
-
-            Returns
-            -------
-            Any
-
-            """
-            if kwargs.get(field_name) is not None:
-                return kwargs.get(field_name)
-            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
-                return getattr(data_description, field_name)
-            else:
-                return getattr(DerivedDataDescription.model_fields.get(field_name), "default")
-
-        creation_time = (
-            datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
-        )
-
-        return cls(
-            creation_time=creation_time,
-            process_name=process_name,
-            institution=get_or_default("institution"),
-            funding_source=get_or_default("funding_source"),
-            group=get_or_default("group"),
-            investigators=get_or_default("investigators"),
-            restrictions=get_or_default("restrictions"),
-            modalities=get_or_default("modalities"),
-            project_name=get_or_default("project_name"),
-            subject_id=get_or_default("subject_id"),
-            related_data=get_or_default("related_data"),
-            data_summary=get_or_default("data_summary"),
-            input_data_name=data_description.name,
-        )
-
-
-class RawDataDescription(DataDescription):
-    """A logical collection of data files as acquired from an instrument"""
-
-    data_level: Literal[DataLevel.RAW] = Field(
-        default=DataLevel.RAW, description="level of processing that data has undergone", title="Data Level"
+    creation_time = (
+        datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
     )
 
-    @model_validator(mode="after")
-    def build_name(self):
-        """sets the name of the file"""
-        self.name = build_data_name(f"{self.subject_id}", creation_datetime=self.creation_time)
-        return self
-
-    @classmethod
-    def parse_name(cls, name):
-        """Decompose raw description name into component parts"""
-
-        m = re.match(f"{DataRegex.RAW.value}", name)
-
-        if m is None:
-            raise ValueError(f"name({name}) does not match pattern")
-
-        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
-
-        return dict(
-            subject_id=m.group("subject_id"),
-            creation_time=creation_time,
-        )
-
-
-class AnalysisDescription(DataDescription):
-    """A collection of data files as analyzed from an asset"""
-
-    data_level: Literal[DataLevel.DERIVED] = Field(
-        DataLevel.DERIVED, description="Level of processing that data has undergone", title="Data Level"
+    return cls(
+        creation_time=creation_time,
+        process_name=process_name,
+        institution=get_or_default("institution"),
+        funding_source=get_or_default("funding_source"),
+        group=get_or_default("group"),
+        investigators=get_or_default("investigators"),
+        restrictions=get_or_default("restrictions"),
+        modalities=get_or_default("modalities"),
+        project_name=get_or_default("project_name"),
+        subject_id=get_or_default("subject_id"),
+        related_data=get_or_default("related_data"),
+        data_summary=get_or_default("data_summary"),
+        input_data_name=data_description.name,
     )
-    project_name: str = Field(
-        ...,
-        pattern=DataRegex.NO_SPECIAL_CHARS.value,
-        description="Name of the project the analysis belongs to",
-        title="Project name",
-    )
-    analysis_name: str = Field(
-        ...,
-        pattern=DataRegex.NO_SPECIAL_CHARS.value,
-        description="Name of the analysis performed",
-        title="Analysis name",
-    )
-
-    @model_validator(mode="after")
-    def build_name(self):
-        """returns the label of the file"""
-        self.name = build_data_name(f"{self.project_name}_{self.analysis_name}", creation_datetime=self.creation_time)
-        return self
-
-    @classmethod
-    def parse_name(cls, name):
-        """Decompose raw Analysis name into component parts"""
-
-        m = re.match(f"{DataRegex.ANALYZED.value}", name)
-
-        if m is None:
-            raise ValueError(f"name({name}) does not match pattern")
-
-        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
-
-        return dict(
-            project_abbreviation=m.group("project_abbreviation"),
-            analysis_name=m.group("analysis_name"),
-            creation_time=creation_time,
-        )
