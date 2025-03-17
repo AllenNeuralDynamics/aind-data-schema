@@ -11715,15 +11715,6 @@
                ],
                "default": null,
                "title": "Acquisition sample immersion data"
-            },
-            "processing_steps": {
-               "default": [],
-               "description": "List of downstream processing steps planned for each channel",
-               "items": {
-                  "$ref": "#/$defs/ProcessingSteps"
-               },
-               "title": "Processing steps",
-               "type": "array"
             }
          },
          "required": [
@@ -19313,48 +19304,6 @@
          ],
          "title": "PowerUnit",
          "type": "string"
-      },
-      "ProcessingSteps": {
-         "additionalProperties": false,
-         "description": "Description of downstream processing steps",
-         "properties": {
-            "object_type": {
-               "const": "Processing steps",
-               "default": "Processing steps",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "channel_name": {
-               "title": "Channel name",
-               "type": "string"
-            },
-            "process_name": {
-               "items": {
-                  "enum": [
-                     "Image atlas alignment",
-                     "Image background subtraction",
-                     "Image cell segmentation",
-                     "Image destriping",
-                     "Image flat-field correction",
-                     "Image importing",
-                     "Image thresholding",
-                     "Image tile alignment",
-                     "Image tile fusing",
-                     "Image tile projection",
-                     "File format conversion"
-                  ],
-                  "type": "string"
-               },
-               "title": "Process Name",
-               "type": "array"
-            }
-         },
-         "required": [
-            "channel_name",
-            "process_name"
-         ],
-         "title": "ProcessingSteps",
-         "type": "object"
       },
       "Reagent": {
          "additionalProperties": false,
@@ -58994,8 +58943,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.6",
+         "default": "2.0.6",
          "title": "Schema Version",
          "type": "string"
       },
