@@ -21724,21 +21724,6 @@
          "title": "ImagingDeviceType",
          "type": "string"
       },
-      "ImagingInstrumentType": {
-         "description": "Experiment type name",
-         "enum": [
-            "confocal",
-            "diSPIM",
-            "exaSPIM",
-            "ecephys",
-            "mesoSPIM",
-            "Other",
-            "SmartSPIM",
-            "Two photon"
-         ],
-         "title": "ImagingInstrumentType",
-         "type": "string"
-      },
       "Immersion": {
          "additionalProperties": false,
          "description": "Description of immersion medium",
@@ -22024,8 +22009,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.5",
-               "default": "2.0.5",
+               "const": "2.0.6",
+               "default": "2.0.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -22173,18 +22158,6 @@
                },
                "title": "COM ports",
                "type": "array"
-            },
-            "instrument_type": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/ImagingInstrumentType"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Instrument type"
             },
             "manufacturer": {
                "anyOf": [
@@ -52933,8 +52906,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.13",
-               "default": "2.0.13",
+               "const": "2.0.14",
+               "default": "2.0.14",
                "title": "Schema Version",
                "type": "string"
             },
@@ -103199,8 +103172,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.13",
-         "default": "2.0.13",
+         "const": "2.0.14",
+         "default": "2.0.14",
          "title": "Schema Version",
          "type": "string"
       },
