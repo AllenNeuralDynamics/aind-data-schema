@@ -379,27 +379,6 @@ class Immersion(DataModel):
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class ProcessingSteps(DataModel):
-    """Description of downstream processing steps"""
-
-    channel_name: str = Field(..., title="Channel name")
-    process_name: List[
-        Literal[
-            ProcessName.IMAGE_ATLAS_ALIGNMENT,
-            ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
-            ProcessName.IMAGE_CELL_SEGMENTATION,
-            ProcessName.IMAGE_DESTRIPING,
-            ProcessName.IMAGE_FLAT_FIELD_CORRECTION,
-            ProcessName.IMAGE_IMPORTING,
-            ProcessName.IMAGE_THRESHOLDING,
-            ProcessName.IMAGE_TILE_ALIGNMENT,
-            ProcessName.IMAGE_TILE_FUSING,
-            ProcessName.IMAGE_TILE_PROJECTION,
-            ProcessName.FILE_FORMAT_CONVERSION,
-        ]
-    ] = Field(...)
-
-
 class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
@@ -407,11 +386,6 @@ class InVitroImagingConfig(DataModel):
     axes: List[ImageAxis] = Field(..., title="Acquisition axes")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
-    processing_steps: List[ProcessingSteps] = Field(
-        default=[],
-        title="Processing steps",
-        description="List of downstream processing steps planned for each channel",
-    )
 
     @field_validator("axes", mode="before")
     def from_direction_code(cls, v: Union[str, List[ImageAxis]]) -> List[ImageAxis]:
