@@ -26,7 +26,6 @@ from aind_data_schema.components.devices import (
     FiberAssembly,
     Filter,
     HarpDevice,
-    ImagingInstrumentType,
     Lamp,
     Laser,
     LaserAssembly,
@@ -116,7 +115,6 @@ class Instrument(DataCoreModel):
     instrument_axes: Optional[List[Axis]] = Field(default=None, title="Instrument axes", min_length=3, max_length=3)
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     com_ports: List[Com] = Field(default=[], title="COM ports")
-    instrument_type: Optional[ImagingInstrumentType] = Field(default=None, title="Instrument type")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -213,10 +211,6 @@ class Instrument(DataCoreModel):
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("instrument_type") == ImagingInstrumentType.OTHER and not value:
-            raise ValueError(
-                "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
-            )
         if info.data.get("manufacturer") == Organization.OTHER and not value:
             raise ValueError(
                 "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."

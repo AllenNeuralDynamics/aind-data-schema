@@ -23,7 +23,6 @@ from aind_data_schema.components.devices import (
     Disc,
     EphysAssembly,
     EphysProbe,
-    ImagingInstrumentType,
     Laser,
     LaserAssembly,
     Lens,
@@ -487,18 +486,6 @@ class InstrumentTests(unittest.TestCase):
     def test_validator_notes(self):
         """Test the notes validator"""
 
-        # Test when instrument_type is OTHER and notes are empty
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS],
-                components=[*daqs, *ems],
-                instrument_type=ImagingInstrumentType.OTHER,
-                manufacturer=Organization.IMEC,
-                notes=None,
-            )
-
         # Test when manufacturer is OTHER and notes are empty
         with self.assertRaises(ValidationError):
             Instrument(
@@ -506,34 +493,9 @@ class InstrumentTests(unittest.TestCase):
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS],
                 components=[*daqs, *ems],
-                instrument_type=ImagingInstrumentType.CONFOCAL,
                 manufacturer=Organization.OTHER,
                 notes=None,
             )
-
-        # Test when both instrument_type and manufacturer are OTHER and notes are empty
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS],
-                components=[*daqs, *ems],
-                instrument_type=ImagingInstrumentType.OTHER,
-                manufacturer=Organization.OTHER,
-                notes=None,
-            )
-
-        # Test when notes are provided for instrument_type OTHER
-        inst = Instrument(
-            instrument_id="123_EPHYS1-OPTO_20220101",
-            modification_date=date(2020, 10, 10),
-            modalities=[Modality.ECEPHYS],
-            components=[*daqs, *ems],
-            instrument_type=ImagingInstrumentType.OTHER,
-            manufacturer=Organization.IMEC,
-            notes="This is a custom instrument type.",
-        )
-        self.assertIsNotNone(inst)
 
         # Test when notes are provided for manufacturer OTHER
         inst = Instrument(
@@ -541,21 +503,8 @@ class InstrumentTests(unittest.TestCase):
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS],
             components=[*daqs, *ems],
-            instrument_type=ImagingInstrumentType.CONFOCAL,
             manufacturer=Organization.OTHER,
             notes="This is a custom manufacturer.",
-        )
-        self.assertIsNotNone(inst)
-
-        # Test when notes are provided for both instrument_type and manufacturer OTHER
-        inst = Instrument(
-            instrument_id="123_EPHYS1-OPTO_20220101",
-            modification_date=date(2020, 10, 10),
-            modalities=[Modality.ECEPHYS],
-            components=[*daqs, *ems],
-            instrument_type=ImagingInstrumentType.OTHER,
-            manufacturer=Organization.OTHER,
-            notes="This is a custom instrument type and manufacturer.",
         )
         self.assertIsNotNone(inst)
 
