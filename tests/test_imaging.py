@@ -132,7 +132,6 @@ class ImagingTests(unittest.TestCase):
         i = Instrument(
             instrument_id="room_exaSPIM1-1_20231004",
             modalities=[Modality.SPIM],
-            instrument_type="diSPIM",
             coordinate_system=CoordinateSystemLibrary.DEFAULT,
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
@@ -141,21 +140,6 @@ class ImagingTests(unittest.TestCase):
 
         self.assertIsNotNone(i)
 
-    def test_instrument_type_other_requires_notes(self):
-        """testing Instrument type Other requires notes"""
-        with self.assertRaises(ValidationError) as e1:
-            Instrument(
-                instrument_id="room_exaSPIM1-1_20231004",
-                modalities=[Modality.SPIM],
-                instrument_type="Other",
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
-                modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
-                manufacturer=Organization.OTHER,
-                components=[],
-            )
-
-        self.assertIn("instrument_id", repr(e1.exception))
-
     def test_modality_spim_requires_components(self):
         """testing Modality SPIM requires components"""
         with self.assertRaises(ValidationError) as e2:
@@ -163,7 +147,6 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="room_exaSPIM1-1_20231004",
                 modalities=[Modality.SPIM],
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 instrument_type="diSPIM",
                 manufacturer=Organization.OTHER,
                 components=[],

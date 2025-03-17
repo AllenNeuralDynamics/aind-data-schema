@@ -9,7 +9,6 @@ from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Detector,
     Filter,
-    ImagingInstrumentType,
     Laser,
     MotorizedStage,
     Objective,
@@ -184,7 +183,6 @@ lens3 = AdditionalImagingDevice(
 inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
-    instrument_type=ImagingInstrumentType.SMARTSPIM,
     coordinate_system=CoordinateSystemLibrary.DEFAULT,
     modalities=[Modality.SPIM],
     manufacturer=Organization.LIFECANVAS,

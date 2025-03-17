@@ -216,7 +216,6 @@ optical_tables = [
 inst = Instrument(
     instrument_id="440_exaSPIM1_20231004",
     modalities=[Modality.SPIM],
-    instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
     manufacturer=Organization.CUSTOM,
     coordinate_system=CoordinateSystemLibrary.DEFAULT,
