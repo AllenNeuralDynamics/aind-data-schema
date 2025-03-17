@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.6",
-               "default": "2.0.6",
+               "const": "2.0.7",
+               "default": "2.0.7",
                "title": "Schema Version",
                "type": "string"
             },
@@ -51439,8 +51439,15 @@
                "title": "Reward consumed during training (uL)"
             },
             "reward_consumed_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "default": "microliter",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Reward consumed unit"
             },
             "trials_total": {
@@ -52897,8 +52904,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.15",
-               "default": "2.0.15",
+               "const": "2.0.16",
+               "default": "2.0.16",
                "title": "Schema Version",
                "type": "string"
             },
@@ -68748,8 +68755,15 @@
                "title": "Total reward consumed (mL)"
             },
             "reward_consumed_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "default": "milliliter",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Reward consumed unit"
             }
          },
@@ -103121,8 +103135,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.15",
-         "default": "2.0.15",
+         "const": "2.0.16",
+         "default": "2.0.16",
          "title": "Schema Version",
          "type": "string"
       },
