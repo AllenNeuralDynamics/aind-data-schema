@@ -85,7 +85,7 @@ class SubjectDetails(DataModel):
     mouse_platform_name: str = Field(..., title="Mouse platform")
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
+    reward_consumed_unit: VolumeUnit = Field(default=None, title="Reward consumed unit")
 
 
 class PerformanceMetrics(DataModel):
@@ -93,7 +93,7 @@ class PerformanceMetrics(DataModel):
 
     output_parameters: GenericModelType = Field(default=GenericModel(), title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
+    reward_consumed_unit: VolumeUnit = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
     trials_finished: Optional[int] = Field(default=None, title="Finished trials")
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
