@@ -147,7 +147,7 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="room_exaSPIM1-1_20231004",
                 modalities=[Modality.SPIM],
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
-                instrument_type="diSPIM",
+                coordinate_system=CoordinateSystemLibrary.DEFAULT,
                 manufacturer=Organization.OTHER,
                 components=[],
             )
