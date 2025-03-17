@@ -186,7 +186,7 @@ class Rotation(DataModel):
 
     @model_validator(mode="after")
     def validate_lengths(cls, values):
-        """Validate that number of angles and order match in length """
+        """Validate that number of angles and order match in length"""
 
         angles = values.angles
         order = values.order

@@ -168,7 +168,7 @@ class TestAffineTransformMatrix(unittest.TestCase):
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
 
     def test_compose_invalid_sizes(self):
-        """ Raise error when composing matrices of different sizes """
+        """Raise error when composing matrices of different sizes"""
         translation = Translation(translation=[2, 3, 4])
         rotation = Rotation(
             angles=[90, 45, 30],
