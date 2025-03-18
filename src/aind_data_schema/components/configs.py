@@ -32,7 +32,7 @@ from aind_data_schema.base import (
     DataModel,
 )
 from aind_data_schema.components.coordinates import (
-    AffineTransformMatrix,
+    Affine,
     Translation,
     Scale,
 )
@@ -357,7 +357,7 @@ class MRIScan(DeviceConfig):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Optional[AffineTransformMatrix] = Field(default=None, title="Scan orientation")
+    vc_orientation: Optional[Affine] = Field(default=None, title="Scan orientation")
     vc_position: Optional[Translation] = Field(default=None, title="Scan position")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields

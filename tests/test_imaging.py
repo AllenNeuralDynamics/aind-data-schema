@@ -14,7 +14,7 @@ from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
     Translation,
-    AffineTransformMatrix,
+    Affine,
     CoordinateSystemLibrary,
     Transform,
 )
@@ -172,7 +172,7 @@ class ImagingTests(unittest.TestCase):
                         transforms=Transform(
                             system_name="BREGMA_ARI",
                             transforms=[
-                                AffineTransformMatrix(
+                                Affine(
                                     affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
                                 ),
                             ],

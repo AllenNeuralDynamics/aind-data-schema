@@ -6,7 +6,7 @@ from aind_data_schema.components.coordinates import (
     AxisName,
     Translation,
     Rotation,
-    AffineTransformMatrix,
+    Affine,
     Axis,
     Direction,
     AtlasName,
@@ -102,14 +102,14 @@ class TestRotation(unittest.TestCase):
         self.assertEqual(rotation.to_matrix(), expected_matrix)
 
 
-class TestAffineTransformMatrix(unittest.TestCase):
-    """Tests for the AffineTransformMatrix class"""
+class TestAffine(unittest.TestCase):
+    """Tests for the Affine class"""
 
     def test_compose_with_translation(self):
         """Test compose method with translation"""
 
         translation = Translation(translation=[2, 3, 4])
-        affine_transform = AffineTransformMatrix(affine_transform=[])
+        affine_transform = Affine(affine_transform=[])
         composed_transform = affine_transform.compose([translation])
         expected_matrix = [[1.0, 0.0, 0.0, 2.0], [0.0, 1.0, 0.0, 3.0], [0.0, 0.0, 1.0, 4.0], [0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
@@ -120,14 +120,14 @@ class TestAffineTransformMatrix(unittest.TestCase):
         rotation = Rotation(
             angles=[90, 45, 30],
         )
-        composed_transform = AffineTransformMatrix.compose([rotation])
+        composed_transform = Affine.compose([rotation])
         self.assertEqual(composed_transform.affine_transform, rotation.to_matrix())
 
     def test_compose_with_scale(self):
         """Test compose method with scale"""
 
         scale = Scale(scale=[2, 3, 4])
-        affine_transform = AffineTransformMatrix(affine_transform=[])
+        affine_transform = Affine(affine_transform=[])
         composed_transform = affine_transform.compose([scale])
         expected_matrix = [[2.0, 0.0, 0.0, 0.0], [0.0, 3.0, 0.0, 0.0], [0.0, 0.0, 4.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
@@ -139,7 +139,7 @@ class TestAffineTransformMatrix(unittest.TestCase):
             angles=[90, 45, 30],
         )
         scale = Scale(scale=[2, 3, 4])
-        affine_transform = AffineTransformMatrix(affine_transform=[])
+        affine_transform = Affine(affine_transform=[])
         composed_transform = affine_transform.compose([rotation, translation, scale])
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -158,7 +158,7 @@ class TestAffineTransformMatrix(unittest.TestCase):
             angles=[90, 45, 30],
         )
         scale = Scale(scale=[2, 3])
-        affine_transform = AffineTransformMatrix(affine_transform=[])
+        affine_transform = Affine(affine_transform=[])
         with self.assertRaises(ValueError) as context:
             affine_transform.compose([rotation, translation, scale])
 

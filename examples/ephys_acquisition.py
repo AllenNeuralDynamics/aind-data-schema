@@ -16,7 +16,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate, SurfaceCoordinate
+from aind_data_schema.components.coordinates import Coordinate
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -43,10 +43,9 @@ ephys_config_a = ManipulatorConfig(
         ),
     ],
     manipulator_coordinates=[
-        SurfaceCoordinate(
-            system_name="BREGMA_ARI",
-            position=[5000, 5000, 0],
-            depth=1,
+        Coordinate(
+            system_name="BREGMA_ARID",
+            position=[5000, 5000, 0, 1],
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
@@ -76,10 +75,9 @@ ephys_config_b = ManipulatorConfig(
         ),
     ],
     manipulator_coordinates=[
-        SurfaceCoordinate(
-            system_name="BREGMA_ARI",
-            position=[5000, 5000, 0],
-            depth=1,
+        Coordinate(
+            system_name="BREGMA_ARID",
+            position=[5000, 5000, 0, 1],
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),

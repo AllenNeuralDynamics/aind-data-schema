@@ -56,7 +56,6 @@ from aind_data_schema.components.coordinates import (
     RelativePosition,
     AnatomicalRelative,
     Coordinate,
-    SurfaceCoordinate,
     CoordinateSystemLibrary,
 )
 
@@ -366,10 +365,9 @@ ephys_acquisition = Acquisition(
                         )
                     ],
                     manipulator_coordinates=[
-                        SurfaceCoordinate(
+                        Coordinate(
                             system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                            depth=1,
+                            position=[1, 1, 1, 1],
                         )
                     ],
                     arc_angle=5.2,
@@ -392,10 +390,9 @@ ephys_acquisition = Acquisition(
                         ),
                     ],
                     manipulator_coordinates=[
-                        SurfaceCoordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                            depth=1,
+                        CoordinateSystemLibrary(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
@@ -469,10 +466,9 @@ ephys_acquisition = Acquisition(
                         ),
                     ],
                     manipulator_coordinates=[
-                        SurfaceCoordinate(
-                            system_name="BREGMA_ARI",
+                        Coordinate(
+                            system_name="BREGMA_ARID",
                             position=[1, 1, 1],
-                            depth=1,
                         )
                     ],
                     manipulator_axis_positions=[
@@ -501,10 +497,9 @@ ephys_acquisition = Acquisition(
                         ),
                     ],
                     manipulator_coordinates=[
-                        SurfaceCoordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                            depth=1,
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
@@ -533,10 +528,9 @@ ephys_acquisition = Acquisition(
                         ),
                     ],
                     manipulator_coordinates=[
-                        SurfaceCoordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                            depth=1,
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
@@ -929,10 +923,9 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
                             manipulator_coordinates=[
-                                SurfaceCoordinate(
-                                    system_name="BREGMA_ARI",
-                                    position=[1, 1, 1],
-                                    depth=1,
+                                Coordinate(
+                                    system_name="BREGMA_ARID",
+                                    position=[1, 1, 1, 1],
                                 ),
                             ],
                         ),

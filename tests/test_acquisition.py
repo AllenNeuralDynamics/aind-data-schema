@@ -10,7 +10,7 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.coordinates import (
-    AffineTransformMatrix,
+    Affine,
     Scale,
     Translation,
     Coordinate,
@@ -125,7 +125,7 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_orientation=AffineTransformMatrix(
+                    vc_orientation=Affine(
                         affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
                     ),
                     vc_position=Translation(
@@ -198,10 +198,9 @@ class AcquisitionTest(unittest.TestCase):
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    SurfaceCoordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
-                                        depth=1,
+                                    Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
@@ -254,9 +253,9 @@ class AcquisitionTest(unittest.TestCase):
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    SurfaceCoordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                    Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 1],
                                         depth=1,
                                     )
                                 ],
@@ -309,10 +308,9 @@ class AcquisitionTest(unittest.TestCase):
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    SurfaceCoordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
-                                        depth=1,
+                                    Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
@@ -364,10 +362,9 @@ class AcquisitionTest(unittest.TestCase):
                         ),
                     ],
                     manipulator_coordinates=[
-                        SurfaceCoordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                            depth=1,
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[

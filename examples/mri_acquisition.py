@@ -4,7 +4,7 @@ from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.coordinates import AffineTransformMatrix, Scale, Translation
+from aind_data_schema.components.coordinates import Affine, Scale, Translation
 from aind_data_schema.components.devices import Scanner
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
@@ -47,7 +47,7 @@ scan2 = MRIScan(
     echo_time=Decimal(5.33333333333333),
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
-    vc_orientation=AffineTransformMatrix(
+    vc_orientation=Affine(
         affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
     ),
     vc_position=Translation(

@@ -179,7 +179,7 @@ class Rotation(DataModel):
         return rotation_matrix
 
 
-class AffineTransformMatrix(DataModel):
+class Affine(DataModel):
     """Definition of an affine transform 3x4 matrix"""
 
     affine_transform: List[List[float]] = Field(
@@ -188,7 +188,7 @@ class AffineTransformMatrix(DataModel):
     )
 
     @classmethod
-    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "AffineTransformMatrix":
+    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "Affine":
         """Compose an affine transform matrix from a list of transforms
 
         Parameters
@@ -198,7 +198,7 @@ class AffineTransformMatrix(DataModel):
 
         Returns
         -------
-        AffineTransformMatrix
+        Affine
             Composed transform
         """
         try:
@@ -232,7 +232,7 @@ class AffineTransformMatrix(DataModel):
         for matrix in matrices[1:]:
             transform_matrix = np.matmul(transform_matrix, matrix).tolist()
 
-        return AffineTransformMatrix(affine_transform=transform_matrix)
+        return Affine(affine_transform=transform_matrix)
 
 
 class NonlinearTransform(DataModel):
@@ -267,7 +267,7 @@ class Transform(DataModel):
 
     system_name: str = Field(..., title="Coordinate system name")
     transforms: List[
-        Annotated[Union[Translation, Rotation, Scale, AffineTransformMatrix], Field(discriminator="object_type")]
+        Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]
     ] = Field(..., title="Transform")
 
 
@@ -278,7 +278,7 @@ class CoordinateTransform(DataModel):
     output: str = Field(..., title="Output coordinate system")
     transforms: List[
         Annotated[
-            Union[Translation, Rotation, Scale, AffineTransformMatrix, NonlinearTransform],
+            Union[Translation, Rotation, Scale, Affine, NonlinearTransform],
             Field(discriminator="object_type"),
         ]
     ] = Field(..., title="Transform")
@@ -335,7 +335,7 @@ class CoordinateSystemLibrary:
 
     # Standard surface coordinates (with depth)
     BREGMA_ARID = CoordinateSystem(
-        name="BREGMA_ARI",
+        name="BREGMA_ARID",
         origin=Origin.BREGMA,
         axis_unit=SizeUnit.UM,
         axes=[
@@ -346,7 +346,7 @@ class CoordinateSystemLibrary:
         ],
     )
     LAMBDA_ARID = CoordinateSystem(
-        name="LAMBDA_ARI",
+        name="LAMBDA_ARID",
         origin=Origin.LAMBDA,
         axis_unit=SizeUnit.UM,
         axes=[
@@ -379,14 +379,15 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    PROBE_ARI = CoordinateSystem(
-        name="PROBE_ARI",
+    PROBE_ARID = CoordinateSystem(
+        name="PROBE_ARID",
         origin=Origin.TIP,
         axis_unit=SizeUnit.CM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
             Axis(name=AxisName.Z, direction=Direction.AP),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     )
 
