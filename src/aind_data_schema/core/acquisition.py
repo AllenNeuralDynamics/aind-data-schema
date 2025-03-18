@@ -84,7 +84,7 @@ class SubjectDetails(DataModel):
     mouse_platform_name: str = Field(..., title="Mouse platform")
     reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.ML, title="Reward consumed unit")
+    reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
 
 class PerformanceMetrics(DataModel):
@@ -92,7 +92,7 @@ class PerformanceMetrics(DataModel):
 
     output_parameters: GenericModelType = Field(default=GenericModel(), title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
-    reward_consumed_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Reward consumed unit")
+    reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
     trials_finished: Optional[int] = Field(default=None, title="Finished trials")
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
@@ -196,7 +196,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.7"]] = Field(default="2.0.7")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
