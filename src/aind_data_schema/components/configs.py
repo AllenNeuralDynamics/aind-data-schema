@@ -217,23 +217,26 @@ class DomeModule(DeviceConfig):
 class ManipulatorConfig(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
+    # Target
     primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-
     atlas_coordinates: Optional[List[Coordinate]] = Field(
         default=None,
         title="Targeted coordinates in the Acquisition Atlas",
     )
-    manipulator_coordinates: Optional[List[SurfaceCoordinate]] = Field(
-        default=None,
+
+    # Coordinates
+    manipulator_coordinates: List[SurfaceCoordinate] = Field(
+        ...,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )
     manipulator_axis_positions: Optional[List[Coordinate]] = Field(
         default=None,
-        title="Manipulator local axis positions",
+        title="Manipulator local axis positions, in the device CoordinateSystem",
     )
+
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 

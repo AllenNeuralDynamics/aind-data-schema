@@ -56,6 +56,7 @@ from aind_data_schema.components.coordinates import (
     RelativePosition,
     AnatomicalRelative,
     Coordinate,
+    SurfaceCoordinate,
     CoordinateSystemLibrary,
 )
 
@@ -364,6 +365,13 @@ ephys_acquisition = Acquisition(
                             position=[84222, 4205, 11087.5],
                         )
                     ],
+                    manipulator_coordinates=[
+                        SurfaceCoordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                            depth=1,
+                        )
+                    ],
                     arc_angle=5.2,
                     module_angle=8,
                     primary_targeted_structure=CCFStructure.LGD,
@@ -382,6 +390,13 @@ ephys_acquisition = Acquisition(
                             system_name="BREGMA_ARI",
                             position=[6637.28, 4265.02, 10707.35],
                         ),
+                    ],
+                    manipulator_coordinates=[
+                        SurfaceCoordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                            depth=1,
+                        )
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
@@ -453,6 +468,13 @@ ephys_acquisition = Acquisition(
                             position=[8150, 3250, 7800],
                         ),
                     ],
+                    manipulator_coordinates=[
+                        SurfaceCoordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                            depth=1,
+                        )
+                    ],
                     manipulator_axis_positions=[
                         Coordinate(
                             system_name="BREGMA_ARI",
@@ -478,6 +500,13 @@ ephys_acquisition = Acquisition(
                             position=[8150, 3250, 7800],
                         ),
                     ],
+                    manipulator_coordinates=[
+                        SurfaceCoordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                            depth=1,
+                        )
+                    ],
                     manipulator_axis_positions=[
                         Coordinate(
                             system_name="BREGMA_ARI",
@@ -502,6 +531,13 @@ ephys_acquisition = Acquisition(
                             system_name="BREGMA_ARI",
                             position=[6637.28, 4265.02, 10707.35],
                         ),
+                    ],
+                    manipulator_coordinates=[
+                        SurfaceCoordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                            depth=1,
+                        )
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
