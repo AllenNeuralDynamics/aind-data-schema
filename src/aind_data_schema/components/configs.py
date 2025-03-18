@@ -32,8 +32,6 @@ from aind_data_schema.base import (
     DataModel,
 )
 from aind_data_schema.components.coordinates import (
-    Affine,
-    Translation,
     Scale,
 )
 from aind_data_schema.components.devices import SpoutSide

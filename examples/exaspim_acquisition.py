@@ -9,7 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, Transform, CoordinateTransform,
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream

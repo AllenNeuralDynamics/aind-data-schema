@@ -13,7 +13,6 @@ from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
-    Transform,
     Origin,
     Coordinate,
     CoordinateTransform,
