@@ -16,6 +16,7 @@ from aind_data_schema.components.coordinates import (
     Transform,
     Origin,
     Coordinate,
+    CoordinateTransform,
     CoordinateSystemLibrary,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance
@@ -37,8 +38,9 @@ invitro_config = InVitroImagingConfig(
     tiles=[
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-            transforms=Transform(
-                system_name="SPIM",
+            coordinate_transform=CoordinateTransform(
+                input="TILE_XYZ",
+                output="SPIM_RPI",
                 transforms=[
                     Scale(
                         scale=[0.748, 0.748, 1],
@@ -236,8 +238,9 @@ class TestComposability(unittest.TestCase):
                             tiles=[
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-                                    transforms=Transform(
-                                        system_name="SPIM_RPI",
+                                    coordinate_transform=CoordinateTransform(
+                                        input="TILE_XYZ",
+                                        output="SPIM_RPI",
                                         transforms=[
                                             Scale(
                                                 scale=[0.748, 0.748, 1],

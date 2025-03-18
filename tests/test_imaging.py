@@ -16,7 +16,7 @@ from aind_data_schema.components.coordinates import (
     Translation,
     Affine,
     CoordinateSystemLibrary,
-    Transform,
+    CoordinateTransform,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -47,14 +47,15 @@ class ImagingTests(unittest.TestCase):
                     chamber_immersion=Immersion(medium="PBS", refractive_index=1),
                     tiles=[
                         tile.AcquisitionTile(
-                            transforms=Transform(
-                                system_name="BREGMA_ARI",
+                            coordinate_transform=CoordinateTransform(
+                                input="TILE_XYZ",
+                                output="SPIM_RPI",
                                 transforms=[
                                     Scale(
                                         scale=[1, 1, 1],
                                     ),
                                     Translation(
-                                        translation=[1, 1, 1],
+                                        translation=[0, 0, 0],
                                     ),
                                 ],
                             ),
@@ -169,8 +170,9 @@ class ImagingTests(unittest.TestCase):
             parameters={
                 "tiles": [
                     tile.Tile(
-                        transforms=Transform(
-                            system_name="BREGMA_ARI",
+                        coordinate_transform=CoordinateTransform(
+                            input="TILE_XYZ",
+                            output="BREGMA_ARI",
                             transforms=[
                                 Affine(
                                     affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]
@@ -179,8 +181,9 @@ class ImagingTests(unittest.TestCase):
                         ),
                     ),
                     tile.Tile(
-                        transforms=Transform(
-                            system_name="BREGMA_ARI",
+                        coordinate_transform=CoordinateTransform(
+                            input="TILE_XYZ",
+                            output="BREGMA_ARI",
                             transforms=[
                                 Translation(
                                     translation=[0, 1, 2],

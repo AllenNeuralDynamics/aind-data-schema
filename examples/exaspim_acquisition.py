@@ -9,7 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, Transform
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, Transform, CoordinateTransform,
 from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -23,11 +23,15 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 tile_scale = Scale(
     scale=[0.748, 0.748, 1],
 )
-transform = Transform(system_name="SPIM_RPI", transforms=[tile_scale])
+coordinate_transform = CoordinateTransform(
+    input="TILE_XYZ",
+    output="SPIM_RPI",
+    transforms=[tile_scale],
+)
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    transforms=transform,
+    coordinate_transform=coordinate_transform,
     channel=tile.Channel(
         channel_name="488",
         excitation_wavelength=488,
@@ -41,7 +45,7 @@ tile0 = tile.AcquisitionTile(
 )
 tile1 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-    transforms=transform,
+    coordinate_transform=coordinate_transform,
     channel=tile.Channel(
         channel_name="561",
         excitation_wavelength=561,
