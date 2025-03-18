@@ -43,7 +43,7 @@ p = Procedures(
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             protocol_id="doi",
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             procedures=[
                 Headframe(
                     protocol_id="2109",
