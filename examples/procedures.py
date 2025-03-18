@@ -81,7 +81,6 @@ surgery1 = Surgery(
                     depth=3.3,
                     angles=Rotation(
                         angles=[0, 10, 0],
-                        order=[0, 1, 2],
                     ),
                 ),
             ],

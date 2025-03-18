@@ -62,7 +62,6 @@ class TestRotation(unittest.TestCase):
 
         rotation = Rotation(
             angles=[90, 45, 30],
-            order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [90, 45, 30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -74,7 +73,6 @@ class TestRotation(unittest.TestCase):
 
         rotation = Rotation(
             angles=[-90, -45, -30],
-            order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [-90, -45, -30], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
@@ -84,7 +82,6 @@ class TestRotation(unittest.TestCase):
         """Test to_matrix method with partial axes"""
         rotation = Rotation(
             angles=[90, 45],
-            order=[0, 1],
         )
         expected_matrix = R.from_euler("xy", [90, 45], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 1.0]]
@@ -99,21 +96,10 @@ class TestRotation(unittest.TestCase):
                 0,
                 0,
             ],
-            order=[0, 1, 2],
         )
         expected_matrix = R.from_euler("xyz", [0, 0, 0], degrees=True).as_matrix().tolist()
         expected_matrix = [row + [0.0] for row in expected_matrix] + [[0.0, 0.0, 0.0, 1.0]]
         self.assertEqual(rotation.to_matrix(), expected_matrix)
-
-    def test_error_invalid_order(self):
-        """Test error with invalid order"""
-        with self.assertRaises(ValueError) as context:
-            Rotation(
-                angles=[90, 45, 30],
-                order=[0, 1],
-            )
-
-        self.assertIn("Number of angles must match the number of axes in the order", str(context.exception))
 
 
 class TestAffineTransformMatrix(unittest.TestCase):
@@ -133,7 +119,6 @@ class TestAffineTransformMatrix(unittest.TestCase):
 
         rotation = Rotation(
             angles=[90, 45, 30],
-            order=[0, 1, 2],
         )
         composed_transform = AffineTransformMatrix.compose([rotation])
         self.assertEqual(composed_transform.affine_transform, rotation.to_matrix())
@@ -152,7 +137,6 @@ class TestAffineTransformMatrix(unittest.TestCase):
         translation = Translation(translation=[2, 3, 4])
         rotation = Rotation(
             angles=[90, 45, 30],
-            order=[0, 1, 2],
         )
         scale = Scale(scale=[2, 3, 4])
         affine_transform = AffineTransformMatrix(affine_transform=[])
@@ -172,7 +156,6 @@ class TestAffineTransformMatrix(unittest.TestCase):
         translation = Translation(translation=[2, 3, 4])
         rotation = Rotation(
             angles=[90, 45, 30],
-            order=[0, 1, 2],
         )
         scale = Scale(scale=[2, 3])
         affine_transform = AffineTransformMatrix(affine_transform=[])
