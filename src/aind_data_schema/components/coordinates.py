@@ -443,8 +443,8 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    SPIM_YXZ = CoordinateSystem(
-        name="SPIM_YXZ",
+    SPIM_RPI = CoordinateSystem(
+        name="SPIM_RPI",
         origin=Origin.ORIGIN,
         axis_unit=SizeUnit.UM,
         axes=[
@@ -454,8 +454,8 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    SPIM_YXZ = CoordinateSystem(
-        name="SPIM_YZX",
+    SPIM_LPS = CoordinateSystem(
+        name="SPIM_LPS",
         origin=Origin.ORIGIN,
         axis_unit=SizeUnit.UM,
         axes=[

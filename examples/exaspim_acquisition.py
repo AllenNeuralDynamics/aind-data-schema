@@ -23,7 +23,7 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 tile_scale = Scale(
     scale=[0.748, 0.748, 1],
 )
-transform = Transform(system_name="SPIM_YXZ", transforms=[tile_scale])
+transform = Transform(system_name="SPIM_RPI", transforms=[tile_scale])
 
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
@@ -59,7 +59,7 @@ invitro_config = InVitroImagingConfig(
         medium="PBS",
         refractive_index=1.33,
     ),
-    coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     tiles=[
         tile0,
         tile1,

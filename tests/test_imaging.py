@@ -69,7 +69,7 @@ class ImagingTests(unittest.TestCase):
                             ),
                         ),
                     ],
-                    coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
+                    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
                 ),
             ],
         )
