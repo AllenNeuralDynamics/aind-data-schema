@@ -33,7 +33,7 @@ def recursive_coord_system_check(data, system_name: str):
 
     # Check if the object we are looking at has a system_name field
     if hasattr(data, "system_name"):
-        if data.system_name in system_name:
+        if data.system_name not in system_name:
             raise ValueError(
                 f"System name mismatch: {data.system_name} does not match the top-level coordinate system {system_name}"
             )
