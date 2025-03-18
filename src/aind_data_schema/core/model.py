@@ -60,6 +60,7 @@ class Model(AindCoreModel):
 
     name: str = Field(..., title="Name")
     license: str = Field(..., title="License")
+    version: Optional[str] = Field(default=None, title="Version")
     developer_full_name: Optional[List[str]] = Field(default=None, title="Name of developer")
     developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
     modality: List[Modality.ONE_OF] = Field(..., title="Modality")
