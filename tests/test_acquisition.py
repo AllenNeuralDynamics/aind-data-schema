@@ -224,7 +224,7 @@ class AcquisitionTest(unittest.TestCase):
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as context:
             Acquisition(
                 experimenters=[Person(name="Mam Moth")],
                 acquisition_start_time=datetime.now(),
@@ -263,7 +263,6 @@ class AcquisitionTest(unittest.TestCase):
                                     Coordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 1],
-                                        depth=1,
                                     )
                                 ],
                                 manipulator_axis_positions=[
@@ -277,6 +276,8 @@ class AcquisitionTest(unittest.TestCase):
                     )
                 ],
             )
+
+        self.assertIn("Expected 123456 to appear in 654321", str(context.exception))
 
     def test_specimen_required(self):
         """Test that specimen ID is required for in vitro imaging modalities"""
