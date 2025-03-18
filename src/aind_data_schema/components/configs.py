@@ -239,7 +239,7 @@ class ManipulatorConfig(DomeModule):
 
     @model_validator(mode="after")
     def validate_len_coordinates(self):
-        """Check that the length of atlas_ maipulator_ and manipulator_axis_ coordinates are the same"""
+        """Validate number of coordinates targeted"""
 
         lengths = []
         if self.atlas_coordinates:
