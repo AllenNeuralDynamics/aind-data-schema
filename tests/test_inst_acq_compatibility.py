@@ -390,7 +390,7 @@ ephys_acquisition = Acquisition(
                         ),
                     ],
                     manipulator_coordinates=[
-                        CoordinateSystemLibrary(
+                        Coordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )

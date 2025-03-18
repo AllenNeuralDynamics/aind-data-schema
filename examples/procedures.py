@@ -20,6 +20,7 @@ from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
     AxisName,
     CoordinateSystem,
+    Coordinate,
     Rotation,
     Origin,
     Axis,
