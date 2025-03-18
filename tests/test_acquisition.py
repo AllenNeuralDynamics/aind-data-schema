@@ -10,7 +10,7 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.coordinates import (
-    Rotation,
+    AffineTransformMatrix,
     Scale,
     Translation,
     Coordinate,
@@ -119,9 +119,8 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_orientation=Rotation(
-                        angles=[1, 1, 1],
-                        order=[0, 1, 2],
+                    vc_orientation=AffineTransformMatrix(
+                        affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
                     ),
                     vc_position=Translation(
                         translation=[1, 1, 1],
