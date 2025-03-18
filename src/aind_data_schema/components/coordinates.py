@@ -413,6 +413,17 @@ class CoordinateSystemLibrary:
         ],
     )
 
+    MRI_XYZ = CoordinateSystem(  # [TODO] Update with real MRI coordinate system
+        name="MRI_XYZ",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.AP),
+            Axis(name=AxisName.Z, direction=Direction.IS),
+        ],
+    )
+
     CCFv3 = Atlas(
         name=AtlasName.CCF,
         version="3",

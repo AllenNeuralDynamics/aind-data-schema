@@ -14,6 +14,8 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
     Coordinate,
+    Transform,
+    CoordinateSystemLibrary,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
@@ -125,11 +127,16 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_orientation=Affine(
-                        affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-                    ),
-                    vc_position=Translation(
-                        translation=[1, 1, 1],
+                    vc_transform=Transform(
+                        system_name=CoordinateSystemLibrary.MRI_XYZ.name,
+                        transforms=[
+                            Affine(
+                                affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+                            ),
+                            Translation(
+                                translation=[1, 1, 1],
+                            ),
+                        ],
                     ),
                     subject_position="Supine",
                     voxel_sizes=Scale(

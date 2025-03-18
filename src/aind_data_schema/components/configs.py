@@ -357,8 +357,7 @@ class MRIScan(DeviceConfig):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Optional[Affine] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Translation] = Field(default=None, title="Scan position")
+    vc_transform: Optional[Transform] = Field(default=None, title="Scan transform")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
     voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
@@ -385,11 +384,11 @@ class MRIScan(DeviceConfig):
 
     @model_validator(mode="after")
     def validate_primary_scan(self):
-        """Validate that primary scan has vc_orientation and vc_position fields"""
+        """Validate that primary scan has vc_transform and voxel_sizes fields"""
 
         if self.primary_scan:
-            if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
-                raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
+            if not self.vc_transform or not self.voxel_sizes:
+                raise ValueError("Primary scan must have vc_transform and voxel_sizes fields")
 
         return self
 

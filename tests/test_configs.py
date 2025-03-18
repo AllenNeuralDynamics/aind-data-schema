@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from pydantic import ValidationError
 from aind_data_schema.components.configs import MRIScan, Affine, Translation, Scale, ManipulatorConfig
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 
@@ -24,11 +24,16 @@ class TestMRIScan(unittest.TestCase):
             repetition_time=Decimal("2000.0"),
             subject_position="Prone",
             additional_scan_parameters={},
-            vc_orientation=Affine(
-                affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-            ),
-            vc_position=Translation(
-                translation=[1, 2, 3],
+            vc_transform=Transform(
+                system_name=CoordinateSystemLibrary.MRI_XYZ.name,
+                transforms=[
+                    Affine(
+                        affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+                    ),
+                    Translation(
+                        translation=[1, 2, 3],
+                    ),
+                ],
             ),
             voxel_sizes=Scale(
                 scale=[0.5, 0.4375, 0.52],
