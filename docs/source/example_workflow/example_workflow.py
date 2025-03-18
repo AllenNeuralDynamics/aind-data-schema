@@ -116,11 +116,10 @@ for session_idx, session in sessions_df.iterrows():
                         coordinates=[
                             SurfaceCoordinate(
                                 system_name="BREGMA_ARI",
-                                position=[coords[1], coords[0]],
+                                position=[coords[1], coords[0], 0],
                                 depth=float(coords[2]),
                                 angles=Rotation(
-                                    angles=[coords[3]],
-                                    order=[0],
+                                    angles=[0, coords[3], 0],
                                 ),
                             ),
                         ],

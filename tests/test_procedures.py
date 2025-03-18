@@ -249,7 +249,6 @@ class ProceduresTests(unittest.TestCase):
                                         depth=2,
                                         angles=Rotation(
                                             angles=[10, 0, 0],
-                                            order=[0, 1, 3],
                                         ),
                                     ),
                                 )

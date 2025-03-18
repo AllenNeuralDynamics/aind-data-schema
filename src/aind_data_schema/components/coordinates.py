@@ -5,7 +5,7 @@ from typing import List, Optional, Union
 import math
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field, model_validator
+from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
@@ -139,6 +139,8 @@ class Translation(DataModel):
 class Rotation(DataModel):
     """Rotation
 
+    Rotations are applied as Euler angles in order X/Y/Z
+
     Angles follow right-hand rule, with positive angles rotating counter-clockwise.
     """
 
@@ -146,7 +148,6 @@ class Rotation(DataModel):
         ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
     )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    order: List[int] = Field(..., title="Rotation order", description="Order of rotation axes")
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine rotation matrix for arbitrary sized lists.
@@ -165,38 +166,16 @@ class Rotation(DataModel):
             )
 
         # Prepare the angles and axes for scipy Rotation
-        angles = []
-        axes = ""
-        for i, angle in enumerate(self.angles):
-            # Get the angle, convert if needed
-            if self.angles_unit == AngleUnit.DEG:
-                angle = math.radians(angle)
-
-            angles.append(angle)
-
-            # Get the axis order
-            axes += "xyz"[self.order[i]]
+        angles = [angle if self.angles_unit == AngleUnit.RAD else math.radians(angle) for angle in self.angles]
 
         # Create the rotation matrix
-        rotation = R.from_euler(axes, angles)
+        rotation = R.from_euler("xyz", angles)
         rotation_matrix = rotation.as_matrix().tolist()
 
         size = len(self.angles)
         rotation_matrix = [row + [0.0] for row in rotation_matrix] + [[0.0] * size + [1.0]]
 
         return rotation_matrix
-
-    @model_validator(mode="after")
-    def validate_lengths(cls, values):
-        """Validate that number of angles and order match in length"""
-
-        angles = values.angles
-        order = values.order
-
-        if len(angles) != len(order):
-            raise ValueError("Number of angles must match the number of axes in the order")
-
-        return values
 
 
 class AffineTransformMatrix(DataModel):
