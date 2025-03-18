@@ -320,7 +320,11 @@ class Coordinate(DataModel):
     position: List[float] = Field(
         ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
     )
-    angles: Optional[Rotation] = Field(default=None, title="Orientation in coordinate system")
+    angles: Optional[Rotation] = Field(
+        default=None,
+        title="Orientation in coordinate system",
+        description="Angles can be optionally provided to define a vector (e.g. for an insertion)"
+    )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
