@@ -323,7 +323,7 @@ class Coordinate(DataModel):
     angles: Optional[Rotation] = Field(
         default=None,
         title="Orientation in coordinate system",
-        description="Angles can be optionally provided to define a vector (e.g. for an insertion)"
+        description="Angles can be optionally provided to define a vector (e.g. for an insertion)",
     )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 

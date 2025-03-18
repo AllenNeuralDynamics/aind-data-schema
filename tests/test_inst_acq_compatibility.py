@@ -928,6 +928,13 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
+                            manipulator_coordinates=[
+                                SurfaceCoordinate(
+                                    system_name="BREGMA_ARI",
+                                    position=[1, 1, 1],
+                                    depth=1,
+                                ),
+                            ],
                         ),
                         PatchCordConfig(
                             device_name="Patch Cord A",
