@@ -81,7 +81,9 @@ class Axis(DataModel):
 
     name: AxisName = Field(..., title="Axis")
     direction: Direction = Field(
-        ..., title="Direction", description="Use Other for device-defined axes, such as on manipulators"
+        ...,
+        title="Direction",
+        description="Direction of positive values along the axis",
     )
 
 
