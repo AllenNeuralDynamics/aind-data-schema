@@ -366,54 +366,10 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    BREGMA_SIPE = CoordinateSystem(
-        name="BREGMA_SIPE",
-        origin=Origin.BREGMA,
-        axis_unit=SizeUnit.UM,
-        axes=[
-            Axis(name=AxisName.X, direction=Direction.PA),
-            Axis(name=AxisName.Y, direction=Direction.RL),
-            Axis(name=AxisName.Z, direction=Direction.IS),
-        ],
-    )
-
-    LAMBDA_SIPE = CoordinateSystem(
-        name="LAMBDA_SIPE",
-        origin=Origin.LAMBDA,
-        axis_unit=SizeUnit.UM,
-        axes=[
-            Axis(name=AxisName.X, direction=Direction.PA),
-            Axis(name=AxisName.Y, direction=Direction.RL),
-            Axis(name=AxisName.Z, direction=Direction.IS),
-        ],
-    )
-
-    CAMERA_SIPE = CoordinateSystem(
+    DEVICE_SIPE = CoordinateSystem(
         name="CAMERA_SIPE",
         origin=Origin.FRONT_CENTER,
-        axis_unit=SizeUnit.UM,
-        axes=[
-            Axis(name=AxisName.X, direction=Direction.LR),
-            Axis(name=AxisName.Y, direction=Direction.BT),
-            Axis(name=AxisName.Z, direction=Direction.BF),
-        ],
-    )
-
-    SPEAKER_SIPE = CoordinateSystem(
-        name="SPEAKER_SIPE",
-        origin=Origin.FRONT_CENTER,
         axis_unit=SizeUnit.MM,
-        axes=[
-            Axis(name=AxisName.X, direction=Direction.LR),
-            Axis(name=AxisName.Y, direction=Direction.BT),
-            Axis(name=AxisName.Z, direction=Direction.BF),
-        ],
-    )
-
-    MONITOR_SIPE = CoordinateSystem(
-        name="MONITOR_SIPE",
-        origin=Origin.FRONT_CENTER,
-        axis_unit=SizeUnit.CM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BT),
