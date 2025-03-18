@@ -19,7 +19,6 @@ from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.components.coordinates import (
     Coordinate,
-    SurfaceCoordinate,
     Transform,
     RelativePosition,
     CoordinateSystem,
@@ -228,7 +227,7 @@ class ManipulatorConfig(DomeModule):
     )
 
     # Coordinates
-    manipulator_coordinates: List[SurfaceCoordinate] = Field(
+    manipulator_coordinates: List[Coordinate] = Field(
         ...,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )

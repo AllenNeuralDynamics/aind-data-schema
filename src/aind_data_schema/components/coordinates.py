@@ -308,23 +308,10 @@ class Coordinate(DataModel):
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
-class SurfaceCoordinate(Coordinate):
-    """A coordinate relative to a point on the brain surface, which is itself relative to the CoordinateSpace origin
-
-    Angles can be optionally provided
-    """
-
-    depth: float = Field(..., title="Depth from brain surface")
-    projection_axis: AxisName = Field(
-        default=AxisName.DEPTH,
-        title="Surface projection axis",
-        description="Axis used to project the surface position onto the brain surface, defaults to the depth axis",
-    )
-
-
 class CoordinateSystemLibrary:
     """Library of common coordinate systems"""
 
+    # Standard coordinates
     BREGMA_ARI = CoordinateSystem(
         name="BREGMA_ARI",
         origin=Origin.BREGMA,
@@ -343,6 +330,30 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.SI, direction=Direction.SI),
+        ],
+    )
+
+    # Standard surface coordinates (with depth)
+    BREGMA_ARID = CoordinateSystem(
+        name="BREGMA_ARI",
+        origin=Origin.BREGMA,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+        ],
+    )
+    LAMBDA_ARID = CoordinateSystem(
+        name="LAMBDA_ARI",
+        origin=Origin.LAMBDA,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     )
 

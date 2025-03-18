@@ -14,7 +14,6 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
     Coordinate,
-    SurfaceCoordinate,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
@@ -76,10 +75,9 @@ class AcquisitionTest(unittest.TestCase):
                                 ),
                             ],
                             manipulator_coordinates=[
-                                SurfaceCoordinate(
-                                    system_name="BREGMA_ARI",
-                                    position=[1, 1, 1],
-                                    depth=1,
+                                Coordinate(
+                                    system_name="BREGMA_ARID",
+                                    position=[1, 1, 1, 1],
                                 )
                             ],
                             manipulator_axis_positions=[

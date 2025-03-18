@@ -18,7 +18,6 @@ from aind_data_schema.core.procedures import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
-    SurfaceCoordinate,
     AxisName,
     CoordinateSystem,
     Rotation,
@@ -49,6 +48,7 @@ surgery1 = Surgery(
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB)
         ],
     ),
     workstation_id="SWS 3",
@@ -75,10 +75,9 @@ surgery1 = Surgery(
             recovery_time=0,
             instrument_id=None,
             coordinates=[
-                SurfaceCoordinate(
+                Coordinate(
                     system_name="SurgerySystem",
-                    position=[-0.85, -3.8, 0],
-                    depth=3.3,
+                    position=[-0.85, -3.8, 0, 3.3],
                     angles=Rotation(
                         angles=[0, 10, 0],
                     ),

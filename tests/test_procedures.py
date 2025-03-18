@@ -32,7 +32,6 @@ from aind_data_schema.components.coordinates import (
     Origin,
     RelativePosition,
     AnatomicalRelative,
-    SurfaceCoordinate,
     Rotation,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
@@ -219,10 +218,9 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             coordinates=[
-                                SurfaceCoordinate(
-                                    system_name="BREGMA_ARI",
-                                    position=[0.5, 1],
-                                    depth=1,
+                                Coordinate(
+                                    system_name="BREGMA_ARID",
+                                    position=[0.5, 1, 0, 1],
                                 ),
                             ],
                             recovery_time=10,
@@ -243,10 +241,9 @@ class ProceduresTests(unittest.TestCase):
                                         total_length=10,
                                     ),
                                     targeted_structure=CCFStructure.MOP,
-                                    coordinate=SurfaceCoordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 2],
-                                        depth=2,
+                                    coordinate=Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 2, 0, 2],
                                         angles=Rotation(
                                             angles=[10, 0, 0],
                                         ),
@@ -346,15 +343,13 @@ class ProceduresTests(unittest.TestCase):
         inj1 = BrainInjection(
             protocol_id="abc",
             coordinates=[
-                SurfaceCoordinate(
-                    system_name="BREGMA_ARI",
-                    position=[0.5, 1],
-                    depth=0,
+                Coordinate(
+                    system_name="BREGMA_ARID",
+                    position=[0.5, 1, 0, 0],
                 ),
-                SurfaceCoordinate(
-                    system_name="BREGMA_ARI",
-                    position=[0.5, 1],
-                    depth=1,
+                Coordinate(
+                    system_name="BREGMA_ARID",
+                    position=[0.5, 1, 0, 1],
                 ),
             ],
             dynamics=[
@@ -389,15 +384,13 @@ class ProceduresTests(unittest.TestCase):
             BrainInjection(
                 protocol_id="abc",
                 coordinates=[
-                    SurfaceCoordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.5, 1],
-                        depth=0,
+                    Coordinate(
+                        system_name="BREGMA_ARID",
+                        position=[0.5, 1, 0, 0],
                     ),
-                    SurfaceCoordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.5, 1],
-                        depth=1,
+                    Coordinate(
+                        system_name="BREGMA_ARID",
+                        position=[0.5, 1, 0, 1],
                     ),
                 ],
                 injection_materials=[

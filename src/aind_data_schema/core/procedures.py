@@ -32,7 +32,6 @@ from aind_data_schema.components.coordinates import (
     CoordinateSystem,
     Coordinate,
     RelativePosition,
-    SurfaceCoordinate,
     Origin,
 )
 from aind_data_schema.utils.merge import merge_notes
@@ -471,7 +470,7 @@ class Injection(DataModel):
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    coordinates: List[SurfaceCoordinate] = Field(..., title="Injection coordinate")
+    coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
     target: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
@@ -520,7 +519,7 @@ class OphysProbe(DataModel):
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
-    coordinate: SurfaceCoordinate = Field(..., title="Stereotactic coordinate")
+    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
 class FiberImplant(DataModel):

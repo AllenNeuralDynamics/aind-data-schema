@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from pydantic import ValidationError
 from aind_data_schema.components.configs import MRIScan, AffineTransformMatrix, Translation, Scale, ManipulatorConfig
-from aind_data_schema.components.coordinates import Coordinate, SurfaceCoordinate, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 
@@ -67,15 +67,13 @@ class TestManipulatorConfig(unittest.TestCase):
             system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
             position=[4, 5, 6],
         )
-        coordinate1_surface = SurfaceCoordinate(
-            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-            position=[1, 2, 3],
-            depth=1,
+        coordinate1_surface = Coordinate(
+            system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
+            position=[1, 2, 3, 1],
         )
-        coordinate2_surface = SurfaceCoordinate(
-            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-            position=[4, 5, 6],
-            depth=2,
+        coordinate2_surface = Coordinate(
+            system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
+            position=[4, 5, 6, 2],
         )
         config = ManipulatorConfig(
             device_name="Manipulator",
@@ -106,15 +104,13 @@ class TestManipulatorConfig(unittest.TestCase):
                     ),
                 ],
                 manipulator_coordinates=[
-                    SurfaceCoordinate(
-                        system_name=CoordinateSystemLibrary.PROBE_ARI.name,
-                        position=[1, 2, 3],
-                        depth=1,
+                    Coordinate(
+                        system_name=CoordinateSystemLibrary.PROBE_ARID.name,
+                        position=[1, 2, 3, 1],
                     ),
-                    SurfaceCoordinate(
-                        system_name=CoordinateSystemLibrary.PROBE_ARI.name,
-                        position=[4, 5, 6],
-                        depth=2,
+                    Coordinate(
+                        system_name=CoordinateSystemLibrary.PROBE_ARID.name,
+                        position=[4, 5, 6, 2],
                     ),
                 ],
                 manipulator_axis_positions=[
