@@ -351,7 +351,7 @@ inst = Instrument(
     instrument_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
-    coordinate_system=CoordinateSystemLibrary.DEFAULT,
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         camera1,
         camera2,

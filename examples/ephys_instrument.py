@@ -290,7 +290,7 @@ inst = Instrument(
     instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    coordinate_system=CoordinateSystemLibrary.DEFAULT,
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         ephys_assemblyA,
         ephys_assemblyB,

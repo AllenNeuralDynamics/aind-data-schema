@@ -284,7 +284,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly, mouse_platform],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(

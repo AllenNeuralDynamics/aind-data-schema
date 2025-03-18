@@ -47,7 +47,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly, mouse_platform],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(
@@ -89,7 +89,7 @@ class TestMetadata(unittest.TestCase):
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             components=[],
         )
         with self.assertRaises(ValidationError) as context:
@@ -129,7 +129,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         m = Metadata(
             name="655019_2023-04-03T181709",

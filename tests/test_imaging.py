@@ -132,7 +132,7 @@ class ImagingTests(unittest.TestCase):
         i = Instrument(
             instrument_id="room_exaSPIM1-1_20231004",
             modalities=[Modality.SPIM],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
             components=[objective, laser, scan_stage],
@@ -147,7 +147,7 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="room_exaSPIM1-1_20231004",
                 modalities=[Modality.SPIM],
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 manufacturer=Organization.OTHER,
                 components=[],
             )
@@ -187,7 +187,6 @@ class ImagingTests(unittest.TestCase):
                                 ),
                                 Rotation(
                                     angles=[1, 2, 3],
-                                    order=[0, 1, 2],
                                 ),
                                 Scale(
                                     scale=[1, 2, 3],

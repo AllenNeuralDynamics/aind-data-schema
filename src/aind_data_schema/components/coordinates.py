@@ -414,5 +414,3 @@ class CoordinateSystemLibrary:
         resolution=[10, 10, 10],
         resolution_unit=SizeUnit.UM,
     )
-
-    DEFAULT = BREGMA_ARI

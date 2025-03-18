@@ -309,7 +309,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             components=[
                 *daqs,
                 *cameras,
@@ -352,7 +352,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     camera_no_target,
@@ -385,7 +385,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             components=[
                 *daqs,
                 camera_no_target,
@@ -423,7 +423,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -462,7 +462,7 @@ class InstrumentTests(unittest.TestCase):
                 Instrument(
                     modalities=[Modality.from_abbreviation(modality_abbreviation)],
                     instrument_id="123_EPHYS1-OPTO_20220101",
-                    coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                     modification_date=date(2020, 10, 10),
                     components=[],
                     calibrations=[],
@@ -478,7 +478,7 @@ class InstrumentTests(unittest.TestCase):
                 modalities=[Modality.from_abbreviation(modality_abbreviation)],
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -506,7 +506,7 @@ class InstrumentTests(unittest.TestCase):
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 modalities=[Modality.ECEPHYS],
                 components=[*daqs, *ems],
                 manufacturer=Organization.OTHER,
@@ -517,7 +517,7 @@ class InstrumentTests(unittest.TestCase):
         inst = Instrument(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             modalities=[Modality.ECEPHYS],
             components=[*daqs, *ems],
             manufacturer=Organization.OTHER,
@@ -533,7 +533,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -553,7 +553,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS-OPTO_2020-01-01",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.DEFAULT,
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -576,7 +576,7 @@ class InstrumentTests(unittest.TestCase):
         instrument_instance_modality = Instrument.model_construct(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modalities={Modality.ECEPHYS},  # Example with a valid Modality instance
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         instrument_json = instrument_instance_modality.model_dump_json()
         instrument_data = json.loads(instrument_json)
@@ -622,7 +622,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
-            coordinate_system=CoordinateSystemLibrary.DEFAULT,  # order is AP, ML, SI
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,  # order is AP, ML, SI
             components=[
                 *daqs,
                 *cameras,
