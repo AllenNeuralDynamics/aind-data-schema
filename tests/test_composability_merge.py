@@ -33,7 +33,7 @@ invitro_config = InVitroImagingConfig(
         medium="PBS",
         refractive_index=1.33,
     ),
-    coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     tiles=[
         tile.AcquisitionTile(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
@@ -232,12 +232,12 @@ class TestComposability(unittest.TestCase):
                                 medium="PBS",
                                 refractive_index=1.33,
                             ),
-                            coordinate_system=CoordinateSystemLibrary.SPIM_YXZ,
+                            coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
                             tiles=[
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     transforms=Transform(
-                                        system_name="SPIM_YXZ",
+                                        system_name="SPIM_RPI",
                                         transforms=[
                                             Scale(
                                                 scale=[0.748, 0.748, 1],
