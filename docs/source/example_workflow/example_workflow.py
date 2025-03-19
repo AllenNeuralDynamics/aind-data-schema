@@ -18,6 +18,7 @@ from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subjec
 from aind_data_schema_models.species import Strain
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema.components.coordinates import (
+    Coordinate,
     Rotation,
 )
 
