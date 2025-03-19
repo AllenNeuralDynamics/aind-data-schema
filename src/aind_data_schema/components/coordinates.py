@@ -309,7 +309,12 @@ class Coordinate(DataModel):
 
 
 class CoordinateSystemLibrary:
-    """Library of common coordinate systems"""
+    """Library of common coordinate systems
+
+    Convention is to use the following naming scheme:
+
+    <ORIGIN>_<GLOBAL_AXES><LOCAL_AXES>
+    """
 
     # Standard coordinates
     BREGMA_ARI = CoordinateSystem(
@@ -413,8 +418,8 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    MRI_XYZ = CoordinateSystem(  # [TODO] Update with real MRI coordinate system
-        name="MRI_XYZ",
+    MRI_LPS = CoordinateSystem(
+        name="MRI_LPS",
         origin=Origin.ORIGIN,
         axis_unit=SizeUnit.MM,
         axes=[
