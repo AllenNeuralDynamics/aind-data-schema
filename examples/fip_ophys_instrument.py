@@ -268,7 +268,6 @@ stimulus_device = d.RewardDelivery(
     reward_spouts=[
         d.RewardSpout(
             name="Left spout",
-            relative_position=[AnatomicalRelative.LEFT],
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Left"),
             lick_sensor=d.Device(
@@ -277,7 +276,6 @@ stimulus_device = d.RewardDelivery(
         ),
         d.RewardSpout(
             name="Right spout",
-            relative_position=[AnatomicalRelative.RIGHT],
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Right"),
             lick_sensor=d.Device(
