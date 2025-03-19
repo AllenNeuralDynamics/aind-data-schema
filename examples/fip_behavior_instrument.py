@@ -32,7 +32,6 @@ from aind_data_schema.components.devices import (
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import (
-    RelativePosition,
     AnatomicalRelative,
     CoordinateSystemLibrary,
 )
@@ -42,7 +41,7 @@ bonsai_software = Software(name="Bonsai", version="2.5")
 camera1 = CameraAssembly(
     name="BehaviorVideography_FaceSide",
     target=CameraTarget.FACE,
-    position=RelativePosition(position=[AnatomicalRelative.LEFT]),
+    relative_position=[AnatomicalRelative.LEFT],
     camera=Camera(
         name="Side face camera",
         detector_type="Camera",
@@ -72,7 +71,7 @@ camera1 = CameraAssembly(
 camera2 = CameraAssembly(
     name="BehaviorVideography_FaceBottom",
     target=CameraTarget.FACE,
-    position=RelativePosition(position=[AnatomicalRelative.INFERIOR]),
+    relative_position=[AnatomicalRelative.INFERIOR],
     camera=Camera(
         name="Bottom face Camera",
         detector_type="Camera",

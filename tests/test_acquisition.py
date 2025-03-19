@@ -128,7 +128,7 @@ class AcquisitionTest(unittest.TestCase):
                     rare_factor=4,
                     primary_scan=True,
                     vc_transform=Transform(
-                        system_name=CoordinateSystemLibrary.MRI_XYZ.name,
+                        system_name=CoordinateSystemLibrary.MRI_LPS.name,
                         transforms=[
                             Affine(
                                 affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],

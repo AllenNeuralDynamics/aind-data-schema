@@ -31,8 +31,8 @@ from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.coordinates import (
     CoordinateSystem,
     Coordinate,
-    RelativePosition,
     Origin,
+    AnatomicalRelative
 )
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
@@ -458,7 +458,7 @@ class Injection(DataModel):
     target: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
-    relative_position: Optional[RelativePosition] = Field(default=None, title="Relative position")
+    relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
 
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"

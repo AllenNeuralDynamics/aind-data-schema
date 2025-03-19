@@ -23,7 +23,7 @@ from aind_data_schema.base import GenericModel, GenericModelType, DataModel, Awa
 from aind_data_schema.components.coordinates import (
     AxisName,
     Transform,
-    RelativePosition,
+    AnatomicalRelative,
     Scale,
     CoordinateSystem,
 )
@@ -420,8 +420,10 @@ class CameraAssembly(DataModel):
     lens: Lens = Field(..., title="Lens")
 
     # position information
-    position: Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")] = Field(
-        ..., title="Relative position"
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None, title="Position",
+        description="Exact position of the camera assembly in the instrument",
     )
 
     filter: Optional[Filter] = Field(default=None, title="Filter")
@@ -759,9 +761,13 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-    position: Optional[Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]] = Field(
-        default=None, title="Relative position of the monitor"
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None, title="Position",
+        description="Exact position of the camera assembly in the instrument",
     )
+
     contrast: Optional[int] = Field(
         default=None,
         description="Monitor's contrast setting",
@@ -784,9 +790,13 @@ class RewardSpout(Device):
     side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
-    position: Optional[Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]] = Field(
-        default=None, title="Relative position of the monitor"
+
+    relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None, title="Position",
+        description="Exact position of the camera assembly in the instrument",
     )
+
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
@@ -815,8 +825,11 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-    position: Optional[Annotated[Union[Transform, RelativePosition], Field(discriminator="object_type")]] = Field(
-        default=None, title="Relative position of the monitor"
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None, title="Position",
+        description="Exact position of the camera assembly in the instrument",
     )
 
 

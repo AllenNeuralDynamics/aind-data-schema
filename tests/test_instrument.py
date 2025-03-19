@@ -42,7 +42,6 @@ from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQ
 from aind_data_schema_models.units import SizeUnit
 from aind_data_schema.components.coordinates import (
     AnatomicalRelative,
-    RelativePosition,
     CoordinateSystemLibrary,
 )
 
@@ -129,9 +128,7 @@ cameras = [
     CameraAssembly(
         name="cam",
         target=CameraTarget.FACE,
-        position=RelativePosition(
-            position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
-        ),
+        relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
         lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
         camera=Camera(
             name="Camera A",
@@ -191,7 +188,7 @@ stick_microscopes = [
             chroma="Color",
         ),
         target=CameraTarget.BRAIN,
-        position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+        relative_position=[AnatomicalRelative.SUPERIOR],
         lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
     )
 ]
@@ -614,7 +611,7 @@ class InstrumentTests(unittest.TestCase):
                 chroma="Color",
             ),
             target=CameraTarget.BRAIN,
-            position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+            relative_position=[AnatomicalRelative.SUPERIOR],
             lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
         )
 

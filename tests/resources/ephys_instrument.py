@@ -7,7 +7,6 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
-    RelativePosition,
     AnatomicalRelative,
     CoordinateSystemLibrary,
 )
@@ -155,7 +154,7 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 microscope_1 = CameraAssembly(
     name="Stick_assembly_1",
     target=CameraTarget.BRAIN,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_1,
     lens=stick_lens,
 )
@@ -163,7 +162,7 @@ microscope_1 = CameraAssembly(
 microscope_2 = CameraAssembly(
     name="Stick_assembly_2",
     target=CameraTarget.BRAIN,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_2,
     lens=stick_lens,
 )
@@ -171,7 +170,7 @@ microscope_2 = CameraAssembly(
 microscope_3 = CameraAssembly(
     name="Stick_assembly_3",
     target=CameraTarget.BRAIN,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_3,
     lens=stick_lens,
 )
@@ -179,7 +178,7 @@ microscope_3 = CameraAssembly(
 microscope_4 = CameraAssembly(
     name="Stick_assembly_4",
     target=CameraTarget.BRAIN,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_4,
     lens=stick_lens,
 )
@@ -238,7 +237,7 @@ camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
     target=CameraTarget.FACE,
-    position=RelativePosition(position=[AnatomicalRelative.LEFT]),
+    relative_position=[AnatomicalRelative.LEFT],
     filter=filt,
     lens=lens,
 )
@@ -261,7 +260,7 @@ body_camera = Camera(
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
     target=CameraTarget.BODY,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=body_camera,
     filter=filt,
     lens=lens,

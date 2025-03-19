@@ -30,7 +30,6 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
     Coordinate,
     Origin,
-    RelativePosition,
     AnatomicalRelative,
     Rotation,
 )
@@ -78,7 +77,7 @@ class ProceduresTests(unittest.TestCase):
                                     )
                                 ],
                                 target=InjectionTargets.VENOUS_SINUS,
-                                relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
+                                relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -112,7 +111,7 @@ class ProceduresTests(unittest.TestCase):
                                     )
                                 ],
                                 target=InjectionTargets.VENOUS_SINUS,
-                                relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
+                                relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
                             ),
@@ -160,7 +159,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             target=InjectionTargets.VENOUS_SINUS,
-                            relative_position=RelativePosition(position=[AnatomicalRelative.LEFT]),
+                            relative_position=[AnatomicalRelative.LEFT],
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,

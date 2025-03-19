@@ -48,7 +48,7 @@ scan2 = MRIScan(
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
     vc_transform=Transform(
-        system_name=CoordinateSystemLibrary.MRI_XYZ.name,
+        system_name=CoordinateSystemLibrary.MRI_LPS.name,
         transforms=[
             Affine(
                 affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],

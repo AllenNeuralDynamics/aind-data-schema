@@ -53,7 +53,6 @@ from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionComp
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.components.coordinates import (
-    RelativePosition,
     AnatomicalRelative,
     Coordinate,
     CoordinateSystemLibrary,
@@ -136,7 +135,7 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 microscope = CameraAssembly(
     name="Stick_assembly",
     target=CameraTarget.BRAIN,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera,
     lens=stick_lens,
 )
@@ -195,7 +194,7 @@ camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
     target=CameraTarget.FACE,
-    position=RelativePosition(position=[AnatomicalRelative.LEFT]),
+    relative_position=[AnatomicalRelative.LEFT],
     filter=filt,
     lens=lens,
 )
@@ -219,7 +218,7 @@ camassm2 = CameraAssembly(
     name="Body Camera Assembly",
     camera=body_camera,
     target=CameraTarget.BODY,
-    position=RelativePosition(position=[AnatomicalRelative.SUPERIOR]),
+    relative_position=[AnatomicalRelative.SUPERIOR],
     filter=filt,
     lens=lens,
 )
@@ -571,9 +570,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             d.CameraAssembly(
                 name="BehaviorVideography_FaceSide",
                 target=d.CameraTarget.FACE,
-                position=RelativePosition(
-                    position=[AnatomicalRelative.LEFT],
-                ),
+                relative_position=[AnatomicalRelative.LEFT],
                 camera=d.Camera(
                     name="Side face camera",
                     detector_type="Camera",
@@ -602,9 +599,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             d.CameraAssembly(
                 name="BehaviorVideography_FaceBottom",
                 target=d.CameraTarget.FACE,
-                position=RelativePosition(
-                    position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
-                ),
+                relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
                 camera=d.Camera(
                     name="Bottom face Camera",
                     detector_type="Camera",

@@ -284,12 +284,6 @@ class CoordinateTransform(DataModel):
     ] = Field(..., title="Transform")
 
 
-class RelativePosition(DataModel):
-    """Relative position in a coordinate system"""
-
-    position: List[AnatomicalRelative] = Field(..., title="Relative position")
-
-
 class Coordinate(DataModel):
     """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
 

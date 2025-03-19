@@ -20,7 +20,6 @@ from aind_data_schema.components.tile import AcquisitionTile
 from aind_data_schema.components.coordinates import (
     Coordinate,
     Transform,
-    RelativePosition,
     CoordinateSystem,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -33,6 +32,7 @@ from aind_data_schema.base import (
 )
 from aind_data_schema.components.coordinates import (
     Scale,
+    AnatomicalRelative,
 )
 from aind_data_schema.components.devices import SpoutSide
 from aind_data_schema.components.tile import Channel
@@ -284,7 +284,7 @@ class RewardSpoutConfig(DataModel):
     """Reward spout acquisition information"""
 
     side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
-    starting_position: Union[Transform, RelativePosition] = Field(..., title="Starting position")
+    starting_position: Union[Transform, List[AnatomicalRelative]] = Field(..., title="Starting position")
     variable_position: bool = Field(
         ...,
         title="Variable position",
