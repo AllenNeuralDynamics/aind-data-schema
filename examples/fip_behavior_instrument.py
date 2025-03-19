@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-""" example FIP ophys rig """
+""" example FIP ophys instrument """
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality

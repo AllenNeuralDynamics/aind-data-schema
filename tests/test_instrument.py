@@ -582,7 +582,7 @@ class InstrumentTests(unittest.TestCase):
         instrument_data = json.loads(instrument_json)
         self.assertEqual(instrument_data["modalities"], expected_modalities)
 
-        # Case 2: Modality is a dictionary when Rig is constructed from JSON
+        # Case 2: Modality is a dictionary when Instrument is constructed from JSON
         instrument_dict_modality = Instrument.model_construct(**instrument_data)
         instrument_dict_json = instrument_dict_modality.model_dump_json()
         instrument_dict_data = json.loads(instrument_dict_json)

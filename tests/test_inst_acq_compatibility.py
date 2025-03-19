@@ -966,7 +966,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
-        # check that ephys acquisition and rig are synced
+        # check that ephys acquisition and instrument are synced
         example_ephys_check = InstrumentAcquisitionCompatibility(
             instrument=self.example_ephys_inst, acquisition=self.example_ephys_acquisition
         )
