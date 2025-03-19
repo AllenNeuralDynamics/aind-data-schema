@@ -422,7 +422,8 @@ class CameraAssembly(DataModel):
     # position information
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
     position: Optional[Transform] = Field(
-        default=None, title="Position",
+        default=None,
+        title="Position",
         description="Exact position of the camera assembly in the instrument",
     )
 
@@ -764,7 +765,8 @@ class Monitor(Device):
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
     position: Optional[Transform] = Field(
-        default=None, title="Position",
+        default=None,
+        title="Position",
         description="Exact position of the camera assembly in the instrument",
     )
 
@@ -793,7 +795,8 @@ class RewardSpout(Device):
 
     relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
     position: Optional[Transform] = Field(
-        default=None, title="Position",
+        default=None,
+        title="Position",
         description="Exact position of the camera assembly in the instrument",
     )
 
@@ -828,7 +831,8 @@ class Speaker(Device):
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
     position: Optional[Transform] = Field(
-        default=None, title="Position",
+        default=None,
+        title="Position",
         description="Exact position of the camera assembly in the instrument",
     )
 

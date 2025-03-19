@@ -28,12 +28,7 @@ from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDef
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.components.coordinates import (
-    CoordinateSystem,
-    Coordinate,
-    Origin,
-    AnatomicalRelative
-)
+from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, Origin, AnatomicalRelative
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
 
