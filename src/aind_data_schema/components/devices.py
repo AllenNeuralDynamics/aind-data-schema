@@ -155,7 +155,6 @@ class CameraTarget(str, Enum):
     BRAIN = "Brain"
     EYE = "Eye"
     FACE = "Face"
-    SIDE = "Side"
     TONGUE = "Tongue"
     OTHER = "Other"
 
