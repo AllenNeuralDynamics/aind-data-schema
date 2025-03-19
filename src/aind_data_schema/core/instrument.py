@@ -168,7 +168,7 @@ class Instrument(DataCoreModel):
     ] = Field(
         ...,
         title="Components",
-        description="List of all devices in the rig",
+        description="List of all devices in the instrument",
     )
 
     @field_serializer("modalities", when_used="json")

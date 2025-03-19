@@ -117,7 +117,6 @@ reward_delivery = RewardDelivery(
     reward_spouts=[
         RewardSpout(
             name="Left spout",
-            relative_position=[AnatomicalRelative.LEFT, AnatomicalRelative.ANTERIOR],
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Left"),
             lick_sensor=Device(
@@ -128,7 +127,6 @@ reward_delivery = RewardDelivery(
         ),
         RewardSpout(
             name="Right spout",
-            relative_position=[AnatomicalRelative.RIGHT, AnatomicalRelative.ANTERIOR],
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Right"),
             lick_sensor=Device(

@@ -254,7 +254,7 @@ class Calibration(DataModel):
     """Generic calibration class"""
 
     calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
     output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
@@ -265,7 +265,7 @@ class Maintenance(DataModel):
     """Generic maintenance class"""
 
     maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -782,13 +782,6 @@ class RewardSpout(Device):
 
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
-
-    relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
-    position: Optional[Transform] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the spout in the instrument",
-    )
 
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
