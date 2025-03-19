@@ -204,15 +204,6 @@ class FerruleMaterial(str, Enum):
     STAINLESS_STEEL = "Stainless steel"
 
 
-class SpoutSide(str, Enum):
-    """Spout sides"""
-
-    LEFT = "Left"
-    RIGHT = "Right"
-    CENTER = "Center"
-    OTHER = "Other"
-
-
 class ScannerLocation(str, Enum):
     """location of scanner"""
 
@@ -789,7 +780,6 @@ class Monitor(Device):
 class RewardSpout(Device):
     """Description of a reward spout"""
 
-    side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
 
@@ -797,24 +787,12 @@ class RewardSpout(Device):
     position: Optional[Transform] = Field(
         default=None,
         title="Position",
-        description="Exact position of the camera assembly in the instrument",
+        description="Exact position of the spout in the instrument",
     )
 
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-    @model_validator(mode="after")
-    def validate_other(self):
-        """Validator for other/notes"""
-
-        if self.side == SpoutSide.OTHER and self.notes is None:
-            raise ValueError(
-                "Notes cannot be empty if spout side is Other. " "Describe the spout side in the notes field."
-            )
-
-        return self
 
 
 class RewardDelivery(DataModel):

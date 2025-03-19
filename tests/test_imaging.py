@@ -48,7 +48,7 @@ class ImagingTests(unittest.TestCase):
                     tiles=[
                         tile.AcquisitionTile(
                             coordinate_transform=CoordinateTransform(
-                                input="TILE_XYZ",
+                                input="SPIM_IJK",
                                 output="SPIM_RPI",
                                 transforms=[
                                     Scale(
@@ -171,7 +171,7 @@ class ImagingTests(unittest.TestCase):
                 "tiles": [
                     tile.Tile(
                         coordinate_transform=CoordinateTransform(
-                            input="TILE_XYZ",
+                            input="SPIM_IJK",
                             output="BREGMA_ARI",
                             transforms=[
                                 Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
@@ -180,7 +180,7 @@ class ImagingTests(unittest.TestCase):
                     ),
                     tile.Tile(
                         coordinate_transform=CoordinateTransform(
-                            input="TILE_XYZ",
+                            input="SPIM_IJK",
                             output="BREGMA_ARI",
                             transforms=[
                                 Translation(

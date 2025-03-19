@@ -34,7 +34,6 @@ from aind_data_schema.components.coordinates import (
     Scale,
     AnatomicalRelative,
 )
-from aind_data_schema.components.devices import SpoutSide
 from aind_data_schema.components.tile import Channel
 
 
@@ -283,8 +282,8 @@ class RewardSolution(str, Enum):
 class RewardSpoutConfig(DataModel):
     """Reward spout acquisition information"""
 
-    side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
-    starting_position: Union[Transform, List[AnatomicalRelative]] = Field(..., title="Starting position")
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Transform] = Field(default=None, title="Initial position")
     variable_position: bool = Field(
         ...,
         title="Variable position",

@@ -24,7 +24,7 @@ tile_scale = Scale(
     scale=[0.748, 0.748, 1],
 )
 coordinate_transform = CoordinateTransform(
-    input="TILE_XYZ",
+    input="SPIM_IJK",
     output="SPIM_RPI",
     transforms=[tile_scale],
 )

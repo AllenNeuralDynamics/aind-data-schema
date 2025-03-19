@@ -34,7 +34,6 @@ from aind_data_schema.components.devices import (
     PatchCord,
     RewardDelivery,
     RewardSpout,
-    SpoutSide,
     ScanningStage,
     DigitalMicromirrorDevice,
 )
@@ -265,7 +264,7 @@ stimulus_devices = [
         reward_spouts=[
             RewardSpout(
                 name="Left spout",
-                side=SpoutSide.LEFT,
+                relative_position=[AnatomicalRelative.LEFT],
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Left"),
                 lick_sensor=Device(
@@ -274,7 +273,7 @@ stimulus_devices = [
             ),
             RewardSpout(
                 name="Right spout",
-                side=SpoutSide.RIGHT,
+                relative_position=[AnatomicalRelative.LEFT],
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Right"),
                 lick_sensor=Device(

@@ -18,7 +18,6 @@ from aind_data_schema.components.devices import (
     DAQChannel,
     RewardDelivery,
     RewardSpout,
-    SpoutSide,
     Device,
     LickSensorType,
     MotorizedStage,
@@ -118,7 +117,7 @@ reward_delivery = RewardDelivery(
     reward_spouts=[
         RewardSpout(
             name="Left spout",
-            side=SpoutSide.LEFT,
+            relative_position=[AnatomicalRelative.LEFT, AnatomicalRelative.ANTERIOR],
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Left"),
             lick_sensor=Device(
@@ -129,7 +128,7 @@ reward_delivery = RewardDelivery(
         ),
         RewardSpout(
             name="Right spout",
-            side=SpoutSide.RIGHT,
+            relative_position=[AnatomicalRelative.RIGHT, AnatomicalRelative.ANTERIOR],
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Right"),
             lick_sensor=Device(

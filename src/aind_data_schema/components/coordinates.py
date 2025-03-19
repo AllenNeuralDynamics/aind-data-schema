@@ -61,6 +61,7 @@ class Direction(str, Enum):
     TB = "Top_to_bottom"
     BT = "Bottom_to_top"
     OTHER = "Other"
+    POS = "Positive"
 
 
 class AnatomicalRelative(str, Enum):
@@ -387,6 +388,17 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.Y, direction=Direction.IS),
             Axis(name=AxisName.Z, direction=Direction.AP),
             Axis(name=AxisName.DEPTH, direction=Direction.TB),
+        ],
+    )
+    
+    SPIM_IJK = CoordinateSystem(
+        name="SPIM_IJK",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.PX,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.POS),
+            Axis(name=AxisName.Y, direction=Direction.POS),
+            Axis(name=AxisName.Z, direction=Direction.POS),
         ],
     )
 

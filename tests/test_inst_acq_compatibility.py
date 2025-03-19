@@ -817,7 +817,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 reward_spouts=[
                     d.RewardSpout(
                         name="Left spout",
-                        side=d.SpoutSide.LEFT,
+                        relative_position=[AnatomicalRelative.LEFT],
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Left"),
                         lick_sensor=d.Device(
@@ -828,7 +828,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     ),
                     d.RewardSpout(
                         name="Right spout",
-                        side=d.SpoutSide.RIGHT,
+                        relative_position=[AnatomicalRelative.RIGHT],
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Right"),
                         lick_sensor=d.Device(
