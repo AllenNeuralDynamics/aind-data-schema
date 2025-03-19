@@ -70,7 +70,7 @@ p = Procedures(
                     coordinates=[
                         Coordinate(
                             system_name="BREGMA_ARID",
-                            position=[-600, -3050, 0, -4.2],
+                            position=[-600, -3050, 0, 4200],
                         ),
                     ],
                     dynamics=[
@@ -96,7 +96,7 @@ p = Procedures(
                             targeted_structure=CCFStructure.VTA,
                             coordinate=Coordinate(
                                 system_name="BREGMA_ARID",
-                                position=[-600, -3050, 0, -4.2],
+                                position=[-600, -3050, 0, 4200],
                             ),
                         )
                     ],
