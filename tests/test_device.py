@@ -12,12 +12,10 @@ from aind_data_schema.components.devices import (
     DataInterface,
     Detector,
     DetectorType,
-    Device,
     HarpDevice,
     ImagingDeviceType,
     ImmersionMedium,
     Objective,
-    RewardSpout,
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)

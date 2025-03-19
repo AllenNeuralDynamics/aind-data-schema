@@ -390,7 +390,7 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     )
-    
+
     SPIM_IJK = CoordinateSystem(
         name="SPIM_IJK",
         origin=Origin.ORIGIN,
