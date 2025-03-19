@@ -247,7 +247,7 @@ inst = Instrument(
     instrument_id="440_SmartSPIM1_20231004",
     manufacturer=Organization.LIFECANVAS,
     modification_date=date(2023, 10, 4),
-    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     modalities=[Modality.SPIM],
     components=[
         *objectives,

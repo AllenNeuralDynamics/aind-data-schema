@@ -218,7 +218,7 @@ inst = Instrument(
     modalities=[Modality.SPIM],
     modification_date=datetime.date(2023, 10, 4),
     manufacturer=Organization.CUSTOM,
-    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     components=[
         *objectives,
         *detectors,
