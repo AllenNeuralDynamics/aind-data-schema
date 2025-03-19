@@ -49,7 +49,7 @@ surgery1 = Surgery(
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.SI, direction=Direction.SI),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB)
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     ),
     workstation_id="SWS 3",

@@ -56,7 +56,7 @@ scan2 = MRIScan(
             Translation(
                 translation=[-6.1, 7.0, 7.9],
             ),
-        ]
+        ],
     ),
     subject_position=SubjectPosition.SUPINE,
     voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),

@@ -169,7 +169,7 @@ class Rotation(DataModel):
         angles = [angle if self.angles_unit == AngleUnit.RAD else math.radians(angle) for angle in self.angles]
 
         # Create the rotation matrix
-        order = "xyz"[0: len(self.angles)]
+        order = "xyz"[0 : len(self.angles)]
         rotation = R.from_euler(order, angles)
         rotation_matrix = rotation.as_matrix().tolist()
 
@@ -266,9 +266,9 @@ class Transform(DataModel):
     """Affine transformation in a coordinate system"""
 
     system_name: str = Field(..., title="Coordinate system name")
-    transforms: List[
-        Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]
-    ] = Field(..., title="Transform")
+    transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
+        Field(..., title="Transform")
+    )
 
 
 class CoordinateTransform(DataModel):
