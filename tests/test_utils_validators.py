@@ -103,16 +103,22 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
 
 
 class MockEnum(Enum):
+    """Mock Enum for testing"""
+
     VALUE1 = "value1"
     VALUE2 = "value2"
 
 
 class NestedModel(BaseModel):
+    """Nested model for testing"""
+
     name: str
     value: int
 
 
 class ComplexModel(BaseModel):
+    """Complex model for testing"""
+
     name: str
     nested: NestedModel
     nested_list: list[NestedModel]
