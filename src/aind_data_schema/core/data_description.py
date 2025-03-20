@@ -150,7 +150,7 @@ class DataDescription(DataCoreModel):
     @model_validator(mode="after")
     def build_name(self):
         """sets the name of the file"""
-        if self.name is None:
+        if self.name is None and self.data_level == DataLevel.RAW:
             self.name = build_data_name(self.subject_id, creation_datetime=self.creation_time)
 
         # check that the name matches the name regex
