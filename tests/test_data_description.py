@@ -21,6 +21,7 @@ from aind_data_schema.core.data_description import (
     DataRegex,
     Funding,
     build_data_name,
+    derived_data_description,
 )
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
@@ -90,7 +91,7 @@ class DataDescriptionTest(unittest.TestCase):
             )
 
     def test_derived_data_description_construction(self):
-        """Test DerivedDataDescription construction"""
+        """Test DataDescription.data_level == DERIVED construction"""
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
         da = DataDescription(
@@ -102,20 +103,11 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
-        r1 = DerivedDataDescription(
-            input_data_name=da.name,
-            process_name="spikesort-ks25",
-            creation_time=dt,
-            institution=Organization.AIND,
-            funding_source=[f],
-            modalities=da.modalities,
-            subject_id=da.subject_id,
-            investigators=[Person(name="Jane Smith")],
-        )
+        r1 = derived_data_description(da, "spikesort-ks25", dt)
         self.assertIsNotNone(r1)
 
     def test_nested_derived_data_description_construction(self):
-        """Test nested DerivedDataDescription construction"""
+        """Test nested derived DataDescription construction"""
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
         da = DataDescription(
@@ -127,39 +119,9 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
-        r1 = DataDescription(
-            input_data_name=da.name,
-            process_name="spikesort-ks25",
-            creation_time=dt,
-            institution=Organization.AIND,
-            funding_source=[f],
-            modalities=da.modalities,
-            subject_id=da.subject_id,
-            investigators=[Person(name="Jane Smith")],
-            data_level="derived",
-        )
-        r2 = DataDescription(
-            input_data_name=r1.name,
-            process_name="some-model",
-            creation_time=dt,
-            institution=Organization.AIND,
-            funding_source=[f],
-            modalities=r1.modalities,
-            subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
-            data_level="derived",
-        )
-        r3 = DataDescription(
-            input_data_name=r2.name,
-            process_name="a-paper",
-            creation_time=dt,
-            institution=Organization.AIND,
-            funding_source=[f],
-            modalities=r2.modalities,
-            subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
-            data_level="derived",
-        )
+        r1 = derived_data_description(da, "spikesort-ks25", dt)
+        r2 = derived_data_description(r1, "some-model", dt)
+        r3 = derived_data_description(r2, "a-paper", dt)
         self.assertIsNotNone(r3)
 
     def test_data_description_construction(self):
@@ -308,61 +270,6 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that abbreviations are unique"""
         modality_abbreviations = [m().abbreviation for m in Modality.ALL]
         self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
-
-
-class DerivedDataDescriptionTest(unittest.TestCase):
-    """test DerivedDataDescription"""
-
-    def test_from_data_description(self):
-        """Tests DerivedDataDescription.from_data_description method"""
-
-        dt = datetime.datetime(2020, 10, 10, 10, 10, 10)
-
-        d1 = DataDescription(
-            modalities=[Modality.SPIM],
-            subject_id="1234",
-            data_level="raw",
-            creation_time=dt,
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
-        )
-
-        process_name = "spikesorter"
-
-        dd1 = DerivedDataDescription.from_data_description(d1, process_name=process_name, institution=Organization.AIND)
-        # check that the original name is in the derived name
-        self.assertTrue("1234_2020-10-10T101010_spikesorter_" in dd1.name)
-        # check that the subject ID is retained
-        self.assertEqual("1234", dd1.subject_id)
-        # check that the data level is upgraded
-        self.assertEqual("derived", dd1.data_level)
-
-    def test_derived_data_description_build_name(self):
-        """Tests build name method in derived data description class"""
-
-        dd = DerivedDataDescription(
-            input_data_name="12345_2020-10-10T101010",
-            creation_time=datetime.datetime(2021, 10, 10, 10, 10, 10),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            modalities=[Modality.ECEPHYS],
-            subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
-        )
-        self.assertEqual("12345_2020-10-10T101010_2021-10-10T101010", dd.name)
-
-        dd2 = DerivedDataDescription(
-            input_data_name="12345_2020-10-10T101010",
-            creation_time=datetime.datetime(2021, 10, 10, 10, 10, 10),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            modalities=[Modality.ECEPHYS],
-            subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
-            process_name="spikesorter",
-        )
-        self.assertIn("12345_2020-10-10T101010_spikesorter", dd2.name)
 
 
 if __name__ == "__main__":

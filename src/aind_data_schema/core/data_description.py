@@ -170,7 +170,7 @@ def derived_data_description(cls, data_description: DataDescription, process_nam
     process_name : str
         Name of the process that created the data
     kwargs
-        DerivedDataDescription fields can be explicitly set and will override
+        DataDescription fields can be explicitly set and will override
         values pulled from DataDescription
 
     """
