@@ -52,12 +52,6 @@ def recursive_get_all_names(obj: Any) -> List[str]:
     if obj is None or isinstance(obj, Enum):  # Skip None and Enums
         return names
 
-    if isinstance(obj, dict):  # Handle dictionaries
-        if "name" in obj and isinstance(obj["name"], str):  # Ensure name is a string
-            names.append(obj["name"])
-        for value in obj.values():
-            names.extend(recursive_get_all_names(value))
-
     elif isinstance(obj, list):  # Handle lists
         for item in obj:
             names.extend(recursive_get_all_names(item))
