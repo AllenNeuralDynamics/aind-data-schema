@@ -11,10 +11,12 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    Rotation,
+    Scale,
+    Translation,
+    Affine,
+    CoordinateSystemLibrary,
+    CoordinateTransform,
 )
 from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -35,6 +37,44 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Acquisition()
 
+        data_stream = DataStream(
+            stream_start_time=datetime.now(tz=timezone.utc),
+            stream_end_time=datetime.now(tz=timezone.utc),
+            modalities=[Modality.SPIM],
+            active_devices=[],
+            configurations=[
+                InVitroImagingConfig(
+                    chamber_immersion=Immersion(medium="PBS", refractive_index=1),
+                    tiles=[
+                        tile.AcquisitionTile(
+                            coordinate_transform=CoordinateTransform(
+                                input="SPIM_IJK",
+                                output="SPIM_RPI",
+                                transforms=[
+                                    Scale(
+                                        scale=[1, 1, 1],
+                                    ),
+                                    Translation(
+                                        translation=[0, 0, 0],
+                                    ),
+                                ],
+                            ),
+                            channel=tile.Channel(
+                                channel_name="488",
+                                light_source_name="Ex_488",
+                                filter_names=["Em_600"],
+                                detector_name="PMT_1",
+                                excitation_wavelength=488,
+                                excitation_power=0.1,
+                                filter_wheel_index=0,
+                            ),
+                        ),
+                    ],
+                    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+                ),
+            ],
+        )
+
         a = Acquisition(
             experimenters=[Person(name="alice bob")],
             acquisition_start_time=datetime.now(tz=timezone.utc),
@@ -54,37 +94,7 @@ class ImagingTests(unittest.TestCase):
                 ),
             ],
             acquisition_end_time=datetime.now(tz=timezone.utc),
-            data_streams=[
-                DataStream(
-                    stream_start_time=datetime.now(tz=timezone.utc),
-                    stream_end_time=datetime.now(tz=timezone.utc),
-                    modalities=[Modality.SPIM],
-                    active_devices=[],
-                    configurations=[
-                        InVitroImagingConfig(
-                            chamber_immersion=Immersion(medium="PBS", refractive_index=1),
-                            tiles=[
-                                tile.AcquisitionTile(
-                                    coordinate_transformations=[
-                                        Scale3dTransform(scale=[1, 1, 1]),
-                                        Translation3dTransform(translation=[1, 1, 1]),
-                                    ],
-                                    channel=tile.Channel(
-                                        channel_name="488",
-                                        light_source_name="Ex_488",
-                                        filter_names=["Em_600"],
-                                        detector_name="PMT_1",
-                                        excitation_wavelength=488,
-                                        excitation_power=0.1,
-                                        filter_wheel_index=0,
-                                    ),
-                                )
-                            ],
-                            axes=[],
-                        ),
-                    ],
-                )
-            ],
+            data_streams=[data_stream],
         )
 
         self.assertIsNotNone(a)
@@ -123,6 +133,7 @@ class ImagingTests(unittest.TestCase):
         i = Instrument(
             instrument_id="room_exaSPIM1-1_20231004",
             modalities=[Modality.SPIM],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             modification_date=datetime.now().date(),
             manufacturer=Organization.LIFECANVAS,
             components=[objective, laser, scan_stage],
@@ -137,69 +148,12 @@ class ImagingTests(unittest.TestCase):
                 instrument_id="room_exaSPIM1-1_20231004",
                 modalities=[Modality.SPIM],
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 manufacturer=Organization.OTHER,
                 components=[],
             )
 
         self.assertIn("modality 'SPIM' requires at least one device", repr(e2.exception))
-
-    def test_axis(self):
-        """test the axis class"""
-        # test that a few work
-        test_codes = ["RAS", "LSP", "RAI", "PAR"]
-        for test_code in test_codes:
-            a = Acquisition(
-                experimenters=[Person(name="alice bob")],
-                acquisition_start_time=datetime.now(tz=timezone.utc),
-                specimen_id="123456-brain",
-                subject_id="123456",
-                instrument_id="1234",
-                calibrations=[
-                    Calibration(
-                        calibration_date=datetime.now(tz=timezone.utc),
-                        description="Laser power calibration",
-                        device_name="Laser 1",
-                        input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-                        output={
-                            "power_measurement": 50.0,
-                            "power_unit": PowerUnit.MW,
-                        },
-                    ),
-                ],
-                acquisition_end_time=datetime.now(tz=timezone.utc),
-                data_streams=[
-                    DataStream(
-                        stream_start_time=datetime.now(tz=timezone.utc),
-                        stream_end_time=datetime.now(tz=timezone.utc),
-                        modalities=[Modality.SPIM],
-                        active_devices=[],
-                        configurations=[
-                            InVitroImagingConfig(
-                                chamber_immersion=Immersion(medium="PBS", refractive_index=1),
-                                tiles=[
-                                    tile.AcquisitionTile(
-                                        coordinate_transformations=[
-                                            Scale3dTransform(scale=[1, 1, 1]),
-                                            Translation3dTransform(translation=[1, 1, 1]),
-                                        ],
-                                        channel=tile.Channel(
-                                            channel_name="488",
-                                            light_source_name="Ex_488",
-                                            filter_names=["Em_600"],
-                                            detector_name="PMT_1",
-                                            excitation_wavelength=488,
-                                            excitation_power=0.1,
-                                            filter_wheel_index=0,
-                                        ),
-                                    )
-                                ],
-                                axes=test_code,
-                            ),
-                        ],
-                    )
-                ],
-            )
-            self.assertEqual(3, len(a.data_streams[0].configurations[0].axes))
 
     def test_registration(self):
         """test the tile models"""
@@ -216,16 +170,30 @@ class ImagingTests(unittest.TestCase):
             parameters={
                 "tiles": [
                     tile.Tile(
-                        coordinate_transformations=[
-                            Affine3dTransform(affine_transform=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
-                        ]
+                        coordinate_transform=CoordinateTransform(
+                            input="SPIM_IJK",
+                            output="BREGMA_ARI",
+                            transforms=[
+                                Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                            ],
+                        ),
                     ),
                     tile.Tile(
-                        coordinate_transformations=[
-                            Translation3dTransform(translation=[0, 1, 2]),
-                            Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                            Scale3dTransform(scale=[1, 2, 3]),
-                        ]
+                        coordinate_transform=CoordinateTransform(
+                            input="SPIM_IJK",
+                            output="BREGMA_ARI",
+                            transforms=[
+                                Translation(
+                                    translation=[0, 1, 2],
+                                ),
+                                Rotation(
+                                    angles=[1, 2, 3],
+                                ),
+                                Scale(
+                                    scale=[1, 2, 3],
+                                ),
+                            ],
+                        ),
                     ),
                 ],
             },

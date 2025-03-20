@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-""" example FIP ophys rig """
+""" example FIP ophys instrument """
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
@@ -18,7 +18,6 @@ from aind_data_schema.components.devices import (
     DAQChannel,
     RewardDelivery,
     RewardSpout,
-    SpoutSide,
     Device,
     LickSensorType,
     MotorizedStage,
@@ -31,12 +30,17 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.identifiers import Software
+from aind_data_schema.components.coordinates import (
+    AnatomicalRelative,
+    CoordinateSystemLibrary,
+)
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
 camera1 = CameraAssembly(
     name="BehaviorVideography_FaceSide",
-    camera_target=CameraTarget.FACE_SIDE_LEFT,
+    target=CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.LEFT],
     camera=Camera(
         name="Side face camera",
         detector_type="Camera",
@@ -65,7 +69,8 @@ camera1 = CameraAssembly(
 
 camera2 = CameraAssembly(
     name="BehaviorVideography_FaceBottom",
-    camera_target=CameraTarget.FACE_BOTTOM,
+    target=CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.INFERIOR],
     camera=Camera(
         name="Bottom face Camera",
         detector_type="Camera",
@@ -112,7 +117,6 @@ reward_delivery = RewardDelivery(
     reward_spouts=[
         RewardSpout(
             name="Left spout",
-            side=SpoutSide.LEFT,
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Left"),
             lick_sensor=Device(
@@ -123,7 +127,6 @@ reward_delivery = RewardDelivery(
         ),
         RewardSpout(
             name="Right spout",
-            side=SpoutSide.RIGHT,
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Right"),
             lick_sensor=Device(
@@ -311,6 +314,8 @@ lens = Lens(
     size=1,
 )
 
+tube = Tube(name="mouse_tube_foraging", diameter=4.0)
+
 additional_device = Device(name="Photometry Clock")
 
 calibrations = [
@@ -342,6 +347,7 @@ inst = Instrument(
     instrument_id="447_FIP-Behavior_20000101",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         camera1,
         camera2,
@@ -354,7 +360,6 @@ inst = Instrument(
         *filters,
         lens,
         additional_device,
-        Tube(name="mouse_tube_foraging", diameter=4.0),
     ],
     calibrations=calibrations,
 )

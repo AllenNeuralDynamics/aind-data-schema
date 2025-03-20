@@ -34,12 +34,15 @@ from aind_data_schema.components.devices import (
     PatchCord,
     RewardDelivery,
     RewardSpout,
-    SpoutSide,
     ScanningStage,
     DigitalMicromirrorDevice,
 )
 from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
 from aind_data_schema_models.units import SizeUnit
+from aind_data_schema.components.coordinates import (
+    AnatomicalRelative,
+    CoordinateSystemLibrary,
+)
 
 daqs = [
     NeuropixelsBasestation(
@@ -123,7 +126,8 @@ lms = [
 cameras = [
     CameraAssembly(
         name="cam",
-        camera_target=CameraTarget.FACE_BOTTOM,
+        target=CameraTarget.FACE,
+        relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
         lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
         camera=Camera(
             name="Camera A",
@@ -182,7 +186,8 @@ stick_microscopes = [
             sensor_height=1,
             chroma="Color",
         ),
-        camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS A VALUE
+        target=CameraTarget.BRAIN,
+        relative_position=[AnatomicalRelative.SUPERIOR],
         lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
     )
 ]
@@ -259,7 +264,6 @@ stimulus_devices = [
         reward_spouts=[
             RewardSpout(
                 name="Left spout",
-                side=SpoutSide.LEFT,
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Left"),
                 lick_sensor=Device(
@@ -268,7 +272,6 @@ stimulus_devices = [
             ),
             RewardSpout(
                 name="Right spout",
-                side=SpoutSide.RIGHT,
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Right"),
                 lick_sensor=Device(
@@ -300,6 +303,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             components=[
                 *daqs,
                 *cameras,
@@ -335,13 +339,14 @@ class InstrumentTests(unittest.TestCase):
         """Test that the camera_target being set to Other throws a validation error without notes"""
 
         camera_no_target = cameras[0].model_copy()
-        camera_no_target.camera_target = CameraTarget.OTHER
+        camera_no_target.target = CameraTarget.OTHER
 
         with self.assertRaises(ValidationError):
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     camera_no_target,
@@ -374,6 +379,7 @@ class InstrumentTests(unittest.TestCase):
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.ECEPHYS, Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             components=[
                 *daqs,
                 camera_no_target,
@@ -411,6 +417,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -449,6 +456,7 @@ class InstrumentTests(unittest.TestCase):
                 Instrument(
                     modalities=[Modality.from_abbreviation(modality_abbreviation)],
                     instrument_id="123_EPHYS1-OPTO_20220101",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                     modification_date=date(2020, 10, 10),
                     components=[],
                     calibrations=[],
@@ -464,6 +472,7 @@ class InstrumentTests(unittest.TestCase):
                 modalities=[Modality.from_abbreviation(modality_abbreviation)],
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -491,6 +500,7 @@ class InstrumentTests(unittest.TestCase):
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 modalities=[Modality.ECEPHYS],
                 components=[*daqs, *ems],
                 manufacturer=Organization.OTHER,
@@ -501,6 +511,7 @@ class InstrumentTests(unittest.TestCase):
         inst = Instrument(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modification_date=date(2020, 10, 10),
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             modalities=[Modality.ECEPHYS],
             components=[*daqs, *ems],
             manufacturer=Organization.OTHER,
@@ -516,6 +527,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -535,6 +547,7 @@ class InstrumentTests(unittest.TestCase):
                 instrument_id="123_EPHYS-OPTO_2020-01-01",
                 modification_date=date(2020, 10, 10),
                 modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 components=[
                     *daqs,
                     *cameras,
@@ -557,12 +570,13 @@ class InstrumentTests(unittest.TestCase):
         instrument_instance_modality = Instrument.model_construct(
             instrument_id="123_EPHYS1-OPTO_20220101",
             modalities={Modality.ECEPHYS},  # Example with a valid Modality instance
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         instrument_json = instrument_instance_modality.model_dump_json()
         instrument_data = json.loads(instrument_json)
         self.assertEqual(instrument_data["modalities"], expected_modalities)
 
-        # Case 2: Modality is a dictionary when Rig is constructed from JSON
+        # Case 2: Modality is a dictionary when Instrument is constructed from JSON
         instrument_dict_modality = Instrument.model_construct(**instrument_data)
         instrument_dict_json = instrument_dict_modality.model_dump_json()
         instrument_dict_data = json.loads(instrument_dict_json)
@@ -574,6 +588,54 @@ class InstrumentTests(unittest.TestCase):
 
             instrument_unknown_modality.model_dump_json()
         self.assertIn("Error calling function `serialize_modalities`", str(context.exception))
+
+    def test_coordinate_validator(self):
+        """Test the coordinate_validator function"""
+
+        # Create a matching CameraAssembly
+        camera = CameraAssembly(
+            name="Assembly A",
+            camera=Camera(
+                name="Camera A",
+                detector_type=DetectorType.CAMERA,
+                manufacturer=Organization.OTHER,
+                data_interface="USB",
+                computer_name="ASDF",
+                frame_rate=144,
+                frame_rate_unit=FrequencyUnit.HZ,
+                sensor_width=1,
+                sensor_height=1,
+                chroma="Color",
+            ),
+            target=CameraTarget.BRAIN,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+        )
+
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS, Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,  # order is AP, ML, SI
+            components=[
+                *daqs,
+                *cameras,
+                *stick_microscopes,
+                *light_sources,
+                *lms,
+                laser,
+                *ems,
+                *detectors,
+                *patch_cords,
+                *stimulus_devices,
+                scan_stage,
+                Disc(name="Disc A", radius=1),
+                camera,
+            ],
+            calibrations=[],
+            connections=[],
+        )
+        self.assertIsNotNone(inst)
 
 
 if __name__ == "__main__":

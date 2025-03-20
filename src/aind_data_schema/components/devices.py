@@ -20,7 +20,13 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import RelativePosition, Size3d
+from aind_data_schema.components.coordinates import (
+    AxisName,
+    Transform,
+    AnatomicalRelative,
+    Scale,
+    CoordinateSystem,
+)
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.identifiers import Software
 
@@ -48,14 +54,6 @@ class StageAxisDirection(str, Enum):
     DETECTION_AXIS = "Detection axis"
     ILLUMINATION_AXIS = "Illumination axis"
     PERPENDICULAR_AXIS = "Perpendicular axis"
-
-
-class StageAxisName(str, Enum):
-    """Axis names for motorized stages as configured by hardware"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
 
 
 class DeviceDriver(str, Enum):
@@ -154,14 +152,9 @@ class CameraTarget(str, Enum):
     """Target of camera"""
 
     BODY = "Body"
-    BOTTOM = "Bottom"
-    BRAIN_SURFACE = "Brain surface"
+    BRAIN = "Brain"
     EYE = "Eye"
-    FACE_BOTTOM = "Face bottom"
-    FACE_FORWARD = "Face forward"
-    FACE_SIDE_LEFT = "Face side left"
-    FACE_SIDE_RIGHT = "Face side right"
-    SIDE = "Side"
+    FACE = "Face"
     TONGUE = "Tongue"
     OTHER = "Other"
 
@@ -211,15 +204,6 @@ class FerruleMaterial(str, Enum):
     STAINLESS_STEEL = "Stainless steel"
 
 
-class SpoutSide(str, Enum):
-    """Spout sides"""
-
-    LEFT = "Left"
-    RIGHT = "Right"
-    CENTER = "Center"
-    OTHER = "Other"
-
-
 class ScannerLocation(str, Enum):
     """location of scanner"""
 
@@ -260,6 +244,8 @@ class Device(DataModel):
         default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
     )
     port_index: Optional[str] = Field(default=None, title="Port index")
+
+    # Additional fields
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -268,7 +254,7 @@ class Calibration(DataModel):
     """Generic calibration class"""
 
     calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
     output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
@@ -279,7 +265,7 @@ class Maintenance(DataModel):
     """Generic maintenance class"""
 
     maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
+    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -419,15 +405,20 @@ class Objective(Device):
 class CameraAssembly(DataModel):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
-    # required fields
     name: str = Field(..., title="Camera assembly name")
-    camera_target: CameraTarget = Field(..., title="Camera target")
+    target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 
-    # optional fields
+    # position information
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None,
+        title="Position",
+        description="Exact position of the camera assembly in the instrument",
+    )
+
     filter: Optional[Filter] = Field(default=None, title="Filter")
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of this assembly")
 
 
 class DAQChannel(DataModel):
@@ -575,6 +566,7 @@ class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Manipulator coordinate system")
 
 
 class PatchCord(Device):
@@ -681,7 +673,8 @@ class PockelsCell(Device):
 class Enclosure(Device):
     """Description of an enclosure"""
 
-    size: Size3d = Field(..., title="Size")
+    size: Scale = Field(..., title="Size")
+    size_unit: SizeUnit = Field(..., title="Size unit")
     internal_material: str = Field(..., title="Internal material")
     external_material: str = Field(..., title="External material")
     grounded: bool = Field(..., title="Grounded")
@@ -745,7 +738,8 @@ class Treadmill(MousePlatform):
 class Arena(MousePlatform):
     """Description of a rectangular arena"""
 
-    size: Size3d = Field(..., title="3D Size")
+    size: Scale = Field(..., title="3D Size")
+    size_unit: SizeUnit = Field(..., title="Size unit")
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
@@ -759,7 +753,14 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of the monitor")
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None,
+        title="Position",
+        description="Exact position of the camera assembly in the instrument",
+    )
+
     contrast: Optional[int] = Field(
         default=None,
         description="Monitor's contrast setting",
@@ -779,25 +780,12 @@ class Monitor(Device):
 class RewardSpout(Device):
     """Description of a reward spout"""
 
-    side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
-    spout_position: Optional[RelativePosition] = Field(default=None, title="Spout stage position")
+
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-    @model_validator(mode="after")
-    def validate_other(self):
-        """Validator for other/notes"""
-
-        if self.side == SpoutSide.OTHER and self.notes is None:
-            raise ValueError(
-                "Notes cannot be empty if spout side is Other. " "Describe the spout side in the notes field."
-            )
-
-        return self
 
 
 class RewardDelivery(DataModel):
@@ -811,7 +799,13 @@ class Speaker(Device):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of the speaker")
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    position: Optional[Transform] = Field(
+        default=None,
+        title="Position",
+        description="Exact position of the camera assembly in the instrument",
+    )
 
 
 class ChannelType(Enum):
@@ -862,7 +856,7 @@ class ScanningStage(MotorizedStage):
     """Description of a scanning motorized stages"""
 
     stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
-    stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
+    stage_axis_name: AxisName = Field(..., title="Name of stage axis")
 
 
 class OpticalTable(Device):

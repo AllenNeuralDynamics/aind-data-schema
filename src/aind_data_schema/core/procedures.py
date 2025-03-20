@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Set, Union
+from typing import List, Literal, Optional, Set, Union, Dict
 
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
@@ -11,7 +11,6 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
-    AngleUnit,
     ConcentrationUnit,
     CurrentUnit,
     MassUnit,
@@ -29,8 +28,9 @@ from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDef
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, Origin, AnatomicalRelative
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
 
 
 class ImmunolabelClass(str, Enum):
@@ -107,14 +107,6 @@ class CraniotomyType(str, Enum):
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
     OTHER = "Other"
-
-
-class CoordinateReferenceLocation(str, Enum):
-    """Name of reference point for Coordinates"""
-
-    BREGMA = "Bregma"
-    LAMBDA = "Lambda"
-    MIDLINE = "Midline"
 
 
 class HeadframeMaterial(str, Enum):
@@ -259,8 +251,10 @@ class Sectioning(DataModel):
     section_thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Section thickness unit")
     section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
     section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
-    reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
     section_strategy: SectionStrategy = Field(..., title="Slice strategy")
+
+    reference: Origin = Field(..., title="Reference origin")
+
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
     @field_validator("output_specimen_ids")
@@ -346,10 +340,6 @@ class Craniotomy(DataModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
@@ -459,7 +449,12 @@ class Injection(DataModel):
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
     recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
-    # [TODO] Placeholder for injection target/coordinate information
+
+    target: Optional[MouseAnatomyModel] = Field(
+        default=None, title="Injection target", description="Use InjectionTargets"
+    )
+    relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
+
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
@@ -467,50 +462,21 @@ class Injection(DataModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
 
-class RetroOrbitalInjection(Injection):
-    """Description of a retro-orbital injection procedure"""
-
-    injection_eye: Side = Field(..., title="Injection eye")
-
-
-class IntraperitonealInjection(Injection):
-    """Description of an intraperitoneal injection procedure"""
-
-    time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Injection time")
-
-
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
-    injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")
-    injection_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Injection coordinate unit")
-    injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        default=None, title="Injection coordinate reference"
-    )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
-    injection_angle: Decimal = Field(..., title="Injection angle (deg)")
-    injection_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Injection angle unit")
-    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
-    injection_hemisphere: Optional[Side] = Field(default=None, title="Injection hemisphere")
-
-
-class NanojectInjection(BrainInjection):
-    """Description of a nanoject injection procedure"""
+    coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
+    target: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
-    def check_dv_and_vol_list_lengths(values):
+    def check_lengths(values):
         """Validator for list length of injection volumes and depths"""
 
         dynamics_len = len(values.dynamics)
-        coords_len = len(values.injection_coordinate_depth)
+        coords_len = len(values.coordinates)
 
         if dynamics_len != coords_len:
-            raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
+            raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
         return values
 
 
@@ -547,23 +513,8 @@ class OphysProbe(DataModel):
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
-    stereotactic_coordinate_dv: Decimal = Field(
-        ...,
-        title="Stereotactic coordinate D/V (mm)",
-    )
-    stereotactic_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Sterotactic coordinate unit")
-    stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        default=None, title="Stereotactic coordinate reference"
-    )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
-    angle: Decimal = Field(..., title="Angle (deg)")
-    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+
+    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
 class FiberImplant(DataModel):
@@ -598,7 +549,6 @@ class MyomatrixContact(DataModel):
     side: Side = Field(..., title="Body side")
     muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class MyomatrixThread(DataModel):
@@ -654,6 +604,20 @@ class Surgery(DataModel):
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     workstation_id: Optional[str] = Field(default=None, title="Workstation ID")
+
+    # Coordinate system
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system for surgical procedures",
+    )
+
+    # Measured coordinates
+    measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
+        default=None,
+        title="Measured coordinates",
+        description="Coordinates measured during the procedure, for example Bregma and Lambda",
+    )
+
     procedures: List[
         Annotated[
             Union[
@@ -663,18 +627,27 @@ class Surgery(DataModel):
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
-                IntraperitonealInjection,
+                BrainInjection,
+                Injection,
                 MyomatrixInsertion,
-                NanojectInjection,
                 OtherSubjectProcedure,
                 Perfusion,
-                RetroOrbitalInjection,
                 SampleCollection,
             ],
             Field(discriminator="object_type"),
         ]
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="after")
+    def coordinate_validator(cls, data):
+        """Validate that all coordinates are valid in the instrument's coordinate system"""
+
+        if data.coordinate_system:
+
+            recursive_coord_system_check(data, data.coordinate_system.name)
+
+        return data
 
 
 class Procedures(DataCoreModel):

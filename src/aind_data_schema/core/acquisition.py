@@ -22,7 +22,7 @@ from aind_data_schema.components.configs import (
     DomeModule,
     PatchCordConfig,
     FiberAssemblyConfig,
-    ManipulatorModule,
+    ManipulatorConfig,
     DetectorConfig,
     FieldOfView,
     SlapFieldOfView,
@@ -36,7 +36,6 @@ from aind_data_schema.components.configs import (
     StimulusModality,
     InVitroImagingConfig,
 )
-from aind_data_schema.components.coordinates import Affine3dTransform
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
@@ -47,7 +46,7 @@ from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[DomeModule, ManipulatorModule]],
+    Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
     Modality.MRI: [[MRIScan]],
@@ -119,7 +118,7 @@ class DataStream(DataModel):
             Union[
                 LightEmittingDiodeConfig,
                 LaserConfig,
-                ManipulatorModule,
+                ManipulatorConfig,
                 DomeModule,
                 DetectorConfig,
                 PatchCordConfig,
@@ -206,6 +205,8 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition metadata
+    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
+    acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
     experimenters: List[Person] = Field(
         default=[],
         title="experimenter(s)",
@@ -213,6 +214,9 @@ class Acquisition(DataCoreModel):
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     instrument_id: str = Field(..., title="Instrument ID")
+    experiment_type: str = Field(default=None, title="Experiment type")
+    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
     # Instrument metadata
     calibrations: List[Calibration] = Field(
@@ -223,15 +227,6 @@ class Acquisition(DataCoreModel):
     maintenance: List[Maintenance] = Field(
         default=[], title="Maintenance", description="List of maintenance on instrument prior to acquisition."
     )
-    # Information about the acquisition
-    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
-    acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
-    experiment_type: str = Field(default=None, title="Experiment type")
-    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
-    headframe_registration: Optional[Affine3dTransform] = Field(
-        default=None, title="Headframe registration", description="MRI transform matrix for headframe"
-    )
-    notes: Optional[str] = Field(default=None, title="Notes")
 
     # Acquisition data
     data_streams: List[DataStream] = Field(
@@ -337,7 +332,6 @@ class Acquisition(DataCoreModel):
             acquisition_end_time=end_time,
             experiment_type=self.experiment_type,
             software=software,
-            headframe_registration=self.headframe_registration,  # Note: this is changing in a separate PR
             notes=notes,
             data_streams=data_streams,
             stimulus_epochs=stimulus_epochs,
