@@ -170,7 +170,7 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertIn("data_level", str(context.exception))
 
     def test_derived_no_input_data(self):
-        """ Test that creating a derived data description without input data raises an error """
+        """Test that creating a derived data description without input data raises an error"""
         dt = datetime.datetime.now()
 
         with self.assertRaises(ValueError) as context:
@@ -182,13 +182,13 @@ class DataDescriptionTest(unittest.TestCase):
                 modalities=[Modality.ECEPHYS],
                 subject_id="12345",
                 investigators=[Person(name="Jane Smith")],
-                input_data=None
+                input_data=None,
             )
 
         self.assertIn("input_data", str(context.exception))
 
     def test_derived_bad_creation_time(self):
-        """ Test that a validation error is raised if the creation time is not a datetime object """
+        """Test that a validation error is raised if the creation time is not a datetime object"""
         dt = datetime.datetime.now()
 
         da = DataDescription(

@@ -1,7 +1,7 @@
 """Tests acquisition validators in Metadata model"""
 
 import unittest
-from datetime import datetime, time, timezone
+from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
