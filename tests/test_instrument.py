@@ -43,7 +43,7 @@ from aind_data_schema.core.instrument import (
     Instrument,
     DEVICES_REQUIRED,
     ConnectionData,
-    ConnectionDirection
+    ConnectionDirection,
 )
 from aind_data_schema_models.units import SizeUnit
 from aind_data_schema.components.coordinates import (
@@ -92,7 +92,7 @@ connections = [
             "Laser A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Probe A", "Neuropixels basestation"],
@@ -104,7 +104,7 @@ connections = [
             "Probe A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Camera A", "Neuropixels basestation"],
@@ -116,7 +116,7 @@ connections = [
             "Camera A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Disc A", "Neuropixels basestation"],
@@ -128,7 +128,7 @@ connections = [
             "Disc A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
 ]
 
@@ -706,7 +706,7 @@ class ConnectionTest(unittest.TestCase):
                 "Laser A": ConnectionData(
                     direction=ConnectionDirection.RECEIVE,
                 ),
-            }
+            },
         )
         self.assertIsNotNone(connection)
 
@@ -724,7 +724,7 @@ class ConnectionTest(unittest.TestCase):
                     "Camera A": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
-                }
+                },
             )
 
         self.assertIn("Connection data key 'Laser A' does not exist", str(context.exception))

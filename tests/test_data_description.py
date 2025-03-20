@@ -161,7 +161,7 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertIn("DataLevel", str(context.exception))
 
     def test_derived_valid(self):
-        """ Test that you can construct a valid derived DataDescription """
+        """Test that you can construct a valid derived DataDescription"""
 
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")

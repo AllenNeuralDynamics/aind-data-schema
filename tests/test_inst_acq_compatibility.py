@@ -73,7 +73,7 @@ digital_out1 = DAQChannel(channel_name="DO1", channel_type="Digital Output")
 
 analog_input = DAQChannel(channel_name="AI0", channel_type="Analog Input")
 
-connections=[
+connections = [
     Connection(
         device_names=["Harp Behavior", "Face Camera"],
         connection_data={
@@ -84,7 +84,7 @@ connections=[
             "Face Camera": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Harp Behavior", "Body Camera"],
@@ -96,7 +96,7 @@ connections=[
             "Body Camera": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Harp Behavior", "Running Wheel"],
@@ -108,7 +108,7 @@ connections=[
             "Running Wheel": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
-        }
+        },
     ),
 ]
 
@@ -842,12 +842,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 channels=[
                     d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
                     d.DAQChannel(channel_name="DO1", channel_type="Digital Output"),
-                    d.DAQChannel(
-                        channel_name="DI0", channel_type="Digital Input"
-                    ),
-                    d.DAQChannel(
-                        channel_name="DI1", channel_type="Digital Input"
-                    ),
+                    d.DAQChannel(channel_name="DI0", channel_type="Digital Input"),
+                    d.DAQChannel(channel_name="DI1", channel_type="Digital Input"),
                     d.DAQChannel(channel_name="DI3", channel_type="Digital Input"),
                 ],
             )
@@ -863,7 +859,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "Solenoid Left": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
-                }
+                },
             ),
             Connection(
                 device_names=["Harp Behavior", "Solenoid Right"],
@@ -875,7 +871,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "Solenoid Right": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
-                }
+                },
             ),
             Connection(
                 device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
@@ -887,7 +883,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "Janelia_Lick_Detector Left": ConnectionData(
                         direction=ConnectionDirection.SEND,
                     ),
-                }
+                },
             ),
             Connection(
                 device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
@@ -899,7 +895,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "Janelia_Lick_Detector Right": ConnectionData(
                         direction=ConnectionDirection.SEND,
                     ),
-                }
+                },
             ),
             Connection(
                 device_names=["Harp Behavior", "Photometry Clock"],
@@ -911,7 +907,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "Photometry Clock": ConnectionData(
                         direction=ConnectionDirection.SEND,
                     ),
-                }
+                },
             ),
         ]
         stimulus_devices = [
