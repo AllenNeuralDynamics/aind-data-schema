@@ -462,7 +462,7 @@ class InstrumentTests(unittest.TestCase):
 
     def test_missing_connections(self):
         """Validation error when connections are missing"""
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValueError) as context:
             Instrument(
                 instrument_id="123_EPHYS1-OPTO_20220101",
                 modification_date=date(2020, 10, 10),
@@ -496,6 +496,8 @@ class InstrumentTests(unittest.TestCase):
                     )
                 ],
             )
+
+        self.assertIn("Device name validation error: 'Not a real device'", str(context.exception))
 
     def test_validator_modality_device_missing(self):
         """Test that the modality -> device validator throws validation errors when devices are missing"""
@@ -686,6 +688,46 @@ class InstrumentTests(unittest.TestCase):
             connections=[],
         )
         self.assertIsNotNone(inst)
+
+
+class ConnectionTest(unittest.TestCase):
+    """Test the Connection schema"""
+
+    def test_connection(self):
+        """Test the Connection schema"""
+
+        connection = Connection(
+            device_names=["Laser A", "Neuropixels basestation"],
+            connection_data={
+                "Neuropixels basestation": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                    channel="123",
+                ),
+                "Laser A": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+            }
+        )
+        self.assertIsNotNone(connection)
+
+        with self.assertRaises(ValidationError) as context:
+            Connection(
+                device_names=["Camera A", "Neuropixels basestation"],
+                connection_data={
+                    "Neuropixels basestation": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                        channel="123",
+                    ),
+                    "Laser A": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Camera A": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                }
+            )
+
+        self.assertIn("Connection data key 'Laser A' does not exist", str(context.exception))
 
 
 if __name__ == "__main__":
