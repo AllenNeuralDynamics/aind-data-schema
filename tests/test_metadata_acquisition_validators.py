@@ -55,7 +55,7 @@ class TestMetadata(unittest.TestCase):
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription(
-                    creation_time=datetime(12, 12, 12),
+                    creation_time=datetime(2020, 12, 12, 12, 12, 12),
                     institution=Organization.AIND,
                     data_level="raw",
                     funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
