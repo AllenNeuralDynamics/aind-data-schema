@@ -1,7 +1,8 @@
 """Core Instrument model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set, Union, Dict, Enum
+from typing import List, Literal, Optional, Set, Union, Dict
+from enum import Enum
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
@@ -67,11 +68,17 @@ DEVICES_REQUIRED = {
 instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
+class ConnectionDirection(str, Enum):
+    """Direction of a connection"""
+
+    SEND = "send"
+    RECEIVE = "receive"
+
+
 class ConnectionData(DataModel):
     """Data for a connection"""
 
-    input: Optional[bool] = Field(default=None, title="Input status")
-    output: Optional[bool] = Field(default=None, title="Output status")
+    direction: Optional[ConnectionDirection] = Field(default=None, title="Connection direction")
     channel: Optional[str] = Field(default=None, title="Connection channel or port index")
 
 
@@ -80,6 +87,16 @@ class Connection(DataModel):
 
     device_names: List[str] = Field(..., title="Names of connected devices")
     connection_data: Dict[str, ConnectionData] = Field(default={}, title="Connection data")
+
+    @model_validator(mode="after")
+    def validate_connection_data(cls, self):
+        """ Check that all keys in connection_data exist in device_names """
+
+        for key in self.connection_data.keys():
+            if key not in self.device_names:
+                raise ValueError(f"Connection data key '{key}' does not exist in device names")
+
+        return self
 
 
 class Instrument(DataCoreModel):
@@ -162,6 +179,14 @@ class Instrument(DataCoreModel):
         title="Components",
         description="List of all devices in the instrument",
     )
+
+    @classmethod
+    def get_component_names(cls, instrument: "Instrument") -> List[str]:
+        """Get the name field of all components, recurse into assemblies."""
+
+
+
+        return [component.name for component in instrument.components if isinstance(component, Device)]
 
     @field_serializer("modalities", when_used="json")
     def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
