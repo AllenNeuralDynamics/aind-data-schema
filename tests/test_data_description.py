@@ -21,7 +21,7 @@ from aind_data_schema.core.data_description import (
     DataRegex,
     Funding,
     build_data_name,
-    derived_data_description,
+    from_raw,
 )
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
@@ -103,7 +103,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
-        r1 = derived_data_description(da, "spikesort-ks25", dt)
+        r1 = from_raw(da, "spikesort-ks25", dt)
         self.assertIsNotNone(r1)
 
     def test_nested_derived_data_description_construction(self):
@@ -119,9 +119,9 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
-        r1 = derived_data_description(da, "spikesort-ks25", dt)
-        r2 = derived_data_description(r1, "some-model", dt)
-        r3 = derived_data_description(r2, "a-paper", dt)
+        r1 = from_raw(da, "spikesort-ks25", dt)
+        r2 = from_raw(r1, "some-model", dt)
+        r3 = from_raw(r2, "a-paper", dt)
         self.assertIsNotNone(r3)
 
     def test_data_description_construction(self):

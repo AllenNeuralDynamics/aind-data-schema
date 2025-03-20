@@ -115,10 +115,8 @@ class DataDescription(DataCoreModel):
     def parse_name(cls, name, data_level: DataLevel = DataLevel.RAW):
         """Decompose a DataDescription name string into component parts"""
 
-        if data_level == DataLevel.DATA:
+        if data_level == DataLevel.RAW:
             m = re.match(f"{DataRegex.DATA.value}", name)
-        elif data_level == DataLevel.RAW:
-            m = re.match(f"{DataRegex.RAW.value}", name)
         elif data_level == DataLevel.DERIVED:
             m = re.match(f"{DataRegex.DERIVED.value}", name)
         else:
@@ -129,15 +127,10 @@ class DataDescription(DataCoreModel):
 
         creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
-        if data_level == DataLevel.DATA:
+        if data_level == DataLevel.RAW:
             return dict(
                 creation_time=creation_time,
                 label=m.group("label"),
-            )
-        elif data_level == DataLevel.RAW:
-            return dict(
-                creation_time=creation_time,
-                subject_id=m.group("subject_id"),
             )
         elif data_level == DataLevel.DERIVED:
             return dict(
@@ -165,67 +158,67 @@ class DataDescription(DataCoreModel):
 
         return self
 
-
-def derived_data_description(cls, data_description: DataDescription, process_name: str, **kwargs):
-    """
-    Create a DataLevel.DERIVED DataDescription from a DataLevel.RAW DataDescription object.
-
-    Parameters
-    ----------
-    data_description : DataDescription
-        The DataDescription object to use as the base for the Derived
-    process_name : str
-        Name of the process that created the data
-    kwargs
-        DataDescription fields can be explicitly set and will override
-        values pulled from DataDescription
-
-    """
-
-    def get_or_default(field_name: str) -> Any:
+    @classmethod
+    def from_raw(cls, data_description: "DataDescription", process_name: str, **kwargs) -> "DataDescription":
         """
-        If the field is set in kwargs, use that value. Otherwise, check if
-        the field is set in the DataDescription object. If not, pull from
-        the field default value if the field has a default value. Otherwise,
-        return None and allow pydantic to raise a Validation Error if field
-        is not Optional.
+        Create a DataLevel.DERIVED DataDescription from a DataLevel.RAW DataDescription object.
+
         Parameters
         ----------
-        field_name : str
-            Name of the field to set
-
-        Returns
-        -------
-        Any
+        data_description : DataDescription
+            The DataDescription object to use as the base for the Derived
+        process_name : str
+            Name of the process that created the data
+        kwargs
+            DataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
 
         """
-        if kwargs.get(field_name) is not None:
-            return kwargs.get(field_name)
-        elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
-            return getattr(data_description, field_name)
-        else:
-            return getattr(DataDescription.model_fields.get(field_name), "default")
 
-    creation_time = datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        def get_or_default(field_name: str) -> Any:
+            """
+            If the field is set in kwargs, use that value. Otherwise, check if
+            the field is set in the DataDescription object. If not, pull from
+            the field default value if the field has a default value. Otherwise,
+            return None and allow pydantic to raise a Validation Error if field
+            is not Optional.
+            Parameters
+            ----------
+            field_name : str
+                Name of the field to set
 
-    # Upgrade name
-    derived_name = f"{data_description.name}_{process_name}_{creation_time.isoformat("YYYY-MM-DDThhmmss")}"
-    if not re.match(DataRegex.DERIVED.value, derived_name):
-        raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
+            Returns
+            -------
+            Any
 
-    return cls(
-        subject_id=get_or_default("subject_id"),
-        creation_time=creation_time,
-        tags=get_or_default("tags"),
-        name=derived_name,
-        institution=get_or_default("institution"),
-        funding_source=get_or_default("funding_source"),
-        data_level=DataLevel.DERIVED,
-        group=get_or_default("group"),
-        investigators=get_or_default("investigators"),
-        project_name=get_or_default("project_name"),
-        restrictions=get_or_default("restrictions"),
-        modalities=get_or_default("modalities"),
-        input_data=data_description.name,
-        data_summary=get_or_default("data_summary"),
-    )
+            """
+            if kwargs.get(field_name) is not None:
+                return kwargs.get(field_name)
+            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+                return getattr(data_description, field_name)
+            else:
+                return getattr(DataDescription.model_fields.get(field_name), "default")
+
+        creation_time = datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
+
+        # Upgrade name
+        derived_name = f"{data_description.name}_{process_name}_{creation_time.isoformat("YYYY-MM-DDThhmmss")}"
+        if not re.match(DataRegex.DERIVED.value, derived_name):
+            raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
+
+        return cls(
+            subject_id=get_or_default("subject_id"),
+            creation_time=creation_time,
+            tags=get_or_default("tags"),
+            name=derived_name,
+            institution=get_or_default("institution"),
+            funding_source=get_or_default("funding_source"),
+            data_level=DataLevel.DERIVED,
+            group=get_or_default("group"),
+            investigators=get_or_default("investigators"),
+            project_name=get_or_default("project_name"),
+            restrictions=get_or_default("restrictions"),
+            modalities=get_or_default("modalities"),
+            input_data=data_description.name,
+            data_summary=get_or_default("data_summary"),
+        )
