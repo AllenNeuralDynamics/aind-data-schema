@@ -1,7 +1,7 @@
 """Core Instrument model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set, Union, Dict
+from typing import List, Literal, Optional, Set, Union, Dict, Enum
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
@@ -67,19 +67,12 @@ DEVICES_REQUIRED = {
 instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
-class Com(DataModel):
-    """Description of a communication system"""
-
-    hardware_name: str = Field(..., title="Controlled hardware device")
-    com_port: str = Field(..., title="COM port")
-
-
 class ConnectionData(DataModel):
     """Data for a connection"""
 
     input: Optional[bool] = Field(default=None, title="Input status")
     output: Optional[bool] = Field(default=None, title="Output status")
-    channel: Optional[int] = Field(default=None, title="Connection channel")
+    channel: Optional[str] = Field(default=None, title="Connection channel or port index")
 
 
 class Connection(DataModel):
@@ -112,7 +105,6 @@ class Instrument(DataCoreModel):
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
 
     # instrument details
-    com_ports: List[Com] = Field(default=[], title="COM ports")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
     notes: Optional[str] = Field(default=None, title="Notes")
