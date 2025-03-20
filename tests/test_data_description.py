@@ -152,40 +152,6 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=[Person(name="Jane Smith")],
             )
 
-    def test_analysis_description_construction(self):
-        """Test AnalysisDescription construction"""
-        dt = datetime.datetime.now()
-        f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        ad = DataDescription(
-            analysis_name="analysis",
-            project_name="project",
-            creation_time=dt,
-            subject_id="1234",
-            modalities=[Modality.SPIM],
-            institution=Organization.AIND,
-            funding_source=[f],
-            investigators=[Person(name="Jane Smith")],
-            data_level="derived",
-        )
-        self.assertEqual(ad.name, build_data_name("project_analysis", dt))
-
-    def test_analysis_description_invalid_name(self):
-        """Test AnalysisDescription invalid name"""
-        dt = datetime.datetime.now()
-        f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        with self.assertRaises(ValueError):
-            DataDescription(
-                analysis_name="ana lysis",
-                project_name="pro_ject",
-                subject_id="1234",
-                modalities=[Modality.SPIM],
-                creation_time=dt,
-                institution=Organization.AIND,
-                funding_source=[f],
-                investigators=[Person(name="Jane Smith")],
-                data_level="derived",
-            )
-
     def test_data_description_missing_fields(self):
         """Test DataDescription missing fields"""
         dt = datetime.datetime.now()

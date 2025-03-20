@@ -10,6 +10,7 @@ from aind_data_schema_models.data_name_patterns import (
     Group,
     build_data_name,
     datetime_from_name_string,
+    datetime_to_name_string,
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -203,8 +204,11 @@ class DataDescription(DataCoreModel):
             datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
         )
 
+        if not isinstance(creation_time, datetime):
+            raise ValueError(f"creation_time({creation_time}) must be a datetime object")
+
         # Upgrade name
-        derived_name = f"{data_description.name}_{process_name}_{creation_time.isoformat("YYYY-MM-DDThhmmss")}"
+        derived_name = f"{data_description.name}_{process_name}_{datetime_to_name_string(creation_time)}"
         if not re.match(DataRegex.DERIVED.value, derived_name):
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
