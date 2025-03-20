@@ -170,7 +170,7 @@ class Rotation(DataModel):
         angles = [angle if self.angles_unit == AngleUnit.RAD else math.radians(angle) for angle in self.angles]
 
         # Create the rotation matrix
-        order = "xyz"[0: len(self.angles)]
+        order = "xyz"[: len(self.angles)]
         rotation = R.from_euler(order, angles)
         rotation_matrix = rotation.as_matrix().tolist()
 
