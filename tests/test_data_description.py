@@ -179,7 +179,6 @@ class DataDescriptionTest(unittest.TestCase):
         dd = DataDescription.from_raw(dr, "process", subject_id="1234-56")
         self.assertIsNotNone(dd)
 
-
     def test_derived_no_input_data(self):
         """Test that creating a derived data description without input data raises an error"""
         dt = datetime.datetime.now()
