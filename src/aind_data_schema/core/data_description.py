@@ -199,7 +199,9 @@ class DataDescription(DataCoreModel):
             else:
                 return getattr(DataDescription.model_fields.get(field_name), "default")
 
-        creation_time = datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        creation_time = (
+            datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        )
 
         # Upgrade name
         derived_name = f"{data_description.name}_{process_name}_{creation_time.isoformat("YYYY-MM-DDThhmmss")}"
