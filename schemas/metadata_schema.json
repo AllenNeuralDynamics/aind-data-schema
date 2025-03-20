@@ -7181,8 +7181,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.4",
-               "default": "2.0.4",
+               "const": "2.0.5",
+               "default": "2.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -7204,18 +7204,21 @@
                "title": "Creation Time",
                "type": "string"
             },
-            "label": {
+            "tags": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "A short name for the data, used in file names and labels",
-               "title": "Label"
+               "description": "Descriptive strings to help categorize and search for data",
+               "title": "Tags"
             },
             "name": {
                "anyOf": [
@@ -7426,14 +7429,18 @@
                "title": "Modalities",
                "type": "array"
             },
-            "related_data": {
-               "default": [],
-               "description": "Path and description of data assets associated with this asset (eg. reference images)",
-               "items": {
-                  "$ref": "#/$defs/RelatedData"
-               },
-               "title": "Related data",
-               "type": "array"
+            "input_data": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Name of the data asset that was used as input to the process that created this asset",
+               "title": "Input data"
             },
             "data_summary": {
                "anyOf": [
@@ -52539,8 +52546,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.17",
-               "default": "2.0.17",
+               "const": "2.0.18",
+               "default": "2.0.18",
                "title": "Schema Version",
                "type": "string"
             },
@@ -53849,33 +53856,6 @@
             "lot_number"
          ],
          "title": "Reagent",
-         "type": "object"
-      },
-      "RelatedData": {
-         "additionalProperties": false,
-         "description": "Description of related data asset",
-         "properties": {
-            "object_type": {
-               "const": "Related data",
-               "default": "Related data",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "related_data_path": {
-               "title": "Related data path",
-               "type": "string"
-            },
-            "relation": {
-               "description": "Relation of data to this asset",
-               "title": "Relation",
-               "type": "string"
-            }
-         },
-         "required": [
-            "related_data_path",
-            "relation"
-         ],
-         "title": "RelatedData",
          "type": "object"
       },
       "ResourceTimestamped": {
@@ -102713,8 +102693,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.17",
-         "default": "2.0.17",
+         "const": "2.0.18",
+         "default": "2.0.18",
          "title": "Schema Version",
          "type": "string"
       },
