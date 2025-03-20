@@ -115,7 +115,9 @@ class DataDescription(DataCoreModel):
     def parse_name(cls, name, data_level: DataLevel = DataLevel.RAW):
         """Decompose a DataDescription name string into component parts"""
 
-        if data_level == DataLevel.RAW:
+        if data_level == DataLevel.DATA:
+            m = re.match(f"{DataRegex.DATA.value}", name)
+        elif data_level == DataLevel.RAW:
             m = re.match(f"{DataRegex.RAW.value}", name)
         elif data_level == DataLevel.DERIVED:
             m = re.match(f"{DataRegex.DERIVED.value}", name)
@@ -127,10 +129,15 @@ class DataDescription(DataCoreModel):
 
         creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
-        if data_level == DataLevel.RAW:
+        if data_level == DataLevel.DATA:
             return dict(
                 creation_time=creation_time,
                 label=m.group("label"),
+            )
+        elif data_level == DataLevel.RAW:
+            return dict(
+                creation_time=creation_time,
+                subject_id=m.group("subject_id"),
             )
         elif data_level == DataLevel.DERIVED:
             return dict(
