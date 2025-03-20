@@ -87,7 +87,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel_name="123",
+                channel="123",
             ),
             "Laser A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -99,7 +99,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel_name="321",
+                channel="321",
             ),
             "Probe A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -111,7 +111,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel_name="234",
+                channel="234",
             ),
             "Camera A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
