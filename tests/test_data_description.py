@@ -17,12 +17,9 @@ from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.data_description import (
-    AnalysisDescription,
     DataDescription,
     DataRegex,
-    DerivedDataDescription,
     Funding,
-    RawDataDescription,
     build_data_name,
 )
 
@@ -55,10 +52,10 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertIsNotNone(f)
 
     def test_raw_data_description_construction(self):
-        """Test RawDataDescription construction"""
+        """Test DataDescription construction"""
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        da = RawDataDescription(
+        da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
             data_level="raw",
@@ -96,7 +93,7 @@ class DataDescriptionTest(unittest.TestCase):
         """Test DerivedDataDescription construction"""
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        da = RawDataDescription(
+        da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
             data_level="raw",
@@ -121,7 +118,7 @@ class DataDescriptionTest(unittest.TestCase):
         """Test nested DerivedDataDescription construction"""
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        da = RawDataDescription(
+        da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
             data_level="raw",
@@ -130,7 +127,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
         )
-        r1 = DerivedDataDescription(
+        r1 = DataDescription(
             input_data_name=da.name,
             process_name="spikesort-ks25",
             creation_time=dt,
@@ -139,8 +136,9 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=da.modalities,
             subject_id=da.subject_id,
             investigators=[Person(name="Jane Smith")],
+            data_level="derived",
         )
-        r2 = DerivedDataDescription(
+        r2 = DataDescription(
             input_data_name=r1.name,
             process_name="some-model",
             creation_time=dt,
@@ -149,8 +147,9 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=r1.modalities,
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            data_level="derived",
         )
-        r3 = DerivedDataDescription(
+        r3 = DataDescription(
             input_data_name=r2.name,
             process_name="a-paper",
             creation_time=dt,
@@ -159,6 +158,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=r2.modalities,
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            data_level="derived",
         )
         self.assertIsNotNone(r3)
 
@@ -196,7 +196,7 @@ class DataDescriptionTest(unittest.TestCase):
         """Test AnalysisDescription construction"""
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        ad = AnalysisDescription(
+        ad = DataDescription(
             analysis_name="analysis",
             project_name="project",
             creation_time=dt,
@@ -205,6 +205,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
+            data_level="derived",
         )
         self.assertEqual(ad.name, build_data_name("project_analysis", dt))
 
@@ -213,7 +214,7 @@ class DataDescriptionTest(unittest.TestCase):
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
         with self.assertRaises(ValueError):
-            AnalysisDescription(
+            DataDescription(
                 analysis_name="ana lysis",
                 project_name="pro_ject",
                 subject_id="1234",
@@ -222,6 +223,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[f],
                 investigators=[Person(name="Jane Smith")],
+                data_level="derived",
             )
 
     def test_data_description_missing_fields(self):
@@ -231,54 +233,6 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription()
         with self.assertRaises(ValueError):
             DataDescription(creation_time=dt)
-
-    def test_derived_data_description_missing_fields(self):
-        """Test DerivedDataDescription missing fields"""
-        dt = datetime.datetime.now()
-        with self.assertRaises(ValueError):
-            DerivedDataDescription()
-        with self.assertRaises(ValueError):
-            DerivedDataDescription(creation_time=dt)
-
-    def test_analysis_description_missing_fields(self):
-        """Test AnalysisDescription missing fields"""
-        dt = datetime.datetime.now()
-        with self.assertRaises(ValueError):
-            AnalysisDescription()
-        with self.assertRaises(ValueError):
-            AnalysisDescription(creation_time=dt)
-
-    def test_raw_data_description_invalid_platform(self):
-        """Test RawDataDescription invalid platform"""
-        with self.assertRaises(ValueError):
-            RawDataDescription(platform="exaspim")
-
-    def test_analysis_description_empty_fields(self):
-        """Test AnalysisDescription empty fields"""
-        dt = datetime.datetime.now()
-        f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        with self.assertRaises(ValueError):
-            AnalysisDescription(
-                analysis_name="",
-                project_name="project",
-                subject_id="1234",
-                modalities=[Modality.SPIM],
-                creation_time=dt,
-                institution=Organization.AIND,
-                funding_source=[f],
-                investigators=[Person(name="Jane Smith")],
-            )
-        with self.assertRaises(ValueError):
-            AnalysisDescription(
-                analysis_name="analysis",
-                project_name="",
-                subject_id="1234",
-                modalities=[Modality.SPIM],
-                creation_time=dt,
-                institution=Organization.AIND,
-                funding_source=[f],
-                investigators=[Person(name="Jane Smith")],
-            )
 
     def test_pattern_errors(self):
         """Tests that errors are raised if malformed strings are input"""
@@ -315,7 +269,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         dt = datetime.datetime.now()
 
-        da1 = RawDataDescription(
+        da1 = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
             data_level="raw",
@@ -325,42 +279,30 @@ class DataDescriptionTest(unittest.TestCase):
             investigators=[Person(name="Jane Smith")],
         )
 
-        da2 = RawDataDescription.model_validate_json(da1.model_dump_json())
+        da2 = DataDescription.model_validate_json(da1.model_dump_json())
         self.assertEqual(da1.creation_time, da2.creation_time)
         self.assertEqual(da1.name, da2.name)
 
     def test_parse_name(self):
         """tests for parsing names"""
 
-        toks = DataDescription.parse_name(self.BASIC_NAME)
+        toks = DataDescription.parse_name(self.BASIC_NAME, DataLevel.RAW)
         assert toks["label"] == "1234"
         assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
 
         with self.assertRaises(ValueError):
-            DataDescription.parse_name(self.BAD_NAME)
+            DataDescription.parse_name(self.BAD_NAME, DataLevel.RAW)
 
-        toks = RawDataDescription.parse_name(self.BASIC_NAME)
-        assert toks["subject_id"] == "1234"
-        assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
-
-        with self.assertRaises(ValueError):
-            RawDataDescription.parse_name(self.BAD_NAME)
-
-        toks = DerivedDataDescription.parse_name(self.DERIVED_NAME)
-        assert toks["input_data_name"] == "1234_3033-12-21T042211"
+        toks = DataDescription.parse_name(self.DERIVED_NAME, DataLevel.DERIVED)
+        assert toks["input"] == "1234_3033-12-21T042211"
         assert toks["process_name"] == "spikesorted-ks25"
         assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
 
         with self.assertRaises(ValueError):
-            DerivedDataDescription.parse_name(self.BAD_NAME)
-
-        toks = AnalysisDescription.parse_name(self.ANALYSIS_NAME)
-        assert toks["project_abbreviation"] == "project"
-        assert toks["analysis_name"] == "analysis"
-        assert toks["creation_time"] == datetime.datetime(3033, 12, 21, 4, 22, 11)
+            DataDescription.parse_name(self.BAD_NAME, DataLevel.DERIVED)
 
         with self.assertRaises(ValueError):
-            AnalysisDescription.parse_name(self.BAD_NAME)
+            DataDescription.parse_name(self.ANALYSIS_NAME, DataLevel.ANALYSIS)
 
     def test_unique_abbreviations(self):
         """Tests that abbreviations are unique"""

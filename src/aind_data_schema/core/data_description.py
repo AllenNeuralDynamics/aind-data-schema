@@ -112,19 +112,32 @@ class DataDescription(DataCoreModel):
     )
 
     @classmethod
-    def parse_name(cls, name):
+    def parse_name(cls, name, data_level: DataLevel = DataLevel.RAW):
         """Decompose a DataDescription name string into component parts"""
-        m = re.match(f"{DataRegex.DATA.value}", name)
+
+        if data_level == DataLevel.RAW:
+            m = re.match(f"{DataRegex.RAW.value}", name)
+        elif data_level == DataLevel.DERIVED:
+            m = re.match(f"{DataRegex.DERIVED.value}", name)
+        else:
+            raise ValueError(f"DataLevel({data_level}) not supported")
 
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
         creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
 
-        return dict(
-            label=m.group("label"),
-            creation_time=creation_time,
-        )
+        if data_level == DataLevel.RAW:
+            return dict(
+                creation_time=creation_time,
+                label=m.group("label"),
+            )
+        elif data_level == DataLevel.DERIVED:
+            return dict(
+                input=m.group("input"),
+                process_name=m.group("process_name"),
+                creation_time=creation_time,
+            )
 
     @model_validator(mode="after")
     def input_data_when_derived(self):
