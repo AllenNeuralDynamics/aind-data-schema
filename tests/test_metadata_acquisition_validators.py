@@ -14,6 +14,7 @@ from aind_data_schema.components.devices import (
     MousePlatform,
 )
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails, DataStream
+from aind_data_schema.components.identifiers import Person
 
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.configs import DomeModule
@@ -21,7 +22,7 @@ from aind_data_schema.core.metadata import Metadata
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.core.data_description import DataDescription
+from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 
@@ -53,11 +54,14 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="655019_2023-04-03T181709",
                 location="bucket",
-                data_description=DataDescription.model_construct(
+                data_description=DataDescription(
                     creation_time=time(12, 12, 12),
+                    institution=Organization.AIND,
+                    data_level="raw",
+                    funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                     modalities=modalities,
                     subject_id="655019",
-                    data_level="raw",
+                    investigators=[Person(name="Jane Smith")],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
@@ -97,11 +101,14 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="655019_2023-04-03T181709",
                 location="bucket",
-                data_description=DataDescription.model_construct(
+                data_description=DataDescription(
                     creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
+                    institution=Organization.AIND,
+                    data_level="raw",
+                    funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                     modalities=modalities,
                     subject_id="655019",
-                    data_level="raw",
+                    investigators=[Person(name="Jane Smith")],
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),
@@ -136,10 +143,14 @@ class TestMetadata(unittest.TestCase):
         m = Metadata(
             name="655019_2023-04-03T181709",
             location="bucket",
-            data_description=DataDescription.model_construct(
+            data_description=DataDescription(
                 creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
+                institution=Organization.AIND,
+                data_level="raw",
+                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=modalities,
                 subject_id="655019",
+                investigators=[Person(name="Jane Smith")],
             ),
             subject=Subject.model_construct(),
             procedures=Procedures.model_construct(),

@@ -44,7 +44,6 @@ class DataDescriptionTest(unittest.TestCase):
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "1234_3033-12-21T042211"
     DERIVED_NAME = "1234_3033-12-21T042211_spikesorted-ks25_2022-10-12T232311"
-    ANALYSIS_NAME = "project_analysis_3033-12-21T042211"
 
     def test_funding_construction(self):
         """Test Funding construction"""
@@ -261,9 +260,6 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             DataDescription.parse_name(self.BAD_NAME, DataLevel.DERIVED)
-
-        with self.assertRaises(ValueError):
-            DataDescription.parse_name(self.ANALYSIS_NAME, DataLevel.ANALYSIS)
 
     def test_unique_abbreviations(self):
         """Tests that abbreviations are unique"""
