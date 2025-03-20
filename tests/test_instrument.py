@@ -37,7 +37,14 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     DigitalMicromirrorDevice,
 )
-from aind_data_schema.core.instrument import Connection, Instrument, DEVICES_REQUIRED
+
+from aind_data_schema.core.instrument import (
+    Connection,
+    Instrument,
+    DEVICES_REQUIRED,
+    ConnectionData,
+    ConnectionDirection
+)
 from aind_data_schema_models.units import SizeUnit
 from aind_data_schema.components.coordinates import (
     AnatomicalRelative,
@@ -56,26 +63,73 @@ daqs = [
         channels=[
             DAQChannel(
                 channel_name="123",
-                device_name="Laser A",
                 channel_type="Analog Output",
             ),
             DAQChannel(
                 channel_name="321",
-                device_name="Probe A",
                 channel_type="Analog Output",
             ),
             DAQChannel(
                 channel_name="234",
-                device_name="Camera A",
                 channel_type="Digital Output",
             ),
             DAQChannel(
                 channel_name="2354",
-                device_name="Disc A",
                 channel_type="Digital Output",
             ),
         ],
     )
+]
+
+connections = [
+    Connection(
+        device_names=["Laser A", "Neuropixels basestation"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel_name="123",
+            ),
+            "Laser A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["Probe A", "Neuropixels basestation"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel_name="321",
+            ),
+            "Probe A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["Camera A", "Neuropixels basestation"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel_name="234",
+            ),
+            "Camera A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["Disc A", "Neuropixels basestation"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel_name="2354",
+            ),
+            "Disc A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
 ]
 
 ems = [
@@ -318,6 +372,7 @@ class InstrumentTests(unittest.TestCase):
                 scan_stage,
                 Disc(name="Disc A", radius=1),
             ],
+            connections=connections,
             calibrations=[
                 Calibration(
                     calibration_date=date(2020, 10, 10),
@@ -325,11 +380,6 @@ class InstrumentTests(unittest.TestCase):
                     description="Laser power calibration",
                     input={"power percent": [10, 40, 80]},
                     output={"power mW": [2, 6, 10]},
-                )
-            ],
-            connections=[
-                Connection(
-                    device_names=["Olfactometer", "Laser A"],
                 )
             ],
         )

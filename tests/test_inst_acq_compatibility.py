@@ -32,7 +32,7 @@ from aind_data_schema.components.devices import (
     PatchCord,
     ProbePort,
 )
-from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
@@ -67,11 +67,50 @@ ephys_computer = "W10DT72942"
 
 disc_mouse_platform = Disc(name="Running Wheel", radius=15)
 
-digital_out0 = DAQChannel(channel_name="DO0", device_name="Face Camera", channel_type="Digital Output")
+digital_out0 = DAQChannel(channel_name="DO0", channel_type="Digital Output")
 
-digital_out1 = DAQChannel(channel_name="DO1", device_name="Body Camera", channel_type="Digital Output")
+digital_out1 = DAQChannel(channel_name="DO1", channel_type="Digital Output")
 
-analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", channel_type="Analog Input")
+analog_input = DAQChannel(channel_name="AI0", channel_type="Analog Input")
+
+connections=[
+    Connection(
+        device_names=["Harp Behavior", "Face Camera"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                channel="DO0",
+                direction=ConnectionDirection.SEND,
+            ),
+            "Face Camera": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Body Camera"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                channel="DO1",
+                direction=ConnectionDirection.SEND,
+            ),
+            "Body Camera": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Running Wheel"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                channel="AI0",
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Running Wheel": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        }
+    ),
+]
 
 harp = HarpDevice(
     name="Harp Behavior",
@@ -258,6 +297,7 @@ ephys_inst = Instrument(
         microscope,
         disc_mouse_platform,
     ],
+    connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
