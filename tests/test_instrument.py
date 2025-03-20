@@ -123,7 +123,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel_name="2354",
+                channel="2354",
             ),
             "Disc A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,

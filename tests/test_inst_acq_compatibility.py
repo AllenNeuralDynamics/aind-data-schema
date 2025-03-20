@@ -840,17 +840,79 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 computer_name="behavior_computer",
                 is_clock_generator=False,
                 channels=[
-                    d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
-                    d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
+                    d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
+                    d.DAQChannel(channel_name="DO1", channel_type="Digital Output"),
                     d.DAQChannel(
-                        channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
+                        channel_name="DI0", channel_type="Digital Input"
                     ),
                     d.DAQChannel(
-                        channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
+                        channel_name="DI1", channel_type="Digital Input"
                     ),
-                    d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
+                    d.DAQChannel(channel_name="DI3", channel_type="Digital Input"),
                 ],
             )
+        ]
+        connections=[
+            Connection(
+                device_names=["Harp Behavior", "Solenoid left"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DO0",
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "Solenoid left": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                }
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Solenoid right"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DO1",
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "Solenoid right": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                }
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DI0",
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Janelia_Lick_Detector Left": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                }
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DI1",
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Janelia_Lick_Detector Right": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                }
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Photometry Clock"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DI3",
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Photometry Clock": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                }
+            ),
         ]
         stimulus_devices = [
             d.RewardDelivery(
@@ -900,6 +962,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 *additional_devices,
                 d.Disc(name="mouse_disc", radius=8.5),
             ],
+            connections=connections,
             calibrations=[
                 d.Calibration(
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
