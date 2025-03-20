@@ -3,7 +3,7 @@
 import json
 import re
 import unittest
-from datetime import datetime, time, timezone
+from datetime import datetime, timezone
 from unittest.mock import MagicMock, call, patch
 import uuid
 
@@ -19,12 +19,13 @@ from aind_data_schema.components.devices import (
     MousePlatform,
     Laser,
 )
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
-    NanojectInjection,
+    BrainInjection,
     Procedures,
     Surgery,
 )
@@ -227,7 +228,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_injection_material_validator_spim(self):
         """Tests that the injection validator works for SPIM"""
-        nano_inj = NanojectInjection.model_construct()
+        nano_inj = BrainInjection.model_construct()
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
@@ -236,9 +237,10 @@ class TestMetadata(unittest.TestCase):
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
+                    creation_time=datetime(2020, 12, 12, 12, 12, 12),
                     modalities=[Modality.SPIM],
                     subject_id="655019",
+                    data_level="raw",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -250,7 +252,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_injection_material_validator_ephys(self):
         """Test that the injection validator works for ephys"""
-        nano_inj = NanojectInjection.model_construct()
+        nano_inj = BrainInjection.model_construct()
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
@@ -260,9 +262,10 @@ class TestMetadata(unittest.TestCase):
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
+                    creation_time=datetime(2020, 12, 12, 12, 12, 12),
                     modalities=modalities,
                     subject_id="655019",
+                    data_level="raw",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
@@ -283,15 +286,17 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly, mouse_platform],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
+                    creation_time=datetime(2020, 12, 12, 12, 12, 12),
                     modalities=modalities,
                     subject_id="655019",
+                    data_level="raw",
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(),

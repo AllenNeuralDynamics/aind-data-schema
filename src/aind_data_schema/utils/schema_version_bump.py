@@ -74,11 +74,9 @@ class SchemaVersionHandler:
 
             diff_list = list(dictdiffer.diff(original_schema, core_model_json))
 
-            print(f"Diff for {core_model.__name__}: {diff_list}")
             if len(diff_list) > 0:
                 schemas_that_need_updating.append(core_model)
 
-        print(f"Schemas that need updating: {[model.__name__ for model in schemas_that_need_updating]}")
         return schemas_that_need_updating
 
     def _get_incremented_versions_map(self, models_that_changed: List[DataCoreModel]) -> Dict[DataCoreModel, str]:
@@ -108,11 +106,9 @@ class SchemaVersionHandler:
 
             old_v = semver.Version.parse(model.model_fields["schema_version"].default)
             if orig_ver.major == old_v.major and orig_ver.minor == old_v.minor:
-                print(f"Updating {model.__name__} from {old_v} to {old_v.bump_patch()}")
                 new_ver = old_v.bump_patch()
                 version_bump_map[model] = str(new_ver)
             else:
-                print(f"Skipping {model.__name__}, major or minor version already updated")
                 new_ver = old_v
         return version_bump_map
 
@@ -133,7 +129,6 @@ class SchemaVersionHandler:
 
         """
         new_file_contents = []
-        print(f"Updating {python_file_path} to version {new_ver}")
         with open(python_file_path, "rb") as f:
             file_lines = f.readlines()
         for line in file_lines:

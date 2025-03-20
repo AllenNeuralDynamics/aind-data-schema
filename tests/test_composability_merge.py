@@ -10,7 +10,14 @@ from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaes
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
-from aind_data_schema.components.coordinates import ImageAxis, Scale3dTransform, Translation3dTransform
+from aind_data_schema.components.coordinates import (
+    Scale,
+    Translation,
+    Origin,
+    Coordinate,
+    CoordinateTransform,
+    CoordinateSystemLibrary,
+)
 from aind_data_schema.components.devices import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization
@@ -20,6 +27,41 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
+
+invitro_config = InVitroImagingConfig(
+    chamber_immersion=Immersion(
+        medium="PBS",
+        refractive_index=1.33,
+    ),
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+    tiles=[
+        tile.AcquisitionTile(
+            file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
+            coordinate_transform=CoordinateTransform(
+                input="SPIM_IJK",
+                output="SPIM_RPI",
+                transforms=[
+                    Scale(
+                        scale=[0.748, 0.748, 1],
+                    ),
+                    Translation(
+                        translation=[0, 0, 0],
+                    ),
+                ],
+            ),
+            channel=tile.Channel(
+                channel_name="488",
+                excitation_wavelength=488,
+                excitation_power=200,
+                light_source_name="Ex_488",
+                filter_names=["Em_600"],
+                detector_name="PMT_1",
+                filter_wheel_index=0,
+            ),
+            notes="these are my notes",
+        ),
+    ],
+)
 
 
 class TestComposability(unittest.TestCase):
@@ -136,50 +178,7 @@ class TestComposability(unittest.TestCase):
                     stream_end_time=t,
                     modalities=[Modality.SPIM],
                     active_devices=[],
-                    configurations=[
-                        InVitroImagingConfig(
-                            chamber_immersion=Immersion(
-                                medium="PBS",
-                                refractive_index=1.33,
-                            ),
-                            axes=[
-                                ImageAxis(
-                                    name="X",
-                                    dimension=2,
-                                    direction="Left_to_right",
-                                ),
-                                ImageAxis(
-                                    name="Y",
-                                    dimension=1,
-                                    direction="Anterior_to_posterior",
-                                ),
-                                ImageAxis(
-                                    name="Z",
-                                    dimension=0,
-                                    direction="Inferior_to_superior",
-                                ),
-                            ],
-                            tiles=[
-                                tile.AcquisitionTile(
-                                    file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-                                    coordinate_transformations=[
-                                        Scale3dTransform(scale=[0.748, 0.748, 1]),
-                                        Translation3dTransform(translation=[0, 0, 0]),
-                                    ],
-                                    channel=tile.Channel(
-                                        channel_name="488",
-                                        excitation_wavelength=488,
-                                        excitation_power=200,
-                                        light_source_name="Ex_488",
-                                        filter_names=["Em_600"],
-                                        detector_name="PMT_1",
-                                        filter_wheel_index=0,
-                                    ),
-                                    notes="these are my notes",
-                                ),
-                            ],
-                        ),
-                    ],
+                    configurations=[invitro_config],
                 )
             ],
             acquisition_start_time=t,
@@ -234,30 +233,22 @@ class TestComposability(unittest.TestCase):
                                 medium="PBS",
                                 refractive_index=1.33,
                             ),
-                            axes=[
-                                ImageAxis(
-                                    name="X",
-                                    dimension=2,
-                                    direction="Left_to_right",
-                                ),
-                                ImageAxis(
-                                    name="Y",
-                                    dimension=1,
-                                    direction="Anterior_to_posterior",
-                                ),
-                                ImageAxis(
-                                    name="Z",
-                                    dimension=0,
-                                    direction="Inferior_to_superior",
-                                ),
-                            ],
+                            coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
                             tiles=[
                                 tile.AcquisitionTile(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-                                    coordinate_transformations=[
-                                        Scale3dTransform(scale=[0.748, 0.748, 1]),
-                                        Translation3dTransform(translation=[0, 0, 0]),
-                                    ],
+                                    coordinate_transform=CoordinateTransform(
+                                        input="SPIM_IJK",
+                                        output="SPIM_RPI",
+                                        transforms=[
+                                            Scale(
+                                                scale=[0.748, 0.748, 1],
+                                            ),
+                                            Translation(
+                                                translation=[0, 0, 0],
+                                            ),
+                                        ],
+                                    ),
                                     channel=tile.Channel(
                                         channel_name="561",
                                         excitation_wavelength=561,
@@ -340,9 +331,18 @@ class TestComposability(unittest.TestCase):
                             craniotomy_type="Visual Cortex",
                             protocol_id="1234",
                             craniotomy_hemisphere="Left",
-                            bregma_to_lambda_distance=4.1,
                         )
                     ],
+                    measured_coordinates={
+                        Origin.BREGMA: Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0.0, 0.0, 0.0],
+                        ),
+                        Origin.LAMBDA: Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[-4.1, 0.0, 0.0],
+                        ),
+                    },
                 )
             ],
         )

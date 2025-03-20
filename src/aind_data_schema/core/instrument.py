@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Axis, Origin
+from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -25,7 +25,6 @@ from aind_data_schema.components.devices import (
     FiberAssembly,
     Filter,
     HarpDevice,
-    ImagingInstrumentType,
     Lamp,
     Laser,
     LaserAssembly,
@@ -96,7 +95,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.7"]] = Field(default="2.0.7")
 
     # instrument definition
     instrument_id: str = Field(
@@ -106,19 +105,16 @@ class Instrument(DataCoreModel):
         pattern=instrument_id_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
+    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
     calibrations: Optional[
         List[Annotated[Union[Calibration, WaterCalibration], Field(discriminator="object_type")]]
     ] = Field(default=None, title="Full calibration of devices")
-    ccf_coordinate_transform: Optional[str] = Field(
-        default=None,
-        title="CCF coordinate transform",
-        description="Path to file that details the CCF-to-lab coordinate transform",
-    )
-    origin: Optional[Origin] = Field(default=None, title="Origin point for instrument position transforms")
-    instrument_axes: Optional[List[Axis]] = Field(default=None, title="Instrument axes", min_length=3, max_length=3)
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+
+    # coordinate system
+    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
+
+    # instrument details
     com_ports: List[Com] = Field(default=[], title="COM ports")
-    instrument_type: Optional[ImagingInstrumentType] = Field(default=None, title="Instrument type")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -174,7 +170,7 @@ class Instrument(DataCoreModel):
     ] = Field(
         ...,
         title="Components",
-        description="List of all devices in the rig",
+        description="List of all devices in the instrument",
     )
 
     @field_serializer("modalities", when_used="json")
@@ -188,7 +184,7 @@ class Instrument(DataCoreModel):
 
         if self.notes is None:
             for component in self.components:
-                if isinstance(component, CameraAssembly) and component.camera_target == CameraTarget.OTHER:
+                if isinstance(component, CameraAssembly) and component.target == CameraTarget.OTHER:
                     raise ValueError(
                         f"Notes cannot be empty if a camera target contains an 'Other' field. "
                         f"Describe the camera target from ({component.name}) in the notes field"
@@ -215,10 +211,6 @@ class Instrument(DataCoreModel):
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("instrument_type") == ImagingInstrumentType.OTHER and not value:
-            raise ValueError(
-                "Notes cannot be empty if instrument_type is Other. Describe the instrument_type in the notes field."
-            )
         if info.data.get("manufacturer") == Organization.OTHER and not value:
             raise ValueError(
                 "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."

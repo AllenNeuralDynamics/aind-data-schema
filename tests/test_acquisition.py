@@ -10,16 +10,17 @@ from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.coordinates import (
-    CcfCoords,
-    Coordinates3d,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    Affine,
+    Scale,
+    Translation,
+    Coordinate,
+    Transform,
+    CoordinateSystemLibrary,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
     DomeModule,
-    ManipulatorModule,
+    ManipulatorConfig,
     MRIScan,
     RewardDeliveryConfig,
 )
@@ -64,13 +65,29 @@ class AcquisitionTest(unittest.TestCase):
                             arc_angle=24,
                             module_angle=10,
                         ),
-                        ManipulatorModule(
+                        ManipulatorConfig(
                             device_name="Ephys_assemblyA",
                             arc_angle=0,
                             module_angle=10,
                             primary_targeted_structure=CCFStructure.VISL,
-                            targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                            manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                            atlas_coordinates=[
+                                Coordinate(
+                                    system_name="BREGMA_ARI",
+                                    position=[1, 1, 1],
+                                ),
+                            ],
+                            manipulator_coordinates=[
+                                Coordinate(
+                                    system_name="BREGMA_ARID",
+                                    position=[1, 1, 1, 1],
+                                )
+                            ],
+                            manipulator_axis_positions=[
+                                Coordinate(
+                                    system_name="BREGMA_ARI",
+                                    position=[1, 1, 1],
+                                )
+                            ],
                         ),
                     ],
                 )
@@ -110,10 +127,21 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_orientation=Rotation3dTransform(rotation=[1, 2, 3, 4, 5, 6, 7, 8, 9]),
-                    vc_position=Translation3dTransform(translation=[1, 1, 1]),
+                    vc_transform=Transform(
+                        system_name=CoordinateSystemLibrary.MRI_LPS.name,
+                        transforms=[
+                            Affine(
+                                affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+                            ),
+                            Translation(
+                                translation=[1, 1, 1],
+                            ),
+                        ],
+                    ),
                     subject_position="Supine",
-                    voxel_sizes=Scale3dTransform(scale=[0.1, 0.1, 0.1]),
+                    voxel_sizes=Scale(
+                        scale=[0.5, 0.4375, 0.52],
+                    ),
                     echo_time=2.2,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
@@ -165,13 +193,29 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorModule(
+                            ManipulatorConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
-                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                                atlas_coordinates=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 1, 1],
+                                    ),
+                                ],
+                                manipulator_coordinates=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 1],
+                                    )
+                                ],
+                                manipulator_axis_positions=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 1, 1],
+                                    )
+                                ],
                             ),
                         ],
                     )
@@ -180,7 +224,7 @@ class AcquisitionTest(unittest.TestCase):
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as context:
             Acquisition(
                 experimenters=[Person(name="Mam Moth")],
                 acquisition_start_time=datetime.now(),
@@ -204,18 +248,36 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorModule(
+                            ManipulatorConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
-                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                                atlas_coordinates=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 1, 1],
+                                    ),
+                                ],
+                                manipulator_coordinates=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 1],
+                                    )
+                                ],
+                                manipulator_axis_positions=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 1, 1],
+                                    )
+                                ],
                             ),
                         ],
                     )
                 ],
             )
+
+        self.assertIn("Expected 123456 to appear in 654321", str(context.exception))
 
     def test_specimen_required(self):
         """Test that specimen ID is required for in vitro imaging modalities"""
@@ -242,13 +304,29 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorModule(
+                            ManipulatorConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
-                                targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                                manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                                atlas_coordinates=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 1, 1],
+                                    ),
+                                ],
+                                manipulator_coordinates=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 1],
+                                    )
+                                ],
+                                manipulator_axis_positions=[
+                                    Coordinate(
+                                        system_name="BREGMA_ARI",
+                                        position=[1, 1, 1],
+                                    )
+                                ],
                             ),
                         ],
                     )
@@ -280,13 +358,29 @@ class AcquisitionTest(unittest.TestCase):
                     arc_angle=24,
                     module_angle=10,
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     device_name="Ephys_assemblyA",
                     arc_angle=0,
                     module_angle=10,
                     primary_targeted_structure=CCFStructure.VISL,
-                    targeted_ccf_coordinates=[CcfCoords(ml="1", ap="1", dv="1")],
-                    manipulator_coordinates=Coordinates3d(x="1", y="1", z="1"),
+                    atlas_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                        ),
+                    ],
+                    manipulator_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
+                        )
+                    ],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1],
+                        )
+                    ],
                 ),
             ],
         )

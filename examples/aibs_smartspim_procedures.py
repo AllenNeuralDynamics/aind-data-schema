@@ -6,6 +6,7 @@ from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import procedures
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 experimenters = [Person(name="John Smith")]
 # subject and specimen id can be the same?
@@ -39,6 +40,7 @@ perfusion = procedures.Surgery(
     experimenters=[Person(name="LAS")],
     ethics_review_id="xxxx",
     protocol_id="doi_of_protocol_surgery",
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     procedures=[
         procedures.Perfusion(
             protocol_id="doi_of_protocol_perfusion",

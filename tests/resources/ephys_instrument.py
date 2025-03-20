@@ -6,6 +6,10 @@ from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema.components.coordinates import (
+    AnatomicalRelative,
+    CoordinateSystemLibrary,
+)
 
 from aind_data_schema.components.devices import (
     Calibration,
@@ -29,7 +33,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Instrument
 
-# Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
+# Describes a instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 
 behavior_computer = "W10DT72941"
@@ -149,28 +153,32 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope_1 = CameraAssembly(
     name="Stick_assembly_1",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_1,
     lens=stick_lens,
 )
 
 microscope_2 = CameraAssembly(
     name="Stick_assembly_2",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_2,
     lens=stick_lens,
 )
 
 microscope_3 = CameraAssembly(
     name="Stick_assembly_3",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_3,
     lens=stick_lens,
 )
 
 microscope_4 = CameraAssembly(
     name="Stick_assembly_4",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_4,
     lens=stick_lens,
 )
@@ -228,7 +236,8 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side left",
+    target=CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.LEFT],
     filter=filt,
     lens=lens,
 )
@@ -250,8 +259,9 @@ body_camera = Camera(
 
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
+    target=CameraTarget.BODY,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=body_camera,
-    camera_target="Body",
     filter=filt,
     lens=lens,
 )
@@ -279,6 +289,7 @@ inst = Instrument(
     instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         ephys_assemblyA,
         ephys_assemblyB,

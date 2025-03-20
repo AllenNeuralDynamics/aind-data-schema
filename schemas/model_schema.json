@@ -1398,6 +1398,73 @@
          "title": "_Basler",
          "type": "object"
       },
+      "_Baylor_College_Of_Medicine": {
+         "description": "Model Baylor College of Medicine",
+         "properties": {
+            "name": {
+               "const": "Baylor College of Medicine",
+               "default": "Baylor College of Medicine",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BCM",
+               "default": "BCM",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02pttbw34",
+               "default": "02pttbw34",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Baylor_College_Of_Medicine",
+         "type": "object"
+      },
       "_Behavior": {
          "additionalProperties": false,
          "description": "Model behavior",
@@ -6060,6 +6127,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -6189,6 +6257,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"

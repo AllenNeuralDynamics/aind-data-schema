@@ -40,20 +40,23 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema.components.configs import (
-    CcfCoords,
-    Coordinates3d,
     DetectorConfig,
     DomeModule,
     PatchCordConfig,
     FiberAssemblyConfig,
     LaserConfig,
-    ManipulatorModule,
+    ManipulatorConfig,
     StimulusModality,
 )
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
+from aind_data_schema.components.coordinates import (
+    AnatomicalRelative,
+    Coordinate,
+    CoordinateSystemLibrary,
+)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -131,7 +134,8 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope = CameraAssembly(
     name="Stick_assembly",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera,
     lens=stick_lens,
 )
@@ -189,7 +193,8 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side left",
+    target=CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.LEFT],
     filter=filt,
     lens=lens,
 )
@@ -212,7 +217,8 @@ body_camera = Camera(
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
     camera=body_camera,
-    camera_target="Body",
+    target=CameraTarget.BODY,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     filter=filt,
     lens=lens,
 )
@@ -221,7 +227,7 @@ camassm2 = CameraAssembly(
 # script will be used as default
 
 red_laser_calibration = Calibration(
-    date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
+    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -229,7 +235,7 @@ red_laser_calibration = Calibration(
 )
 
 blue_laser_calibration = Calibration(
-    date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
+    calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
     input={"power percent": [10, 20, 40]},
@@ -240,6 +246,7 @@ ephys_inst = Instrument(
     instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         ephys_assemblyA,
         ephys_assemblyB,
@@ -342,32 +349,61 @@ ephys_acquisition = Acquisition(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-                ManipulatorModule(
-                    targeted_ccf_coordinates=[
-                        CcfCoords(ml=8150, ap=3250, dv=7800),
-                    ],
+                ManipulatorConfig(
                     device_name="ephys module 1",
+                    atlas_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[8150, 3250, 7800],
+                        ),
+                    ],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[84222, 4205, 11087.5],
+                        )
+                    ],
+                    manipulator_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[1, 1, 1, 1],
+                        )
+                    ],
                     arc_angle=5.2,
                     module_angle=8,
-                    coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
-                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[6637.28, 4265.02, 10707.35],
+                        ),
+                    ],
+                    manipulator_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
+                        )
+                    ],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[9015, 7144, 13262],
+                        )
+                    ],
                     device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
-                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -418,46 +454,94 @@ ephys_acquisition = Acquisition(
                     module_angle=-180,
                     notes="Did not record angles, did not calibrate",
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
-                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[8150, 3250, 7800],
+                        ),
+                    ],
+                    manipulator_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1],
+                        )
+                    ],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[8422, 4205, 11087.5],
+                        )
+                    ],
                     device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=5.2,
                     module_angle=8,
-                    targeted_ccf_coordinates=[CcfCoords(ml=8150, ap=3250, dv=7800)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[8150, 3250, 7800],
+                        ),
+                    ],
+                    manipulator_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
+                        )
+                    ],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[84222, 4205, 11087.5],
+                        )
+                    ],
                     device_name="ephys module 1",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.npy",
                     primary_targeted_structure=CCFStructure.LGD,
-                    manipulator_coordinates=Coordinates3d(x=8422, y=4205, z=11087.5),
-                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                         " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
                     ),
                 ),
-                ManipulatorModule(
+                ManipulatorConfig(
                     rotation_angle=0,
                     arc_angle=25,
                     module_angle=-22,
-                    targeted_ccf_coordinates=[CcfCoords(ml=6637.28, ap=4265.02, dv=10707.35)],
+                    atlas_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[6637.28, 4265.02, 10707.35],
+                        ),
+                    ],
+                    manipulator_coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[1, 1, 1, 1],
+                        )
+                    ],
+                    manipulator_axis_positions=[
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[9015, 7144, 13262],
+                        )
+                    ],
                     device_name="ephys module 2",
                     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
                     primary_targeted_structure=CCFStructure.LC,
-                    manipulator_coordinates=Coordinates3d(x=9015, y=7144, z=13262),
-                    date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
+                    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
                     notes=(
                         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
@@ -485,7 +569,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         cameras = [
             d.CameraAssembly(
                 name="BehaviorVideography_FaceSide",
-                camera_target=d.CameraTarget.FACE_SIDE_LEFT,
+                target=d.CameraTarget.FACE,
+                relative_position=[AnatomicalRelative.LEFT],
                 camera=d.Camera(
                     name="Side face camera",
                     detector_type="Camera",
@@ -513,7 +598,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
             d.CameraAssembly(
                 name="BehaviorVideography_FaceBottom",
-                camera_target=d.CameraTarget.FACE_BOTTOM,
+                target=d.CameraTarget.FACE,
+                relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
                 camera=d.Camera(
                     name="Bottom face Camera",
                     detector_type="Camera",
@@ -731,7 +817,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 reward_spouts=[
                     d.RewardSpout(
                         name="Left spout",
-                        side=d.SpoutSide.LEFT,
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Left"),
                         lick_sensor=d.Device(
@@ -742,7 +827,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     ),
                     d.RewardSpout(
                         name="Right spout",
-                        side=d.SpoutSide.RIGHT,
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Right"),
                         lick_sensor=d.Device(
@@ -762,6 +846,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             instrument_id="428_FIP1_20231003",
             modification_date=date(2023, 10, 3),
             modalities=[Modality.FIB],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             components=[
                 *cameras,
                 *patch_cords,
@@ -777,7 +862,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ],
             calibrations=[
                 d.Calibration(
-                    date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
+                    calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
                     device_name="470nm LED",
                     description="LED calibration",
                     input={"Power setting": [1, 2, 3]},
@@ -830,7 +915,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             arc_angle=30,
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
-                            manipulator_coordinates=Coordinates3d(x=30.5, y=70, z=180),
+                            manipulator_coordinates=[
+                                Coordinate(
+                                    system_name="BREGMA_ARID",
+                                    position=[1, 1, 1, 1],
+                                ),
+                            ],
                         ),
                         PatchCordConfig(
                             device_name="Patch Cord A",
@@ -869,7 +959,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
 
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
-        # check that ephys acquisition and rig are synced
+        # check that ephys acquisition and instrument are synced
         example_ephys_check = InstrumentAcquisitionCompatibility(
             instrument=self.example_ephys_inst, acquisition=self.example_ephys_acquisition
         )

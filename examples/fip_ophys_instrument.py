@@ -1,4 +1,4 @@
-""" example FIP ophys rig """
+""" example FIP ophys instrument """
 
 from datetime import date, datetime, timezone
 
@@ -8,12 +8,14 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.components.identifiers import Software
+from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
-    camera_target=d.CameraTarget.FACE_SIDE_LEFT,
+    target=d.CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.LEFT],
     camera=d.Camera(
         name="Side face camera",
         detector_type="Camera",
@@ -42,7 +44,8 @@ camera_assembly_1 = d.CameraAssembly(
 
 camera_assembly_2 = d.CameraAssembly(
     name="BehaviorVideography_FaceBottom",
-    camera_target=d.CameraTarget.FACE_BOTTOM,
+    target=d.CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
     camera=d.Camera(
         name="Bottom face Camera",
         detector_type="Camera",
@@ -265,7 +268,6 @@ stimulus_device = d.RewardDelivery(
     reward_spouts=[
         d.RewardSpout(
             name="Left spout",
-            side=d.SpoutSide.LEFT,
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Left"),
             lick_sensor=d.Device(
@@ -274,7 +276,6 @@ stimulus_device = d.RewardDelivery(
         ),
         d.RewardSpout(
             name="Right spout",
-            side=d.SpoutSide.RIGHT,
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Right"),
             lick_sensor=d.Device(
@@ -298,6 +299,7 @@ instrument = r.Instrument(
     instrument_id="428_FIP1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
         camera_assembly_1,
         camera_assembly_2,
