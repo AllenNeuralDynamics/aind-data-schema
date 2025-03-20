@@ -852,27 +852,27 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 ],
             )
         ]
-        connections=[
+        connections = [
             Connection(
-                device_names=["Harp Behavior", "Solenoid left"],
+                device_names=["Harp Behavior", "Solenoid Left"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
                         channel="DO0",
                         direction=ConnectionDirection.SEND,
                     ),
-                    "Solenoid left": ConnectionData(
+                    "Solenoid Left": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
                 }
             ),
             Connection(
-                device_names=["Harp Behavior", "Solenoid right"],
+                device_names=["Harp Behavior", "Solenoid Right"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
                         channel="DO1",
                         direction=ConnectionDirection.SEND,
                     ),
-                    "Solenoid right": ConnectionData(
+                    "Solenoid Right": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
                 }
