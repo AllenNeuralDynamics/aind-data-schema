@@ -152,22 +152,33 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=[Person(name="Jane Smith")],
             )
 
-    def test_data_description_construction_failure_invalid_data_level(self):
+    def test_parse_name_invalid(self):
         """Test DataDescription construction failure with invalid data level"""
+
+        with self.assertRaises(ValueError) as context:
+            DataDescription.parse_name("name", "invalid_data_level")
+
+        self.assertIn("DataLevel", str(context.exception))
+
+    def test_derived_valid(self):
+        """ Test that you can construct a valid derived DataDescription """
+
         dt = datetime.datetime.now()
         f = Funding(funder=Organization.NINDS, grant_number="grant001")
-        with self.assertRaises(ValidationError) as context:
-            DataDescription(
-                modalities=[Modality.SPIM],
-                subject_id="1234",
-                data_level="invalid",
-                creation_time=dt,
-                institution=Organization.AIND,
-                funding_source=[f],
-                investigators=[Person(name="Jane Smith")],
-            )
+        dr = DataDescription(
+            modalities=[Modality.SPIM],
+            subject_id="1234",
+            data_level="raw",
+            creation_time=dt,
+            institution=Organization.AIND,
+            funding_source=[f],
+            investigators=[Person(name="Jane Smith")],
+        )
 
-        self.assertIn("data_level", str(context.exception))
+        # also over-write with specimen ID
+        dd = DataDescription.from_raw(dr, "process", subject_id="1234-56")
+        self.assertIsNotNone(dd)
+
 
     def test_derived_no_input_data(self):
         """Test that creating a derived data description without input data raises an error"""

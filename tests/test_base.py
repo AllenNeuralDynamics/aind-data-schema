@@ -260,5 +260,72 @@ class DataModelTests(unittest.TestCase):
             object_types[subclass.__name__] = object_type
 
 
+class DataCoreModelTests(unittest.TestCase):
+    """Tests for DataCoreModel"""
+
+    def test_default_filename(self):
+        """Test that default_filename generates the correct filename"""
+
+        class TestModel(DataCoreModel):
+            """Temporary test model"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        self.assertEqual(TestModel.default_filename(), "test_model.json")
+
+        class AnotherTestModel(DataCoreModel):
+            """Another temporary test model"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        self.assertEqual(AnotherTestModel.default_filename(), "another_test_model.json")
+
+        class ChildModel(TestModel):
+            """Child model inheriting from TestModel"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        self.assertEqual(ChildModel.default_filename(), "test_model.json")
+
+    @patch("builtins.open", new_callable=mock_open)
+    def test_write_standard_file(self, mock_open: MagicMock):
+        """Tests write_standard_file method"""
+
+        class TestModel(DataCoreModel):
+            """Temporary test model"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        model_instance = TestModel()
+        model_instance.write_standard_file(output_directory=Path("dir"), prefix="prefix", suffix=".suffix")
+
+        expected_filename = Path("dir/prefix_test_model.suffix")
+        mock_open.assert_called_once_with(expected_filename, "w")
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("logging.warning")
+    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
+        """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
+
+        class TestModel(DataCoreModel):
+            """Temporary test model"""
+
+            describedBy: str = "modelv1"
+            schema_version: str = "1.0.0"
+
+        model_instance = TestModel()
+        model_instance.schema_version = "1" * (MAX_FILE_SIZE + 1000)
+        model_instance.write_standard_file(output_directory=Path("dir"), suffix=".foo.bar")
+
+        mock_open.assert_has_calls([call(Path("dir/test_model.foo.bar"), "w")])
+        mock_logging_warning.assert_called_once_with(
+            f"File size exceeds {MAX_FILE_SIZE / 1024} KB: dir/test_model.foo.bar"
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
