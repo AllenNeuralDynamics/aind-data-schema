@@ -13,7 +13,14 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Device,
 )
-from aind_data_schema.core.instrument import Detector, Instrument, Objective, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.core.instrument import (
+    Detector,
+    Instrument,
+    Objective,
+    Connection,
+    ConnectionData,
+    ConnectionDirection,
+)
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
@@ -261,8 +268,8 @@ connections = [
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM4",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["COM Device", "ASI Tiger"],
@@ -273,8 +280,8 @@ connections = [
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM3",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["COM Device", "MightyZap"],
@@ -285,9 +292,9 @@ connections = [
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM9",
-            )
-        }
-    )
+            ),
+        },
+    ),
 ]
 
 objectives = [objective_1, objective_2]

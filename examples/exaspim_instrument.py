@@ -229,8 +229,8 @@ connections = [
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM4",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["COM Device", "ASI Tiger"],
@@ -241,8 +241,8 @@ connections = [
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM3",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Dev2", "LAS-08308"],
@@ -253,8 +253,8 @@ connections = [
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="3",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Dev2", "539251"],
@@ -265,8 +265,8 @@ connections = [
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="5",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Dev2", "LAS-08309"],
@@ -277,8 +277,8 @@ connections = [
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="4",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Dev2", "stage-x"],
@@ -289,8 +289,8 @@ connections = [
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="2",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Dev2", "TL-1"],
@@ -301,8 +301,8 @@ connections = [
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="0",
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Dev2", "LAS-08307"],
@@ -313,8 +313,8 @@ connections = [
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="6",
-            )
-        }
+            ),
+        },
     ),
 ]
 

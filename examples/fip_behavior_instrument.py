@@ -124,8 +124,8 @@ connections = [
             ),
             "Solenoid Left": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Harp Behavior", "Solenoid Right"],
@@ -136,8 +136,8 @@ connections = [
             ),
             "Solenoid Right": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
@@ -148,8 +148,8 @@ connections = [
             ),
             "Janelia_Lick_Detector Left": ConnectionData(
                 direction=ConnectionDirection.SEND,
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
@@ -160,8 +160,8 @@ connections = [
             ),
             "Janelia_Lick_Detector Right": ConnectionData(
                 direction=ConnectionDirection.SEND,
-            )
-        }
+            ),
+        },
     ),
     Connection(
         device_names=["Harp Behavior", "Photometry Clock"],
@@ -172,8 +172,8 @@ connections = [
             ),
             "Photometry Clock": ConnectionData(
                 direction=ConnectionDirection.SEND,
-            )
-        }
+            ),
+        },
     ),
 ]
 

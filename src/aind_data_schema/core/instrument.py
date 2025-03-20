@@ -91,7 +91,7 @@ class Connection(DataModel):
 
     @model_validator(mode="after")
     def validate_connection_data(cls, self):
-        """ Check that all keys in connection_data exist in device_names """
+        """Check that all keys in connection_data exist in device_names"""
 
         for key in self.connection_data.keys():
             if key not in self.device_names:

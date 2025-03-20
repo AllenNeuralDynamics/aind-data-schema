@@ -206,33 +206,39 @@ connections = [
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM4",
-            )
-        }
+            ),
+        },
     ),
     Connection(
-        device_names=["COM Device", "ASI Tiger"],
+        device_names=["Sample stage Z", "Sample stage X", "Sample stage Y" "ASI Tiger"],
         connection_data={
             "ASI Tiger": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM3",
-            )
-        }
-    ),
-    Connection(
-        device_names=["COM Device", "MightyZap"],
-        connection_data={
-            "MightyZap": ConnectionData(
+            ),
+            "Sample stage Z": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-            "COM Device": ConnectionData(
+            "Sample stage Y": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Sample stage X": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Lens 1", "MightyZap"],
+        connection_data={
+            "MightyZap": ConnectionData(
                 direction=ConnectionDirection.SEND,
                 channel="COM9",
-            )
-        }
-    )
+            ),
+            "Lens 1": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
 ]
 
 inst = Instrument(

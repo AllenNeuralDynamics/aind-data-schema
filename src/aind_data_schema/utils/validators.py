@@ -1,4 +1,5 @@
 """ Validator utility functions """
+
 from typing import Any, List
 from enum import Enum
 
