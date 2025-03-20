@@ -366,7 +366,7 @@ class CoordinateSystemLibrary:
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.FB),
-            Axis(name=AxisName.Z, direction=Direction.TB),
+            Axis(name=AxisName.Z, direction=Direction.BT),
         ],
     )
 
