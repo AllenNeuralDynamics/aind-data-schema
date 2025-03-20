@@ -15,8 +15,9 @@ from aind_data_schema.components.devices import (
     Objective,
     OpticalTable,
     ScanningStage,
+    Device,
 )
-from aind_data_schema.core.instrument import Instrument, Com
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
@@ -108,42 +109,36 @@ daqs = [
             DAQChannel(
                 channel_name="3",
                 channel_type="Analog Output",
-                device_name="LAS-08308",
                 sample_rate=10000,
                 sample_rate_unit=FrequencyUnit.HZ,
             ),
             DAQChannel(
                 channel_name="5",
                 channel_type="Analog Output",
-                device_name="539251",
                 sample_rate=10000,
                 sample_rate_unit=FrequencyUnit.HZ,
             ),
             DAQChannel(
                 channel_name="4",
                 channel_type="Analog Output",
-                device_name="LAS-08309",
                 sample_rate=10000,
                 sample_rate_unit=FrequencyUnit.HZ,
             ),
             DAQChannel(
                 channel_name="2",
                 channel_type="Analog Output",
-                device_name="stage-x",
                 sample_rate=10000,
                 sample_rate_unit=FrequencyUnit.HZ,
             ),
             DAQChannel(
                 channel_name="0",
                 channel_type="Analog Output",
-                device_name="TL-1",
                 sample_rate=10000,
                 sample_rate_unit=FrequencyUnit.HZ,
             ),
             DAQChannel(
                 channel_name="6",
                 channel_type="Analog Output",
-                device_name="LAS-08307",
                 sample_rate=10000,
                 sample_rate_unit=FrequencyUnit.HZ,
             ),
@@ -212,6 +207,116 @@ optical_tables = [
         manufacturer=Organization.MKS_NEWPORT,
     )
 ]
+laser_launch = Device(
+    name="Laser Launch",
+)
+
+asi_tiger = Device(
+    name="ASI Tiger",
+)
+
+com_device = Device(
+    name="COM Device",
+)
+
+connections = [
+    Connection(
+        device_names=["COM Device", "Laser Launch"],
+        connection_data={
+            "Laser Launch": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "COM Device": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM4",
+            )
+        }
+    ),
+    Connection(
+        device_names=["COM Device", "ASI Tiger"],
+        connection_data={
+            "ASI Tiger": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "COM Device": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM3",
+            )
+        }
+    ),
+    Connection(
+        device_names=["Dev2", "LAS-08308"],
+        connection_data={
+            "LAS-08308": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="3",
+            )
+        }
+    ),
+    Connection(
+        device_names=["Dev2", "539251"],
+        connection_data={
+            "539251": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="5",
+            )
+        }
+    ),
+    Connection(
+        device_names=["Dev2", "LAS-08309"],
+        connection_data={
+            "LAS-08309": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="4",
+            )
+        }
+    ),
+    Connection(
+        device_names=["Dev2", "stage-x"],
+        connection_data={
+            "stage-x": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="2",
+            )
+        }
+    ),
+    Connection(
+        device_names=["Dev2", "TL-1"],
+        connection_data={
+            "TL-1": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="0",
+            )
+        }
+    ),
+    Connection(
+        device_names=["Dev2", "LAS-08307"],
+        connection_data={
+            "LAS-08307": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="6",
+            )
+        }
+    ),
+]
 
 inst = Instrument(
     instrument_id="440_exaSPIM1_20231004",
@@ -228,17 +333,11 @@ inst = Instrument(
         *scanning_stages,
         *additional_devices,
         *optical_tables,
+        com_device,
+        laser_launch,
+        asi_tiger,
     ],
-    com_ports=[
-        Com(
-            hardware_name="Laser Launch",
-            com_port="COM2",
-        ),
-        Com(
-            hardware_name="ASI Tiger",
-            com_port="COM5",
-        ),
-    ],
+    connections=connections,
     temperature_control=False,
 )
 

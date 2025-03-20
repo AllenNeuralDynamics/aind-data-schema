@@ -11,6 +11,7 @@ from typing_extensions import Annotated
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import CoordinateSystem
+from aind_data_schema.utils.validators import recursive_get_all_names
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -184,9 +185,12 @@ class Instrument(DataCoreModel):
     def get_component_names(cls, instrument: "Instrument") -> List[str]:
         """Get the name field of all components, recurse into assemblies."""
 
+        names = []
+        for component in instrument.components:
+            names.extend(recursive_get_all_names(component))
+        names = [name for name in names if name is not None]
 
-
-        return [component.name for component in instrument.components if isinstance(component, Device)]
+        return names
 
     @field_serializer("modalities", when_used="json")
     def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
@@ -211,9 +215,7 @@ class Instrument(DataCoreModel):
     @classmethod
     def validate_connections(cls, self):
         """validate that all connections map between devices that actually exist"""
-        device_names = [device.name if hasattr(device, "name") else None for device in self.components]
-        # remove None values from device_names
-        device_names = [name for name in device_names if name is not None]
+        device_names = Instrument.get_component_names(self)
 
         for connection in self.connections:
             for device_name in connection.device_names:

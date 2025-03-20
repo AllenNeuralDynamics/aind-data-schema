@@ -7,6 +7,7 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
+from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
 
@@ -254,13 +255,75 @@ daq = d.HarpDevice(
     computer_name="behavior_computer",
     is_clock_generator=False,
     channels=[
-        d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
-        d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-        d.DAQChannel(channel_name="DI0", device_name="Lick-o-meter Left", channel_type="Digital Input"),
-        d.DAQChannel(channel_name="DI1", device_name="Lick-o-meter Right", channel_type="Digital Input"),
-        d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
+        d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
+        d.DAQChannel(channel_name="DO1", channel_type="Digital Output"),
+        d.DAQChannel(channel_name="DI0", channel_type="Digital Input"),
+        d.DAQChannel(channel_name="DI1", channel_type="Digital Input"),
+        d.DAQChannel(channel_name="DI3", channel_type="Digital Input"),
     ],
 )
+connections = [
+    Connection(
+        device_names=["Harp Behavior", "Solenoid Left"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="DO0",
+            ),
+            "Solenoid Left": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            )
+        }
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Solenoid Right"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="DO1",
+            ),
+            "Solenoid Right": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            )
+        }
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                channel="DI0",
+            ),
+            "Janelia_Lick_Detector Left": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            )
+        }
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                channel="DI1",
+            ),
+            "Janelia_Lick_Detector Right": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            )
+        }
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Photometry Clock"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                channel="DI3",
+            ),
+            "Photometry Clock": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            )
+        }
+    ),
+]
 
 mouse_platform = d.Disc(name="mouse_disc", radius=8.5)
 
