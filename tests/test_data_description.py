@@ -152,6 +152,60 @@ class DataDescriptionTest(unittest.TestCase):
                 investigators=[Person(name="Jane Smith")],
             )
 
+    def test_data_description_construction_failure_invalid_data_level(self):
+        """Test DataDescription construction failure with invalid data level"""
+        dt = datetime.datetime.now()
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
+        with self.assertRaises(ValidationError) as context:
+            DataDescription(
+                modalities=[Modality.SPIM],
+                subject_id="1234",
+                data_level="invalid",
+                creation_time=dt,
+                institution=Organization.AIND,
+                funding_source=[f],
+                investigators=[Person(name="Jane Smith")],
+            )
+
+        self.assertIn("data_level", str(context.exception))
+
+    def test_derived_no_input_data(self):
+        """ Test that creating a derived data description without input data raises an error """
+        dt = datetime.datetime.now()
+
+        with self.assertRaises(ValueError) as context:
+            DataDescription(
+                creation_time=dt,
+                institution=Organization.AIND,
+                data_level="derived",
+                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
+                modalities=[Modality.ECEPHYS],
+                subject_id="12345",
+                investigators=[Person(name="Jane Smith")],
+                input_data=None
+            )
+
+        self.assertIn("input_data", str(context.exception))
+
+    def test_derived_bad_creation_time(self):
+        """ Test that a validation error is raised if the creation time is not a datetime object """
+        dt = datetime.datetime.now()
+
+        da = DataDescription(
+            creation_time=dt,
+            institution=Organization.AIND,
+            data_level="raw",
+            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+        )
+
+        with self.assertRaises(ValueError) as context:
+            DataDescription.from_raw(da, "spikesort-ks25", creation_time="invalid creation time")
+
+        self.assertIn("creation_time", str(context.exception))
+
     def test_data_description_missing_fields(self):
         """Test DataDescription missing fields"""
         dt = datetime.datetime.now()

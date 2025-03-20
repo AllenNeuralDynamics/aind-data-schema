@@ -209,7 +209,7 @@ class DataDescription(DataCoreModel):
 
         # Upgrade name
         derived_name = f"{data_description.name}_{process_name}_{datetime_to_name_string(creation_time)}"
-        if not re.match(DataRegex.DERIVED.value, derived_name):
+        if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
         return cls(
