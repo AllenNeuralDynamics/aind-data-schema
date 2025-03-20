@@ -940,6 +940,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 ],
             ),
         ]
+        disc = d.Disc(name="mouse_disc", radius=8.5)
         additional_devices = [d.Device(name="Photometry Clock")]
 
         cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
@@ -960,7 +961,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 *daqs,
                 *stimulus_devices,
                 *additional_devices,
-                d.Disc(name="mouse_disc", radius=8.5),
+                disc,
             ],
             connections=connections,
             calibrations=[

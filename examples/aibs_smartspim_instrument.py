@@ -210,7 +210,7 @@ connections = [
         },
     ),
     Connection(
-        device_names=["Sample stage Z", "Sample stage X", "Sample stage Y" "ASI Tiger"],
+        device_names=["Sample stage Z", "Sample stage X", "Sample stage Y", "ASI Tiger"],
         connection_data={
             "ASI Tiger": ConnectionData(
                 direction=ConnectionDirection.SEND,
