@@ -13,7 +13,7 @@ from aind_data_schema.core.procedures import (
     FiberImplant,
     FiberProbe,
     Headframe,
-    NanojectInjection,
+    BrainInjection,
     OphysProbe,
     Perfusion,
     Procedures,
@@ -26,6 +26,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -42,6 +43,7 @@ p = Procedures(
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             protocol_id="doi",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             procedures=[
                 Headframe(
                     protocol_id="2109",
@@ -49,7 +51,7 @@ p = Procedures(
                     headframe_part_number="TO ENTER",
                     headframe_material="Titanium",
                 ),
-                NanojectInjection(
+                BrainInjection(
                     protocol_id="5678",
                     injection_materials=[
                         ViralMaterial(
@@ -65,12 +67,12 @@ p = Procedures(
                     ],
                     recovery_time=0,
                     instrument_id=None,
-                    injection_hemisphere="Left",
-                    injection_coordinate_ml=-0.6,
-                    injection_coordinate_ap=-3.05,
-                    injection_coordinate_depth=[-4.2],
-                    injection_coordinate_reference="Bregma",
-                    injection_angle=0,
+                    coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[-600, -3050, 0, 4200],
+                        ),
+                    ],
                     dynamics=[
                         InjectionDynamics(
                             volume=400,
@@ -78,7 +80,7 @@ p = Procedures(
                             profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    targeted_structure=CCFStructure.VTA,
+                    target=CCFStructure.VTA,
                 ),
                 FiberImplant(
                     protocol_id="TO ENTER",
@@ -92,11 +94,10 @@ p = Procedures(
                                 total_length=0.5,
                             ),
                             targeted_structure=CCFStructure.VTA,
-                            angle=0,
-                            stereotactic_coordinate_ap=-3.05,
-                            stereotactic_coordinate_ml=-0.6,
-                            stereotactic_coordinate_dv=-4,
-                            stereotactic_coordinate_reference="Bregma",
+                            coordinate=Coordinate(
+                                system_name="BREGMA_ARID",
+                                position=[-600, -3050, 0, 4200],
+                            ),
                         )
                     ],
                 ),

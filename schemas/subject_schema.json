@@ -418,6 +418,73 @@
          "title": "_Balb_C",
          "type": "object"
       },
+      "_Baylor_College_Of_Medicine": {
+         "description": "Model Baylor College of Medicine",
+         "properties": {
+            "name": {
+               "const": "Baylor College of Medicine",
+               "default": "Baylor College of Medicine",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BCM",
+               "default": "BCM",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02pttbw34",
+               "default": "02pttbw34",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Baylor_College_Of_Medicine",
+         "type": "object"
+      },
       "_C57Bl_6J": {
          "description": "Model C57BL/6J",
          "properties": {
@@ -1291,8 +1358,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.3",
-         "default": "2.0.3",
+         "const": "2.0.4",
+         "default": "2.0.4",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1404,6 +1471,7 @@
          "discriminator": {
             "mapping": {
                "Allen Institute": "#/$defs/_Allen_Institute",
+               "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                "Columbia University": "#/$defs/_Columbia_University",
                "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
                "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
@@ -1416,6 +1484,9 @@
          "oneOf": [
             {
                "$ref": "#/$defs/_Allen_Institute"
+            },
+            {
+               "$ref": "#/$defs/_Baylor_College_Of_Medicine"
             },
             {
                "$ref": "#/$defs/_Columbia_University"

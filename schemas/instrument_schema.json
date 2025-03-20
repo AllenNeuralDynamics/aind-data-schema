@@ -43,6 +43,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -172,6 +173,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -525,6 +529,57 @@
          "title": "AdditionalImagingDevice",
          "type": "object"
       },
+      "Affine": {
+         "additionalProperties": false,
+         "description": "Definition of an affine transform 3x4 matrix",
+         "properties": {
+            "object_type": {
+               "const": "Affine",
+               "default": "Affine",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "affine_transform": {
+               "items": {
+                  "items": {
+                     "type": "number"
+                  },
+                  "type": "array"
+               },
+               "title": "Affine transform matrix",
+               "type": "array"
+            }
+         },
+         "required": [
+            "affine_transform"
+         ],
+         "title": "Affine",
+         "type": "object"
+      },
+      "AnatomicalRelative": {
+         "description": "Relative positions in 3D space",
+         "enum": [
+            "Superior",
+            "Inferior",
+            "Anterior",
+            "Posterior",
+            "Left",
+            "Right",
+            "Medial",
+            "Lateral"
+         ],
+         "title": "AnatomicalRelative",
+         "type": "string"
+      },
+      "AngleUnit": {
+         "description": "Enumeration of Angle Measurements",
+         "enum": [
+            "radians",
+            "degrees"
+         ],
+         "title": "AngleUnit",
+         "type": "string"
+      },
       "Arena": {
          "additionalProperties": false,
          "description": "Description of a rectangular arena",
@@ -568,6 +623,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -697,6 +753,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -1064,8 +1123,12 @@
                "title": "Date surface replaced"
             },
             "size": {
-               "$ref": "#/$defs/Size3d",
+               "$ref": "#/$defs/Scale",
                "title": "3D Size"
+            },
+            "size_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Size unit"
             },
             "objects_in_arena": {
                "default": [],
@@ -1078,14 +1141,15 @@
          },
          "required": [
             "name",
-            "size"
+            "size",
+            "size_unit"
          ],
          "title": "Arena",
          "type": "object"
       },
       "Axis": {
          "additionalProperties": false,
-         "description": "Description of an axis",
+         "description": "Linked direction and axis",
          "properties": {
             "object_type": {
                "const": "Axis",
@@ -1098,8 +1162,8 @@
                "title": "Axis"
             },
             "direction": {
-               "title": "Direction as the value of axis increases.",
-               "type": "string"
+               "$ref": "#/$defs/Direction",
+               "description": "Direction of positive values along the axis"
             }
          },
          "required": [
@@ -1110,11 +1174,15 @@
          "type": "object"
       },
       "AxisName": {
-         "description": "Image axis name",
+         "description": "Axis name",
          "enum": [
             "X",
             "Y",
-            "Z"
+            "Z",
+            "AP",
+            "ML",
+            "SI",
+            "Depth"
          ],
          "title": "AxisName",
          "type": "string"
@@ -1145,7 +1213,7 @@
                "type": "string"
             },
             "device_name": {
-               "description": "Must match a device name in rig/instrument",
+               "description": "Must match a device name in instrument",
                "title": "Device name",
                "type": "string"
             },
@@ -1635,7 +1703,7 @@
                "title": "Camera assembly name",
                "type": "string"
             },
-            "camera_target": {
+            "target": {
                "$ref": "#/$defs/CameraTarget",
                "title": "Camera target"
             },
@@ -1644,6 +1712,26 @@
             },
             "lens": {
                "$ref": "#/$defs/Lens"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Relative position",
+               "type": "array"
+            },
+            "position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Transform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Exact position of the camera assembly in the instrument",
+               "title": "Position"
             },
             "filter": {
                "anyOf": [
@@ -1656,25 +1744,14 @@
                ],
                "default": null,
                "title": "Filter"
-            },
-            "position": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/RelativePosition"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Relative position of this assembly"
             }
          },
          "required": [
             "name",
-            "camera_target",
+            "target",
             "camera",
-            "lens"
+            "lens",
+            "relative_position"
          ],
          "title": "CameraAssembly",
          "type": "object"
@@ -1692,14 +1769,9 @@
          "description": "Target of camera",
          "enum": [
             "Body",
-            "Bottom",
-            "Brain surface",
+            "Brain",
             "Eye",
-            "Face bottom",
-            "Face forward",
-            "Face side left",
-            "Face side right",
-            "Side",
+            "Face",
             "Tongue",
             "Other"
          ],
@@ -1832,6 +1904,47 @@
          ],
          "title": "Cooling",
          "type": "string"
+      },
+      "CoordinateSystem": {
+         "additionalProperties": false,
+         "description": "Definition of a coordinate system relative to a brain",
+         "properties": {
+            "object_type": {
+               "const": "Coordinate system",
+               "default": "Coordinate system",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "origin": {
+               "$ref": "#/$defs/Origin",
+               "description": "Defines the position of (0,0,0) in the coordinate system",
+               "title": "Origin"
+            },
+            "axes": {
+               "description": "Axis names and directions",
+               "items": {
+                  "$ref": "#/$defs/Axis"
+               },
+               "title": "Axis names",
+               "type": "array"
+            },
+            "axis_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Size unit"
+            }
+         },
+         "required": [
+            "name",
+            "origin",
+            "axes",
+            "axis_unit"
+         ],
+         "title": "CoordinateSystem",
+         "type": "object"
       },
       "Coupling": {
          "description": "Laser coupling type",
@@ -2625,6 +2738,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -2754,6 +2868,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -3155,6 +3272,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -3284,6 +3402,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -3729,6 +3850,25 @@
          "title": "DigitalMicromirrorDevice",
          "type": "object"
       },
+      "Direction": {
+         "description": "Local and anatomical directions",
+         "enum": [
+            "Left_to_right",
+            "Right_to_left",
+            "Anterior_to_posterior",
+            "Posterior_to_anterior",
+            "Inferior_to_superior",
+            "Superior_to_inferior",
+            "Front_to_back",
+            "Back_to_front",
+            "Top_to_bottom",
+            "Bottom_to_top",
+            "Other",
+            "Positive"
+         ],
+         "title": "Direction",
+         "type": "string"
+      },
       "Disc": {
          "additionalProperties": false,
          "description": "Description of a running disc (i.e. MindScope Disc)",
@@ -3772,6 +3912,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -3901,6 +4042,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -4386,6 +4530,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -4515,6 +4660,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -4857,8 +5005,12 @@
                "title": "Notes"
             },
             "size": {
-               "$ref": "#/$defs/Size3d",
+               "$ref": "#/$defs/Scale",
                "title": "Size"
+            },
+            "size_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Size unit"
             },
             "internal_material": {
                "title": "Internal material",
@@ -4884,6 +5036,7 @@
          "required": [
             "name",
             "size",
+            "size_unit",
             "internal_material",
             "external_material",
             "grounded",
@@ -4969,6 +5122,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -5098,6 +5252,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -5556,6 +5713,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -5685,6 +5843,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -6746,6 +6907,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -6875,6 +7037,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -7242,21 +7407,6 @@
          "title": "ImagingDeviceType",
          "type": "string"
       },
-      "ImagingInstrumentType": {
-         "description": "Experiment type name",
-         "enum": [
-            "confocal",
-            "diSPIM",
-            "exaSPIM",
-            "ecephys",
-            "mesoSPIM",
-            "Other",
-            "SmartSPIM",
-            "Two photon"
-         ],
-         "title": "ImagingInstrumentType",
-         "type": "string"
-      },
       "ImmersionMedium": {
          "description": "Immersion medium name",
          "enum": [
@@ -7316,6 +7466,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -7445,6 +7596,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -8628,6 +8782,18 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Manipulator coordinate system"
             }
          },
          "required": [
@@ -8780,17 +8946,25 @@
                "default": "centimeter",
                "title": "Viewing distance unit"
             },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Relative position",
+               "type": "array"
+            },
             "position": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/RelativePosition"
+                     "$ref": "#/$defs/Transform"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Relative position of the monitor"
+               "description": "Exact position of the camera assembly in the instrument",
+               "title": "Position"
             },
             "contrast": {
                "anyOf": [
@@ -8829,7 +9003,8 @@
             "refresh_rate",
             "width",
             "height",
-            "viewing_distance"
+            "viewing_distance",
+            "relative_position"
          ],
          "title": "Monitor",
          "type": "object"
@@ -8877,6 +9052,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -9006,6 +9182,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -9426,6 +9605,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -9555,6 +9735,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -10154,6 +10337,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -10283,6 +10467,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -11186,6 +11373,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -11315,6 +11503,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -11713,11 +11904,20 @@
          "type": "object"
       },
       "Origin": {
-         "description": "Coordinate reference origin point",
+         "description": "Origin positions for coordinate systems",
          "enum": [
+            "Origin",
             "Bregma",
             "Lambda",
-            "Other (see Notes)"
+            "C1",
+            "C2",
+            "C3",
+            "C4",
+            "C5",
+            "C6",
+            "C7",
+            "Tip",
+            "Front_center"
          ],
          "title": "Origin",
          "type": "string"
@@ -11765,6 +11965,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -11894,6 +12095,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -12322,6 +12526,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -12451,6 +12656,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -12917,6 +13125,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -13046,6 +13255,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -13464,72 +13676,6 @@
          "title": "ProbePort",
          "type": "object"
       },
-      "RelativePosition": {
-         "additionalProperties": false,
-         "description": "Position and rotation of a device in a rig or instrument",
-         "properties": {
-            "object_type": {
-               "const": "Relative position",
-               "default": "Relative position",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "device_position_transformations": {
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
-                        "Translation3d transform": "#/$defs/Translation3dTransform"
-                     },
-                     "propertyName": "object_type"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/Translation3dTransform"
-                     },
-                     {
-                        "$ref": "#/$defs/Rotation3dTransform"
-                     }
-                  ]
-               },
-               "title": "Device position transforms",
-               "type": "array"
-            },
-            "device_origin": {
-               "description": "Reference point on device for position information",
-               "title": "Device origin",
-               "type": "string"
-            },
-            "device_axes": {
-               "items": {
-                  "$ref": "#/$defs/Axis"
-               },
-               "maxItems": 3,
-               "minItems": 3,
-               "title": "Device axes",
-               "type": "array"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "device_position_transformations",
-            "device_origin",
-            "device_axes"
-         ],
-         "title": "RelativePosition",
-         "type": "object"
-      },
       "RewardDelivery": {
          "additionalProperties": false,
          "description": "Description of reward delivery system",
@@ -13609,6 +13755,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -13738,6 +13885,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -14079,11 +14229,6 @@
                "default": null,
                "title": "Notes"
             },
-            "side": {
-               "$ref": "#/$defs/SpoutSide",
-               "description": "If Other use notes",
-               "title": "Spout side"
-            },
             "spout_diameter": {
                "anyOf": [
                   {
@@ -14099,18 +14244,6 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "millimeter",
                "title": "Spout diameter unit"
-            },
-            "spout_position": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/RelativePosition"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Spout stage position"
             },
             "solenoid_valve": {
                "$ref": "#/$defs/Device",
@@ -14135,7 +14268,6 @@
          },
          "required": [
             "name",
-            "side",
             "spout_diameter",
             "solenoid_valve",
             "lick_sensor"
@@ -14143,37 +14275,58 @@
          "title": "RewardSpout",
          "type": "object"
       },
-      "Rotation3dTransform": {
+      "Rotation": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "description": "Rotation\n\nRotations are applied as Euler angles in order X/Y/Z\n\nAngles follow right-hand rule, with positive angles rotating counter-clockwise.",
          "properties": {
             "object_type": {
-               "const": "Rotation3d transform",
-               "default": "Rotation3d transform",
+               "const": "Rotation",
+               "default": "Rotation",
                "title": "Object Type",
                "type": "string"
             },
-            "rotation": {
+            "angles": {
+               "description": "Right-hand rule, positive angles rotate CCW",
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "maxItems": 9,
-               "minItems": 9,
-               "title": "3D rotation matrix values (3x3) ",
+               "title": "Angles and axes in 3D space",
+               "type": "array"
+            },
+            "angles_unit": {
+               "$ref": "#/$defs/AngleUnit",
+               "default": "degrees",
+               "title": "Angle unit"
+            }
+         },
+         "required": [
+            "angles"
+         ],
+         "title": "Rotation",
+         "type": "object"
+      },
+      "Scale": {
+         "additionalProperties": false,
+         "description": "Scale",
+         "properties": {
+            "object_type": {
+               "const": "Scale",
+               "default": "Scale",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "scale": {
+               "items": {
+                  "type": "number"
+               },
+               "title": "Scale parameters",
                "type": "array"
             }
          },
          "required": [
-            "rotation"
+            "scale"
          ],
-         "title": "Rotation3dTransform",
+         "title": "Scale",
          "type": "object"
       },
       "Scanner": {
@@ -14219,6 +14372,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -14348,6 +14502,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -14763,6 +14920,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -14892,6 +15050,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -15266,7 +15427,7 @@
                "title": "Direction of stage axis"
             },
             "stage_axis_name": {
-               "$ref": "#/$defs/StageAxisName",
+               "$ref": "#/$defs/AxisName",
                "title": "Name of stage axis"
             }
          },
@@ -15277,42 +15438,6 @@
             "stage_axis_name"
          ],
          "title": "ScanningStage",
-         "type": "object"
-      },
-      "Size3d": {
-         "additionalProperties": false,
-         "description": "3D size of an object",
-         "properties": {
-            "object_type": {
-               "const": "Size3d",
-               "default": "Size3d",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "width": {
-               "title": "Width",
-               "type": "integer"
-            },
-            "length": {
-               "title": "Length",
-               "type": "integer"
-            },
-            "height": {
-               "title": "Height",
-               "type": "integer"
-            },
-            "unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "meter",
-               "title": "Size unit"
-            }
-         },
-         "required": [
-            "width",
-            "length",
-            "height"
-         ],
-         "title": "Size3d",
          "type": "object"
       },
       "SizeUnit": {
@@ -15477,22 +15602,31 @@
                "default": null,
                "title": "Notes"
             },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Relative position",
+               "type": "array"
+            },
             "position": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/RelativePosition"
+                     "$ref": "#/$defs/Transform"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Relative position of the speaker"
+               "description": "Exact position of the camera assembly in the instrument",
+               "title": "Position"
             }
          },
          "required": [
             "name",
-            "manufacturer"
+            "manufacturer",
+            "relative_position"
          ],
          "title": "Speaker",
          "type": "object"
@@ -15505,17 +15639,6 @@
          "title": "SpeedUnit",
          "type": "string"
       },
-      "SpoutSide": {
-         "description": "Spout sides",
-         "enum": [
-            "Left",
-            "Right",
-            "Center",
-            "Other"
-         ],
-         "title": "SpoutSide",
-         "type": "string"
-      },
       "StageAxisDirection": {
          "description": "Direction of motion for motorized stage",
          "enum": [
@@ -15524,16 +15647,6 @@
             "Perpendicular axis"
          ],
          "title": "StageAxisDirection",
-         "type": "string"
-      },
-      "StageAxisName": {
-         "description": "Axis names for motorized stages as configured by hardware",
-         "enum": [
-            "X",
-            "Y",
-            "Z"
-         ],
-         "title": "StageAxisName",
          "type": "string"
       },
       "TemperatureUnit": {
@@ -15545,37 +15658,79 @@
          "title": "TemperatureUnit",
          "type": "string"
       },
-      "Translation3dTransform": {
+      "Transform": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "description": "Affine transformation in a coordinate system",
          "properties": {
             "object_type": {
-               "const": "Translation3d transform",
-               "default": "Translation3d transform",
+               "const": "Transform",
+               "default": "Transform",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "system_name": {
+               "title": "Coordinate system name",
+               "type": "string"
+            },
+            "transforms": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Affine": "#/$defs/Affine",
+                        "Rotation": "#/$defs/Rotation",
+                        "Scale": "#/$defs/Scale",
+                        "Translation": "#/$defs/Translation"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/Translation"
+                     },
+                     {
+                        "$ref": "#/$defs/Rotation"
+                     },
+                     {
+                        "$ref": "#/$defs/Scale"
+                     },
+                     {
+                        "$ref": "#/$defs/Affine"
+                     }
+                  ]
+               },
+               "title": "Transform",
+               "type": "array"
+            }
+         },
+         "required": [
+            "system_name",
+            "transforms"
+         ],
+         "title": "Transform",
+         "type": "object"
+      },
+      "Translation": {
+         "additionalProperties": false,
+         "description": "Translation",
+         "properties": {
+            "object_type": {
+               "const": "Translation",
+               "default": "Translation",
                "title": "Object Type",
                "type": "string"
             },
             "translation": {
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "maxItems": 3,
-               "minItems": 3,
-               "title": "3D translation parameters",
+               "title": "Translation parameters",
                "type": "array"
             }
          },
          "required": [
             "translation"
          ],
-         "title": "Translation3dTransform",
+         "title": "Translation",
          "type": "object"
       },
       "Treadmill": {
@@ -15621,6 +15776,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -15750,6 +15906,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -16193,6 +16352,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -16322,6 +16482,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -16773,6 +16936,7 @@
                            "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                            "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                            "Basler": "#/$defs/_Basler",
+                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -16902,6 +17066,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Basler"
+                        },
+                        {
+                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -17934,6 +18101,73 @@
             }
          },
          "title": "_Basler",
+         "type": "object"
+      },
+      "_Baylor_College_Of_Medicine": {
+         "description": "Model Baylor College of Medicine",
+         "properties": {
+            "name": {
+               "const": "Baylor College of Medicine",
+               "default": "Baylor College of Medicine",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BCM",
+               "default": "BCM",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02pttbw34",
+               "default": "02pttbw34",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Baylor_College_Of_Medicine",
          "type": "object"
       },
       "_Behavior_Videos": {
@@ -22845,8 +23079,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.7",
+         "default": "2.0.7",
          "title": "Schema Version",
          "type": "string"
       },
@@ -22860,63 +23094,6 @@
          "format": "date",
          "title": "Date of modification",
          "type": "string"
-      },
-      "calibrations": {
-         "anyOf": [
-            {
-               "items": {
-                  "$ref": "#/$defs/Calibration"
-               },
-               "type": "array"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Full calibration of devices"
-      },
-      "ccf_coordinate_transform": {
-         "anyOf": [
-            {
-               "type": "string"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "Path to file that details the CCF-to-lab coordinate transform",
-         "title": "CCF coordinate transform"
-      },
-      "origin": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/Origin"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Origin point for instrument position transforms"
-      },
-      "instrument_axes": {
-         "anyOf": [
-            {
-               "items": {
-                  "$ref": "#/$defs/Axis"
-               },
-               "maxItems": 3,
-               "minItems": 3,
-               "type": "array"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Instrument axes"
       },
       "modalities": {
          "items": {
@@ -22987,6 +23164,25 @@
          "title": "Modalities",
          "type": "array"
       },
+      "calibrations": {
+         "anyOf": [
+            {
+               "items": {
+                  "$ref": "#/$defs/Calibration"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "title": "Full calibration of devices"
+      },
+      "coordinate_system": {
+         "$ref": "#/$defs/CoordinateSystem",
+         "title": "Coordinate system"
+      },
       "com_ports": {
          "default": [],
          "items": {
@@ -22994,18 +23190,6 @@
          },
          "title": "COM ports",
          "type": "array"
-      },
-      "instrument_type": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/ImagingInstrumentType"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Instrument type"
       },
       "manufacturer": {
          "anyOf": [
@@ -23024,6 +23208,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -23153,6 +23338,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -23467,7 +23655,7 @@
          "type": "array"
       },
       "components": {
-         "description": "List of all devices in the rig",
+         "description": "List of all devices in the instrument",
          "items": {
             "discriminator": {
                "mapping": {
@@ -23629,6 +23817,7 @@
       "instrument_id",
       "modification_date",
       "modalities",
+      "coordinate_system",
       "components"
    ],
    "title": "Instrument",

@@ -10,34 +10,9 @@
                "title": "Object Type",
                "type": "string"
             },
-            "coordinate_transformations": {
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "Affine3d transform": "#/$defs/Affine3dTransform",
-                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
-                        "Scale3d transform": "#/$defs/Scale3dTransform",
-                        "Translation3d transform": "#/$defs/Translation3dTransform"
-                     },
-                     "propertyName": "object_type"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/Scale3dTransform"
-                     },
-                     {
-                        "$ref": "#/$defs/Translation3dTransform"
-                     },
-                     {
-                        "$ref": "#/$defs/Rotation3dTransform"
-                     },
-                     {
-                        "$ref": "#/$defs/Affine3dTransform"
-                     }
-                  ]
-               },
-               "title": "Tile coordinate transformations",
-               "type": "array"
+            "coordinate_transform": {
+               "$ref": "#/$defs/CoordinateTransform",
+               "title": "Tile coordinate transformations"
             },
             "file_name": {
                "anyOf": [
@@ -104,43 +79,37 @@
             }
          },
          "required": [
-            "coordinate_transformations",
+            "coordinate_transform",
             "channel"
          ],
          "title": "AcquisitionTile",
          "type": "object"
       },
-      "Affine3dTransform": {
+      "Affine": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a Tile's origin.",
+         "description": "Definition of an affine transform 3x4 matrix",
          "properties": {
             "object_type": {
-               "const": "Affine3d transform",
-               "default": "Affine3d transform",
+               "const": "Affine",
+               "default": "Affine",
                "title": "Object Type",
                "type": "string"
             },
             "affine_transform": {
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "items": {
+                     "type": "number"
+                  },
+                  "type": "array"
                },
-               "maxItems": 12,
-               "minItems": 12,
-               "title": "Affine transform matrix values (top 3x4 matrix)",
+               "title": "Affine transform matrix",
                "type": "array"
             }
          },
          "required": [
             "affine_transform"
          ],
-         "title": "Affine3dTransform",
+         "title": "Affine",
          "type": "object"
       },
       "Anaesthetic": {
@@ -198,18 +167,19 @@
          "title": "Anaesthetic",
          "type": "object"
       },
-      "AnatomicalDirection": {
-         "description": "Anatomical direction name",
+      "AnatomicalRelative": {
+         "description": "Relative positions in 3D space",
          "enum": [
-            "Left_to_right",
-            "Right_to_left",
-            "Anterior_to_posterior",
-            "Posterior_to_anterior",
-            "Inferior_to_superior",
-            "Superior_to_inferior",
-            "Other"
+            "Superior",
+            "Inferior",
+            "Anterior",
+            "Posterior",
+            "Left",
+            "Right",
+            "Medial",
+            "Lateral"
          ],
-         "title": "AnatomicalDirection",
+         "title": "AnatomicalRelative",
          "type": "string"
       },
       "AngleUnit": {
@@ -223,7 +193,7 @@
       },
       "Axis": {
          "additionalProperties": false,
-         "description": "Description of an axis",
+         "description": "Linked direction and axis",
          "properties": {
             "object_type": {
                "const": "Axis",
@@ -236,8 +206,8 @@
                "title": "Axis"
             },
             "direction": {
-               "title": "Direction as the value of axis increases.",
-               "type": "string"
+               "$ref": "#/$defs/Direction",
+               "description": "Direction of positive values along the axis"
             }
          },
          "required": [
@@ -248,11 +218,15 @@
          "type": "object"
       },
       "AxisName": {
-         "description": "Image axis name",
+         "description": "Axis name",
          "enum": [
             "X",
             "Y",
-            "Z"
+            "Z",
+            "AP",
+            "ML",
+            "SI",
+            "Depth"
          ],
          "title": "AxisName",
          "type": "string"
@@ -300,7 +274,7 @@
                "type": "string"
             },
             "device_name": {
-               "description": "Must match a device name in rig/instrument",
+               "description": "Must match a device name in instrument",
                "title": "Device name",
                "type": "string"
             },
@@ -341,76 +315,6 @@
          ],
          "title": "Calibration",
          "type": "object"
-      },
-      "CcfCoords": {
-         "additionalProperties": false,
-         "description": "Coordinates in CCF template space",
-         "properties": {
-            "object_type": {
-               "const": "Ccf coords",
-               "default": "Ccf coords",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "ml": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "ML"
-            },
-            "ap": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "AP"
-            },
-            "dv": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "DV"
-            },
-            "unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
-               "title": "Coordinate unit"
-            },
-            "ccf_version": {
-               "$ref": "#/$defs/CcfVersion",
-               "default": "CCFv3",
-               "title": "CCF version"
-            }
-         },
-         "required": [
-            "ml",
-            "ap",
-            "dv"
-         ],
-         "title": "CcfCoords",
-         "type": "object"
-      },
-      "CcfVersion": {
-         "description": "CCF version",
-         "enum": [
-            "CCFv3"
-         ],
-         "title": "CcfVersion",
-         "type": "string"
       },
       "Channel": {
          "additionalProperties": false,
@@ -611,61 +515,152 @@
          "title": "Code",
          "type": "object"
       },
-      "Coordinates3d": {
+      "Coordinate": {
          "additionalProperties": false,
-         "description": "Coordinates in a 3D grid",
+         "description": "A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)\n\nAngles can be optionally provided",
          "properties": {
             "object_type": {
-               "const": "Coordinates3d",
-               "default": "Coordinates3d",
+               "const": "Coordinate",
+               "default": "Coordinate",
                "title": "Object Type",
                "type": "string"
             },
-            "x": {
+            "system_name": {
+               "title": "Coordinate system name",
+               "type": "string"
+            },
+            "position": {
+               "description": "Position units are inherited from the CoordinateSystem",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Position in coordinate system",
+               "type": "array"
+            },
+            "angles": {
                "anyOf": [
                   {
-                     "type": "number"
+                     "$ref": "#/$defs/Rotation"
                   },
                   {
-                     "type": "string"
+                     "type": "null"
                   }
                ],
-               "title": "Position X"
+               "default": null,
+               "description": "Angles can be optionally provided to define a vector (e.g. for an insertion)",
+               "title": "Orientation in coordinate system"
             },
-            "y": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Position Y"
-            },
-            "z": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Position Z"
-            },
-            "unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
-               "title": "Position unit"
+            "angles_unit": {
+               "$ref": "#/$defs/AngleUnit",
+               "default": "degrees",
+               "title": "Angle unit"
             }
          },
          "required": [
-            "x",
-            "y",
-            "z"
+            "system_name",
+            "position"
          ],
-         "title": "Coordinates3d",
+         "title": "Coordinate",
+         "type": "object"
+      },
+      "CoordinateSystem": {
+         "additionalProperties": false,
+         "description": "Definition of a coordinate system relative to a brain",
+         "properties": {
+            "object_type": {
+               "const": "Coordinate system",
+               "default": "Coordinate system",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "origin": {
+               "$ref": "#/$defs/Origin",
+               "description": "Defines the position of (0,0,0) in the coordinate system"
+            },
+            "axes": {
+               "description": "Axis names and directions",
+               "items": {
+                  "$ref": "#/$defs/Axis"
+               },
+               "title": "Axis names",
+               "type": "array"
+            },
+            "axis_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "title": "Size unit"
+            }
+         },
+         "required": [
+            "name",
+            "origin",
+            "axes",
+            "axis_unit"
+         ],
+         "title": "CoordinateSystem",
+         "type": "object"
+      },
+      "CoordinateTransform": {
+         "additionalProperties": false,
+         "description": "Transformation from one CoordinateSystem to another",
+         "properties": {
+            "object_type": {
+               "const": "Coordinate transform",
+               "default": "Coordinate transform",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "input": {
+               "title": "Input coordinate system",
+               "type": "string"
+            },
+            "output": {
+               "title": "Output coordinate system",
+               "type": "string"
+            },
+            "transforms": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Affine": "#/$defs/Affine",
+                        "Nonlinear transform": "#/$defs/NonlinearTransform",
+                        "Rotation": "#/$defs/Rotation",
+                        "Scale": "#/$defs/Scale",
+                        "Translation": "#/$defs/Translation"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/Translation"
+                     },
+                     {
+                        "$ref": "#/$defs/Rotation"
+                     },
+                     {
+                        "$ref": "#/$defs/Scale"
+                     },
+                     {
+                        "$ref": "#/$defs/Affine"
+                     },
+                     {
+                        "$ref": "#/$defs/NonlinearTransform"
+                     }
+                  ]
+               },
+               "title": "Transform",
+               "type": "array"
+            }
+         },
+         "required": [
+            "input",
+            "output",
+            "transforms"
+         ],
+         "title": "CoordinateTransform",
          "type": "object"
       },
       "DataStream": {
@@ -804,7 +799,7 @@
                         "Laser config": "#/$defs/LaserConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
                         "MRI scan": "#/$defs/MRIScan",
-                        "Manipulator module": "#/$defs/ManipulatorModule",
+                        "Manipulator config": "#/$defs/ManipulatorConfig",
                         "Patch cord config": "#/$defs/PatchCordConfig",
                         "Slap field of view": "#/$defs/SlapFieldOfView",
                         "Stack": "#/$defs/Stack"
@@ -819,7 +814,7 @@
                         "$ref": "#/$defs/LaserConfig"
                      },
                      {
-                        "$ref": "#/$defs/ManipulatorModule"
+                        "$ref": "#/$defs/ManipulatorConfig"
                      },
                      {
                         "$ref": "#/$defs/DomeModule"
@@ -908,6 +903,25 @@
          "title": "DetectorConfig",
          "type": "object"
       },
+      "Direction": {
+         "description": "Local and anatomical directions",
+         "enum": [
+            "Left_to_right",
+            "Right_to_left",
+            "Anterior_to_posterior",
+            "Posterior_to_anterior",
+            "Inferior_to_superior",
+            "Superior_to_inferior",
+            "Front_to_back",
+            "Back_to_front",
+            "Top_to_bottom",
+            "Bottom_to_top",
+            "Other",
+            "Positive"
+         ],
+         "title": "Direction",
+         "type": "string"
+      },
       "DomeModule": {
          "additionalProperties": false,
          "description": "Movable module that is mounted on the ephys dome insertion system",
@@ -965,19 +979,6 @@
                "default": null,
                "title": "Rotation Angle (deg)"
             },
-            "coordinate_transform": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to instrument"
-            },
             "calibration_date": {
                "anyOf": [
                   {
@@ -990,6 +991,18 @@
                ],
                "default": null,
                "title": "Date on which coordinate transform was last calibrated"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Path to coordinate transform file"
             },
             "notes": {
                "anyOf": [
@@ -1069,19 +1082,6 @@
                "default": null,
                "title": "Rotation Angle (deg)"
             },
-            "coordinate_transform": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to instrument"
-            },
             "calibration_date": {
                "anyOf": [
                   {
@@ -1094,6 +1094,18 @@
                ],
                "default": null,
                "title": "Date on which coordinate transform was last calibrated"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Path to coordinate transform file"
             },
             "notes": {
                "anyOf": [
@@ -7858,72 +7870,42 @@
                "default": null,
                "title": "Other targeted structure"
             },
-            "targeted_ccf_coordinates": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/CcfCoords"
-               },
-               "title": "Targeted CCF coordinates",
-               "type": "array"
+            "atlas_coordinates": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Coordinate"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Targeted coordinates in the Acquisition Atlas"
             },
             "manipulator_coordinates": {
-               "$ref": "#/$defs/Coordinates3d",
-               "title": "Manipulator coordinates"
+               "items": {
+                  "$ref": "#/$defs/Coordinate"
+               },
+               "title": "Targeted coordinates in the Instrument CoordinateSystem",
+               "type": "array"
             },
-            "anatomical_coordinates": {
+            "manipulator_axis_positions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Coordinates3d"
+                     "items": {
+                        "$ref": "#/$defs/Coordinate"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Anatomical coordinates"
-            },
-            "anatomical_reference": {
-               "anyOf": [
-                  {
-                     "enum": [
-                        "Bregma",
-                        "Lambda"
-                     ],
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Anatomical coordinate reference"
-            },
-            "surface_z": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface z"
-            },
-            "surface_z_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface z unit"
+               "title": "Manipulator local axis positions, in the device CoordinateSystem"
             },
             "dye": {
                "anyOf": [
@@ -11590,43 +11572,6 @@
          "title": "GenericModel",
          "type": "object"
       },
-      "ImageAxis": {
-         "additionalProperties": false,
-         "description": "Description of an image axis",
-         "properties": {
-            "object_type": {
-               "const": "Image axis",
-               "default": "Image axis",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "$ref": "#/$defs/AxisName",
-               "title": "Name"
-            },
-            "direction": {
-               "$ref": "#/$defs/AnatomicalDirection",
-               "description": "Tissue direction as the value of axis increases. If Other describe in notes."
-            },
-            "dimension": {
-               "description": "Reference axis number for stitching",
-               "title": "Dimension",
-               "type": "integer"
-            },
-            "unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
-               "title": "Axis physical units"
-            }
-         },
-         "required": [
-            "name",
-            "direction",
-            "dimension"
-         ],
-         "title": "ImageAxis",
-         "type": "object"
-      },
       "Immersion": {
          "additionalProperties": false,
          "description": "Description of immersion medium",
@@ -11693,12 +11638,9 @@
                "title": "Acquisition tiles",
                "type": "array"
             },
-            "axes": {
-               "items": {
-                  "$ref": "#/$defs/ImageAxis"
-               },
-               "title": "Acquisition axes",
-               "type": "array"
+            "coordinate_system": {
+               "$ref": "#/$defs/CoordinateSystem",
+               "title": "Coordinate system"
             },
             "chamber_immersion": {
                "$ref": "#/$defs/Immersion",
@@ -11715,20 +11657,11 @@
                ],
                "default": null,
                "title": "Acquisition sample immersion data"
-            },
-            "processing_steps": {
-               "default": [],
-               "description": "List of downstream processing steps planned for each channel",
-               "items": {
-                  "$ref": "#/$defs/ProcessingSteps"
-               },
-               "title": "Processing steps",
-               "type": "array"
             }
          },
          "required": [
             "tiles",
-            "axes",
+            "coordinate_system",
             "chamber_immersion"
          ],
          "title": "InVitroImagingConfig",
@@ -11933,29 +11866,17 @@
                "default": "millisecond",
                "title": "Repetition time unit"
             },
-            "vc_orientation": {
+            "vc_transform": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Rotation3dTransform"
+                     "$ref": "#/$defs/Transform"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Scan orientation"
-            },
-            "vc_position": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Translation3dTransform"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Scan position"
+               "title": "Scan transform"
             },
             "subject_position": {
                "$ref": "#/$defs/SubjectPosition",
@@ -11964,7 +11885,7 @@
             "voxel_sizes": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Scale3dTransform"
+                     "$ref": "#/$defs/Scale"
                   },
                   {
                      "type": "null"
@@ -12034,7 +11955,7 @@
                "type": "string"
             },
             "device_name": {
-               "description": "Must match a device name in rig/instrument",
+               "description": "Must match a device name in instrument",
                "title": "Device name",
                "type": "string"
             },
@@ -12084,13 +12005,13 @@
          "title": "Maintenance",
          "type": "object"
       },
-      "ManipulatorModule": {
+      "ManipulatorConfig": {
          "additionalProperties": false,
          "description": "A dome module connected to a 3-axis manipulator",
          "properties": {
             "object_type": {
-               "const": "Manipulator module",
-               "default": "Manipulator module",
+               "const": "Manipulator config",
+               "default": "Manipulator config",
                "title": "Object Type",
                "type": "string"
             },
@@ -12141,19 +12062,6 @@
                "default": null,
                "title": "Rotation Angle (deg)"
             },
-            "coordinate_transform": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Path to coordinate transform",
-               "title": "Transform from local manipulator axes to instrument"
-            },
             "calibration_date": {
                "anyOf": [
                   {
@@ -12166,6 +12074,18 @@
                ],
                "default": null,
                "title": "Date on which coordinate transform was last calibrated"
+            },
+            "coordinate_transform": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Path to coordinate transform file"
             },
             "notes": {
                "anyOf": [
@@ -18930,72 +18850,42 @@
                "default": null,
                "title": "Other targeted structure"
             },
-            "targeted_ccf_coordinates": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/CcfCoords"
-               },
-               "title": "Targeted CCF coordinates",
-               "type": "array"
+            "atlas_coordinates": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Coordinate"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Targeted coordinates in the Acquisition Atlas"
             },
             "manipulator_coordinates": {
-               "$ref": "#/$defs/Coordinates3d",
-               "title": "Manipulator coordinates"
+               "items": {
+                  "$ref": "#/$defs/Coordinate"
+               },
+               "title": "Targeted coordinates in the Instrument CoordinateSystem",
+               "type": "array"
             },
-            "anatomical_coordinates": {
+            "manipulator_axis_positions": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Coordinates3d"
+                     "items": {
+                        "$ref": "#/$defs/Coordinate"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Anatomical coordinates"
-            },
-            "anatomical_reference": {
-               "anyOf": [
-                  {
-                     "enum": [
-                        "Bregma",
-                        "Lambda"
-                     ],
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Anatomical coordinate reference"
-            },
-            "surface_z": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface z"
-            },
-            "surface_z_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface z unit"
+               "title": "Manipulator local axis positions, in the device CoordinateSystem"
             },
             "dye": {
                "anyOf": [
@@ -19029,7 +18919,7 @@
             "primary_targeted_structure",
             "manipulator_coordinates"
          ],
-         "title": "ManipulatorModule",
+         "title": "ManipulatorConfig",
          "type": "object"
       },
       "MassUnit": {
@@ -19094,6 +18984,46 @@
             "Other"
          ],
          "title": "MriScanSequence",
+         "type": "string"
+      },
+      "NonlinearTransform": {
+         "additionalProperties": false,
+         "description": "Definition of a nonlinear transform",
+         "properties": {
+            "object_type": {
+               "const": "Nonlinear transform",
+               "default": "Nonlinear transform",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "path": {
+               "title": "Path to nonlinear transform file",
+               "type": "string"
+            }
+         },
+         "required": [
+            "path"
+         ],
+         "title": "NonlinearTransform",
+         "type": "object"
+      },
+      "Origin": {
+         "description": "Origin positions for coordinate systems",
+         "enum": [
+            "Origin",
+            "Bregma",
+            "Lambda",
+            "C1",
+            "C2",
+            "C3",
+            "C4",
+            "C5",
+            "C6",
+            "C7",
+            "Tip",
+            "Front_center"
+         ],
+         "title": "Origin",
          "type": "string"
       },
       "PIDName": {
@@ -19222,8 +19152,15 @@
                "title": "Reward consumed during training (uL)"
             },
             "reward_consumed_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "default": "microliter",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Reward consumed unit"
             },
             "trials_total": {
@@ -19314,48 +19251,6 @@
          "title": "PowerUnit",
          "type": "string"
       },
-      "ProcessingSteps": {
-         "additionalProperties": false,
-         "description": "Description of downstream processing steps",
-         "properties": {
-            "object_type": {
-               "const": "Processing steps",
-               "default": "Processing steps",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "channel_name": {
-               "title": "Channel name",
-               "type": "string"
-            },
-            "process_name": {
-               "items": {
-                  "enum": [
-                     "Image atlas alignment",
-                     "Image background subtraction",
-                     "Image cell segmentation",
-                     "Image destriping",
-                     "Image flat-field correction",
-                     "Image importing",
-                     "Image thresholding",
-                     "Image tile alignment",
-                     "Image tile fusing",
-                     "Image tile projection",
-                     "File format conversion"
-                  ],
-                  "type": "string"
-               },
-               "title": "Process Name",
-               "type": "array"
-            }
-         },
-         "required": [
-            "channel_name",
-            "process_name"
-         ],
-         "title": "ProcessingSteps",
-         "type": "object"
-      },
       "Reagent": {
          "additionalProperties": false,
          "description": "Description of reagent used in procedure",
@@ -19385,6 +19280,7 @@
                      "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
                      "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
                      "Basler": "#/$defs/_Basler",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -19514,6 +19410,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Basler"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -19826,72 +19725,6 @@
          "title": "Reagent",
          "type": "object"
       },
-      "RelativePosition": {
-         "additionalProperties": false,
-         "description": "Position and rotation of a device in a rig or instrument",
-         "properties": {
-            "object_type": {
-               "const": "Relative position",
-               "default": "Relative position",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "device_position_transformations": {
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "Rotation3d transform": "#/$defs/Rotation3dTransform",
-                        "Translation3d transform": "#/$defs/Translation3dTransform"
-                     },
-                     "propertyName": "object_type"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/Translation3dTransform"
-                     },
-                     {
-                        "$ref": "#/$defs/Rotation3dTransform"
-                     }
-                  ]
-               },
-               "title": "Device position transforms",
-               "type": "array"
-            },
-            "device_origin": {
-               "description": "Reference point on device for position information",
-               "title": "Device origin",
-               "type": "string"
-            },
-            "device_axes": {
-               "items": {
-                  "$ref": "#/$defs/Axis"
-               },
-               "maxItems": 3,
-               "minItems": 3,
-               "title": "Device axes",
-               "type": "array"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "device_position_transformations",
-            "device_origin",
-            "device_axes"
-         ],
-         "title": "RelativePosition",
-         "type": "object"
-      },
       "RewardDeliveryConfig": {
          "additionalProperties": false,
          "description": "Description of reward delivery configuration",
@@ -19953,14 +19786,24 @@
                "title": "Object Type",
                "type": "string"
             },
-            "side": {
-               "$ref": "#/$defs/SpoutSide",
-               "description": "Must match instrument",
-               "title": "Spout side"
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Initial relative position",
+               "type": "array"
             },
-            "starting_position": {
-               "$ref": "#/$defs/RelativePosition",
-               "title": "Starting position"
+            "position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Transform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Initial position"
             },
             "variable_position": {
                "description": "True if spout position changes during acquisition as tracked in data",
@@ -19969,77 +19812,64 @@
             }
          },
          "required": [
-            "side",
-            "starting_position",
+            "relative_position",
             "variable_position"
          ],
          "title": "RewardSpoutConfig",
          "type": "object"
       },
-      "Rotation3dTransform": {
+      "Rotation": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "description": "Rotation\n\nRotations are applied as Euler angles in order X/Y/Z\n\nAngles follow right-hand rule, with positive angles rotating counter-clockwise.",
          "properties": {
             "object_type": {
-               "const": "Rotation3d transform",
-               "default": "Rotation3d transform",
+               "const": "Rotation",
+               "default": "Rotation",
                "title": "Object Type",
                "type": "string"
             },
-            "rotation": {
+            "angles": {
+               "description": "Right-hand rule, positive angles rotate CCW",
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "maxItems": 9,
-               "minItems": 9,
-               "title": "3D rotation matrix values (3x3) ",
+               "title": "Angles and axes in 3D space",
                "type": "array"
+            },
+            "angles_unit": {
+               "$ref": "#/$defs/AngleUnit",
+               "default": "degrees",
+               "title": "Angle unit"
             }
          },
          "required": [
-            "rotation"
+            "angles"
          ],
-         "title": "Rotation3dTransform",
+         "title": "Rotation",
          "type": "object"
       },
-      "Scale3dTransform": {
+      "Scale": {
          "additionalProperties": false,
-         "description": "Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.\nRepresents voxel spacing if used as the first applied coordinate transform.",
+         "description": "Scale",
          "properties": {
             "object_type": {
-               "const": "Scale3d transform",
-               "default": "Scale3d transform",
+               "const": "Scale",
+               "default": "Scale",
                "title": "Object Type",
                "type": "string"
             },
             "scale": {
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "maxItems": 3,
-               "minItems": 3,
-               "title": "3D scale parameters",
+               "title": "Scale parameters",
                "type": "array"
             }
          },
          "required": [
             "scale"
          ],
-         "title": "Scale3dTransform",
+         "title": "Scale",
          "type": "object"
       },
       "ScanType": {
@@ -23819,17 +23649,6 @@
          ],
          "title": "SpeakerConfig",
          "type": "object"
-      },
-      "SpoutSide": {
-         "description": "Spout sides",
-         "enum": [
-            "Left",
-            "Right",
-            "Center",
-            "Other"
-         ],
-         "title": "SpoutSide",
-         "type": "string"
       },
       "Stack": {
          "additionalProperties": false,
@@ -27687,8 +27506,15 @@
                "title": "Total reward consumed (mL)"
             },
             "reward_consumed_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "default": "milliliter",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Reward consumed unit"
             }
          },
@@ -27720,37 +27546,79 @@
          "title": "TimeUnit",
          "type": "string"
       },
-      "Translation3dTransform": {
+      "Transform": {
          "additionalProperties": false,
-         "description": "Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin.",
+         "description": "Affine transformation in a coordinate system",
          "properties": {
             "object_type": {
-               "const": "Translation3d transform",
-               "default": "Translation3d transform",
+               "const": "Transform",
+               "default": "Transform",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "system_name": {
+               "title": "Coordinate system name",
+               "type": "string"
+            },
+            "transforms": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Affine": "#/$defs/Affine",
+                        "Rotation": "#/$defs/Rotation",
+                        "Scale": "#/$defs/Scale",
+                        "Translation": "#/$defs/Translation"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/Translation"
+                     },
+                     {
+                        "$ref": "#/$defs/Rotation"
+                     },
+                     {
+                        "$ref": "#/$defs/Scale"
+                     },
+                     {
+                        "$ref": "#/$defs/Affine"
+                     }
+                  ]
+               },
+               "title": "Transform",
+               "type": "array"
+            }
+         },
+         "required": [
+            "system_name",
+            "transforms"
+         ],
+         "title": "Transform",
+         "type": "object"
+      },
+      "Translation": {
+         "additionalProperties": false,
+         "description": "Translation",
+         "properties": {
+            "object_type": {
+               "const": "Translation",
+               "default": "Translation",
                "title": "Object Type",
                "type": "string"
             },
             "translation": {
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "maxItems": 3,
-               "minItems": 3,
-               "title": "3D translation parameters",
+               "title": "Translation parameters",
                "type": "array"
             }
          },
          "required": [
             "translation"
          ],
-         "title": "Translation3dTransform",
+         "title": "Translation",
          "type": "object"
       },
       "TriggerType": {
@@ -31509,6 +31377,73 @@
             }
          },
          "title": "_Basler",
+         "type": "object"
+      },
+      "_Baylor_College_Of_Medicine": {
+         "description": "Model Baylor College of Medicine",
+         "properties": {
+            "name": {
+               "const": "Baylor College of Medicine",
+               "default": "Baylor College of Medicine",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BCM",
+               "default": "BCM",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02pttbw34",
+               "default": "02pttbw34",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Baylor_College_Of_Medicine",
          "type": "object"
       },
       "_Behavior": {
@@ -58994,8 +58929,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.8",
+         "default": "2.0.8",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59015,6 +58950,16 @@
          "default": null,
          "description": "Specimen ID is required for in vitro imaging modalities",
          "title": "Specimen ID"
+      },
+      "acquisition_start_time": {
+         "format": "date-time",
+         "title": "Acquisition start time",
+         "type": "string"
+      },
+      "acquisition_end_time": {
+         "format": "date-time",
+         "title": "Acquisition end time",
+         "type": "string"
       },
       "experimenters": {
          "default": [],
@@ -59049,34 +58994,6 @@
          "title": "Instrument ID",
          "type": "string"
       },
-      "calibrations": {
-         "default": [],
-         "description": "List of calibration measurements taken prior to acquisition.",
-         "items": {
-            "$ref": "#/$defs/Calibration"
-         },
-         "title": "Calibrations",
-         "type": "array"
-      },
-      "maintenance": {
-         "default": [],
-         "description": "List of maintenance on instrument prior to acquisition.",
-         "items": {
-            "$ref": "#/$defs/Maintenance"
-         },
-         "title": "Maintenance",
-         "type": "array"
-      },
-      "acquisition_start_time": {
-         "format": "date-time",
-         "title": "Acquisition start time",
-         "type": "string"
-      },
-      "acquisition_end_time": {
-         "format": "date-time",
-         "title": "Acquisition end time",
-         "type": "string"
-      },
       "experiment_type": {
          "default": null,
          "title": "Experiment type",
@@ -59097,19 +59014,6 @@
          "default": [],
          "title": "Acquisition software"
       },
-      "headframe_registration": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/Affine3dTransform"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "MRI transform matrix for headframe",
-         "title": "Headframe registration"
-      },
       "notes": {
          "anyOf": [
             {
@@ -59121,6 +59025,24 @@
          ],
          "default": null,
          "title": "Notes"
+      },
+      "calibrations": {
+         "default": [],
+         "description": "List of calibration measurements taken prior to acquisition.",
+         "items": {
+            "$ref": "#/$defs/Calibration"
+         },
+         "title": "Calibrations",
+         "type": "array"
+      },
+      "maintenance": {
+         "default": [],
+         "description": "List of maintenance on instrument prior to acquisition.",
+         "items": {
+            "$ref": "#/$defs/Maintenance"
+         },
+         "title": "Maintenance",
+         "type": "array"
       },
       "data_streams": {
          "description": "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location)",
@@ -59153,9 +59075,9 @@
    },
    "required": [
       "subject_id",
-      "instrument_id",
       "acquisition_start_time",
       "acquisition_end_time",
+      "instrument_id",
       "data_streams"
    ],
    "title": "Acquisition",

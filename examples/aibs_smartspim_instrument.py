@@ -9,7 +9,6 @@ from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Detector,
     Filter,
-    ImagingInstrumentType,
     Laser,
     MotorizedStage,
     Objective,
@@ -18,6 +17,9 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.core.instrument import Com, Instrument
+from aind_data_schema.components.coordinates import (
+    CoordinateSystemLibrary,
+)
 
 objective = Objective(
     name="TLX Objective",
@@ -181,7 +183,7 @@ lens3 = AdditionalImagingDevice(
 inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
-    instrument_type=ImagingInstrumentType.SMARTSPIM,
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     modalities=[Modality.SPIM],
     manufacturer=Organization.LIFECANVAS,
     temperature_control=False,

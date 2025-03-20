@@ -1,18 +1,12 @@
 """" Models related to imaging tiles and their transformations """
 
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
-from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
-)
+from aind_data_schema.components.coordinates import CoordinateTransform
 
 
 class Channel(DataModel):
@@ -39,17 +33,7 @@ class Channel(DataModel):
 class Tile(DataModel):
     """Description of an image tile"""
 
-    coordinate_transformations: List[
-        Annotated[
-            Union[
-                Scale3dTransform,
-                Translation3dTransform,
-                Rotation3dTransform,
-                Affine3dTransform,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(..., title="Tile coordinate transformations")
+    coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
 
 

@@ -3,7 +3,7 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
@@ -17,7 +17,11 @@ from aind_data_schema_models.units import (
 
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.coordinates import ImageAxis, AnatomicalDirection, AxisName, CcfCoords
+from aind_data_schema.components.coordinates import (
+    Coordinate,
+    Transform,
+    CoordinateSystem,
+)
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -27,14 +31,10 @@ from aind_data_schema.base import (
     DataModel,
 )
 from aind_data_schema.components.coordinates import (
-    Coordinates3d,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
+    Scale,
+    AnatomicalRelative,
 )
-from aind_data_schema.components.devices import RelativePosition, SpoutSide
 from aind_data_schema.components.tile import Channel
-from aind_data_schema.core.procedures import CoordinateReferenceLocation
 
 
 class StimulusModality(str, Enum):
@@ -201,43 +201,62 @@ class DomeModule(DeviceConfig):
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
-    coordinate_transform: Optional[str] = Field(
-        default=None,
-        title="Transform from local manipulator axes to instrument",
-        description="Path to coordinate transform",
-    )
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
+    coordinate_transform: Optional[str] = Field(
+        default=None, title="Path to coordinate transform file"
+    )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class ManipulatorModule(DomeModule):
+class ManipulatorConfig(DomeModule):
     """A dome module connected to a 3-axis manipulator"""
 
+    # Target
     primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-    targeted_ccf_coordinates: List[CcfCoords] = Field(
-        default=[],
-        title="Targeted CCF coordinates",
+    atlas_coordinates: Optional[List[Coordinate]] = Field(
+        default=None,
+        title="Targeted coordinates in the Acquisition Atlas",
     )
-    manipulator_coordinates: Coordinates3d = Field(
+
+    # Coordinates
+    manipulator_coordinates: List[Coordinate] = Field(
         ...,
-        title="Manipulator coordinates",
+        title="Targeted coordinates in the Instrument CoordinateSystem",
     )
-    anatomical_coordinates: Optional[Coordinates3d] = Field(default=None, title="Anatomical coordinates")
-    anatomical_reference: Optional[Literal[CoordinateReferenceLocation.BREGMA, CoordinateReferenceLocation.LAMBDA]] = (
-        Field(default=None, title="Anatomical coordinate reference")
+    manipulator_axis_positions: Optional[List[Coordinate]] = Field(
+        default=None,
+        title="Manipulator local axis positions, in the device CoordinateSystem",
     )
-    surface_z: Optional[Decimal] = Field(default=None, title="Surface z")
-    surface_z_unit: Optional[SizeUnit] = Field(default=None, title="Surface z unit")
+
     dye: Optional[str] = Field(default=None, title="Dye")
     implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
 
+    @model_validator(mode="after")
+    def validate_len_coordinates(self):
+        """Validate number of coordinates targeted"""
 
-class FiberAssemblyConfig(ManipulatorModule):
+        lengths = []
+        if self.atlas_coordinates:
+            lengths.append(len(self.atlas_coordinates))
+        if self.manipulator_coordinates:
+            lengths.append(len(self.manipulator_coordinates))
+        if self.manipulator_axis_positions:
+            lengths.append(len(self.manipulator_axis_positions))
+
+        if len(set(lengths)) > 1:
+            raise ValueError(
+                "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same"
+            )
+
+        return self
+
+
+class FiberAssemblyConfig(ManipulatorConfig):
     """Inserted fiber photometry probe recorded in a stream"""
 
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
@@ -263,8 +282,8 @@ class RewardSolution(str, Enum):
 class RewardSpoutConfig(DataModel):
     """Reward spout acquisition information"""
 
-    side: SpoutSide = Field(..., title="Spout side", description="Must match instrument")
-    starting_position: RelativePosition = Field(..., title="Starting position")
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Transform] = Field(default=None, title="Initial position")
     variable_position: bool = Field(
         ...,
         title="Variable position",
@@ -335,11 +354,10 @@ class MRIScan(DeviceConfig):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_orientation: Optional[Rotation3dTransform] = Field(default=None, title="Scan orientation")
-    vc_position: Optional[Translation3dTransform] = Field(default=None, title="Scan position")
+    vc_transform: Optional[Transform] = Field(default=None, title="Scan transform")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
-    voxel_sizes: Optional[Scale3dTransform] = Field(default=None, title="Voxel sizes", description="Resolution")
+    voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
     processing_steps: List[
         Literal[
             ProcessName.FIDUCIAL_SEGMENTATION,
@@ -363,11 +381,11 @@ class MRIScan(DeviceConfig):
 
     @model_validator(mode="after")
     def validate_primary_scan(self):
-        """Validate that primary scan has vc_orientation and vc_position fields"""
+        """Validate that primary scan has vc_transform and voxel_sizes fields"""
 
         if self.primary_scan:
-            if not self.vc_orientation or not self.vc_position or not self.voxel_sizes:
-                raise ValueError("Primary scan must have vc_orientation, vc_position, and voxel_sizes fields")
+            if not self.vc_transform or not self.voxel_sizes:
+                raise ValueError("Primary scan must have vc_transform and voxel_sizes fields")
 
         return self
 
@@ -379,59 +397,10 @@ class Immersion(DataModel):
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class ProcessingSteps(DataModel):
-    """Description of downstream processing steps"""
-
-    channel_name: str = Field(..., title="Channel name")
-    process_name: List[
-        Literal[
-            ProcessName.IMAGE_ATLAS_ALIGNMENT,
-            ProcessName.IMAGE_BACKGROUND_SUBTRACTION,
-            ProcessName.IMAGE_CELL_SEGMENTATION,
-            ProcessName.IMAGE_DESTRIPING,
-            ProcessName.IMAGE_FLAT_FIELD_CORRECTION,
-            ProcessName.IMAGE_IMPORTING,
-            ProcessName.IMAGE_THRESHOLDING,
-            ProcessName.IMAGE_TILE_ALIGNMENT,
-            ProcessName.IMAGE_TILE_FUSING,
-            ProcessName.IMAGE_TILE_PROJECTION,
-            ProcessName.FILE_FORMAT_CONVERSION,
-        ]
-    ] = Field(...)
-
-
 class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
     tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
-    axes: List[ImageAxis] = Field(..., title="Acquisition axes")
+    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
-    processing_steps: List[ProcessingSteps] = Field(
-        default=[],
-        title="Processing steps",
-        description="List of downstream processing steps planned for each channel",
-    )
-
-    @field_validator("axes", mode="before")
-    def from_direction_code(cls, v: Union[str, List[ImageAxis]]) -> List[ImageAxis]:
-        """Map direction codes to Axis model"""
-        if type(v) is str:
-            direction_lookup = {
-                "L": AnatomicalDirection.LR,
-                "R": AnatomicalDirection.RL,
-                "A": AnatomicalDirection.AP,
-                "P": AnatomicalDirection.PA,
-                "I": AnatomicalDirection.IS,
-                "S": AnatomicalDirection.SI,
-            }
-
-            name_lookup = [AxisName.X, AxisName.Y, AxisName.Z]
-
-            axes = []
-            for i, c in enumerate(v):
-                axis = ImageAxis(name=name_lookup[i], direction=direction_lookup[c], dimension=i)
-                axes.append(axis)
-            return axes
-        else:
-            return v

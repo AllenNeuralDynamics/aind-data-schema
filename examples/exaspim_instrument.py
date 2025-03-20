@@ -18,6 +18,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.core.instrument import Instrument, Com
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 objectives = [
     Objective(
@@ -215,9 +216,9 @@ optical_tables = [
 inst = Instrument(
     instrument_id="440_exaSPIM1_20231004",
     modalities=[Modality.SPIM],
-    instrument_type="exaSPIM",
     modification_date=datetime.date(2023, 10, 4),
     manufacturer=Organization.CUSTOM,
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     components=[
         *objectives,
         *detectors,

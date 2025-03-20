@@ -6,7 +6,7 @@ from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.core.data_description import Funding, RawDataDescription
 from aind_data_schema.core.procedures import (
-    NanojectInjection,
+    BrainInjection,
     Perfusion,
     Procedures,
     Surgery,
@@ -17,6 +17,10 @@ from aind_data_schema.core.procedures import (
 from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subject
 from aind_data_schema_models.species import Strain
 from aind_data_schema_models.units import VolumeUnit
+from aind_data_schema.components.coordinates import (
+    Coordinate,
+    Rotation,
+)
 
 from aind_data_schema.components.identifiers import Person
 
@@ -99,7 +103,7 @@ for session_idx, session in sessions_df.iterrows():
                 ethics_review_id=ethics_review_id,
                 experimenters=[experimenter],
                 procedures=[
-                    NanojectInjection(
+                    BrainInjection(
                         protocol_id=protocol,
                         injection_materials=[
                             ViralMaterial(
@@ -109,11 +113,15 @@ for session_idx, session in sessions_df.iterrows():
                             )
                         ],
                         targeted_structure=proc_row["brain_area"],
-                        injection_coordinate_ml=float(coords[1]),
-                        injection_coordinate_ap=float(coords[0]),
-                        injection_angle=float(coords[3]),
-                        # multiple injection volumes at different depths are allowed, but that's not happening here
-                        injection_coordinate_depth=[float(coords[2])],
+                        coordinates=[
+                            Coordinate(
+                                system_name="BREGMA_ARI",
+                                position=[coords[1], coords[0], 0, coords[2]],
+                                angles=Rotation(
+                                    angles=[0, coords[3], 0],
+                                ),
+                            ),
+                        ],
                         dynamics=[
                             InjectionDynamics(
                                 volume=proc_row["injection_volume"],

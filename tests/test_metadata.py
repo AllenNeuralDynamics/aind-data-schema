@@ -19,12 +19,13 @@ from aind_data_schema.components.devices import (
     MousePlatform,
     Laser,
 )
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
-    NanojectInjection,
+    BrainInjection,
     Procedures,
     Surgery,
 )
@@ -227,7 +228,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_injection_material_validator_spim(self):
         """Tests that the injection validator works for SPIM"""
-        nano_inj = NanojectInjection.model_construct()
+        nano_inj = BrainInjection.model_construct()
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
@@ -250,7 +251,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_injection_material_validator_ephys(self):
         """Test that the injection validator works for ephys"""
-        nano_inj = NanojectInjection.model_construct()
+        nano_inj = BrainInjection.model_construct()
 
         # Tests missing injection materials
         surgery2 = Surgery.model_construct(procedures=[nano_inj])
@@ -283,6 +284,7 @@ class TestMetadata(unittest.TestCase):
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
             components=[ephys_assembly, mouse_platform],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
             Metadata(
