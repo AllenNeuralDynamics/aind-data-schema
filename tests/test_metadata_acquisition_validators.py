@@ -54,7 +54,7 @@ class TestMetadata(unittest.TestCase):
                 name="655019_2023-04-03T181709",
                 location="bucket",
                 data_description=DataDescription.model_construct(
-                    creation_time=time(12, 12, 12),
+                    creation_time=datetime(2012, 12, 12, 12, 12, 12),
                     modalities=modalities,
                     subject_id="655019",
                 ),
