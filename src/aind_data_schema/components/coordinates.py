@@ -33,7 +33,11 @@ class Origin(str, Enum):
     C7 = "C7"
     TIP = "Tip"  # of a probe
     FRONT_CENTER = "Front_center"  # front center of a device, e.g. camera
-    BOTTOM_CENTER = "Center"  # center of a space on the ground, e.g. arena
+    ARENA_CENTER = "Arena_center"  # center of an arena on the ground surface
+    ARENA_FRONT_LEFT = "Arena_front_left"
+    ARENA_FRONT_RIGHT = "Arena_front_right"
+    ARENA_BACK_LEFT = "Arena_back_left" 
+    ARENA_BACK_RIGHT = "Arena_back_right"
 
 
 class AxisName(str, Enum):
@@ -361,7 +365,7 @@ class CoordinateSystemLibrary:
     # Arena
     ARENA_RBT = CoordinateSystem(
         name="ARENA_RBT",
-        origin=Origin.BOTTOM_CENTER,
+        origin=Origin.ARENA_CENTER,
         axis_unit=SizeUnit.CM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
