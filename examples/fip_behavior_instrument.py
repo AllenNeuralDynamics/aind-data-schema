@@ -17,8 +17,8 @@ from aind_data_schema.components.devices import (
     HarpDeviceType,
     DAQChannel,
     DaqChannelType,
-    RewardDelivery,
-    RewardSpout,
+    LickSpoutAssembly,
+    LickSpout,
     Device,
     LickSensorType,
     MotorizedStage,
@@ -177,9 +177,9 @@ connections = [
     ),
 ]
 
-reward_delivery = RewardDelivery(
+reward_delivery = LickSpoutAssembly(
     reward_spouts=[
-        RewardSpout(
+        LickSpout(
             name="Left spout",
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Left"),
@@ -189,7 +189,7 @@ reward_delivery = RewardDelivery(
             ),
             lick_sensor_type=LickSensorType("Capacitive"),
         ),
-        RewardSpout(
+        LickSpout(
             name="Right spout",
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Right"),
@@ -200,7 +200,7 @@ reward_delivery = RewardDelivery(
             lick_sensor_type=LickSensorType("Capacitive"),
         ),
     ],
-    stage_type=MotorizedStage(
+    motorized_stage=MotorizedStage(
         name="NewScaleMotor for LickSpouts",
         manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
         travel=15.0,

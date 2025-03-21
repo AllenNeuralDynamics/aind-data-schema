@@ -911,9 +911,9 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
         ]
         stimulus_devices = [
-            d.RewardDelivery(
+            d.LickSpoutAssembly(
                 reward_spouts=[
-                    d.RewardSpout(
+                    d.LickSpout(
                         name="Left spout",
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Left"),
@@ -923,7 +923,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                         ),
                         lick_sensor_type=d.LickSensorType("Capacitive"),
                     ),
-                    d.RewardSpout(
+                    d.LickSpout(
                         name="Right spout",
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Right"),

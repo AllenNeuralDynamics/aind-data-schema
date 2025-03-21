@@ -44,7 +44,7 @@ from aind_data_schema.components.devices import (
     PatchCord,
     PockelsCell,
     PolygonalScanner,
-    RewardDelivery,
+    LickSpoutAssembly,
     ScanningStage,
     Speaker,
     Treadmill,
@@ -62,7 +62,7 @@ DEVICES_REQUIRED = {
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[RewardDelivery]],
+    Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
@@ -137,7 +137,7 @@ class Instrument(DataCoreModel):
             Union[
                 Monitor,
                 Olfactometer,
-                RewardDelivery,
+                LickSpoutAssembly,
                 Speaker,
                 CameraAssembly,
                 Enclosure,

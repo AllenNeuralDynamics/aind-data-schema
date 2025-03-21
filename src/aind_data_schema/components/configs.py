@@ -50,6 +50,15 @@ class StimulusModality(str, Enum):
     WHEEL_FRICTION = "Wheel friction"
 
 
+class Valence(str, Enum):
+    """Valence of a stimulus"""
+
+    POSITIVE = "Positive"
+    NEGATIVE = "Negative"
+    NEUTRAL = "Neutral"
+    UNKNOWN = "Unknown"
+
+
 class DeviceConfig(DataModel):
     """Parent class for all configurations"""
 
@@ -272,15 +281,18 @@ class LaserConfig(DeviceConfig):
 
 
 # Behavior components
-class RewardSolution(str, Enum):
-    """Reward solution name"""
+class Liquid(str, Enum):
+    """Solution names"""
 
     WATER = "Water"
     OTHER = "Other"
 
 
-class RewardSpoutConfig(DataModel):
-    """Reward spout acquisition information"""
+class LickSpoutConfig(DataModel):
+    """Lick spout acquisition information"""
+
+    solution: Liquid = Field(..., title="Solution")
+    solution_valence:  Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
     position: Optional[Transform] = Field(default=None, title="Initial position")
@@ -290,23 +302,25 @@ class RewardSpoutConfig(DataModel):
         description="True if spout position changes during acquisition as tracked in data",
     )
 
-
-class RewardDeliveryConfig(DataModel):
-    """Description of reward delivery configuration"""
-
-    reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
-    reward_spouts: List[RewardSpoutConfig] = Field(..., title="Reward spouts")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("reward_solution") == RewardSolution.OTHER and not value:
+        if info.data.get("reward_solution") == Liquid.OTHER and not value:
             raise ValueError(
                 "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
             )
         return value
+
+
+class AirPuffConfig(DataModel):
+    """ Air puff device configuration """
+
+    valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Transform] = Field(default=None, title="Initial position")
 
 
 class SpeakerConfig(DeviceConfig):
