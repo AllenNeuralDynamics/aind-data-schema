@@ -102,8 +102,8 @@ class CraniotomyType(str, Enum):
     """Name of craniotomy Type"""
 
     DHC = "Dual hemisphere craniotomy"
-    THREE_MM = "3 mm"
-    FIVE_MM = "5 mm"
+    CIRCLE = "Circle"
+    SQUARE = "Square"
     VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
     OTHER = "Other"
@@ -339,12 +339,14 @@ class Craniotomy(DataModel):
 
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
-    craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
+    position: Union[Coordinate, List[AnatomicalRelative]] = Field(..., title="Craniotomy position")
+    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
+
+    size: Optional[float] = Field(default=None, title="Craniotomy size, radius or width/height")
+    size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
+
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
-    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
-    recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
 
 class Headframe(DataModel):

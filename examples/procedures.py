@@ -26,6 +26,7 @@ from aind_data_schema.components.coordinates import (
     Axis,
     Direction,
     CoordinateSystemLibrary,
+    AnatomicalRelative,
 )
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -57,7 +58,7 @@ surgery1 = Surgery(
         Craniotomy(
             craniotomy_type="Visual Cortex",
             protocol_id="1234",
-            craniotomy_hemisphere="Left",
+            position=[AnatomicalRelative.LEFT],
         ),
         BrainInjection(
             protocol_id="5678",

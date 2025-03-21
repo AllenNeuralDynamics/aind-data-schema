@@ -17,6 +17,7 @@ from aind_data_schema.components.coordinates import (
     Coordinate,
     CoordinateTransform,
     CoordinateSystemLibrary,
+    AnatomicalRelative,
 )
 from aind_data_schema.components.devices import Calibration, Maintenance
 
@@ -330,7 +331,7 @@ class TestComposability(unittest.TestCase):
                         Craniotomy(
                             craniotomy_type="Visual Cortex",
                             protocol_id="1234",
-                            craniotomy_hemisphere="Left",
+                            position=[AnatomicalRelative.LEFT],
                         )
                     ],
                     measured_coordinates={
