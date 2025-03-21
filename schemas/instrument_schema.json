@@ -11883,7 +11883,12 @@
             "C6",
             "C7",
             "Tip",
-            "Front_center"
+            "Front_center",
+            "Arena_center",
+            "Arena_front_left",
+            "Arena_front_right",
+            "Arena_back_left",
+            "Arena_back_right"
          ],
          "title": "Origin",
          "type": "string"
@@ -23045,8 +23050,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.8",
-         "default": "2.0.8",
+         "const": "2.0.9",
+         "default": "2.0.9",
          "title": "Schema Version",
          "type": "string"
       },
