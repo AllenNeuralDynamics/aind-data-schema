@@ -11,8 +11,16 @@ from aind_data_schema.components.devices import (
     MotorizedStage,
     OpticalTable,
     ScanningStage,
+    Device,
 )
-from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
+from aind_data_schema.core.instrument import (
+    Detector,
+    Instrument,
+    Objective,
+    Connection,
+    ConnectionData,
+    ConnectionDirection,
+)
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
@@ -235,6 +243,60 @@ optical_table_1 = OpticalTable(
     manufacturer=Organization.MKS_NEWPORT,
 )
 
+laser_launch = Device(
+    name="Laser Launch",
+)
+
+asi_tiger = Device(
+    name="ASI Tiger",
+)
+mighty_zap = Device(
+    name="MightyZap",
+)
+
+com_device = Device(
+    name="COM Device",
+)
+
+connections = [
+    Connection(
+        device_names=["COM Device", "Laser Launch"],
+        connection_data={
+            "Laser Launch": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "COM Device": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM4",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["COM Device", "ASI Tiger"],
+        connection_data={
+            "ASI Tiger": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "COM Device": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM3",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["COM Device", "MightyZap"],
+        connection_data={
+            "MightyZap": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "COM Device": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM9",
+            ),
+        },
+    ),
+]
+
 objectives = [objective_1, objective_2]
 detectors = [detector_1]
 lasers = [laser_1, laser_2, laser_3, laser_4, laser_5, laser_6]
@@ -257,18 +319,12 @@ inst = Instrument(
         *motorized_stages,
         *scanning_stages,
         *optical_tables,
+        laser_launch,
+        asi_tiger,
+        mighty_zap,
+        com_device,
     ],
-    com_ports=[
-        Com(hardware_name="Laser Launch", com_port="COM4"),
-        Com(
-            hardware_name="ASI Tiger",
-            com_port="COM3",
-        ),
-        Com(
-            hardware_name="MightyZap",
-            com_port="COM9",
-        ),
-    ],
+    connections=connections,
     temperature_control=False,
 )
 

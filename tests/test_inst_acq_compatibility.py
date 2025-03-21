@@ -32,7 +32,7 @@ from aind_data_schema.components.devices import (
     PatchCord,
     ProbePort,
 )
-from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
@@ -67,11 +67,50 @@ ephys_computer = "W10DT72942"
 
 disc_mouse_platform = Disc(name="Running Wheel", radius=15)
 
-digital_out0 = DAQChannel(channel_name="DO0", device_name="Face Camera", channel_type="Digital Output")
+digital_out0 = DAQChannel(channel_name="DO0", channel_type="Digital Output")
 
-digital_out1 = DAQChannel(channel_name="DO1", device_name="Body Camera", channel_type="Digital Output")
+digital_out1 = DAQChannel(channel_name="DO1", channel_type="Digital Output")
 
-analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", channel_type="Analog Input")
+analog_input = DAQChannel(channel_name="AI0", channel_type="Analog Input")
+
+connections = [
+    Connection(
+        device_names=["Harp Behavior", "Face Camera"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                channel="DO0",
+                direction=ConnectionDirection.SEND,
+            ),
+            "Face Camera": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Body Camera"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                channel="DO1",
+                direction=ConnectionDirection.SEND,
+            ),
+            "Body Camera": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Running Wheel"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                channel="AI0",
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Running Wheel": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+]
 
 harp = HarpDevice(
     name="Harp Behavior",
@@ -258,6 +297,7 @@ ephys_inst = Instrument(
         microscope,
         disc_mouse_platform,
     ],
+    connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
@@ -800,17 +840,75 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 computer_name="behavior_computer",
                 is_clock_generator=False,
                 channels=[
-                    d.DAQChannel(channel_name="DO0", device_name="Solenoid Left", channel_type="Digital Output"),
-                    d.DAQChannel(channel_name="DO1", device_name="Solenoid Right", channel_type="Digital Output"),
-                    d.DAQChannel(
-                        channel_name="DI0", device_name="Janelia_Lick_Detector Left", channel_type="Digital Input"
-                    ),
-                    d.DAQChannel(
-                        channel_name="DI1", device_name="Janelia_Lick_Detector Right", channel_type="Digital Input"
-                    ),
-                    d.DAQChannel(channel_name="DI3", device_name="Photometry Clock", channel_type="Digital Input"),
+                    d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
+                    d.DAQChannel(channel_name="DO1", channel_type="Digital Output"),
+                    d.DAQChannel(channel_name="DI0", channel_type="Digital Input"),
+                    d.DAQChannel(channel_name="DI1", channel_type="Digital Input"),
+                    d.DAQChannel(channel_name="DI3", channel_type="Digital Input"),
                 ],
             )
+        ]
+        connections = [
+            Connection(
+                device_names=["Harp Behavior", "Solenoid Left"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DO0",
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "Solenoid Left": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Solenoid Right"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DO1",
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "Solenoid Right": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DI0",
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Janelia_Lick_Detector Left": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DI1",
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Janelia_Lick_Detector Right": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Harp Behavior", "Photometry Clock"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        channel="DI3",
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                    "Photometry Clock": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                },
+            ),
         ]
         stimulus_devices = [
             d.RewardDelivery(
@@ -838,6 +936,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 ],
             ),
         ]
+        disc = d.Disc(name="mouse_disc", radius=8.5)
         additional_devices = [d.Device(name="Photometry Clock")]
 
         cls.example_ephys_inst = Instrument.model_validate_json(json.dumps(read_json(EPHYS_INST_JSON)))
@@ -858,8 +957,9 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 *daqs,
                 *stimulus_devices,
                 *additional_devices,
-                d.Disc(name="mouse_disc", radius=8.5),
+                disc,
             ],
+            connections=connections,
             calibrations=[
                 d.Calibration(
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),

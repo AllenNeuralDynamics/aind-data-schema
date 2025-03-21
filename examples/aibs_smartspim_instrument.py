@@ -14,9 +14,10 @@ from aind_data_schema.components.devices import (
     Objective,
     OpticalTable,
     ScanningStage,
+    Device,
 )
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.core.instrument import Com, Instrument
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
 )
@@ -180,6 +181,66 @@ lens3 = AdditionalImagingDevice(
     model="Large-uncoated-glass",
 )
 
+laser_launch = Device(
+    name="Laser Launch",
+)
+
+asi_tiger = Device(
+    name="ASI Tiger",
+)
+mighty_zap = Device(
+    name="MightyZap",
+)
+
+com_device = Device(
+    name="COM Device",
+)
+
+connections = [
+    Connection(
+        device_names=["COM Device", "Laser Launch"],
+        connection_data={
+            "Laser Launch": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "COM Device": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM4",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Sample stage Z", "Sample stage X", "Sample stage Y", "ASI Tiger"],
+        connection_data={
+            "ASI Tiger": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM3",
+            ),
+            "Sample stage Z": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Sample stage Y": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Sample stage X": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Lens 1", "MightyZap"],
+        connection_data={
+            "MightyZap": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                channel="COM9",
+            ),
+            "Lens 1": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+]
+
 inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
@@ -208,18 +269,12 @@ inst = Instrument(
         lens1,
         lens2,
         lens3,
+        laser_launch,
+        asi_tiger,
+        mighty_zap,
+        com_device,
     ],
-    com_ports=[
-        Com(
-            hardware_name="Laser Launch",
-            com_port="COM3",
-        ),
-        Com(
-            hardware_name="ASI Tiger",
-            com_port="COM5",
-        ),
-        Com(hardware_name="MightyZap", com_port="COM4"),
-    ],
+    connections=connections,
 )
 serialized = inst.model_dump_json()
 deserialized = Instrument.model_validate_json(serialized)

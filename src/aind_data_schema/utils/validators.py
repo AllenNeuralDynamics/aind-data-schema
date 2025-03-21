@@ -1,5 +1,8 @@
 """ Validator utility functions """
 
+from typing import Any, List
+from enum import Enum
+
 
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
     """Check whether a subject_id and specimen_id are compatible"""
@@ -40,3 +43,23 @@ def recursive_coord_system_check(data, system_name: str):
 
     _recurse_helper(data, system_name)
     # implicit return if data is not a list or object
+
+
+def recursive_get_all_names(obj: Any) -> List[str]:
+    """Recursively extract all 'name' fields from an object and its nested fields."""
+    names = []
+
+    if obj is None or isinstance(obj, Enum):  # Skip None and Enums
+        return names
+
+    elif isinstance(obj, list):  # Handle lists
+        for item in obj:
+            names.extend(recursive_get_all_names(item))
+
+    elif hasattr(obj, "__dict__"):  # Handle objects (including Pydantic models)
+        if hasattr(obj, "name") and isinstance(obj.name, str):  # Ensure name is a string
+            names.append(obj.name)
+        for field_value in vars(obj).values():  # Use vars() for robustness
+            names.extend(recursive_get_all_names(field_value))
+
+    return names

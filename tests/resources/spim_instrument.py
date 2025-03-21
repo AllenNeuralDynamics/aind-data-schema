@@ -11,7 +11,7 @@ from aind_data_schema.components.devices import (
     OpticalTable,
     ScanningStage,
 )
-from aind_data_schema.core.instrument import Com, Detector, Instrument, Objective
+from aind_data_schema.core.instrument import Detector, Instrument, Objective
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
@@ -256,17 +256,6 @@ inst = Instrument(
         *motorized_stages,
         *scanning_stages,
         *optical_tables,
-    ],
-    com_ports=[
-        Com(hardware_name="Laser Launch", com_port="COM4"),
-        Com(
-            hardware_name="ASI Tiger",
-            com_port="COM3",
-        ),
-        Com(
-            hardware_name="MightyZap",
-            com_port="COM9",
-        ),
     ],
     temperature_control=False,
 )

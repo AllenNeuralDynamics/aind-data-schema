@@ -5,7 +5,10 @@ from aind_data_schema.utils.validators import (
     subject_specimen_id_compatibility,
     _recurse_helper,
     recursive_coord_system_check,
+    recursive_get_all_names,
 )
+from enum import Enum
+from pydantic import BaseModel
 from aind_data_schema.components.coordinates import Coordinate
 
 
@@ -97,6 +100,82 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             ),
         ]
         recursive_coord_system_check(data, self.system_name)
+
+
+class MockEnum(Enum):
+    """Mock Enum for testing"""
+
+    VALUE1 = "value1"
+    VALUE2 = "value2"
+
+
+class NestedModel(BaseModel):
+    """Nested model for testing"""
+
+    name: str
+    value: int
+
+
+class ComplexModel(BaseModel):
+    """Complex model for testing"""
+
+    name: str
+    nested: NestedModel
+    nested_list: list[NestedModel]
+    enum_field: MockEnum
+
+
+class TestRecursiveGetAllNames(unittest.TestCase):
+    """Tests for recursive_get_all_names function"""
+
+    def test_single_level(self):
+        """Test single level model"""
+        model = NestedModel(name="test_name", value=42)
+        result = recursive_get_all_names(model)
+        self.assertEqual(result, ["test_name"])
+
+    def test_nested_model(self):
+        """Test nested model"""
+        nested_model = NestedModel(name="nested_name", value=42)
+        model = ComplexModel(
+            name="complex_name",
+            nested=nested_model,
+            nested_list=[],
+            enum_field=MockEnum.VALUE1,
+        )
+        result = recursive_get_all_names(model)
+        self.assertEqual(result, ["complex_name", "nested_name"])
+
+    def test_nested_list(self):
+        """Test model with nested list"""
+        nested_model1 = NestedModel(name="nested_name1", value=42)
+        nested_model2 = NestedModel(name="nested_name2", value=43)
+        model = ComplexModel(
+            name="complex_name",
+            nested=nested_model1,
+            nested_list=[nested_model1, nested_model2],
+            enum_field=MockEnum.VALUE1,
+        )
+        result = recursive_get_all_names(model)
+        self.assertEqual(result, ["complex_name", "nested_name1", "nested_name1", "nested_name2"])
+
+    def test_empty_model(self):
+        """Test empty model"""
+        model = None
+        result = recursive_get_all_names(model)
+        self.assertEqual(result, [])
+
+    def test_enum_field(self):
+        """Test model with enum field"""
+        nested_model = NestedModel(name="nested_name", value=42)
+        model = ComplexModel(
+            name="complex_name",
+            nested=nested_model,
+            nested_list=[],
+            enum_field=MockEnum.VALUE1,
+        )
+        result = recursive_get_all_names(model)
+        self.assertEqual(result, ["complex_name", "nested_name"])
 
 
 if __name__ == "__main__":

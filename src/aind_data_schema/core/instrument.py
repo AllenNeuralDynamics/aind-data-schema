@@ -2,6 +2,7 @@
 
 from datetime import date
 from typing import List, Literal, Optional, Set, Union, Dict
+from enum import Enum
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
@@ -10,6 +11,7 @@ from typing_extensions import Annotated
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import CoordinateSystem
+from aind_data_schema.utils.validators import recursive_get_all_names
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
@@ -67,19 +69,18 @@ DEVICES_REQUIRED = {
 instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
-class Com(DataModel):
-    """Description of a communication system"""
+class ConnectionDirection(str, Enum):
+    """Direction of a connection"""
 
-    hardware_name: str = Field(..., title="Controlled hardware device")
-    com_port: str = Field(..., title="COM port")
+    SEND = "send"
+    RECEIVE = "receive"
 
 
 class ConnectionData(DataModel):
     """Data for a connection"""
 
-    input: Optional[bool] = Field(default=None, title="Input status")
-    output: Optional[bool] = Field(default=None, title="Output status")
-    channel: Optional[int] = Field(default=None, title="Connection channel")
+    direction: Optional[ConnectionDirection] = Field(default=None, title="Connection direction")
+    channel: Optional[str] = Field(default=None, title="Connection channel or port index")
 
 
 class Connection(DataModel):
@@ -87,6 +88,15 @@ class Connection(DataModel):
 
     device_names: List[str] = Field(..., title="Names of connected devices")
     connection_data: Dict[str, ConnectionData] = Field(default={}, title="Connection data")
+
+    @model_validator(mode="after")
+    def validate_connection_data(cls, self):
+        """Check that all keys in connection_data exist in device_names"""
+        for key in self.connection_data.keys():
+            if key not in self.device_names:
+                raise ValueError(f"Connection data key '{key}' does not exist in device names")
+
+        return self
 
 
 class Instrument(DataCoreModel):
@@ -112,7 +122,6 @@ class Instrument(DataCoreModel):
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
 
     # instrument details
-    com_ports: List[Com] = Field(default=[], title="COM ports")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -171,6 +180,17 @@ class Instrument(DataCoreModel):
         description="List of all devices in the instrument",
     )
 
+    @classmethod
+    def get_component_names(cls, instrument: "Instrument") -> List[str]:
+        """Get the name field of all components, recurse into assemblies."""
+
+        names = []
+        for component in instrument.components:
+            names.extend(recursive_get_all_names(component))
+        names = [name for name in names if name is not None]
+
+        return names
+
     @field_serializer("modalities", when_used="json")
     def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
         """Dynamically serialize modalities based on their type."""
@@ -194,9 +214,7 @@ class Instrument(DataCoreModel):
     @classmethod
     def validate_connections(cls, self):
         """validate that all connections map between devices that actually exist"""
-        device_names = [device.name if hasattr(device, "name") else None for device in self.components]
-        # remove None values from device_names
-        device_names = [name for name in device_names if name is not None]
+        device_names = Instrument.get_component_names(self)
 
         for connection in self.connections:
             for device_name in connection.device_names:

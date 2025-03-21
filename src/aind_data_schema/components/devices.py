@@ -426,7 +426,6 @@ class DAQChannel(DataModel):
 
     # required fields
     channel_name: str = Field(..., title="DAQ channel name")
-    device_name: str = Field(..., title="Name of connected device")
     channel_type: DaqChannelType = Field(..., title="DAQ channel type")
 
     # optional fields
