@@ -36,7 +36,7 @@ class Origin(str, Enum):
     ARENA_CENTER = "Arena_center"  # center of an arena on the ground surface
     ARENA_FRONT_LEFT = "Arena_front_left"
     ARENA_FRONT_RIGHT = "Arena_front_right"
-    ARENA_BACK_LEFT = "Arena_back_left" 
+    ARENA_BACK_LEFT = "Arena_back_left"
     ARENA_BACK_RIGHT = "Arena_back_right"
 
 
