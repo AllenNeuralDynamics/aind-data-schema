@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.8",
-               "default": "2.0.8",
+               "const": "2.0.9",
+               "default": "2.0.9",
                "title": "Schema Version",
                "type": "string"
             },
@@ -434,6 +434,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -527,6 +530,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -539,19 +545,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -623,10 +638,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -677,6 +692,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -684,24 +702,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -1055,6 +1055,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -1148,6 +1151,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -1160,19 +1166,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -1244,10 +1259,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -1298,6 +1313,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -1305,24 +1323,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -1589,6 +1589,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -1682,6 +1685,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -1694,19 +1700,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -1778,10 +1793,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -1832,6 +1847,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -1839,24 +1857,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -6472,32 +6472,6 @@
          "title": "Code",
          "type": "object"
       },
-      "Com": {
-         "additionalProperties": false,
-         "description": "Description of a communication system",
-         "properties": {
-            "object_type": {
-               "const": "Com",
-               "default": "Com",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "hardware_name": {
-               "title": "Controlled hardware device",
-               "type": "string"
-            },
-            "com_port": {
-               "title": "COM port",
-               "type": "string"
-            }
-         },
-         "required": [
-            "hardware_name",
-            "com_port"
-         ],
-         "title": "Com",
-         "type": "object"
-      },
       "ConcentrationUnit": {
          "description": "Concentraion units",
          "enum": [
@@ -6552,45 +6526,42 @@
                "title": "Object Type",
                "type": "string"
             },
-            "input": {
+            "direction": {
                "anyOf": [
                   {
-                     "type": "boolean"
+                     "$ref": "#/$defs/ConnectionDirection"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Input status"
-            },
-            "output": {
-               "anyOf": [
-                  {
-                     "type": "boolean"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Output status"
+               "title": "Connection direction"
             },
             "channel": {
                "anyOf": [
                   {
-                     "type": "integer"
+                     "type": "string"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Connection channel"
+               "title": "Connection channel or port index"
             }
          },
          "title": "ConnectionData",
          "type": "object"
+      },
+      "ConnectionDirection": {
+         "description": "Direction of a connection",
+         "enum": [
+            "send",
+            "receive"
+         ],
+         "title": "ConnectionDirection",
+         "type": "string"
       },
       "Cooling": {
          "description": "Cooling medium name",
@@ -6898,10 +6869,6 @@
                "title": "DAQ channel name",
                "type": "string"
             },
-            "device_name": {
-               "title": "Name of connected device",
-               "type": "string"
-            },
             "channel_type": {
                "$ref": "#/$defs/DaqChannelType",
                "title": "DAQ channel type"
@@ -6972,7 +6939,6 @@
          },
          "required": [
             "channel_name",
-            "device_name",
             "channel_type"
          ],
          "title": "DAQChannel",
@@ -8482,6 +8448,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -8575,6 +8544,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -8587,19 +8559,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -8671,10 +8652,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -8725,6 +8706,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -8732,24 +8716,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -9016,6 +8982,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -9109,6 +9078,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -9121,19 +9093,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -9205,10 +9186,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -9259,6 +9240,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -9266,24 +9250,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -9656,6 +9622,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -9749,6 +9718,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -9761,19 +9733,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -9845,10 +9826,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -9899,6 +9880,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -9906,24 +9890,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -10377,6 +10343,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -10470,6 +10439,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -10482,19 +10454,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -10566,10 +10547,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -10620,6 +10601,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -10627,24 +10611,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -10969,6 +10935,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -11062,6 +11031,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -11074,19 +11046,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -11158,10 +11139,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -11212,6 +11193,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -11219,24 +11203,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -18523,6 +18489,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -18616,6 +18585,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -18628,19 +18600,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -18712,10 +18693,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -18766,6 +18747,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -18773,24 +18757,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -23221,6 +23187,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -23314,6 +23283,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -23326,19 +23298,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -23410,10 +23391,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -23464,6 +23445,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -23471,24 +23455,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -23749,6 +23715,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -23842,6 +23811,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -23854,19 +23826,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -23938,10 +23919,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -23992,6 +23973,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -23999,24 +23983,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -24665,6 +24631,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -24758,6 +24727,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -24770,19 +24742,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -24854,10 +24835,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -24908,6 +24889,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -24915,24 +24899,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -25582,8 +25548,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.7",
-               "default": "2.0.7",
+               "const": "2.0.8",
+               "default": "2.0.8",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25685,14 +25651,6 @@
             "coordinate_system": {
                "$ref": "#/$defs/CoordinateSystem",
                "title": "Coordinate system"
-            },
-            "com_ports": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/Com"
-               },
-               "title": "COM ports",
-               "type": "array"
             },
             "manufacturer": {
                "anyOf": [
@@ -25846,6 +25804,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -25939,6 +25900,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -25951,19 +25915,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -26035,10 +26008,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -26089,6 +26062,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -26096,24 +26072,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -33492,6 +33450,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -33585,6 +33546,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -33597,19 +33561,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -33681,10 +33654,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -33735,6 +33708,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -33742,24 +33718,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -42400,6 +42358,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -42493,6 +42454,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -42505,19 +42469,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -42589,10 +42562,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -42643,6 +42616,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -42650,24 +42626,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -43011,6 +42969,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -43104,6 +43065,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -43116,19 +43080,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -43200,10 +43173,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -43254,6 +43227,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -43261,24 +43237,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -43612,6 +43570,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -43705,6 +43666,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -43717,19 +43681,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -43801,10 +43774,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -43855,6 +43828,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -43862,24 +43838,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -44427,6 +44385,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -44520,6 +44481,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -44532,19 +44496,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -44616,10 +44589,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -44670,6 +44643,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -44677,24 +44653,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -44971,6 +44929,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -45064,6 +45025,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -45076,19 +45040,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -45160,10 +45133,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -45214,6 +45187,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -45221,24 +45197,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -45801,6 +45759,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -45894,6 +45855,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -45906,19 +45870,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -45990,10 +45963,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -46044,6 +46017,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -46051,24 +46027,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -49926,6 +49884,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -50019,6 +49980,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -50031,19 +49995,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -50115,10 +50088,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -50169,6 +50142,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -50176,24 +50152,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -50615,6 +50573,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -50708,6 +50669,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -50720,19 +50684,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -50804,10 +50777,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -50858,6 +50831,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -50865,24 +50841,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -51372,6 +51330,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -51465,6 +51426,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -51477,19 +51441,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -51561,10 +51534,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -51615,6 +51588,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -51622,24 +51598,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -51971,6 +51929,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -52064,6 +52025,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -52076,19 +52040,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -52160,10 +52133,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -52214,6 +52187,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -52221,24 +52197,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -52404,8 +52362,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.8",
-               "default": "2.0.8",
+               "const": "2.0.9",
+               "default": "2.0.9",
                "title": "Schema Version",
                "type": "string"
             },
@@ -52475,10 +52433,8 @@
          "description": "Process names",
          "enum": [
             "Analysis",
-            "Pipeline",
             "Compression",
             "Denoising",
-            "dF/F estimation",
             "Ephys curation",
             "Ephys postprocessing",
             "Ephys preprocessing",
@@ -52496,26 +52452,28 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image spot detection",
+            "Image spot spectral unmixing",
             "Image thresholding",
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
-            "Image spot detection",
-            "Image spot spectral unmixing",
             "Model evaluation",
             "Model training",
             "Neuropil subtraction",
             "Other",
+            "Pipeline",
             "Simulation",
             "Skull stripping",
             "Spatial timeseries demixing",
             "Spike sorting",
-            "Video motion correction",
-            "Video plane decrosstalk",
             "Video ROI classification",
             "Video ROI cross session matching",
             "Video ROI segmentation",
-            "Video ROI timeseries extraction"
+            "Video ROI timeseries extraction",
+            "Video motion correction",
+            "Video plane decrosstalk",
+            "dF/F estimation"
          ],
          "title": "ProcessName",
          "type": "string"
@@ -52546,8 +52504,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.18",
-               "default": "2.0.18",
+               "const": "2.0.19",
+               "default": "2.0.19",
                "title": "Schema Version",
                "type": "string"
             },
@@ -53055,6 +53013,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -53148,6 +53109,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -53160,19 +53124,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -53244,10 +53217,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -53298,6 +53271,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -53305,24 +53281,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -53548,6 +53506,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -53641,6 +53602,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -53653,19 +53617,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -53737,10 +53710,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -53791,6 +53764,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -53798,24 +53774,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -54310,6 +54268,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -54403,6 +54364,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -54415,19 +54379,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -54499,10 +54472,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -54553,6 +54526,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -54560,24 +54536,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -55043,6 +55001,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -55136,6 +55097,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -55148,19 +55112,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -55232,10 +55205,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -55286,6 +55259,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -55293,24 +55269,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -55591,6 +55549,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -55684,6 +55645,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -55696,19 +55660,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -55780,10 +55753,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -55834,6 +55807,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -55841,24 +55817,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -67351,6 +67309,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -67444,6 +67405,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -67456,19 +67420,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -67540,10 +67513,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -67594,6 +67567,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -67601,24 +67577,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ],
                "title": "Source"
@@ -68833,6 +68791,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -68926,6 +68887,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -68938,19 +68902,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -69022,10 +68995,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -69076,6 +69049,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -69083,24 +69059,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -69418,6 +69376,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -69511,6 +69472,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -69523,19 +69487,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -69607,10 +69580,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -69661,6 +69634,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -69668,24 +69644,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -70206,6 +70164,9 @@
                            "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                         },
                         {
+                           "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Cambridge_Technology"
                         },
                         {
@@ -70299,6 +70260,9 @@
                            "$ref": "#/$defs/_Janelia_Research_Campus"
                         },
                         {
+                           "$ref": "#/$defs/_Johns_Hopkins_University"
+                        },
+                        {
                            "$ref": "#/$defs/_Julabo"
                         },
                         {
@@ -70311,19 +70275,28 @@
                            "$ref": "#/$defs/_Leica"
                         },
                         {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
                            "$ref": "#/$defs/_Lifecanvas"
                         },
                         {
+                           "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
                            "$ref": "#/$defs/_Mbf_Bioscience"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                         },
                         {
                            "$ref": "#/$defs/_Mks_Newport"
                         },
                         {
                            "$ref": "#/$defs/_Mpi"
+                        },
+                        {
+                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                        },
+                        {
+                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                         },
                         {
                            "$ref": "#/$defs/_Meadowlark_Optics"
@@ -70395,10 +70368,10 @@
                            "$ref": "#/$defs/_Raspberry_Pi"
                         },
                         {
-                           "$ref": "#/$defs/_Same_Sky"
+                           "$ref": "#/$defs/_Sicgen"
                         },
                         {
-                           "$ref": "#/$defs/_Sicgen"
+                           "$ref": "#/$defs/_Same_Sky"
                         },
                         {
                            "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -70449,6 +70422,9 @@
                            "$ref": "#/$defs/_Tymphany"
                         },
                         {
+                           "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -70456,24 +70432,6 @@
                         },
                         {
                            "$ref": "#/$defs/_Ams_Osram"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
                         }
                      ]
                   },
@@ -102693,8 +102651,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.18",
-         "default": "2.0.18",
+         "const": "2.0.19",
+         "default": "2.0.19",
          "title": "Schema Version",
          "type": "string"
       },

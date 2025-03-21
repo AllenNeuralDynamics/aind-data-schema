@@ -546,10 +546,8 @@
          "description": "Process names",
          "enum": [
             "Analysis",
-            "Pipeline",
             "Compression",
             "Denoising",
-            "dF/F estimation",
             "Ephys curation",
             "Ephys postprocessing",
             "Ephys preprocessing",
@@ -567,26 +565,28 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image spot detection",
+            "Image spot spectral unmixing",
             "Image thresholding",
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
-            "Image spot detection",
-            "Image spot spectral unmixing",
             "Model evaluation",
             "Model training",
             "Neuropil subtraction",
             "Other",
+            "Pipeline",
             "Simulation",
             "Skull stripping",
             "Spatial timeseries demixing",
             "Spike sorting",
-            "Video motion correction",
-            "Video plane decrosstalk",
             "Video ROI classification",
             "Video ROI cross session matching",
             "Video ROI segmentation",
-            "Video ROI timeseries extraction"
+            "Video ROI timeseries extraction",
+            "Video motion correction",
+            "Video plane decrosstalk",
+            "dF/F estimation"
          ],
          "title": "ProcessName",
          "type": "string"
@@ -6262,6 +6262,9 @@
                      "$ref": "#/$defs/_Baylor_College_Of_Medicine"
                   },
                   {
+                     "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Cambridge_Technology"
                   },
                   {
@@ -6355,6 +6358,9 @@
                      "$ref": "#/$defs/_Janelia_Research_Campus"
                   },
                   {
+                     "$ref": "#/$defs/_Johns_Hopkins_University"
+                  },
+                  {
                      "$ref": "#/$defs/_Julabo"
                   },
                   {
@@ -6367,19 +6373,28 @@
                      "$ref": "#/$defs/_Leica"
                   },
                   {
-                     "$ref": "#/$defs/_Lumen_Dynamics"
-                  },
-                  {
                      "$ref": "#/$defs/_Lifecanvas"
                   },
                   {
+                     "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
                      "$ref": "#/$defs/_Mbf_Bioscience"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
                   },
                   {
                      "$ref": "#/$defs/_Mks_Newport"
                   },
                   {
                      "$ref": "#/$defs/_Mpi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
                   },
                   {
                      "$ref": "#/$defs/_Meadowlark_Optics"
@@ -6451,10 +6466,10 @@
                      "$ref": "#/$defs/_Raspberry_Pi"
                   },
                   {
-                     "$ref": "#/$defs/_Same_Sky"
+                     "$ref": "#/$defs/_Sicgen"
                   },
                   {
-                     "$ref": "#/$defs/_Sicgen"
+                     "$ref": "#/$defs/_Same_Sky"
                   },
                   {
                      "$ref": "#/$defs/_Schneider_Kreuznach"
@@ -6505,6 +6520,9 @@
                      "$ref": "#/$defs/_Tymphany"
                   },
                   {
+                     "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -6512,24 +6530,6 @@
                   },
                   {
                      "$ref": "#/$defs/_Ams_Osram"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                  },
-                  {
-                     "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_University_Of_California_San_Diego"
-                  },
-                  {
-                     "$ref": "#/$defs/_Johns_Hopkins_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Boston_University"
                   }
                ]
             },
