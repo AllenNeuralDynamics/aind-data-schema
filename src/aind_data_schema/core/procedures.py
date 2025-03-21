@@ -342,7 +342,7 @@ class Craniotomy(DataModel):
     position: Union[Coordinate, List[AnatomicalRelative]] = Field(..., title="Craniotomy position")
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
 
-    size: Optional[float] = Field(default=None, title="Craniotomy size, radius or width/height")
+    size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
     size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
 
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
