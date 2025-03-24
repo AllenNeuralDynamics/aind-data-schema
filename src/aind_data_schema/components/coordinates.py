@@ -9,13 +9,7 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
-
-
-class AtlasName(str, Enum):
-    """Atlas name"""
-
-    CCF = "CCF"
-    CUSTOM = "Custom"
+from aind_data_schema_models.atlas import AtlasName
 
 
 class Origin(str, Enum):

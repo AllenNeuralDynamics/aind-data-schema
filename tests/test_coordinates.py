@@ -9,10 +9,10 @@ from aind_data_schema.components.coordinates import (
     Affine,
     Axis,
     Direction,
-    AtlasName,
     Atlas,
     Origin,
 )
+from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.units import SizeUnit
 import numpy as np
 from scipy.spatial.transform import Rotation as R

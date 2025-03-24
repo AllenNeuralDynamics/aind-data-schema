@@ -6,7 +6,15 @@ from datetime import datetime, timezone, date
 from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
 
 from aind_data_schema.core.acquisition import Acquisition, DataStream, SubjectDetails
-from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaesthetic, Craniotomy, Perfusion
+from aind_data_schema.core.procedures import (
+    Procedures,
+    Reagent,
+    Surgery,
+    Anaesthetic,
+    Craniotomy,
+    Perfusion,
+    CraniotomyType,
+)
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
@@ -23,7 +31,7 @@ from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerUnit
+from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
@@ -328,10 +336,15 @@ class TestComposability(unittest.TestCase):
                     workstation_id="SWS 3",
                     procedures=[
                         Craniotomy(
-                            craniotomy_type="Visual Cortex",
+                            craniotomy_type=CraniotomyType.CIRCLE,
                             protocol_id="1234",
-                            craniotomy_hemisphere="Left",
-                        )
+                            position=Coordinate(
+                                system_name="BREGMA_ARI",
+                                position=[-2, -4, 0, 0],
+                            ),
+                            size=1,
+                            size_unit=SizeUnit.MM,
+                        ),
                     ],
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(

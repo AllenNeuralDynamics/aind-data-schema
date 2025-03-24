@@ -102,10 +102,9 @@ class CraniotomyType(str, Enum):
     """Name of craniotomy Type"""
 
     DHC = "Dual hemisphere craniotomy"
-    THREE_MM = "3 mm"
-    FIVE_MM = "5 mm"
-    VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
+    CIRCLE = "Circle"
+    SQUARE = "Square"
     OTHER = "Other"
 
 
@@ -339,12 +338,35 @@ class Craniotomy(DataModel):
 
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
-    craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
+
+    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
+
+    size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
+    size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
+
+    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
-    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
-    recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
+
+    @model_validator(mode="after")
+    def check_position(cls, values):
+        """Ensure a position is provided for certain craniotomy types"""
+
+        POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
+
+        if values.craniotomy_type in POS_REQUIRED and not values.position:
+            raise ValueError(f"Craniotomy.position must be provided for craniotomy type {values.craniotomy_type}")
+        return values
+
+    @model_validator(mode="after")
+    def validate_size(cls, values):
+        """Ensure that size is provided for certain craniotomy types"""
+
+        SIZE_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE]
+
+        if values.craniotomy_type in SIZE_REQUIRED and not values.size:
+            raise ValueError(f"Craniotomy.size must be provided for craniotomy type {values.craniotomy_type}")
+        return values
 
 
 class Headframe(DataModel):
@@ -656,7 +678,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.10"]] = Field(default="2.0.10")
+    schema_version: SkipValidation[Literal["2.0.11"]] = Field(default="2.0.11")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

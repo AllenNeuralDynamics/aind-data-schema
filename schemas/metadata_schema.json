@@ -6751,17 +6751,60 @@
                "$ref": "#/$defs/CraniotomyType",
                "title": "Craniotomy type"
             },
-            "craniotomy_hemisphere": {
+            "position": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Side"
+                     "$ref": "#/$defs/Coordinate"
+                  },
+                  {
+                     "items": {
+                        "$ref": "#/$defs/AnatomicalRelative"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Craniotomy hemisphere"
+               "title": "Craniotomy position"
+            },
+            "size": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Diameter or side length",
+               "title": "Craniotomy size"
+            },
+            "size_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Craniotomy size unit"
+            },
+            "protective_material": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/ProtectiveMaterial"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Protective material"
             },
             "implant_part_number": {
                "anyOf": [
@@ -6786,45 +6829,6 @@
                ],
                "default": null,
                "title": "Dura removed"
-            },
-            "protective_material": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/ProtectiveMaterial"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Protective material"
-            },
-            "recovery_time": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Recovery time"
-            },
-            "recovery_time_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/TimeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Recovery time unit"
             }
          },
          "required": [
@@ -6838,10 +6842,9 @@
          "description": "Name of craniotomy Type",
          "enum": [
             "Dual hemisphere craniotomy",
-            "3 mm",
-            "5 mm",
-            "Visual Cortex",
             "Whole hemisphere craniotomy",
+            "Circle",
+            "Square",
             "Other"
          ],
          "title": "CraniotomyType",
@@ -52367,8 +52370,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.10",
-               "default": "2.0.10",
+               "const": "2.0.11",
+               "default": "2.0.11",
                "title": "Schema Version",
                "type": "string"
             },
@@ -52509,8 +52512,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.20",
-               "default": "2.0.20",
+               "const": "2.0.23",
+               "default": "2.0.23",
                "title": "Schema Version",
                "type": "string"
             },
@@ -102656,8 +102659,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.20",
-         "default": "2.0.20",
+         "const": "2.0.23",
+         "default": "2.0.23",
          "title": "Schema Version",
          "type": "string"
       },

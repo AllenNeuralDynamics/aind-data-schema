@@ -25,6 +25,8 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
     Injection,
+    Craniotomy,
+    CraniotomyType,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -34,6 +36,7 @@ from aind_data_schema.components.coordinates import (
     Rotation,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
+from aind_data_schema_models.units import SizeUnit
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -76,7 +79,7 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.VENOUS_SINUS,
+                                target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -110,7 +113,7 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.VENOUS_SINUS,
+                                target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -158,7 +161,7 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            target=InjectionTargets.VENOUS_SINUS,
+                            target=InjectionTargets.RETRO_ORBITAL,
                             relative_position=[AnatomicalRelative.LEFT],
                             dynamics=[
                                 InjectionDynamics(
@@ -184,7 +187,7 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            target=InjectionTargets.PERITONEAL_CAVITY,
+                            target=InjectionTargets.INTRAPERITONEAL,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
@@ -496,6 +499,91 @@ class ProceduresTests(unittest.TestCase):
             )
         expected_exception = "specimen_id must be an extension of the subject_id."
         self.assertIn(expected_exception, str(e.exception))
+
+    def test_craniotomy_position_validation(self):
+        """Test validation for craniotomy position"""
+
+        # Should be okay
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.CIRCLE,
+            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            size=2.0,
+            size_unit=SizeUnit.MM,
+        )
+        self.assertIsNotNone(craniotomy)
+
+        # Missing position for required craniotomy types should raise an error
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.CIRCLE,
+                size=2.0,
+                size_unit=SizeUnit.MM,
+            )
+        self.assertIn("Craniotomy.position must be provided for craniotomy type Circle", str(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.SQUARE,
+                size=2.0,
+                size_unit=SizeUnit.MM,
+            )
+        self.assertIn("Craniotomy.position must be provided for craniotomy type Square", str(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.WHC,
+            )
+        self.assertIn(
+            "Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception)
+        )
+
+        # Should be okay for craniotomy types that do not require position
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.DHC,
+        )
+        self.assertIsNotNone(craniotomy)
+
+    def test_craniotomy_size_validation(self):
+        """Test validation for craniotomy size"""
+
+        # Should be okay
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.CIRCLE,
+            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            size=2.0,
+            size_unit=SizeUnit.MM,
+        )
+        self.assertIsNotNone(craniotomy)
+
+        # Missing size for required craniotomy types should raise an error
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.CIRCLE,
+                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            )
+        self.assertIn("Craniotomy.size must be provided for craniotomy type Circle", str(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.SQUARE,
+                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            )
+        self.assertIn("Craniotomy.size must be provided for craniotomy type Square", str(e.exception))
+
+        # Should be okay for craniotomy types that do not require size
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.DHC,
+        )
+        self.assertIsNotNone(craniotomy)
 
 
 if __name__ == "__main__":
