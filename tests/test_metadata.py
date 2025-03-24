@@ -182,19 +182,22 @@ class TestMetadata(unittest.TestCase):
 
         # Valid subject model, but invalid procedures model
         s2 = Subject(
-            species=Species.MUS_MUSCULUS,
             subject_id="123345",
-            sex=Sex.MALE,
-            date_of_birth="2020-10-10",
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
-            ),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
+            subject_details=MouseSubject(
+                species=Species.MUS_MUSCULUS,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth="2020-10-10",
+                source=Organization.AI,
+                breeding_info=BreedingInfo(
+                    breeding_group="Emx1-IRES-Cre(ND)",
+                    maternal_id="546543",
+                    maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                    paternal_id="232323",
+                    paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+                ),
+                genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
+            )
         )
         d2 = Metadata(
             name="655019_2023-04-03T181709",
