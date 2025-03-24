@@ -339,10 +339,7 @@ class Craniotomy(DataModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
-    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(
-        default=None,
-        title="Craniotomy position"
-    )
+    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
     size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
@@ -353,7 +350,7 @@ class Craniotomy(DataModel):
 
     @model_validator(mode="after")
     def check_position(cls, values):
-        """ Ensure a position is provided for certain craniotomy types """
+        """Ensure a position is provided for certain craniotomy types"""
         POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
 
         if values.craniotomy_type in POS_REQUIRED and not values.position:
