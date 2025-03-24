@@ -795,7 +795,7 @@ class LickSpoutAssembly(DataModel):
 
 
 class AirPuffDevice(Device):
-    """ Description of an air puff device"""
+    """Description of an air puff device"""
 
 
 class Speaker(Device):

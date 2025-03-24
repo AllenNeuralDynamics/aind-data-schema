@@ -22,7 +22,6 @@ from aind_data_schema.components.configs import (
     DomeModule,
     ManipulatorConfig,
     MRIScan,
-    RewardDeliveryConfig,
 )
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -95,12 +94,6 @@ class AcquisitionTest(unittest.TestCase):
         )
 
         self.assertIsNotNone(acquisition)
-
-        with self.assertRaises(pydantic.ValidationError):
-            RewardDeliveryConfig()
-
-        with self.assertRaises(pydantic.ValidationError):
-            RewardDeliveryConfig(reward_solution="Other")
 
         with self.assertRaises(ValidationError):
             MRIScan(

@@ -292,7 +292,7 @@ class LickSpoutConfig(DataModel):
     """Lick spout acquisition information"""
 
     solution: Liquid = Field(..., title="Solution")
-    solution_valence:  Valence = Field(..., title="Valence")
+    solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
     position: Optional[Transform] = Field(default=None, title="Initial position")
@@ -304,19 +304,20 @@ class LickSpoutConfig(DataModel):
 
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+    @model_validator(mode="after")
+    def validate_other(cls, values):
         """Validator for other/notes"""
 
-        if info.data.get("reward_solution") == Liquid.OTHER and not value:
+        if values.solution == Liquid.OTHER and not values.notes:
             raise ValueError(
-                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+                "Notes cannot be empty if LickSpoutConfig.reward_solution is Other."
+                "Describe the reward_solution in the notes field."
             )
-        return value
+        return values
 
 
 class AirPuffConfig(DataModel):
-    """ Air puff device configuration """
+    """Air puff device configuration"""
 
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
