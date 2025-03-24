@@ -76,7 +76,7 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.VENOUS_SINUS,
+                                target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -110,7 +110,7 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.VENOUS_SINUS,
+                                target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
                                 recovery_time_unit=TimeUnit.M,
@@ -158,7 +158,7 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            target=InjectionTargets.VENOUS_SINUS,
+                            target=InjectionTargets.RETRO_ORBITAL,
                             relative_position=[AnatomicalRelative.LEFT],
                             dynamics=[
                                 InjectionDynamics(
