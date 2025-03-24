@@ -530,7 +530,9 @@ class ProceduresTests(unittest.TestCase):
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.WHC,
             )
-        self.assertIn("Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception))
+        self.assertIn(
+            "Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception)
+        )
 
         # Should be okay for craniotomy types that do not require position
         craniotomy = Craniotomy(

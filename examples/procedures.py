@@ -27,7 +27,6 @@ from aind_data_schema.components.coordinates import (
     Axis,
     Direction,
     CoordinateSystemLibrary,
-    AnatomicalRelative,
 )
 
 # If a timezone isn't specified, the timezone of the computer running this
