@@ -25,6 +25,8 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
     Injection,
+    Craniotomy,
+    CraniotomyType,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -497,6 +499,45 @@ class ProceduresTests(unittest.TestCase):
         expected_exception = "specimen_id must be an extension of the subject_id."
         self.assertIn(expected_exception, str(e.exception))
 
+    def test_craniotomy_position_validation(self):
+        """Test validation for craniotomy position"""
+
+        # Should be okay
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.CIRCLE,
+            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+        )
+        self.assertIsNotNone(craniotomy)
+
+        # Missing position for required craniotomy types should raise an error
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.CIRCLE,
+            )
+        self.assertIn("Craniotomy.position must be provided for craniotomy type Circle", str(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.SQUARE,
+            )
+        self.assertIn("Craniotomy.position must be provided for craniotomy type Square", str(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.WHC,
+            )
+        self.assertIn("Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception))
+
+        # Should be okay for craniotomy types that do not require position
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.DHC,
+        )
+        self.assertIsNotNone(craniotomy)
 
 if __name__ == "__main__":
     unittest.main()
