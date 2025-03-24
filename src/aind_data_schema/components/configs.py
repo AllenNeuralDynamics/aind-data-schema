@@ -280,11 +280,13 @@ class LaserConfig(DeviceConfig):
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-# Behavior components
 class Liquid(str, Enum):
     """Solution names"""
 
     WATER = "Water"
+    SUCROSE = "Sucrose"
+    QUININE = "Quinine"
+    CITRIC_ACID = "Citric acid"
     OTHER = "Other"
 
 
