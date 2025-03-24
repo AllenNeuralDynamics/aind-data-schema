@@ -36,6 +36,7 @@ from aind_data_schema.components.coordinates import (
     Rotation,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
+from aind_data_schema_models.units import SizeUnit
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
@@ -535,6 +536,43 @@ class ProceduresTests(unittest.TestCase):
         )
 
         # Should be okay for craniotomy types that do not require position
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.DHC,
+        )
+        self.assertIsNotNone(craniotomy)
+
+    def test_craniotomy_size_validation(self):
+        """Test validation for craniotomy size"""
+
+        # Should be okay
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.CIRCLE,
+            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            size=2.0,
+            size_unit=SizeUnit.MM,
+        )
+        self.assertIsNotNone(craniotomy)
+
+        # Missing size for required craniotomy types should raise an error
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.CIRCLE,
+                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            )
+        self.assertIn("Craniotomy.size must be provided for craniotomy type Circle", str(e.exception))
+
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.SQUARE,
+                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            )
+        self.assertIn("Craniotomy.size must be provided for craniotomy type Square", str(e.exception))
+
+        # Should be okay for craniotomy types that do not require size
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.DHC,

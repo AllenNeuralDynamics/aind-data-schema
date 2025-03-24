@@ -351,10 +351,21 @@ class Craniotomy(DataModel):
     @model_validator(mode="after")
     def check_position(cls, values):
         """Ensure a position is provided for certain craniotomy types"""
+
         POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
 
         if values.craniotomy_type in POS_REQUIRED and not values.position:
             raise ValueError(f"Craniotomy.position must be provided for craniotomy type {values.craniotomy_type}")
+        return values
+
+    @model_validator(mode="after")
+    def validate_size(cls, values):
+        """Ensure that size is provided for certain craniotomy types"""
+
+        SIZE_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE]
+
+        if values.craniotomy_type in SIZE_REQUIRED and not values.size:
+            raise ValueError(f"Craniotomy.size must be provided for craniotomy type {values.craniotomy_type}")
         return values
 
 
