@@ -184,7 +184,7 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            target=InjectionTargets.PERITONEAL_CAVITY,
+                            target=InjectionTargets.INTRAPERITONEAL,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
