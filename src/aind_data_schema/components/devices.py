@@ -797,8 +797,8 @@ class LickSpoutAssembly(DataModel):
 class AirPuffDevice(Device):
     """Description of an air puff device"""
 
-    size: float = Field(..., title="Spout diameter")
-    size_unit: SizeUnit = Field(..., title="Size unit")
+    diameter: float = Field(..., title="Spout diameter")
+    diameter_unit: SizeUnit = Field(..., title="Size unit")
 
 
 class Speaker(Device):
