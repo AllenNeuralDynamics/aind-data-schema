@@ -28,7 +28,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateSystem,
 )
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.components.identifiers import Software
+from aind_data_schema.components.identifiers import Software, Code
 
 
 class ImagingDeviceType(str, Enum):
@@ -330,6 +330,8 @@ class Detector(Device):
 
 class Camera(Detector):
     """Camera Detector"""
+
+    compression: Optional[Code] = Field(default=None, title="Compression")
 
 
 class Filter(Device):
