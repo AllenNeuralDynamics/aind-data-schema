@@ -1,12 +1,9 @@
 """ schema for mostly mouse metadata """
 
-from datetime import date as date_type
-from datetime import time
-from enum import Enum
-from typing import List, Literal, Optional, Annotated, Union
+from typing import Literal, Optional, Annotated, Union
 from pydantic import Field, SkipValidation
 
-from aind_data_schema.base import DataCoreModel, DataModel
+from aind_data_schema.base import DataCoreModel
 from aind_data_schema.components.subjects import MouseSubject, HumanSubject
 
 

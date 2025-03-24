@@ -10,6 +10,7 @@ import aind_data_schema.core.instrument as r
 from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
+from aind_data_schema.components.calibrations import Calibration
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
@@ -350,7 +351,7 @@ stimulus_device = d.RewardDelivery(
 
 additional_device = d.Device(name="Photometry Clock")
 
-calibration = d.Calibration(
+calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
     device_name="470nm LED",
     description="LED calibration",

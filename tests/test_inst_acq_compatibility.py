@@ -13,7 +13,6 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 import aind_data_schema.components.devices as d
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -32,6 +31,7 @@ from aind_data_schema.components.devices import (
     PatchCord,
     ProbePort,
 )
+from aind_data_schema.components.calibrations import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -961,7 +961,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ],
             connections=connections,
             calibrations=[
-                d.Calibration(
+                Calibration(
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
                     device_name="470nm LED",
                     description="LED calibration",

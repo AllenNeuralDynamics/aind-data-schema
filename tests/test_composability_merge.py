@@ -26,7 +26,8 @@ from aind_data_schema.components.coordinates import (
     CoordinateTransform,
     CoordinateSystemLibrary,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance
+from aind_data_schema.components.devices import Maintenance
+from aind_data_schema.components.calibrations import Calibration
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName

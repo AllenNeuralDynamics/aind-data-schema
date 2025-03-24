@@ -15,7 +15,6 @@ from aind_data_schema.utils.validators import recursive_get_all_names
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
-    Calibration,
     CameraAssembly,
     CameraTarget,
     DAQDevice,
@@ -52,6 +51,7 @@ from aind_data_schema.components.devices import (
     Wheel,
     Scanner,
 )
+from aind_data_schema.components.calibrations import Calibration
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.

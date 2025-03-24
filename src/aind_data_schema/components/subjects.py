@@ -3,6 +3,7 @@
 from enum import Enum
 from typing import List, Optional
 from datetime import date as date_type
+from datetime import time
 
 from aind_data_schema.base import DataModel
 
@@ -82,7 +83,7 @@ class MouseSubject(DataModel):
 
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
-    strain: Strain = Field(..., title="Strain")
+    strain: Strain.ONE_OF = Field(..., title="Strain")
     species: Species.ONE_OF = Field(..., title="Species")
     background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
@@ -135,8 +136,8 @@ class MouseSubject(DataModel):
     def validate_species_strain(value):
         """Ensure that the species and strain.species match"""
 
-        if value.background_strain:
-            if value.species.name != value.background_strain.species:
+        if value.strain:
+            if value.species.name != value.strain.species:
                 raise ValueError("The animal species and it's strain's species do not match")
 
         return value

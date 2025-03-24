@@ -11,7 +11,6 @@ from pydantic import ValidationError
 from pydantic_core import PydanticSerializationError
 
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -37,6 +36,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     DigitalMicromirrorDevice,
 )
+from aind_data_schema.components.calibrations import Calibration
 
 from aind_data_schema.core.instrument import (
     Connection,

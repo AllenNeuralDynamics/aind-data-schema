@@ -18,13 +18,14 @@ from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
     CoordinateTransform,
 )
-from aind_data_schema.components.devices import Calibration, Objective, Laser, ScanningStage
+from aind_data_schema.components.devices import Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.calibrations import Calibration
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
