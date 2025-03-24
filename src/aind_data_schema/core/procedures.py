@@ -228,6 +228,7 @@ class HCRSeries(DataModel):
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
     strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
+    cell_id: Optional[str] = Field(default=None, title="Cell ID")
 
 
 class Antibody(Reagent):
