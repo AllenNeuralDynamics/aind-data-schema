@@ -508,6 +508,8 @@ class ProceduresTests(unittest.TestCase):
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
             position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            size=2.0,
+            size_unit=SizeUnit.MM,
         )
         self.assertIsNotNone(craniotomy)
 
@@ -516,6 +518,8 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
+                size=2.0,
+                size_unit=SizeUnit.MM,
             )
         self.assertIn("Craniotomy.position must be provided for craniotomy type Circle", str(e.exception))
 
@@ -523,6 +527,8 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
+                size=2.0,
+                size_unit=SizeUnit.MM,
             )
         self.assertIn("Craniotomy.position must be provided for craniotomy type Square", str(e.exception))
 

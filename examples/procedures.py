@@ -61,9 +61,9 @@ surgery1 = Surgery(
             position=Coordinate(
                 system_name="SurgerySystem",
                 position=[-2, 2, 0, 0],
-                size=1,
-                size_unit=SizeUnit.MM,
             ),
+            size=1,
+            size_unit=SizeUnit.MM,
         ),
         BrainInjection(
             protocol_id="5678",
