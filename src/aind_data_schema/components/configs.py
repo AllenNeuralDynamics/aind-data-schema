@@ -298,11 +298,6 @@ class LickSpoutConfig(DataModel):
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
     position: Optional[Transform] = Field(default=None, title="Initial position")
-    variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during acquisition as tracked in data",
-    )
 
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
@@ -324,6 +319,11 @@ class AirPuffConfig(DataModel):
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
     position: Optional[Transform] = Field(default=None, title="Initial position")
+
+    pressure: Optional[float] = Field(default=None, title="Pressure")
+    # pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
+
+    duration: Optional[float] = Field(default=None, title="Duration")
 
 
 class SpeakerConfig(DeviceConfig):
