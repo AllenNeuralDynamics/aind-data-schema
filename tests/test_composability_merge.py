@@ -31,7 +31,7 @@ from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerUnit
+from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
@@ -342,6 +342,8 @@ class TestComposability(unittest.TestCase):
                                 system_name="BREGMA_ARI",
                                 position=[-2, -4, 0, 0],
                             ),
+                            size=1,
+                            size_unit=SizeUnit.MM,
                         ),
                     ],
                     measured_coordinates={
