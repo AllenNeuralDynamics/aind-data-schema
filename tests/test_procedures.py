@@ -539,5 +539,6 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertIsNotNone(craniotomy)
 
+
 if __name__ == "__main__":
     unittest.main()
