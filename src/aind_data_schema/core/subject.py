@@ -19,9 +19,12 @@ class Subject(DataCoreModel):
         title="Subject ID",
     )
 
-    subject_details: Annotated[Union[
-        MouseSubject,
-        HumanSubject,
-    ], Field(discriminator="object_type")] = Field(..., title="Subject Details")
+    subject_details: Annotated[
+        Union[
+            MouseSubject,
+            HumanSubject,
+        ],
+        Field(discriminator="object_type"),
+    ] = Field(..., title="Subject Details")
 
     notes: Optional[str] = Field(default=None, title="Notes")

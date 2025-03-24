@@ -48,7 +48,7 @@ class SubjectTests(unittest.TestCase):
                     paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
                 ),
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
-            )
+            ),
         )
 
         Subject.model_validate_json(s.model_dump_json())

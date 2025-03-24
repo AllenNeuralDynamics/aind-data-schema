@@ -19,7 +19,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import GenericModelType, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import (
     AxisName,
     Transform,

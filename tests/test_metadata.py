@@ -92,7 +92,7 @@ class TestMetadata(unittest.TestCase):
                 genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
                 housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
                 background_strain=Strain.C57BL_6J,
-            )
+            ),
         )
         dd = DataDescription(
             modalities=[Modality.ECEPHYS],
@@ -197,7 +197,7 @@ class TestMetadata(unittest.TestCase):
                     paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
                 ),
                 genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
-            )
+            ),
         )
         d2 = Metadata(
             name="655019_2023-04-03T181709",
