@@ -102,10 +102,9 @@ class CraniotomyType(str, Enum):
     """Name of craniotomy Type"""
 
     DHC = "Dual hemisphere craniotomy"
+    WHC = "Whole hemisphere craniotomy"
     CIRCLE = "Circle"
     SQUARE = "Square"
-    VISCTX = "Visual Cortex"
-    WHC = "Whole hemisphere craniotomy"
     OTHER = "Other"
 
 
@@ -339,14 +338,27 @@ class Craniotomy(DataModel):
 
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
-    position: Union[Coordinate, List[AnatomicalRelative]] = Field(..., title="Craniotomy position")
-    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
+
+    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(
+        default=None,
+        title="Craniotomy position"
+    )
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
     size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
 
+    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
+
+    @model_validator(mode="after")
+    def check_position(cls, values):
+        """ Ensure a position is provided for certain craniotomy types """
+        POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
+
+        if values.craniotomy_type in POS_REQUIRED and not values.position:
+            raise ValueError(f"Craniotomy.position must be provided for craniotomy type {values.craniotomy_type}")
+        return values
 
 
 class Headframe(DataModel):
