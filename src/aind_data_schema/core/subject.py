@@ -4,14 +4,14 @@ from datetime import date as date_type
 from datetime import time
 from enum import Enum
 from typing import List, Literal, Optional
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species
-from pydantic import Field, SkipValidation, field_validator
+from aind_data_schema_models.species import Species, Strain
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import AindCoreModel, AindModel
+from aind_data_schema.base import DataCoreModel, DataModel
 
 
 class Sex(str, Enum):
@@ -19,13 +19,6 @@ class Sex(str, Enum):
 
     FEMALE = "Female"
     MALE = "Male"
-
-
-class BackgroundStrain(str, Enum):
-    """Animal background strain name"""
-
-    BALB_c = "BALB/c"
-    C57BL_6J = "C57BL/6J"
 
 
 class HomeCageEnrichment(str, Enum):
@@ -38,7 +31,7 @@ class HomeCageEnrichment(str, Enum):
     OTHER = "Other"
 
 
-class LightCycle(AindModel):
+class LightCycle(DataModel):
     """Description of vivarium light cycle times"""
 
     lights_on_time: time = Field(
@@ -53,14 +46,14 @@ class LightCycle(AindModel):
     )
 
 
-class WellnessReport(AindModel):
+class WellnessReport(DataModel):
     """Wellness report on animal health"""
 
     date: date_type = Field(..., title="Date")
     report: str = Field(..., title="Report")
 
 
-class Housing(AindModel):
+class Housing(DataModel):
     """Description of subject housing"""
 
     cage_id: Optional[str] = Field(default=None, title="Cage ID")
@@ -74,7 +67,7 @@ class Housing(AindModel):
     )
 
 
-class BreedingInfo(AindModel):
+class BreedingInfo(DataModel):
     """Description of breeding info for subject"""
 
     breeding_group: str = Field(..., title="Breeding Group")
@@ -84,12 +77,12 @@ class BreedingInfo(AindModel):
     paternal_genotype: str = Field(..., title="Paternal genotype")
 
 
-class Subject(AindCoreModel):
+class Subject(DataCoreModel):
     """Description of a subject of data collection"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/subject.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["1.0.2"]] = Field(default="1.0.2")
+    schema_version: SkipValidation[Literal["2.0.4"]] = Field(default="2.0.4")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -97,15 +90,18 @@ class Subject(AindCoreModel):
     )
     sex: Sex = Field(..., title="Sex")
     date_of_birth: date_type = Field(..., title="Date of birth")
+
+    # Genetic info
+    species: Species.ONE_OF = Field(..., title="Species")
+    background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
+    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     genotype: Optional[str] = Field(
         default=None,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
-    species: Species.ONE_OF = Field(..., title="Species")
-    alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
-    background_strain: Optional[BackgroundStrain] = Field(default=None, title="Background strain")
     breeding_info: Optional[BreedingInfo] = Field(default=None, title="Breeding Info")
+
     source: Organization.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from. If bred in-house, use Allen Institute.",
@@ -134,11 +130,24 @@ class Subject(AindCoreModel):
 
         return v
 
-    @field_validator("species", mode="after")
-    def validate_genotype(cls, v: Species.ONE_OF, info: ValidationInfo):
+    @model_validator(mode="after")
+    def validate_genotype(value):
         """Validator for mice genotype"""
 
-        if v is Species.MUS_MUSCULUS and info.data.get("genotype") is None:
+        if not hasattr(value, "species"):  # pragma: no cover
+            return value
+
+        if value.species is Species.MUS_MUSCULUS and value.genotype is None:
             raise ValueError("Full genotype should be provided for mouse subjects")
 
-        return v
+        return value
+
+    @model_validator(mode="after")
+    def validate_species_strain(value):
+        """Ensure that the species and strain.species match"""
+
+        if value.background_strain:
+            if value.species.name != value.background_strain.species:
+                raise ValueError("The animal species and it's strain's species do not match")
+
+        return value

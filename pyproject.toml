@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "aind-data-schema"
 description = "A library that defines AIND data schema and validates JSON files."
 license = {text = "MIT"}
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3"
 ]
@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=0.5.4, <1.0.0',
+    'aind-data-schema-models>=2.2.0',
     'dictdiffer',
     'pydantic>=2.7',
     'inflection',
@@ -25,7 +25,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     'aind_data_schema[linters]',
-    'pydantic>=2.7, !=2.9.0, !=2.9.1'
+    'pydantic>=2.7, !=2.9.0, !=2.9.1',
+    'scipy',
 ]
 
 linters = [
@@ -35,7 +36,7 @@ linters = [
     'flake8',
     'interrogate',
     'isort',
-    'aind-flake8-extensions==0.5.2'
+    'aind-flake8-extensions>=0.6,<0.7'
 ]
 
 docs = [
@@ -44,6 +45,10 @@ docs = [
     'furo',
     'autodoc_pydantic',
     'myst-parser'
+]
+
+transforms = [
+    'scipy',
 ]
 
 viz = [

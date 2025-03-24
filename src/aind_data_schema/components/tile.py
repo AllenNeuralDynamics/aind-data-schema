@@ -1,21 +1,15 @@
 """" Models related to imaging tiles and their transformations """
 
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
-from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import (
-    Affine3dTransform,
-    Rotation3dTransform,
-    Scale3dTransform,
-    Translation3dTransform,
-)
+from aind_data_schema.base import DataModel, AwareDatetimeWithDefault
+from aind_data_schema.components.coordinates import CoordinateTransform
 
 
-class Channel(AindModel):
+class Channel(DataModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
@@ -32,24 +26,14 @@ class Channel(AindModel):
     filter_wheel_index: int = Field(..., title="Filter wheel index")
     # dilation
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
     description: Optional[str] = Field(default=None, title="Description")
 
 
-class Tile(AindModel):
+class Tile(DataModel):
     """Description of an image tile"""
 
-    coordinate_transformations: List[
-        Annotated[
-            Union[
-                Scale3dTransform,
-                Translation3dTransform,
-                Rotation3dTransform,
-                Affine3dTransform,
-            ],
-            Field(discriminator="type"),
-        ]
-    ] = Field(..., title="Tile coordinate transformations")
+    coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
 
 

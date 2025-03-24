@@ -5,30 +5,45 @@ import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import TimeUnit, ConcentrationUnit, VolumeUnit
 from pydantic import ValidationError
 from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     FiberImplant,
-    IntraperitonealInjection,
-    NanojectInjection,
+    BrainInjection,
     NonViralMaterial,
     OphysProbe,
     Procedures,
-    RetroOrbitalInjection,
     Sectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
+    InjectionDynamics,
+    InjectionProfile,
+    Injection,
 )
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import (
+    Coordinate,
+    Origin,
+    AnatomicalRelative,
+    Rotation,
+)
+from aind_data_schema_models.mouse_anatomy import InjectionTargets
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class ProceduresTests(unittest.TestCase):
     """test Procedures"""
+
+    def setUp(self):
+        """Set up test data"""
+        self.start_date = date.fromisoformat("2020-10-10")
 
     def test_required_field_validation_check(self):
         """Tests that validation error is thrown if subject_id is not set."""
@@ -39,107 +54,97 @@ class ProceduresTests(unittest.TestCase):
         self.assertEqual("12345", p.subject_id)
 
     def test_injection_material_check(self):
-        """Tests validation on the presence of injections materials"""
+        """Check for validation error when injection_materials is empty"""
 
-        start_date = date.fromisoformat("2020-10-10")
-
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as e:
             Procedures(
                 subject_id="12345",
                 subject_procedures=[
                     Surgery(
-                        start_date=start_date,
-                        experimenter_full_name="Chip Munk",
+                        start_date=self.start_date,
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
-                            RetroOrbitalInjection(
-                                start_date=start_date,
-                                experimenter_full_name="Chip Munk",
+                            Injection(
                                 protocol_id="134",
                                 injection_materials=[],  # An empty list is invalid
-                                injection_volume=1,
-                                injection_eye="Left",
-                                injection_duration=1,
+                                dynamics=[
+                                    InjectionDynamics(
+                                        volume=1,
+                                        volume_unit=VolumeUnit.UL,
+                                        duration=1,
+                                        duration_unit=TimeUnit.S,
+                                        profile=InjectionProfile.BOLUS,
+                                    )
+                                ],
+                                target=InjectionTargets.VENOUS_SINUS,
+                                relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
                 ],
             )
 
-        # validate error for injection_materials=[]
+        self.assertIn("injection_materials", repr(e.exception))
+
+    def test_injection_material_none(self):
+        """Check for validation error when injection_materials is None"""
         with self.assertRaises(ValidationError) as e:
             Procedures(
                 subject_id="12345",
                 subject_procedures=[
                     Surgery(
-                        start_date=start_date,
-                        experimenter_full_name="Chip Munk",
+                        start_date=self.start_date,
+                        experimenters=[Person(name="Mam Moth")],
                         procedures=[
-                            RetroOrbitalInjection(
-                                protocol_id="134",
-                                injection_materials=[],  # An empty list is invalid
-                                injection_volume=1,
-                                injection_eye="Left",
-                                injection_duration=1,
-                                recovery_time=10,
-                            ),
-                        ],
-                    )
-                ],
-            )
-        expected_exception = (
-            "1 validation error for RetroOrbitalInjection\n"
-            "injection_materials\n"
-            "  List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], "
-            "input_type=list]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/too_short"
-        )
-
-        self.assertEqual(expected_exception, repr(e.exception))
-
-        # validate error for injection_materials=None
-        with self.assertRaises(ValidationError) as e:
-            p = Procedures(
-                subject_id="12345",
-                subject_procedures=[
-                    Surgery(
-                        start_date=start_date,
-                        experimenter_full_name="Chip Munk",
-                        procedures=[
-                            RetroOrbitalInjection(
+                            Injection(
                                 protocol_id="134",
                                 injection_materials=None,
-                                injection_volume=1,
-                                injection_eye="Left",
-                                injection_duration=1,
+                                dynamics=[
+                                    InjectionDynamics(
+                                        volume=1,
+                                        volume_unit=VolumeUnit.UL,
+                                        duration=1,
+                                        duration_unit=TimeUnit.S,
+                                        profile=InjectionProfile.BOLUS,
+                                    )
+                                ],
+                                target=InjectionTargets.VENOUS_SINUS,
+                                relative_position=[AnatomicalRelative.LEFT],
                                 recovery_time=10,
+                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
                 ],
             )
 
-        expected_exception = (
-            "1 validation error for RetroOrbitalInjection\n"
-            "injection_materials\n"
-            "  Input should be a valid list [type=list_type, input_value=None, input_type=NoneType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/list_type"
-        )
+        self.assertIn("injection_materials", repr(e.exception))
 
-        self.assertEqual(expected_exception, repr(e.exception))
-
-        # Validate injection_materials is list of one ViralMaterial or NonViralMaterial item
+    def test_injection_materials_list(self):
+        """Valid injection_materials list"""
 
         p = Procedures(
             subject_id="12345",
             subject_procedures=[
                 Surgery(
-                    start_date=start_date,
-                    experimenter_full_name="Chip Munk",
-                    iacuc_protocol="234",
+                    start_date=self.start_date,
+                    experimenters=[Person(name="Mam Moth")],
+                    ethics_review_id="234",
                     protocol_id="123",
+                    measured_coordinates={
+                        Origin.BREGMA: Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0, 0, 0],
+                        ),
+                        Origin.LAMBDA: Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[-4.1, 0, 0],
+                        ),
+                    },
                     procedures=[
-                        RetroOrbitalInjection(
+                        Injection(
                             protocol_id="134",
                             injection_materials=[
                                 ViralMaterial(
@@ -147,18 +152,27 @@ class ProceduresTests(unittest.TestCase):
                                     name="AAV2-Flex-ChrimsonR",
                                     tars_identifiers=TarsVirusIdentifiers(
                                         virus_tars_id="AiV222",
-                                        plasmid_tars_alias="AiP222",
+                                        plasmid_tars_alias=["AiP222"],
                                         prep_lot_number="VT222",
                                     ),
                                     titer=2300000000,
                                 )
                             ],
-                            injection_volume=1,
-                            injection_eye="Left",
-                            injection_duration=1,
+                            target=InjectionTargets.VENOUS_SINUS,
+                            relative_position=[AnatomicalRelative.LEFT],
+                            dynamics=[
+                                InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                    profile=InjectionProfile.BOLUS,
+                                )
+                            ],
                             recovery_time=10,
+                            recovery_time_unit=TimeUnit.M,
                         ),
-                        IntraperitonealInjection(
+                        Injection(
                             protocol_id="234",
                             injection_materials=[
                                 NonViralMaterial(
@@ -167,11 +181,19 @@ class ProceduresTests(unittest.TestCase):
                                     source=Organization.AI,
                                     lot_number="12345",
                                     concentration=1,
+                                    concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            injection_volume=1,
+                            target=InjectionTargets.PERITONEAL_CAVITY,
+                            dynamics=[
+                                InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    profile=InjectionProfile.BOLUS,
+                                )
+                            ],
                         ),
-                        NanojectInjection(
+                        BrainInjection(
                             protocol_id="bca",
                             injection_materials=[
                                 ViralMaterial(
@@ -179,29 +201,36 @@ class ProceduresTests(unittest.TestCase):
                                     name="AAV2-Flex-ChrimsonR",
                                     tars_identifiers=TarsVirusIdentifiers(
                                         virus_tars_id="AiV222",
-                                        plasmid_tars_alias="AiP222",
+                                        plasmid_tars_alias=["AiP222"],
                                         prep_lot_number="VT222",
                                     ),
                                     titer=2300000000,
                                 )
                             ],
-                            injection_duration=1,
-                            injection_coordinate_ml=1,
-                            injection_coordinate_ap=1,
-                            injection_coordinate_depth=[1],
-                            injection_coordinate_reference="Bregma",
-                            bregma_to_lambda_distance=4.1,
-                            injection_angle=1,
-                            injection_volume=[1],
+                            dynamics=[
+                                InjectionDynamics(
+                                    volume=1,
+                                    volume_unit=VolumeUnit.UL,
+                                    duration=1,
+                                    duration_unit=TimeUnit.S,
+                                    profile=InjectionProfile.BOLUS,
+                                )
+                            ],
+                            coordinates=[
+                                Coordinate(
+                                    system_name="BREGMA_ARID",
+                                    position=[0.5, 1, 0, 1],
+                                ),
+                            ],
                             recovery_time=10,
-                            targeted_structure="VISpl6a",
+                            recovery_time_unit=TimeUnit.M,
+                            target=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
                             probes=[
                                 OphysProbe(
                                     ophys_probe=FiberProbe(
-                                        device_type="Fiber optic probe",
                                         name="Probe A",
                                         manufacturer=Organization.DORIC,
                                         model="8",
@@ -210,13 +239,14 @@ class ProceduresTests(unittest.TestCase):
                                         ferrule_material="Ceramic",
                                         total_length=10,
                                     ),
-                                    targeted_structure="MOp",
-                                    stereotactic_coordinate_ap=1,
-                                    stereotactic_coordinate_dv=2,
-                                    stereotactic_coordinate_ml=3,
-                                    stereotactic_coordinate_reference="Bregma",
-                                    bregma_to_lambda_distance=4.1,
-                                    angle=10,
+                                    targeted_structure=CCFStructure.MOP,
+                                    coordinate=Coordinate(
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 2, 0, 2],
+                                        angles=Rotation(
+                                            angles=[10, 0, 0],
+                                        ),
+                                    ),
                                 )
                             ],
                         ),
@@ -228,8 +258,6 @@ class ProceduresTests(unittest.TestCase):
         self.assertEqual(1, len(p.subject_procedures))
         self.assertEqual(p, Procedures.model_validate_json(p.model_dump_json()))
 
-    maxDiff = None
-
     def test_validate_procedure_type(self):
         """Test that the procedure type validation error works"""
 
@@ -237,9 +265,9 @@ class ProceduresTests(unittest.TestCase):
             SpecimenProcedure(
                 specimen_id="1000",
                 procedure_type="Other",
-                start_date=date.fromisoformat("2020-10-10"),
+                start_date=self.start_date,
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -257,9 +285,9 @@ class ProceduresTests(unittest.TestCase):
             SpecimenProcedure(
                 specimen_id="1000",
                 procedure_type="Immunolabeling",
-                start_date=date.fromisoformat("2020-10-10"),
+                start_date=self.start_date,
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -279,7 +307,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Hybridization Chain Reaction",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes=None,
@@ -300,7 +328,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenter_full_name="guy person",
+                experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
                 reagents=[],
                 notes="some extra information",
@@ -308,41 +336,84 @@ class ProceduresTests(unittest.TestCase):
         )
 
     def test_coordinate_volume_validator(self):
-        """Test validator for list lengths on NanojectInjection"""
+        """Test validator for list lengths on BrainInjection"""
 
         # Should be okay
-        inj1 = NanojectInjection(
+        inj1 = BrainInjection(
             protocol_id="abc",
-            injection_coordinate_ml=1,
-            injection_coordinate_ap=1,
-            injection_angle=1,
-            injection_coordinate_depth=[0, 1],
-            injection_volume=[1, 2],
+            coordinates=[
+                Coordinate(
+                    system_name="BREGMA_ARID",
+                    position=[0.5, 1, 0, 0],
+                ),
+                Coordinate(
+                    system_name="BREGMA_ARID",
+                    position=[0.5, 1, 0, 1],
+                ),
+            ],
+            dynamics=[
+                InjectionDynamics(
+                    volume=1,
+                    volume_unit=VolumeUnit.UL,
+                    profile=InjectionProfile.PULSED,
+                ),
+                InjectionDynamics(
+                    volume=2,
+                    volume_unit=VolumeUnit.UL,
+                    profile=InjectionProfile.PULSED,
+                ),
+            ],
             injection_materials=[
                 ViralMaterial(
                     material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
                     tars_identifiers=TarsVirusIdentifiers(
                         virus_tars_id="AiV222",
-                        plasmid_tars_alias="AiP222",
+                        plasmid_tars_alias=["AiP222", "AiP223"],
                         prep_lot_number="VT222",
                     ),
                     titer=2300000000,
                 )
             ],
         )
-        self.assertEqual(len(inj1.injection_coordinate_depth), len(inj1.injection_volume))
+        self.assertEqual(len(inj1.coordinates), len(inj1.dynamics))
 
-        # Different coord_depth and inj_vol list lengths should raise an error
-        with self.assertRaises(ValidationError):
-            NanojectInjection(
+        # Different coordinates and dynamics list lengths should raise an error
+        with self.assertRaises(ValidationError) as e:
+            BrainInjection(
                 protocol_id="abc",
-                injection_coordinate_ml=1,
-                injection_coordinate_ap=1,
-                injection_angle=1,
-                injection_coordinate_depth=[0.1],
-                injection_volume=[1, 2],
+                coordinates=[
+                    Coordinate(
+                        system_name="BREGMA_ARID",
+                        position=[0.5, 1, 0, 0],
+                    ),
+                    Coordinate(
+                        system_name="BREGMA_ARID",
+                        position=[0.5, 1, 0, 1],
+                    ),
+                ],
+                injection_materials=[
+                    ViralMaterial(
+                        material_type="Virus",
+                        name="AAV2-Flex-ChrimsonR",
+                        tars_identifiers=TarsVirusIdentifiers(
+                            virus_tars_id="AiV222",
+                            plasmid_tars_alias=["AiP222"],
+                            prep_lot_number="VT222",
+                        ),
+                        titer=2300000000,
+                    )
+                ],
+                dynamics=[
+                    InjectionDynamics(
+                        volume=1,
+                        volume_unit=VolumeUnit.UL,
+                        profile=InjectionProfile.PULSED,
+                    ),
+                ],
             )
+
+        self.assertIn("Unmatched list sizes for injection volumes and coordinate depths", repr(e.exception))
 
     def test_sectioning(self):
         """Test sectioning"""
@@ -353,9 +424,9 @@ class ProceduresTests(unittest.TestCase):
             section_orientation="Coronal",
             section_thickness=0.2,
             section_distance_from_reference=0.3,
-            reference_location="Bregma",
+            reference=Origin.BREGMA,
             section_strategy="Whole Brain",
-            targeted_structure="MOp",
+            targeted_structure=CCFStructure.MOP,
         )
         self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
 
@@ -367,10 +438,64 @@ class ProceduresTests(unittest.TestCase):
                 section_orientation="Coronal",
                 section_thickness=0.2,
                 section_distance_from_reference=0.3,
-                reference_location="Bregma",
+                reference=Origin.BREGMA,
                 section_strategy="Whole Brain",
-                targeted_structure="MOp",
+                targeted_structure=CCFStructure.MOP,
             )
+
+    def test_validate_identical_specimen_ids(self):
+        """Test that all specimen_id fields are identical in specimen_procedures"""
+
+        with self.assertRaises(ValidationError) as e:
+            Procedures(
+                subject_id="12345",
+                specimen_procedures=[
+                    SpecimenProcedure(
+                        specimen_id="1000",
+                        procedure_type="Other",
+                        start_date=date.fromisoformat("2020-10-10"),
+                        end_date=date.fromisoformat("2020-10-11"),
+                        experimenters=[Person(name="Mam Moth")],
+                        protocol_id=["10"],
+                        reagents=[],
+                        notes="some notes",
+                    ),
+                    SpecimenProcedure(
+                        specimen_id="2000",
+                        procedure_type="Other",
+                        start_date=date.fromisoformat("2020-10-10"),
+                        end_date=date.fromisoformat("2020-10-11"),
+                        experimenters=[Person(name="Mam Moth")],
+                        protocol_id=["10"],
+                        reagents=[],
+                        notes="some notes",
+                    ),
+                ],
+            )
+        expected_exception = "All specimen_id must be identical in the specimen_procedures."
+        self.assertIn(expected_exception, str(e.exception))
+
+    def test_validate_subject_specimen_ids(self):
+        """Test that the subject_id and specimen_id match"""
+
+        with self.assertRaises(ValidationError) as e:
+            Procedures(
+                subject_id="12345",
+                specimen_procedures=[
+                    SpecimenProcedure(
+                        specimen_id="9999_1000",
+                        procedure_type="Other",
+                        start_date=date.fromisoformat("2020-10-10"),
+                        end_date=date.fromisoformat("2020-10-11"),
+                        experimenters=[Person(name="Mam Moth")],
+                        protocol_id=["10"],
+                        reagents=[],
+                        notes="some notes",
+                    )
+                ],
+            )
+        expected_exception = "specimen_id must be an extension of the subject_id."
+        self.assertIn(expected_exception, str(e.exception))
 
 
 if __name__ == "__main__":

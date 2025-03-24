@@ -12,3 +12,7 @@ python:
       extra_requirements:
         - dev
         - docs
+
+sphinx:
+  # Path to your Sphinx configuration file.
+  configuration: docs/source/conf.py

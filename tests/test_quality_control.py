@@ -181,7 +181,6 @@ class QualityControlTests(unittest.TestCase):
         evaluation.latest_status = evaluation.evaluate_status()
 
         self.assertEqual(evaluation.latest_status, Status.FAIL)
-        self.assertEqual(evaluation.status(), evaluation.latest_status)
 
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that evaluations pass"""
@@ -287,9 +286,9 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertTrue(expected_exception in repr(context.exception))
 
-    def test_multi_session(self):
+    def test_multi_acquisition(self):
         """Ensure that the multi-asset QCEvaluation validator checks for evaluated_assets"""
-        # Check for non-multi-session that all evaluated_assets are None
+        # Check for non-multi-acquisition that all evaluated_assets are None
         t0 = datetime.fromisoformat("2020-10-10")
 
         evaluation = QCEvaluation(

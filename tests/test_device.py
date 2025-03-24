@@ -12,13 +12,10 @@ from aind_data_schema.components.devices import (
     DataInterface,
     Detector,
     DetectorType,
-    Device,
     HarpDevice,
     ImagingDeviceType,
     ImmersionMedium,
     Objective,
-    RewardSpout,
-    SpoutSide,
 )
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
@@ -29,31 +26,6 @@ class DeviceTests(unittest.TestCase):
 
     def test_other_validators(self):
         """tests validators which require notes when an instance of 'other' is used"""
-
-        with self.assertRaises(ValueError) as e1:
-            RewardSpout(
-                name="test_reward_spout",
-                spout_diameter=0.5,
-                solenoid_valve=Device(
-                    device_type="solenoid",
-                    name="test_solenoid",
-                ),
-                lick_sensor=Device(
-                    device_type="Lick sensor",
-                    name="Sensor_test",
-                ),
-                side=SpoutSide.OTHER,
-            )
-
-        expected_e1 = (
-            "1 validation error for RewardSpout\n"
-            "  Value error, Notes cannot be empty if spout side is Other."
-            " Describe the spout side in the notes field."
-            " [type=value_error, input_value={'name': 'test_reward_spo...outSide.OTHER: 'Other'>}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e1.exception), expected_e1)
 
         with self.assertRaises(ValueError) as e2:
             Detector(
@@ -128,3 +100,7 @@ class DeviceTests(unittest.TestCase):
         )
 
         self.assertEqual(repr(e5.exception), expected_e5)
+
+
+if __name__ == "__main__":
+    unittest.main()

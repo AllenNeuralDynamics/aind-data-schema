@@ -6,13 +6,14 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Antibody,
     FiberImplant,
     FiberProbe,
     Headframe,
-    NanojectInjection,
+    BrainInjection,
     OphysProbe,
     Perfusion,
     Procedures,
@@ -20,7 +21,12 @@ from aind_data_schema.core.procedures import (
     Surgery,
     ViralMaterial,
     WaterRestriction,
+    InjectionDynamics,
+    InjectionProfile,
 )
+from aind_data_schema_models.units import VolumeUnit
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -30,13 +36,14 @@ p = Procedures(
     subject_procedures=[
         Surgery(
             start_date=t.date(),
-            experimenter_full_name="John Apple",
-            iacuc_protocol="2109",
+            experimenters=[Person(name="Scientist Smith")],
+            ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
             anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             protocol_id="doi",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             procedures=[
                 Headframe(
                     protocol_id="2109",
@@ -44,7 +51,7 @@ p = Procedures(
                     headframe_part_number="TO ENTER",
                     headframe_material="Titanium",
                 ),
-                NanojectInjection(
+                BrainInjection(
                     protocol_id="5678",
                     injection_materials=[
                         ViralMaterial(
@@ -60,14 +67,20 @@ p = Procedures(
                     ],
                     recovery_time=0,
                     instrument_id=None,
-                    injection_hemisphere="Left",
-                    injection_coordinate_ml=-0.6,
-                    injection_coordinate_ap=-3.05,
-                    injection_coordinate_depth=[-4.2],
-                    injection_coordinate_reference="Bregma",
-                    injection_angle=0,
-                    injection_volume=[400],
-                    targeted_structure="VTA",
+                    coordinates=[
+                        Coordinate(
+                            system_name="BREGMA_ARID",
+                            position=[-600, -3050, 0, 4200],
+                        ),
+                    ],
+                    dynamics=[
+                        InjectionDynamics(
+                            volume=400,
+                            volume_unit=VolumeUnit.NL,
+                            profile=InjectionProfile.BOLUS,
+                        )
+                    ],
+                    target=CCFStructure.VTA,
                 ),
                 FiberImplant(
                     protocol_id="TO ENTER",
@@ -80,12 +93,11 @@ p = Procedures(
                                 ferrule_material="Ceramic",
                                 total_length=0.5,
                             ),
-                            targeted_structure="VTA",
-                            angle=0,
-                            stereotactic_coordinate_ap=-3.05,
-                            stereotactic_coordinate_ml=-0.6,
-                            stereotactic_coordinate_dv=-4,
-                            stereotactic_coordinate_reference="Bregma",
+                            targeted_structure=CCFStructure.VTA,
+                            coordinate=Coordinate(
+                                system_name="BREGMA_ARID",
+                                position=[-600, -3050, 0, 4200],
+                            ),
                         )
                     ],
                 ),
@@ -93,7 +105,7 @@ p = Procedures(
         ),
         WaterRestriction(
             start_date="2023-05-15",
-            iacuc_protocol="1234",
+            ethics_review_id="1234",
             target_fraction_weight=25,
             minimum_water_per_day=1.5,
             baseline_weight=20.4,
@@ -101,8 +113,8 @@ p = Procedures(
         ),
         Surgery(
             start_date="2023-05-31",
-            experimenter_full_name="John Apple",
-            iacuc_protocol="2109",
+            experimenters=[Person(name="Scientist Smith")],
+            ethics_review_id="2109",
             anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
             protocol_id="doi",
@@ -114,10 +126,10 @@ p = Procedures(
     specimen_procedures=[
         SpecimenProcedure(
             procedure_type="Immunolabeling",
-            specimen_id="672640",
+            specimen_id="625100_001",
             start_date="2023-06-09",
             end_date="2023-06-12",
-            experimenter_full_name="John Apple",
+            experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             reagents=[],
             antibodies=[
@@ -137,10 +149,10 @@ p = Procedures(
         ),
         SpecimenProcedure(
             procedure_type="Immunolabeling",
-            specimen_id="672640",
+            specimen_id="625100_001",
             start_date="2023-06-12",
             end_date="2023-06-13",
-            experimenter_full_name="John Apple",
+            experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             reagents=[],
             antibodies=[

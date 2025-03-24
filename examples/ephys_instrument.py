@@ -1,10 +1,15 @@
-"""Generates an example JSON file for an ephys rig"""
+"""Generates an example JSON file for an ephys instrument"""
 
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema.components.coordinates import (
+    AnatomicalRelative,
+    CoordinateSystemLibrary,
+)
 
 from aind_data_schema.components.devices import (
     Calibration,
@@ -23,12 +28,12 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    Patch,
+    PatchCord,
     ProbePort,
 )
-from aind_data_schema.core.rig import Rig
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 
-# Describes a rig with running wheel, 2 behavior cameras, one Harp Behavior board,
+# Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 
 behavior_computer = "W10DT72941"
@@ -36,11 +41,11 @@ ephys_computer = "W10DT72942"
 
 running_wheel = Disc(name="Running Wheel", radius=15)
 
-digital_out0 = DAQChannel(channel_name="DO0", device_name="Face Camera", channel_type="Digital Output")
+digital_out0 = DAQChannel(channel_name="DO0", channel_type="Digital Output")
 
-digital_out1 = DAQChannel(channel_name="DO1", device_name="Body Camera", channel_type="Digital Output")
+digital_out1 = DAQChannel(channel_name="DO1", channel_type="Digital Output")
 
-analog_input = DAQChannel(channel_name="AI0", device_name="Running Wheel", channel_type="Analog Input")
+analog_input = DAQChannel(channel_name="AI0", channel_type="Analog Input")
 
 harp = HarpDevice(
     name="Harp Behavior",
@@ -50,6 +55,30 @@ harp = HarpDevice(
     channels=[digital_out0, digital_out1, analog_input],
     is_clock_generator=False,
 )
+
+connections = [
+    Connection(
+        device_names=["Harp Behavior", "Face Camera"],
+        connection_data={
+            "Harp Behavior": ConnectionData(channel="DO0", direction=ConnectionDirection.SEND),
+            "Face Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
+        },
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Body Camera"],
+        connection_data={
+            "Harp Behavior": ConnectionData(channel="DO1", direction=ConnectionDirection.SEND),
+            "Body Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
+        },
+    ),
+    Connection(
+        device_names=["Harp Behavior", "Running Wheel"],
+        connection_data={
+            "Harp Behavior": ConnectionData(channel="AI0", direction=ConnectionDirection.RECEIVE),
+            "Running Wheel": ConnectionData(direction=ConnectionDirection.SEND),
+        },
+    ),
+]
 
 port1 = ProbePort(index=1, probes=["Probe A"])
 
@@ -74,8 +103,8 @@ laser_assembly = LaserAssembly(
         name="Manipulator A", serial_number="SN2937", manufacturer=Organization.NEW_SCALE_TECHNOLOGIES
     ),
     lasers=[red_laser, blue_laser],
-    collimator=Device(name="Collimator A", device_type="Collimator"),
-    fiber=Patch(
+    collimator=Device(name="Collimator A"),
+    fiber=PatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -91,6 +120,7 @@ probe_camera_1 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -105,6 +135,7 @@ probe_camera_2 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -119,6 +150,7 @@ probe_camera_3 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -133,6 +165,7 @@ probe_camera_4 = Camera(
     manufacturer=Organization.FLIR,
     computer_name=ephys_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -144,28 +177,32 @@ stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
 
 microscope_1 = CameraAssembly(
     name="Stick_assembly_1",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_1,
     lens=stick_lens,
 )
 
 microscope_2 = CameraAssembly(
     name="Stick_assembly_2",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_2,
     lens=stick_lens,
 )
 
 microscope_3 = CameraAssembly(
     name="Stick_assembly_3",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_3,
     lens=stick_lens,
 )
 
 microscope_4 = CameraAssembly(
     name="Stick_assembly_4",
-    camera_target=CameraTarget.BRAIN_SURFACE,  # NEEDS TO BE FILLED OUT
+    target=CameraTarget.BRAIN,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_4,
     lens=stick_lens,
 )
@@ -197,7 +234,13 @@ filt = Filter(
     description="850 nm longpass filter",
 )
 
-lens = Lens(name="Camera lens", focal_length=15, manufacturer=Organization.EDMUND_OPTICS, max_aperture="f/2")
+lens = Lens(
+    name="Camera lens",
+    focal_length=15,
+    focal_length_unit=SizeUnit.MM,
+    manufacturer=Organization.EDMUND_OPTICS,
+    max_aperture="f/2",
+)
 
 face_camera = Camera(
     name="Face Camera",
@@ -206,6 +249,7 @@ face_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -216,7 +260,8 @@ face_camera = Camera(
 camassm1 = CameraAssembly(
     name="Face Camera Assembly",
     camera=face_camera,
-    camera_target="Face side left",
+    target=CameraTarget.FACE,
+    relative_position=[AnatomicalRelative.LEFT],
     filter=filt,
     lens=lens,
 )
@@ -228,6 +273,7 @@ body_camera = Camera(
     manufacturer=Organization.FLIR,
     computer_name=behavior_computer,
     frame_rate=50,
+    frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
     sensor_height=570,
     sensor_format="1/2.9",
@@ -237,8 +283,9 @@ body_camera = Camera(
 
 camassm2 = CameraAssembly(
     name="Body Camera Assembly",
+    target=CameraTarget.BODY,
+    relative_position=[AnatomicalRelative.SUPERIOR],
     camera=body_camera,
-    camera_target="Body",
     filter=filt,
     lens=lens,
 )
@@ -262,18 +309,28 @@ blue_laser_calibration = Calibration(
     output={"power mW": [1, 2, 7]},
 )
 
-rig = Rig(
-    rig_id="323_EPHYS1_20231003",
+inst = Instrument(
+    instrument_id="323_EPHYS1_20231003",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
-    ephys_assemblies=[ephys_assemblyA, ephys_assemblyB],
-    cameras=[camassm1, camassm2],
-    laser_assemblies=[laser_assembly],
-    daqs=[basestation, harp],
-    stick_microscopes=[microscope_1, microscope_2, microscope_3, microscope_4],
-    mouse_platform=running_wheel,
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+    components=[
+        ephys_assemblyA,
+        ephys_assemblyB,
+        camassm1,
+        camassm2,
+        laser_assembly,
+        basestation,
+        harp,
+        microscope_1,
+        microscope_2,
+        microscope_3,
+        microscope_4,
+        running_wheel,
+    ],
+    connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
-serialized = rig.model_dump_json()
-deserialized = Rig.model_validate_json(serialized)
+serialized = inst.model_dump_json()
+deserialized = Instrument.model_validate_json(serialized)
 deserialized.write_standard_file(prefix="ephys")

@@ -1,52 +1,21 @@
 {
    "$defs": {
-      "AindGeneric": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "AindGeneric",
-         "type": "object"
-      },
-      "AnalysisProcess": {
+      "Code": {
          "additionalProperties": false,
-         "description": "Description of an Analysis",
+         "description": "Code or script identifier",
          "properties": {
-            "name": {
-               "$ref": "#/$defs/ProcessName",
-               "default": "Analysis",
-               "title": "Process name"
-            },
-            "software_version": {
-               "description": "Version of the software used",
-               "title": "Version",
+            "object_type": {
+               "const": "Code",
+               "default": "Code",
+               "title": "Object Type",
                "type": "string"
             },
-            "start_date_time": {
-               "format": "date-time",
-               "title": "Start date time",
-               "type": "string"
-            },
-            "end_date_time": {
-               "format": "date-time",
-               "title": "End date time",
-               "type": "string"
-            },
-            "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
-            },
-            "output_location": {
-               "description": "Path to data outputs",
-               "title": "Output location",
-               "type": "string"
-            },
-            "code_url": {
+            "url": {
                "description": "Path to code repository",
                "title": "Code URL",
                "type": "string"
             },
-            "code_version": {
+            "version": {
                "anyOf": [
                   {
                      "type": "string"
@@ -56,20 +25,22 @@
                   }
                ],
                "default": null,
-               "description": "Version of the code",
                "title": "Code version"
             },
-            "parameters": {
-               "$ref": "#/$defs/AindGeneric",
-               "title": "Parameters"
+            "software": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Software package",
+               "title": "Software"
             },
-            "outputs": {
-               "$ref": "#/$defs/AindGeneric",
-               "default": {},
-               "description": "Output parameters",
-               "title": "Outputs"
-            },
-            "notes": {
+            "language": {
                "anyOf": [
                   {
                      "type": "string"
@@ -79,56 +50,89 @@
                   }
                ],
                "default": null,
-               "title": "Notes"
+               "description": "Programming language used",
+               "title": "Programming language"
             },
-            "resources": {
+            "language_version": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/ResourceUsage"
+                     "type": "string"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "title": "Process resource usage"
+               "title": "Programming language version"
             },
-            "analyst_full_name": {
-               "description": "Name of person responsible for running analysis",
-               "title": "Analyst Full Name",
-               "type": "string"
-            },
-            "description": {
-               "title": "Analysis Description",
-               "type": "string"
+            "parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters used in the code or script",
+               "title": "Parameters"
             }
          },
          "required": [
-            "software_version",
-            "start_date_time",
-            "end_date_time",
-            "input_location",
-            "output_location",
-            "code_url",
-            "parameters",
-            "analyst_full_name",
-            "description"
+            "url"
          ],
-         "title": "AnalysisProcess",
+         "title": "Code",
          "type": "object"
       },
       "DataProcess": {
          "additionalProperties": false,
          "description": "Description of a single processing step",
          "properties": {
+            "object_type": {
+               "const": "Data process",
+               "default": "Data process",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "$ref": "#/$defs/ProcessName",
                "title": "Name"
             },
-            "software_version": {
-               "description": "Version of the software used",
-               "title": "Version",
-               "type": "string"
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "experimenters",
+               "type": "array"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "title": "Code used for processing"
+            },
+            "pipeline_steps": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/ProcessName"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
             },
             "start_date_time": {
                "format": "date-time",
@@ -141,39 +145,32 @@
                "type": "string"
             },
             "input_location": {
-               "description": "Path to data inputs",
-               "title": "Input location",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "description": "Path(s) to data inputs",
+               "title": "Input location"
             },
             "output_location": {
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
             },
-            "code_url": {
-               "description": "Path to code repository",
-               "title": "Code URL",
-               "type": "string"
-            },
-            "code_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the code",
-               "title": "Code version"
-            },
             "parameters": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
                "title": "Parameters"
             },
             "outputs": {
-               "$ref": "#/$defs/AindGeneric",
+               "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
                "title": "Outputs"
@@ -205,15 +202,22 @@
          },
          "required": [
             "name",
-            "software_version",
+            "stage",
+            "experimenters",
+            "code",
             "start_date_time",
             "end_date_time",
             "input_location",
-            "output_location",
-            "code_url",
-            "parameters"
+            "output_location"
          ],
          "title": "DataProcess",
+         "type": "object"
+      },
+      "GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "GenericModel",
          "type": "object"
       },
       "MemoryUnit": {
@@ -230,49 +234,26 @@
          "title": "MemoryUnit",
          "type": "string"
       },
-      "PipelineProcess": {
+      "Person": {
          "additionalProperties": false,
-         "description": "Description of a Processing Pipeline",
+         "description": "Person identifier",
          "properties": {
-            "data_processes": {
-               "items": {
-                  "$ref": "#/$defs/DataProcess"
-               },
-               "title": "Data processing",
-               "type": "array"
-            },
-            "processor_full_name": {
-               "description": "Name of person responsible for processing pipeline",
-               "title": "Processor Full Name",
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
                "type": "string"
             },
-            "pipeline_version": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Version of the pipeline",
-               "title": "Pipeline version"
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
             },
-            "pipeline_url": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "URL to the pipeline code",
-               "title": "Pipeline URL"
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
             },
-            "note": {
+            "registry_identifier": {
                "anyOf": [
                   {
                      "type": "string"
@@ -282,14 +263,13 @@
                   }
                ],
                "default": null,
-               "title": "Notes"
+               "title": "ORCID ID"
             }
          },
          "required": [
-            "data_processes",
-            "processor_full_name"
+            "name"
          ],
-         "title": "PipelineProcess",
+         "title": "Person",
          "type": "object"
       },
       "ProcessName": {
@@ -298,7 +278,6 @@
             "Analysis",
             "Compression",
             "Denoising",
-            "dF/F estimation",
             "Ephys curation",
             "Ephys postprocessing",
             "Ephys preprocessing",
@@ -311,34 +290,56 @@
             "Image cell classification",
             "Image cell quantification",
             "Image cell segmentation",
+            "Image cross-image alignment",
             "Image destriping",
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image spot detection",
+            "Image spot spectral unmixing",
             "Image thresholding",
             "Image tile alignment",
             "Image tile fusing",
             "Image tile projection",
+            "Model evaluation",
+            "Model training",
             "Neuropil subtraction",
             "Other",
+            "Pipeline",
             "Simulation",
             "Skull stripping",
             "Spatial timeseries demixing",
             "Spike sorting",
-            "Video motion correction",
-            "Video plane decrosstalk",
             "Video ROI classification",
             "Video ROI cross session matching",
             "Video ROI segmentation",
-            "Video ROI timeseries extraction"
+            "Video ROI timeseries extraction",
+            "Video motion correction",
+            "Video plane decrosstalk",
+            "dF/F estimation"
          ],
          "title": "ProcessName",
+         "type": "string"
+      },
+      "ProcessStage": {
+         "description": "Stages of processing",
+         "enum": [
+            "Processing",
+            "Analysis"
+         ],
+         "title": "ProcessStage",
          "type": "string"
       },
       "ResourceTimestamped": {
          "additionalProperties": false,
          "description": "Description of resource usage at a moment in time",
          "properties": {
+            "object_type": {
+               "const": "Resource timestamped",
+               "default": "Resource timestamped",
+               "title": "Object Type",
+               "type": "string"
+            },
             "timestamp": {
                "format": "date-time",
                "title": "Timestamp",
@@ -360,6 +361,12 @@
          "additionalProperties": false,
          "description": "Description of resources used by a process",
          "properties": {
+            "object_type": {
+               "const": "Resource usage",
+               "default": "Resource usage",
+               "title": "Object Type",
+               "type": "string"
+            },
             "os": {
                "title": "Operating system",
                "type": "string"
@@ -509,11 +516,72 @@
          ],
          "title": "ResourceUsage",
          "type": "object"
+      },
+      "Software": {
+         "additionalProperties": false,
+         "description": "Software package identifier",
+         "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "Name of the software package",
+               "title": "Software name",
+               "type": "string"
+            },
+            "version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Version of the software package",
+               "title": "Software version"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Software",
+         "type": "object"
+      },
+      "_Orcid": {
+         "additionalProperties": false,
+         "description": "Model ORCID",
+         "properties": {
+            "name": {
+               "const": "Open Researcher and Contributor ID",
+               "default": "Open Researcher and Contributor ID",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ORCID",
+               "default": "ORCID",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Orcid",
+         "type": "object"
       }
    },
    "additionalProperties": false,
    "description": "Description of all processes run on data",
    "properties": {
+      "object_type": {
+         "const": "Processing",
+         "default": "Processing",
+         "title": "Object Type",
+         "type": "string"
+      },
       "describedBy": {
          "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
          "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/processing.py",
@@ -521,26 +589,16 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "1.1.3",
-         "default": "1.1.3",
-         "enum": [
-            "1.1.3"
-         ],
+         "const": "2.0.21",
+         "default": "2.0.21",
          "title": "Schema Version",
          "type": "string"
       },
-      "processing_pipeline": {
-         "$ref": "#/$defs/PipelineProcess",
-         "description": "Pipeline used to process data",
-         "title": "Processing Pipeline"
-      },
-      "analyses": {
-         "default": [],
-         "description": "Analysis steps taken after processing",
+      "data_processes": {
          "items": {
-            "$ref": "#/$defs/AnalysisProcess"
+            "$ref": "#/$defs/DataProcess"
          },
-         "title": "Analysis Steps",
+         "title": "Data processing",
          "type": "array"
       },
       "notes": {
@@ -557,7 +615,7 @@
       }
    },
    "required": [
-      "processing_pipeline"
+      "data_processes"
    ],
    "title": "Processing",
    "type": "object"

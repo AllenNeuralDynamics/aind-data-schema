@@ -1,40 +1,59 @@
 """Classes to define device positions, orientations, and coordinates"""
 
-from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
+import math
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindModel
+from aind_data_schema.base import DataModel
 
 
-class CcfVersion(str, Enum):
-    """CCF version"""
+class AtlasName(str, Enum):
+    """Atlas name"""
 
-    CCFv3 = "CCFv3"
+    CCF = "CCF"
+    CUSTOM = "Custom"
 
 
 class Origin(str, Enum):
-    """Coordinate reference origin point"""
+    """Origin positions for coordinate systems"""
 
+    ORIGIN = "Origin"  # only exists in Atlases / Images
     BREGMA = "Bregma"
     LAMBDA = "Lambda"
-    OTHER = "Other (see Notes)"
+    C1 = "C1"  # cervical vertebrae
+    C2 = "C2"
+    C3 = "C3"
+    C4 = "C4"
+    C5 = "C5"
+    C6 = "C6"
+    C7 = "C7"
+    TIP = "Tip"  # of a probe
+    FRONT_CENTER = "Front_center"  # front center of a device, e.g. camera
+    ARENA_CENTER = "Arena_center"  # center of an arena on the ground surface
+    ARENA_FRONT_LEFT = "Arena_front_left"
+    ARENA_FRONT_RIGHT = "Arena_front_right"
+    ARENA_BACK_LEFT = "Arena_back_left"
+    ARENA_BACK_RIGHT = "Arena_back_right"
 
 
 class AxisName(str, Enum):
-    """Image axis name"""
+    """Axis name"""
 
     X = "X"
     Y = "Y"
     Z = "Z"
+    AP = "AP"
+    ML = "ML"
+    SI = "SI"
+    DEPTH = "Depth"
 
 
-class AnatomicalDirection(str, Enum):
-    """Anatomical direction name"""
+class Direction(str, Enum):
+    """Local and anatomical directions"""
 
     LR = "Left_to_right"
     RL = "Right_to_left"
@@ -42,140 +61,408 @@ class AnatomicalDirection(str, Enum):
     PA = "Posterior_to_anterior"
     IS = "Inferior_to_superior"
     SI = "Superior_to_inferior"
+    FB = "Front_to_back"
+    BF = "Back_to_front"
+    TB = "Top_to_bottom"
+    BT = "Bottom_to_top"
     OTHER = "Other"
+    POS = "Positive"
 
 
-class CoordinateTransform(AindModel):
-    """Generic base class for coordinate transform subtypes"""
+class AnatomicalRelative(str, Enum):
+    """Relative positions in 3D space"""
 
-    type: str = Field(..., title="transformation type")
-
-
-class Scale3dTransform(CoordinateTransform):
-    """Values to be vector-multiplied with a 3D position, equivalent to the diagonals of a 3x3 transform matrix.
-    Represents voxel spacing if used as the first applied coordinate transform.
-    """
-
-    type: Literal["scale"] = "scale"
-    scale: List[Decimal] = Field(..., title="3D scale parameters", min_length=3, max_length=3)
+    SUPERIOR = "Superior"
+    INFERIOR = "Inferior"
+    ANTERIOR = "Anterior"
+    POSTERIOR = "Posterior"
+    LEFT = "Left"
+    RIGHT = "Right"
+    MEDIAL = "Medial"
+    LATERAL = "Lateral"
 
 
-class Translation3dTransform(CoordinateTransform):
-    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
-
-    type: Literal["translation"] = "translation"
-    translation: List[Decimal] = Field(..., title="3D translation parameters", min_length=3, max_length=3)
-
-
-class Rotation3dTransform(CoordinateTransform):
-    """Values to be vector-added to a 3D position. Often needed to specify a device or tile's origin."""
-
-    type: Literal["rotation"] = "rotation"
-    rotation: List[Decimal] = Field(..., title="3D rotation matrix values (3x3) ", min_length=9, max_length=9)
-
-
-class Affine3dTransform(CoordinateTransform):
-    """Values to be vector-added to a 3D position. Often needed to specify a Tile's origin."""
-
-    type: Literal["affine"] = "affine"
-    affine_transform: List[Decimal] = Field(
-        ..., title="Affine transform matrix values (top 3x4 matrix)", min_length=12, max_length=12
-    )
-
-
-class Size2d(AindModel):
-    """2D size of an object"""
-
-    width: int = Field(..., title="Width")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.PX, title="Size unit")
-
-
-class Size3d(AindModel):
-    """3D size of an object"""
-
-    width: int = Field(..., title="Width")
-    length: int = Field(..., title="Length")
-    height: int = Field(..., title="Height")
-    unit: SizeUnit = Field(SizeUnit.M, title="Size unit")
-
-
-class Orientation3d(AindModel):
-    """3D orientation of an object"""
-
-    pitch: Decimal = Field(..., title="Angle pitch", ge=0, le=360)
-    yaw: Decimal = Field(..., title="Angle yaw", ge=0, le=360)
-    roll: Decimal = Field(..., title="Angle roll", ge=0, le=360)
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation2d(AindModel):
-    """2D module orientation of an object"""
-
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class ModuleOrientation3d(AindModel):
-    """3D module orientation of an object"""
-
-    arc_angle: Decimal = Field(..., title="Arc angle")
-    module_angle: Decimal = Field(..., title="Module angle")
-    rotation_angle: Decimal = Field(..., title="Rotation angle")
-    unit: AngleUnit = Field(AngleUnit.DEG, title="Angle unit")
-
-
-class Coordinates3d(AindModel):
-    """Coordinates in a 3D grid"""
-
-    x: Decimal = Field(..., title="Position X")
-    y: Decimal = Field(..., title="Position Y")
-    z: Decimal = Field(..., title="Position Z")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Position unit")
-
-
-class CcfCoords(AindModel):
-    """Coordinates in CCF template space"""
-
-    ml: Decimal = Field(..., title="ML")
-    ap: Decimal = Field(..., title="AP")
-    dv: Decimal = Field(..., title="DV")
-    unit: SizeUnit = Field(SizeUnit.UM, title="Coordinate unit")
-    ccf_version: CcfVersion = Field(CcfVersion.CCFv3, title="CCF version")
-
-
-class Axis(AindModel):
-    """Description of an axis"""
+class Axis(DataModel):
+    """Linked direction and axis"""
 
     name: AxisName = Field(..., title="Axis")
-    direction: str = Field(..., title="Direction as the value of axis increases.")
-
-
-class ImageAxis(Axis):
-    """Description of an image axis"""
-
-    name: AxisName = Field(..., title="Name")
-    dimension: int = Field(
+    direction: Direction = Field(
         ...,
-        description="Reference axis number for stitching",
-        title="Dimension",
+        title="Direction",
+        description="Direction of positive values along the axis",
     )
-    direction: AnatomicalDirection = Field(
+
+
+class Scale(DataModel):
+    """Scale"""
+
+    scale: List[float] = Field(..., title="Scale parameters")
+
+    def to_matrix(self) -> List[List[float]]:
+        """Return the affine scale matrix for arbitrary sized lists
+
+        Returns
+        -------
+        List[List[float]]
+            Affine scale matrix
+        """
+
+        size = len(self.scale)
+        scale_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
+
+        for i, value in enumerate(self.scale):
+            scale_matrix[i][i] = value
+
+        return scale_matrix
+
+
+class Translation(DataModel):
+    """Translation"""
+
+    translation: List[float] = Field(..., title="Translation parameters")
+
+    def to_matrix(self) -> List[List[float]]:
+        """Return the affine translation matrix for arbitrary sized lists.
+
+        Returns
+        -------
+        List[List[float]]
+            Affine transform matrix.
+        """
+
+        size = len(self.translation)
+
+        # Create (size + 1) x (size + 1) identity matrix
+        translation_matrix = [[1.0 if i == j else 0.0 for j in range(size + 1)] for i in range(size + 1)]
+
+        # Populate the translation part (last column except for bottom-right corner)
+        for i, value in enumerate(self.translation):
+            translation_matrix[i][-1] = value
+
+        return translation_matrix
+
+
+class Rotation(DataModel):
+    """Rotation
+
+    Rotations are applied as Euler angles in order X/Y/Z
+
+    Angles follow right-hand rule, with positive angles rotating counter-clockwise.
+    """
+
+    angles: List[float] = Field(
+        ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
+    )
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+
+    def to_matrix(self) -> List[List[float]]:
+        """Return the affine rotation matrix for arbitrary sized lists.
+
+        Returns
+        -------
+        List[List[float]]
+            Affine rotation matrix.
+        """
+        try:
+            from scipy.spatial.transform import Rotation as R
+        except ImportError:  # pragma: no cover
+            raise ImportError(
+                "Please run `pip install aind-data-schema[transforms]` to "
+                "install necessary dependencies for Rotation.to_matrix"
+            )
+
+        # Prepare the angles and axes for scipy Rotation
+        angles = [angle if self.angles_unit == AngleUnit.RAD else math.radians(angle) for angle in self.angles]
+
+        # Create the rotation matrix
+        order = "xyz"[: len(self.angles)]
+        rotation = R.from_euler(order, angles)
+        rotation_matrix = rotation.as_matrix().tolist()
+
+        size = len(self.angles)
+        rotation_matrix = [row + [0.0] for row in rotation_matrix] + [[0.0] * size + [1.0]]
+
+        return rotation_matrix
+
+
+class Affine(DataModel):
+    """Definition of an affine transform 3x4 matrix"""
+
+    affine_transform: List[List[float]] = Field(
         ...,
-        description="Tissue direction as the value of axis increases. If Other describe in notes.",
+        title="Affine transform matrix",
     )
-    unit: SizeUnit = Field(SizeUnit.UM, title="Axis physical units")
+
+    @classmethod
+    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "Affine":
+        """Compose an affine transform matrix from a list of transforms
+
+        Parameters
+        ----------
+        transform : List[Union[Translation, Rotation, Scale]]
+            List of transforms
+
+        Returns
+        -------
+        Affine
+            Composed transform
+        """
+        try:
+            import numpy as np
+        except ImportError:  # pragma: no cover
+            raise ImportError(
+                "Please run `pip install aind-data-schema[transforms]` "
+                "to install necessary dependencies for rotation support"
+            )
+
+        matrices = [t.to_matrix() for t in transform]
+
+        # Check that all the transforms are the same size
+        def get_shape(list_of_lists):
+            """Get the shape of a list of lists"""
+            len0 = len(list_of_lists)
+            len1 = len(list_of_lists[0])
+
+            # Check that all the lists are the same size
+            if not all(len(lst) == len1 for lst in list_of_lists):  # pragma: no cover
+                raise ValueError("Cannot get the shape of a non-rectangular list of lists")
+
+            return (len0, len1)
+
+        shape = get_shape(matrices[0])
+        if not all(get_shape(matrix) == shape for matrix in matrices):
+            raise ValueError("All transforms must be the same size")
+
+        transform_matrix = matrices[0]
+
+        for matrix in matrices[1:]:
+            transform_matrix = np.matmul(transform_matrix, matrix).tolist()
+
+        return Affine(affine_transform=transform_matrix)
 
 
-class RelativePosition(AindModel):
-    """Position and rotation of a device in a rig or instrument"""
+class NonlinearTransform(DataModel):
+    """Definition of a nonlinear transform"""
 
-    device_position_transformations: List[
-        Annotated[Union[Translation3dTransform, Rotation3dTransform], Field(discriminator="type")]
-    ] = Field(..., title="Device position transforms")
-    device_origin: str = Field(
-        ..., title="Device origin", description="Reference point on device for position information"
+    path: str = Field(..., title="Path to nonlinear transform file")
+
+
+class CoordinateSystem(DataModel):
+    """Definition of a coordinate system relative to a brain"""
+
+    name: str = Field(..., title="Name")
+
+    origin: Origin = Field(..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system")
+    axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
+    axis_unit: SizeUnit = Field(..., title="Size unit")
+
+
+class Atlas(CoordinateSystem):
+    """Definition an atlas"""
+
+    name: AtlasName = Field(..., title="Atlas name")
+    version: str = Field(..., title="Atlas version")
+    size: List[float] = Field(..., title="Size")
+    size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
+    resolution: List[float] = Field(..., title="Resolution")
+    resolution_unit: SizeUnit = Field(..., title="Resolution unit")
+
+
+class Transform(DataModel):
+    """Affine transformation in a coordinate system"""
+
+    system_name: str = Field(..., title="Coordinate system name")
+    transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
+        Field(..., title="Transform")
     )
-    device_axes: List[Axis] = Field(..., title="Device axes", min_length=3, max_length=3)
-    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class CoordinateTransform(DataModel):
+    """Transformation from one CoordinateSystem to another"""
+
+    input: str = Field(..., title="Input coordinate system")
+    output: str = Field(..., title="Output coordinate system")
+    transforms: List[
+        Annotated[
+            Union[Translation, Rotation, Scale, Affine, NonlinearTransform],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(..., title="Transform")
+
+
+class Coordinate(DataModel):
+    """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
+
+    Angles can be optionally provided
+    """
+
+    system_name: str = Field(..., title="Coordinate system name")
+    position: List[float] = Field(
+        ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
+    )
+    angles: Optional[Rotation] = Field(
+        default=None,
+        title="Orientation in coordinate system",
+        description="Angles can be optionally provided to define a vector (e.g. for an insertion)",
+    )
+    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+
+
+class CoordinateSystemLibrary:
+    """Library of common coordinate systems
+
+    Convention is to use the following naming scheme:
+
+    <ORIGIN>_<GLOBAL_AXES><LOCAL_AXES>
+    """
+
+    # Standard coordinates
+    BREGMA_ARI = CoordinateSystem(
+        name="BREGMA_ARI",
+        origin=Origin.BREGMA,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+        ],
+    )
+    LAMBDA_ARI = CoordinateSystem(
+        name="LAMBDA_ARI",
+        origin=Origin.LAMBDA,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+        ],
+    )
+
+    # Standard surface coordinates (with depth)
+    BREGMA_ARID = CoordinateSystem(
+        name="BREGMA_ARID",
+        origin=Origin.BREGMA,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+        ],
+    )
+    LAMBDA_ARID = CoordinateSystem(
+        name="LAMBDA_ARID",
+        origin=Origin.LAMBDA,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+        ],
+    )
+
+    # Arena
+    ARENA_RBT = CoordinateSystem(
+        name="ARENA_RBT",
+        origin=Origin.ARENA_CENTER,
+        axis_unit=SizeUnit.CM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.FB),
+            Axis(name=AxisName.Z, direction=Direction.BT),
+        ],
+    )
+
+    DEVICE_SIPE = CoordinateSystem(
+        name="CAMERA_SIPE",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    PROBE_MIS = CoordinateSystem(
+        name="PROBE_MIS",
+        origin=Origin.TIP,
+        axis_unit=SizeUnit.CM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.FB),
+            Axis(name=AxisName.Y, direction=Direction.RL),
+            Axis(name=AxisName.Z, direction=Direction.TB),
+        ],
+    )
+
+    PROBE_ARID = CoordinateSystem(
+        name="PROBE_ARID",
+        origin=Origin.TIP,
+        axis_unit=SizeUnit.CM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.IS),
+            Axis(name=AxisName.Z, direction=Direction.AP),
+            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+        ],
+    )
+
+    SPIM_IJK = CoordinateSystem(
+        name="SPIM_IJK",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.PX,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.POS),
+            Axis(name=AxisName.Y, direction=Direction.POS),
+            Axis(name=AxisName.Z, direction=Direction.POS),
+        ],
+    )
+
+    SPIM_RPI = CoordinateSystem(
+        name="SPIM_RPI",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.AP),
+            Axis(name=AxisName.Z, direction=Direction.SI),
+        ],
+    )
+
+    SPIM_LPS = CoordinateSystem(
+        name="SPIM_LPS",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.RL),
+            Axis(name=AxisName.Y, direction=Direction.AP),
+            Axis(name=AxisName.Z, direction=Direction.IS),
+        ],
+    )
+
+    MRI_LPS = CoordinateSystem(
+        name="MRI_LPS",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.AP),
+            Axis(name=AxisName.Z, direction=Direction.IS),
+        ],
+    )
+
+    CCFv3 = Atlas(
+        name=AtlasName.CCF,
+        version="3",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.AP),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+        ],
+        size=[1320, 800, 1140],
+        resolution=[10, 10, 10],
+        resolution_unit=SizeUnit.UM,
+    )

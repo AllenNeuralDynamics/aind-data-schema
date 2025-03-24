@@ -3,14 +3,14 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Set, Union
+from typing import List, Literal, Optional, Set, Union, Dict
 
-from aind_data_schema_models.mouse_anatomy import MouseAnatomicalStructure
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
-    AngleUnit,
     ConcentrationUnit,
     CurrentUnit,
     MassUnit,
@@ -18,16 +18,19 @@ from aind_data_schema_models.units import (
     TimeUnit,
     UnitlessUnit,
     VolumeUnit,
-    create_unit_with_value,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AindCoreModel, AindModel, AwareDatetimeWithDefault
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, Origin, AnatomicalRelative
+from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
 
 
 class ImmunolabelClass(str, Enum):
@@ -106,14 +109,6 @@ class CraniotomyType(str, Enum):
     OTHER = "Other"
 
 
-class CoordinateReferenceLocation(str, Enum):
-    """Name of reference point for Coordinates"""
-
-    BREGMA = "Bregma"
-    LAMBDA = "Lambda"
-    MIDLINE = "Midline"
-
-
 class HeadframeMaterial(str, Enum):
     """Headframe material name"""
 
@@ -134,6 +129,44 @@ class VirusPrepType(str, Enum):
 
     CRUDE = "Crude"
     PURIFIED = "Purified"
+
+
+class CatheterMaterial(str, Enum):
+    """Type of catheter material"""
+
+    NAKED = "Naked"
+    SILICONE = "VAB silicone"
+    MESH = "VAB mesh"
+
+
+class CatheterDesign(str, Enum):
+    """Type of catheter design"""
+
+    MAGNETIC = "Magnetic"
+    NONMAGNETIC = "Non-magnetic"
+    NA = "N/A"
+
+
+class CatheterPort(str, Enum):
+    """Type of catheter port"""
+
+    SINGLE = "Single"
+    DOUBLE = "Double"
+
+
+class SampleType(str, Enum):
+    """Sample type"""
+
+    BLOOD = "Blood"
+    OTHER = "Other"
+
+
+class InjectionProfile(str, Enum):
+    """Injection profile"""
+
+    BOLUS = "Bolus"
+    CONTINUOUS = "Continuous"
+    PULSED = "Pulsed"
 
 
 class Readout(Reagent):
@@ -171,13 +204,11 @@ class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
     stain_type: StainType = Field(..., title="Stain type")
-    # TODO: It might be easier to maintain to avoid dynamic model creation
-    concentration: create_unit_with_value("concentration", Decimal, ConcentrationUnit, ConcentrationUnit.UM) = Field(
-        ..., title="Concentration (uM)"
-    )
+    concentration: Decimal = Field(..., title="Concentration")
+    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
 
-class HybridizationChainReaction(AindModel):
+class HybridizationChainReaction(DataModel):
     """Description of an HCR staining round"""
 
     round_index: int = Field(..., title="Round index")
@@ -191,7 +222,7 @@ class HybridizationChainReaction(AindModel):
     instrument_id: str = Field(..., title="Instrument ID")
 
 
-class HCRSeries(AindModel):
+class HCRSeries(DataModel):
     """Description of series of HCR staining rounds for mFISH"""
 
     codebook_name: str = Field(..., title="Codebook name")
@@ -210,10 +241,9 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Sectioning(AindModel):
+class Sectioning(DataModel):
     """Description of a sectioning procedure"""
 
-    procedure_type: Literal["Sectioning"] = "Sectioning"
     number_of_slices: int = Field(..., title="Number of slices")
     output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
@@ -221,8 +251,10 @@ class Sectioning(AindModel):
     section_thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Section thickness unit")
     section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
     section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
-    reference_location: CoordinateReferenceLocation = Field(..., title="Reference location for distance measurement")
     section_strategy: SectionStrategy = Field(..., title="Slice strategy")
+
+    reference: Origin = Field(..., title="Reference origin")
+
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
     @field_validator("output_specimen_ids")
@@ -237,7 +269,7 @@ class Sectioning(AindModel):
         return v
 
 
-class SpecimenProcedure(AindModel):
+class SpecimenProcedure(DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
@@ -247,10 +279,9 @@ class SpecimenProcedure(AindModel):
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: List[Person] = Field(
+        default=[],
+        title="experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
@@ -274,7 +305,7 @@ class SpecimenProcedure(AindModel):
         return self
 
 
-class Anaesthetic(AindModel):
+class Anaesthetic(DataModel):
     """Description of an anaesthetic"""
 
     type: str = Field(..., title="Type")
@@ -283,37 +314,42 @@ class Anaesthetic(AindModel):
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class OtherSubjectProcedure(AindModel):
+class OtherSubjectProcedure(DataModel):
     """Description of non-surgical procedure performed on a subject"""
 
-    procedure_type: Literal["Other Subject Procedure"] = "Other Subject Procedure"
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Craniotomy(AindModel):
+class CatheterImplant(DataModel):
+    """Description of a catheter implant procedure"""
+
+    where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
+    catheter_material: CatheterMaterial = Field(..., title="Catheter material")
+    catheter_design: CatheterDesign = Field(..., title="Catheter design")
+    catheter_port: CatheterPort = Field(..., title="Catheter port")
+    targeted_structure: MouseAnatomyModel = Field(
+        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )
+
+
+class Craniotomy(DataModel):
     """Description of craniotomy procedure"""
 
-    procedure_type: Literal["Craniotomy"] = "Craniotomy"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
     craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
+    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
 
 
-class Headframe(AindModel):
+class Headframe(DataModel):
     """Description of headframe procedure"""
 
-    procedure_type: Literal["Headframe"] = "Headframe"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
@@ -322,29 +358,25 @@ class Headframe(AindModel):
     well_type: Optional[str] = Field(default=None, title="Well type")
 
 
-class ProtectiveMaterialReplacement(AindModel):
-    """Description of a protective material replacement procedure in preparation for ephys recording"""
+class GroundWireImplant(DataModel):
+    """Ground wire implant procedure"""
 
-    procedure_type: Literal["Ground wire"] = "Ground wire"
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    protective_material: ProtectiveMaterial = Field(
-        ..., title="Protective material", description="New material being applied"
+    ground_electrode_location: MouseAnatomyModel = Field(..., title="Location of ground electrode")
+    ground_wire_hole: Optional[int] = Field(
+        default=None, title="Ground wire hole", description="For SHIELD implants, the hole number for the ground wire"
     )
-    ground_wire_hole: Optional[int] = Field(default=None, title="Ground wire hole")
     ground_wire_material: Optional[GroundWireMaterial] = Field(default=None, title="Ground wire material")
     ground_wire_diameter: Optional[Decimal] = Field(default=None, title="Ground wire diameter")
-    ground_wire_diameter_unit: SizeUnit = Field(default=SizeUnit.IN, title="Ground wire diameter unit")
-    well_part_number: Optional[str] = Field(default=None, title="Well part number")
-    well_type: Optional[str] = Field(default=None, title="Well type")
+    ground_wire_diameter_unit: Optional[SizeUnit] = Field(default=None, title="Ground wire diameter unit")
 
 
-class TarsVirusIdentifiers(AindModel):
+class TarsVirusIdentifiers(DataModel):
     """TARS data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
-    plasmid_tars_alias: Optional[str] = Field(
+    plasmid_tars_alias: Optional[List[str]] = Field(
         default=None,
-        title="Plasmid alias",
+        title="List of plasmid aliases",
         description="Alias used to reference the plasmid, usually begins 'AiP'",
     )
     prep_lot_number: str = Field(..., title="Preparation lot number")
@@ -357,7 +389,7 @@ class TarsVirusIdentifiers(AindModel):
     prep_protocol: Optional[str] = Field(default=None, title="Prep protocol")
 
 
-class ViralMaterial(AindModel):
+class ViralMaterial(DataModel):
     """Description of viral material for injections"""
 
     material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
@@ -385,120 +417,90 @@ class NonViralMaterial(Reagent):
     concentration: Optional[Decimal] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
-    concentration_unit: str = Field(default="mg/mL", title="Concentration unit")
+    concentration_unit: Optional[str] = Field(
+        default=None, title="Concentration unit", description="For example, mg/mL"
+    )
 
 
-class Injection(AindModel):
+class InjectionDynamics(DataModel):
+    """Description of the volume and rate of an injection"""
+
+    profile: InjectionProfile = Field(..., title="Injection profile")
+
+    volume: Optional[Decimal] = Field(default=None, title="Injection volume")
+    volume_unit: Optional[VolumeUnit] = Field(default=None, title="Injection volume unit")
+
+    rate: Optional[Decimal] = Field(default=None, title="Injection rate")
+    rate_unit: Optional[VolumeUnit] = Field(default=None, title="Injection rate unit")
+
+    duration: Optional[Decimal] = Field(default=None, title="Injection duration")
+    duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
+
+    injection_current: Optional[Decimal] = Field(default=None, title="Injection current (uA)")
+    injection_current_unit: Optional[CurrentUnit] = Field(default=None, title="Injection current unit")
+    alternating_current: Optional[str] = Field(default=None, title="Alternating current")
+
+
+class Injection(DataModel):
     """Description of an injection procedure"""
 
     injection_materials: List[
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
     recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: TimeUnit = Field(default=TimeUnit.M, title="Recovery time unit")
-    injection_duration: Optional[Decimal] = Field(default=None, title="Injection duration")
-    injection_duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Injection duration unit")
+    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
+
+    target: Optional[MouseAnatomyModel] = Field(
+        default=None, title="Injection target", description="Use InjectionTargets"
+    )
+    relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
+
+    dynamics: List[InjectionDynamics] = Field(
+        ..., title="Injection dynamics", description="List of injection events, one per location/depth"
+    )
     instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-
-
-class RetroOrbitalInjection(Injection):
-    """Description of a retro-orbital injection procedure"""
-
-    procedure_type: Literal["Retro-orbital injection"] = "Retro-orbital injection"
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
-    injection_eye: Side = Field(..., title="Injection eye")
-
-
-class IntraperitonealInjection(Injection):
-    """Description of an intraperitoneal injection procedure"""
-
-    procedure_type: Literal["Intraperitoneal injection"] = "Intraperitoneal injection"
-    injection_volume: Decimal = Field(..., title="Injection volume (uL)")
-    injection_volume_unit: VolumeUnit = Field(default=VolumeUnit.UL, title="Injection volume unit")
 
 
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    injection_coordinate_ml: Decimal = Field(..., title="Injection coordinate ML (mm)")
-    injection_coordinate_ap: Decimal = Field(..., title="Injection coordinate AP (mm)")
-    injection_coordinate_depth: List[Decimal] = Field(..., title="Injection coordinate depth (mm)")
-    injection_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Injection coordinate unit")
-    injection_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        default=None, title="Injection coordinate reference"
-    )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
-    injection_angle: Decimal = Field(..., title="Injection angle (deg)")
-    injection_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Injection angle unit")
-    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
-    injection_hemisphere: Optional[Side] = Field(default=None, title="Injection hemisphere")
+    coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
+    target: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
-
-class NanojectInjection(BrainInjection):
-    """Description of a nanoject injection procedure"""
-
-    procedure_type: Literal["Nanoject injection"] = "Nanoject injection"
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
-
-    @field_validator("injection_volume")
-    def check_dv_and_vol_list_lengths(cls, v, info: ValidationInfo):
+    @model_validator(mode="after")
+    def check_lengths(values):
         """Validator for list length of injection volumes and depths"""
 
-        injection_vol_len = len(v)
-        coords_len = len(info.data["injection_coordinate_depth"])
+        dynamics_len = len(values.dynamics)
+        coords_len = len(values.coordinates)
 
-        if injection_vol_len != coords_len:
-            raise AssertionError("Unmatched list sizes for injection volumes and coordinate depths")
-        return v
-
-
-class IontophoresisInjection(BrainInjection):
-    """Description of an iotophoresis injection procedure"""
-
-    procedure_type: Literal["Iontophoresis injection"] = "Iontophoresis injection"
-    injection_current: Decimal = Field(..., title="Injection current (uA)")
-    injection_current_unit: CurrentUnit = Field(default=CurrentUnit.UA, title="Injection current unit")
-    alternating_current: str = Field(..., title="Alternating current")
+        if dynamics_len != coords_len:
+            raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
+        return values
 
 
 class IntraCerebellarVentricleInjection(BrainInjection):
     """Description of an interacerebellar ventricle injection"""
 
-    procedure_type: Literal["ICV injection"] = "ICV injection"
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
-
 
 class IntraCisternalMagnaInjection(BrainInjection):
     """Description of an interacisternal magna injection"""
 
-    procedure_type: Literal["ICM injection"] = "ICM injection"
-    injection_volume: List[Decimal] = Field(
-        ...,
-        title="Injection volume (nL)",
-        description="Injection volume, one value per location",
-    )
-    injection_volume_unit: VolumeUnit = Field(VolumeUnit.NL, title="Injection volume unit")
+
+class SampleCollection(DataModel):
+    """Description of a single sample collection"""
+
+    sample_type: SampleType = Field(..., title="Sample type")
+    time: AwareDatetimeWithDefault = Field(..., title="Collection time")
+    collection_volume: Decimal = Field(..., title="Collection volume")
+    collection_volume_unit: VolumeUnit = Field(..., title="Collection volume unit")
+    collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
 
 
-class TrainingProtocol(AindModel):
+class TrainingProtocol(DataModel):
     """Description of an animal training protocol"""
 
-    procedure_type: Literal["Training"] = "Training"
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: str = Field(..., title="Training protocol ID")
     start_date: date = Field(..., title="Training protocol start date")
@@ -506,43 +508,26 @@ class TrainingProtocol(AindModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(AindModel):
+class OphysProbe(DataModel):
     """Description of an implanted ophys probe"""
 
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    stereotactic_coordinate_ap: Decimal = Field(..., title="Stereotactic coordinate A/P (mm)")
-    stereotactic_coordinate_ml: Decimal = Field(..., title="Stereotactic coordinate M/L (mm)")
-    stereotactic_coordinate_dv: Decimal = Field(
-        ...,
-        title="Stereotactic coordinate D/V (mm)",
-    )
-    stereotactic_coordinate_unit: SizeUnit = Field(default=SizeUnit.MM, title="Sterotactic coordinate unit")
-    stereotactic_coordinate_reference: Optional[CoordinateReferenceLocation] = Field(
-        default=None, title="Stereotactic coordinate reference"
-    )
-    bregma_to_lambda_distance: Optional[Decimal] = Field(
-        default=None, title="Bregma to lambda (mm)", description="Distance between bregman and lambda"
-    )
-    bregma_to_lambda_unit: SizeUnit = Field(default=SizeUnit.MM, title="Bregma to lambda unit")
-    angle: Decimal = Field(..., title="Angle (deg)")
-    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+
+    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
-class FiberImplant(AindModel):
+class FiberImplant(DataModel):
     """Description of an implant procedure"""
 
-    procedure_type: Literal["Fiber implant"] = "Fiber implant"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
-class WaterRestriction(AindModel):
+class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
-    procedure_type: Literal["Water restriction"] = "Water restriction"
-    iacuc_protocol: str = Field(..., title="IACUC protocol")
+    ethics_review_id: str = Field(..., title="Ethics review ID")
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
@@ -557,36 +542,36 @@ class WaterRestriction(AindModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(AindModel):
+class MyomatrixContact(DataModel):
     """ "Description of a contact on a myomatrix thread"""
 
-    body_part: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Body part of contact insertion")
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
     side: Side = Field(..., title="Body side")
-    muscle: MouseAnatomicalStructure.EMG_MUSCLES = Field(..., title="Muscle of contact insertion")
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class MyomatrixThread(AindModel):
+class MyomatrixThread(DataModel):
     """Description of a thread of a myomatrix array"""
 
-    ground_electrode_location: MouseAnatomicalStructure.BODY_PARTS = Field(..., title="Location of ground electrode")
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use GroundWireLocations"
+    )
     contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
-class MyomatrixInsertion(AindModel):
+class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
-    procedure_type: Literal["Myomatrix_Insertion"] = "Myomatrix_Insertion"
+    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
 
 
-class Perfusion(AindModel):
+class Perfusion(DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
-    procedure_type: Literal["Perfusion"] = "Perfusion"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: Set[str] = Field(
         ...,
@@ -600,18 +585,16 @@ class Perfusion(AindModel):
         return sorted(values)
 
 
-class Surgery(AindModel):
+class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
-    procedure_type: Literal["Surgery"] = "Surgery"
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
-    experimenter_full_name: str = Field(
-        ...,
-        description="First and last name of the experimenter.",
-        title="Experimenter full name",
+    experimenters: Optional[List[Person]] = Field(
+        default=None,
+        title="experimenter(s)",
     )
-    iacuc_protocol: Optional[str] = Field(default=None, title="IACUC protocol")
+    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     animal_weight_prior: Optional[Decimal] = Field(
         default=None, title="Animal weight (g)", description="Animal weight before procedure"
     )
@@ -621,36 +604,59 @@ class Surgery(AindModel):
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     workstation_id: Optional[str] = Field(default=None, title="Workstation ID")
+
+    # Coordinate system
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system for surgical procedures",
+    )
+
+    # Measured coordinates
+    measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
+        default=None,
+        title="Measured coordinates",
+        description="Coordinates measured during the procedure, for example Bregma and Lambda",
+    )
+
     procedures: List[
         Annotated[
             Union[
+                CatheterImplant,
                 Craniotomy,
                 FiberImplant,
                 Headframe,
                 IntraCerebellarVentricleInjection,
                 IntraCisternalMagnaInjection,
-                IntraperitonealInjection,
-                IontophoresisInjection,
+                BrainInjection,
+                Injection,
                 MyomatrixInsertion,
-                NanojectInjection,
                 OtherSubjectProcedure,
                 Perfusion,
-                ProtectiveMaterialReplacement,
-                RetroOrbitalInjection,
+                SampleCollection,
             ],
-            Field(discriminator="procedure_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    @model_validator(mode="after")
+    def coordinate_validator(cls, data):
+        """Validate that all coordinates are valid in the instrument's coordinate system"""
 
-class Procedures(AindCoreModel):
+        if data.coordinate_system:
+
+            recursive_coord_system_check(data, data.coordinate_system.name)
+
+        return data
+
+
+class Procedures(DataCoreModel):
     """Description of all procedures performed on a subject"""
 
-    _DESCRIBED_BY_URL = AindCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
+    _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["1.1.3"]] = Field(default="1.1.3")
+    schema_version: SkipValidation[Literal["2.0.10"]] = Field(default="2.0.10")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -659,8 +665,50 @@ class Procedures(AindCoreModel):
     subject_procedures: List[
         Annotated[
             Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
-            Field(discriminator="procedure_type"),
+            Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @field_validator("specimen_procedures", mode="after")
+    def validate_identical_specimen_ids(cls, v, values):
+        """Validate that all specimen_id fields are identical in the specimen_procedures"""
+
+        if v:
+            specimen_ids = [spec_proc.specimen_id for spec_proc in v]
+
+            if any(spec_id != specimen_ids[0] for spec_id in specimen_ids):
+                raise ValueError("All specimen_id must be identical in the specimen_procedures.")
+
+        return v
+
+    @model_validator(mode="after")
+    def validate_subject_specimen_ids(values):
+        """Validate that the subject_id and specimen_id match"""
+
+        # Return if no specimen procedures
+        if values.specimen_procedures:
+            subject_id = values.subject_id
+            specimen_ids = [spec_proc.specimen_id for spec_proc in values.specimen_procedures]
+
+            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
+                raise ValueError("specimen_id must be an extension of the subject_id.")
+
+        return values
+
+    def __add__(self, other: "Procedures") -> "Procedures":
+        """Combine two Procedures objects"""
+
+        if not self.schema_version == other.schema_version:
+            raise ValueError("Schema versions must match to combine Procedures")
+
+        if not self.subject_id == other.subject_id:
+            raise ValueError("Subject IDs must match to combine Procedures objects.")
+
+        return Procedures(
+            subject_id=self.subject_id,
+            subject_procedures=self.subject_procedures + other.subject_procedures,
+            specimen_procedures=self.specimen_procedures + other.specimen_procedures,
+            notes=merge_notes(self.notes, other.notes),
+        )
