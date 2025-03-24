@@ -250,17 +250,6 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Calibration(DataModel):
-    """Generic calibration class"""
-
-    calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
-    description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
-    output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
 class Maintenance(DataModel):
     """Generic maintenance class"""
 
