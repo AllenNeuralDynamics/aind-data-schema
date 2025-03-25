@@ -305,6 +305,7 @@ class SpecimenProcedure(DataModel):
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
+    barseq_probes: Optional[OligoProbeSet] = Field(default=None, title="BARSeq probes")
     hcr_series: Optional[HCRSeries] = Field(default=None, title="HCR Series")
     antibodies: Optional[List[Antibody]] = Field(default=None, title="Immunolabeling")
     sectioning: Optional[Sectioning] = Field(default=None, title="Sectioning")
