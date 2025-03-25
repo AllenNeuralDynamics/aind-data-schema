@@ -505,12 +505,6 @@ class IntraCerebellarVentricleInjection(BrainInjection):
     target: Literal["Intracerbellar ventricle"] = "Intracerbellar ventricle"
 
 
-class IntraCisternalMagnaInjection(BrainInjection):
-    """Description of an interacisternal magna injection"""
-
-    target: Literal["Intracisternal magna"] = "Intracisternal magna"
-
-
 class SampleCollection(DataModel):
     """Description of a single sample collection"""
 
