@@ -38,34 +38,6 @@ class TestMouseSubject(unittest.TestCase):
             )
         self.assertIn("Breeding info should be provided for subjects bred in house", str(context.exception))
 
-    def test_validate_genotype(self):
-        """Test the genotype validator"""
-
-        with self.assertRaises(ValueError) as context:
-            MouseSubject(
-                sex=Sex.MALE,
-                date_of_birth=self.now.date(),
-                strain=Strain.C57BL_6J,
-                species=Species.MUS_MUSCULUS,
-                source=Organization.AI,
-                housing=Housing(
-                    light_cycle=LightCycle(
-                        lights_on_time=self.now.time(),
-                        lights_off_time=self.now.time(),
-                    ),
-                    cage_id="543",
-                ),
-                breeding_info=BreedingInfo(
-                    breeding_group="Emx1-IRES-Cre(ND)",
-                    maternal_id="546543",
-                    maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                    paternal_id="232323",
-                    paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
-                ),
-                alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
-            )
-        self.assertIn("Full genotype should be provided for mouse subjects", str(context.exception))
-
     def test_validate_species_strain(self):
         """Test the species and strain validator"""
 

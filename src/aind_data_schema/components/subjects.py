@@ -87,8 +87,8 @@ class MouseSubject(DataModel):
     species: Species.ONE_OF = Field(..., title="Species")
     background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
-    genotype: Optional[str] = Field(
-        default=None,
+    genotype: str = Field(
+        ...,
         description="Genotype of the animal providing both alleles",
         title="Genotype",
     )
@@ -119,18 +119,6 @@ class MouseSubject(DataModel):
             raise ValueError("Breeding info should be provided for subjects bred in house")
 
         return v
-
-    @model_validator(mode="after")
-    def validate_genotype(value):
-        """Validator for mice genotype"""
-
-        if not hasattr(value, "species"):  # pragma: no cover
-            return value
-
-        if value.species is Species.MUS_MUSCULUS and value.genotype is None:
-            raise ValueError("Full genotype should be provided for mouse subjects")
-
-        return value
 
     @model_validator(mode="after")
     def validate_species_strain(value):
