@@ -24080,6 +24080,18 @@
             "strip_qc_compatible": {
                "title": "Strip QC compatible",
                "type": "boolean"
+            },
+            "cell_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Cell ID"
             }
          },
          "required": [
@@ -52370,8 +52382,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.11",
-               "default": "2.0.11",
+               "const": "2.0.12",
+               "default": "2.0.12",
                "title": "Schema Version",
                "type": "string"
             },
@@ -52512,8 +52524,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.23",
-               "default": "2.0.23",
+               "const": "2.0.24",
+               "default": "2.0.24",
                "title": "Schema Version",
                "type": "string"
             },
@@ -102659,8 +102671,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.23",
-         "default": "2.0.23",
+         "const": "2.0.24",
+         "default": "2.0.24",
          "title": "Schema Version",
          "type": "string"
       },
