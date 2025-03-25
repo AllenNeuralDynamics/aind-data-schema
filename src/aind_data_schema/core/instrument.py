@@ -68,8 +68,6 @@ DEVICES_REQUIRED = {
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
-instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
-
 
 class ConnectionDirection(str, Enum):
     """Direction of a connection"""
@@ -114,7 +112,6 @@ class Instrument(DataCoreModel):
         ...,
         description="Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
         title="Instrument ID",
-        pattern=instrument_id_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
