@@ -30,11 +30,15 @@ class Code(DataModel):
     url: str = Field(..., title="Code URL", description="Path to code repository")
     version: Optional[str] = Field(default=None, title="Code version")
 
-    software: Optional[Software] = Field(default=None, title="Software", description="Software package")
-
     language: Optional[str] = Field(default=None, title="Programming language", description="Programming language used")
     language_version: Optional[str] = Field(default=None, title="Programming language version")
 
     parameters: Optional[GenericModelType] = Field(
         default=None, title="Parameters", description="Parameters used in the code or script"
+    )
+
+    core_dependency: Optional[Software] = Field(
+        default=None,
+        title="Core dependency",
+        description="For code with a core software package dependency, e.g. Bonsai",
     )
