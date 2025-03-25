@@ -315,7 +315,7 @@ stimulus_devices = [
         ],
     ),
     LickSpoutAssembly(
-        reward_spouts=[
+        lick_spouts=[
             LickSpout(
                 name="Left spout",
                 spout_diameter=1.2,

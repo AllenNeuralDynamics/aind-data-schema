@@ -34,6 +34,8 @@ from aind_data_schema.components.configs import (
     MRIScan,
     StimulusModality,
     InVitroImagingConfig,
+    LickSpoutConfig,
+    AirPuffConfig,
 )
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -126,6 +128,8 @@ class DataStream(DataModel):
                 Stack,
                 MRIScan,
                 InVitroImagingConfig,
+                LickSpoutConfig,
+                AirPuffConfig,
             ],
             Field(discriminator="object_type"),
         ]

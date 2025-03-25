@@ -308,8 +308,8 @@ class LickSpoutConfig(DataModel):
 
         if values.solution == Liquid.OTHER and not values.notes:
             raise ValueError(
-                "Notes cannot be empty if LickSpoutConfig.reward_solution is Other."
-                "Describe the reward_solution in the notes field."
+                "Notes cannot be empty if LickSpoutConfig.solution is Other."
+                "Describe the solution in the notes field."
             )
         return values
 

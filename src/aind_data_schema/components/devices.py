@@ -790,7 +790,7 @@ class LickSpout(Device):
 class LickSpoutAssembly(DataModel):
     """Description of multiple lick spouts, possibly mounted on a stage"""
 
-    reward_spouts: List[LickSpout] = Field(..., title="Water spouts")
+    lick_spouts: List[LickSpout] = Field(..., title="Water spouts")
     motorized_stage: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
 
 
