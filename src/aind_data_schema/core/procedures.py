@@ -186,15 +186,7 @@ class OligoProbeSet(Reagent):
     '''set of probes used in BarSEQ'''
 
     gene_probes: List[GeneProbes] = Field(..., title="Gene probes")
-    #IDT scale stuff? 
-
-
-class OligoProbeWithReadout(Reagent):       #probably want a different name
-    '''probe used for HCR ... but not a HCR probe. Does this need a list of sequences?'''
-
-    gene_probe: GeneProbes = Field(..., title="Gene probe")
-    readout: Readout = Field(..., title="Readout")
-    species: Species.ONE_OF = Field(..., title="Species") #should this live with the base oligo probe? gene probe?
+    # IDT scale stuff? 
 
 
 class Readout(Reagent):
@@ -210,6 +202,14 @@ class HCRReadout(Readout):
     """Description of a readout for HCR"""
 
     initiator_name: str = Field(..., title="Initiator name")
+
+
+class OligoProbeWithReadout(Reagent):       # probably want a different name
+    '''probe used for HCR ... but not a HCR probe. Does this need a list of sequences?'''
+
+    gene_probe: GeneProbes = Field(..., title="Gene probe")
+    readout: Readout = Field(..., title="Readout")
+    species: Species.ONE_OF = Field(..., title="Species") # should this live with the base oligo probe? gene probe?
 
 
 class HCRProbe(OligoProbeWithReadout):
@@ -234,7 +234,7 @@ class HybridizationChainReaction(DataModel):
     start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
     end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
-    other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
+    other_probes: List[OligoProbeWithReadout] = Field(default=[], title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field(default="M", title="Probe concentration unit")
     other_stains: List[Stain] = Field(default=[], title="Other stains")
