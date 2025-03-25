@@ -286,11 +286,16 @@ class SpecimenProcedure(DataModel):
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
     reagents: List[Reagent] = Field(default=[], title="Reagents")
 
-    procedure_details: List[Annotated[Union[
-        HCRSeries,
-        Antibody,
-        Sectioning,
-    ], Field(discriminator="object_type")]] = Field(
+    procedure_details: List[
+        Annotated[
+            Union[
+                HCRSeries,
+                Antibody,
+                Sectioning,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(
         default=[],
         title="Procedure details",
     )
@@ -301,12 +306,8 @@ class SpecimenProcedure(DataModel):
     def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
-        has_hcr_series = any(
-            isinstance(detail, HCRSeries) for detail in self.procedure_details
-        )
-        has_antibodies = any(
-            isinstance(detail, Antibody) for detail in self.procedure_details
-        )
+        has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
+        has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
 
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(
