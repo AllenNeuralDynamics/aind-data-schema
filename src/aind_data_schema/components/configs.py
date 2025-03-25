@@ -13,6 +13,7 @@ from aind_data_schema_models.units import (
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
+    PressureUnit,
 )
 
 from aind_data_schema.components.devices import ImmersionMedium
@@ -321,7 +322,7 @@ class AirPuffConfig(DataModel):
     position: Optional[Transform] = Field(default=None, title="Initial position")
 
     pressure: Optional[float] = Field(default=None, title="Pressure")
-    # pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
+    pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
 
     duration: Optional[float] = Field(default=None, title="Duration")
 
