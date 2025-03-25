@@ -58,6 +58,22 @@ class ResourceUsage(DataModel):
     usage_unit: str = Field(default=UnitlessUnit.PERCENT, title="Usage unit")
 
 
+class DataAsset(DataModel):
+    """Description of a single data asset"""
+
+    url: str = Field(..., title="Asset location", description="URL pointing to the data asset")
+
+
+class CompositeAsset(DataModel):
+    """Description of multiple data assets"""
+
+    assets: List[DataAsset] = Field(..., title="Data assets")
+    name: str = Field(..., title="Name")
+    curation_purpose: Optional[str] = Field(
+        default=None, title="Curation purpose", description="Reason for grouping assets together for processing"
+    )
+
+
 class DataProcess(DataModel):
     """Description of a single processing step"""
 
