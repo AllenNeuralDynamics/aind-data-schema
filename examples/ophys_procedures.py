@@ -167,7 +167,7 @@ p = Procedures(
                     fluorophore="Alexa Fluor 488",
                     mass=4,
                 ),
-            ], 
+            ],
             notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",
         ),
     ],
