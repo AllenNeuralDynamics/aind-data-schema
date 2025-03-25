@@ -292,7 +292,7 @@ class Metadata(DataCoreModel):
         # get all modalities from all data_streams
         modalities = [modality for data_stream in self.acquisition.data_streams for modality in data_stream.modalities]
         for modality in modalities:
-            if modality in MODALITY_DEVICE_REQUIREMENTS.keys():
+            if modality.abbreviation in MODALITY_DEVICE_REQUIREMENTS.keys():
                 for group in MODALITY_DEVICE_REQUIREMENTS[modality]:
                     if not self._check_for_device(group):
                         requirement = ", ".join(device.__name__ for device in group)

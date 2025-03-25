@@ -47,7 +47,7 @@ class TestRecurseHelper(unittest.TestCase):
                 position=[0.5, 1],
             ),
         ]
-        _recurse_helper(data, self.system_name)
+        _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
     def test_recurse_helper_with_object(self):
         """Test _recurse_helper with a single coordinate object"""
@@ -55,7 +55,7 @@ class TestRecurseHelper(unittest.TestCase):
             system_name=self.system_name,
             position=[0.5, 1],
         )
-        _recurse_helper(data, self.system_name)
+        _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
 
 class TestRecursiveAxisOrderCheck(unittest.TestCase):
@@ -71,7 +71,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             system_name=self.system_name,
             position=[0.5, 1],
         )
-        recursive_coord_system_check(data, self.system_name)
+        recursive_coord_system_check(data, self.system_name, axis_count=2)
 
     def test_recursive_axis_order_check_with_invalid_system_name(self):
         """Test recursive_axis_order_check with invalid system name"""
@@ -79,13 +79,15 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             system_name="Invalid System",
             position=[0.5, 1],
         )
-        with self.assertRaises(ValueError):
-            recursive_coord_system_check(data, self.system_name)
+        with self.assertRaises(ValueError) as context:
+            recursive_coord_system_check(data, self.system_name, axis_count=2)
+        
+        self.assertIn("System name mismatch", str(context.exception))
 
     def test_recursive_axis_order_check_with_empty_data(self):
         """Test recursive_axis_order_check with empty data"""
         data = None
-        recursive_coord_system_check(data, self.system_name)
+        recursive_coord_system_check(data, self.system_name, axis_count=0)
 
     def test_recursive_axis_order_check_with_list_of_coordinates(self):
         """Test recursive_axis_order_check with a list of coordinates"""
@@ -99,7 +101,18 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
                 position=[0.5, 1],
             ),
         ]
-        recursive_coord_system_check(data, self.system_name)
+        recursive_coord_system_check(data, self.system_name, axis_count=2)
+
+    def test_recursive_coord_system_check_with_axis_count_mismatch(self):
+        """Test recursive_coord_system_check with axis count mismatch"""
+        data = Coordinate(
+            system_name=self.system_name,
+            position=[0.5, 1, 2],
+        )
+        with self.assertRaises(ValueError) as context:
+            recursive_coord_system_check(data, self.system_name, axis_count=2)
+        
+        self.assertIn("Axis count mismatch", str(context.exception))
 
 
 class MockEnum(Enum):

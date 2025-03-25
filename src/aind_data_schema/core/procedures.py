@@ -648,16 +648,6 @@ class Surgery(DataModel):
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @model_validator(mode="after")
-    def coordinate_validator(cls, data):
-        """Validate that all coordinates are valid in the instrument's coordinate system"""
-
-        if data.coordinate_system:
-
-            recursive_coord_system_check(data, data.coordinate_system.name)
-
-        return data
-
 
 class Procedures(DataCoreModel):
     """Description of all procedures performed on a subject"""
