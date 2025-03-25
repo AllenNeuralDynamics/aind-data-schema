@@ -32,9 +32,10 @@ from aind_data_schema.components.configs import (
     MousePlatformConfig,
     Stack,
     MRIScan,
-    RewardDeliveryConfig,
     StimulusModality,
     InVitroImagingConfig,
+    LickSpoutConfig,
+    AirPuffConfig,
 )
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -82,7 +83,6 @@ class SubjectDetails(DataModel):
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     mouse_platform_name: str = Field(..., title="Mouse platform")
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
@@ -128,6 +128,8 @@ class DataStream(DataModel):
                 Stack,
                 MRIScan,
                 InVitroImagingConfig,
+                LickSpoutConfig,
+                AirPuffConfig,
             ],
             Field(discriminator="object_type"),
         ]
@@ -196,7 +198,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.10"]] = Field(default="2.0.10")
+    schema_version: SkipValidation[Literal["2.0.11"]] = Field(default="2.0.11")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")

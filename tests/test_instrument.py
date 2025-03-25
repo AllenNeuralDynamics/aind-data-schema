@@ -31,8 +31,8 @@ from aind_data_schema.components.devices import (
     Olfactometer,
     OlfactometerChannel,
     PatchCord,
-    RewardDelivery,
-    RewardSpout,
+    LickSpoutAssembly,
+    LickSpout,
     ScanningStage,
     DigitalMicromirrorDevice,
 )
@@ -314,9 +314,9 @@ stimulus_devices = [
             ),
         ],
     ),
-    RewardDelivery(
-        reward_spouts=[
-            RewardSpout(
+    LickSpoutAssembly(
+        lick_spouts=[
+            LickSpout(
                 name="Left spout",
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Left"),
@@ -324,7 +324,7 @@ stimulus_devices = [
                     name="Lick-o-meter Left",
                 ),
             ),
-            RewardSpout(
+            LickSpout(
                 name="Right spout",
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Right"),

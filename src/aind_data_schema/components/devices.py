@@ -759,8 +759,8 @@ class Monitor(Device):
     )
 
 
-class RewardSpout(Device):
-    """Description of a reward spout"""
+class LickSpout(Device):
+    """Description of a lick spout"""
 
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
@@ -770,11 +770,18 @@ class RewardSpout(Device):
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
 
 
-class RewardDelivery(DataModel):
-    """Description of reward delivery system"""
+class LickSpoutAssembly(DataModel):
+    """Description of multiple lick spouts, possibly mounted on a stage"""
 
-    stage_type: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
-    reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
+    lick_spouts: List[LickSpout] = Field(..., title="Water spouts")
+    motorized_stage: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
+
+
+class AirPuffDevice(Device):
+    """Description of an air puff device"""
+
+    diameter: float = Field(..., title="Spout diameter")
+    diameter_unit: SizeUnit = Field(..., title="Size unit")
 
 
 class Speaker(Device):
