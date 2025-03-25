@@ -73,6 +73,19 @@ class LiquidCalibration(Calibration):
     )
 
 
+class LaserCalibration(Calibration):
+    """Calibration of a laser device"""
+
+    input: List[float] = Field(..., title="Input times", description="Power output percentage")
+    input_unit: PowerUnit = Field(..., title="Input unit")
+    output: List[float] = Field(..., title="Output", description="Laser strength")
+    output_unit: PowerUnit = Field(..., title="Output unit")
+
+    description: Literal["Laser power measured for various percentage output strengths"] = (
+        "Laser power measured for various percentage output strengths"
+    )
+
+
 CALIBRATIONS = Annotated[
     Union[
         Calibration,
