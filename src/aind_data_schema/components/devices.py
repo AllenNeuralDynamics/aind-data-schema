@@ -19,7 +19,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import GenericModelType, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import GenericModelType, DataModel
 from aind_data_schema.components.coordinates import (
     AxisName,
     Transform,
@@ -27,7 +27,6 @@ from aind_data_schema.components.coordinates import (
     Scale,
     CoordinateSystem,
 )
-from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.identifiers import Software
 
 
@@ -247,17 +246,6 @@ class Device(DataModel):
 
     # Additional fields
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class Maintenance(DataModel):
-    """Generic maintenance class"""
-
-    maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
-    description: str = Field(..., title="Description", description="Description on maintenance procedure")
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
