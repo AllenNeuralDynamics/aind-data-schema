@@ -470,9 +470,6 @@ class Injection(DataModel):
     injection_materials: List[
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
-    recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
-
     target: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
@@ -481,7 +478,6 @@ class Injection(DataModel):
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
 
