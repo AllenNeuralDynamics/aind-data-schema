@@ -8,7 +8,7 @@ from pathlib import Path
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 from aind_data_schema.components.identifiers import Person
@@ -269,16 +269,20 @@ red_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 3, 6]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 3, 6],
+    output_unit=PowerUnit.MW,
 )
 
 blue_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 2, 7]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 2, 7],
+    output_unit=PowerUnit.MW,
 )
 
 ephys_inst = Instrument(

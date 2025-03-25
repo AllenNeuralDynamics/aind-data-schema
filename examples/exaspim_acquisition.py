@@ -97,11 +97,10 @@ acq = Acquisition(
             calibration_date=t,
             device_name="Laser_1",
             description="Laser power calibration",
-            input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-            output={
-                "power_measurement": 50.0,
-                "power_unit": PowerUnit.MW,
-            },
+            input=[100],
+            input_unit=PowerUnit.PERCENT,
+            output=[50],
+            output_unit=PowerUnit.MW,
         )
     ],
     data_streams=[
