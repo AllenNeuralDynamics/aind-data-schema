@@ -636,8 +636,6 @@ class Surgery(DataModel):
                 Craniotomy,
                 FiberImplant,
                 Headframe,
-                IntraCerebellarVentricleInjection,
-                IntraCisternalMagnaInjection,
                 BrainInjection,
                 Injection,
                 MyomatrixInsertion,
