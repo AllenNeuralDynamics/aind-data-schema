@@ -44,7 +44,9 @@ from aind_data_schema.components.devices import (
     PatchCord,
     PockelsCell,
     PolygonalScanner,
-    RewardDelivery,
+    LickSpout,
+    LickSpoutAssembly,
+    AirPuffDevice,
     ScanningStage,
     Speaker,
     Treadmill,
@@ -62,7 +64,7 @@ DEVICES_REQUIRED = {
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[RewardDelivery]],
+    Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
@@ -137,7 +139,9 @@ class Instrument(DataCoreModel):
             Union[
                 Monitor,
                 Olfactometer,
-                RewardDelivery,
+                LickSpout,
+                LickSpoutAssembly,
+                AirPuffDevice,
                 Speaker,
                 CameraAssembly,
                 Enclosure,
@@ -170,7 +174,7 @@ class Instrument(DataCoreModel):
                 Arena,
                 MousePlatform,
                 DAQDevice,
-                Device,  # note that order matters in the Union, DAQDevice and Device should go last
+                Device,
             ],
             Field(discriminator="object_type"),
         ]

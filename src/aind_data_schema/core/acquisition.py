@@ -32,9 +32,10 @@ from aind_data_schema.components.configs import (
     MousePlatformConfig,
     Stack,
     MRIScan,
-    RewardDeliveryConfig,
     StimulusModality,
     InVitroImagingConfig,
+    LickSpoutConfig,
+    AirPuffConfig,
 )
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -82,7 +83,6 @@ class SubjectDetails(DataModel):
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     mouse_platform_name: str = Field(..., title="Mouse platform")
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
@@ -128,6 +128,8 @@ class DataStream(DataModel):
                 Stack,
                 MRIScan,
                 InVitroImagingConfig,
+                LickSpoutConfig,
+                AirPuffConfig,
             ],
             Field(discriminator="object_type"),
         ]

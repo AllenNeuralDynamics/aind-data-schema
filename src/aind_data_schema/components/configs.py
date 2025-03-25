@@ -13,6 +13,7 @@ from aind_data_schema_models.units import (
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
+    PressureUnit,
 )
 
 from aind_data_schema.components.devices import ImmersionMedium
@@ -48,6 +49,15 @@ class StimulusModality(str, Enum):
     VIRTUAL_REALITY = "Virtual reality"
     VISUAL = "Visual"
     WHEEL_FRICTION = "Wheel friction"
+
+
+class Valence(str, Enum):
+    """Valence of a stimulus"""
+
+    POSITIVE = "Positive"
+    NEGATIVE = "Negative"
+    NEUTRAL = "Neutral"
+    UNKNOWN = "Unknown"
 
 
 class DeviceConfig(DataModel):
@@ -271,42 +281,50 @@ class LaserConfig(DeviceConfig):
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-# Behavior components
-class RewardSolution(str, Enum):
-    """Reward solution name"""
+class Liquid(str, Enum):
+    """Solution names"""
 
     WATER = "Water"
+    SUCROSE = "Sucrose"
+    QUININE = "Quinine"
+    CITRIC_ACID = "Citric acid"
     OTHER = "Other"
 
 
-class RewardSpoutConfig(DataModel):
-    """Reward spout acquisition information"""
+class LickSpoutConfig(DataModel):
+    """Lick spout acquisition information"""
+
+    solution: Liquid = Field(..., title="Solution")
+    solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
     position: Optional[Transform] = Field(default=None, title="Initial position")
-    variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during acquisition as tracked in data",
-    )
 
-
-class RewardDeliveryConfig(DataModel):
-    """Description of reward delivery configuration"""
-
-    reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
-    reward_spouts: List[RewardSpoutConfig] = Field(..., title="Reward spouts")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+    @model_validator(mode="after")
+    def validate_other(cls, values):
         """Validator for other/notes"""
 
-        if info.data.get("reward_solution") == RewardSolution.OTHER and not value:
+        if values.solution == Liquid.OTHER and not values.notes:
             raise ValueError(
-                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+                "Notes cannot be empty if LickSpoutConfig.solution is Other."
+                "Describe the solution in the notes field."
             )
-        return value
+        return values
+
+
+class AirPuffConfig(DataModel):
+    """Air puff device configuration"""
+
+    valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Transform] = Field(default=None, title="Initial position")
+
+    pressure: Optional[float] = Field(default=None, title="Pressure")
+    pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
+
+    duration: Optional[float] = Field(default=None, title="Duration")
 
 
 class SpeakerConfig(DeviceConfig):
