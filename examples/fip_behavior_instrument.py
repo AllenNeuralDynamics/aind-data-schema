@@ -177,7 +177,7 @@ connections = [
     ),
 ]
 
-reward_delivery = LickSpoutAssembly(
+lick_spout_assembly = LickSpoutAssembly(
     lick_spouts=[
         LickSpout(
             name="Left spout",
@@ -417,7 +417,7 @@ inst = Instrument(
         camera1,
         camera2,
         harp_behavior,
-        reward_delivery,
+        lick_spout_assembly,
         patch_cord,
         *light_sources,
         *detectors,
