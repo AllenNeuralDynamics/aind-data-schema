@@ -170,6 +170,20 @@ class DataModel(BaseModel, Generic[GenericModelType]):
                             raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
         return values
 
+    @model_validator(mode="after")
+    def validate_paths(cls, values):
+        """Check all fields for pathlib Path objects, and soft-validate that they exist"""
+
+        print(values)
+        if isinstance(values, dict):  # Probably a test, bypass
+            return values
+
+        for field_name, field_value in values:
+            if isinstance(field_value, Path):
+                if not Path(field_value).exists():
+                    logging.warning(f"Path {field_value} does not exist.")
+        return values
+
 
 class DataCoreModel(DataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
