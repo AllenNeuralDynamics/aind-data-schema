@@ -499,12 +499,6 @@ class BrainInjection(Injection):
         return values
 
 
-class IntraCerebellarVentricleInjection(BrainInjection):
-    """Description of an interacerebellar ventricle injection"""
-
-    target: Literal["Intracerbellar ventricle"] = "Intracerbellar ventricle"
-
-
 class SampleCollection(DataModel):
     """Description of a single sample collection"""
 
