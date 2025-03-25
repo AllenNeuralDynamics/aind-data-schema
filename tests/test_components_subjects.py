@@ -1,3 +1,5 @@
+"""Tests for subjects details models"""
+
 import unittest
 from datetime import datetime
 from aind_data_schema.components.subjects import MouseSubject, BreedingInfo, Housing, LightCycle, Sex
@@ -8,8 +10,10 @@ from aind_data_schema_models.species import Species, Strain
 
 
 class TestMouseSubject(unittest.TestCase):
+    """Test the mouse subject model"""
 
     def setUp(self):
+        """Set up the tests"""
         self.now = datetime.now()
 
     def test_validate_inhouse_breeding_info(self):
