@@ -44,7 +44,9 @@ from aind_data_schema.components.devices import (
     PatchCord,
     PockelsCell,
     PolygonalScanner,
+    LickSpout,
     LickSpoutAssembly,
+    AirPuffDevice,
     ScanningStage,
     Speaker,
     Treadmill,
@@ -137,7 +139,9 @@ class Instrument(DataCoreModel):
             Union[
                 Monitor,
                 Olfactometer,
+                LickSpout,
                 LickSpoutAssembly,
+                AirPuffDevice,
                 Speaker,
                 CameraAssembly,
                 Enclosure,
@@ -170,7 +174,7 @@ class Instrument(DataCoreModel):
                 Arena,
                 MousePlatform,
                 DAQDevice,
-                Device,  # note that order matters in the Union, DAQDevice and Device should go last
+                Device,
             ],
             Field(discriminator="object_type"),
         ]
