@@ -168,6 +168,35 @@ class InjectionProfile(str, Enum):
     PULSED = "Pulsed"
 
 
+class OligoProbe(DataModel):
+    '''Description of an oligonucleotide probe'''
+
+    name: str = Field(..., title="Name")
+    sequence: str = Field(..., title="Sequence")
+
+
+class GeneProbes(DataModel):
+    '''Description of a set of oligonucleotide probes targeting a specific gene'''
+
+    gene: PIDName = Field(..., title="Gene name")
+    probes: List[OligoProbe] = Field(..., title="Probes")
+
+
+class OligoProbeSet(Reagent):
+    '''set of probes used in BarSEQ'''
+
+    gene_probes: List[GeneProbes] = Field(..., title="Gene probes")
+    #IDT scale stuff? 
+
+
+class OligoProbeWithReadout(Reagent):       #probably want a different name
+    '''probe used for HCR ... but not a HCR probe. Does this need a list of sequences?'''
+
+    gene_probe: GeneProbes = Field(..., title="Gene probe")
+    readout: Readout = Field(..., title="Readout")
+    species: Species.ONE_OF = Field(..., title="Species") #should this live with the base oligo probe? gene probe?
+
+
 class Readout(Reagent):
     """Description of a readout"""
 
@@ -183,16 +212,7 @@ class HCRReadout(Readout):
     initiator_name: str = Field(..., title="Initiator name")
 
 
-class OligoProbe(Reagent):
-    """Description of an oligonucleotide probe"""
-
-    species: Species.ONE_OF = Field(..., title="Species")
-    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
-    probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: Readout = Field(..., title="Readout")
-
-
-class HCRProbe(OligoProbe):
+class HCRProbe(OligoProbeWithReadout):
     """Description of an oligo probe used for HCR"""
 
     initiator_name: str = Field(..., title="Initiator name")
