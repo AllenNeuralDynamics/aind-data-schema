@@ -79,8 +79,6 @@ surgery1 = Surgery(
                     titer=2300000000,
                 )
             ],
-            recovery_time=0,
-            instrument_id=None,
             coordinates=[
                 Coordinate(
                     system_name="SurgerySystem",

@@ -81,8 +81,6 @@ class ProceduresTests(unittest.TestCase):
                                 ],
                                 target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -115,8 +113,6 @@ class ProceduresTests(unittest.TestCase):
                                 ],
                                 target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -172,8 +168,6 @@ class ProceduresTests(unittest.TestCase):
                                     profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            recovery_time=10,
-                            recovery_time_unit=TimeUnit.M,
                         ),
                         Injection(
                             protocol_id="234",
@@ -225,8 +219,6 @@ class ProceduresTests(unittest.TestCase):
                                     position=[0.5, 1, 0, 1],
                                 ),
                             ],
-                            recovery_time=10,
-                            recovery_time_unit=TimeUnit.M,
                             target=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
