@@ -969,8 +969,10 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
                     device_name="470nm LED",
                     description="LED calibration",
-                    input={"Power setting": [1, 2, 3]},
-                    output={"Power mW": [5, 10, 13]},
+                    input=[1, 2, 3],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[5, 10, 13],
+                    output_unit=PowerUnit.MW,
                 )
             ],
         )

@@ -6,7 +6,7 @@ from datetime import date
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 from pydantic import ValidationError
 from pydantic_core import PydanticSerializationError
 
@@ -339,8 +339,10 @@ calibration = Calibration(
     calibration_date=date(2020, 10, 10),
     device_name="Laser A",
     description="Laser power calibration",
-    input={"power percent": [10, 40, 80]},
-    output={"power mW": [2, 6, 10]},
+    input=[10, 40, 80],
+    input_unit=PowerUnit.PERCENT,
+    output=[2, 6, 10],
+    output_unit=PowerUnit.MW,
 )
 
 
@@ -378,8 +380,10 @@ class InstrumentTests(unittest.TestCase):
                     calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent": [10, 40, 80]},
-                    output={"power mW": [2, 6, 10]},
+                    input=[10, 40, 80],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[2, 6, 10],
+                    output_unit=PowerUnit.MW,
                 )
             ],
         )
@@ -414,8 +418,10 @@ class InstrumentTests(unittest.TestCase):
                         calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
                     )
                 ],
                 connections=[
@@ -447,8 +453,10 @@ class InstrumentTests(unittest.TestCase):
                     calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent": [10, 40, 80]},
-                    output={"power mW": [2, 6, 10]},
+                    input=[10, 40, 80],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[2, 6, 10],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             connections=[
@@ -486,8 +494,10 @@ class InstrumentTests(unittest.TestCase):
                         calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
                     )
                 ],
                 connections=[
