@@ -6071,6 +6071,19 @@
                ],
                "default": null,
                "title": "Driver version"
+            },
+            "compression": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Code"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Compression algorithm used immediately after acquisition",
+               "title": "Compression"
             }
          },
          "required": [
@@ -25563,8 +25576,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.9",
-               "default": "2.0.9",
+               "const": "2.0.10",
+               "default": "2.0.10",
                "title": "Schema Version",
                "type": "string"
             },
@@ -52524,8 +52537,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.24",
-               "default": "2.0.24",
+               "const": "2.0.25",
+               "default": "2.0.25",
                "title": "Schema Version",
                "type": "string"
             },
@@ -102671,8 +102684,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.24",
-         "default": "2.0.24",
+         "const": "2.0.25",
+         "default": "2.0.25",
          "title": "Schema Version",
          "type": "string"
       },
