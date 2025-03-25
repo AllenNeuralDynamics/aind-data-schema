@@ -145,7 +145,6 @@ class TestLickSpoutConfig(unittest.TestCase):
             solution=Liquid.WATER,
             solution_valence=Valence.POSITIVE,
             relative_position=[],
-            variable_position=True,
         )
         self.assertIsNotNone(lick_spout)
 
@@ -156,7 +155,6 @@ class TestLickSpoutConfig(unittest.TestCase):
                 solution=Liquid.OTHER,
                 solution_valence=Valence.POSITIVE,
                 relative_position=[],
-                variable_position=True,
             )
         self.assertIn(
             "Notes cannot be empty if LickSpoutConfig.reward_solution is Other."
