@@ -65,8 +65,6 @@ p = Procedures(
                             titer=20000000000000,
                         )
                     ],
-                    recovery_time=0,
-                    instrument_id=None,
                     coordinates=[
                         Coordinate(
                             system_name="BREGMA_ARID",

@@ -31,7 +31,8 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
+from aind_data_schema.core.subject import Subject
+from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
 
 from pathlib import Path
 from tests.resources.spim_instrument import inst
@@ -74,21 +75,24 @@ class TestMetadata(unittest.TestCase):
         cls.spim_instrument = inst
 
         subject = Subject(
-            species=Species.MUS_MUSCULUS,
-            subject_id="12345",
-            sex=Sex.MALE,
-            date_of_birth=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc).date(),
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            subject_id="123456",
+            subject_details=MouseSubject(
+                species=Species.MUS_MUSCULUS,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc).date(),
+                source=Organization.AI,
+                breeding_info=BreedingInfo(
+                    breeding_group="Emx1-IRES-Cre(ND)",
+                    maternal_id="546543",
+                    maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                    paternal_id="232323",
+                    paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+                ),
+                genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
+                housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
+                background_strain=Strain.C57BL_6J,
             ),
-            genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
-            housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
-            background_strain=Strain.C57BL_6J,
         )
         dd = DataDescription(
             modalities=[Modality.ECEPHYS],
@@ -135,26 +139,12 @@ class TestMetadata(unittest.TestCase):
     def test_valid_subject_info(self):
         """Tests that the record is marked as VALID if a valid subject model
         is present."""
-        s1 = Subject(
-            species=Species.MUS_MUSCULUS,
-            subject_id="123345",
-            sex=Sex.MALE,
-            date_of_birth="2020-10-10",
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
-            ),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
-        )
-        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=s1)
+        subject = self.subject
+        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=subject)
         self.assertEqual("655019_2023-04-03T181709", d1.name)
         self.assertEqual("bucket", d1.location)
         self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
-        self.assertEqual(s1, d1.subject)
+        self.assertEqual(subject, d1.subject)
 
     def test_missing_subject_info(self):
         """Marks the metadata status as MISSING if a Subject model is not
@@ -192,19 +182,22 @@ class TestMetadata(unittest.TestCase):
 
         # Valid subject model, but invalid procedures model
         s2 = Subject(
-            species=Species.MUS_MUSCULUS,
             subject_id="123345",
-            sex=Sex.MALE,
-            date_of_birth="2020-10-10",
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            subject_details=MouseSubject(
+                species=Species.MUS_MUSCULUS,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth="2020-10-10",
+                source=Organization.AI,
+                breeding_info=BreedingInfo(
+                    breeding_group="Emx1-IRES-Cre(ND)",
+                    maternal_id="546543",
+                    maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                    paternal_id="232323",
+                    paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+                ),
+                genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
             ),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
         )
         d2 = Metadata(
             name="655019_2023-04-03T181709",

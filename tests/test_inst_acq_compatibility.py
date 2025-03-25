@@ -8,12 +8,11 @@ from pathlib import Path
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -32,6 +31,7 @@ from aind_data_schema.components.devices import (
     PatchCord,
     ProbePort,
 )
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -269,16 +269,20 @@ red_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 3, 6]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 3, 6],
+    output_unit=PowerUnit.MW,
 )
 
 blue_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 2, 7]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 2, 7],
+    output_unit=PowerUnit.MW,
 )
 
 ephys_inst = Instrument(
@@ -911,9 +915,9 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
         ]
         stimulus_devices = [
-            d.RewardDelivery(
-                reward_spouts=[
-                    d.RewardSpout(
+            d.LickSpoutAssembly(
+                lick_spouts=[
+                    d.LickSpout(
                         name="Left spout",
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Left"),
@@ -923,7 +927,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                         ),
                         lick_sensor_type=d.LickSensorType("Capacitive"),
                     ),
-                    d.RewardSpout(
+                    d.LickSpout(
                         name="Right spout",
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Right"),
@@ -961,12 +965,14 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ],
             connections=connections,
             calibrations=[
-                d.Calibration(
+                Calibration(
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
                     device_name="470nm LED",
                     description="LED calibration",
-                    input={"Power setting": [1, 2, 3]},
-                    output={"Power mW": [5, 10, 13]},
+                    input=[1, 2, 3],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[5, 10, 13],
+                    output_unit=PowerUnit.MW,
                 )
             ],
         )

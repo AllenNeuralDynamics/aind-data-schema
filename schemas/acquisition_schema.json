@@ -112,6 +112,82 @@
          "title": "Affine",
          "type": "object"
       },
+      "AirPuffConfig": {
+         "additionalProperties": false,
+         "description": "Air puff device configuration",
+         "properties": {
+            "object_type": {
+               "const": "Air puff config",
+               "default": "Air puff config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "valence": {
+               "$ref": "#/$defs/Valence",
+               "default": "Negative"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Initial relative position",
+               "type": "array"
+            },
+            "position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Transform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Initial position"
+            },
+            "pressure": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pressure"
+            },
+            "pressure_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PressureUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pressure unit"
+            },
+            "duration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Duration"
+            }
+         },
+         "required": [
+            "relative_position"
+         ],
+         "title": "AirPuffConfig",
+         "type": "object"
+      },
       "Anaesthetic": {
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
@@ -268,14 +344,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -284,16 +360,134 @@
                "type": "string"
             },
             "input": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration input",
-               "title": "inputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "inputs",
+               "type": "array"
+            },
+            "input_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  }
+               ],
+               "title": "Input unit"
             },
             "output": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration output",
-               "title": "outputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "outputs",
+               "type": "array"
+            },
+            "output_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  }
+               ],
+               "title": "Output unit"
             },
             "notes": {
                "anyOf": [
@@ -305,13 +499,18 @@
                   }
                ],
                "default": null,
+               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
          "required": [
-            "calibration_date",
             "device_name",
-            "description"
+            "calibration_date",
+            "description",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
          ],
          "title": "Calibration",
          "type": "object"
@@ -515,6 +714,18 @@
          "title": "Code",
          "type": "object"
       },
+      "ConcentrationUnit": {
+         "description": "Concentraion units",
+         "enum": [
+            "molar",
+            "micromolar",
+            "nanomolar",
+            "% m/m",
+            "% v/v"
+         ],
+         "title": "ConcentrationUnit",
+         "type": "string"
+      },
       "Coordinate": {
          "additionalProperties": false,
          "description": "A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)\n\nAngles can be optionally provided",
@@ -663,6 +874,14 @@
          "title": "CoordinateTransform",
          "type": "object"
       },
+      "CurrentUnit": {
+         "description": "Current units",
+         "enum": [
+            "microamps"
+         ],
+         "title": "CurrentUnit",
+         "type": "string"
+      },
       "DataStream": {
          "additionalProperties": false,
          "description": "Data streams with a start and stop time",
@@ -791,12 +1010,14 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "Air puff config": "#/$defs/AirPuffConfig",
                         "Detector config": "#/$defs/DetectorConfig",
                         "Dome module": "#/$defs/DomeModule",
                         "Fiber assembly config": "#/$defs/FiberAssemblyConfig",
                         "Field of view": "#/$defs/FieldOfView",
                         "In vitro imaging config": "#/$defs/InVitroImagingConfig",
                         "Laser config": "#/$defs/LaserConfig",
+                        "Lick spout config": "#/$defs/LickSpoutConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
                         "MRI scan": "#/$defs/MRIScan",
                         "Manipulator config": "#/$defs/ManipulatorConfig",
@@ -842,6 +1063,12 @@
                      },
                      {
                         "$ref": "#/$defs/InVitroImagingConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/LickSpoutConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/AirPuffConfig"
                      }
                   ]
                },
@@ -11726,6 +11953,63 @@
          "title": "LaserConfig",
          "type": "object"
       },
+      "LickSpoutConfig": {
+         "additionalProperties": false,
+         "description": "Lick spout acquisition information",
+         "properties": {
+            "object_type": {
+               "const": "Lick spout config",
+               "default": "Lick spout config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "solution": {
+               "$ref": "#/$defs/Liquid",
+               "title": "Solution"
+            },
+            "solution_valence": {
+               "$ref": "#/$defs/Valence"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Initial relative position",
+               "type": "array"
+            },
+            "position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Transform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Initial position"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "solution",
+            "solution_valence",
+            "relative_position"
+         ],
+         "title": "LickSpoutConfig",
+         "type": "object"
+      },
       "LightEmittingDiodeConfig": {
          "additionalProperties": false,
          "description": "Description of LED settings",
@@ -11773,6 +12057,93 @@
             "device_name"
          ],
          "title": "LightEmittingDiodeConfig",
+         "type": "object"
+      },
+      "Liquid": {
+         "description": "Solution names",
+         "enum": [
+            "Water",
+            "Sucrose",
+            "Quinine",
+            "Citric acid",
+            "Other"
+         ],
+         "title": "Liquid",
+         "type": "string"
+      },
+      "LiquidCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a liquid delivery device",
+         "properties": {
+            "object_type": {
+               "const": "Liquid calibration",
+               "default": "Liquid calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Liquid volume measured for various solenoid opening times",
+               "default": "Liquid volume measured for various solenoid opening times",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Length of time solenoid is open",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/TimeUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Liquid output",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "LiquidCalibration",
          "type": "object"
       },
       "MRIScan": {
@@ -11949,14 +12320,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "maintenance_date": {
                "format": "date-time",
                "title": "Date and time of maintenance",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -11977,12 +12348,19 @@
                "title": "Protocol ID"
             },
             "reagents": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/Reagent"
-               },
-               "title": "Reagents",
-               "type": "array"
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Reagent"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reagents"
             },
             "notes": {
                "anyOf": [
@@ -11998,8 +12376,8 @@
             }
          },
          "required": [
-            "maintenance_date",
             "device_name",
+            "maintenance_date",
             "description"
          ],
          "title": "Maintenance",
@@ -18934,6 +19312,20 @@
          "title": "MassUnit",
          "type": "string"
       },
+      "MemoryUnit": {
+         "description": "Computer memory units",
+         "enum": [
+            "Byte",
+            "Kilobyte",
+            "Megabyte",
+            "Gigabyte",
+            "Terabyte",
+            "Petabyte",
+            "Exabyte"
+         ],
+         "title": "MemoryUnit",
+         "type": "string"
+      },
       "MousePlatformConfig": {
          "additionalProperties": false,
          "description": "Configuration for mouse platforms",
@@ -19254,6 +19646,16 @@
             "percent"
          ],
          "title": "PowerUnit",
+         "type": "string"
+      },
+      "PressureUnit": {
+         "description": "Enumeration of Pressure Measurements",
+         "enum": [
+            "millipascal",
+            "pascal",
+            "kilopascal"
+         ],
+         "title": "PressureUnit",
          "type": "string"
       },
       "Reagent": {
@@ -19728,99 +20130,6 @@
             "lot_number"
          ],
          "title": "Reagent",
-         "type": "object"
-      },
-      "RewardDeliveryConfig": {
-         "additionalProperties": false,
-         "description": "Description of reward delivery configuration",
-         "properties": {
-            "object_type": {
-               "const": "Reward delivery config",
-               "default": "Reward delivery config",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "reward_solution": {
-               "$ref": "#/$defs/RewardSolution",
-               "description": "If Other use notes",
-               "title": "Reward solution"
-            },
-            "reward_spouts": {
-               "items": {
-                  "$ref": "#/$defs/RewardSpoutConfig"
-               },
-               "title": "Reward spouts",
-               "type": "array"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "reward_solution",
-            "reward_spouts"
-         ],
-         "title": "RewardDeliveryConfig",
-         "type": "object"
-      },
-      "RewardSolution": {
-         "description": "Reward solution name",
-         "enum": [
-            "Water",
-            "Other"
-         ],
-         "title": "RewardSolution",
-         "type": "string"
-      },
-      "RewardSpoutConfig": {
-         "additionalProperties": false,
-         "description": "Reward spout acquisition information",
-         "properties": {
-            "object_type": {
-               "const": "Reward spout config",
-               "default": "Reward spout config",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "relative_position": {
-               "items": {
-                  "$ref": "#/$defs/AnatomicalRelative"
-               },
-               "title": "Initial relative position",
-               "type": "array"
-            },
-            "position": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Transform"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Initial position"
-            },
-            "variable_position": {
-               "description": "True if spout position changes during acquisition as tracked in data",
-               "title": "Variable position",
-               "type": "boolean"
-            }
-         },
-         "required": [
-            "relative_position",
-            "variable_position"
-         ],
-         "title": "RewardSpoutConfig",
          "type": "object"
       },
       "Rotation": {
@@ -23655,6 +23964,14 @@
          "title": "SpeakerConfig",
          "type": "object"
       },
+      "SpeedUnit": {
+         "description": "Enumeration of Speed Measurements",
+         "enum": [
+            "rotations per minute"
+         ],
+         "title": "SpeedUnit",
+         "type": "string"
+      },
       "Stack": {
          "additionalProperties": false,
          "description": "Description of a two photon stack",
@@ -27483,18 +27800,6 @@
                "title": "Mouse platform",
                "type": "string"
             },
-            "reward_delivery": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/RewardDeliveryConfig"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward delivery"
-            },
             "reward_consumed_total": {
                "anyOf": [
                   {
@@ -27536,6 +27841,15 @@
             "Supine"
          ],
          "title": "SubjectPosition",
+         "type": "string"
+      },
+      "TemperatureUnit": {
+         "description": "Temperature units",
+         "enum": [
+            "Celsius",
+            "Kelvin"
+         ],
+         "title": "TemperatureUnit",
          "type": "string"
       },
       "TimeUnit": {
@@ -27633,6 +27947,34 @@
             "External"
          ],
          "title": "TriggerType",
+         "type": "string"
+      },
+      "UnitlessUnit": {
+         "description": "Unitless options",
+         "enum": [
+            "percent",
+            "fraction of cycle"
+         ],
+         "title": "UnitlessUnit",
+         "type": "string"
+      },
+      "Valence": {
+         "description": "Valence of a stimulus",
+         "enum": [
+            "Positive",
+            "Negative",
+            "Neutral",
+            "Unknown"
+         ],
+         "title": "Valence",
+         "type": "string"
+      },
+      "VoltageUnit": {
+         "description": "Voltage units",
+         "enum": [
+            "Volts"
+         ],
+         "title": "VoltageUnit",
          "type": "string"
       },
       "VolumeUnit": {
@@ -58934,8 +59276,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.10",
-         "default": "2.0.10",
+         "const": "2.0.12",
+         "default": "2.0.12",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59035,7 +59377,21 @@
          "default": [],
          "description": "List of calibration measurements taken prior to acquisition.",
          "items": {
-            "$ref": "#/$defs/Calibration"
+            "discriminator": {
+               "mapping": {
+                  "Calibration": "#/$defs/Calibration",
+                  "Liquid calibration": "#/$defs/LiquidCalibration"
+               },
+               "propertyName": "object_type"
+            },
+            "oneOf": [
+               {
+                  "$ref": "#/$defs/Calibration"
+               },
+               {
+                  "$ref": "#/$defs/LiquidCalibration"
+               }
+            ]
          },
          "title": "Calibrations",
          "type": "array"

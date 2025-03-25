@@ -6,12 +6,11 @@ from datetime import date
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 from pydantic import ValidationError
 from pydantic_core import PydanticSerializationError
 
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -32,11 +31,12 @@ from aind_data_schema.components.devices import (
     Olfactometer,
     OlfactometerChannel,
     PatchCord,
-    RewardDelivery,
-    RewardSpout,
+    LickSpoutAssembly,
+    LickSpout,
     ScanningStage,
     DigitalMicromirrorDevice,
 )
+from aind_data_schema.components.measurements import Calibration
 
 from aind_data_schema.core.instrument import (
     Connection,
@@ -314,9 +314,9 @@ stimulus_devices = [
             ),
         ],
     ),
-    RewardDelivery(
-        reward_spouts=[
-            RewardSpout(
+    LickSpoutAssembly(
+        lick_spouts=[
+            LickSpout(
                 name="Left spout",
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Left"),
@@ -324,7 +324,7 @@ stimulus_devices = [
                     name="Lick-o-meter Left",
                 ),
             ),
-            RewardSpout(
+            LickSpout(
                 name="Right spout",
                 spout_diameter=1.2,
                 solenoid_valve=Device(name="Solenoid Right"),
@@ -339,8 +339,10 @@ calibration = Calibration(
     calibration_date=date(2020, 10, 10),
     device_name="Laser A",
     description="Laser power calibration",
-    input={"power percent": [10, 40, 80]},
-    output={"power mW": [2, 6, 10]},
+    input=[10, 40, 80],
+    input_unit=PowerUnit.PERCENT,
+    output=[2, 6, 10],
+    output_unit=PowerUnit.MW,
 )
 
 
@@ -378,8 +380,10 @@ class InstrumentTests(unittest.TestCase):
                     calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent": [10, 40, 80]},
-                    output={"power mW": [2, 6, 10]},
+                    input=[10, 40, 80],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[2, 6, 10],
+                    output_unit=PowerUnit.MW,
                 )
             ],
         )
@@ -414,8 +418,10 @@ class InstrumentTests(unittest.TestCase):
                         calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
                     )
                 ],
                 connections=[
@@ -447,8 +453,10 @@ class InstrumentTests(unittest.TestCase):
                     calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent": [10, 40, 80]},
-                    output={"power mW": [2, 6, 10]},
+                    input=[10, 40, 80],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[2, 6, 10],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             connections=[
@@ -486,8 +494,10 @@ class InstrumentTests(unittest.TestCase):
                         calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
                     )
                 ],
                 connections=[

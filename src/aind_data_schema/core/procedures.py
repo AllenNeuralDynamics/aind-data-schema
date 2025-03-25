@@ -470,9 +470,6 @@ class Injection(DataModel):
     injection_materials: List[
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
-    recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
-
     target: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
@@ -481,7 +478,6 @@ class Injection(DataModel):
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
 
@@ -501,14 +497,6 @@ class BrainInjection(Injection):
         if dynamics_len != coords_len:
             raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
         return values
-
-
-class IntraCerebellarVentricleInjection(BrainInjection):
-    """Description of an interacerebellar ventricle injection"""
-
-
-class IntraCisternalMagnaInjection(BrainInjection):
-    """Description of an interacisternal magna injection"""
 
 
 class SampleCollection(DataModel):
@@ -648,8 +636,6 @@ class Surgery(DataModel):
                 Craniotomy,
                 FiberImplant,
                 Headframe,
-                IntraCerebellarVentricleInjection,
-                IntraCisternalMagnaInjection,
                 BrainInjection,
                 Injection,
                 MyomatrixInsertion,
@@ -679,7 +665,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
+    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
