@@ -2,7 +2,7 @@
 
 from typing import List, Optional, Annotated, Union, Literal
 
-from aind_data_schema.base import Field, GenericModel, GenericModelType, AwareDatetimeWithDefault
+from aind_data_schema.base import Field, AwareDatetimeWithDefault
 from aind_data_schema.components.reagent import Reagent
 
 from aind_data_schema_models.units import (
