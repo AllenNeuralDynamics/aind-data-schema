@@ -6,7 +6,7 @@ from aind_data_schema.base import Field, GenericModel, GenericModelType, AwareDa
 from aind_data_schema.components.reagent import Reagent
 
 from aind_data_schema_models.units import TimeUnit, VolumeUnit
-from aind_data_schema_models.components.configs import DeviceConfig
+from aind_data_schema.components.configs import DeviceConfig
 
 
 class Calibration(DeviceConfig):
