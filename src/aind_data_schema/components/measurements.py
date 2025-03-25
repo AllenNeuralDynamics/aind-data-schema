@@ -68,8 +68,8 @@ class LiquidCalibration(Calibration):
     output: List[float] = Field(..., title="Output", description="Liquid output")
     output_unit: VolumeUnit = Field(..., title="Output unit")
 
-    description: Literal["Water volume measured for various solenoid opening times"] = (
-        "Water volume measured for various solenoid opening times"
+    description: Literal["Liquid volume measured for various solenoid opening times"] = (
+        "Liquid volume measured for various solenoid opening times"
     )
 
 
