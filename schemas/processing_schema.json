@@ -589,8 +589,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.23",
-         "default": "2.0.23",
+         "const": "2.0.25",
+         "default": "2.0.25",
          "title": "Schema Version",
          "type": "string"
       },

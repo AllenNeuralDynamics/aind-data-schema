@@ -6071,6 +6071,19 @@
                ],
                "default": null,
                "title": "Driver version"
+            },
+            "compression": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Code"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Compression algorithm used immediately after acquisition",
+               "title": "Compression"
             }
          },
          "required": [
@@ -24080,6 +24093,18 @@
             "strip_qc_compatible": {
                "title": "Strip QC compatible",
                "type": "boolean"
+            },
+            "cell_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Cell ID"
             }
          },
          "required": [
@@ -25551,8 +25576,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.9",
-               "default": "2.0.9",
+               "const": "2.0.10",
+               "default": "2.0.10",
                "title": "Schema Version",
                "type": "string"
             },
@@ -52370,8 +52395,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.11",
-               "default": "2.0.11",
+               "const": "2.0.12",
+               "default": "2.0.12",
                "title": "Schema Version",
                "type": "string"
             },
@@ -52512,8 +52537,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.23",
-               "default": "2.0.23",
+               "const": "2.0.25",
+               "default": "2.0.25",
                "title": "Schema Version",
                "type": "string"
             },
@@ -102659,8 +102684,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.23",
-         "default": "2.0.23",
+         "const": "2.0.25",
+         "default": "2.0.25",
          "title": "Schema Version",
          "type": "string"
       },

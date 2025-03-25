@@ -228,6 +228,7 @@ class HCRSeries(DataModel):
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
     strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
+    cell_id: Optional[str] = Field(default=None, title="Cell ID")
 
 
 class Antibody(Reagent):
@@ -678,7 +679,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.11"]] = Field(default="2.0.11")
+    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
