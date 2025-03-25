@@ -157,8 +157,7 @@ class TestLickSpoutConfig(unittest.TestCase):
                 relative_position=[],
             )
         self.assertIn(
-            "Notes cannot be empty if LickSpoutConfig.solution is Other."
-            "Describe the solution in the notes field.",
+            "Notes cannot be empty if LickSpoutConfig.solution is Other." "Describe the solution in the notes field.",
             str(context.exception),
         )
 
