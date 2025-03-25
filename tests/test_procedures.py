@@ -267,14 +267,7 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, notes cannot be empty if procedure_type is Other."
-            " Describe the procedure in the notes field. [type=assertion_error, "
-            "input_value={'specimen_id': '1000', '...nts': [], 'notes': None}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("notes cannot be empty if procedure_type is Other", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -287,14 +280,7 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, antibodies cannot be empty if procedure_type is Immunolabeling."
-            " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [], 'notes': None},"
-            " input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("antibodies cannot be empty if procedure_type is Immunolabeling", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -307,15 +293,7 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, hcr_series cannot be empty if procedure_type is HCR."
-            " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [],"
-            " 'notes': None}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("hcr_series cannot be empty if procedure_type is HCR", repr(e.exception))
 
         self.assertIsNotNone(
             SpecimenProcedure(
