@@ -147,6 +147,75 @@
          "title": "Housing",
          "type": "object"
       },
+      "HumanSubject": {
+         "additionalProperties": false,
+         "description": "Description of a human subject",
+         "properties": {
+            "object_type": {
+               "const": "Human subject",
+               "default": "Human subject",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "sex": {
+               "$ref": "#/$defs/Sex"
+            },
+            "year_of_birth": {
+               "title": "Year of birth",
+               "type": "integer"
+            },
+            "source": {
+               "description": "Where the subject was acquired from.",
+               "discriminator": {
+                  "mapping": {
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Columbia University": "#/$defs/_Columbia_University",
+                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "New York University": "#/$defs/_New_York_University",
+                     "Other": "#/$defs/_Other"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
+                  },
+                  {
+                     "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jackson_Laboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
+                  }
+               ],
+               "title": "Source"
+            }
+         },
+         "required": [
+            "sex",
+            "year_of_birth",
+            "source"
+         ],
+         "title": "HumanSubject",
+         "type": "object"
+      },
       "LightCycle": {
          "additionalProperties": false,
          "description": "Description of vivarium light cycle times",
@@ -175,6 +244,225 @@
             "lights_off_time"
          ],
          "title": "LightCycle",
+         "type": "object"
+      },
+      "MouseSubject": {
+         "additionalProperties": false,
+         "description": "Description of a mouse subject",
+         "properties": {
+            "object_type": {
+               "const": "Mouse subject",
+               "default": "Mouse subject",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "sex": {
+               "$ref": "#/$defs/Sex"
+            },
+            "date_of_birth": {
+               "format": "date",
+               "title": "Date of birth",
+               "type": "string"
+            },
+            "strain": {
+               "discriminator": {
+                  "mapping": {
+                     "BALB/c": "#/$defs/_Balb_C",
+                     "C57BL/6J": "#/$defs/_C57Bl_6J"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_C57Bl_6J"
+                  },
+                  {
+                     "$ref": "#/$defs/_Balb_C"
+                  }
+               ],
+               "title": "Strain"
+            },
+            "species": {
+               "discriminator": {
+                  "mapping": {
+                     "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
+                     "Homo sapiens": "#/$defs/_Homo_Sapiens",
+                     "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
+                     "Mus musculus": "#/$defs/_Mus_Musculus",
+                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Callithrix_Jacchus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Homo_Sapiens"
+                  },
+                  {
+                     "$ref": "#/$defs/_Macaca_Mulatta"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mus_Musculus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rattus_Norvegicus"
+                  }
+               ],
+               "title": "Species"
+            },
+            "background_strain": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "BALB/c": "#/$defs/_Balb_C",
+                           "C57BL/6J": "#/$defs/_C57Bl_6J"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/_C57Bl_6J"
+                        },
+                        {
+                           "$ref": "#/$defs/_Balb_C"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Strain"
+            },
+            "alleles": {
+               "default": [],
+               "description": "Allele names and persistent IDs",
+               "items": {
+                  "$ref": "#/$defs/PIDName"
+               },
+               "title": "Alleles",
+               "type": "array"
+            },
+            "genotype": {
+               "description": "Genotype of the animal providing both alleles",
+               "title": "Genotype",
+               "type": "string"
+            },
+            "breeding_info": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/BreedingInfo"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Breeding Info"
+            },
+            "wellness_reports": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/WellnessReport"
+               },
+               "title": "Wellness Report",
+               "type": "array"
+            },
+            "housing": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Housing"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Housing"
+            },
+            "source": {
+               "description": "Where the subject was acquired from. If bred in-house, use Allen Institute.",
+               "discriminator": {
+                  "mapping": {
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Columbia University": "#/$defs/_Columbia_University",
+                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "New York University": "#/$defs/_New_York_University",
+                     "Other": "#/$defs/_Other"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
+                  },
+                  {
+                     "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jackson_Laboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
+                  }
+               ],
+               "title": "Source"
+            },
+            "restrictions": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Any restrictions on use or publishing based on subject source",
+               "title": "Restrictions"
+            },
+            "rrid": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PIDName"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "RRID of mouse if acquired from supplier",
+               "title": "RRID"
+            }
+         },
+         "required": [
+            "sex",
+            "date_of_birth",
+            "strain",
+            "species",
+            "genotype",
+            "source"
+         ],
+         "title": "MouseSubject",
          "type": "object"
       },
       "PIDName": {
@@ -1358,8 +1646,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.4",
-         "default": "2.0.4",
+         "const": "2.0.5",
+         "default": "2.0.5",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1368,192 +1656,23 @@
          "title": "Subject ID",
          "type": "string"
       },
-      "sex": {
-         "$ref": "#/$defs/Sex"
-      },
-      "date_of_birth": {
-         "format": "date",
-         "title": "Date of birth",
-         "type": "string"
-      },
-      "species": {
+      "subject_details": {
          "discriminator": {
             "mapping": {
-               "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
-               "Homo sapiens": "#/$defs/_Homo_Sapiens",
-               "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
-               "Mus musculus": "#/$defs/_Mus_Musculus",
-               "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
+               "Human subject": "#/$defs/HumanSubject",
+               "Mouse subject": "#/$defs/MouseSubject"
             },
-            "propertyName": "name"
+            "propertyName": "object_type"
          },
          "oneOf": [
             {
-               "$ref": "#/$defs/_Callithrix_Jacchus"
+               "$ref": "#/$defs/MouseSubject"
             },
             {
-               "$ref": "#/$defs/_Homo_Sapiens"
-            },
-            {
-               "$ref": "#/$defs/_Macaca_Mulatta"
-            },
-            {
-               "$ref": "#/$defs/_Mus_Musculus"
-            },
-            {
-               "$ref": "#/$defs/_Rattus_Norvegicus"
+               "$ref": "#/$defs/HumanSubject"
             }
          ],
-         "title": "Species"
-      },
-      "background_strain": {
-         "anyOf": [
-            {
-               "discriminator": {
-                  "mapping": {
-                     "BALB/c": "#/$defs/_Balb_C",
-                     "C57BL/6J": "#/$defs/_C57Bl_6J"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_C57Bl_6J"
-                  },
-                  {
-                     "$ref": "#/$defs/_Balb_C"
-                  }
-               ]
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Strain"
-      },
-      "alleles": {
-         "default": [],
-         "description": "Allele names and persistent IDs",
-         "items": {
-            "$ref": "#/$defs/PIDName"
-         },
-         "title": "Alleles",
-         "type": "array"
-      },
-      "genotype": {
-         "anyOf": [
-            {
-               "type": "string"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "Genotype of the animal providing both alleles",
-         "title": "Genotype"
-      },
-      "breeding_info": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/BreedingInfo"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Breeding Info"
-      },
-      "source": {
-         "description": "Where the subject was acquired from. If bred in-house, use Allen Institute.",
-         "discriminator": {
-            "mapping": {
-               "Allen Institute": "#/$defs/_Allen_Institute",
-               "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
-               "Columbia University": "#/$defs/_Columbia_University",
-               "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
-               "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
-               "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
-               "New York University": "#/$defs/_New_York_University",
-               "Other": "#/$defs/_Other"
-            },
-            "propertyName": "name"
-         },
-         "oneOf": [
-            {
-               "$ref": "#/$defs/_Allen_Institute"
-            },
-            {
-               "$ref": "#/$defs/_Baylor_College_Of_Medicine"
-            },
-            {
-               "$ref": "#/$defs/_Columbia_University"
-            },
-            {
-               "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
-            },
-            {
-               "$ref": "#/$defs/_Janelia_Research_Campus"
-            },
-            {
-               "$ref": "#/$defs/_Jackson_Laboratory"
-            },
-            {
-               "$ref": "#/$defs/_New_York_University"
-            },
-            {
-               "$ref": "#/$defs/_Other"
-            }
-         ],
-         "title": "Source"
-      },
-      "rrid": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/PIDName"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "RRID of mouse if acquired from supplier",
-         "title": "RRID"
-      },
-      "restrictions": {
-         "anyOf": [
-            {
-               "type": "string"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "Any restrictions on use or publishing based on subject source",
-         "title": "Restrictions"
-      },
-      "wellness_reports": {
-         "default": [],
-         "items": {
-            "$ref": "#/$defs/WellnessReport"
-         },
-         "title": "Wellness Report",
-         "type": "array"
-      },
-      "housing": {
-         "anyOf": [
-            {
-               "$ref": "#/$defs/Housing"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "title": "Housing"
+         "title": "Subject Details"
       },
       "notes": {
          "anyOf": [
@@ -1570,10 +1689,7 @@
    },
    "required": [
       "subject_id",
-      "sex",
-      "date_of_birth",
-      "species",
-      "source"
+      "subject_details"
    ],
    "title": "Subject",
    "type": "object"

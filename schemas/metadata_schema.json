@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.11",
-               "default": "2.0.11",
+               "const": "2.0.12",
+               "default": "2.0.12",
                "title": "Schema Version",
                "type": "string"
             },
@@ -118,7 +118,21 @@
                "default": [],
                "description": "List of calibration measurements taken prior to acquisition.",
                "items": {
-                  "$ref": "#/$defs/Calibration"
+                  "discriminator": {
+                     "mapping": {
+                        "Calibration": "#/$defs/Calibration",
+                        "Liquid calibration": "#/$defs/LiquidCalibration"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/Calibration"
+                     },
+                     {
+                        "$ref": "#/$defs/LiquidCalibration"
+                     }
+                  ]
                },
                "title": "Calibrations",
                "type": "array"
@@ -6171,14 +6185,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -6187,16 +6201,134 @@
                "type": "string"
             },
             "input": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration input",
-               "title": "inputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "inputs",
+               "type": "array"
+            },
+            "input_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  }
+               ],
+               "title": "Input unit"
             },
             "output": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration output",
-               "title": "outputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "outputs",
+               "type": "array"
+            },
+            "output_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  }
+               ],
+               "title": "Output unit"
             },
             "notes": {
                "anyOf": [
@@ -6208,13 +6340,18 @@
                   }
                ],
                "default": null,
+               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
          "required": [
-            "calibration_date",
             "device_name",
-            "description"
+            "calibration_date",
+            "description",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
          ],
          "title": "Calibration",
          "type": "object"
@@ -25663,6 +25800,75 @@
          "title": "Housing",
          "type": "object"
       },
+      "HumanSubject": {
+         "additionalProperties": false,
+         "description": "Description of a human subject",
+         "properties": {
+            "object_type": {
+               "const": "Human subject",
+               "default": "Human subject",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "sex": {
+               "$ref": "#/$defs/Sex"
+            },
+            "year_of_birth": {
+               "title": "Year of birth",
+               "type": "integer"
+            },
+            "source": {
+               "description": "Where the subject was acquired from.",
+               "discriminator": {
+                  "mapping": {
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Columbia University": "#/$defs/_Columbia_University",
+                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "New York University": "#/$defs/_New_York_University",
+                     "Other": "#/$defs/_Other"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
+                  },
+                  {
+                     "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jackson_Laboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
+                  }
+               ],
+               "title": "Source"
+            }
+         },
+         "required": [
+            "sex",
+            "year_of_birth",
+            "source"
+         ],
+         "title": "HumanSubject",
+         "type": "object"
+      },
       "HybridizationChainReaction": {
          "additionalProperties": false,
          "description": "Description of an HCR staining round",
@@ -26116,8 +26322,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.11",
-               "default": "2.0.11",
+               "const": "2.0.12",
+               "default": "2.0.12",
                "title": "Schema Version",
                "type": "string"
             },
@@ -26205,7 +26411,21 @@
                "anyOf": [
                   {
                      "items": {
-                        "$ref": "#/$defs/Calibration"
+                        "discriminator": {
+                           "mapping": {
+                              "Calibration": "#/$defs/Calibration",
+                              "Liquid calibration": "#/$defs/LiquidCalibration"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/Calibration"
+                           },
+                           {
+                              "$ref": "#/$defs/LiquidCalibration"
+                           }
+                        ]
                      },
                      "type": "array"
                   },
@@ -28912,6 +29132,81 @@
          "title": "Liquid",
          "type": "string"
       },
+      "LiquidCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a liquid delivery device",
+         "properties": {
+            "object_type": {
+               "const": "Liquid calibration",
+               "default": "Liquid calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Liquid volume measured for various solenoid opening times",
+               "default": "Liquid volume measured for various solenoid opening times",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Length of time solenoid is open",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/TimeUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Liquid output",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "LiquidCalibration",
+         "type": "object"
+      },
       "MRIScan": {
          "additionalProperties": false,
          "description": "Description of a 3D scan",
@@ -29095,14 +29390,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "maintenance_date": {
                "format": "date-time",
                "title": "Date and time of maintenance",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -29123,12 +29418,19 @@
                "title": "Protocol ID"
             },
             "reagents": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/Reagent"
-               },
-               "title": "Reagents",
-               "type": "array"
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Reagent"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reagents"
             },
             "notes": {
                "anyOf": [
@@ -29144,8 +29446,8 @@
             }
          },
          "required": [
-            "maintenance_date",
             "device_name",
+            "maintenance_date",
             "description"
          ],
          "title": "Maintenance",
@@ -37637,6 +37939,225 @@
             "device_name"
          ],
          "title": "MousePlatformConfig",
+         "type": "object"
+      },
+      "MouseSubject": {
+         "additionalProperties": false,
+         "description": "Description of a mouse subject",
+         "properties": {
+            "object_type": {
+               "const": "Mouse subject",
+               "default": "Mouse subject",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "sex": {
+               "$ref": "#/$defs/Sex"
+            },
+            "date_of_birth": {
+               "format": "date",
+               "title": "Date of birth",
+               "type": "string"
+            },
+            "strain": {
+               "discriminator": {
+                  "mapping": {
+                     "BALB/c": "#/$defs/_Balb_C",
+                     "C57BL/6J": "#/$defs/_C57Bl_6J"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_C57Bl_6J"
+                  },
+                  {
+                     "$ref": "#/$defs/_Balb_C"
+                  }
+               ],
+               "title": "Strain"
+            },
+            "species": {
+               "discriminator": {
+                  "mapping": {
+                     "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
+                     "Homo sapiens": "#/$defs/_Homo_Sapiens",
+                     "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
+                     "Mus musculus": "#/$defs/_Mus_Musculus",
+                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Callithrix_Jacchus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Homo_Sapiens"
+                  },
+                  {
+                     "$ref": "#/$defs/_Macaca_Mulatta"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mus_Musculus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rattus_Norvegicus"
+                  }
+               ],
+               "title": "Species"
+            },
+            "background_strain": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "BALB/c": "#/$defs/_Balb_C",
+                           "C57BL/6J": "#/$defs/_C57Bl_6J"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/_C57Bl_6J"
+                        },
+                        {
+                           "$ref": "#/$defs/_Balb_C"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Strain"
+            },
+            "alleles": {
+               "default": [],
+               "description": "Allele names and persistent IDs",
+               "items": {
+                  "$ref": "#/$defs/PIDName"
+               },
+               "title": "Alleles",
+               "type": "array"
+            },
+            "genotype": {
+               "description": "Genotype of the animal providing both alleles",
+               "title": "Genotype",
+               "type": "string"
+            },
+            "breeding_info": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/BreedingInfo"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Breeding Info"
+            },
+            "wellness_reports": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/WellnessReport"
+               },
+               "title": "Wellness Report",
+               "type": "array"
+            },
+            "housing": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Housing"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Housing"
+            },
+            "source": {
+               "description": "Where the subject was acquired from. If bred in-house, use Allen Institute.",
+               "discriminator": {
+                  "mapping": {
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Columbia University": "#/$defs/_Columbia_University",
+                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "New York University": "#/$defs/_New_York_University",
+                     "Other": "#/$defs/_Other"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
+                  },
+                  {
+                     "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jackson_Laboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
+                  }
+               ],
+               "title": "Source"
+            },
+            "restrictions": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Any restrictions on use or publishing based on subject source",
+               "title": "Restrictions"
+            },
+            "rrid": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PIDName"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "RRID of mouse if acquired from supplier",
+               "title": "RRID"
+            }
+         },
+         "required": [
+            "sex",
+            "date_of_birth",
+            "strain",
+            "species",
+            "genotype",
+            "source"
+         ],
+         "title": "MouseSubject",
          "type": "object"
       },
       "MriScanSequence": {
@@ -46775,8 +47296,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.27",
-               "default": "2.0.27",
+               "const": "2.0.28",
+               "default": "2.0.28",
                "title": "Schema Version",
                "type": "string"
             },
@@ -61391,8 +61912,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.4",
-               "default": "2.0.4",
+               "const": "2.0.5",
+               "default": "2.0.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -61401,192 +61922,23 @@
                "title": "Subject ID",
                "type": "string"
             },
-            "sex": {
-               "$ref": "#/$defs/Sex"
-            },
-            "date_of_birth": {
-               "format": "date",
-               "title": "Date of birth",
-               "type": "string"
-            },
-            "species": {
+            "subject_details": {
                "discriminator": {
                   "mapping": {
-                     "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
-                     "Homo sapiens": "#/$defs/_Homo_Sapiens",
-                     "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
-                     "Mus musculus": "#/$defs/_Mus_Musculus",
-                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
+                     "Human subject": "#/$defs/HumanSubject",
+                     "Mouse subject": "#/$defs/MouseSubject"
                   },
-                  "propertyName": "name"
+                  "propertyName": "object_type"
                },
                "oneOf": [
                   {
-                     "$ref": "#/$defs/_Callithrix_Jacchus"
+                     "$ref": "#/$defs/MouseSubject"
                   },
                   {
-                     "$ref": "#/$defs/_Homo_Sapiens"
-                  },
-                  {
-                     "$ref": "#/$defs/_Macaca_Mulatta"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mus_Musculus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rattus_Norvegicus"
+                     "$ref": "#/$defs/HumanSubject"
                   }
                ],
-               "title": "Species"
-            },
-            "background_strain": {
-               "anyOf": [
-                  {
-                     "discriminator": {
-                        "mapping": {
-                           "BALB/c": "#/$defs/_Balb_C",
-                           "C57BL/6J": "#/$defs/_C57Bl_6J"
-                        },
-                        "propertyName": "name"
-                     },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/_C57Bl_6J"
-                        },
-                        {
-                           "$ref": "#/$defs/_Balb_C"
-                        }
-                     ]
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Strain"
-            },
-            "alleles": {
-               "default": [],
-               "description": "Allele names and persistent IDs",
-               "items": {
-                  "$ref": "#/$defs/PIDName"
-               },
-               "title": "Alleles",
-               "type": "array"
-            },
-            "genotype": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Genotype of the animal providing both alleles",
-               "title": "Genotype"
-            },
-            "breeding_info": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/BreedingInfo"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Breeding Info"
-            },
-            "source": {
-               "description": "Where the subject was acquired from. If bred in-house, use Allen Institute.",
-               "discriminator": {
-                  "mapping": {
-                     "Allen Institute": "#/$defs/_Allen_Institute",
-                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
-                     "Columbia University": "#/$defs/_Columbia_University",
-                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
-                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
-                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
-                     "New York University": "#/$defs/_New_York_University",
-                     "Other": "#/$defs/_Other"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Allen_Institute"
-                  },
-                  {
-                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
-                  },
-                  {
-                     "$ref": "#/$defs/_Columbia_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
-                  },
-                  {
-                     "$ref": "#/$defs/_Janelia_Research_Campus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Jackson_Laboratory"
-                  },
-                  {
-                     "$ref": "#/$defs/_New_York_University"
-                  },
-                  {
-                     "$ref": "#/$defs/_Other"
-                  }
-               ],
-               "title": "Source"
-            },
-            "rrid": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/PIDName"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "RRID of mouse if acquired from supplier",
-               "title": "RRID"
-            },
-            "restrictions": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Any restrictions on use or publishing based on subject source",
-               "title": "Restrictions"
-            },
-            "wellness_reports": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/WellnessReport"
-               },
-               "title": "Wellness Report",
-               "type": "array"
-            },
-            "housing": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Housing"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Housing"
+               "title": "Subject Details"
             },
             "notes": {
                "anyOf": [
@@ -61603,10 +61955,7 @@
          },
          "required": [
             "subject_id",
-            "sex",
-            "date_of_birth",
-            "species",
-            "source"
+            "subject_details"
          ],
          "title": "Subject",
          "type": "object"
@@ -96221,8 +96570,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.27",
-         "default": "2.0.27",
+         "const": "2.0.28",
+         "default": "2.0.28",
          "title": "Schema Version",
          "type": "string"
       },

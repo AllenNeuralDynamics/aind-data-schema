@@ -1741,14 +1741,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -1757,16 +1757,134 @@
                "type": "string"
             },
             "input": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration input",
-               "title": "inputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "inputs",
+               "type": "array"
+            },
+            "input_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  }
+               ],
+               "title": "Input unit"
             },
             "output": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration output",
-               "title": "outputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "outputs",
+               "type": "array"
+            },
+            "output_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  }
+               ],
+               "title": "Output unit"
             },
             "notes": {
                "anyOf": [
@@ -1778,13 +1896,18 @@
                   }
                ],
                "default": null,
+               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
          "required": [
-            "calibration_date",
             "device_name",
-            "description"
+            "calibration_date",
+            "description",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
          ],
          "title": "Calibration",
          "type": "object"
@@ -2419,6 +2542,18 @@
          "title": "Code",
          "type": "object"
       },
+      "ConcentrationUnit": {
+         "description": "Concentraion units",
+         "enum": [
+            "molar",
+            "micromolar",
+            "nanomolar",
+            "% m/m",
+            "% v/v"
+         ],
+         "title": "ConcentrationUnit",
+         "type": "string"
+      },
       "Connection": {
          "additionalProperties": false,
          "description": "Connection between two devices",
@@ -2558,6 +2693,14 @@
             "Other"
          ],
          "title": "Coupling",
+         "type": "string"
+      },
+      "CurrentUnit": {
+         "description": "Current units",
+         "enum": [
+            "microamps"
+         ],
+         "title": "CurrentUnit",
          "type": "string"
       },
       "DAQChannel": {
@@ -9866,6 +10009,81 @@
          "title": "LightEmittingDiode",
          "type": "object"
       },
+      "LiquidCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a liquid delivery device",
+         "properties": {
+            "object_type": {
+               "const": "Liquid calibration",
+               "default": "Liquid calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Liquid volume measured for various solenoid opening times",
+               "default": "Liquid volume measured for various solenoid opening times",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Length of time solenoid is open",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/TimeUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Liquid output",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "LiquidCalibration",
+         "type": "object"
+      },
       "MagneticStrength": {
          "description": "Strength of magnet",
          "enum": [
@@ -9999,6 +10217,32 @@
          ],
          "title": "Manipulator",
          "type": "object"
+      },
+      "MassUnit": {
+         "description": "Enumeration of Mass Measurements",
+         "enum": [
+            "kilogram",
+            "gram",
+            "milligram",
+            "microgram",
+            "nanogram"
+         ],
+         "title": "MassUnit",
+         "type": "string"
+      },
+      "MemoryUnit": {
+         "description": "Computer memory units",
+         "enum": [
+            "Byte",
+            "Kilobyte",
+            "Megabyte",
+            "Gigabyte",
+            "Terabyte",
+            "Petabyte",
+            "Exabyte"
+         ],
+         "title": "MemoryUnit",
+         "type": "string"
       },
       "Monitor": {
          "additionalProperties": false,
@@ -16092,6 +16336,14 @@
          "title": "Software",
          "type": "object"
       },
+      "SoundIntensityUnit": {
+         "description": "Sound intensity units",
+         "enum": [
+            "decibels"
+         ],
+         "title": "SoundIntensityUnit",
+         "type": "string"
+      },
       "Speaker": {
          "additionalProperties": false,
          "description": "Description of a speaker for auditory stimuli",
@@ -16259,6 +16511,19 @@
             "Kelvin"
          ],
          "title": "TemperatureUnit",
+         "type": "string"
+      },
+      "TimeUnit": {
+         "description": "Enumeration of Time Measurements",
+         "enum": [
+            "hour",
+            "minute",
+            "second",
+            "millisecond",
+            "microsecond",
+            "nanosecond"
+         ],
+         "title": "TimeUnit",
          "type": "string"
       },
       "Transform": {
@@ -17494,6 +17759,17 @@
             "Volts"
          ],
          "title": "VoltageUnit",
+         "type": "string"
+      },
+      "VolumeUnit": {
+         "description": "Enumeration of Volume Measurements",
+         "enum": [
+            "liter",
+            "milliliter",
+            "microliter",
+            "nanoliter"
+         ],
+         "title": "VolumeUnit",
          "type": "string"
       },
       "Wheel": {
@@ -23682,8 +23958,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.11",
-         "default": "2.0.11",
+         "const": "2.0.12",
+         "default": "2.0.12",
          "title": "Schema Version",
          "type": "string"
       },
@@ -23771,7 +24047,21 @@
          "anyOf": [
             {
                "items": {
-                  "$ref": "#/$defs/Calibration"
+                  "discriminator": {
+                     "mapping": {
+                        "Calibration": "#/$defs/Calibration",
+                        "Liquid calibration": "#/$defs/LiquidCalibration"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/Calibration"
+                     },
+                     {
+                        "$ref": "#/$defs/LiquidCalibration"
+                     }
+                  ]
                },
                "type": "array"
             },
