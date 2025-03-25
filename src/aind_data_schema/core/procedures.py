@@ -288,7 +288,7 @@ class SpecimenProcedure(DataModel):
 
     procedure_details: List[Annotated[Union[
         HCRSeries,
-        List[Antibody],
+        Antibody,
         Sectioning,
     ], Field(discriminator="object_type")]] = Field(
         default=[],
@@ -305,8 +305,7 @@ class SpecimenProcedure(DataModel):
             isinstance(detail, HCRSeries) for detail in self.procedure_details
         )
         has_antibodies = any(
-            isinstance(detail, list) and all(isinstance(antibody, Antibody) for antibody in detail)
-            for detail in self.procedure_details
+            isinstance(detail, Antibody) for detail in self.procedure_details
         )
 
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
