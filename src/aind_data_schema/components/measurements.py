@@ -28,10 +28,12 @@ class LiquidCalibration(Calibration):
     output_unit: VolumeUnit = Field(..., title="Output unit")
 
 
-CALIBRATIONS = Annotated[Union[
+CALIBRATIONS = Annotated[
+    Union[
         Calibration,
         LiquidCalibration,
-    ], Field(discriminator="object_type")
+    ],
+    Field(discriminator="object_type"),
 ]
 
 
