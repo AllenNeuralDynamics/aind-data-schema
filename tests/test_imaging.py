@@ -25,7 +25,7 @@ from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessN
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 

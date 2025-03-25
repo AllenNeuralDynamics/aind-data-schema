@@ -30,7 +30,7 @@ from aind_data_schema.components.devices import (
     PatchCord,
     ProbePort,
 )
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 
 # Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,

@@ -10,12 +10,11 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
-from aind_data_schema.components.devices import Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.procedures import Reagent
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration, Maintenance
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default

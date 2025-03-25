@@ -8,13 +8,12 @@ from pydantic import Field, SkipValidation, model_validator
 from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
 from aind_data_schema_models.units import VolumeUnit, MassUnit
 from aind_data_schema.components.devices import (
-    Maintenance,
     Camera,
     CameraAssembly,
     EphysAssembly,
     FiberAssembly,
 )
-from aind_data_schema.components.calibrations import CALIBRATIONS
+from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.components.identifiers import Person, Software, Code

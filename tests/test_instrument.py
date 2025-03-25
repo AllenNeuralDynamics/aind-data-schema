@@ -36,7 +36,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     DigitalMicromirrorDevice,
 )
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration
 
 from aind_data_schema.core.instrument import (
     Connection,

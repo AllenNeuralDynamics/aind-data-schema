@@ -31,7 +31,7 @@ from aind_data_schema.components.devices import (
     ProbePort,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration
 
 # Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes

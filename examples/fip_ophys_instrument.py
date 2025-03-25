@@ -10,7 +10,7 @@ import aind_data_schema.core.instrument as r
 from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 

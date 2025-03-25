@@ -6,7 +6,7 @@ from datetime import date, datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
-from aind_data_schema.components.calibrations import Calibration
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.components.devices import (
     CameraAssembly,
     CameraTarget,
