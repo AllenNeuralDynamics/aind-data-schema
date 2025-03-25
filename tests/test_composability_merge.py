@@ -26,7 +26,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateTransform,
     CoordinateSystemLibrary,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance
+from aind_data_schema.components.measurements import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -173,11 +173,10 @@ class TestComposability(unittest.TestCase):
                     calibration_date=t,
                     device_name="Laser_1",
                     description="Laser power calibration",
-                    input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-                    output={
-                        "power_measurement": 50.0,
-                        "power_unit": PowerUnit.MW,
-                    },
+                    input=[100],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[50],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             data_streams=[
@@ -222,11 +221,10 @@ class TestComposability(unittest.TestCase):
                     calibration_date=t,
                     device_name="Laser_2",
                     description="Laser power calibration",
-                    input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-                    output={
-                        "power_measurement": 60.0,
-                        "power_unit": PowerUnit.MW,
-                    },
+                    input=[100],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[60],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             data_streams=[

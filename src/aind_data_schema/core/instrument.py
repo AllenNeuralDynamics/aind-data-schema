@@ -15,7 +15,6 @@ from aind_data_schema.utils.validators import recursive_get_all_names
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     Arena,
-    Calibration,
     CameraAssembly,
     CameraTarget,
     DAQDevice,
@@ -54,6 +53,7 @@ from aind_data_schema.components.devices import (
     Wheel,
     Scanner,
 )
+from aind_data_schema.components.measurements import CALIBRATIONS
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
@@ -118,7 +118,7 @@ class Instrument(DataCoreModel):
     )
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
+    calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
     # coordinate system
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")

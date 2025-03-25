@@ -10,11 +10,11 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
-from aind_data_schema.components.devices import Calibration, Maintenance
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.procedures import Reagent
+from aind_data_schema.components.measurements import Calibration, Maintenance
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
@@ -97,11 +97,10 @@ acq = Acquisition(
             calibration_date=t,
             device_name="Laser_1",
             description="Laser power calibration",
-            input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-            output={
-                "power_measurement": 50.0,
-                "power_unit": PowerUnit.MW,
-            },
+            input=[100],
+            input_unit=PowerUnit.PERCENT,
+            output=[50],
+            output_unit=PowerUnit.MW,
         )
     ],
     data_streams=[

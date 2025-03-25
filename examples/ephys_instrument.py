@@ -12,7 +12,6 @@ from aind_data_schema.components.coordinates import (
 )
 
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -31,7 +30,9 @@ from aind_data_schema.components.devices import (
     PatchCord,
     ProbePort,
 )
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema_models.units import PowerUnit
 
 # Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
@@ -297,16 +298,20 @@ red_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 3, 6]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 3, 6],
+    output_unit=PowerUnit.MW,
 )
 
 blue_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 2, 7]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 2, 7],
+    output_unit=PowerUnit.MW,
 )
 
 inst = Instrument(

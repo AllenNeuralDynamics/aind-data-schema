@@ -4,10 +4,10 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.components.devices import (
-    Calibration,
     CameraAssembly,
     CameraTarget,
     Camera,
@@ -388,22 +388,28 @@ calibrations = [
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="470nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="415nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="560nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     # Water calibration comes here#
 ]
