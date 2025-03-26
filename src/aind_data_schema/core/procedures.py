@@ -273,9 +273,7 @@ class SpecimenProcedure(DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
-    procedure_name: Optional[str] = Field(
-        default=None, title="Procedure name", description="Name to clarify specific procedure used as needed"
-    )
+    procedure_name: Optional[str] = Field(default=None, title="Procedure name")
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
@@ -284,24 +282,46 @@ class SpecimenProcedure(DataModel):
         title="experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
-    hcr_series: Optional[HCRSeries] = Field(default=None, title="HCR Series")
-    antibodies: Optional[List[Antibody]] = Field(default=None, title="Immunolabeling")
-    sectioning: Optional[Sectioning] = Field(default=None, title="Sectioning")
+
+    procedure_details: List[
+        Annotated[
+            Union[
+                HCRSeries,
+                Antibody,
+                Sectioning,
+                Reagent,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(
+        default=[],
+        title="Procedure details",
+        description="",
+    )
+
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
     def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
+        has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
+        has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
+
+        if has_hcr_series + has_antibodies + has_sectioning > 1:
+            raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
+
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not self.hcr_series:
-            raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.antibodies:
-            raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
+            raise AssertionError("HCRSeries required if procedure_type is HCR.")
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not has_antibodies:
+            raise AssertionError("Antibody required if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
+            raise AssertionError("Sectioning required if procedure_type is Sectioning.")
         return self
 
 
@@ -655,7 +675,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
+    schema_version: SkipValidation[Literal["2.0.14"]] = Field(default="2.0.14")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

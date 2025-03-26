@@ -33,11 +33,11 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     license: Literal["CC-BY-4.0"] = Field(default="CC-BY-4.0", title="License")
 
-    subject_id: str = Field(
-        ...,
+    subject_id: Optional[str] = Field(
+        default=None,
         pattern=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
@@ -63,7 +63,6 @@ class DataDescription(DataCoreModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
-
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
@@ -103,11 +102,6 @@ class DataDescription(DataCoreModel):
         "of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
-    input_data: Optional[str] = Field(
-        default=None,
-        title="Input data",
-        description="Name of the data asset that was used as input to the process that created this asset",
-    )
     data_summary: Optional[str] = Field(
         default=None, title="Data summary", description="Semantic summary of experimental goal"
     )
@@ -141,10 +135,10 @@ class DataDescription(DataCoreModel):
             )
 
     @model_validator(mode="after")
-    def input_data_when_derived(self):
-        """Ensure that input_data is set when data_level is DERIVED"""
-        if self.data_level == DataLevel.DERIVED and self.input_data is None:
-            raise ValueError("input_data must be set when data_level is DERIVED")
+    def subject_id_when_raw(self):
+        """Ensure that a subject_id is provided when data_level is RAW"""
+        if self.data_level == DataLevel.RAW and self.subject_id is None:
+            raise ValueError("subject_id must be set when data_level is RAW")
         return self
 
     @model_validator(mode="after")
@@ -225,6 +219,5 @@ class DataDescription(DataCoreModel):
             project_name=get_or_default("project_name"),
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
-            input_data=data_description.name,
             data_summary=get_or_default("data_summary"),
         )
