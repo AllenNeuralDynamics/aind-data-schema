@@ -312,9 +312,7 @@ class SpecimenProcedure(DataModel):
         has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
 
         if has_hcr_series + has_antibodies + has_sectioning > 1:
-            raise AssertionError(
-                "SpecimenProcedure.procedure_details should only contain one type of model."
-            )
+            raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
 
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(

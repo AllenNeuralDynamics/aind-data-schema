@@ -323,8 +323,8 @@ class ProceduresTests(unittest.TestCase):
         )
 
     def test_validate_procedure_type_multiple(self):
-        """ Test that error thrown when multiple types are passed to procedure_details"""
-        
+        """Test that error thrown when multiple types are passed to procedure_details"""
+
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
                 specimen_id="1000",
