@@ -298,6 +298,7 @@ class SpecimenProcedure(DataModel):
     ] = Field(
         default=[],
         title="Procedure details",
+        description="Should only contain one type of model, matched with the procedure_type",
     )
 
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -308,15 +309,23 @@ class SpecimenProcedure(DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
+
+        if has_hcr_series + has_antibodies + has_sectioning > 1:
+            raise AssertionError(
+                "SpecimenProcedure.procedure_details should only contain one type of model."
+            )
 
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
         elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
-            raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
+            raise AssertionError("HCRSeries required if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not has_antibodies:
-            raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")
+            raise AssertionError("Antibody required if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
+            raise AssertionError("Sectioning required if procedure_type is Sectioning.")
         return self
 
 

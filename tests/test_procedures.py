@@ -27,6 +27,7 @@ from aind_data_schema.core.procedures import (
     Injection,
     Craniotomy,
     CraniotomyType,
+    HCRSeries,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -280,7 +281,7 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
-        self.assertIn("antibodies cannot be empty if procedure_type is Immunolabeling", repr(e.exception))
+        self.assertIn("Antibody required if procedure_type is Immunolabeling", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -293,7 +294,20 @@ class ProceduresTests(unittest.TestCase):
                 reagents=[],
                 notes=None,
             )
-        self.assertIn("hcr_series cannot be empty if procedure_type is HCR", repr(e.exception))
+        self.assertIn("HCRSeries required if procedure_type is HCR", repr(e.exception))
+
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Sectioning",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                reagents=[],
+                notes=None,
+            )
+        self.assertIn("Sectioning required if procedure_type is Sectioning", repr(e.exception))
 
         self.assertIsNotNone(
             SpecimenProcedure(
@@ -307,6 +321,26 @@ class ProceduresTests(unittest.TestCase):
                 notes="some extra information",
             )
         )
+
+    def test_validate_procedure_type_multiple(self):
+        """ Test that error thrown when multiple types are passed to procedure_details"""
+        
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Other",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                reagents=[],
+                notes="some extra information",
+                procedure_details=[
+                    HCRSeries.model_construct(),
+                    Sectioning.model_construct(),
+                ],
+            )
+        self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
 
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on BrainInjection"""
