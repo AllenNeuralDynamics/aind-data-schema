@@ -141,7 +141,6 @@ class DataDescription(DataCoreModel):
             raise ValueError("subject_id must be set when data_level is RAW")
         return self
 
-
     @model_validator(mode="after")
     def build_name(self):
         """sets the name of the file"""
