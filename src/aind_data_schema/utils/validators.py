@@ -34,9 +34,9 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
     if not data:
         return
 
-    if hasattr(data, "coordinate_system"):
+    if hasattr(data, "coordinate_system") and data.coordinate_system:
         # If we find a new coordinate_system, allow it to over-write our settings
-        system_name = data.coordinate_system
+        system_name = data.coordinate_system.name
         axis_count = len(data.coordinate_system.axes)
 
     # Check if the object we are looking at has a system_name field
