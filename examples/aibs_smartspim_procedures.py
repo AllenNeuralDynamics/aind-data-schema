@@ -127,7 +127,7 @@ index2 = procedures.SpecimenProcedure(
     end_date=date(2023, 2, 2),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagenprocedure_detailsts=[
+    procedure_details=[
         easy_index,
     ],
 )
