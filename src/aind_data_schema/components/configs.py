@@ -4,6 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
+from pathlib import Path
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
@@ -189,7 +190,7 @@ class SlapFieldOfView(FieldOfView):
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
+    path_to_array_of_frame_rates: Path = Field(..., title="Array of frame rates")
 
 
 class MousePlatformConfig(DeviceConfig):
@@ -214,7 +215,7 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[str] = Field(
+    coordinate_transform: Optional[Path] = Field(
         default=None, title="Path to coordinate transform file"
     )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")

@@ -3,6 +3,7 @@
 from enum import Enum
 from typing import List, Optional, Union
 import math
+from pathlib import Path
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
@@ -238,7 +239,7 @@ class Affine(DataModel):
 class NonlinearTransform(DataModel):
     """Definition of a nonlinear transform"""
 
-    path: str = Field(..., title="Path to nonlinear transform file")
+    path: Path = Field(..., title="Path to nonlinear transform file")
 
 
 class CoordinateSystem(DataModel):

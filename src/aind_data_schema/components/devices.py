@@ -4,6 +4,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
+from pathlib import Path
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
@@ -239,7 +240,7 @@ class Device(DataModel):
     serial_number: Optional[str] = Field(default=None, title="Serial number")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Manufacturer")
     model: Optional[str] = Field(default=None, title="Model")
-    path_to_cad: Optional[str] = Field(
+    path_to_cad: Optional[Path] = Field(
         default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
     )
     port_index: Optional[str] = Field(default=None, title="Port index")

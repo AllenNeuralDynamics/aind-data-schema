@@ -2,6 +2,7 @@
 
 from enum import Enum
 from typing import List, Literal, Optional, Union
+from pathlib import Path
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
@@ -77,7 +78,7 @@ class DataProcess(DataModel):
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
     input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
-    output_location: str = Field(..., description="Path to data outputs", title="Output location")
+    output_location: Path = Field(..., description="Path to data outputs", title="Output location")
     parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)

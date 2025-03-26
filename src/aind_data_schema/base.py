@@ -174,7 +174,6 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     def validate_paths(cls, values):
         """Check all fields for pathlib Path objects, and soft-validate that they exist"""
 
-        print(values)
         if isinstance(values, dict):  # Probably a test, bypass
             return values
 
