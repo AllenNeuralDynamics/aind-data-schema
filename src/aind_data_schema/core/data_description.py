@@ -219,6 +219,5 @@ class DataDescription(DataCoreModel):
             project_name=get_or_default("project_name"),
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
-            input_data=data_description.name,
             data_summary=get_or_default("data_summary"),
         )
