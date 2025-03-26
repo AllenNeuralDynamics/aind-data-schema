@@ -33,7 +33,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     license: Literal["CC-BY-4.0"] = Field(default="CC-BY-4.0", title="License")
 
     subject_id: Optional[str] = Field(

@@ -7871,8 +7871,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.5",
-               "default": "2.0.5",
+               "const": "2.0.6",
+               "default": "2.0.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -7883,10 +7883,18 @@
                "type": "string"
             },
             "subject_id": {
+               "anyOf": [
+                  {
+                     "pattern": "^[^_]+$",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Unique identifier for the subject of data acquisition",
-               "pattern": "^[^_]+$",
-               "title": "Subject ID",
-               "type": "string"
+               "title": "Subject ID"
             },
             "creation_time": {
                "description": "Time that data files were created, used to uniquely identify the data",
@@ -8119,19 +8127,6 @@
                "title": "Modalities",
                "type": "array"
             },
-            "input_data": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Name of the data asset that was used as input to the process that created this asset",
-               "title": "Input data"
-            },
             "data_summary": {
                "anyOf": [
                   {
@@ -8147,7 +8142,6 @@
             }
          },
          "required": [
-            "subject_id",
             "creation_time",
             "institution",
             "funding_source",
@@ -47295,8 +47289,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.30",
-               "default": "2.0.30",
+               "const": "2.0.31",
+               "default": "2.0.31",
                "title": "Schema Version",
                "type": "string"
             },
@@ -96552,8 +96546,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.30",
-         "default": "2.0.30",
+         "const": "2.0.31",
+         "default": "2.0.31",
          "title": "Schema Version",
          "type": "string"
       },
