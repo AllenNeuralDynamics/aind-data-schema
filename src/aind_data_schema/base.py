@@ -253,9 +253,6 @@ class DataCoreModel(DataModel):
     def coordinate_system_validator(cls, data):
         """Validate that all coordinates match the defined coordinate system"""
 
-        try:
-            recursive_coord_system_check(data, None, None)
-        except (CoordinateSystemException, SystemNameException, AxisCountException) as e:
-            print(e)
+        recursive_coord_system_check(data, None, None)
 
         return data
