@@ -7,7 +7,7 @@ from enum import Enum
 class CoordinateSystemException(Exception):
     """Raised when a coordinate system is missing."""
 
-    def __init__(self, message="Coordinate system is missing"):
+    def __init__(self, message="CoordinateSystem is required when a Transform or Coordinate is present"):
         super().__init__(message)
 
 

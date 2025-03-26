@@ -120,14 +120,61 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
     def test_recursive_coord_system_check_with_missing_coordinate_system(self):
         """Test recursive_coord_system_check with missing coordinate system"""
 
-        class MockData:
-            system_name = self.system_name
+        class MockData(BaseModel):
+            """Test class"""
+            system_name: str
 
-        data = MockData()
+        data = MockData(system_name=self.system_name)
+
         with self.assertRaises(CoordinateSystemException) as context:
             recursive_coord_system_check(data, None, axis_count=0)
 
-        self.assertIn("Coordinate system is missing", str(context.exception))
+        self.assertIn("CoordinateSystem is required", str(context.exception))
+
+    def test_recursion(self):
+        """Test actual recursion, where the system changes"""
+
+        class SystemMock(BaseModel):
+            """Test class"""
+            name: str = "Client system"
+            axes: list[bool] = [True, True]
+
+        class CoordinateMock(BaseModel):
+            """Test class"""
+            system_name: str = "Client system"
+            position: list[float] = [0.5, 1]
+
+        class ClientMockData(BaseModel):
+            """Test class"""
+            coordinate_system: SystemMock = SystemMock()
+            coordinate: CoordinateMock = CoordinateMock()
+
+        class ParentMockData(BaseModel):
+            """Test class"""
+            child: ClientMockData = ClientMockData()
+
+        # No exception raised, because system_name and axis_count get replaced
+        data = ParentMockData()
+        recursive_coord_system_check(data, system_name="Parent system", axis_count=5)
+        self.assertTrue(True)
+
+        # Change the system name
+        data = ParentMockData()
+        data.child.coordinate.system_name = "Parent system"
+        with self.assertRaises(SystemNameException) as context:
+            recursive_coord_system_check(data, system_name="Parent system", axis_count=5)
+        self.assertIn("System name mismatch", str(context.exception))
+
+        # Change the axis count
+        data = ParentMockData()
+        data.child.coordinate.position = []
+        with self.assertRaises(AxisCountException) as context:
+            recursive_coord_system_check(data, system_name="Parent system", axis_count=5)
+        self.assertIn("Axis count mismatch", str(context.exception))
+
+        # No parent system
+        data = ParentMockData()
+        recursive_coord_system_check(data, system_name=None, axis_count=None)
 
 
 class MockEnum(Enum):
