@@ -187,7 +187,7 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription(
                 creation_time=dt,
                 institution=Organization.AIND,
-                data_level="derrawived",
+                data_level="raw",
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=[Modality.ECEPHYS],
                 investigators=[Person(name="Jane Smith")],
