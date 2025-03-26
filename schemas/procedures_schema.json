@@ -16606,7 +16606,6 @@
                   }
                ],
                "default": null,
-               "description": "Name to clarify specific procedure used as needed",
                "title": "Procedure name"
             },
             "specimen_id": {
@@ -16639,52 +16638,36 @@
                "title": "Protocol ID",
                "type": "array"
             },
-            "reagents": {
+            "procedure_details": {
                "default": [],
+               "description": "",
                "items": {
-                  "$ref": "#/$defs/Reagent"
-               },
-               "title": "Reagents",
-               "type": "array"
-            },
-            "hcr_series": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/HCRSeries"
+                  "discriminator": {
+                     "mapping": {
+                        "Antibody": "#/$defs/Antibody",
+                        "HCR series": "#/$defs/HCRSeries",
+                        "Reagent": "#/$defs/Reagent",
+                        "Sectioning": "#/$defs/Sectioning"
+                     },
+                     "propertyName": "object_type"
                   },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "HCR Series"
-            },
-            "antibodies": {
-               "anyOf": [
-                  {
-                     "items": {
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/HCRSeries"
+                     },
+                     {
                         "$ref": "#/$defs/Antibody"
                      },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Immunolabeling"
-            },
-            "sectioning": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Sectioning"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Sectioning"
+                     {
+                        "$ref": "#/$defs/Sectioning"
+                     },
+                     {
+                        "$ref": "#/$defs/Reagent"
+                     }
+                  ]
+               },
+               "title": "Procedure details",
+               "type": "array"
             },
             "notes": {
                "anyOf": [
@@ -49110,8 +49093,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.13",
-         "default": "2.0.13",
+         "const": "2.0.14",
+         "default": "2.0.14",
          "title": "Schema Version",
          "type": "string"
       },
