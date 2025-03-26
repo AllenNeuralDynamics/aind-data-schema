@@ -6,6 +6,9 @@ from aind_data_schema.utils.validators import (
     _recurse_helper,
     recursive_coord_system_check,
     recursive_get_all_names,
+    SystemNameException,
+    AxisCountException,
+    CoordinateSystemException,
 )
 from enum import Enum
 from pydantic import BaseModel
@@ -58,39 +61,39 @@ class TestRecurseHelper(unittest.TestCase):
         _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
 
-class TestRecursiveAxisOrderCheck(unittest.TestCase):
-    """Tests for recursive_axis_order_check function"""
+class TestRecursiveCoordSystemCheck(unittest.TestCase):
+    """Tests for recursive_coord_system_check function"""
 
     def setUp(self):
         """Set up test data"""
         self.system_name = "BREGMA_ARI"
 
-    def test_recursive_axis_order_check_with_valid_data(self):
-        """Test recursive_axis_order_check with valid data"""
+    def test_recursive_coord_system_check_with_valid_data(self):
+        """Test recursive_coord_system_check with valid data"""
         data = Coordinate(
             system_name=self.system_name,
             position=[0.5, 1],
         )
         recursive_coord_system_check(data, self.system_name, axis_count=2)
 
-    def test_recursive_axis_order_check_with_invalid_system_name(self):
-        """Test recursive_axis_order_check with invalid system name"""
+    def test_recursive_coord_system_check_with_invalid_system_name(self):
+        """Test recursive_coord_system_check with invalid system name"""
         data = Coordinate(
             system_name="Invalid System",
             position=[0.5, 1],
         )
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(SystemNameException) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
 
         self.assertIn("System name mismatch", str(context.exception))
 
-    def test_recursive_axis_order_check_with_empty_data(self):
-        """Test recursive_axis_order_check with empty data"""
+    def test_recursive_coord_system_check_with_empty_data(self):
+        """Test recursive_coord_system_check with empty data"""
         data = None
         recursive_coord_system_check(data, self.system_name, axis_count=0)
 
-    def test_recursive_axis_order_check_with_list_of_coordinates(self):
-        """Test recursive_axis_order_check with a list of coordinates"""
+    def test_recursive_coord_system_check_with_list_of_coordinates(self):
+        """Test recursive_coord_system_check with a list of coordinates"""
         data = [
             Coordinate(
                 system_name=self.system_name,
@@ -109,10 +112,22 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
             system_name=self.system_name,
             position=[0.5, 1, 2],
         )
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(AxisCountException) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
 
         self.assertIn("Axis count mismatch", str(context.exception))
+
+    def test_recursive_coord_system_check_with_missing_coordinate_system(self):
+        """Test recursive_coord_system_check with missing coordinate system"""
+
+        class MockData:
+            system_name = self.system_name
+
+        data = MockData()
+        with self.assertRaises(CoordinateSystemException) as context:
+            recursive_coord_system_check(data, None, axis_count=0)
+
+        self.assertIn("Coordinate system is missing", str(context.exception))
 
 
 class MockEnum(Enum):

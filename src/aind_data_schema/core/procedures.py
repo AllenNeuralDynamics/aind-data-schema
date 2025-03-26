@@ -639,7 +639,7 @@ class Surgery(DataModel):
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
-        title="Coordinate system for surgical procedures",
+        title="Only use this field when different from the Procedures.coordinate_system",
     )
 
     # Measured coordinates
@@ -688,6 +688,14 @@ class Procedures(DataCoreModel):
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+
+    # Coordinate system
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate System",
+        description="Required when coordinates are provided in the procedures",
+    )
+
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_validator("specimen_procedures", mode="after")

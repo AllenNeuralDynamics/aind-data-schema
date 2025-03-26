@@ -4,6 +4,31 @@ from typing import Any, List
 from enum import Enum
 
 
+class CoordinateSystemException(Exception):
+    """Raised when a coordinate system is missing."""
+
+    def __init__(self, message="Coordinate system is missing"):
+        super().__init__(message)
+
+
+class SystemNameException(Exception):
+    """Raised when there is a system name mismatch."""
+
+    def __init__(self, expected, found):
+        self.expected = expected
+        self.found = found
+        super().__init__(f"System name mismatch, expected {expected}, found {found}")
+
+
+class AxisCountException(Exception):
+    """Raised when the axis count does not match."""
+
+    def __init__(self, expected, found):
+        self.expected = expected
+        self.found = found
+        super().__init__(f"Axis count mismatch, expected {expected} axes, but found {found}")
+
+
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
     """Check whether a subject_id and specimen_id are compatible"""
     return subject_id in specimen_id
@@ -41,19 +66,18 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
 
     # Check if the object we are looking at has a system_name field
     if hasattr(data, "system_name"):
+        if not system_name or not axis_count:
+            raise CoordinateSystemException()
+
         if data.system_name not in system_name:
-            raise ValueError(
-                f"System name mismatch: {data.system_name} does not match the top-level coordinate system {system_name}"
-            )
+            raise SystemNameException(system_name, data.system_name)
 
         # Check lengths of subfields
         if hasattr(data, "__dict__"):
             for attr_name, attr_value in data.__dict__.items():
                 if isinstance(attr_value, list):
                     if len(attr_value) != axis_count:
-                        raise ValueError(
-                            f"Axis count mismatch: {attr_name} has {len(attr_value)} axes, expected {axis_count}"
-                        )
+                        raise AxisCountException(axis_count, len(attr_value))
 
     _recurse_helper(data=data, system_name=system_name, axis_count=axis_count)
 

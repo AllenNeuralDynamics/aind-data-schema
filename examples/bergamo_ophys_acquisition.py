@@ -20,6 +20,7 @@ from aind_data_schema.components.configs import (
     StimulusModality,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
