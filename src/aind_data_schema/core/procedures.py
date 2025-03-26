@@ -273,9 +273,7 @@ class SpecimenProcedure(DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
-    procedure_name: Optional[str] = Field(
-        default=None, title="Procedure name", description="Name to clarify specific procedure used as needed"
-    )
+    procedure_name: Optional[str] = Field(default=None, title="Procedure name")
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
@@ -284,7 +282,6 @@ class SpecimenProcedure(DataModel):
         title="experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
 
     procedure_details: List[
         Annotated[
@@ -292,13 +289,14 @@ class SpecimenProcedure(DataModel):
                 HCRSeries,
                 Antibody,
                 Sectioning,
+                Reagent,
             ],
             Field(discriminator="object_type"),
         ]
     ] = Field(
         default=[],
         title="Procedure details",
-        description="Should only contain one type of model, matched with the procedure_type",
+        description="",
     )
 
     notes: Optional[str] = Field(default=None, title="Notes")
