@@ -26,13 +26,6 @@ class ProcessStage(str, Enum):
     ANALYSIS = "Analysis"
 
 
-class RegistrationType(str, Enum):
-    """Types of registration"""
-
-    INTER = "Inter-channel"
-    INTRA = "Intra-channel"
-
-
 class ResourceTimestamped(DataModel):
     """Description of resource usage at a moment in time"""
 
