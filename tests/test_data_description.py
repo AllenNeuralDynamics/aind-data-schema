@@ -179,23 +179,21 @@ class DataDescriptionTest(unittest.TestCase):
         dd = DataDescription.from_raw(dr, "process", subject_id="1234-56")
         self.assertIsNotNone(dd)
 
-    def test_derived_no_input_data(self):
-        """Test that creating a derived data description without input data raises an error"""
+    def test_raw_no_subject_id(self):
+        """Test that creating a raw data description without subject_id raises an error"""
         dt = datetime.datetime.now()
 
         with self.assertRaises(ValueError) as context:
             DataDescription(
                 creation_time=dt,
                 institution=Organization.AIND,
-                data_level="derived",
+                data_level="derrawived",
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=[Modality.ECEPHYS],
-                subject_id="12345",
                 investigators=[Person(name="Jane Smith")],
-                input_data=None,
             )
 
-        self.assertIn("input_data", str(context.exception))
+        self.assertIn("subject_id", str(context.exception))
 
     def test_derived_bad_creation_time(self):
         """Test that a validation error is raised if the creation time is not a datetime object"""
