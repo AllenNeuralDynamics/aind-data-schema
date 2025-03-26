@@ -103,8 +103,8 @@ class DataDescription(DataCoreModel):
         "of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
-    input_data: Optional[str] = Field(
-        default=None,
+    input_data: Optional[List[str]] = Field(
+        default=[],
         title="Input data",
         description="Name of the data asset that was used as input to the process that created this asset",
     )
