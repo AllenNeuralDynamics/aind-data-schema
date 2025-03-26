@@ -223,7 +223,7 @@ class Acquisition(DataCoreModel):
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
-        description="Only required when the acquisition is not in the instrument coordinate system",
+        description="Only required if coordinates within the acquisition are not in the instrument coordinate system",
     )
 
     # Instrument metadata
