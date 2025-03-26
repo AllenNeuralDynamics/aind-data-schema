@@ -265,7 +265,6 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
         self.assertIn("notes cannot be empty if procedure_type is Other", repr(e.exception))
@@ -278,7 +277,6 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
         self.assertIn("Antibody required if procedure_type is Immunolabeling", repr(e.exception))
@@ -291,7 +289,6 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
         self.assertIn("HCRSeries required if procedure_type is HCR", repr(e.exception))
@@ -304,7 +301,6 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
         self.assertIn("Sectioning required if procedure_type is Sectioning", repr(e.exception))
@@ -317,7 +313,6 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes="some extra information",
             )
         )
@@ -333,7 +328,6 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes="some extra information",
                 procedure_details=[
                     HCRSeries.model_construct(),
@@ -464,7 +458,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     ),
                     SpecimenProcedure(
@@ -474,7 +467,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     ),
                 ],
@@ -496,7 +488,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     )
                 ],
