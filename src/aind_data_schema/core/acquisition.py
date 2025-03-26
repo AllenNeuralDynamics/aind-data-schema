@@ -220,8 +220,11 @@ class Acquisition(DataCoreModel):
     experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Coordinate system",
-                                                          description="Only required when the acquisition is not in the instrument coordinate system")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system",
+        description="Only required when the acquisition is not in the instrument coordinate system",
+    )
 
     # Instrument metadata
     calibrations: List[CALIBRATIONS] = Field(

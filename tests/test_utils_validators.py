@@ -81,7 +81,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
         )
         with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
-        
+
         self.assertIn("System name mismatch", str(context.exception))
 
     def test_recursive_axis_order_check_with_empty_data(self):
@@ -111,7 +111,7 @@ class TestRecursiveAxisOrderCheck(unittest.TestCase):
         )
         with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
-        
+
         self.assertIn("Axis count mismatch", str(context.exception))
 
 
