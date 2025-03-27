@@ -332,6 +332,7 @@ class TestComposability(unittest.TestCase):
                     animal_weight_post=22.3,
                     anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
                     workstation_id="SWS 3",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                     procedures=[
                         Craniotomy(
                             craniotomy_type=CraniotomyType.CIRCLE,

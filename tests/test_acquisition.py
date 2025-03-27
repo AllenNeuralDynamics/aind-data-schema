@@ -52,6 +52,7 @@ class AcquisitionTest(unittest.TestCase):
             subject_details=SubjectDetails(
                 mouse_platform_name="Running wheel",
             ),
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             data_streams=[
                 DataStream(
                     stream_start_time=datetime.now(),
@@ -71,7 +72,7 @@ class AcquisitionTest(unittest.TestCase):
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
                                 Coordinate(
-                                    system_name="BREGMA_ARI",
+                                    system_name="BREGMA_ARID",
                                     position=[1, 1, 1],
                                 ),
                             ],
@@ -83,7 +84,7 @@ class AcquisitionTest(unittest.TestCase):
                             ],
                             manipulator_axis_positions=[
                                 Coordinate(
-                                    system_name="BREGMA_ARI",
+                                    system_name="BREGMA_ARID",
                                     position=[1, 1, 1],
                                 )
                             ],
@@ -174,6 +175,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_id="1234",
                 experiment_type="Test",
                 instrument_id="1234",
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                 data_streams=[
                     DataStream(
                         stream_start_time=datetime.now(),
@@ -193,8 +195,8 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
@@ -205,8 +207,8 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -229,6 +231,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
                 ),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 data_streams=[
                     DataStream(
                         stream_start_time=datetime.now(),
@@ -285,6 +288,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
                 ),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                 data_streams=[
                     DataStream(
                         stream_start_time=datetime.now(),
@@ -304,8 +308,8 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
@@ -316,8 +320,8 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
