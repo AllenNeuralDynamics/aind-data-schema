@@ -16,7 +16,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.identifiers import Person
 
 

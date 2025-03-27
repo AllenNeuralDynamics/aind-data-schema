@@ -19,15 +19,9 @@ from aind_data_schema_models.units import (
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import GenericModelType, DataModel
-from aind_data_schema.components.coordinates import (
-    AxisName,
-    Transform,
-    AnatomicalRelative,
-    Scale,
-    CoordinateSystem,
-)
-from aind_data_schema.components.identifiers import Software, Code
+from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.identifiers import Code, Software
 
 
 class ImagingDeviceType(str, Enum):
