@@ -1,4 +1,4 @@
-""" schema for processing """
+"""schema for processing"""
 
 from enum import Enum
 from typing import List, Literal, Optional, Union
@@ -76,19 +76,25 @@ class Provenance(DataModel):
     """Description of provenance of processing results"""
 
     code: Code = Field(..., title="Code used for processing")
-    inputs: Union[DataAsset, CombinedData, Path] = Field(
-        ..., title="Input locations", description=(
+    inputs: List[Union[DataAsset, CombinedData, Path]] = Field(
+        ...,
+        title="Input locations",
+        description=(
             "Inputs can be a single DataAsset, a CombinedData object, ",
-            "and/or the name of a preceding DataProcess."
-        )
+            "and/or the name of a preceding DataProcess.",
+        ),
     )
-    
+
 
 class DataProcess(DataModel):
     """Description of a single processing step"""
 
-    name: str = Field(..., title="Name", description="Unique name of the processing step")
     type: ProcessName = Field(..., title="Process type")
+    name: str = Field(
+        default="",
+        title="Name",
+        description=("Unique name of the processing step.", " If not provided, the type will be used as the name."),
+    )
     stage: ProcessStage = Field(..., title="Processing stage")
     provenance: Provenance = Field(..., title="Provenance")
     owners: List[Person] = Field(..., title="owners", description="People responsible for processing")
@@ -102,8 +108,12 @@ class DataProcess(DataModel):
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
-    output_path: Path = Field(..., description="Path to data outputs", title="Output location")
-    output_parameters: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
+    output_path: Optional[Path] = Field(
+        default=None, title="Output path", description="Path to processing outputs, if stored."
+    )
+    output_parameters: GenericModelType = Field(
+        default=GenericModel(), description="Output parameters", title="Outputs"
+    )
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -112,8 +122,18 @@ class DataProcess(DataModel):
         """Validator for other/notes"""
 
         if info.data.get("type") == ProcessName.OTHER and not value:
-            raise ValueError("Notes cannot be empty if 'type' is Other. Describe the type of processing in the notes field.")
+            raise ValueError(
+                "Notes cannot be empty if 'type' is Other. Describe the type of processing in the notes field."
+            )
         return value
+
+    @model_validator(mode="after")
+    def fill_default_name(self) -> "DataProcess":
+        """Fill in default name if not provided"""
+
+        if not self.name:
+            self.name = self.type
+        return self
 
 
 class Processing(DataCoreModel):
@@ -126,7 +146,9 @@ class Processing(DataCoreModel):
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    # why not mode="after"?
     @model_validator(mode="before")
+    @classmethod
     def validate_pipeline_steps(cls, values):
         """Validator for pipeline_steps"""
 
@@ -148,7 +170,7 @@ class Processing(DataCoreModel):
         # Validate that all processes have a unique name
         if len(process_names) != len(set(process_names)):
             raise ValueError("data_processes must have unique names.")
-        
+
         for process in data_processes:
             # For each process, make sure it's either a pipeline and has all its processes downstream
 
