@@ -4,6 +4,10 @@ from typing import Any, List
 from enum import Enum
 
 
+# Fields that should have the same length as the coordinate system axes
+AXIS_FIELD_NAMES = ["scale", "translation", "angles", "position"]
+
+
 class CoordinateSystemException(Exception):
     """Raised when a coordinate system is missing."""
 
@@ -75,7 +79,7 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
         # Check lengths of subfields
         if hasattr(data, "__dict__"):
             for attr_name, attr_value in data.__dict__.items():
-                if isinstance(attr_value, list):
+                if isinstance(attr_value, list) and attr_name in AXIS_FIELD_NAMES:
                     if len(attr_value) != axis_count:
                         raise AxisCountException(axis_count, len(attr_value))
 
