@@ -136,7 +136,7 @@ acquisition = Acquisition(
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                software=bonsai_software,
+                core_dependency=bonsai_software,
                 parameters=VisualStimulation(
                     stimulus_name="Static Gratings",
                     stimulus_parameters={
@@ -155,7 +155,7 @@ acquisition = Acquisition(
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                software=bonsai_software,
+                core_dependency=bonsai_software,
                 parameters=VisualStimulation(
                     stimulus_name="Flashes",
                     stimulus_parameters={

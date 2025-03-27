@@ -8,7 +8,7 @@ import pydantic
 from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
 from aind_data_schema_models.units import MemoryUnit
 
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.identifiers import Person, Code, DataAsset
 from aind_data_schema.core.processing import (
     DataProcess,
     ProcessName,
@@ -20,7 +20,14 @@ from aind_data_schema.core.processing import (
 
 PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 t = datetime.fromisoformat("2024-09-13T14:00:00")
-
+code = Code(
+    name="Example pipeline",
+    input_data=[
+        DataAsset(url="s3 path to inputs"), 
+    ],
+    url="https://url/for/pipeline",
+    version="0.1.1",
+)
 
 class ProcessingTest(unittest.TestCase):
     """tests for processing schema"""
@@ -36,16 +43,12 @@ class ProcessingTest(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
-                    stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    type=ProcessName.ANALYSIS,
+                    stage=ProcessStage.ANALYSIS,
+                    code=code,
+                    output_path="./path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
-                    code=Code(
-                        url="https://url/for/pipeline",
-                        version="0.1.1",
-                    ),
                 ),
             ]
         )
@@ -53,13 +56,11 @@ class ProcessingTest(unittest.TestCase):
         self.assertIsNotNone(p)
 
         with self.assertRaises(pydantic.ValidationError) as e:
-            DataProcess(name="Other", notes="")
+            DataProcess(type="Other", notes="")
         self.assertIn("stage", repr(e.exception))
         self.assertIn("code", repr(e.exception))
         self.assertIn("start_date_time", repr(e.exception))
         self.assertIn("end_date_time", repr(e.exception))
-        self.assertIn("input_location", repr(e.exception))
-        self.assertIn("output_location", repr(e.exception))
         self.assertIn("notes", repr(e.exception))
 
     def test_resource_usage(self):
@@ -126,30 +127,22 @@ class ProcessingTest(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.PIPELINE,
+                    type=ProcessName.PIPELINE,
                     stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    output_path="./path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
-                    code=Code(
-                        url="https://url/for/pipeline",
-                        version="0.1.1",
-                    ),
+                    code=code,
                     pipeline_steps=[ProcessName.COMPRESSION],
                 ),
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.COMPRESSION,
+                    type=ProcessName.COMPRESSION,
                     stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    code=code,
+                    output_path="./path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
-                    code=Code(
-                        url="https://url/for/analysis",
-                        version="0.1.1",
-                    ),
                 ),
             ]
         )
@@ -161,16 +154,12 @@ class ProcessingTest(unittest.TestCase):
                 data_processes=[
                     DataProcess(
                         experimenters=[Person(name="Dr. Dan")],
-                        name=ProcessName.PIPELINE,
+                        type=ProcessName.PIPELINE,
                         stage=ProcessStage.PROCESSING,
-                        input_location="/path/to/inputs",
-                        output_location="/path/to/outputs",
+                        output_path="./path/to/outputs",
                         start_date_time=t,
                         end_date_time=t,
-                        code=Code(
-                            url="https://url/for/pipeline",
-                            version="0.1.1",
-                        ),
+                        code=code,
                     ),
                 ]
             )
@@ -182,21 +171,17 @@ class ProcessingTest(unittest.TestCase):
                 data_processes=[
                     DataProcess(
                         experimenters=[Person(name="Dr. Dan")],
-                        name=ProcessName.PIPELINE,
+                        type=ProcessName.PIPELINE,
                         stage=ProcessStage.PROCESSING,
-                        input_location="/path/to/inputs",
-                        output_location="/path/to/outputs",
+                        output_path="./path/to/outputs",
                         start_date_time=t,
                         end_date_time=t,
-                        code=Code(
-                            url="https://url/for/pipeline",
-                            version="0.1.1",
-                        ),
+                        code=code,
                         pipeline_steps=[ProcessName.ANALYSIS],
                     ),
                 ]
             )
-        self.assertIn("Pipeline step 'Analysis' not found in data_processes.", str(e.exception))
+        self.assertIn("Processing step 'Analysis' not found in data_processes", str(e.exception))
 
         # Test with a non-pipeline process having pipeline_steps
         with self.assertRaises(ValueError) as e:
@@ -204,16 +189,12 @@ class ProcessingTest(unittest.TestCase):
                 data_processes=[
                     DataProcess(
                         experimenters=[Person(name="Dr. Dan")],
-                        name=ProcessName.ANALYSIS,
-                        stage=ProcessStage.PROCESSING,
-                        input_location="/path/to/inputs",
-                        output_location="/path/to/outputs",
+                        type=ProcessName.ANALYSIS,
+                        stage=ProcessStage.ANALYSIS,
+                        output_path="./path/to/outputs",
                         start_date_time=t,
                         end_date_time=t,
-                        code=Code(
-                            url="https://url/for/analysis",
-                            version="0.1.1",
-                        ),
+                        code=code,
                         pipeline_steps=[ProcessName.ANALYSIS],
                     ),
                 ]
@@ -228,43 +209,34 @@ class ProcessingTest(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
-                    stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    type=ProcessName.ANALYSIS,
+                    stage=ProcessStage.ANALYSIS,
+                    output_path="./path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
-                    code=Code(
-                        url="https://url/for/analysis",
-                        version="0.1.1",
-                    ),
+                    code=code,
                 ),
             ]
         )
         self.assertIsNotNone(p)
 
         # Test with data_processes as a list of lists
-        with self.assertRaises(ValueError) as e:
+        with self.assertRaises(pydantic.ValidationError) as e:
             Processing(
                 data_processes=[
                     [
                         DataProcess(
                             experimenters=[Person(name="Dr. Dan")],
-                            name=ProcessName.ANALYSIS,
-                            stage=ProcessStage.PROCESSING,
-                            input_location="/path/to/inputs",
-                            output_location="/path/to/outputs",
+                            type=ProcessName.ANALYSIS,
+                            stage=ProcessStage.ANALYSIS,
+                            output_path="./path/to/outputs",
                             start_date_time=t,
                             end_date_time=t,
-                            code=Code(
-                                url="https://url/for/analysis",
-                                version="0.1.1",
-                            ),
+                            code=code,
                         ),
                     ]
                 ]
             )
-        self.assertIn("data_processes should be a list of DataProcess objects or dictionaries", str(e.exception))
 
 
 if __name__ == "__main__":

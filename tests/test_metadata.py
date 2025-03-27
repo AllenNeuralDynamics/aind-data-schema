@@ -20,10 +20,10 @@ from aind_data_schema.components.devices import (
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
+from aind_data_schema.core.metadata import Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
     BrainInjection,
     Procedures,
@@ -106,10 +106,9 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
+                    type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    output_path="/path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(

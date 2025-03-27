@@ -1,4 +1,4 @@
-""" tests for Model """
+"""tests for Model"""
 
 import datetime
 import unittest
@@ -8,7 +8,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 
-from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.components.identifiers import Person, Software, Code, DataAsset
 from aind_data_schema.core.model import Model, ModelArchitecture, ModelEvaluation, ModelTraining, PerformanceMetric
 from aind_data_schema.core.processing import ProcessStage
 
@@ -25,7 +25,7 @@ class ModelTests(unittest.TestCase):
         now = datetime.datetime.now()
 
         m = Model(
-            name="2024_01_01_ResNet18_SmartSPIM.h5",
+            name="2024_01_01_ResNet18_SmartSPIM",
             license="CC-BY-4.0",
             developers=[Person(name="Dr. Dan")],
             developer_institution=Organization.AIND,
@@ -51,9 +51,19 @@ class ModelTests(unittest.TestCase):
                 ModelTraining(
                     stage=ProcessStage.PROCESSING,
                     experimenters=[Person(name="Dr. Dan")],
-                    input_location=["s3 path to eval 1", "s3 path to eval 2"],
-                    output_location="s3 path to trained model asset",
-                    code=Code(url="url for training code repo"),
+                    code=Code(
+                        input_data=[
+                            DataAsset(url="s3 path to training data"),
+                        ],
+                        url="url for model code repo",
+                        run_script="./train.py",
+                        parameters={
+                            "learning_rate": 0.0001,
+                            "batch_size": 32,
+                            "augmentation": True,
+                        },
+                    ),
+                    output_path="./trained_model.h5",
                     start_date_time=now,
                     end_date_time=now,
                     train_performance=[
@@ -65,11 +75,6 @@ class ModelTests(unittest.TestCase):
                         PerformanceMetric(name="recall", value=0.8),
                     ],
                     test_data="4:1 train/test split",
-                    parameters={
-                        "learning_rate": 0.0001,
-                        "batch_size": 32,
-                        "augmentation": True,
-                    },
                     notes="note on training data selection",
                 )
             ],
@@ -77,9 +82,13 @@ class ModelTests(unittest.TestCase):
                 ModelEvaluation(
                     stage=ProcessStage.PROCESSING,
                     experimenters=[Person(name="Dr. Dan")],
-                    input_location=["s3 path to eval 1", "s3 path to eval 2"],
-                    output_location="s3 path (output asset or trained model asset if no output)",
-                    code=Code(url="url for training code repo"),
+                    code=Code(
+                        input_data=[
+                            DataAsset(url="s3 path to eval data"),
+                        ],
+                        url="url for model code repo",
+                        run_script="./eval.py",
+                    ),
                     start_date_time=now,
                     end_date_time=now,
                     performance=[PerformanceMetric(name="precision", value=0.8)],

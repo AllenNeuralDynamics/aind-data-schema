@@ -406,10 +406,9 @@ class TestComposability(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
+                    type=ProcessName.ANALYSIS,
                     stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs1",
-                    output_location="/path/to/outputs1",
+                    output_path="/path/to/outputs1",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -425,10 +424,9 @@ class TestComposability(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Jane")],
-                    name=ProcessName.COMPRESSION,
+                    type=ProcessName.COMPRESSION,
                     stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs2",
-                    output_location="/path/to/outputs2",
+                    output_path="/path/to/outputs2",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
