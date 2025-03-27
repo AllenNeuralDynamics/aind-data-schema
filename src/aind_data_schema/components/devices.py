@@ -578,7 +578,7 @@ class EphysProbe(Device):
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
 
-    # optional fields
+    # details
     lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
     headstage: Optional[Headstage] = Field(default=None, title="Headstage for this probe")
 
