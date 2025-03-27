@@ -332,13 +332,14 @@ class TestComposability(unittest.TestCase):
                     animal_weight_post=22.3,
                     anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
                     workstation_id="SWS 3",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                     procedures=[
                         Craniotomy(
                             craniotomy_type=CraniotomyType.CIRCLE,
                             protocol_id="1234",
                             position=Coordinate(
                                 system_name="BREGMA_ARI",
-                                position=[-2, -4, 0, 0],
+                                position=[-2, -4, 0],
                             ),
                             size=1,
                             size_unit=SizeUnit.MM,

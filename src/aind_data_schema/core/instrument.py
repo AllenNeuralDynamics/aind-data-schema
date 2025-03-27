@@ -68,8 +68,6 @@ DEVICES_REQUIRED = {
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
-instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
-
 
 class ConnectionDirection(str, Enum):
     """Direction of a connection"""
@@ -107,14 +105,13 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
+    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
 
     # instrument definition
     instrument_id: str = Field(
         ...,
         description="Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
         title="Instrument ID",
-        pattern=instrument_id_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")

@@ -16,7 +16,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -29,8 +29,8 @@ ephys_config_a = ManipulatorConfig(
     module_angle=8,
     atlas_coordinates=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8150, 3250, 7800],
+            system_name="BREGMA_ARID",
+            position=[8150, 3250, 7800, 0],
         ),
     ],
     device_name="Ephys_assemblyA",
@@ -38,8 +38,8 @@ ephys_config_a = ManipulatorConfig(
     primary_targeted_structure=CCFStructure.LGD,
     manipulator_axis_positions=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8422, 4205, 11087.5],
+            system_name="BREGMA_ARID",
+            position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[
@@ -61,8 +61,8 @@ ephys_config_b = ManipulatorConfig(
     module_angle=-22,
     atlas_coordinates=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8150, 3250, 7800],
+            system_name="BREGMA_ARID",
+            position=[8150, 3250, 7800, 0],
         ),
     ],
     device_name="Ephys_assemblyB",
@@ -70,8 +70,8 @@ ephys_config_b = ManipulatorConfig(
     primary_targeted_structure=CCFStructure.LC,
     manipulator_axis_positions=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8422, 4205, 11087.5],
+            system_name="BREGMA_ARID",
+            position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[
@@ -128,6 +128,7 @@ acquisition = Acquisition(
     subject_details=SubjectDetails(
         mouse_platform_name="Running Wheel",
     ),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",

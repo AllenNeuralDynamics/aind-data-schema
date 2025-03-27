@@ -266,7 +266,9 @@ class Atlas(CoordinateSystem):
 class Transform(DataModel):
     """Affine transformation in a coordinate system"""
 
-    system_name: str = Field(..., title="Coordinate system name")
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
     transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
         Field(..., title="Transform")
     )
@@ -291,7 +293,9 @@ class Coordinate(DataModel):
     Angles can be optionally provided
     """
 
-    system_name: str = Field(..., title="Coordinate system name")
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
     position: List[float] = Field(
         ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
     )

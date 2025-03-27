@@ -17,6 +17,7 @@ from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.components.coordinates import CoordinateSystem
 
 from aind_data_schema.components.configs import (
     DomeModule,
@@ -198,7 +199,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
+    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
@@ -219,6 +220,11 @@ class Acquisition(DataCoreModel):
     experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system",
+        description="Required when coordinates are provided within the Acquisition",
+    )
 
     # Instrument metadata
     calibrations: List[CALIBRATIONS] = Field(

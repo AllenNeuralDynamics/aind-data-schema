@@ -581,50 +581,6 @@ class InstrumentTests(unittest.TestCase):
         )
         self.assertIsNotNone(inst)
 
-    def test_instrument_id_validator(self):
-        """Tests that instrument_id validator works as expected"""
-
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                components=[
-                    *daqs,
-                    *cameras,
-                    *stick_microscopes,
-                    *light_sources,
-                    *lms,
-                    *ems,
-                    *detectors,
-                    *patch_cords,
-                    *stimulus_devices,
-                    Disc(name="Disc A", radius=1),
-                ],
-                calibrations=[calibration],
-            )
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS-OPTO_2020-01-01",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                components=[
-                    *daqs,
-                    *cameras,
-                    *stick_microscopes,
-                    *light_sources,
-                    *lms,
-                    *ems,
-                    *detectors,
-                    *patch_cords,
-                    *stimulus_devices,
-                    Disc(name="Disc A", radius=1),
-                ],
-                calibrations=[calibration],
-            )
-
     def test_serialize_modalities(self):
         """Tests that modalities serializer can handle different types"""
         expected_modalities = [{"name": "Extracellular electrophysiology", "abbreviation": "ecephys"}]
