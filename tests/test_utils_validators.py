@@ -122,6 +122,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
         class MockData(BaseModel):
             """Test class"""
+
             system_name: str
 
         data = MockData(system_name=self.system_name)
@@ -136,21 +137,25 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
         class SystemMock(BaseModel):
             """Test class"""
+
             name: str = "Client system"
             axes: list[bool] = [True, True]
 
         class CoordinateMock(BaseModel):
             """Test class"""
+
             system_name: str = "Client system"
             position: list[float] = [0.5, 1]
 
         class ClientMockData(BaseModel):
             """Test class"""
+
             coordinate_system: SystemMock = SystemMock()
             coordinate: CoordinateMock = CoordinateMock()
 
         class ParentMockData(BaseModel):
             """Test class"""
+
             child: ClientMockData = ClientMockData()
 
         # No exception raised, because system_name and axis_count get replaced

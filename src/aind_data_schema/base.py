@@ -23,9 +23,6 @@ from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 from aind_data_schema.utils.validators import (
     recursive_coord_system_check,
-    CoordinateSystemException,
-    SystemNameException,
-    AxisCountException,
 )
 
 
