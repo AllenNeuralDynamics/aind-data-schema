@@ -330,7 +330,7 @@ connections = [
                 direction=ConnectionDirection.SEND,
             ),
         },
-    )
+    ),
 ]
 
 inst = Instrument(

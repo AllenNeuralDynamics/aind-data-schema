@@ -165,7 +165,7 @@ connections = [
                 direction=ConnectionDirection.RECEIVE,
             ),
         },
-    )
+    ),
 ]
 
 harp = HarpDevice(
@@ -977,7 +977,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "W10DTJK7N0M3": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
-                }
+                },
             ),
             Connection(
                 device_names=["Bottom face Camera", "W10DTJK7N0M3"],
@@ -988,7 +988,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "W10DTJK7N0M3": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
-                }
+                },
             ),
             Connection(
                 device_names=["Harp Behavior", "W10DTJK7N0M3"],
@@ -999,7 +999,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     "W10DTJK7N0M3": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,
                     ),
-                }
+                },
             ),
         ]
         stimulus_devices = [

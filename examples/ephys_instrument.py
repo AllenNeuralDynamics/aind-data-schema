@@ -93,7 +93,14 @@ connections = [
         },
     ),
     Connection(
-        device_names=[computer_names["Behavior computer"], "Basestation Slot 3", "stick microscope 1", "stick microscope 2", "stick microscope 3", "stick microscope 4"],
+        device_names=[
+            computer_names["Behavior computer"],
+            "Basestation Slot 3",
+            "stick microscope 1",
+            "stick microscope 2",
+            "stick microscope 3",
+            "stick microscope 4",
+        ],
         connection_data={
             computer_names["Behavior computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
             "Basestation Slot 3": ConnectionData(direction=ConnectionDirection.SEND),

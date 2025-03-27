@@ -12,7 +12,7 @@ class CoordinateSystemException(Exception):
     """Raised when a coordinate system is missing."""
 
     def __init__(self):
-        """ Initialize the exception. """
+        """Initialize the exception."""
         super().__init__("CoordinateSystem is required when a Transform or Coordinate is present")
 
 
@@ -20,7 +20,7 @@ class SystemNameException(Exception):
     """Raised when there is a system name mismatch."""
 
     def __init__(self, expected, found):
-        """ Initialize the exception with the expected and found axis counts. """
+        """Initialize the exception with the expected and found axis counts."""
         self.expected = expected
         self.found = found
         super().__init__(f"System name mismatch, expected {expected}, found {found}")
@@ -30,7 +30,7 @@ class AxisCountException(Exception):
     """Raised when the axis count does not match."""
 
     def __init__(self, expected, found):
-        """ Initialize the exception with the expected and found axis counts. """
+        """Initialize the exception with the expected and found axis counts."""
         self.expected = expected
         self.found = found
         super().__init__(f"Axis count mismatch, expected {expected} axes, but found {found}")

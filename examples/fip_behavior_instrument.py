@@ -212,7 +212,7 @@ connections = [
                 direction=ConnectionDirection.SEND,
             ),
         },
-    )
+    ),
 ]
 
 lick_spout_assembly = LickSpoutAssembly(
