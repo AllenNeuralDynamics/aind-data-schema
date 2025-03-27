@@ -71,7 +71,7 @@ ephys_config_b = ManipulatorConfig(
     manipulator_axis_positions=[
         Coordinate(
             system_name="BREGMA_ARID",
-            position=[8422, 4205, 11087.5],
+            position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[

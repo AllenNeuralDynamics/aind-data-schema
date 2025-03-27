@@ -339,7 +339,7 @@ class TestComposability(unittest.TestCase):
                             protocol_id="1234",
                             position=Coordinate(
                                 system_name="BREGMA_ARI",
-                                position=[-2, -4, 0, 0],
+                                position=[-2, -4, 0],
                             ),
                             size=1,
                             size_unit=SizeUnit.MM,
