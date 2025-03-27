@@ -505,20 +505,20 @@ ephys_acquisition = Acquisition(
                     module_angle=8,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8150, 3250, 7800],
+                            system_name="BREGMA_ARID",
+                            position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_coordinates=[
                         Coordinate(
                             system_name="BREGMA_ARID",
-                            position=[1, 1, 1],
+                            position=[1, 1, 1, 0],
                         )
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8422, 4205, 11087.5],
+                            system_name="BREGMA_ARID",
+                            position=[8422, 4205, 11087.5, 0],
                         )
                     ],
                     device_name="ephys module 1",
@@ -536,8 +536,8 @@ ephys_acquisition = Acquisition(
                     module_angle=8,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8150, 3250, 7800],
+                            system_name="BREGMA_ARID",
+                            position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_coordinates=[
@@ -548,8 +548,8 @@ ephys_acquisition = Acquisition(
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[84222, 4205, 11087.5],
+                            system_name="BREGMA_ARID",
+                            position=[84222, 4205, 11087.5, 0],
                         )
                     ],
                     device_name="ephys module 1",
@@ -567,8 +567,8 @@ ephys_acquisition = Acquisition(
                     module_angle=-22,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[6637.28, 4265.02, 10707.35],
+                            system_name="BREGMA_ARID",
+                            position=[6637.28, 4265.02, 10707.35, 0],
                         ),
                     ],
                     manipulator_coordinates=[
@@ -579,8 +579,8 @@ ephys_acquisition = Acquisition(
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[9015, 7144, 13262],
+                            system_name="BREGMA_ARID",
+                            position=[9015, 7144, 13262, 0],
                         )
                     ],
                     device_name="ephys module 2",

@@ -155,6 +155,7 @@ class AcquisitionTest(unittest.TestCase):
             ethics_review_id="1234",
             experiment_type="3D MRI Volume",
             instrument_id="NA",
+            coordinate_system=CoordinateSystemLibrary.MRI_LPS,
             subject_details=SubjectDetails(
                 animal_weight_prior=22.1,
                 animal_weight_post=21.9,
