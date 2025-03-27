@@ -49,7 +49,6 @@ class DeviceTests(unittest.TestCase):
         with self.assertRaises(ValueError) as e3:
             HarpDevice(
                 name="test_harp",
-                computer_name="test_harp_computer",
                 harp_device_type=HarpDeviceType.BEHAVIOR,
                 data_interface=DataInterface.OTHER,
                 is_clock_generator=False,
@@ -68,7 +67,6 @@ class DeviceTests(unittest.TestCase):
 
         HarpDevice(
             name="test_harp",
-            computer_name="test_harp_computer",
             harp_device_type=HarpDeviceType.BEHAVIOR,
             data_interface=DataInterface.USB,
             is_clock_generator=False,

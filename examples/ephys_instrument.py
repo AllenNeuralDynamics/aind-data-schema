@@ -38,8 +38,12 @@ from aind_data_schema_models.units import PowerUnit
 # Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 
-behavior_computer = Computer(name="Behavior computer", serial_number="W10DT72941")
-ephys_computer = Computer(name="Ephys computer", serial_number="W10DT72942")
+computer_names = {
+    "Behavior computer": "W10DT72941",
+    "Ephys computer": "W10DT72942",
+}
+behavior_computer = Computer(name=computer_names["Behavior computer"])
+ephys_computer = Computer(name=computer_names["Ephys computer"])
 
 running_wheel = Disc(name="Running Wheel", radius=15)
 
@@ -80,18 +84,18 @@ connections = [
         },
     ),
     Connection(
-        device_names=["Harp Behavior", "Face Camera", "Body Camera", "Behavior computer"],
+        device_names=["Harp Behavior", "Face Camera", "Body Camera", computer_names["Behavior computer"]],
         connection_data={
             "Harp Behavior": ConnectionData(direction=ConnectionDirection.SEND),
             "Face Camera": ConnectionData(direction=ConnectionDirection.SEND),
             "Body Camera": ConnectionData(direction=ConnectionDirection.SEND),
-            "Behavior computer": ConnectionData(direction=ConnectionDirection.RECEIVE),
+            computer_names["Behavior computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
         },
     ),
     Connection(
-        device_names=["Ephys computer", "Basestation Slot 3", "stick microscope 1", "stick microscope 2", "stick microscope 3", "stick microscope 4"],
+        device_names=[computer_names["Behavior computer"], "Basestation Slot 3", "stick microscope 1", "stick microscope 2", "stick microscope 3", "stick microscope 4"],
         connection_data={
-            "Ephys computer": ConnectionData(direction=ConnectionDirection.RECEIVE),
+            computer_names["Behavior computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
             "Basestation Slot 3": ConnectionData(direction=ConnectionDirection.SEND),
             "stick microscope 1": ConnectionData(direction=ConnectionDirection.SEND),
             "stick microscope 2": ConnectionData(direction=ConnectionDirection.SEND),
