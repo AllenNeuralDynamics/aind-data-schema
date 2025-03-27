@@ -17341,7 +17341,8 @@
                   }
                ],
                "default": null,
-               "title": "Coordinate system for surgical procedures"
+               "description": "Only use this field when different from the Procedures.coordinate_system",
+               "title": "Surgery coordinate system"
             },
             "measured_coordinates": {
                "anyOf": [
@@ -49093,8 +49094,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.14",
-         "default": "2.0.14",
+         "const": "2.0.15",
+         "default": "2.0.15",
          "title": "Schema Version",
          "type": "string"
       },
@@ -49140,6 +49141,19 @@
          },
          "title": "Specimen Procedures",
          "type": "array"
+      },
+      "coordinate_system": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/CoordinateSystem"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Required when coordinates are provided in the procedures",
+         "title": "Coordinate System"
       },
       "notes": {
          "anyOf": [

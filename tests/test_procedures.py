@@ -33,6 +33,7 @@ from aind_data_schema.components.coordinates import (
     Origin,
     AnatomicalRelative,
     Rotation,
+    CoordinateSystemLibrary,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit
@@ -123,12 +124,14 @@ class ProceduresTests(unittest.TestCase):
 
         p = Procedures(
             subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
                     experimenters=[Person(name="Mam Moth")],
                     ethics_review_id="234",
                     protocol_id="123",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
                             system_name="BREGMA_ARI",

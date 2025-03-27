@@ -1,7 +1,44 @@
 """ schema describing imaging acquisition """
 
 from decimal import Decimal
-from typing import Annotated, List, Literal, Optional, Union
+from typing import List, Literal, Optional, Union, Annotated
+
+from pydantic import Field, SkipValidation, model_validator
+
+from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
+from aind_data_schema_models.units import VolumeUnit, MassUnit
+from aind_data_schema.components.devices import (
+    Camera,
+    CameraAssembly,
+    EphysAssembly,
+    FiberAssembly,
+)
+from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
+
+from aind_data_schema.core.procedures import Anaesthetic
+from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.components.coordinates import CoordinateSystem
+
+from aind_data_schema.components.configs import (
+    DomeModule,
+    PatchCordConfig,
+    FiberAssemblyConfig,
+    ManipulatorConfig,
+    DetectorConfig,
+    FieldOfView,
+    SlapFieldOfView,
+    SpeakerConfig,
+    LightEmittingDiodeConfig,
+    LaserConfig,
+    MousePlatformConfig,
+    Stack,
+    MRIScan,
+    StimulusModality,
+    InVitroImagingConfig,
+    LickSpoutConfig,
+    AirPuffConfig,
+)
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
@@ -190,7 +227,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
+    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
@@ -211,6 +248,11 @@ class Acquisition(DataCoreModel):
     experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system",
+        description="Required when coordinates are provided within the Acquisition",
+    )
 
     # Instrument metadata
     calibrations: List[CALIBRATIONS] = Field(

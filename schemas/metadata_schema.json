@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.12",
-               "default": "2.0.12",
+               "const": "2.0.13",
+               "default": "2.0.13",
                "title": "Schema Version",
                "type": "string"
             },
@@ -113,6 +113,19 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Required when coordinates are provided within the Acquisition",
+               "title": "Coordinate system"
             },
             "calibrations": {
                "default": [],
@@ -47147,8 +47160,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.14",
-               "default": "2.0.14",
+               "const": "2.0.15",
+               "default": "2.0.15",
                "title": "Schema Version",
                "type": "string"
             },
@@ -47194,6 +47207,19 @@
                },
                "title": "Specimen Procedures",
                "type": "array"
+            },
+            "coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Required when coordinates are provided in the procedures",
+               "title": "Coordinate System"
             },
             "notes": {
                "anyOf": [
@@ -47289,8 +47315,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.31",
-               "default": "2.0.31",
+               "const": "2.0.32",
+               "default": "2.0.32",
                "title": "Schema Version",
                "type": "string"
             },
@@ -62160,7 +62186,8 @@
                   }
                ],
                "default": null,
-               "title": "Coordinate system for surgical procedures"
+               "description": "Only use this field when different from the Procedures.coordinate_system",
+               "title": "Surgery coordinate system"
             },
             "measured_coordinates": {
                "anyOf": [
@@ -96546,8 +96573,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.31",
-         "default": "2.0.31",
+         "const": "2.0.32",
+         "default": "2.0.32",
          "title": "Schema Version",
          "type": "string"
       },

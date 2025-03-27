@@ -59276,8 +59276,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.12",
-         "default": "2.0.12",
+         "const": "2.0.13",
+         "default": "2.0.13",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59372,6 +59372,19 @@
          ],
          "default": null,
          "title": "Notes"
+      },
+      "coordinate_system": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/CoordinateSystem"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Required when coordinates are provided within the Acquisition",
+         "title": "Coordinate system"
       },
       "calibrations": {
          "default": [],
