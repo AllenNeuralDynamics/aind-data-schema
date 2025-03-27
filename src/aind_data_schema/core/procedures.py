@@ -639,7 +639,8 @@ class Surgery(DataModel):
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
-        title="Only use this field when different from the Procedures.coordinate_system",
+        title="Surgery coordinate system",
+        description="Only use this field when different from the Procedures.coordinate_system",
     )
 
     # Measured coordinates
