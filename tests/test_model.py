@@ -53,7 +53,14 @@ class ModelTests(unittest.TestCase):
                     experimenters=[Person(name="Dr. Dan")],
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path to trained model asset",
-                    code=Code(url="url for training code repo"),
+                    code=Code(
+                        url="url for training code repo",   
+                        parameters={
+                            "learning_rate": 0.0001,
+                            "batch_size": 32,
+                            "augmentation": True,
+                        },
+                    ),
                     start_date_time=now,
                     end_date_time=now,
                     train_performance=[
@@ -65,11 +72,6 @@ class ModelTests(unittest.TestCase):
                         PerformanceMetric(name="recall", value=0.8),
                     ],
                     test_data="4:1 train/test split",
-                    parameters={
-                        "learning_rate": 0.0001,
-                        "batch_size": 32,
-                        "augmentation": True,
-                    },
                     notes="note on training data selection",
                 )
             ],
