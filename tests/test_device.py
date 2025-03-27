@@ -45,7 +45,7 @@ class DeviceTests(unittest.TestCase):
             )
 
         self.assertIn("Value error, Notes cannot be empty", str(e3.exception))
-        self.assertIn("'data_interface'", str(e3.exception))
+        self.assertIn("data_interface", str(e3.exception))
 
         HarpDevice(
             name="test_harp",
