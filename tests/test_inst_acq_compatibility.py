@@ -985,6 +985,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             experiment_type="Parameter Testing",
             instrument_id="ophys_inst",
             ethics_review_id="2115",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             subject_details=SubjectDetails(
                 mouse_platform_name="Disc",
             ),
