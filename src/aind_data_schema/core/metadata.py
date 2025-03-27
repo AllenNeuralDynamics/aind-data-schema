@@ -64,6 +64,7 @@ class ExternalPlatforms(str, Enum):
 
     CODEOCEAN = "Code Ocean"
 
+ExternalLinks = Dict[ExternalPlatforms, List[str]]
 
 class Metadata(DataCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
@@ -106,7 +107,7 @@ class Metadata(DataCoreModel):
     metadata_status: MetadataStatus = Field(
         default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
     )
-    external_links: Dict[ExternalPlatforms, List[str]] = Field(
+    external_links: ExternalLinks = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more

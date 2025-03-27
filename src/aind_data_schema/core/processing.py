@@ -15,6 +15,7 @@ from aind_data_schema.base import (
     DataModel,
     AwareDatetimeWithDefault,
 )
+from aind_data_schema.core.metadata import ExternalLinks
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.utils.merge import merge_notes
 
@@ -58,13 +59,16 @@ class DataAsset(DataModel):
     url: str = Field(..., title="Asset location", description="URL pointing to the data asset")
 
 
-class CompositeAsset(DataModel):
+class CombinedData(DataModel):
     """Description of multiple data assets"""
 
-    assets: List[DataAsset] = Field(..., title="Data assets")
-    name: str = Field(..., title="Name")
-    curation_purpose: Optional[str] = Field(
-        default=None, title="Curation purpose", description="Reason for grouping assets together for processing"
+    assets: List[DataAsset] = Field(..., title="Data assets", min_items=1)
+    name: Optional[str] = Field(default=None, title="Name")
+    external_links: ExternalLinks = Field(
+        default=dict(), title="External Links", description="Links to the Combined Data asset, if materialized."
+    )
+    description: Optional[str] = Field(
+        default=None, title="Description", description="Intention or approach used to select group of assets"
     )
 
 
@@ -85,7 +89,7 @@ class DataProcess(DataModel):
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
-    inputs: Union[DataAsset, CompositeAsset, Path] = Field(
+    inputs: Union[DataAsset, CombinedData, Path] = Field(
         ..., description="Path(s) to data inputs", title="Input locations"
     )
     outputs: Path = Field(..., description="Path to data outputs", title="Output location")
