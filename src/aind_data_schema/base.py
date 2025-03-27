@@ -21,7 +21,9 @@ from pydantic import (
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
-from aind_data_schema.utils.validators import recursive_coord_system_check
+from aind_data_schema.utils.validators import (
+    recursive_coord_system_check,
+)
 
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
@@ -248,10 +250,6 @@ class DataCoreModel(DataModel):
     def coordinate_system_validator(cls, data):
         """Validate that all coordinates match the defined coordinate system"""
 
-        if hasattr(data, "coordinate_system") and data.coordinate_system is not None:
-            # This core model has a coordinate_system -- check that all subfields refer to this system
-            system_name = data.coordinate_system.name
-
-            recursive_coord_system_check(data, system_name)
+        recursive_coord_system_check(data, None, None)
 
         return data

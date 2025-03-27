@@ -30,7 +30,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, Origin, AnatomicalRelative
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
 class ImmunolabelClass(str, Enum):
@@ -639,7 +639,8 @@ class Surgery(DataModel):
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
-        title="Coordinate system for surgical procedures",
+        title="Surgery coordinate system",
+        description="Only use this field when different from the Procedures.coordinate_system",
     )
 
     # Measured coordinates
@@ -668,16 +669,6 @@ class Surgery(DataModel):
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @model_validator(mode="after")
-    def coordinate_validator(cls, data):
-        """Validate that all coordinates are valid in the instrument's coordinate system"""
-
-        if data.coordinate_system:
-
-            recursive_coord_system_check(data, data.coordinate_system.name)
-
-        return data
-
 
 class Procedures(DataCoreModel):
     """Description of all procedures performed on a subject"""
@@ -698,6 +689,14 @@ class Procedures(DataCoreModel):
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+
+    # Coordinate system
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate System",
+        description="Required when coordinates are provided in the procedures",
+    )
+
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_validator("specimen_procedures", mode="after")
