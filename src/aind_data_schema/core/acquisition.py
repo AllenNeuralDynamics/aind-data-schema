@@ -1,44 +1,7 @@
 """ schema describing imaging acquisition """
 
 from decimal import Decimal
-from typing import List, Literal, Optional, Union, Annotated
-
-from pydantic import Field, SkipValidation, model_validator
-
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
-from aind_data_schema_models.units import VolumeUnit, MassUnit
-from aind_data_schema.components.devices import (
-    Camera,
-    CameraAssembly,
-    EphysAssembly,
-    FiberAssembly,
-)
-from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
-
-from aind_data_schema.core.procedures import Anaesthetic
-from aind_data_schema.components.identifiers import Person, Software, Code
-from aind_data_schema.components.coordinates import CoordinateSystem
-
-from aind_data_schema.components.configs import (
-    DomeModule,
-    PatchCordConfig,
-    FiberAssemblyConfig,
-    ManipulatorConfig,
-    DetectorConfig,
-    FieldOfView,
-    SlapFieldOfView,
-    SpeakerConfig,
-    LightEmittingDiodeConfig,
-    LaserConfig,
-    MousePlatformConfig,
-    Stack,
-    MRIScan,
-    StimulusModality,
-    InVitroImagingConfig,
-    LickSpoutConfig,
-    AirPuffConfig,
-)
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from typing import Annotated, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
@@ -64,6 +27,7 @@ from aind_data_schema.components.configs import (
     Stack,
     StimulusModality,
 )
+from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
 from aind_data_schema.components.identifiers import Code, Person, Software
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
