@@ -1,7 +1,7 @@
 """ Validator utility functions """
 
-from typing import Any, List
 from enum import Enum
+from typing import Any, List
 
 
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:

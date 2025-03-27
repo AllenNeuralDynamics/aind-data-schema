@@ -7,14 +7,8 @@ from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import (
-    DataCoreModel,
-    GenericModel,
-    GenericModelType,
-    DataModel,
-    AwareDatetimeWithDefault,
-)
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.utils.merge import merge_notes
 
 

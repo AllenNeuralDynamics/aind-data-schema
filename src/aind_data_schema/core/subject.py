@@ -1,10 +1,11 @@
 """ schema for mostly mouse metadata """
 
-from typing import Literal, Optional, Annotated, Union
+from typing import Annotated, Literal, Optional, Union
+
 from pydantic import Field, SkipValidation
 
 from aind_data_schema.base import DataCoreModel
-from aind_data_schema.components.subjects import MouseSubject, HumanSubject
+from aind_data_schema.components.subjects import HumanSubject, MouseSubject
 
 
 class Subject(DataCoreModel):
