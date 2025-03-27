@@ -1,13 +1,11 @@
 """ test Procedures """
 
-import re
 import unittest
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import TimeUnit, ConcentrationUnit, VolumeUnit
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
@@ -27,6 +25,7 @@ from aind_data_schema.core.procedures import (
     Injection,
     Craniotomy,
     CraniotomyType,
+    HCRSeries,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -34,11 +33,10 @@ from aind_data_schema.components.coordinates import (
     Origin,
     AnatomicalRelative,
     Rotation,
+    CoordinateSystemLibrary,
 )
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class ProceduresTests(unittest.TestCase):
@@ -81,8 +79,6 @@ class ProceduresTests(unittest.TestCase):
                                 ],
                                 target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -115,8 +111,6 @@ class ProceduresTests(unittest.TestCase):
                                 ],
                                 target=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -130,12 +124,14 @@ class ProceduresTests(unittest.TestCase):
 
         p = Procedures(
             subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
                     experimenters=[Person(name="Mam Moth")],
                     ethics_review_id="234",
                     protocol_id="123",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
                             system_name="BREGMA_ARI",
@@ -172,8 +168,6 @@ class ProceduresTests(unittest.TestCase):
                                     profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            recovery_time=10,
-                            recovery_time_unit=TimeUnit.M,
                         ),
                         Injection(
                             protocol_id="234",
@@ -225,8 +219,6 @@ class ProceduresTests(unittest.TestCase):
                                     position=[0.5, 1, 0, 1],
                                 ),
                             ],
-                            recovery_time=10,
-                            recovery_time_unit=TimeUnit.M,
                             target=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
@@ -272,17 +264,9 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, notes cannot be empty if procedure_type is Other."
-            " Describe the procedure in the notes field. [type=assertion_error, "
-            "input_value={'specimen_id': '1000', '...nts': [], 'notes': None}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("notes cannot be empty if procedure_type is Other", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -292,17 +276,9 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, antibodies cannot be empty if procedure_type is Immunolabeling."
-            " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [], 'notes': None},"
-            " input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("Antibody required if procedure_type is Immunolabeling", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -312,18 +288,21 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, hcr_series cannot be empty if procedure_type is HCR."
-            " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [],"
-            " 'notes': None}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
+        self.assertIn("HCRSeries required if procedure_type is HCR", repr(e.exception))
 
-        self.assertEqual(expected_exception, repr(e.exception))
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Sectioning",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                notes=None,
+            )
+        self.assertIn("Sectioning required if procedure_type is Sectioning", repr(e.exception))
 
         self.assertIsNotNone(
             SpecimenProcedure(
@@ -333,10 +312,28 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes="some extra information",
             )
         )
+
+    def test_validate_procedure_type_multiple(self):
+        """Test that error thrown when multiple types are passed to procedure_details"""
+
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Other",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                notes="some extra information",
+                procedure_details=[
+                    HCRSeries.model_construct(),
+                    Sectioning.model_construct(),
+                ],
+            )
+        self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
 
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on BrainInjection"""
@@ -460,7 +457,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     ),
                     SpecimenProcedure(
@@ -470,7 +466,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     ),
                 ],
@@ -492,7 +487,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     )
                 ],

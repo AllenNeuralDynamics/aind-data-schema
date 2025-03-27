@@ -65,8 +65,6 @@ p = Procedures(
                             titer=20000000000000,
                         )
                     ],
-                    recovery_time=0,
-                    instrument_id=None,
                     coordinates=[
                         Coordinate(
                             system_name="BREGMA_ARID",
@@ -131,8 +129,7 @@ p = Procedures(
             end_date="2023-06-12",
             experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
-            reagents=[],
-            antibodies=[
+            procedure_details=[
                 Antibody(
                     name="Chicken polyclonal",
                     source=Organization.ABCAM,
@@ -154,8 +151,7 @@ p = Procedures(
             end_date="2023-06-13",
             experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
-            reagents=[],
-            antibodies=[
+            procedure_details=[
                 Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source=Organization.THERMO_FISHER_SCIENTIFIC,

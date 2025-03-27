@@ -42,6 +42,7 @@ file_io_usage_list = [
 example_code = Code(
     url="https://github.com/abcd",
     version="0.1",
+    parameters={"size": 7},
 )
 
 p = Processing(

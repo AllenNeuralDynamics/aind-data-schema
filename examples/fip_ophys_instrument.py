@@ -3,13 +3,14 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
+from aind_data_schema.components.measurements import Calibration
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 
@@ -327,9 +328,9 @@ connections = [
 
 mouse_platform = d.Disc(name="mouse_disc", radius=8.5)
 
-stimulus_device = d.RewardDelivery(
-    reward_spouts=[
-        d.RewardSpout(
+stimulus_device = d.LickSpoutAssembly(
+    lick_spouts=[
+        d.LickSpout(
             name="Left spout",
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Left"),
@@ -337,7 +338,7 @@ stimulus_device = d.RewardDelivery(
                 name="Lick-o-meter Left",
             ),
         ),
-        d.RewardSpout(
+        d.LickSpout(
             name="Right spout",
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Right"),
@@ -350,12 +351,14 @@ stimulus_device = d.RewardDelivery(
 
 additional_device = d.Device(name="Photometry Clock")
 
-calibration = d.Calibration(
+calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
     device_name="470nm LED",
     description="LED calibration",
-    input={"Power setting": [1, 2, 3]},
-    output={"Power mW": [5, 10, 13]},
+    input=[1, 2, 3],
+    input_unit=PowerUnit.PERCENT,
+    output=[5, 10, 13],
+    output_unit=PowerUnit.MW,
 )
 
 instrument = r.Instrument(

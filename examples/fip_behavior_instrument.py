@@ -4,10 +4,10 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.components.devices import (
-    Calibration,
     CameraAssembly,
     CameraTarget,
     Camera,
@@ -17,8 +17,8 @@ from aind_data_schema.components.devices import (
     HarpDeviceType,
     DAQChannel,
     DaqChannelType,
-    RewardDelivery,
-    RewardSpout,
+    LickSpoutAssembly,
+    LickSpout,
     Device,
     LickSensorType,
     MotorizedStage,
@@ -177,9 +177,9 @@ connections = [
     ),
 ]
 
-reward_delivery = RewardDelivery(
-    reward_spouts=[
-        RewardSpout(
+lick_spout_assembly = LickSpoutAssembly(
+    lick_spouts=[
+        LickSpout(
             name="Left spout",
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Left"),
@@ -189,7 +189,7 @@ reward_delivery = RewardDelivery(
             ),
             lick_sensor_type=LickSensorType("Capacitive"),
         ),
-        RewardSpout(
+        LickSpout(
             name="Right spout",
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Right"),
@@ -200,7 +200,7 @@ reward_delivery = RewardDelivery(
             lick_sensor_type=LickSensorType("Capacitive"),
         ),
     ],
-    stage_type=MotorizedStage(
+    motorized_stage=MotorizedStage(
         name="NewScaleMotor for LickSpouts",
         manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
         travel=15.0,
@@ -388,22 +388,28 @@ calibrations = [
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="470nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="415nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="560nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     # Water calibration comes here#
 ]
@@ -417,7 +423,7 @@ inst = Instrument(
         camera1,
         camera2,
         harp_behavior,
-        reward_delivery,
+        lick_spout_assembly,
         patch_cord,
         *light_sources,
         *detectors,

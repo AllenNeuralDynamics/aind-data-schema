@@ -1,6 +1,5 @@
 """ test processing """
 
-import re
 import unittest
 from datetime import datetime
 
@@ -18,7 +17,6 @@ from aind_data_schema.core.processing import (
     ProcessStage,
 )
 
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pydantic.__version__).group(1)
 t = datetime.fromisoformat("2024-09-13T14:00:00")
 code = Code(
     name="Example pipeline",

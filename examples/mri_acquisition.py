@@ -82,6 +82,7 @@ acquisition = Acquisition(
     ethics_review_id="1234",
     experiment_type="3D MRI Volume",
     instrument_id="NA",
+    coordinate_system=CoordinateSystemLibrary.MRI_LPS,
     subject_details=SubjectDetails(
         mouse_platform_name="NA",
     ),

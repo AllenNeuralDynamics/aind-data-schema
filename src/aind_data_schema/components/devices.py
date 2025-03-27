@@ -19,16 +19,9 @@ from aind_data_schema_models.units import (
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import GenericModel, GenericModelType, DataModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import (
-    AxisName,
-    Transform,
-    AnatomicalRelative,
-    Scale,
-    CoordinateSystem,
-)
-from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.components.identifiers import Software, Code
+from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.identifiers import Code, Software
 
 
 class ImagingDeviceType(str, Enum):
@@ -247,28 +240,6 @@ class Device(DataModel):
 
     # Additional fields
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class Calibration(DataModel):
-    """Generic calibration class"""
-
-    calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
-    description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: GenericModelType = Field(GenericModel(), description="Calibration input", title="inputs")
-    output: GenericModelType = Field(GenericModel(), description="Calibration output", title="outputs")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class Maintenance(DataModel):
-    """Generic maintenance class"""
-
-    maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in instrument")
-    description: str = Field(..., title="Description", description="Description on maintenance procedure")
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -782,8 +753,8 @@ class Monitor(Device):
     )
 
 
-class RewardSpout(Device):
-    """Description of a reward spout"""
+class LickSpout(Device):
+    """Description of a lick spout"""
 
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
@@ -793,11 +764,18 @@ class RewardSpout(Device):
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
 
 
-class RewardDelivery(DataModel):
-    """Description of reward delivery system"""
+class LickSpoutAssembly(DataModel):
+    """Description of multiple lick spouts, possibly mounted on a stage"""
 
-    stage_type: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
-    reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
+    lick_spouts: List[LickSpout] = Field(..., title="Water spouts")
+    motorized_stage: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
+
+
+class AirPuffDevice(Device):
+    """Description of an air puff device"""
+
+    diameter: float = Field(..., title="Spout diameter")
+    diameter_unit: SizeUnit = Field(..., title="Size unit")
 
 
 class Speaker(Device):
