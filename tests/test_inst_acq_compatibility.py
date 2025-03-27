@@ -128,7 +128,7 @@ connections = [
             "Basestation Slot 3": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
-            "W10DT72941": ConnectionData(
+            "W10DT72942": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
         },
@@ -139,7 +139,7 @@ connections = [
             "Probe Camera": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
-            "W10DT72941": ConnectionData(
+            "W10DT72942": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
         },
@@ -150,7 +150,7 @@ connections = [
             "Face Camera": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
-            "W10DT72941": ConnectionData(
+            "W10DT72942": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
         },
@@ -161,7 +161,7 @@ connections = [
             "Body Camera": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
-            "W10DT72941": ConnectionData(
+            "W10DT72942": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
         },

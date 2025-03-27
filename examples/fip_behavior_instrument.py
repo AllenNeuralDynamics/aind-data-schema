@@ -197,7 +197,7 @@ connections = [
             "W10DTJK7N0M3": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-            "Side face camera": ConnectionData(
+            "Bottom face camera": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
         },
@@ -469,6 +469,8 @@ inst = Instrument(
         *filters,
         lens,
         additional_device,
+        computer,
+        behavior_computer,
     ],
     connections=connections,
     calibrations=calibrations,
