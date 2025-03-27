@@ -3,44 +3,14 @@
 from typing import Annotated, List, Literal, Optional, Union
 
 from aind_data_schema_models.units import (
-    AngleUnit,
-    ConcentrationUnit,
-    CurrentUnit,
-    FrequencyUnit,
-    MassUnit,
-    MemoryUnit,
     PowerUnit,
-    SizeUnit,
-    SoundIntensityUnit,
-    SpeedUnit,
-    TemperatureUnit,
     TimeUnit,
-    UnitlessUnit,
-    VoltageUnit,
     VolumeUnit,
 )
 
 from aind_data_schema.base import AwareDatetimeWithDefault, Field
 from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.reagent import Reagent
-
-UNITS = Union[
-    SizeUnit,
-    MassUnit,
-    FrequencyUnit,
-    SpeedUnit,
-    VolumeUnit,
-    AngleUnit,
-    TimeUnit,
-    PowerUnit,
-    CurrentUnit,
-    ConcentrationUnit,
-    TemperatureUnit,
-    SoundIntensityUnit,
-    VoltageUnit,
-    MemoryUnit,
-    UnitlessUnit,
-]
 
 
 class Calibration(DeviceConfig):
