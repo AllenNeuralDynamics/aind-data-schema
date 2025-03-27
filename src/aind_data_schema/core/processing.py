@@ -72,14 +72,27 @@ class CombinedData(DataModel):
     )
 
 
+class Provenance(DataModel):
+    """Description of provenance of processing results"""
+
+    code: Code = Field(..., title="Code used for processing")
+    inputs: Union[DataAsset, CombinedData, Path] = Field(
+        ..., title="Input locations", description=(
+            "Inputs can be a single DataAsset, a CombinedData object, ",
+            "and/or the name of a preceding DataProcess."
+        )
+    )
+    
+
 class DataProcess(DataModel):
     """Description of a single processing step"""
 
-    name: ProcessName = Field(..., title="Name")
+    name: str = Field(..., title="Name", description="Unique name of the processing step")
+    type: ProcessName = Field(..., title="Process type")
     stage: ProcessStage = Field(..., title="Processing stage")
-    experimenters: List[Person] = Field(..., title="experimenters", description="People responsible for processing")
-    code: Code = Field(..., title="Code used for processing")
-    pipeline_steps: Optional[List[ProcessName]] = Field(
+    provenance: Provenance = Field(..., title="Provenance")
+    owners: List[Person] = Field(..., title="owners", description="People responsible for processing")
+    pipeline_steps: Optional[List[str]] = Field(
         default=None,
         title="Pipeline steps",
         description=(
@@ -89,12 +102,8 @@ class DataProcess(DataModel):
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
-    inputs: Union[DataAsset, CombinedData, Path] = Field(
-        ..., description="Path(s) to data inputs", title="Input locations"
-    )
-    outputs: Path = Field(..., description="Path to data outputs", title="Output location")
-    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
-    outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
+    output_path: Path = Field(..., description="Path to data outputs", title="Output location")
+    output_parameters: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -102,8 +111,8 @@ class DataProcess(DataModel):
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("name") == ProcessName.OTHER and not value:
-            raise ValueError("Notes cannot be empty if 'name' is Other. Describe the process name in the notes field.")
+        if info.data.get("type") == ProcessName.OTHER and not value:
+            raise ValueError("Notes cannot be empty if 'type' is Other. Describe the type of processing in the notes field.")
         return value
 
 
@@ -135,17 +144,22 @@ class Processing(DataCoreModel):
         except Exception as e:
             raise ValueError(f"data_processes should be a list of DataProcess objects or dictionaries. {e}")
 
+        process_names = [process.name for process in data_processes]
+        # Validate that all processes have a unique name
+        if len(process_names) != len(set(process_names)):
+            raise ValueError("data_processes must have unique names.")
+        
         for process in data_processes:
             # For each process, make sure it's either a pipeline and has all its processes downstream
 
-            if process.name == ProcessName.PIPELINE:
+            if process.type == ProcessName.PIPELINE:
 
                 if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
                     raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
 
                 # Validate that all steps show up in the data_processes list
                 for step in process.pipeline_steps:
-                    if step not in [p.name for p in data_processes]:
+                    if step not in process_names:
                         raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
             # Or make sure it doesn't have any pipeline steps
             elif hasattr(process, "pipeline_steps") and process.pipeline_steps:

@@ -1,6 +1,7 @@
 """ Schema for identifiers """
 
 from typing import Optional
+from pathlib import Path
 from pydantic import Field
 from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema_models.registries import Registry, _Orcid
@@ -29,6 +30,7 @@ class Code(DataModel):
 
     url: str = Field(..., title="Code URL", description="Path to code repository")
     version: Optional[str] = Field(default=None, title="Code version")
+    run_script: Optional[Path] = Field(default=None, title="Run script", description="Path to run script")
 
     language: Optional[str] = Field(default=None, title="Programming language", description="Programming language used")
     language_version: Optional[str] = Field(default=None, title="Programming language version")
