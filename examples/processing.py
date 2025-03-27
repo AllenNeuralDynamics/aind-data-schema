@@ -49,7 +49,7 @@ p = Processing(
     data_processes=[
         DataProcess(
             experimenters=[Person(name="Dr. Dan")],
-            type=ProcessName.PIPELINE,
+            process_type=ProcessName.PIPELINE,
             pipeline_steps=[
                 ProcessName.IMAGE_TILE_FUSING,
                 ProcessName.FILE_FORMAT_CONVERSION,
@@ -65,7 +65,7 @@ p = Processing(
             ),
         ),
         DataProcess(
-            type=ProcessName.IMAGE_TILE_FUSING,
+            process_type=ProcessName.IMAGE_TILE_FUSING,
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
@@ -92,7 +92,7 @@ p = Processing(
             ),
         ),
         DataProcess(
-            type=ProcessName.FILE_FORMAT_CONVERSION,
+            process_type=ProcessName.FILE_FORMAT_CONVERSION,
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
@@ -105,7 +105,7 @@ p = Processing(
             ),
         ),
         DataProcess(
-            type=ProcessName.IMAGE_DESTRIPING,
+            process_type=ProcessName.IMAGE_DESTRIPING,
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
@@ -120,7 +120,7 @@ p = Processing(
         DataProcess(
             stage=ProcessStage.ANALYSIS,
             experimenters=[Person(name="Some Analyzer")],
-            type=ProcessName.ANALYSIS,
+            process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
             output_path="/path/to/outputs",
@@ -134,7 +134,7 @@ p = Processing(
             name="Analysis 2",
             stage=ProcessStage.ANALYSIS,
             experimenters=[Person(name="Some Analyzer")],
-            type=ProcessName.ANALYSIS,
+            process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
             output_path="/path/to/outputs",

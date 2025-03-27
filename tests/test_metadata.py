@@ -107,7 +107,7 @@ class TestMetadata(unittest.TestCase):
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    type=ProcessName.ANALYSIS,
+                    process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",
                     start_date_time=t,

@@ -6,7 +6,7 @@ import logging
 import warnings
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Dict, List, Literal, Optional, get_args
+from typing import Dict, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
 from aind_data_schema_models.modalities import Modality

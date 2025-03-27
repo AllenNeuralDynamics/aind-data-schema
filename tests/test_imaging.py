@@ -153,7 +153,7 @@ class ImagingTests(unittest.TestCase):
 
     def test_registration(self):
         """test the tile models"""
-        parameters={
+        parameters = {
             "tiles": [
                 tile.Tile(
                     coordinate_transform=CoordinateTransform(
@@ -184,7 +184,7 @@ class ImagingTests(unittest.TestCase):
             ],
         }
         t = DataProcess(
-            type=ProcessName.IMAGE_TILE_ALIGNMENT,
+            process_type=ProcessName.IMAGE_TILE_ALIGNMENT,
             stage=ProcessStage.PROCESSING,
             experimenters=[Person(name="Dr. Dan")],
             start_date_time=datetime.now(tz=timezone.utc),

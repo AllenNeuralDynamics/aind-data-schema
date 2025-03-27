@@ -49,14 +49,14 @@ class ResourceUsage(DataModel):
 class DataProcess(DataModel):
     """Description of a single processing step"""
 
-    type: ProcessName = Field(..., title="Process type")
+    process_type: ProcessName = Field(..., title="Process type")
     name: str = Field(
         default="",
         title="Name",
         description=("Unique name of the processing step.", " If not provided, the type will be used as the name."),
     )
     stage: ProcessStage = Field(..., title="Processing stage")
-    code: Code = Field(..., title="Code", description="Code or script used for processing")
+    code: Code = Field(..., title="Code", description="Code used for processing")
     experimenters: List[Person] = Field(..., title="Experimenters", description="People responsible for processing")
     input_processes: List[str] = Field(
         default=[],
@@ -90,9 +90,9 @@ class DataProcess(DataModel):
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("type") == ProcessName.OTHER and not value:
+        if info.data.get("process_type") == ProcessName.OTHER and not value:
             raise ValueError(
-                "Notes cannot be empty if 'type' is Other. Describe the type of processing in the notes field."
+                "Notes cannot be empty if 'process_type' is Other. Describe the type of processing in the notes field."
             )
         return value
 
@@ -101,7 +101,7 @@ class DataProcess(DataModel):
         """Fill in default name if not provided"""
 
         if not self.name:
-            self.name = self.type
+            self.name = self.process_type
         return self
 
 
@@ -132,7 +132,7 @@ class Processing(DataCoreModel):
             references = process.input_processes
 
             # For each process, make sure it's either a pipeline and has all its processes downstream
-            if process.type == ProcessName.PIPELINE:
+            if process.process_type == ProcessName.PIPELINE:
                 if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
                     raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
                 references += process.pipeline_steps
@@ -145,7 +145,7 @@ class Processing(DataCoreModel):
             for step in references:
                 if step not in process_names:
                     raise ValueError(
-                        f"Processing step '{step}' not found in data_processes (referenced by process '{process.name}')."
+                        f"Processing step '{step}' not found in data_processes (reference in process '{process.name}')."
                     )
         return self
 
