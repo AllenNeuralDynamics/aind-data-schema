@@ -54,7 +54,7 @@ class ModelTests(unittest.TestCase):
                     input_location=["s3 path to eval 1", "s3 path to eval 2"],
                     output_location="s3 path to trained model asset",
                     code=Code(
-                        url="url for training code repo",   
+                        url="url for training code repo",
                         parameters={
                             "learning_rate": 0.0001,
                             "batch_size": 32,
