@@ -1,13 +1,11 @@
 """ Test for the acquisition.json """
 
-import re
 import unittest
 from datetime import datetime, timezone
 
 import pydantic
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.coordinates import (
     Affine,
@@ -29,8 +27,6 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class AcquisitionTest(unittest.TestCase):

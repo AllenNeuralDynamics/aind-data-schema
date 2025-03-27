@@ -1,18 +1,17 @@
 """Subject species models"""
 
-from enum import Enum
-from typing import List, Optional
 from datetime import date as date_type
 from datetime import time
-
-from aind_data_schema.base import DataModel
-
-from pydantic import Field, field_validator, model_validator
+from enum import Enum
+from typing import List, Optional
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species, Strain
+from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
+
+from aind_data_schema.base import DataModel
 
 
 class Sex(str, Enum):

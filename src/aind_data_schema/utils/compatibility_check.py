@@ -2,8 +2,8 @@
 
 from typing import Optional
 
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.core.instrument import Instrument
 
 
 class InstrumentAcquisitionCompatibility:

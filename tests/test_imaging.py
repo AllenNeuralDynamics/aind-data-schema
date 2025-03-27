@@ -1,13 +1,11 @@
 """ test Imaging """
 
-import re
 import unittest
 from datetime import datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import PowerUnit
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import (
@@ -26,8 +24,6 @@ from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.measurements import Calibration
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class ImagingTests(unittest.TestCase):
