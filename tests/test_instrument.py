@@ -431,7 +431,7 @@ class InstrumentTests(unittest.TestCase):
                 Disc(name="Disc A", radius=1),
                 computer_ASDF,
                 computer_foo,
-                computer_W10XXX000
+                computer_W10XXX000,
             ],
             connections=connections,
             calibrations=[
@@ -710,17 +710,19 @@ class InstrumentTests(unittest.TestCase):
                 computer_ASDF,
             ],
             calibrations=[],
-            connections=[Connection(
-                device_names=["Camera A", "ASDF"],
-                connection_data={
-                    "Camera A": ConnectionData(
-                        direction=ConnectionDirection.SEND,
-                    ),
-                    "ASDF": ConnectionData(
-                        direction=ConnectionDirection.RECEIVE,
-                    ),
-                },
-            )],
+            connections=[
+                Connection(
+                    device_names=["Camera A", "ASDF"],
+                    connection_data={
+                        "Camera A": ConnectionData(
+                            direction=ConnectionDirection.SEND,
+                        ),
+                        "ASDF": ConnectionData(
+                            direction=ConnectionDirection.RECEIVE,
+                        ),
+                    },
+                )
+            ],
         )
         self.assertIsNotNone(inst)
 
