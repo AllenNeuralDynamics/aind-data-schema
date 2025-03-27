@@ -52,6 +52,7 @@ from aind_data_schema.components.devices import (
     Tube,
     Wheel,
     Scanner,
+    Computer,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
 
@@ -171,6 +172,7 @@ class Instrument(DataCoreModel):
                 Arena,
                 MousePlatform,
                 DAQDevice,
+                Computer,
                 Device,
             ],
             Field(discriminator="object_type"),
