@@ -78,7 +78,6 @@ class DataProcess(DataModel):
     # allowing multiple input locations, to be replaced by CompositeData object in future
     input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
     output_location: str = Field(..., description="Path to data outputs", title="Output location")
-    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
