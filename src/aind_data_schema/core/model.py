@@ -7,8 +7,8 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
-from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.base import DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.identifiers import Code, Person, Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
 
@@ -32,14 +32,14 @@ class PerformanceMetric(DataModel):
 class ModelEvaluation(DataProcess):
     """Description of model evaluation"""
 
-    name: ProcessName = Field(ProcessName.MODEL_EVALUATION, title="Process name")
+    type: ProcessName = Field(ProcessName.MODEL_EVALUATION, title="Process name")
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
 
 
 class ModelTraining(DataProcess):
     """Description of model training"""
 
-    name: ProcessName = Field(ProcessName.MODEL_TRAINING, title="Process name")
+    type: ProcessName = Field(ProcessName.MODEL_TRAINING, title="Process name")
     train_performance: List[PerformanceMetric] = Field(
         ..., title="Training performance", description="Performance on training set"
     )
