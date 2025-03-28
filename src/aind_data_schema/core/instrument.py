@@ -51,6 +51,7 @@ from aind_data_schema.components.devices import (
     Treadmill,
     Tube,
     Wheel,
+    Computer,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
 from aind_data_schema.utils.validators import recursive_get_all_names
@@ -171,6 +172,7 @@ class Instrument(DataCoreModel):
                 Arena,
                 MousePlatform,
                 DAQDevice,
+                Computer,
                 Device,
             ],
             Field(discriminator="object_type"),

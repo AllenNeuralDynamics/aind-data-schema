@@ -243,6 +243,12 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class Computer(Device):
+    """Description of a computer"""
+
+    operating_system: Optional[str] = Field(default=None, title="Operating system")
+
+
 class Detector(Device):
     """Description of a generic detector"""
 
@@ -250,7 +256,6 @@ class Detector(Device):
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(default=Cooling.NONE, title="Cooling")
-    computer_name: Optional[str] = Field(default=None, title="Name of computer receiving data from this camera")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)", description="Frame rate being used")
     frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     immersion: Optional[ImmersionMedium] = Field(default=None, title="Immersion")
@@ -421,7 +426,6 @@ class DAQDevice(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS
-    computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
