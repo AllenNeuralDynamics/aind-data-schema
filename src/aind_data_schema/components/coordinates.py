@@ -124,12 +124,12 @@ class Affine(DataModel):
     )
 
     @classmethod
-    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "Affine":
+    def compose(cls, transform: List[Union[Translation, Rotation, Scale, "Affine"]]) -> "Affine":
         """Compose an affine transform matrix from a list of transforms
 
         Parameters
         ----------
-        transform : List[Union[Translation, Rotation, Scale]]
+        transform : List[Union[Translation, Rotation, Scale, Affine]]
             List of transforms
 
         Returns
@@ -145,7 +145,7 @@ class Affine(DataModel):
                 "to install necessary dependencies for rotation support"
             )
 
-        matrices = [t.to_matrix() for t in transform]
+        matrices = [t.to_matrix() if not isinstance(t, cls) else t.affine_transform for t in transform]
 
         # Check that all the transforms are the same size
         def get_shape(list_of_lists):
