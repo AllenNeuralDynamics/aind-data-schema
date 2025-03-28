@@ -32,6 +32,7 @@ from aind_data_schema.components.devices import (
     Monitor,
     Computer,
     Objective,
+    CameraTarget,
 )
 from aind_data_schema.core.instrument import (
     Instrument,
@@ -118,7 +119,8 @@ connections = [
 cameras = [
     CameraAssembly(
         name="Behavior Camera Assembly",
-        camera_target="Body",
+        target=CameraTarget.BODY,
+        relative_position=[AnatomicalRelative.ANTERIOR],
         camera=Camera(
             name="Behavior Camera",
             manufacturer=Organization.ALLIED,
@@ -183,7 +185,8 @@ cameras = [
     ),
     CameraAssembly(
         name="Eye Camera Assembly",
-        camera_target="Eye",
+        target=CameraTarget.EYE,
+        relative_position=[AnatomicalRelative.ANTERIOR],
         camera=Camera(
             name="Eye Camera",
             manufacturer=Organization.ALLIED,
@@ -245,7 +248,8 @@ cameras = [
     ),
     CameraAssembly(
         name="Face Camera Assembly",
-        camera_target="Face forward",
+        target=CameraTarget.FACE,
+        relative_position=[AnatomicalRelative.ANTERIOR],
         camera=Camera(
             name="Face Camera",
             manufacturer=Organization.ALLIED,
@@ -273,7 +277,6 @@ cameras = [
             driver_version="Vimba GigE Transport Layer 1.6.0",
         ),
         lens=Lens(
-            device_type="Lens",
             name="Face Camera Lens",
             manufacturer=Organization.EDMUND_OPTICS,
             model="86-604",
@@ -282,7 +285,6 @@ cameras = [
             max_aperture="f/8",
         ),
         filter=Filter(
-            device_type="Filter",
             name="Face Camera Filter",
             manufacturer=Organization.SEMROCK,
             model="FF01-715/LP-25",
@@ -314,28 +316,25 @@ cameras = [
 instrument = Instrument(
     instrument_id="429_mesoscope_20220321",
     modification_date=date(2024, 10, 16),
-    mouse_platform=Disc(
-        device_type="Disc",
-        name="MindScope Running Disc",
-        manufacturer=Organization.AIND,
-        surface_material="Kittrich Magic Cover Solid Grip Liner",
-        radius=Decimal("8.255"),
-        radius_unit="centimeter",
-        output="Digital Output",
-        encoder="CUI Devices AMT102-V 0000 Dip Switch 2048 ppr",
-        decoder="LS7366R",
-        encoder_firmware=Software(
-            name="ls7366r_quadrature_counter",
-            version="0.1.6",
-            url="https://eng-gitlab/hardware/ls7366r_quadrature_counter",
-        ),
-    ),
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     components=[
+        Disc(
+            name="MindScope Running Disc",
+            manufacturer=Organization.AIND,
+            surface_material="Kittrich Magic Cover Solid Grip Liner",
+            radius=Decimal("8.255"),
+            radius_unit="centimeter",
+            output="Digital Output",
+            encoder="CUI Devices AMT102-V 0000 Dip Switch 2048 ppr",
+            decoder="LS7366R",
+            encoder_firmware=Software(
+                name="ls7366r_quadrature_counter",
+                version="0.1.6",
+            ),
+        ),
         monitor,
         *cameras,
         Laser(
-            device_type="Laser",
             name="Axon 920-2 TPC",
             wavelength=920,
             wavelength_unit=SizeUnit.NM,
@@ -370,14 +369,12 @@ instrument = Instrument(
         Computer(name="MESO1STIM"),
         Device(name="MESO1SYNC"),
         DAQDevice(
-            device_type="DAQ Device",
             name="VBEB DAQ",
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="USB-6001",
             data_interface="USB",
         ),
         DAQDevice(
-            device_type="DAQ Device",
             name="SYNC DAQ",
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="PCIe-6612",
@@ -385,7 +382,6 @@ instrument = Instrument(
             channels=[
                 DAQChannel(
                     channel_name="P0.3",
-                    device_name="MESO1STIM",
                     channel_type=DaqChannelType.DI,
                     port=0,
                     channel_index=3,
@@ -395,7 +391,6 @@ instrument = Instrument(
             ],
         ),
         DAQDevice(
-            device_type="DAQ Device",
             name="STIM DAQ",
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="PCIe-6321",
