@@ -2,8 +2,6 @@
 
 from typing import Any, List, Literal, Optional
 
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 from pydantic import Field
 
@@ -59,15 +57,15 @@ class Model(DataCoreModel):
     schema_version: Literal["2.0.0"] = Field(default="2.0.0")
 
     name: str = Field(..., title="Name")
-    license: str = Field(..., title="License")
-    code: Optional[Code] = Field(default=None, title="Model code")
-    developers: Optional[List[Person]] = Field(default=None, title="Name of developer(s)")
-    developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+    code: Optional[Code] = Field(
+        default=None,
+        title="Code",
+        description="Code to run the model, possibly including reference to sample data"
+    )
     architecture: ModelArchitecture = Field(..., title="Model architecture")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
     pretrained_source_url: Optional[str] = Field(default=None, title="Pretrained source URL")
-    training: Optional[List[ModelTraining]] = Field(default=[], title="Training")
-    evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
+    training: List[ModelTraining] = Field(default=[], title="Training")
+    evaluations: List[ModelEvaluation] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")

@@ -40,6 +40,7 @@ CORE_FILES = [
     "processing",
     "acquisition",
     "quality_control",
+    "model",
 ]
 
 REQUIRED_FILES = [
@@ -217,9 +218,13 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
-        for file in REQUIRED_FILES:
-            if not getattr(self, file):
-                warnings.warn(f"Metadata missing required file: {file}")
+        if getattr(self, "model"):
+            if not getattr(self, "data_description"):
+                warnings.warn("Model metadata missing data_description")
+        else:
+            for file in REQUIRED_FILES:
+                if not getattr(self, file):
+                    warnings.warn(f"Metadata missing required file: {file}")
 
         return self
 
