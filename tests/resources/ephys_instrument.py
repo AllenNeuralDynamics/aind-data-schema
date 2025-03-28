@@ -94,7 +94,7 @@ connections = [
     ),
     Connection(
         device_names=[
-            computer_names["Behavior computer"],
+            computer_names["Ephys computer"],
             "Basestation Slot 3",
             "stick microscope 1",
             "stick microscope 2",
@@ -102,7 +102,7 @@ connections = [
             "stick microscope 4",
         ],
         connection_data={
-            computer_names["Behavior computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
+            computer_names["Ephys computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
             "Basestation Slot 3": ConnectionData(direction=ConnectionDirection.SEND),
             "stick microscope 1": ConnectionData(direction=ConnectionDirection.SEND),
             "stick microscope 2": ConnectionData(direction=ConnectionDirection.SEND),
@@ -362,3 +362,6 @@ inst = Instrument(
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
+serialized = inst.model_dump_json()
+deserialized = Instrument.model_validate_json(serialized)
+deserialized.write_standard_file(prefix="ephys")
