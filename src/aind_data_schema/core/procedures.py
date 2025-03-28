@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -31,7 +32,6 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
-from aind_data_schema_models.coordinates import AnatomicalRelative
 
 
 class ImmunolabelClass(str, Enum):

@@ -5,17 +5,38 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import (
+    BinMode,
+    CameraChroma,
+    CameraTarget,
+    Cooling,
+    Coupling,
+    DaqChannelType,
+    DataInterface,
+    DetectorType,
+    DeviceDriver,
+    FerruleMaterial,
+    FilterType,
+    ImagingDeviceType,
+    ImmersionMedium,
+    LickSensorType,
+    MyomatrixArrayType,
+    ObjectiveType,
+    ProbeModel,
+    StageAxisDirection,
+)
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
+    MagneticFieldUnit,
     PowerUnit,
     SizeUnit,
     SpeedUnit,
     TemperatureUnit,
     UnitlessUnit,
     VoltageUnit,
-    MagneticFieldUnit,
 )
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
@@ -23,28 +44,6 @@ from typing_extensions import Annotated
 from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import AxisName, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.identifiers import Code, Software
-
-from aind_data_schema_models.devices import (
-    BinMode,
-    CameraChroma,
-    Cooling,
-    Coupling,
-    DataInterface,
-    DaqChannelType,
-    DetectorType,
-    FerruleMaterial,
-    ImagingDeviceType,
-    LickSensorType,
-    MyomatrixArrayType,
-    ObjectiveType,
-    StageAxisDirection,
-    ImmersionMedium,
-    DeviceDriver,
-    FilterType,
-    CameraTarget,
-    ProbeModel,
-)
-from aind_data_schema_models.coordinates import AnatomicalRelative
 
 
 class Device(DataModel):
