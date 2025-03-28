@@ -11,7 +11,6 @@ from aind_data_schema.components.devices import (
     EphysAssembly,
     EphysProbe,
     Manipulator,
-    MousePlatform,
 )
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails, DataStream
 from aind_data_schema.components.identifiers import Person
@@ -43,11 +42,10 @@ class TestMetadata(unittest.TestCase):
     def test_validate_acquisition_modality_requirements(self):
         """Tests that the acquisition modality requirements validator works as expected"""
         modalities = [Modality.ECEPHYS]
-        mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
-            components=[ephys_assembly, mouse_platform],
+            components=[ephys_assembly],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:

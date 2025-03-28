@@ -646,14 +646,7 @@ class Enclosure(Device):
     air_filtration: bool = Field(..., title="Air filtration")
 
 
-class MousePlatform(Device):
-    """Description of a mouse platform"""
-
-    surface_material: Optional[str] = Field(default=None, title="Surface material")
-    date_surface_replaced: Optional[datetime] = Field(default=None, title="Date surface replaced")
-
-
-class Disc(MousePlatform):
+class Disc(Device):
     """Description of a running disc (i.e. MindScope Disc)"""
 
     radius: Decimal = Field(..., title="Radius (cm)", ge=0)
@@ -666,9 +659,10 @@ class Disc(MousePlatform):
         title="Encoder firmware",
         description="Firmware to read from decoder chip counts",
     )
+    surface_material: Optional[str] = Field(default=None, title="Surface material")
 
 
-class Wheel(MousePlatform):
+class Wheel(Device):
     """Description of a running wheel"""
 
     radius: Decimal = Field(..., title="Radius (mm)")
@@ -683,14 +677,14 @@ class Wheel(MousePlatform):
     torque_output: Optional[DAQChannel] = Field(default=None, title="Torque DAQ channel")
 
 
-class Tube(MousePlatform):
+class Tube(Device):
     """Description of a tube platform"""
 
     diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(default=SizeUnit.CM, title="Diameter unit")
 
 
-class Treadmill(MousePlatform):
+class Treadmill(Device):
     """Description of treadmill platform"""
 
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
@@ -699,7 +693,7 @@ class Treadmill(MousePlatform):
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
 
 
-class Arena(MousePlatform):
+class Arena(Device):
     """Description of a rectangular arena"""
 
     size: Scale = Field(..., title="3D Size")
