@@ -328,7 +328,7 @@ class SpecimenProcedure(DataModel):
 class Anaesthetic(DataModel):
     """Description of an anaesthetic"""
 
-    type: str = Field(..., title="Type")
+    anaesthetic_type: str = Field(..., title="Type")
     duration: Decimal = Field(..., title="Duration")
     duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Duration unit")
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
