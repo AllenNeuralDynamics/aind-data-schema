@@ -307,12 +307,6 @@ class Detector(Device):
 class Camera(Detector):
     """Camera Detector"""
 
-    compression: Optional[Code] = Field(
-        default=None,
-        title="Compression",
-        description="Compression algorithm used immediately after acquisition",
-    )
-
 
 class Filter(Device):
     """Filter used in a light path"""
