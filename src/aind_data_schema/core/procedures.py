@@ -450,7 +450,7 @@ class ViralMaterial(DataModel):
         title="Effective titer",
         description="Final titer of viral material, accounting for mixture/diliution",
     )
-    titer_unit: Optional[str] = Field(default=None, title="Titer unit", description="For example, gc/mL")
+    titer_unit: Optional[str] = Field(default="gc/mL", title="Titer unit", description="For example, gc/mL")
 
 
 class NonViralMaterial(Reagent):
