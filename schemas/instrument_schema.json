@@ -2659,8 +2659,7 @@
             },
             "origin": {
                "$ref": "#/$defs/Origin",
-               "description": "Defines the position of (0,0,0) in the coordinate system",
-               "title": "Origin"
+               "description": "Defines the position of (0,0,0) in the coordinate system"
             },
             "axes": {
                "description": "Axis names and directions",
@@ -23958,8 +23957,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.13",
-         "default": "2.0.13",
+         "const": "2.0.14",
+         "default": "2.0.14",
          "title": "Schema Version",
          "type": "string"
       },

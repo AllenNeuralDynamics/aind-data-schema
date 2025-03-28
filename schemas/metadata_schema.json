@@ -7050,7 +7050,7 @@
                "title": "Laser wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
+               "maximum": 2000,
                "title": "Laser power",
                "type": "number"
             },
@@ -8267,11 +8267,6 @@
                "description": "Path to data outputs",
                "title": "Output location",
                "type": "string"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Parameters"
             },
             "outputs": {
                "$ref": "#/$defs/GenericModel",
@@ -26329,8 +26324,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.13",
-               "default": "2.0.13",
+               "const": "2.0.14",
+               "default": "2.0.14",
                "title": "Schema Version",
                "type": "string"
             },
@@ -47315,8 +47310,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.32",
-               "default": "2.0.32",
+               "const": "2.0.34",
+               "default": "2.0.34",
                "title": "Schema Version",
                "type": "string"
             },
@@ -61149,7 +61144,7 @@
                "title": "Laser wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
+               "maximum": 2000,
                "title": "Laser power",
                "type": "number"
             },
@@ -96573,8 +96568,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.32",
-         "default": "2.0.32",
+         "const": "2.0.34",
+         "default": "2.0.34",
          "title": "Schema Version",
          "type": "string"
       },

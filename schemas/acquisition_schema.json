@@ -567,7 +567,7 @@
                "title": "Laser wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
+               "maximum": 2000,
                "title": "Laser power",
                "type": "number"
             },
@@ -27526,7 +27526,7 @@
                "title": "Laser wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
+               "maximum": 2000,
                "title": "Laser power",
                "type": "number"
             },

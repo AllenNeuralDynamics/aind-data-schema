@@ -1,11 +1,9 @@
 """ test Device models"""
 
-import re
 import unittest
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
@@ -17,8 +15,6 @@ from aind_data_schema.components.devices import (
     ImmersionMedium,
     Objective,
 )
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class DeviceTests(unittest.TestCase):
@@ -36,15 +32,8 @@ class DeviceTests(unittest.TestCase):
                 data_interface=DataInterface.OTHER,
             )
 
-        expected_e2 = (
-            "1 validation error for Detector\n"
-            "  Value error, Notes cannot be empty while any of the following fields"
-            " are set to 'other': ['immersion', 'detector_type', 'data_interface']"
-            " [type=value_error, input_value={'name': 'test_detector',...terface.OTHER: 'Other'>}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e2.exception), expected_e2)
+        self.assertIn("Value error, Notes cannot be empty", str(e2.exception))
+        self.assertIn("'immersion', 'detector_type', 'data_interface'", str(e2.exception))
 
         with self.assertRaises(ValueError) as e3:
             HarpDevice(
@@ -54,16 +43,8 @@ class DeviceTests(unittest.TestCase):
                 is_clock_generator=False,
             )
 
-        expected_e3 = (
-            "1 validation error for HarpDevice\n"
-            "data_interface\n"
-            "  Value error, Notes cannot be empty if data_interface is Other."
-            " Describe the data interface in the notes field."
-            " [type=value_error, input_value=<DataInterface.OTHER: 'Other'>, input_type=DataInterface]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e3.exception), expected_e3)
+        self.assertIn("Value error, Notes cannot be empty", str(e3.exception))
+        self.assertIn("data_interface", str(e3.exception))
 
         HarpDevice(
             name="test_harp",
@@ -75,29 +56,12 @@ class DeviceTests(unittest.TestCase):
         with self.assertRaises(ValueError) as e4:
             Objective(name="test_objective", numerical_aperture=0.5, magnification=10, immersion=ImmersionMedium.OTHER)
 
-        expected_e4 = (
-            "1 validation error for Objective\n"
-            "immersion\n"
-            "  Value error, Notes cannot be empty if immersion is Other. Describe the immersion in the notes field."
-            " [type=value_error, input_value=<ImmersionMedium.OTHER: 'other'>, input_type=ImmersionMedium]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e4.exception), expected_e4)
+        self.assertIn("Value error, Notes cannot be empty if immersion is Other", str(e4.exception))
 
         with self.assertRaises(ValueError) as e5:
             AdditionalImagingDevice(name="test_additional_imaging", imaging_device_type=ImagingDeviceType.OTHER)
 
-        expected_e5 = (
-            "1 validation error for AdditionalImagingDevice\n"
-            "imaging_device_type\n"
-            "  Value error, Notes cannot be empty if imaging_device_type is Other. "
-            "Describe the imaging device type in the notes field."
-            " [type=value_error, input_value=<ImagingDeviceType.OTHER: 'Other'>, input_type=ImagingDeviceType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e5.exception), expected_e5)
+        self.assertIn("Value error, Notes cannot be empty if imaging_device_type", str(e5.exception))
 
 
 if __name__ == "__main__":

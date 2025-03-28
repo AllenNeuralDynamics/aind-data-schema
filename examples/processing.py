@@ -42,6 +42,7 @@ file_io_usage_list = [
 example_code = Code(
     url="https://github.com/abcd",
     version="0.1",
+    parameters={"size": 7},
 )
 
 p = Processing(
@@ -73,7 +74,6 @@ p = Processing(
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
             code=example_code,
-            parameters={"size": 7},
             resources=ResourceUsage(
                 os=OperatingSystem.UBUNTU_20_04,
                 architecture=CPUArchitecture.X86_64,
@@ -98,7 +98,6 @@ p = Processing(
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
             code=example_code,
-            parameters={"u": 7, "z": True},
         ),
         DataProcess(
             name=ProcessName.IMAGE_DESTRIPING,
@@ -109,7 +108,6 @@ p = Processing(
             input_location="/path/to/input",
             output_location="/path/to/output",
             code=example_code,
-            parameters={"a": 2, "b": -2},
         ),
         DataProcess(
             stage=ProcessStage.ANALYSIS,
@@ -120,7 +118,6 @@ p = Processing(
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
             code=example_code,
-            parameters={"size": 7},
         ),
         DataProcess(
             stage=ProcessStage.ANALYSIS,
@@ -131,7 +128,6 @@ p = Processing(
             input_location="/path/to/inputs",
             output_location="/path/to/outputs",
             code=example_code,
-            parameters={"u": 7, "z": True},
         ),
     ]
 )

@@ -1,8 +1,7 @@
 """ Validator utility functions """
 
-from typing import Any, List
 from enum import Enum
-
+from typing import Any, List
 
 # Fields that should have the same length as the coordinate system axes
 AXIS_FIELD_NAMES = ["scale", "translation", "angles", "position"]

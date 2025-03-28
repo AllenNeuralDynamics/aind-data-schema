@@ -7,8 +7,8 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelBackbone
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
-from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.base import DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.identifiers import Code, Person, Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
 
