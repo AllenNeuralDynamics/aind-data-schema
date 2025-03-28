@@ -191,6 +191,18 @@ class TestAffineWithAffineTransforms(unittest.TestCase):
         ).tolist()
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
 
+    def test_compose_invalid_sizes(self):
+        """Raise error when composing matrices of different sizes"""
+        translation = Translation(translation=[2, 3, 4])
+        rotation = Rotation(
+            angles=[90, 45, 30],
+        )
+        scale = Scale(scale=[2, 3])
+        affine_transform = Affine(affine_transform=[])
+        with self.assertRaises(ValueError) as context:
+            affine_transform.compose([rotation, translation, scale])
+        self.assertIn("All transforms must be the same size", str(context.exception))
+
 
 class TestMultiplyMatrix(unittest.TestCase):
     """Tests for the multiply_matrix function"""
