@@ -2,7 +2,6 @@
 
 import datetime
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.devices import (
     Filter,
