@@ -45,7 +45,7 @@ example_code = Code(
     parameters={"size": 7},
 )
 
-p = Processing(
+p = Processing.create_with_sequential_process_graph(
     data_processes=[
         DataProcess(
             experimenters=[Person(name="Dr. Dan")],
