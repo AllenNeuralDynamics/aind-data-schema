@@ -30,23 +30,6 @@ coordinate_transform = CoordinateTransform(
     transforms=[tile_scale],
 )
 
-channel_name: str = Field(..., title="Channel")
-    detector_name: str = Field(..., title="Detector name", description="Must match device name")
-    additional_device_names: Optional[List[str]] = Field(default=[], title="Additional device names")
-    # excitation
-    light_source_name: List[str] = Field(..., title="Light source name", description="Must match device name")
-    light_source_configurations: List[
-        Annotated[
-            Union[
-                LightEmittingDiodeConfig,
-                LaserConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(..., title="Light source configurations")
-    # emission
-    filters: List[str] = Field(..., title="Filter names")
-
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
     coordinate_transform=coordinate_transform,

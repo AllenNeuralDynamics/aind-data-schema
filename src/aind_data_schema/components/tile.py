@@ -2,7 +2,7 @@
 
 from typing import Annotated, List, Optional, Union
 
-from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
+from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
