@@ -57,6 +57,7 @@ class Model(DataCoreModel):
     schema_version: Literal["2.0.0"] = Field(default="2.0.0")
 
     name: str = Field(..., title="Name")
+    version: str = Field(..., title="Version")
     code: Optional[Code] = Field(
         default=None,
         title="Code",
