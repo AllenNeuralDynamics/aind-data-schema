@@ -122,7 +122,7 @@ class Affine(DataModel):
         ...,
         title="Affine transform matrix",
     )
-    
+
     def to_matrix(self) -> List[List[float]]:
         """Return the affine transform matrix
 
