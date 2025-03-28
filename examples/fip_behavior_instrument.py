@@ -22,7 +22,7 @@ from aind_data_schema.components.devices import (
     Device,
     LickSensorType,
     MotorizedStage,
-    PatchCord,
+    FiberPatchCord,
     LightEmittingDiode,
     Detector,
     Objective,
@@ -247,7 +247,7 @@ lick_spout_assembly = LickSpoutAssembly(
     ),
 )
 
-patch_cord = PatchCord(
+patch_cord = FiberPatchCord(
     name="Bundle Branching Fiber-optic Patch Cord",
     manufacturer=Organization.DORIC,
     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",

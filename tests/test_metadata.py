@@ -14,7 +14,7 @@ from aind_data_schema.components.devices import (
     EphysAssembly,
     EphysProbe,
     Manipulator,
-    MousePlatform,
+    SubjectPlatform,
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
@@ -265,7 +265,7 @@ class TestMetadata(unittest.TestCase):
         """Tests that instrument/acquisition compatibility validator works as expected"""
 
         modalities = [Modality.ECEPHYS]
-        mouse_platform = MousePlatform.model_construct(name="platform1")
+        mouse_platform = SubjectPlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,

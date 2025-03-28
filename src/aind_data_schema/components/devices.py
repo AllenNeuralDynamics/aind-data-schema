@@ -20,8 +20,8 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, CoordinateSystem, Scale, Transform
-from aind_data_schema.components.identifiers import Code, Software
+from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, CoordinateSystem, Scale, Coordinate
+from aind_data_schema.components.identifiers import Software
 
 
 class ImagingDeviceType(str, Enum):
@@ -388,7 +388,7 @@ class CameraAssembly(DataModel):
 
     # position information
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Transform] = Field(
+    position: Optional[Coordinate] = Field(
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
@@ -542,7 +542,7 @@ class Manipulator(Device):
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
 
 
-class PatchCord(Device):
+class FiberPatchCord(Device):
     """Description of a patch cord"""
 
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
@@ -557,11 +557,7 @@ class LaserAssembly(DataModel):
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
     collimator: Device = Field(..., title="Collimator")
-    fiber: PatchCord = Field(..., title="Fiber patch")
-
-
-class Headstage(Device):
-    """Headstage used with an ephys probe"""
+    fiber: FiberPatchCord = Field(..., title="Fiber patch")
 
 
 class EphysProbe(Device):
@@ -572,7 +568,7 @@ class EphysProbe(Device):
 
     # optional fields
     lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
-    headstage: Optional[Headstage] = Field(default=None, title="Headstage for this probe")
+    headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
 class EphysAssembly(DataModel):
@@ -655,14 +651,14 @@ class Enclosure(Device):
     air_filtration: bool = Field(..., title="Air filtration")
 
 
-class MousePlatform(Device):
-    """Description of a mouse platform"""
+class SubjectPlatform(Device):
+    """Description of a subject platform"""
 
     surface_material: Optional[str] = Field(default=None, title="Surface material")
     date_surface_replaced: Optional[datetime] = Field(default=None, title="Date surface replaced")
 
 
-class Disc(MousePlatform):
+class Disc(SubjectPlatform):
     """Description of a running disc (i.e. MindScope Disc)"""
 
     radius: Decimal = Field(..., title="Radius (cm)", ge=0)
@@ -677,7 +673,7 @@ class Disc(MousePlatform):
     )
 
 
-class Wheel(MousePlatform):
+class Wheel(SubjectPlatform):
     """Description of a running wheel"""
 
     radius: Decimal = Field(..., title="Radius (mm)")
@@ -692,14 +688,14 @@ class Wheel(MousePlatform):
     torque_output: Optional[DAQChannel] = Field(default=None, title="Torque DAQ channel")
 
 
-class Tube(MousePlatform):
+class Tube(SubjectPlatform):
     """Description of a tube platform"""
 
     diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(default=SizeUnit.CM, title="Diameter unit")
 
 
-class Treadmill(MousePlatform):
+class Treadmill(SubjectPlatform):
     """Description of treadmill platform"""
 
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
@@ -708,7 +704,7 @@ class Treadmill(MousePlatform):
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
 
 
-class Arena(MousePlatform):
+class Arena(SubjectPlatform):
     """Description of a rectangular arena"""
 
     size: Scale = Field(..., title="3D Size")
@@ -728,7 +724,7 @@ class Monitor(Device):
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Transform] = Field(
+    position: Optional[Coordinate] = Field(
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
@@ -781,14 +777,14 @@ class Speaker(Device):
     manufacturer: Organization.SPEAKER_MANUFACTURERS
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Transform] = Field(
+    position: Optional[Coordinate] = Field(
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
     )
 
 
-class ChannelType(Enum):
+class OlfactometerChannelType(Enum):
     """Olfactometer channel types"""
 
     ODOR = "Odor"
@@ -799,7 +795,7 @@ class OlfactometerChannel(DataModel):
     """description of a Olfactometer channel"""
 
     channel_index: int = Field(..., title="Channel index")
-    channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
+    channel_type: OlfactometerChannelType = Field(..., title="Channel type")
     flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
     flow_unit: str = Field(default="mL/min", title="Flow unit")
 
