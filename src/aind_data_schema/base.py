@@ -22,7 +22,7 @@ from pydantic import (
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 
-from aind_data_schema.utils.validators import recursive_coord_system_check
+from aind_data_schema.utils.validators import recursive_coord_system_check, recursive_check_paths
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 
@@ -170,19 +170,6 @@ class DataModel(BaseModel, Generic[GenericModelType]):
                             raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
         return values
 
-    @model_validator(mode="after")
-    def validate_paths(cls, values):
-        """Check all fields for pathlib Path objects, and soft-validate that they exist"""
-
-        if isinstance(values, dict):  # Probably a test, bypass
-            return values
-
-        for field_name, field_value in values:
-            if isinstance(field_value, Path):
-                if not Path(field_value).exists():
-                    logging.warning(f"Path {field_value} does not exist.")
-        return values
-
 
 class DataCoreModel(DataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
@@ -240,6 +227,10 @@ class DataCoreModel(DataModel):
             Default: None
 
         """
+
+        # Go through the subfields recursively and check whether paths exist
+        recursive_check_paths(self, output_directory)
+
         filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename
