@@ -24,6 +24,7 @@ from pydantic_core.core_schema import ValidationInfo
 from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.tile import AcquisitionTile, Channel
+from aind_data_schema.components.identifiers import Code
 
 
 class StimulusModality(str, Enum):
@@ -76,6 +77,12 @@ class DetectorConfig(DeviceConfig):
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
+
+    compression: Optional[Code] = Field(
+        default=None,
+        title="Compression",
+        description="Compression algorithm used during acquisition",
+    )
 
 
 class LightEmittingDiodeConfig(DeviceConfig):

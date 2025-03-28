@@ -12,8 +12,13 @@ from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema.components.devices import Computer
 
 bonsai_software = Software(name="Bonsai", version="2.5")
+
+computer = Computer(
+    name="W10DTJK7N0M3",
+)
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -26,7 +31,6 @@ camera_assembly_1 = d.CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -56,7 +60,6 @@ camera_assembly_2 = d.CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -75,7 +78,7 @@ camera_assembly_2 = d.CameraAssembly(
     ),
 )
 
-patch_cord = d.PatchCord(
+patch_cord = d.FiberPatchCord(
     name="Bundle Branching Fiber-optic Patch Cord",
     manufacturer=d.Organization.DORIC,
     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -254,7 +257,6 @@ daq = d.HarpDevice(
     name="Harp Behavior",
     harp_device_type=d.HarpDeviceType.BEHAVIOR,
     core_version="2.1",
-    computer_name="behavior_computer",
     is_clock_generator=False,
     channels=[
         d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
@@ -321,6 +323,39 @@ connections = [
                 channel="DI3",
             ),
             "Photometry Clock": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Side face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Side face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Bottom face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Bottom face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Harp Behavior"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
         },
