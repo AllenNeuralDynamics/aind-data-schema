@@ -25,7 +25,7 @@ class Funding(DataModel):
 
     funder: Organization.FUNDERS = Field(..., title="Funder")
     grant_number: Optional[str] = Field(default=None, title="Grant number")
-    fundee: Optional[str] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
+    fundee: Optional[Person] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
 class DataDescription(DataCoreModel):
