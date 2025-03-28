@@ -10,7 +10,7 @@ from pydantic import Field, GetCoreSchemaHandler
 from aind_data_schema.base import DataModel, GenericModelType
 
 
-class AssetPath(Path):
+class AssetPath(type(Path())):
     """Relative path to a file"""
 
     @classmethod
