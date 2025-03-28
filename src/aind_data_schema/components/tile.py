@@ -1,12 +1,11 @@
 """" Models related to imaging tiles and their transformations """
 
-from typing import Annotated, List, Optional, Union
+from typing import List, Optional
 
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
-from aind_data_schema.components.configs import LaserConfig, LightEmittingDiodeConfig
 from aind_data_schema.components.coordinates import CoordinateTransform
 
 
