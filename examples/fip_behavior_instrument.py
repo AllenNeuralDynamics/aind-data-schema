@@ -243,7 +243,6 @@ lick_spout_assembly = LickSpoutAssembly(
         manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
         travel=15.0,
         travel_unit=SizeUnit.MM,
-        firmware=("https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"),
     ),
 )
 
