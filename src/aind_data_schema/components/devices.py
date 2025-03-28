@@ -20,7 +20,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, CoordinateSystem, Scale, Coordinate
+from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, Scale, Coordinate
 from aind_data_schema.components.identifiers import Software
 
 
