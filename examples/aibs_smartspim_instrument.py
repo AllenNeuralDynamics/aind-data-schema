@@ -124,31 +124,19 @@ filter0 = Filter(
     name="Em_525",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF03-525/50-25",
-    filter_wheel_index=0,
 )
 filter1 = Filter(
     name="Em_600",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF01-600/52-25",
-    filter_wheel_index=1,
 )
 filter2 = Filter(
     name="Em_690",
     filter_type="Band pass",
     manufacturer=Organization.CHROMA,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="ET690/50m",
-    filter_wheel_index=2,
 )
 lens1 = AdditionalImagingDevice(
     name="Lens 1",
