@@ -51,7 +51,6 @@ from aind_data_schema.components.devices import (
     Treadmill,
     Tube,
     Wheel,
-    Scanner,
     Computer,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
