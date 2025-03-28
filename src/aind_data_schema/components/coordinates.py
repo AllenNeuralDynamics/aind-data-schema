@@ -1,7 +1,6 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from enum import Enum
 from typing import List, Optional, Union
 
 from aind_data_schema_models.atlas import AtlasName
@@ -10,6 +9,12 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
+
+from aind_data_schema_models.coordinates import (
+    AxisName,
+    Direction,
+    Origin,
+)
 
 
 class Axis(DataModel):

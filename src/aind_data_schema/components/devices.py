@@ -15,13 +15,31 @@ from aind_data_schema_models.units import (
     TemperatureUnit,
     UnitlessUnit,
     VoltageUnit,
+    MagneticFieldUnit,
 )
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.coordinates import AxisName, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.identifiers import Code, Software
+
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import (
+    BinMode,
+    CameraChroma,
+    Cooling,
+    Coupling,
+    DataInterface,
+    DaqChannelType,
+    DetectorType,
+    FerruleMaterial,
+    ImagingDeviceType,
+    LickSensorType,
+    MyomatrixArrayType,
+    ObjectiveType,
+    StageAxisDirection,
+)
 
 
 class Device(DataModel):
@@ -652,10 +670,8 @@ class OpticalTable(Device):
 class Scanner(Device):
     """Description of a MRI Scanner"""
 
-    scanner_location: ScannerLocation = Field(..., title="Scanner location")
-    magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
-    #  TODO: Check if this should go into the units module.
-    magnetic_strength_unit: str = Field(default="T", title="Magnetic strength unit")
+    magnetic_strength: float = Field(..., title="Magnetic strength (T)")
+    magnetic_strength_unit: MagneticFieldUnit = Field(..., title="Magnetic strength unit")
 
 
 class MyomatrixArray(Device):
