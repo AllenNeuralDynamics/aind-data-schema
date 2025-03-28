@@ -17,15 +17,7 @@ class Channel(DataModel):
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
     additional_device_names: Optional[List[str]] = Field(default=[], title="Additional device names")
     # excitation
-    light_sources: List[
-        Annotated[
-            Union[
-                LightEmittingDiodeConfig,
-                LaserConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(..., title="Light source configurations")
+    light_sources: List[str] = Field(..., title="Light sources")
     # emission
     filters: List[str] = Field(..., title="Filter names")
 

@@ -35,15 +35,7 @@ tile0 = tile.AcquisitionTile(
     coordinate_transform=coordinate_transform,
     channel=tile.Channel(
         channel_name="488",
-        light_sources=[
-            LaserConfig(
-                device_name="LAS_08308",
-                wavelength=488,
-                wavelength_unit=SizeUnit.NM,
-                excitation_power=200,
-                excitation_power_unit=PowerUnit.MW,
-            )
-        ],
+        light_sources=["LAS_08308"],
         filters=["Multiband filter"],
         detector_name="PMT_1",
     ),
@@ -53,18 +45,25 @@ tile1 = tile.AcquisitionTile(
     coordinate_transform=coordinate_transform,
     channel=tile.Channel(
         channel_name="561",
-        light_sources=[
-            LaserConfig(
-                device_name="539251",
-                wavelength=561,
-                wavelength_unit=SizeUnit.NM,
-                excitation_power=200,
-                excitation_power_unit=PowerUnit.MW,
-            )
-        ],
+        light_sources=["539251"],
         filters=["Multiband filter"],
         detector_name="PMT_1",
     ),
+)
+
+laser_488_config = LaserConfig(
+    device_name="LAS_08308",
+    wavelength=488,
+    wavelength_unit=SizeUnit.NM,
+    excitation_power=200,
+    excitation_power_unit=PowerUnit.MW,
+)
+laser_561_config = LaserConfig(
+    device_name="539251",
+    wavelength=561,
+    wavelength_unit=SizeUnit.NM,
+    excitation_power=200,
+    excitation_power_unit=PowerUnit.MW,
 )
 
 invitro_config = InVitroImagingConfig(
@@ -118,7 +117,7 @@ acq = Acquisition(
             stream_end_time=t,
             modalities=[Modality.SPIM],
             active_devices=[],
-            configurations=[invitro_config],
+            configurations=[invitro_config, laser_488_config, laser_561_config],
         )
     ],
     acquisition_start_time=t,
