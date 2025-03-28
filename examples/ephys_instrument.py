@@ -256,7 +256,8 @@ filt = Filter(
     name="LP filter",
     filter_type="Long pass",
     manufacturer=Organization.THORLABS,
-    description="850 nm longpass filter",
+    cut_on_wavelength=850,
+    wavelength_unit=SizeUnit.NM,
 )
 
 lens = Lens(

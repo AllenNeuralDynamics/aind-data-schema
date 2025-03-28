@@ -1,6 +1,6 @@
 """ schema for various Devices """
 
-from datetime import date, datetime
+from datetime import date
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
@@ -53,10 +53,6 @@ class Device(DataModel):
     serial_number: Optional[str] = Field(default=None, title="Serial number")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Manufacturer")
     model: Optional[str] = Field(default=None, title="Model")
-    path_to_cad: Optional[str] = Field(
-        default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
-    )
-    port_index: Optional[str] = Field(default=None, title="Port index")
 
     # Additional fields
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
@@ -136,22 +132,10 @@ class Filter(Device):
     manufacturer: Organization.FILTER_MANUFACTURERS
 
     # optional fields
-    diameter: Optional[Decimal] = Field(default=None, title="Diameter (mm)")
-    width: Optional[Decimal] = Field(default=None, title="Width (mm)")
-    height: Optional[Decimal] = Field(default=None, title="Height (mm)")
-    size_unit: SizeUnit = Field(default=SizeUnit.MM, title="Size unit")
-    thickness: Optional[Decimal] = Field(default=None, title="Thickness (mm)", ge=0)
-    thickness_unit: Optional[SizeUnit] = Field(default=None, title="Thickness unit")
-    filter_wheel_index: Optional[int] = Field(default=None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(default=None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[int] = Field(default=None, title="Cut-on wavelength (nm)")
     center_wavelength: Optional[int] = Field(default=None, title="Center wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    description: Optional[str] = Field(
-        default=None,
-        title="Description",
-        description="More details about filter properties and where/how it is being used",
-    )
 
 
 class Lens(Device):
@@ -279,7 +263,6 @@ class Laser(Device):
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
-    maximum_power: Optional[Decimal] = Field(default=None, title="Maximum power (mW)")
     power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
@@ -289,7 +272,6 @@ class Laser(Device):
         le=100,
     )
     coupling_efficiency_unit: Literal["percent"] = Field(default="percent", title="Coupling efficiency unit")
-    item_number: Optional[str] = Field(default=None, title="Item number")
 
 
 class LightEmittingDiode(Device):
@@ -464,21 +446,14 @@ class Enclosure(Device):
 
     size: Scale = Field(..., title="Size")
     size_unit: SizeUnit = Field(..., title="Size unit")
-    internal_material: str = Field(..., title="Internal material")
+    internal_material: Optional[str] = Field(default=None, title="Internal material")
     external_material: str = Field(..., title="External material")
     grounded: bool = Field(..., title="Grounded")
     laser_interlock: bool = Field(..., title="Laser interlock")
     air_filtration: bool = Field(..., title="Air filtration")
 
 
-class SubjectPlatform(Device):
-    """Description of a subject platform"""
-
-    surface_material: Optional[str] = Field(default=None, title="Surface material")
-    date_surface_replaced: Optional[datetime] = Field(default=None, title="Date surface replaced")
-
-
-class Disc(SubjectPlatform):
+class Disc(Device):
     """Description of a running disc (i.e. MindScope Disc)"""
 
     radius: Decimal = Field(..., title="Radius (cm)", ge=0)
@@ -491,9 +466,10 @@ class Disc(SubjectPlatform):
         title="Encoder firmware",
         description="Firmware to read from decoder chip counts",
     )
+    surface_material: Optional[str] = Field(default=None, title="Surface material")
 
 
-class Wheel(SubjectPlatform):
+class Wheel(Device):
     """Description of a running wheel"""
 
     radius: Decimal = Field(..., title="Radius (mm)")
@@ -508,14 +484,14 @@ class Wheel(SubjectPlatform):
     torque_output: Optional[DAQChannel] = Field(default=None, title="Torque DAQ channel")
 
 
-class Tube(SubjectPlatform):
+class Tube(Device):
     """Description of a tube platform"""
 
     diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(default=SizeUnit.CM, title="Diameter unit")
 
 
-class Treadmill(SubjectPlatform):
+class Treadmill(Device):
     """Description of treadmill platform"""
 
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
@@ -524,7 +500,7 @@ class Treadmill(SubjectPlatform):
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
 
 
-class Arena(SubjectPlatform):
+class Arena(Device):
     """Description of a rectangular arena"""
 
     size: Scale = Field(..., title="3D Size")
@@ -653,15 +629,6 @@ class ScanningStage(MotorizedStage):
 
     stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
     stage_axis_name: AxisName = Field(..., title="Name of stage axis")
-
-
-class OpticalTable(Device):
-    """Description of Optical Table"""
-
-    length: Optional[Decimal] = Field(default=None, title="Length (inches)", ge=0)
-    width: Optional[Decimal] = Field(default=None, title="Width (inches)", ge=0)
-    table_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Table size unit")
-    vibration_control: Optional[bool] = Field(default=None, title="Vibration control")
 
 
 class Scanner(Device):

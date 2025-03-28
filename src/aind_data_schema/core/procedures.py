@@ -448,17 +448,17 @@ class ViralMaterial(DataModel):
     addgene_id: Optional[PIDName] = Field(default=None, title="Addgene id", description="Registry must be Addgene")
     titer: Optional[int] = Field(
         default=None,
-        title="Effective titer (gc/mL)",
+        title="Effective titer",
         description="Final titer of viral material, accounting for mixture/diliution",
     )
-    titer_unit: str = Field(default="gc/mL", title="Titer unit")
+    titer_unit: Optional[str] = Field(default="gc/mL", title="Titer unit", description="For example, gc/mL")
 
 
 class NonViralMaterial(Reagent):
     """Description of a non-viral injection material"""
 
     material_type: Literal["Reagent"] = Field(default="Reagent", title="Injection material type")
-    concentration: Optional[Decimal] = Field(
+    concentration: Optional[float] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
     concentration_unit: Optional[str] = Field(

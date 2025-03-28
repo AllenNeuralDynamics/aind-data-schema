@@ -336,7 +336,6 @@ filters = [
         model="FF01-520/35-25",
         filter_type="Band pass",
         center_wavelength=520,
-        diameter=25,
     ),
     Filter(
         name="Red emission filter",
@@ -344,15 +343,12 @@ filters = [
         model="FF01-600/37-25",
         filter_type="Band pass",
         center_wavelength=600,
-        diameter=25,
     ),
     Filter(
         name="Emission Dichroic",
         model="FF562-Di03-25x36",
         manufacturer=Organization.SEMROCK,
         filter_type="Dichroic",
-        height=25,
-        width=36,
         cut_off_wavelength=562,
     ),
     Filter(
@@ -361,15 +357,12 @@ filters = [
         manufacturer=Organization.SEMROCK,
         notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
         filter_type="Multiband",
-        width=36,
-        height=24,
     ),
     Filter(
         name="Excitation filter 410nm",
         manufacturer=Organization.THORLABS,
         model="FB410-10",
         filter_type="Band pass",
-        diameter=25,
         center_wavelength=410,
     ),
     Filter(
@@ -378,14 +371,12 @@ filters = [
         model="FB470-10",
         filter_type="Band pass",
         center_wavelength=470,
-        diameter=25,
     ),
     Filter(
         name="Excitation filter 560nm",
         manufacturer=Organization.THORLABS,
         model="FB560-10",
         filter_type="Band pass",
-        diameter=25,
         center_wavelength=560,
     ),
     Filter(
@@ -394,8 +385,6 @@ filters = [
         model="#69-898",
         filter_type="Dichroic",
         cut_off_wavelength=450,
-        width=35.6,
-        height=25.2,
     ),
     Filter(
         name="500 Dichroic Longpass Filter",
@@ -403,8 +392,6 @@ filters = [
         model="#69-899",
         filter_type="Dichroic",
         cut_off_wavelength=500,
-        width=35.6,
-        height=23.2,
     ),
 ]
 
