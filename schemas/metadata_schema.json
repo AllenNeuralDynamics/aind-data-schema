@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.14",
-               "default": "2.0.14",
+               "const": "2.0.15",
+               "default": "2.0.15",
                "title": "Schema Version",
                "type": "string"
             },
@@ -6274,6 +6274,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Input unit"
@@ -6339,6 +6345,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Output unit"
@@ -27238,8 +27250,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.16",
-               "default": "2.0.16",
+               "const": "2.0.17",
+               "default": "2.0.17",
                "title": "Schema Version",
                "type": "string"
             },
@@ -29075,7 +29087,7 @@
             "size": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/LensSize"
+                     "type": "number"
                   },
                   {
                      "type": "null"
@@ -29125,15 +29137,6 @@
          ],
          "title": "Lens",
          "type": "object"
-      },
-      "LensSize": {
-         "description": "Lens size value",
-         "enum": [
-            1,
-            2
-         ],
-         "title": "LensSize",
-         "type": "integer"
       },
       "LickSensorType": {
          "description": "Type of lick sensor",
@@ -30290,14 +30293,15 @@
          "title": "MRIScan",
          "type": "object"
       },
-      "MagneticStrength": {
-         "description": "Strength of magnet",
+      "MagneticFieldUnit": {
+         "description": "Magnetic field units",
          "enum": [
-            7,
-            14
+            "tesla",
+            "millitesla",
+            "microtesla"
          ],
-         "title": "MagneticStrength",
-         "type": "integer"
+         "title": "MagneticFieldUnit",
+         "type": "string"
       },
       "Maintenance": {
          "additionalProperties": false,
@@ -47100,8 +47104,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.37",
-               "default": "2.0.37",
+               "const": "2.0.38",
+               "default": "2.0.38",
                "title": "Schema Version",
                "type": "string"
             },
@@ -49244,36 +49248,22 @@
                "default": null,
                "title": "Notes"
             },
-            "scanner_location": {
-               "$ref": "#/$defs/ScannerLocation",
-               "title": "Scanner location"
-            },
             "magnetic_strength": {
-               "$ref": "#/$defs/MagneticStrength",
-               "title": "Magnetic strength (T)"
+               "title": "Magnetic strength (T)",
+               "type": "number"
             },
             "magnetic_strength_unit": {
-               "default": "T",
-               "title": "Magnetic strength unit",
-               "type": "string"
+               "$ref": "#/$defs/MagneticFieldUnit",
+               "title": "Magnetic strength unit"
             }
          },
          "required": [
             "name",
-            "scanner_location",
-            "magnetic_strength"
+            "magnetic_strength",
+            "magnetic_strength_unit"
          ],
          "title": "Scanner",
          "type": "object"
-      },
-      "ScannerLocation": {
-         "description": "location of scanner",
-         "enum": [
-            "Fred Hutch",
-            "UW SLU"
-         ],
-         "title": "ScannerLocation",
-         "type": "string"
       },
       "ScanningStage": {
          "additionalProperties": false,
@@ -96907,8 +96897,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.37",
-         "default": "2.0.37",
+         "const": "2.0.38",
+         "default": "2.0.38",
          "title": "Schema Version",
          "type": "string"
       },

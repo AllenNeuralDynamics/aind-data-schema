@@ -1790,6 +1790,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Input unit"
@@ -1855,6 +1861,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Output unit"
@@ -10017,7 +10029,7 @@
             "size": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/LensSize"
+                     "type": "number"
                   },
                   {
                      "type": "null"
@@ -10067,15 +10079,6 @@
          ],
          "title": "Lens",
          "type": "object"
-      },
-      "LensSize": {
-         "description": "Lens size value",
-         "enum": [
-            1,
-            2
-         ],
-         "title": "LensSize",
-         "type": "integer"
       },
       "LickSensorType": {
          "description": "Type of lick sensor",
@@ -10920,14 +10923,15 @@
          "title": "LiquidCalibration",
          "type": "object"
       },
-      "MagneticStrength": {
-         "description": "Strength of magnet",
+      "MagneticFieldUnit": {
+         "description": "Magnetic field units",
          "enum": [
-            7,
-            14
+            "tesla",
+            "millitesla",
+            "microtesla"
          ],
-         "title": "MagneticStrength",
-         "type": "integer"
+         "title": "MagneticFieldUnit",
+         "type": "string"
       },
       "Manipulator": {
          "additionalProperties": false,
@@ -14785,6 +14789,16 @@
          "title": "PowerUnit",
          "type": "string"
       },
+      "PressureUnit": {
+         "description": "Enumeration of Pressure Measurements",
+         "enum": [
+            "millipascal",
+            "pascal",
+            "kilopascal"
+         ],
+         "title": "PressureUnit",
+         "type": "string"
+      },
       "ProbeModel": {
          "description": "Probe model name",
          "enum": [
@@ -15401,36 +15415,22 @@
                "default": null,
                "title": "Notes"
             },
-            "scanner_location": {
-               "$ref": "#/$defs/ScannerLocation",
-               "title": "Scanner location"
-            },
             "magnetic_strength": {
-               "$ref": "#/$defs/MagneticStrength",
-               "title": "Magnetic strength (T)"
+               "title": "Magnetic strength (T)",
+               "type": "number"
             },
             "magnetic_strength_unit": {
-               "default": "T",
-               "title": "Magnetic strength unit",
-               "type": "string"
+               "$ref": "#/$defs/MagneticFieldUnit",
+               "title": "Magnetic strength unit"
             }
          },
          "required": [
             "name",
-            "scanner_location",
-            "magnetic_strength"
+            "magnetic_strength",
+            "magnetic_strength_unit"
          ],
          "title": "Scanner",
          "type": "object"
-      },
-      "ScannerLocation": {
-         "description": "location of scanner",
-         "enum": [
-            "Fred Hutch",
-            "UW SLU"
-         ],
-         "title": "ScannerLocation",
-         "type": "string"
       },
       "ScanningStage": {
          "additionalProperties": false,
@@ -24140,8 +24140,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.16",
-         "default": "2.0.16",
+         "const": "2.0.17",
+         "default": "2.0.17",
          "title": "Schema Version",
          "type": "string"
       },
