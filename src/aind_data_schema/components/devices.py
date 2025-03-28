@@ -5,10 +5,32 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import (
+    BinMode,
+    CameraChroma,
+    CameraTarget,
+    Cooling,
+    Coupling,
+    DaqChannelType,
+    DataInterface,
+    DetectorType,
+    DeviceDriver,
+    FerruleMaterial,
+    FilterType,
+    ImagingDeviceType,
+    ImmersionMedium,
+    LickSensorType,
+    MyomatrixArrayType,
+    ObjectiveType,
+    ProbeModel,
+    StageAxisDirection,
+)
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
+    MagneticFieldUnit,
     PowerUnit,
     SizeUnit,
     SpeedUnit,
@@ -20,210 +42,8 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, Scale, Coordinate
+from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
 from aind_data_schema.components.identifiers import Software
-
-
-class ImagingDeviceType(str, Enum):
-    """Imaginge device type name"""
-
-    BEAM_EXPANDER = "Beam expander"
-    SAMPLE_CHAMBER = "Sample Chamber"
-    DIFFUSER = "Diffuser"
-    GALVO = "Galvo"
-    LASER_COMBINER = "Laser combiner"
-    LASER_COUPLER = "Laser coupler"
-    PRISM = "Prism"
-    OBJECTIVE = "Objective"
-    ROTATION_MOUNT = "Rotation mount"
-    SLIT = "Slit"
-    TUNABLE_LENS = "Tunable lens"
-    OTHER = "Other"
-
-
-class StageAxisDirection(str, Enum):
-    """Direction of motion for motorized stage"""
-
-    DETECTION_AXIS = "Detection axis"
-    ILLUMINATION_AXIS = "Illumination axis"
-    PERPENDICULAR_AXIS = "Perpendicular axis"
-
-
-class DeviceDriver(str, Enum):
-    """DeviceDriver name"""
-
-    OPENGL = "OpenGL"
-    VIMBA = "Vimba"
-    NVIDIA = "Nvidia Graphics"
-
-
-class Coupling(str, Enum):
-    """Laser coupling type"""
-
-    FREE_SPACE = "Free-space"
-    MMF = "Multi-mode fiber"
-    SMF = "Single-mode fiber"
-    OTHER = "Other"
-
-
-class DataInterface(str, Enum):
-    """Connection between a device and a PC"""
-
-    CAMERALINK = "CameraLink"
-    COAX = "Coax"
-    ETH = "Ethernet"
-    PCIE = "PCIe"
-    PXI = "PXI"
-    USB = "USB"
-    OTHER = "Other"
-
-
-class FilterType(str, Enum):
-    """Filter type"""
-
-    BANDPASS = "Band pass"
-    DICHROIC = "Dichroic"
-    LONGPASS = "Long pass"
-    MULTIBAND = "Multiband"
-    ND = "Neutral density"
-    NOTCH = "Notch"
-    SHORTPASS = "Short pass"
-
-
-class FilterSize(int, Enum):
-    """Filter size value"""
-
-    FILTER_SIZE_25 = 25
-    FILTER_SIZE_32 = 32
-
-
-class LensSize(int, Enum):
-    """Lens size value"""
-
-    LENS_SIZE_1 = 1
-    LENS_SIZE_2 = 2
-
-
-class CameraChroma(str, Enum):
-    """Color vs. black & white"""
-
-    COLOR = "Color"
-    BW = "Monochrome"
-
-
-class DaqChannelType(str, Enum):
-    """DAQ Channel type"""
-
-    AI = "Analog Input"
-    AO = "Analog Output"
-    DI = "Digital Input"
-    DO = "Digital Output"
-
-
-class ImmersionMedium(str, Enum):
-    """Immersion medium name"""
-
-    AIR = "air"
-    MULTI = "multi"
-    OIL = "oil"
-    PBS = "PBS"
-    WATER = "water"
-    OTHER = "other"
-    EASYINDEX = "easy index"
-    ECI = "ethyl cinnimate"
-    ACB = "aqueous clearing buffer"
-
-
-class ObjectiveType(str, Enum):
-    """Objective type for Slap2"""
-
-    REMOTE = "Remote"
-    PRIMARY = "Primary"
-
-
-class CameraTarget(str, Enum):
-    """Target of camera"""
-
-    BODY = "Body"
-    BRAIN = "Brain"
-    EYE = "Eye"
-    FACE = "Face"
-    TONGUE = "Tongue"
-    OTHER = "Other"
-
-
-class ProbeModel(str, Enum):
-    """Probe model name"""
-
-    MI_ULED_PROBE = "Michigan uLED Probe (Version 1)"
-    MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
-    NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
-    NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
-    NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"
-    NP1 = "Neuropixels 1.0"
-    NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
-    NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
-    NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
-
-
-class DetectorType(str, Enum):
-    """Detector type name"""
-
-    CAMERA = "Camera"
-    PMT = "Photomultiplier Tube"
-    OTHER = "Other"
-
-
-class Cooling(str, Enum):
-    """Cooling medium name"""
-
-    AIR = "Air"
-    WATER = "Water"
-    NONE = "None"
-
-
-class BinMode(str, Enum):
-    """Detector binning mode"""
-
-    ADDITIVE = "Additive"
-    AVERAGE = "Average"
-    NONE = "None"
-
-
-class FerruleMaterial(str, Enum):
-    """Fiber probe ferrule material type name"""
-
-    CERAMIC = "Ceramic"
-    STAINLESS_STEEL = "Stainless steel"
-
-
-class ScannerLocation(str, Enum):
-    """location of scanner"""
-
-    FRED_HUTCH = "Fred Hutch"
-    UW_SLU = "UW SLU"
-
-
-class MagneticStrength(int, Enum):
-    """Strength of magnet"""
-
-    MRI_7T = 7
-    MRI_14T = 14
-
-
-class LickSensorType(str, Enum):
-    """Type of lick sensor"""
-
-    CAPACITIVE = "Capacitive"
-    CONDUCTIVE = "Conductive"
-    PIEZOELECTIC = "Piezoelectric"
-
-
-class MyomatrixArrayType(str, Enum):
-    """Type of Myomatrix array"""
-
-    INJECTED = "Injected"
-    SUTURED = "Sutured"
 
 
 class Device(DataModel):
@@ -343,7 +163,7 @@ class Lens(Device):
     # optional fields
     focal_length: Optional[Decimal] = Field(default=None, title="Focal length of the lens (mm)")
     focal_length_unit: Optional[SizeUnit] = Field(default=None, title="Focal length unit")
-    size: Optional[LensSize] = Field(default=None, title="Size (inches)")
+    size: Optional[float] = Field(default=None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Lens size unit")
     optimized_wavelength_range: Optional[str] = Field(default=None, title="Optimized wavelength range (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
@@ -847,10 +667,8 @@ class OpticalTable(Device):
 class Scanner(Device):
     """Description of a MRI Scanner"""
 
-    scanner_location: ScannerLocation = Field(..., title="Scanner location")
-    magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
-    #  TODO: Check if this should go into the units module.
-    magnetic_strength_unit: str = Field(default="T", title="Magnetic strength unit")
+    magnetic_strength: float = Field(..., title="Magnetic strength (T)")
+    magnetic_strength_unit: MagneticFieldUnit = Field(..., title="Magnetic strength unit")
 
 
 class MyomatrixArray(Device):

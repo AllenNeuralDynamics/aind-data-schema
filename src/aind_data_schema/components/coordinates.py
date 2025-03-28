@@ -1,79 +1,15 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from enum import Enum
 from typing import List, Optional, Union
 
 from aind_data_schema_models.atlas import AtlasName
+from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
-
-
-class Origin(str, Enum):
-    """Origin positions for coordinate systems"""
-
-    ORIGIN = "Origin"  # only exists in Atlases / Images
-    BREGMA = "Bregma"
-    LAMBDA = "Lambda"
-    C1 = "C1"  # cervical vertebrae
-    C2 = "C2"
-    C3 = "C3"
-    C4 = "C4"
-    C5 = "C5"
-    C6 = "C6"
-    C7 = "C7"
-    TIP = "Tip"  # of a probe
-    FRONT_CENTER = "Front_center"  # front center of a device, e.g. camera
-    ARENA_CENTER = "Arena_center"  # center of an arena on the ground surface
-    ARENA_FRONT_LEFT = "Arena_front_left"
-    ARENA_FRONT_RIGHT = "Arena_front_right"
-    ARENA_BACK_LEFT = "Arena_back_left"
-    ARENA_BACK_RIGHT = "Arena_back_right"
-
-
-class AxisName(str, Enum):
-    """Axis name"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-    AP = "AP"
-    ML = "ML"
-    SI = "SI"
-    DEPTH = "Depth"
-
-
-class Direction(str, Enum):
-    """Local and anatomical directions"""
-
-    LR = "Left_to_right"
-    RL = "Right_to_left"
-    AP = "Anterior_to_posterior"
-    PA = "Posterior_to_anterior"
-    IS = "Inferior_to_superior"
-    SI = "Superior_to_inferior"
-    FB = "Front_to_back"
-    BF = "Back_to_front"
-    TB = "Top_to_bottom"
-    BT = "Bottom_to_top"
-    OTHER = "Other"
-    POS = "Positive"
-
-
-class AnatomicalRelative(str, Enum):
-    """Relative positions in 3D space"""
-
-    SUPERIOR = "Superior"
-    INFERIOR = "Inferior"
-    ANTERIOR = "Anterior"
-    POSTERIOR = "Posterior"
-    LEFT = "Left"
-    RIGHT = "Right"
-    MEDIAL = "Medial"
-    LATERAL = "Lateral"
 
 
 class Axis(DataModel):

@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -25,7 +26,7 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Origin
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent

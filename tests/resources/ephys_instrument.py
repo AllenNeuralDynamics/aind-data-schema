@@ -7,14 +7,12 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     CoordinateSystemLibrary,
 )
 
 from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
-    CameraTarget,
     DAQChannel,
     Device,
     Disc,
@@ -31,8 +29,10 @@ from aind_data_schema.components.devices import (
     ProbePort,
     Computer,
 )
-from aind_data_schema.components.measurements import Calibration
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import CameraTarget
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema_models.units import PowerUnit
 
 # Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
