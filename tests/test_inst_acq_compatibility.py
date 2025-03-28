@@ -28,7 +28,7 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    PatchCord,
+    FiberPatchCord,
     ProbePort,
     Computer,
 )
@@ -199,7 +199,7 @@ laser_assembly = LaserAssembly(
     ),
     lasers=[red_laser, blue_laser],
     collimator=Device(name="Collimator A"),
-    fiber=PatchCord(
+    fiber=FiberPatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -727,7 +727,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
         ]
         patch_cords = [
-            d.PatchCord(
+            d.FiberPatchCord(
                 name="Bundle Branching Fiber-optic Patch Cord",
                 manufacturer=d.Organization.DORIC,
                 model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",

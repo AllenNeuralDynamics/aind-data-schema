@@ -14,7 +14,7 @@ from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
     CameraTarget,
-    ChannelType,
+    OlfactometerChannelType,
     DAQChannel,
     Detector,
     DetectorType,
@@ -30,7 +30,7 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OlfactometerChannel,
-    PatchCord,
+    FiberPatchCord,
     LickSpoutAssembly,
     LickSpout,
     ScanningStage,
@@ -227,7 +227,7 @@ lms = [
         ),
         name="Laser_assembly",
         collimator=Device(name="Collimator A"),
-        fiber=PatchCord(
+        fiber=FiberPatchCord(
             name="Bundle Branching Fiber-optic Patch Cord",
             manufacturer=Organization.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -331,7 +331,7 @@ detectors = [
     )
 ]
 patch_cords = [
-    PatchCord(
+    FiberPatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -360,12 +360,12 @@ stimulus_devices = [
         channels=[
             OlfactometerChannel(
                 channel_index=0,
-                channel_type=ChannelType.CARRIER,
+                channel_type=OlfactometerChannelType.CARRIER,
                 flow_capacity=100,
             ),
             OlfactometerChannel(
                 channel_index=1,
-                channel_type=ChannelType.ODOR,
+                channel_type=OlfactometerChannelType.ODOR,
                 flow_capacity=100,
             ),
         ],

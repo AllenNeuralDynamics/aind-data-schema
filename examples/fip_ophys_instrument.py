@@ -77,7 +77,7 @@ camera_assembly_2 = d.CameraAssembly(
     ),
 )
 
-patch_cord = d.PatchCord(
+patch_cord = d.FiberPatchCord(
     name="Bundle Branching Fiber-optic Patch Cord",
     manufacturer=d.Organization.DORIC,
     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
