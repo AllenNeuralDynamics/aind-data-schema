@@ -329,7 +329,10 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         """Test nested paths in a custom object"""
 
         class MockObject:
+            """Test object"""
+
             def __init__(self, path1, path2):
+                """Test object init"""
                 self.path1 = path1
                 self.path2 = path2
 
