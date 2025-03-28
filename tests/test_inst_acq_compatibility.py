@@ -53,10 +53,10 @@ from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionComp
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     Coordinate,
     CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"

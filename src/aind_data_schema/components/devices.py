@@ -24,7 +24,6 @@ from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import AxisName, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.identifiers import Code, Software
 
-from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import (
     BinMode,
     CameraChroma,
@@ -39,7 +38,13 @@ from aind_data_schema_models.devices import (
     MyomatrixArrayType,
     ObjectiveType,
     StageAxisDirection,
+    ImmersionMedium,
+    DeviceDriver,
+    FilterType,
+    CameraTarget,
+    ProbeModel,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 
 class Device(DataModel):
@@ -160,7 +165,7 @@ class Lens(Device):
     # optional fields
     focal_length: Optional[Decimal] = Field(default=None, title="Focal length of the lens (mm)")
     focal_length_unit: Optional[SizeUnit] = Field(default=None, title="Focal length unit")
-    size: Optional[LensSize] = Field(default=None, title="Size (inches)")
+    size: Optional[float] = Field(default=None, title="Size (inches)")
     lens_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Lens size unit")
     optimized_wavelength_range: Optional[str] = Field(default=None, title="Optimized wavelength range (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")

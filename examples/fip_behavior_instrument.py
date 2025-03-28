@@ -9,7 +9,6 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.components.devices import (
     CameraAssembly,
-    CameraTarget,
     Camera,
     Organization,
     Lens,
@@ -32,9 +31,11 @@ from aind_data_schema.components.devices import (
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     CoordinateSystemLibrary,
 )
+
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import CameraTarget
 
 bonsai_software = Software(name="Bonsai", version="2.5")
 

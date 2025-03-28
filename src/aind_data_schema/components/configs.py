@@ -20,9 +20,10 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Scale, Transform
-from aind_data_schema.components.devices import ImmersionMedium
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.tile import AcquisitionTile, Channel
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import ImmersionMedium
 
 
 class StimulusModality(str, Enum):

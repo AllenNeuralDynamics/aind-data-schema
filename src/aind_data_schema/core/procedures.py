@@ -25,12 +25,13 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Origin
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 
 class ImmunolabelClass(str, Enum):

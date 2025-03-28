@@ -6,6 +6,7 @@ from aind_data_schema_models.units import (
     PowerUnit,
     TimeUnit,
     VolumeUnit,
+    UNITS,
 )
 
 from aind_data_schema.base import AwareDatetimeWithDefault, Field

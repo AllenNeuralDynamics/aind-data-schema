@@ -47,9 +47,9 @@ from aind_data_schema.core.instrument import (
 )
 from aind_data_schema_models.units import SizeUnit
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 daqs = [
     NeuropixelsBasestation(
