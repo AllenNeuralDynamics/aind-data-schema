@@ -51,6 +51,7 @@ for session_idx, session in sessions_df.iterrows():
         funding_source=[Funding(funder=Organization.NIMH)],
         investigators=[experimenter],
         data_level="raw",
+        project_name="Example workflow",
     )
 
     # we will store our json files in a directory named after the session

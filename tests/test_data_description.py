@@ -62,6 +62,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         self.assertIsNotNone(da)
 
@@ -86,6 +87,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
+                project_name="Test",
             )
 
     def test_derived_data_description_construction(self):
@@ -100,6 +102,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         self.assertIsNotNone(r1)
@@ -116,6 +119,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         r2 = DataDescription.from_raw(r1, "some-model", creation_time=dt)
@@ -134,6 +138,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         self.assertIsNotNone(dd)
 
@@ -150,6 +155,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[f],
                 investigators=[Person(name="Jane Smith")],
+                project_name="Test",
             )
 
     def test_parse_name_invalid(self):
@@ -173,6 +179,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
 
         # also over-write with specimen ID
@@ -191,6 +198,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=[Modality.ECEPHYS],
                 investigators=[Person(name="Jane Smith")],
+                project_name="Test",
             )
 
         self.assertIn("subject_id", str(context.exception))
@@ -207,6 +215,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
 
         with self.assertRaises(ValueError) as context:
@@ -265,6 +274,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.SPIM],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
 
         da2 = DataDescription.model_validate_json(da1.model_dump_json())
