@@ -112,23 +112,19 @@ def recursive_get_all_names(obj: Any) -> List[str]:
 
 def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
     """
-    Recursively traverses an object, checking if any attribute is a pathlib.Path.
-    If it finds a Path, it prints whether the path exists.
+    Recursively checks if any attribute in an object is a pathlib.Path and logs if it doesn't exist.
     """
+    if isinstance(obj, Enum):
+        return
+
     if isinstance(obj, Path):
-        if directory:
-            full_path = directory / obj
-        else:
-            full_path = obj
+        full_path = directory / obj if directory else obj
         if not full_path.exists():
             logging.warning(f"Path {full_path} does not exist")
-
-    elif isinstance(obj, dict):
-        for value in obj.values():
-            recursive_check_paths(value, directory)
-    elif isinstance(obj, (list, tuple, set)):
-        for item in obj:
+    elif isinstance(obj, (list, tuple, set, dict)):
+        items = obj.values() if isinstance(obj, dict) else obj
+        for item in items:
             recursive_check_paths(item, directory)
-    elif hasattr(obj, "__dict__"):  # Custom objects
+    elif hasattr(obj, "__dict__"):
         for value in vars(obj).values():
             recursive_check_paths(value, directory)

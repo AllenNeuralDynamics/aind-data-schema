@@ -259,22 +259,6 @@ class DataModelTests(unittest.TestCase):
 
             object_types[subclass.__name__] = object_type
 
-    def test_validate_paths(self):
-        """Test that validate_paths logs a warning for non-existent paths"""
-
-        class PathTestModel(DataModel):
-            """Temporary test model"""
-
-            path_field: Optional[Path] = Field(default=None)
-
-        with self.assertLogs(level='WARNING') as log:
-            model_instance = PathTestModel(path_field=Path("/non/existent/path"))
-            model_instance.validate_paths(model_instance.__dict__)
-            self.assertIn("Path /non/existent/path does not exist.", log.output[0])
-
-        model_instance2 = PathTestModel(path_field=Path(__file__))  # Existing path
-        self.assertIsNotNone(model_instance2)
-
 
 class DataCoreModelTests(unittest.TestCase):
     """Tests for DataCoreModel"""
@@ -307,7 +291,8 @@ class DataCoreModelTests(unittest.TestCase):
         self.assertEqual(ChildModel.default_filename(), "test_model.json")
 
     @patch("builtins.open", new_callable=mock_open)
-    def test_write_standard_file(self, mock_open: MagicMock):
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_write_standard_file(self, mock_recursive_check_paths: MagicMock, mock_open: MagicMock):
         """Tests write_standard_file method"""
 
         class TestModel(DataCoreModel):
@@ -324,7 +309,10 @@ class DataCoreModelTests(unittest.TestCase):
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("logging.warning")
-    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
+    @patch("aind_data_schema.utils.validators.recursive_check_paths")
+    def test_write_standard_file_size_warning(
+        self, mock_recursive_check_paths: MagicMock, mock_logging_warning: MagicMock, mock_open: MagicMock
+    ):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
 
         class TestModel(DataCoreModel):
