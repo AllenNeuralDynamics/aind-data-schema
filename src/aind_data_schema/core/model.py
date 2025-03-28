@@ -20,14 +20,14 @@ class PerformanceMetric(DataModel):
 class ModelEvaluation(DataProcess):
     """Description of model evaluation"""
 
-    process_type: ProcessName = Field(ProcessName.MODEL_EVALUATION, title="Process name")
+    process_type: ProcessName = ProcessName.MODEL_EVALUATION
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
 
 
 class ModelTraining(DataProcess):
     """Description of model training"""
 
-    process_type: ProcessName = Field(ProcessName.MODEL_TRAINING, title="Process name")
+    process_type: ProcessName = ProcessName.MODEL_TRAINING
     train_performance: List[PerformanceMetric] = Field(
         ..., title="Training performance", description="Performance on training set"
     )
