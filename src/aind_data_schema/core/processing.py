@@ -191,7 +191,8 @@ class Processing(DataCoreModel):
                 for step in process.pipeline_steps:
                     if step not in self.process_names:
                         raise ValueError(
-                            f"Processing step '{step}' not found in data_processes (reference in process '{process.name}')."
+                            f"Processing step '{step}' not found in data_processes",
+                            f" (reference in process '{process.name}').",
                         )
 
             # Or make sure it doesn't have any pipeline steps

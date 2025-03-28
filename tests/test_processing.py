@@ -1,4 +1,4 @@
-""" test processing """
+"""test processing"""
 
 import unittest
 from datetime import datetime
@@ -118,6 +118,7 @@ class ProcessingTest(unittest.TestCase):
         # Test with no data_processes
         # p = Processing(data_processes=[])
         # self.assertIsNotNone(p)
+
     def test_validate_pipeline_steps(self):
         """Test the validate_pipeline_steps method"""
 
@@ -278,7 +279,7 @@ class ProcessingTest(unittest.TestCase):
                         ),
                     ]
                 ],
-                process_graph={ProcessName.ANALYSIS: []}
+                process_graph={ProcessName.ANALYSIS: []},
             )
 
     def test_rename_process(self):
@@ -311,35 +312,32 @@ class ProcessingTest(unittest.TestCase):
             start_date_time=t,
             end_date_time=t,
         )
-        
+
         # Create process graph where process2 depends on process1, and process3 depends on process2
         process_graph = {
             "process1": [],
             "process2": ["process1"],
             "process3": ["process2"],
         }
-        
-        p = Processing(
-            data_processes=[process1, process2, process3],
-            process_graph=process_graph
-        )
-        
+
+        p = Processing(data_processes=[process1, process2, process3], process_graph=process_graph)
+
         # Rename process2 to new_name
         p.rename_process("process2", "new_name")
-        
+
         # Check that the process was renamed in data_processes
         process_names = [proc.name for proc in p.data_processes]
         self.assertIn("new_name", process_names)
         self.assertNotIn("process2", process_names)
-        
+
         # Check that the process was renamed in process_graph keys
         self.assertIn("new_name", p.process_graph)
         self.assertNotIn("process2", p.process_graph)
-        
+
         # Check that references to the process were updated in process_graph values
         self.assertEqual(p.process_graph["process3"], ["new_name"])
         self.assertEqual(p.process_graph["new_name"], ["process1"])
-        
+
         # Test error case - renaming a process that doesn't exist
         with self.assertRaises(ValueError) as e:
             p.rename_process("non_existent", "another_name")
@@ -366,19 +364,16 @@ class ProcessingTest(unittest.TestCase):
             start_date_time=t,
             end_date_time=t,
         )
-        
+
         # Valid case - all processes are in process_graph and all keys in process_graph are processes
         process_graph = {
             "process1": [],
             "process2": ["process1"],
         }
-        
-        p = Processing(
-            data_processes=[process1, process2],
-            process_graph=process_graph
-        )
+
+        p = Processing(data_processes=[process1, process2], process_graph=process_graph)
         self.assertIsNotNone(p)
-        
+
         # Invalid case 1 - process in data_processes not in process_graph
         process3 = DataProcess(
             name="process3",
@@ -389,26 +384,20 @@ class ProcessingTest(unittest.TestCase):
             start_date_time=t,
             end_date_time=t,
         )
-        
+
         with self.assertRaises(ValueError) as e:
-            Processing(
-                data_processes=[process1, process2, process3],
-                process_graph=process_graph
-            )
+            Processing(data_processes=[process1, process2, process3], process_graph=process_graph)
         self.assertIn("process_graph must include all processes in data_processes", str(e.exception))
-        
+
         # Invalid case 2 - process in process_graph not in data_processes
         invalid_graph = {
             "process1": [],
             "process2": ["process1"],
             "process3": ["process2"],
         }
-        
+
         with self.assertRaises(ValueError) as e:
-            Processing(
-                data_processes=[process1, process2],
-                process_graph=invalid_graph
-            )
+            Processing(data_processes=[process1, process2], process_graph=invalid_graph)
         self.assertIn("data_processes must include all processes in process_graph", str(e.exception))
 
 
