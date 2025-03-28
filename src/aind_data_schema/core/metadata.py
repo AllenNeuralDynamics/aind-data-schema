@@ -3,9 +3,9 @@
 import inspect
 import json
 import logging
+import warnings
 from datetime import datetime, timezone
 from enum import Enum
-import warnings
 from typing import Dict, List, Literal, Optional, get_args
 from uuid import UUID, uuid4
 
@@ -21,13 +21,13 @@ from pydantic import (
     model_validator,
 )
 
-from aind_data_schema.base import DataCoreModel, is_dict_corrupt, AwareDatetimeWithDefault
-from aind_data_schema.core.acquisition import Acquisition, MODALITY_DEVICE_REQUIREMENTS, CONFIG_DEVICE_REQUIREMENTS
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, is_dict_corrupt
+from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
 from aind_data_schema.core.data_description import DataDescription
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
@@ -76,7 +76,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.32"]] = Field(default="2.0.32")
+    schema_version: SkipValidation[Literal["2.0.37"]] = Field(default="2.0.37")
     id: UUID = Field(
         default_factory=uuid4,
         alias="_id",

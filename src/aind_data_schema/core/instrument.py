@@ -1,19 +1,19 @@
 """Core Instrument model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set, Union, Dict
 from enum import Enum
+from typing import Dict, List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import CoordinateSystem
-from aind_data_schema.utils.validators import recursive_get_all_names
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
+    AirPuffDevice,
     Arena,
     CameraAssembly,
     CameraTarget,
@@ -31,36 +31,37 @@ from aind_data_schema.components.devices import (
     Laser,
     LaserAssembly,
     Lens,
+    LickSpout,
+    LickSpoutAssembly,
     LightEmittingDiode,
     Monitor,
     MotorizedStage,
-    MousePlatform,
+    SubjectPlatform,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
     OpticalTable,
-    PatchCord,
+    FiberPatchCord,
     PockelsCell,
     PolygonalScanner,
-    LickSpout,
-    LickSpoutAssembly,
-    AirPuffDevice,
+    Scanner,
     ScanningStage,
     Speaker,
     Treadmill,
     Tube,
     Wheel,
-    Scanner,
+    Computer,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
+from aind_data_schema.utils.validators import recursive_get_all_names
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
-    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [PatchCord]],
+    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
@@ -105,7 +106,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
+    schema_version: SkipValidation[Literal["2.0.16"]] = Field(default="2.0.16")
 
     # instrument definition
     instrument_id: str = Field(
@@ -145,7 +146,7 @@ class Instrument(DataCoreModel):
                 EphysAssembly,
                 FiberAssembly,
                 LaserAssembly,
-                PatchCord,
+                FiberPatchCord,
                 Laser,
                 LightEmittingDiode,
                 Lamp,
@@ -169,8 +170,9 @@ class Instrument(DataCoreModel):
                 Tube,
                 Treadmill,
                 Arena,
-                MousePlatform,
+                SubjectPlatform,
                 DAQDevice,
+                Computer,
                 Device,
             ],
             Field(discriminator="object_type"),

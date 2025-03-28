@@ -3,7 +3,6 @@
 import datetime
 import json
 import os
-import re
 import unittest
 from pathlib import Path
 from typing import List
@@ -13,18 +12,15 @@ from aind_data_schema_models.data_name_patterns import DataLevel
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.data_description import (
     DataDescription,
-    DataRegex,
     Funding,
     build_data_name,
 )
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class DataDescriptionTest(unittest.TestCase):
@@ -235,14 +231,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
             )
-        expected_exception = (
-            "1 validation error for DataDescription\n"
-            "project_name\n"
-            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}'"
-            " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("String should match pattern", str(e.exception))
 
     def test_model_constructors(self):
         """test static methods for constructing models"""

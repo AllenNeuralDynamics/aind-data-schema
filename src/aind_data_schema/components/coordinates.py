@@ -1,16 +1,16 @@
 """Classes to define device positions, orientations, and coordinates"""
 
+import math
 from enum import Enum
 from typing import List, Optional, Union
-import math
 from pathlib import Path
 
+from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
-from aind_data_schema_models.atlas import AtlasName
 
 
 class Origin(str, Enum):

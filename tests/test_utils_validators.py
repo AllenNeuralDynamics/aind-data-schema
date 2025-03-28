@@ -205,6 +205,13 @@ class ComplexModel(BaseModel):
     enum_field: MockEnum
 
 
+class ComplexParentModel(BaseModel):
+    """Multi-level model for testing"""
+
+    name: str
+    child: ComplexModel
+
+
 class TestRecursiveGetAllNames(unittest.TestCase):
     """Tests for recursive_get_all_names function"""
 
@@ -228,16 +235,17 @@ class TestRecursiveGetAllNames(unittest.TestCase):
 
     def test_nested_list(self):
         """Test model with nested list"""
+        nested_model0 = NestedModel(name="nested_name0", value=41)
         nested_model1 = NestedModel(name="nested_name1", value=42)
         nested_model2 = NestedModel(name="nested_name2", value=43)
         model = ComplexModel(
             name="complex_name",
-            nested=nested_model1,
+            nested=nested_model0,
             nested_list=[nested_model1, nested_model2],
             enum_field=MockEnum.VALUE1,
         )
         result = recursive_get_all_names(model)
-        self.assertEqual(result, ["complex_name", "nested_name1", "nested_name1", "nested_name2"])
+        self.assertEqual(result, ["complex_name", "nested_name0", "nested_name1", "nested_name2"])
 
     def test_empty_model(self):
         """Test empty model"""
@@ -256,6 +264,19 @@ class TestRecursiveGetAllNames(unittest.TestCase):
         )
         result = recursive_get_all_names(model)
         self.assertEqual(result, ["complex_name", "nested_name"])
+
+    def test_multi_level(self):
+        """Test multi-level nesting"""
+        nested_model = NestedModel(name="nested_name", value=42)
+        model = ComplexModel(
+            name="complex_name",
+            nested=nested_model,
+            nested_list=[],
+            enum_field=MockEnum.VALUE1,
+        )
+        parent_model = ComplexParentModel(name="parent_name", child=model)
+        result = recursive_get_all_names(parent_model)
+        self.assertEqual(result, ["parent_name", "complex_name", "nested_name"])
 
 
 if __name__ == "__main__":
