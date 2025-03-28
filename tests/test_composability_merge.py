@@ -401,7 +401,7 @@ class TestComposability(unittest.TestCase):
         t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
         # Create two simple Processing objects
-        p1 = Processing(
+        p1 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
@@ -419,7 +419,7 @@ class TestComposability(unittest.TestCase):
             notes="First processing object",
         )
 
-        p2 = Processing(
+        p2 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Jane")],
@@ -448,12 +448,19 @@ class TestComposability(unittest.TestCase):
         self.assertIn("Second processing object", combined.notes)
 
         # Test with incompatible schema versions
-        p3 = p2
+        p3 = p2.model_copy()
         p3.schema_version = "0.0.0"
 
         with self.assertRaises(ValueError) as e:
             _ = p1 + p3
         self.assertIn("Cannot add Processing objects with different schema versions.", str(e.exception))
+
+        # Test with duplicate processes
+        p_copy = p1.model_copy()
+        with self.assertWarns(Warning) as w:
+            combined = p_copy + p1
+        self.assertIn("Processing objects have repeated processes", str(w.warning))
+        self.assertEqual(combined.data_processes[1].name, "Analysis_1")
 
 
 if __name__ == "__main__":

@@ -103,7 +103,7 @@ class TestMetadata(unittest.TestCase):
         procedures = Procedures(
             subject_id="12345",
         )
-        processing = Processing(
+        processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
