@@ -2,22 +2,12 @@
 
 from typing import Any, List, Literal, Optional
 
-from aind_data_schema_models.system_architecture import ModelBackbone
+from aind_data_schema_models.system_architecture import ModelArchitecture
 from pydantic import Field
 
 from aind_data_schema.base import DataCoreModel, DataModel, GenericModel, GenericModelType
-from aind_data_schema.components.identifiers import Code, Person, Software
+from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
-
-
-class ModelArchitecture(DataModel):
-    """Description of model architecture"""
-
-    backbone: ModelBackbone = Field(..., title="Backbone", description="Core network architecture")
-    software: List[Software] = Field(default=[], title="Software packages")
-    layers: Optional[int] = Field(default=None, title="Layers")
-    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class PerformanceMetric(DataModel):
@@ -63,7 +53,9 @@ class Model(DataCoreModel):
         title="Code",
         description="Code to run the model, possibly including reference to sample data"
     )
-    architecture: ModelArchitecture = Field(..., title="Model architecture")
+    architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
+    software_framework: Optional[Software] = Field(default=None, title="Software framework")
+    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
     pretrained_source_url: Optional[str] = Field(default=None, title="Pretrained source URL")
