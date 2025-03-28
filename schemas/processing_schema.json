@@ -164,11 +164,6 @@
                "title": "Output location",
                "type": "string"
             },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Parameters"
-            },
             "outputs": {
                "$ref": "#/$defs/GenericModel",
                "default": {},
@@ -589,8 +584,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.21",
-         "default": "2.0.21",
+         "const": "2.0.35",
+         "default": "2.0.35",
          "title": "Schema Version",
          "type": "string"
       },

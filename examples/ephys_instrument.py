@@ -12,7 +12,6 @@ from aind_data_schema.components.coordinates import (
 )
 
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -30,14 +29,21 @@ from aind_data_schema.components.devices import (
     NeuropixelsBasestation,
     PatchCord,
     ProbePort,
+    Computer,
 )
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema_models.units import PowerUnit
 
 # Describes an instrument with running wheel, 2 behavior cameras, one Harp Behavior board,
 # one dual-color laser module, one stick microscope, and 2 Neuropixels probes
 
-behavior_computer = "W10DT72941"
-ephys_computer = "W10DT72942"
+computer_names = {
+    "Behavior computer": "W10DT72941",
+    "Ephys computer": "W10DT72942",
+}
+behavior_computer = Computer(name=computer_names["Behavior computer"])
+ephys_computer = Computer(name=computer_names["Ephys computer"])
 
 running_wheel = Disc(name="Running Wheel", radius=15)
 
@@ -51,7 +57,6 @@ harp = HarpDevice(
     name="Harp Behavior",
     harp_device_type=HarpDeviceType.BEHAVIOR,
     core_version="2.1",
-    computer_name=behavior_computer,
     channels=[digital_out0, digital_out1, analog_input],
     is_clock_generator=False,
 )
@@ -78,6 +83,33 @@ connections = [
             "Running Wheel": ConnectionData(direction=ConnectionDirection.SEND),
         },
     ),
+    Connection(
+        device_names=["Harp Behavior", "Face Camera", "Body Camera", computer_names["Behavior computer"]],
+        connection_data={
+            "Harp Behavior": ConnectionData(direction=ConnectionDirection.SEND),
+            "Face Camera": ConnectionData(direction=ConnectionDirection.SEND),
+            "Body Camera": ConnectionData(direction=ConnectionDirection.SEND),
+            computer_names["Behavior computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
+        },
+    ),
+    Connection(
+        device_names=[
+            computer_names["Ephys computer"],
+            "Basestation Slot 3",
+            "stick microscope 1",
+            "stick microscope 2",
+            "stick microscope 3",
+            "stick microscope 4",
+        ],
+        connection_data={
+            computer_names["Ephys computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
+            "Basestation Slot 3": ConnectionData(direction=ConnectionDirection.SEND),
+            "stick microscope 1": ConnectionData(direction=ConnectionDirection.SEND),
+            "stick microscope 2": ConnectionData(direction=ConnectionDirection.SEND),
+            "stick microscope 3": ConnectionData(direction=ConnectionDirection.SEND),
+            "stick microscope 4": ConnectionData(direction=ConnectionDirection.SEND),
+        },
+    ),
 ]
 
 port1 = ProbePort(index=1, probes=["Probe A"])
@@ -90,7 +122,6 @@ basestation = NeuropixelsBasestation(
     bsc_firmware_version="2.199",
     slot=3,
     ports=[port1, port2],
-    computer_name=ephys_computer,
 )
 
 red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Organization.OXXIUS)
@@ -118,7 +149,6 @@ probe_camera_1 = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=ephys_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -133,7 +163,6 @@ probe_camera_2 = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=ephys_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -148,7 +177,6 @@ probe_camera_3 = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=ephys_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -163,7 +191,6 @@ probe_camera_4 = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=ephys_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -247,7 +274,6 @@ face_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=behavior_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -271,7 +297,6 @@ body_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=behavior_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -297,16 +322,20 @@ red_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 3, 6]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 3, 6],
+    output_unit=PowerUnit.MW,
 )
 
 blue_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 2, 7]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 2, 7],
+    output_unit=PowerUnit.MW,
 )
 
 inst = Instrument(
@@ -327,6 +356,8 @@ inst = Instrument(
         microscope_3,
         microscope_4,
         running_wheel,
+        behavior_computer,
+        ephys_computer,
     ],
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],

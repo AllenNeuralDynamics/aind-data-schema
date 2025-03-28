@@ -1,21 +1,20 @@
 """Core Instrument model"""
 
 from datetime import date
-from typing import List, Literal, Optional, Set, Union, Dict
 from enum import Enum
+from typing import Dict, List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema_models.organizations import Organization
 from aind_data_schema.base import DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import CoordinateSystem
-from aind_data_schema.utils.validators import recursive_get_all_names
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
+    AirPuffDevice,
     Arena,
-    Calibration,
     CameraAssembly,
     CameraTarget,
     DAQDevice,
@@ -32,6 +31,8 @@ from aind_data_schema.components.devices import (
     Laser,
     LaserAssembly,
     Lens,
+    LickSpout,
+    LickSpoutAssembly,
     LightEmittingDiode,
     Monitor,
     MotorizedStage,
@@ -44,14 +45,16 @@ from aind_data_schema.components.devices import (
     PatchCord,
     PockelsCell,
     PolygonalScanner,
-    RewardDelivery,
+    Scanner,
     ScanningStage,
     Speaker,
     Treadmill,
     Tube,
     Wheel,
-    Scanner,
+    Computer,
 )
+from aind_data_schema.components.measurements import CALIBRATIONS
+from aind_data_schema.utils.validators import recursive_get_all_names
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
@@ -62,11 +65,9 @@ DEVICES_REQUIRED = {
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[RewardDelivery]],
+    Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
-
-instrument_id_PATTERN = r"^[a-zA-Z0-9]+_[a-zA-Z0-9-]+_\d{8}$"
 
 
 class ConnectionDirection(str, Enum):
@@ -105,18 +106,17 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.9"]] = Field(default="2.0.9")
+    schema_version: SkipValidation[Literal["2.0.15"]] = Field(default="2.0.15")
 
     # instrument definition
     instrument_id: str = Field(
         ...,
         description="Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
         title="Instrument ID",
-        pattern=instrument_id_PATTERN,
     )
     modification_date: date = Field(..., title="Date of modification")
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    calibrations: Optional[List[Calibration]] = Field(default=None, title="Full calibration of devices")
+    calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
     # coordinate system
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
@@ -137,7 +137,9 @@ class Instrument(DataCoreModel):
             Union[
                 Monitor,
                 Olfactometer,
-                RewardDelivery,
+                LickSpout,
+                LickSpoutAssembly,
+                AirPuffDevice,
                 Speaker,
                 CameraAssembly,
                 Enclosure,
@@ -170,7 +172,8 @@ class Instrument(DataCoreModel):
                 Arena,
                 MousePlatform,
                 DAQDevice,
-                Device,  # note that order matters in the Union, DAQDevice and Device should go last
+                Computer,
+                Device,
             ],
             Field(discriminator="object_type"),
         ]

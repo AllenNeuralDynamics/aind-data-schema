@@ -1,21 +1,15 @@
 """Classes to define device positions, orientations, and coordinates"""
 
+import math
 from enum import Enum
 from typing import List, Optional, Union
-import math
 
+from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
-
-
-class AtlasName(str, Enum):
-    """Atlas name"""
-
-    CCF = "CCF"
-    CUSTOM = "Custom"
 
 
 class Origin(str, Enum):
@@ -271,7 +265,9 @@ class Atlas(CoordinateSystem):
 class Transform(DataModel):
     """Affine transformation in a coordinate system"""
 
-    system_name: str = Field(..., title="Coordinate system name")
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
     transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
         Field(..., title="Transform")
     )
@@ -296,7 +292,9 @@ class Coordinate(DataModel):
     Angles can be optionally provided
     """
 
-    system_name: str = Field(..., title="Coordinate system name")
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
     position: List[float] = Field(
         ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
     )

@@ -3,8 +3,9 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Set, Union, Dict
+from typing import Dict, List, Literal, Optional, Set, Union
 
+from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -19,18 +20,17 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VolumeUnit,
 )
-from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, Origin, AnatomicalRelative
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_coord_system_check
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
 class ImmunolabelClass(str, Enum):
@@ -102,10 +102,9 @@ class CraniotomyType(str, Enum):
     """Name of craniotomy Type"""
 
     DHC = "Dual hemisphere craniotomy"
-    THREE_MM = "3 mm"
-    FIVE_MM = "5 mm"
-    VISCTX = "Visual Cortex"
     WHC = "Whole hemisphere craniotomy"
+    CIRCLE = "Circle"
+    SQUARE = "Square"
     OTHER = "Other"
 
 
@@ -229,6 +228,7 @@ class HCRSeries(DataModel):
     number_of_rounds: int = Field(..., title="Number of round")
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
     strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
+    cell_id: Optional[str] = Field(default=None, title="Cell ID")
 
 
 class Antibody(Reagent):
@@ -273,9 +273,7 @@ class SpecimenProcedure(DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
-    procedure_name: Optional[str] = Field(
-        default=None, title="Procedure name", description="Name to clarify specific procedure used as needed"
-    )
+    procedure_name: Optional[str] = Field(default=None, title="Procedure name")
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
@@ -284,24 +282,46 @@ class SpecimenProcedure(DataModel):
         title="experimenter(s)",
     )
     protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
-    hcr_series: Optional[HCRSeries] = Field(default=None, title="HCR Series")
-    antibodies: Optional[List[Antibody]] = Field(default=None, title="Immunolabeling")
-    sectioning: Optional[Sectioning] = Field(default=None, title="Sectioning")
+
+    procedure_details: List[
+        Annotated[
+            Union[
+                HCRSeries,
+                Antibody,
+                Sectioning,
+                Reagent,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(
+        default=[],
+        title="Procedure details",
+        description="",
+    )
+
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
     def validate_procedure_type(self):
         """Adds a validation check on procedure_type"""
 
+        has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
+        has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
+
+        if has_hcr_series + has_antibodies + has_sectioning > 1:
+            raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
+
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
             raise AssertionError(
                 "notes cannot be empty if procedure_type is Other. Describe the procedure in the notes field."
             )
-        elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not self.hcr_series:
-            raise AssertionError("hcr_series cannot be empty if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not self.antibodies:
-            raise AssertionError("antibodies cannot be empty if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
+            raise AssertionError("HCRSeries required if procedure_type is HCR.")
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not has_antibodies:
+            raise AssertionError("Antibody required if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
+            raise AssertionError("Sectioning required if procedure_type is Sectioning.")
         return self
 
 
@@ -339,12 +359,35 @@ class Craniotomy(DataModel):
 
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
-    craniotomy_hemisphere: Optional[Side] = Field(default=None, title="Craniotomy hemisphere")
+
+    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
+
+    size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
+    size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
+
+    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
-    protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
-    recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
+
+    @model_validator(mode="after")
+    def check_position(cls, values):
+        """Ensure a position is provided for certain craniotomy types"""
+
+        POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
+
+        if values.craniotomy_type in POS_REQUIRED and not values.position:
+            raise ValueError(f"Craniotomy.position must be provided for craniotomy type {values.craniotomy_type}")
+        return values
+
+    @model_validator(mode="after")
+    def validate_size(cls, values):
+        """Ensure that size is provided for certain craniotomy types"""
+
+        SIZE_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE]
+
+        if values.craniotomy_type in SIZE_REQUIRED and not values.size:
+            raise ValueError(f"Craniotomy.size must be provided for craniotomy type {values.craniotomy_type}")
+        return values
 
 
 class Headframe(DataModel):
@@ -447,9 +490,6 @@ class Injection(DataModel):
     injection_materials: List[
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
-    recovery_time: Optional[Decimal] = Field(default=None, title="Recovery time")
-    recovery_time_unit: Optional[TimeUnit] = Field(default=None, title="Recovery time unit")
-
     target: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
@@ -458,7 +498,6 @@ class Injection(DataModel):
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    instrument_id: Optional[str] = Field(default=None, title="Instrument ID")
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
 
 
@@ -478,14 +517,6 @@ class BrainInjection(Injection):
         if dynamics_len != coords_len:
             raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
         return values
-
-
-class IntraCerebellarVentricleInjection(BrainInjection):
-    """Description of an interacerebellar ventricle injection"""
-
-
-class IntraCisternalMagnaInjection(BrainInjection):
-    """Description of an interacisternal magna injection"""
 
 
 class SampleCollection(DataModel):
@@ -608,7 +639,8 @@ class Surgery(DataModel):
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
-        title="Coordinate system for surgical procedures",
+        title="Surgery coordinate system",
+        description="Only use this field when different from the Procedures.coordinate_system",
     )
 
     # Measured coordinates
@@ -625,8 +657,6 @@ class Surgery(DataModel):
                 Craniotomy,
                 FiberImplant,
                 Headframe,
-                IntraCerebellarVentricleInjection,
-                IntraCisternalMagnaInjection,
                 BrainInjection,
                 Injection,
                 MyomatrixInsertion,
@@ -639,16 +669,6 @@ class Surgery(DataModel):
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @model_validator(mode="after")
-    def coordinate_validator(cls, data):
-        """Validate that all coordinates are valid in the instrument's coordinate system"""
-
-        if data.coordinate_system:
-
-            recursive_coord_system_check(data, data.coordinate_system.name)
-
-        return data
-
 
 class Procedures(DataCoreModel):
     """Description of all procedures performed on a subject"""
@@ -656,7 +676,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.10"]] = Field(default="2.0.10")
+    schema_version: SkipValidation[Literal["2.0.15"]] = Field(default="2.0.15")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
@@ -669,6 +689,14 @@ class Procedures(DataCoreModel):
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+
+    # Coordinate system
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate System",
+        description="Required when coordinates are provided in the procedures",
+    )
+
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @field_validator("specimen_procedures", mode="after")

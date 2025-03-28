@@ -3,15 +3,21 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
+from aind_data_schema.components.measurements import Calibration
+from aind_data_schema.components.devices import Computer
 
 bonsai_software = Software(name="Bonsai", version="2.5")
+
+computer = Computer(
+    name="W10DTJK7N0M3",
+)
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -24,7 +30,6 @@ camera_assembly_1 = d.CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -54,7 +59,6 @@ camera_assembly_2 = d.CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -252,7 +256,6 @@ daq = d.HarpDevice(
     name="Harp Behavior",
     harp_device_type=d.HarpDeviceType.BEHAVIOR,
     core_version="2.1",
-    computer_name="behavior_computer",
     is_clock_generator=False,
     channels=[
         d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
@@ -323,13 +326,46 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Side face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Side face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Bottom face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Bottom face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Harp Behavior"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
 ]
 
 mouse_platform = d.Disc(name="mouse_disc", radius=8.5)
 
-stimulus_device = d.RewardDelivery(
-    reward_spouts=[
-        d.RewardSpout(
+stimulus_device = d.LickSpoutAssembly(
+    lick_spouts=[
+        d.LickSpout(
             name="Left spout",
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Left"),
@@ -337,7 +373,7 @@ stimulus_device = d.RewardDelivery(
                 name="Lick-o-meter Left",
             ),
         ),
-        d.RewardSpout(
+        d.LickSpout(
             name="Right spout",
             spout_diameter=1.2,
             solenoid_valve=d.Device(name="Solenoid Right"),
@@ -350,12 +386,14 @@ stimulus_device = d.RewardDelivery(
 
 additional_device = d.Device(name="Photometry Clock")
 
-calibration = d.Calibration(
+calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
     device_name="470nm LED",
     description="LED calibration",
-    input={"Power setting": [1, 2, 3]},
-    output={"Power mW": [5, 10, 13]},
+    input=[1, 2, 3],
+    input_unit=PowerUnit.PERCENT,
+    output=[5, 10, 13],
+    output_unit=PowerUnit.MW,
 )
 
 instrument = r.Instrument(

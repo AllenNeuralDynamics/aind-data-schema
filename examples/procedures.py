@@ -6,6 +6,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Craniotomy,
+    CraniotomyType,
     BrainInjection,
     Perfusion,
     Procedures,
@@ -55,9 +56,14 @@ surgery1 = Surgery(
     workstation_id="SWS 3",
     procedures=[
         Craniotomy(
-            craniotomy_type="Visual Cortex",
+            craniotomy_type=CraniotomyType.CIRCLE,
             protocol_id="1234",
-            craniotomy_hemisphere="Left",
+            position=Coordinate(
+                system_name="SurgerySystem",
+                position=[-2, 2, 0, 0],
+            ),
+            size=1,
+            size_unit=SizeUnit.MM,
         ),
         BrainInjection(
             protocol_id="5678",
@@ -73,8 +79,6 @@ surgery1 = Surgery(
                     titer=2300000000,
                 )
             ],
-            recovery_time=0,
-            instrument_id=None,
             coordinates=[
                 Coordinate(
                     system_name="SurgerySystem",

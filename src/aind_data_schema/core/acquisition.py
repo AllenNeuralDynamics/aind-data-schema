@@ -1,45 +1,39 @@
 """ schema describing imaging acquisition """
 
 from decimal import Decimal
-from typing import List, Literal, Optional, Union, Annotated
-
-from pydantic import Field, SkipValidation, model_validator
-
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
-from aind_data_schema_models.units import VolumeUnit, MassUnit
-from aind_data_schema.components.devices import (
-    Calibration,
-    Maintenance,
-    Camera,
-    CameraAssembly,
-    EphysAssembly,
-    FiberAssembly,
-)
-from aind_data_schema.core.procedures import Anaesthetic
-from aind_data_schema.components.identifiers import Person, Software, Code
-
-from aind_data_schema.components.configs import (
-    DomeModule,
-    PatchCordConfig,
-    FiberAssemblyConfig,
-    ManipulatorConfig,
-    DetectorConfig,
-    FieldOfView,
-    SlapFieldOfView,
-    SpeakerConfig,
-    LightEmittingDiodeConfig,
-    LaserConfig,
-    MousePlatformConfig,
-    Stack,
-    MRIScan,
-    RewardDeliveryConfig,
-    StimulusModality,
-    InVitroImagingConfig,
-)
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from typing import Annotated, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import MassUnit, VolumeUnit
+from pydantic import Field, SkipValidation, model_validator
+
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.configs import (
+    AirPuffConfig,
+    DetectorConfig,
+    DomeModule,
+    FiberAssemblyConfig,
+    FieldOfView,
+    InVitroImagingConfig,
+    LaserConfig,
+    LickSpoutConfig,
+    LightEmittingDiodeConfig,
+    ManipulatorConfig,
+    MousePlatformConfig,
+    MRIScan,
+    PatchCordConfig,
+    SlapFieldOfView,
+    SpeakerConfig,
+    Stack,
+    StimulusModality,
+)
+from aind_data_schema.components.coordinates import CoordinateSystem
+from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
+from aind_data_schema.components.identifiers import Code, Person, Software
+from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
+from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -82,7 +76,6 @@ class SubjectDetails(DataModel):
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     mouse_platform_name: str = Field(..., title="Mouse platform")
-    reward_delivery: Optional[RewardDeliveryConfig] = Field(default=None, title="Reward delivery")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
@@ -128,6 +121,8 @@ class DataStream(DataModel):
                 Stack,
                 MRIScan,
                 InVitroImagingConfig,
+                LickSpoutConfig,
+                AirPuffConfig,
             ],
             Field(discriminator="object_type"),
         ]
@@ -196,7 +191,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.10"]] = Field(default="2.0.10")
+    schema_version: SkipValidation[Literal["2.0.13"]] = Field(default="2.0.13")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
@@ -217,9 +212,14 @@ class Acquisition(DataCoreModel):
     experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
     notes: Optional[str] = Field(default=None, title="Notes")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system",
+        description="Required when coordinates are provided within the Acquisition",
+    )
 
     # Instrument metadata
-    calibrations: List[Calibration] = Field(
+    calibrations: List[CALIBRATIONS] = Field(
         default=[],
         title="Calibrations",
         description="List of calibration measurements taken prior to acquisition.",

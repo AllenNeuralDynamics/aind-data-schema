@@ -1,13 +1,11 @@
 """ Test for the acquisition.json """
 
-import re
 import unittest
 from datetime import datetime, timezone
 
 import pydantic
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.coordinates import (
     Affine,
@@ -22,7 +20,6 @@ from aind_data_schema.components.configs import (
     DomeModule,
     ManipulatorConfig,
     MRIScan,
-    RewardDeliveryConfig,
 )
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -30,8 +27,6 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class AcquisitionTest(unittest.TestCase):
@@ -53,6 +48,7 @@ class AcquisitionTest(unittest.TestCase):
             subject_details=SubjectDetails(
                 mouse_platform_name="Running wheel",
             ),
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             data_streams=[
                 DataStream(
                     stream_start_time=datetime.now(),
@@ -72,8 +68,8 @@ class AcquisitionTest(unittest.TestCase):
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
                                 Coordinate(
-                                    system_name="BREGMA_ARI",
-                                    position=[1, 1, 1],
+                                    system_name="BREGMA_ARID",
+                                    position=[1, 1, 1, 0],
                                 ),
                             ],
                             manipulator_coordinates=[
@@ -84,8 +80,8 @@ class AcquisitionTest(unittest.TestCase):
                             ],
                             manipulator_axis_positions=[
                                 Coordinate(
-                                    system_name="BREGMA_ARI",
-                                    position=[1, 1, 1],
+                                    system_name="BREGMA_ARID",
+                                    position=[1, 1, 1, 0],
                                 )
                             ],
                         ),
@@ -95,12 +91,6 @@ class AcquisitionTest(unittest.TestCase):
         )
 
         self.assertIsNotNone(acquisition)
-
-        with self.assertRaises(pydantic.ValidationError):
-            RewardDeliveryConfig()
-
-        with self.assertRaises(pydantic.ValidationError):
-            RewardDeliveryConfig(reward_solution="Other")
 
         with self.assertRaises(ValidationError):
             MRIScan(
@@ -161,6 +151,7 @@ class AcquisitionTest(unittest.TestCase):
             ethics_review_id="1234",
             experiment_type="3D MRI Volume",
             instrument_id="NA",
+            coordinate_system=CoordinateSystemLibrary.MRI_LPS,
             subject_details=SubjectDetails(
                 animal_weight_prior=22.1,
                 animal_weight_post=21.9,
@@ -181,6 +172,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_id="1234",
                 experiment_type="Test",
                 instrument_id="1234",
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                 data_streams=[
                     DataStream(
                         stream_start_time=datetime.now(),
@@ -200,8 +192,8 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
@@ -212,8 +204,8 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -236,6 +228,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
                 ),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                 data_streams=[
                     DataStream(
                         stream_start_time=datetime.now(),
@@ -255,8 +248,8 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
@@ -267,8 +260,8 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -292,6 +285,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_details=SubjectDetails(
                     mouse_platform_name="Running wheel",
                 ),
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                 data_streams=[
                     DataStream(
                         stream_start_time=datetime.now(),
@@ -311,8 +305,8 @@ class AcquisitionTest(unittest.TestCase):
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
@@ -323,8 +317,8 @@ class AcquisitionTest(unittest.TestCase):
                                 ],
                                 manipulator_axis_positions=[
                                     Coordinate(
-                                        system_name="BREGMA_ARI",
-                                        position=[1, 1, 1],
+                                        system_name="BREGMA_ARID",
+                                        position=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
