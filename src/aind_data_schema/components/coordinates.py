@@ -123,13 +123,23 @@ class Affine(DataModel):
         title="Affine transform matrix",
     )
 
+    def to_matrix(self) -> List[List[float]]:
+        """Return the affine transform matrix
+
+        Returns
+        -------
+        List[List[float]]
+            Affine transform matrix
+        """
+        return self.affine_transform
+
     @classmethod
-    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "Affine":
+    def compose(cls, transform: List[Union[Translation, Rotation, Scale, "Affine"]]) -> "Affine":
         """Compose an affine transform matrix from a list of transforms
 
         Parameters
         ----------
-        transform : List[Union[Translation, Rotation, Scale]]
+        transform : List[Union[Translation, Rotation, Scale, Affine]]
             List of transforms
 
         Returns
