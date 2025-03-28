@@ -8,7 +8,9 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 from aind_data_schema.components.coordinates import (
-    Transform, Affine, Translation,
+    Transform,
+    Affine,
+    Translation,
     CoordinateSystemLibrary,
     AnatomicalRelative,
 )
@@ -45,7 +47,11 @@ monitor = Monitor(
     name="Stimulus Screen",
     manufacturer=Organization.ASUS,
     model="PA248Q",
-    notes="viewing distance is from screen normal to bregma, Rotation and translation here are inaccurate, they are not in BREGMA_ARI but in FACE_XYZ for the monitor, needs to be translated",
+    notes=(
+        "viewing distance is from screen normal to bregma, Rotation and translation here are "
+        "inaccurate, they are not in BREGMA_ARI but in FACE_XYZ for the monitor, needs to be "
+        "translated",
+    ),
     refresh_rate=60,
     width=1920,
     height=1200,
@@ -64,9 +70,7 @@ monitor = Monitor(
                     [0, 0, 0, 1],
                 ]
             ),
-            Translation(
-                translation=[0.08751, -0.12079, 0.02298]
-            )
+            Translation(translation=[0.08751, -0.12079, 0.02298]),
         ],
     ),
 )
@@ -87,7 +91,7 @@ connections = [
             "Video Monitor": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["SYNC DAQ", "MESO1SYNC"],
@@ -98,7 +102,7 @@ connections = [
             "MESO1SYNC": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["STIM DAQ", "VBEB DAQ", "MESO1STIM"],
@@ -112,8 +116,8 @@ connections = [
             "MESO1STIM": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
-    )
+        },
+    ),
 ]
 
 cameras = [
@@ -177,9 +181,7 @@ cameras = [
                         [0, 0, 0, 1],
                     ]
                 ),
-                Translation(
-                    translation=[-0.03617, 0.23887, -0.02535]
-                ),
+                Translation(translation=[-0.03617, 0.23887, -0.02535]),
             ],
         ),
     ),
@@ -240,9 +242,7 @@ cameras = [
                         [0, 0, 0, 1],
                     ]
                 ),
-                Translation(
-                    translation=[-0.14259, 0.06209, -0.09576]
-                ),
+                Translation(translation=[-0.14259, 0.06209, -0.09576]),
             ],
         ),
     ),
@@ -304,9 +304,7 @@ cameras = [
                         [0, 0, 0, 1],
                     ]
                 ),
-                Translation(
-                    translation=[0.154, 0.03078, 0.06346]
-                ),
+                Translation(translation=[0.154, 0.03078, 0.06346]),
             ],
         ),
     ),
