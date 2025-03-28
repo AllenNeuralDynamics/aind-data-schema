@@ -431,7 +431,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
+    manufacturer: Organization.ONE_OF = Field(default=Organization.OEPS)
     harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
     core_version: Optional[str] = Field(default=None, title="Core version")
     tag_version: Optional[str] = Field(default=None, title="Tag version")
