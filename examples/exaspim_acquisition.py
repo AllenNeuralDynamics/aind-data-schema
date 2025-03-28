@@ -9,6 +9,7 @@ from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
+from aind_data_schema.components.configs import LaserConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -29,33 +30,58 @@ coordinate_transform = CoordinateTransform(
     transforms=[tile_scale],
 )
 
+channel_name: str = Field(..., title="Channel")
+    detector_name: str = Field(..., title="Detector name", description="Must match device name")
+    additional_device_names: Optional[List[str]] = Field(default=[], title="Additional device names")
+    # excitation
+    light_source_name: List[str] = Field(..., title="Light source name", description="Must match device name")
+    light_source_configurations: List[
+        Annotated[
+            Union[
+                LightEmittingDiodeConfig,
+                LaserConfig,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(..., title="Light source configurations")
+    # emission
+    filters: List[str] = Field(..., title="Filter names")
+
 tile0 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
     coordinate_transform=coordinate_transform,
     channel=tile.Channel(
         channel_name="488",
-        excitation_wavelength=488,
-        excitation_power=200,
-        light_source_name="Ex_488",
-        filter_names=["Em_600"],
+        light_sources=[
+            LaserConfig(
+                device_name="LAS_08308",
+                wavelength=488,
+                wavelength_unit=SizeUnit.NM,
+                excitation_power=200,
+                excitation_power_unit=PowerUnit.MW,
+            )
+        ],
+        filters=["Multiband filter"],
         detector_name="PMT_1",
-        filter_wheel_index=0,
     ),
-    notes="these are my notes",
 )
 tile1 = tile.AcquisitionTile(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
     coordinate_transform=coordinate_transform,
     channel=tile.Channel(
         channel_name="561",
-        excitation_wavelength=561,
-        excitation_power=200,
-        light_source_name="Ex_561",
-        filter_names=["Em_600"],
+        light_sources=[
+            LaserConfig(
+                device_name="539251",
+                wavelength=561,
+                wavelength_unit=SizeUnit.NM,
+                excitation_power=200,
+                excitation_power_unit=PowerUnit.MW,
+            )
+        ],
+        filters=["Multiband filter"],
         detector_name="PMT_1",
-        filter_wheel_index=0,
     ),
-    notes="these are my notes",
 )
 
 invitro_config = InVitroImagingConfig(

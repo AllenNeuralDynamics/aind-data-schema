@@ -1,11 +1,12 @@
 """" Models related to imaging tiles and their transformations """
 
-from typing import List, Optional
+from typing import Annotated, List, Optional, Union
 
 from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
+from aind_data_schema.components.configs import LaserConfig, LightEmittingDiodeConfig
 from aind_data_schema.components.coordinates import CoordinateTransform
 
 
@@ -13,21 +14,29 @@ class Channel(DataModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
-    light_source_name: str = Field(..., title="Light source name", description="Must match device name")
-    filter_names: List[str] = Field(..., title="Filter names", description="Must match device names")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
-    additional_device_names: List[str] = Field(default=[], title="Additional device names")
+    additional_device_names: Optional[List[str]] = Field(default=[], title="Additional device names")
     # excitation
-    excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Laser wavelength unit")
-    excitation_power: float = Field(..., title="Laser power", le=2000)
-    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Laser power unit")
+    light_sources: List[
+        Annotated[
+            Union[
+                LightEmittingDiodeConfig,
+                LaserConfig,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(..., title="Light source configurations")
     # emission
-    filter_wheel_index: int = Field(..., title="Filter wheel index")
-    # dilation
+    filters: List[str] = Field(..., title="Filter names")
+
+
+class SlapChannel(Channel):
+    """Description of a channel for Slap"""
+
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
     dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
     description: Optional[str] = Field(default=None, title="Description")
+    # TODO: dilation and unit might need to be required here
 
 
 class Tile(DataModel):
