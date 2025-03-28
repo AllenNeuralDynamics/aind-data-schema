@@ -357,7 +357,7 @@ class MotorizedStage(Device):
     travel_unit: SizeUnit = Field(default=SizeUnit.MM, title="Travel unit")
 
     # optional fields
-    firmware: Optional[str] = Field(default=None, title="Firmware")
+    firmware: Optional[Software] = Field(default=None, title="Firmware")
 
 
 class Objective(Device):
