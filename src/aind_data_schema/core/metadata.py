@@ -51,6 +51,11 @@ REQUIRED_FILES = [
     "acquisition",
 ]
 
+MODEL_FILES = [
+    "model",
+    "data_description",
+]
+
 
 class MetadataStatus(str, Enum):
     """Status of Metadata"""
@@ -218,9 +223,11 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
-        if getattr(self, "model"):
-            if not getattr(self, "data_description"):
-                warnings.warn("Model metadata missing data_description")
+        # if subject is not present, this better be a model
+        if not getattr(self, "subject"):
+            for file in MODEL_FILES:
+                if not getattr(self, file):
+                    warnings.warn(f"Metadata missing required file: {file}")
         else:
             for file in REQUIRED_FILES:
                 if not getattr(self, file):
