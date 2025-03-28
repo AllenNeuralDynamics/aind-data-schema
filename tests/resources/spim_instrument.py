@@ -8,7 +8,6 @@ from aind_data_schema.components.devices import (
     Filter,
     Laser,
     MotorizedStage,
-    OpticalTable,
     ScanningStage,
 )
 from aind_data_schema.core.instrument import Detector, Instrument, Objective
@@ -225,22 +224,12 @@ scanning_stage_3 = ScanningStage(
     name="Sample stage Y",
 )
 
-optical_table_1 = OpticalTable(
-    name="Main optical table",
-    length=36,
-    width=48,
-    vibration_control=False,
-    model="VIS2424-IG2-125A",
-    manufacturer=Organization.MKS_NEWPORT,
-)
-
 objectives = [objective_1, objective_2]
 detectors = [detector_1]
 lasers = [laser_1, laser_2, laser_3, laser_4, laser_5, laser_6]
 fluorescence_filters = [filter_1, filter_2, filter_3, filter_4, filter_5, filter_6]
 motorized_stages = [motorized_stage_1, motorized_stage_2, motorized_stage_3, motorized_stage_4, motorized_stage_5]
 scanning_stages = [scanning_stage_1, scanning_stage_2, scanning_stage_3]
-optical_tables = [optical_table_1]
 
 inst = Instrument(
     instrument_id="440_SmartSPIM1_20231004",
@@ -255,7 +244,6 @@ inst = Instrument(
         *fluorescence_filters,
         *motorized_stages,
         *scanning_stages,
-        *optical_tables,
     ],
     temperature_control=False,
 )

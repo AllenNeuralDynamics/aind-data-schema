@@ -13,7 +13,6 @@ from aind_data_schema.components.devices import (
     Filter,
     Laser,
     Objective,
-    OpticalTable,
     ScanningStage,
     Device,
 )
@@ -197,16 +196,6 @@ additional_devices = [
     ),
 ]
 
-optical_tables = [
-    OpticalTable(
-        name="Table",
-        length=36,
-        width=48,
-        vibration_control=True,
-        model="VIS3648-PG2-325A",
-        manufacturer=Organization.MKS_NEWPORT,
-    )
-]
 laser_launch = Device(
     name="Laser Launch",
 )
@@ -332,7 +321,6 @@ inst = Instrument(
         *daqs,
         *scanning_stages,
         *additional_devices,
-        *optical_tables,
         com_device,
         laser_launch,
         asi_tiger,

@@ -12,7 +12,6 @@ from aind_data_schema.components.devices import (
     Laser,
     MotorizedStage,
     Objective,
-    OpticalTable,
     ScanningStage,
     Device,
 )
@@ -123,14 +122,6 @@ scan_stage3 = ScanningStage(
     stage_axis_direction="Perpendicular axis",
     stage_axis_name="Y",
     travel=50,
-)
-table = OpticalTable(
-    name="Table",
-    model="CleanTop",  # model="VIS2424-IG2-125A", # ~3 months
-    length=35,  # length=24,
-    width=29,  # width=24,
-    vibration_control=True,
-    manufacturer=Organization.TMC,
 )
 filter0 = Filter(
     name="Em_525",
@@ -262,7 +253,6 @@ inst = Instrument(
         scan_stage1,
         scan_stage2,
         scan_stage3,
-        table,
         filter0,
         filter1,
         filter2,
