@@ -39,6 +39,15 @@ class ModelTraining(DataProcess):
     )
 
 
+class ModelPretraining(DataModel):
+    """Description of model pretraining"""
+
+    performance: List[PerformanceMetric] = Field(..., title="Pretraining performance")
+    source_url: Optional[str] = Field(
+        default=None, title="Pretrained source URL", description="URL for pretrained weights"
+    )
+
+
 class Model(DataCoreModel):
     """Description of an analysis model"""
 
@@ -48,6 +57,8 @@ class Model(DataCoreModel):
 
     name: str = Field(..., title="Name")
     version: str = Field(..., title="Version")
+    # this is optional for now, ultimately it should be required
+    # with an option to specify a simple command or script instead of full Code
     code: Optional[Code] = Field(
         default=None,
         title="Code",
@@ -58,7 +69,6 @@ class Model(DataCoreModel):
     parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    pretrained_source_url: Optional[str] = Field(default=None, title="Pretrained source URL")
-    training: List[ModelTraining] = Field(default=[], title="Training")
+    training: List[ModelTraining | ModelPretraining] = Field(default=[], title="Training")
     evaluations: List[ModelEvaluation] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
