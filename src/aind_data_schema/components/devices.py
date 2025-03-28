@@ -540,7 +540,6 @@ class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Manipulator coordinate system")
 
 
 class PatchCord(Device):
