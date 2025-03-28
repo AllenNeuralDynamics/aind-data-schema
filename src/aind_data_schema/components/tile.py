@@ -5,7 +5,7 @@ from typing import List, Optional
 from aind_data_schema_models.units import AngleUnit, PowerUnit, SizeUnit
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.coordinates import CoordinateTransform
 
 

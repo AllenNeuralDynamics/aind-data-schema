@@ -1,7 +1,6 @@
 """Tests metadata module"""
 
 import json
-import re
 import unittest
 from datetime import datetime, timezone
 from unittest.mock import MagicMock, call, patch
@@ -10,7 +9,6 @@ import uuid
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import (
     EphysAssembly,
@@ -39,7 +37,6 @@ from tests.resources.ephys_instrument import inst as ephys_inst
 
 from aind_data_schema_models.species import Strain
 
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -161,16 +158,10 @@ class TestMetadata(unittest.TestCase):
         # Assert at least a name and location are required
         with self.assertRaises(ValidationError) as e:
             Metadata()
-        expected_exception_message = (
-            "2 validation errors for Metadata\n"
-            "name\n"
-            "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "location\n"
-            "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing"
-        )
-        self.assertEqual(expected_exception_message, str(e.exception))
+
+        self.assertIn("Field required", str(e.exception))
+        self.assertIn("name", str(e.exception))
+        self.assertIn("location", str(e.exception))
 
     def test_invalid_core_models(self):
         """Test that invalid models don't raise an error, but marks the

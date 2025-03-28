@@ -15,6 +15,7 @@ from aind_data_schema.components.devices import (
     Objective,
     ScanningStage,
     Device,
+    Computer,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema_models.modalities import Modality
@@ -89,11 +90,14 @@ fluorescence_filters = [
     )
 ]
 
+computer = Computer(
+    name="Dev2-PC",
+)
+
 daqs = [
     DAQDevice(
         model="PCIe-6738",
         data_interface="USB",
-        computer_name="Dev2",
         manufacturer=Organization.NATIONAL_INSTRUMENTS,
         name="Dev2",
         channels=[
@@ -297,6 +301,17 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["Dev2", "Dev2-PC"],
+        connection_data={
+            "Dev2-PC": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
 ]
 
 inst = Instrument(
@@ -316,6 +331,7 @@ inst = Instrument(
         com_device,
         laser_launch,
         asi_tiger,
+        computer,
     ],
     connections=connections,
     temperature_control=False,

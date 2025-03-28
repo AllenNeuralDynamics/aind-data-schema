@@ -22,12 +22,13 @@ from aind_data_schema.components.devices import (
     Device,
     LickSensorType,
     MotorizedStage,
-    PatchCord,
+    FiberPatchCord,
     LightEmittingDiode,
     Detector,
     Objective,
     Filter,
     Tube,
+    Computer,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
@@ -37,6 +38,13 @@ from aind_data_schema.components.coordinates import (
 )
 
 bonsai_software = Software(name="Bonsai", version="2.5")
+
+computer = Computer(
+    name="W10DTJK7N0M3",
+)
+behavior_computer = Computer(
+    name="behavior_computer",
+)
 
 camera1 = CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -49,7 +57,6 @@ camera1 = CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -73,13 +80,12 @@ camera2 = CameraAssembly(
     target=CameraTarget.FACE,
     relative_position=[AnatomicalRelative.INFERIOR],
     camera=Camera(
-        name="Bottom face Camera",
+        name="Bottom face camera",
         detector_type="Camera",
         manufacturer=Organization.AILIPU,
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -103,7 +109,6 @@ harp_behavior = HarpDevice(
     harp_device_type=HarpDeviceType.BEHAVIOR,
     core_version="2.1",
     firmware_version="FTDI version:",
-    computer_name="behavior_computer",
     is_clock_generator=False,
     channels=[
         DAQChannel(channel_name="DO0", channel_type=DaqChannelType.DO),
@@ -175,6 +180,39 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Side face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Side face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Bottom face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Bottom face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["behavior_computer", "Harp Behavior"],
+        connection_data={
+            "behavior_computer": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
 ]
 
 lick_spout_assembly = LickSpoutAssembly(
@@ -205,11 +243,10 @@ lick_spout_assembly = LickSpoutAssembly(
         manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
         travel=15.0,
         travel_unit=SizeUnit.MM,
-        firmware=("https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"),
     ),
 )
 
-patch_cord = PatchCord(
+patch_cord = FiberPatchCord(
     name="Bundle Branching Fiber-optic Patch Cord",
     manufacturer=Organization.DORIC,
     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -418,6 +455,8 @@ inst = Instrument(
         *filters,
         lens,
         additional_device,
+        computer,
+        behavior_computer,
     ],
     connections=connections,
     calibrations=calibrations,

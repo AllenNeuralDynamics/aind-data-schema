@@ -28,8 +28,9 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    PatchCord,
+    FiberPatchCord,
     ProbePort,
+    Computer,
 )
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
@@ -62,8 +63,8 @@ EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
 EPHYS_ACQUISITION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
-behavior_computer = "W10DT72941"
-ephys_computer = "W10DT72942"
+behavior_computer = Computer(name="W10DT72941")
+ephys_computer = Computer(name="W10DT72942")
 
 disc_mouse_platform = Disc(name="Running Wheel", radius=15)
 
@@ -110,13 +111,67 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["Harp Behavior", "W10DT72941"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72941": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Basestation Slot 3", "W10DT72942"],
+        connection_data={
+            "Basestation Slot 3": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Probe Camera", "W10DT72942"],
+        connection_data={
+            "Probe Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Face Camera", "W10DT72942"],
+        connection_data={
+            "Face Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Body Camera", "W10DT72942"],
+        connection_data={
+            "Body Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
 ]
 
 harp = HarpDevice(
     name="Harp Behavior",
     harp_device_type=HarpDeviceType.BEHAVIOR,
     core_version="2.1",
-    computer_name=behavior_computer,
     channels=[digital_out0, digital_out1, analog_input],
     is_clock_generator=False,
 )
@@ -131,7 +186,6 @@ basestation = NeuropixelsBasestation(
     bsc_firmware_version="2.199",
     slot=3,
     ports=[port1, port2],
-    computer_name=ephys_computer,
 )
 
 red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Organization.OXXIUS)
@@ -145,7 +199,7 @@ laser_assembly = LaserAssembly(
     ),
     lasers=[red_laser, blue_laser],
     collimator=Device(name="Collimator A"),
-    fiber=PatchCord(
+    fiber=FiberPatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -159,7 +213,6 @@ probe_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=ephys_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -220,7 +273,6 @@ face_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=behavior_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -244,7 +296,6 @@ body_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=behavior_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -301,6 +352,8 @@ ephys_inst = Instrument(
         harp,
         microscope,
         disc_mouse_platform,
+        behavior_computer,
+        ephys_computer,
     ],
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
@@ -612,6 +665,10 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 contents = json.load(f)
             return contents
 
+        computer = Computer(
+            name="W10DTJK7N0M3",
+        )
+
         cameras = [
             d.CameraAssembly(
                 name="BehaviorVideography_FaceSide",
@@ -624,7 +681,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     model="ELP-USBFHD05MT-KL170IR",
                     notes="The light intensity sensor was removed; IR illumination is constantly on",
                     data_interface="USB",
-                    computer_name="W10DTJK7N0M3",
                     frame_rate=120,
                     frame_rate_unit=FrequencyUnit.HZ,
                     sensor_width=640,
@@ -653,7 +709,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     model="ELP-USBFHD05MT-KL170IR",
                     notes="The light intensity sensor was removed; IR illumination is constantly on",
                     data_interface="USB",
-                    computer_name="W10DTJK7N0M3",
                     frame_rate=120,
                     frame_rate_unit=FrequencyUnit.HZ,
                     sensor_width=640,
@@ -673,7 +728,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
         ]
         patch_cords = [
-            d.PatchCord(
+            d.FiberPatchCord(
                 name="Bundle Branching Fiber-optic Patch Cord",
                 manufacturer=d.Organization.DORIC,
                 model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -830,7 +885,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 name="Harp Behavior",
                 harp_device_type=d.HarpDeviceType.BEHAVIOR,
                 core_version="2.1",
-                computer_name="behavior_computer",
                 is_clock_generator=False,
                 channels=[
                     d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
@@ -902,6 +956,39 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     ),
                 },
             ),
+            Connection(
+                device_names=["Side face camera", "W10DTJK7N0M3"],
+                connection_data={
+                    "Side face camera": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "W10DTJK7N0M3": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Bottom face Camera", "W10DTJK7N0M3"],
+                connection_data={
+                    "Bottom face Camera": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "W10DTJK7N0M3": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Harp Behavior", "W10DTJK7N0M3"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "W10DTJK7N0M3": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
         ]
         stimulus_devices = [
             d.LickSpoutAssembly(
@@ -951,6 +1038,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 *stimulus_devices,
                 *additional_devices,
                 disc,
+                computer,
             ],
             connections=connections,
             calibrations=[

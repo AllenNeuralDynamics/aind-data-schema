@@ -567,7 +567,7 @@
                "title": "Laser wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
+               "maximum": 2000,
                "title": "Laser power",
                "type": "number"
             },
@@ -1120,6 +1120,19 @@
             "trigger_type": {
                "$ref": "#/$defs/TriggerType",
                "title": "Trigger type"
+            },
+            "compression": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Code"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Compression algorithm used during acquisition",
+               "title": "Compression"
             }
          },
          "required": [
@@ -27526,7 +27539,7 @@
                "title": "Laser wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
+               "maximum": 2000,
                "title": "Laser power",
                "type": "number"
             },
@@ -59276,8 +59289,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.12",
-         "default": "2.0.12",
+         "const": "2.0.14",
+         "default": "2.0.14",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59372,6 +59385,19 @@
          ],
          "default": null,
          "title": "Notes"
+      },
+      "coordinate_system": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/CoordinateSystem"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Required when coordinates are provided within the Acquisition",
+         "title": "Coordinate system"
       },
       "calibrations": {
          "default": [],

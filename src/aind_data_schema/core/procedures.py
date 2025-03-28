@@ -3,8 +3,9 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Set, Union, Dict
+from typing import Dict, List, Literal, Optional, Set, Union
 
+from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -19,16 +20,15 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VolumeUnit,
 )
-from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
-from aind_data_schema.components.coordinates import CoordinateSystem, Coordinate, Origin, AnatomicalRelative
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -676,7 +676,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.14"]] = Field(default="2.0.14")
+    schema_version: SkipValidation[Literal["2.0.15"]] = Field(default="2.0.15")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

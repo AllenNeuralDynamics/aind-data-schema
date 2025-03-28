@@ -19,15 +19,9 @@ from aind_data_schema_models.units import (
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import GenericModelType, DataModel
-from aind_data_schema.components.coordinates import (
-    AxisName,
-    Transform,
-    AnatomicalRelative,
-    Scale,
-    CoordinateSystem,
-)
-from aind_data_schema.components.identifiers import Software, Code
+from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, Scale, Coordinate
+from aind_data_schema.components.identifiers import Software
 
 
 class ImagingDeviceType(str, Enum):
@@ -245,6 +239,12 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class Computer(Device):
+    """Description of a computer"""
+
+    operating_system: Optional[str] = Field(default=None, title="Operating system")
+
+
 class Detector(Device):
     """Description of a generic detector"""
 
@@ -252,7 +252,6 @@ class Detector(Device):
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
     cooling: Cooling = Field(default=Cooling.NONE, title="Cooling")
-    computer_name: Optional[str] = Field(default=None, title="Name of computer receiving data from this camera")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)", description="Frame rate being used")
     frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     immersion: Optional[ImmersionMedium] = Field(default=None, title="Immersion")
@@ -304,12 +303,6 @@ class Detector(Device):
 class Camera(Detector):
     """Camera Detector"""
 
-    compression: Optional[Code] = Field(
-        default=None,
-        title="Compression",
-        description="Compression algorithm used immediately after acquisition",
-    )
-
 
 class Filter(Device):
     """Filter used in a light path"""
@@ -348,7 +341,7 @@ class MotorizedStage(Device):
     travel_unit: SizeUnit = Field(default=SizeUnit.MM, title="Travel unit")
 
     # optional fields
-    firmware: Optional[str] = Field(default=None, title="Firmware")
+    firmware: Optional[Software] = Field(default=None, title="Firmware")
 
 
 class Objective(Device):
@@ -379,7 +372,7 @@ class CameraAssembly(DataModel):
 
     # position information
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Transform] = Field(
+    position: Optional[Coordinate] = Field(
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
@@ -411,7 +404,6 @@ class DAQDevice(Device):
     # required fields
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS
-    computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
@@ -423,7 +415,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
+    manufacturer: Organization.ONE_OF = Field(default=Organization.OEPS)
     harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
     core_version: Optional[str] = Field(default=None, title="Core version")
     tag_version: Optional[str] = Field(default=None, title="Tag version")
@@ -530,10 +522,9 @@ class Manipulator(Device):
     """Manipulator used on a dome module"""
 
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Manipulator coordinate system")
 
 
-class PatchCord(Device):
+class FiberPatchCord(Device):
     """Description of a patch cord"""
 
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
@@ -548,11 +539,7 @@ class LaserAssembly(DataModel):
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
     collimator: Device = Field(..., title="Collimator")
-    fiber: PatchCord = Field(..., title="Fiber patch")
-
-
-class Headstage(Device):
-    """Headstage used with an ephys probe"""
+    fiber: FiberPatchCord = Field(..., title="Fiber patch")
 
 
 class EphysProbe(Device):
@@ -563,7 +550,7 @@ class EphysProbe(Device):
 
     # optional fields
     lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
-    headstage: Optional[Headstage] = Field(default=None, title="Headstage for this probe")
+    headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
 class EphysAssembly(DataModel):
@@ -713,7 +700,7 @@ class Monitor(Device):
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Transform] = Field(
+    position: Optional[Coordinate] = Field(
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
@@ -766,14 +753,14 @@ class Speaker(Device):
     manufacturer: Organization.SPEAKER_MANUFACTURERS
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Transform] = Field(
+    position: Optional[Coordinate] = Field(
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
     )
 
 
-class ChannelType(Enum):
+class OlfactometerChannelType(Enum):
     """Olfactometer channel types"""
 
     ODOR = "Odor"
@@ -784,7 +771,7 @@ class OlfactometerChannel(DataModel):
     """description of a Olfactometer channel"""
 
     channel_index: int = Field(..., title="Channel index")
-    channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
+    channel_type: OlfactometerChannelType = Field(..., title="Channel type")
     flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
     flow_unit: str = Field(default="mL/min", title="Flow unit")
 
