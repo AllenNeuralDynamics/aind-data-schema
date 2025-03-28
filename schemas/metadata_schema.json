@@ -8403,8 +8403,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.6",
-               "default": "2.0.6",
+               "const": "2.0.7",
+               "default": "2.0.7",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24146,7 +24146,7 @@
             "fundee": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "$ref": "#/$defs/Person"
                   },
                   {
                      "type": "null"
@@ -47801,8 +47801,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.35",
-               "default": "2.0.35",
+               "const": "2.0.36",
+               "default": "2.0.36",
                "title": "Schema Version",
                "type": "string"
             },
@@ -97059,8 +97059,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.35",
-         "default": "2.0.35",
+         "const": "2.0.36",
+         "default": "2.0.36",
          "title": "Schema Version",
          "type": "string"
       },
