@@ -85,8 +85,8 @@ class DataDescription(DataCoreModel):
         title="Investigators",
         min_length=1,
     )
-    project_name: Optional[str] = Field(
-        default=None,
+    project_name: str = Field(
+        ...,
         pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
