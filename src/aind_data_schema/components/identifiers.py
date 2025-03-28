@@ -15,6 +15,7 @@ class AssetPath(Path):
 
     @classmethod
     def __get_pydantic_core_schema__(cls, source_type, handler: GetCoreSchemaHandler):
+        """Correctly serialize/deserialize for pydantic"""
         return core_schema.str_schema()
 
 
