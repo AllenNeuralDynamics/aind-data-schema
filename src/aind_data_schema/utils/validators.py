@@ -2,8 +2,8 @@
 
 from enum import Enum
 from typing import Any, List, Optional
+from pathlib import Path
 import logging
-from aind_data_schema.components.identifiers import AssetPath
 
 # Fields that should have the same length as the coordinate system axes
 AXIS_FIELD_NAMES = ["scale", "translation", "angles", "position"]
@@ -110,14 +110,14 @@ def recursive_get_all_names(obj: Any) -> List[str]:
     return names
 
 
-def recursive_check_paths(obj: Any, directory: Optional[AssetPath] = None):
+def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
     """
     Recursively checks if any attribute in an object is a pathlib.Path and logs if it doesn't exist.
     """
     if isinstance(obj, Enum):
         return
 
-    if isinstance(obj, AssetPath):
+    if isinstance(obj, Path):
         full_path = directory / obj if directory else obj
         if not full_path.exists():
             logging.warning(f"AssetPath {full_path} does not exist")

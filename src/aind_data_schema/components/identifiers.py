@@ -2,15 +2,20 @@
 
 from typing import Optional
 from pathlib import Path
+from pydantic_core import core_schema
 
 from aind_data_schema_models.registries import Registry, _Orcid
-from pydantic import Field
+from pydantic import Field, GetCoreSchemaHandler
 
 from aind_data_schema.base import DataModel, GenericModelType
 
 
 class AssetPath(Path):
     """Relative path to a file"""
+
+    @classmethod
+    def __get_pydantic_core_schema__(cls, source_type, handler: GetCoreSchemaHandler):
+        return core_schema.str_schema()
 
 
 class Person(DataModel):
