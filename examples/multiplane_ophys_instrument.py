@@ -8,8 +8,9 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 
 from aind_data_schema.components.coordinates import (
-    Axis, Transform, Affine, Translation,
+    Transform, Affine, Translation,
     CoordinateSystemLibrary,
+    AnatomicalRelative,
 )
 from aind_data_schema.components.devices import (
     BinMode,
@@ -30,12 +31,16 @@ from aind_data_schema.components.devices import (
     Software,
     Monitor,
     Computer,
+    Objective,
 )
-from aind_data_schema.core.instrument import Objective
-from aind_data_schema.core.rig import Instrument
+from aind_data_schema.core.instrument import (
+    Instrument,
+    Connection,
+    ConnectionData,
+    ConnectionDirection,
+)
 
 monitor = Monitor(
-    device_type="Monitor",
     name="Stimulus Screen",
     manufacturer=Organization.ASUS,
     model="PA248Q",
@@ -46,6 +51,7 @@ monitor = Monitor(
     size_unit="pixel",
     viewing_distance=Decimal("15.5"),
     viewing_distance_unit="centimeter",
+    relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.LEFT, AnatomicalRelative.SUPERIOR],
     position=Transform(
         system_name="BREGMA_ARI",
         transforms=[
@@ -64,19 +70,62 @@ monitor = Monitor(
     ),
 )
 
+connections = [
+    Connection(
+        device_names=["Behavior Camera", "Eye Camera", "Face Camera", "Video Monitor"],
+        connection_data={
+            "Behavior Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Eye Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Face Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Video Monitor": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["SYNC DAQ", "MESO1SYNC"],
+        connection_data={
+            "SYNC DAQ": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "MESO1SYNC": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["STIM DAQ", "VBEB DAQ", "MESO1STIM"],
+        connection_data={
+            "STIM DAQ": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "VBEB DAQ": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "MESO1STIM": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        }
+    )
+]
+
 cameras = [
     CameraAssembly(
-        name="Behavior Camera",
+        name="Behavior Camera Assembly",
         camera_target="Body",
         camera=Camera(
-            device_type="Detector",
             name="Behavior Camera",
             manufacturer=Organization.ALLIED,
             model="Mako G-32B",
             detector_type="Camera",
             data_interface="Ethernet",
             cooling=Cooling.NONE,
-            computer_name="Video Monitor",
             frame_rate=Decimal("60"),
             frame_rate_unit=FrequencyUnit.HZ,
             chroma="Monochrome",
@@ -97,7 +146,6 @@ cameras = [
             driver_version="Vimba GigE Transport Layer 1.6.0",
         ),
         lens=Lens(
-            device_type="Lens",
             name="Behavior Camera Lens",
             manufacturer=Organization.THORLABS,
             model="MVL6WA",
@@ -106,7 +154,6 @@ cameras = [
             max_aperture="f/1.4",
         ),
         filter=Filter(
-            device_type="Filter",
             name="Behavior Camera Filter",
             manufacturer=Organization.SEMROCK,
             model="FF01-747/33-25",
@@ -135,17 +182,15 @@ cameras = [
         ),
     ),
     CameraAssembly(
-        name="Eye Camera",
+        name="Eye Camera Assembly",
         camera_target="Eye",
         camera=Camera(
-            device_type="Detector",
             name="Eye Camera",
             manufacturer=Organization.ALLIED,
             model="Mako G-32B",
             detector_type="Camera",
             data_interface="Ethernet",
             cooling=Cooling.NONE,
-            computer_name="Video Monitor",
             frame_rate=Decimal("60"),
             frame_rate_unit=FrequencyUnit.HZ,
             chroma="Monochrome",
@@ -166,13 +211,11 @@ cameras = [
             driver_version="Vimba GigE Transport Layer 1.6.0",
         ),
         lens=Lens(
-            device_type="Lens",
             name="Eye Camera Lens",
             manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
             model="213073",
         ),
         filter=Filter(
-            device_type="Filter",
             name="Eye Camera Filter",
             manufacturer=Organization.SEMROCK,
             model="FF01-850/10-25",
@@ -201,17 +244,15 @@ cameras = [
         ),
     ),
     CameraAssembly(
-        name="Face Camera",
+        name="Face Camera Assembly",
         camera_target="Face forward",
         camera=Camera(
-            device_type="Detector",
             name="Face Camera",
             manufacturer=Organization.ALLIED,
             model="Mako G-32B",
             detector_type="Camera",
             data_interface="Ethernet",
             cooling=Cooling.NONE,
-            computer_name="Video Monitor",
             frame_rate=Decimal("60"),
             frame_rate_unit=FrequencyUnit.HZ,
             chroma="Monochrome",
@@ -325,6 +366,7 @@ instrument = Instrument(
             model="350-80",
             serial_number="354683BK",
         ),
+        Computer(name="Video Monitor"),
         Computer(name="MESO1STIM"),
         Device(name="MESO1SYNC"),
         DAQDevice(
@@ -333,7 +375,6 @@ instrument = Instrument(
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="USB-6001",
             data_interface="USB",
-            computer_name="STIM",
         ),
         DAQDevice(
             device_type="DAQ Device",
@@ -341,7 +382,6 @@ instrument = Instrument(
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="PCIe-6612",
             data_interface="PCIe",
-            computer_name="SYNC",
             channels=[
                 DAQChannel(
                     channel_name="P0.3",
@@ -360,9 +400,9 @@ instrument = Instrument(
             manufacturer=Organization.NATIONAL_INSTRUMENTS,
             model="PCIe-6321",
             data_interface="PCIe",
-            computer_name="STIM",
         ),
     ],
+    connections=connections,
     modalities=[Modality.POPHYS],
 )
 
