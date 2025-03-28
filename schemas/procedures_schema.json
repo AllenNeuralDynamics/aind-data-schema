@@ -10,7 +10,7 @@
                "title": "Object Type",
                "type": "string"
             },
-            "type": {
+            "anaesthetic_type": {
                "title": "Type",
                "type": "string"
             },
@@ -49,7 +49,7 @@
             }
          },
          "required": [
-            "type",
+            "anaesthetic_type",
             "duration"
          ],
          "title": "Anaesthetic",
@@ -49049,8 +49049,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.16",
-         "default": "2.0.16",
+         "const": "2.0.17",
+         "default": "2.0.17",
          "title": "Schema Version",
          "type": "string"
       },
