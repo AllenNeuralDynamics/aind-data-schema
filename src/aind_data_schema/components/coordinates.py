@@ -3,7 +3,6 @@
 import math
 from enum import Enum
 from typing import List, Optional, Union
-from pathlib import Path
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.units import AngleUnit, SizeUnit
@@ -11,6 +10,7 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.components.identifiers import AssetPath
 
 
 class Origin(str, Enum):
@@ -239,7 +239,7 @@ class Affine(DataModel):
 class NonlinearTransform(DataModel):
     """Definition of a nonlinear transform"""
 
-    path: Path = Field(..., title="Path to nonlinear transform file")
+    path: AssetPath = Field(..., title="Path to nonlinear transform file")
 
 
 class CoordinateSystem(DataModel):

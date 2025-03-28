@@ -4,7 +4,6 @@ from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional, Union
-from pathlib import Path
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
@@ -22,7 +21,7 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import AnatomicalRelative, AxisName, Scale, Coordinate
-from aind_data_schema.components.identifiers import Software
+from aind_data_schema.components.identifiers import Software, AssetPath
 
 
 class ImagingDeviceType(str, Enum):
@@ -234,7 +233,7 @@ class Device(DataModel):
     serial_number: Optional[str] = Field(default=None, title="Serial number")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Manufacturer")
     model: Optional[str] = Field(default=None, title="Model")
-    path_to_cad: Optional[Path] = Field(
+    path_to_cad: Optional[AssetPath] = Field(
         default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
     )
     port_index: Optional[str] = Field(default=None, title="Port index")

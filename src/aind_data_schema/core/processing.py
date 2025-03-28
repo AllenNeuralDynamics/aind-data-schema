@@ -2,14 +2,13 @@
 
 from enum import Enum
 from typing import List, Literal, Optional, Union
-from pathlib import Path
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
-from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.identifiers import Code, Person, AssetPath
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -72,7 +71,7 @@ class DataProcess(DataModel):
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
     input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
-    output_location: Path = Field(..., description="Path to data outputs", title="Output location")
+    output_location: AssetPath = Field(..., description="Path to data outputs", title="Output location")
     outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")

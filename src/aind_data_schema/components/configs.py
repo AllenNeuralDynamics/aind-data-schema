@@ -4,7 +4,6 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
-from pathlib import Path
 
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.process_names import ProcessName
@@ -24,7 +23,7 @@ from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import AcquisitionTile, Channel
-from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.identifiers import Code, AssetPath
 
 
 class StimulusModality(str, Enum):
@@ -184,7 +183,7 @@ class SlapFieldOfView(FieldOfView):
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: Path = Field(..., title="Array of frame rates")
+    path_to_array_of_frame_rates: AssetPath = Field(..., title="Array of frame rates")
 
 
 class MousePlatformConfig(DeviceConfig):
@@ -209,7 +208,7 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[Path] = Field(
+    coordinate_transform: Optional[AssetPath] = Field(
         default=None, title="Path to coordinate transform file"
     )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
