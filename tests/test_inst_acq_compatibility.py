@@ -878,6 +878,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 focal_length=80,
                 focal_length_unit=SizeUnit.MM,
                 size=1,
+                size_unit=SizeUnit.IN,
             )
         ]
         daqs = [

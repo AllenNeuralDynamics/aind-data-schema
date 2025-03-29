@@ -95,7 +95,7 @@ surgery1 = Surgery(
                     profile=InjectionProfile.BOLUS,
                 )
             ],
-            target=CCFStructure.VISP,
+            targeted_structure=CCFStructure.VISP,
         ),
     ],
 )

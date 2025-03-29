@@ -77,7 +77,7 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.RETRO_ORBITAL,
+                                targeted_structure=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
                             ),
                         ],
