@@ -129,7 +129,6 @@ class ProceduresTests(unittest.TestCase):
                 Surgery(
                     start_date=self.start_date,
                     experimenters=[Person(name="Mam Moth")],
-                    ethics_review_id="234",
                     protocol_id="123",
                     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                     measured_coordinates={

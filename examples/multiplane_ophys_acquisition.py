@@ -25,7 +25,6 @@ a = Acquisition(
     subject_id="12345",
     experiment_type="Mesoscope",
     instrument_id="MESO.1",
-    ethics_review_id="12345",
     subject_details=SubjectDetails(
         mouse_platform_name="disc",
     ),

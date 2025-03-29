@@ -59,6 +59,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
         self.assertIsNotNone(da)
 
@@ -77,13 +78,14 @@ class DataDescriptionTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             DataDescription(
                 modalities=[Modality.SPIM],
-                subject_id="1234",
+                subject_id="123456",
                 data_level=DataLevel.RAW,
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
                 project_name="Test",
+                ethics_review_id="1234",
             )
 
     def test_derived_data_description_construction(self):
@@ -116,6 +118,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         r2 = DataDescription.from_raw(r1, "some-model", creation_time=dt)
@@ -135,6 +138,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
         self.assertIsNotNone(dd)
 
@@ -152,6 +156,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
                 investigators=[Person(name="Jane Smith")],
                 project_name="Test",
+                ethics_review_id="1234",
             )
 
     def test_parse_name_invalid(self):
@@ -176,6 +181,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
 
         # also over-write with specimen ID
@@ -195,6 +201,7 @@ class DataDescriptionTest(unittest.TestCase):
                 modalities=[Modality.ECEPHYS],
                 investigators=[Person(name="Jane Smith")],
                 project_name="Test",
+                ethics_review_id="1234",
             )
 
         self.assertIn("subject_id", str(context.exception))

@@ -327,7 +327,6 @@ class TestComposability(unittest.TestCase):
                     start_date=t,
                     protocol_id="doi",
                     experimenters=[Person(name="Scientist Smith")],
-                    ethics_review_id="2109",
                     animal_weight_prior=22.6,
                     animal_weight_post=22.3,
                     anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
@@ -366,7 +365,6 @@ class TestComposability(unittest.TestCase):
                     start_date=t2,
                     protocol_id="doi",
                     experimenters=[Person(name="Scientist Smith")],
-                    ethics_review_id="2109",
                     procedures=[
                         Perfusion(
                             protocol_id="doi_of_protocol",

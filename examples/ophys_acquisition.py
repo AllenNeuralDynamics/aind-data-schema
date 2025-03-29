@@ -21,7 +21,6 @@ a = Acquisition(
     subject_id="652567",
     experiment_type="Parameter Testing",
     instrument_id="ophys_inst",
-    ethics_review_id="2115",
     subject_details=SubjectDetails(
         mouse_platform_name="Disc",
     ),

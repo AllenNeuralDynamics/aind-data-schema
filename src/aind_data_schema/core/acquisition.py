@@ -207,7 +207,6 @@ class Acquisition(DataCoreModel):
         title="experimenter(s)",
     )
     protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     instrument_id: str = Field(..., title="Instrument ID")
     experiment_type: str = Field(default=None, title="Experiment type")
     software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
@@ -284,7 +283,6 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        ethics_check = self.ethics_review_id != other.ethics_review_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.experiment_type != other.experiment_type
         if any([subj_check, spec_check, ethics_check, inst_check, exp_type_check]):
@@ -292,7 +290,6 @@ class Acquisition(DataCoreModel):
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"ethics_review_id: {self.ethics_review_id}/{other.ethics_review_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"experiment_type: {self.experiment_type}/{other.experiment_type}"
             )
@@ -324,7 +321,6 @@ class Acquisition(DataCoreModel):
             specimen_id=self.specimen_id,
             experimenters=experimenters,
             protocol_id=protocol_id,
-            ethics_review_id=self.ethics_review_id,
             instrument_id=self.instrument_id,
             calibrations=calibrations,
             maintenance=maintenance,

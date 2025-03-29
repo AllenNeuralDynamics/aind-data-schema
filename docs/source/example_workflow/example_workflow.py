@@ -37,9 +37,6 @@ subject_sex_lookup = {
     "M": "Male",
 }
 
-# everything is covered by the same IACUC protocol
-ethics_review_id = "2109"
-
 # loop through all of the sessions
 for session_idx, session in sessions_df.iterrows():
     # our data always contains planar optical physiology and behavior videos
@@ -102,7 +99,6 @@ for session_idx, session in sessions_df.iterrows():
             Surgery(
                 start_date=proc_row["injection_date"].to_pydatetime().date(),
                 protocol_id=protocol,
-                ethics_review_id=ethics_review_id,
                 experimenters=[experimenter],
                 procedures=[
                     BrainInjection(
@@ -137,7 +133,6 @@ for session_idx, session in sessions_df.iterrows():
             Surgery(
                 start_date=proc_row["perfusion_date"].to_pydatetime().date(),
                 experimenters=[experimenter],
-                ethics_review_id=ethics_review_id,
                 protocol_id=protocol,
                 procedures=[Perfusion(protocol_id=protocol, output_specimen_ids=["1"])],
             ),

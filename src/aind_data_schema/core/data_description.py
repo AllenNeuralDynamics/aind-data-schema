@@ -63,6 +63,7 @@ class DataDescription(DataCoreModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
+    ethics_review_id: List[str] = Field(..., title="Ethics review ID", description="IACUC, IRB, etc")
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",

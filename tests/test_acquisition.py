@@ -142,7 +142,6 @@ class AcquisitionTest(unittest.TestCase):
             acquisition_start_time=datetime.now(tz=timezone.utc),
             acquisition_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
-            ethics_review_id="1234",
             experiment_type="3D MRI Volume",
             instrument_id="NA",
             coordinate_system=CoordinateSystemLibrary.MRI_LPS,

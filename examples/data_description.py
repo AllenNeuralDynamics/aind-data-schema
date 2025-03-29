@@ -17,6 +17,7 @@ d = DataDescription(
     funding_source=[Funding(funder=Organization.AI)],
     project_name="Example project",
     data_level="raw",
+    ethics_review_id="1234",
 )
 
 serialized = d.model_dump_json()

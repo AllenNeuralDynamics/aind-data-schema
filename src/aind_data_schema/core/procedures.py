@@ -559,7 +559,6 @@ class FiberImplant(DataModel):
 class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
-    ethics_review_id: str = Field(..., title="Ethics review ID")
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
@@ -626,7 +625,6 @@ class Surgery(DataModel):
         default=None,
         title="experimenter(s)",
     )
-    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     animal_weight_prior: Optional[Decimal] = Field(
         default=None, title="Animal weight (g)", description="Animal weight before procedure"
     )

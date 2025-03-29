@@ -383,7 +383,6 @@ ephys_acquisition = Acquisition(
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
     experiment_type="Receptive field mapping",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
-    ethics_review_id="2109",
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
     subject_details=SubjectDetails(
         mouse_platform_name="mouse platform",
@@ -1060,7 +1059,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             subject_id="652567",
             experiment_type="Parameter Testing",
             instrument_id="ophys_inst",
-            ethics_review_id="2115",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
             subject_details=SubjectDetails(
                 mouse_platform_name="Disc",
