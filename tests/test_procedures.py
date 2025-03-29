@@ -109,7 +109,7 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.RETRO_ORBITAL,
+                                targeted_structure=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
                             ),
                         ],
@@ -157,7 +157,7 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            target=InjectionTargets.RETRO_ORBITAL,
+                            targeted_structure=InjectionTargets.RETRO_ORBITAL,
                             relative_position=[AnatomicalRelative.LEFT],
                             dynamics=[
                                 InjectionDynamics(
@@ -181,7 +181,7 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            target=InjectionTargets.INTRAPERITONEAL,
+                            targeted_structure=InjectionTargets.INTRAPERITONEAL,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
@@ -219,7 +219,7 @@ class ProceduresTests(unittest.TestCase):
                                     position=[0.5, 1, 0, 1],
                                 ),
                             ],
-                            target=CCFStructure.VISP6A,
+                            targeted_structure=CCFStructure.VISP6A,
                         ),
                         FiberImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
