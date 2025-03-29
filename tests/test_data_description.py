@@ -59,7 +59,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
         self.assertIsNotNone(da)
 
@@ -85,7 +85,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
                 project_name="Test",
-                ethics_review_id="1234",
+                ethics_review_id=["1234"],
             )
 
     def test_derived_data_description_construction(self):
@@ -101,7 +101,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         self.assertIsNotNone(r1)
@@ -119,7 +119,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         r2 = DataDescription.from_raw(r1, "some-model", creation_time=dt)
@@ -139,7 +139,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
         self.assertIsNotNone(dd)
 
@@ -157,7 +157,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[f],
                 investigators=[Person(name="Jane Smith")],
                 project_name="Test",
-                ethics_review_id="1234",
+                ethics_review_id=["1234"],
             )
 
     def test_parse_name_invalid(self):
@@ -182,7 +182,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
 
         # also over-write with specimen ID
@@ -202,7 +202,7 @@ class DataDescriptionTest(unittest.TestCase):
                 modalities=[Modality.ECEPHYS],
                 investigators=[Person(name="Jane Smith")],
                 project_name="Test",
-                ethics_review_id="1234",
+                ethics_review_id=["1234"],
             )
 
         self.assertIn("subject_id", str(context.exception))
@@ -220,7 +220,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
 
         with self.assertRaises(ValueError) as context:
@@ -248,7 +248,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
-                ethics_review_id="1234",
+                ethics_review_id=["1234"],
             )
         self.assertIn("String should match pattern", str(e.exception))
 
@@ -274,7 +274,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
 
         da2 = DataDescription.model_validate_json(da1.model_dump_json())

@@ -99,7 +99,7 @@ class TestMetadata(unittest.TestCase):
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
-            ethics_review_id="1234",
+            ethics_review_id=["1234"],
         )
         procedures = Procedures(
             subject_id="12345",
