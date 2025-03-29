@@ -101,6 +101,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         self.assertIsNotNone(r1)
@@ -219,6 +220,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
 
         with self.assertRaises(ValueError) as context:
@@ -246,6 +248,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
+                ethics_review_id="1234",
             )
         self.assertIn("String should match pattern", str(e.exception))
 
@@ -271,6 +274,7 @@ class DataDescriptionTest(unittest.TestCase):
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
             project_name="Test",
+            ethics_review_id="1234",
         )
 
         da2 = DataDescription.model_validate_json(da1.model_dump_json())

@@ -37,6 +37,9 @@ subject_sex_lookup = {
     "M": "Male",
 }
 
+# single IACUAC protocol #
+ethics_review_id = "1234"
+
 # loop through all of the sessions
 for session_idx, session in sessions_df.iterrows():
     # our data always contains planar optical physiology and behavior videos
@@ -49,6 +52,7 @@ for session_idx, session in sessions_df.iterrows():
         investigators=[experimenter],
         data_level="raw",
         project_name="Example workflow",
+        ethics_review_id=ethics_review_id,
     )
 
     # we will store our json files in a directory named after the session
