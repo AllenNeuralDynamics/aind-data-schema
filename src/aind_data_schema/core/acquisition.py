@@ -29,7 +29,7 @@ from aind_data_schema.components.acquisition_configs import (
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
-from aind_data_schema.components.identifiers import Code, Person, Software
+from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
