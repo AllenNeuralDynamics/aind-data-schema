@@ -10,9 +10,9 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
+from aind_data_schema.components.acquisition_configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
 
 
 mri_scanner = Scanner(
@@ -83,7 +83,7 @@ acquisition = Acquisition(
     experiment_type="3D MRI Volume",
     instrument_id="NA",
     coordinate_system=CoordinateSystemLibrary.MRI_LPS,
-    subject_details=SubjectDetails(
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="NA",
     ),
     data_streams=[stream],

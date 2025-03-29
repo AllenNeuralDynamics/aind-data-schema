@@ -18,7 +18,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
 from aind_data_schema.core.procedures import (
@@ -228,7 +228,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(subject_details=SubjectDetails.model_construct()),
+                acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
                 instrument=inst,
                 processing=Processing.model_construct(),
             )
@@ -256,7 +256,7 @@ class TestMetadata(unittest.TestCase):
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
-                    instrument_id="323_EPHYS1_20231003", subject_details=SubjectDetails.model_construct()
+                    instrument_id="323_EPHYS1_20231003", subject_details=AcquisitionSubjectDetails.model_construct()
                 ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -287,7 +287,7 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
-                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+                    subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
             )
         self.assertIn(

@@ -12,7 +12,7 @@ from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
+from aind_data_schema.components.acquisition_configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.components.measurements import Calibration, Maintenance
 

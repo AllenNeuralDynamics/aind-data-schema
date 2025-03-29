@@ -8,7 +8,7 @@ from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     AirPuffConfig,
     DetectorConfig,
     DomeModule,
@@ -60,7 +60,7 @@ CONFIG_DEVICE_REQUIREMENTS = {
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
 
 
-class SubjectDetails(DataModel):
+class AcquisitionSubjectDetails(DataModel):
     """Details about the subject during an acquisition"""
 
     animal_weight_prior: Optional[Decimal] = Field(
@@ -96,8 +96,10 @@ class DataStream(DataModel):
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
     stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    software: Optional[List[Software]] = Field(default=[], title="Software packages")
+    modalities: List[Modality.ONE_OF] = Field(
+        ..., title="Modalities", description="Modalities that are acquired in this stream"
+    )
+    code: Optional[List[Code]] = Field(default=None, title="Acquisition code")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
@@ -163,7 +165,7 @@ class StimulusEpoch(DataModel):
         description="Custom code/script used to control the behavior/stimulus and parameters",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    summary: Optional[PerformanceMetrics] = Field(default=None, title="Summary")
+    performance_metrics: Optional[PerformanceMetrics] = Field(default=None, title="Summary")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
@@ -206,11 +208,10 @@ class Acquisition(DataCoreModel):
         default=[],
         title="experimenter(s)",
     )
-    protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
     instrument_id: str = Field(..., title="Instrument ID")
-    experiment_type: str = Field(default=None, title="Experiment type")
-    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
+    acquisition_type: str = Field(default=None, title="Acquisition type")
     notes: Optional[str] = Field(default=None, title="Notes")
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
@@ -238,7 +239,7 @@ class Acquisition(DataCoreModel):
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
-    subject_details: Optional[SubjectDetails] = Field(default=None, title="Subject details")
+    subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
     def subject_details_if_not_specimen(self):
@@ -286,7 +287,7 @@ class Acquisition(DataCoreModel):
         spec_check = self.specimen_id != other.specimen_id
         ethics_check = self.ethics_review_id != other.ethics_review_id
         inst_check = self.instrument_id != other.instrument_id
-        exp_type_check = self.experiment_type != other.experiment_type
+        exp_type_check = self.acquisition_type != other.acquisition_type
         if any([subj_check, spec_check, ethics_check, inst_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
@@ -294,7 +295,7 @@ class Acquisition(DataCoreModel):
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
                 f"ethics_review_id: {self.ethics_review_id}/{other.ethics_review_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
-                f"experiment_type: {self.experiment_type}/{other.experiment_type}"
+                f"experiment_type: {self.acquisition_type}/{other.acquisition_type}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -305,7 +306,7 @@ class Acquisition(DataCoreModel):
 
         # Combine
         experimenters = self.experimenters + other.experimenters
-        protocol_id = self.protocol_id + other.protocol_id
+        protocol_id = merge_optional_list(self.protocol_id, other.protocol_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
         software = merge_optional_list(self.software, other.software)
@@ -330,7 +331,7 @@ class Acquisition(DataCoreModel):
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,
-            experiment_type=self.experiment_type,
+            experiment_type=self.acquisition_type,
             software=software,
             notes=notes,
             data_streams=data_streams,

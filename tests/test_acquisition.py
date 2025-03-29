@@ -16,7 +16,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
 )
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     DomeModule,
     ManipulatorConfig,
     MRIScan,
@@ -24,7 +24,7 @@ from aind_data_schema.components.configs import (
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -45,7 +45,7 @@ class AcquisitionTest(unittest.TestCase):
             subject_id="1234",
             experiment_type="Test",
             instrument_id="1234",
-            subject_details=SubjectDetails(
+            subject_details=AcquisitionSubjectDetails(
                 mouse_platform_name="Running wheel",
             ),
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
@@ -146,7 +146,7 @@ class AcquisitionTest(unittest.TestCase):
             experiment_type="3D MRI Volume",
             instrument_id="NA",
             coordinate_system=CoordinateSystemLibrary.MRI_LPS,
-            subject_details=SubjectDetails(
+            subject_details=AcquisitionSubjectDetails(
                 animal_weight_prior=22.1,
                 animal_weight_post=21.9,
                 mouse_platform_name="NA",
@@ -219,7 +219,7 @@ class AcquisitionTest(unittest.TestCase):
                 specimen_id="654321",
                 experiment_type="Test",
                 instrument_id="1234",
-                subject_details=SubjectDetails(
+                subject_details=AcquisitionSubjectDetails(
                     mouse_platform_name="Running wheel",
                 ),
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
@@ -276,7 +276,7 @@ class AcquisitionTest(unittest.TestCase):
                 subject_id="123456",
                 experiment_type="Test",
                 instrument_id="1234",
-                subject_details=SubjectDetails(
+                subject_details=AcquisitionSubjectDetails(
                     mouse_platform_name="Running wheel",
                 ),
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,

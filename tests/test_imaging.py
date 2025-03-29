@@ -18,7 +18,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.devices import Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
+from aind_data_schema.components.acquisition_configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality

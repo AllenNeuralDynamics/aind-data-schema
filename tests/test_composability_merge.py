@@ -5,7 +5,7 @@ from datetime import datetime, timezone, date
 
 from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
 
-from aind_data_schema.core.acquisition import Acquisition, DataStream, SubjectDetails
+from aind_data_schema.core.acquisition import Acquisition, DataStream, AcquisitionSubjectDetails
 from aind_data_schema.core.procedures import (
     Procedures,
     Reagent,
@@ -17,7 +17,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
+from aind_data_schema.components.acquisition_configs import InVitroImagingConfig, Immersion
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
@@ -284,7 +284,7 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(len(merged_acq.data_streams), 2)
         self.assertEqual(merged_acq.acquisition_start_time, t)
         self.assertEqual(merged_acq.acquisition_end_time, t)
-        self.assertEqual(merged_acq.experiment_type, "ExaSPIM")
+        self.assertEqual(merged_acq.acquisition_type, "ExaSPIM")
 
         # Test incompatible schema versions
         acq1_orig_schema_v = acq1.schema_version
@@ -304,7 +304,7 @@ class TestComposability(unittest.TestCase):
 
         # Test incompatible SubjectDetails
         acq2.subject_id = acq1.subject_id
-        subject_details = SubjectDetails(
+        subject_details = AcquisitionSubjectDetails(
             mouse_platform_name="mouse_platform_name",
         )
         acq1.subject_details = subject_details

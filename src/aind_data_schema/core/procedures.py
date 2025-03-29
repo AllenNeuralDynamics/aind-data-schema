@@ -42,14 +42,6 @@ class ImmunolabelClass(str, Enum):
     CONJUGATE = "Conjugate"
 
 
-class StainType(str, Enum):
-    """Stain types for probes describing what is being labeled"""
-
-    RNA = "RNA"
-    NUCLEAR = "Nuclear"
-    FILL = "Fill"
-
-
 class Fluorophore(str, Enum):
     """Fluorophores used in HCR and Immunolabeling"""
 
@@ -64,14 +56,6 @@ class Fluorophore(str, Enum):
     ATTO_565 = "ATTO 565"
     ATTO_643 = "ATTO 643"
     CY3 = "Cyanine Cy 3"
-
-
-class Side(str, Enum):
-    """Side of animal"""
-
-    LEFT = "Left"
-    RIGHT = "Right"
-    MIDLINE = "Midline"
 
 
 class SectionOrientation(str, Enum):
@@ -175,7 +159,6 @@ class Readout(Reagent):
     fluorophore: Fluorophore = Field(..., title="Fluorophore")
     excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
     excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
-    stain_type: StainType = Field(..., title="Stain type")
 
 
 class HCRReadout(Readout):
@@ -203,7 +186,6 @@ class HCRProbe(OligoProbe):
 class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
-    stain_type: StainType = Field(..., title="Stain type")
     concentration: Decimal = Field(..., title="Concentration")
     concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
@@ -219,7 +201,6 @@ class HybridizationChainReaction(DataModel):
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field(default="M", title="Probe concentration unit")
     other_stains: List[Stain] = Field(default=[], title="Other stains")
-    instrument_id: str = Field(..., title="Instrument ID")
 
 
 class HCRSeries(DataModel):
@@ -282,7 +263,7 @@ class SpecimenProcedure(DataModel):
         default=[],
         title="experimenter(s)",
     )
-    protocol_id: List[str] = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
     procedure_details: List[
         Annotated[
@@ -358,7 +339,7 @@ class CatheterImplant(DataModel):
 class Craniotomy(DataModel):
     """Description of craniotomy procedure"""
 
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
     position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
@@ -394,7 +375,7 @@ class Craniotomy(DataModel):
 class Headframe(DataModel):
     """Description of headframe procedure"""
 
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: str = Field(..., title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(default=None, title="Headframe material")
@@ -491,7 +472,7 @@ class Injection(DataModel):
     injection_materials: List[
         Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
     ] = Field(..., title="Injection material", min_length=1)
-    target: Optional[MouseAnatomyModel] = Field(
+    targeted_structure: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
     relative_position: Optional[List[AnatomicalRelative]] = Field(default=None, title="Relative position")
@@ -499,14 +480,14 @@ class Injection(DataModel):
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
 
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
     coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
-    target: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
     def check_lengths(values):
@@ -534,7 +515,7 @@ class TrainingProtocol(DataModel):
     """Description of an animal training protocol"""
 
     training_name: str = Field(..., title="Training protocol name")
-    protocol_id: str = Field(..., title="Training protocol ID")
+    protocol_id: Optional[str] = Field(default=None, title="Training protocol ID")
     start_date: date = Field(..., title="Training protocol start date")
     end_date: Optional[date] = Field(default=None, title="Training protocol end date")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -552,7 +533,7 @@ class OphysProbe(DataModel):
 class FiberImplant(DataModel):
     """Description of an implant procedure"""
 
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     probes: List[OphysProbe] = Field(..., title="Ophys Probes")
 
 
@@ -575,10 +556,10 @@ class WaterRestriction(DataModel):
 
 
 class MyomatrixContact(DataModel):
-    """ "Description of a contact on a myomatrix thread"""
+    """Description of a contact on a myomatrix thread"""
 
     body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
-    side: Side = Field(..., title="Body side")
+    side: Optional[AnatomicalRelative] = Field(default=None, title="Body side", description="None for midline contacts")
     muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
 
@@ -596,7 +577,7 @@ class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
     ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
 
@@ -604,7 +585,7 @@ class MyomatrixInsertion(DataModel):
 class Perfusion(DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: Set[str] = Field(
         ...,
         title="Specimen ID",
@@ -620,7 +601,7 @@ class Perfusion(DataModel):
 class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
-    protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
     experimenters: Optional[List[Person]] = Field(
         default=None,

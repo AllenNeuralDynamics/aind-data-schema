@@ -12,11 +12,11 @@ from aind_data_schema.components.devices import (
     EphysProbe,
     Manipulator,
 )
-from aind_data_schema.core.acquisition import Acquisition, SubjectDetails, DataStream
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.components.identifiers import Person
 
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.components.configs import DomeModule
+from aind_data_schema.components.acquisition_configs import DomeModule
 from aind_data_schema.core.metadata import Metadata
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.procedures import Procedures
@@ -77,7 +77,7 @@ class TestMetadata(unittest.TestCase):
                             modalities=[Modality.BEHAVIOR_VIDEOS],
                         ),
                     ],
-                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+                    subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
             )
         self.assertIn(
@@ -125,7 +125,7 @@ class TestMetadata(unittest.TestCase):
                             configurations=[DomeModule.model_construct()],
                         ),
                     ],
-                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+                    subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
             )
         self.assertIn(
@@ -168,7 +168,7 @@ class TestMetadata(unittest.TestCase):
                         configurations=[DomeModule.model_construct()],
                     ),
                 ],
-                subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+                subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
             ),
         )
         self.assertIsNotNone(m)

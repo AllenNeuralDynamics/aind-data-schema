@@ -38,9 +38,9 @@ from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     DetectorConfig,
     DomeModule,
     PatchCordConfig,
@@ -385,7 +385,7 @@ ephys_acquisition = Acquisition(
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
     ethics_review_id="2109",
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-    subject_details=SubjectDetails(
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="mouse platform",
     ),
     stimulus_epochs=[
@@ -1062,7 +1062,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             instrument_id="ophys_inst",
             ethics_review_id="2115",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-            subject_details=SubjectDetails(
+            subject_details=AcquisitionSubjectDetails(
                 mouse_platform_name="Disc",
             ),
             data_streams=[
