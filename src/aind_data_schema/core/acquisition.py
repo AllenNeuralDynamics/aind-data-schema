@@ -285,7 +285,7 @@ class Acquisition(DataCoreModel):
         spec_check = self.specimen_id != other.specimen_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.experiment_type != other.experiment_type
-        if any([subj_check, spec_check, ethics_check, inst_check, exp_type_check]):
+        if any([subj_check, spec_check, inst_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
