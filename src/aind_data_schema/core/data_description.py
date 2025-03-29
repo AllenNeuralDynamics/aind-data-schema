@@ -221,4 +221,5 @@ class DataDescription(DataCoreModel):
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
             data_summary=get_or_default("data_summary"),
+            ethics_review_id=get_or_default("ethics_review_id"),
         )
