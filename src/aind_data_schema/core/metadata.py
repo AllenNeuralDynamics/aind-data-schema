@@ -26,6 +26,7 @@ from aind_data_schema.components.identifiers import ExternalLinks
 from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.model import Model
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
@@ -132,6 +133,9 @@ class Metadata(DataCoreModel):
     acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Data acquisition")
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
+    )
+    model: Optional[Model] = Field(
+        default=None, title="Model", description="Description of a machine learning model trained on data."
     )
 
     @field_validator(

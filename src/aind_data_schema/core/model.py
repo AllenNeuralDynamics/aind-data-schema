@@ -60,9 +60,7 @@ class Model(DataCoreModel):
     # this is optional for now, ultimately it should be required
     # with an option to specify a simple command or script instead of full Code
     code: Optional[Code] = Field(
-        default=None,
-        title="Code",
-        description="Code to run the model, possibly including reference to sample data"
+        default=None, title="Code", description="Code to run the model, possibly including reference to sample data"
     )
     architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
     software_framework: Optional[Software] = Field(default=None, title="Software framework")
