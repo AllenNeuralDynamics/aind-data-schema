@@ -1,4 +1,4 @@
-""" schema describing an analysis model """
+"""schema describing an analysis model"""
 
 from typing import Any, List, Literal, Optional
 
@@ -67,6 +67,6 @@ class Model(DataCoreModel):
     parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    training: List[ModelTraining | ModelPretraining] = Field(default=[], title="Training")
+    training: List[ModelTraining | ModelPretraining] = Field(..., title="Training", min_length=1)
     evaluations: List[ModelEvaluation] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
