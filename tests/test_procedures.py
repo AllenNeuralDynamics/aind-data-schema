@@ -578,6 +578,32 @@ class ProceduresTests(unittest.TestCase):
             craniotomy_type=CraniotomyType.DHC,
         )
         self.assertIsNotNone(craniotomy)
+        
+    def test_check_volume_or_current(self):
+        """Test validation for InjectionDynamics to ensure either volume or injection_current is provided"""
+
+        # Should be valid with volume provided
+        dynamics = InjectionDynamics(
+            profile=InjectionProfile.BOLUS,
+            volume=1.0,
+            volume_unit=VolumeUnit.UL,
+        )
+        self.assertIsNotNone(dynamics)
+
+        # Should be valid with injection_current provided
+        dynamics = InjectionDynamics(
+            profile=InjectionProfile.BOLUS,
+            injection_current=0.5,
+            injection_current_unit=CurrentUnit.UA,
+        )
+        self.assertIsNotNone(dynamics)
+
+        # Should raise an error when neither volume nor injection_current is provided
+        with self.assertRaises(ValueError) as e:
+            InjectionDynamics(
+                profile=InjectionProfile.BOLUS,
+            )
+        self.assertIn("Either volume or injection_current must be provided.", str(e.exception))
 
 
 if __name__ == "__main__":
