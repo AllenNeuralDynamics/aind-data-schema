@@ -578,7 +578,7 @@ class ProceduresTests(unittest.TestCase):
             craniotomy_type=CraniotomyType.DHC,
         )
         self.assertIsNotNone(craniotomy)
-        
+
     def test_check_volume_or_current(self):
         """Test validation for InjectionDynamics to ensure either volume or injection_current is provided"""
 
