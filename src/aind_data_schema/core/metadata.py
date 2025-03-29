@@ -304,7 +304,6 @@ def create_metadata_json(
     name: str,
     location: str,
     core_jsons: Dict[str, Optional[dict]],
-    optional_created: Optional[datetime] = None,
     optional_external_links: Optional[dict] = None,
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
@@ -314,8 +313,6 @@ def create_metadata_json(
         "name": name,
         "location": location,
     }
-    if optional_created is not None:
-        params["created"] = optional_created
     if optional_external_links is not None:
         params["external_links"] = optional_external_links
     core_fields = dict()
