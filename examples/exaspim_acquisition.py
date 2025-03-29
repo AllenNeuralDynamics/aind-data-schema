@@ -114,7 +114,7 @@ acq = Acquisition(
     ],
     acquisition_start_time=t,
     acquisition_end_time=t,
-    experiment_type="ExaSPIM",
+    acquisition_type="ExaSPIM",
 )
 
 serialized = acq.model_dump_json()

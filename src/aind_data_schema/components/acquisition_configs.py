@@ -178,7 +178,7 @@ class SlapAcquisitionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
+    acquisition_type: SlapAcquisitionType = Field(..., title="Acquisition type")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")

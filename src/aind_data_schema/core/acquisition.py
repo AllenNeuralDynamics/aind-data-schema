@@ -295,7 +295,7 @@ class Acquisition(DataCoreModel):
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
                 f"ethics_review_id: {self.ethics_review_id}/{other.ethics_review_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
-                f"experiment_type: {self.acquisition_type}/{other.acquisition_type}"
+                f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -331,7 +331,7 @@ class Acquisition(DataCoreModel):
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,
-            experiment_type=self.acquisition_type,
+            acquisition_type=self.acquisition_type,
             software=software,
             notes=notes,
             data_streams=data_streams,

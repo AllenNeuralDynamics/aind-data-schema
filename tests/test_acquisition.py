@@ -43,7 +43,7 @@ class AcquisitionTest(unittest.TestCase):
             acquisition_start_time=datetime.now(),
             acquisition_end_time=datetime.now(),
             subject_id="1234",
-            experiment_type="Test",
+            acquisition_type="Test",
             instrument_id="1234",
             subject_details=AcquisitionSubjectDetails(
                 mouse_platform_name="Running wheel",
@@ -143,7 +143,7 @@ class AcquisitionTest(unittest.TestCase):
             acquisition_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
             ethics_review_id="1234",
-            experiment_type="3D MRI Volume",
+            acquisition_type="3D MRI Volume",
             instrument_id="NA",
             coordinate_system=CoordinateSystemLibrary.MRI_LPS,
             subject_details=AcquisitionSubjectDetails(
@@ -164,7 +164,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
                 subject_id="1234",
-                experiment_type="Test",
+                acquisition_type="Test",
                 instrument_id="1234",
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                 data_streams=[
@@ -217,7 +217,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_end_time=datetime.now(),
                 subject_id="123456",
                 specimen_id="654321",
-                experiment_type="Test",
+                acquisition_type="Test",
                 instrument_id="1234",
                 subject_details=AcquisitionSubjectDetails(
                     mouse_platform_name="Running wheel",
@@ -274,7 +274,7 @@ class AcquisitionTest(unittest.TestCase):
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
                 subject_id="123456",
-                experiment_type="Test",
+                acquisition_type="Test",
                 instrument_id="1234",
                 subject_details=AcquisitionSubjectDetails(
                     mouse_platform_name="Running wheel",

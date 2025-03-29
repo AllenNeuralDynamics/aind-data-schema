@@ -402,6 +402,7 @@ lens = Lens(
     focal_length=80,
     focal_length_unit=SizeUnit.MM,
     size=1,
+    size_unit=SizeUnit.IN,
 )
 
 tube = Tube(name="mouse_tube_foraging", diameter=4.0)

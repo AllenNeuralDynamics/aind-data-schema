@@ -36,7 +36,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
-from aind_data_schema_models.units import SizeUnit
+from aind_data_schema_models.units import SizeUnit, CurrentUnit
 
 
 class ProceduresTests(unittest.TestCase):

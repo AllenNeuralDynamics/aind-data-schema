@@ -190,7 +190,7 @@ class TestComposability(unittest.TestCase):
             ],
             acquisition_start_time=t,
             acquisition_end_time=t,
-            experiment_type="ExaSPIM",
+            acquisition_type="ExaSPIM",
         )
 
         acq2 = Acquisition(
@@ -273,7 +273,7 @@ class TestComposability(unittest.TestCase):
             ],
             acquisition_start_time=t,
             acquisition_end_time=t,
-            experiment_type="ExaSPIM",
+            acquisition_type="ExaSPIM",
         )
 
         merged_acq = acq1 + acq2
