@@ -309,7 +309,6 @@ class Acquisition(DataCoreModel):
         protocol_id = merge_optional_list(self.protocol_id, other.protocol_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        code = merge_optional_list(self.code, other.code)
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
@@ -332,7 +331,6 @@ class Acquisition(DataCoreModel):
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,
             acquisition_type=self.acquisition_type,
-            code=code,
             notes=notes,
             data_streams=data_streams,
             stimulus_epochs=stimulus_epochs,
