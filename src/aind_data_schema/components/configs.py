@@ -271,7 +271,7 @@ class LaserConfig(DeviceConfig):
 
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
+    excitation_power: Optional[float] = Field(default=None, title="Excitation power")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
@@ -432,18 +432,16 @@ class ImagingConfig(DeviceConfig):
     # dilation
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
     dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
-    
+
     # add validator for systems
 
 
 class ImagingChannelConfig(DeviceConfig):
     """Configuration of an imaging channel assembly"""
 
-    # excitation
-    excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
-    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Laser wavelength unit")
-    excitation_power: float = Field(..., title="Laser power", le=2000)
-    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Laser power unit")
-    # emission
+    # excitation path settings
+    laser_config: LaserConfig = Field(..., title="Laser configuration")
+
+    # emission info
     emission_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
