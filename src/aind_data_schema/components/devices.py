@@ -59,6 +59,12 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class Assembly(DataModel):
+    """Generic assembly"""
+
+    name: str = Field(..., title="Assembly name")
+
+
 class Computer(Device):
     """Description of a computer"""
 
@@ -182,10 +188,9 @@ class Objective(Device):
         return value
 
 
-class CameraAssembly(DataModel):
+class CameraAssembly(Assembly):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
-    name: str = Field(..., title="Camera assembly name")
     target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
@@ -294,16 +299,24 @@ class Lamp(Device):
     temperature_unit: Optional[TemperatureUnit] = Field(default=None, title="Temperature unit")
 
 
-class LightAssembly(DataModel):
+class LightAssembly(Assembly):
     """Named assembly of a light source and lens"""
 
     # required fields
-    name: str = Field(..., title="Light assembly name")
     light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
     lens: Lens = Field(..., title="Lens")
 
     # optional fields
     filter: Optional[Filter] = Field(default=None, title="Filter")
+
+
+class ExcitationChannelAssembly(Assembly):
+    """Named assembly of a light source, filters, and detector for generating a specific excitation wavelength"""
+
+    # required fields
+    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
+    filters: List[Filter] = Field(..., title="Filters")
+    detector: Detector = Field(..., title="Detector")
 
 
 class ProbePort(DataModel):
@@ -352,10 +365,9 @@ class FiberPatchCord(Device):
     photobleaching_date: Optional[date] = Field(default=None, title="Photobleaching date")
 
 
-class LaserAssembly(DataModel):
+class LaserAssembly(Assembly):
     """Assembly for optogenetic stimulation"""
 
-    name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
     collimator: Device = Field(..., title="Collimator")
@@ -373,10 +385,9 @@ class EphysProbe(Device):
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
-class EphysAssembly(DataModel):
+class EphysAssembly(Assembly):
     """Module for electrophysiological recording"""
 
-    name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
@@ -393,10 +404,9 @@ class FiberProbe(Device):
     length_unit: SizeUnit = Field(default=SizeUnit.MM, title="Length unit")
 
 
-class FiberAssembly(DataModel):
+class FiberAssembly(Assembly):
     """Module for inserted fiber photometry recording"""
 
-    name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 

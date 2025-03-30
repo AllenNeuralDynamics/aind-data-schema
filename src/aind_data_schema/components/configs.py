@@ -6,7 +6,7 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.coordinates import AnatomicalRelative, CoordinateTransform, CoordinateSystem
 from aind_data_schema_models.devices import ImmersionMedium
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
@@ -21,9 +21,8 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.base import DataModel, GenericModelType, AwareDatetimeWithDefault
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
-from aind_data_schema.components.tile import AcquisitionTile, Channel
 from aind_data_schema.components.identifiers import Code
 
 
@@ -410,10 +409,40 @@ class Immersion(DataModel):
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class InVitroImagingConfig(DataModel):
-    """Configuration of an imaging instrument"""
+class Image(DataModel):
+    """Description of acquisition tile"""
 
-    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
-    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
+    coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations", description="Must go from the image system to the acquisition system")
+    file_path: Optional[AssetPath] = Field(default=None, title="File path")
+    imaging_angle: int = Field(default=0, title="Imaging angle", description="Angle of the detector relative, 0 indicates perpendicular to the sample")
+    imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
+    imaging_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition start time")
+    imaging_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition end time")
+
+
+class ImagingConfig(DeviceConfig):
+    """Configuration of images acquired on an excitation channel assembly"""
+
+    images: List[Image] = Field(..., title="Acquisition tiles")
+    image_coordinate_system: CoordinateSystem = Field(..., title="Image coordinate system")
+    acquisition_coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class ExcitationChannelConfig(DeviceConfig):
+    """Configuration of an excitation channel assembly"""
+
+    # excitation
+    excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
+    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Laser wavelength unit")
+    excitation_power: float = Field(..., title="Laser power", le=2000)
+    excitation_power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Laser power unit")
+    # emission
+    emission_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
+    emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
+    # dilation
+    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
+    description: Optional[str] = Field(default=None, title="Description")

@@ -14,7 +14,7 @@ from aind_data_schema.components.configs import (
     DomeModule,
     FiberAssemblyConfig,
     FieldOfView,
-    InVitroImagingConfig,
+    ImagingConfig,
     LaserConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
@@ -26,6 +26,7 @@ from aind_data_schema.components.configs import (
     SpeakerConfig,
     Stack,
     StimulusModality,
+    ExcitationChannelConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -120,9 +121,10 @@ class DataStream(DataModel):
                 SlapFieldOfView,
                 Stack,
                 MRIScan,
-                InVitroImagingConfig,
+                ImagingConfig,
                 LickSpoutConfig,
                 AirPuffConfig,
+                ExcitationChannelConfig,
             ],
             Field(discriminator="object_type"),
         ]

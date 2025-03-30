@@ -17,7 +17,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
+from aind_data_schema.components.configs import ImagingConfig, Immersion
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
@@ -36,14 +36,14 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
 
-invitro_config = InVitroImagingConfig(
+invitro_config = ImagingConfig(
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
     ),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     tiles=[
-        tile.AcquisitionTile(
+        tile.Image(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transform=CoordinateTransform(
                 input="SPIM_IJK",
@@ -234,14 +234,14 @@ class TestComposability(unittest.TestCase):
                     modalities=[Modality.SPIM],
                     active_devices=[],
                     configurations=[
-                        InVitroImagingConfig(
+                        ImagingConfig(
                             chamber_immersion=Immersion(
                                 medium="PBS",
                                 refractive_index=1.33,
                             ),
                             coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
                             tiles=[
-                                tile.AcquisitionTile(
+                                tile.Image(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     coordinate_transform=CoordinateTransform(
                                         input="SPIM_IJK",
