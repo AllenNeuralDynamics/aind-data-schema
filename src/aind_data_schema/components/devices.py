@@ -310,12 +310,13 @@ class LightAssembly(Assembly):
     filter: Optional[Filter] = Field(default=None, title="Filter")
 
 
-class ExcitationChannelAssembly(Assembly):
+class ImagingChannelAssembly(Assembly):
     """Named assembly of a light source, filters, and detector for generating a specific excitation wavelength"""
 
     # required fields
     light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
-    filters: List[Filter] = Field(..., title="Filters")
+    excitation_filters: List[Filter] = Field(..., title="Excitation filters")
+    emission_filters: List[Filter] = Field(..., title="Emission filters")
     detector: Detector = Field(..., title="Detector")
 
 
