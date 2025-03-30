@@ -14,7 +14,6 @@ from aind_data_schema.components.devices import (
     EphysAssembly,
     EphysProbe,
     Manipulator,
-    MousePlatform,
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
@@ -99,6 +98,7 @@ class TestMetadata(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         procedures = Procedures(
             subject_id="12345",
@@ -265,11 +265,10 @@ class TestMetadata(unittest.TestCase):
         """Tests that instrument/acquisition compatibility validator works as expected"""
 
         modalities = [Modality.ECEPHYS]
-        mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
-            components=[ephys_assembly, mouse_platform],
+            components=[ephys_assembly],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
