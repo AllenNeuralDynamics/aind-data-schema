@@ -506,13 +506,6 @@ class LightAssembly(DataModel):
     filter: Optional[Filter] = Field(default=None, title="Filter")
 
 
-class ProbePort(DataModel):
-    """Port for a probe connection"""
-
-    index: int = Field(..., title="One-based port index")
-    probes: List[str] = Field(..., title="Names of probes connected to this port")
-
-
 class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
@@ -520,7 +513,6 @@ class NeuropixelsBasestation(DAQDevice):
     basestation_firmware_version: str = Field(..., title="Basestation firmware version")
     bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
     slot: int = Field(..., title="Slot number for this basestation")
-    ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
@@ -529,9 +521,6 @@ class NeuropixelsBasestation(DAQDevice):
 
 class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
-
-    # required fields
-    ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
     data_interface: Literal[DataInterface.USB] = DataInterface.USB
@@ -553,7 +542,7 @@ class PatchCord(Device):
 
 
 class LaserAssembly(DataModel):
-    """Assembly for optogenetic stimulation"""
+    """Named assembly combining a manipulator, lasers, collimator, and fibers"""
 
     name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -567,7 +556,7 @@ class Headstage(Device):
 
 
 class EphysProbe(Device):
-    """Named probe used in an ephys experiment"""
+    """Probe used in an ephys experiment"""
 
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
@@ -578,11 +567,21 @@ class EphysProbe(Device):
 
 
 class EphysAssembly(DataModel):
-    """Module for electrophysiological recording"""
+    """Assembly for electrophysiological recording"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
+
+
+class NewScaleMISRig(DataModel):
+    """Assembly representing a NewScale Modular Insertion System rig"""
+
+    name: str = Field(..., title="MIS rig name")
+    arcs: List[List[EphysAssembly]] = Field(
+        ..., title="Modules",
+        description="Outer list is for each ARC, inner list is for MODULES on an arc"
+    )
 
 
 class FiberProbe(Device):
@@ -598,7 +597,7 @@ class FiberProbe(Device):
 
 
 class FiberAssembly(DataModel):
-    """Module for inserted fiber photometry recording"""
+    """Named module for inserted fiber photometry recording"""
 
     name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
