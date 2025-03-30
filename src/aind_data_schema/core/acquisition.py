@@ -26,7 +26,7 @@ from aind_data_schema.components.configs import (
     SpeakerConfig,
     Stack,
     StimulusModality,
-    ExcitationChannelConfig,
+    ImagingChannelConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -124,7 +124,7 @@ class DataStream(DataModel):
                 ImagingConfig,
                 LickSpoutConfig,
                 AirPuffConfig,
-                ExcitationChannelConfig,
+                ImagingChannelConfig,
             ],
             Field(discriminator="object_type"),
         ]

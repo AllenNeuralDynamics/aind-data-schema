@@ -6,7 +6,7 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.coordinates import AnatomicalRelative, CoordinateTransform, CoordinateSystem
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
@@ -22,7 +22,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel, GenericModelType, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform, CoordinateTransform
 from aind_data_schema.components.identifiers import Code
 
 
@@ -410,7 +410,7 @@ class Immersion(DataModel):
 
 
 class Image(DataModel):
-    """Description of acquisition tile"""
+    """Description of a 2D image"""
 
     coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations", description="Must go from the image system to the acquisition system")
     file_path: Optional[AssetPath] = Field(default=None, title="File path")
@@ -421,18 +421,23 @@ class Image(DataModel):
 
 
 class ImagingConfig(DeviceConfig):
-    """Configuration of images acquired on an excitation channel assembly"""
+    """Configuration of images acquired on an imaging channel assembly"""
 
     images: List[Image] = Field(..., title="Acquisition tiles")
     image_coordinate_system: CoordinateSystem = Field(..., title="Image coordinate system")
-    acquisition_coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
-    notes: Optional[str] = Field(default=None, title="Notes")
+
+    # sort out how to deal with this
+    # dilation
+    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
+    
+    # add validator for systems
 
 
-class ExcitationChannelConfig(DeviceConfig):
-    """Configuration of an excitation channel assembly"""
+class ImagingChannelConfig(DeviceConfig):
+    """Configuration of an imaging channel assembly"""
 
     # excitation
     excitation_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
@@ -442,7 +447,3 @@ class ExcitationChannelConfig(DeviceConfig):
     # emission
     emission_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
     emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
-    # dilation
-    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
-    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
-    description: Optional[str] = Field(default=None, title="Description")

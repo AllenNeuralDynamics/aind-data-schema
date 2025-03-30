@@ -316,7 +316,6 @@ class ImagingChannelAssembly(Assembly):
     # required fields
     light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
     excitation_filters: List[Filter] = Field(..., title="Excitation filters")
-    emission_filters: List[Filter] = Field(..., title="Emission filters")
     detector: Detector = Field(..., title="Detector")
 
 
