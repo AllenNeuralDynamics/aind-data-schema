@@ -5,11 +5,11 @@ from typing import Annotated, List, Literal, Optional, Union
 from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit
 
 from aind_data_schema.base import AwareDatetimeWithDefault, Field
-from aind_data_schema.components.configs import DeviceConfig
+from aind_data_schema.components.configs import DataModel
 from aind_data_schema.components.reagent import Reagent
 
 
-class Calibration(DeviceConfig):
+class Calibration(DataModel):
     """Generic calibration class"""
 
     calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
@@ -60,7 +60,7 @@ CALIBRATIONS = Annotated[
 ]
 
 
-class Maintenance(DeviceConfig):
+class Maintenance(DataModel):
     """Generic maintenance class"""
 
     maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")

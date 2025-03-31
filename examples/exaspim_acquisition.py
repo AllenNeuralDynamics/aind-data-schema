@@ -12,7 +12,7 @@ from aind_data_schema.components import tile
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, ImagingConfig
+from aind_data_schema.components.configs import Immersion, Channel
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.components.measurements import Calibration, Maintenance
 
@@ -58,7 +58,7 @@ tile1 = tile.Image(
     notes="these are my notes",
 )
 
-invitro_config = ImagingConfig(
+invitro_config = Channel(
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,

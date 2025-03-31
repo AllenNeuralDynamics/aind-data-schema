@@ -48,14 +48,14 @@ class Valence(str, Enum):
     UNKNOWN = "Unknown"
 
 
-class DeviceConfig(DataModel):
+class DataModel(DataModel):
     """Parent class for all configurations"""
 
     device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
 
 
 # Ophys components
-class PatchCordConfig(DeviceConfig):
+class PatchCordConfig(DataModel):
     """Description of a patch cord and its output power to another device"""
 
     output_power: Decimal = Field(..., title="Output power (uW)")
@@ -70,7 +70,7 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class DetectorConfig(DeviceConfig):
+class DetectorConfig(DataModel):
     """Description of detector settings"""
 
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
@@ -84,7 +84,7 @@ class DetectorConfig(DeviceConfig):
     )
 
 
-class LightEmittingDiodeConfig(DeviceConfig):
+class LightEmittingDiodeConfig(DataModel):
     """Description of LED settings"""
 
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
@@ -186,7 +186,7 @@ class SlapFieldOfView(FieldOfView):
     path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
 
 
-class MousePlatformConfig(DeviceConfig):
+class MousePlatformConfig(DataModel):
     """Configuration for mouse platforms"""
 
     objects_in_arena: Optional[List[str]] = Field(default=None, title="Objects in area")
@@ -198,7 +198,7 @@ class MousePlatformConfig(DeviceConfig):
 
 
 # Ephys Components
-class DomeModule(DeviceConfig):
+class DomeModule(DataModel):
     """Movable module that is mounted on the ephys dome insertion system"""
 
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
@@ -266,7 +266,7 @@ class FiberAssemblyConfig(ManipulatorConfig):
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LaserConfig(DeviceConfig):
+class LaserConfig(DataModel):
     """Description of laser settings in an acquisition"""
 
     wavelength: int = Field(..., title="Wavelength (nm)")
@@ -321,7 +321,7 @@ class AirPuffConfig(DataModel):
     duration: Optional[float] = Field(default=None, title="Duration")
 
 
-class SpeakerConfig(DeviceConfig):
+class SpeakerConfig(DataModel):
     """Description of auditory speaker configuration"""
 
     volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
@@ -350,7 +350,7 @@ class SubjectPosition(str, Enum):
     SUPINE = "Supine"
 
 
-class MRIScan(DeviceConfig):
+class MRIScan(DataModel):
     """Description of a 3D scan"""
 
     scan_index: int = Field(..., title="Scan index")
@@ -420,28 +420,37 @@ class Image(DataModel):
     imaging_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition end time")
 
 
-class ImagingConfig(DeviceConfig):
-    """Configuration of images acquired on an imaging channel assembly"""
-
-    images: List[Image] = Field(..., title="Acquisition tiles")
-    image_coordinate_system: CoordinateSystem = Field(..., title="Image coordinate system")
-    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
-    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
-
-    # sort out how to deal with this
-    # dilation
-    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
-    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
-
-    # add validator for systems
-
-
 class ExcitationPathConfig(DataModel):
     """Configuration of an excitation path"""
 
     # laser settings
     laser_config: LaserConfig = Field(..., title="Laser configuration")
 
+    # filters
+    filter_device_names: List[str] = Field(..., title="Filter device names")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength", ge=300, le=1000)
+    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
+
     # emission info
-    emission_wavelength: int = Field(..., title="Wavelength", ge=300, le=1000)
+    emission_wavelength: int = Field(..., title="Emission wavelength", ge=300, le=1000)
     emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
+
+
+class Channel(DataModel):
+    """Configuration of images acquired on a specific channel"""
+
+    images: List[Image] = Field(..., title="Acquisition tiles")
+    image_coordinate_system: CoordinateSystem = Field(..., title="Image coordinate system")
+
+    paths: List[ExcitationPathConfig] = Field(..., title="Excitation paths")
+
+    # Not sure which modalities this applies to, spim only?
+    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
+    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+
+
+class SlapChannel(Channel):
+    """Configuration of images acquired on a specific channel in a Slap scan"""
+
+    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
+    dilation_unit: Optional[SizeUnit] = Field(default=SizeUnit.PX, title="Dilation unit")

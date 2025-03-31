@@ -17,7 +17,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.configs import ImagingConfig, Immersion
+from aind_data_schema.components.configs import Channel, Immersion
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
@@ -36,7 +36,7 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
 
-invitro_config = ImagingConfig(
+invitro_config = Channel(
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
@@ -234,7 +234,7 @@ class TestComposability(unittest.TestCase):
                     modalities=[Modality.SPIM],
                     active_devices=[],
                     configurations=[
-                        ImagingConfig(
+                        Channel(
                             chamber_immersion=Immersion(
                                 medium="PBS",
                                 refractive_index=1.33,
