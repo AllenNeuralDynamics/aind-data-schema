@@ -356,9 +356,6 @@ class EphysProbe(Device):
 
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
-
-    # details
-    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
@@ -393,7 +390,7 @@ class FiberProbe(Device):
 
 
 class FiberAssembly(DataModel):
-    """Named module for inserted fiber photometry recording"""
+    """Assembly for optogenetic or fiber photometry recording"""
 
     name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")

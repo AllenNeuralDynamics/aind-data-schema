@@ -227,16 +227,23 @@ class ProbeConfig(DeviceConfig):
         default=None, title="Other targeted structure"
     )
 
-    atlas_coordinate: Optional[AtlasCoordinate] = Field(
-        default=None,
-        title="Targeted coordinates in an Atlas",
-    )
     coordinate: Coordinate = Field(
         ...,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )
+    atlas_coordinate: Optional[AtlasCoordinate] = Field(
+        default=None,
+        title="Targeted coordinates in an Atlas",
+    )
 
     dye: Optional[str] = Field(default=None, title="Dye")
+
+
+class EphysAssemblyConfig(DeviceConfig):
+    """Group of configurations for an ephys assembly"""
+
+    manipulator_config: ManipulatorConfig = Field(..., title="Manipulator configuration")
+    probe_configs: List[ProbeConfig] = Field(..., title="Probe configurations")
 
 
 class NewScaleMISConfig(DeviceConfig):
@@ -254,9 +261,11 @@ class NewScaleMISConfig(DeviceConfig):
     )
 
 
-class FiberAssemblyConfig(ManipulatorConfig):
-    """Inserted fiber photometry probe recorded in a stream"""
+class FiberAssemblyConfig(DeviceConfig):
+    """Group of configurations for a fiber assembly"""
 
+    manipulator_config: ManipulatorConfig = Field(..., title="Manipulator configuration")
+    probe_configs: List[ProbeConfig] = Field(..., title="Probe configurations")
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
