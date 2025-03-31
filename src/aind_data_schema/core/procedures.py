@@ -43,7 +43,7 @@ class ImmunolabelClass(str, Enum):
 
 
 class StainType(str, Enum):
-   """Stain types for probes describing what is being labeled"""
+    """Stain types for probes describing what is being labeled"""
 
     RNA = "RNA"
     NUCLEAR = "Nuclear"
