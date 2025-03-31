@@ -26,6 +26,14 @@ class Software(DataModel):
     )
 
 
+class Container(DataModel):
+    """Code container identifier, e.g. Docker"""
+
+    container_type: str = Field(..., title="Type", description="Type of container, e.g. Docker, Singularity")
+    tag: str = Field(..., title="Tag", description="Tag of the container, e.g. version number")
+    uri: str = Field(..., title="URI", description="URI of the container, e.g. Docker Hub URL")
+
+
 class Code(DataModel):
     """Code or script identifier"""
 
@@ -33,6 +41,7 @@ class Code(DataModel):
     version: Optional[str] = Field(default=None, title="Code version")
 
     software: Optional[Software] = Field(default=None, title="Software", description="Software package")
+    container: Optional[Container] = Field(default=None, title="Container")
 
     language: Optional[str] = Field(default=None, title="Programming language", description="Programming language used")
     language_version: Optional[str] = Field(default=None, title="Programming language version")
