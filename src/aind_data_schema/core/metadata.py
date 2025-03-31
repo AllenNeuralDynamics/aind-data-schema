@@ -16,6 +16,7 @@ from pydantic import (
     ValidationInfo,
     field_validator,
     model_validator,
+    ConfigDict,
 )
 
 from aind_data_schema.base import DataCoreModel, is_dict_corrupt
@@ -65,6 +66,8 @@ class ExternalPlatforms(str, Enum):
 class Metadata(DataCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
+
+    model_config = ConfigDict(extra="ignore")
 
     # Special file name extension to distinguish this json file from others
     # The models base on this schema will be saved to metadata.nd.json as
