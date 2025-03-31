@@ -479,6 +479,37 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual("2022-11-22T15:43:00Z", roundtrip_lm(m3))
         self.assertEqual("2022-11-22T08:43:00Z", roundtrip_lm(m4))
 
+    def test_validate_expected_files_by_modality(self):
+        """Tests that warnings are issued when metadata is missing required files"""
+        # Test case where required files are missing for 'subject'
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                subject=self.subject,
+                # Missing required files: data_description, procedures, instrument, acquisition
+            )
+        
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn("Metadata missing required file: data_description", warning_messages)
+        self.assertIn("Metadata missing required file: procedures", warning_messages)
+        self.assertIn("Metadata missing required file: instrument", warning_messages)
+        self.assertIn("Metadata missing required file: acquisition", warning_messages)
+        
+        # Test case where no required files exist
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                # No required files provided
+            )
+        
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']", 
+            warning_messages
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

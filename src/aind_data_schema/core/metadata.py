@@ -44,18 +44,18 @@ CORE_FILES = [
     "model",
 ]
 
-REQUIRED_FILES = [
-    "subject",
-    "data_description",
-    "procedures",
-    "instrument",
-    "acquisition",
-]
-
-NO_SUBJECT_FILES = [
-    "model",
-    "processing",
-]
+# Files present must include at least one of these "file set" keys,
+# and all files listed in any of the matched sets
+REQUIRED_FILE_SETS = {
+    "subject": [
+        "data_description",
+        "procedures",
+        "instrument",
+        "acquisition",
+    ],
+    "processing": ["data_description"],
+    "model": ["data_description"],
+}
 
 
 class MetadataStatus(str, Enum):
@@ -227,16 +227,15 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
-        # if subject is not present, this better be a model
-        if not getattr(self, "subject"):
-            if any(getattr(self, file) for file in NO_SUBJECT_FILES):
-                if not getattr(self, "data_description"):
-                    warnings.warn("Metadata missing required file: data_description")
-                return self
-        
-        for file in REQUIRED_FILES:
-            if not getattr(self, file):
-                warnings.warn(f"Metadata missing required file: {file}")
+        validated = False
+        for file in REQUIRED_FILE_SETS.keys():
+            if getattr(self, file):
+                for file in REQUIRED_FILE_SETS[file]:
+                    if not getattr(self, file):
+                        warnings.warn(f"Metadata missing required file: {file}")
+                validated = True
+        if not validated:
+            warnings.warn(f"Metadata must contain at least one of the following files: {list(REQUIRED_FILE_SETS.keys())}")
 
         return self
 
