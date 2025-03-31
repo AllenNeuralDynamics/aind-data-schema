@@ -42,6 +42,14 @@ class ImmunolabelClass(str, Enum):
     CONJUGATE = "Conjugate"
 
 
+class StainType(str, Enum):
+   """Stain types for probes describing what is being labeled"""
+
+    RNA = "RNA"
+    NUCLEAR = "Nuclear"
+    FILL = "Fill"
+
+
 class Fluorophore(str, Enum):
     """Fluorophores used in HCR and Immunolabeling"""
 
@@ -159,12 +167,14 @@ class Readout(Reagent):
     fluorophore: Fluorophore = Field(..., title="Fluorophore")
     excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
     excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
+    stain_type: StainType = Field(..., title="Stain type")
 
 
 class HCRReadout(Readout):
     """Description of a readout for HCR"""
 
     initiator_name: str = Field(..., title="Initiator name")
+    stain_type: StainType = Field(..., title="Stain type")
 
 
 class OligoProbe(Reagent):
