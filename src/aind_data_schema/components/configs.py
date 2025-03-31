@@ -431,10 +431,6 @@ class ExcitationPathConfig(DataModel):
     excitation_wavelength: int = Field(..., title="Excitation wavelength", ge=300, le=1000)
     excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
 
-    # emission info
-    emission_wavelength: int = Field(..., title="Emission wavelength", ge=300, le=1000)
-    emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
-
 
 class Channel(DataModel):
     """Configuration of images acquired on a specific channel"""
@@ -443,6 +439,10 @@ class Channel(DataModel):
     image_coordinate_system: CoordinateSystem = Field(..., title="Image coordinate system")
 
     paths: List[ExcitationPathConfig] = Field(..., title="Excitation paths")
+
+    # emission info
+    emission_wavelength: int = Field(..., title="Emission wavelength", ge=300, le=1000)
+    emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
 
     # Not sure which modalities this applies to, spim only?
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
