@@ -180,7 +180,7 @@ class SlapFieldOfView(FieldOfView):
 
     dilation: Scale = Field(..., title="DMD Dilation X/Y")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
-    target: SlapAcquisitionType = Field(..., title="Acquisition type")
+    target_type: SlapAcquisitionType = Field(..., title="Target type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
     path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
