@@ -45577,8 +45577,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.41",
-               "default": "2.0.41",
+               "const": "2.0.42",
+               "default": "2.0.42",
                "title": "Schema Version",
                "type": "string"
             },
@@ -94588,7 +94588,6 @@
          "type": "object"
       }
    },
-   "additionalProperties": false,
    "description": "The records in the Data Asset Collection needs to contain certain fields\nto easily query and index the data.",
    "properties": {
       "object_type": {
@@ -94604,32 +94603,14 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.41",
-         "default": "2.0.41",
+         "const": "2.0.42",
+         "default": "2.0.42",
          "title": "Schema Version",
-         "type": "string"
-      },
-      "_id": {
-         "description": "The unique id of the data asset.",
-         "format": "uuid",
-         "title": "Data Asset ID",
          "type": "string"
       },
       "name": {
          "description": "Name of the data asset.",
          "title": "Data Asset Name",
-         "type": "string"
-      },
-      "created": {
-         "description": "The utc date and time the data asset created.",
-         "format": "date-time",
-         "title": "Created",
-         "type": "string"
-      },
-      "last_modified": {
-         "description": "The utc date and time that the data asset was last modified.",
-         "format": "date-time",
-         "title": "Last Modified",
          "type": "string"
       },
       "location": {
