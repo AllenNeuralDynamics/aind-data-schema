@@ -576,7 +576,7 @@ class MyomatrixContact(DataModel):
     """Description of a contact on a myomatrix thread"""
 
     body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
-    side: Optional[AnatomicalRelative] = Field(default=None, title="Body side", description="None for midline contacts")
+    relative_position: AnatomicalRelative = Field(..., title="Relative position")
     muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
     in_muscle: bool = Field(..., title="In muscle")
 
