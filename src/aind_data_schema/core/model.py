@@ -1,6 +1,6 @@
 """schema describing an analysis model"""
 
-from typing import Any, List, Literal, Optional
+from typing import Annotated, Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.system_architecture import ModelArchitecture
 from pydantic import Field
@@ -42,10 +42,8 @@ class ModelTraining(DataProcess):
 class ModelPretraining(DataModel):
     """Description of model pretraining"""
 
-    performance: List[PerformanceMetric] = Field(..., title="Pretraining performance")
-    source_url: Optional[str] = Field(
-        default=None, title="Pretrained source URL", description="URL for pretrained weights"
-    )
+    performance: Optional[List[PerformanceMetric]] = Field(default=None, title="Pretraining performance")
+    source_url: str = Field(..., title="Pretrained source URL", description="URL for pretrained weights")
 
 
 class Model(DataCoreModel):
@@ -57,16 +55,16 @@ class Model(DataCoreModel):
 
     name: str = Field(..., title="Name")
     version: str = Field(..., title="Version")
-    # this is optional for now, ultimately it should be required
-    # with an option to specify a simple command or script instead of full Code
-    code: Optional[Code] = Field(
-        default=None, title="Code", description="Code to run the model, possibly including reference to sample data"
+    code: Code = Field(
+        title="Code", description="Code to run the model, possibly including reference to sample data"
     )
     architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
     software_framework: Optional[Software] = Field(default=None, title="Software framework")
     parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    training: List[ModelTraining | ModelPretraining] = Field(..., title="Training", min_length=1)
+    training: List[Annotated[Union[ModelTraining, ModelPretraining], Field(discriminator="object_type")]]= Field(
+        ..., title="Training", min_length=1
+    )
     evaluations: List[ModelEvaluation] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
