@@ -266,8 +266,8 @@ class FiberAssemblyConfig(ManipulatorConfig):
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LaserConfig(DataModel):
-    """Description of laser settings in an acquisition"""
+class LightSourceConfig(DataModel):
+    """Description of light source settings in an acquisition"""
 
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
@@ -421,18 +421,18 @@ class Image(DataModel):
 
 
 class ExcitationPathConfig(DataModel):
-    """Configuration of an excitation path"""
+    """Configuration of a light source excitation path"""
 
-    # laser settings
-    laser_config: LaserConfig = Field(..., title="Laser configuration")
+    # light source settings
+    light_source_config: LightSourceConfig = Field(..., title="Laser configuration")
 
     # filters
-    filter_device_names: List[str] = Field(..., title="Filter device names")
+    active_filters: List[str] = Field(..., title="Filter device names")
     excitation_wavelength: int = Field(..., title="Excitation wavelength", ge=300, le=1000)
     excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
 
 
-class Channel(DataModel):
+class ChannelConfig(DataModel):
     """Configuration of images acquired on a specific channel"""
 
     images: List[Image] = Field(..., title="Acquisition tiles")
@@ -449,7 +449,7 @@ class Channel(DataModel):
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
 
 
-class SlapChannel(Channel):
+class SlapChannelConfig(ChannelConfig):
     """Configuration of images acquired on a specific channel in a Slap scan"""
 
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")

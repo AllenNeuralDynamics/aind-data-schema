@@ -11,7 +11,7 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     SubjectDetails,
 )
-from aind_data_schema.components.configs import FieldOfView, LaserConfig
+from aind_data_schema.components.configs import FieldOfView, LightSourceConfig
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -43,7 +43,7 @@ a = Acquisition(
                 "Laser A",
             ],
             configurations=[
-                LaserConfig(
+                LightSourceConfig(
                     device_name="Laser A",
                     wavelength=920,
                     wavelength_unit="nanometer",

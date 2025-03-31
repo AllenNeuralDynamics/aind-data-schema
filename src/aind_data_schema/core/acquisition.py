@@ -14,8 +14,8 @@ from aind_data_schema.components.configs import (
     DomeModule,
     FiberAssemblyConfig,
     FieldOfView,
-    Channel,
-    LaserConfig,
+    ChannelConfig,
+    LightSourceConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
     ManipulatorConfig,
@@ -42,7 +42,7 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
     Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
-    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
+    Modality.FIB: [[LightEmittingDiodeConfig, LightSourceConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
     Modality.MRI: [[MRIScan]],
 }
@@ -111,7 +111,7 @@ class DataStream(DataModel):
         Annotated[
             Union[
                 LightEmittingDiodeConfig,
-                LaserConfig,
+                LightSourceConfig,
                 ManipulatorConfig,
                 DomeModule,
                 DetectorConfig,
@@ -121,7 +121,7 @@ class DataStream(DataModel):
                 SlapFieldOfView,
                 Stack,
                 MRIScan,
-                Channel,
+                ChannelConfig,
                 LickSpoutConfig,
                 AirPuffConfig,
                 ExcitationPathConfig,
@@ -179,7 +179,7 @@ class StimulusEpoch(DataModel):
             Union[
                 SpeakerConfig,
                 LightEmittingDiodeConfig,
-                LaserConfig,
+                LightSourceConfig,
                 MousePlatformConfig,
             ],
             Field(discriminator="object_type"),

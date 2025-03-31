@@ -45,7 +45,7 @@ from aind_data_schema.components.configs import (
     DomeModule,
     PatchCordConfig,
     FiberAssemblyConfig,
-    LaserConfig,
+    LightSourceConfig,
     ManipulatorConfig,
     StimulusModality,
 )
@@ -1079,14 +1079,14 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                         "Fiber B",
                     ],
                     configurations=[
-                        LaserConfig(
+                        LightSourceConfig(
                             device_name="Laser A",
                             wavelength=405,
                             wavelength_unit="nanometer",
                             excitation_power=10,
                             excitation_power_unit="milliwatt",
                         ),
-                        LaserConfig(
+                        LightSourceConfig(
                             device_name="Laser B",
                             wavelength=473,
                             wavelength_unit="nanometer",
@@ -1182,7 +1182,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
     def test_compare_configurations(self):
         """Tests that an error is raised when configuration names do not match"""
         self.ophys_acquisition.data_streams[0].configurations = [
-            LaserConfig(
+            LightSourceConfig(
                 device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"
             ),
         ]

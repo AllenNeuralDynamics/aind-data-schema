@@ -16,7 +16,7 @@ from aind_data_schema.core.acquisition import (
 from aind_data_schema.components.configs import (
     DetectorConfig,
     FieldOfView,
-    LaserConfig,
+    LightSourceConfig,
     StimulusModality,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -47,7 +47,7 @@ a = Acquisition(
                 "Face Camera",
             ],
             configurations=[
-                LaserConfig(
+                LightSourceConfig(
                     device_name="Laser A",
                     wavelength=405,
                     wavelength_unit="nanometer",
