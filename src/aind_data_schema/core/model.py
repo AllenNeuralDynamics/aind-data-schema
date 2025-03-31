@@ -42,7 +42,6 @@ class ModelTraining(DataProcess):
 class ModelPretraining(DataModel):
     """Description of model pretraining"""
 
-    performance: Optional[List[PerformanceMetric]] = Field(default=None, title="Pretraining performance")
     source_url: str = Field(..., title="Pretrained source URL", description="URL for pretrained weights")
 
 
