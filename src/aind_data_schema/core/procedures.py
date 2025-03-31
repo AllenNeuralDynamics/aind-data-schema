@@ -326,7 +326,7 @@ class Anaesthetic(DataModel):
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class OtherSubjectProcedure(DataModel):
+class GenericSubjectProcedure(DataModel):
     """Description of non-surgical procedure performed on a subject"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
@@ -659,7 +659,7 @@ class Surgery(DataModel):
                 BrainInjection,
                 Injection,
                 MyomatrixInsertion,
-                OtherSubjectProcedure,
+                GenericSubjectProcedure,
                 Perfusion,
                 SampleCollection,
             ],
@@ -683,7 +683,7 @@ class Procedures(DataCoreModel):
     )
     subject_procedures: List[
         Annotated[
-            Union[Surgery, TrainingProtocol, WaterRestriction, OtherSubjectProcedure],
+            Union[Surgery, TrainingProtocol, WaterRestriction, GenericSubjectProcedure],
             Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Subject Procedures")
