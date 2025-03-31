@@ -303,20 +303,14 @@ class LightAssembly(Assembly):
     """Named assembly of a light source and lens"""
 
     # required fields
-    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
+    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")] = Field(
+        ...,
+        title="Light source",
+    )
     lens: Lens = Field(..., title="Lens")
 
     # optional fields
     filter: Optional[Filter] = Field(default=None, title="Filter")
-
-
-class ImagingChannelAssembly(Assembly):
-    """Named assembly of a light source, filters, and detector for generating a specific excitation wavelength"""
-
-    # required fields
-    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
-    excitation_filters: List[Filter] = Field(..., title="Excitation filters")
-    detector: Detector = Field(..., title="Detector")
 
 
 class ProbePort(DataModel):

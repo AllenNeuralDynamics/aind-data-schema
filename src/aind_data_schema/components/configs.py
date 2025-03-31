@@ -436,10 +436,10 @@ class ImagingConfig(DeviceConfig):
     # add validator for systems
 
 
-class ImagingChannelConfig(DeviceConfig):
-    """Configuration of an imaging channel assembly"""
+class ExcitationPathConfig(DataModel):
+    """Configuration of an excitation path"""
 
-    # excitation path settings
+    # laser settings
     laser_config: LaserConfig = Field(..., title="Laser configuration")
 
     # emission info
