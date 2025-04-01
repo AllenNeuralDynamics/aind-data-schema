@@ -15,12 +15,13 @@ class Channel(DataModel):
     channel_name: str = Field(..., title="Channel")
     intended_measurement: Optional[str] = Field(default=None, title="Intended measurement",
                                                 description="What signal is this channel measuring")
+    excitation_filters: Optional[List[str]] = Field(default=None, title="Excitation filters")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
     additional_device_names: Optional[List[str]] = Field(default=None, title="Additional device names")
     # excitation
     light_sources: List[str] = Field(..., title="Light sources")
     # emission
-    filters: Optional[List[str]] = Field(default=None, title="Filter names")
+    emission_filters: Optional[List[str]] = Field(default=None, title="Emission filter names")
 
 
 class SlapChannel(Channel):
