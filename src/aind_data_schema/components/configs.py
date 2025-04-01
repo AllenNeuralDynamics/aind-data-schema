@@ -22,7 +22,7 @@ from pydantic_core.core_schema import ValidationInfo
 from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.devices import ImmersionMedium
-from aind_data_schema.components.tile import AcquisitionTile, Channel
+from aind_data_schema.components.tile import Channel, SPIMChannel
 
 
 class StimulusModality(str, Enum):
@@ -87,6 +87,7 @@ class LightEmittingDiodeConfig(DeviceConfig):
 class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
+    channel: Channel = Field(..., title="Channel")
     index: int = Field(..., title="Index")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
@@ -405,7 +406,7 @@ class Immersion(DataModel):
 class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
-    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
+    channels: List[SPIMChannel] = Field(..., title="Channels")
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")

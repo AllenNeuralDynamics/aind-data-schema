@@ -40,9 +40,15 @@ class Tile(DataModel):
 class AcquisitionTile(Tile):
     """Description of acquisition tile"""
 
-    channel: Channel = Field(..., title="Channel")
     notes: Optional[str] = Field(default=None, title="Notes")
     imaging_angle: int = Field(default=0, title="Imaging angle")
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
     acquisition_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition start time")
     acquisition_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition end time")
+
+
+class SPIMChannel(Channel):
+    """Description of a light sheet channel"""
+
+    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
+
