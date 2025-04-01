@@ -1,7 +1,7 @@
 """ Schema for identifiers """
 
 from typing import Optional
-from pathlib import Path
+from pathlib import PurePosixPath
 from pydantic_core import core_schema
 
 from aind_data_schema_models.registries import Registry, _Orcid
@@ -10,7 +10,7 @@ from pydantic import Field, GetCoreSchemaHandler
 from aind_data_schema.base import DataModel, GenericModelType
 
 
-class AssetPath(type(Path())):
+class AssetPath(PurePosixPath):
     """Relative path to a file"""
 
     @classmethod
@@ -40,7 +40,7 @@ class Software(DataModel):
 class Code(DataModel):
     """Code or script identifier"""
 
-    url: str = Field(..., title="Code URL", description="Path to code repository")
+    url: str = Field(..., title="Code URL", description="URL to code repository")
     version: Optional[str] = Field(default=None, title="Code version")
 
     software: Optional[Software] = Field(default=None, title="Software", description="Software package")

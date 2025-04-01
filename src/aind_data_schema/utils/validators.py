@@ -2,7 +2,7 @@
 
 from enum import Enum
 from typing import Any, List, Optional
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import logging
 
 # Fields that should have the same length as the coordinate system axes
@@ -116,6 +116,9 @@ def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
     """
     if isinstance(obj, Enum):
         return
+
+    if isinstance(obj, PurePosixPath):
+        obj = Path(obj)
 
     if isinstance(obj, Path):
         full_path = directory / obj if directory else obj
