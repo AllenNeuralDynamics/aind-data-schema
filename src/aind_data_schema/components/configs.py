@@ -103,7 +103,7 @@ class FieldOfView(AindModel):
     magnification: str = Field(..., title="Magnification")
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
-    frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)")
+    frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
     notes: Optional[str] = Field(default=None, title="Notes")
 
