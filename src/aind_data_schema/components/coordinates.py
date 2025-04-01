@@ -185,7 +185,9 @@ class Affine(DataModel):
 class NonlinearTransform(DataModel):
     """Definition of a nonlinear transform"""
 
-    path: AssetPath = Field(..., title="Path to nonlinear transform file")
+    path: AssetPath = Field(
+        ..., title="Path to nonlinear transform file", description="Relative path from metadata json to file"
+    )
 
 
 class CoordinateSystem(DataModel):
