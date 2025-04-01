@@ -65,7 +65,7 @@ class ModelTests(unittest.TestCase):
                         PerformanceMetric(name="precision", value=0.8),
                         PerformanceMetric(name="recall", value=0.8),
                     ],
-                    test_data="4:1 train/test split",
+                    test_eval_method="random 4:1 train/test split",
                     notes="note on training data selection",
                 )
             ],
