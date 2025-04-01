@@ -67,8 +67,8 @@ class Code(DataModel):
     language: Optional[str] = Field(default=None, title="Programming language", description="Programming language used")
     language_version: Optional[str] = Field(default=None, title="Programming language version")
 
-    input_data: List[Union[DataAsset, CombinedData]] = Field(
-        default=[], title="Input data", description="Input data used in the code or script"
+    input_data: Optional[List[Union[DataAsset, CombinedData]]] = Field(
+        default=None, title="Input data", description="Input data used in the code or script"
     )
     parameters: Optional[GenericModelType] = Field(
         default=None, title="Parameters", description="Parameters used in the code or script"
