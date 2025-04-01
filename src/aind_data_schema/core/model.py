@@ -54,8 +54,8 @@ class Model(DataCoreModel):
 
     name: str = Field(..., title="Name")
     version: str = Field(..., title="Version")
-    code: Code = Field(
-        title="Code", description="Code to run the model, possibly including reference to sample data"
+    example_run_code: Code = Field(
+        title="Example run code", description="Code to run the model, possibly including example parameters/data"
     )
     architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
     software_framework: Optional[Software] = Field(default=None, title="Software framework")
