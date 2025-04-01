@@ -2,13 +2,11 @@
 
 import datetime
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.devices import (
     Filter,
     Laser,
     MotorizedStage,
-    OpticalTable,
     ScanningStage,
 )
 from aind_data_schema.core.instrument import Detector, Instrument, Objective
@@ -47,7 +45,6 @@ laser_1 = Laser(
     name="Ex_445",
     coupling="Single-mode fiber",
     wavelength=445,
-    maximum_power=200,
     serial_number="VL08223M03",
     manufacturer=Organization.VORTRAN,
 )
@@ -56,7 +53,6 @@ laser_2 = Laser(
     name="Ex_488",
     coupling="Single-mode fiber",
     wavelength=488,
-    maximum_power=150,
     serial_number="VL08223M03",
     manufacturer=Organization.VORTRAN,
 )
@@ -65,7 +61,6 @@ laser_3 = Laser(
     name="Ex_561",
     coupling="Single-mode fiber",
     wavelength=561,
-    maximum_power=150,
     serial_number="VL08223M03",
     manufacturer=Organization.VORTRAN,
 )
@@ -74,7 +69,6 @@ laser_4 = Laser(
     name="Ex_594",
     coupling="Single-mode fiber",
     wavelength=594,
-    maximum_power=100,
     serial_number="VL08223M03",
     manufacturer=Organization.VORTRAN,
 )
@@ -83,7 +77,6 @@ laser_5 = Laser(
     name="Ex_639",
     coupling="Single-mode fiber",
     wavelength=639,
-    maximum_power=160,
     serial_number="VL08223M03",
     manufacturer=Organization.VORTRAN,
 )
@@ -92,7 +85,6 @@ laser_6 = Laser(
     name="Ex_690",
     coupling="Single-mode fiber",
     wavelength=690,
-    maximum_power=160,
     serial_number="VL08223M03",
     manufacturer=Organization.VORTRAN,
 )
@@ -101,66 +93,42 @@ filter_1 = Filter(
     name="Em_469",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF01-469/35-25",
-    filter_wheel_index=0,
 )
 
 filter_2 = Filter(
     name="Em_525",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF01-525/45-25",
-    filter_wheel_index=1,
 )
 
 filter_3 = Filter(
     name="Em_593",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF01-593/40-25",
-    filter_wheel_index=2,
 )
 
 filter_4 = Filter(
     name="Em_624",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF01-624/40-25",
-    filter_wheel_index=3,
 )
 
 filter_5 = Filter(
     name="Em_667",
     filter_type="Band pass",
     manufacturer=Organization.CHROMA,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="ET667/30m",
-    filter_wheel_index=4,
 )
 
 filter_6 = Filter(
     name="Em_700",
     filter_type="Long pass",
     manufacturer=Organization.THORLABS,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FELH0700",
-    filter_wheel_index=5,
 )
 
 motorized_stage_1 = MotorizedStage(
@@ -225,22 +193,12 @@ scanning_stage_3 = ScanningStage(
     name="Sample stage Y",
 )
 
-optical_table_1 = OpticalTable(
-    name="Main optical table",
-    length=36,
-    width=48,
-    vibration_control=False,
-    model="VIS2424-IG2-125A",
-    manufacturer=Organization.MKS_NEWPORT,
-)
-
 objectives = [objective_1, objective_2]
 detectors = [detector_1]
 lasers = [laser_1, laser_2, laser_3, laser_4, laser_5, laser_6]
 fluorescence_filters = [filter_1, filter_2, filter_3, filter_4, filter_5, filter_6]
 motorized_stages = [motorized_stage_1, motorized_stage_2, motorized_stage_3, motorized_stage_4, motorized_stage_5]
 scanning_stages = [scanning_stage_1, scanning_stage_2, scanning_stage_3]
-optical_tables = [optical_table_1]
 
 inst = Instrument(
     instrument_id="440_SmartSPIM1_20231004",
@@ -255,7 +213,6 @@ inst = Instrument(
         *fluorescence_filters,
         *motorized_stages,
         *scanning_stages,
-        *optical_tables,
     ],
     temperature_control=False,
 )

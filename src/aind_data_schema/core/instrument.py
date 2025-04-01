@@ -36,13 +36,11 @@ from aind_data_schema.components.devices import (
     LightEmittingDiode,
     Monitor,
     MotorizedStage,
-    MousePlatform,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
-    OpticalTable,
-    PatchCord,
+    FiberPatchCord,
     PockelsCell,
     PolygonalScanner,
     Scanner,
@@ -51,6 +49,7 @@ from aind_data_schema.components.devices import (
     Treadmill,
     Tube,
     Wheel,
+    Computer,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
 from aind_data_schema.utils.validators import recursive_get_all_names
@@ -60,7 +59,7 @@ from aind_data_schema.utils.validators import recursive_get_all_names
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
-    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [PatchCord]],
+    Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
@@ -105,7 +104,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.14"]] = Field(default="2.0.14")
+    schema_version: SkipValidation[Literal["2.0.18"]] = Field(default="2.0.18")
 
     # instrument definition
     instrument_id: str = Field(
@@ -145,7 +144,7 @@ class Instrument(DataCoreModel):
                 EphysAssembly,
                 FiberAssembly,
                 LaserAssembly,
-                PatchCord,
+                FiberPatchCord,
                 Laser,
                 LightEmittingDiode,
                 Lamp,
@@ -160,7 +159,6 @@ class Instrument(DataCoreModel):
                 HarpDevice,
                 NeuropixelsBasestation,
                 OpenEphysAcquisitionBoard,
-                OpticalTable,
                 MotorizedStage,
                 ScanningStage,
                 AdditionalImagingDevice,
@@ -169,8 +167,8 @@ class Instrument(DataCoreModel):
                 Tube,
                 Treadmill,
                 Arena,
-                MousePlatform,
                 DAQDevice,
+                Computer,
                 Device,
             ],
             Field(discriminator="object_type"),

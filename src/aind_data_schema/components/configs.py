@@ -6,6 +6,8 @@ from enum import Enum
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import ImmersionMedium
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
     AngleUnit,
@@ -20,9 +22,9 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Scale, Transform
-from aind_data_schema.components.devices import ImmersionMedium
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.tile import AcquisitionTile, Channel
+from aind_data_schema.components.identifiers import Code
 
 
 class StimulusModality(str, Enum):
@@ -75,6 +77,12 @@ class DetectorConfig(DeviceConfig):
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
+
+    compression: Optional[Code] = Field(
+        default=None,
+        title="Compression",
+        description="Compression algorithm used during acquisition",
+    )
 
 
 class LightEmittingDiodeConfig(DeviceConfig):

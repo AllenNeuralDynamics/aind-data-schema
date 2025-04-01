@@ -2,7 +2,7 @@
 
 from enum import Enum
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Annotated, Dict, List, Optional, Union
 
 from aind_data_schema_models.registries import Registry, _Orcid
 from pydantic import Field
@@ -26,7 +26,7 @@ class DataAsset(DataModel):
 
 
 class CombinedData(DataModel):
-    """Description of multiple data assets"""
+    """Description of a group of data assets"""
 
     assets: List[DataAsset] = Field(..., title="Data assets", min_items=1)
     name: Optional[str] = Field(default=None, title="Name")
@@ -67,8 +67,8 @@ class Code(DataModel):
     language: Optional[str] = Field(default=None, title="Programming language", description="Programming language used")
     language_version: Optional[str] = Field(default=None, title="Programming language version")
 
-    input_data: List[Union[DataAsset, CombinedData]] = Field(
-        default=[], title="Input data", description="Input data used in the code or script"
+    input_data: Optional[List[Annotated[Union[DataAsset, CombinedData], Field(discriminator="object_type")]]] = Field(
+        default=None, title="Input data", description="Input data used in the code or script"
     )
     parameters: Optional[GenericModelType] = Field(
         default=None, title="Parameters", description="Parameters used in the code or script"
