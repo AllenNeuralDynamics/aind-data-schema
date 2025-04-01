@@ -14,7 +14,7 @@ class Channel(DataModel):
 
     channel_name: str = Field(..., title="Channel")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
-    additional_device_names: Optional[List[str]] = Field(default=[], title="Additional device names")
+    additional_device_names: Optional[List[str]] = Field(default=None, title="Additional device names")
     # excitation
     light_sources: List[str] = Field(..., title="Light sources")
     # emission
