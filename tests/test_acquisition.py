@@ -100,12 +100,6 @@ class AcquisitionTest(unittest.TestCase):
         with self.assertRaises(ValidationError):
             MRIScan(scan_sequence_type="Other", notes="")
 
-        # mri_scanner=Scanner(
-        #     name="Scanner 72",
-        #     scanner_location="Fred Hutch",
-        #     magnetic_strength="7",
-        # )
-
         stream = DataStream(
             stream_start_time="2024-03-12T16:27:55.584892Z",
             stream_end_time="2024-03-12T16:27:55.584892Z",

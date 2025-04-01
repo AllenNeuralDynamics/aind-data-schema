@@ -10,7 +10,7 @@
                "title": "Object Type",
                "type": "string"
             },
-            "type": {
+            "anaesthetic_type": {
                "title": "Type",
                "type": "string"
             },
@@ -49,7 +49,7 @@
             }
          },
          "required": [
-            "type",
+            "anaesthetic_type",
             "duration"
          ],
          "title": "Anaesthetic",
@@ -4966,31 +4966,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -7218,31 +7193,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -7871,9 +7821,6 @@
                "anyOf": [
                   {
                      "type": "number"
-                  },
-                  {
-                     "type": "string"
                   },
                   {
                      "type": "null"
@@ -17662,12 +17609,20 @@
                ],
                "default": null,
                "description": "Final titer of viral material, accounting for mixture/diliution",
-               "title": "Effective titer (gc/mL)"
+               "title": "Effective titer"
             },
             "titer_unit": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "gc/mL",
-               "title": "Titer unit",
-               "type": "string"
+               "description": "For example, gc/mL",
+               "title": "Titer unit"
             }
          },
          "required": [
@@ -49094,8 +49049,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.15",
-         "default": "2.0.15",
+         "const": "2.0.17",
+         "default": "2.0.17",
          "title": "Schema Version",
          "type": "string"
       },

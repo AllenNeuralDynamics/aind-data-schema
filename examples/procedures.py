@@ -41,7 +41,7 @@ surgery1 = Surgery(
     ethics_review_id="2109",
     animal_weight_prior=22.6,
     animal_weight_post=22.3,
-    anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
+    anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
     coordinate_system=CoordinateSystem(
         name="SurgerySystem",
         origin=Origin.LAMBDA,

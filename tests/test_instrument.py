@@ -14,7 +14,7 @@ from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
     CameraTarget,
-    ChannelType,
+    OlfactometerChannelType,
     DAQChannel,
     Detector,
     DetectorType,
@@ -30,11 +30,12 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OlfactometerChannel,
-    PatchCord,
+    FiberPatchCord,
     LickSpoutAssembly,
     LickSpout,
     ScanningStage,
     DigitalMicromirrorDevice,
+    Computer,
 )
 from aind_data_schema.components.measurements import Calibration
 
@@ -47,9 +48,13 @@ from aind_data_schema.core.instrument import (
 )
 from aind_data_schema_models.units import SizeUnit
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
+
+computer_foo = Computer(name="foo")
+computer_ASDF = Computer(name="ASDF")
+computer_W10XXX000 = Computer(name="W10XXX000")
 
 daqs = [
     NeuropixelsBasestation(
@@ -59,7 +64,6 @@ daqs = [
         slot=0,
         manufacturer=Organization.IMEC,
         ports=[],
-        computer_name="foo",
         channels=[
             DAQChannel(
                 channel_name="123",
@@ -130,6 +134,61 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["Neuropixels basestation", "foo"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "foo": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["cam", "ASDF"],
+        connection_data={
+            "cam": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "ASDF": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Neuropixels basestation", "foo"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "foo": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Camera A", "ASDF"],
+        connection_data={
+            "Camera A": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "ASDF": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Olfactometer", "W10XXX000"],
+        connection_data={
+            "Olfactometer": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10XXX000": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
 ]
 
 ems = [
@@ -168,7 +227,7 @@ lms = [
         ),
         name="Laser_assembly",
         collimator=Device(name="Collimator A"),
-        fiber=PatchCord(
+        fiber=FiberPatchCord(
             name="Bundle Branching Fiber-optic Patch Cord",
             manufacturer=Organization.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -188,7 +247,6 @@ cameras = [
             detector_type=DetectorType.CAMERA,
             manufacturer=Organization.OTHER,
             data_interface="USB",
-            computer_name="ASDF",
             frame_rate=144,
             frame_rate_unit=FrequencyUnit.HZ,
             sensor_width=1,
@@ -233,7 +291,6 @@ stick_microscopes = [
             detector_type=DetectorType.CAMERA,
             manufacturer=Organization.OTHER,
             data_interface="USB",
-            computer_name="ASDF",
             frame_rate=144,
             frame_rate_unit=FrequencyUnit.HZ,
             sensor_width=1,
@@ -274,7 +331,7 @@ detectors = [
     )
 ]
 patch_cords = [
-    PatchCord(
+    FiberPatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -300,16 +357,15 @@ stimulus_devices = [
         serial_number="213456",
         hardware_version="1",
         is_clock_generator=False,
-        computer_name="W10XXX000",
         channels=[
             OlfactometerChannel(
                 channel_index=0,
-                channel_type=ChannelType.CARRIER,
+                channel_type=OlfactometerChannelType.CARRIER,
                 flow_capacity=100,
             ),
             OlfactometerChannel(
                 channel_index=1,
-                channel_type=ChannelType.ODOR,
+                channel_type=OlfactometerChannelType.ODOR,
                 flow_capacity=100,
             ),
         ],
@@ -373,6 +429,9 @@ class InstrumentTests(unittest.TestCase):
                 *stimulus_devices,
                 scan_stage,
                 Disc(name="Disc A", radius=1),
+                computer_ASDF,
+                computer_foo,
+                computer_W10XXX000,
             ],
             connections=connections,
             calibrations=[
@@ -618,7 +677,6 @@ class InstrumentTests(unittest.TestCase):
                 detector_type=DetectorType.CAMERA,
                 manufacturer=Organization.OTHER,
                 data_interface="USB",
-                computer_name="ASDF",
                 frame_rate=144,
                 frame_rate_unit=FrequencyUnit.HZ,
                 sensor_width=1,
@@ -649,9 +707,22 @@ class InstrumentTests(unittest.TestCase):
                 scan_stage,
                 Disc(name="Disc A", radius=1),
                 camera,
+                computer_ASDF,
             ],
             calibrations=[],
-            connections=[],
+            connections=[
+                Connection(
+                    device_names=["Camera A", "ASDF"],
+                    connection_data={
+                        "Camera A": ConnectionData(
+                            direction=ConnectionDirection.SEND,
+                        ),
+                        "ASDF": ConnectionData(
+                            direction=ConnectionDirection.RECEIVE,
+                        ),
+                    },
+                )
+            ],
         )
         self.assertIsNotNone(inst)
 

@@ -31,10 +31,10 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
     Coordinate,
     Origin,
-    AnatomicalRelative,
     Rotation,
     CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit
 

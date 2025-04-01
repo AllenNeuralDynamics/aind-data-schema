@@ -17,8 +17,8 @@ from aind_data_schema.components.configs import MRIScan, MriScanSequence, ScanTy
 
 mri_scanner = Scanner(
     name="Scanner 72",
-    scanner_location="Fred Hutch",
-    magnetic_strength="7",
+    magnetic_strength=7,
+    magnetic_strength_unit="tesla",
 )
 
 scan1 = MRIScan(
