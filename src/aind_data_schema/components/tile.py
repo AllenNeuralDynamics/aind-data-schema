@@ -35,20 +35,15 @@ class Tile(DataModel):
 
     coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
-
-
-class AcquisitionTile(Tile):
-    """Description of acquisition tile"""
-
-    notes: Optional[str] = Field(default=None, title="Notes")
     imaging_angle: int = Field(default=0, title="Imaging angle")
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
-    acquisition_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition start time")
-    acquisition_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Acquisition end time")
+    tile_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Tile acquisition start time")
+    tile_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Tile acquisition end time")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class SPIMChannel(Channel):
     """Description of a light sheet channel"""
 
-    tiles: List[AcquisitionTile] = Field(..., title="Acquisition tiles")
+    tiles: List[Tile] = Field(..., title="Tiles")
 
