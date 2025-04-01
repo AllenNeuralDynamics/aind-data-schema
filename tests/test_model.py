@@ -28,9 +28,8 @@ class ModelTests(unittest.TestCase):
             name="2024_01_01_ResNet18_SmartSPIM",
             version="0.1",
             architecture=ModelArchitecture.RESNET,
-            parameters={
+            properties={
                 "layers": 18,
-                "downsample": 1,
                 "input_shape": [14, 14, 26],
             },
             software_framework=Software(
