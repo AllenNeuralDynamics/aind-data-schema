@@ -54,10 +54,10 @@ from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionComp
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     Coordinate,
     CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -256,7 +256,8 @@ filt = Filter(
     name="LP filter",
     filter_type="Long pass",
     manufacturer=Organization.THORLABS,
-    description="850 nm longpass filter",
+    cut_on_wavelength=850,
+    wavelength_unit=SizeUnit.NM,
 )
 
 lens = Lens(
@@ -811,7 +812,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="FF01-520/35-25",
                 filter_type="Band pass",
                 center_wavelength=520,
-                diameter=25,
             ),
             d.Filter(
                 name="Red emission filter",
@@ -819,15 +819,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="FF01-600/37-25",
                 filter_type="Band pass",
                 center_wavelength=600,
-                diameter=25,
             ),
             d.Filter(
                 name="Emission Dichroic",
                 model="FF562-Di03-25x36",
                 manufacturer=d.Organization.SEMROCK,
                 filter_type="Dichroic",
-                height=25,
-                width=36,
                 cut_off_wavelength=562,
             ),
             d.Filter(
@@ -836,15 +833,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 manufacturer=d.Organization.SEMROCK,
                 notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
                 filter_type="Multiband",
-                width=36,
-                height=24,
             ),
             d.Filter(
                 name="Excitation filter 410nm",
                 manufacturer=d.Organization.THORLABS,
                 model="FB410-10",
                 filter_type="Band pass",
-                diameter=25,
                 center_wavelength=410,
             ),
             d.Filter(
@@ -853,14 +847,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="FB470-10",
                 filter_type="Band pass",
                 center_wavelength=470,
-                diameter=25,
             ),
             d.Filter(
                 name="Excitation filter 560nm",
                 manufacturer=d.Organization.THORLABS,
                 model="FB560-10",
                 filter_type="Band pass",
-                diameter=25,
                 center_wavelength=560,
             ),
             d.Filter(
@@ -869,8 +861,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="#69-898",
                 filter_type="Dichroic",
                 cut_off_wavelength=450,
-                width=35.6,
-                height=25.2,
             ),
             d.Filter(
                 name="500 Dichroic Longpass Filter",
@@ -878,8 +868,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="#69-899",
                 filter_type="Dichroic",
                 cut_off_wavelength=500,
-                width=35.6,
-                height=23.2,
             ),
         ]
         lenses = [

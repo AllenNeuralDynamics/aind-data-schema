@@ -15,6 +15,7 @@ d = DataDescription(
     institution=Organization.AIND,
     investigators=[Person(name="Jane Smith")],
     funding_source=[Funding(funder=Organization.AI)],
+    project_name="Example project",
     data_level="raw",
 )
 

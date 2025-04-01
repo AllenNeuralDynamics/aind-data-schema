@@ -9,8 +9,9 @@ import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
-from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.measurements import Calibration
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema.components.devices import Computer
 
 bonsai_software = Software(name="Bonsai", version="2.5")
@@ -164,7 +165,6 @@ filter_1 = d.Filter(
     model="FF01-520/35-25",
     filter_type="Band pass",
     center_wavelength=520,
-    diameter=25,
 )
 
 filter_2 = d.Filter(
@@ -173,7 +173,6 @@ filter_2 = d.Filter(
     model="FF01-600/37-25",
     filter_type="Band pass",
     center_wavelength=600,
-    diameter=25,
 )
 
 filter_3 = d.Filter(
@@ -181,8 +180,6 @@ filter_3 = d.Filter(
     model="FF562-Di03-25x36",
     manufacturer=d.Organization.SEMROCK,
     filter_type="Dichroic",
-    height=25,
-    width=36,
     cut_off_wavelength=562,
 )
 
@@ -192,8 +189,6 @@ filter_4 = d.Filter(
     manufacturer=d.Organization.SEMROCK,
     notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
     filter_type="Multiband",
-    width=36,
-    height=24,
 )
 
 filter_5 = d.Filter(
@@ -201,7 +196,6 @@ filter_5 = d.Filter(
     manufacturer=d.Organization.THORLABS,
     model="FB410-10",
     filter_type="Band pass",
-    diameter=25,
     center_wavelength=410,
 )
 
@@ -211,7 +205,6 @@ filter_6 = d.Filter(
     model="FB470-10",
     filter_type="Band pass",
     center_wavelength=470,
-    diameter=25,
 )
 
 filter_7 = d.Filter(
@@ -219,7 +212,6 @@ filter_7 = d.Filter(
     manufacturer=d.Organization.THORLABS,
     model="FB560-10",
     filter_type="Band pass",
-    diameter=25,
     center_wavelength=560,
 )
 
@@ -229,8 +221,6 @@ filter_8 = d.Filter(
     model="#69-898",
     filter_type="Dichroic",
     cut_off_wavelength=450,
-    width=35.6,
-    height=25.2,
 )
 
 filter_9 = d.Filter(
@@ -239,8 +229,6 @@ filter_9 = d.Filter(
     model="#69-899",
     filter_type="Dichroic",
     cut_off_wavelength=500,
-    width=35.6,
-    height=23.2,
 )
 
 lens = d.Lens(

@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, Set, Union
 
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -25,7 +26,7 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Origin
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
@@ -328,7 +329,7 @@ class SpecimenProcedure(DataModel):
 class Anaesthetic(DataModel):
     """Description of an anaesthetic"""
 
-    type: str = Field(..., title="Type")
+    anaesthetic_type: str = Field(..., title="Type")
     duration: Decimal = Field(..., title="Duration")
     duration_unit: TimeUnit = Field(default=TimeUnit.M, title="Duration unit")
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
@@ -447,17 +448,17 @@ class ViralMaterial(DataModel):
     addgene_id: Optional[PIDName] = Field(default=None, title="Addgene id", description="Registry must be Addgene")
     titer: Optional[int] = Field(
         default=None,
-        title="Effective titer (gc/mL)",
+        title="Effective titer",
         description="Final titer of viral material, accounting for mixture/diliution",
     )
-    titer_unit: str = Field(default="gc/mL", title="Titer unit")
+    titer_unit: Optional[str] = Field(default="gc/mL", title="Titer unit", description="For example, gc/mL")
 
 
 class NonViralMaterial(Reagent):
     """Description of a non-viral injection material"""
 
     material_type: Literal["Reagent"] = Field(default="Reagent", title="Injection material type")
-    concentration: Optional[Decimal] = Field(
+    concentration: Optional[float] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
     concentration_unit: Optional[str] = Field(
@@ -676,7 +677,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.15"]] = Field(default="2.0.15")
+    schema_version: SkipValidation[Literal["2.0.17"]] = Field(default="2.0.17")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

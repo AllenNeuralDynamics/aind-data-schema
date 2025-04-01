@@ -198,7 +198,7 @@
                "title": "Object Type",
                "type": "string"
             },
-            "type": {
+            "anaesthetic_type": {
                "title": "Type",
                "type": "string"
             },
@@ -237,7 +237,7 @@
             }
          },
          "required": [
-            "type",
+            "anaesthetic_type",
             "duration"
          ],
          "title": "Anaesthetic",
@@ -420,6 +420,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Input unit"
@@ -485,6 +491,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Output unit"
@@ -12322,6 +12334,16 @@
          ],
          "title": "MRIScan",
          "type": "object"
+      },
+      "MagneticFieldUnit": {
+         "description": "Magnetic field units",
+         "enum": [
+            "tesla",
+            "millitesla",
+            "microtesla"
+         ],
+         "title": "MagneticFieldUnit",
+         "type": "string"
       },
       "Maintenance": {
          "additionalProperties": false,
@@ -59289,8 +59311,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.14",
-         "default": "2.0.14",
+         "const": "2.0.16",
+         "default": "2.0.16",
          "title": "Schema Version",
          "type": "string"
       },

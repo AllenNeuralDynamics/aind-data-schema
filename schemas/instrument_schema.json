@@ -468,31 +468,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -996,31 +971,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -1555,31 +1505,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -1603,31 +1528,6 @@
                ],
                "default": null,
                "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
             },
             "size": {
                "$ref": "#/$defs/Scale",
@@ -1790,6 +1690,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Input unit"
@@ -1855,6 +1761,12 @@
                   },
                   {
                      "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
                   }
                ],
                "title": "Output unit"
@@ -1980,31 +1892,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -2864,31 +2751,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -3305,31 +3167,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -3519,31 +3356,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -4324,31 +4136,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -4857,31 +4644,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -5498,31 +5260,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -5546,31 +5283,6 @@
                ],
                "default": null,
                "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
             },
             "radius": {
                "anyOf": [
@@ -5639,6 +5351,18 @@
                "default": null,
                "description": "Firmware to read from decoder chip counts",
                "title": "Encoder firmware"
+            },
+            "surface_material": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Surface material"
             }
          },
          "required": [
@@ -6116,31 +5840,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -6174,8 +5873,16 @@
                "title": "Size unit"
             },
             "internal_material": {
-               "title": "Internal material",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Internal material"
             },
             "external_material": {
                "title": "External material",
@@ -6198,7 +5905,6 @@
             "name",
             "size",
             "size_unit",
-            "internal_material",
             "external_material",
             "grounded",
             "laser_interlock",
@@ -6707,31 +6413,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -7299,31 +6980,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -7860,31 +7516,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -8062,31 +7693,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -8114,96 +7720,6 @@
             "filter_type": {
                "$ref": "#/$defs/FilterType",
                "title": "Type of filter"
-            },
-            "diameter": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Diameter (mm)"
-            },
-            "width": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Width (mm)"
-            },
-            "height": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Height (mm)"
-            },
-            "size_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "millimeter",
-               "title": "Size unit"
-            },
-            "thickness": {
-               "anyOf": [
-                  {
-                     "minimum": 0.0,
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Thickness (mm)"
-            },
-            "thickness_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Thickness unit"
-            },
-            "filter_wheel_index": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Filter wheel index"
             },
             "cut_off_wavelength": {
                "anyOf": [
@@ -8245,19 +7761,6 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
-            },
-            "description": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "More details about filter properties and where/how it is being used",
-               "title": "Description"
             }
          },
          "required": [
@@ -8767,31 +8270,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -9468,31 +8946,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -9649,31 +9102,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -9706,21 +9134,6 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
-            },
-            "maximum_power": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Maximum power (mW)"
             },
             "power_unit": {
                "$ref": "#/$defs/PowerUnit",
@@ -9761,18 +9174,6 @@
                "default": "percent",
                "title": "Coupling efficiency unit",
                "type": "string"
-            },
-            "item_number": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Item number"
             }
          },
          "required": [
@@ -9938,31 +9339,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -10017,7 +9393,7 @@
             "size": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/LensSize"
+                     "type": "number"
                   },
                   {
                      "type": "null"
@@ -10067,15 +9443,6 @@
          ],
          "title": "Lens",
          "type": "object"
-      },
-      "LensSize": {
-         "description": "Lens size value",
-         "enum": [
-            1,
-            2
-         ],
-         "title": "LensSize",
-         "type": "integer"
       },
       "LickSensorType": {
          "description": "Type of lick sensor",
@@ -10555,31 +9922,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -10754,31 +10096,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -10920,14 +10237,15 @@
          "title": "LiquidCalibration",
          "type": "object"
       },
-      "MagneticStrength": {
-         "description": "Strength of magnet",
+      "MagneticFieldUnit": {
+         "description": "Magnetic field units",
          "enum": [
-            7,
-            14
+            "tesla",
+            "millitesla",
+            "microtesla"
          ],
-         "title": "MagneticStrength",
-         "type": "integer"
+         "title": "MagneticFieldUnit",
+         "type": "string"
       },
       "Manipulator": {
          "additionalProperties": false,
@@ -10984,31 +10302,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -11127,31 +10420,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -11742,31 +11010,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -11887,31 +11130,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -12473,31 +11691,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -12663,31 +11856,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -12938,31 +12106,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -13038,579 +12181,6 @@
             "ports"
          ],
          "title": "OpenEphysAcquisitionBoard",
-         "type": "object"
-      },
-      "OpticalTable": {
-         "additionalProperties": false,
-         "description": "Description of Optical Table",
-         "properties": {
-            "object_type": {
-               "const": "Optical table",
-               "default": "Optical table",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "title": "Device name",
-               "type": "string"
-            },
-            "serial_number": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Serial number"
-            },
-            "manufacturer": {
-               "anyOf": [
-                  {
-                     "discriminator": {
-                        "mapping": {
-                           "AA Opto Electronic": "#/$defs/_Aa_Opto_Electronic",
-                           "ASUS": "#/$defs/_Asus",
-                           "Abcam": "#/$defs/_Abcam",
-                           "Addgene": "#/$defs/aind_data_schema_models__organizations___Addgene",
-                           "Ailipu Technology Co": "#/$defs/_Ailipu_Technology_Co",
-                           "Allen Institute": "#/$defs/_Allen_Institute",
-                           "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
-                           "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
-                           "Allied": "#/$defs/_Allied",
-                           "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
-                           "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
-                           "Basler": "#/$defs/_Basler",
-                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
-                           "Boston University": "#/$defs/_Boston_University",
-                           "Cambridge Technology": "#/$defs/_Cambridge_Technology",
-                           "Carl Zeiss": "#/$defs/_Carl_Zeiss",
-                           "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
-                           "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
-                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
-                           "Chroma": "#/$defs/_Chroma",
-                           "Coherent Scientific": "#/$defs/_Coherent_Scientific",
-                           "Columbia University": "#/$defs/_Columbia_University",
-                           "Computar": "#/$defs/_Computar",
-                           "Conoptics": "#/$defs/_Conoptics",
-                           "Custom": "#/$defs/_Custom",
-                           "DigiKey": "#/$defs/_Digikey",
-                           "Dodotronic": "#/$defs/_Dodotronic",
-                           "Doric": "#/$defs/_Doric",
-                           "Ealing": "#/$defs/_Ealing",
-                           "Edmund Optics": "#/$defs/_Edmund_Optics",
-                           "Emory University": "#/$defs/_Emory_University",
-                           "Euresys": "#/$defs/_Euresys",
-                           "Fujinon": "#/$defs/_Fujinon",
-                           "Hamamatsu": "#/$defs/_Hamamatsu",
-                           "Hamilton": "#/$defs/_Hamilton",
-                           "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
-                           "IR Robot Co": "#/$defs/_Ir_Robot_Co",
-                           "ISL Products International": "#/$defs/_Isl_Products_International",
-                           "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
-                           "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
-                           "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
-                           "Invitrogen": "#/$defs/_Invitrogen",
-                           "Item": "#/$defs/_Item",
-                           "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
-                           "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
-                           "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
-                           "Julabo": "#/$defs/_Julabo",
-                           "Kowa": "#/$defs/_Kowa",
-                           "LG": "#/$defs/_Lg",
-                           "Leica": "#/$defs/_Leica",
-                           "LifeCanvas": "#/$defs/_Lifecanvas",
-                           "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
-                           "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
-                           "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
-                           "MKS Newport": "#/$defs/_Mks_Newport",
-                           "MPI": "#/$defs/_Mpi",
-                           "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
-                           "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
-                           "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
-                           "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
-                           "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
-                           "Mitutuyo": "#/$defs/_Mitutuyo",
-                           "NResearch Inc": "#/$defs/_Nresearch_Inc",
-                           "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
-                           "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
-                           "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
-                           "National Instruments": "#/$defs/_National_Instruments",
-                           "Navitar": "#/$defs/_Navitar",
-                           "Neurophotometrics": "#/$defs/_Neurophotometrics",
-                           "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
-                           "New York University": "#/$defs/_New_York_University",
-                           "Nikon": "#/$defs/_Nikon",
-                           "Olympus": "#/$defs/_Olympus",
-                           "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
-                           "Optotune": "#/$defs/_Optotune",
-                           "Other": "#/$defs/_Other",
-                           "Oxxius": "#/$defs/_Oxxius",
-                           "Placid Industries": "#/$defs/_Placid_Industries",
-                           "Prizmatix": "#/$defs/_Prizmatix",
-                           "Quantifi": "#/$defs/_Quantifi",
-                           "Raspberry Pi": "#/$defs/_Raspberry_Pi",
-                           "SICGEN": "#/$defs/_Sicgen",
-                           "Same Sky": "#/$defs/_Same_Sky",
-                           "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
-                           "Second Order Effects": "#/$defs/_Second_Order_Effects",
-                           "Semrock": "#/$defs/_Semrock",
-                           "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
-                           "Simons Foundation": "#/$defs/_Simons_Foundation",
-                           "Spinnaker": "#/$defs/_Spinnaker",
-                           "Tamron": "#/$defs/_Tamron",
-                           "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
-                           "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
-                           "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
-                           "The Imaging Source": "#/$defs/_The_Imaging_Source",
-                           "The Lee Company": "#/$defs/_The_Lee_Company",
-                           "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
-                           "Thorlabs": "#/$defs/_Thorlabs",
-                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
-                           "Tymphany": "#/$defs/_Tymphany",
-                           "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
-                           "Vieworks": "#/$defs/_Vieworks",
-                           "Vortran": "#/$defs/_Vortran",
-                           "ams OSRAM": "#/$defs/_Ams_Osram"
-                        },
-                        "propertyName": "name"
-                     },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/_Aa_Opto_Electronic"
-                        },
-                        {
-                           "$ref": "#/$defs/_Asus"
-                        },
-                        {
-                           "$ref": "#/$defs/_Abcam"
-                        },
-                        {
-                           "$ref": "#/$defs/aind_data_schema_models__organizations___Addgene"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ailipu_Technology_Co"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allen_Institute"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allied"
-                        },
-                        {
-                           "$ref": "#/$defs/_Applied_Scientific_Instrumentation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Arecont_Vision_Costar"
-                        },
-                        {
-                           "$ref": "#/$defs/_Basler"
-                        },
-                        {
-                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Cambridge_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_Carl_Zeiss"
-                        },
-                        {
-                           "$ref": "#/$defs/_Champalimaud_Foundation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
-                        },
-                        {
-                           "$ref": "#/$defs/_Charles_River_Laboratories"
-                        },
-                        {
-                           "$ref": "#/$defs/_Chroma"
-                        },
-                        {
-                           "$ref": "#/$defs/_Coherent_Scientific"
-                        },
-                        {
-                           "$ref": "#/$defs/_Columbia_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Computar"
-                        },
-                        {
-                           "$ref": "#/$defs/_Conoptics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Custom"
-                        },
-                        {
-                           "$ref": "#/$defs/_Digikey"
-                        },
-                        {
-                           "$ref": "#/$defs/_Dodotronic"
-                        },
-                        {
-                           "$ref": "#/$defs/_Doric"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ealing"
-                        },
-                        {
-                           "$ref": "#/$defs/_Edmund_Optics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Emory_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Euresys"
-                        },
-                        {
-                           "$ref": "#/$defs/_Fujinon"
-                        },
-                        {
-                           "$ref": "#/$defs/_Hamamatsu"
-                        },
-                        {
-                           "$ref": "#/$defs/_Hamilton"
-                        },
-                        {
-                           "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ir_Robot_Co"
-                        },
-                        {
-                           "$ref": "#/$defs/_Isl_Products_International"
-                        },
-                        {
-                           "$ref": "#/$defs/_Infinity_Photo_Optical"
-                        },
-                        {
-                           "$ref": "#/$defs/_Integrated_Dna_Technologies"
-                        },
-                        {
-                           "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
-                        },
-                        {
-                           "$ref": "#/$defs/_Invitrogen"
-                        },
-                        {
-                           "$ref": "#/$defs/_Item"
-                        },
-                        {
-                           "$ref": "#/$defs/_Jackson_Laboratory"
-                        },
-                        {
-                           "$ref": "#/$defs/_Janelia_Research_Campus"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Julabo"
-                        },
-                        {
-                           "$ref": "#/$defs/_Kowa"
-                        },
-                        {
-                           "$ref": "#/$defs/_Lg"
-                        },
-                        {
-                           "$ref": "#/$defs/_Leica"
-                        },
-                        {
-                           "$ref": "#/$defs/_Lifecanvas"
-                        },
-                        {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mbf_Bioscience"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mks_Newport"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mpi"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Meadowlark_Optics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Midwest_Optical_Systems_Inc_"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mitutuyo"
-                        },
-                        {
-                           "$ref": "#/$defs/_Nresearch_Inc"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Instruments"
-                        },
-                        {
-                           "$ref": "#/$defs/_Navitar"
-                        },
-                        {
-                           "$ref": "#/$defs/_Neurophotometrics"
-                        },
-                        {
-                           "$ref": "#/$defs/_New_Scale_Technologies"
-                        },
-                        {
-                           "$ref": "#/$defs/_New_York_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Nikon"
-                        },
-                        {
-                           "$ref": "#/$defs/_Olympus"
-                        },
-                        {
-                           "$ref": "#/$defs/_Open_Ephys_Production_Site"
-                        },
-                        {
-                           "$ref": "#/$defs/_Optotune"
-                        },
-                        {
-                           "$ref": "#/$defs/_Other"
-                        },
-                        {
-                           "$ref": "#/$defs/_Oxxius"
-                        },
-                        {
-                           "$ref": "#/$defs/_Placid_Industries"
-                        },
-                        {
-                           "$ref": "#/$defs/_Prizmatix"
-                        },
-                        {
-                           "$ref": "#/$defs/_Quantifi"
-                        },
-                        {
-                           "$ref": "#/$defs/_Raspberry_Pi"
-                        },
-                        {
-                           "$ref": "#/$defs/_Sicgen"
-                        },
-                        {
-                           "$ref": "#/$defs/_Same_Sky"
-                        },
-                        {
-                           "$ref": "#/$defs/_Schneider_Kreuznach"
-                        },
-                        {
-                           "$ref": "#/$defs/_Second_Order_Effects"
-                        },
-                        {
-                           "$ref": "#/$defs/_Semrock"
-                        },
-                        {
-                           "$ref": "#/$defs/_Sigma_Aldrich"
-                        },
-                        {
-                           "$ref": "#/$defs/_Simons_Foundation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Spinnaker"
-                        },
-                        {
-                           "$ref": "#/$defs/_Tamron"
-                        },
-                        {
-                           "$ref": "#/$defs/_Technical_Manufacturing_Corporation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Teledyne_Flir"
-                        },
-                        {
-                           "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
-                        },
-                        {
-                           "$ref": "#/$defs/_The_Imaging_Source"
-                        },
-                        {
-                           "$ref": "#/$defs/_The_Lee_Company"
-                        },
-                        {
-                           "$ref": "#/$defs/_Thermo_Fisher_Scientific"
-                        },
-                        {
-                           "$ref": "#/$defs/_Thorlabs"
-                        },
-                        {
-                           "$ref": "#/$defs/_Transducer_Techniques"
-                        },
-                        {
-                           "$ref": "#/$defs/_Tymphany"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Vieworks"
-                        },
-                        {
-                           "$ref": "#/$defs/_Vortran"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ams_Osram"
-                        }
-                     ]
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Manufacturer"
-            },
-            "model": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
-            "additional_settings": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/GenericModel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Additional parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "length": {
-               "anyOf": [
-                  {
-                     "minimum": 0.0,
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Length (inches)"
-            },
-            "width": {
-               "anyOf": [
-                  {
-                     "minimum": 0.0,
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Width (inches)"
-            },
-            "table_size_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "inch",
-               "title": "Table size unit"
-            },
-            "vibration_control": {
-               "anyOf": [
-                  {
-                     "type": "boolean"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Vibration control"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "OpticalTable",
          "type": "object"
       },
       "Origin": {
@@ -14104,31 +12674,6 @@
                ],
                "default": null,
                "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
             },
             "additional_settings": {
                "anyOf": [
@@ -14704,31 +13249,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -14783,6 +13303,16 @@
             "percent"
          ],
          "title": "PowerUnit",
+         "type": "string"
+      },
+      "PressureUnit": {
+         "description": "Enumeration of Pressure Measurements",
+         "enum": [
+            "millipascal",
+            "pascal",
+            "kilopascal"
+         ],
+         "title": "PressureUnit",
          "type": "string"
       },
       "ProbeModel": {
@@ -15352,31 +13882,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -15401,36 +13906,22 @@
                "default": null,
                "title": "Notes"
             },
-            "scanner_location": {
-               "$ref": "#/$defs/ScannerLocation",
-               "title": "Scanner location"
-            },
             "magnetic_strength": {
-               "$ref": "#/$defs/MagneticStrength",
-               "title": "Magnetic strength (T)"
+               "title": "Magnetic strength (T)",
+               "type": "number"
             },
             "magnetic_strength_unit": {
-               "default": "T",
-               "title": "Magnetic strength unit",
-               "type": "string"
+               "$ref": "#/$defs/MagneticFieldUnit",
+               "title": "Magnetic strength unit"
             }
          },
          "required": [
             "name",
-            "scanner_location",
-            "magnetic_strength"
+            "magnetic_strength",
+            "magnetic_strength_unit"
          ],
          "title": "Scanner",
          "type": "object"
-      },
-      "ScannerLocation": {
-         "description": "location of scanner",
-         "enum": [
-            "Fred Hutch",
-            "UW SLU"
-         ],
-         "title": "ScannerLocation",
-         "type": "string"
       },
       "ScanningStage": {
          "additionalProperties": false,
@@ -15900,31 +14391,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -16116,31 +14582,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -16211,555 +14652,6 @@
          ],
          "title": "StageAxisDirection",
          "type": "string"
-      },
-      "SubjectPlatform": {
-         "additionalProperties": false,
-         "description": "Description of a subject platform",
-         "properties": {
-            "object_type": {
-               "const": "Subject platform",
-               "default": "Subject platform",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "title": "Device name",
-               "type": "string"
-            },
-            "serial_number": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Serial number"
-            },
-            "manufacturer": {
-               "anyOf": [
-                  {
-                     "discriminator": {
-                        "mapping": {
-                           "AA Opto Electronic": "#/$defs/_Aa_Opto_Electronic",
-                           "ASUS": "#/$defs/_Asus",
-                           "Abcam": "#/$defs/_Abcam",
-                           "Addgene": "#/$defs/aind_data_schema_models__organizations___Addgene",
-                           "Ailipu Technology Co": "#/$defs/_Ailipu_Technology_Co",
-                           "Allen Institute": "#/$defs/_Allen_Institute",
-                           "Allen Institute for Brain Science": "#/$defs/_Allen_Institute_For_Brain_Science",
-                           "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
-                           "Allied": "#/$defs/_Allied",
-                           "Applied Scientific Instrumentation": "#/$defs/_Applied_Scientific_Instrumentation",
-                           "Arecont Vision Costar": "#/$defs/_Arecont_Vision_Costar",
-                           "Basler": "#/$defs/_Basler",
-                           "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
-                           "Boston University": "#/$defs/_Boston_University",
-                           "Cambridge Technology": "#/$defs/_Cambridge_Technology",
-                           "Carl Zeiss": "#/$defs/_Carl_Zeiss",
-                           "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
-                           "Chan Zuckerberg Initiative": "#/$defs/_Chan_Zuckerberg_Initiative",
-                           "Charles River Laboratories": "#/$defs/_Charles_River_Laboratories",
-                           "Chroma": "#/$defs/_Chroma",
-                           "Coherent Scientific": "#/$defs/_Coherent_Scientific",
-                           "Columbia University": "#/$defs/_Columbia_University",
-                           "Computar": "#/$defs/_Computar",
-                           "Conoptics": "#/$defs/_Conoptics",
-                           "Custom": "#/$defs/_Custom",
-                           "DigiKey": "#/$defs/_Digikey",
-                           "Dodotronic": "#/$defs/_Dodotronic",
-                           "Doric": "#/$defs/_Doric",
-                           "Ealing": "#/$defs/_Ealing",
-                           "Edmund Optics": "#/$defs/_Edmund_Optics",
-                           "Emory University": "#/$defs/_Emory_University",
-                           "Euresys": "#/$defs/_Euresys",
-                           "Fujinon": "#/$defs/_Fujinon",
-                           "Hamamatsu": "#/$defs/_Hamamatsu",
-                           "Hamilton": "#/$defs/_Hamilton",
-                           "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
-                           "IR Robot Co": "#/$defs/_Ir_Robot_Co",
-                           "ISL Products International": "#/$defs/_Isl_Products_International",
-                           "Infinity Photo-Optical": "#/$defs/_Infinity_Photo_Optical",
-                           "Integrated DNA Technologies": "#/$defs/_Integrated_Dna_Technologies",
-                           "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
-                           "Invitrogen": "#/$defs/_Invitrogen",
-                           "Item": "#/$defs/_Item",
-                           "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
-                           "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
-                           "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
-                           "Julabo": "#/$defs/_Julabo",
-                           "Kowa": "#/$defs/_Kowa",
-                           "LG": "#/$defs/_Lg",
-                           "Leica": "#/$defs/_Leica",
-                           "LifeCanvas": "#/$defs/_Lifecanvas",
-                           "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
-                           "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
-                           "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
-                           "MKS Newport": "#/$defs/_Mks_Newport",
-                           "MPI": "#/$defs/_Mpi",
-                           "Massachusetts Institute of Technology": "#/$defs/_Massachusetts_Institute_Of_Technology",
-                           "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
-                           "Meadowlark Optics": "#/$defs/_Meadowlark_Optics",
-                           "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
-                           "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
-                           "Mitutuyo": "#/$defs/_Mitutuyo",
-                           "NResearch Inc": "#/$defs/_Nresearch_Inc",
-                           "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
-                           "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
-                           "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
-                           "National Instruments": "#/$defs/_National_Instruments",
-                           "Navitar": "#/$defs/_Navitar",
-                           "Neurophotometrics": "#/$defs/_Neurophotometrics",
-                           "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
-                           "New York University": "#/$defs/_New_York_University",
-                           "Nikon": "#/$defs/_Nikon",
-                           "Olympus": "#/$defs/_Olympus",
-                           "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
-                           "Optotune": "#/$defs/_Optotune",
-                           "Other": "#/$defs/_Other",
-                           "Oxxius": "#/$defs/_Oxxius",
-                           "Placid Industries": "#/$defs/_Placid_Industries",
-                           "Prizmatix": "#/$defs/_Prizmatix",
-                           "Quantifi": "#/$defs/_Quantifi",
-                           "Raspberry Pi": "#/$defs/_Raspberry_Pi",
-                           "SICGEN": "#/$defs/_Sicgen",
-                           "Same Sky": "#/$defs/_Same_Sky",
-                           "Schneider-Kreuznach": "#/$defs/_Schneider_Kreuznach",
-                           "Second Order Effects": "#/$defs/_Second_Order_Effects",
-                           "Semrock": "#/$defs/_Semrock",
-                           "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
-                           "Simons Foundation": "#/$defs/_Simons_Foundation",
-                           "Spinnaker": "#/$defs/_Spinnaker",
-                           "Tamron": "#/$defs/_Tamron",
-                           "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
-                           "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
-                           "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
-                           "The Imaging Source": "#/$defs/_The_Imaging_Source",
-                           "The Lee Company": "#/$defs/_The_Lee_Company",
-                           "Thermo Fisher Scientific": "#/$defs/_Thermo_Fisher_Scientific",
-                           "Thorlabs": "#/$defs/_Thorlabs",
-                           "Transducer Techniques": "#/$defs/_Transducer_Techniques",
-                           "Tymphany": "#/$defs/_Tymphany",
-                           "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
-                           "Vieworks": "#/$defs/_Vieworks",
-                           "Vortran": "#/$defs/_Vortran",
-                           "ams OSRAM": "#/$defs/_Ams_Osram"
-                        },
-                        "propertyName": "name"
-                     },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/_Aa_Opto_Electronic"
-                        },
-                        {
-                           "$ref": "#/$defs/_Asus"
-                        },
-                        {
-                           "$ref": "#/$defs/_Abcam"
-                        },
-                        {
-                           "$ref": "#/$defs/aind_data_schema_models__organizations___Addgene"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ailipu_Technology_Co"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allen_Institute"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allen_Institute_For_Brain_Science"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Allied"
-                        },
-                        {
-                           "$ref": "#/$defs/_Applied_Scientific_Instrumentation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Arecont_Vision_Costar"
-                        },
-                        {
-                           "$ref": "#/$defs/_Basler"
-                        },
-                        {
-                           "$ref": "#/$defs/_Baylor_College_Of_Medicine"
-                        },
-                        {
-                           "$ref": "#/$defs/_Boston_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Cambridge_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_Carl_Zeiss"
-                        },
-                        {
-                           "$ref": "#/$defs/_Champalimaud_Foundation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Chan_Zuckerberg_Initiative"
-                        },
-                        {
-                           "$ref": "#/$defs/_Charles_River_Laboratories"
-                        },
-                        {
-                           "$ref": "#/$defs/_Chroma"
-                        },
-                        {
-                           "$ref": "#/$defs/_Coherent_Scientific"
-                        },
-                        {
-                           "$ref": "#/$defs/_Columbia_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Computar"
-                        },
-                        {
-                           "$ref": "#/$defs/_Conoptics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Custom"
-                        },
-                        {
-                           "$ref": "#/$defs/_Digikey"
-                        },
-                        {
-                           "$ref": "#/$defs/_Dodotronic"
-                        },
-                        {
-                           "$ref": "#/$defs/_Doric"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ealing"
-                        },
-                        {
-                           "$ref": "#/$defs/_Edmund_Optics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Emory_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Euresys"
-                        },
-                        {
-                           "$ref": "#/$defs/_Fujinon"
-                        },
-                        {
-                           "$ref": "#/$defs/_Hamamatsu"
-                        },
-                        {
-                           "$ref": "#/$defs/_Hamilton"
-                        },
-                        {
-                           "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ir_Robot_Co"
-                        },
-                        {
-                           "$ref": "#/$defs/_Isl_Products_International"
-                        },
-                        {
-                           "$ref": "#/$defs/_Infinity_Photo_Optical"
-                        },
-                        {
-                           "$ref": "#/$defs/_Integrated_Dna_Technologies"
-                        },
-                        {
-                           "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
-                        },
-                        {
-                           "$ref": "#/$defs/_Invitrogen"
-                        },
-                        {
-                           "$ref": "#/$defs/_Item"
-                        },
-                        {
-                           "$ref": "#/$defs/_Jackson_Laboratory"
-                        },
-                        {
-                           "$ref": "#/$defs/_Janelia_Research_Campus"
-                        },
-                        {
-                           "$ref": "#/$defs/_Johns_Hopkins_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Julabo"
-                        },
-                        {
-                           "$ref": "#/$defs/_Kowa"
-                        },
-                        {
-                           "$ref": "#/$defs/_Lg"
-                        },
-                        {
-                           "$ref": "#/$defs/_Leica"
-                        },
-                        {
-                           "$ref": "#/$defs/_Lifecanvas"
-                        },
-                        {
-                           "$ref": "#/$defs/_Lumen_Dynamics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mbf_Bioscience"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mks_Newport"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mpi"
-                        },
-                        {
-                           "$ref": "#/$defs/_Massachusetts_Institute_Of_Technology"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mcgovern_Institute_For_Brain_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Meadowlark_Optics"
-                        },
-                        {
-                           "$ref": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research"
-                        },
-                        {
-                           "$ref": "#/$defs/_Midwest_Optical_Systems_Inc_"
-                        },
-                        {
-                           "$ref": "#/$defs/_Mitutuyo"
-                        },
-                        {
-                           "$ref": "#/$defs/_Nresearch_Inc"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Institute_Of_Mental_Health"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke"
-                        },
-                        {
-                           "$ref": "#/$defs/_National_Instruments"
-                        },
-                        {
-                           "$ref": "#/$defs/_Navitar"
-                        },
-                        {
-                           "$ref": "#/$defs/_Neurophotometrics"
-                        },
-                        {
-                           "$ref": "#/$defs/_New_Scale_Technologies"
-                        },
-                        {
-                           "$ref": "#/$defs/_New_York_University"
-                        },
-                        {
-                           "$ref": "#/$defs/_Nikon"
-                        },
-                        {
-                           "$ref": "#/$defs/_Olympus"
-                        },
-                        {
-                           "$ref": "#/$defs/_Open_Ephys_Production_Site"
-                        },
-                        {
-                           "$ref": "#/$defs/_Optotune"
-                        },
-                        {
-                           "$ref": "#/$defs/_Other"
-                        },
-                        {
-                           "$ref": "#/$defs/_Oxxius"
-                        },
-                        {
-                           "$ref": "#/$defs/_Placid_Industries"
-                        },
-                        {
-                           "$ref": "#/$defs/_Prizmatix"
-                        },
-                        {
-                           "$ref": "#/$defs/_Quantifi"
-                        },
-                        {
-                           "$ref": "#/$defs/_Raspberry_Pi"
-                        },
-                        {
-                           "$ref": "#/$defs/_Sicgen"
-                        },
-                        {
-                           "$ref": "#/$defs/_Same_Sky"
-                        },
-                        {
-                           "$ref": "#/$defs/_Schneider_Kreuznach"
-                        },
-                        {
-                           "$ref": "#/$defs/_Second_Order_Effects"
-                        },
-                        {
-                           "$ref": "#/$defs/_Semrock"
-                        },
-                        {
-                           "$ref": "#/$defs/_Sigma_Aldrich"
-                        },
-                        {
-                           "$ref": "#/$defs/_Simons_Foundation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Spinnaker"
-                        },
-                        {
-                           "$ref": "#/$defs/_Tamron"
-                        },
-                        {
-                           "$ref": "#/$defs/_Technical_Manufacturing_Corporation"
-                        },
-                        {
-                           "$ref": "#/$defs/_Teledyne_Flir"
-                        },
-                        {
-                           "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
-                        },
-                        {
-                           "$ref": "#/$defs/_The_Imaging_Source"
-                        },
-                        {
-                           "$ref": "#/$defs/_The_Lee_Company"
-                        },
-                        {
-                           "$ref": "#/$defs/_Thermo_Fisher_Scientific"
-                        },
-                        {
-                           "$ref": "#/$defs/_Thorlabs"
-                        },
-                        {
-                           "$ref": "#/$defs/_Transducer_Techniques"
-                        },
-                        {
-                           "$ref": "#/$defs/_Tymphany"
-                        },
-                        {
-                           "$ref": "#/$defs/_University_Of_California_San_Diego"
-                        },
-                        {
-                           "$ref": "#/$defs/_Vieworks"
-                        },
-                        {
-                           "$ref": "#/$defs/_Vortran"
-                        },
-                        {
-                           "$ref": "#/$defs/_Ams_Osram"
-                        }
-                     ]
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Manufacturer"
-            },
-            "model": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Model"
-            },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
-            "additional_settings": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/GenericModel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Additional parameters"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "SubjectPlatform",
-         "type": "object"
       },
       "TemperatureUnit": {
          "description": "Temperature units",
@@ -17251,31 +15143,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -17299,31 +15166,6 @@
                ],
                "default": null,
                "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
             },
             "treadmill_width": {
                "anyOf": [
@@ -17827,31 +15669,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -17875,31 +15692,6 @@
                ],
                "default": null,
                "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
             },
             "diameter": {
                "anyOf": [
@@ -18422,31 +16214,6 @@
                "default": null,
                "title": "Model"
             },
-            "path_to_cad": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For CUSTOM manufactured devices",
-               "title": "Path to CAD diagram"
-            },
-            "port_index": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Port index"
-            },
             "additional_settings": {
                "anyOf": [
                   {
@@ -18470,31 +16237,6 @@
                ],
                "default": null,
                "title": "Notes"
-            },
-            "surface_material": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Surface material"
-            },
-            "date_surface_replaced": {
-               "anyOf": [
-                  {
-                     "format": "date-time",
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Date surface replaced"
             },
             "radius": {
                "anyOf": [
@@ -24140,8 +21882,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.16",
-         "default": "2.0.16",
+         "const": "2.0.18",
+         "default": "2.0.18",
          "title": "Schema Version",
          "type": "string"
       },
@@ -24754,13 +22496,11 @@
                   "Objective": "#/$defs/Objective",
                   "Olfactometer": "#/$defs/Olfactometer",
                   "Open ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
-                  "Optical table": "#/$defs/OpticalTable",
                   "Pockels cell": "#/$defs/PockelsCell",
                   "Polygonal scanner": "#/$defs/PolygonalScanner",
                   "Scanner": "#/$defs/Scanner",
                   "Scanning stage": "#/$defs/ScanningStage",
                   "Speaker": "#/$defs/Speaker",
-                  "Subject platform": "#/$defs/SubjectPlatform",
                   "Treadmill": "#/$defs/Treadmill",
                   "Tube": "#/$defs/Tube",
                   "Wheel": "#/$defs/Wheel"
@@ -24847,9 +22587,6 @@
                   "$ref": "#/$defs/OpenEphysAcquisitionBoard"
                },
                {
-                  "$ref": "#/$defs/OpticalTable"
-               },
-               {
                   "$ref": "#/$defs/MotorizedStage"
                },
                {
@@ -24872,9 +22609,6 @@
                },
                {
                   "$ref": "#/$defs/Arena"
-               },
-               {
-                  "$ref": "#/$defs/SubjectPlatform"
                },
                {
                   "$ref": "#/$defs/DAQDevice"
