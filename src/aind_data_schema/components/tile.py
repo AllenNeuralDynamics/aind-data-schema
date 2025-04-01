@@ -18,7 +18,7 @@ class Channel(DataModel):
     # excitation
     light_sources: List[str] = Field(..., title="Light sources")
     # emission
-    filters: List[str] = Field(..., title="Filter names")
+    filters: Optional[List[str]] = Field(default=None, title="Filter names")
 
 
 class SlapChannel(Channel):
