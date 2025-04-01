@@ -13,6 +13,8 @@ class Channel(DataModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
+    intended_measurement: Optional[str] = Field(default=None, title="Intended measurement",
+                                                description="What signal is this channel measuring")
     detector_name: str = Field(..., title="Detector name", description="Must match device name")
     additional_device_names: Optional[List[str]] = Field(default=None, title="Additional device names")
     # excitation
