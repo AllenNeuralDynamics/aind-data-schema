@@ -84,13 +84,9 @@ class LightEmittingDiodeConfig(DeviceConfig):
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-class FieldOfView(DataModel):
+class FieldOfView(AindModel):
     """Description of an imaging field of view"""
 
-    channel: Channel = Field(..., title="Channel")
-    index: int = Field(..., title="Index")
-    imaging_depth: int = Field(..., title="Imaging depth (um)")
-    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
@@ -107,22 +103,37 @@ class FieldOfView(DataModel):
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)")
-    frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
+    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class SinglePlaneFieldOfView(FieldOfView):
+    """Description of a single plane FOV"""
+
+    imaging_depth: int = Field(..., title="Imaging depth (um)")
+    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
+
+
+class MultiPlaneFieldOfView(FieldOfView):
+    """Description of a single plane FOV in multi-plane imaging"""
+
+    index: int = Field(..., title="Index")
+    imaging_depth: int = Field(..., title="Imaging depth (um)")
+    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
     coupled_fov_index: Optional[int] = Field(
         default=None, title="Coupled FOV", description="Coupled planes for multiscope"
     )
     power: Optional[Decimal] = Field(
         default=None, title="Power", description="For coupled planes, this power is shared by both planes"
     )
-    power_unit: Optional[PowerUnit] = Field(default=None, title="Power unit")
+    power_unit: PowerUnit = Field(default=PowerUnit.PERCENT, title="Power unit")
     power_ratio: Optional[Decimal] = Field(default=None, title="Power ratio for coupled planes")
     scanfield_z: Optional[int] = Field(
         default=None,
         title="Z stage position of the fastz actuator for a given targeted depth",
     )
-    scanfield_z_unit: Optional[SizeUnit] = Field(default=None, title="Z stage position unit")
+    scanfield_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Z stage position unit")
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class StackChannel(Channel):
@@ -133,7 +144,7 @@ class StackChannel(Channel):
     depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Depth unit")
 
 
-class Stack(DataModel):
+class Stack(FieldOfView):
     """Description of a two photon stack"""
 
     channels: List[StackChannel] = Field(..., title="Channels")
@@ -142,23 +153,6 @@ class Stack(DataModel):
     step_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Step size unit")
     number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
     number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
-    fov_coordinate_ml: float = Field(..., title="FOV coordinate ML")
-    fov_coordinate_ap: float = Field(..., title="FOV coordinate AP")
-    fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(
-        ...,
-        title="FOV reference",
-        description="Reference for ML/AP coordinates",
-    )
-    fov_width: int = Field(..., title="FOV width (pixels)")
-    fov_height: int = Field(..., title="FOV height (pixels)")
-    fov_size_unit: SizeUnit = Field(default=SizeUnit.PX, title="FOV size unit")
-    magnification: Optional[str] = Field(default=None, title="Magnification")
-    fov_scale_factor: float = Field(..., title="FOV scale factor (um/pixel)")
-    fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
-    frame_rate: Decimal = Field(..., title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
 
 class SlapAcquisitionType(str, Enum):
