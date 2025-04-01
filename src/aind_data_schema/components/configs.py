@@ -3,7 +3,7 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import Annotated, List, Literal, Optional, Union
 
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.process_names import ProcessName
@@ -19,7 +19,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
 from aind_data_schema.components.coordinates import AnatomicalRelative, Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.devices import ImmersionMedium
 from aind_data_schema.components.tile import Channel, SPIMChannel
@@ -78,6 +78,15 @@ class DetectorConfig(DeviceConfig):
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
 
+class LaserConfig(DeviceConfig):
+    """Description of laser settings in an acquisition"""
+
+    wavelength: int = Field(..., title="Wavelength (nm)")
+    wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
+    excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
+    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+
+
 class LightEmittingDiodeConfig(DeviceConfig):
     """Description of LED settings"""
 
@@ -85,9 +94,42 @@ class LightEmittingDiodeConfig(DeviceConfig):
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
+class Channel(DataModel):
+    """Description of a channel"""
+
+    channel_name: str = Field(..., title="Channel")
+    intended_measurement: Optional[str] = Field(default=None, title="Intended measurement",
+                                                description="What signal is this channel measuring")
+    detector_configuration: DetectorConfig = Field(..., title="Detector configuration")
+    additional_device_names: Optional[List[str]] = Field(default=None, title="Additional device names")
+    # excitation
+    light_source_configurations: List[
+        Annotated[
+            Union[
+                LaserConfig,
+                LightEmittingDiodeConfig,
+            ],
+            Field(discriminator="object_type"),
+        ]
+    ] = Field(default=[], title="Light source configurations")
+    excitation_filters: Optional[List[str]] = Field(default=None, title="Excitation filters")
+    # emission
+    emission_filters: Optional[List[str]] = Field(default=None, title="Emission filter names")
+
+
+class SlapChannel(Channel):
+    """Description of a channel for Slap"""
+
+    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
+    description: Optional[str] = Field(default=None, title="Description")
+    # TODO: dilation and unit might need to be required here
+
+
 class FieldOfView(AindModel):
     """Description of an imaging field of view"""
 
+    channel: Channel = Field(..., title="Channel")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
@@ -148,7 +190,7 @@ class StackChannel(Channel):
 class Stack(FieldOfView):
     """Description of a two photon stack"""
 
-    channels: List[StackChannel] = Field(..., title="Channels")
+    channels: List[StackChannel] = Field(..., title="Channels") #TODO: does this make sense with channel in FOV
     number_of_planes: int = Field(..., title="Number of planes")
     step_size: float = Field(..., title="Step size (um)")
     step_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Step size unit")
@@ -253,15 +295,6 @@ class FiberAssemblyConfig(ManipulatorConfig):
     """Inserted fiber photometry probe recorded in a stream"""
 
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
-
-
-class LaserConfig(DeviceConfig):
-    """Description of laser settings in an acquisition"""
-
-    wavelength: int = Field(..., title="Wavelength (nm)")
-    wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 class Liquid(str, Enum):
@@ -396,6 +429,24 @@ class Immersion(DataModel):
 
     medium: ImmersionMedium = Field(..., title="Immersion medium")
     refractive_index: Decimal = Field(..., title="Index of refraction")
+
+
+class Tile(DataModel):
+    """Description of an image tile"""
+
+    coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations")
+    file_name: Optional[str] = Field(default=None, title="File name")
+    imaging_angle: int = Field(default=0, title="Imaging angle")
+    imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
+    tile_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Tile acquisition start time")
+    tile_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Tile acquisition end time")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class SPIMChannel(Channel):
+    """Description of a light sheet channel"""
+
+    tiles: List[Tile] = Field(..., title="Tiles")
 
 
 class InVitroImagingConfig(DataModel):
