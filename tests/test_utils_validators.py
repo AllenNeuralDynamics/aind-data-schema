@@ -292,7 +292,7 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         """Test when the path exists"""
         mock_exists.return_value = True
         test_path = AssetPath("test_file.txt")
-        recursive_check_paths(test_path, Path(AssetPath("/base/directory")))
+        recursive_check_paths(test_path, Path("/base/directory"))
         mock_warning.assert_not_called()
         recursive_check_paths(test_path, None)
         mock_warning.assert_not_called()
@@ -303,7 +303,7 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         """Test when the path does not exist"""
         mock_exists.return_value = False
         test_path = AssetPath("test_file.txt")
-        recursive_check_paths(test_path, Path(AssetPath("/base/directory")))
+        recursive_check_paths(test_path, Path("/base/directory"))
         mock_warning.assert_called_once_with("AssetPath /base/directory/test_file.txt does not exist")
 
     @patch("pathlib.Path.exists")
@@ -312,7 +312,7 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         """Test nested paths in a list"""
         mock_exists.side_effect = [True, False]
         test_paths = [AssetPath("existing_file.txt"), AssetPath("missing_file.txt")]
-        recursive_check_paths(test_paths, Path(AssetPath("/base/directory")))
+        recursive_check_paths(test_paths, Path("/base/directory"))
         mock_warning.assert_called_once_with("AssetPath /base/directory/missing_file.txt does not exist")
 
     @patch("pathlib.Path.exists")
@@ -321,7 +321,7 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         """Test nested paths in a dictionary"""
         mock_exists.side_effect = [False, True]
         test_paths = {"file1": AssetPath("missing_file.txt"), "file2": AssetPath("existing_file.txt")}
-        recursive_check_paths(test_paths, Path(AssetPath("/base/directory")))
+        recursive_check_paths(test_paths, Path("/base/directory"))
         mock_warning.assert_called_once_with("AssetPath /base/directory/missing_file.txt does not exist")
 
     @patch("pathlib.Path.exists")
@@ -339,7 +339,7 @@ class TestRecursiveCheckPaths(unittest.TestCase):
 
         mock_exists.side_effect = [False, True]
         obj = MockObject(Path(AssetPath("missing_file.txt")), Path(AssetPath("existing_file.txt")))
-        recursive_check_paths(obj, Path(AssetPath("/base/directory")))
+        recursive_check_paths(obj, Path("/base/directory"))
         mock_warning.assert_called_once_with("AssetPath /base/directory/missing_file.txt does not exist")
 
     @patch("pathlib.Path.exists")
@@ -347,7 +347,7 @@ class TestRecursiveCheckPaths(unittest.TestCase):
     def test_no_paths(self, mock_warning: MagicMock, mock_exists: MagicMock):
         """Test when no paths are present"""
         data = {"key": "value", "list": [1, 2, 3]}
-        recursive_check_paths(data, Path(AssetPath("/base/directory")))
+        recursive_check_paths(data, Path("/base/directory"))
         mock_warning.assert_not_called()
 
 
