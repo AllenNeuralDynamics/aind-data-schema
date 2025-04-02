@@ -2,7 +2,7 @@
 
 from datetime import date
 from enum import Enum
-from typing import Dict, List, Literal, Optional, Set, Union
+from typing import Dict, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -191,7 +191,7 @@ class Instrument(DataCoreModel):
         return names
 
     @field_serializer("modalities", when_used="json")
-    def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
+    def serialize_modalities(self, modalities: List[Modality.ONE_OF]):
         """Dynamically serialize modalities based on their type."""
         return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
 
