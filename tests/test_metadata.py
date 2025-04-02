@@ -3,7 +3,6 @@
 import json
 import unittest
 from datetime import datetime, timezone
-from unittest.mock import MagicMock, patch
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization

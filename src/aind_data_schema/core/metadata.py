@@ -178,7 +178,7 @@ class Metadata(DataCoreModel):
         for field_name, model_class in all_model_fields.items():
             if getattr(self, field_name) is not None:
                 model = getattr(self, field_name)
-                model_contents = model.model_dump(mode='json')
+                model_contents = model.model_dump(mode="json")
                 try:
                     model_class(**model_contents)
                 except ValidationError as e:
