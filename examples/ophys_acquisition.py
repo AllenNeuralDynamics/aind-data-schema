@@ -11,6 +11,7 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema.components.configs import DetectorConfig, PatchCordConfig, LaserConfig
+from aind_data_schema.components.tile import Channel
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
@@ -58,15 +59,35 @@ a = Acquisition(
                     output_power=40,
                     output_power_unit="microwatt",
                     fiber_name="Fiber A",
+                    channel=Channel(
+                        channel_name="Channel A",
+                        intended_measurement="Dopamine",
+                        light_source_name="Laser A",
+                        filter_names=["Excitation filter 410nm"],
+                        detector_name="Green CMOS",
+                        excitation_wavelength=410,
+                        excitation_power=10,
+                        emission_wavelength=600,
+                    )
                 ),
                 PatchCordConfig(
                     device_name="Patch Cord B",
                     output_power=43,
                     output_power_unit="microwatt",
                     fiber_name="Fiber B",
+                    channel=Channel(
+                        channel_name="Channel B",
+                        intended_measurement="Dopamine",
+                        light_source_name="Laser B",
+                        filter_names=["Excitation filter 560nm"],
+                        detector_name="Red CMOS",
+                        excitation_wavelength=560,
+                        excitation_power=7,
+                        emission_wavelength=700,
+                    )
                 ),
             ],
-            notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",
+            notes="Internal trigger.",
         )
     ],
 )
