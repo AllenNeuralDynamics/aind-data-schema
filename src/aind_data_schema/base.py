@@ -104,7 +104,7 @@ class DataModel(BaseModel, Generic[GenericModelType]):
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
     object_type: ClassVar[str]  # This prevents Pydantic from treating it as a normal field
 
-    def __init_subclass__(cls, **kwargs): 
+    def __init_subclass__(cls, **kwargs):
         """Automatically set the correct `object_type` as a Literal[...]"""
         super().__init_subclass__(**kwargs)
         object_type_value = cls._object_type_from_name()
