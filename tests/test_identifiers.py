@@ -3,6 +3,7 @@
 import unittest
 from pydantic import ValidationError
 from aind_data_schema.components.identifiers import Person, AssetPath
+from pathlib import Path, PureWindowsPath
 
 
 class Testexperimenter(unittest.TestCase):
