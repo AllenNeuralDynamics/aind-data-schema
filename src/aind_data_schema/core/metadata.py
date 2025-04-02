@@ -4,10 +4,8 @@ import inspect
 import json
 import logging
 import warnings
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Dict, List, Literal, Optional, get_args
-from uuid import UUID, uuid4
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import (
@@ -16,12 +14,12 @@ from pydantic import (
     SkipValidation,
     ValidationError,
     ValidationInfo,
-    field_serializer,
     field_validator,
     model_validator,
+    ConfigDict,
 )
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, is_dict_corrupt
+from aind_data_schema.base import DataCoreModel, is_dict_corrupt
 from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -69,6 +67,8 @@ class Metadata(DataCoreModel):
     """The records in the Data Asset Collection needs to contain certain fields
     to easily query and index the data."""
 
+    model_config = ConfigDict(extra="ignore")
+
     # Special file name extension to distinguish this json file from others
     # The models base on this schema will be saved to metadata.nd.json as
     # default
@@ -76,27 +76,11 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.34"]] = Field(default="2.0.34")
-    id: UUID = Field(
-        default_factory=uuid4,
-        alias="_id",
-        title="Data Asset ID",
-        description="The unique id of the data asset.",
-    )
+    schema_version: SkipValidation[Literal["2.0.42"]] = Field(default="2.0.42")
     name: str = Field(
         ...,
         description="Name of the data asset.",
         title="Data Asset Name",
-    )
-    created: AwareDatetimeWithDefault = Field(
-        default_factory=lambda: datetime.now(tz=timezone.utc),
-        title="Created",
-        description="The utc date and time the data asset created.",
-    )
-    last_modified: AwareDatetimeWithDefault = Field(
-        default_factory=lambda: datetime.now(tz=timezone.utc),
-        title="Last Modified",
-        description="The utc date and time that the data asset was last modified.",
     )
     location: str = Field(
         ...,
@@ -160,16 +144,6 @@ class Metadata(DataCoreModel):
         else:
             core_model = value
         return core_model
-
-    @field_validator("last_modified", mode="after")
-    def validate_last_modified(cls, value, info: ValidationInfo):
-        """Convert last_modified field to UTC from other timezones"""
-        return value.astimezone(timezone.utc)
-
-    @field_serializer("last_modified")
-    def serialize_last_modified(value) -> str:
-        """Serialize last_modified field"""
-        return value.isoformat().replace("+00:00", "Z")
 
     @model_validator(mode="after")
     def validate_metadata(self):
@@ -332,7 +306,6 @@ def create_metadata_json(
     name: str,
     location: str,
     core_jsons: Dict[str, Optional[dict]],
-    optional_created: Optional[datetime] = None,
     optional_external_links: Optional[dict] = None,
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
@@ -342,8 +315,6 @@ def create_metadata_json(
         "name": name,
         "location": location,
     }
-    if optional_created is not None:
-        params["created"] = optional_created
     if optional_external_links is not None:
         params["external_links"] = optional_external_links
     core_fields = dict()

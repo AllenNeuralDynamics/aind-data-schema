@@ -3,7 +3,6 @@
 import datetime
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
@@ -12,7 +11,6 @@ from aind_data_schema.components.devices import (
     Laser,
     MotorizedStage,
     Objective,
-    OpticalTable,
     ScanningStage,
     Device,
 )
@@ -44,7 +42,6 @@ laser1 = Laser(
     name="Ex_488",
     coupling="Single-mode fiber",
     wavelength=488,
-    maximum_power=150,
     serial_number="VL01222A11",
     manufacturer=Organization.VORTRAN,
     model="Stradus",
@@ -54,7 +51,6 @@ laser2 = Laser(
     name="Ex_561",
     coupling="Single-mode fiber",
     wavelength=561,
-    maximum_power=150,
     serial_number="417927",
     manufacturer=Organization.COHERENT_SCIENTIFIC,
     model="Obis",
@@ -64,7 +60,6 @@ laser3 = Laser(
     name="Ex_647",
     coupling="Single-mode fiber",
     wavelength=647,
-    maximum_power=160,
     serial_number="VL01222A10",
     manufacturer=Organization.VORTRAN,
     model="Stradus",
@@ -124,43 +119,23 @@ scan_stage3 = ScanningStage(
     stage_axis_name="Y",
     travel=50,
 )
-table = OpticalTable(
-    name="Table",
-    model="CleanTop",  # model="VIS2424-IG2-125A", # ~3 months
-    length=35,  # length=24,
-    width=29,  # width=24,
-    vibration_control=True,
-    manufacturer=Organization.TMC,
-)
 filter0 = Filter(
     name="Em_525",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF03-525/50-25",
-    filter_wheel_index=0,
 )
 filter1 = Filter(
     name="Em_600",
     filter_type="Band pass",
     manufacturer=Organization.SEMROCK,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="FF01-600/52-25",
-    filter_wheel_index=1,
 )
 filter2 = Filter(
     name="Em_690",
     filter_type="Band pass",
     manufacturer=Organization.CHROMA,
-    diameter=25,
-    thickness=2.0,
-    thickness_unit=SizeUnit.MM,
     model="ET690/50m",
-    filter_wheel_index=2,
 )
 lens1 = AdditionalImagingDevice(
     name="Lens 1",
@@ -262,7 +237,6 @@ inst = Instrument(
         scan_stage1,
         scan_stage2,
         scan_stage3,
-        table,
         filter0,
         filter1,
         filter2,

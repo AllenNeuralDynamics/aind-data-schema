@@ -4,7 +4,6 @@ import json
 import unittest
 from datetime import datetime, timezone
 from unittest.mock import MagicMock, call, patch
-import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -14,7 +13,6 @@ from aind_data_schema.components.devices import (
     EphysAssembly,
     EphysProbe,
     Manipulator,
-    MousePlatform,
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
@@ -99,6 +97,7 @@ class TestMetadata(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         procedures = Procedures(
             subject_id="12345",
@@ -265,11 +264,10 @@ class TestMetadata(unittest.TestCase):
         """Tests that instrument/acquisition compatibility validator works as expected"""
 
         modalities = [Modality.ECEPHYS]
-        mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
-            components=[ephys_assembly, mouse_platform],
+            components=[ephys_assembly],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
@@ -307,7 +305,6 @@ class TestMetadata(unittest.TestCase):
         m_dict = m.model_dump()
 
         m_dict["schema_version"] = "0.0.0"
-        m_dict.pop("id")
 
         m2 = Metadata(**m_dict)
 
@@ -349,10 +346,6 @@ class TestMetadata(unittest.TestCase):
         self.assertIsNone(result["acquisition"])
         self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         # also check the other fields
-        # small hack to mock the _id, created, and last_modified fields
-        expected_result["_id"] = result["_id"]
-        expected_result["created"] = result["created"]
-        expected_result["last_modified"] = result["last_modified"]
         self.assertDictEqual(expected_result, result)
 
     def test_create_from_core_jsons_invalid(self):
@@ -376,7 +369,6 @@ class TestMetadata(unittest.TestCase):
 
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""
-        created = datetime(2024, 10, 31, 12, 0, 0, tzinfo=timezone.utc)
         external_links = {
             ExternalPlatforms.CODEOCEAN.value: ["123", "abc"],
         }
@@ -388,12 +380,10 @@ class TestMetadata(unittest.TestCase):
                 core_jsons={
                     "subject": self.subject_json,
                 },
-                optional_created=created,
                 optional_external_links=external_links,
             )
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual("2024-10-31T12:00:00Z", result["created"])
         self.assertEqual(external_links, result["external_links"])
 
     @patch("logging.warning")
@@ -434,51 +424,6 @@ class TestMetadata(unittest.TestCase):
             ],
             any_order=True,
         )
-
-    def test_last_modified(self):
-        """Test that the last_modified field enforces timezones"""
-        m = Metadata.model_construct(
-            name="name",
-            location="location",
-            id=uuid.uuid4(),
-        )
-        m_dict = m.model_dump(by_alias=True)
-
-        # Test that naive datetime is coerced to timezone-aware datetime
-        date = "2022-11-22T08:43:00"
-        date_with_timezone = datetime.fromisoformat(date).astimezone()
-        m_dict["last_modified"] = "2022-11-22T08:43:00"
-        m2 = Metadata(**m_dict)
-        self.assertIsNotNone(m2)
-        self.assertEqual(m2.last_modified, date_with_timezone)
-
-        # Also check that last_modified is now in UTC
-        self.assertEqual(m2.last_modified.tzinfo, timezone.utc)
-
-        # Test that timezone-aware datetime is not coerced
-        date_minus = "2022-11-22T08:43:00-07:00"
-        m_dict["last_modified"] = date_minus
-        m3 = Metadata(**m_dict)
-        self.assertIsNotNone(m3)
-        self.assertEqual(m3.last_modified, datetime.fromisoformat(date_minus))
-
-        # Test that UTC datetime is not coerced
-        date_utc = "2022-11-22T08:43:00+00:00"
-        m_dict["last_modified"] = date_utc
-        m4 = Metadata(**m_dict)
-        self.assertIsNotNone(m4)
-        self.assertEqual(m4.last_modified, datetime.fromisoformat(date_utc))
-
-        def roundtrip_lm(model):
-            """Helper function to roundtrip last_modified field"""
-            model_json = model.model_dump_json(by_alias=True)
-            model_dict = json.loads(model_json)
-            return model_dict["last_modified"]
-
-        # Test that the output looks right
-        self.assertEqual(m.last_modified.isoformat().replace("+00:00", "Z"), roundtrip_lm(m))
-        self.assertEqual("2022-11-22T15:43:00Z", roundtrip_lm(m3))
-        self.assertEqual("2022-11-22T08:43:00Z", roundtrip_lm(m4))
 
 
 if __name__ == "__main__":

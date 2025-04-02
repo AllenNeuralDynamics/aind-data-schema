@@ -40,7 +40,7 @@ p = Procedures(
             ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
-            anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
+            anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             protocol_id="doi",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
@@ -113,7 +113,7 @@ p = Procedures(
             start_date="2023-05-31",
             experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
-            anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
+            anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
             protocol_id="doi",
             procedures=[
