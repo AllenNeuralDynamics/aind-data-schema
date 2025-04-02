@@ -133,7 +133,7 @@ class SlapChannel(Channel):
     # TODO: dilation and unit might need to be required here
 
 
-class FieldOfView(AindModel):
+class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
     channel: Channel = Field(..., title="Channel")
