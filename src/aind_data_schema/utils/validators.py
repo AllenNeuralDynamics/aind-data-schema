@@ -113,8 +113,16 @@ def recursive_get_all_names(obj: Any) -> List[str]:
 
 
 def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
-    """
-    Recursively checks if any attribute in an object is a pathlib.Path and logs if it doesn't exist.
+    """Recursively check for AssetPath objects and validate their paths.
+    This function checks if the paths are absolute and logs a warning if they are.
+    It also checks if the paths exist and logs a warning if they do not.
+    If the object is a list, tuple, set, or dict, it recursively checks each item.
+
+    Parameters
+    ----------
+    obj : Any
+    directory : Optional[Path], optional
+        root directory, by default uses the current working directory
     """
     if isinstance(obj, Enum):
         return
