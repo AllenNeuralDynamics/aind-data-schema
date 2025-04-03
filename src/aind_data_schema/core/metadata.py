@@ -19,7 +19,7 @@ from pydantic import (
     ConfigDict,
 )
 
-from aind_data_schema.base import DataCoreModel, is_dict_corrupt
+from aind_data_schema.base import DataCoreModel
 from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -128,7 +128,6 @@ class Metadata(DataCoreModel):
         field_name = info.field_name
         field_class = [f for f in get_args(cls.model_fields[field_name].annotation) if inspect.isclass(f)][0]
 
-        # If the input is a json object, we will try to create the field
         if isinstance(value, dict):
             try:
                 core_model = field_class.model_validate(value)
@@ -139,7 +138,7 @@ class Metadata(DataCoreModel):
                     f"Validation error for {field_name}. Constructing without validation "
                     "-- object subfields may incorrectly show up as dictionaries."
                 )
-                logging.error(f"Error: {e}")
+                logging.warning(f"Error: {e}")
                 core_model = field_class.model_construct(**value)
         else:
             core_model = value
@@ -179,10 +178,11 @@ class Metadata(DataCoreModel):
         for field_name, model_class in all_model_fields.items():
             if getattr(self, field_name) is not None:
                 model = getattr(self, field_name)
-                model_contents = model.model_dump()
+                model_contents = model.model_dump(mode="json")
                 try:
                     model_class(**model_contents)
-                except ValidationError:
+                except ValidationError as e:
+                    logging.warning(f"Error in {field_name}: {e}")
                     metadata_status = MetadataStatus.INVALID
         # For certain required fields, like subject, if they are not present,
         # mark the metadata record as missing
@@ -320,10 +320,7 @@ def create_metadata_json(
     core_fields = dict()
     for key, value in core_jsons.items():
         if key in CORE_FILES and value is not None:
-            if is_dict_corrupt(value):
-                logging.warning(f"Provided {key} is corrupt! It will be ignored.")
-            else:
-                core_fields[key] = value
+            core_fields[key] = value
     # Create Metadata object and convert to JSON
     # If there are any validation errors, still create it
     # but set MetadataStatus as Invalid

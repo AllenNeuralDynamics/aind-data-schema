@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
+import warnings
 
 from pydantic import ValidationError, create_model, SkipValidation, Field
 from typing import Literal
@@ -143,18 +144,17 @@ class BaseTests(unittest.TestCase):
 
     def test_generic_model_validate_fieldnames(self):
         """Tests that fieldnames are validated in GenericModel"""
-        expected_error = "1 validation error for GenericModel\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
-            with self.assertRaises(ValidationError) as e:
+            with warnings.catch_warnings(record=True) as w:
+                warnings.simplefilter("always")
                 GenericModel(**params)
-            self.assertIn(expected_error, repr(e.exception))
-            with self.assertRaises(ValidationError) as e:
+                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
                 GenericModel.model_validate(params)
-            self.assertIn(expected_error, repr(e.exception))
+                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
 
     def test_ccf_validator(self):
         """Tests that CCFStructure validator works"""
