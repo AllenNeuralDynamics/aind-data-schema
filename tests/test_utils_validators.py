@@ -305,7 +305,8 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         test_path = AssetPath("test_file.txt")
         recursive_check_paths(test_path, Path("/base/directory"))
         mock_warning.assert_called_once_with(
-            "AssetPath /base/directory/test_file.txt does not exist, ensure file paths are relative to the metadata directory"
+            "AssetPath /base/directory/test_file.txt does not exist,"
+            " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
@@ -316,7 +317,8 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         test_paths = [AssetPath("existing_file.txt"), AssetPath("missing_file.txt")]
         recursive_check_paths(test_paths, Path("/base/directory"))
         mock_warning.assert_called_once_with(
-            "AssetPath /base/directory/missing_file.txt does not exist, ensure file paths are relative to the metadata directory"
+            "AssetPath /base/directory/missing_file.txt does not exist,"
+            " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
@@ -327,7 +329,8 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         test_paths = {"file1": AssetPath("missing_file.txt"), "file2": AssetPath("existing_file.txt")}
         recursive_check_paths(test_paths, Path("/base/directory"))
         mock_warning.assert_called_once_with(
-            "AssetPath /base/directory/missing_file.txt does not exist, ensure file paths are relative to the metadata directory"
+            "AssetPath /base/directory/missing_file.txt does not exist,"
+            " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
@@ -347,7 +350,8 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         obj = MockObject(AssetPath("missing_file.txt"), AssetPath("existing_file.txt"))
         recursive_check_paths(obj, Path("/base/directory"))
         mock_warning.assert_called_once_with(
-            "AssetPath /base/directory/missing_file.txt does not exist, ensure file paths are relative to the metadata directory"
+            "AssetPath /base/directory/missing_file.txt does not exist,"
+            " ensure file paths are relative to the metadata directory"
         )
 
     @patch("pathlib.Path.exists")
@@ -356,6 +360,30 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         """Test when no paths are present"""
         data = {"key": "value", "list": [1, 2, 3]}
         recursive_check_paths(data, Path("/base/directory"))
+        mock_warning.assert_not_called()
+
+    @patch("pathlib.Path.is_absolute")
+    @patch("pathlib.Path.exists")
+    @patch("logging.warning")
+    def test_absolute_path_warning(self, mock_warning: MagicMock, mock_is_absolute: MagicMock, mock_exists: MagicMock):
+        """Test when the path is absolute"""
+        mock_is_absolute.return_value = True
+        mock_exists.return_value = True
+        test_path = AssetPath("/absolute/path/to/file.txt")
+        recursive_check_paths(test_path, None)
+        mock_warning.assert_called_with(
+            "AssetPath /absolute/path/to/file.txt is absolute, ensure file paths are relative to the metadata directory"
+        )
+
+    @patch("pathlib.Path.is_absolute", return_value=False)
+    @patch("pathlib.Path.exists", returns_value=True)
+    @patch("logging.warning")
+    def test_relative_path_no_warning(
+        self, mock_warning: MagicMock, mock_is_absolute: MagicMock, mock_exists: MagicMock
+    ):
+        """Test when the path is relative"""
+        test_path = AssetPath("relative/path/to/file.txt")
+        recursive_check_paths(test_path, None)
         mock_warning.assert_not_called()
 
 
