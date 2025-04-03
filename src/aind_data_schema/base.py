@@ -22,7 +22,7 @@ from pydantic import (
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 
-from aind_data_schema.utils.validators import recursive_coord_system_check
+from aind_data_schema.utils.validators import recursive_coord_system_check, recursive_check_paths
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 
@@ -227,6 +227,10 @@ class DataCoreModel(DataModel):
             Default: None
 
         """
+
+        # Go through the subfields recursively and check whether paths exist
+        recursive_check_paths(self, output_directory)
+
         filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename

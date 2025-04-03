@@ -9,6 +9,7 @@ from pydantic import Field, SkipValidation, ValidationInfo, field_validator, mod
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
 from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -71,7 +72,11 @@ class DataProcess(DataModel):
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
     input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
-    output_location: str = Field(..., description="Path to data outputs", title="Output location")
+    output_location: AssetPath = Field(
+        ...,
+        title="Output location",
+        description="Relative path from metadata json to data outputs",
+    )
     outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
