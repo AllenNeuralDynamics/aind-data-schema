@@ -652,7 +652,7 @@
                "type": "string"
             },
             "url": {
-               "description": "Path to code repository",
+               "description": "URL to code repository",
                "title": "Code URL",
                "type": "string"
             },
@@ -1254,6 +1254,7 @@
                   }
                ],
                "default": null,
+               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -1357,6 +1358,7 @@
                   }
                ],
                "default": null,
+               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -12498,6 +12500,7 @@
                   }
                ],
                "default": null,
+               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -19424,6 +19427,7 @@
                "type": "string"
             },
             "path": {
+               "description": "Relative path from metadata json to file",
                "title": "Path to nonlinear transform file",
                "type": "string"
             }
@@ -23884,6 +23888,7 @@
                "title": "Target branch"
             },
             "path_to_array_of_frame_rates": {
+               "description": "Relative path from metadata json to file",
                "title": "Array of frame rates",
                "type": "string"
             }
@@ -59311,8 +59316,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.16",
-         "default": "2.0.16",
+         "const": "2.0.17",
+         "default": "2.0.17",
          "title": "Schema Version",
          "type": "string"
       },

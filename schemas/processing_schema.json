@@ -11,7 +11,7 @@
                "type": "string"
             },
             "url": {
-               "description": "Path to code repository",
+               "description": "URL to code repository",
                "title": "Code URL",
                "type": "string"
             },
@@ -160,7 +160,7 @@
                "title": "Input location"
             },
             "output_location": {
-               "description": "Path to data outputs",
+               "description": "Relative path from metadata json to data outputs",
                "title": "Output location",
                "type": "string"
             },
@@ -584,8 +584,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.43",
-         "default": "2.0.43",
+         "const": "2.0.44",
+         "default": "2.0.44",
          "title": "Schema Version",
          "type": "string"
       },
