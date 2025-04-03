@@ -1,6 +1,7 @@
 """ test Procedures """
 
 import unittest
+from unittest.mock import patch
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
@@ -54,8 +55,11 @@ class ProceduresTests(unittest.TestCase):
         p = Procedures(subject_id="12345")
         self.assertEqual("12345", p.subject_id)
 
-    def test_injection_material_check(self):
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_injection_material_check(self, mock_get_emapa_id):
         """Check for validation error when injection_materials is empty"""
+
+        mock_get_emapa_id.return_value = "123456"
 
         with self.assertRaises(ValidationError) as e:
             Procedures(
@@ -87,8 +91,10 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertIn("injection_materials", repr(e.exception))
 
-    def test_injection_material_none(self):
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_injection_material_none(self, mock_get_emapa_id):
         """Check for validation error when injection_materials is None"""
+        mock_get_emapa_id.return_value = "123456"
         with self.assertRaises(ValidationError) as e:
             Procedures(
                 subject_id="12345",
@@ -119,8 +125,10 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertIn("injection_materials", repr(e.exception))
 
-    def test_injection_materials_list(self):
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_injection_materials_list(self, mock_get_emapa_id):
         """Valid injection_materials list"""
+        mock_get_emapa_id.return_value = "123456"
 
         p = Procedures(
             subject_id="12345",

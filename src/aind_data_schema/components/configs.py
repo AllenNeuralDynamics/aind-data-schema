@@ -31,6 +31,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.tile import AcquisitionTile, Channel
 from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class StimulusModality(str, Enum):
@@ -68,6 +69,7 @@ class PatchCordConfig(DeviceConfig):
     output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
+    channel: Channel = Field(..., title="Channel")
 
 
 class TriggerType(str, Enum):
@@ -190,7 +192,9 @@ class SlapFieldOfView(FieldOfView):
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
 
 
 class MousePlatformConfig(DeviceConfig):

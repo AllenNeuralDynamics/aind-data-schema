@@ -11,7 +11,7 @@
                "type": "string"
             },
             "url": {
-               "description": "Path to code repository",
+               "description": "URL to code repository",
                "title": "Code URL",
                "type": "string"
             },
@@ -253,7 +253,7 @@
                "title": "Input location"
             },
             "output_location": {
-               "description": "Path to data outputs",
+               "description": "Relative path from metadata json to data outputs",
                "title": "Output location",
                "type": "string"
             },
@@ -384,7 +384,7 @@
                "title": "Input location"
             },
             "output_location": {
-               "description": "Path to data outputs",
+               "description": "Relative path from metadata json to data outputs",
                "title": "Output location",
                "type": "string"
             },
