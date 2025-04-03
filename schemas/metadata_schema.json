@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.17",
-               "default": "2.0.17",
+               "const": "2.0.18",
+               "default": "2.0.18",
                "title": "Schema Version",
                "type": "string"
             },
@@ -6874,6 +6874,19 @@
                "title": "Channel",
                "type": "string"
             },
+            "intended_measurement": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "What signal is this channel measuring",
+               "title": "Intended measurement"
+            },
             "light_source_name": {
                "description": "Must match device name",
                "title": "Light source name",
@@ -6909,21 +6922,46 @@
             "excitation_wavelength_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
-               "title": "Laser wavelength unit"
+               "title": "Wavelength unit"
             },
             "excitation_power": {
                "maximum": 2000,
-               "title": "Laser power",
+               "title": "Light source power",
                "type": "number"
             },
             "excitation_power_unit": {
                "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
-               "title": "Laser power unit"
+               "title": "Light source power unit"
             },
             "filter_wheel_index": {
-               "title": "Filter wheel index",
-               "type": "integer"
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Filter wheel index"
+            },
+            "emission_wavelength": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Emission wavelength"
+            },
+            "emission_wavelength_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "default": "nanometer",
+               "title": "Wavelength unit"
             },
             "dilation": {
                "anyOf": [
@@ -6968,8 +7006,7 @@
             "filter_names",
             "detector_name",
             "excitation_wavelength",
-            "excitation_power",
-            "filter_wheel_index"
+            "excitation_power"
          ],
          "title": "Channel",
          "type": "object"
@@ -26711,8 +26748,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.18",
-               "default": "2.0.18",
+               "const": "2.0.19",
+               "default": "2.0.19",
                "title": "Schema Version",
                "type": "string"
             },
@@ -37596,32 +37633,6 @@
                ],
                "title": "Species"
             },
-            "background_strain": {
-               "anyOf": [
-                  {
-                     "discriminator": {
-                        "mapping": {
-                           "BALB/c": "#/$defs/_Balb_C",
-                           "C57BL/6J": "#/$defs/_C57Bl_6J"
-                        },
-                        "propertyName": "name"
-                     },
-                     "oneOf": [
-                        {
-                           "$ref": "#/$defs/_C57Bl_6J"
-                        },
-                        {
-                           "$ref": "#/$defs/_Balb_C"
-                        }
-                     ]
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Strain"
-            },
             "alleles": {
                "default": [],
                "description": "Allele names and persistent IDs",
@@ -44094,12 +44105,16 @@
             "fiber_name": {
                "title": "Fiber name (must match procedure)",
                "type": "string"
+            },
+            "channel": {
+               "$ref": "#/$defs/Channel"
             }
          },
          "required": [
             "device_name",
             "output_power",
-            "fiber_name"
+            "fiber_name",
+            "channel"
          ],
          "title": "PatchCordConfig",
          "type": "object"
@@ -45581,8 +45596,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.44",
-               "default": "2.0.44",
+               "const": "2.0.45",
+               "default": "2.0.45",
                "title": "Schema Version",
                "type": "string"
             },
@@ -59289,6 +59304,19 @@
                "title": "Channel",
                "type": "string"
             },
+            "intended_measurement": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "What signal is this channel measuring",
+               "title": "Intended measurement"
+            },
             "light_source_name": {
                "description": "Must match device name",
                "title": "Light source name",
@@ -59324,21 +59352,46 @@
             "excitation_wavelength_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
-               "title": "Laser wavelength unit"
+               "title": "Wavelength unit"
             },
             "excitation_power": {
                "maximum": 2000,
-               "title": "Laser power",
+               "title": "Light source power",
                "type": "number"
             },
             "excitation_power_unit": {
                "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
-               "title": "Laser power unit"
+               "title": "Light source power unit"
             },
             "filter_wheel_index": {
-               "title": "Filter wheel index",
-               "type": "integer"
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Filter wheel index"
+            },
+            "emission_wavelength": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Emission wavelength"
+            },
+            "emission_wavelength_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "default": "nanometer",
+               "title": "Wavelength unit"
             },
             "dilation": {
                "anyOf": [
@@ -59397,7 +59450,6 @@
             "detector_name",
             "excitation_wavelength",
             "excitation_power",
-            "filter_wheel_index",
             "start_depth",
             "end_depth"
          ],
@@ -60092,8 +60144,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.5",
-               "default": "2.0.5",
+               "const": "2.0.6",
+               "default": "2.0.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -61211,19 +61263,33 @@
                "title": "Width unit"
             },
             "encoder": {
-               "$ref": "#/$defs/Device",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Encoder"
             },
             "pulse_per_revolution": {
-               "title": "Pulse per revolution",
-               "type": "integer"
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pulse per revolution"
             }
          },
          "required": [
             "name",
-            "treadmill_width",
-            "encoder",
-            "pulse_per_revolution"
+            "treadmill_width"
          ],
          "title": "Treadmill",
          "type": "object"
@@ -94608,8 +94674,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.44",
-         "default": "2.0.44",
+         "const": "2.0.45",
+         "default": "2.0.45",
          "title": "Schema Version",
          "type": "string"
       },
