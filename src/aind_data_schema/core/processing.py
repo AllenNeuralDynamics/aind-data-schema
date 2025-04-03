@@ -74,9 +74,8 @@ class DataProcess(DataModel):
     input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
     output_location: AssetPath = Field(
         ...,
-        description="Path to data outputs",
         title="Output location",
-        description="Relative path from metadata json to file",
+        description="Relative path from metadata json to data outputs",
     )
     outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
