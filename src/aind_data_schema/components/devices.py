@@ -42,7 +42,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
+from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate, CoordinateSystem, CoordinateTransform
 from aind_data_schema.components.identifiers import Software
 
 
@@ -196,6 +196,12 @@ class CameraAssembly(DataModel):
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
+    )
+
+    # transform
+    device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
+    device_transform: CoordinateTransform = Field(
+        ..., title="Device transform", description="Transformation from device to instrument coordinate system"
     )
 
     filter: Optional[Filter] = Field(default=None, title="Filter")
@@ -526,6 +532,12 @@ class Monitor(Device):
         description="Exact position of the camera assembly in the instrument",
     )
 
+    # transform
+    device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
+    device_transform: CoordinateTransform = Field(
+        ..., title="Device transform", description="Transformation from device to instrument coordinate system"
+    )
+
     contrast: Optional[int] = Field(
         default=None,
         description="Monitor's contrast setting",
@@ -577,6 +589,12 @@ class Speaker(Device):
         default=None,
         title="Position",
         description="Exact position of the camera assembly in the instrument",
+    )
+
+    # transform
+    device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
+    device_transform: CoordinateTransform = Field(
+        ..., title="Device transform", description="Transformation from device to instrument coordinate system"
     )
 
 
