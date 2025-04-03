@@ -1,22 +1,11 @@
 """ Schema for identifiers """
 
 from typing import Optional
-from pathlib import PurePosixPath
-from pydantic_core import core_schema
 
 from aind_data_schema_models.registries import Registry, _Orcid
-from pydantic import Field, GetCoreSchemaHandler
+from pydantic import Field
 
 from aind_data_schema.base import DataModel, GenericModelType
-
-
-class AssetPath(PurePosixPath):
-    """Relative path to a file"""
-
-    @classmethod
-    def __get_pydantic_core_schema__(cls, source_type, handler: GetCoreSchemaHandler):
-        """Correctly serialize/deserialize for pydantic"""
-        return core_schema.str_schema()
 
 
 class Person(DataModel):

@@ -15,7 +15,7 @@ from aind_data_schema.utils.validators import (
 from enum import Enum
 from pydantic import BaseModel
 from aind_data_schema.components.coordinates import Coordinate
-from aind_data_schema.components.identifiers import AssetPath
+from aind_data_schema.components.wrappers import AssetPath
 from pathlib import Path
 
 
@@ -304,7 +304,9 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         mock_exists.return_value = False
         test_path = AssetPath("test_file.txt")
         recursive_check_paths(test_path, Path("/base/directory"))
-        mock_warning.assert_called_once_with("AssetPath /base/directory/test_file.txt does not exist")
+        mock_warning.assert_called_once_with(
+            "AssetPath /base/directory/test_file.txt does not exist, ensure file paths are relative to the metadata directory"
+        )
 
     @patch("pathlib.Path.exists")
     @patch("logging.warning")
@@ -313,7 +315,9 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         mock_exists.side_effect = [True, False]
         test_paths = [AssetPath("existing_file.txt"), AssetPath("missing_file.txt")]
         recursive_check_paths(test_paths, Path("/base/directory"))
-        mock_warning.assert_called_once_with("AssetPath /base/directory/missing_file.txt does not exist")
+        mock_warning.assert_called_once_with(
+            "AssetPath /base/directory/missing_file.txt does not exist, ensure file paths are relative to the metadata directory"
+        )
 
     @patch("pathlib.Path.exists")
     @patch("logging.warning")
@@ -322,7 +326,9 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         mock_exists.side_effect = [False, True]
         test_paths = {"file1": AssetPath("missing_file.txt"), "file2": AssetPath("existing_file.txt")}
         recursive_check_paths(test_paths, Path("/base/directory"))
-        mock_warning.assert_called_once_with("AssetPath /base/directory/missing_file.txt does not exist")
+        mock_warning.assert_called_once_with(
+            "AssetPath /base/directory/missing_file.txt does not exist, ensure file paths are relative to the metadata directory"
+        )
 
     @patch("pathlib.Path.exists")
     @patch("logging.warning")
@@ -338,9 +344,11 @@ class TestRecursiveCheckPaths(unittest.TestCase):
                 self.path2 = path2
 
         mock_exists.side_effect = [False, True]
-        obj = MockObject(Path(AssetPath("missing_file.txt")), Path(AssetPath("existing_file.txt")))
+        obj = MockObject(AssetPath("missing_file.txt"), AssetPath("existing_file.txt"))
         recursive_check_paths(obj, Path("/base/directory"))
-        mock_warning.assert_called_once_with("AssetPath /base/directory/missing_file.txt does not exist")
+        mock_warning.assert_called_once_with(
+            "AssetPath /base/directory/missing_file.txt does not exist, ensure file paths are relative to the metadata directory"
+        )
 
     @patch("pathlib.Path.exists")
     @patch("logging.warning")

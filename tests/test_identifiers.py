@@ -2,8 +2,7 @@
 
 import unittest
 from pydantic import ValidationError
-from aind_data_schema.components.identifiers import Person, AssetPath
-from pathlib import Path, PureWindowsPath
+from aind_data_schema.components.identifiers import Person
 
 
 class Testexperimenter(unittest.TestCase):
@@ -20,19 +19,6 @@ class Testexperimenter(unittest.TestCase):
         """Test experimenter missing required fields"""
         with self.assertRaises(ValidationError):
             Person()
-
-
-class TestAssetPath(unittest.TestCase):
-    """Test AssetPath class"""
-
-    def test_asset_path(self):
-        """Test AssetPath with valid path"""
-        asset_path = AssetPath("/path/to/file.txt")
-        asset_path = AssetPath(Path("/path/to/file.txt"))
-        self.assertEqual(str(asset_path), "/path/to/file.txt")
-
-        asset_path = AssetPath(PureWindowsPath(r"path\to\file.txt"))
-        self.assertEqual(str(asset_path), "path/to/file.txt")
 
 
 if __name__ == "__main__":

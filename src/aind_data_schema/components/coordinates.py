@@ -10,7 +10,7 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
-from aind_data_schema.components.identifiers import AssetPath
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class Axis(DataModel):
