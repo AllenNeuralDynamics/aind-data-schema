@@ -318,12 +318,34 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    DEVICE_SIPE = CoordinateSystem(
-        name="CAMERA_SIPE",
+    SIPE_CAMERA_RBF = CoordinateSystem(
+        name="SIPE_CAMERA_RBF",
         origin=Origin.FRONT_CENTER,
         axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.TB),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    SIPE_MONITOR_RTF = CoordinateSystem(
+        name="SIPE_MONITOR_RTF",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    SIPE_SPEAKER_LTF = CoordinateSystem(
+        name="SIPE_SPEAKER_LTF",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.RL),
             Axis(name=AxisName.Y, direction=Direction.BT),
             Axis(name=AxisName.Z, direction=Direction.BF),
         ],
