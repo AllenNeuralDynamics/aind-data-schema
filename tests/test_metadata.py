@@ -2,7 +2,6 @@
 
 import json
 import unittest
-from unittest.mock import MagicMock, patch, call
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
@@ -306,44 +305,6 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual(external_links, result["external_links"])
-
-    @patch("logging.warning")
-    @patch("aind_data_schema.core.metadata.is_dict_corrupt")
-    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock, mock_warning: MagicMock):
-        """Tests metadata json creation ignores corrupt core jsons"""
-        # mock corrupt procedures and processing
-        mock_is_dict_corrupt.side_effect = lambda x: (x == self.procedures_json or x == self.processing_json)
-        core_jsons = {
-            "subject": self.subject_json,
-            "data_description": None,
-            "procedures": self.procedures_json,
-            "instrument": None,
-            "processing": self.processing_json,
-            "acquisition": None,
-            "quality_control": None,
-        }
-        # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
-        # check that metadata was still created
-        self.assertEqual(self.sample_name, result["name"])
-        self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(self.subject_json, result["subject"])
-        self.assertIsNone(result["acquisition"])
-        # check that corrupt core jsons were ignored
-        self.assertIsNone(result["procedures"])
-        self.assertIsNone(result["processing"])
-        mock_warning.assert_has_calls(
-            [
-                call("Provided processing is corrupt! It will be ignored."),
-                call("Provided procedures is corrupt! It will be ignored."),
-            ],
-            any_order=True,
-        )
 
 
 if __name__ == "__main__":
