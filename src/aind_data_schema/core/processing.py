@@ -13,6 +13,7 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes
+import re
 
 
 class ProcessStage(str, Enum):
@@ -213,12 +214,23 @@ class Processing(DataCoreModel):
         self = self.model_copy(deep=True)
         other = other.model_copy(deep=True)
 
-        # Check for repeated process names
+        # Check and update repeated process names
         repeated_processes = set(self.process_names) & set(other.process_names)
         if repeated_processes:
             warnings.warn(f"Processing objects have repeated processes: {repeated_processes}. Renaming duplicates.")
-            for name in repeated_processes:
-                new_name = next((f"{name}_{i}" for i in range(1, 100) if f"{name}_{i}" not in self.process_names))
+            for name in sorted(repeated_processes):
+                # find base name if name is in the form of name_1, name_2, etc.
+                base_name = re.sub(r"_\d+$", "", name)  # Remove existing numeric suffix
+
+                # Create a new unique name by incrementing the suffix
+                existing_names = set(self.process_names + other.process_names)
+
+                # Start with base name, try with incrementing suffixes until we find an unused name
+                new_name = name
+                i = 1
+                while new_name in existing_names:
+                    new_name = f"{base_name}_{i}"
+                    i += 1
                 other.rename_process(name, new_name)
 
         # Merge process graphs - start with self's graph and update with other's graph

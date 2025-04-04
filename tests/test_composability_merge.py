@@ -446,6 +446,13 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(combined.data_processes[1].name, ProcessName.COMPRESSION)
         self.assertIn("First processing object", combined.notes)
         self.assertIn("Second processing object", combined.notes)
+        # check combined dependency graph
+        self.assertDictContainsSubset(p1.dependency_graph, combined.dependency_graph)
+        # remove the first process from p2_graph, check that rest of the graph is unchanged in combined graph
+        p2.dependency_graph.pop(p2.process_names[0])
+        self.assertDictContainsSubset(p2.dependency_graph, combined.dependency_graph)
+        # check that the graphs are linked properly
+        self.assertDictContainsSubset({p2.process_names[0]: [p1.process_names[-1]]}, combined.dependency_graph)
 
         # Test with incompatible schema versions
         p3 = p2.model_copy()
@@ -456,11 +463,16 @@ class TestComposability(unittest.TestCase):
         self.assertIn("Cannot add Processing objects with different schema versions.", str(e.exception))
 
         # Test with duplicate processes
-        p_copy = p1.model_copy()
         with self.assertWarns(Warning) as w:
-            combined = p_copy + p1
+            combined = p1 + p1
         self.assertIn("Processing objects have repeated processes", str(w.warning))
         self.assertEqual(combined.data_processes[1].name, "Analysis_1")
+        
+        with self.assertWarns(Warning) as w:
+            combined = combined + combined
+        self.assertIn("Processing objects have repeated processes", str(w.warning))
+        self.assertEqual(combined.data_processes[2].name, "Analysis_2")
+        self.assertEqual(combined.data_processes[3].name, "Analysis_3")
 
 
 if __name__ == "__main__":
