@@ -24,6 +24,7 @@ from aind_data_schema.base import DataCoreModel
 from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.model import Model
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
@@ -38,15 +39,21 @@ CORE_FILES = [
     "processing",
     "acquisition",
     "quality_control",
+    "model",
 ]
 
-REQUIRED_FILES = [
-    "subject",
-    "data_description",
-    "procedures",
-    "instrument",
-    "acquisition",
-]
+# Files present must include at least one of these "file set" keys,
+# and all files listed in any of the matched sets
+REQUIRED_FILE_SETS = {
+    "subject": [
+        "data_description",
+        "procedures",
+        "instrument",
+        "acquisition",
+    ],
+    "processing": ["data_description"],
+    "model": ["data_description"],
+}
 
 
 class MetadataStatus(str, Enum):
@@ -110,6 +117,9 @@ class Metadata(DataCoreModel):
     acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Data acquisition")
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
+    )
+    model: Optional[Model] = Field(
+        default=None, title="Model", description="Description of a machine learning model trained on data."
     )
 
     @field_validator(
@@ -191,9 +201,15 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
-        for file in REQUIRED_FILES:
-            if not getattr(self, file):
-                warnings.warn(f"Metadata missing required file: {file}")
+        validated = False
+        for file in REQUIRED_FILE_SETS.keys():
+            if getattr(self, file):
+                for file in REQUIRED_FILE_SETS[file]:
+                    if not getattr(self, file):
+                        warnings.warn(f"Metadata missing required file: {file}")
+                validated = True
+        if not validated:
+            warnings.warn(f"Metadata must contain at least one of the following files: {list(REQUIRED_FILE_SETS.keys())}")
 
         return self
 

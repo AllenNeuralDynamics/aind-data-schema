@@ -6,10 +6,10 @@ import unittest
 import pydantic
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.system_architecture import ModelBackbone
+from aind_data_schema_models.system_architecture import ModelArchitecture
 
 from aind_data_schema.components.identifiers import Person, Software, Code, DataAsset
-from aind_data_schema.core.model import Model, ModelArchitecture, ModelEvaluation, ModelTraining, PerformanceMetric
+from aind_data_schema.core.model import Model, ModelEvaluation, ModelTraining, PerformanceMetric
 from aind_data_schema.core.processing import ProcessStage
 
 
@@ -26,24 +26,15 @@ class ModelTests(unittest.TestCase):
 
         m = Model(
             name="2024_01_01_ResNet18_SmartSPIM",
-            license="CC-BY-4.0",
-            developers=[Person(name="Dr. Dan")],
-            developer_institution=Organization.AIND,
-            modalities=[Modality.SPIM],
-            pretrained_source_url="url pretrained weights are from",
-            architecture=ModelArchitecture(
-                backbone=ModelBackbone.RESNET,
-                layers=18,
-                parameters={
-                    "downsample": 1,
-                    "input_shape": [14, 14, 26],
-                },
-                software=[
-                    Software(
-                        name="tensorflow",
-                        version="2.11.0",
-                    )
-                ],
+            version="0.1",
+            architecture=ModelArchitecture.RESNET,
+            architecture_parameters={
+                "layers": 18,
+                "input_shape": [14, 14, 26],
+            },
+            software_framework=Software(
+                    name="tensorflow",
+                    version="2.11.0",
             ),
             intended_use="Cell counting for 488 channel of SmartSPIM data",
             limitations="Only trained on 488 channel",
@@ -74,7 +65,7 @@ class ModelTests(unittest.TestCase):
                         PerformanceMetric(name="precision", value=0.8),
                         PerformanceMetric(name="recall", value=0.8),
                     ],
-                    test_data="4:1 train/test split",
+                    test_evaluation_method="random 4:1 train/test split",
                     notes="note on training data selection",
                 )
             ],
