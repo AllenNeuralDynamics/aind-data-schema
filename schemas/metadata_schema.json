@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.18",
-               "default": "2.0.18",
+               "const": "2.0.19",
+               "default": "2.0.19",
                "title": "Schema Version",
                "type": "string"
             },
@@ -134,6 +134,7 @@
                   "discriminator": {
                      "mapping": {
                         "Calibration": "#/$defs/Calibration",
+                        "Laser calibration": "#/$defs/LaserCalibration",
                         "Liquid calibration": "#/$defs/LiquidCalibration"
                      },
                      "propertyName": "object_type"
@@ -144,6 +145,9 @@
                      },
                      {
                         "$ref": "#/$defs/LiquidCalibration"
+                     },
+                     {
+                        "$ref": "#/$defs/LaserCalibration"
                      }
                   ]
                },
@@ -26748,8 +26752,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.19",
-               "default": "2.0.19",
+               "const": "2.0.20",
+               "default": "2.0.20",
                "title": "Schema Version",
                "type": "string"
             },
@@ -26839,6 +26843,7 @@
                         "discriminator": {
                            "mapping": {
                               "Calibration": "#/$defs/Calibration",
+                              "Laser calibration": "#/$defs/LaserCalibration",
                               "Liquid calibration": "#/$defs/LiquidCalibration"
                            },
                            "propertyName": "object_type"
@@ -26849,6 +26854,9 @@
                            },
                            {
                               "$ref": "#/$defs/LiquidCalibration"
+                           },
+                           {
+                              "$ref": "#/$defs/LaserCalibration"
                            }
                         ]
                      },
@@ -28248,6 +28256,81 @@
             "fiber"
          ],
          "title": "LaserAssembly",
+         "type": "object"
+      },
+      "LaserCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a laser device",
+         "properties": {
+            "object_type": {
+               "const": "Laser calibration",
+               "default": "Laser calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Laser power measured for various percentage output strengths",
+               "default": "Laser power measured for various percentage output strengths",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Power output percentage",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Laser strength",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "LaserCalibration",
          "type": "object"
       },
       "LaserConfig": {
@@ -45596,8 +45679,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.45",
-               "default": "2.0.45",
+               "const": "2.0.46",
+               "default": "2.0.46",
                "title": "Schema Version",
                "type": "string"
             },
@@ -94674,8 +94757,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.45",
-         "default": "2.0.45",
+         "const": "2.0.46",
+         "default": "2.0.46",
          "title": "Schema Version",
          "type": "string"
       },
