@@ -54,16 +54,6 @@ class DeviceConfig(DataModel):
     device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
 
 
-# Ophys components
-class PatchCordConfig(DeviceConfig):
-    """Description of a patch cord and its output power to another device"""
-
-    output_power: Decimal = Field(..., title="Output power (uW)")
-    output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
-    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
-    channel: Channel = Field(..., title="Channel")
-
-
 class TriggerType(str, Enum):
     """Types of detector triggers"""
 
@@ -131,6 +121,15 @@ class SlapChannel(Channel):
     dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
     description: Optional[str] = Field(default=None, title="Description")
     # TODO: dilation and unit might need to be required here
+
+
+class PatchCordConfig(DeviceConfig):
+    """Description of a patch cord and its output power to another device"""
+
+    output_power: Decimal = Field(..., title="Output power (uW)")
+    output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
+    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
+    channel: Channel = Field(..., title="Channel")
 
 
 class FieldOfView(DataModel):
