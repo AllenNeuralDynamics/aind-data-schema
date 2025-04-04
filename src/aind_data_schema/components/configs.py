@@ -98,7 +98,7 @@ class Channel(DataModel):
     intended_measurement: Optional[str] = Field(default=None, title="Intended measurement",
                                                 description="What signal is this channel measuring")
     detector_configuration: DetectorConfig = Field(..., title="Detector configuration")
-    additional_device_names: Optional[List[str]] = Field(default=None, title="Additional device names")
+    additional_device_names: Optional[List[DeviceConfig]] = Field(default=None, title="Additional device names")
     # excitation
     light_source_configurations: List[
         Annotated[
@@ -109,9 +109,11 @@ class Channel(DataModel):
             Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Light source configurations")
-    excitation_filters: Optional[List[str]] = Field(default=None, title="Excitation filters")
+    excitation_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Excitation filters")
     # emission
-    emission_filters: Optional[List[str]] = Field(default=None, title="Emission filter names")
+    emission_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Emission filter names")
+    emission_wavelength: int = Field(..., title="Emission wavelength")
+    emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
 
 
 class SlapChannel(Channel):
@@ -437,28 +439,33 @@ class Immersion(DataModel):
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class Tile(DataModel):
-    """Description of an image tile"""
+class Image(DataModel):
+    """Description of an image"""
 
-    coordinate_transform: CoordinateTransform = Field(..., title="Tile coordinate transformations")
+    channel_name: str = Field(..., title="Channel name")
+    coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
-    imaging_angle: int = Field(default=0, title="Imaging angle")
+    imaging_angle: int = Field(default=0, title="Imaging angle",
+                               description="Angle of the detector relative to the image plane relative to perpendicular")
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
-    tile_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Tile acquisition start time")
-    tile_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Tile acquisition end time")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class SPIMChannel(Channel):
-    """Description of a light sheet channel"""
-
-    tiles: List[Tile] = Field(..., title="Tiles")
+    image_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition start time")
+    image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
 
 
 class InVitroImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
-    channels: List[SPIMChannel] = Field(..., title="Channels")
+    channels: List[Channel] = Field(..., title="Channels")
+    images: List[Image] = Field(..., title="Images")
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+
+    @model_validator(mode="after")
+    def check_image_channels(self):
+        """Check that the required channels are present for the images"""
+
+        for image in self.images:
+            if image.channel_name not in self.channels:
+                raise ValueError(f"Channel must be defined")
+        return self
