@@ -30,7 +30,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
-    Coordinate,
+    AtlasCoordinate,
     Origin,
     Rotation,
     CoordinateSystemLibrary,
@@ -141,11 +141,11 @@ class ProceduresTests(unittest.TestCase):
                     protocol_id="123",
                     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                     measured_coordinates={
-                        Origin.BREGMA: Coordinate(
+                        Origin.BREGMA: AtlasCoordinate(
                             system_name="BREGMA_ARI",
                             position=[0, 0, 0],
                         ),
-                        Origin.LAMBDA: Coordinate(
+                        Origin.LAMBDA: AtlasCoordinate(
                             system_name="BREGMA_ARI",
                             position=[-4.1, 0, 0],
                         ),
@@ -222,7 +222,7 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             coordinates=[
-                                Coordinate(
+                                AtlasCoordinate(
                                     system_name="BREGMA_ARID",
                                     position=[0.5, 1, 0, 1],
                                 ),
@@ -243,7 +243,7 @@ class ProceduresTests(unittest.TestCase):
                                         total_length=10,
                                     ),
                                     targeted_structure=CCFStructure.MOP,
-                                    coordinate=Coordinate(
+                                    coordinate=AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 2, 0, 2],
                                         angles=Rotation(
@@ -350,11 +350,11 @@ class ProceduresTests(unittest.TestCase):
         inj1 = BrainInjection(
             protocol_id="abc",
             coordinates=[
-                Coordinate(
+                AtlasCoordinate(
                     system_name="BREGMA_ARID",
                     position=[0.5, 1, 0, 0],
                 ),
-                Coordinate(
+                AtlasCoordinate(
                     system_name="BREGMA_ARID",
                     position=[0.5, 1, 0, 1],
                 ),
@@ -391,11 +391,11 @@ class ProceduresTests(unittest.TestCase):
             BrainInjection(
                 protocol_id="abc",
                 coordinates=[
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name="BREGMA_ARID",
                         position=[0.5, 1, 0, 0],
                     ),
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name="BREGMA_ARID",
                         position=[0.5, 1, 0, 1],
                     ),
@@ -509,7 +509,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            position=AtlasCoordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
             size=2.0,
             size_unit=SizeUnit.MM,
         )
@@ -557,7 +557,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            position=AtlasCoordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
             size=2.0,
             size_unit=SizeUnit.MM,
         )
@@ -568,7 +568,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
-                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+                position=AtlasCoordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
             )
         self.assertIn("Craniotomy.size must be provided for craniotomy type Circle", str(e.exception))
 
@@ -576,7 +576,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
-                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+                position=AtlasCoordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
             )
         self.assertIn("Craniotomy.size must be provided for craniotomy type Square", str(e.exception))
 

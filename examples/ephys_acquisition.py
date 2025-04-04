@@ -16,7 +16,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import AtlasCoordinate, CoordinateSystemLibrary
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -28,7 +28,7 @@ ephys_config_a = ManipulatorConfig(
     arc_angle=5.2,
     module_angle=8,
     atlas_coordinates=[
-        Coordinate(
+        AtlasCoordinate(
             system_name="BREGMA_ARID",
             position=[8150, 3250, 7800, 0],
         ),
@@ -37,13 +37,13 @@ ephys_config_a = ManipulatorConfig(
     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
     primary_targeted_structure=CCFStructure.LGD,
     manipulator_axis_positions=[
-        Coordinate(
+        AtlasCoordinate(
             system_name="BREGMA_ARID",
             position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[
-        Coordinate(
+        AtlasCoordinate(
             system_name="BREGMA_ARID",
             position=[5000, 5000, 0, 1],
         ),
@@ -60,7 +60,7 @@ ephys_config_b = ManipulatorConfig(
     arc_angle=25,
     module_angle=-22,
     atlas_coordinates=[
-        Coordinate(
+        AtlasCoordinate(
             system_name="BREGMA_ARID",
             position=[8150, 3250, 7800, 0],
         ),
@@ -69,13 +69,13 @@ ephys_config_b = ManipulatorConfig(
     coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
     primary_targeted_structure=CCFStructure.LC,
     manipulator_axis_positions=[
-        Coordinate(
+        AtlasCoordinate(
             system_name="BREGMA_ARID",
             position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[
-        Coordinate(
+        AtlasCoordinate(
             system_name="BREGMA_ARID",
             position=[5000, 5000, 0, 1],
         ),

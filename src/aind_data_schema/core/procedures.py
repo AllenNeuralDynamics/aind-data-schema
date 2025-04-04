@@ -26,7 +26,7 @@ from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
+from aind_data_schema.components.coordinates import COORDINATE_TYPE, CoordinateSystem, Origin, Translation
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
@@ -361,7 +361,7 @@ class Craniotomy(DataModel):
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
-    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
+    position: Optional[Union[Translation, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
     size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
@@ -505,7 +505,8 @@ class Injection(DataModel):
 class BrainInjection(Injection):
     """Description of a brain injection procedure"""
 
-    coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
+    system_name: str = Field(..., title="Coordinate system name", description="Must match the surgery or procedures coordinate system")
+    coordinates: List[COORDINATE_TYPE] = Field(..., title="Injection coordinate")
     target: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
@@ -546,7 +547,8 @@ class OphysProbe(DataModel):
     ophys_probe: FiberProbe = Field(..., title="Fiber probe")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
-    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
+    system_name: str = Field(..., title="Coordinate system name", description="Must match the surgery or procedures coordinate system")
+    coordinates: List[COORDINATE_TYPE] = Field(..., title="Injection coordinate")
 
 
 class FiberImplant(DataModel):
@@ -645,7 +647,7 @@ class Surgery(DataModel):
     )
 
     # Measured coordinates
-    measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
+    measured_coordinates: Optional[Dict[Origin, AtlasCoordinate]] = Field(
         default=None,
         title="Measured coordinates",
         description="Coordinates measured during the procedure, for example Bregma and Lambda",

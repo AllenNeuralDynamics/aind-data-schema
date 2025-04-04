@@ -12,7 +12,7 @@ from aind_data_schema.utils.validators import (
 )
 from enum import Enum
 from pydantic import BaseModel
-from aind_data_schema.components.coordinates import Coordinate
+from aind_data_schema.components.coordinates import AtlasCoordinate
 
 
 class TestCompatibilityCheck(unittest.TestCase):
@@ -41,11 +41,11 @@ class TestRecurseHelper(unittest.TestCase):
     def test_recurse_helper_with_list(self):
         """Test _recurse_helper with a list of coordinates"""
         data = [
-            Coordinate(
+            AtlasCoordinate(
                 system_name=self.system_name,
                 position=[0.5, 1],
             ),
-            Coordinate(
+            AtlasCoordinate(
                 system_name=self.system_name,
                 position=[0.5, 1],
             ),
@@ -54,7 +54,7 @@ class TestRecurseHelper(unittest.TestCase):
 
     def test_recurse_helper_with_object(self):
         """Test _recurse_helper with a single coordinate object"""
-        data = Coordinate(
+        data = AtlasCoordinate(
             system_name=self.system_name,
             position=[0.5, 1],
         )
@@ -70,7 +70,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
     def test_recursive_coord_system_check_with_valid_data(self):
         """Test recursive_coord_system_check with valid data"""
-        data = Coordinate(
+        data = AtlasCoordinate(
             system_name=self.system_name,
             position=[0.5, 1],
         )
@@ -78,7 +78,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
     def test_recursive_coord_system_check_with_invalid_system_name(self):
         """Test recursive_coord_system_check with invalid system name"""
-        data = Coordinate(
+        data = AtlasCoordinate(
             system_name="Invalid System",
             position=[0.5, 1],
         )
@@ -95,11 +95,11 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
     def test_recursive_coord_system_check_with_list_of_coordinates(self):
         """Test recursive_coord_system_check with a list of coordinates"""
         data = [
-            Coordinate(
+            AtlasCoordinate(
                 system_name=self.system_name,
                 position=[0.5, 1],
             ),
-            Coordinate(
+            AtlasCoordinate(
                 system_name=self.system_name,
                 position=[0.5, 1],
             ),
@@ -108,7 +108,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
     def test_recursive_coord_system_check_with_axis_count_mismatch(self):
         """Test recursive_coord_system_check with axis count mismatch"""
-        data = Coordinate(
+        data = AtlasCoordinate(
             system_name=self.system_name,
             position=[0.5, 1, 2],
         )

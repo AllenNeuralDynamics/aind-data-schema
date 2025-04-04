@@ -54,7 +54,7 @@ from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionComp
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.components.coordinates import (
-    Coordinate,
+    AtlasCoordinate,
     CoordinateSystemLibrary,
 )
 from aind_data_schema_models.coordinates import AnatomicalRelative
@@ -451,19 +451,19 @@ ephys_acquisition = Acquisition(
                 ManipulatorConfig(
                     device_name="ephys module 1",
                     atlas_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[84222, 4205, 11087.5, 0],
                         )
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )
@@ -482,19 +482,19 @@ ephys_acquisition = Acquisition(
                     arc_angle=25,
                     module_angle=-22,
                     atlas_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[6637.28, 4265.02, 10707.35, 0],
                         ),
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[9015, 7144, 13262, 0],
                         )
@@ -558,19 +558,19 @@ ephys_acquisition = Acquisition(
                     arc_angle=5.2,
                     module_angle=8,
                     atlas_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 0],
                         )
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[8422, 4205, 11087.5, 0],
                         )
@@ -589,19 +589,19 @@ ephys_acquisition = Acquisition(
                     arc_angle=5.2,
                     module_angle=8,
                     atlas_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[84222, 4205, 11087.5, 0],
                         )
@@ -620,19 +620,19 @@ ephys_acquisition = Acquisition(
                     arc_angle=25,
                     module_angle=-22,
                     atlas_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[6637.28, 4265.02, 10707.35, 0],
                         ),
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[9015, 7144, 13262, 0],
                         )
@@ -1100,7 +1100,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             module_angle=180,
                             primary_targeted_structure=CCFStructure.VISP,
                             manipulator_coordinates=[
-                                Coordinate(
+                                AtlasCoordinate(
                                     system_name="BREGMA_ARID",
                                     position=[1, 1, 1, 1],
                                 ),

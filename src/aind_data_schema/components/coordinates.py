@@ -1,7 +1,7 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from typing import List, Optional, Union
+from typing import List, Union
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
@@ -208,15 +208,8 @@ class Atlas(CoordinateSystem):
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
 
-class Transform(DataModel):
-    """Affine transformation in a coordinate system"""
-
-    system_name: str = Field(
-        ..., title="Coordinate system name"
-    )  # note: this field's exact name is used by a validator
-    transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
-        Field(..., title="Transform")
-    )
+COORDINATE_TYPE = List[Annotated[Union[Translation, Rotation], Field(discriminator="object_type")]]
+TRANSFORM_TYPE = List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]]
 
 
 class CoordinateTransform(DataModel):
@@ -232,24 +225,14 @@ class CoordinateTransform(DataModel):
     ] = Field(..., title="Transform")
 
 
-class Coordinate(DataModel):
-    """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
-
-    Angles can be optionally provided
+class AtlasCoordinate(DataModel):
+    """A coordinate in an atlas (AtlasSpace)
     """
 
-    system_name: str = Field(
-        ..., title="Coordinate system name"
-    )  # note: this field's exact name is used by a validator
+    atlas: Atlas = Field(..., title="Atlas")
     position: List[float] = Field(
-        ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
+        ..., title="Position in atlas", description="Units are inherited from the Atlas"
     )
-    angles: Optional[Rotation] = Field(
-        default=None,
-        title="Orientation in coordinate system",
-        description="Angles can be optionally provided to define a vector (e.g. for an insertion)",
-    )
-    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
 
 
 class CoordinateSystemLibrary:
@@ -418,6 +401,12 @@ class CoordinateSystemLibrary:
         ],
     )
 
+
+class AtlasLibrary:
+    """Library of common atlases
+
+    Name convention is Atlas + v + version number
+    """
     CCFv3 = Atlas(
         name=AtlasName.CCF,
         version="3",

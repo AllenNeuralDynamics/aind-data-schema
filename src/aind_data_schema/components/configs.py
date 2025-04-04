@@ -22,7 +22,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.coordinates import AtlasCoordinate, CoordinateSystem, Scale, TRANSFORM_TYPE
 from aind_data_schema.components.tile import AcquisitionTile, Channel
 from aind_data_schema.components.identifiers import Code
 
@@ -223,17 +223,17 @@ class ManipulatorConfig(DomeModule):
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-    atlas_coordinates: Optional[List[Coordinate]] = Field(
+    atlas_coordinates: Optional[List[AtlasCoordinate]] = Field(
         default=None,
         title="Targeted coordinates in the Acquisition Atlas",
     )
 
     # Coordinates
-    manipulator_coordinates: List[Coordinate] = Field(
+    manipulator_coordinates: List[AtlasCoordinate] = Field(
         ...,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )
-    manipulator_axis_positions: Optional[List[Coordinate]] = Field(
+    manipulator_axis_positions: Optional[List[AtlasCoordinate]] = Field(
         default=None,
         title="Manipulator local axis positions, in the device CoordinateSystem",
     )
@@ -293,7 +293,12 @@ class LickSpoutConfig(DataModel):
     solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Transform] = Field(default=None, title="Initial position")
+    instrument_to_device_transform: Optional[TRANSFORM_TYPE] = Field(
+        default=None,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
+    )
+    device_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
 
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
@@ -314,7 +319,12 @@ class AirPuffConfig(DataModel):
 
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Transform] = Field(default=None, title="Initial position")
+    instrument_to_device_transform: Optional[TRANSFORM_TYPE] = Field(
+        default=None,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
+    )
+    device_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
 
     pressure: Optional[float] = Field(default=None, title="Pressure")
     pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
@@ -367,7 +377,7 @@ class MRIScan(DeviceConfig):
     repetition_time: Decimal = Field(..., title="Repetition time (ms)")
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
     # fields required to get correct orientation
-    vc_transform: Optional[Transform] = Field(default=None, title="Scan transform")
+    vc_transform: Optional[TRANSFORM_TYPE] = Field(default=None, title="Scan transform")
     subject_position: SubjectPosition = Field(..., title="Subject position")
     # other fields
     voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
