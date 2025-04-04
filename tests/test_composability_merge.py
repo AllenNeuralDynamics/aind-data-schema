@@ -447,12 +447,12 @@ class TestComposability(unittest.TestCase):
         self.assertIn("First processing object", combined.notes)
         self.assertIn("Second processing object", combined.notes)
         # check combined dependency graph
-        self.assertDictContainsSubset(p1.dependency_graph, combined.dependency_graph)
+        self.assertTrue(p1.dependency_graph.items() <= combined.dependency_graph.items())
         # remove the first process from p2_graph, check that rest of the graph is unchanged in combined graph
         p2.dependency_graph.pop(p2.process_names[0])
-        self.assertDictContainsSubset(p2.dependency_graph, combined.dependency_graph)
+        self.assertTrue(p2.dependency_graph.items() <= combined.dependency_graph.items())
         # check that the graphs are linked properly
-        self.assertDictContainsSubset({p2.process_names[0]: [p1.process_names[-1]]}, combined.dependency_graph)
+        self.assertEqual([p1.process_names[-1]], combined.dependency_graph[p2.process_names[0]])
 
         # Test with incompatible schema versions
         p3 = p2.model_copy()
