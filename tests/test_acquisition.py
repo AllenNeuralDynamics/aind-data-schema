@@ -11,7 +11,7 @@ from aind_data_schema.components.coordinates import (
     Affine,
     Scale,
     Translation,
-    Coordinate,
+    AtlasCoordinate,
     Transform,
     CoordinateSystemLibrary,
 )
@@ -67,19 +67,19 @@ class AcquisitionTest(unittest.TestCase):
                             module_angle=10,
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
-                                Coordinate(
+                                AtlasCoordinate(
                                     system_name="BREGMA_ARID",
                                     position=[1, 1, 1, 0],
                                 ),
                             ],
                             manipulator_coordinates=[
-                                Coordinate(
+                                AtlasCoordinate(
                                     system_name="BREGMA_ARID",
                                     position=[1, 1, 1, 1],
                                 )
                             ],
                             manipulator_axis_positions=[
-                                Coordinate(
+                                AtlasCoordinate(
                                     system_name="BREGMA_ARID",
                                     position=[1, 1, 1, 0],
                                 )
@@ -185,19 +185,19 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 0],
                                     )
@@ -241,19 +241,19 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 0],
                                     )
@@ -298,19 +298,19 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
+                                    AtlasCoordinate(
                                         system_name="BREGMA_ARID",
                                         position=[1, 1, 1, 0],
                                     )
@@ -352,19 +352,19 @@ class AcquisitionTest(unittest.TestCase):
                     module_angle=10,
                     primary_targeted_structure=CCFStructure.VISL,
                     atlas_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARI",
                             position=[1, 1, 1],
                         ),
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARI",
                             position=[1, 1, 1],
                         )

@@ -18,7 +18,7 @@ from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subjec
 from aind_data_schema_models.species import Strain
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema.components.coordinates import (
-    Coordinate,
+    AtlasCoordinate,
     Rotation,
 )
 
@@ -116,7 +116,7 @@ for session_idx, session in sessions_df.iterrows():
                         ],
                         targeted_structure=proc_row["brain_area"],
                         coordinates=[
-                            Coordinate(
+                            AtlasCoordinate(
                                 system_name="BREGMA_ARI",
                                 position=[coords[1], coords[0], 0, coords[2]],
                                 angles=Rotation(

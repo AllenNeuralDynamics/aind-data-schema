@@ -4,7 +4,7 @@ import unittest
 from decimal import Decimal
 from pydantic import ValidationError
 from aind_data_schema.components.configs import MRIScan, Scale, ManipulatorConfig, LickSpoutConfig, Liquid, Valence
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation
+from aind_data_schema.components.coordinates import AtlasCoordinate, CoordinateSystemLibrary, Transform, Affine, Translation
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 
@@ -64,19 +64,19 @@ class TestManipulatorConfig(unittest.TestCase):
 
     def test_validate_len_coordinates_success(self):
         """Test validate_len_coordinates method with valid coordinate lengths"""
-        coordinate1 = Coordinate(
+        coordinate1 = AtlasCoordinate(
             system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
             position=[1, 2, 3],
         )
-        coordinate2 = Coordinate(
+        coordinate2 = AtlasCoordinate(
             system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
             position=[4, 5, 6],
         )
-        coordinate1_surface = Coordinate(
+        coordinate1_surface = AtlasCoordinate(
             system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
             position=[1, 2, 3, 1],
         )
-        coordinate2_surface = Coordinate(
+        coordinate2_surface = AtlasCoordinate(
             system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
             position=[4, 5, 6, 2],
         )
@@ -103,27 +103,27 @@ class TestManipulatorConfig(unittest.TestCase):
                 angle_unit=AngleUnit.DEG,
                 primary_targeted_structure=CCFStructure.HPF,
                 atlas_coordinates=[
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
                         position=[1, 2, 3],
                     ),
                 ],
                 manipulator_coordinates=[
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name=CoordinateSystemLibrary.PROBE_ARID.name,
                         position=[1, 2, 3, 1],
                     ),
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name=CoordinateSystemLibrary.PROBE_ARID.name,
                         position=[4, 5, 6, 2],
                     ),
                 ],
                 manipulator_axis_positions=[
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
                         position=[1, 2, 3],
                     ),
-                    Coordinate(
+                    AtlasCoordinate(
                         system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
                         position=[4, 5, 6],
                     ),

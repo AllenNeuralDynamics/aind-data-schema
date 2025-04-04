@@ -26,7 +26,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, AtlasCoordinate
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -66,7 +66,7 @@ p = Procedures(
                         )
                     ],
                     coordinates=[
-                        Coordinate(
+                        AtlasCoordinate(
                             system_name="BREGMA_ARID",
                             position=[-600, -3050, 0, 4200],
                         ),
@@ -92,7 +92,7 @@ p = Procedures(
                                 total_length=0.5,
                             ),
                             targeted_structure=CCFStructure.VTA,
-                            coordinate=Coordinate(
+                            coordinate=AtlasCoordinate(
                                 system_name="BREGMA_ARID",
                                 position=[-600, -3050, 0, 4200],
                             ),

@@ -22,7 +22,7 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
     Origin,
-    Coordinate,
+    AtlasCoordinate,
     CoordinateTransform,
     CoordinateSystemLibrary,
 )
@@ -337,7 +337,7 @@ class TestComposability(unittest.TestCase):
                         Craniotomy(
                             craniotomy_type=CraniotomyType.CIRCLE,
                             protocol_id="1234",
-                            position=Coordinate(
+                            position=AtlasCoordinate(
                                 system_name="BREGMA_ARI",
                                 position=[-2, -4, 0],
                             ),
@@ -346,11 +346,11 @@ class TestComposability(unittest.TestCase):
                         ),
                     ],
                     measured_coordinates={
-                        Origin.BREGMA: Coordinate(
+                        Origin.BREGMA: AtlasCoordinate(
                             system_name="BREGMA_ARI",
                             position=[0.0, 0.0, 0.0],
                         ),
-                        Origin.LAMBDA: Coordinate(
+                        Origin.LAMBDA: AtlasCoordinate(
                             system_name="BREGMA_ARI",
                             position=[-4.1, 0.0, 0.0],
                         ),

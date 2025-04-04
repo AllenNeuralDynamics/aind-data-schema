@@ -42,7 +42,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate, CoordinateSystem, CoordinateTransform
+from aind_data_schema.components.coordinates import AxisName, Scale, AtlasCoordinate, CoordinateSystem, TRANSFORM_TYPE
 from aind_data_schema.components.identifiers import Software
 
 
@@ -190,21 +190,15 @@ class CameraAssembly(DataModel):
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 
-    # position information
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
-
-    # transform
-    device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
-    device_transform: CoordinateTransform = Field(
-        ..., title="Device transform", description="Transformation from device to instrument coordinate system"
-    )
-
     filter: Optional[Filter] = Field(default=None, title="Filter")
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    instrument_to_device_transform: TRANSFORM_TYPE = Field(
+        ...,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
+    )
+    device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
 
 
 class DAQChannel(DataModel):
@@ -526,17 +520,12 @@ class Monitor(Device):
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
+    instrument_to_device_transform: TRANSFORM_TYPE = Field(
+        ...,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
     )
-
-    # transform
     device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
-    device_transform: CoordinateTransform = Field(
-        ..., title="Device transform", description="Transformation from device to instrument coordinate system"
-    )
 
     contrast: Optional[int] = Field(
         default=None,
@@ -585,17 +574,12 @@ class Speaker(Device):
     manufacturer: Organization.SPEAKER_MANUFACTURERS
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
+    instrument_to_device_transform: TRANSFORM_TYPE = Field(
+        ...,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
     )
-
-    # transform
     device_coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
-    device_transform: CoordinateTransform = Field(
-        ..., title="Device transform", description="Transformation from device to instrument coordinate system"
-    )
 
 
 class OlfactometerChannelType(Enum):

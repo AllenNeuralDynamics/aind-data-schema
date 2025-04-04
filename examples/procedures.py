@@ -21,7 +21,7 @@ from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
     AxisName,
     CoordinateSystem,
-    Coordinate,
+    AtlasCoordinate,
     Rotation,
     Origin,
     Axis,
@@ -58,7 +58,7 @@ surgery1 = Surgery(
         Craniotomy(
             craniotomy_type=CraniotomyType.CIRCLE,
             protocol_id="1234",
-            position=Coordinate(
+            position=AtlasCoordinate(
                 system_name="SurgerySystem",
                 position=[-2, 2, 0, 0],
             ),
@@ -80,7 +80,7 @@ surgery1 = Surgery(
                 )
             ],
             coordinates=[
-                Coordinate(
+                AtlasCoordinate(
                     system_name="SurgerySystem",
                     position=[-0.85, -3.8, 0, 3.3],
                     angles=Rotation(
