@@ -250,21 +250,6 @@ class EphysAssemblyConfig(DeviceConfig):
     probe_configs: List[ProbeConfig] = Field(..., title="Probe configurations")
 
 
-class NewScaleMISConfig(DeviceConfig):
-    """Configuration for the New Scale MIS"""
-
-    arc_angles: List[float] = Field(..., title="Arc angles")
-    module_angles: List[List[float]] = Field(..., title="Module angles")
-    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-
-    probe_configs: List[List[ProbeConfig]] = Field(..., title="Probe configurations")
-    module_configs: List[List[ManipulatorConfig]] = Field(..., title="Manipulator configurations")
-
-    calibration_date: Optional[datetime] = Field(
-        default=None, title="Date on which coordinate transform was last calibrated"
-    )
-
-
 class FiberAssemblyConfig(DeviceConfig):
     """Group of configurations for a fiber assembly"""
 

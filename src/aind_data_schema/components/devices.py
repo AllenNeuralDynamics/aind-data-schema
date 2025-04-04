@@ -367,15 +367,6 @@ class EphysAssembly(DataModel):
     probes: List[EphysProbe] = Field(..., title="Probes that are held by this module")
 
 
-class NewScaleMISRig(DataModel):
-    """Assembly representing a NewScale Modular Insertion System rig"""
-
-    name: str = Field(..., title="MIS rig name")
-    arcs: List[List[EphysAssembly]] = Field(
-        ..., title="Modules", description="Outer list is for each ARC, inner list is for MODULES on an arc"
-    )
-
-
 class FiberProbe(Device):
     """Description of a fiber optic probe"""
 
