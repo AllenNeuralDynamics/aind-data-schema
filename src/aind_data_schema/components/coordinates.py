@@ -313,7 +313,7 @@ class CoordinateSystemLibrary:
         axis_unit=SizeUnit.CM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
-            Axis(name=AxisName.Y, direction=Direction.FB),
+            Axis(name=AxisName.Y, direction=Direction.BF),
             Axis(name=AxisName.Z, direction=Direction.BT),
         ],
     )
@@ -347,7 +347,7 @@ class CoordinateSystemLibrary:
         axes=[
             Axis(name=AxisName.X, direction=Direction.RL),
             Axis(name=AxisName.Y, direction=Direction.BT),
-            Axis(name=AxisName.Z, direction=Direction.BF),
+            Axis(name=AxisName.Z, direction=Direction.FB),
         ],
     )
 

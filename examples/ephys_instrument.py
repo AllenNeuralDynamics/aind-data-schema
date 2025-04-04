@@ -6,7 +6,7 @@ from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, CoordinateTransform
 
 from aind_data_schema.components.devices import (
     Camera,
@@ -206,6 +206,12 @@ microscope_1 = CameraAssembly(
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_1,
     lens=stick_lens,
+    device_coordinate_system=CoordinateSystemLibrary.SIPE_CAMERA_RBF,
+    device_transform=CoordinateTransform(
+        input=CoordinateSystemLibrary.SIPE_CAMERA_RBF.name,
+        output=CoordinateSystemLibrary.BREGMA_ARI.name,
+        transforms=[],
+    )
 )
 
 microscope_2 = CameraAssembly(
