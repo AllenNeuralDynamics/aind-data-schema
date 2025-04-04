@@ -10,6 +10,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
+from aind_data_schema.components.tile import Channel
 import aind_data_schema.components.devices as d
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
@@ -1111,12 +1112,32 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             output_power=40,
                             output_power_unit="microwatt",
                             fiber_name="Fiber A",
+                            channel=Channel(
+                                channel_name="Channel A",
+                                intended_measurement="Dopamine",
+                                light_source_name="Laser A",
+                                filter_names=["Excitation filter 410nm"],
+                                detector_name="Green CMOS",
+                                excitation_wavelength=410,
+                                excitation_power=10,
+                                emission_wavelength=600,
+                            ),
                         ),
                         PatchCordConfig(
                             device_name="Patch Cord B",
                             output_power=43,
                             output_power_unit="microwatt",
                             fiber_name="Fiber B",
+                            channel=Channel(
+                                channel_name="Channel A",
+                                intended_measurement="Dopamine",
+                                light_source_name="Laser A",
+                                filter_names=["Excitation filter 410nm"],
+                                detector_name="Green CMOS",
+                                excitation_wavelength=410,
+                                excitation_power=10,
+                                emission_wavelength=600,
+                            ),
                         ),
                     ],
                     notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",

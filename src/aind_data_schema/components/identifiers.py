@@ -59,8 +59,8 @@ class Software(DataModel):
 class Code(DataModel):
     """Code or script identifier"""
 
-    url: str = Field(..., title="Code URL", description="Path to code repository")
-    name: Optional[str] = Field(default=None, title="Name", description="Name of the package or script")
+    url: str = Field(..., title="Code URL", description="URL to code repository")
+    name: Optional[str] = Field(default=None, title="Name")
     version: Optional[str] = Field(default=None, title="Code version")
     run_script: Optional[Path] = Field(default=None, title="Run script", description="Path to run script")
 

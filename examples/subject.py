@@ -29,7 +29,6 @@ s = Subject(
         ),
         genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
         housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
-        background_strain=Strain.C57BL_6J,
     ),
 )
 serialized = s.model_dump_json()

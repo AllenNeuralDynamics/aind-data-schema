@@ -11,6 +11,7 @@ from pydantic import Field, SkipValidation, ValidationInfo, field_validator, mod
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
 from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -69,7 +70,7 @@ class DataProcess(DataModel):
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
-    output_path: Optional[Path] = Field(
+    output_path: Optional[AssetPath] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
     output_parameters: GenericModelType = Field(
@@ -102,7 +103,7 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.42"]] = Field(default="2.0.42")
+    schema_version: SkipValidation[Literal["2.0.46"]] = Field(default="2.0.46")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")

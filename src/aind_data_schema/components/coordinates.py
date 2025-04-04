@@ -10,6 +10,7 @@ from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class Axis(DataModel):
@@ -184,7 +185,9 @@ class Affine(DataModel):
 class NonlinearTransform(DataModel):
     """Definition of a nonlinear transform"""
 
-    path: str = Field(..., title="Path to nonlinear transform file")
+    path: AssetPath = Field(
+        ..., title="Path to nonlinear transform file", description="Relative path from metadata json to file"
+    )
 
 
 class CoordinateSystem(DataModel):
