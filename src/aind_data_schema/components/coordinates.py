@@ -332,10 +332,10 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    PROBE_MIS = CoordinateSystem(
-        name="PROBE_MIS",
+    PROBE_XYZ = CoordinateSystem(
+        name="PROBE_XYZ",
         origin=Origin.TIP,
-        axis_unit=SizeUnit.CM,
+        axis_unit=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.FB),
             Axis(name=AxisName.Y, direction=Direction.RL),
@@ -346,7 +346,7 @@ class CoordinateSystemLibrary:
     PROBE_ARID = CoordinateSystem(
         name="PROBE_ARID",
         origin=Origin.TIP,
-        axis_unit=SizeUnit.CM,
+        axis_unit=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
@@ -398,6 +398,10 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.Z, direction=Direction.IS),
         ],
     )
+
+
+class AtlasLibrary:
+    """Library of common atlases"""
 
     CCFv3 = Atlas(
         name=AtlasName.CCF,

@@ -12,16 +12,46 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema.components.configs import (
-    DomeModule,
+    EphysAssemblyConfig,
     ManipulatorConfig,
+    ProbeConfig,
     StimulusModality,
+    AtlasCoordinate,
 )
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, AtlasLibrary,
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 bonsai_software = Software(name="Bonsai", version="2.7")
 
+ephys_config_a = EphysAssemblyConfig(
+    device_name="Ephys_assemblyA",
+    manipulator_config=ManipulatorConfig(
+        device_name="ManipulatorA",
+        coordinate_system=CoordinateSystemLibrary.PROBE_XYZ,
+        local_axis_positions=Coordinate(
+            system_name="PROBE_XYZ",
+            position=[8422, 4205, 11087.5],
+        ),
+    ),
+    probe_configs=[
+        ProbeConfig(
+            device_name="ProbeA",
+            primary_targeted_structure=CCFStructure.LGD,
+            coordinate=Coordinate(
+                system_name="BREGMA_ARID",
+                position=[5000, 5000, 0, 1],
+            ),
+            atlas_coordinate=AtlasCoordinate(
+                atlas=AtlasLibrary.CCFv3,
+                coordinate=Coordinate(
+                    system_name="CCFv3",
+                    position=[8422, 4205, 11087.5],
+                ),
+            ),
+        ),
+    ]
+)
 
 ephys_config_a = ManipulatorConfig(
     rotation_angle=0,
@@ -49,10 +79,6 @@ ephys_config_a = ManipulatorConfig(
         ),
     ],
     calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-    notes=(
-        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-    ),
 )
 
 ephys_config_b = ManipulatorConfig(
@@ -208,6 +234,10 @@ acquisition = Acquisition(
             ],
         ),
     ],
+    notes=(
+        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+    ),
 )
 
 serialized = acquisition.model_dump_json()
