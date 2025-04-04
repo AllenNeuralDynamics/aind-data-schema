@@ -372,8 +372,7 @@ class NewScaleMISRig(DataModel):
 
     name: str = Field(..., title="MIS rig name")
     arcs: List[List[EphysAssembly]] = Field(
-        ..., title="Modules",
-        description="Outer list is for each ARC, inner list is for MODULES on an arc"
+        ..., title="Modules", description="Outer list is for each ARC, inner list is for MODULES on an arc"
     )
 
 
