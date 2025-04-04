@@ -1,8 +1,8 @@
 """schema for processing"""
 
+import re
 import warnings
 from enum import Enum
-from pathlib import Path
 from typing import Dict, List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
@@ -13,7 +13,6 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes
-import re
 
 
 class ProcessStage(str, Enum):

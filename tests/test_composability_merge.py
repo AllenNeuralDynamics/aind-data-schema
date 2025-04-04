@@ -1,4 +1,4 @@
-""" Test for merge functions """
+"""Test for merge functions"""
 
 import unittest
 from datetime import datetime, timezone, date
@@ -467,7 +467,7 @@ class TestComposability(unittest.TestCase):
             combined = p1 + p1
         self.assertIn("Processing objects have repeated processes", str(w.warning))
         self.assertEqual(combined.data_processes[1].name, "Analysis_1")
-        
+
         with self.assertWarns(Warning) as w:
             combined = combined + combined
         self.assertIn("Processing objects have repeated processes", str(w.warning))
