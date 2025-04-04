@@ -107,12 +107,12 @@ class Processing(DataCoreModel):
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    process_graph: Dict[str, List[str]] = Field(
+    dependency_graph: Dict[str, List[str]] = Field(
         ...,
-        title="Process graph",
+        title="Dependency graph",
         description=(
-            "Directed graph of processing steps. Each key is a process name, and the value is a list of process names",
-            " that are inputs to the key process.",
+            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
+            "process names that are inputs to that process.",
         ),
     )
 
@@ -130,10 +130,10 @@ class Processing(DataCoreModel):
                 break
         else:
             raise ValueError(f"Process '{old_name}' not found in data_processes.")
-        # rename in process_graph
-        self.process_graph[new_name] = self.process_graph.pop(old_name)
-        # replace old_name in process_graph values
-        for value in self.process_graph.values():
+        # rename in dependency_graph
+        self.dependency_graph[new_name] = self.dependency_graph.pop(old_name)
+        # replace old_name in dependency_graph values
+        for value in self.dependency_graph.values():
             if old_name in value:
                 value[value.index(old_name)] = new_name
 
@@ -141,17 +141,17 @@ class Processing(DataCoreModel):
     def create_with_sequential_process_graph(cls, data_processes: List[DataProcess], **kwargs) -> "Processing":
         """Generate a sequential process graph from a list of DataProcess objects"""
 
-        process_graph = {}
+        dependency_graph = {}
         for i, process in enumerate(data_processes):
             if i == 0:
-                process_graph[process.name] = []
+                dependency_graph[process.name] = []
             else:
-                process_graph[process.name] = [data_processes[i - 1].name]
-        return cls(process_graph=process_graph, data_processes=data_processes, **kwargs)
+                dependency_graph[process.name] = [data_processes[i - 1].name]
+        return cls(dependency_graph=dependency_graph, data_processes=data_processes, **kwargs)
 
     @model_validator(mode="after")
     def validate_process_graph(self) -> "Processing":
-        """Check that the same processes are represented in data_processes and process_graph"""
+        """Check that the same processes are represented in data_processes and dependency_graph"""
 
         if not hasattr(self, "data_processes"):  # bypass for testing
             return self
@@ -161,16 +161,16 @@ class Processing(DataCoreModel):
         if len(processes) != len(self.data_processes):
             raise ValueError("data_processes must have unique names.")
 
-        graph_processes = set(self.process_graph.keys())
+        graph_processes = set(self.dependency_graph.keys())
         missing_processes = processes - graph_processes
         if missing_processes:
             raise ValueError(
-                f"process_graph must include all processes in data_processes. Missing processes: {missing_processes}"
+                f"dependency_graph must include all processes in data_processes. Missing processes: {missing_processes}"
             )
         missing_processes = graph_processes - processes
         if missing_processes:
             raise ValueError(
-                f"data_processes must include all processes in process_graph. Missing processes: {missing_processes}"
+                f"data_processes must include all processes in dependency_graph. Missing processes: {missing_processes}"
             )
         return self
 
@@ -221,8 +221,8 @@ class Processing(DataCoreModel):
                 other.rename_process(name, new_name)
 
         # Merge process graphs - start with self's graph and update with other's graph
-        combined_process_graph = self.process_graph.copy()
-        combined_process_graph.update(other.process_graph)
+        combined_process_graph = self.dependency_graph.copy()
+        combined_process_graph.update(other.dependency_graph)
 
         # link self's output to other's input
         # note that this only makes sense if self has a single output process
@@ -232,6 +232,6 @@ class Processing(DataCoreModel):
 
         return Processing(
             data_processes=self.data_processes + other.data_processes,
-            process_graph=combined_process_graph,
+            dependency_graph=combined_process_graph,
             notes=merge_notes(self.notes, other.notes),
         )
