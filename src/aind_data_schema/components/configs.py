@@ -112,8 +112,8 @@ class Channel(DataModel):
     excitation_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Excitation filters")
     # emission
     emission_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Emission filter names")
-    emission_wavelength: int = Field(..., title="Emission wavelength")
-    emission_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Emission wavelength unit")
+    emission_wavelength: Optional[int] = Field(default=None, title="Emission wavelength")
+    emission_wavelength_unit: Optional[SizeUnit] = Field(default=None, title="Emission wavelength unit")
 
 
 class SlapChannel(Channel):
@@ -131,7 +131,7 @@ class PatchCordConfig(DeviceConfig):
     output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
-    channel: Channel = Field(..., title="Channel")
+    channels: List[Channel] = Field(..., title="Channels")
 
 
 class FieldOfView(DataModel):

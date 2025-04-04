@@ -123,6 +123,8 @@ class Detector(Device):
 class Camera(Detector):
     """Camera Detector"""
 
+    detector_type: DetectorType = Field(default=DetectorType.CAMERA)
+
 
 class Filter(Device):
     """Filter used in a light path"""
