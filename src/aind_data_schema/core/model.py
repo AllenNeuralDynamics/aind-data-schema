@@ -34,7 +34,7 @@ class ModelTraining(DataProcess):
     test_performance: Optional[List[PerformanceMetric]] = Field(
         default=None, title="Test performance", description="Performance on test data, evaluated during training"
     )
-    test_eval_method: Optional[str] = Field(
+    test_evaluation_method: Optional[str] = Field(
         default=None, title="Test evaluation method", description="Approach to cross-validation or Train/test splitting"
     )
 
@@ -59,10 +59,10 @@ class Model(DataCoreModel):
     )
     architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
     software_framework: Optional[Software] = Field(default=None, title="Software framework")
-    properties: GenericModelType = Field(
+    architecture_parameters: GenericModelType = Field(
         default=GenericModel(),
-        title="Properties",
-        description="Additional properties of model, such as input signature or number of layers.",
+        title="Architecture parameters",
+        description="Parameters of model architecture, such as input signature or number of layers.",
     )
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")

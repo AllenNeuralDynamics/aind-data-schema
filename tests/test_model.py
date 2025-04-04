@@ -28,7 +28,7 @@ class ModelTests(unittest.TestCase):
             name="2024_01_01_ResNet18_SmartSPIM",
             version="0.1",
             architecture=ModelArchitecture.RESNET,
-            properties={
+            architecture_parameters={
                 "layers": 18,
                 "input_shape": [14, 14, 26],
             },
@@ -65,7 +65,7 @@ class ModelTests(unittest.TestCase):
                         PerformanceMetric(name="precision", value=0.8),
                         PerformanceMetric(name="recall", value=0.8),
                     ],
-                    test_eval_method="random 4:1 train/test split",
+                    test_evaluation_method="random 4:1 train/test split",
                     notes="note on training data selection",
                 )
             ],
