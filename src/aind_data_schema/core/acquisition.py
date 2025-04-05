@@ -7,7 +7,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModelType
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     DetectorConfig,
@@ -81,14 +81,20 @@ class SubjectDetails(DataModel):
 
 
 class PerformanceMetrics(DataModel):
-    """Summary of a StimulusEpoch"""
+    """Summary of performance in a StimulusEpoch"""
 
-    output_parameters: GenericModelType = Field(default=GenericModel(), title="Additional metrics")
-    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
-    reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
     trials_finished: Optional[int] = Field(default=None, title="Finished trials")
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
+
+    output_parameters: Optional[GenericModelType] = Field(default=None, title="Additional metrics")
+
+
+class RewardMetrics(DataModel):
+    """Summary of rewards in a StimulusEpoch"""
+
+    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
+    reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
 
 class DataStream(DataModel):
@@ -157,21 +163,22 @@ class StimulusEpoch(DataModel):
         description="When a specific stimulus ends. This might be the same as the acquisition end time.",
     )
     stimulus_name: str = Field(..., title="Stimulus name")
+    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
+
     code: Optional[Code] = Field(
         default=None,
         title="Code or script",
         description="Custom code/script used to control the behavior/stimulus and parameters",
     )
-    stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    summary: Optional[PerformanceMetrics] = Field(default=None, title="Summary")
+    summary_metrics: Optional[
+        List[Annotated[Union[PerformanceMetrics, RewardMetrics], Field(discriminator="object_type")]]
+    ] = Field(default=None, title="Summary")
     notes: Optional[str] = Field(default=None, title="Notes")
-
     active_devices: List[str] = Field(
         default=[],
         title="Active devices",
         description="Device names must match devices in the Instrument",
     )
-
     configurations: List[
         Annotated[
             Union[
