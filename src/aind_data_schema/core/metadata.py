@@ -209,7 +209,9 @@ class Metadata(DataCoreModel):
                         warnings.warn(f"Metadata missing required file: {file}")
                 validated = True
         if not validated:
-            warnings.warn(f"Metadata must contain at least one of the following files: {list(REQUIRED_FILE_SETS.keys())}")
+            warnings.warn(
+                f"Metadata must contain at least one of the following files: {list(REQUIRED_FILE_SETS.keys())}"
+            )
 
         return self
 

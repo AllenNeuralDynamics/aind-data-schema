@@ -4,8 +4,6 @@ import datetime
 import unittest
 
 import pydantic
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.system_architecture import ModelArchitecture
 
 from aind_data_schema.components.identifiers import Person, Software, Code, DataAsset
@@ -33,11 +31,15 @@ class ModelTests(unittest.TestCase):
                 "input_shape": [14, 14, 26],
             },
             software_framework=Software(
-                    name="tensorflow",
-                    version="2.11.0",
+                name="tensorflow",
+                version="2.11.0",
             ),
             intended_use="Cell counting for 488 channel of SmartSPIM data",
             limitations="Only trained on 488 channel",
+            example_run_code=Code(
+                url="url for model code repo",
+                run_script="./predict.py",
+            ),
             training=[
                 ModelTraining(
                     stage=ProcessStage.PROCESSING,

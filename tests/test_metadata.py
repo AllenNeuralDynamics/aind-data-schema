@@ -379,7 +379,6 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual(external_links, result["external_links"])
 
-
     def test_validate_expected_files_by_modality(self):
         """Tests that warnings are issued when metadata is missing required files"""
         # Test case where required files are missing for 'subject'
@@ -390,13 +389,13 @@ class TestMetadata(unittest.TestCase):
                 subject=self.subject,
                 # Missing required files: data_description, procedures, instrument, acquisition
             )
-        
+
         warning_messages = [str(warning.message) for warning in w.warnings]
         self.assertIn("Metadata missing required file: data_description", warning_messages)
         self.assertIn("Metadata missing required file: procedures", warning_messages)
         self.assertIn("Metadata missing required file: instrument", warning_messages)
         self.assertIn("Metadata missing required file: acquisition", warning_messages)
-        
+
         # Test case where no required files exist
         with self.assertWarns(UserWarning) as w:
             Metadata(
@@ -404,11 +403,11 @@ class TestMetadata(unittest.TestCase):
                 location="bucket",
                 # No required files provided
             )
-        
+
         warning_messages = [str(warning.message) for warning in w.warnings]
         self.assertIn(
-            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']", 
-            warning_messages
+            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']",
+            warning_messages,
         )
 
 
