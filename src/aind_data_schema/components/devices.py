@@ -493,8 +493,8 @@ class Treadmill(Device):
 
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
-    encoder: Device = Field(..., title="Encoder")
-    pulse_per_revolution: int = Field(..., title="Pulse per revolution")
+    encoder: Optional[Device] = Field(default=None, title="Encoder")
+    pulse_per_revolution: Optional[int] = Field(default=None, title="Pulse per revolution")
 
 
 class Arena(Device):

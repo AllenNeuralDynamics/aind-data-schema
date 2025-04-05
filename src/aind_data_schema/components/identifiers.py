@@ -37,7 +37,7 @@ class Container(DataModel):
 class Code(DataModel):
     """Code or script identifier"""
 
-    url: str = Field(..., title="Code URL", description="Path to code repository")
+    url: str = Field(..., title="Code URL", description="URL to code repository")
     version: Optional[str] = Field(default=None, title="Code version")
 
     software: Optional[Software] = Field(default=None, title="Software", description="Software package")

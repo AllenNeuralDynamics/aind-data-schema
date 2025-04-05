@@ -55,6 +55,7 @@ CALIBRATIONS = Annotated[
     Union[
         Calibration,
         LiquidCalibration,
+        LaserCalibration,
     ],
     Field(discriminator="object_type"),
 ]

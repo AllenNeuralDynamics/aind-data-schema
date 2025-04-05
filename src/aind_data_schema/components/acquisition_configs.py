@@ -25,6 +25,7 @@ from aind_data_schema.base import DataModel, GenericModelType
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.tile import AcquisitionTile, Channel
 from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class StimulusModality(str, Enum):
@@ -62,6 +63,7 @@ class PatchCordConfig(DeviceConfig):
     output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
+    channel: Channel = Field(..., title="Channel")
 
 
 class TriggerType(str, Enum):
@@ -183,7 +185,9 @@ class SlapFieldOfView(FieldOfView):
     target_type: SlapAcquisitionType = Field(..., title="Target type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
 
 
 class MousePlatformConfig(DeviceConfig):
@@ -208,8 +212,8 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[str] = Field(
-        default=None, title="Path to coordinate transform file"
+    coordinate_transform: Optional[AssetPath] = Field(
+        default=None, title="Path to coordinate transform file", description="Relative path from metadata json to file"
     )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
