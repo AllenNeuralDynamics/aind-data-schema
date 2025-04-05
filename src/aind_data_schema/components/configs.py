@@ -96,8 +96,9 @@ class Channel(DataModel):
     """Description of a channel"""
 
     channel_name: str = Field(..., title="Channel")
-    intended_measurement: Optional[str] = Field(default=None, title="Intended measurement",
-                                                description="What signal is this channel measuring")
+    intended_measurement: Optional[str] = Field(
+        default=None, title="Intended measurement", description="What signal is this channel measuring"
+    )
     detector_configuration: DetectorConfig = Field(..., title="Detector configuration")
     additional_device_names: Optional[List[DeviceConfig]] = Field(default=None, title="Additional device names")
     # excitation
@@ -199,7 +200,7 @@ class StackChannel(Channel):
 class Stack(FieldOfView):
     """Description of a two photon stack"""
 
-    channels: List[StackChannel] = Field(..., title="Channels") #TODO: does this make sense with channel in FOV
+    channels: List[StackChannel] = Field(..., title="Channels")  # TODO: does this make sense with channel in FOV
     number_of_planes: int = Field(..., title="Number of planes")
     step_size: float = Field(..., title="Step size (um)")
     step_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Step size unit")
@@ -448,8 +449,11 @@ class Image(DataModel):
     channel_name: str = Field(..., title="Channel name")
     coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
     file_name: Optional[str] = Field(default=None, title="File name")
-    imaging_angle: int = Field(default=0, title="Imaging angle",
-                               description="Angle of the detector relative to the image plane relative to perpendicular")
+    imaging_angle: int = Field(
+        default=0,
+        title="Imaging angle",
+        description="Angle of the detector relative to the image plane relative to perpendicular",
+    )
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
     image_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition start time")
     image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
