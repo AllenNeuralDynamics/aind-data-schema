@@ -22,7 +22,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform, CoordinateTransform
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -474,5 +474,7 @@ class InVitroImagingConfig(DataModel):
 
         for image in self.images:
             if image.channel_name not in self.channels:
-                raise ValueError(f"Channel must be defined")
+                raise ValueError(
+                    f"Channel {image.channel_name} must be defined in the InVitroImagingConfig.channels list"
+                )
         return self

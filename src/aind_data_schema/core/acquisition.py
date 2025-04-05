@@ -24,6 +24,7 @@ from aind_data_schema.components.configs import (
     PatchCordConfig,
     SinglePlaneFieldOfView,
     SlapFieldOfView,
+    FieldOfView,
     SpeakerConfig,
     Stack,
     StimulusModality,
