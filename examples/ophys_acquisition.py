@@ -68,7 +68,7 @@ a = Acquisition(
                         excitation_wavelength=410,
                         excitation_power=10,
                         emission_wavelength=600,
-                    )
+                    ),
                 ),
                 PatchCordConfig(
                     device_name="Patch Cord B",
@@ -84,7 +84,7 @@ a = Acquisition(
                         excitation_wavelength=560,
                         excitation_power=7,
                         emission_wavelength=700,
-                    )
+                    ),
                 ),
             ],
             notes="Internal trigger.",
