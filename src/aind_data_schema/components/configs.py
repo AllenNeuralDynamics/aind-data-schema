@@ -24,6 +24,7 @@ from pydantic_core.core_schema import ValidationInfo
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class StimulusModality(str, Enum):
@@ -222,7 +223,9 @@ class SlapFieldOfView(FieldOfView):
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
 
 
 class MousePlatformConfig(DeviceConfig):
@@ -247,8 +250,8 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[str] = Field(
-        default=None, title="Path to coordinate transform file"
+    coordinate_transform: Optional[AssetPath] = Field(
+        default=None, title="Path to coordinate transform file", description="Relative path from metadata json to file"
     )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
