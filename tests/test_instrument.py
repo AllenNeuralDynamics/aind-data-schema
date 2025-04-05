@@ -4,53 +4,48 @@ import json
 import unittest
 from datetime import date
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
 from pydantic import ValidationError
-from pydantic_core import PydanticSerializationError
 
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
     CameraTarget,
-    OlfactometerChannelType,
+    Computer,
     DAQChannel,
     Detector,
     DetectorType,
     Device,
+    DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
     EphysProbe,
+    FiberPatchCord,
     Laser,
     LaserAssembly,
     Lens,
+    LickSpout,
+    LickSpoutAssembly,
     Manipulator,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OlfactometerChannel,
-    FiberPatchCord,
-    LickSpoutAssembly,
-    LickSpout,
+    OlfactometerChannelType,
     ScanningStage,
-    DigitalMicromirrorDevice,
-    Computer,
 )
 from aind_data_schema.components.measurements import Calibration
-
 from aind_data_schema.core.instrument import (
-    Connection,
-    Instrument,
     DEVICES_REQUIRED,
+    Connection,
     ConnectionData,
     ConnectionDirection,
+    Instrument,
 )
-from aind_data_schema_models.units import SizeUnit
-from aind_data_schema.components.coordinates import (
-    CoordinateSystemLibrary,
-)
-from aind_data_schema_models.coordinates import AnatomicalRelative
 
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
