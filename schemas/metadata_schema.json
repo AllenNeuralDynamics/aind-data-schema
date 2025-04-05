@@ -44305,8 +44305,7 @@
                   "type": "string"
                },
                "title": "Specimen ID",
-               "type": "array",
-               "uniqueItems": true
+               "type": "array"
             }
          },
          "required": [
@@ -45524,8 +45523,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.17",
-               "default": "2.0.17",
+               "const": "2.0.18",
+               "default": "2.0.18",
                "title": "Schema Version",
                "type": "string"
             },
@@ -45679,8 +45678,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.46",
-               "default": "2.0.46",
+               "const": "2.0.47",
+               "default": "2.0.47",
                "title": "Schema Version",
                "type": "string"
             },
@@ -94757,8 +94756,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.46",
-         "default": "2.0.46",
+         "const": "2.0.47",
+         "default": "2.0.47",
          "title": "Schema Version",
          "type": "string"
       },
