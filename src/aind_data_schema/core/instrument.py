@@ -6,7 +6,7 @@ from typing import Dict, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataCoreModel, DataModel
@@ -190,10 +190,10 @@ class Instrument(DataCoreModel):
 
         return names
 
-    @field_serializer("modalities", when_used="json")
-    def serialize_modalities(self, modalities: List[Modality.ONE_OF]):
-        """Dynamically serialize modalities based on their type."""
-        return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
+    @field_validator("modalities", mode="before")
+    def validate_modalities(cls, value: List[Modality.ONE_OF]) -> List[Modality.ONE_OF]:
+        """Sort modalities"""
+        return sorted(value, key=lambda x: x["abbreviation"] if isinstance(x, dict) else x.abbreviation)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):
@@ -233,7 +233,7 @@ class Instrument(DataCoreModel):
         return value
 
     @model_validator(mode="after")
-    def validate_modalities(cls, value):
+    def validate_modality_device_dependencies(cls, value):
         """
         Validate that devices exist for the modalities specified.
 

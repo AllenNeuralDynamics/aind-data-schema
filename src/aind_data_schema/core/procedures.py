@@ -611,8 +611,8 @@ class Perfusion(DataModel):
         description="IDs of specimens resulting from this procedure.",
     )
 
-    @field_serializer("output_specimen_ids", when_used="json")
-    def serialize_output_specimen_ids(values: List[str]):
+    @field_validator("output_specimen_ids", mode="before")
+    def serialize_output_specimen_ids(cls, values: List[str]):
         """sort specimen ids for JSON serialization"""
         return sorted(values)
 
