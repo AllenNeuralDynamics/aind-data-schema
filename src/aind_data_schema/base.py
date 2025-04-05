@@ -2,6 +2,7 @@
 
 import json
 import logging
+import warnings
 import re
 from pathlib import Path
 from typing import Any, ClassVar, Generic, Literal, Optional, TypeVar, get_args
@@ -22,7 +23,7 @@ from pydantic import (
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 
-from aind_data_schema.utils.validators import recursive_coord_system_check
+from aind_data_schema.utils.validators import recursive_coord_system_check, recursive_check_paths
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 
@@ -85,10 +86,12 @@ class GenericModel(BaseModel, extra="allow"):
 
     @model_validator(mode="after")
     def validate_fieldnames(self):
-        """Ensure that field names do not contain forbidden characters"""
+        """Warn users when field names contain forbidden characters
+        These characters will cause issues with MongoDB queries
+        """
         model_dict = json.loads(self.model_dump_json(by_alias=True))
         if is_dict_corrupt(model_dict):
-            raise ValueError("Field names cannot contain '.' or '$'")
+            warnings.warn("MongoDB queries may not work as expected for fields that contain '.' or '$'")
         return self
 
 
@@ -227,6 +230,10 @@ class DataCoreModel(DataModel):
             Default: None
 
         """
+
+        # Go through the subfields recursively and check whether paths exist
+        recursive_check_paths(self, output_directory)
+
         filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename

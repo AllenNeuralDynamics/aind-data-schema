@@ -14,7 +14,8 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
 )
-from aind_data_schema.core.subject import BreedingInfo, Housing, Species, Subject
+from aind_data_schema.core.subject import Subject
+from aind_data_schema.components.subjects import BreedingInfo, Housing, Species, MouseSubject
 from aind_data_schema_models.species import Strain
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema.components.coordinates import (
@@ -67,23 +68,25 @@ for session_idx, session in sessions_df.iterrows():
     # construct the subject
     s = Subject(
         subject_id=str(mouse["id"]),
-        species=Species.MUS_MUSCULUS,  # all subjects are mice
-        sex=subject_sex_lookup.get(mouse["sex"]),
-        date_of_birth=mouse["dob"],
-        genotype=mouse["genotype"],
-        breeding_info=BreedingInfo(
-            maternal_id=str(dam["id"]),
-            maternal_genotype=dam["genotype"],
-            paternal_id=str(sire["id"]),
-            paternal_genotype=sire["genotype"],
-            breeding_group="unknown",  # not in spreadsheet
-        ),
-        housing=Housing(
-            home_cage_enrichment=["Running wheel"],  # all subjects had a running wheel in their cage
-            cage_id="unknown",  # not in spreadsheet
-        ),
-        background_strain=Strain.C57BL_6J,
-        source=Organization.OTHER,
+        subject_details=MouseSubject(
+            species=Species.MUS_MUSCULUS,  # all subjects are mice
+            sex=subject_sex_lookup.get(mouse["sex"]),
+            date_of_birth=mouse["dob"],
+            genotype=mouse["genotype"],
+            breeding_info=BreedingInfo(
+                maternal_id=str(dam["id"]),
+                maternal_genotype=dam["genotype"],
+                paternal_id=str(sire["id"]),
+                paternal_genotype=sire["genotype"],
+                breeding_group="unknown",  # not in spreadsheet
+            ),
+            housing=Housing(
+                home_cage_enrichment=["Running wheel"],  # all subjects had a running wheel in their cage
+                cage_id="unknown",  # not in spreadsheet
+            ),
+            strain=Strain.C57BL_6J,
+            source=Organization.OTHER,
+        )
     )
     s.write_standard_file(output_directory=d.name)
 
