@@ -308,6 +308,13 @@ class LightAssembly(DataModel):
     filter: Optional[Filter] = Field(default=None, title="Filter")
 
 
+class ProbePort(DataModel):
+    """Port for a probe connection"""
+
+    index: int = Field(..., title="One-based port index")
+    probes: List[str] = Field(..., title="Names of probes connected to this port")
+
+
 class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
@@ -315,6 +322,7 @@ class NeuropixelsBasestation(DAQDevice):
     basestation_firmware_version: str = Field(..., title="Basestation firmware version")
     bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
     slot: int = Field(..., title="Slot number for this basestation")
+    ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
     data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
@@ -323,6 +331,9 @@ class NeuropixelsBasestation(DAQDevice):
 
 class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
+
+    # required fields
+    ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
     data_interface: Literal[DataInterface.USB] = DataInterface.USB
@@ -344,7 +355,7 @@ class FiberPatchCord(Device):
 
 
 class LaserAssembly(DataModel):
-    """Named assembly combining a manipulator, lasers, collimator, and fibers"""
+    """Assembly for optogenetic stimulation"""
 
     name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -354,15 +365,18 @@ class LaserAssembly(DataModel):
 
 
 class EphysProbe(Device):
-    """Probe used in an ephys experiment"""
+    """Named probe used in an ephys experiment"""
 
     # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
+
+    # optional fields
+    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
 class EphysAssembly(DataModel):
-    """Assembly for electrophysiological recording"""
+    """Module for electrophysiological recording"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -382,7 +396,7 @@ class FiberProbe(Device):
 
 
 class FiberAssembly(DataModel):
-    """Assembly for optogenetic or fiber photometry recording"""
+    """Module for inserted fiber photometry recording"""
 
     name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -484,8 +498,8 @@ class Treadmill(Device):
 
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
-    encoder: Optional[Device] = Field(default=None, title="Encoder")
-    pulse_per_revolution: Optional[int] = Field(default=None, title="Pulse per revolution")
+    encoder: Device = Field(..., title="Encoder")
+    pulse_per_revolution: int = Field(..., title="Pulse per revolution")
 
 
 class Arena(Device):

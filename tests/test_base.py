@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
-import warnings
 
 from pydantic import ValidationError, create_model, SkipValidation, Field
 from typing import Literal
@@ -144,17 +143,18 @@ class BaseTests(unittest.TestCase):
 
     def test_generic_model_validate_fieldnames(self):
         """Tests that fieldnames are validated in GenericModel"""
+        expected_error = "1 validation error for GenericModel\n" "  Value error, Field names cannot contain '.' or '$' "
         invalid_params = [
             {"$foo": "bar"},
             {"foo": {"foo.name": "bar"}},
         ]
         for params in invalid_params:
-            with warnings.catch_warnings(record=True) as w:
-                warnings.simplefilter("always")
+            with self.assertRaises(ValidationError) as e:
                 GenericModel(**params)
-                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
+            self.assertIn(expected_error, repr(e.exception))
+            with self.assertRaises(ValidationError) as e:
                 GenericModel.model_validate(params)
-                self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
+            self.assertIn(expected_error, repr(e.exception))
 
     def test_ccf_validator(self):
         """Tests that CCFStructure validator works"""
@@ -291,8 +291,7 @@ class DataCoreModelTests(unittest.TestCase):
         self.assertEqual(ChildModel.default_filename(), "test_model.json")
 
     @patch("builtins.open", new_callable=mock_open)
-    @patch("aind_data_schema.utils.validators.recursive_check_paths")
-    def test_write_standard_file(self, mock_recursive_check_paths: MagicMock, mock_open: MagicMock):
+    def test_write_standard_file(self, mock_open: MagicMock):
         """Tests write_standard_file method"""
 
         class TestModel(DataCoreModel):
@@ -309,10 +308,7 @@ class DataCoreModelTests(unittest.TestCase):
 
     @patch("builtins.open", new_callable=mock_open)
     @patch("logging.warning")
-    @patch("aind_data_schema.utils.validators.recursive_check_paths")
-    def test_write_standard_file_size_warning(
-        self, mock_recursive_check_paths: MagicMock, mock_logging_warning: MagicMock, mock_open: MagicMock
-    ):
+    def test_write_standard_file_size_warning(self, mock_logging_warning: MagicMock, mock_open: MagicMock):
         """Tests that a warning is logged if the file size exceeds MAX_FILE_SIZE"""
 
         class TestModel(DataCoreModel):

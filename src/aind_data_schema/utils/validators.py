@@ -1,11 +1,7 @@
 """ Validator utility functions """
 
 from enum import Enum
-from typing import Any, List, Optional
-from pathlib import Path
-import logging
-
-from aind_data_schema.components.wrappers import AssetPath
+from typing import Any, List
 
 # Fields that should have the same length as the coordinate system axes
 AXIS_FIELD_NAMES = ["scale", "translation", "angles", "position"]
@@ -110,37 +106,3 @@ def recursive_get_all_names(obj: Any) -> List[str]:
             names.extend(recursive_get_all_names(field_value))
 
     return names
-
-
-def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
-    """Recursively check for AssetPath objects and validate their paths.
-    This function checks if the paths are absolute and logs a warning if they are.
-    It also checks if the paths exist and logs a warning if they do not.
-    If the object is a list, tuple, set, or dict, it recursively checks each item.
-
-    Parameters
-    ----------
-    obj : Any
-    directory : Optional[Path], optional
-        root directory, by default uses the current working directory
-    """
-    if isinstance(obj, Enum):
-        return
-
-    if isinstance(obj, AssetPath):
-        if obj.is_absolute():
-            logging.warning(f"AssetPath {obj} is absolute, ensure file paths are relative to the metadata directory")
-
-        full_path = directory / obj if directory else obj
-        full_path = Path(full_path)
-        if not full_path.exists():
-            logging.warning(
-                f"AssetPath {full_path} does not exist, ensure file paths are relative to the metadata directory"
-            )
-    elif isinstance(obj, (list, tuple, set, dict)):
-        items = obj.values() if isinstance(obj, dict) else obj
-        for item in items:
-            recursive_check_paths(item, directory)
-    elif hasattr(obj, "__dict__"):
-        for value in vars(obj).values():
-            recursive_check_paths(value, directory)

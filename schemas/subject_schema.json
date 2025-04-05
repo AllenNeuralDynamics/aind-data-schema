@@ -312,6 +312,32 @@
                ],
                "title": "Species"
             },
+            "background_strain": {
+               "anyOf": [
+                  {
+                     "discriminator": {
+                        "mapping": {
+                           "BALB/c": "#/$defs/_Balb_C",
+                           "C57BL/6J": "#/$defs/_C57Bl_6J"
+                        },
+                        "propertyName": "name"
+                     },
+                     "oneOf": [
+                        {
+                           "$ref": "#/$defs/_C57Bl_6J"
+                        },
+                        {
+                           "$ref": "#/$defs/_Balb_C"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Strain"
+            },
             "alleles": {
                "default": [],
                "description": "Allele names and persistent IDs",
@@ -1620,8 +1646,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.6",
-         "default": "2.0.6",
+         "const": "2.0.5",
+         "default": "2.0.5",
          "title": "Schema Version",
          "type": "string"
       },

@@ -9,7 +9,6 @@ from pydantic import Field, SkipValidation, ValidationInfo, field_validator, mod
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
 from aind_data_schema.components.identifiers import Code, Person
-from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -72,11 +71,7 @@ class DataProcess(DataModel):
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     # allowing multiple input locations, to be replaced by CompositeData object in future
     input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
-    output_location: AssetPath = Field(
-        ...,
-        title="Output location",
-        description="Relative path from metadata json to data outputs",
-    )
+    output_location: str = Field(..., description="Path to data outputs", title="Output location")
     outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
@@ -95,7 +90,7 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.45"]] = Field(default="2.0.45")
+    schema_version: SkipValidation[Literal["2.0.42"]] = Field(default="2.0.42")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")

@@ -3,6 +3,7 @@
 import json
 import unittest
 from datetime import datetime, timezone
+from unittest.mock import MagicMock, call, patch
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -85,6 +86,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
                 housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
+                background_strain=Strain.C57BL_6J,
             ),
         )
         dd = DataDescription(
@@ -328,11 +330,13 @@ class TestMetadata(unittest.TestCase):
             processing=self.processing,
         )
         expected_result = json.loads(expected_md.model_dump_json(by_alias=True))
-        result = create_metadata_json(
-            name=self.sample_name,
-            location=self.sample_location,
-            core_jsons=core_jsons,
-        )
+        # there are some userwarnings when creating Subject from json
+        with self.assertWarns(UserWarning):
+            result = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons=core_jsons,
+            )
         # check that metadata was created with expected values
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
@@ -368,17 +372,58 @@ class TestMetadata(unittest.TestCase):
         external_links = {
             ExternalPlatforms.CODEOCEAN.value: ["123", "abc"],
         }
-        result = create_metadata_json(
-            name=self.sample_name,
-            location=self.sample_location,
-            core_jsons={
-                "subject": self.subject_json,
-            },
-            optional_external_links=external_links,
-        )
+        # there are some userwarnings when creating from json
+        with self.assertWarns(UserWarning):
+            result = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons={
+                    "subject": self.subject_json,
+                },
+                optional_external_links=external_links,
+            )
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual(external_links, result["external_links"])
+
+    @patch("logging.warning")
+    @patch("aind_data_schema.core.metadata.is_dict_corrupt")
+    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock, mock_warning: MagicMock):
+        """Tests metadata json creation ignores corrupt core jsons"""
+        # mock corrupt procedures and processing
+        mock_is_dict_corrupt.side_effect = lambda x: (x == self.procedures_json or x == self.processing_json)
+        core_jsons = {
+            "subject": self.subject_json,
+            "data_description": None,
+            "procedures": self.procedures_json,
+            "instrument": None,
+            "processing": self.processing_json,
+            "acquisition": None,
+            "quality_control": None,
+        }
+        # there are some userwarnings when creating Subject from json
+        with self.assertWarns(UserWarning):
+            result = create_metadata_json(
+                name=self.sample_name,
+                location=self.sample_location,
+                core_jsons=core_jsons,
+            )
+        # check that metadata was still created
+        self.assertEqual(self.sample_name, result["name"])
+        self.assertEqual(self.sample_location, result["location"])
+        self.assertEqual(self.subject_json, result["subject"])
+        self.assertIsNone(result["acquisition"])
+        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
+        # check that corrupt core jsons were ignored
+        self.assertIsNone(result["procedures"])
+        self.assertIsNone(result["processing"])
+        mock_warning.assert_has_calls(
+            [
+                call("Provided processing is corrupt! It will be ignored."),
+                call("Provided procedures is corrupt! It will be ignored."),
+            ],
+            any_order=True,
+        )
 
 
 if __name__ == "__main__":

@@ -84,6 +84,7 @@ class MouseSubject(DataModel):
     date_of_birth: date_type = Field(..., title="Date of birth")
     strain: Strain.ONE_OF = Field(..., title="Strain")
     species: Species.ONE_OF = Field(..., title="Species")
+    background_strain: Optional[Strain.ONE_OF] = Field(default=None, title="Strain")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")
     genotype: str = Field(
         ...,

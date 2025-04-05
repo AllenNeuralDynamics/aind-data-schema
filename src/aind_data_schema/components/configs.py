@@ -22,16 +22,8 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
-from aind_data_schema.components.coordinates import (
-    Coordinate,
-    CoordinateSystem,
-    Scale,
-    Transform,
-    Atlas,
-)
-from aind_data_schema.components.tile import AcquisitionTile, Channel
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.identifiers import Code
-from aind_data_schema.components.wrappers import AssetPath
 
 
 class StimulusModality(str, Enum):
@@ -230,9 +222,7 @@ class SlapFieldOfView(FieldOfView):
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
-    )
+    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
 
 
 class MousePlatformConfig(DeviceConfig):
@@ -246,53 +236,72 @@ class MousePlatformConfig(DeviceConfig):
     )
 
 
-class ManipulatorConfig(DeviceConfig):
-    """Configuration for a manipulator"""
-
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Manipulator coordinate system")
-    local_axis_positions: Optional[Coordinate] = Field(default=None, title="Local axis positions")
-
-
-class AtlasCoordinate(DataModel):
-    """Atlas coordinates"""
-
-    atlas: Atlas = Field(..., title="Atlas")
-    coordinate: Coordinate = Field(..., title="Coordinate")
-
-
 # Ephys Components
-class ProbeConfig(DeviceConfig):
-    """Configuration for a device inserted into a brain"""
+class DomeModule(DeviceConfig):
+    """Movable module that is mounted on the ephys dome insertion system"""
 
+    arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
+    module_angle: Decimal = Field(..., title="Module Angle (deg)")
+    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+    rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
+    calibration_date: Optional[datetime] = Field(
+        default=None, title="Date on which coordinate transform was last calibrated"
+    )
+    coordinate_transform: Optional[str] = Field(
+        default=None, title="Path to coordinate transform file"
+    )  # [TODO] Remove
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class ManipulatorConfig(DomeModule):
+    """A dome module connected to a 3-axis manipulator"""
+
+    # Target
     primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
+    atlas_coordinates: Optional[List[Coordinate]] = Field(
+        default=None,
+        title="Targeted coordinates in the Acquisition Atlas",
+    )
 
-    coordinate: Coordinate = Field(
+    # Coordinates
+    manipulator_coordinates: List[Coordinate] = Field(
         ...,
         title="Targeted coordinates in the Instrument CoordinateSystem",
     )
-    atlas_coordinate: Optional[AtlasCoordinate] = Field(
+    manipulator_axis_positions: Optional[List[Coordinate]] = Field(
         default=None,
-        title="Targeted coordinates in an Atlas",
+        title="Manipulator local axis positions, in the device CoordinateSystem",
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
+    implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
+
+    @model_validator(mode="after")
+    def validate_len_coordinates(self):
+        """Validate number of coordinates targeted"""
+
+        lengths = []
+        if self.atlas_coordinates:
+            lengths.append(len(self.atlas_coordinates))
+        if self.manipulator_coordinates:
+            lengths.append(len(self.manipulator_coordinates))
+        if self.manipulator_axis_positions:
+            lengths.append(len(self.manipulator_axis_positions))
+
+        if len(set(lengths)) > 1:
+            raise ValueError(
+                "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same"
+            )
+
+        return self
 
 
-class EphysAssemblyConfig(DeviceConfig):
-    """Group of configurations for an ephys assembly"""
+class FiberAssemblyConfig(ManipulatorConfig):
+    """Inserted fiber photometry probe recorded in a stream"""
 
-    manipulator_config: ManipulatorConfig = Field(..., title="Manipulator configuration")
-    probe_configs: List[ProbeConfig] = Field(..., title="Probe configurations")
-
-
-class FiberAssemblyConfig(DeviceConfig):
-    """Group of configurations for a fiber assembly"""
-
-    manipulator_config: ManipulatorConfig = Field(..., title="Manipulator configuration")
-    probe_configs: List[ProbeConfig] = Field(..., title="Probe configurations")
     patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 

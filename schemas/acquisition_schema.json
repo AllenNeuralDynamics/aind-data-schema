@@ -541,19 +541,6 @@
                "title": "Channel",
                "type": "string"
             },
-            "intended_measurement": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "What signal is this channel measuring",
-               "title": "Intended measurement"
-            },
             "light_source_name": {
                "description": "Must match device name",
                "title": "Light source name",
@@ -589,46 +576,21 @@
             "excitation_wavelength_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
-               "title": "Wavelength unit"
+               "title": "Laser wavelength unit"
             },
             "excitation_power": {
                "maximum": 2000,
-               "title": "Light source power",
+               "title": "Laser power",
                "type": "number"
             },
             "excitation_power_unit": {
                "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
-               "title": "Light source power unit"
+               "title": "Laser power unit"
             },
             "filter_wheel_index": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Filter wheel index"
-            },
-            "emission_wavelength": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Emission wavelength"
-            },
-            "emission_wavelength_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "nanometer",
-               "title": "Wavelength unit"
+               "title": "Filter wheel index",
+               "type": "integer"
             },
             "dilation": {
                "anyOf": [
@@ -673,7 +635,8 @@
             "filter_names",
             "detector_name",
             "excitation_wavelength",
-            "excitation_power"
+            "excitation_power",
+            "filter_wheel_index"
          ],
          "title": "Channel",
          "type": "object"
@@ -689,7 +652,7 @@
                "type": "string"
             },
             "url": {
-               "description": "URL to code repository",
+               "description": "Path to code repository",
                "title": "Code URL",
                "type": "string"
             },
@@ -1291,7 +1254,6 @@
                   }
                ],
                "default": null,
-               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -1395,7 +1357,6 @@
                   }
                ],
                "default": null,
-               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -12537,7 +12498,6 @@
                   }
                ],
                "default": null,
-               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -19464,7 +19424,6 @@
                "type": "string"
             },
             "path": {
-               "description": "Relative path from metadata json to file",
                "title": "Path to nonlinear transform file",
                "type": "string"
             }
@@ -19584,16 +19543,12 @@
             "fiber_name": {
                "title": "Fiber name (must match procedure)",
                "type": "string"
-            },
-            "channel": {
-               "$ref": "#/$defs/Channel"
             }
          },
          "required": [
             "device_name",
             "output_power",
-            "fiber_name",
-            "channel"
+            "fiber_name"
          ],
          "title": "PatchCordConfig",
          "type": "object"
@@ -23929,7 +23884,6 @@
                "title": "Target branch"
             },
             "path_to_array_of_frame_rates": {
-               "description": "Relative path from metadata json to file",
                "title": "Array of frame rates",
                "type": "string"
             }
@@ -27569,19 +27523,6 @@
                "title": "Channel",
                "type": "string"
             },
-            "intended_measurement": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "What signal is this channel measuring",
-               "title": "Intended measurement"
-            },
             "light_source_name": {
                "description": "Must match device name",
                "title": "Light source name",
@@ -27617,46 +27558,21 @@
             "excitation_wavelength_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
-               "title": "Wavelength unit"
+               "title": "Laser wavelength unit"
             },
             "excitation_power": {
                "maximum": 2000,
-               "title": "Light source power",
+               "title": "Laser power",
                "type": "number"
             },
             "excitation_power_unit": {
                "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
-               "title": "Light source power unit"
+               "title": "Laser power unit"
             },
             "filter_wheel_index": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Filter wheel index"
-            },
-            "emission_wavelength": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Emission wavelength"
-            },
-            "emission_wavelength_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "nanometer",
-               "title": "Wavelength unit"
+               "title": "Filter wheel index",
+               "type": "integer"
             },
             "dilation": {
                "anyOf": [
@@ -27715,6 +27631,7 @@
             "detector_name",
             "excitation_wavelength",
             "excitation_power",
+            "filter_wheel_index",
             "start_depth",
             "end_depth"
          ],
@@ -59394,8 +59311,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.18",
-         "default": "2.0.18",
+         "const": "2.0.16",
+         "default": "2.0.16",
          "title": "Schema Version",
          "type": "string"
       },
