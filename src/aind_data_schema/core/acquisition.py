@@ -173,7 +173,6 @@ class StimulusEpoch(DataModel):
     summary_metrics: Optional[
         List[Annotated[Union[PerformanceMetrics, RewardMetrics], Field(discriminator="object_type")]]
     ] = Field(default=None, title="Summary")
-    notes: Optional[str] = Field(default=None, title="Notes")
     active_devices: List[str] = Field(
         default=[],
         title="Active devices",
@@ -190,6 +189,8 @@ class StimulusEpoch(DataModel):
             Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Device configurations")
+
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class Acquisition(DataCoreModel):
