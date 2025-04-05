@@ -139,7 +139,6 @@ class PatchCordConfig(DeviceConfig):
 class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
-    channel: Channel = Field(..., title="Channel")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
@@ -160,15 +159,16 @@ class FieldOfView(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class SinglePlaneFieldOfView(FieldOfView):
-    """Description of a single plane FOV"""
+class SinglePlaneConfig(FieldOfView):
+    """Description of a single plane ophys config"""
 
+    channel: Channel = Field(..., title="Channel")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
 
 
-class MultiPlaneConfig(DataModel):
-    """Description of the configuration of a plane in multi-plane imaging"""
+class MultiPlaneFieldOfView(FieldOfView):
+    """Description of a single multi-plane FOV"""
 
     index: int = Field(..., title="Index")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
@@ -189,10 +189,11 @@ class MultiPlaneConfig(DataModel):
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
 
 
-class MultiPlaneFieldOfView(FieldOfView):
-    """Description of multi-plane imaging"""
-
-    planes: List[MultiPlaneConfig] = Field(..., title="Planes")
+class MultiPlaneConfig(DataModel):
+    """Description of configuration of multi-plane acquisition """
+    
+    channel: Channel = Field(..., title="Channel")
+    planes: MultiPlaneFieldOfView = Field(..., title="Planes")
 
 
 class StackChannel(Channel):
