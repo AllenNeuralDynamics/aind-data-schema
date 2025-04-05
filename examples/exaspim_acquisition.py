@@ -8,12 +8,11 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components import Image, Channel
-from aind_data_schema.components.configs import LaserConfig
+from aind_data_schema.components import tile
+from aind_data_schema.components.configs import Channel, DeviceConfig, LaserConfig, Image, Immersion, InVitroImagingConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.components.measurements import Calibration, Maintenance
 
@@ -30,52 +29,67 @@ coordinate_transform = CoordinateTransform(
     transforms=[tile_scale],
 )
 
-tile0 = Image(
+image0 = Image(
+    channel_name=488,
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
     coordinate_transform=coordinate_transform,
-    channel=Channel(
-        channel_name="488",
-        light_sources=["LAS_08308"],
-        filters=["Multiband filter"],
-        detector_name="PMT_1",
-    ),
 )
-tile1 = Image(
+image1 = Image(
+    channel_name=561,
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
     coordinate_transform=coordinate_transform,
-    channel=Channel(
-        channel_name="561",
-        light_sources=["539251"],
-        filters=["Multiband filter"],
-        detector_name="PMT_1",
-    ),
-)
-
-laser_488_config = LaserConfig(
-    device_name="LAS_08308",
-    wavelength=488,
-    wavelength_unit=SizeUnit.NM,
-    excitation_power=200,
-    excitation_power_unit=PowerUnit.MW,
-)
-laser_561_config = LaserConfig(
-    device_name="539251",
-    wavelength=561,
-    wavelength_unit=SizeUnit.NM,
-    excitation_power=200,
-    excitation_power_unit=PowerUnit.MW,
 )
 
 invitro_config = InVitroImagingConfig(
+    channels=[
+        Channel(
+            channel_name="488",
+            intended_measurement="GFP signal",
+            light_sources=[LaserConfig(
+                device_name="LAS_08308",
+                wavelength=488,
+                wavelength_unit=SizeUnit.NM,
+                excitation_power=200,
+                excitation_power_unit=PowerUnit.MW,
+                ),
+            ],
+            emission_filters=[
+                DeviceConfig(
+                    device_name="Multiband filter",
+                ),
+            ],
+            detector_configuration=DetectorConfig(
+                device_name="PMT_1",
+            ),
+        ),
+        Channel(
+            channel_name="561",
+            intended_measurement="TdTomato signal",
+            light_sources=[
+                LaserConfig(
+                    device_name="539251",
+                    wavelength=561,
+                    wavelength_unit=SizeUnit.NM,
+                    excitation_power=200,
+                    excitation_power_unit=PowerUnit.MW,
+                ),
+            ],
+            emission_filters=[
+                DeviceConfig(
+                    device_name="Multiband filter",
+                )
+            ],
+            detector_configuration=DetectorConfig(
+                device_name="PMT_1".
+            )
+        ),
+    ],
+    images=[image0, image1],
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
     ),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-    images=[
-        tile0,
-        tile1,
-    ],
 )
 
 
@@ -116,8 +130,8 @@ acq = Acquisition(
             stream_start_time=t,
             stream_end_time=t,
             modalities=[Modality.SPIM],
-            active_devices=[],
-            configurations=[invitro_config, laser_488_config, laser_561_config],
+            active_devices=["LAS_08308","539251",],
+            configurations=[invitro_config,],
         )
     ],
     acquisition_start_time=t,
