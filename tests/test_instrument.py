@@ -4,53 +4,48 @@ import json
 import unittest
 from datetime import date
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
 from pydantic import ValidationError
-from pydantic_core import PydanticSerializationError
 
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import (
     Camera,
     CameraAssembly,
     CameraTarget,
-    OlfactometerChannelType,
+    Computer,
     DAQChannel,
     Detector,
     DetectorType,
     Device,
+    DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
     EphysProbe,
+    FiberPatchCord,
     Laser,
     LaserAssembly,
     Lens,
+    LickSpout,
+    LickSpoutAssembly,
     Manipulator,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OlfactometerChannel,
-    FiberPatchCord,
-    LickSpoutAssembly,
-    LickSpout,
+    OlfactometerChannelType,
     ScanningStage,
-    DigitalMicromirrorDevice,
-    Computer,
 )
 from aind_data_schema.components.measurements import Calibration
-
 from aind_data_schema.core.instrument import (
-    Connection,
-    Instrument,
     DEVICES_REQUIRED,
+    Connection,
     ConnectionData,
     ConnectionDirection,
+    Instrument,
 )
-from aind_data_schema_models.units import SizeUnit
-from aind_data_schema.components.coordinates import (
-    CoordinateSystemLibrary,
-)
-from aind_data_schema_models.coordinates import AnatomicalRelative
 
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
@@ -659,13 +654,6 @@ class InstrumentTests(unittest.TestCase):
         instrument_dict_data = json.loads(instrument_dict_json)
         self.assertEqual(instrument_dict_data["modalities"], expected_modalities)
 
-        # Case 3: Modality is an unknown type
-        with self.assertRaises(PydanticSerializationError) as context:
-            instrument_unknown_modality = Instrument.model_construct(modalities={"UnknownModality"})
-
-            instrument_unknown_modality.model_dump_json()
-        self.assertIn("Error calling function `serialize_modalities`", str(context.exception))
-
     def test_coordinate_validator(self):
         """Test the coordinate_validator function"""
 
@@ -765,6 +753,54 @@ class ConnectionTest(unittest.TestCase):
             )
 
         self.assertIn("Connection data key 'Laser A' does not exist", str(context.exception))
+
+    def test_validate_modalities_sorting(self):
+        """Test that validate_modalities sorts modalities by their name"""
+
+        # Create unsorted modalities
+        unsorted_modalities = [
+            Modality.FIB,
+            Modality.ECEPHYS,
+            Modality.BEHAVIOR_VIDEOS,
+        ]
+
+        # Expected sorted modalities
+        expected_sorted_modalities = [
+            Modality.BEHAVIOR_VIDEOS.abbreviation,
+            Modality.ECEPHYS.abbreviation,
+            Modality.FIB.abbreviation,
+        ]
+
+        # Create an instrument with unsorted modalities
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=unsorted_modalities,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[
+                *daqs,
+                *cameras,
+                *stick_microscopes,
+                *light_sources,
+                *lms,
+                laser,
+                *ems,
+                *detectors,
+                *patch_cords,
+                *stimulus_devices,
+                scan_stage,
+                Disc(name="Disc A", radius=1),
+                computer_ASDF,
+                computer_foo,
+                computer_W10XXX000,
+            ],
+            connections=connections,
+            calibrations=[],
+        )
+
+        inst_modality_abbr = [modality.abbreviation for modality in inst.modalities]
+        # Validate that the modalities are sorted
+        self.assertEqual(inst_modality_abbr, expected_sorted_modalities)
 
 
 if __name__ == "__main__":

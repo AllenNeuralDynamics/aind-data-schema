@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import Dict, List, Literal, Optional, Set, Union
+from typing import Dict, List, Literal, Optional, Union
 
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.coordinates import AnatomicalRelative
@@ -21,7 +21,7 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VolumeUnit,
 )
-from pydantic import Field, SkipValidation, field_serializer, field_validator, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
@@ -605,14 +605,14 @@ class Perfusion(DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
     protocol_id: str = Field(..., title="Protocol ID", description="DOI for protocols.io")
-    output_specimen_ids: Set[str] = Field(
+    output_specimen_ids: List[str] = Field(
         ...,
         title="Specimen ID",
         description="IDs of specimens resulting from this procedure.",
     )
 
-    @field_serializer("output_specimen_ids", when_used="json")
-    def serialize_output_specimen_ids(values: Set[str]):
+    @field_validator("output_specimen_ids", mode="before")
+    def serialize_output_specimen_ids(cls, values: List[str]):
         """sort specimen ids for JSON serialization"""
         return sorted(values)
 
