@@ -7,7 +7,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import PowerUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components import tile
+from aind_data_schema.components import Image, Channel
 from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
@@ -42,8 +42,8 @@ class ImagingTests(unittest.TestCase):
             configurations=[
                 InVitroImagingConfig(
                     chamber_immersion=Immersion(medium="PBS", refractive_index=1),
-                    tiles=[
-                        tile.AcquisitionTile(
+                    images=[
+                        Image(
                             coordinate_transform=CoordinateTransform(
                                 input="SPIM_IJK",
                                 output="SPIM_RPI",
@@ -56,7 +56,7 @@ class ImagingTests(unittest.TestCase):
                                     ),
                                 ],
                             ),
-                            channel=tile.Channel(
+                            channel=Channel(
                                 channel_name="488",
                                 light_source_name="Ex_488",
                                 filter_names=["Em_600"],
@@ -165,8 +165,8 @@ class ImagingTests(unittest.TestCase):
             code=Code(
                 url="https://github.com/abcd",
                 parameters={
-                    "tiles": [
-                        tile.Tile(
+                    "images": [
+                        Image(
                             coordinate_transform=CoordinateTransform(
                                 input="SPIM_IJK",
                                 output="BREGMA_ARI",
@@ -175,7 +175,7 @@ class ImagingTests(unittest.TestCase):
                                 ],
                             ),
                         ),
-                        tile.Tile(
+                        Image(
                             coordinate_transform=CoordinateTransform(
                                 input="SPIM_IJK",
                                 output="BREGMA_ARI",

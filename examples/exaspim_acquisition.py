@@ -8,7 +8,7 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components import tile
+from aind_data_schema.components import Image, Channel
 from aind_data_schema.components.configs import LaserConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.identifiers import Person
@@ -30,20 +30,20 @@ coordinate_transform = CoordinateTransform(
     transforms=[tile_scale],
 )
 
-tile0 = tile.AcquisitionTile(
+tile0 = Image(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
     coordinate_transform=coordinate_transform,
-    channel=tile.Channel(
+    channel=Channel(
         channel_name="488",
         light_sources=["LAS_08308"],
         filters=["Multiband filter"],
         detector_name="PMT_1",
     ),
 )
-tile1 = tile.AcquisitionTile(
+tile1 = Image(
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
     coordinate_transform=coordinate_transform,
-    channel=tile.Channel(
+    channel=Channel(
         channel_name="561",
         light_sources=["539251"],
         filters=["Multiband filter"],
@@ -72,7 +72,7 @@ invitro_config = InVitroImagingConfig(
         refractive_index=1.33,
     ),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-    tiles=[
+    images=[
         tile0,
         tile1,
     ],

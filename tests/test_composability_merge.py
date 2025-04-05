@@ -17,7 +17,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
+from aind_data_schema.components.configs import InVitroImagingConfig, Immersion, Image, Channel
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
@@ -42,8 +42,8 @@ invitro_config = InVitroImagingConfig(
         refractive_index=1.33,
     ),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-    tiles=[
-        tile.AcquisitionTile(
+    images=[
+        Image(
             file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
             coordinate_transform=CoordinateTransform(
                 input="SPIM_IJK",
@@ -57,7 +57,7 @@ invitro_config = InVitroImagingConfig(
                     ),
                 ],
             ),
-            channel=tile.Channel(
+            channel=Channel(
                 channel_name="488",
                 excitation_wavelength=488,
                 excitation_power=200,
@@ -240,8 +240,8 @@ class TestComposability(unittest.TestCase):
                                 refractive_index=1.33,
                             ),
                             coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-                            tiles=[
-                                tile.AcquisitionTile(
+                            images=[
+                                Image(
                                     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
                                     coordinate_transform=CoordinateTransform(
                                         input="SPIM_IJK",
@@ -255,7 +255,7 @@ class TestComposability(unittest.TestCase):
                                             ),
                                         ],
                                     ),
-                                    channel=tile.Channel(
+                                    channel=Channel(
                                         channel_name="561",
                                         excitation_wavelength=561,
                                         excitation_power=200,

@@ -11,7 +11,7 @@ from aind_data_schema.core.acquisition import (
     SubjectDetails,
 )
 from aind_data_schema.components.configs import DetectorConfig, PatchCordConfig, LaserConfig
-from aind_data_schema.components.tile import Channel
+from aind_data_schema.components.configs import Channel
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
