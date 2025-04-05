@@ -167,8 +167,8 @@ class SinglePlaneFieldOfView(FieldOfView):
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
 
 
-class MultiPlaneFieldOfView(FieldOfView):
-    """Description of a single plane FOV in multi-plane imaging"""
+class MultiPlaneConfig(DataModel):
+    """Description of the configuration of a plane in multi-plane imaging"""
 
     index: int = Field(..., title="Index")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
@@ -187,6 +187,12 @@ class MultiPlaneFieldOfView(FieldOfView):
     )
     scanfield_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Z stage position unit")
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
+
+
+class MultiPlaneFieldOfView(FieldOfView):
+    """Description of multi-plane imaging"""
+
+    planes: List[MultiPlaneConfig] = Field(..., title="Planes")
 
 
 class StackChannel(Channel):
