@@ -47,7 +47,9 @@ a = Acquisition(
                         Channel(
                             channel_name="Channel A",
                             intended_measurement="Dopamine",
-                            detector_configuration=DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
+                            detector_configuration=DetectorConfig(
+                                device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
+                            ),
                             light_source_configuration=[
                                 LaserConfig(
                                     device_name="Laser A",
@@ -69,7 +71,9 @@ a = Acquisition(
                         Channel(
                             channel_name="Channel B",
                             intended_measurement="GCaMP",
-                            detector_configuration=DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
+                            detector_configuration=DetectorConfig(
+                                device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
+                            ),
                             light_source_configuration=[
                                 LaserConfig(
                                     device_name="Laser B",
@@ -80,7 +84,7 @@ a = Acquisition(
                                 ),
                             ],
                         )
-                    ]
+                    ],
                 ),
             ],
         )

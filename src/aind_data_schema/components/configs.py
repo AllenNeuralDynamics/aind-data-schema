@@ -201,12 +201,8 @@ class FieldOfView(DataModel):
     frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
     planes: List[
         Annotated[
-            Union[
-                SinglePlaneConfig,
-                MultiPlaneConfig,
-                StackConfig
-            ],
-        Field(discriminator="object_type"),
+            Union[SinglePlaneConfig, MultiPlaneConfig, StackConfig],
+            Field(discriminator="object_type"),
         ]
     ] = Field(..., title="Two photon imaging configurations")
     notes: Optional[str] = Field(default=None, title="Notes")
