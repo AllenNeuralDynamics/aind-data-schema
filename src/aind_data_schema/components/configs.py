@@ -139,6 +139,7 @@ class PatchCordConfig(DeviceConfig):
 class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
+    channel_name: str = Field(..., title="Channel name")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
     fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
@@ -159,15 +160,14 @@ class FieldOfView(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class SinglePlaneConfig(FieldOfView):
+class SinglePlaneConfig(DataModel):
     """Description of a single plane ophys config"""
 
-    channel: Channel = Field(..., title="Channel")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
 
 
-class MultiPlaneFieldOfView(FieldOfView):
+class MultiPlaneConfig(DataModel):
     """Description of a single multi-plane FOV"""
 
     index: int = Field(..., title="Index")
@@ -189,25 +189,12 @@ class MultiPlaneFieldOfView(FieldOfView):
     scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
 
 
-class MultiPlaneConfig(DataModel):
-    """Description of configuration of multi-plane acquisition """
-    
-    channel: Channel = Field(..., title="Channel")
-    planes: MultiPlaneFieldOfView = Field(..., title="Planes")
-
-
-class StackChannel(Channel):
-    """Description of a Channel used in a Stack"""
+class StackConfig(DataModel):
+    """Description of a two photon stack"""
 
     start_depth: int = Field(..., title="Starting depth (um)")
     end_depth: int = Field(..., title="Ending depth (um)")
     depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Depth unit")
-
-
-class Stack(FieldOfView):
-    """Description of a two photon stack"""
-
-    channels: List[StackChannel] = Field(..., title="Channels")  # TODO: does this make sense with channel in FOV
     number_of_planes: int = Field(..., title="Number of planes")
     step_size: float = Field(..., title="Step size (um)")
     step_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Step size unit")
@@ -222,10 +209,12 @@ class SlapAcquisitionType(str, Enum):
     BRANCH = "Branch"
 
 
-class SlapFieldOfView(FieldOfView):
+class SlapConfig(FieldOfView):
     """Description of a Slap2 scan"""
 
     experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
+    imaging_depth: int = Field(..., title="Imaging depth (um)")
+    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
     dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
@@ -234,6 +223,24 @@ class SlapFieldOfView(FieldOfView):
     path_to_array_of_frame_rates: AssetPath = Field(
         ..., title="Array of frame rates", description="Relative path from metadata json to file"
     )
+
+
+class TwoPhotonImagingConfig(DataModel):
+    """Description of 2P imaging"""
+
+    channels: List[Channel] = Field(..., title="Channel")
+    field_of_views: List[FieldOfView] = Field(..., title="Field of views")
+    planes: List[
+        Annotated[
+            Union[
+                SinglePlaneConfig,
+                MultiPlaneConfig,
+                SlapConfig,
+                StackConfig
+            ],
+        Field(discriminator="object_type"),
+        ]
+    ] = Field(..., title="Two photon imaging configurations")
 
 
 class MousePlatformConfig(DeviceConfig):
