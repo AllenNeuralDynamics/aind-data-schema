@@ -209,7 +209,7 @@ class SlapAcquisitionType(str, Enum):
     BRANCH = "Branch"
 
 
-class SlapConfig(FieldOfView):
+class SlapConfig(DataModel):
     """Description of a Slap2 scan"""
 
     experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
