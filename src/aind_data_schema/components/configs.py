@@ -136,30 +136,6 @@ class PatchCordConfig(DeviceConfig):
     channels: List[Channel] = Field(..., title="Channels")
 
 
-class FieldOfView(DataModel):
-    """Description of an imaging field of view"""
-
-    channel_name: str = Field(..., title="Channel name")
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
-    fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
-    fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(
-        ...,
-        title="FOV reference",
-        description="Reference for ML/AP coordinates",
-    )
-    fov_width: int = Field(..., title="FOV width (pixels)")
-    fov_height: int = Field(..., title="FOV height (pixels)")
-    fov_size_unit: SizeUnit = Field(default=SizeUnit.PX, title="FOV size unit")
-    magnification: str = Field(..., title="Magnification")
-    fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
-    fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
-    frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
 class SinglePlaneConfig(DataModel):
     """Description of a single plane ophys config"""
 
@@ -212,7 +188,7 @@ class SlapAcquisitionType(str, Enum):
 class SlapConfig(DataModel):
     """Description of a Slap2 scan"""
 
-    experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
+    slap_experiment_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
     dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
@@ -225,11 +201,27 @@ class SlapConfig(DataModel):
     )
 
 
-class TwoPhotonImagingConfig(DataModel):
-    """Description of 2P imaging"""
+class FieldOfView(DataModel):
+    """Description of an imaging field of view"""
 
-    channels: List[Channel] = Field(..., title="Channel")
-    field_of_views: List[FieldOfView] = Field(..., title="Field of views")
+    channel_name: str = Field(..., title="Channel name")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
+    fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
+    fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
+    fov_reference: str = Field(
+        ...,
+        title="FOV reference",
+        description="Reference for ML/AP coordinates",
+    )
+    fov_width: int = Field(..., title="FOV width (pixels)")
+    fov_height: int = Field(..., title="FOV height (pixels)")
+    fov_size_unit: SizeUnit = Field(default=SizeUnit.PX, title="FOV size unit")
+    magnification: str = Field(..., title="Magnification")
+    fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
+    fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
+    frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
+    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
     planes: List[
         Annotated[
             Union[
@@ -241,6 +233,14 @@ class TwoPhotonImagingConfig(DataModel):
         Field(discriminator="object_type"),
         ]
     ] = Field(..., title="Two photon imaging configurations")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class TwoPhotonImagingConfig(DataModel):
+    """Description of 2P imaging"""
+
+    channels: List[Channel] = Field(..., title="Channel")
+    fields_of_view: List[FieldOfView] = Field(..., title="Fields of view")
 
 
 class MousePlatformConfig(DeviceConfig):
