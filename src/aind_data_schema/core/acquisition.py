@@ -20,14 +20,10 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     MousePlatformConfig,
     MRIScan,
-    MultiPlaneFieldOfView,
     PatchCordConfig,
-    SinglePlaneFieldOfView,
-    SlapFieldOfView,
-    FieldOfView,
     SpeakerConfig,
-    Stack,
     StimulusModality,
+    TwoPhotonImagingConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -118,10 +114,7 @@ class DataStream(DataModel):
                 DetectorConfig,
                 PatchCordConfig,
                 FiberAssemblyConfig,
-                SinglePlaneFieldOfView,
-                MultiPlaneFieldOfView,
-                SlapFieldOfView,
-                Stack,
+                TwoPhotonImagingConfig,
                 MRIScan,
                 InVitroImagingConfig,
                 LickSpoutConfig,
