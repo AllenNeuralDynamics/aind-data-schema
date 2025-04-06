@@ -178,29 +178,6 @@ class StackConfig(DataModel):
     number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
 
 
-class SlapAcquisitionType(str, Enum):
-    """Type of slap acquisition"""
-
-    PARENT = "Parent"
-    BRANCH = "Branch"
-
-
-class SlapConfig(DataModel):
-    """Description of a Slap2 scan"""
-
-    slap_experiment_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    imaging_depth: int = Field(..., title="Imaging depth (um)")
-    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
-    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-    target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
-    )
-
-
 class FieldOfView(DataModel):
     """Description of an imaging field of view"""
 
@@ -227,7 +204,6 @@ class FieldOfView(DataModel):
             Union[
                 SinglePlaneConfig,
                 MultiPlaneConfig,
-                SlapConfig,
                 StackConfig
             ],
         Field(discriminator="object_type"),
@@ -241,6 +217,29 @@ class TwoPhotonImagingConfig(DataModel):
 
     channels: List[Channel] = Field(..., title="Channel")
     fields_of_view: List[FieldOfView] = Field(..., title="Fields of view")
+
+
+class SlapAcquisitionType(str, Enum):
+    """Type of slap acquisition"""
+
+    PARENT = "Parent"
+    BRANCH = "Branch"
+
+
+class SlapConfig(DataModel):
+    """Description of a Slap2 scan"""
+
+    channels: List[SlapChannel] = Field(..., title="Channel")
+    field_of_view: FieldOfView = Field(..., title="Field of view")
+    slap_experiment_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
+    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
+    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
+    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+    target_branch: Optional[str] = Field(default=None, title="Target branch")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
 
 
 class MousePlatformConfig(DeviceConfig):
