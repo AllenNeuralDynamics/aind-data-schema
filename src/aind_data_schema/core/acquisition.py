@@ -165,7 +165,7 @@ class StimulusEpoch(DataModel):
         description="Custom code/script used to control the behavior/stimulus and parameters",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    performance_metrics: Optional[PerformanceMetrics] = Field(default=None, title="Summary")
+    performance_metrics: Optional[PerformanceMetrics] = Field(default=None, title="Performance metrics")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
