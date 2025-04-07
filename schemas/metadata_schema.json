@@ -36829,17 +36829,6 @@
          "title": "MemoryUnit",
          "type": "string"
       },
-      "MetadataStatus": {
-         "description": "Status of Metadata",
-         "enum": [
-            "Valid",
-            "Invalid",
-            "Missing",
-            "Unknown"
-         ],
-         "title": "MetadataStatus",
-         "type": "string"
-      },
       "Monitor": {
          "additionalProperties": false,
          "description": "Description of visual display for visual stimuli",
@@ -44305,8 +44294,7 @@
                   "type": "string"
                },
                "title": "Specimen ID",
-               "type": "array",
-               "uniqueItems": true
+               "type": "array"
             }
          },
          "required": [
@@ -45524,8 +45512,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.17",
-               "default": "2.0.17",
+               "const": "2.0.18",
+               "default": "2.0.18",
                "title": "Schema Version",
                "type": "string"
             },
@@ -45679,8 +45667,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.46",
-               "default": "2.0.46",
+               "const": "2.0.48",
+               "default": "2.0.48",
                "title": "Schema Version",
                "type": "string"
             },
@@ -94757,8 +94745,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.46",
-         "default": "2.0.46",
+         "const": "2.0.48",
+         "default": "2.0.48",
          "title": "Schema Version",
          "type": "string"
       },
@@ -94771,12 +94759,6 @@
          "description": "Current location of the data asset.",
          "title": "Location",
          "type": "string"
-      },
-      "metadata_status": {
-         "$ref": "#/$defs/MetadataStatus",
-         "default": "Unknown",
-         "description": "The status of the metadata.",
-         "title": " Metadata Status"
       },
       "external_links": {
          "additionalProperties": {
