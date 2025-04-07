@@ -326,9 +326,23 @@ class Anaesthetic(DataModel):
     level: Optional[Decimal] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class GenericSubjectProcedure(DataModel):
-    """Description of non-surgical procedure performed on a subject"""
+class GenericSurgeryProcedure(DataModel):
+    """Description of a surgery procedure performed on a subject"""
 
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    description: str = Field(..., title="Description")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class GenericSubjectProcedure(DataModel):
+    """Description of a non-surgical procedure performed on a subject"""
+
+    start_date: date = Field(..., title="Start date")
+    experimenters: Optional[List[Person]] = Field(
+        default=None,
+        title="experimenter(s)",
+    )
+    ethics_review_id: str = Field(..., title="Ethics review ID")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
     notes: Optional[str] = Field(default=None, title="Notes")
@@ -661,7 +675,7 @@ class Surgery(DataModel):
                 BrainInjection,
                 Injection,
                 MyomatrixInsertion,
-                GenericSubjectProcedure,
+                GenericSurgeryProcedure,
                 Perfusion,
                 SampleCollection,
             ],
