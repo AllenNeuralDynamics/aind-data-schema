@@ -16,7 +16,7 @@ from aind_data_schema.core.procedures import (
     NonViralMaterial,
     OphysProbe,
     Procedures,
-    Sectioning,
+    PlanarSectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -38,6 +38,7 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit, CurrentUnit
+from aind_data_schema.utils.exceptions import FieldLengthMismatch
 
 
 class ProceduresTests(unittest.TestCase):
@@ -338,7 +339,7 @@ class ProceduresTests(unittest.TestCase):
                 notes="some extra information",
                 procedure_details=[
                     HCRSeries.model_construct(),
-                    Sectioning.model_construct(),
+                    PlanarSectioning.model_construct(),
                 ],
             )
         self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
@@ -426,29 +427,56 @@ class ProceduresTests(unittest.TestCase):
     def test_sectioning(self):
         """Test sectioning"""
 
-        section = Sectioning(
-            number_of_slices=3,
-            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-            section_orientation="Coronal",
-            section_thickness=0.2,
-            section_distance_from_reference=0.3,
-            reference=Origin.BREGMA,
-            section_strategy="Whole Brain",
+        sectioning_procedure = PlanarSectioning(
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             targeted_structure=CCFStructure.MOP,
-        )
-        self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
+            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
 
-        # Number of output ids does not match number of slices
-        with self.assertRaises(ValidationError):
-            Sectioning(
-                number_of_slices=2,
-                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                section_orientation="Coronal",
-                section_thickness=0.2,
-                section_distance_from_reference=0.3,
-                reference=Origin.BREGMA,
-                section_strategy="Whole Brain",
+            section_cuts=[
+                Coordinate(
+                    system_name="BREGMA_ARI",
+                    position=[0.3, 0, 0],
+                ),
+                Coordinate(
+                    system_name="BREGMA_ARI",
+                    position=[0.5, 0, 0],
+                ),
+                Coordinate(
+                    system_name="BREGMA_ARI",
+                    position=[0.7, 0, 0],
+                ),
+                Coordinate(
+                    system_name="BREGMA_ARI",
+                    position=[0.9, 0, 0],
+                ),
+            ],
+            section_orientation="Coronal",
+        )
+
+        self.assertEqual(sectioning_procedure.section_cuts, len(sectioning_procedure.output_specimen_ids))
+
+        # Number of outputs ids (3) does not match the number of cuts (3, which makes only 2 slices)
+        with self.assertRaises(FieldLengthMismatch):
+            PlanarSectioning(
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 targeted_structure=CCFStructure.MOP,
+                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
+
+                section_cuts=[
+                    Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.3, 0, 0],
+                    ),
+                    Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 0, 0],
+                    ),
+                    Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.7, 0, 0],
+                    ),
+                ],
+                section_orientation="Coronal",
             )
 
     def test_validate_identical_specimen_ids(self):

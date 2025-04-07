@@ -22,7 +22,6 @@ from aind_data_schema_models.units import (
     VolumeUnit,
 )
 from pydantic import Field, SkipValidation, field_validator, model_validator
-from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
@@ -32,6 +31,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.exceptions import FieldLengthMismatch
 
 
 class ImmunolabelClass(str, Enum):
@@ -72,13 +72,6 @@ class SectionOrientation(str, Enum):
     CORONAL = "Coronal"
     SAGITTAL = "Sagittal"
     TRANSVERSE = "Transverse"
-
-
-class SectionStrategy(str, Enum):
-    """Section strategy"""
-
-    WHOLE = "Whole Brain"
-    HEMI = "Hemi Brain"
 
 
 class ProtectiveMaterial(str, Enum):
@@ -233,32 +226,32 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Sectioning(DataModel):
-    """Description of a sectioning procedure"""
+class PlanarSectioning(DataModel):
+    """Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane"""
 
-    number_of_slices: int = Field(..., title="Number of slices")
-    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
-    section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
-    section_thickness: Decimal = Field(..., title="Section thickness")
-    section_thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Section thickness unit")
-    section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
-    section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
-    section_strategy: SectionStrategy = Field(..., title="Slice strategy")
-
-    reference: Origin = Field(..., title="Reference origin")
-
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Sectioning coordinate system",
+        description="Only required if different from the Procedures.coordinate_system",
+    )
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
 
-    @field_validator("output_specimen_ids")
-    def check_output_id_length(cls, v, info: ValidationInfo):
-        """Validator for list of output specimen ids"""
+    section_cuts: List[Coordinate] = Field(..., title="Section start coordinates", min_length=1)
+    section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
+    partial_slice: Optional[List[AnatomicalRelative]] = Field(
+        default=None,
+        title="Partial slice",
+        description="If sectioning does not include the entire slice, indicate which part of the slice is retained.",
+    )
 
-        output_id_len = len(v)
-        expected_len = info.data["number_of_slices"]
+    @model_validator(mode="after")
+    def check_coord_id_length(cls, values):
+        """Validator for list length of section start coordinates"""
 
-        if output_id_len != expected_len:
-            raise AssertionError("List of output specimen ids does not match the number of slices.")
-        return v
+        if (len(values.section_start_coordinates) - 1) != len(values.output_specimen_ids):
+            raise FieldLengthMismatch(cls.__name__, ["section_start_coordinates - 1", "output_specimen_ids"])
+        return values
 
 
 class SpecimenProcedure(DataModel):
@@ -280,7 +273,7 @@ class SpecimenProcedure(DataModel):
             Union[
                 HCRSeries,
                 Antibody,
-                Sectioning,
+                PlanarSectioning,
                 Reagent,
             ],
             Field(discriminator="object_type"),
@@ -299,7 +292,7 @@ class SpecimenProcedure(DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
-        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
 
         if has_hcr_series + has_antibodies + has_sectioning > 1:
             raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
