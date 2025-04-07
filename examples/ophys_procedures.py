@@ -78,7 +78,7 @@ p = Procedures(
                             profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    target=CCFStructure.VTA,
+                    targeted_structure=CCFStructure.VTA,
                 ),
                 FiberImplant(
                     protocol_id="TO ENTER",

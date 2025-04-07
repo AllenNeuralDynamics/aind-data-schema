@@ -147,8 +147,8 @@ class Lens(Device):
     # optional fields
     focal_length: Optional[Decimal] = Field(default=None, title="Focal length of the lens (mm)")
     focal_length_unit: Optional[SizeUnit] = Field(default=None, title="Focal length unit")
-    size: Optional[float] = Field(default=None, title="Size (inches)")
-    lens_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Lens size unit")
+    size: Optional[float] = Field(default=None, title="Size")
+    size_unit: Optional[SizeUnit] = Field(default=None, title="Lens size unit")
     optimized_wavelength_range: Optional[str] = Field(default=None, title="Optimized wavelength range (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     max_aperture: Optional[str] = Field(default=None, title="Max aperture (e.g. f/2)")
@@ -476,12 +476,9 @@ class Wheel(Device):
     width: Decimal = Field(..., title="Width (mm)")
     size_unit: SizeUnit = Field(default=SizeUnit.MM, title="Size unit")
     encoder: Device = Field(..., title="Encoder")
-    encoder_output: Optional[DAQChannel] = Field(default=None, title="Encoder DAQ channel")
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
     magnetic_brake: Device = Field(..., title="Magnetic brake")
-    brake_output: Optional[DAQChannel] = Field(default=None, title="Brake DAQ channel")
     torque_sensor: Device = Field(..., title="Torque sensor")
-    torque_output: Optional[DAQChannel] = Field(default=None, title="Torque DAQ channel")
 
 
 class Tube(Device):

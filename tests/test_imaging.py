@@ -18,7 +18,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.devices import Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
+from aind_data_schema.components.acquisition_configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
@@ -76,6 +76,7 @@ class ImagingTests(unittest.TestCase):
             experimenters=[Person(name="alice bob")],
             acquisition_start_time=datetime.now(tz=timezone.utc),
             specimen_id="123456-brain",
+            acquisition_type="Test acquisition",
             subject_id="123456",
             instrument_id="1234",
             calibrations=[

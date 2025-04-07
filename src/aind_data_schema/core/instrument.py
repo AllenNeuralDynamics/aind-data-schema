@@ -113,7 +113,7 @@ class Instrument(DataCoreModel):
         title="Instrument ID",
     )
     modification_date: date = Field(..., title="Date of modification")
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities", description="Modalities that CAN BE acquired")
     calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
     # coordinate system

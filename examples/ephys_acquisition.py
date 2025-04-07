@@ -9,9 +9,9 @@ from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     DomeModule,
     ManipulatorConfig,
     StimulusModality,
@@ -122,10 +122,10 @@ acquisition = Acquisition(
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-    experiment_type="Receptive field mapping",
+    acquisition_type="Receptive field mapping",
     instrument_id="323_EPHYS1_20231003",
-    ethics_review_id="2109",
-    subject_details=SubjectDetails(
+    ethics_review_id=["2109"],
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Running Wheel",
     ),
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,

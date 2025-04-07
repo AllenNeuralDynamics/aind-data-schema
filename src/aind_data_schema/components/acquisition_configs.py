@@ -180,10 +180,9 @@ class SlapAcquisitionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
-    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
+    dilation: Scale = Field(..., title="DMD Dilation X/Y")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    target_type: SlapAcquisitionType = Field(..., title="Target type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
     path_to_array_of_frame_rates: AssetPath = Field(
