@@ -22,7 +22,7 @@ a = Acquisition(
     subject_id="652567",
     acquisition_type="Parameter Testing",
     instrument_id="ophys_inst",
-    ethics_review_id="2115",
+    ethics_review_id=["2115"],
     subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Disc",
     ),

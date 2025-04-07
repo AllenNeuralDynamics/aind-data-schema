@@ -32,7 +32,7 @@ a = Acquisition(
     subject_id="652567",
     acquisition_type="BCI Photometry",
     instrument_id="322_bergamo_20220705",
-    ethics_review_id="2115",
+    ethics_review_id=["2115"],
     subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Mouse tube",
     ),

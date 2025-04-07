@@ -79,7 +79,7 @@ acquisition = Acquisition(
     acquisition_end_time="2024-03-12T16:27:55.584892Z",
     experimenters=[Person(name="John Smith")],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
-    ethics_review_id="1234",
+    ethics_review_id=["1234"],
     acquisition_type="3D MRI Volume",
     instrument_id="NA",
     coordinate_system=CoordinateSystemLibrary.MRI_LPS,

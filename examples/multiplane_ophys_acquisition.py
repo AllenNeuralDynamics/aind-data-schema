@@ -25,7 +25,7 @@ a = Acquisition(
     subject_id="12345",
     acquisition_type="Mesoscope",
     instrument_id="MESO.1",
-    ethics_review_id="12345",
+    ethics_review_id=["1234"],
     subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="disc",
     ),
