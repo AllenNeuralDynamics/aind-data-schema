@@ -1,5 +1,102 @@
 {
    "$defs": {
+      "AcquisitionSubjectDetails": {
+         "additionalProperties": false,
+         "description": "Details about the subject during an acquisition",
+         "properties": {
+            "object_type": {
+               "const": "Acquisition subject details",
+               "default": "Acquisition subject details",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "animal_weight_prior": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight before procedure",
+               "title": "Animal weight (g)"
+            },
+            "animal_weight_post": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight after procedure",
+               "title": "Animal weight (g)"
+            },
+            "weight_unit": {
+               "$ref": "#/$defs/MassUnit",
+               "default": "gram",
+               "title": "Weight unit"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
+            },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "reward_consumed_total": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total reward consumed (mL)"
+            },
+            "reward_consumed_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward consumed unit"
+            }
+         },
+         "required": [
+            "mouse_platform_name"
+         ],
+         "title": "AcquisitionSubjectDetails",
+         "type": "object"
+      },
       "AcquisitionTile": {
          "additionalProperties": false,
          "description": "Description of acquisition tile",
@@ -718,6 +815,18 @@
                "default": null,
                "title": "Code version"
             },
+            "container": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Container"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Container"
+            },
             "run_script": {
                "anyOf": [
                   {
@@ -896,6 +1005,40 @@
          ],
          "title": "ConcentrationUnit",
          "type": "string"
+      },
+      "Container": {
+         "additionalProperties": false,
+         "description": "Code container identifier, e.g. Docker",
+         "properties": {
+            "object_type": {
+               "const": "Container",
+               "default": "Container",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "container_type": {
+               "description": "Type of container, e.g. Docker, Singularity",
+               "title": "Type",
+               "type": "string"
+            },
+            "tag": {
+               "description": "Tag of the container, e.g. version number",
+               "title": "Tag",
+               "type": "string"
+            },
+            "uri": {
+               "description": "URI of the container, e.g. Docker Hub URL",
+               "title": "URI",
+               "type": "string"
+            }
+         },
+         "required": [
+            "container_type",
+            "tag",
+            "uri"
+         ],
+         "title": "Container",
+         "type": "object"
       },
       "Coordinate": {
          "additionalProperties": false,
@@ -1096,6 +1239,7 @@
                "type": "string"
             },
             "modalities": {
+               "description": "Modalities that are acquired in this stream",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -1164,11 +1308,11 @@
                "title": "Modalities",
                "type": "array"
             },
-            "software": {
+            "code": {
                "anyOf": [
                   {
                      "items": {
-                        "$ref": "#/$defs/Software"
+                        "$ref": "#/$defs/Code"
                      },
                      "type": "array"
                   },
@@ -1176,8 +1320,8 @@
                      "type": "null"
                   }
                ],
-               "default": [],
-               "title": "Software packages"
+               "default": null,
+               "title": "Acquisition code"
             },
             "notes": {
                "anyOf": [
@@ -24114,22 +24258,18 @@
                "default": null,
                "title": "Notes"
             },
-            "experiment_type": {
-               "$ref": "#/$defs/SlapAcquisitionType",
-               "title": "Acquisition type"
-            },
-            "dmd_dilation_x": {
-               "title": "DMD Dilation X (pixels)",
-               "type": "integer"
-            },
-            "dmd_dilation_y": {
-               "title": "DMD Dilation Y (pixels)",
-               "type": "integer"
+            "dilation": {
+               "$ref": "#/$defs/Scale",
+               "title": "DMD Dilation X/Y"
             },
             "dilation_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
+            },
+            "target_type": {
+               "$ref": "#/$defs/SlapAcquisitionType",
+               "title": "Target type"
             },
             "target_neuron": {
                "anyOf": [
@@ -24172,9 +24312,8 @@
             "fov_height",
             "magnification",
             "fov_scale_factor",
-            "experiment_type",
-            "dmd_dilation_x",
-            "dmd_dilation_y",
+            "dilation",
+            "target_type",
             "path_to_array_of_frame_rates"
          ],
          "title": "SlapFieldOfView",
@@ -27994,7 +28133,7 @@
                "title": "Stimulus modalities",
                "type": "array"
             },
-            "summary": {
+            "performance_metrics": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/PerformanceMetrics"
@@ -28004,7 +28143,7 @@
                   }
                ],
                "default": null,
-               "title": "Summary"
+               "title": "Performance metrics"
             },
             "notes": {
                "anyOf": [
@@ -28081,103 +28220,6 @@
          ],
          "title": "StimulusModality",
          "type": "string"
-      },
-      "SubjectDetails": {
-         "additionalProperties": false,
-         "description": "Details about the subject during an acquisition",
-         "properties": {
-            "object_type": {
-               "const": "Subject details",
-               "default": "Subject details",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "animal_weight_prior": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight before procedure",
-               "title": "Animal weight (g)"
-            },
-            "animal_weight_post": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight after procedure",
-               "title": "Animal weight (g)"
-            },
-            "weight_unit": {
-               "$ref": "#/$defs/MassUnit",
-               "default": "gram",
-               "title": "Weight unit"
-            },
-            "anaesthesia": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Anaesthetic"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Anaesthesia"
-            },
-            "mouse_platform_name": {
-               "title": "Mouse platform",
-               "type": "string"
-            },
-            "reward_consumed_total": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total reward consumed (mL)"
-            },
-            "reward_consumed_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward consumed unit"
-            }
-         },
-         "required": [
-            "mouse_platform_name"
-         ],
-         "title": "SubjectDetails",
-         "type": "object"
       },
       "SubjectPosition": {
          "description": "Subject position",
@@ -59621,8 +59663,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.20",
-         "default": "2.0.20",
+         "const": "2.0.21",
+         "default": "2.0.21",
          "title": "Schema Version",
          "type": "string"
       },
@@ -59662,18 +59704,28 @@
          "type": "array"
       },
       "protocol_id": {
-         "default": [],
+         "anyOf": [
+            {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
          "description": "DOI for protocols.io",
-         "items": {
-            "type": "string"
-         },
-         "title": "Protocol ID",
-         "type": "array"
+         "title": "Protocol ID"
       },
       "ethics_review_id": {
          "anyOf": [
             {
-               "type": "string"
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
             },
             {
                "type": "null"
@@ -59686,25 +59738,9 @@
          "title": "Instrument ID",
          "type": "string"
       },
-      "experiment_type": {
-         "default": null,
-         "title": "Experiment type",
+      "acquisition_type": {
+         "title": "Acquisition type",
          "type": "string"
-      },
-      "software": {
-         "anyOf": [
-            {
-               "items": {
-                  "$ref": "#/$defs/Software"
-               },
-               "type": "array"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": [],
-         "title": "Acquisition software"
       },
       "notes": {
          "anyOf": [
@@ -59786,7 +59822,7 @@
       "subject_details": {
          "anyOf": [
             {
-               "$ref": "#/$defs/SubjectDetails"
+               "$ref": "#/$defs/AcquisitionSubjectDetails"
             },
             {
                "type": "null"
@@ -59801,6 +59837,7 @@
       "acquisition_start_time",
       "acquisition_end_time",
       "instrument_id",
+      "acquisition_type",
       "data_streams"
    ],
    "title": "Acquisition",

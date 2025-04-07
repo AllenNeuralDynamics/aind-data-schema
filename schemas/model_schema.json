@@ -39,6 +39,18 @@
                "default": null,
                "title": "Code version"
             },
+            "container": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Container"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Container"
+            },
             "run_script": {
                "anyOf": [
                   {
@@ -204,6 +216,40 @@
             "assets"
          ],
          "title": "CombinedData",
+         "type": "object"
+      },
+      "Container": {
+         "additionalProperties": false,
+         "description": "Code container identifier, e.g. Docker",
+         "properties": {
+            "object_type": {
+               "const": "Container",
+               "default": "Container",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "container_type": {
+               "description": "Type of container, e.g. Docker, Singularity",
+               "title": "Type",
+               "type": "string"
+            },
+            "tag": {
+               "description": "Tag of the container, e.g. version number",
+               "title": "Tag",
+               "type": "string"
+            },
+            "uri": {
+               "description": "URI of the container, e.g. Docker Hub URL",
+               "title": "URI",
+               "type": "string"
+            }
+         },
+         "required": [
+            "container_type",
+            "tag",
+            "uri"
+         ],
+         "title": "Container",
          "type": "object"
       },
       "DataAsset": {
