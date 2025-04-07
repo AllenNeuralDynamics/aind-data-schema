@@ -87,14 +87,10 @@ class PerformanceMetrics(DataModel):
     trials_finished: Optional[int] = Field(default=None, title="Finished trials")
     trials_rewarded: Optional[int] = Field(default=None, title="Rewarded trials")
 
-    output_parameters: Optional[GenericModelType] = Field(default=None, title="Additional metrics")
-
-
-class RewardMetrics(DataModel):
-    """Summary of rewards in a StimulusEpoch"""
-
-    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
+    reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during epoch")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
+
+    output_parameters: Optional[GenericModelType] = Field(default=None, title="Additional metrics")
 
 
 class DataStream(DataModel):
@@ -171,7 +167,7 @@ class StimulusEpoch(DataModel):
         description="Custom code/script used to control the behavior/stimulus and parameters",
     )
     summary_metrics: Optional[
-        List[Annotated[Union[PerformanceMetrics, RewardMetrics], Field(discriminator="object_type")]]
+        List[Annotated[Union[PerformanceMetrics], Field(discriminator="object_type")]]
     ] = Field(default=None, title="Summary")
     active_devices: List[str] = Field(
         default=[],
