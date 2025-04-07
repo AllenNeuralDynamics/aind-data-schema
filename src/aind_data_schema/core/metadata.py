@@ -4,7 +4,6 @@ import inspect
 import json
 import logging
 import warnings
-from enum import Enum
 from typing import Dict, Literal, Optional, get_args
 
 from aind_data_schema_models.modalities import Modality
@@ -80,7 +79,7 @@ class Metadata(DataCoreModel):
         title="Location",
         description="Current location of the data asset.",
     )
-    externalLinks = Field(
+    externalLinks: ExternalLinks = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more
