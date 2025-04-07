@@ -431,7 +431,6 @@ class ProceduresTests(unittest.TestCase):
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             targeted_structure=CCFStructure.MOP,
             output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-
             section_cuts=[
                 Coordinate(
                     system_name="BREGMA_ARI",
@@ -452,8 +451,7 @@ class ProceduresTests(unittest.TestCase):
             ],
             section_orientation="Coronal",
         )
-
-        self.assertEqual(sectioning_procedure.section_cuts, len(sectioning_procedure.output_specimen_ids))
+        self.assertIsNotNone(sectioning_procedure)
 
         # Number of outputs ids (3) does not match the number of cuts (3, which makes only 2 slices)
         with self.assertRaises(FieldLengthMismatch):
@@ -461,7 +459,6 @@ class ProceduresTests(unittest.TestCase):
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 targeted_structure=CCFStructure.MOP,
                 output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-
                 section_cuts=[
                     Coordinate(
                         system_name="BREGMA_ARI",

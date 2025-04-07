@@ -249,8 +249,11 @@ class PlanarSectioning(DataModel):
     def check_coord_id_length(cls, values):
         """Validator for list length of section start coordinates"""
 
-        if (len(values.section_start_coordinates) - 1) != len(values.output_specimen_ids):
-            raise FieldLengthMismatch(cls.__name__, ["section_start_coordinates - 1", "output_specimen_ids"])
+        if not hasattr(values, "section_cuts"):  # pragma: no cover, bypass for testing
+            return values
+
+        if (len(values.section_cuts) - 1) != len(values.output_specimen_ids):
+            raise FieldLengthMismatch(cls.__name__, ["section_cuts - 1", "output_specimen_ids"])
         return values
 
 

@@ -1,4 +1,5 @@
 """Custom error codes for aind-data-schema"""
+
 from typing import List
 
 
