@@ -79,7 +79,7 @@ class Metadata(DataCoreModel):
         title="Location",
         description="Current location of the data asset.",
     )
-    externalLinks: ExternalLinks = Field(
+    external_links: ExternalLinks = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more
