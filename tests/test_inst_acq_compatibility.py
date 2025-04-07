@@ -362,7 +362,7 @@ ephys_inst = Instrument(
 
 grating_code = Code(
     url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-    software=Software(
+    core_dependency=Software(
         name="Bonsai",
         version="2.7",
     ),

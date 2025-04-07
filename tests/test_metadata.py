@@ -15,10 +15,10 @@ from aind_data_schema.components.devices import (
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, create_metadata_json
+from aind_data_schema.core.metadata import Metadata, create_metadata_json
 from aind_data_schema.core.procedures import (
     BrainInjection,
     Procedures,
@@ -100,14 +100,13 @@ class TestMetadata(unittest.TestCase):
         procedures = Procedures(
             subject_id="12345",
         )
-        processing = Processing(
+        processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
+                    process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    output_path="/path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -305,6 +304,37 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual(external_links, result["external_links"])
+
+    def test_validate_expected_files_by_modality(self):
+        """Tests that warnings are issued when metadata is missing required files"""
+        # Test case where required files are missing for 'subject'
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                subject=self.subject,
+                # Missing required files: data_description, procedures, instrument, acquisition
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn("Metadata missing required file: data_description", warning_messages)
+        self.assertIn("Metadata missing required file: procedures", warning_messages)
+        self.assertIn("Metadata missing required file: instrument", warning_messages)
+        self.assertIn("Metadata missing required file: acquisition", warning_messages)
+
+        # Test case where no required files exist
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                # No required files provided
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']",
+            warning_messages,
+        )
 
 
 if __name__ == "__main__":

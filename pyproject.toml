@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=2.5.1,<2.6',
+    'aind-data-schema-models>=2.6.0',
     'dictdiffer',
     'pydantic>=2.7',
     'inflection',
@@ -65,7 +65,6 @@ readme = {file = ["README.md"]}
 
 [tool.black]
 line-length = 120
-target_version = ['py38']
 exclude = '''
 
 (
