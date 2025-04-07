@@ -209,9 +209,9 @@ class Acquisition(DataCoreModel):
         title="experimenter(s)",
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
+    ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
     instrument_id: str = Field(..., title="Instrument ID")
-    acquisition_type: str = Field(default=None, title="Acquisition type")
+    acquisition_type: str = Field(..., title="Acquisition type")
     notes: Optional[str] = Field(default=None, title="Notes")
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
@@ -285,7 +285,6 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        ethics_check = self.ethics_review_id != other.ethics_review_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
         if any([subj_check, spec_check, ethics_check, inst_check, exp_type_check]):
@@ -293,7 +292,6 @@ class Acquisition(DataCoreModel):
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"ethics_review_id: {self.ethics_review_id}/{other.ethics_review_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
@@ -307,6 +305,7 @@ class Acquisition(DataCoreModel):
         # Combine
         experimenters = self.experimenters + other.experimenters
         protocol_id = merge_optional_list(self.protocol_id, other.protocol_id)
+        ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
         data_streams = self.data_streams + other.data_streams
@@ -324,7 +323,7 @@ class Acquisition(DataCoreModel):
             specimen_id=self.specimen_id,
             experimenters=experimenters,
             protocol_id=protocol_id,
-            ethics_review_id=self.ethics_review_id,
+            ethics_review_id=ethics_review_id,
             instrument_id=self.instrument_id,
             calibrations=calibrations,
             maintenance=maintenance,
