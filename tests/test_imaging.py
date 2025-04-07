@@ -76,6 +76,7 @@ class ImagingTests(unittest.TestCase):
             experimenters=[Person(name="alice bob")],
             acquisition_start_time=datetime.now(tz=timezone.utc),
             specimen_id="123456-brain",
+            acquisition_type="Test acquisition",
             subject_id="123456",
             instrument_id="1234",
             calibrations=[
