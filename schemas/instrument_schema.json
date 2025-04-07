@@ -1023,7 +1023,8 @@
             "Left",
             "Right",
             "Medial",
-            "Lateral"
+            "Lateral",
+            "Origin"
          ],
          "title": "AnatomicalRelative",
          "type": "string"
@@ -21971,8 +21972,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.20",
-         "default": "2.0.20",
+         "const": "2.0.21",
+         "default": "2.0.21",
          "title": "Schema Version",
          "type": "string"
       },

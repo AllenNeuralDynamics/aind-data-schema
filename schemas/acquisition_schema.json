@@ -253,7 +253,8 @@
             "Left",
             "Right",
             "Medial",
-            "Lateral"
+            "Lateral",
+            "Origin"
          ],
          "title": "AnatomicalRelative",
          "type": "string"
@@ -693,6 +694,18 @@
                "title": "Code URL",
                "type": "string"
             },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
             "version": {
                "anyOf": [
                   {
@@ -705,18 +718,19 @@
                "default": null,
                "title": "Code version"
             },
-            "software": {
+            "run_script": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Software"
+                     "format": "path",
+                     "type": "string"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "Software package",
-               "title": "Software"
+               "description": "Path to run script",
+               "title": "Run script"
             },
             "language": {
                "anyOf": [
@@ -743,6 +757,36 @@
                "default": null,
                "title": "Programming language version"
             },
+            "input_data": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Combined data": "#/$defs/CombinedData",
+                              "Data asset": "#/$defs/DataAsset"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/DataAsset"
+                           },
+                           {
+                              "$ref": "#/$defs/CombinedData"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Input data used in the code or script",
+               "title": "Input data"
+            },
             "parameters": {
                "anyOf": [
                   {
@@ -755,12 +799,90 @@
                "default": null,
                "description": "Parameters used in the code or script",
                "title": "Parameters"
+            },
+            "core_dependency": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For code with a core software package dependency, e.g. Bonsai",
+               "title": "Core dependency"
             }
          },
          "required": [
             "url"
          ],
          "title": "Code",
+         "type": "object"
+      },
+      "CombinedData": {
+         "additionalProperties": false,
+         "description": "Description of a group of data assets",
+         "properties": {
+            "object_type": {
+               "const": "Combined data",
+               "default": "Combined data",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "assets": {
+               "items": {
+                  "$ref": "#/$defs/DataAsset"
+               },
+               "minItems": 1,
+               "title": "Data assets",
+               "type": "array"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
+            "external_links": {
+               "additionalProperties": {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "default": {},
+               "description": "Links to the Combined Data asset, if materialized.",
+               "propertyNames": {
+                  "$ref": "#/$defs/ExternalPlatforms"
+               },
+               "title": "External Links",
+               "type": "object"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Intention or approach used to select group of assets",
+               "title": "Description"
+            }
+         },
+         "required": [
+            "assets"
+         ],
+         "title": "CombinedData",
          "type": "object"
       },
       "ConcentrationUnit": {
@@ -930,6 +1052,28 @@
          ],
          "title": "CurrentUnit",
          "type": "string"
+      },
+      "DataAsset": {
+         "additionalProperties": false,
+         "description": "Description of a single data asset",
+         "properties": {
+            "object_type": {
+               "const": "Data asset",
+               "default": "Data asset",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "URL pointing to the data asset",
+               "title": "Asset location",
+               "type": "string"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "DataAsset",
+         "type": "object"
       },
       "DataStream": {
          "additionalProperties": false,
@@ -1314,6 +1458,14 @@
          ],
          "title": "DomeModule",
          "type": "object"
+      },
+      "ExternalPlatforms": {
+         "description": "External Platforms of Data Assets.",
+         "enum": [
+            "Code Ocean"
+         ],
+         "title": "ExternalPlatforms",
+         "type": "string"
       },
       "FiberAssemblyConfig": {
          "additionalProperties": false,
@@ -59469,8 +59621,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.19",
-         "default": "2.0.19",
+         "const": "2.0.20",
+         "default": "2.0.20",
          "title": "Schema Version",
          "type": "string"
       },
