@@ -432,34 +432,7 @@ class ProceduresTests(unittest.TestCase):
             targeted_structure=CCFStructure.MOP,
             output_specimen_ids=["123456_001", "123456_002", "123456_003"],
             section_cuts=[
-                Coordinate(
-                    system_name="BREGMA_ARI",
-                    position=[0.3, 0, 0],
-                ),
-                Coordinate(
-                    system_name="BREGMA_ARI",
-                    position=[0.5, 0, 0],
-                ),
-                Coordinate(
-                    system_name="BREGMA_ARI",
-                    position=[0.7, 0, 0],
-                ),
-                Coordinate(
-                    system_name="BREGMA_ARI",
-                    position=[0.9, 0, 0],
-                ),
-            ],
-            section_orientation="Coronal",
-        )
-        self.assertIsNotNone(sectioning_procedure)
-
-        # Number of outputs ids (3) does not match the number of cuts (3, which makes only 2 slices)
-        with self.assertRaises(FieldLengthMismatch):
-            PlanarSectioning(
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                targeted_structure=CCFStructure.MOP,
-                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                section_cuts=[
+                [
                     Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.3, 0, 0],
@@ -468,10 +441,66 @@ class ProceduresTests(unittest.TestCase):
                         system_name="BREGMA_ARI",
                         position=[0.5, 0, 0],
                     ),
+                ],
+                [
+                    Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 0, 0],
+                    ),
                     Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.7, 0, 0],
                     ),
+                ],
+                [
+                    Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.7, 0, 0],
+                    ),
+                    Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.9, 0, 0],
+                    ),
+                ],
+            ],
+            section_orientation="Coronal",
+        )
+        self.assertIsNotNone(sectioning_procedure)
+
+        # Number of outputs ids (3) does not match the number of cut pairs (1)
+        with self.assertRaises(FieldLengthMismatch):
+            PlanarSectioning(
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+                targeted_structure=CCFStructure.MOP,
+                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
+                section_cuts=[
+                    [
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0.3, 0, 0],
+                        ),
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0.5, 0, 0],
+                        ),
+                    ],
+                ],
+                section_orientation="Coronal",
+            )
+
+        # Raise error if both the start and end coordinates are not provided for a cut
+        with self.assertRaises(ValidationError):
+            PlanarSectioning(
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+                targeted_structure=CCFStructure.MOP,
+                output_specimen_ids=["123456_001"],
+                section_cuts=[
+                    [
+                        Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0.3, 0, 0],
+                        ),
+                    ],
                 ],
                 section_orientation="Coronal",
             )

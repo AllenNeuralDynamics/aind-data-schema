@@ -237,13 +237,28 @@ class PlanarSectioning(DataModel):
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
 
-    section_cuts: List[Coordinate] = Field(..., title="Section start coordinates", min_length=1)
+    section_cuts: List[List[Coordinate]] = Field(
+        ...,
+        title="Section start and end coordinates",
+        min_length=1,
+        description="Pair of coordinates for each section cut",
+    )
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
     partial_slice: Optional[List[AnatomicalRelative]] = Field(
         default=None,
         title="Partial slice",
         description="If sectioning does not include the entire slice, indicate which part of the slice is retained.",
     )
+
+    @field_validator("section_cuts", mode="after")
+    def validate_section_cuts(cls, values):
+        """Ensure all inner lists have exactly two coordinates"""
+        for cut in values:
+            if len(cut) != 2:
+                raise ValueError(
+                    "Each pair of start and end coordinates in section_cuts must have exactly two coordinates."
+                )
+        return values
 
     @model_validator(mode="after")
     def check_coord_id_length(cls, values):
@@ -252,8 +267,8 @@ class PlanarSectioning(DataModel):
         if not hasattr(values, "section_cuts"):  # pragma: no cover, bypass for testing
             return values
 
-        if (len(values.section_cuts) - 1) != len(values.output_specimen_ids):
-            raise FieldLengthMismatch(cls.__name__, ["section_cuts - 1", "output_specimen_ids"])
+        if (len(values.section_cuts)) != len(values.output_specimen_ids):
+            raise FieldLengthMismatch(cls.__name__, ["section_cuts", "output_specimen_ids"])
         return values
 
 
