@@ -149,8 +149,8 @@ class MultiPlaneConfig(DataModel):
     index: int = Field(..., title="Index")
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
-    coupled_fov_index: Optional[int] = Field(
-        default=None, title="Coupled FOV", description="Coupled planes for multiscope"
+    coupled_plane_index: Optional[int] = Field(
+        default=None, title="Coupled plane index", description="Coupled planes for multiscope"
     )
     power: Optional[Decimal] = Field(
         default=None, title="Power", description="For coupled planes, this power is shared by both planes"
