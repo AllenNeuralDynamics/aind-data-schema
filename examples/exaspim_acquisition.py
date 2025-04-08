@@ -30,12 +30,12 @@ coordinate_transform = CoordinateTransform(
 )
 
 image0 = Image(
-    channel_name=488,
+    channel_name="488",
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
     coordinate_transform=coordinate_transform,
 )
 image1 = Image(
-    channel_name=561,
+    channel_name="561",
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
     coordinate_transform=coordinate_transform,
 )
