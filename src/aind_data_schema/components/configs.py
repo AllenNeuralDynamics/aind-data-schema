@@ -183,13 +183,10 @@ class FieldOfView(DataModel):
 
     channel_name: str = Field(..., title="Channel name")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    fov_coordinate_ml: Decimal = Field(..., title="FOV coordinate ML")
-    fov_coordinate_ap: Decimal = Field(..., title="FOV coordinate AP")
-    fov_coordinate_unit: SizeUnit = Field(default=SizeUnit.UM, title="FOV coordinate unit")
-    fov_reference: str = Field(
+    fov_coordinate: Coordinate = Field(
         ...,
-        title="FOV reference",
-        description="Reference for ML/AP coordinates",
+        title="FOV coordinate",
+        description="Center point of the FOV in the instrument coordinate system",
     )
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
