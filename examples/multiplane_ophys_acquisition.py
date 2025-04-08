@@ -42,15 +42,7 @@ a = Acquisition(
             stream_start_time=t,
             stream_end_time=t,
             modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
-            active_devices=[
-                "Mesoscope",
-                "Eye",
-                "Face",
-                "Behavior",
-                "Vasculature",
-                "Laser A",
-                "PMT 1"
-            ],
+            active_devices=["Mesoscope", "Eye", "Face", "Behavior", "Vasculature", "Laser A", "PMT 1"],
             configurations=[
                 TwoPhotonImagingConfig(
                     channels=[
@@ -58,9 +50,7 @@ a = Acquisition(
                             channel_name="Green channel",
                             intended_measurement="GCaMP",
                             detector_configuration=DetectorConfig(
-                                device_name="PMT 1",
-                                exposure_time=0.1,
-                                trigger_type=TriggerType.INTERNAL
+                                device_name="PMT 1", exposure_time=0.1, trigger_type=TriggerType.INTERNAL
                             ),
                             light_source_configurations=[
                                 LaserConfig(
@@ -183,7 +173,7 @@ a = Acquisition(
                 ),
             ],
         )
-    ]
+    ],
 )
 
 serialized = a.model_dump_json()

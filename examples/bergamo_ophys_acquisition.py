@@ -88,9 +88,9 @@ a = Acquisition(
                                 SinglePlaneConfig(
                                     imaging_depth=150,
                                 )
-                            ]
+                            ],
                         )
-                    ]
+                    ],
                 )
             ],
         ),
