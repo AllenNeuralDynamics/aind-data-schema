@@ -34,8 +34,6 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components import tile
-
 invitro_config = InVitroImagingConfig(
     chamber_immersion=Immersion(
         medium="PBS",

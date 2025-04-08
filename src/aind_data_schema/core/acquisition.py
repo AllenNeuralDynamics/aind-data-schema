@@ -25,6 +25,9 @@ from aind_data_schema.components.configs import (
     SpeakerConfig,
     StimulusModality,
     TwoPhotonImagingConfig,
+    FieldOfView,
+    SlapFieldOfView,
+    Stack,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
