@@ -16,9 +16,11 @@ from aind_data_schema.core.acquisition import (
 from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,
+    FieldOfView,
     LaserConfig,
-    SinglePlaneFieldOfView,
+    SinglePlaneConfig,
     StimulusModality,
+    TwoPhotonImagingConfig,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -48,37 +50,48 @@ a = Acquisition(
                 "Face Camera",
             ],
             configurations=[
-                SinglePlaneFieldOfView(
-                    channel=Channel(
-                        channel_name="Green channel",
-                        intended_measurement="GCaMP",
-                        detector_configuration=DetectorConfig(
-                            device_name="PMT A",
-                            exposure_time=0.1,
-                            trigger_type="Internal",
-                        ),
-                        light_source_configurations=[
-                            LaserConfig(
-                                device_name="Laser A",
-                                wavelength=405,
-                                wavelength_unit="nanometer",
-                                excitation_power=10,
-                                excitation_power_unit="milliwatt",
+                TwoPhotonImagingConfig(
+                    channels=[
+                        Channel(
+                            channel_name="Green channel",
+                            intended_measurement="GCaMP",
+                            detector_configuration=DetectorConfig(
+                                device_name="PMT A",
+                                exposure_time=0.1,
+                                trigger_type="Internal",
                             ),
-                        ],
-                    ),
-                    imaging_depth=150,
-                    targeted_structure=CCFStructure.MOP,
-                    fov_coordinate_ml=1.5,
-                    fov_coordinate_ap=1.5,
-                    fov_reference="Bregma",
-                    fov_width=800,
-                    fov_height=800,
-                    magnification="1x",
-                    fov_scale_factor=1.5,
-                    frame_rate=20,
-                    frame_rate_unit=FrequencyUnit.HZ,
-                ),
+                            light_source_configurations=[
+                                LaserConfig(
+                                    device_name="Laser A",
+                                    wavelength=405,
+                                    wavelength_unit="nanometer",
+                                    excitation_power=10,
+                                    excitation_power_unit="milliwatt",
+                                ),
+                            ],
+                        ),
+                    ],
+                    fields_of_view=[
+                        FieldOfView(
+                            channel_name="Green channel",
+                            targeted_structure=CCFStructure.MOP,
+                            fov_coordinate_ml=1.5,
+                            fov_coordinate_ap=1.5,
+                            fov_reference="Bregma",
+                            fov_width=800,
+                            fov_height=800,
+                            magnification="1x",
+                            fov_scale_factor=1.5,
+                            frame_rate=20,
+                            frame_rate_unit=FrequencyUnit.HZ,
+                            planes=[
+                                SinglePlaneConfig(
+                                    imaging_depth=150,
+                                )
+                            ]
+                        )
+                    ]
+                )
             ],
         ),
     ],
