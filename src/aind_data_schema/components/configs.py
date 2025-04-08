@@ -143,12 +143,10 @@ class SinglePlaneConfig(DataModel):
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
 
 
-class MultiPlaneConfig(DataModel):
+class MultiPlaneConfig(SinglePlaneConfig):
     """Description of a single multi-plane FOV"""
 
     index: int = Field(..., title="Index")
-    imaging_depth: int = Field(..., title="Imaging depth (um)")
-    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
     coupled_plane_index: Optional[int] = Field(
         default=None, title="Coupled plane index", description="Coupled planes for multiscope"
     )
@@ -183,7 +181,7 @@ class FieldOfView(DataModel):
 
     channel_name: str = Field(..., title="Channel name")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    fov_coordinate: Coordinate = Field(
+    center_coordinate: Coordinate = Field(
         ...,
         title="FOV coordinate",
         description="Center point of the FOV in the instrument coordinate system",
