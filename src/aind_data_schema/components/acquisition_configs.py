@@ -196,11 +196,9 @@ class FieldOfView(DataModel):
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    planes: List[
-        Annotated[
-            Union[SinglePlaneConfig, MultiPlaneConfig, StackConfig],
-            Field(discriminator="object_type"),
-        ]
+    planes: Annotated[
+        Union[SinglePlaneConfig, MultiPlaneConfig, StackConfig],
+        Field(discriminator="object_type"),
     ] = Field(..., title="Two photon imaging configurations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
