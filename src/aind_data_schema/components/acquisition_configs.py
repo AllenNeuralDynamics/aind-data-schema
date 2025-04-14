@@ -63,7 +63,7 @@ class TriggerType(str, Enum):
 
 
 class DetectorConfig(DeviceConfig):
-    """Description of detector settings"""
+    """Configuration of detector settings"""
 
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
@@ -77,7 +77,7 @@ class DetectorConfig(DeviceConfig):
 
 
 class LaserConfig(DeviceConfig):
-    """Description of laser settings in an acquisition"""
+    """Configuration of laser settings in an acquisition"""
 
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
@@ -86,14 +86,14 @@ class LaserConfig(DeviceConfig):
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
-    """Description of LED settings"""
+    """Configuration of LED settings"""
 
     excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 class Channel(DataModel):
-    """Description of a channel"""
+    """Configuration of a channel"""
 
     channel_name: str = Field(..., title="Channel")
     intended_measurement: Optional[str] = Field(
@@ -122,7 +122,7 @@ class Channel(DataModel):
 
 
 class SlapChannel(Channel):
-    """Description of a channel for Slap"""
+    """Configuration of a channel for Slap"""
 
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
     dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
@@ -130,7 +130,7 @@ class SlapChannel(Channel):
 
 
 class PatchCordConfig(DeviceConfig):
-    """Description of a patch cord and its output power to another device"""
+    """Configuration of a patch cord and its output power to another device"""
 
     output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
@@ -139,14 +139,14 @@ class PatchCordConfig(DeviceConfig):
 
 
 class SinglePlaneConfig(DataModel):
-    """Description of a single plane ophys config"""
+    """Configuration of a single plane ophys config"""
 
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
 
 
 class MultiPlaneConfig(SinglePlaneConfig):
-    """Description of a single multi-plane FOV"""
+    """Configuration of a single multi-plane FOV"""
 
     index: int = Field(..., title="Index")
     coupled_plane_index: Optional[int] = Field(
@@ -166,7 +166,7 @@ class MultiPlaneConfig(SinglePlaneConfig):
 
 
 class StackConfig(DataModel):
-    """Description of a two photon stack"""
+    """Configuration of a two photon stack"""
 
     start_depth: int = Field(..., title="Starting depth (um)")
     end_depth: int = Field(..., title="Ending depth (um)")
@@ -179,7 +179,7 @@ class StackConfig(DataModel):
 
 
 class FieldOfView(DataModel):
-    """Description of an imaging field of view"""
+    """Configuration of an imaging field of view"""
 
     channel_name: str = Field(..., title="Channel name")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
@@ -211,7 +211,7 @@ class SlapAcquisitionType(str, Enum):
 
 
 class SlapConfig(DataModel):
-    """Description of a Slap2 scan"""
+    """Configuration of a Slap2 scan"""
 
     slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
     dilation: Scale = Field(..., title="DMD Dilation X/Y")
@@ -351,7 +351,7 @@ class AirPuffConfig(DataModel):
 
 
 class SpeakerConfig(DeviceConfig):
-    """Description of auditory speaker configuration"""
+    """Configuration of auditory speaker configuration"""
 
     volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
@@ -380,7 +380,7 @@ class SubjectPosition(str, Enum):
 
 
 class MRIScan(DeviceConfig):
-    """Description of a 3D scan"""
+    """Configuration of a 3D scan"""
 
     scan_index: int = Field(..., title="Scan index")
     scan_type: ScanType = Field(..., title="Scan type")
@@ -432,7 +432,7 @@ class MRIScan(DeviceConfig):
 
 
 class Immersion(DataModel):
-    """Description of immersion medium"""
+    """Configuration of immersion medium"""
 
     medium: ImmersionMedium = Field(..., title="Immersion medium")
     refractive_index: Decimal = Field(..., title="Index of refraction")
@@ -446,7 +446,7 @@ class SampleChamberConfig(DataModel):
 
 
 class Image(DataModel):
-    """Description of an image"""
+    """Configuration of an image"""
 
     channel_name: str = Field(..., title="Channel name")
     coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
