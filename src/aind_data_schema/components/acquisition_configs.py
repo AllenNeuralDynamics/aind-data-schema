@@ -203,13 +203,6 @@ class FieldOfView(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class TwoPhotonImagingConfig(DataModel):
-    """Description of 2P imaging"""
-
-    channels: List[Channel] = Field(..., title="Channel")
-    fields_of_view: List[FieldOfView] = Field(..., title="Fields of view")
-
-
 class SlapAcquisitionType(str, Enum):
     """Type of slap acquisition"""
 
@@ -220,8 +213,6 @@ class SlapAcquisitionType(str, Enum):
 class SlapConfig(DataModel):
     """Description of a Slap2 scan"""
 
-    channels: List[SlapChannel] = Field(..., title="Channel")
-    field_of_view: FieldOfView = Field(..., title="Field of view")
     slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
     dilation: Scale = Field(..., title="DMD Dilation X/Y")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
@@ -447,6 +438,13 @@ class Immersion(DataModel):
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
+class SampleChamberConfig(DataModel):
+    """Configuration of a sample chamber"""
+
+    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
+    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+
+
 class Image(DataModel):
     """Description of an image"""
 
@@ -463,14 +461,12 @@ class Image(DataModel):
     image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
 
 
-class InVitroImagingConfig(DataModel):
+class ImagingConfig(DataModel):
     """Configuration of an imaging instrument"""
 
     channels: List[Channel] = Field(..., title="Channels")
-    images: List[Image] = Field(..., title="Images")
-    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
-    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
-    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+    images: List[Annotated[Union[FieldOfView, Image], Field(discriminator="object_type")]] = Field(..., title="Images")
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Coordinate system")
 
     @model_validator(mode="after")
     def check_image_channels(self):
@@ -481,4 +477,12 @@ class InVitroImagingConfig(DataModel):
                 raise ValueError(
                     f"Channel {image.channel_name} must be defined in the InVitroImagingConfig.channels list"
                 )
+        return self
+
+    @model_validator(mode="after")
+    def require_cs_images(self):
+        """Check that a coordinate system is present if any images are Image"""
+
+        if any(isinstance(image, Image) for image in self.images) and not self.coordinate_system:
+            raise ValueError("Coordinate system is required if any images are Image")
         return self

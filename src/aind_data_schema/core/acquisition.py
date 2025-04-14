@@ -13,7 +13,6 @@ from aind_data_schema.components.acquisition_configs import (
     DetectorConfig,
     DomeModule,
     FiberAssemblyConfig,
-    InVitroImagingConfig,
     LaserConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
@@ -24,10 +23,11 @@ from aind_data_schema.components.acquisition_configs import (
     SlapConfig,
     SpeakerConfig,
     StimulusModality,
-    TwoPhotonImagingConfig,
-    FieldOfView,
-    SlapFieldOfView,
-    Stack,
+    SampleChamberConfig,
+    ImagingConfig,
+    SinglePlaneConfig,
+    MultiPlaneConfig,
+    StackConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -44,8 +44,9 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 CONFIG_REQUIREMENTS = {
     Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
-    Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
+    Modality.POPHYS: [[ImagingConfig], [SinglePlaneConfig, MultiPlaneConfig, StackConfig]],
     Modality.MRI: [[MRIScan]],
+    Modality.SLAP: [[ImagingConfig], [SampleChamberConfig], [SlapConfig]],
 }
 
 # This is ugly but one of the validators was just checking that the cameras were active in the device name list
