@@ -44,7 +44,7 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 CONFIG_REQUIREMENTS = {
     Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
-    Modality.POPHYS: [[ImagingConfig], [SinglePlaneConfig, MultiPlaneConfig, StackConfig]],
+    Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
     Modality.SLAP: [[ImagingConfig], [SampleChamberConfig], [SlapConfig]],
 }
@@ -122,11 +122,12 @@ class DataStream(DataModel):
                 PatchCordConfig,
                 FiberAssemblyConfig,
                 SlapConfig,
-                TwoPhotonImagingConfig,
                 MRIScan,
-                InVitroImagingConfig,
                 LickSpoutConfig,
                 AirPuffConfig,
+                ImagingConfig,
+                SlapConfig,
+                SampleChamberConfig,
             ],
             Field(discriminator="object_type"),
         ]

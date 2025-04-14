@@ -20,8 +20,9 @@ from aind_data_schema.components.acquisition_configs import (
     LaserConfig,
     SinglePlaneConfig,
     StimulusModality,
-    TwoPhotonImagingConfig,
+    ImagingConfig,
 )
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -39,6 +40,7 @@ a = Acquisition(
     subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Mouse tube",
     ),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     data_streams=[
         DataStream(
             stream_start_time=t,
@@ -50,7 +52,7 @@ a = Acquisition(
                 "Face Camera",
             ],
             configurations=[
-                TwoPhotonImagingConfig(
+                ImagingConfig(
                     channels=[
                         Channel(
                             channel_name="Green channel",
@@ -71,24 +73,23 @@ a = Acquisition(
                             ],
                         ),
                     ],
-                    fields_of_view=[
+                    images=[
                         FieldOfView(
                             channel_name="Green channel",
                             targeted_structure=CCFStructure.MOP,
-                            fov_coordinate_ml=1.5,
-                            fov_coordinate_ap=1.5,
-                            fov_reference="Bregma",
+                            center_coordinate=Coordinate(
+                                system_name="BREGMA_ARI",
+                                position=[1.5, 1.5, 0],
+                            ),
                             fov_width=800,
                             fov_height=800,
                             magnification="1x",
                             fov_scale_factor=1.5,
                             frame_rate=20,
                             frame_rate_unit=FrequencyUnit.HZ,
-                            planes=[
-                                SinglePlaneConfig(
+                            planes=SinglePlaneConfig(
                                     imaging_depth=150,
-                                )
-                            ],
+                                ),
                         )
                     ],
                 )

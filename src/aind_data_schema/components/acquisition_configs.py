@@ -472,10 +472,12 @@ class ImagingConfig(DataModel):
     def check_image_channels(self):
         """Check that the required channels are present for the images"""
 
+        channel_names = [channel.channel_name for channel in self.channels]
+
         for image in self.images:
-            if image.channel_name not in self.channels:
+            if image.channel_name not in channel_names:
                 raise ValueError(
-                    f"Channel {image.channel_name} must be defined in the InVitroImagingConfig.channels list"
+                    f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list"
                 )
         return self
 

@@ -18,7 +18,7 @@ from aind_data_schema.components.acquisition_configs import (
     LaserConfig,
     MultiPlaneConfig,
     TriggerType,
-    TwoPhotonImagingConfig,
+    ImagingConfig,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -44,7 +44,7 @@ a = Acquisition(
             modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             active_devices=["Mesoscope", "Eye", "Face", "Behavior", "Vasculature", "Laser A", "PMT 1"],
             configurations=[
-                TwoPhotonImagingConfig(
+                ImagingConfig(
                     channels=[
                         Channel(
                             channel_name="Green channel",
@@ -63,7 +63,7 @@ a = Acquisition(
                             ],
                         ),
                     ],
-                    fields_of_view=[
+                    images=[
                         FieldOfView(
                             channel_name="Green channel",
                             targeted_structure=CCFStructure.VISP,
