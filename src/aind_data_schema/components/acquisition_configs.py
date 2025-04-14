@@ -100,7 +100,10 @@ class Channel(DataModel):
         default=None, title="Intended measurement", description="What signal is this channel measuring"
     )
     detector_configuration: DetectorConfig = Field(..., title="Detector configuration")
-    additional_device_names: Optional[List[DeviceConfig]] = Field(default=None, title="Additional device names")
+    additional_device_names: Optional[List[DeviceConfig]] = Field(
+        default=None, title="Additional device names", description="Mirrors, dichroics, etc"
+    )
+
     # excitation
     light_source_configurations: List[
         Annotated[
@@ -124,7 +127,6 @@ class SlapChannel(Channel):
     dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
     dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
     description: Optional[str] = Field(default=None, title="Description")
-    # TODO: dilation and unit might need to be required here
 
 
 class PatchCordConfig(DeviceConfig):
