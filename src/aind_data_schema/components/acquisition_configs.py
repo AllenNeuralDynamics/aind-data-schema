@@ -222,7 +222,7 @@ class SlapConfig(DataModel):
 
     channels: List[SlapChannel] = Field(..., title="Channel")
     field_of_view: FieldOfView = Field(..., title="Field of view")
-    slap_experiment_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
+    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
     dilation: Scale = Field(..., title="DMD Dilation X/Y")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
     target_type: SlapAcquisitionType = Field(..., title="Target type")
