@@ -18,7 +18,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.devices import Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.configs import Immersion, InVitroImagingConfig
+from aind_data_schema.components.acquisition_configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
@@ -76,6 +76,7 @@ class ImagingTests(unittest.TestCase):
             experimenters=[Person(name="alice bob")],
             acquisition_start_time=datetime.now(tz=timezone.utc),
             specimen_id="123456-brain",
+            acquisition_type="Test acquisition",
             subject_id="123456",
             instrument_id="1234",
             calibrations=[
@@ -153,15 +154,43 @@ class ImagingTests(unittest.TestCase):
 
     def test_registration(self):
         """test the tile models"""
-
+        parameters = {
+            "tiles": [
+                tile.Tile(
+                    coordinate_transform=CoordinateTransform(
+                        input="SPIM_IJK",
+                        output="BREGMA_ARI",
+                        transforms=[
+                            Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                        ],
+                    ),
+                ),
+                tile.Tile(
+                    coordinate_transform=CoordinateTransform(
+                        input="SPIM_IJK",
+                        output="BREGMA_ARI",
+                        transforms=[
+                            Translation(
+                                translation=[0, 1, 2],
+                            ),
+                            Rotation(
+                                angles=[1, 2, 3],
+                            ),
+                            Scale(
+                                scale=[1, 2, 3],
+                            ),
+                        ],
+                    ),
+                ),
+            ],
+        }
         t = DataProcess(
-            name=ProcessName.IMAGE_TILE_ALIGNMENT,
+            process_type=ProcessName.IMAGE_TILE_ALIGNMENT,
             stage=ProcessStage.PROCESSING,
             experimenters=[Person(name="Dr. Dan")],
             start_date_time=datetime.now(tz=timezone.utc),
             end_date_time=datetime.now(tz=timezone.utc),
-            input_location="/some/path",
-            output_location="/some/path",
+            output_path="/some/path",
             code=Code(
                 url="https://github.com/abcd",
                 parameters={

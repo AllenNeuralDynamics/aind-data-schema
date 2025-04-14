@@ -1,4 +1,4 @@
-""" example processing """
+"""example processing"""
 
 from datetime import datetime, timezone
 
@@ -45,19 +45,18 @@ example_code = Code(
     parameters={"size": 7},
 )
 
-p = Processing(
+p = Processing.create_with_sequential_process_graph(
     data_processes=[
         DataProcess(
             experimenters=[Person(name="Dr. Dan")],
-            name=ProcessName.PIPELINE,
+            process_type=ProcessName.PIPELINE,
             pipeline_steps=[
                 ProcessName.IMAGE_TILE_FUSING,
                 ProcessName.FILE_FORMAT_CONVERSION,
                 ProcessName.IMAGE_DESTRIPING,
             ],
             stage=ProcessStage.PROCESSING,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
+            output_path="/path/to/outputs",
             start_date_time=t,
             end_date_time=t,
             code=Code(
@@ -66,14 +65,17 @@ p = Processing(
             ),
         ),
         DataProcess(
-            name=ProcessName.IMAGE_TILE_FUSING,
+            process_type=ProcessName.IMAGE_TILE_FUSING,
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
-            code=example_code,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"size": 7},
+                )
+            ),
             resources=ResourceUsage(
                 os=OperatingSystem.UBUNTU_20_04,
                 architecture=CPUArchitecture.X86_64,
@@ -90,44 +92,57 @@ p = Processing(
             ),
         ),
         DataProcess(
-            name=ProcessName.FILE_FORMAT_CONVERSION,
+            process_type=ProcessName.FILE_FORMAT_CONVERSION,
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
-            code=example_code,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"u": 7, "z": True},
+                )
+            ),
         ),
         DataProcess(
-            name=ProcessName.IMAGE_DESTRIPING,
+            process_type=ProcessName.IMAGE_DESTRIPING,
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            input_location="/path/to/input",
-            output_location="/path/to/output",
-            code=example_code,
+            output_path="/path/to/output",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"a": 2, "b": -2},
+                )
+            ),
         ),
         DataProcess(
             stage=ProcessStage.ANALYSIS,
             experimenters=[Person(name="Some Analyzer")],
-            name=ProcessName.ANALYSIS,
+            process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
-            code=example_code,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"size": 7},
+                )
+            ),
         ),
         DataProcess(
+            name="Analysis 2",
             stage=ProcessStage.ANALYSIS,
             experimenters=[Person(name="Some Analyzer")],
-            name=ProcessName.ANALYSIS,
+            process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
-            code=example_code,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"u": 7, "z": True},
+                )
+            ),
         ),
     ]
 )

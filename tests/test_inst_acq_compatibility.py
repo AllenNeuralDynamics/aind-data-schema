@@ -39,9 +39,9 @@ from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     DetectorConfig,
     DomeModule,
     PatchCordConfig,
@@ -362,7 +362,7 @@ ephys_inst = Instrument(
 
 grating_code = Code(
     url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-    software=Software(
+    core_dependency=Software(
         name="Bonsai",
         version="2.7",
     ),
@@ -382,11 +382,11 @@ ephys_acquisition = Acquisition(
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-    experiment_type="Receptive field mapping",
+    acquisition_type="Receptive field mapping",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
-    ethics_review_id="2109",
+    ethics_review_id=["2109"],
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-    subject_details=SubjectDetails(
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="mouse platform",
     ),
     stimulus_epochs=[
@@ -879,6 +879,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 focal_length=80,
                 focal_length_unit=SizeUnit.MM,
                 size=1,
+                size_unit=SizeUnit.IN,
             )
         ]
         daqs = [
@@ -1059,11 +1060,11 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             acquisition_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             acquisition_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",
-            experiment_type="Parameter Testing",
+            acquisition_type="Parameter Testing",
             instrument_id="ophys_inst",
-            ethics_review_id="2115",
+            ethics_review_id=["2115"],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-            subject_details=SubjectDetails(
+            subject_details=AcquisitionSubjectDetails(
                 mouse_platform_name="Disc",
             ),
             data_streams=[

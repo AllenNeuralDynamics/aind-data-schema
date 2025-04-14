@@ -8,7 +8,7 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     Channel,
     DeviceConfig,
     LaserConfig,
@@ -149,7 +149,7 @@ acq = Acquisition(
     ],
     acquisition_start_time=t,
     acquisition_end_time=t,
-    experiment_type="ExaSPIM",
+    acquisition_type="ExaSPIM",
 )
 
 serialized = acq.model_dump_json()

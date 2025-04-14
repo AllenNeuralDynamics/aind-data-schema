@@ -110,6 +110,15 @@
          "title": "Group",
          "type": "string"
       },
+      "License": {
+         "description": "Licenses",
+         "enum": [
+            "MIT",
+            "CC-BY-4.0"
+         ],
+         "title": "License",
+         "type": "string"
+      },
       "Person": {
          "additionalProperties": false,
          "description": "Person identifier",
@@ -1983,16 +1992,14 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.8",
-         "default": "2.0.8",
+         "const": "2.0.9",
+         "default": "2.0.9",
          "title": "Schema Version",
          "type": "string"
       },
       "license": {
-         "const": "CC-BY-4.0",
-         "default": "CC-BY-4.0",
-         "title": "License",
-         "type": "string"
+         "$ref": "#/$defs/License",
+         "default": "CC-BY-4.0"
       },
       "subject_id": {
          "anyOf": [

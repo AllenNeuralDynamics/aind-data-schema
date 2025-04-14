@@ -11,9 +11,9 @@ from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     Channel,
     DetectorConfig,
     FieldOfView,
@@ -33,10 +33,10 @@ a = Acquisition(
     acquisition_start_time=t,
     acquisition_end_time=t,
     subject_id="652567",
-    experiment_type="BCI Photometry",
+    acquisition_type="BCI Photometry",
     instrument_id="322_bergamo_20220705",
-    ethics_review_id="2115",
-    subject_details=SubjectDetails(
+    ethics_review_id=["2115"],
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Mouse tube",
     ),
     data_streams=[

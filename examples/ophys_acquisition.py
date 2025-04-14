@@ -8,9 +8,9 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import Channel, DetectorConfig, PatchCordConfig, LaserConfig
+from aind_data_schema.components.acquisition_configs import Channel, DetectorConfig, PatchCordConfig, LaserConfig
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
@@ -19,10 +19,10 @@ a = Acquisition(
     acquisition_start_time=t,
     acquisition_end_time=t,
     subject_id="652567",
-    experiment_type="Parameter Testing",
+    acquisition_type="Parameter Testing",
     instrument_id="ophys_inst",
-    ethics_review_id="2115",
-    subject_details=SubjectDetails(
+    ethics_review_id=["2115"],
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Disc",
     ),
     data_streams=[

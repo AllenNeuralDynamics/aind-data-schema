@@ -2,11 +2,11 @@
 
 from datetime import date
 from enum import Enum
-from typing import Dict, List, Literal, Optional, Set, Union
+from typing import Dict, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from pydantic import Field, SkipValidation, ValidationInfo, field_serializer, field_validator, model_validator
+from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataCoreModel, DataModel
@@ -104,7 +104,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.20"]] = Field(default="2.0.20")
+    schema_version: SkipValidation[Literal["2.0.22"]] = Field(default="2.0.22")
 
     # instrument definition
     instrument_id: str = Field(
@@ -113,7 +113,7 @@ class Instrument(DataCoreModel):
         title="Instrument ID",
     )
     modification_date: date = Field(..., title="Date of modification")
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
+    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities", description="Modalities that CAN BE acquired")
     calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
     # coordinate system
@@ -190,10 +190,10 @@ class Instrument(DataCoreModel):
 
         return names
 
-    @field_serializer("modalities", when_used="json")
-    def serialize_modalities(self, modalities: Set[Modality.ONE_OF]):
-        """Dynamically serialize modalities based on their type."""
-        return sorted(modalities, key=lambda x: x.get("name") if isinstance(x, dict) else x.name)
+    @field_validator("modalities", mode="before")
+    def validate_modalities(cls, value: List[Modality.ONE_OF]) -> List[Modality.ONE_OF]:
+        """Sort modalities"""
+        return sorted(value, key=lambda x: x["abbreviation"] if isinstance(x, dict) else x.abbreviation)
 
     @model_validator(mode="after")
     def validate_cameras_other(self):
@@ -233,7 +233,7 @@ class Instrument(DataCoreModel):
         return value
 
     @model_validator(mode="after")
-    def validate_modalities(cls, value):
+    def validate_modality_device_dependencies(cls, value):
         """
         Validate that devices exist for the modalities specified.
 

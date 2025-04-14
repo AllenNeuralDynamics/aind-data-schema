@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.19",
-               "default": "2.0.19",
+               "const": "2.0.21",
+               "default": "2.0.21",
                "title": "Schema Version",
                "type": "string"
             },
@@ -58,18 +58,28 @@
                "type": "array"
             },
             "protocol_id": {
-               "default": [],
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Protocol ID",
-               "type": "array"
+               "title": "Protocol ID"
             },
             "ethics_review_id": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
@@ -82,25 +92,9 @@
                "title": "Instrument ID",
                "type": "string"
             },
-            "experiment_type": {
-               "default": null,
-               "title": "Experiment type",
+            "acquisition_type": {
+               "title": "Acquisition type",
                "type": "string"
-            },
-            "software": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "$ref": "#/$defs/Software"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": [],
-               "title": "Acquisition software"
             },
             "notes": {
                "anyOf": [
@@ -182,7 +176,7 @@
             "subject_details": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/SubjectDetails"
+                     "$ref": "#/$defs/AcquisitionSubjectDetails"
                   },
                   {
                      "type": "null"
@@ -197,9 +191,107 @@
             "acquisition_start_time",
             "acquisition_end_time",
             "instrument_id",
+            "acquisition_type",
             "data_streams"
          ],
          "title": "Acquisition",
+         "type": "object"
+      },
+      "AcquisitionSubjectDetails": {
+         "additionalProperties": false,
+         "description": "Details about the subject during an acquisition",
+         "properties": {
+            "object_type": {
+               "const": "Acquisition subject details",
+               "default": "Acquisition subject details",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "animal_weight_prior": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight before procedure",
+               "title": "Animal weight (g)"
+            },
+            "animal_weight_post": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight after procedure",
+               "title": "Animal weight (g)"
+            },
+            "weight_unit": {
+               "$ref": "#/$defs/MassUnit",
+               "default": "gram",
+               "title": "Weight unit"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
+            },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "reward_consumed_total": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total reward consumed (mL)"
+            },
+            "reward_consumed_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward consumed unit"
+            }
+         },
+         "required": [
+            "mouse_platform_name"
+         ],
+         "title": "AcquisitionSubjectDetails",
          "type": "object"
       },
       "AcquisitionTile": {
@@ -1468,7 +1560,8 @@
             "Left",
             "Right",
             "Medial",
-            "Lateral"
+            "Lateral",
+            "Origin"
          ],
          "title": "AnatomicalRelative",
          "type": "string"
@@ -2628,7 +2721,7 @@
                "title": "Injection material",
                "type": "array"
             },
-            "target": {
+            "targeted_structure": {
                "anyOf": [
                   {
                      "discriminator": {
@@ -6030,9 +6123,17 @@
                "type": "array"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "coordinates": {
                "items": {
@@ -6045,7 +6146,6 @@
          "required": [
             "injection_materials",
             "dynamics",
-            "protocol_id",
             "coordinates"
          ],
          "title": "BrainInjection",
@@ -7030,6 +7130,18 @@
                "title": "Code URL",
                "type": "string"
             },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
             "version": {
                "anyOf": [
                   {
@@ -7042,18 +7154,31 @@
                "default": null,
                "title": "Code version"
             },
-            "software": {
+            "container": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Software"
+                     "$ref": "#/$defs/Container"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "Software package",
-               "title": "Software"
+               "title": "Container"
+            },
+            "run_script": {
+               "anyOf": [
+                  {
+                     "format": "path",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to run script",
+               "title": "Run script"
             },
             "language": {
                "anyOf": [
@@ -7080,6 +7205,36 @@
                "default": null,
                "title": "Programming language version"
             },
+            "input_data": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Combined data": "#/$defs/CombinedData",
+                              "Data asset": "#/$defs/DataAsset"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/DataAsset"
+                           },
+                           {
+                              "$ref": "#/$defs/CombinedData"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Input data used in the code or script",
+               "title": "Input data"
+            },
             "parameters": {
                "anyOf": [
                   {
@@ -7092,12 +7247,90 @@
                "default": null,
                "description": "Parameters used in the code or script",
                "title": "Parameters"
+            },
+            "core_dependency": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For code with a core software package dependency, e.g. Bonsai",
+               "title": "Core dependency"
             }
          },
          "required": [
             "url"
          ],
          "title": "Code",
+         "type": "object"
+      },
+      "CombinedData": {
+         "additionalProperties": false,
+         "description": "Description of a group of data assets",
+         "properties": {
+            "object_type": {
+               "const": "Combined data",
+               "default": "Combined data",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "assets": {
+               "items": {
+                  "$ref": "#/$defs/DataAsset"
+               },
+               "minItems": 1,
+               "title": "Data assets",
+               "type": "array"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
+            "external_links": {
+               "additionalProperties": {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "default": {},
+               "description": "Links to the Combined Data asset, if materialized.",
+               "propertyNames": {
+                  "$ref": "#/$defs/ExternalPlatforms"
+               },
+               "title": "External Links",
+               "type": "object"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Intention or approach used to select group of assets",
+               "title": "Description"
+            }
+         },
+         "required": [
+            "assets"
+         ],
+         "title": "CombinedData",
          "type": "object"
       },
       "Computer": {
@@ -7702,6 +7935,40 @@
          "title": "ConnectionDirection",
          "type": "string"
       },
+      "Container": {
+         "additionalProperties": false,
+         "description": "Code container identifier, e.g. Docker",
+         "properties": {
+            "object_type": {
+               "const": "Container",
+               "default": "Container",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "container_type": {
+               "description": "Type of container, e.g. Docker, Singularity",
+               "title": "Type",
+               "type": "string"
+            },
+            "tag": {
+               "description": "Tag of the container, e.g. version number",
+               "title": "Tag",
+               "type": "string"
+            },
+            "uri": {
+               "description": "URI of the container, e.g. Docker Hub URL",
+               "title": "URI",
+               "type": "string"
+            }
+         },
+         "required": [
+            "container_type",
+            "tag",
+            "uri"
+         ],
+         "title": "Container",
+         "type": "object"
+      },
       "Cooling": {
          "description": "Cooling medium name",
          "enum": [
@@ -7882,9 +8149,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "craniotomy_type": {
                "$ref": "#/$defs/CraniotomyType",
@@ -7971,7 +8246,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "craniotomy_type"
          ],
          "title": "Craniotomy",
@@ -8242,6 +8516,28 @@
          "title": "DaqChannelType",
          "type": "string"
       },
+      "DataAsset": {
+         "additionalProperties": false,
+         "description": "Description of a single data asset",
+         "properties": {
+            "object_type": {
+               "const": "Data asset",
+               "default": "Data asset",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "URL pointing to the data asset",
+               "title": "Asset location",
+               "type": "string"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "DataAsset",
+         "type": "object"
+      },
       "DataDescription": {
          "additionalProperties": false,
          "description": "Description of a logical collection of data files",
@@ -8259,16 +8555,14 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.8",
-               "default": "2.0.8",
+               "const": "2.0.9",
+               "default": "2.0.9",
                "title": "Schema Version",
                "type": "string"
             },
             "license": {
-               "const": "CC-BY-4.0",
-               "default": "CC-BY-4.0",
-               "title": "License",
-               "type": "string"
+               "$ref": "#/$defs/License",
+               "default": "CC-BY-4.0"
             },
             "subject_id": {
                "anyOf": [
@@ -8567,31 +8861,40 @@
                "title": "Object Type",
                "type": "string"
             },
-            "name": {
+            "process_type": {
                "$ref": "#/$defs/ProcessName",
-               "title": "Name"
+               "title": "Process type"
+            },
+            "name": {
+               "default": "",
+               "description": [
+                  "Unique name of the processing step.",
+                  " If not provided, the type will be used as the name."
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "stage": {
                "$ref": "#/$defs/ProcessStage",
                "title": "Processing stage"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "description": "Code used for processing"
             },
             "experimenters": {
                "description": "People responsible for processing",
                "items": {
                   "$ref": "#/$defs/Person"
                },
-               "title": "experimenters",
+               "title": "Experimenters",
                "type": "array"
-            },
-            "code": {
-               "$ref": "#/$defs/Code",
-               "title": "Code used for processing"
             },
             "pipeline_steps": {
                "anyOf": [
                   {
                      "items": {
-                        "$ref": "#/$defs/ProcessName"
+                        "type": "string"
                      },
                      "type": "array"
                   },
@@ -8601,7 +8904,7 @@
                ],
                "default": null,
                "description": [
-                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
                   " that are part of the pipeline. Each object must show up in the data_processes list."
                ],
                "title": "Pipeline steps"
@@ -8616,27 +8919,20 @@
                "title": "End date time",
                "type": "string"
             },
-            "input_location": {
+            "output_path": {
                "anyOf": [
                   {
                      "type": "string"
                   },
                   {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
+                     "type": "null"
                   }
                ],
-               "description": "Path(s) to data inputs",
-               "title": "Input location"
+               "default": null,
+               "description": "Path to processing outputs, if stored.",
+               "title": "Output path"
             },
-            "output_location": {
-               "description": "Relative path from metadata json to data outputs",
-               "title": "Output location",
-               "type": "string"
-            },
-            "outputs": {
+            "output_parameters": {
                "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
@@ -8668,14 +8964,12 @@
             }
          },
          "required": [
-            "name",
+            "process_type",
             "stage",
-            "experimenters",
             "code",
+            "experimenters",
             "start_date_time",
-            "end_date_time",
-            "input_location",
-            "output_location"
+            "end_date_time"
          ],
          "title": "DataProcess",
          "type": "object"
@@ -8701,6 +8995,7 @@
                "type": "string"
             },
             "modalities": {
+               "description": "Modalities that are acquired in this stream",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -8769,11 +9064,11 @@
                "title": "Modalities",
                "type": "array"
             },
-            "software": {
+            "code": {
                "anyOf": [
                   {
                      "items": {
-                        "$ref": "#/$defs/Software"
+                        "$ref": "#/$defs/Code"
                      },
                      "type": "array"
                   },
@@ -8781,8 +9076,8 @@
                      "type": "null"
                   }
                ],
-               "default": [],
-               "title": "Software packages"
+               "default": null,
+               "title": "Acquisition code"
             },
             "notes": {
                "anyOf": [
@@ -19241,9 +19536,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "probes": {
                "items": {
@@ -19254,7 +19557,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "probes"
          ],
          "title": "FiberImplant",
@@ -24261,6 +24563,124 @@
          "title": "GenericModel",
          "type": "object"
       },
+      "GenericSubjectProcedure": {
+         "additionalProperties": false,
+         "description": "Description of a non-surgical procedure performed on a subject",
+         "properties": {
+            "object_type": {
+               "const": "Generic subject procedure",
+               "default": "Generic subject procedure",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "start_date": {
+               "format": "date",
+               "title": "Start date",
+               "type": "string"
+            },
+            "experimenters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "experimenter(s)"
+            },
+            "ethics_review_id": {
+               "title": "Ethics review ID",
+               "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "description": {
+               "title": "Description",
+               "type": "string"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "start_date",
+            "ethics_review_id",
+            "description"
+         ],
+         "title": "GenericSubjectProcedure",
+         "type": "object"
+      },
+      "GenericSurgeryProcedure": {
+         "additionalProperties": false,
+         "description": "Description of a surgery procedure performed on a subject",
+         "properties": {
+            "object_type": {
+               "const": "Generic surgery procedure",
+               "default": "Generic surgery procedure",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "description": {
+               "title": "Description",
+               "type": "string"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "description"
+         ],
+         "title": "GenericSurgeryProcedure",
+         "type": "object"
+      },
       "GroundWireImplant": {
          "additionalProperties": false,
          "description": "Ground wire implant procedure",
@@ -26084,9 +26504,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "headframe_type": {
                "title": "Headframe type",
@@ -26134,7 +26562,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "headframe_type",
             "headframe_part_number"
          ],
@@ -26361,10 +26788,6 @@
                },
                "title": "Other stains",
                "type": "array"
-            },
-            "instrument_id": {
-               "title": "Instrument ID",
-               "type": "string"
             }
          },
          "required": [
@@ -26372,8 +26795,7 @@
             "start_time",
             "end_time",
             "HCR_probes",
-            "probe_concentration",
-            "instrument_id"
+            "probe_concentration"
          ],
          "title": "HybridizationChainReaction",
          "type": "object"
@@ -26534,7 +26956,7 @@
                "title": "Injection material",
                "type": "array"
             },
-            "target": {
+            "targeted_structure": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/MouseAnatomyModel"
@@ -26571,15 +26993,22 @@
                "type": "array"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             }
          },
          "required": [
             "injection_materials",
-            "dynamics",
-            "protocol_id"
+            "dynamics"
          ],
          "title": "Injection",
          "type": "object"
@@ -26752,8 +27181,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.20",
-               "default": "2.0.20",
+               "const": "2.0.22",
+               "default": "2.0.22",
                "title": "Schema Version",
                "type": "string"
             },
@@ -26768,6 +27197,7 @@
                "type": "string"
             },
             "modalities": {
+               "description": "Modalities that CAN BE acquired",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -28565,11 +28995,18 @@
                   }
                ],
                "default": null,
-               "title": "Size (inches)"
+               "title": "Size"
             },
-            "lens_size_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "inch",
+            "size_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Lens size unit"
             },
             "optimized_wavelength_range": {
@@ -28608,6 +29045,15 @@
          ],
          "title": "Lens",
          "type": "object"
+      },
+      "License": {
+         "description": "Licenses",
+         "enum": [
+            "MIT",
+            "CC-BY-4.0"
+         ],
+         "title": "License",
+         "type": "string"
       },
       "LickSensorType": {
          "description": "Type of lick sensor",
@@ -36829,16 +37275,461 @@
          "title": "MemoryUnit",
          "type": "string"
       },
-      "MetadataStatus": {
-         "description": "Status of Metadata",
-         "enum": [
-            "Valid",
-            "Invalid",
-            "Missing",
-            "Unknown"
+      "Model": {
+         "additionalProperties": false,
+         "description": "Description of an analysis model",
+         "properties": {
+            "object_type": {
+               "const": "Model",
+               "default": "Model",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "describedBy": {
+               "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
+               "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/model.py",
+               "title": "Describedby",
+               "type": "string"
+            },
+            "schema_version": {
+               "const": "2.0.0",
+               "default": "2.0.0",
+               "title": "Schema Version",
+               "type": "string"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "version": {
+               "title": "Version",
+               "type": "string"
+            },
+            "example_run_code": {
+               "$ref": "#/$defs/Code",
+               "description": "Code to run the model, possibly including example parameters/data",
+               "title": "Example run code"
+            },
+            "architecture": {
+               "$ref": "#/$defs/ModelArchitecture",
+               "description": "Model architecture / type of model",
+               "title": "architecture"
+            },
+            "software_framework": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Software framework"
+            },
+            "architecture_parameters": {
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
+               "description": "Parameters of model architecture, such as input signature or number of layers.",
+               "title": "Architecture parameters"
+            },
+            "intended_use": {
+               "description": "Semantic description of intended use",
+               "title": "Intended model use",
+               "type": "string"
+            },
+            "limitations": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Model limitations"
+            },
+            "training": {
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "Model pretraining": "#/$defs/ModelPretraining",
+                        "Model training": "#/$defs/ModelTraining"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/ModelTraining"
+                     },
+                     {
+                        "$ref": "#/$defs/ModelPretraining"
+                     }
+                  ]
+               },
+               "minItems": 1,
+               "title": "Training",
+               "type": "array"
+            },
+            "evaluations": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/ModelEvaluation"
+               },
+               "title": "Evaluations",
+               "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "name",
+            "version",
+            "example_run_code",
+            "architecture",
+            "intended_use",
+            "training"
          ],
-         "title": "MetadataStatus",
+         "title": "Model",
+         "type": "object"
+      },
+      "ModelArchitecture": {
+         "description": "Model architectures",
+         "enum": [
+            "AlexNet",
+            "Custom",
+            "ResNet",
+            "VGGNet",
+            "UNet",
+            "Transformer",
+            "Random Forest",
+            "Support Vector Machine"
+         ],
+         "title": "ModelArchitecture",
          "type": "string"
+      },
+      "ModelEvaluation": {
+         "additionalProperties": false,
+         "description": "Description of model evaluation",
+         "properties": {
+            "object_type": {
+               "const": "Model evaluation",
+               "default": "Model evaluation",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "process_type": {
+               "$ref": "#/$defs/ProcessName",
+               "default": "Model evaluation"
+            },
+            "name": {
+               "default": "",
+               "description": [
+                  "Unique name of the processing step.",
+                  " If not provided, the type will be used as the name."
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "description": "Code used for processing"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "Experimenters",
+               "type": "array"
+            },
+            "pipeline_steps": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
+            },
+            "start_date_time": {
+               "format": "date-time",
+               "title": "Start date time",
+               "type": "string"
+            },
+            "end_date_time": {
+               "format": "date-time",
+               "title": "End date time",
+               "type": "string"
+            },
+            "output_path": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to processing outputs, if stored.",
+               "title": "Output path"
+            },
+            "output_parameters": {
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
+               "description": "Output parameters",
+               "title": "Outputs"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "resources": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/ResourceUsage"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Process resource usage"
+            },
+            "performance": {
+               "items": {
+                  "$ref": "#/$defs/PerformanceMetric"
+               },
+               "title": "Evaluation performance",
+               "type": "array"
+            }
+         },
+         "required": [
+            "stage",
+            "code",
+            "experimenters",
+            "start_date_time",
+            "end_date_time",
+            "performance"
+         ],
+         "title": "ModelEvaluation",
+         "type": "object"
+      },
+      "ModelPretraining": {
+         "additionalProperties": false,
+         "description": "Description of model pretraining",
+         "properties": {
+            "object_type": {
+               "const": "Model pretraining",
+               "default": "Model pretraining",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "source_url": {
+               "description": "URL for pretrained weights",
+               "title": "Pretrained source URL",
+               "type": "string"
+            }
+         },
+         "required": [
+            "source_url"
+         ],
+         "title": "ModelPretraining",
+         "type": "object"
+      },
+      "ModelTraining": {
+         "additionalProperties": false,
+         "description": "Description of model training",
+         "properties": {
+            "object_type": {
+               "const": "Model training",
+               "default": "Model training",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "process_type": {
+               "$ref": "#/$defs/ProcessName",
+               "default": "Model training"
+            },
+            "name": {
+               "default": "",
+               "description": [
+                  "Unique name of the processing step.",
+                  " If not provided, the type will be used as the name."
+               ],
+               "title": "Name",
+               "type": "string"
+            },
+            "stage": {
+               "$ref": "#/$defs/ProcessStage",
+               "title": "Processing stage"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "description": "Code used for processing"
+            },
+            "experimenters": {
+               "description": "People responsible for processing",
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "title": "Experimenters",
+               "type": "array"
+            },
+            "pipeline_steps": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": [
+                  "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
+                  " that are part of the pipeline. Each object must show up in the data_processes list."
+               ],
+               "title": "Pipeline steps"
+            },
+            "start_date_time": {
+               "format": "date-time",
+               "title": "Start date time",
+               "type": "string"
+            },
+            "end_date_time": {
+               "format": "date-time",
+               "title": "End date time",
+               "type": "string"
+            },
+            "output_path": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to processing outputs, if stored.",
+               "title": "Output path"
+            },
+            "output_parameters": {
+               "$ref": "#/$defs/GenericModel",
+               "default": {},
+               "description": "Output parameters",
+               "title": "Outputs"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            },
+            "resources": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/ResourceUsage"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Process resource usage"
+            },
+            "train_performance": {
+               "description": "Performance on training set",
+               "items": {
+                  "$ref": "#/$defs/PerformanceMetric"
+               },
+               "title": "Training performance",
+               "type": "array"
+            },
+            "test_performance": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/PerformanceMetric"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Performance on test data, evaluated during training",
+               "title": "Test performance"
+            },
+            "test_evaluation_method": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Approach to cross-validation or Train/test splitting",
+               "title": "Test evaluation method"
+            }
+         },
+         "required": [
+            "stage",
+            "code",
+            "experimenters",
+            "start_date_time",
+            "end_date_time",
+            "train_performance"
+         ],
+         "title": "ModelTraining",
+         "type": "object"
       },
       "Monitor": {
          "additionalProperties": false,
@@ -38367,7 +39258,7 @@
       },
       "MyomatrixContact": {
          "additionalProperties": false,
-         "description": "\"Description of a contact on a myomatrix thread",
+         "description": "Description of a contact on a myomatrix thread",
          "properties": {
             "object_type": {
                "const": "Myomatrix contact",
@@ -38380,9 +39271,10 @@
                "description": "Use MouseBodyParts",
                "title": "Body part of contact insertion"
             },
-            "side": {
-               "$ref": "#/$defs/Side",
-               "title": "Body side"
+            "relative_position": {
+               "$ref": "#/$defs/AnatomicalRelative",
+               "description": "Position relative to procedures coordinate system",
+               "title": "Relative position"
             },
             "muscle": {
                "$ref": "#/$defs/MouseAnatomyModel",
@@ -38396,7 +39288,7 @@
          },
          "required": [
             "body_part",
-            "side",
+            "relative_position",
             "muscle",
             "in_muscle"
          ],
@@ -38418,9 +39310,17 @@
                "title": "Ground electrode"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "myomatrix_array": {
                "$ref": "#/$defs/MyomatrixArray",
@@ -38436,7 +39336,6 @@
          },
          "required": [
             "ground_electrode",
-            "protocol_id",
             "myomatrix_array",
             "threads"
          ],
@@ -44057,52 +44956,6 @@
          "title": "Origin",
          "type": "string"
       },
-      "OtherSubjectProcedure": {
-         "additionalProperties": false,
-         "description": "Description of non-surgical procedure performed on a subject",
-         "properties": {
-            "object_type": {
-               "const": "Other subject procedure",
-               "default": "Other subject procedure",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "protocol_id": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID"
-            },
-            "description": {
-               "title": "Description",
-               "type": "string"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "description"
-         ],
-         "title": "OtherSubjectProcedure",
-         "type": "object"
-      },
       "PIDName": {
          "additionalProperties": false,
          "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
@@ -44202,6 +45055,31 @@
          "title": "PatchCordConfig",
          "type": "object"
       },
+      "PerformanceMetric": {
+         "additionalProperties": false,
+         "description": "Description of a performance metric",
+         "properties": {
+            "object_type": {
+               "const": "Performance metric",
+               "default": "Performance metric",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Metric name",
+               "type": "string"
+            },
+            "value": {
+               "title": "Metric value"
+            }
+         },
+         "required": [
+            "name",
+            "value"
+         ],
+         "title": "PerformanceMetric",
+         "type": "object"
+      },
       "PerformanceMetrics": {
          "additionalProperties": false,
          "description": "Summary of a StimulusEpoch",
@@ -44295,9 +45173,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "output_specimen_ids": {
                "description": "IDs of specimens resulting from this procedure.",
@@ -44305,12 +45191,10 @@
                   "type": "string"
                },
                "title": "Specimen ID",
-               "type": "array",
-               "uniqueItems": true
+               "type": "array"
             }
          },
          "required": [
-            "protocol_id",
             "output_specimen_ids"
          ],
          "title": "Perfusion",
@@ -45524,8 +46408,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.17",
-               "default": "2.0.17",
+               "const": "2.0.20",
+               "default": "2.0.20",
                "title": "Schema Version",
                "type": "string"
             },
@@ -45539,7 +46423,7 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Other subject procedure": "#/$defs/OtherSubjectProcedure",
+                        "Generic subject procedure": "#/$defs/GenericSubjectProcedure",
                         "Surgery": "#/$defs/Surgery",
                         "Training protocol": "#/$defs/TrainingProtocol",
                         "Water restriction": "#/$defs/WaterRestriction"
@@ -45557,7 +46441,7 @@
                         "$ref": "#/$defs/WaterRestriction"
                      },
                      {
-                        "$ref": "#/$defs/OtherSubjectProcedure"
+                        "$ref": "#/$defs/GenericSubjectProcedure"
                      }
                   ]
                },
@@ -45679,8 +46563,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.46",
-               "default": "2.0.46",
+               "const": "2.0.50",
+               "default": "2.0.50",
                "title": "Schema Version",
                "type": "string"
             },
@@ -45702,10 +46586,25 @@
                ],
                "default": null,
                "title": "Notes"
+            },
+            "dependency_graph": {
+               "additionalProperties": {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "description": [
+                  "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
+                  "process names that are inputs to that process."
+               ],
+               "title": "Dependency graph",
+               "type": "object"
             }
          },
          "required": [
-            "data_processes"
+            "data_processes",
+            "dependency_graph"
          ],
          "title": "Processing",
          "type": "object"
@@ -51831,16 +52730,6 @@
          "title": "Sex",
          "type": "string"
       },
-      "Side": {
-         "description": "Side of animal",
-         "enum": [
-            "Left",
-            "Right",
-            "Midline"
-         ],
-         "title": "Side",
-         "type": "string"
-      },
       "SizeUnit": {
          "description": "Enumeration of Length Measurements",
          "enum": [
@@ -55453,22 +56342,18 @@
                "default": null,
                "title": "Notes"
             },
-            "experiment_type": {
-               "$ref": "#/$defs/SlapAcquisitionType",
-               "title": "Acquisition type"
-            },
-            "dmd_dilation_x": {
-               "title": "DMD Dilation X (pixels)",
-               "type": "integer"
-            },
-            "dmd_dilation_y": {
-               "title": "DMD Dilation Y (pixels)",
-               "type": "integer"
+            "dilation": {
+               "$ref": "#/$defs/Scale",
+               "title": "DMD Dilation X/Y"
             },
             "dilation_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
+            },
+            "target_type": {
+               "$ref": "#/$defs/SlapAcquisitionType",
+               "title": "Target type"
             },
             "target_neuron": {
                "anyOf": [
@@ -55511,9 +56396,8 @@
             "fov_height",
             "magnification",
             "fov_scale_factor",
-            "experiment_type",
-            "dmd_dilation_x",
-            "dmd_dilation_y",
+            "dilation",
+            "target_type",
             "path_to_array_of_frame_rates"
          ],
          "title": "SlapFieldOfView",
@@ -55777,12 +56661,20 @@
                "type": "array"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Protocol ID",
-               "type": "array"
+               "title": "Protocol ID"
             },
             "procedure_details": {
                "default": [],
@@ -55832,8 +56724,7 @@
             "procedure_type",
             "specimen_id",
             "start_date",
-            "end_date",
-            "protocol_id"
+            "end_date"
          ],
          "title": "SpecimenProcedure",
          "type": "object"
@@ -60025,10 +60916,6 @@
                "default": null,
                "title": "Lot expiration date"
             },
-            "stain_type": {
-               "$ref": "#/$defs/StainType",
-               "title": "Stain type"
-            },
             "concentration": {
                "anyOf": [
                   {
@@ -60050,7 +60937,6 @@
             "name",
             "source",
             "lot_number",
-            "stain_type",
             "concentration"
          ],
          "title": "Stain",
@@ -60122,7 +61008,7 @@
                "title": "Stimulus modalities",
                "type": "array"
             },
-            "summary": {
+            "performance_metrics": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/PerformanceMetrics"
@@ -60132,7 +61018,7 @@
                   }
                ],
                "default": null,
-               "title": "Summary"
+               "title": "Performance metrics"
             },
             "notes": {
                "anyOf": [
@@ -60275,103 +61161,6 @@
          "title": "Subject",
          "type": "object"
       },
-      "SubjectDetails": {
-         "additionalProperties": false,
-         "description": "Details about the subject during an acquisition",
-         "properties": {
-            "object_type": {
-               "const": "Subject details",
-               "default": "Subject details",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "animal_weight_prior": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight before procedure",
-               "title": "Animal weight (g)"
-            },
-            "animal_weight_post": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight after procedure",
-               "title": "Animal weight (g)"
-            },
-            "weight_unit": {
-               "$ref": "#/$defs/MassUnit",
-               "default": "gram",
-               "title": "Weight unit"
-            },
-            "anaesthesia": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Anaesthetic"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Anaesthesia"
-            },
-            "mouse_platform_name": {
-               "title": "Mouse platform",
-               "type": "string"
-            },
-            "reward_consumed_total": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total reward consumed (mL)"
-            },
-            "reward_consumed_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward consumed unit"
-            }
-         },
-         "required": [
-            "mouse_platform_name"
-         ],
-         "title": "SubjectDetails",
-         "type": "object"
-      },
       "SubjectPosition": {
          "description": "Subject position",
          "enum": [
@@ -60392,9 +61181,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "start_date": {
                "format": "date",
@@ -60529,10 +61326,10 @@
                         "Catheter implant": "#/$defs/CatheterImplant",
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
+                        "Generic surgery procedure": "#/$defs/GenericSurgeryProcedure",
                         "Headframe": "#/$defs/Headframe",
                         "Injection": "#/$defs/Injection",
                         "Myomatrix insertion": "#/$defs/MyomatrixInsertion",
-                        "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                         "Perfusion": "#/$defs/Perfusion",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
@@ -60561,7 +61358,7 @@
                         "$ref": "#/$defs/MyomatrixInsertion"
                      },
                      {
-                        "$ref": "#/$defs/OtherSubjectProcedure"
+                        "$ref": "#/$defs/GenericSurgeryProcedure"
                      },
                      {
                         "$ref": "#/$defs/Perfusion"
@@ -60589,7 +61386,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "start_date",
             "procedures"
          ],
@@ -60720,8 +61516,16 @@
                "type": "string"
             },
             "protocol_id": {
-               "title": "Training protocol ID",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Training protocol ID"
             },
             "start_date": {
                "format": "date",
@@ -60756,7 +61560,6 @@
          },
          "required": [
             "training_name",
-            "protocol_id",
             "start_date"
          ],
          "title": "TrainingProtocol",
@@ -62666,18 +63469,6 @@
                "$ref": "#/$defs/Device",
                "title": "Encoder"
             },
-            "encoder_output": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/DAQChannel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Encoder DAQ channel"
-            },
             "pulse_per_revolution": {
                "title": "Pulse per revolution",
                "type": "integer"
@@ -62686,33 +63477,9 @@
                "$ref": "#/$defs/Device",
                "title": "Magnetic brake"
             },
-            "brake_output": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/DAQChannel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Brake DAQ channel"
-            },
             "torque_sensor": {
                "$ref": "#/$defs/Device",
                "title": "Torque sensor"
-            },
-            "torque_output": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/DAQChannel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Torque DAQ channel"
             }
          },
          "required": [
@@ -94757,8 +95524,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.46",
-         "default": "2.0.46",
+         "const": "2.0.50",
+         "default": "2.0.50",
          "title": "Schema Version",
          "type": "string"
       },
@@ -94771,12 +95538,6 @@
          "description": "Current location of the data asset.",
          "title": "Location",
          "type": "string"
-      },
-      "metadata_status": {
-         "$ref": "#/$defs/MetadataStatus",
-         "default": "Unknown",
-         "description": "The status of the metadata.",
-         "title": " Metadata Status"
       },
       "external_links": {
          "additionalProperties": {
@@ -94883,6 +95644,19 @@
          "default": null,
          "description": "Description of quality metrics for a data asset",
          "title": "Quality Control"
+      },
+      "model": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/Model"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Description of a machine learning model trained on data.",
+         "title": "Model"
       }
    },
    "required": [

@@ -65,7 +65,8 @@
             "Left",
             "Right",
             "Medial",
-            "Lateral"
+            "Lateral",
+            "Origin"
          ],
          "title": "AnatomicalRelative",
          "type": "string"
@@ -698,7 +699,7 @@
                "title": "Injection material",
                "type": "array"
             },
-            "target": {
+            "targeted_structure": {
                "anyOf": [
                   {
                      "discriminator": {
@@ -4100,9 +4101,17 @@
                "type": "array"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "coordinates": {
                "items": {
@@ -4115,7 +4124,6 @@
          "required": [
             "injection_materials",
             "dynamics",
-            "protocol_id",
             "coordinates"
          ],
          "title": "BrainInjection",
@@ -4325,9 +4333,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "craniotomy_type": {
                "$ref": "#/$defs/CraniotomyType",
@@ -4414,7 +4430,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "craniotomy_type"
          ],
          "title": "Craniotomy",
@@ -4479,9 +4494,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "probes": {
                "items": {
@@ -4492,7 +4515,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "probes"
          ],
          "title": "FiberImplant",
@@ -5094,6 +5116,124 @@
          "description": "Base class for generic types that can be used in AIND schema",
          "properties": {},
          "title": "GenericModel",
+         "type": "object"
+      },
+      "GenericSubjectProcedure": {
+         "additionalProperties": false,
+         "description": "Description of a non-surgical procedure performed on a subject",
+         "properties": {
+            "object_type": {
+               "const": "Generic subject procedure",
+               "default": "Generic subject procedure",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "start_date": {
+               "format": "date",
+               "title": "Start date",
+               "type": "string"
+            },
+            "experimenters": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "experimenter(s)"
+            },
+            "ethics_review_id": {
+               "title": "Ethics review ID",
+               "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "description": {
+               "title": "Description",
+               "type": "string"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "start_date",
+            "ethics_review_id",
+            "description"
+         ],
+         "title": "GenericSubjectProcedure",
+         "type": "object"
+      },
+      "GenericSurgeryProcedure": {
+         "additionalProperties": false,
+         "description": "Description of a surgery procedure performed on a subject",
+         "properties": {
+            "object_type": {
+               "const": "Generic surgery procedure",
+               "default": "Generic surgery procedure",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "description": {
+               "title": "Description",
+               "type": "string"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "description"
+         ],
+         "title": "GenericSurgeryProcedure",
          "type": "object"
       },
       "GroundWireImplant": {
@@ -6266,9 +6406,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "headframe_type": {
                "title": "Headframe type",
@@ -6316,7 +6464,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "headframe_type",
             "headframe_part_number"
          ],
@@ -6395,10 +6542,6 @@
                },
                "title": "Other stains",
                "type": "array"
-            },
-            "instrument_id": {
-               "title": "Instrument ID",
-               "type": "string"
             }
          },
          "required": [
@@ -6406,8 +6549,7 @@
             "start_time",
             "end_time",
             "HCR_probes",
-            "probe_concentration",
-            "instrument_id"
+            "probe_concentration"
          ],
          "title": "HybridizationChainReaction",
          "type": "object"
@@ -6454,7 +6596,7 @@
                "title": "Injection material",
                "type": "array"
             },
-            "target": {
+            "targeted_structure": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/MouseAnatomyModel"
@@ -6491,15 +6633,22 @@
                "type": "array"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             }
          },
          "required": [
             "injection_materials",
-            "dynamics",
-            "protocol_id"
+            "dynamics"
          ],
          "title": "Injection",
          "type": "object"
@@ -7240,7 +7389,7 @@
       },
       "MyomatrixContact": {
          "additionalProperties": false,
-         "description": "\"Description of a contact on a myomatrix thread",
+         "description": "Description of a contact on a myomatrix thread",
          "properties": {
             "object_type": {
                "const": "Myomatrix contact",
@@ -7253,9 +7402,10 @@
                "description": "Use MouseBodyParts",
                "title": "Body part of contact insertion"
             },
-            "side": {
-               "$ref": "#/$defs/Side",
-               "title": "Body side"
+            "relative_position": {
+               "$ref": "#/$defs/AnatomicalRelative",
+               "description": "Position relative to procedures coordinate system",
+               "title": "Relative position"
             },
             "muscle": {
                "$ref": "#/$defs/MouseAnatomyModel",
@@ -7269,7 +7419,7 @@
          },
          "required": [
             "body_part",
-            "side",
+            "relative_position",
             "muscle",
             "in_muscle"
          ],
@@ -7291,9 +7441,17 @@
                "title": "Ground electrode"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "myomatrix_array": {
                "$ref": "#/$defs/MyomatrixArray",
@@ -7309,7 +7467,6 @@
          },
          "required": [
             "ground_electrode",
-            "protocol_id",
             "myomatrix_array",
             "threads"
          ],
@@ -11795,52 +11952,6 @@
          "title": "Origin",
          "type": "string"
       },
-      "OtherSubjectProcedure": {
-         "additionalProperties": false,
-         "description": "Description of non-surgical procedure performed on a subject",
-         "properties": {
-            "object_type": {
-               "const": "Other subject procedure",
-               "default": "Other subject procedure",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "protocol_id": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID"
-            },
-            "description": {
-               "title": "Description",
-               "type": "string"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "description"
-         ],
-         "title": "OtherSubjectProcedure",
-         "type": "object"
-      },
       "PIDName": {
          "additionalProperties": false,
          "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
@@ -11903,9 +12014,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "output_specimen_ids": {
                "description": "IDs of specimens resulting from this procedure.",
@@ -11913,12 +12032,10 @@
                   "type": "string"
                },
                "title": "Specimen ID",
-               "type": "array",
-               "uniqueItems": true
+               "type": "array"
             }
          },
          "required": [
-            "protocol_id",
             "output_specimen_ids"
          ],
          "title": "Perfusion",
@@ -16505,16 +16622,6 @@
          "title": "Sectioning",
          "type": "object"
       },
-      "Side": {
-         "description": "Side of animal",
-         "enum": [
-            "Left",
-            "Right",
-            "Midline"
-         ],
-         "title": "Side",
-         "type": "string"
-      },
       "SizeUnit": {
          "description": "Enumeration of Length Measurements",
          "enum": [
@@ -16578,12 +16685,20 @@
                "type": "array"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Protocol ID",
-               "type": "array"
+               "title": "Protocol ID"
             },
             "procedure_details": {
                "default": [],
@@ -16633,8 +16748,7 @@
             "procedure_type",
             "specimen_id",
             "start_date",
-            "end_date",
-            "protocol_id"
+            "end_date"
          ],
          "title": "SpecimenProcedure",
          "type": "object"
@@ -17129,10 +17243,6 @@
                "default": null,
                "title": "Lot expiration date"
             },
-            "stain_type": {
-               "$ref": "#/$defs/StainType",
-               "title": "Stain type"
-            },
             "concentration": {
                "anyOf": [
                   {
@@ -17154,7 +17264,6 @@
             "name",
             "source",
             "lot_number",
-            "stain_type",
             "concentration"
          ],
          "title": "Stain",
@@ -17181,9 +17290,17 @@
                "type": "string"
             },
             "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "DOI for protocols.io",
-               "title": "Protocol ID",
-               "type": "string"
+               "title": "Protocol ID"
             },
             "start_date": {
                "format": "date",
@@ -17318,10 +17435,10 @@
                         "Catheter implant": "#/$defs/CatheterImplant",
                         "Craniotomy": "#/$defs/Craniotomy",
                         "Fiber implant": "#/$defs/FiberImplant",
+                        "Generic surgery procedure": "#/$defs/GenericSurgeryProcedure",
                         "Headframe": "#/$defs/Headframe",
                         "Injection": "#/$defs/Injection",
                         "Myomatrix insertion": "#/$defs/MyomatrixInsertion",
-                        "Other subject procedure": "#/$defs/OtherSubjectProcedure",
                         "Perfusion": "#/$defs/Perfusion",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
@@ -17350,7 +17467,7 @@
                         "$ref": "#/$defs/MyomatrixInsertion"
                      },
                      {
-                        "$ref": "#/$defs/OtherSubjectProcedure"
+                        "$ref": "#/$defs/GenericSurgeryProcedure"
                      },
                      {
                         "$ref": "#/$defs/Perfusion"
@@ -17378,7 +17495,6 @@
             }
          },
          "required": [
-            "protocol_id",
             "start_date",
             "procedures"
          ],
@@ -17500,8 +17616,16 @@
                "type": "string"
             },
             "protocol_id": {
-               "title": "Training protocol ID",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Training protocol ID"
             },
             "start_date": {
                "format": "date",
@@ -17536,7 +17660,6 @@
          },
          "required": [
             "training_name",
-            "protocol_id",
             "start_date"
          ],
          "title": "TrainingProtocol",
@@ -49049,8 +49172,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.17",
-         "default": "2.0.17",
+         "const": "2.0.20",
+         "default": "2.0.20",
          "title": "Schema Version",
          "type": "string"
       },
@@ -49064,7 +49187,7 @@
          "items": {
             "discriminator": {
                "mapping": {
-                  "Other subject procedure": "#/$defs/OtherSubjectProcedure",
+                  "Generic subject procedure": "#/$defs/GenericSubjectProcedure",
                   "Surgery": "#/$defs/Surgery",
                   "Training protocol": "#/$defs/TrainingProtocol",
                   "Water restriction": "#/$defs/WaterRestriction"
@@ -49082,7 +49205,7 @@
                   "$ref": "#/$defs/WaterRestriction"
                },
                {
-                  "$ref": "#/$defs/OtherSubjectProcedure"
+                  "$ref": "#/$defs/GenericSubjectProcedure"
                }
             ]
          },

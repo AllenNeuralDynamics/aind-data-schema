@@ -15,10 +15,10 @@ from aind_data_schema.components.devices import (
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
-from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails
+from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
+from aind_data_schema.core.metadata import Metadata, create_metadata_json
 from aind_data_schema.core.procedures import (
     BrainInjection,
     Procedures,
@@ -100,14 +100,13 @@ class TestMetadata(unittest.TestCase):
         procedures = Procedures(
             subject_id="12345",
         )
-        processing = Processing(
+        processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
+                    process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    output_path="/path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -129,79 +128,6 @@ class TestMetadata(unittest.TestCase):
         cls.dd_json = json.loads(dd.model_dump_json())
         cls.procedures_json = json.loads(procedures.model_dump_json())
         cls.processing_json = json.loads(processing.model_dump_json())
-
-    def test_valid_subject_info(self):
-        """Tests that the record is marked as VALID if a valid subject model
-        is present."""
-        subject = self.subject
-        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=subject)
-        self.assertEqual("655019_2023-04-03T181709", d1.name)
-        self.assertEqual("bucket", d1.location)
-        self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
-        self.assertEqual(subject, d1.subject)
-
-    def test_missing_subject_info(self):
-        """Marks the metadata status as MISSING if a Subject model is not
-        present"""
-
-        d1 = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-        )
-        self.assertEqual(MetadataStatus.MISSING, d1.metadata_status)
-        self.assertEqual("655019_2023-04-03T181709", d1.name)
-        self.assertEqual("bucket", d1.location)
-
-        # Assert at least a name and location are required
-        with self.assertRaises(ValidationError) as e:
-            Metadata()
-
-        self.assertIn("Field required", str(e.exception))
-        self.assertIn("name", str(e.exception))
-        self.assertIn("location", str(e.exception))
-
-    def test_invalid_core_models(self):
-        """Test that invalid models don't raise an error, but marks the
-        metadata_status as INVALID"""
-
-        # Invalid subject model
-        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=Subject.model_construct())
-        self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
-
-        # Valid subject model, but invalid procedures model
-        s2 = Subject(
-            subject_id="123345",
-            subject_details=MouseSubject(
-                species=Species.MUS_MUSCULUS,
-                strain=Strain.C57BL_6J,
-                sex=Sex.MALE,
-                date_of_birth="2020-10-10",
-                source=Organization.AI,
-                breeding_info=BreedingInfo(
-                    breeding_group="Emx1-IRES-Cre(ND)",
-                    maternal_id="546543",
-                    maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                    paternal_id="232323",
-                    paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
-                ),
-                genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
-            ),
-        )
-        d2 = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-            subject=s2,
-            procedures=Procedures.model_construct(injection_materials=["some materials"]),
-        )
-        self.assertEqual(MetadataStatus.INVALID, d2.metadata_status)
-
-        # Tests constructed via dictionary
-        d3 = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-            subject=json.loads(Subject.model_construct().model_dump_json()),
-        )
-        self.assertEqual(MetadataStatus.INVALID, d3.metadata_status)
 
     def test_default_file_extension(self):
         """Tests that the default file extension used is as expected."""
@@ -225,7 +151,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(subject_details=SubjectDetails.model_construct()),
+                acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
                 instrument=inst,
                 processing=Processing.model_construct(),
             )
@@ -253,7 +179,7 @@ class TestMetadata(unittest.TestCase):
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
-                    instrument_id="323_EPHYS1_20231003", subject_details=SubjectDetails.model_construct()
+                    instrument_id="323_EPHYS1_20231003", subject_details=AcquisitionSubjectDetails.model_construct()
                 ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -284,7 +210,7 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
-                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+                    subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
             )
         self.assertIn(
@@ -340,7 +266,6 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.procedures_json, result["procedures"])
         self.assertEqual(self.processing_json, result["processing"])
         self.assertIsNone(result["acquisition"])
-        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         # also check the other fields
         self.assertDictEqual(expected_result, result)
 
@@ -361,7 +286,7 @@ class TestMetadata(unittest.TestCase):
             location=self.sample_location,
             core_jsons=core_jsons,
         )
-        self.assertEqual(MetadataStatus.INVALID.value, metadata["metadata_status"])
+        self.assertIsNotNone(metadata)
 
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""
@@ -379,6 +304,37 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
         self.assertEqual(external_links, result["external_links"])
+
+    def test_validate_expected_files_by_modality(self):
+        """Tests that warnings are issued when metadata is missing required files"""
+        # Test case where required files are missing for 'subject'
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                subject=self.subject,
+                # Missing required files: data_description, procedures, instrument, acquisition
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn("Metadata missing required file: data_description", warning_messages)
+        self.assertIn("Metadata missing required file: procedures", warning_messages)
+        self.assertIn("Metadata missing required file: instrument", warning_messages)
+        self.assertIn("Metadata missing required file: acquisition", warning_messages)
+
+        # Test case where no required files exist
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                # No required files provided
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']",
+            warning_messages,
+        )
 
 
 if __name__ == "__main__":

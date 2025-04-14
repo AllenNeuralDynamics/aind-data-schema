@@ -4,8 +4,7 @@ import inspect
 import json
 import logging
 import warnings
-from enum import Enum
-from typing import Dict, List, Literal, Optional, get_args
+from typing import Dict, Literal, Optional, get_args
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import (
@@ -19,10 +18,12 @@ from pydantic import (
     ConfigDict,
 )
 
+from aind_data_schema.components.identifiers import ExternalLinks
 from aind_data_schema.base import DataCoreModel
 from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.model import Model
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
@@ -37,30 +38,21 @@ CORE_FILES = [
     "processing",
     "acquisition",
     "quality_control",
+    "model",
 ]
 
-REQUIRED_FILES = [
-    "subject",
-    "data_description",
-    "procedures",
-    "instrument",
-    "acquisition",
-]
-
-
-class MetadataStatus(str, Enum):
-    """Status of Metadata"""
-
-    VALID = "Valid"
-    INVALID = "Invalid"
-    MISSING = "Missing"
-    UNKNOWN = "Unknown"
-
-
-class ExternalPlatforms(str, Enum):
-    """External Platforms of Data Assets."""
-
-    CODEOCEAN = "Code Ocean"
+# Files present must include at least one of these "file set" keys,
+# and all files listed in any of the matched sets
+REQUIRED_FILE_SETS = {
+    "subject": [
+        "data_description",
+        "procedures",
+        "instrument",
+        "acquisition",
+    ],
+    "processing": ["data_description"],
+    "model": ["data_description"],
+}
 
 
 class Metadata(DataCoreModel):
@@ -76,7 +68,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.46"]] = Field(default="2.0.46")
+    schema_version: SkipValidation[Literal["2.0.50"]] = Field(default="2.0.50")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -87,10 +79,7 @@ class Metadata(DataCoreModel):
         title="Location",
         description="Current location of the data asset.",
     )
-    metadata_status: MetadataStatus = Field(
-        default=MetadataStatus.UNKNOWN, title=" Metadata Status", description="The status of the metadata."
-    )
-    external_links: Dict[ExternalPlatforms, List[str]] = Field(
+    external_links: ExternalLinks = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more
@@ -115,6 +104,9 @@ class Metadata(DataCoreModel):
     acquisition: Optional[Acquisition] = Field(default=None, title="Acquisition", description="Data acquisition")
     quality_control: Optional[QualityControl] = Field(
         default=None, title="Quality Control", description="Description of quality metrics for a data asset"
+    )
+    model: Optional[Model] = Field(
+        default=None, title="Model", description="Description of a machine learning model trained on data."
     )
 
     @field_validator(
@@ -145,60 +137,20 @@ class Metadata(DataCoreModel):
         return core_model
 
     @model_validator(mode="after")
-    def validate_metadata(self):
-        """Validator for metadata"""
-
-        all_model_fields = dict()
-        for field_name in self.model_fields:
-            # The fields we're interested in are optional. We need to extract out the
-            # class using the get_args method
-            annotation_args = get_args(self.model_fields[field_name].annotation)
-            optional_classes = (
-                None
-                if not annotation_args
-                else (
-                    [
-                        f
-                        for f in get_args(self.model_fields[field_name].annotation)
-                        if inspect.isclass(f) and issubclass(f, DataCoreModel)
-                    ]
-                )
-            )
-            if (
-                optional_classes
-                and inspect.isclass(optional_classes[0])
-                and issubclass(optional_classes[0], DataCoreModel)
-            ):
-                all_model_fields[field_name] = optional_classes[0]
-
-        # For each model field, check that is present and check if the model
-        # is valid. If it isn't valid, still add it, but mark MetadataStatus
-        # as INVALID
-        metadata_status = MetadataStatus.VALID
-        for field_name, model_class in all_model_fields.items():
-            if getattr(self, field_name) is not None:
-                model = getattr(self, field_name)
-                model_contents = model.model_dump(mode="json")
-                try:
-                    model_class(**model_contents)
-                except ValidationError as e:
-                    logging.warning(f"Error in {field_name}: {e}")
-                    metadata_status = MetadataStatus.INVALID
-        # For certain required fields, like subject, if they are not present,
-        # mark the metadata record as missing
-        if self.subject is None:
-            metadata_status = MetadataStatus.MISSING
-        self.metadata_status = metadata_status
-        # return values
-        return self
-
-    @model_validator(mode="after")
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
-        for file in REQUIRED_FILES:
-            if not getattr(self, file):
-                warnings.warn(f"Metadata missing required file: {file}")
+        validated = False
+        for file in REQUIRED_FILE_SETS.keys():
+            if getattr(self, file):
+                for file in REQUIRED_FILE_SETS[file]:
+                    if not getattr(self, file):
+                        warnings.warn(f"Metadata missing required file: {file}")
+                validated = True
+        if not validated:
+            warnings.warn(
+                f"Metadata must contain at least one of the following files: {list(REQUIRED_FILE_SETS.keys())}"
+            )
 
         return self
 
@@ -323,7 +275,6 @@ def create_metadata_json(
             core_fields[key] = value
     # Create Metadata object and convert to JSON
     # If there are any validation errors, still create it
-    # but set MetadataStatus as Invalid
     try:
         metadata = Metadata.model_validate(params | core_fields)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
@@ -333,5 +284,4 @@ def create_metadata_json(
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
         for key, value in core_fields.items():
             metadata_json[key] = value
-        metadata_json["metadata_status"] = MetadataStatus.INVALID.value
     return metadata_json

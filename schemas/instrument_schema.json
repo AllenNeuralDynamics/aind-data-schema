@@ -1023,7 +1023,8 @@
             "Left",
             "Right",
             "Medial",
-            "Lateral"
+            "Lateral",
+            "Origin"
          ],
          "title": "AnatomicalRelative",
          "type": "string"
@@ -9475,11 +9476,18 @@
                   }
                ],
                "default": null,
-               "title": "Size (inches)"
+               "title": "Size"
             },
-            "lens_size_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "inch",
+            "size_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Lens size unit"
             },
             "optimized_wavelength_range": {
@@ -16358,18 +16366,6 @@
                "$ref": "#/$defs/Device",
                "title": "Encoder"
             },
-            "encoder_output": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/DAQChannel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Encoder DAQ channel"
-            },
             "pulse_per_revolution": {
                "title": "Pulse per revolution",
                "type": "integer"
@@ -16378,33 +16374,9 @@
                "$ref": "#/$defs/Device",
                "title": "Magnetic brake"
             },
-            "brake_output": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/DAQChannel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Brake DAQ channel"
-            },
             "torque_sensor": {
                "$ref": "#/$defs/Device",
                "title": "Torque sensor"
-            },
-            "torque_output": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/DAQChannel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Torque DAQ channel"
             }
          },
          "required": [
@@ -21971,8 +21943,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.20",
-         "default": "2.0.20",
+         "const": "2.0.22",
+         "default": "2.0.22",
          "title": "Schema Version",
          "type": "string"
       },
@@ -21987,6 +21959,7 @@
          "type": "string"
       },
       "modalities": {
+         "description": "Modalities that CAN BE acquired",
          "items": {
             "discriminator": {
                "mapping": {
