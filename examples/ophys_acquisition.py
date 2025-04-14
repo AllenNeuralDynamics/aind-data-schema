@@ -38,6 +38,13 @@ a = Acquisition(
                 "Patch Cord B",
             ],
             configurations=[
+                LaserConfig(
+                    device_name="Laser A",
+                    wavelength=405,
+                    wavelength_unit="nanometer",
+                    excitation_power=10,
+                    excitation_power_unit="milliwatt",
+                ),
                 PatchCordConfig(
                     device_name="Patch Cord A",
                     output_power=40,
@@ -50,7 +57,7 @@ a = Acquisition(
                             detector_configuration=DetectorConfig(
                                 device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
                             ),
-                            light_source_configuration=[
+                            light_source_configurations=[
                                 LaserConfig(
                                     device_name="Laser A",
                                     wavelength=405,
@@ -74,7 +81,7 @@ a = Acquisition(
                             detector_configuration=DetectorConfig(
                                 device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
                             ),
-                            light_source_configuration=[
+                            light_source_configurations=[
                                 LaserConfig(
                                     device_name="Laser B",
                                     wavelength=473,

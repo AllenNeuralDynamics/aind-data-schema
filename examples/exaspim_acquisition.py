@@ -14,8 +14,9 @@ from aind_data_schema.components.acquisition_configs import (
     LaserConfig,
     Image,
     Immersion,
-    InVitroImagingConfig,
+    ImagingConfig,
     DetectorConfig,
+    SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
 from aind_data_schema.components.identifiers import Person
@@ -47,12 +48,12 @@ image1 = Image(
     coordinate_transform=coordinate_transform,
 )
 
-invitro_config = InVitroImagingConfig(
+imaging_config = ImagingConfig(
     channels=[
         Channel(
             channel_name="488",
             intended_measurement="GFP signal",
-            light_sources=[
+            light_source_configurations=[
                 LaserConfig(
                     device_name="LAS_08308",
                     wavelength=488,
@@ -73,7 +74,7 @@ invitro_config = InVitroImagingConfig(
         Channel(
             channel_name="561",
             intended_measurement="TdTomato signal",
-            light_sources=[
+            light_source_configurations=[
                 LaserConfig(
                     device_name="539251",
                     wavelength=561,
@@ -93,11 +94,15 @@ invitro_config = InVitroImagingConfig(
         ),
     ],
     images=[image0, image1],
+
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+)
+
+chamber_config = SampleChamberConfig(
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
     ),
-    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
 )
 
 
@@ -143,7 +148,8 @@ acq = Acquisition(
                 "539251",
             ],
             configurations=[
-                invitro_config,
+                imaging_config,
+                chamber_config,
             ],
         )
     ],

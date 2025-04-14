@@ -46,7 +46,8 @@ CONFIG_REQUIREMENTS = {
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
-    Modality.SLAP: [[ImagingConfig], [SampleChamberConfig], [SlapConfig]],
+    Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
+    Modality.SLAP: [[ImagingConfig], [SlapConfig]],
 }
 
 # This is ugly but one of the validators was just checking that the cameras were active in the device name list
@@ -142,8 +143,11 @@ class DataStream(DataModel):
                 continue
 
             for group in CONFIG_REQUIREMENTS[modality]:
-                if not any(isinstance(config, device) for config in self.configurations for device in group):
-                    raise ValueError(f"Missing required devices for modality {modality} in {self.configurations}")
+                if not any(isinstance(config, device_type) for config in self.configurations for device_type in group):
+                    # Get the types of all configurations
+                    group_types = [device_type.__name__ for device_type in group]
+                    config_types = [type(config).__name__ for config in self.configurations]
+                    raise ValueError(f"Missing one of required devices {group_types} for modality {modality.name} in {config_types}")
 
         return self
 
