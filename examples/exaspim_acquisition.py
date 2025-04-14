@@ -69,6 +69,8 @@ imaging_config = ImagingConfig(
             ],
             detector_configuration=DetectorConfig(
                 device_name="PMT_1",
+                exposure_time=1,
+                trigger_type="Internal",
             ),
         ),
         Channel(
@@ -90,6 +92,8 @@ imaging_config = ImagingConfig(
             ],
             detector_configuration=DetectorConfig(
                 device_name="PMT_1",
+                exposure_time=1,
+                trigger_type="Internal",
             ),
         ),
     ],
