@@ -13,6 +13,7 @@ EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 class ExampleTests(unittest.TestCase):
     """tests for examples"""
 
+    @classmethod
     def setUpClass():
         """Build the examples"""
 
