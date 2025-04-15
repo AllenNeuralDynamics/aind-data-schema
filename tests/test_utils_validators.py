@@ -386,6 +386,13 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         recursive_check_paths(test_path, None)
         mock_warning.assert_not_called()
 
+    def test_return_enum(self):
+        """Test return enum"""
+        data = MockEnum.VALUE1
+        recursive_check_paths(data, None)
+        self.assertTrue(True)
+        # No exception raised, because enum is valid
+
 
 if __name__ == "__main__":
     unittest.main()
