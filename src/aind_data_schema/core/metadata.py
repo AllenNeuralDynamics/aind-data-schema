@@ -268,16 +268,16 @@ class Metadata(DataCoreModel):
 
         if values.instrument:
             for component in values.instrument.components:
-                device_names.extend(component.name)
+                device_names.append(component.name)
         if values.procedures:
             for device in values.procedures.implanted_devices:
-                device_names.extend(device.name)
+                device_names.append(device.name)
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
             missing_devices = set(active_devices) - set(device_names)
             raise ValueError(
-                f"Active devices '{missing_devices}' were not found in either the Instrument.components or"
+                f"Active devices '{missing_devices}' were not found in either the Instrument.components or "
                 f"Procedures.implanted_devices."
             )
 
@@ -292,10 +292,10 @@ class Metadata(DataCoreModel):
 
         if self.instrument:
             for component in self.instrument.components:
-                device_names.extend(component.name)
+                device_names.append(component.name)
         if self.procedures:
             for device in self.procedures.implanted_devices:
-                device_names.extend(device.name)
+                device_names.append(device.name)
 
         # Check if all connection devices are in the available devices
         if self.acquisition:

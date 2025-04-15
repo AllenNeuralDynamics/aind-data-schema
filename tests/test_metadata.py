@@ -15,7 +15,7 @@ from aind_data_schema.components.devices import (
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
-from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.metadata import Metadata, create_metadata_json
@@ -25,7 +25,7 @@ from aind_data_schema.core.procedures import (
     Surgery,
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
-from aind_data_schema.core.instrument import Instrument
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
 
@@ -334,6 +334,105 @@ class TestMetadata(unittest.TestCase):
         self.assertIn(
             "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']",
             warning_messages,
+        )
+
+    def test_validate_acquisition_active_devices(self):
+        """Tests that active devices in acquisition are validated correctly."""
+        # Case where all active devices are present in instrument components
+        instrument = Instrument.model_construct(
+            instrument_id="Test",
+            components=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            modalities=[],
+        )
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            instrument=instrument,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where active devices are missing
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Missing Device"], modalities=[], configurations=[]
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition,
+            )
+        self.assertIn(
+            "Active devices '{'Missing Device'}' were not found in either the Instrument.components or Procedures.implanted_devices.",
+            str(context.exception),
+        )
+
+    def test_validate_acquisition_connections(self):
+        """Tests that acquisition connections are validated correctly."""
+        # Case where all connection devices are present in instrument components
+        instrument = Instrument.model_construct(
+            instrument_id="Test",
+            components=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            modalities=[],
+        )
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            instrument=instrument,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where connection devices are missing
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Laser A"],
+                    modalities=[],
+                    configurations=[],
+                    connections=[Connection(device_names=["Probe A", "Missing Device"], connection_data={})],
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition,
+            )
+        self.assertIn(
+            "Connection 'object_type='Connection' device_names=['Probe A', 'Missing Device'] connection_data={}'",
+            str(context.exception),
         )
 
 
