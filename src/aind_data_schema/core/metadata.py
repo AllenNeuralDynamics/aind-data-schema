@@ -253,6 +253,33 @@ class Metadata(DataCoreModel):
 
         return self
 
+    @model_validator(mode="after")
+    def validate_acquisition_connections(self):
+        """Validate for Acquisition.acquisition_connections
+
+        Ensures that all connections map between devices either in the instrument OR procedures"""
+
+        device_names = []
+
+        if self.instrument:
+            for component in self.instrument.components:
+                device_names.extend(component.name)
+        if self.procedures:
+            for device in self.procedures.implanted_devices:
+                device_names.extend(device.name)
+
+        # Check if all connection devices are in the available devices
+        if self.acquisition:
+            data_streams = self.acquisition.data_streams
+            for data_stream in data_streams:
+                for connection in data_stream.connections:
+                    if not all(device in device_names for device in connection.device_names):
+                        raise ValueError(
+                            f"Connection '{connection}' contains devices not found in instrument or procedures."
+                        )
+
+        return self
+
 
 def create_metadata_json(
     name: str,
