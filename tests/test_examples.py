@@ -35,6 +35,9 @@ class ExampleTests(unittest.TestCase):
         """
 
         for example_file in glob.glob(f"{EXAMPLES_DIR}/*.py"):
+            if "__init__" in example_file:
+                continue
+            
             logging.debug(f"testing {example_file}")
 
             json_file = example_file.replace(".py", ".json")

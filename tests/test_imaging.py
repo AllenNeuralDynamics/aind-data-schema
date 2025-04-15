@@ -4,10 +4,9 @@ import unittest
 from datetime import datetime, timezone
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import PowerUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components.acquisition_configs import Image, Channel
+from aind_data_schema.components.acquisition_configs import Image
 from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
@@ -17,13 +16,13 @@ from aind_data_schema.components.coordinates import (
     CoordinateTransform,
 )
 from aind_data_schema.components.devices import Objective, Laser, ScanningStage
-from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.acquisition_configs import Immersion, InVitroImagingConfig
+from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.measurements import Calibration
+
+from examples.exaspim_acquisition import acq
 
 
 class ImagingTests(unittest.TestCase):
@@ -34,67 +33,7 @@ class ImagingTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Acquisition()
 
-        data_stream = DataStream(
-            stream_start_time=datetime.now(tz=timezone.utc),
-            stream_end_time=datetime.now(tz=timezone.utc),
-            modalities=[Modality.SPIM],
-            active_devices=[],
-            configurations=[
-                InVitroImagingConfig(
-                    chamber_immersion=Immersion(medium="PBS", refractive_index=1),
-                    images=[
-                        Image(
-                            coordinate_transform=CoordinateTransform(
-                                input="SPIM_IJK",
-                                output="SPIM_RPI",
-                                transforms=[
-                                    Scale(
-                                        scale=[1, 1, 1],
-                                    ),
-                                    Translation(
-                                        translation=[0, 0, 0],
-                                    ),
-                                ],
-                            ),
-                            channel=Channel(
-                                channel_name="488",
-                                light_source_name="Ex_488",
-                                filter_names=["Em_600"],
-                                detector_name="PMT_1",
-                                excitation_wavelength=488,
-                                excitation_power=0.1,
-                                filter_wheel_index=0,
-                            ),
-                        ),
-                    ],
-                    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-                ),
-            ],
-        )
-
-        a = Acquisition(
-            experimenters=[Person(name="alice bob")],
-            acquisition_start_time=datetime.now(tz=timezone.utc),
-            specimen_id="123456-brain",
-            acquisition_type="Test acquisition",
-            subject_id="123456",
-            instrument_id="1234",
-            calibrations=[
-                Calibration(
-                    calibration_date=datetime.now(tz=timezone.utc),
-                    description="Laser power calibration",
-                    device_name="Laser 1",
-                    input=[100],
-                    input_unit=PowerUnit.PERCENT,
-                    output=[50],
-                    output_unit=PowerUnit.MW,
-                ),
-            ],
-            acquisition_end_time=datetime.now(tz=timezone.utc),
-            data_streams=[data_stream],
-        )
-
-        self.assertIsNotNone(a)
+        self.assertIsNotNone(acq)
 
     def test_instrument_constructor(self):
         """testing Instrument constructor"""

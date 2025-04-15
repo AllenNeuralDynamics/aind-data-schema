@@ -19,6 +19,8 @@ class ExamplesGenerator:
 
         logging.info(f"Running all examples in {EXAMPLES_DIR}")
         for example_file in glob(f"{EXAMPLES_DIR}/*.py"):
+            if "__init__" in example_file:
+                continue
             logging.info(f"Running {example_file}")
             runpy.run_path(path_name=example_file)
 
