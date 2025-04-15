@@ -147,7 +147,9 @@ class DataStream(DataModel):
                     # Get the types of all configurations
                     group_types = [device_type.__name__ for device_type in group]
                     config_types = [type(config).__name__ for config in self.configurations]
-                    raise ValueError(f"Missing one of required devices {group_types} for modality {modality.name} in {config_types}")
+                    raise ValueError(
+                        f"Missing one of required devices {group_types} for modality {modality.name} in {config_types}"
+                    )
 
         return self
 

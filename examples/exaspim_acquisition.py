@@ -98,7 +98,6 @@ imaging_config = ImagingConfig(
         ),
     ],
     images=[image0, image1],
-
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
 )
 

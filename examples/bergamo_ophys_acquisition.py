@@ -87,9 +87,11 @@ a = Acquisition(
                             fov_scale_factor=1.5,
                             frame_rate=20,
                             frame_rate_unit=FrequencyUnit.HZ,
-                            planes=SinglePlaneConfig(
+                            planes=[
+                                SinglePlaneConfig(
                                     imaging_depth=150,
-                                ),
+                                )
+                            ],
                         )
                     ],
                 )

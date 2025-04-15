@@ -196,9 +196,11 @@ class FieldOfView(DataModel):
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
     frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    planes: Annotated[
-        Union[SinglePlaneConfig, MultiPlaneConfig, StackConfig],
-        Field(discriminator="object_type"),
+    planes: List[
+        Annotated[
+            Union[SinglePlaneConfig, MultiPlaneConfig, StackConfig],
+            Field(discriminator="object_type"),
+        ]
     ] = Field(..., title="Two photon imaging configurations")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -476,9 +478,7 @@ class ImagingConfig(DataModel):
 
         for image in self.images:
             if image.channel_name not in channel_names:
-                raise ValueError(
-                    f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list"
-                )
+                raise ValueError(f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list")
         return self
 
     @model_validator(mode="after")
