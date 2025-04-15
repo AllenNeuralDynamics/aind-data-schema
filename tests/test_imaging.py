@@ -135,7 +135,6 @@ class ImagingTests(unittest.TestCase):
             code=Code(
                 url="https://github.com/abcd",
                 parameters=parameters,
-                notes="Intra-channel",
             )
         )
 
