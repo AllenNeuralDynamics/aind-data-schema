@@ -1,69 +1,13 @@
 """Tests instrument acquisition compatibility check"""
 
-import json
 import unittest
-from datetime import date, datetime, timezone
-from pathlib import Path
 
-from aind_data_schema_models.harp_types import HarpDeviceType
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
-
-from aind_data_schema.components.acquisition_configs import Channel
-import aind_data_schema.components.devices as d
-from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.devices import (
-    Camera,
-    CameraAssembly,
-    CameraTarget,
-    DAQChannel,
-    Device,
-    Disc,
-    EphysAssembly,
-    EphysProbe,
-    Filter,
-    HarpDevice,
-    Laser,
-    LaserAssembly,
-    Lens,
-    Manipulator,
-    NeuropixelsBasestation,
-    FiberPatchCord,
-    ProbePort,
-    Computer,
-)
-from aind_data_schema.components.measurements import Calibration
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
-from aind_data_schema.core.acquisition import (
-    Acquisition,
-    StimulusEpoch,
-    DataStream,
-    AcquisitionSubjectDetails,
-)
-from aind_data_schema.components.acquisition_configs import (
-    DetectorConfig,
-    DomeModule,
-    PatchCordConfig,
-    FiberAssemblyConfig,
-    LaserConfig,
-    ManipulatorConfig,
-    StimulusModality,
-)
-from aind_data_schema.components.stimulus import VisualStimulation
+from aind_data_schema.components.acquisition_configs import LaserConfig
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
-from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.identifiers import Code, Software
-from aind_data_schema.components.coordinates import (
-    Coordinate,
-    CoordinateSystemLibrary,
-)
-from aind_data_schema_models.coordinates import AnatomicalRelative
-
-from examples.ephys_instrument import inst as ephys_instrument
 from examples.ephys_acquisition import acquisition as ephys_acquisition
-from examples.ophys_acquisition import a as ophys_acquisition
+from examples.ephys_instrument import inst as ephys_instrument
 from examples.fip_ophys_instrument import instrument as ophys_instrument
+from examples.ophys_acquisition import a as ophys_acquisition
 
 
 class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
