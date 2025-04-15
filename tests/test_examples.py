@@ -32,12 +32,9 @@ class ExampleTests(unittest.TestCase):
                 self.assertTrue(example_path.exists(), f"{example_file} was not generated.")
 
                 # Validate the JSON content
-                try:
-                    with open(example_path, "r") as f:
-                        json_data = json.load(f)
-                    self.assertIsInstance(json_data, dict, f"{example_file} does not contain valid JSON.")
-                except json.JSONDecodeError as e:
-                    self.fail(f"{example_file} contains invalid JSON: {e}")
+                with open(example_path, "r") as f:
+                    json_data = json.load(f)
+                self.assertIsInstance(json_data, dict, f"{example_file} does not contain valid JSON.")
 
 
 if __name__ == "__main__":
