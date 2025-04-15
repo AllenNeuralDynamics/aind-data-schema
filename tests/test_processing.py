@@ -119,104 +119,6 @@ class ProcessingTest(unittest.TestCase):
         # p = Processing(data_processes=[])
         # self.assertIsNotNone(p)
 
-    def test_validate_pipeline_steps(self):
-        """Test the validate_pipeline_steps method"""
-
-        # Test with a valid pipeline process
-        p = Processing.create_with_sequential_process_graph(
-            data_processes=[
-                DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
-                    process_type=ProcessName.PIPELINE,
-                    stage=ProcessStage.PROCESSING,
-                    output_path="./path/to/outputs",
-                    start_date_time=t,
-                    end_date_time=t,
-                    code=code,
-                    pipeline_steps=[ProcessName.COMPRESSION],
-                ),
-                DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
-                    process_type=ProcessName.COMPRESSION,
-                    stage=ProcessStage.PROCESSING,
-                    code=code,
-                    output_path="./path/to/outputs",
-                    start_date_time=t,
-                    end_date_time=t,
-                ),
-            ]
-        )
-        self.assertIsNotNone(p)
-
-        # Test with a pipeline process missing pipeline_steps
-        with self.assertRaises(ValueError) as e:
-            Processing.create_with_sequential_process_graph(
-                data_processes=[
-                    DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
-                        process_type=ProcessName.PIPELINE,
-                        stage=ProcessStage.PROCESSING,
-                        output_path="./path/to/outputs",
-                        start_date_time=t,
-                        end_date_time=t,
-                        code=code,
-                    ),
-                ]
-            )
-        self.assertIn("Pipeline processes should have a pipeline_steps attribute.", str(e.exception))
-        with self.assertRaises(ValueError) as e:
-            Processing.create_with_sequential_process_graph(
-                data_processes=[
-                    DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
-                        process_type=ProcessName.PIPELINE,
-                        stage=ProcessStage.PROCESSING,
-                        output_path="./path/to/outputs",
-                        start_date_time=t,
-                        end_date_time=t,
-                        code=code,
-                        pipeline_steps=[],  # Empty list is invalid
-                    ),
-                ]
-            )
-        self.assertIn("Pipeline processes should have a pipeline_steps attribute.", str(e.exception))
-
-        # Test with a pipeline process having invalid pipeline_steps
-        with self.assertRaises(ValueError) as e:
-            Processing.create_with_sequential_process_graph(
-                data_processes=[
-                    DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
-                        process_type=ProcessName.PIPELINE,
-                        stage=ProcessStage.PROCESSING,
-                        output_path="./path/to/outputs",
-                        start_date_time=t,
-                        end_date_time=t,
-                        code=code,
-                        pipeline_steps=[ProcessName.ANALYSIS],
-                    ),
-                ]
-            )
-        self.assertIn("Processing step 'Analysis' not found in data_processes", str(e.exception))
-
-        # Test with a non-pipeline process having pipeline_steps
-        with self.assertRaises(ValueError) as e:
-            Processing.create_with_sequential_process_graph(
-                data_processes=[
-                    DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
-                        process_type=ProcessName.ANALYSIS,
-                        stage=ProcessStage.ANALYSIS,
-                        output_path="./path/to/outputs",
-                        start_date_time=t,
-                        end_date_time=t,
-                        code=code,
-                        pipeline_steps=[ProcessName.ANALYSIS],
-                    ),
-                ]
-            )
-        self.assertIn("pipeline_steps should only be provided for ProcessName.PIPELINE processes.", str(e.exception))
-
     def test_unique_process_names(self):
         """Test that process names are unique within a Processing object"""
 
@@ -399,6 +301,65 @@ class ProcessingTest(unittest.TestCase):
         with self.assertRaises(ValueError) as e:
             Processing(data_processes=[process1, process2], dependency_graph=invalid_graph)
         self.assertIn("data_processes must include all processes in dependency_graph", str(e.exception))
+
+    def test_validate_pipeline_names(self):
+        """Test the validate_pipeline_names method"""
+
+        # Create valid pipelines
+        pipelines = [
+            Code(name="Pipeline1", url="https://example.com/pipeline1", version="1.0"),
+            Code(name="Pipeline2", url="https://example.com/pipeline2", version="1.0"),
+        ]
+
+        # Create valid data_processes
+        process1 = DataProcess(
+            name="process1",
+            experimenters=[Person(name="Dr. Dan")],
+            process_type=ProcessName.COMPRESSION,
+            stage=ProcessStage.PROCESSING,
+            code=code,
+            start_date_time=t,
+            end_date_time=t,
+            pipeline_name="Pipeline1",
+        )
+        process2 = DataProcess(
+            name="process2",
+            experimenters=[Person(name="Dr. Dan")],
+            process_type=ProcessName.ANALYSIS,
+            stage=ProcessStage.ANALYSIS,
+            code=code,
+            start_date_time=t,
+            end_date_time=t,
+            pipeline_name="Pipeline2",
+        )
+
+        # Valid case
+        p = Processing(
+            data_processes=[process1, process2],
+            dependency_graph={"process1": [], "process2": ["process1"]},
+            pipelines=pipelines,
+        )
+        self.assertIsNotNone(p)
+
+        # Invalid case - pipeline_name not in pipelines list
+        process3 = DataProcess(
+            name="process3",
+            experimenters=[Person(name="Dr. Dan")],
+            process_type=ProcessName.SPIKE_SORTING,
+            stage=ProcessStage.PROCESSING,
+            code=code,
+            start_date_time=t,
+            end_date_time=t,
+            pipeline_name="NonExistentPipeline",
+        )
+
+        with self.assertRaises(ValueError) as e:
+            Processing(
+                data_processes=[process1, process2, process3],
+                dependency_graph={"process1": [], "process2": ["process1"], "process3": ["process2"]},
+                pipelines=pipelines,
+            )
+        self.assertIn("Pipeline name 'NonExistentPipeline' not found in pipelines list", str(e.exception))
 
 
 if __name__ == "__main__":

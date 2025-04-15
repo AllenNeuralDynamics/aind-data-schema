@@ -12,7 +12,7 @@ from pydantic import Field, SkipValidation, ValidationInfo, field_validator, mod
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.wrappers import AssetPath
-from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 
 
 class ProcessStage(str, Enum):
@@ -60,14 +60,7 @@ class DataProcess(DataModel):
     stage: ProcessStage = Field(..., title="Processing stage")
     code: Code = Field(..., title="Code", description="Code used for processing")
     experimenters: List[Person] = Field(..., title="Experimenters", description="People responsible for processing")
-    pipeline_steps: Optional[List[str]] = Field(
-        default=None,
-        title="Pipeline steps",
-        description=(
-            "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
-            " that are part of the pipeline. Each object must show up in the data_processes list.",
-        ),
-    )
+    pipeline_name: Optional[str] = Field(default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines")
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     output_path: Optional[AssetPath] = Field(
@@ -106,6 +99,7 @@ class Processing(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.50"]] = Field(default="2.0.50")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
+    pipelines: Optional[List[Code]] = Field(default=None, title="Pipelines", description="Repositories containing pipeline code")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     dependency_graph: Dict[str, List[str]] = Field(
@@ -176,29 +170,15 @@ class Processing(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_pipeline_steps(self) -> "Processing":
-        """Validator for pipeline_steps"""
-
-        if not hasattr(self, "data_processes"):  # bypass for testing
-            return self
+    def validate_pipeline_names(self) -> "Processing":
+        """Ensure that all pipeline names in the processes are in the pipelines list"""
+        pipeline_names = [pipeline.name for pipeline in self.pipelines] if self.pipelines else []
 
         for process in self.data_processes:
-            # For each process, make sure it's either a pipeline and has all its processes downstream
-            if process.process_type == ProcessName.PIPELINE:
-                if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
-                    raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
-
-                # Validate that all referenced processes are in the data_processes list
-                for step in process.pipeline_steps:
-                    if step not in self.process_names:
-                        raise ValueError(
-                            f"Processing step '{step}' not found in data_processes",
-                            f" (reference in process '{process.name}').",
-                        )
-
-            # Or make sure it doesn't have any pipeline steps
-            elif hasattr(process, "pipeline_steps") and process.pipeline_steps:
-                raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
+            if process.pipeline_name and process.pipeline_name not in pipeline_names:
+                raise ValueError(
+                    f"Pipeline name '{process.pipeline_name}' not found in pipelines list."
+                )
 
         return self
 
@@ -243,6 +223,7 @@ class Processing(DataCoreModel):
             combined_process_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
 
         return Processing(
+            pipelines=merge_optional_list(self.pipelines, other.pipelines),
             data_processes=self.data_processes + other.data_processes,
             dependency_graph=combined_process_graph,
             notes=merge_notes(self.notes, other.notes),

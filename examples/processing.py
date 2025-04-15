@@ -46,24 +46,14 @@ example_code = Code(
 )
 
 p = Processing.create_with_sequential_process_graph(
-    data_processes=[
-        DataProcess(
-            experimenters=[Person(name="Dr. Dan")],
-            process_type=ProcessName.PIPELINE,
-            pipeline_steps=[
-                ProcessName.IMAGE_TILE_FUSING,
-                ProcessName.FILE_FORMAT_CONVERSION,
-                ProcessName.IMAGE_DESTRIPING,
-            ],
-            stage=ProcessStage.PROCESSING,
-            output_path="/path/to/outputs",
-            start_date_time=t,
-            end_date_time=t,
-            code=Code(
-                url="https://url/for/pipeline",
-                version="0.1.1",
-            ),
+    pipelines=[
+        Code(
+            name="Imaging processing pipeline",
+            url="https://url/for/pipeline",
+            version="0.1.1",
         ),
+    ],
+    data_processes=[
         DataProcess(
             process_type=ProcessName.IMAGE_TILE_FUSING,
             experimenters=[Person(name="Dr. Dan")],
@@ -71,6 +61,7 @@ p = Processing.create_with_sequential_process_graph(
             start_date_time=t,
             end_date_time=t,
             output_path="/path/to/outputs",
+            pipeline_name="Imaging processing pipeline",
             code=example_code.model_copy(
                 update=dict(
                     parameters={"size": 7},
@@ -93,6 +84,7 @@ p = Processing.create_with_sequential_process_graph(
         ),
         DataProcess(
             process_type=ProcessName.FILE_FORMAT_CONVERSION,
+            pipeline_name="Imaging processing pipeline",
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
@@ -106,6 +98,7 @@ p = Processing.create_with_sequential_process_graph(
         ),
         DataProcess(
             process_type=ProcessName.IMAGE_DESTRIPING,
+            pipeline_name="Imaging processing pipeline",
             experimenters=[Person(name="Dr. Dan")],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
