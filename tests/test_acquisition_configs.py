@@ -10,8 +10,16 @@ from aind_data_schema.components.acquisition_configs import (
     LickSpoutConfig,
     Liquid,
     Valence,
+    ImagingConfig,
+    Channel,
+    Image,
+    FieldOfView,
+    CoordinateSystem,
+    DetectorConfig,
+    LaserConfig,
+
 )
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation, CoordinateTransform
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 
@@ -165,6 +173,138 @@ class TestLickSpoutConfig(unittest.TestCase):
             )
         self.assertIn(
             "Notes cannot be empty if LickSpoutConfig.solution is Other." "Describe the solution in the notes field.",
+            str(context.exception),
+        )
+
+
+class TestImagingConfig(unittest.TestCase):
+    """Tests for the ImagingConfig class"""
+
+    def setUp(self):
+        """Set up common test data"""
+        self.channel1 = Channel(
+            channel_name="Channel1",
+            detector_configuration=DetectorConfig(
+                device_name="Detector1",
+                exposure_time=Decimal("10.0"),
+                trigger_type="Internal",
+            ),
+            light_source_configurations=[
+                LaserConfig(
+                    device_name="Laser1",
+                    wavelength=488,
+                )
+            ],
+        )
+        self.channel2 = Channel(
+            channel_name="Channel2",
+            detector_configuration=DetectorConfig(
+                device_name="Detector2",
+                exposure_time=Decimal("20.0"),
+                trigger_type="External",
+            ),
+            light_source_configurations=[
+                LaserConfig(
+                    device_name="Laser2",
+                    wavelength=561,
+                )
+            ],
+        )
+        self.coordinate_system = CoordinateSystemLibrary.BREGMA_ARI
+
+    def test_check_image_channels_success(self):
+        """Test check_image_channels validator with valid data"""
+        imaging_config = ImagingConfig(
+            channels=[self.channel1, self.channel2],
+            images=[
+                FieldOfView(
+                    channel_name="Channel1",
+                    targeted_structure=CCFStructure.HPF,
+                    center_coordinate=Coordinate(
+                        system_name=self.coordinate_system.name,
+                        position=[0, 0, 0],
+                    ),
+                    fov_width=512,
+                    fov_height=512,
+                    magnification="20x",
+                    fov_scale_factor=Decimal("0.5"),
+                    frame_rate=Decimal("30.0"),
+                    planes=[],
+                )
+            ],
+            coordinate_system=self.coordinate_system,
+        )
+        self.assertIsNotNone(imaging_config)
+
+    def test_check_image_channels_failure(self):
+        """Test check_image_channels validator with invalid data"""
+        with self.assertRaises(ValidationError) as context:
+            ImagingConfig(
+                channels=[self.channel1],
+                images=[
+                    FieldOfView(
+                        channel_name="InvalidChannel",
+                        targeted_structure=CCFStructure.HPF,
+                        center_coordinate=Coordinate(
+                            system_name=self.coordinate_system.name,
+                            position=[0, 0, 0],
+                        ),
+                        fov_width=512,
+                        fov_height=512,
+                        magnification="20x",
+                        fov_scale_factor=Decimal("0.5"),
+                        frame_rate=Decimal("30.0"),
+                        planes=[],
+                    )
+                ],
+                coordinate_system=self.coordinate_system,
+            )
+        self.assertIn(
+            "Channel InvalidChannel must be defined in the ImagingConfig.channels list",
+            str(context.exception),
+        )
+
+    def test_require_cs_images_success(self):
+        """Test require_cs_images validator with valid data"""
+        imaging_config = ImagingConfig(
+            channels=[self.channel1],
+            images=[
+                Image(
+                    channel_name="Channel1",
+                    coordinate_transform=CoordinateTransform(
+                        input="SPIM_IJK",
+                        output="BREGMA_ARI",
+                        transforms=[
+                            Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                        ],
+                    ),
+                ),
+            ],
+            coordinate_system=self.coordinate_system,
+        )
+        self.assertIsNotNone(imaging_config)
+
+    def test_require_cs_images_failure(self):
+        """Test require_cs_images validator with missing coordinate system"""
+        with self.assertRaises(ValidationError) as context:
+            ImagingConfig(
+                channels=[self.channel1],
+                images=[
+                    Image(
+                        channel_name="Channel1",
+                        coordinate_transform=CoordinateTransform(
+                            input="SPIM_IJK",
+                            output="BREGMA_ARI",
+                            transforms=[
+                                Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                            ],
+                        ),
+                    ),
+                ],
+                coordinate_system=None,
+            )
+        self.assertIn(
+            "Coordinate system is required if any images are Image",
             str(context.exception),
         )
 
