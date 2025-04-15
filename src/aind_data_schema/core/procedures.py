@@ -491,7 +491,9 @@ class ProbeImplant(DataModel):
     """Description of a probe (fiber, ephys) implant procedure"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    implanted_device_names: List[str] = Field(..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices")
+    implanted_device_names: List[str] = Field(
+        ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
+    )
 
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
