@@ -1,80 +1,30 @@
 """Test for merge functions"""
 
 import unittest
-from datetime import datetime, timezone, date
+from datetime import datetime, timezone
 
 from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
 
-from aind_data_schema.core.acquisition import Acquisition, DataStream, AcquisitionSubjectDetails
-from aind_data_schema.core.procedures import (
-    Procedures,
-    Reagent,
-    Surgery,
-    Anaesthetic,
-    Craniotomy,
-    Perfusion,
-    CraniotomyType,
-)
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
+from aind_data_schema.core.procedures import Procedures
+from aind_data_schema.core.acquisition import AcquisitionSubjectDetails
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.acquisition_configs import ImagingConfig, Immersion, Image, Channel, SampleChamberConfig
-from aind_data_schema.components.coordinates import (
-    Scale,
-    Translation,
-    Origin,
-    Coordinate,
-    CoordinateTransform,
-    CoordinateSystemLibrary,
-)
-from aind_data_schema.components.measurements import Calibration, Maintenance
-
-from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-sample_config = SampleChamberConfig(
-    chamber_immersion=Immersion(
-        medium="PBS",
-        refractive_index=1.33,
-    )
-)
-
-imaging_config = ImagingConfig(
-    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-    images=[
-        Image(
-            file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-            coordinate_transform=CoordinateTransform(
-                input="SPIM_IJK",
-                output="SPIM_RPI",
-                transforms=[
-                    Scale(
-                        scale=[0.748, 0.748, 1],
-                    ),
-                    Translation(
-                        translation=[0, 0, 0],
-                    ),
-                ],
-            ),
-            channel=Channel(
-                channel_name="488",
-                excitation_wavelength=488,
-                excitation_power=200,
-                light_source_name="Ex_488",
-                filter_names=["Em_600"],
-                detector_name="PMT_1",
-                filter_wheel_index=0,
-            ),
-            notes="these are my notes",
-        ),
-    ],
-)
+from examples.exaspim_acquisition import acq
+from examples.procedures import p, t, t2
 
 
 class TestComposability(unittest.TestCase):
     """Tests for merge functions"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Load example files for testing"""
+        cls.exaspim_acquisition = acq
+        cls.procedures = p
+        cls.procedures_time0 = t
+        cls.procedures_time1 = t2
 
     def test_merge_quality_control(self):
         """Test adding two QualityControl objects"""
@@ -146,136 +96,8 @@ class TestComposability(unittest.TestCase):
 
         t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
-        acq1 = Acquisition(
-            experimenters=[Person(name="John Smith")],
-            specimen_id="###",
-            subject_id="###",
-            instrument_id="###",
-            maintenance=[
-                Maintenance(
-                    maintenance_date=t,
-                    device_name="Chamber",
-                    description="Clean chamber",
-                    reagents=[
-                        Reagent(
-                            name="reagent1",
-                            source=Organization.OTHER,
-                            rrid=PIDName(
-                                name="xxx", abbreviation="xx", registry=Registry.RRID, registry_identifier="100"
-                            ),
-                            lot_number="xxx",
-                            expiration_date=t.date(),
-                        ),
-                    ],
-                )
-            ],
-            calibrations=[
-                Calibration(
-                    calibration_date=t,
-                    device_name="Laser_1",
-                    description="Laser power calibration",
-                    input=[100],
-                    input_unit=PowerUnit.PERCENT,
-                    output=[50],
-                    output_unit=PowerUnit.MW,
-                )
-            ],
-            data_streams=[
-                DataStream(
-                    stream_start_time=t,
-                    stream_end_time=t,
-                    modalities=[Modality.SPIM],
-                    active_devices=[],
-                    configurations=[imaging_config, sample_config],
-                )
-            ],
-            acquisition_start_time=t,
-            acquisition_end_time=t,
-            acquisition_type="ExaSPIM",
-        )
-
-        acq2 = Acquisition(
-            experimenters=[Person(name="Jane Doe")],
-            specimen_id="###",
-            subject_id="###",
-            instrument_id="###",
-            maintenance=[
-                Maintenance(
-                    maintenance_date=t,
-                    device_name="Chamber",
-                    description="Clean chamber",
-                    reagents=[
-                        Reagent(
-                            name="reagent2",
-                            source=Organization.OTHER,
-                            rrid=PIDName(
-                                name="yyy", abbreviation="yy", registry=Registry.RRID, registry_identifier="200"
-                            ),
-                            lot_number="yyy",
-                            expiration_date=t.date(),
-                        ),
-                    ],
-                )
-            ],
-            calibrations=[
-                Calibration(
-                    calibration_date=t,
-                    device_name="Laser_2",
-                    description="Laser power calibration",
-                    input=[100],
-                    input_unit=PowerUnit.PERCENT,
-                    output=[60],
-                    output_unit=PowerUnit.MW,
-                )
-            ],
-            data_streams=[
-                DataStream(
-                    stream_start_time=t,
-                    stream_end_time=t,
-                    modalities=[Modality.SPIM],
-                    active_devices=[],
-                    configurations=[
-                        InVitroImagingConfig(
-                            chamber_immersion=Immersion(
-                                medium="PBS",
-                                refractive_index=1.33,
-                            ),
-                            coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-                            images=[
-                                Image(
-                                    file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-                                    coordinate_transform=CoordinateTransform(
-                                        input="SPIM_IJK",
-                                        output="SPIM_RPI",
-                                        transforms=[
-                                            Scale(
-                                                scale=[0.748, 0.748, 1],
-                                            ),
-                                            Translation(
-                                                translation=[0, 0, 0],
-                                            ),
-                                        ],
-                                    ),
-                                    channel=Channel(
-                                        channel_name="561",
-                                        excitation_wavelength=561,
-                                        excitation_power=200,
-                                        light_source_name="Ex_561",
-                                        filter_names=["Em_600"],
-                                        detector_name="PMT_1",
-                                        filter_wheel_index=0,
-                                    ),
-                                    notes="these are my notes",
-                                ),
-                            ],
-                        ),
-                    ],
-                )
-            ],
-            acquisition_start_time=t,
-            acquisition_end_time=t,
-            acquisition_type="ExaSPIM",
-        )
+        acq1 = self.exaspim_acquisition.model_copy()
+        acq2 = self.exaspim_acquisition.model_copy()
 
         merged_acq = acq1 + acq2
 
@@ -318,72 +140,17 @@ class TestComposability(unittest.TestCase):
     def test_procedures_add(self):
         """Test the __add__ method of Procedures"""
 
-        t = date(2022, 7, 12)
-        t2 = date(2022, 9, 23)
-
-        p1 = Procedures(
-            subject_id="625100",
-            subject_procedures=[
-                Surgery(
-                    start_date=t,
-                    protocol_id="doi",
-                    experimenters=[Person(name="Scientist Smith")],
-                    ethics_review_id="2109",
-                    animal_weight_prior=22.6,
-                    animal_weight_post=22.3,
-                    anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
-                    workstation_id="SWS 3",
-                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                    procedures=[
-                        Craniotomy(
-                            craniotomy_type=CraniotomyType.CIRCLE,
-                            protocol_id="1234",
-                            position=Coordinate(
-                                system_name="BREGMA_ARI",
-                                position=[-2, -4, 0],
-                            ),
-                            size=1,
-                            size_unit=SizeUnit.MM,
-                        ),
-                    ],
-                    measured_coordinates={
-                        Origin.BREGMA: Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[0.0, 0.0, 0.0],
-                        ),
-                        Origin.LAMBDA: Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[-4.1, 0.0, 0.0],
-                        ),
-                    },
-                )
-            ],
-        )
-
-        p2 = Procedures(
-            subject_id="625100",
-            subject_procedures=[
-                Surgery(
-                    start_date=t2,
-                    protocol_id="doi",
-                    experimenters=[Person(name="Scientist Smith")],
-                    ethics_review_id="2109",
-                    procedures=[
-                        Perfusion(
-                            protocol_id="doi_of_protocol",
-                            output_specimen_ids=["2", "1"],
-                        )
-                    ],
-                )
-            ],
-        )
+        p1 = self.procedures.model_copy()
+        p2 = self.procedures.model_copy()
 
         combined = p1 + p2
 
         self.assertEqual(combined.subject_id, "625100")
-        self.assertEqual(len(combined.subject_procedures), 2)
-        self.assertEqual(combined.subject_procedures[0].start_date, t)
-        self.assertEqual(combined.subject_procedures[1].start_date, t2)
+        self.assertEqual(len(combined.subject_procedures), 4)
+        self.assertEqual(combined.subject_procedures[0].start_date, self.procedures_time0.date())
+        self.assertEqual(combined.subject_procedures[1].start_date, self.procedures_time1.date())
+        self.assertEqual(combined.subject_procedures[2].start_date, self.procedures_time0.date())
+        self.assertEqual(combined.subject_procedures[3].start_date, self.procedures_time1.date())
 
         # Test combining with different subject IDs raises ValueError
         p3 = Procedures(subject_id="different_id")

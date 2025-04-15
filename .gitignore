@@ -143,3 +143,4 @@ notebook/
 *.vscode
 ephys_instrument.json
 examples/*.json
+*.json
