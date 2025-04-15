@@ -7,10 +7,18 @@ from pydantic import Field
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.units import ConcentrationUnit, SizeUnit
+from aind_data_schema_models.units import ConcentrationUnit, SizeUnit, MassUnit
 from aind_data_schema_models.species import Species
 
 from aind_data_schema.base import DataModel
+
+
+class ImmunolabelClass(str, Enum):
+    """Type of antibodies"""
+
+    PRIMARY = "Primary"
+    SECONDARY = "Secondary"
+    CONJUGATE = "Conjugate"
 
 
 class StainType(str, Enum):
@@ -84,3 +92,13 @@ class Stain(Reagent):
 
     concentration: float = Field(..., title="Concentration")
     concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
+
+
+class Antibody(Reagent):
+    """Description of an antibody used in immunolableing"""
+
+    immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
+    fluorophore: Optional[Fluorophore] = Field(default=None, title="Fluorophore")
+    mass: float = Field(..., title="Mass of antibody")
+    mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
+    notes: Optional[str] = Field(default=None, title="Notes")
