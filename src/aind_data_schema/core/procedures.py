@@ -520,10 +520,10 @@ class WaterRestriction(DataModel):
 class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
-    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
-    threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
+    implanted_device_name: str = Field(..., title="Myomatrix array", description="Must match a MyomatrixArray in Procedures.implanted_devices")
 
 
 class Perfusion(DataModel):
@@ -651,13 +651,6 @@ class Procedures(DataCoreModel):
 
             if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
-
-        return values
-
-    @model_validator(mode="after")
-    @classmethod
-    def validate_implanted_devices(cls, values):
-        """Validate that all implanted devices exist"""
 
         return values
 

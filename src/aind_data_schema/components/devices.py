@@ -661,3 +661,4 @@ class MyomatrixArray(Device):
     """Description of a Myomatrix array"""
 
     array_type: MyomatrixArrayType = Field(..., title="Array type")
+    threads: List[MyomatrixThread] = Field(..., title="Array threads")
