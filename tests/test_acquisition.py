@@ -20,6 +20,9 @@ from aind_data_schema.components.acquisition_configs import (
     DomeModule,
     ManipulatorConfig,
     MRIScan,
+    ImagingConfig,
+    SampleChamberConfig,
+    Immersion,
 )
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -373,6 +376,79 @@ class AcquisitionTest(unittest.TestCase):
             ],
         )
         self.assertIsNotNone(stream)
+
+    def test_specimen_required_for_in_vitro_modalities(self):
+        """Test that specimen ID is required for in vitro imaging modalities"""
+
+        # Test case where specimen ID is missing for in vitro modality
+        with self.assertRaises(ValueError) as context:
+            Acquisition(
+                experimenters=[Person(name="Mam Moth")],
+                acquisition_start_time=datetime.now(),
+                acquisition_end_time=datetime.now(),
+                subject_id="123456",
+                acquisition_type="Test",
+                instrument_id="1234",
+                subject_details=AcquisitionSubjectDetails(
+                    mouse_platform_name="Running wheel",
+                ),
+                data_streams=[
+                    DataStream(
+                        stream_start_time=datetime.now(),
+                        stream_end_time=datetime.now(),
+                        modalities=[Modality.SPIM],
+                        active_devices=["Device1"],
+                        configurations=[
+                            ImagingConfig(
+                                channels=[],
+                                images=[],
+                            ),
+                            SampleChamberConfig(
+                                chamber_immersion=Immersion(
+                                    medium="PBS",
+                                    refractive_index=1.33,
+                                ),
+                            ),
+                        ],
+                    )
+                ],
+            )
+        self.assertIn("Specimen ID is required for modalities", str(context.exception))
+
+        # Test case where specimen ID is provided for in vitro modality
+        acquisition = Acquisition(
+            experimenters=[Person(name="Mam Moth")],
+            acquisition_start_time=datetime.now(),
+            acquisition_end_time=datetime.now(),
+            subject_id="123456",
+            specimen_id="SP123456",
+            acquisition_type="Test",
+            instrument_id="1234",
+            subject_details=AcquisitionSubjectDetails(
+                mouse_platform_name="Running wheel",
+            ),
+            data_streams=[
+                DataStream(
+                    stream_start_time=datetime.now(),
+                    stream_end_time=datetime.now(),
+                    modalities=[Modality.SPIM],
+                    active_devices=["Device1"],
+                    configurations=[
+                        ImagingConfig(
+                            channels=[],
+                            images=[],
+                        ),
+                        SampleChamberConfig(
+                            chamber_immersion=Immersion(
+                                medium="PBS",
+                                refractive_index=1.33,
+                            ),
+                        ),
+                    ],
+                )
+            ],
+        )
+        self.assertIsNotNone(acquisition)
 
 
 if __name__ == "__main__":

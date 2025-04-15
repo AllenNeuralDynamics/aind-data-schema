@@ -71,7 +71,7 @@ a = Acquisition(
                             targeted_structure=CCFStructure.VISP,
                             center_coordinate=Coordinate(
                                 system_name="BREGMA_ARI",
-                                position=[1.5, 1.5, 0],  
+                                position=[1.5, 1.5, 0],
                             ),
                             fov_width=512,
                             fov_height=512,

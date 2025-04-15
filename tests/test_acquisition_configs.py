@@ -17,9 +17,15 @@ from aind_data_schema.components.acquisition_configs import (
     CoordinateSystem,
     DetectorConfig,
     LaserConfig,
-
 )
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation, CoordinateTransform
+from aind_data_schema.components.coordinates import (
+    Coordinate,
+    CoordinateSystemLibrary,
+    Transform,
+    Affine,
+    Translation,
+    CoordinateTransform,
+)
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
 

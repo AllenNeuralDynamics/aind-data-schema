@@ -25,9 +25,6 @@ from aind_data_schema.components.acquisition_configs import (
     StimulusModality,
     SampleChamberConfig,
     ImagingConfig,
-    SinglePlaneConfig,
-    MultiPlaneConfig,
-    StackConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly

@@ -135,7 +135,7 @@ class ImagingTests(unittest.TestCase):
             code=Code(
                 url="https://github.com/abcd",
                 parameters=parameters,
-            )
+            ),
         )
 
         self.assertIsNotNone(t)
