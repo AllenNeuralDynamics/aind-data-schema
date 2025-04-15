@@ -18,7 +18,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
 
         # Mock instrument attributes
         self.mock_instrument.instrument_id = "instrument_1"
-        
+
         device0 = MagicMock(spec=Device)
         device0.name = "component_1"
         device1 = MagicMock(spec=Device)
@@ -28,12 +28,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
 
         # Mock acquisition attributes
         self.mock_acquisition.instrument_id = "instrument_1"
-        self.mock_acquisition.data_streams = [
-            MagicMock(active_devices=["component_1"])
-        ]
-        self.mock_acquisition.stimulus_epochs = [
-            MagicMock(active_devices=["component_2"])
-        ]
+        self.mock_acquisition.data_streams = [MagicMock(active_devices=["component_1"])]
+        self.mock_acquisition.stimulus_epochs = [MagicMock(active_devices=["component_2"])]
 
     def test_compare_instrument_id_success(self):
         """Test that instrument IDs match."""
@@ -55,9 +51,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
 
     def test_compare_stream_devices_failure(self):
         """Test that mismatched active devices raise ValueError."""
-        self.mock_acquisition.data_streams = [
-            MagicMock(active_devices=["unknown_device"])
-        ]
+        self.mock_acquisition.data_streams = [MagicMock(active_devices=["unknown_device"])]
         checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
         error = checker._compare_stream_devices()
         self.assertIsInstance(error, ValueError)
@@ -72,9 +66,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         """Test that mismatched stimulus devices raise ValueError."""
         epoch = MagicMock(spec=StimulusEpoch)
         epoch.active_devices = ["unknown_device"]
-        self.mock_acquisition.stimulus_epochs = [
-            epoch
-        ]
+        self.mock_acquisition.stimulus_epochs = [epoch]
         checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
         error = checker._compare_stimulus_devices()
         self.assertIsInstance(error, ValueError)

@@ -14,7 +14,6 @@ from aind_data_schema.components.acquisition_configs import (
     Channel,
     Image,
     FieldOfView,
-    CoordinateSystem,
     DetectorConfig,
     LaserConfig,
 )
