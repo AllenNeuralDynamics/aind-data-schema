@@ -14,7 +14,7 @@ class ExampleTests(unittest.TestCase):
     """tests for examples"""
 
     @classmethod
-    def setUpClass():
+    def setUpClass(cls):
         """Build the examples"""
 
         # Move to the examples directory
