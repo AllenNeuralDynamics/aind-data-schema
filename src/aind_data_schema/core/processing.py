@@ -1,20 +1,17 @@
-""" schema for processing """
+"""schema for processing"""
 
+import re
+import warnings
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import Dict, List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import (
-    DataCoreModel,
-    GenericModel,
-    GenericModelType,
-    DataModel,
-    AwareDatetimeWithDefault,
-)
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -23,13 +20,6 @@ class ProcessStage(str, Enum):
 
     PROCESSING = "Processing"
     ANALYSIS = "Analysis"
-
-
-class RegistrationType(str, Enum):
-    """Types of registration"""
-
-    INTER = "Inter-channel"
-    INTRA = "Intra-channel"
 
 
 class ResourceTimestamped(DataModel):
@@ -61,25 +51,31 @@ class ResourceUsage(DataModel):
 class DataProcess(DataModel):
     """Description of a single processing step"""
 
-    name: ProcessName = Field(..., title="Name")
+    process_type: ProcessName = Field(..., title="Process type")
+    name: str = Field(
+        default="",
+        title="Name",
+        description=("Unique name of the processing step.", " If not provided, the type will be used as the name."),
+    )
     stage: ProcessStage = Field(..., title="Processing stage")
-    experimenters: List[Person] = Field(..., title="experimenters", description="People responsible for processing")
-    code: Code = Field(..., title="Code used for processing")
-    pipeline_steps: Optional[List[ProcessName]] = Field(
+    code: Code = Field(..., title="Code", description="Code used for processing")
+    experimenters: List[Person] = Field(..., title="Experimenters", description="People responsible for processing")
+    pipeline_steps: Optional[List[str]] = Field(
         default=None,
         title="Pipeline steps",
         description=(
-            "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+            "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
             " that are part of the pipeline. Each object must show up in the data_processes list.",
         ),
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
-    # allowing multiple input locations, to be replaced by CompositeData object in future
-    input_location: Union[str, List[str]] = Field(..., description="Path(s) to data inputs", title="Input location")
-    output_location: str = Field(..., description="Path to data outputs", title="Output location")
-    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
-    outputs: GenericModelType = Field(default=GenericModel(), description="Output parameters", title="Outputs")
+    output_path: Optional[AssetPath] = Field(
+        default=None, title="Output path", description="Path to processing outputs, if stored."
+    )
+    output_parameters: GenericModelType = Field(
+        default=GenericModel(), description="Output parameters", title="Outputs"
+    )
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -87,9 +83,19 @@ class DataProcess(DataModel):
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("name") == ProcessName.OTHER and not value:
-            raise ValueError("Notes cannot be empty if 'name' is Other. Describe the process name in the notes field.")
+        if info.data.get("process_type") == ProcessName.OTHER and not value:
+            raise ValueError(
+                "Notes cannot be empty if 'process_type' is Other. Describe the type of processing in the notes field."
+            )
         return value
+
+    @model_validator(mode="after")
+    def fill_default_name(self) -> "DataProcess":
+        """Fill in default name if not provided"""
+
+        if not self.name:
+            self.name = self.process_type
+        return self
 
 
 class Processing(DataCoreModel):
@@ -97,46 +103,104 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.21"]] = Field(default="2.0.21")
+    schema_version: SkipValidation[Literal["2.0.50"]] = Field(default="2.0.50")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @model_validator(mode="before")
-    def validate_pipeline_steps(cls, values):
+    dependency_graph: Dict[str, List[str]] = Field(
+        ...,
+        title="Dependency graph",
+        description=(
+            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
+            "process names that are inputs to that process.",
+        ),
+    )
+
+    @property
+    def process_names(self) -> List[str]:
+        """Return the names of data processes"""
+        return [process.name for process in self.data_processes]
+
+    def rename_process(self, old_name: str, new_name: str) -> None:
+        """Rename a process in the processing object, including all references"""
+
+        for process in self.data_processes:
+            if process.name == old_name:
+                process.name = new_name
+                break
+        else:
+            raise ValueError(f"Process '{old_name}' not found in data_processes.")
+        # rename in dependency_graph
+        self.dependency_graph[new_name] = self.dependency_graph.pop(old_name)
+        # replace old_name in dependency_graph values
+        for value in self.dependency_graph.values():
+            if old_name in value:
+                value[value.index(old_name)] = new_name
+
+    @classmethod
+    def create_with_sequential_process_graph(cls, data_processes: List[DataProcess], **kwargs) -> "Processing":
+        """Generate a sequential process graph from a list of DataProcess objects"""
+
+        dependency_graph = {}
+        for i, process in enumerate(data_processes):
+            if i == 0:
+                dependency_graph[process.name] = []
+            else:
+                dependency_graph[process.name] = [data_processes[i - 1].name]
+        return cls(dependency_graph=dependency_graph, data_processes=data_processes, **kwargs)
+
+    @model_validator(mode="after")
+    def validate_process_graph(self) -> "Processing":
+        """Check that the same processes are represented in data_processes and dependency_graph"""
+
+        if not hasattr(self, "data_processes"):  # bypass for testing
+            return self
+
+        processes = set(self.process_names)
+        # Validate that all processes have a unique name
+        if len(processes) != len(self.data_processes):
+            raise ValueError("data_processes must have unique names.")
+
+        graph_processes = set(self.dependency_graph.keys())
+        missing_processes = processes - graph_processes
+        if missing_processes:
+            raise ValueError(
+                f"dependency_graph must include all processes in data_processes. Missing processes: {missing_processes}"
+            )
+        missing_processes = graph_processes - processes
+        if missing_processes:
+            raise ValueError(
+                f"data_processes must include all processes in dependency_graph. Missing processes: {missing_processes}"
+            )
+        return self
+
+    @model_validator(mode="after")
+    def validate_pipeline_steps(self) -> "Processing":
         """Validator for pipeline_steps"""
 
-        if not values.get("data_processes"):
-            # No data processes, this is probably a test asset
-            return values
+        if not hasattr(self, "data_processes"):  # bypass for testing
+            return self
 
-        data_processes = values["data_processes"]
-        # Coerce types if needed
-        try:
-            data_processes = [
-                DataProcess(**process) if not isinstance(process, DataProcess) else process
-                for process in data_processes
-            ]
-        except Exception as e:
-            raise ValueError(f"data_processes should be a list of DataProcess objects or dictionaries. {e}")
-
-        for process in data_processes:
+        for process in self.data_processes:
             # For each process, make sure it's either a pipeline and has all its processes downstream
-
-            if process.name == ProcessName.PIPELINE:
-
+            if process.process_type == ProcessName.PIPELINE:
                 if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
                     raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
 
-                # Validate that all steps show up in the data_processes list
+                # Validate that all referenced processes are in the data_processes list
                 for step in process.pipeline_steps:
-                    if step not in [p.name for p in data_processes]:
-                        raise ValueError(f"Pipeline step '{step}' not found in data_processes.")
+                    if step not in self.process_names:
+                        raise ValueError(
+                            f"Processing step '{step}' not found in data_processes",
+                            f" (reference in process '{process.name}').",
+                        )
+
             # Or make sure it doesn't have any pipeline steps
             elif hasattr(process, "pipeline_steps") and process.pipeline_steps:
                 raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
 
-        return values
+        return self
 
     def __add__(self, other: "Processing") -> "Processing":
         """Combine two Processing objects"""
@@ -145,6 +209,41 @@ class Processing(DataCoreModel):
         if self.schema_version != other.schema_version:
             raise ValueError("Cannot add Processing objects with different schema versions.")
 
+        # Copy self and other to avoid modifying in place
+        self = self.model_copy(deep=True)
+        other = other.model_copy(deep=True)
+
+        # Check and update repeated process names
+        repeated_processes = set(self.process_names) & set(other.process_names)
+        if repeated_processes:
+            warnings.warn(f"Processing objects have repeated processes: {repeated_processes}. Renaming duplicates.")
+            for name in sorted(repeated_processes):
+                # find base name if name is in the form of name_1, name_2, etc.
+                base_name = re.sub(r"_\d+$", "", name)  # Remove existing numeric suffix
+
+                # Create a new unique name by incrementing the suffix
+                existing_names = set(self.process_names + other.process_names)
+
+                # Start with base name, try with incrementing suffixes until we find an unused name
+                new_name = name
+                i = 1
+                while new_name in existing_names:
+                    new_name = f"{base_name}_{i}"
+                    i += 1
+                other.rename_process(name, new_name)
+
+        # Merge process graphs - start with self's graph and update with other's graph
+        combined_process_graph = self.dependency_graph.copy()
+        combined_process_graph.update(other.dependency_graph)
+
+        # link self's output to other's input
+        # note that this only makes sense if self has a single output process
+        # and other has a single input process
+        if len(self.data_processes) > 0 and len(other.data_processes) > 0:
+            combined_process_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
+
         return Processing(
-            data_processes=self.data_processes + other.data_processes, notes=merge_notes(self.notes, other.notes)
+            data_processes=self.data_processes + other.data_processes,
+            dependency_graph=combined_process_graph,
+            notes=merge_notes(self.notes, other.notes),
         )

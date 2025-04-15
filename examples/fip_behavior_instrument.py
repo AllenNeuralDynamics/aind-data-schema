@@ -4,12 +4,11 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.components.devices import (
-    Calibration,
     CameraAssembly,
-    CameraTarget,
     Camera,
     Organization,
     Lens,
@@ -17,26 +16,36 @@ from aind_data_schema.components.devices import (
     HarpDeviceType,
     DAQChannel,
     DaqChannelType,
-    RewardDelivery,
-    RewardSpout,
+    LickSpoutAssembly,
+    LickSpout,
     Device,
     LickSensorType,
     MotorizedStage,
-    PatchCord,
+    FiberPatchCord,
     LightEmittingDiode,
     Detector,
     Objective,
     Filter,
     Tube,
+    Computer,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     CoordinateSystemLibrary,
 )
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import CameraTarget
+
 bonsai_software = Software(name="Bonsai", version="2.5")
+
+computer = Computer(
+    name="W10DTJK7N0M3",
+)
+behavior_computer = Computer(
+    name="behavior_computer",
+)
 
 camera1 = CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -49,7 +58,6 @@ camera1 = CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -73,13 +81,12 @@ camera2 = CameraAssembly(
     target=CameraTarget.FACE,
     relative_position=[AnatomicalRelative.INFERIOR],
     camera=Camera(
-        name="Bottom face Camera",
+        name="Bottom face camera",
         detector_type="Camera",
         manufacturer=Organization.AILIPU,
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -103,7 +110,6 @@ harp_behavior = HarpDevice(
     harp_device_type=HarpDeviceType.BEHAVIOR,
     core_version="2.1",
     firmware_version="FTDI version:",
-    computer_name="behavior_computer",
     is_clock_generator=False,
     channels=[
         DAQChannel(channel_name="DO0", channel_type=DaqChannelType.DO),
@@ -175,11 +181,44 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Side face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Side face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Bottom face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Bottom face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["behavior_computer", "Harp Behavior"],
+        connection_data={
+            "behavior_computer": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
 ]
 
-reward_delivery = RewardDelivery(
-    reward_spouts=[
-        RewardSpout(
+lick_spout_assembly = LickSpoutAssembly(
+    lick_spouts=[
+        LickSpout(
             name="Left spout",
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Left"),
@@ -189,7 +228,7 @@ reward_delivery = RewardDelivery(
             ),
             lick_sensor_type=LickSensorType("Capacitive"),
         ),
-        RewardSpout(
+        LickSpout(
             name="Right spout",
             spout_diameter=1.2,
             solenoid_valve=Device(name="Solenoid Right"),
@@ -200,16 +239,15 @@ reward_delivery = RewardDelivery(
             lick_sensor_type=LickSensorType("Capacitive"),
         ),
     ],
-    stage_type=MotorizedStage(
+    motorized_stage=MotorizedStage(
         name="NewScaleMotor for LickSpouts",
         manufacturer=Organization.NEW_SCALE_TECHNOLOGIES,
         travel=15.0,
         travel_unit=SizeUnit.MM,
-        firmware=("https://github.com/AllenNeuralDynamics/python-newscale,branch: axes-on-target,commit #7c17497"),
     ),
 )
 
-patch_cord = PatchCord(
+patch_cord = FiberPatchCord(
     name="Bundle Branching Fiber-optic Patch Cord",
     manufacturer=Organization.DORIC,
     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -298,7 +336,6 @@ filters = [
         model="FF01-520/35-25",
         filter_type="Band pass",
         center_wavelength=520,
-        diameter=25,
     ),
     Filter(
         name="Red emission filter",
@@ -306,15 +343,12 @@ filters = [
         model="FF01-600/37-25",
         filter_type="Band pass",
         center_wavelength=600,
-        diameter=25,
     ),
     Filter(
         name="Emission Dichroic",
         model="FF562-Di03-25x36",
         manufacturer=Organization.SEMROCK,
         filter_type="Dichroic",
-        height=25,
-        width=36,
         cut_off_wavelength=562,
     ),
     Filter(
@@ -323,15 +357,12 @@ filters = [
         manufacturer=Organization.SEMROCK,
         notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
         filter_type="Multiband",
-        width=36,
-        height=24,
     ),
     Filter(
         name="Excitation filter 410nm",
         manufacturer=Organization.THORLABS,
         model="FB410-10",
         filter_type="Band pass",
-        diameter=25,
         center_wavelength=410,
     ),
     Filter(
@@ -340,14 +371,12 @@ filters = [
         model="FB470-10",
         filter_type="Band pass",
         center_wavelength=470,
-        diameter=25,
     ),
     Filter(
         name="Excitation filter 560nm",
         manufacturer=Organization.THORLABS,
         model="FB560-10",
         filter_type="Band pass",
-        diameter=25,
         center_wavelength=560,
     ),
     Filter(
@@ -356,8 +385,6 @@ filters = [
         model="#69-898",
         filter_type="Dichroic",
         cut_off_wavelength=450,
-        width=35.6,
-        height=25.2,
     ),
     Filter(
         name="500 Dichroic Longpass Filter",
@@ -365,8 +392,6 @@ filters = [
         model="#69-899",
         filter_type="Dichroic",
         cut_off_wavelength=500,
-        width=35.6,
-        height=23.2,
     ),
 ]
 
@@ -377,6 +402,7 @@ lens = Lens(
     focal_length=80,
     focal_length_unit=SizeUnit.MM,
     size=1,
+    size_unit=SizeUnit.IN,
 )
 
 tube = Tube(name="mouse_tube_foraging", diameter=4.0)
@@ -388,22 +414,28 @@ calibrations = [
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="470nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="415nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
         device_name="560nm LED",
         description="LED calibration",
-        input={"Power setting": [0]},
-        output={"Power mW": [0.02]},
+        input=[0],
+        input_unit=PowerUnit.PERCENT,
+        output=[0.02],
+        output_unit=PowerUnit.MW,
     ),
     # Water calibration comes here#
 ]
@@ -417,7 +449,7 @@ inst = Instrument(
         camera1,
         camera2,
         harp_behavior,
-        reward_delivery,
+        lick_spout_assembly,
         patch_cord,
         *light_sources,
         *detectors,
@@ -425,6 +457,8 @@ inst = Instrument(
         *filters,
         lens,
         additional_device,
+        computer,
+        behavior_computer,
     ],
     connections=connections,
     calibrations=calibrations,

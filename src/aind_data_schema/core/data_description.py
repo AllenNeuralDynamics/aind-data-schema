@@ -12,11 +12,12 @@ from aind_data_schema_models.data_name_patterns import (
     datetime_from_name_string,
     datetime_to_name_string,
 )
+from aind_data_schema_models.licenses import License
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.identifiers import Person
 
 
@@ -25,7 +26,7 @@ class Funding(DataModel):
 
     funder: Organization.FUNDERS = Field(..., title="Funder")
     grant_number: Optional[str] = Field(default=None, title="Grant number")
-    fundee: Optional[str] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
+    fundee: Optional[Person] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
 
 
 class DataDescription(DataCoreModel):
@@ -33,11 +34,11 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
-    license: Literal["CC-BY-4.0"] = Field(default="CC-BY-4.0", title="License")
+    schema_version: SkipValidation[Literal["2.0.9"]] = Field(default="2.0.9")
+    license: License = Field(default=License.CC_BY_40, title="License")
 
-    subject_id: str = Field(
-        ...,
+    subject_id: Optional[str] = Field(
+        default=None,
         pattern=DataRegex.NO_UNDERSCORES.value,
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
@@ -63,7 +64,6 @@ class DataDescription(DataCoreModel):
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
     )
-
     funding_source: List[Funding] = Field(
         ...,
         title="Funding source",
@@ -86,8 +86,8 @@ class DataDescription(DataCoreModel):
         title="Investigators",
         min_length=1,
     )
-    project_name: Optional[str] = Field(
-        default=None,
+    project_name: str = Field(
+        ...,
         pattern=DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value,
         description="A name for a set of coordinated activities intended to achieve one or more objectives.",
         title="Project Name",
@@ -102,11 +102,6 @@ class DataDescription(DataCoreModel):
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
         "of any technology or formal procedure to generate data for a study",
         title="Modalities",
-    )
-    input_data: Optional[str] = Field(
-        default=None,
-        title="Input data",
-        description="Name of the data asset that was used as input to the process that created this asset",
     )
     data_summary: Optional[str] = Field(
         default=None, title="Data summary", description="Semantic summary of experimental goal"
@@ -141,10 +136,10 @@ class DataDescription(DataCoreModel):
             )
 
     @model_validator(mode="after")
-    def input_data_when_derived(self):
-        """Ensure that input_data is set when data_level is DERIVED"""
-        if self.data_level == DataLevel.DERIVED and self.input_data is None:
-            raise ValueError("input_data must be set when data_level is DERIVED")
+    def subject_id_when_raw(self):
+        """Ensure that a subject_id is provided when data_level is RAW"""
+        if self.data_level == DataLevel.RAW and self.subject_id is None:
+            raise ValueError("subject_id must be set when data_level is RAW")
         return self
 
     @model_validator(mode="after")
@@ -225,6 +220,5 @@ class DataDescription(DataCoreModel):
             project_name=get_or_default("project_name"),
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
-            input_data=data_description.name,
             data_summary=get_or_default("data_summary"),
         )

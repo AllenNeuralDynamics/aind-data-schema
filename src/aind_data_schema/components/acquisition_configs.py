@@ -5,36 +5,27 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
 
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import ImmersionMedium
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
     AngleUnit,
     FrequencyUnit,
     PowerUnit,
+    PressureUnit,
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
 )
-
-from aind_data_schema.components.devices import ImmersionMedium
-from aind_data_schema.components.tile import AcquisitionTile
-from aind_data_schema.components.coordinates import (
-    Coordinate,
-    Transform,
-    CoordinateSystem,
-)
-from aind_data_schema_models.brain_atlas import CCFStructure
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import (
-    GenericModelType,
-    DataModel,
-)
-from aind_data_schema.components.coordinates import (
-    Scale,
-    AnatomicalRelative,
-)
-from aind_data_schema.components.tile import Channel
+from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
+from aind_data_schema.components.tile import AcquisitionTile, Channel
+from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class StimulusModality(str, Enum):
@@ -50,6 +41,15 @@ class StimulusModality(str, Enum):
     WHEEL_FRICTION = "Wheel friction"
 
 
+class Valence(str, Enum):
+    """Valence of a stimulus"""
+
+    POSITIVE = "Positive"
+    NEGATIVE = "Negative"
+    NEUTRAL = "Neutral"
+    UNKNOWN = "Unknown"
+
+
 class DeviceConfig(DataModel):
     """Parent class for all configurations"""
 
@@ -63,6 +63,7 @@ class PatchCordConfig(DeviceConfig):
     output_power: Decimal = Field(..., title="Output power (uW)")
     output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
     fiber_name: str = Field(..., title="Fiber name (must match procedure)")
+    channel: Channel = Field(..., title="Channel")
 
 
 class TriggerType(str, Enum):
@@ -78,6 +79,12 @@ class DetectorConfig(DeviceConfig):
     exposure_time: Decimal = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
+
+    compression: Optional[Code] = Field(
+        default=None,
+        title="Compression",
+        description="Compression algorithm used during acquisition",
+    )
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
@@ -173,13 +180,14 @@ class SlapAcquisitionType(str, Enum):
 class SlapFieldOfView(FieldOfView):
     """Description of a Slap2 scan"""
 
-    experiment_type: SlapAcquisitionType = Field(..., title="Acquisition type")
-    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
+    dilation: Scale = Field(..., title="DMD Dilation X/Y")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    target_type: SlapAcquisitionType = Field(..., title="Target type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: str = Field(..., title="Array of frame rates")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
 
 
 class MousePlatformConfig(DeviceConfig):
@@ -204,8 +212,8 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[str] = Field(
-        default=None, title="Path to coordinate transform file"
+    coordinate_transform: Optional[AssetPath] = Field(
+        default=None, title="Path to coordinate transform file", description="Relative path from metadata json to file"
     )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -271,42 +279,50 @@ class LaserConfig(DeviceConfig):
     excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-# Behavior components
-class RewardSolution(str, Enum):
-    """Reward solution name"""
+class Liquid(str, Enum):
+    """Solution names"""
 
     WATER = "Water"
+    SUCROSE = "Sucrose"
+    QUININE = "Quinine"
+    CITRIC_ACID = "Citric acid"
     OTHER = "Other"
 
 
-class RewardSpoutConfig(DataModel):
-    """Reward spout acquisition information"""
+class LickSpoutConfig(DataModel):
+    """Lick spout acquisition information"""
+
+    solution: Liquid = Field(..., title="Solution")
+    solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
     position: Optional[Transform] = Field(default=None, title="Initial position")
-    variable_position: bool = Field(
-        ...,
-        title="Variable position",
-        description="True if spout position changes during acquisition as tracked in data",
-    )
 
-
-class RewardDeliveryConfig(DataModel):
-    """Description of reward delivery configuration"""
-
-    reward_solution: RewardSolution = Field(..., title="Reward solution", description="If Other use notes")
-    reward_spouts: List[RewardSpoutConfig] = Field(..., title="Reward spouts")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
+    @model_validator(mode="after")
+    def validate_other(cls, values):
         """Validator for other/notes"""
 
-        if info.data.get("reward_solution") == RewardSolution.OTHER and not value:
+        if values.solution == Liquid.OTHER and not values.notes:
             raise ValueError(
-                "Notes cannot be empty if reward_solution is Other. Describe the reward_solution in the notes field."
+                "Notes cannot be empty if LickSpoutConfig.solution is Other."
+                "Describe the solution in the notes field."
             )
-        return value
+        return values
+
+
+class AirPuffConfig(DataModel):
+    """Air puff device configuration"""
+
+    valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Transform] = Field(default=None, title="Initial position")
+
+    pressure: Optional[float] = Field(default=None, title="Pressure")
+    pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
+
+    duration: Optional[float] = Field(default=None, title="Duration")
 
 
 class SpeakerConfig(DeviceConfig):

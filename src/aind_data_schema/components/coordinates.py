@@ -1,85 +1,16 @@
 """Classes to define device positions, orientations, and coordinates"""
 
-from enum import Enum
-from typing import List, Optional, Union
 import math
+from typing import List, Optional, Union
 
+from aind_data_schema_models.atlas import AtlasName
+from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel
-
-
-class AtlasName(str, Enum):
-    """Atlas name"""
-
-    CCF = "CCF"
-    CUSTOM = "Custom"
-
-
-class Origin(str, Enum):
-    """Origin positions for coordinate systems"""
-
-    ORIGIN = "Origin"  # only exists in Atlases / Images
-    BREGMA = "Bregma"
-    LAMBDA = "Lambda"
-    C1 = "C1"  # cervical vertebrae
-    C2 = "C2"
-    C3 = "C3"
-    C4 = "C4"
-    C5 = "C5"
-    C6 = "C6"
-    C7 = "C7"
-    TIP = "Tip"  # of a probe
-    FRONT_CENTER = "Front_center"  # front center of a device, e.g. camera
-    ARENA_CENTER = "Arena_center"  # center of an arena on the ground surface
-    ARENA_FRONT_LEFT = "Arena_front_left"
-    ARENA_FRONT_RIGHT = "Arena_front_right"
-    ARENA_BACK_LEFT = "Arena_back_left"
-    ARENA_BACK_RIGHT = "Arena_back_right"
-
-
-class AxisName(str, Enum):
-    """Axis name"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-    AP = "AP"
-    ML = "ML"
-    SI = "SI"
-    DEPTH = "Depth"
-
-
-class Direction(str, Enum):
-    """Local and anatomical directions"""
-
-    LR = "Left_to_right"
-    RL = "Right_to_left"
-    AP = "Anterior_to_posterior"
-    PA = "Posterior_to_anterior"
-    IS = "Inferior_to_superior"
-    SI = "Superior_to_inferior"
-    FB = "Front_to_back"
-    BF = "Back_to_front"
-    TB = "Top_to_bottom"
-    BT = "Bottom_to_top"
-    OTHER = "Other"
-    POS = "Positive"
-
-
-class AnatomicalRelative(str, Enum):
-    """Relative positions in 3D space"""
-
-    SUPERIOR = "Superior"
-    INFERIOR = "Inferior"
-    ANTERIOR = "Anterior"
-    POSTERIOR = "Posterior"
-    LEFT = "Left"
-    RIGHT = "Right"
-    MEDIAL = "Medial"
-    LATERAL = "Lateral"
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class Axis(DataModel):
@@ -193,13 +124,23 @@ class Affine(DataModel):
         title="Affine transform matrix",
     )
 
+    def to_matrix(self) -> List[List[float]]:
+        """Return the affine transform matrix
+
+        Returns
+        -------
+        List[List[float]]
+            Affine transform matrix
+        """
+        return self.affine_transform
+
     @classmethod
-    def compose(cls, transform: List[Union[Translation, Rotation, Scale]]) -> "Affine":
+    def compose(cls, transform: List[Union[Translation, Rotation, Scale, "Affine"]]) -> "Affine":
         """Compose an affine transform matrix from a list of transforms
 
         Parameters
         ----------
-        transform : List[Union[Translation, Rotation, Scale]]
+        transform : List[Union[Translation, Rotation, Scale, Affine]]
             List of transforms
 
         Returns
@@ -244,7 +185,9 @@ class Affine(DataModel):
 class NonlinearTransform(DataModel):
     """Definition of a nonlinear transform"""
 
-    path: str = Field(..., title="Path to nonlinear transform file")
+    path: AssetPath = Field(
+        ..., title="Path to nonlinear transform file", description="Relative path from metadata json to file"
+    )
 
 
 class CoordinateSystem(DataModel):
@@ -271,7 +214,9 @@ class Atlas(CoordinateSystem):
 class Transform(DataModel):
     """Affine transformation in a coordinate system"""
 
-    system_name: str = Field(..., title="Coordinate system name")
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
     transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
         Field(..., title="Transform")
     )
@@ -296,7 +241,9 @@ class Coordinate(DataModel):
     Angles can be optionally provided
     """
 
-    system_name: str = Field(..., title="Coordinate system name")
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
     position: List[float] = Field(
         ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
     )

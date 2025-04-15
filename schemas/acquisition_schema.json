@@ -1,5 +1,102 @@
 {
    "$defs": {
+      "AcquisitionSubjectDetails": {
+         "additionalProperties": false,
+         "description": "Details about the subject during an acquisition",
+         "properties": {
+            "object_type": {
+               "const": "Acquisition subject details",
+               "default": "Acquisition subject details",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "animal_weight_prior": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight before procedure",
+               "title": "Animal weight (g)"
+            },
+            "animal_weight_post": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Animal weight after procedure",
+               "title": "Animal weight (g)"
+            },
+            "weight_unit": {
+               "$ref": "#/$defs/MassUnit",
+               "default": "gram",
+               "title": "Weight unit"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
+            },
+            "mouse_platform_name": {
+               "title": "Mouse platform",
+               "type": "string"
+            },
+            "reward_consumed_total": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Total reward consumed (mL)"
+            },
+            "reward_consumed_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reward consumed unit"
+            }
+         },
+         "required": [
+            "mouse_platform_name"
+         ],
+         "title": "AcquisitionSubjectDetails",
+         "type": "object"
+      },
       "AcquisitionTile": {
          "additionalProperties": false,
          "description": "Description of acquisition tile",
@@ -112,6 +209,82 @@
          "title": "Affine",
          "type": "object"
       },
+      "AirPuffConfig": {
+         "additionalProperties": false,
+         "description": "Air puff device configuration",
+         "properties": {
+            "object_type": {
+               "const": "Air puff config",
+               "default": "Air puff config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "valence": {
+               "$ref": "#/$defs/Valence",
+               "default": "Negative"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Initial relative position",
+               "type": "array"
+            },
+            "position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Transform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Initial position"
+            },
+            "pressure": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pressure"
+            },
+            "pressure_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PressureUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Pressure unit"
+            },
+            "duration": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Duration"
+            }
+         },
+         "required": [
+            "relative_position"
+         ],
+         "title": "AirPuffConfig",
+         "type": "object"
+      },
       "Anaesthetic": {
          "additionalProperties": false,
          "description": "Description of an anaesthetic",
@@ -122,7 +295,7 @@
                "title": "Object Type",
                "type": "string"
             },
-            "type": {
+            "anaesthetic_type": {
                "title": "Type",
                "type": "string"
             },
@@ -161,7 +334,7 @@
             }
          },
          "required": [
-            "type",
+            "anaesthetic_type",
             "duration"
          ],
          "title": "Anaesthetic",
@@ -177,7 +350,8 @@
             "Left",
             "Right",
             "Medial",
-            "Lateral"
+            "Lateral",
+            "Origin"
          ],
          "title": "AnatomicalRelative",
          "type": "string"
@@ -268,14 +442,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "calibration_date": {
                "format": "date-time",
                "title": "Date and time of calibration",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -284,16 +458,146 @@
                "type": "string"
             },
             "input": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration input",
-               "title": "inputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "inputs",
+               "type": "array"
+            },
+            "input_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
+                  }
+               ],
+               "title": "Input unit"
             },
             "output": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
                "description": "Calibration output",
-               "title": "outputs"
+               "items": {
+                  "anyOf": [
+                     {
+                        "type": "number"
+                     },
+                     {
+                        "type": "string"
+                     }
+                  ]
+               },
+               "title": "outputs",
+               "type": "array"
+            },
+            "output_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MassUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/FrequencyUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SpeedUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VolumeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/AngleUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TimeUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/CurrentUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/ConcentrationUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TemperatureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/SoundIntensityUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MemoryUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/MagneticFieldUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/PressureUnit"
+                  }
+               ],
+               "title": "Output unit"
             },
             "notes": {
                "anyOf": [
@@ -305,13 +609,18 @@
                   }
                ],
                "default": null,
+               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
          "required": [
-            "calibration_date",
             "device_name",
-            "description"
+            "calibration_date",
+            "description",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
          ],
          "title": "Calibration",
          "type": "object"
@@ -329,6 +638,19 @@
             "channel_name": {
                "title": "Channel",
                "type": "string"
+            },
+            "intended_measurement": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "What signal is this channel measuring",
+               "title": "Intended measurement"
             },
             "light_source_name": {
                "description": "Must match device name",
@@ -365,21 +687,46 @@
             "excitation_wavelength_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
-               "title": "Laser wavelength unit"
+               "title": "Wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
-               "title": "Laser power",
+               "maximum": 2000,
+               "title": "Light source power",
                "type": "number"
             },
             "excitation_power_unit": {
                "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
-               "title": "Laser power unit"
+               "title": "Light source power unit"
             },
             "filter_wheel_index": {
-               "title": "Filter wheel index",
-               "type": "integer"
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Filter wheel index"
+            },
+            "emission_wavelength": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Emission wavelength"
+            },
+            "emission_wavelength_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "default": "nanometer",
+               "title": "Wavelength unit"
             },
             "dilation": {
                "anyOf": [
@@ -424,8 +771,7 @@
             "filter_names",
             "detector_name",
             "excitation_wavelength",
-            "excitation_power",
-            "filter_wheel_index"
+            "excitation_power"
          ],
          "title": "Channel",
          "type": "object"
@@ -441,9 +787,21 @@
                "type": "string"
             },
             "url": {
-               "description": "Path to code repository",
+               "description": "URL to code repository",
                "title": "Code URL",
                "type": "string"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
             },
             "version": {
                "anyOf": [
@@ -457,18 +815,31 @@
                "default": null,
                "title": "Code version"
             },
-            "software": {
+            "container": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Software"
+                     "$ref": "#/$defs/Container"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "Software package",
-               "title": "Software"
+               "title": "Container"
+            },
+            "run_script": {
+               "anyOf": [
+                  {
+                     "format": "path",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to run script",
+               "title": "Run script"
             },
             "language": {
                "anyOf": [
@@ -495,6 +866,36 @@
                "default": null,
                "title": "Programming language version"
             },
+            "input_data": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Combined data": "#/$defs/CombinedData",
+                              "Data asset": "#/$defs/DataAsset"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/DataAsset"
+                           },
+                           {
+                              "$ref": "#/$defs/CombinedData"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Input data used in the code or script",
+               "title": "Input data"
+            },
             "parameters": {
                "anyOf": [
                   {
@@ -507,12 +908,136 @@
                "default": null,
                "description": "Parameters used in the code or script",
                "title": "Parameters"
+            },
+            "core_dependency": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For code with a core software package dependency, e.g. Bonsai",
+               "title": "Core dependency"
             }
          },
          "required": [
             "url"
          ],
          "title": "Code",
+         "type": "object"
+      },
+      "CombinedData": {
+         "additionalProperties": false,
+         "description": "Description of a group of data assets",
+         "properties": {
+            "object_type": {
+               "const": "Combined data",
+               "default": "Combined data",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "assets": {
+               "items": {
+                  "$ref": "#/$defs/DataAsset"
+               },
+               "minItems": 1,
+               "title": "Data assets",
+               "type": "array"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
+            "external_links": {
+               "additionalProperties": {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "default": {},
+               "description": "Links to the Combined Data asset, if materialized.",
+               "propertyNames": {
+                  "$ref": "#/$defs/ExternalPlatforms"
+               },
+               "title": "External Links",
+               "type": "object"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Intention or approach used to select group of assets",
+               "title": "Description"
+            }
+         },
+         "required": [
+            "assets"
+         ],
+         "title": "CombinedData",
+         "type": "object"
+      },
+      "ConcentrationUnit": {
+         "description": "Concentraion units",
+         "enum": [
+            "molar",
+            "micromolar",
+            "nanomolar",
+            "% m/m",
+            "% v/v"
+         ],
+         "title": "ConcentrationUnit",
+         "type": "string"
+      },
+      "Container": {
+         "additionalProperties": false,
+         "description": "Code container identifier, e.g. Docker",
+         "properties": {
+            "object_type": {
+               "const": "Container",
+               "default": "Container",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "container_type": {
+               "description": "Type of container, e.g. Docker, Singularity",
+               "title": "Type",
+               "type": "string"
+            },
+            "tag": {
+               "description": "Tag of the container, e.g. version number",
+               "title": "Tag",
+               "type": "string"
+            },
+            "uri": {
+               "description": "URI of the container, e.g. Docker Hub URL",
+               "title": "URI",
+               "type": "string"
+            }
+         },
+         "required": [
+            "container_type",
+            "tag",
+            "uri"
+         ],
+         "title": "Container",
          "type": "object"
       },
       "Coordinate": {
@@ -663,6 +1188,36 @@
          "title": "CoordinateTransform",
          "type": "object"
       },
+      "CurrentUnit": {
+         "description": "Current units",
+         "enum": [
+            "microamps"
+         ],
+         "title": "CurrentUnit",
+         "type": "string"
+      },
+      "DataAsset": {
+         "additionalProperties": false,
+         "description": "Description of a single data asset",
+         "properties": {
+            "object_type": {
+               "const": "Data asset",
+               "default": "Data asset",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "URL pointing to the data asset",
+               "title": "Asset location",
+               "type": "string"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "DataAsset",
+         "type": "object"
+      },
       "DataStream": {
          "additionalProperties": false,
          "description": "Data streams with a start and stop time",
@@ -684,6 +1239,7 @@
                "type": "string"
             },
             "modalities": {
+               "description": "Modalities that are acquired in this stream",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -752,11 +1308,11 @@
                "title": "Modalities",
                "type": "array"
             },
-            "software": {
+            "code": {
                "anyOf": [
                   {
                      "items": {
-                        "$ref": "#/$defs/Software"
+                        "$ref": "#/$defs/Code"
                      },
                      "type": "array"
                   },
@@ -764,8 +1320,8 @@
                      "type": "null"
                   }
                ],
-               "default": [],
-               "title": "Software packages"
+               "default": null,
+               "title": "Acquisition code"
             },
             "notes": {
                "anyOf": [
@@ -791,12 +1347,14 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "Air puff config": "#/$defs/AirPuffConfig",
                         "Detector config": "#/$defs/DetectorConfig",
                         "Dome module": "#/$defs/DomeModule",
                         "Fiber assembly config": "#/$defs/FiberAssemblyConfig",
                         "Field of view": "#/$defs/FieldOfView",
                         "In vitro imaging config": "#/$defs/InVitroImagingConfig",
                         "Laser config": "#/$defs/LaserConfig",
+                        "Lick spout config": "#/$defs/LickSpoutConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
                         "MRI scan": "#/$defs/MRIScan",
                         "Manipulator config": "#/$defs/ManipulatorConfig",
@@ -842,6 +1400,12 @@
                      },
                      {
                         "$ref": "#/$defs/InVitroImagingConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/LickSpoutConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/AirPuffConfig"
                      }
                   ]
                },
@@ -893,6 +1457,19 @@
             "trigger_type": {
                "$ref": "#/$defs/TriggerType",
                "title": "Trigger type"
+            },
+            "compression": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Code"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Compression algorithm used during acquisition",
+               "title": "Compression"
             }
          },
          "required": [
@@ -1002,6 +1579,7 @@
                   }
                ],
                "default": null,
+               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -1024,6 +1602,14 @@
          ],
          "title": "DomeModule",
          "type": "object"
+      },
+      "ExternalPlatforms": {
+         "description": "External Platforms of Data Assets.",
+         "enum": [
+            "Code Ocean"
+         ],
+         "title": "ExternalPlatforms",
+         "type": "string"
       },
       "FiberAssemblyConfig": {
          "additionalProperties": false,
@@ -1105,6 +1691,7 @@
                   }
                ],
                "default": null,
+               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -11667,6 +12254,81 @@
          "title": "InVitroImagingConfig",
          "type": "object"
       },
+      "LaserCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a laser device",
+         "properties": {
+            "object_type": {
+               "const": "Laser calibration",
+               "default": "Laser calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Laser power measured for various percentage output strengths",
+               "default": "Laser power measured for various percentage output strengths",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Power output percentage",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Laser strength",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "LaserCalibration",
+         "type": "object"
+      },
       "LaserConfig": {
          "additionalProperties": false,
          "description": "Description of laser settings in an acquisition",
@@ -11726,6 +12388,63 @@
          "title": "LaserConfig",
          "type": "object"
       },
+      "LickSpoutConfig": {
+         "additionalProperties": false,
+         "description": "Lick spout acquisition information",
+         "properties": {
+            "object_type": {
+               "const": "Lick spout config",
+               "default": "Lick spout config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "solution": {
+               "$ref": "#/$defs/Liquid",
+               "title": "Solution"
+            },
+            "solution_valence": {
+               "$ref": "#/$defs/Valence"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Initial relative position",
+               "type": "array"
+            },
+            "position": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Transform"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Initial position"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "solution",
+            "solution_valence",
+            "relative_position"
+         ],
+         "title": "LickSpoutConfig",
+         "type": "object"
+      },
       "LightEmittingDiodeConfig": {
          "additionalProperties": false,
          "description": "Description of LED settings",
@@ -11773,6 +12492,93 @@
             "device_name"
          ],
          "title": "LightEmittingDiodeConfig",
+         "type": "object"
+      },
+      "Liquid": {
+         "description": "Solution names",
+         "enum": [
+            "Water",
+            "Sucrose",
+            "Quinine",
+            "Citric acid",
+            "Other"
+         ],
+         "title": "Liquid",
+         "type": "string"
+      },
+      "LiquidCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a liquid delivery device",
+         "properties": {
+            "object_type": {
+               "const": "Liquid calibration",
+               "default": "Liquid calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Liquid volume measured for various solenoid opening times",
+               "default": "Liquid volume measured for various solenoid opening times",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Length of time solenoid is open",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/TimeUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Liquid output",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "LiquidCalibration",
          "type": "object"
       },
       "MRIScan": {
@@ -11939,6 +12745,16 @@
          "title": "MRIScan",
          "type": "object"
       },
+      "MagneticFieldUnit": {
+         "description": "Magnetic field units",
+         "enum": [
+            "tesla",
+            "millitesla",
+            "microtesla"
+         ],
+         "title": "MagneticFieldUnit",
+         "type": "string"
+      },
       "Maintenance": {
          "additionalProperties": false,
          "description": "Generic maintenance class",
@@ -11949,14 +12765,14 @@
                "title": "Object Type",
                "type": "string"
             },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
             "maintenance_date": {
                "format": "date-time",
                "title": "Date and time of maintenance",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device name in instrument",
-               "title": "Device name",
                "type": "string"
             },
             "description": {
@@ -11977,12 +12793,19 @@
                "title": "Protocol ID"
             },
             "reagents": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/Reagent"
-               },
-               "title": "Reagents",
-               "type": "array"
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/Reagent"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Reagents"
             },
             "notes": {
                "anyOf": [
@@ -11998,8 +12821,8 @@
             }
          },
          "required": [
-            "maintenance_date",
             "device_name",
+            "maintenance_date",
             "description"
          ],
          "title": "Maintenance",
@@ -12085,6 +12908,7 @@
                   }
                ],
                "default": null,
+               "description": "Relative path from metadata json to file",
                "title": "Path to coordinate transform file"
             },
             "notes": {
@@ -18934,6 +19758,20 @@
          "title": "MassUnit",
          "type": "string"
       },
+      "MemoryUnit": {
+         "description": "Computer memory units",
+         "enum": [
+            "Byte",
+            "Kilobyte",
+            "Megabyte",
+            "Gigabyte",
+            "Terabyte",
+            "Petabyte",
+            "Exabyte"
+         ],
+         "title": "MemoryUnit",
+         "type": "string"
+      },
       "MousePlatformConfig": {
          "additionalProperties": false,
          "description": "Configuration for mouse platforms",
@@ -18997,6 +19835,7 @@
                "type": "string"
             },
             "path": {
+               "description": "Relative path from metadata json to file",
                "title": "Path to nonlinear transform file",
                "type": "string"
             }
@@ -19116,12 +19955,16 @@
             "fiber_name": {
                "title": "Fiber name (must match procedure)",
                "type": "string"
+            },
+            "channel": {
+               "$ref": "#/$defs/Channel"
             }
          },
          "required": [
             "device_name",
             "output_power",
-            "fiber_name"
+            "fiber_name",
+            "channel"
          ],
          "title": "PatchCordConfig",
          "type": "object"
@@ -19254,6 +20097,16 @@
             "percent"
          ],
          "title": "PowerUnit",
+         "type": "string"
+      },
+      "PressureUnit": {
+         "description": "Enumeration of Pressure Measurements",
+         "enum": [
+            "millipascal",
+            "pascal",
+            "kilopascal"
+         ],
+         "title": "PressureUnit",
          "type": "string"
       },
       "Reagent": {
@@ -19728,99 +20581,6 @@
             "lot_number"
          ],
          "title": "Reagent",
-         "type": "object"
-      },
-      "RewardDeliveryConfig": {
-         "additionalProperties": false,
-         "description": "Description of reward delivery configuration",
-         "properties": {
-            "object_type": {
-               "const": "Reward delivery config",
-               "default": "Reward delivery config",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "reward_solution": {
-               "$ref": "#/$defs/RewardSolution",
-               "description": "If Other use notes",
-               "title": "Reward solution"
-            },
-            "reward_spouts": {
-               "items": {
-                  "$ref": "#/$defs/RewardSpoutConfig"
-               },
-               "title": "Reward spouts",
-               "type": "array"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "reward_solution",
-            "reward_spouts"
-         ],
-         "title": "RewardDeliveryConfig",
-         "type": "object"
-      },
-      "RewardSolution": {
-         "description": "Reward solution name",
-         "enum": [
-            "Water",
-            "Other"
-         ],
-         "title": "RewardSolution",
-         "type": "string"
-      },
-      "RewardSpoutConfig": {
-         "additionalProperties": false,
-         "description": "Reward spout acquisition information",
-         "properties": {
-            "object_type": {
-               "const": "Reward spout config",
-               "default": "Reward spout config",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "relative_position": {
-               "items": {
-                  "$ref": "#/$defs/AnatomicalRelative"
-               },
-               "title": "Initial relative position",
-               "type": "array"
-            },
-            "position": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Transform"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Initial position"
-            },
-            "variable_position": {
-               "description": "True if spout position changes during acquisition as tracked in data",
-               "title": "Variable position",
-               "type": "boolean"
-            }
-         },
-         "required": [
-            "relative_position",
-            "variable_position"
-         ],
-         "title": "RewardSpoutConfig",
          "type": "object"
       },
       "Rotation": {
@@ -23498,22 +24258,18 @@
                "default": null,
                "title": "Notes"
             },
-            "experiment_type": {
-               "$ref": "#/$defs/SlapAcquisitionType",
-               "title": "Acquisition type"
-            },
-            "dmd_dilation_x": {
-               "title": "DMD Dilation X (pixels)",
-               "type": "integer"
-            },
-            "dmd_dilation_y": {
-               "title": "DMD Dilation Y (pixels)",
-               "type": "integer"
+            "dilation": {
+               "$ref": "#/$defs/Scale",
+               "title": "DMD Dilation X/Y"
             },
             "dilation_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
+            },
+            "target_type": {
+               "$ref": "#/$defs/SlapAcquisitionType",
+               "title": "Target type"
             },
             "target_neuron": {
                "anyOf": [
@@ -23540,6 +24296,7 @@
                "title": "Target branch"
             },
             "path_to_array_of_frame_rates": {
+               "description": "Relative path from metadata json to file",
                "title": "Array of frame rates",
                "type": "string"
             }
@@ -23555,9 +24312,8 @@
             "fov_height",
             "magnification",
             "fov_scale_factor",
-            "experiment_type",
-            "dmd_dilation_x",
-            "dmd_dilation_y",
+            "dilation",
+            "target_type",
             "path_to_array_of_frame_rates"
          ],
          "title": "SlapFieldOfView",
@@ -23654,6 +24410,14 @@
          ],
          "title": "SpeakerConfig",
          "type": "object"
+      },
+      "SpeedUnit": {
+         "description": "Enumeration of Speed Measurements",
+         "enum": [
+            "rotations per minute"
+         ],
+         "title": "SpeedUnit",
+         "type": "string"
       },
       "Stack": {
          "additionalProperties": false,
@@ -27171,6 +27935,19 @@
                "title": "Channel",
                "type": "string"
             },
+            "intended_measurement": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "What signal is this channel measuring",
+               "title": "Intended measurement"
+            },
             "light_source_name": {
                "description": "Must match device name",
                "title": "Light source name",
@@ -27206,21 +27983,46 @@
             "excitation_wavelength_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
-               "title": "Laser wavelength unit"
+               "title": "Wavelength unit"
             },
             "excitation_power": {
-               "maximum": 2000.0,
-               "title": "Laser power",
+               "maximum": 2000,
+               "title": "Light source power",
                "type": "number"
             },
             "excitation_power_unit": {
                "$ref": "#/$defs/PowerUnit",
                "default": "milliwatt",
-               "title": "Laser power unit"
+               "title": "Light source power unit"
             },
             "filter_wheel_index": {
-               "title": "Filter wheel index",
-               "type": "integer"
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Filter wheel index"
+            },
+            "emission_wavelength": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Emission wavelength"
+            },
+            "emission_wavelength_unit": {
+               "$ref": "#/$defs/SizeUnit",
+               "default": "nanometer",
+               "title": "Wavelength unit"
             },
             "dilation": {
                "anyOf": [
@@ -27279,7 +28081,6 @@
             "detector_name",
             "excitation_wavelength",
             "excitation_power",
-            "filter_wheel_index",
             "start_depth",
             "end_depth"
          ],
@@ -27332,7 +28133,7 @@
                "title": "Stimulus modalities",
                "type": "array"
             },
-            "summary": {
+            "performance_metrics": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/PerformanceMetrics"
@@ -27342,7 +28143,7 @@
                   }
                ],
                "default": null,
-               "title": "Summary"
+               "title": "Performance metrics"
             },
             "notes": {
                "anyOf": [
@@ -27420,115 +28221,6 @@
          "title": "StimulusModality",
          "type": "string"
       },
-      "SubjectDetails": {
-         "additionalProperties": false,
-         "description": "Details about the subject during an acquisition",
-         "properties": {
-            "object_type": {
-               "const": "Subject details",
-               "default": "Subject details",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "animal_weight_prior": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight before procedure",
-               "title": "Animal weight (g)"
-            },
-            "animal_weight_post": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Animal weight after procedure",
-               "title": "Animal weight (g)"
-            },
-            "weight_unit": {
-               "$ref": "#/$defs/MassUnit",
-               "default": "gram",
-               "title": "Weight unit"
-            },
-            "anaesthesia": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Anaesthetic"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Anaesthesia"
-            },
-            "mouse_platform_name": {
-               "title": "Mouse platform",
-               "type": "string"
-            },
-            "reward_delivery": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/RewardDeliveryConfig"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward delivery"
-            },
-            "reward_consumed_total": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Total reward consumed (mL)"
-            },
-            "reward_consumed_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/VolumeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Reward consumed unit"
-            }
-         },
-         "required": [
-            "mouse_platform_name"
-         ],
-         "title": "SubjectDetails",
-         "type": "object"
-      },
       "SubjectPosition": {
          "description": "Subject position",
          "enum": [
@@ -27536,6 +28228,15 @@
             "Supine"
          ],
          "title": "SubjectPosition",
+         "type": "string"
+      },
+      "TemperatureUnit": {
+         "description": "Temperature units",
+         "enum": [
+            "Celsius",
+            "Kelvin"
+         ],
+         "title": "TemperatureUnit",
          "type": "string"
       },
       "TimeUnit": {
@@ -27633,6 +28334,34 @@
             "External"
          ],
          "title": "TriggerType",
+         "type": "string"
+      },
+      "UnitlessUnit": {
+         "description": "Unitless options",
+         "enum": [
+            "percent",
+            "fraction of cycle"
+         ],
+         "title": "UnitlessUnit",
+         "type": "string"
+      },
+      "Valence": {
+         "description": "Valence of a stimulus",
+         "enum": [
+            "Positive",
+            "Negative",
+            "Neutral",
+            "Unknown"
+         ],
+         "title": "Valence",
+         "type": "string"
+      },
+      "VoltageUnit": {
+         "description": "Voltage units",
+         "enum": [
+            "Volts"
+         ],
+         "title": "VoltageUnit",
          "type": "string"
       },
       "VolumeUnit": {
@@ -58934,8 +59663,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.10",
-         "default": "2.0.10",
+         "const": "2.0.21",
+         "default": "2.0.21",
          "title": "Schema Version",
          "type": "string"
       },
@@ -58975,18 +59704,28 @@
          "type": "array"
       },
       "protocol_id": {
-         "default": [],
+         "anyOf": [
+            {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
          "description": "DOI for protocols.io",
-         "items": {
-            "type": "string"
-         },
-         "title": "Protocol ID",
-         "type": "array"
+         "title": "Protocol ID"
       },
       "ethics_review_id": {
          "anyOf": [
             {
-               "type": "string"
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
             },
             {
                "type": "null"
@@ -58999,25 +59738,9 @@
          "title": "Instrument ID",
          "type": "string"
       },
-      "experiment_type": {
-         "default": null,
-         "title": "Experiment type",
+      "acquisition_type": {
+         "title": "Acquisition type",
          "type": "string"
-      },
-      "software": {
-         "anyOf": [
-            {
-               "items": {
-                  "$ref": "#/$defs/Software"
-               },
-               "type": "array"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": [],
-         "title": "Acquisition software"
       },
       "notes": {
          "anyOf": [
@@ -59031,11 +59754,42 @@
          "default": null,
          "title": "Notes"
       },
+      "coordinate_system": {
+         "anyOf": [
+            {
+               "$ref": "#/$defs/CoordinateSystem"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Required when coordinates are provided within the Acquisition",
+         "title": "Coordinate system"
+      },
       "calibrations": {
          "default": [],
          "description": "List of calibration measurements taken prior to acquisition.",
          "items": {
-            "$ref": "#/$defs/Calibration"
+            "discriminator": {
+               "mapping": {
+                  "Calibration": "#/$defs/Calibration",
+                  "Laser calibration": "#/$defs/LaserCalibration",
+                  "Liquid calibration": "#/$defs/LiquidCalibration"
+               },
+               "propertyName": "object_type"
+            },
+            "oneOf": [
+               {
+                  "$ref": "#/$defs/Calibration"
+               },
+               {
+                  "$ref": "#/$defs/LiquidCalibration"
+               },
+               {
+                  "$ref": "#/$defs/LaserCalibration"
+               }
+            ]
          },
          "title": "Calibrations",
          "type": "array"
@@ -59068,7 +59822,7 @@
       "subject_details": {
          "anyOf": [
             {
-               "$ref": "#/$defs/SubjectDetails"
+               "$ref": "#/$defs/AcquisitionSubjectDetails"
             },
             {
                "type": "null"
@@ -59083,6 +59837,7 @@
       "acquisition_start_time",
       "acquisition_end_time",
       "instrument_id",
+      "acquisition_type",
       "data_streams"
    ],
    "title": "Acquisition",

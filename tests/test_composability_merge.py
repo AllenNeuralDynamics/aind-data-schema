@@ -1,15 +1,23 @@
-""" Test for merge functions """
+"""Test for merge functions"""
 
 import unittest
 from datetime import datetime, timezone, date
 
 from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
 
-from aind_data_schema.core.acquisition import Acquisition, DataStream, SubjectDetails
-from aind_data_schema.core.procedures import Procedures, Reagent, Surgery, Anaesthetic, Craniotomy, Perfusion
+from aind_data_schema.core.acquisition import Acquisition, DataStream, AcquisitionSubjectDetails
+from aind_data_schema.core.procedures import (
+    Procedures,
+    Reagent,
+    Surgery,
+    Anaesthetic,
+    Craniotomy,
+    Perfusion,
+    CraniotomyType,
+)
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.configs import InVitroImagingConfig, Immersion
+from aind_data_schema.components.acquisition_configs import InVitroImagingConfig, Immersion
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
@@ -18,12 +26,12 @@ from aind_data_schema.components.coordinates import (
     CoordinateTransform,
     CoordinateSystemLibrary,
 )
-from aind_data_schema.components.devices import Calibration, Maintenance
+from aind_data_schema.components.measurements import Calibration, Maintenance
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerUnit
+from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.components import tile
@@ -165,11 +173,10 @@ class TestComposability(unittest.TestCase):
                     calibration_date=t,
                     device_name="Laser_1",
                     description="Laser power calibration",
-                    input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-                    output={
-                        "power_measurement": 50.0,
-                        "power_unit": PowerUnit.MW,
-                    },
+                    input=[100],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[50],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             data_streams=[
@@ -183,7 +190,7 @@ class TestComposability(unittest.TestCase):
             ],
             acquisition_start_time=t,
             acquisition_end_time=t,
-            experiment_type="ExaSPIM",
+            acquisition_type="ExaSPIM",
         )
 
         acq2 = Acquisition(
@@ -214,11 +221,10 @@ class TestComposability(unittest.TestCase):
                     calibration_date=t,
                     device_name="Laser_2",
                     description="Laser power calibration",
-                    input={"power_setting": 100.0, "power_unit": PowerUnit.PERCENT},
-                    output={
-                        "power_measurement": 60.0,
-                        "power_unit": PowerUnit.MW,
-                    },
+                    input=[100],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[60],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             data_streams=[
@@ -267,7 +273,7 @@ class TestComposability(unittest.TestCase):
             ],
             acquisition_start_time=t,
             acquisition_end_time=t,
-            experiment_type="ExaSPIM",
+            acquisition_type="ExaSPIM",
         )
 
         merged_acq = acq1 + acq2
@@ -278,7 +284,7 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(len(merged_acq.data_streams), 2)
         self.assertEqual(merged_acq.acquisition_start_time, t)
         self.assertEqual(merged_acq.acquisition_end_time, t)
-        self.assertEqual(merged_acq.experiment_type, "ExaSPIM")
+        self.assertEqual(merged_acq.acquisition_type, "ExaSPIM")
 
         # Test incompatible schema versions
         acq1_orig_schema_v = acq1.schema_version
@@ -298,7 +304,7 @@ class TestComposability(unittest.TestCase):
 
         # Test incompatible SubjectDetails
         acq2.subject_id = acq1.subject_id
-        subject_details = SubjectDetails(
+        subject_details = AcquisitionSubjectDetails(
             mouse_platform_name="mouse_platform_name",
         )
         acq1.subject_details = subject_details
@@ -324,14 +330,20 @@ class TestComposability(unittest.TestCase):
                     ethics_review_id="2109",
                     animal_weight_prior=22.6,
                     animal_weight_post=22.3,
-                    anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
+                    anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
                     workstation_id="SWS 3",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                     procedures=[
                         Craniotomy(
-                            craniotomy_type="Visual Cortex",
+                            craniotomy_type=CraniotomyType.CIRCLE,
                             protocol_id="1234",
-                            craniotomy_hemisphere="Left",
-                        )
+                            position=Coordinate(
+                                system_name="BREGMA_ARI",
+                                position=[-2, -4, 0],
+                            ),
+                            size=1,
+                            size_unit=SizeUnit.MM,
+                        ),
                     ],
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
@@ -389,14 +401,13 @@ class TestComposability(unittest.TestCase):
         t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 
         # Create two simple Processing objects
-        p1 = Processing(
+        p1 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
+                    process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs1",
-                    output_location="/path/to/outputs1",
+                    output_path="/path/to/outputs1",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -408,14 +419,13 @@ class TestComposability(unittest.TestCase):
             notes="First processing object",
         )
 
-        p2 = Processing(
+        p2 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Jane")],
-                    name=ProcessName.COMPRESSION,
+                    process_type=ProcessName.COMPRESSION,
                     stage=ProcessStage.PROCESSING,
-                    input_location="/path/to/inputs2",
-                    output_location="/path/to/outputs2",
+                    output_path="/path/to/outputs2",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -436,14 +446,33 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(combined.data_processes[1].name, ProcessName.COMPRESSION)
         self.assertIn("First processing object", combined.notes)
         self.assertIn("Second processing object", combined.notes)
+        # check combined dependency graph
+        self.assertTrue(p1.dependency_graph.items() <= combined.dependency_graph.items())
+        # remove the first process from p2_graph, check that rest of the graph is unchanged in combined graph
+        p2.dependency_graph.pop(p2.process_names[0])
+        self.assertTrue(p2.dependency_graph.items() <= combined.dependency_graph.items())
+        # check that the graphs are linked properly
+        self.assertEqual([p1.process_names[-1]], combined.dependency_graph[p2.process_names[0]])
 
         # Test with incompatible schema versions
-        p3 = p2
+        p3 = p2.model_copy()
         p3.schema_version = "0.0.0"
 
         with self.assertRaises(ValueError) as e:
             _ = p1 + p3
         self.assertIn("Cannot add Processing objects with different schema versions.", str(e.exception))
+
+        # Test with duplicate processes
+        with self.assertWarns(Warning) as w:
+            combined = p1 + p1
+        self.assertIn("Processing objects have repeated processes", str(w.warning))
+        self.assertEqual(combined.data_processes[1].name, "Analysis_1")
+
+        with self.assertWarns(Warning) as w:
+            combined = combined + combined
+        self.assertIn("Processing objects have repeated processes", str(w.warning))
+        self.assertEqual(combined.data_processes[2].name, "Analysis_2")
+        self.assertEqual(combined.data_processes[3].name, "Analysis_3")
 
 
 if __name__ == "__main__":

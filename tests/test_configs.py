@@ -3,7 +3,14 @@
 import unittest
 from decimal import Decimal
 from pydantic import ValidationError
-from aind_data_schema.components.configs import MRIScan, Scale, ManipulatorConfig
+from aind_data_schema.components.acquisition_configs import (
+    MRIScan,
+    Scale,
+    ManipulatorConfig,
+    LickSpoutConfig,
+    Liquid,
+    Valence,
+)
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit
@@ -132,6 +139,32 @@ class TestManipulatorConfig(unittest.TestCase):
 
         self.assertIn(
             "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same",
+            str(context.exception),
+        )
+
+
+class TestLickSpoutConfig(unittest.TestCase):
+    """Tests for the LickSpoutConfig class"""
+
+    def test_validate_other_success(self):
+        """Test validate_other method with valid data"""
+        lick_spout = LickSpoutConfig(
+            solution=Liquid.WATER,
+            solution_valence=Valence.POSITIVE,
+            relative_position=[],
+        )
+        self.assertIsNotNone(lick_spout)
+
+    def test_validate_other_failure(self):
+        """Test validate_other method with invalid data"""
+        with self.assertRaises(ValueError) as context:
+            LickSpoutConfig(
+                solution=Liquid.OTHER,
+                solution_valence=Valence.POSITIVE,
+                relative_position=[],
+            )
+        self.assertIn(
+            "Notes cannot be empty if LickSpoutConfig.solution is Other." "Describe the solution in the notes field.",
             str(context.exception),
         )
 

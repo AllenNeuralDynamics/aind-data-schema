@@ -11,9 +11,21 @@
                "type": "string"
             },
             "url": {
-               "description": "Path to code repository",
+               "description": "URL to code repository",
                "title": "Code URL",
                "type": "string"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
             },
             "version": {
                "anyOf": [
@@ -27,18 +39,31 @@
                "default": null,
                "title": "Code version"
             },
-            "software": {
+            "container": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Software"
+                     "$ref": "#/$defs/Container"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": "Software package",
-               "title": "Software"
+               "title": "Container"
+            },
+            "run_script": {
+               "anyOf": [
+                  {
+                     "format": "path",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to run script",
+               "title": "Run script"
             },
             "language": {
                "anyOf": [
@@ -65,6 +90,36 @@
                "default": null,
                "title": "Programming language version"
             },
+            "input_data": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Combined data": "#/$defs/CombinedData",
+                              "Data asset": "#/$defs/DataAsset"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/DataAsset"
+                           },
+                           {
+                              "$ref": "#/$defs/CombinedData"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Input data used in the code or script",
+               "title": "Input data"
+            },
             "parameters": {
                "anyOf": [
                   {
@@ -77,12 +132,146 @@
                "default": null,
                "description": "Parameters used in the code or script",
                "title": "Parameters"
+            },
+            "core_dependency": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For code with a core software package dependency, e.g. Bonsai",
+               "title": "Core dependency"
             }
          },
          "required": [
             "url"
          ],
          "title": "Code",
+         "type": "object"
+      },
+      "CombinedData": {
+         "additionalProperties": false,
+         "description": "Description of a group of data assets",
+         "properties": {
+            "object_type": {
+               "const": "Combined data",
+               "default": "Combined data",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "assets": {
+               "items": {
+                  "$ref": "#/$defs/DataAsset"
+               },
+               "minItems": 1,
+               "title": "Data assets",
+               "type": "array"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
+            "external_links": {
+               "additionalProperties": {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "default": {},
+               "description": "Links to the Combined Data asset, if materialized.",
+               "propertyNames": {
+                  "$ref": "#/$defs/ExternalPlatforms"
+               },
+               "title": "External Links",
+               "type": "object"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Intention or approach used to select group of assets",
+               "title": "Description"
+            }
+         },
+         "required": [
+            "assets"
+         ],
+         "title": "CombinedData",
+         "type": "object"
+      },
+      "Container": {
+         "additionalProperties": false,
+         "description": "Code container identifier, e.g. Docker",
+         "properties": {
+            "object_type": {
+               "const": "Container",
+               "default": "Container",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "container_type": {
+               "description": "Type of container, e.g. Docker, Singularity",
+               "title": "Type",
+               "type": "string"
+            },
+            "tag": {
+               "description": "Tag of the container, e.g. version number",
+               "title": "Tag",
+               "type": "string"
+            },
+            "uri": {
+               "description": "URI of the container, e.g. Docker Hub URL",
+               "title": "URI",
+               "type": "string"
+            }
+         },
+         "required": [
+            "container_type",
+            "tag",
+            "uri"
+         ],
+         "title": "Container",
+         "type": "object"
+      },
+      "DataAsset": {
+         "additionalProperties": false,
+         "description": "Description of a single data asset",
+         "properties": {
+            "object_type": {
+               "const": "Data asset",
+               "default": "Data asset",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "URL pointing to the data asset",
+               "title": "Asset location",
+               "type": "string"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "DataAsset",
          "type": "object"
       },
       "DataProcess": {
@@ -95,31 +284,40 @@
                "title": "Object Type",
                "type": "string"
             },
-            "name": {
+            "process_type": {
                "$ref": "#/$defs/ProcessName",
-               "title": "Name"
+               "title": "Process type"
+            },
+            "name": {
+               "default": "",
+               "description": [
+                  "Unique name of the processing step.",
+                  " If not provided, the type will be used as the name."
+               ],
+               "title": "Name",
+               "type": "string"
             },
             "stage": {
                "$ref": "#/$defs/ProcessStage",
                "title": "Processing stage"
+            },
+            "code": {
+               "$ref": "#/$defs/Code",
+               "description": "Code used for processing"
             },
             "experimenters": {
                "description": "People responsible for processing",
                "items": {
                   "$ref": "#/$defs/Person"
                },
-               "title": "experimenters",
+               "title": "Experimenters",
                "type": "array"
-            },
-            "code": {
-               "$ref": "#/$defs/Code",
-               "title": "Code used for processing"
             },
             "pipeline_steps": {
                "anyOf": [
                   {
                      "items": {
-                        "$ref": "#/$defs/ProcessName"
+                        "type": "string"
                      },
                      "type": "array"
                   },
@@ -129,7 +327,7 @@
                ],
                "default": null,
                "description": [
-                  "For pipeline processes (ProcessName.PIPELINE), steps should indicate the DataProcess objects",
+                  "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
                   " that are part of the pipeline. Each object must show up in the data_processes list."
                ],
                "title": "Pipeline steps"
@@ -144,32 +342,20 @@
                "title": "End date time",
                "type": "string"
             },
-            "input_location": {
+            "output_path": {
                "anyOf": [
                   {
                      "type": "string"
                   },
                   {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
+                     "type": "null"
                   }
                ],
-               "description": "Path(s) to data inputs",
-               "title": "Input location"
+               "default": null,
+               "description": "Path to processing outputs, if stored.",
+               "title": "Output path"
             },
-            "output_location": {
-               "description": "Path to data outputs",
-               "title": "Output location",
-               "type": "string"
-            },
-            "parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
-               "title": "Parameters"
-            },
-            "outputs": {
+            "output_parameters": {
                "$ref": "#/$defs/GenericModel",
                "default": {},
                "description": "Output parameters",
@@ -201,17 +387,23 @@
             }
          },
          "required": [
-            "name",
+            "process_type",
             "stage",
-            "experimenters",
             "code",
+            "experimenters",
             "start_date_time",
-            "end_date_time",
-            "input_location",
-            "output_location"
+            "end_date_time"
          ],
          "title": "DataProcess",
          "type": "object"
+      },
+      "ExternalPlatforms": {
+         "description": "External Platforms of Data Assets.",
+         "enum": [
+            "Code Ocean"
+         ],
+         "title": "ExternalPlatforms",
+         "type": "string"
       },
       "GenericModel": {
          "additionalProperties": true,
@@ -589,8 +781,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.21",
-         "default": "2.0.21",
+         "const": "2.0.50",
+         "default": "2.0.50",
          "title": "Schema Version",
          "type": "string"
       },
@@ -612,10 +804,25 @@
          ],
          "default": null,
          "title": "Notes"
+      },
+      "dependency_graph": {
+         "additionalProperties": {
+            "items": {
+               "type": "string"
+            },
+            "type": "array"
+         },
+         "description": [
+            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
+            "process names that are inputs to that process."
+         ],
+         "title": "Dependency graph",
+         "type": "object"
       }
    },
    "required": [
-      "data_processes"
+      "data_processes",
+      "dependency_graph"
    ],
    "title": "Processing",
    "type": "object"

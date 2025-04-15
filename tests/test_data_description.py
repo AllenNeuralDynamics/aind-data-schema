@@ -3,7 +3,6 @@
 import datetime
 import json
 import os
-import re
 import unittest
 from pathlib import Path
 from typing import List
@@ -13,18 +12,15 @@ from aind_data_schema_models.data_name_patterns import DataLevel
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.data_description import (
     DataDescription,
-    DataRegex,
     Funding,
     build_data_name,
 )
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class DataDescriptionTest(unittest.TestCase):
@@ -62,6 +58,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         self.assertIsNotNone(da)
 
@@ -86,6 +83,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
+                project_name="Test",
             )
 
     def test_derived_data_description_construction(self):
@@ -100,6 +98,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         self.assertIsNotNone(r1)
@@ -116,6 +115,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         r2 = DataDescription.from_raw(r1, "some-model", creation_time=dt)
@@ -134,6 +134,7 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         self.assertIsNotNone(dd)
 
@@ -150,6 +151,7 @@ class DataDescriptionTest(unittest.TestCase):
                 institution=Organization.AIND,
                 funding_source=[f],
                 investigators=[Person(name="Jane Smith")],
+                project_name="Test",
             )
 
     def test_parse_name_invalid(self):
@@ -173,29 +175,29 @@ class DataDescriptionTest(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[f],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
 
         # also over-write with specimen ID
         dd = DataDescription.from_raw(dr, "process", subject_id="1234-56")
         self.assertIsNotNone(dd)
 
-    def test_derived_no_input_data(self):
-        """Test that creating a derived data description without input data raises an error"""
+    def test_raw_no_subject_id(self):
+        """Test that creating a raw data description without subject_id raises an error"""
         dt = datetime.datetime.now()
 
         with self.assertRaises(ValueError) as context:
             DataDescription(
                 creation_time=dt,
                 institution=Organization.AIND,
-                data_level="derived",
+                data_level="raw",
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=[Modality.ECEPHYS],
-                subject_id="12345",
                 investigators=[Person(name="Jane Smith")],
-                input_data=None,
+                project_name="Test",
             )
 
-        self.assertIn("input_data", str(context.exception))
+        self.assertIn("subject_id", str(context.exception))
 
     def test_derived_bad_creation_time(self):
         """Test that a validation error is raised if the creation time is not a datetime object"""
@@ -209,6 +211,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
 
         with self.assertRaises(ValueError) as context:
@@ -237,14 +240,7 @@ class DataDescriptionTest(unittest.TestCase):
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 investigators=[Person(name="Jane Smith")],
             )
-        expected_exception = (
-            "1 validation error for DataDescription\n"
-            "project_name\n"
-            f"  String should match pattern '{DataRegex.NO_SPECIAL_CHARS_EXCEPT_SPACE.value}'"
-            " [type=string_pattern_mismatch, input_value='a_32r&!#R$&#', input_type=str]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/string_pattern_mismatch"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("String should match pattern", str(e.exception))
 
     def test_model_constructors(self):
         """test static methods for constructing models"""
@@ -267,6 +263,7 @@ class DataDescriptionTest(unittest.TestCase):
             modalities=[Modality.SPIM],
             subject_id="12345",
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
 
         da2 = DataDescription.model_validate_json(da1.model_dump_json())

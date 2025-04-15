@@ -8,12 +8,12 @@ from pathlib import Path
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
+from aind_data_schema.components.tile import Channel
 import aind_data_schema.components.devices as d
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
@@ -29,17 +29,19 @@ from aind_data_schema.components.devices import (
     Lens,
     Manipulator,
     NeuropixelsBasestation,
-    PatchCord,
+    FiberPatchCord,
     ProbePort,
+    Computer,
 )
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     DetectorConfig,
     DomeModule,
     PatchCordConfig,
@@ -53,17 +55,17 @@ from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionComp
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
     Coordinate,
     CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
 EPHYS_ACQUISITION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
-behavior_computer = "W10DT72941"
-ephys_computer = "W10DT72942"
+behavior_computer = Computer(name="W10DT72941")
+ephys_computer = Computer(name="W10DT72942")
 
 disc_mouse_platform = Disc(name="Running Wheel", radius=15)
 
@@ -110,13 +112,67 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["Harp Behavior", "W10DT72941"],
+        connection_data={
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72941": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Basestation Slot 3", "W10DT72942"],
+        connection_data={
+            "Basestation Slot 3": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Probe Camera", "W10DT72942"],
+        connection_data={
+            "Probe Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Face Camera", "W10DT72942"],
+        connection_data={
+            "Face Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Body Camera", "W10DT72942"],
+        connection_data={
+            "Body Camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10DT72942": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
 ]
 
 harp = HarpDevice(
     name="Harp Behavior",
     harp_device_type=HarpDeviceType.BEHAVIOR,
     core_version="2.1",
-    computer_name=behavior_computer,
     channels=[digital_out0, digital_out1, analog_input],
     is_clock_generator=False,
 )
@@ -131,7 +187,6 @@ basestation = NeuropixelsBasestation(
     bsc_firmware_version="2.199",
     slot=3,
     ports=[port1, port2],
-    computer_name=ephys_computer,
 )
 
 red_laser = Laser(name="Red Laser", wavelength=473, manufacturer=Organization.OXXIUS)
@@ -145,7 +200,7 @@ laser_assembly = LaserAssembly(
     ),
     lasers=[red_laser, blue_laser],
     collimator=Device(name="Collimator A"),
-    fiber=PatchCord(
+    fiber=FiberPatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -159,7 +214,6 @@ probe_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=ephys_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -203,7 +257,8 @@ filt = Filter(
     name="LP filter",
     filter_type="Long pass",
     manufacturer=Organization.THORLABS,
-    description="850 nm longpass filter",
+    cut_on_wavelength=850,
+    wavelength_unit=SizeUnit.NM,
 )
 
 lens = Lens(
@@ -219,7 +274,6 @@ face_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=behavior_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -243,7 +297,6 @@ body_camera = Camera(
     detector_type="Camera",
     data_interface="USB",
     manufacturer=Organization.FLIR,
-    computer_name=behavior_computer,
     frame_rate=50,
     frame_rate_unit=FrequencyUnit.HZ,
     sensor_width=1080,
@@ -269,16 +322,20 @@ red_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Red Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 3, 6]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 3, 6],
+    output_unit=PowerUnit.MW,
 )
 
 blue_laser_calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 10, 22, 13, tzinfo=timezone.utc),
     device_name="Blue Laser",
     description="Laser power calibration",
-    input={"power percent": [10, 20, 40]},
-    output={"power mW": [1, 2, 7]},
+    input=[10, 20, 40],
+    input_unit=PowerUnit.PERCENT,
+    output=[1, 2, 7],
+    output_unit=PowerUnit.MW,
 )
 
 ephys_inst = Instrument(
@@ -296,6 +353,8 @@ ephys_inst = Instrument(
         harp,
         microscope,
         disc_mouse_platform,
+        behavior_computer,
+        ephys_computer,
     ],
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
@@ -303,7 +362,7 @@ ephys_inst = Instrument(
 
 grating_code = Code(
     url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-    software=Software(
+    core_dependency=Software(
         name="Bonsai",
         version="2.7",
     ),
@@ -323,10 +382,11 @@ ephys_acquisition = Acquisition(
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-    experiment_type="Receptive field mapping",
+    acquisition_type="Receptive field mapping",
     instrument_id="323_EPHYS2-RF_2023-04-24_01",
-    ethics_review_id="2109",
-    subject_details=SubjectDetails(
+    ethics_review_id=["2109"],
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="mouse platform",
     ),
     stimulus_epochs=[
@@ -393,19 +453,19 @@ ephys_acquisition = Acquisition(
                     device_name="ephys module 1",
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8150, 3250, 7800],
+                            system_name="BREGMA_ARID",
+                            position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[84222, 4205, 11087.5],
+                            system_name="BREGMA_ARID",
+                            position=[84222, 4205, 11087.5, 0],
                         )
                     ],
                     manipulator_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
+                            system_name="BREGMA_ARID",
                             position=[1, 1, 1, 1],
                         )
                     ],
@@ -424,8 +484,8 @@ ephys_acquisition = Acquisition(
                     module_angle=-22,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[6637.28, 4265.02, 10707.35],
+                            system_name="BREGMA_ARID",
+                            position=[6637.28, 4265.02, 10707.35, 0],
                         ),
                     ],
                     manipulator_coordinates=[
@@ -436,8 +496,8 @@ ephys_acquisition = Acquisition(
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[9015, 7144, 13262],
+                            system_name="BREGMA_ARID",
+                            position=[9015, 7144, 13262, 0],
                         )
                     ],
                     device_name="ephys module 2",
@@ -500,20 +560,20 @@ ephys_acquisition = Acquisition(
                     module_angle=8,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8150, 3250, 7800],
+                            system_name="BREGMA_ARID",
+                            position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_coordinates=[
                         Coordinate(
                             system_name="BREGMA_ARID",
-                            position=[1, 1, 1],
+                            position=[1, 1, 1, 0],
                         )
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8422, 4205, 11087.5],
+                            system_name="BREGMA_ARID",
+                            position=[8422, 4205, 11087.5, 0],
                         )
                     ],
                     device_name="ephys module 1",
@@ -531,8 +591,8 @@ ephys_acquisition = Acquisition(
                     module_angle=8,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[8150, 3250, 7800],
+                            system_name="BREGMA_ARID",
+                            position=[8150, 3250, 7800, 0],
                         ),
                     ],
                     manipulator_coordinates=[
@@ -543,8 +603,8 @@ ephys_acquisition = Acquisition(
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[84222, 4205, 11087.5],
+                            system_name="BREGMA_ARID",
+                            position=[84222, 4205, 11087.5, 0],
                         )
                     ],
                     device_name="ephys module 1",
@@ -562,8 +622,8 @@ ephys_acquisition = Acquisition(
                     module_angle=-22,
                     atlas_coordinates=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[6637.28, 4265.02, 10707.35],
+                            system_name="BREGMA_ARID",
+                            position=[6637.28, 4265.02, 10707.35, 0],
                         ),
                     ],
                     manipulator_coordinates=[
@@ -574,8 +634,8 @@ ephys_acquisition = Acquisition(
                     ],
                     manipulator_axis_positions=[
                         Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[9015, 7144, 13262],
+                            system_name="BREGMA_ARID",
+                            position=[9015, 7144, 13262, 0],
                         )
                     ],
                     device_name="ephys module 2",
@@ -606,6 +666,10 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 contents = json.load(f)
             return contents
 
+        computer = Computer(
+            name="W10DTJK7N0M3",
+        )
+
         cameras = [
             d.CameraAssembly(
                 name="BehaviorVideography_FaceSide",
@@ -618,7 +682,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     model="ELP-USBFHD05MT-KL170IR",
                     notes="The light intensity sensor was removed; IR illumination is constantly on",
                     data_interface="USB",
-                    computer_name="W10DTJK7N0M3",
                     frame_rate=120,
                     frame_rate_unit=FrequencyUnit.HZ,
                     sensor_width=640,
@@ -647,7 +710,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     model="ELP-USBFHD05MT-KL170IR",
                     notes="The light intensity sensor was removed; IR illumination is constantly on",
                     data_interface="USB",
-                    computer_name="W10DTJK7N0M3",
                     frame_rate=120,
                     frame_rate_unit=FrequencyUnit.HZ,
                     sensor_width=640,
@@ -667,7 +729,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ),
         ]
         patch_cords = [
-            d.PatchCord(
+            d.FiberPatchCord(
                 name="Bundle Branching Fiber-optic Patch Cord",
                 manufacturer=d.Organization.DORIC,
                 model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -751,7 +813,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="FF01-520/35-25",
                 filter_type="Band pass",
                 center_wavelength=520,
-                diameter=25,
             ),
             d.Filter(
                 name="Red emission filter",
@@ -759,15 +820,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="FF01-600/37-25",
                 filter_type="Band pass",
                 center_wavelength=600,
-                diameter=25,
             ),
             d.Filter(
                 name="Emission Dichroic",
                 model="FF562-Di03-25x36",
                 manufacturer=d.Organization.SEMROCK,
                 filter_type="Dichroic",
-                height=25,
-                width=36,
                 cut_off_wavelength=562,
             ),
             d.Filter(
@@ -776,15 +834,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 manufacturer=d.Organization.SEMROCK,
                 notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
                 filter_type="Multiband",
-                width=36,
-                height=24,
             ),
             d.Filter(
                 name="Excitation filter 410nm",
                 manufacturer=d.Organization.THORLABS,
                 model="FB410-10",
                 filter_type="Band pass",
-                diameter=25,
                 center_wavelength=410,
             ),
             d.Filter(
@@ -793,14 +848,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="FB470-10",
                 filter_type="Band pass",
                 center_wavelength=470,
-                diameter=25,
             ),
             d.Filter(
                 name="Excitation filter 560nm",
                 manufacturer=d.Organization.THORLABS,
                 model="FB560-10",
                 filter_type="Band pass",
-                diameter=25,
                 center_wavelength=560,
             ),
             d.Filter(
@@ -809,8 +862,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="#69-898",
                 filter_type="Dichroic",
                 cut_off_wavelength=450,
-                width=35.6,
-                height=25.2,
             ),
             d.Filter(
                 name="500 Dichroic Longpass Filter",
@@ -818,8 +869,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 model="#69-899",
                 filter_type="Dichroic",
                 cut_off_wavelength=500,
-                width=35.6,
-                height=23.2,
             ),
         ]
         lenses = [
@@ -830,6 +879,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 focal_length=80,
                 focal_length_unit=SizeUnit.MM,
                 size=1,
+                size_unit=SizeUnit.IN,
             )
         ]
         daqs = [
@@ -837,7 +887,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 name="Harp Behavior",
                 harp_device_type=d.HarpDeviceType.BEHAVIOR,
                 core_version="2.1",
-                computer_name="behavior_computer",
                 is_clock_generator=False,
                 channels=[
                     d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
@@ -909,11 +958,44 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                     ),
                 },
             ),
+            Connection(
+                device_names=["Side face camera", "W10DTJK7N0M3"],
+                connection_data={
+                    "Side face camera": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "W10DTJK7N0M3": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Bottom face Camera", "W10DTJK7N0M3"],
+                connection_data={
+                    "Bottom face Camera": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "W10DTJK7N0M3": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
+            Connection(
+                device_names=["Harp Behavior", "W10DTJK7N0M3"],
+                connection_data={
+                    "Harp Behavior": ConnectionData(
+                        direction=ConnectionDirection.SEND,
+                    ),
+                    "W10DTJK7N0M3": ConnectionData(
+                        direction=ConnectionDirection.RECEIVE,
+                    ),
+                },
+            ),
         ]
         stimulus_devices = [
-            d.RewardDelivery(
-                reward_spouts=[
-                    d.RewardSpout(
+            d.LickSpoutAssembly(
+                lick_spouts=[
+                    d.LickSpout(
                         name="Left spout",
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Left"),
@@ -923,7 +1005,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                         ),
                         lick_sensor_type=d.LickSensorType("Capacitive"),
                     ),
-                    d.RewardSpout(
+                    d.LickSpout(
                         name="Right spout",
                         spout_diameter=1.2,
                         solenoid_valve=d.Device(name="Solenoid Right"),
@@ -958,15 +1040,18 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 *stimulus_devices,
                 *additional_devices,
                 disc,
+                computer,
             ],
             connections=connections,
             calibrations=[
-                d.Calibration(
+                Calibration(
                     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
                     device_name="470nm LED",
                     description="LED calibration",
-                    input={"Power setting": [1, 2, 3]},
-                    output={"Power mW": [5, 10, 13]},
+                    input=[1, 2, 3],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[5, 10, 13],
+                    output_unit=PowerUnit.MW,
                 )
             ],
         )
@@ -975,10 +1060,11 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             acquisition_start_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             acquisition_end_time=datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc),
             subject_id="652567",
-            experiment_type="Parameter Testing",
+            acquisition_type="Parameter Testing",
             instrument_id="ophys_inst",
-            ethics_review_id="2115",
-            subject_details=SubjectDetails(
+            ethics_review_id=["2115"],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
+            subject_details=AcquisitionSubjectDetails(
                 mouse_platform_name="Disc",
             ),
             data_streams=[
@@ -1027,12 +1113,32 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                             output_power=40,
                             output_power_unit="microwatt",
                             fiber_name="Fiber A",
+                            channel=Channel(
+                                channel_name="Channel A",
+                                intended_measurement="Dopamine",
+                                light_source_name="Laser A",
+                                filter_names=["Excitation filter 410nm"],
+                                detector_name="Green CMOS",
+                                excitation_wavelength=410,
+                                excitation_power=10,
+                                emission_wavelength=600,
+                            ),
                         ),
                         PatchCordConfig(
                             device_name="Patch Cord B",
                             output_power=43,
                             output_power_unit="microwatt",
                             fiber_name="Fiber B",
+                            channel=Channel(
+                                channel_name="Channel A",
+                                intended_measurement="Dopamine",
+                                light_source_name="Laser A",
+                                filter_names=["Excitation filter 410nm"],
+                                detector_name="Green CMOS",
+                                excitation_wavelength=410,
+                                excitation_power=10,
+                                emission_wavelength=600,
+                            ),
                         ),
                     ],
                     notes="Internal trigger. GRAB-DA2m shows signal. Unclear about GRAB-rAC",

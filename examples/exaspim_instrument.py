@@ -3,7 +3,7 @@
 import datetime
 
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import SizeUnit, FrequencyUnit
+from aind_data_schema_models.units import FrequencyUnit
 
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
@@ -13,9 +13,9 @@ from aind_data_schema.components.devices import (
     Filter,
     Laser,
     Objective,
-    OpticalTable,
     ScanningStage,
     Device,
+    Computer,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema_models.modalities import Modality
@@ -50,7 +50,6 @@ lasers = [
         name="LAS-08307",
         coupling="Single-mode fiber",
         wavelength=405,
-        maximum_power=200,
         serial_number="LAS-08307",
         manufacturer=Organization.OXXIUS,
         notes="Housed in commercial laser combiner",
@@ -59,7 +58,6 @@ lasers = [
         name="LAS-08308",
         coupling="Single-mode fiber",
         wavelength=488,
-        maximum_power=200,
         serial_number="LAS-08308",
         manufacturer=Organization.OXXIUS,
         notes="Housed in commercial laser combiner",
@@ -68,7 +66,6 @@ lasers = [
         name="539251",
         coupling="Single-mode fiber",
         wavelength=561,
-        maximum_power=200,
         serial_number="539251",
         manufacturer=Organization.OXXIUS,
         notes="Housed in commercial laser combiner",
@@ -77,7 +74,6 @@ lasers = [
         name="LAS-08309",
         coupling="Single-mode fiber",
         wavelength=638,
-        maximum_power=200,
         serial_number="LAS-08309",
         manufacturer=Organization.OXXIUS,
         notes="Housed in commercial laser combiner",
@@ -89,20 +85,19 @@ fluorescence_filters = [
         name="Multiband filter",
         filter_type="Multiband",
         manufacturer=Organization.CHROMA,
-        diameter=44.05,
-        thickness=1,
-        thickness_unit=SizeUnit.MM,
         model="ZET405/488/561/640mv2",
         notes="Custom made filter",
-        filter_wheel_index=0,
     )
 ]
+
+computer = Computer(
+    name="Dev2-PC",
+)
 
 daqs = [
     DAQDevice(
         model="PCIe-6738",
         data_interface="USB",
-        computer_name="Dev2",
         manufacturer=Organization.NATIONAL_INSTRUMENTS,
         name="Dev2",
         channels=[
@@ -197,16 +192,6 @@ additional_devices = [
     ),
 ]
 
-optical_tables = [
-    OpticalTable(
-        name="Table",
-        length=36,
-        width=48,
-        vibration_control=True,
-        model="VIS3648-PG2-325A",
-        manufacturer=Organization.MKS_NEWPORT,
-    )
-]
 laser_launch = Device(
     name="Laser Launch",
 )
@@ -316,6 +301,17 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["Dev2", "Dev2-PC"],
+        connection_data={
+            "Dev2-PC": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Dev2": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
 ]
 
 inst = Instrument(
@@ -332,10 +328,10 @@ inst = Instrument(
         *daqs,
         *scanning_stages,
         *additional_devices,
-        *optical_tables,
         com_device,
         laser_launch,
         asi_tiger,
+        computer,
     ],
     connections=connections,
     temperature_control=False,
