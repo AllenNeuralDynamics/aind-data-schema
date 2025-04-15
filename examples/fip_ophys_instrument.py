@@ -418,6 +418,7 @@ instrument = r.Instrument(
     calibrations=[calibration],
 )
 
-serialized = instrument.model_dump_json()
-deserialized = r.Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="fip_ophys")
+if __name__ == "__main__":
+    serialized = instrument.model_dump_json()
+    deserialized = r.Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="fip_ophys")

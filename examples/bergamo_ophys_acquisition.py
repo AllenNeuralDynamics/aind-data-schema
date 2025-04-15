@@ -136,6 +136,7 @@ a = Acquisition(
     ],
 )
 
-serialized = a.model_dump_json()
-deserialized = Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="bergamo_ophys")
+if __name__ == "__main__":
+    serialized = a.model_dump_json()
+    deserialized = Acquisition.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="bergamo_ophys")

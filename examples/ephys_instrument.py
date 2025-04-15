@@ -361,6 +361,8 @@ inst = Instrument(
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
-serialized = inst.model_dump_json()
-deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ephys")
+
+if __name__ == "__main__":
+    serialized = inst.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="ephys")

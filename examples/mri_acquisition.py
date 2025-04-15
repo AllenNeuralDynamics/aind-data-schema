@@ -89,6 +89,8 @@ acquisition = Acquisition(
     data_streams=[stream],
     notes="There was some information about this scan acquisition",
 )
-serialized = acquisition.model_dump_json()
-deserialized = Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="mri")
+
+if __name__ == "__main__":
+    serialized = acquisition.model_dump_json()
+    deserialized = Acquisition.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="mri")

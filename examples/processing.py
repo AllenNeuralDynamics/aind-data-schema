@@ -146,6 +146,8 @@ p = Processing.create_with_sequential_process_graph(
         ),
     ]
 )
-serialized = p.model_dump_json()
-deserialized = Processing.model_validate_json(serialized)
-p.write_standard_file()
+
+if __name__ == "__main__":
+    serialized = p.model_dump_json()
+    deserialized = Processing.model_validate_json(serialized)
+    p.write_standard_file()

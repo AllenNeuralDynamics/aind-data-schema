@@ -161,6 +161,7 @@ acq = Acquisition(
     acquisition_type="ExaSPIM",
 )
 
-serialized = acq.model_dump_json()
-deserialized = Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="exaspim")
+if __name__ == "__main__":
+    serialized = acq.model_dump_json()
+    deserialized = Acquisition.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="exaspim")

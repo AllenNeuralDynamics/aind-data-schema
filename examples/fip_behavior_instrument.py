@@ -464,4 +464,8 @@ inst = Instrument(
     calibrations=calibrations,
 )
 
-inst.write_standard_file(prefix="fip_behavior")
+
+if __name__ == "__main__":
+    serialized = inst.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="fip_behavior")

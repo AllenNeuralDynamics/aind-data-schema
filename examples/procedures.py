@@ -119,6 +119,8 @@ p = Procedures(
         ),
     ],
 )
-serialized = p.model_dump_json()
-deserialized = Procedures.model_validate_json(serialized)
-deserialized.write_standard_file()
+
+if __name__ == "__main__":
+    serialized = p.model_dump_json()
+    deserialized = Procedures.model_validate_json(serialized)
+    deserialized.write_standard_file()

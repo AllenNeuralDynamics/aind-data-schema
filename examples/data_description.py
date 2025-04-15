@@ -19,6 +19,7 @@ d = DataDescription(
     data_level="raw",
 )
 
-serialized = d.model_dump_json()
-deserialized = DataDescription.model_validate_json(serialized)
-deserialized.write_standard_file()
+if __name__ == "__main__":
+    serialized = d.model_dump_json()
+    deserialized = DataDescription.model_validate_json(serialized)
+    deserialized.write_standard_file()

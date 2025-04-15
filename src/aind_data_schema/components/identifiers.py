@@ -28,7 +28,7 @@ class DataAsset(DataModel):
 class CombinedData(DataModel):
     """Description of a group of data assets"""
 
-    assets: List[DataAsset] = Field(..., title="Data assets", min_items=1)
+    assets: List[DataAsset] = Field(..., title="Data assets", min_length=1)
     name: Optional[str] = Field(default=None, title="Name")
     external_links: ExternalLinks = Field(
         default=dict(), title="External Links", description="Links to the Combined Data asset, if materialized."
