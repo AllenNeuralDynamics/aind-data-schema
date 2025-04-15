@@ -29,15 +29,7 @@ from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
-
-
-class ImmunolabelClass(str, Enum):
-    """Type of antibodies"""
-
-    PRIMARY = "Primary"
-    SECONDARY = "Secondary"
-    CONJUGATE = "Conjugate"
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
 
 
 class SectionOrientation(str, Enum):
@@ -641,6 +633,14 @@ class Procedures(DataCoreModel):
 
             if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
+
+        return values
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_implanted_device_names(cls, values):
+        """Validate that all implanted device names appear in the device list"""
+        recursive_device_name_check(values, values.implanted_devices)
 
         return values
 

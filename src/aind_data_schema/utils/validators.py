@@ -144,3 +144,32 @@ def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
     elif hasattr(obj, "__dict__"):
         for value in vars(obj).values():
             recursive_check_paths(value, directory)
+
+
+def recursive_device_name_check(obj: Any, implanted_devices: List[str]):
+    """Recursively check for `implanted_device_name` or `implanted_device_names` fields against `implanted_devices`."""
+
+    if isinstance(obj, Enum):
+        return
+
+    if hasattr(obj, "implanted_device_name") and obj.implanted_device_name not in implanted_devices:
+        raise ValueError(
+            f"implanted_device_name {obj.implanted_device_name} not found in implanted_devices {implanted_devices}"
+        )
+
+    if hasattr(obj, "implanted_device_names"):
+        missing = [name for name in obj.implanted_device_names if name not in implanted_devices]
+        if missing:
+            raise ValueError(
+                f"implanted_device_names {missing} not found in implanted_devices {implanted_devices}"
+            )
+
+    items = (
+        vars(obj).values() if hasattr(obj, "__dict__") else
+        obj.values() if isinstance(obj, dict) else
+        obj if isinstance(obj, (list, tuple, set)) else
+        []
+    )
+
+    for item in items:
+        recursive_device_name_check(item, implanted_devices)
