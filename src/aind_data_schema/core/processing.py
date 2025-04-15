@@ -102,7 +102,12 @@ class Processing(DataCoreModel):
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     pipelines: Optional[List[Code]] = Field(
-        default=None, title="Pipelines", description="Repositories containing pipeline code"
+        default=None,
+        title="Pipelines",
+        description=(
+            "For processing done with pipelines, list the repositories here. Pipelines must use the name field "
+            ",and be referenced in the pipeline_name field of a DataProcess."
+        ),
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -110,8 +115,8 @@ class Processing(DataCoreModel):
         ...,
         title="Dependency graph",
         description=(
-            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
-            "process names that are inputs to that process.",
+            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of "
+            "process names that are inputs to that process."
         ),
     )
 
