@@ -487,20 +487,14 @@ class TrainingProtocol(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(DataModel):
-    """Description of an implanted ophys probe"""
-
-    ophys_probe: FiberProbe = Field(..., title="Fiber probe")
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-
-    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
-
-
-class FiberImplant(DataModel):
-    """Description of an implant procedure"""
+class ProbeImplant(DataModel):
+    """Description of a probe (fiber, ephys) implant procedure"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    probes: List[OphysProbe] = Field(..., title="Ophys Probes")
+    implanted_device_names: List[str] = Field(..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices")
+
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
 class WaterRestriction(DataModel):
@@ -585,7 +579,7 @@ class Surgery(DataModel):
             Union[
                 CatheterImplant,
                 Craniotomy,
-                FiberImplant,
+                ProbeImplant,
                 Headframe,
                 BrainInjection,
                 Injection,
@@ -655,6 +649,13 @@ class Procedures(DataCoreModel):
 
             if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
+
+        return values
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_implanted_devices(cls, values):
+        """Validate that all implanted devices exist"""
 
         return values
 

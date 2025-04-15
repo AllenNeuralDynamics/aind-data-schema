@@ -11,10 +11,8 @@ from pydantic import ValidationError
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
-    FiberImplant,
     BrainInjection,
     NonViralMaterial,
-    OphysProbe,
     Procedures,
     Sectioning,
     SpecimenProcedure,
@@ -27,6 +25,7 @@ from aind_data_schema.core.procedures import (
     Craniotomy,
     CraniotomyType,
     HCRSeries,
+    ProbeImplant,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -133,6 +132,17 @@ class ProceduresTests(unittest.TestCase):
         p = Procedures(
             subject_id="12345",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            implanted_devices=[
+                FiberProbe(
+                    name="Probe A",
+                    manufacturer=Organization.DORIC,
+                    model="8",
+                    core_diameter=2,
+                    numerical_aperture=1,
+                    ferrule_material="Ceramic",
+                    total_length=10,
+                )
+            ],
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
@@ -229,29 +239,17 @@ class ProceduresTests(unittest.TestCase):
                             ],
                             targeted_structure=CCFStructure.VISP6A,
                         ),
-                        FiberImplant(
+                        ProbeImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
-                            probes=[
-                                OphysProbe(
-                                    ophys_probe=FiberProbe(
-                                        name="Probe A",
-                                        manufacturer=Organization.DORIC,
-                                        model="8",
-                                        core_diameter=2,
-                                        numerical_aperture=1,
-                                        ferrule_material="Ceramic",
-                                        total_length=10,
-                                    ),
-                                    targeted_structure=CCFStructure.MOP,
-                                    coordinate=Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 2, 0, 2],
-                                        angles=Rotation(
-                                            angles=[10, 0, 0],
-                                        ),
-                                    ),
-                                )
-                            ],
+                            implanted_device_names=["Probe A"],
+                            targeted_structure=CCFStructure.MOP,
+                            coordinate=Coordinate(
+                                system_name="BREGMA_ARID",
+                                position=[1, 2, 0, 2],
+                                angles=Rotation(
+                                    angles=[10, 0, 0],
+                                ),
+                            ),
                         ),
                     ],
                 )
