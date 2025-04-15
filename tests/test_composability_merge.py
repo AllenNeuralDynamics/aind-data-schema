@@ -17,7 +17,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
 from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.components.acquisition_configs import InVitroImagingConfig, Immersion, Image, Channel
+from aind_data_schema.components.acquisition_configs import ImagingConfig, Immersion, Image, Channel, SampleChamberConfig
 from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
@@ -34,11 +34,14 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-invitro_config = InVitroImagingConfig(
+sample_config = SampleChamberConfig(
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
-    ),
+    )
+)
+
+imaging_config = ImagingConfig(
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     images=[
         Image(
@@ -183,7 +186,7 @@ class TestComposability(unittest.TestCase):
                     stream_end_time=t,
                     modalities=[Modality.SPIM],
                     active_devices=[],
-                    configurations=[invitro_config],
+                    configurations=[imaging_config, sample_config],
                 )
             ],
             acquisition_start_time=t,

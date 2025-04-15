@@ -7,7 +7,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import PowerUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components import Image, Channel
+from aind_data_schema.components.acquisition_configs import Image, Channel
 from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,
@@ -156,7 +156,8 @@ class ImagingTests(unittest.TestCase):
         """test the tile models"""
         parameters = {
             "tiles": [
-                tile.Tile(
+                Image(
+                    channel_name="488",
                     coordinate_transform=CoordinateTransform(
                         input="SPIM_IJK",
                         output="BREGMA_ARI",
@@ -165,7 +166,8 @@ class ImagingTests(unittest.TestCase):
                         ],
                     ),
                 ),
-                tile.Tile(
+                Image(
+                    channel_name="488",
                     coordinate_transform=CoordinateTransform(
                         input="SPIM_IJK",
                         output="BREGMA_ARI",
@@ -193,38 +195,9 @@ class ImagingTests(unittest.TestCase):
             output_path="/some/path",
             code=Code(
                 url="https://github.com/abcd",
-                parameters={
-                    "images": [
-                        Image(
-                            coordinate_transform=CoordinateTransform(
-                                input="SPIM_IJK",
-                                output="BREGMA_ARI",
-                                transforms=[
-                                    Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
-                                ],
-                            ),
-                        ),
-                        Image(
-                            coordinate_transform=CoordinateTransform(
-                                input="SPIM_IJK",
-                                output="BREGMA_ARI",
-                                transforms=[
-                                    Translation(
-                                        translation=[0, 1, 2],
-                                    ),
-                                    Rotation(
-                                        angles=[1, 2, 3],
-                                    ),
-                                    Scale(
-                                        scale=[1, 2, 3],
-                                    ),
-                                ],
-                            ),
-                        ),
-                    ],
-                },
-            ),
-            notes="Intra-channel",
+                parameters=parameters,
+                notes="Intra-channel",
+            )
         )
 
         self.assertIsNotNone(t)

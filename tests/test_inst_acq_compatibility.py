@@ -10,7 +10,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
-from aind_data_schema.components.configs import Channel
+from aind_data_schema.components.acquisition_configs import Channel
 import aind_data_schema.components.devices as d
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.devices import (
