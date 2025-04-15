@@ -10,10 +10,8 @@ from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
-    ConcentrationUnit,
     CurrentUnit,
     MassUnit,
     SizeUnit,
@@ -27,9 +25,9 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
-from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.devices import FiberProbe, MyomatrixArray, MyomatrixThread
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Fluorophore
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -40,30 +38,6 @@ class ImmunolabelClass(str, Enum):
     PRIMARY = "Primary"
     SECONDARY = "Secondary"
     CONJUGATE = "Conjugate"
-
-
-class StainType(str, Enum):
-    """Stain types for probes describing what is being labeled"""
-
-    RNA = "RNA"
-    NUCLEAR = "Nuclear"
-    FILL = "Fill"
-
-
-class Fluorophore(str, Enum):
-    """Fluorophores used in HCR and Immunolabeling"""
-
-    ALEXA_405 = "Alexa Fluor 405"
-    ALEXA_488 = "Alexa Fluor 488"
-    ALEXA_546 = "Alexa Fluor 546"
-    ALEXA_568 = "Alexa Fluor 568"
-    ALEXA_594 = "Alexa Fluor 594"
-    ALEXA_633 = "Alexa Fluor 633"
-    ALEXA_647 = "Alexa Fluor 647"
-    ATTO_488 = "ATTO 488"
-    ATTO_565 = "ATTO 565"
-    ATTO_643 = "ATTO 643"
-    CY3 = "Cyanine Cy 3"
 
 
 class SectionOrientation(str, Enum):
@@ -159,45 +133,6 @@ class InjectionProfile(str, Enum):
     BOLUS = "Bolus"
     CONTINUOUS = "Continuous"
     PULSED = "Pulsed"
-
-
-class Readout(Reagent):
-    """Description of a readout"""
-
-    fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
-    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class HCRReadout(Readout):
-    """Description of a readout for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class OligoProbe(Reagent):
-    """Description of an oligonucleotide probe"""
-
-    species: Species.ONE_OF = Field(..., title="Species")
-    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
-    probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: Readout = Field(..., title="Readout")
-
-
-class HCRProbe(OligoProbe):
-    """Description of an oligo probe used for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    readout: HCRReadout = Field(..., title="Readout")
-
-
-class Stain(Reagent):
-    """Description of a non-oligo probe stain"""
-
-    concentration: Decimal = Field(..., title="Concentration")
-    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
 
 class HybridizationChainReaction(DataModel):
@@ -586,26 +521,6 @@ class WaterRestriction(DataModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(DataModel):
-    """Description of a contact on a myomatrix thread"""
-
-    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
-    relative_position: AnatomicalRelative = Field(
-        ..., title="Relative position", description="Position relative to procedures coordinate system"
-    )
-    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
-    in_muscle: bool = Field(..., title="In muscle")
-
-
-class MyomatrixThread(DataModel):
-    """Description of a thread of a myomatrix array"""
-
-    ground_electrode_location: MouseAnatomyModel = Field(
-        ..., title="Location of ground electrode", description="Use GroundWireLocations"
-    )
-    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
-
-
 class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
@@ -705,6 +620,11 @@ class Procedures(DataCoreModel):
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
 
+    # Implanted devices
+    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(
+        default=[], title="Implanted devices"
+    )
+
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
@@ -753,5 +673,6 @@ class Procedures(DataCoreModel):
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
+            implanted_devices=self.implanted_devices + other.implanted_devices,
             notes=merge_notes(self.notes, other.notes),
         )
