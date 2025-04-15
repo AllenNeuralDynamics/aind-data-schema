@@ -20,7 +20,7 @@ class ExamplesGenerator:
 
         logging.info(f"Running all examples in {EXAMPLES_DIR}")
 
-        def run_example(example_file):
+        def run_example(example_file):  # pragma: no cover
             if "__init__" in example_file:
                 return
             logging.info(f"Running {example_file}")
