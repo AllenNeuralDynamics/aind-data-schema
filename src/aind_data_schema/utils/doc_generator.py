@@ -30,12 +30,20 @@ def get_type_string(tp: Type) -> str:
     args = getattr(tp, '__args__', None)
 
     if origin is None:
-        return tp.__name__ if hasattr(tp, '__name__') else str(tp)
+        try:
+            if hasattr(tp, '__name__') and issubclass(tp, DataModel):
+                return f"{{{tp.__name__}}}"  # Wrap class names in {} for DataModel subclasses
+        except:
+            pass
+        return str(tp)
     if origin is list or origin is List:
         return f"List[{get_type_string(args[0])}]"
     if origin is dict or origin is Dict:
         return f"Dict[{get_type_string(args[0])}, {get_type_string(args[1])}]"
     union_type = getattr(__import__('typing'), 'Union', None)
+    if origin is union_type and len(args) == 2 and type(None) in args:
+        non_none_type = next(arg for arg in args if arg is not type(None))
+        return f"Optional[{get_type_string(non_none_type)}]"
     if origin is union_type:
         return " | ".join(get_type_string(arg) for arg in args)
     return str(tp)
@@ -74,6 +82,7 @@ if __name__ == "__main__":
     import importlib.util
 
     src_folder = "/Users/daniel.birman/proj/aind-data-schema/src"
+    doc_folder = "/Users/daniel.birman/proj/aind-data-schema/docs/source/models"
 
     for root, _, files in os.walk(src_folder):
         for file in files:
@@ -89,10 +98,6 @@ if __name__ == "__main__":
                     attr = getattr(module, attr_name)
                     if isinstance(attr, type) and issubclass(attr, DataModel) and attr is not DataModel:
                         markdown_output = generate_markdown_table(attr, BaseModel)
-                        output_file = os.path.join(root, f"{attr.__name__}_docs.md")
+                        output_file = os.path.join(doc_folder, f"{attr.__name__}_docs.md")
                         with open(output_file, "w") as f:
                             f.write(markdown_output)
-
-    markdown_output = generate_all_docs(DataModel, BaseModel)  # Or stop at DataModel
-    with open("models_docs.md", "w") as f:
-        f.write(markdown_output)
