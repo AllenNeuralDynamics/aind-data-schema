@@ -145,18 +145,19 @@ class Processing(DataCoreModel):
         return cls(dependency_graph=dependency_graph, data_processes=data_processes, **kwargs)
 
     @model_validator(mode="after")
-    def validate_process_graph(self) -> "Processing":
+    @classmethod
+    def validate_process_graph(cls, values):
         """Check that the same processes are represented in data_processes and dependency_graph"""
 
-        if not hasattr(self, "data_processes"):  # bypass for testing
-            return self
+        if not hasattr(values, "data_processes"):  # bypass for testing
+            return values
 
-        processes = set(self.process_names)
+        processes = set(values.process_names)
         # Validate that all processes have a unique name
-        if len(processes) != len(self.data_processes):
+        if len(processes) != len(values.data_processes):
             raise ValueError("data_processes must have unique names.")
 
-        graph_processes = set(self.dependency_graph.keys())
+        graph_processes = set(values.dependency_graph.keys())
         missing_processes = processes - graph_processes
         if missing_processes:
             raise ValueError(
@@ -167,20 +168,25 @@ class Processing(DataCoreModel):
             raise ValueError(
                 f"data_processes must include all processes in dependency_graph. Missing processes: {missing_processes}"
             )
-        return self
+        return values
 
     @model_validator(mode="after")
-    def validate_pipeline_names(self) -> "Processing":
+    @classmethod
+    def validate_pipeline_names(cls, values):
         """Ensure that all pipeline names in the processes are in the pipelines list"""
-        pipeline_names = [pipeline.name for pipeline in self.pipelines] if self.pipelines else []
 
-        for process in self.data_processes:
+        if not hasattr(values, "data_processes"):  # bypass for testing
+            return values
+
+        pipeline_names = [pipeline.name for pipeline in values.pipelines] if values.pipelines else []
+
+        for process in values.data_processes:
             if process.pipeline_name and process.pipeline_name not in pipeline_names:
                 raise ValueError(
                     f"Pipeline name '{process.pipeline_name}' not found in pipelines list."
                 )
 
-        return self
+        return values
 
     def __add__(self, other: "Processing") -> "Processing":
         """Combine two Processing objects"""
