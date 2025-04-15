@@ -25,7 +25,7 @@ from aind_data_schema.core.procedures import (
     Surgery,
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData
+from aind_data_schema.core.instrument import Instrument, Connection
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
 
@@ -388,7 +388,10 @@ class TestMetadata(unittest.TestCase):
                 acquisition=acquisition,
             )
         self.assertIn(
-            "Active devices '{'Missing Device'}' were not found in either the Instrument.components or Procedures.implanted_devices.",
+            (
+                "Active devices '{'Missing Device'}' were not found in either "
+                "the Instrument.components or Procedures.implanted_devices."
+            ),
             str(context.exception),
         )
 
