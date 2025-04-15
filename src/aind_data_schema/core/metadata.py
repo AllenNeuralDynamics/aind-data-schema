@@ -254,10 +254,39 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_acquisition_connections(self):
-        """Validate for Acquisition.acquisition_connections
+    @classmethod
+    def validate_acquisition_active_devices(cls, values):
+        """Ensure that all Acquisition.data_streams.active_devices exist in either the instrument or procedures."""
 
-        Ensures that all connections map between devices either in the instrument OR procedures"""
+        active_devices = []
+
+        if values.acquisition:
+            for data_stream in values.acquisition.data_streams:
+                active_devices.extend(data_stream.active_devices)
+
+        device_names = []
+
+        if values.instrument:
+            for component in values.instrument.components:
+                device_names.extend(component.name)
+        if values.procedures:
+            for device in values.procedures.implanted_devices:
+                device_names.extend(device.name)
+
+        # Check if all active devices are in the available devices
+        if not all(device in device_names for device in active_devices):
+            missing_devices = set(active_devices) - set(device_names)
+            raise ValueError(
+                f"Active devices '{missing_devices}' were not found in either the Instrument.components or"
+                f"Procedures.implanted_devices."
+            )
+
+        return values
+
+    @model_validator(mode="after")
+    def validate_acquisition_connections(self):
+        """Validate for Acquisition.data_streams.connections that all connections map between devices either in the
+        instrument OR procedures"""
 
         device_names = []
 

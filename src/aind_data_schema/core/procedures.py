@@ -621,9 +621,7 @@ class Procedures(DataCoreModel):
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
 
     # Implanted devices
-    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(
-        default=[], title="Implanted devices"
-    )
+    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(default=[], title="Implanted devices")
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(

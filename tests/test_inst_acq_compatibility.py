@@ -994,6 +994,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         ]
         stimulus_devices = [
             d.LickSpoutAssembly(
+                name="Lick spout assembly",
                 lick_spouts=[
                     d.LickSpout(
                         name="Left spout",

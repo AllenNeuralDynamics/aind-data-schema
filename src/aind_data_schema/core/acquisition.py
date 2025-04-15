@@ -134,7 +134,7 @@ class DataStream(DataModel):
     connections: List[Connection] = Field(
         default=[],
         title="Connections",
-        description="Connections that are specific to this acquisition, and are not present in the Instrument"
+        description="Connections that are specific to this acquisition, and are not present in the Instrument",
     )
 
     @model_validator(mode="after")
