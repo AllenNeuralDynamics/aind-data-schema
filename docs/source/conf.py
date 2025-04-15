@@ -3,7 +3,6 @@
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-import os
 from datetime import date
 
 # -- Path Setup --------------------------------------------------------------
@@ -11,28 +10,6 @@ from os.path import abspath, dirname
 from pathlib import Path
 
 from aind_data_schema import __version__ as package_version
-from aind_data_schema.core import (  # A temporary workaround to fix NameError when building Sphinx
-    acquisition,
-    data_description,
-    instrument,
-    metadata,
-    procedures,
-    processing,
-    subject,
-    quality_control,
-)
-
-dummy_object = [
-    acquisition,
-    data_description,
-    instrument,
-    metadata,
-    procedures,
-    processing,
-    instrument,
-    subject,
-    quality_control,
-]  # A temporary workaround to bypass "Imported but unused" error
 
 INSTITUTE_NAME = "Allen Institute for Neural Dynamics"
 
@@ -50,8 +27,6 @@ release = package_version
 extensions = [
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
-    "sphinx.ext.autodoc",
-    "sphinxcontrib.autodoc_pydantic",
     "sphinx.ext.napoleon",
     "sphinx_jinja",
     "myst_parser",

@@ -187,13 +187,6 @@ build NWB extension that easily embeds metadata not covered by the core NWB sche
    example_workflow/example_workflow
 
 
-.. toctree::
-   :caption: API Reference
-   :hidden:
-   :maxdepth: 4
-
-   aind_data_schema
-
 Indices and tables
 ==================
 
