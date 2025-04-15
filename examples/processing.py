@@ -137,7 +137,7 @@ p = Processing.create_with_sequential_process_graph(
                 )
             ),
         ),
-    ]
+    ],
 )
 serialized = p.model_dump_json()
 deserialized = Processing.model_validate_json(serialized)

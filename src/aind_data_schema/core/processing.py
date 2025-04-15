@@ -60,7 +60,9 @@ class DataProcess(DataModel):
     stage: ProcessStage = Field(..., title="Processing stage")
     code: Code = Field(..., title="Code", description="Code used for processing")
     experimenters: List[Person] = Field(..., title="Experimenters", description="People responsible for processing")
-    pipeline_name: Optional[str] = Field(default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines")
+    pipeline_name: Optional[str] = Field(
+        default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines"
+    )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     output_path: Optional[AssetPath] = Field(
@@ -99,7 +101,9 @@ class Processing(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.50"]] = Field(default="2.0.50")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
-    pipelines: Optional[List[Code]] = Field(default=None, title="Pipelines", description="Repositories containing pipeline code")
+    pipelines: Optional[List[Code]] = Field(
+        default=None, title="Pipelines", description="Repositories containing pipeline code"
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     dependency_graph: Dict[str, List[str]] = Field(
@@ -182,9 +186,7 @@ class Processing(DataCoreModel):
 
         for process in values.data_processes:
             if process.pipeline_name and process.pipeline_name not in pipeline_names:
-                raise ValueError(
-                    f"Pipeline name '{process.pipeline_name}' not found in pipelines list."
-                )
+                raise ValueError(f"Pipeline name '{process.pipeline_name}' not found in pipelines list.")
 
         return values
 
