@@ -37,16 +37,6 @@ class InstrumentAcquisitionCompatibility:
             if device not in component_names:
                 return ValueError(f"Active device {device} in acquisition does not match any device in the instrument.")
 
-    # def _compare_mouse_platform_name(self) -> Optional[ValueError]:
-    #     """Compares mouse_platform_name"""
-
-    #     component_names = [comp.name for comp in self.inst.components if hasattr(comp, "name")]
-
-    #     if self.acquisition.mouse_platform_name not in component_names:
-    #         return ValueError(
-    #             f"Mouse platform {self.acquisition.mouse_platform_name} can't be found in the instrument's components"
-    #         )
-
     def _compare_stimulus_devices(self) -> Optional[ValueError]:
         """Compares stimulus device names"""
         acquisition_stimulus_devices = [
@@ -56,7 +46,7 @@ class InstrumentAcquisitionCompatibility:
         ]
         instrument_component_names = [getattr(comp, "name", None) for comp in getattr(self.inst, "components", [])]
 
-        if not set(acquisition_stimulus_devices).issubset(set(instrument_component_names)):
+        if any(device not in instrument_component_names for device in acquisition_stimulus_devices):
             return ValueError(
                 f"Stimulus epoch device names in acquisition do not match stimulus device names in instrument."
                 f"\nacquisition_stimulus_devices: {set(acquisition_stimulus_devices)} "
