@@ -6,6 +6,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -37,6 +38,7 @@ a = Acquisition(
     subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="disc",
     ),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     data_streams=[
         DataStream(
             stream_start_time=t,
@@ -67,10 +69,10 @@ a = Acquisition(
                         FieldOfView(
                             channel_name="Green channel",
                             targeted_structure=CCFStructure.VISP,
-                            fov_coordinate_ml=1.5,
-                            fov_coordinate_ap=1.5,
-                            fov_coordinate_unit=SizeUnit.UM,
-                            fov_reference="Bregma",
+                            center_coordinate=Coordinate(
+                                system_name="BREGMA_ARI",
+                                position=[1.5, 1.5, 0],  
+                            ),
                             fov_width=512,
                             fov_height=512,
                             fov_size_unit=SizeUnit.UM,
@@ -85,7 +87,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=190,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=230,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=1,
@@ -96,7 +97,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=232,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=257,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=0,
@@ -107,7 +107,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=136,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=176,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=3,
@@ -118,7 +117,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=282,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=307,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=2,
@@ -129,7 +127,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=72,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=112,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=5,
@@ -140,7 +137,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=326,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=351,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=4,
@@ -151,7 +147,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=30,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=70,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=7,
@@ -162,7 +157,6 @@ a = Acquisition(
                                     power_unit=PowerUnit.PERCENT,
                                     scanimage_roi_index=0,
                                     imaging_depth=364,
-                                    targeted_structure=CCFStructure.VISP,
                                     scanfield_z=389,
                                     scanfield_z_unit=SizeUnit.UM,
                                     coupled_plane_index=6,
