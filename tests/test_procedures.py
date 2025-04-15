@@ -27,6 +27,8 @@ from aind_data_schema.core.procedures import (
     Craniotomy,
     CraniotomyType,
     HCRSeries,
+    Section,
+    SectionOrientation,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -38,7 +40,7 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit, CurrentUnit
-from aind_data_schema.utils.exceptions import FieldLengthMismatch
+from aind_data_schema.utils.exceptions import OneOfError
 
 
 class ProceduresTests(unittest.TestCase):
@@ -427,82 +429,62 @@ class ProceduresTests(unittest.TestCase):
     def test_sectioning(self):
         """Test sectioning"""
 
+        # Updated initialization to use the new Section class
         sectioning_procedure = PlanarSectioning(
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             targeted_structure=CCFStructure.MOP,
-            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-            section_cuts=[
-                [
-                    Coordinate(
+            sections=[
+                Section(
+                    output_specimen_id="123456_001",
+                    start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.3, 0, 0],
                     ),
-                    Coordinate(
+                    end_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.5, 0, 0],
                     ),
-                ],
-                [
-                    Coordinate(
+                ),
+                Section(
+                    output_specimen_id="123456_002",
+                    start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.5, 0, 0],
                     ),
-                    Coordinate(
+                    end_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.7, 0, 0],
                     ),
-                ],
-                [
-                    Coordinate(
+                ),
+                Section(
+                    output_specimen_id="123456_003",
+                    start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.7, 0, 0],
                     ),
-                    Coordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.9, 0, 0],
-                    ),
-                ],
+                    thickness=0.1,
+                    thickness_unit=SizeUnit.MM,
+                ),
             ],
-            section_orientation="Coronal",
+            section_orientation=SectionOrientation.CORONAL,
         )
         self.assertIsNotNone(sectioning_procedure)
 
-        # Number of outputs ids (3) does not match the number of cut pairs (1)
-        with self.assertRaises(FieldLengthMismatch):
+        # Raise error if neither end_coordinate nor thickness is provided
+        with self.assertRaises(OneOfError):
             PlanarSectioning(
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
                 targeted_structure=CCFStructure.MOP,
-                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                section_cuts=[
-                    [
-                        Coordinate(
+                sections=[
+                    Section(
+                        output_specimen_id="123456_001",
+                        start_coordinate=Coordinate(
                             system_name="BREGMA_ARI",
                             position=[0.3, 0, 0],
                         ),
-                        Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[0.5, 0, 0],
-                        ),
-                    ],
+                    ),
                 ],
-                section_orientation="Coronal",
-            )
-
-        # Raise error if both the start and end coordinates are not provided for a cut
-        with self.assertRaises(ValidationError):
-            PlanarSectioning(
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                targeted_structure=CCFStructure.MOP,
-                output_specimen_ids=["123456_001"],
-                section_cuts=[
-                    [
-                        Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[0.3, 0, 0],
-                        ),
-                    ],
-                ],
-                section_orientation="Coronal",
+                section_orientation=SectionOrientation.CORONAL,
             )
 
     def test_validate_identical_specimen_ids(self):

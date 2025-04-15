@@ -31,7 +31,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
-from aind_data_schema.utils.exceptions import FieldLengthMismatch
+from aind_data_schema.utils.exceptions import OneOfError
 
 
 class ImmunolabelClass(str, Enum):
@@ -226,6 +226,36 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class Section(DataModel):
+    """Description of a slice of brain tissue"""
+
+    output_specimen_id: str = Field(..., title="Specimen ID")
+
+    # Coordinates
+    start_coordinate: Coordinate = Field(..., title="Start coordinate")
+    end_coordinate: Optional[Coordinate] = Field(default=None, title="End coordinate")
+    thickness: Optional[float] = Field(default=None, title="Slice thickness")
+    thickness_unit: Optional[SizeUnit] = Field(default=None, title="Slice thickness unit")
+
+    partial_slice: Optional[List[AnatomicalRelative]] = Field(
+        default=None,
+        title="Partial slice",
+        description="If sectioning does not include the entire slice, indicate which part of the slice is retained.",
+    )
+
+    @model_validator(mode="after")
+    @classmethod
+    def check_one_of_end_thickness(cls, values):
+        """Ensure that either end_coordinate or thickness is provided"""
+
+        if not values.end_coordinate and not values.thickness:
+            raise OneOfError(
+                "Section",
+                ["end_coordinate", "thickness"],
+            )
+        return values
+
+
 class PlanarSectioning(DataModel):
     """Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane"""
 
@@ -235,41 +265,9 @@ class PlanarSectioning(DataModel):
         description="Only required if different from the Procedures.coordinate_system",
     )
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
 
-    section_cuts: List[List[Coordinate]] = Field(
-        ...,
-        title="Section start and end coordinates",
-        min_length=1,
-        description="Pair of coordinates for each section cut",
-    )
+    sections: List[Section] = Field(..., title="Sections")
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
-    partial_slice: Optional[List[AnatomicalRelative]] = Field(
-        default=None,
-        title="Partial slice",
-        description="If sectioning does not include the entire slice, indicate which part of the slice is retained.",
-    )
-
-    @field_validator("section_cuts", mode="after")
-    def validate_section_cuts(cls, values):
-        """Ensure all inner lists have exactly two coordinates"""
-        for cut in values:
-            if len(cut) != 2:
-                raise ValueError(
-                    "Each pair of start and end coordinates in section_cuts must have exactly two coordinates."
-                )
-        return values
-
-    @model_validator(mode="after")
-    def check_coord_id_length(cls, values):
-        """Validator for list length of section start coordinates"""
-
-        if not hasattr(values, "section_cuts"):  # pragma: no cover, bypass for testing
-            return values
-
-        if (len(values.section_cuts)) != len(values.output_specimen_ids):
-            raise FieldLengthMismatch(cls.__name__, ["section_cuts", "output_specimen_ids"])
-        return values
 
 
 class SpecimenProcedure(DataModel):
