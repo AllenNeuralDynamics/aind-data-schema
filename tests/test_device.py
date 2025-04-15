@@ -58,10 +58,19 @@ class DeviceTests(unittest.TestCase):
 
         self.assertIn("Value error, Notes cannot be empty if immersion is Other", str(e4.exception))
 
+    def test_additional_imaging_device(self):
+        """tests the additional imaging device validator"""
         with self.assertRaises(ValueError) as e5:
             AdditionalImagingDevice(name="test_additional_imaging", imaging_device_type=ImagingDeviceType.OTHER)
 
-        self.assertIn("Value error, Notes cannot be empty if imaging_device_type", str(e5.exception))
+        self.assertIn("Notes cannot be empty if imaging_device_type", str(e5.exception))
+
+        valid = AdditionalImagingDevice(
+            name="test_additional_imaging",
+            imaging_device_type=ImagingDeviceType.OTHER,
+            notes="test notes",
+        )
+        self.assertEqual(valid.name, "test_additional_imaging")
 
 
 if __name__ == "__main__":
