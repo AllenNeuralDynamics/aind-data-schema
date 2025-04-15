@@ -160,15 +160,12 @@ def recursive_device_name_check(obj: Any, implanted_devices: List[str]):
     if hasattr(obj, "implanted_device_names"):
         missing = [name for name in obj.implanted_device_names if name not in implanted_devices]
         if missing:
-            raise ValueError(
-                f"implanted_device_names {missing} not found in implanted_devices {implanted_devices}"
-            )
+            raise ValueError(f"implanted_device_names {missing} not found in implanted_devices {implanted_devices}")
 
     items = (
-        vars(obj).values() if hasattr(obj, "__dict__") else
-        obj.values() if isinstance(obj, dict) else
-        obj if isinstance(obj, (list, tuple, set)) else
-        []
+        vars(obj).values()
+        if hasattr(obj, "__dict__")
+        else obj.values() if isinstance(obj, dict) else obj if isinstance(obj, (list, tuple, set)) else []
     )
 
     for item in items:

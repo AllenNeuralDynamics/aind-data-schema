@@ -475,7 +475,7 @@ class ProbeImplant(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     implanted_device_names: List[str] = Field(
         ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
-    )
+    )  # note: exact field name is used by a validator
 
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
@@ -505,7 +505,9 @@ class MyomatrixInsertion(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
     ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
-    implanted_device_name: str = Field(..., title="Myomatrix array", description="Must match a MyomatrixArray in Procedures.implanted_devices")
+    implanted_device_name: str = Field(
+        ..., title="Myomatrix array", description="Must match a MyomatrixArray in Procedures.implanted_devices"
+    )  # note: exact field name is used by a validator
 
 
 class Perfusion(DataModel):
@@ -640,7 +642,8 @@ class Procedures(DataCoreModel):
     @classmethod
     def validate_implanted_device_names(cls, values):
         """Validate that all implanted device names appear in the device list"""
-        recursive_device_name_check(values, values.implanted_devices)
+        implanted_device_names = [device.name for device in values.implanted_devices]
+        recursive_device_name_check(values, implanted_device_names)
 
         return values
 

@@ -18,7 +18,6 @@ from pydantic import BaseModel
 from aind_data_schema.components.coordinates import Coordinate
 from aind_data_schema.components.wrappers import AssetPath
 from pathlib import Path
-from pydantic import BaseModel
 
 
 class TestCompatibilityCheck(unittest.TestCase):
@@ -391,11 +390,13 @@ class TestRecursiveCheckPaths(unittest.TestCase):
 
 class TestImplantedDevice(BaseModel):
     """Test class with implanted_device_name"""
+
     implanted_device_name: str
 
 
 class TestImplantedDeviceNames(BaseModel):
     """Test class with implanted_device_names"""
+
     implanted_device_names: list[str]
 
 
