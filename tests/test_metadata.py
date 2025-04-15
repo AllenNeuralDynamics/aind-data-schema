@@ -347,6 +347,13 @@ class TestMetadata(unittest.TestCase):
             ],
             modalities=[],
         )
+        procedures = Procedures.model_construct(
+            implanted_devices=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            subject_procedures=[],
+        )
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
             data_streams=[
@@ -359,6 +366,7 @@ class TestMetadata(unittest.TestCase):
             location="Test Location",
             instrument=instrument,
             acquisition=acquisition,
+            procedures=procedures,
         )
         self.assertIsNotNone(metadata)
 
@@ -395,6 +403,13 @@ class TestMetadata(unittest.TestCase):
             ],
             modalities=[],
         )
+        procedures = Procedures.model_construct(
+            implanted_devices=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            subject_procedures=[],
+        )
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
             data_streams=[
@@ -407,6 +422,7 @@ class TestMetadata(unittest.TestCase):
             location="Test Location",
             instrument=instrument,
             acquisition=acquisition,
+            procedures=procedures,
         )
         self.assertIsNotNone(metadata)
 
