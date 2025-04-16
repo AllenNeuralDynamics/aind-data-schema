@@ -79,7 +79,7 @@ class ConnectionData(DataModel):
     """Data for a connection"""
 
     direction: Optional[ConnectionDirection] = Field(default=None, title="Connection direction")
-    port: Optional[str] = Field(default=None, title="Connection port index or name")
+    port: Optional[str] = Field(default=None, title="Connection port index/name")
 
 
 class Connection(DataModel):
