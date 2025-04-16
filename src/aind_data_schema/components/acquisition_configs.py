@@ -183,8 +183,8 @@ class FieldOfView(DataModel):
 
     channel_name: str = Field(..., title="Channel name")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    center_coordinate: Coordinate = Field(
-        ...,
+    center_coordinate: Optional[Coordinate] = Field(
+        default=None,
         title="FOV coordinate",
         description="Center point of the FOV in the instrument coordinate system",
     )
