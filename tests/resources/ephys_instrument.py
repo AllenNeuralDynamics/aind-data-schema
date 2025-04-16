@@ -65,21 +65,21 @@ connections = [
     Connection(
         device_names=["Harp Behavior", "Face Camera"],
         connection_data={
-            "Harp Behavior": ConnectionData(channel="DO0", direction=ConnectionDirection.SEND),
+            "Harp Behavior": ConnectionData(port="DO0", direction=ConnectionDirection.SEND),
             "Face Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
         },
     ),
     Connection(
         device_names=["Harp Behavior", "Body Camera"],
         connection_data={
-            "Harp Behavior": ConnectionData(channel="DO1", direction=ConnectionDirection.SEND),
+            "Harp Behavior": ConnectionData(port="DO1", direction=ConnectionDirection.SEND),
             "Body Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
         },
     ),
     Connection(
         device_names=["Harp Behavior", "Running Wheel"],
         connection_data={
-            "Harp Behavior": ConnectionData(channel="AI0", direction=ConnectionDirection.RECEIVE),
+            "Harp Behavior": ConnectionData(port="AI0", direction=ConnectionDirection.RECEIVE),
             "Running Wheel": ConnectionData(direction=ConnectionDirection.SEND),
         },
     ),

@@ -213,7 +213,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM4",
+                port="COM4",
             ),
         },
     ),
@@ -225,7 +225,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM3",
+                port="COM3",
             ),
         },
     ),
@@ -237,7 +237,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="3",
+                port="3",
             ),
         },
     ),
@@ -249,7 +249,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="5",
+                port="5",
             ),
         },
     ),
@@ -261,7 +261,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="4",
+                port="4",
             ),
         },
     ),
@@ -273,7 +273,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="2",
+                port="2",
             ),
         },
     ),
@@ -285,7 +285,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="0",
+                port="0",
             ),
         },
     ),
@@ -297,7 +297,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="6",
+                port="6",
             ),
         },
     ),

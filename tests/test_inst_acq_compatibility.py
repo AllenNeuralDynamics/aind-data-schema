@@ -80,7 +80,7 @@ connections = [
         device_names=["Harp Behavior", "Face Camera"],
         connection_data={
             "Harp Behavior": ConnectionData(
-                channel="DO0",
+                port="DO0",
                 direction=ConnectionDirection.SEND,
             ),
             "Face Camera": ConnectionData(
@@ -92,7 +92,7 @@ connections = [
         device_names=["Harp Behavior", "Body Camera"],
         connection_data={
             "Harp Behavior": ConnectionData(
-                channel="DO1",
+                port="DO1",
                 direction=ConnectionDirection.SEND,
             ),
             "Body Camera": ConnectionData(
@@ -104,7 +104,7 @@ connections = [
         device_names=["Harp Behavior", "Running Wheel"],
         connection_data={
             "Harp Behavior": ConnectionData(
-                channel="AI0",
+                port="AI0",
                 direction=ConnectionDirection.RECEIVE,
             ),
             "Running Wheel": ConnectionData(
@@ -902,7 +902,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 device_names=["Harp Behavior", "Solenoid Left"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
-                        channel="DO0",
+                        port="DO0",
                         direction=ConnectionDirection.SEND,
                     ),
                     "Solenoid Left": ConnectionData(
@@ -914,7 +914,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 device_names=["Harp Behavior", "Solenoid Right"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
-                        channel="DO1",
+                        port="DO1",
                         direction=ConnectionDirection.SEND,
                     ),
                     "Solenoid Right": ConnectionData(
@@ -926,7 +926,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
-                        channel="DI0",
+                        port="DI0",
                         direction=ConnectionDirection.RECEIVE,
                     ),
                     "Janelia_Lick_Detector Left": ConnectionData(
@@ -938,7 +938,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
-                        channel="DI1",
+                        port="DI1",
                         direction=ConnectionDirection.RECEIVE,
                     ),
                     "Janelia_Lick_Detector Right": ConnectionData(
@@ -950,7 +950,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
                 device_names=["Harp Behavior", "Photometry Clock"],
                 connection_data={
                     "Harp Behavior": ConnectionData(
-                        channel="DI3",
+                        port="DI3",
                         direction=ConnectionDirection.RECEIVE,
                     ),
                     "Photometry Clock": ConnectionData(

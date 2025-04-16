@@ -226,7 +226,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM4",
+                port="COM4",
             ),
         },
     ),
@@ -238,7 +238,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM3",
+                port="COM3",
             ),
         },
     ),
@@ -250,7 +250,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM9",
+                port="COM9",
             ),
         },
     ),
