@@ -230,6 +230,7 @@ class Section(DataModel):
     """Description of a slice of brain tissue"""
 
     output_specimen_id: str = Field(..., title="Specimen ID")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
     # Coordinates
     start_coordinate: Coordinate = Field(..., title="Start coordinate")
@@ -264,7 +265,6 @@ class PlanarSectioning(DataModel):
         title="Sectioning coordinate system",
         description="Only required if different from the Procedures.coordinate_system",
     )
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
 
     sections: List[Section] = Field(..., title="Sections")
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
