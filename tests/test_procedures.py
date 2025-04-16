@@ -16,7 +16,7 @@ from aind_data_schema.core.procedures import (
     NonViralMaterial,
     OphysProbe,
     Procedures,
-    Sectioning,
+    PlanarSectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -27,6 +27,8 @@ from aind_data_schema.core.procedures import (
     Craniotomy,
     CraniotomyType,
     HCRSeries,
+    Section,
+    SectionOrientation,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
@@ -38,6 +40,7 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit, CurrentUnit
+from aind_data_schema.utils.exceptions import OneOfError
 
 
 class ProceduresTests(unittest.TestCase):
@@ -338,7 +341,7 @@ class ProceduresTests(unittest.TestCase):
                 notes="some extra information",
                 procedure_details=[
                     HCRSeries.model_construct(),
-                    Sectioning.model_construct(),
+                    PlanarSectioning.model_construct(),
                 ],
             )
         self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
@@ -426,29 +429,61 @@ class ProceduresTests(unittest.TestCase):
     def test_sectioning(self):
         """Test sectioning"""
 
-        section = Sectioning(
-            number_of_slices=3,
-            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-            section_orientation="Coronal",
-            section_thickness=0.2,
-            section_distance_from_reference=0.3,
-            reference=Origin.BREGMA,
-            section_strategy="Whole Brain",
-            targeted_structure=CCFStructure.MOP,
+        # Updated initialization to use the new Section class
+        sectioning_procedure = PlanarSectioning(
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            sections=[
+                Section(
+                    output_specimen_id="123456_001",
+                    targeted_structure=CCFStructure.MOP,
+                    start_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.3, 0, 0],
+                    ),
+                    end_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 0, 0],
+                    ),
+                ),
+                Section(
+                    output_specimen_id="123456_002",
+                    start_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 0, 0],
+                    ),
+                    end_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.7, 0, 0],
+                    ),
+                ),
+                Section(
+                    output_specimen_id="123456_003",
+                    start_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.7, 0, 0],
+                    ),
+                    thickness=0.1,
+                    thickness_unit=SizeUnit.MM,
+                ),
+            ],
+            section_orientation=SectionOrientation.CORONAL,
         )
-        self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
+        self.assertIsNotNone(sectioning_procedure)
 
-        # Number of output ids does not match number of slices
-        with self.assertRaises(ValidationError):
-            Sectioning(
-                number_of_slices=2,
-                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                section_orientation="Coronal",
-                section_thickness=0.2,
-                section_distance_from_reference=0.3,
-                reference=Origin.BREGMA,
-                section_strategy="Whole Brain",
-                targeted_structure=CCFStructure.MOP,
+        # Raise error if neither end_coordinate nor thickness is provided
+        with self.assertRaises(OneOfError):
+            PlanarSectioning(
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+                sections=[
+                    Section(
+                        output_specimen_id="123456_001",
+                        start_coordinate=Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0.3, 0, 0],
+                        ),
+                    ),
+                ],
+                section_orientation=SectionOrientation.CORONAL,
             )
 
     def test_validate_identical_specimen_ids(self):
