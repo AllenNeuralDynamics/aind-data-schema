@@ -54,7 +54,7 @@ a = Acquisition(
                             detector=DetectorConfig(
                                 device_name="PMT 1", exposure_time=0.1, trigger_type=TriggerType.INTERNAL
                             ),
-                            light_source_configurations=[
+                            light_sources=[
                                 LaserConfig(
                                     device_name="Laser A",
                                     wavelength=920,

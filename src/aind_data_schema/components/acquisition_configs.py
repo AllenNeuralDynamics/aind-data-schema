@@ -105,7 +105,7 @@ class Channel(DataModel):
     )
 
     # excitation
-    light_source_configurations: List[
+    light_sources: List[
         Annotated[
             Union[
                 LaserConfig,

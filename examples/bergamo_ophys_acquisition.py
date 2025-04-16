@@ -62,7 +62,7 @@ a = Acquisition(
                                 exposure_time=0.1,
                                 trigger_type="Internal",
                             ),
-                            light_source_configurations=[
+                            light_sources=[
                                 LaserConfig(
                                     device_name="Laser A",
                                     wavelength=405,

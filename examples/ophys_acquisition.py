@@ -57,7 +57,7 @@ a = Acquisition(
                             detector=DetectorConfig(
                                 device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
                             ),
-                            light_source_configurations=[
+                            light_sources=[
                                 LaserConfig(
                                     device_name="Laser A",
                                     wavelength=405,
@@ -81,7 +81,7 @@ a = Acquisition(
                             detector=DetectorConfig(
                                 device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
                             ),
-                            light_source_configurations=[
+                            light_sources=[
                                 LaserConfig(
                                     device_name="Laser B",
                                     wavelength=473,

@@ -53,7 +53,7 @@ imaging_config = ImagingConfig(
         Channel(
             channel_name="488",
             intended_measurement="GFP signal",
-            light_source_configurations=[
+            light_sources=[
                 LaserConfig(
                     device_name="LAS_08308",
                     wavelength=488,
@@ -76,7 +76,7 @@ imaging_config = ImagingConfig(
         Channel(
             channel_name="561",
             intended_measurement="TdTomato signal",
-            light_source_configurations=[
+            light_sources=[
                 LaserConfig(
                     device_name="539251",
                     wavelength=561,

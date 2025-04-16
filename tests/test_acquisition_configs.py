@@ -194,7 +194,7 @@ class TestImagingConfig(unittest.TestCase):
                 exposure_time=Decimal("10.0"),
                 trigger_type="Internal",
             ),
-            light_source_configurations=[
+            light_sources=[
                 LaserConfig(
                     device_name="Laser1",
                     wavelength=488,
@@ -208,7 +208,7 @@ class TestImagingConfig(unittest.TestCase):
                 exposure_time=Decimal("20.0"),
                 trigger_type="External",
             ),
-            light_source_configurations=[
+            light_sources=[
                 LaserConfig(
                     device_name="Laser2",
                     wavelength=561,
