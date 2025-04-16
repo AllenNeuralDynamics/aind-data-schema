@@ -432,10 +432,10 @@ class ProceduresTests(unittest.TestCase):
         # Updated initialization to use the new Section class
         sectioning_procedure = PlanarSectioning(
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            targeted_structure=CCFStructure.MOP,
             sections=[
                 Section(
                     output_specimen_id="123456_001",
+                    targeted_structure=CCFStructure.MOP,
                     start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
                         position=[0.3, 0, 0],
@@ -474,7 +474,6 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(OneOfError):
             PlanarSectioning(
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                targeted_structure=CCFStructure.MOP,
                 sections=[
                     Section(
                         output_specimen_id="123456_001",
