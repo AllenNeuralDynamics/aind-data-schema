@@ -58,8 +58,8 @@ imaging_config = ImagingConfig(
                     device_name="LAS_08308",
                     wavelength=488,
                     wavelength_unit=SizeUnit.NM,
-                    excitation_power=200,
-                    excitation_power_unit=PowerUnit.MW,
+                    power=200,
+                    power_unit=PowerUnit.MW,
                 ),
             ],
             emission_filters=[
@@ -67,7 +67,7 @@ imaging_config = ImagingConfig(
                     device_name="Multiband filter",
                 ),
             ],
-            detector_configuration=DetectorConfig(
+            detector=DetectorConfig(
                 device_name="PMT_1",
                 exposure_time=1,
                 trigger_type="Internal",
@@ -81,8 +81,8 @@ imaging_config = ImagingConfig(
                     device_name="539251",
                     wavelength=561,
                     wavelength_unit=SizeUnit.NM,
-                    excitation_power=200,
-                    excitation_power_unit=PowerUnit.MW,
+                    power=200,
+                    power_unit=PowerUnit.MW,
                 ),
             ],
             emission_filters=[
@@ -90,7 +90,7 @@ imaging_config = ImagingConfig(
                     device_name="Multiband filter",
                 )
             ],
-            detector_configuration=DetectorConfig(
+            detector=DetectorConfig(
                 device_name="PMT_1",
                 exposure_time=1,
                 trigger_type="Internal",

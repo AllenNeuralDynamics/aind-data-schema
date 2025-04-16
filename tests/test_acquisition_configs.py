@@ -189,7 +189,7 @@ class TestImagingConfig(unittest.TestCase):
         """Set up common test data"""
         self.channel1 = Channel(
             channel_name="Channel1",
-            detector_configuration=DetectorConfig(
+            detector=DetectorConfig(
                 device_name="Detector1",
                 exposure_time=Decimal("10.0"),
                 trigger_type="Internal",
@@ -203,7 +203,7 @@ class TestImagingConfig(unittest.TestCase):
         )
         self.channel2 = Channel(
             channel_name="Channel2",
-            detector_configuration=DetectorConfig(
+            detector=DetectorConfig(
                 device_name="Detector2",
                 exposure_time=Decimal("20.0"),
                 trigger_type="External",

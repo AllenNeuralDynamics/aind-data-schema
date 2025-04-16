@@ -51,7 +51,7 @@ a = Acquisition(
                         Channel(
                             channel_name="Green channel",
                             intended_measurement="GCaMP",
-                            detector_configuration=DetectorConfig(
+                            detector=DetectorConfig(
                                 device_name="PMT 1", exposure_time=0.1, trigger_type=TriggerType.INTERNAL
                             ),
                             light_source_configurations=[
@@ -59,8 +59,8 @@ a = Acquisition(
                                     device_name="Laser A",
                                     wavelength=920,
                                     wavelength_unit="nanometer",
-                                    excitation_power=10,
-                                    excitation_power_unit=PowerUnit.MW,
+                                    power=10,
+                                    power_unit=PowerUnit.MW,
                                 ),
                             ],
                         ),

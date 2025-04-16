@@ -42,8 +42,8 @@ a = Acquisition(
                     device_name="Laser A",
                     wavelength=405,
                     wavelength_unit="nanometer",
-                    excitation_power=10,
-                    excitation_power_unit="milliwatt",
+                    power=10,
+                    power_unit="milliwatt",
                 ),
                 PatchCordConfig(
                     device_name="Patch Cord A",
@@ -54,7 +54,7 @@ a = Acquisition(
                         Channel(
                             channel_name="Channel A",
                             intended_measurement="Dopamine",
-                            detector_configuration=DetectorConfig(
+                            detector=DetectorConfig(
                                 device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
                             ),
                             light_source_configurations=[
@@ -62,8 +62,8 @@ a = Acquisition(
                                     device_name="Laser A",
                                     wavelength=405,
                                     wavelength_unit="nanometer",
-                                    excitation_power=10,
-                                    excitation_power_unit="milliwatt",
+                                    power=10,
+                                    power_unit="milliwatt",
                                 ),
                             ],
                         ),
@@ -78,7 +78,7 @@ a = Acquisition(
                         Channel(
                             channel_name="Channel B",
                             intended_measurement="GCaMP",
-                            detector_configuration=DetectorConfig(
+                            detector=DetectorConfig(
                                 device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
                             ),
                             light_source_configurations=[
@@ -86,8 +86,8 @@ a = Acquisition(
                                     device_name="Laser B",
                                     wavelength=473,
                                     wavelength_unit="nanometer",
-                                    excitation_power=7,
-                                    excitation_power_unit="milliwatt",
+                                    power=7,
+                                    power_unit="milliwatt",
                                 ),
                             ],
                         )

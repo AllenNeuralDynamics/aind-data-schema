@@ -70,7 +70,7 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         """Tests that an error is raised when configuration names do not match"""
         self.ophys_acquisition.data_streams[0].configurations = [
             LaserConfig(
-                device_name="wrong_laser", wavelength=488, excitation_power=10, excitation_power_unit="milliwatt"
+                device_name="wrong_laser", wavelength=488, power=10, power_unit="milliwatt"
             ),
         ]
         with self.assertRaises(ValueError):

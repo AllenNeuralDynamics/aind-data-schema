@@ -81,15 +81,15 @@ class LaserConfig(DeviceConfig):
 
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
+    power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
     """Configuration of LED settings"""
 
-    excitation_power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
-    excitation_power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
+    power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 class Channel(DataModel):
@@ -99,7 +99,7 @@ class Channel(DataModel):
     intended_measurement: Optional[str] = Field(
         default=None, title="Intended measurement", description="What signal is this channel measuring"
     )
-    detector_configuration: DetectorConfig = Field(..., title="Detector configuration")
+    detector: DetectorConfig = Field(..., title="Detector configuration")
     additional_device_names: Optional[List[DeviceConfig]] = Field(
         default=None, title="Additional device names", description="Mirrors, dichroics, etc"
     )
