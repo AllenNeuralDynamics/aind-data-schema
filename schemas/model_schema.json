@@ -716,6 +716,7 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image radial correction",
             "Image spot detection",
             "Image spot spectral unmixing",
             "Image thresholding",

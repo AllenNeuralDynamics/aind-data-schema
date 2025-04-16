@@ -487,6 +487,7 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image radial correction",
             "Image spot detection",
             "Image spot spectral unmixing",
             "Image thresholding",
@@ -781,8 +782,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.50",
-         "default": "2.0.50",
+         "const": "2.0.51",
+         "default": "2.0.51",
          "title": "Schema Version",
          "type": "string"
       },
