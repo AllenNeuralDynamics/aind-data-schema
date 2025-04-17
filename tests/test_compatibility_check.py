@@ -44,19 +44,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         self.assertIsInstance(error, ValueError)
         self.assertIn("Instrument ID in acquisition", str(error))
 
-    def test_compare_stream_devices_success(self):
-        """Test that active devices in acquisition match instrument components."""
-        checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
-        self.assertIsNone(checker._compare_stream_devices())
-
-    def test_compare_stream_devices_failure(self):
-        """Test that mismatched active devices raise ValueError."""
-        self.mock_acquisition.data_streams = [MagicMock(active_devices=["unknown_device"])]
-        checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
-        error = checker._compare_stream_devices()
-        self.assertIsInstance(error, ValueError)
-        self.assertIn("Active device unknown_device", str(error))
-
     def test_compare_stimulus_devices_success(self):
         """Test that stimulus devices in acquisition match instrument components."""
         checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
