@@ -43,7 +43,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
+from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate, CoordinateSystem, TRANSFORM_TYPES
 from aind_data_schema.components.identifiers import Software
 
 
@@ -199,21 +199,39 @@ class Objective(Device):
         return value
 
 
-class CameraAssembly(DataModel):
+class PositionedDevice(DataModel):
+    """Device with a position"""
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    instrument_to_device_transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
+    )
+    device_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_transform_and_cs(cls, values):
+        """Ensure that transform and coordinate system are either both set or both unset"""
+        transform = values.instrument_to_device_transform
+        coordinate_system = values.coordinate_system
+
+        if transform ^ coordinate_system:
+            raise ValueError(
+                "instrument_to_device_transform and device_coordinate_system must either both be set or both be unset."
+            )
+
+        return values
+
+
+class CameraAssembly(PositionedDevice):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     name: str = Field(..., title="Camera assembly name")
     target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
-
-    # position information
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
 
     filter: Optional[Filter] = Field(default=None, title="Filter")
 
@@ -522,7 +540,7 @@ class Arena(Device):
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
-class Monitor(Device):
+class Monitor(Device, PositionedDevice):
     """Description of visual display for visual stimuli"""
 
     manufacturer: Organization.MONITOR_MANUFACTURERS
@@ -532,13 +550,6 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
 
     contrast: Optional[int] = Field(
         default=None,
@@ -582,17 +593,10 @@ class AirPuffDevice(Device):
     diameter_unit: SizeUnit = Field(..., title="Size unit")
 
 
-class Speaker(Device):
+class Speaker(Device, PositionedDevice):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
 
 
 class OlfactometerChannelType(Enum):

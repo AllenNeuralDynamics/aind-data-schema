@@ -190,6 +190,11 @@ class NonlinearTransform(DataModel):
     )
 
 
+COORDINATE_TYPES = List[Annotated[Union[Translation, Rotation], Field(discriminator="object_type")]]
+TRANSFORM_TYPES = List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]]
+TRANSFORM_TYPES_NONLIN = List[Annotated[Union[Translation, Rotation, Scale, Affine, NonlinearTransform], Field(discriminator="object_type")]]
+
+
 class CoordinateSystem(DataModel):
     """Definition of a coordinate system relative to a brain"""
 
@@ -211,48 +216,33 @@ class Atlas(CoordinateSystem):
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
 
-class Transform(DataModel):
-    """Affine transformation in a coordinate system"""
-
-    system_name: str = Field(
-        ..., title="Coordinate system name"
-    )  # note: this field's exact name is used by a validator
-    transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
-        Field(..., title="Transform")
-    )
-
-
-class CoordinateTransform(DataModel):
-    """Transformation from one CoordinateSystem to another"""
-
-    input: str = Field(..., title="Input coordinate system")
-    output: str = Field(..., title="Output coordinate system")
-    transforms: List[
-        Annotated[
-            Union[Translation, Rotation, Scale, Affine, NonlinearTransform],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(..., title="Transform")
-
-
 class Coordinate(DataModel):
     """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
-
-    Angles can be optionally provided
     """
 
     system_name: str = Field(
         ..., title="Coordinate system name"
     )  # note: this field's exact name is used by a validator
-    position: List[float] = Field(
-        ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
-    )
-    angles: Optional[Rotation] = Field(
-        default=None,
-        title="Orientation in coordinate system",
-        description="Angles can be optionally provided to define a vector (e.g. for an insertion)",
-    )
-    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+    transforms: Translation = Field(..., title="Position")
+
+
+class Vector(DataModel):
+    """A coordinate and rotation in a brain (CoordinateSpace) or atlas (AtlasSpace)
+    """
+    system_name: str = Field(
+        ..., title="Coordinate system name"
+    )  # note: this field's exact name is used by a validator
+    transforms: COORDINATE_TYPES = Field(..., title="Transforms")
+
+
+class CoordinateTransform(DataModel):
+    """Affine or non-linear transformation from one CoordinateSystem to another
+
+    For example, a transformation from BREGMA_ARI to DEVICE_XYZ"""
+
+    input: str = Field(..., title="Input coordinate system")
+    output: str = Field(..., title="Output coordinate system")
+    transforms: TRANSFORM_TYPES_NONLIN = Field(..., title="Transform")
 
 
 class CoordinateSystemLibrary:
@@ -321,14 +311,36 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    DEVICE_SIPE = CoordinateSystem(
-        name="CAMERA_SIPE",
+    SIPE_CAMERA_RBF = CoordinateSystem(
+        name="SIPE_CAMERA_RBF",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.TB),
+            Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    SIPE_MONITOR_RTF = CoordinateSystem(
+        name="SIPE_MONITOR_RTF",
         origin=Origin.FRONT_CENTER,
         axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BT),
             Axis(name=AxisName.Z, direction=Direction.BF),
+        ],
+    )
+
+    SIPE_SPEAKER_LTF = CoordinateSystem(
+        name="SIPE_SPEAKER_LTF",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.RL),
+            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.FB),
         ],
     )
 
@@ -399,7 +411,12 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    CCFv3 = Atlas(
+
+class AtlasLibrary:
+    """Library of common atlases
+    """
+
+    CCFv3_10um = Atlas(
         name=AtlasName.CCF,
         version="3",
         origin=Origin.ORIGIN,
@@ -411,5 +428,20 @@ class CoordinateSystemLibrary:
         ],
         size=[1320, 800, 1140],
         resolution=[10, 10, 10],
+        resolution_unit=SizeUnit.UM,
+    )
+
+    CCFv3_25um = Atlas(
+        name=AtlasName.CCF,
+        version="3",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.AP),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+        ],
+        size=[528, 320, 456],
+        resolution=[25, 25, 25],
         resolution_unit=SizeUnit.UM,
     )
