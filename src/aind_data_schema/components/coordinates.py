@@ -1,7 +1,7 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from typing import List, Optional, Union
+from typing import List, Union
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
@@ -192,7 +192,9 @@ class NonlinearTransform(DataModel):
 
 VECTOR_TYPES = List[Annotated[Union[Translation, Rotation], Field(discriminator="object_type")]]
 TRANSFORM_TYPES = List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]]
-TRANSFORM_TYPES_NONLIN = List[Annotated[Union[Translation, Rotation, Scale, Affine, NonlinearTransform], Field(discriminator="object_type")]]
+TRANSFORM_TYPES_NONLIN = List[
+    Annotated[Union[Translation, Rotation, Scale, Affine, NonlinearTransform], Field(discriminator="object_type")]
+]
 
 
 class CoordinateSystem(DataModel):
@@ -217,8 +219,7 @@ class Atlas(CoordinateSystem):
 
 
 class Coordinate(DataModel):
-    """A coordinate in a CoordinateSpace
-    """
+    """A coordinate in a CoordinateSpace"""
 
     system_name: str = Field(
         ...,
@@ -235,8 +236,8 @@ class AtlasCoordinate(DataModel):
 
 
 class Vector(DataModel):
-    """A coordinate and orientation in a CoordinateSpace
-    """
+    """A coordinate and orientation in a CoordinateSpace"""
+
     system_name: str = Field(
         ..., title="Coordinate system name"
     )  # note: this field's exact name is used by a validator
@@ -421,8 +422,7 @@ class CoordinateSystemLibrary:
 
 
 class AtlasLibrary:
-    """Library of common atlases
-    """
+    """Library of common atlases"""
 
     CCFv3_10um = Atlas(
         name=AtlasName.CCF,

@@ -22,7 +22,15 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
-from aind_data_schema.components.coordinates import Coordinate, Vector, AtlasCoordinate, CoordinateSystem, Scale, Transform, CoordinateTransform
+from aind_data_schema.components.coordinates import (
+    Coordinate,
+    Vector,
+    AtlasCoordinate,
+    CoordinateSystem,
+    Scale,
+    Transform,
+    CoordinateTransform,
+)
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -458,7 +466,9 @@ class ImagingConfig(DataModel):
 
     channels: List[Channel] = Field(..., title="Channels")
     images: List[Annotated[Union[FieldOfView, Image], Field(discriminator="object_type")]] = Field(..., title="Images")
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Coordinate system")  # note: exact field name is used by a validator
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None, title="Coordinate system"
+    )  # note: exact field name is used by a validator
 
     @model_validator(mode="after")
     def check_image_channels(self):
