@@ -50,6 +50,8 @@ from aind_data_schema.components.devices import (
     Tube,
     Wheel,
     Computer,
+    Microscope,
+    MyomatrixArray,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
 from aind_data_schema.utils.validators import recursive_get_all_names
@@ -61,7 +63,7 @@ DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
-    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
+    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
     Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
@@ -120,7 +122,6 @@ class Instrument(DataCoreModel):
     coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
 
     # instrument details
-    manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -169,6 +170,8 @@ class Instrument(DataCoreModel):
                 Arena,
                 DAQDevice,
                 Computer,
+                Microscope,
+                MyomatrixArray,
                 Device,
             ],
             Field(discriminator="object_type"),

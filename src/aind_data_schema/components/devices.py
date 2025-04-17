@@ -664,3 +664,9 @@ class MyomatrixArray(Device):
 
     array_type: MyomatrixArrayType = Field(..., title="Array type")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+
+class Microscope(Device):
+    """Description of a microscope"""
+
+    magnification: Optional[str] = Field(default=None, title="Magnification", description="e.g. 10x")

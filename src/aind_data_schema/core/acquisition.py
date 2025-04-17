@@ -20,11 +20,11 @@ from aind_data_schema.components.acquisition_configs import (
     MousePlatformConfig,
     MRIScan,
     PatchCordConfig,
-    SlapConfig,
     SpeakerConfig,
     StimulusModality,
     SampleChamberConfig,
     ImagingConfig,
+    SlapMicroscopeConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -45,7 +45,7 @@ CONFIG_REQUIREMENTS = {
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
     Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
-    Modality.SLAP: [[ImagingConfig], [SlapConfig]],
+    Modality.SLAP: [[ImagingConfig], [SlapMicroscopeConfig]],
 }
 
 # This is ugly but one of the validators was just checking that the cameras were active in the device name list
@@ -120,12 +120,11 @@ class DataStream(DataModel):
                 DetectorConfig,
                 PatchCordConfig,
                 FiberAssemblyConfig,
-                SlapConfig,
                 MRIScan,
                 LickSpoutConfig,
                 AirPuffConfig,
                 ImagingConfig,
-                SlapConfig,
+                SlapMicroscopeConfig,
                 SampleChamberConfig,
             ],
             Field(discriminator="object_type"),

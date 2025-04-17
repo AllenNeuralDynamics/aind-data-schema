@@ -49,6 +49,13 @@ class Valence(str, Enum):
     UNKNOWN = "Unknown"
 
 
+class SlapAcquisitionType(str, Enum):
+    """Type of slap acquisition"""
+
+    PARENT = "Parent"
+    BRANCH = "Branch"
+
+
 class DeviceConfig(DataModel):
     """Parent class for all configurations"""
 
@@ -92,6 +99,21 @@ class LightEmittingDiodeConfig(DeviceConfig):
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
+class SlapMicroscopeConfig(DeviceConfig):
+    """Configuration of a Slap microscope"""
+
+    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
+    target_type: SlapAcquisitionType = Field(..., title="Target type")
+    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+    target_branch: Optional[str] = Field(default=None, title="Target branch")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
+
+    dilation: Optional[int] = Field(default=None, title="Dilation")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
+
+
 class Channel(DataModel):
     """Configuration of a channel"""
 
@@ -124,8 +146,6 @@ class Channel(DataModel):
 class SlapChannel(Channel):
     """Configuration of a channel for Slap"""
 
-    dilation: Optional[int] = Field(default=None, title="Dilation (pixels)")
-    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
     description: Optional[str] = Field(default=None, title="Description")
 
 
@@ -191,7 +211,6 @@ class FieldOfView(DataModel):
     fov_width: int = Field(..., title="FOV width (pixels)")
     fov_height: int = Field(..., title="FOV height (pixels)")
     fov_size_unit: SizeUnit = Field(default=SizeUnit.PX, title="FOV size unit")
-    magnification: str = Field(..., title="Magnification")
     fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
     fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
     frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
@@ -203,27 +222,6 @@ class FieldOfView(DataModel):
         ]
     ] = Field(..., title="Two photon imaging configurations")
     notes: Optional[str] = Field(default=None, title="Notes")
-
-
-class SlapAcquisitionType(str, Enum):
-    """Type of slap acquisition"""
-
-    PARENT = "Parent"
-    BRANCH = "Branch"
-
-
-class SlapConfig(DataModel):
-    """Configuration of a Slap2 scan"""
-
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    dilation: Scale = Field(..., title="DMD Dilation X/Y")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
-    target_type: SlapAcquisitionType = Field(..., title="Target type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-    target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
-    )
 
 
 class MousePlatformConfig(DeviceConfig):
