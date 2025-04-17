@@ -43,7 +43,7 @@ from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModelType
-from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate, CoordinateSystem, TRANSFORM_TYPES
+from aind_data_schema.components.coordinates import AxisName, Scale, CoordinateSystem, TRANSFORM_TYPES
 from aind_data_schema.components.identifiers import Software
 
 
@@ -70,6 +70,32 @@ class Device(DataModel):
 
             if manufacturer == Organization.OTHER and not notes:
                 raise ValueError("Device.notes cannot be empty if manufacturer is 'other'")
+
+        return values
+
+
+class PositionedDevice(DataModel):
+    """Device with a position"""
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+    instrument_to_device_transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Transform",
+        description="Transform from instrument to device coordinate system",
+    )
+    device_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_transform_and_cs(cls, values):
+        """Ensure that transform and coordinate system are either both set or both unset"""
+        transform = values.instrument_to_device_transform
+        coordinate_system = values.coordinate_system
+
+        if transform ^ coordinate_system:
+            raise ValueError(
+                "instrument_to_device_transform and device_coordinate_system must either both be set or both be unset."
+            )
 
         return values
 
@@ -197,32 +223,6 @@ class Objective(Device):
             raise ValueError("Notes cannot be empty if immersion is Other. Describe the immersion in the notes field.")
 
         return value
-
-
-class PositionedDevice(DataModel):
-    """Device with a position"""
-
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    instrument_to_device_transform: Optional[TRANSFORM_TYPES] = Field(
-        default=None,
-        title="Transform",
-        description="Transform from instrument to device coordinate system",
-    )
-    device_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
-
-    @model_validator(mode="after")
-    @classmethod
-    def validate_transform_and_cs(cls, values):
-        """Ensure that transform and coordinate system are either both set or both unset"""
-        transform = values.instrument_to_device_transform
-        coordinate_system = values.coordinate_system
-
-        if transform ^ coordinate_system:
-            raise ValueError(
-                "instrument_to_device_transform and device_coordinate_system must either both be set or both be unset."
-            )
-
-        return values
 
 
 class CameraAssembly(PositionedDevice):

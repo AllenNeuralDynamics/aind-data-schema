@@ -190,7 +190,7 @@ class NonlinearTransform(DataModel):
     )
 
 
-COORDINATE_TYPES = List[Annotated[Union[Translation, Rotation], Field(discriminator="object_type")]]
+VECTOR_TYPES = List[Annotated[Union[Translation, Rotation], Field(discriminator="object_type")]]
 TRANSFORM_TYPES = List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]]
 TRANSFORM_TYPES_NONLIN = List[Annotated[Union[Translation, Rotation, Scale, Affine, NonlinearTransform], Field(discriminator="object_type")]]
 
@@ -232,7 +232,7 @@ class Vector(DataModel):
     system_name: str = Field(
         ..., title="Coordinate system name"
     )  # note: this field's exact name is used by a validator
-    transforms: COORDINATE_TYPES = Field(..., title="Transforms")
+    transforms: VECTOR_TYPES = Field(..., title="Transforms")
 
 
 class CoordinateTransform(DataModel):

@@ -181,7 +181,7 @@ class PlanarSectioning(DataModel):
         default=None,
         title="Sectioning coordinate system",
         description="Only required if different from the Procedures.coordinate_system",
-    )
+    )  # note: exact field name is used by a validator
 
     sections: List[Section] = Field(..., title="Sections")
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
@@ -561,8 +561,8 @@ class Surgery(DataModel):
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Surgery coordinate system",
-        description="Only use this field when different from the Procedures.coordinate_system",
-    )
+        description="Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system",
+    )  # note: exact field name is used by a validator
 
     # Measured coordinates
     measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
@@ -619,7 +619,7 @@ class Procedures(DataCoreModel):
         default=None,
         title="Coordinate System",
         description="Required when coordinates are provided in the procedures",
-    )
+    )  # note: exact field name is used by a validator
 
     notes: Optional[str] = Field(default=None, title="Notes")
 

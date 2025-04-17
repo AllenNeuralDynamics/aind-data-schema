@@ -60,6 +60,22 @@ def _recurse_helper(data, **kwargs):
             recursive_coord_system_check(attr_value, **kwargs)
 
 
+def _system_check_helper(data, system_name: str, axis_count: int):
+    """Helper function to raise errors if the system_name or axis_count don't match"""
+    if not system_name or not axis_count:
+        raise CoordinateSystemException()
+
+    if data.system_name not in system_name:
+        raise SystemNameException(system_name, data.system_name)
+
+    # Check lengths of subfields
+    if hasattr(data, "__dict__"):
+        for attr_name, attr_value in data.__dict__.items():
+            if isinstance(attr_value, list) and attr_name in AXIS_FIELD_NAMES:
+                if len(attr_value) != axis_count:
+                    raise AxisCountException(axis_count, len(attr_value))
+
+
 def recursive_coord_system_check(data, system_name: str, axis_count: int):
     """Recursively check fields, see if they are Coordinates and check if they match a List[values]
 
@@ -74,20 +90,14 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
         system_name = data.coordinate_system.name
         axis_count = len(data.coordinate_system.axes)
 
+    if hasattr(data, "atlas") and data.atlas:
+        # If we find a new atlas, allow it to over-write our settings
+        system_name = data.atlas.name
+        axis_count = len(data.atlas.axes)
+
     # Check if the object we are looking at has a system_name field
     if hasattr(data, "system_name"):
-        if not system_name or not axis_count:
-            raise CoordinateSystemException()
-
-        if data.system_name not in system_name:
-            raise SystemNameException(system_name, data.system_name)
-
-        # Check lengths of subfields
-        if hasattr(data, "__dict__"):
-            for attr_name, attr_value in data.__dict__.items():
-                if isinstance(attr_value, list) and attr_name in AXIS_FIELD_NAMES:
-                    if len(attr_value) != axis_count:
-                        raise AxisCountException(axis_count, len(attr_value))
+        _system_check_helper(data, system_name, axis_count)
 
     _recurse_helper(data=data, system_name=system_name, axis_count=axis_count)
 

@@ -118,7 +118,7 @@ class Instrument(DataCoreModel):
     calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
     # coordinate system
-    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
+    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")  # note: exact field name is used by a validator
 
     # instrument details
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")

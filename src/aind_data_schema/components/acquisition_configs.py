@@ -255,7 +255,14 @@ class DomeModule(DeviceConfig):
 
 
 class ManipulatorConfig(DomeModule):
-    """A dome module connected to a 3-axis manipulator"""
+    """Configuration of a manipulator"""
+
+    coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
+    local_axis_positions: Coordinate = Field(..., title="Local axis positions")
+
+
+class ProbeConfig(DeviceConfig):
+    """Configuration for a device inserted into a brain"""
 
     # Target
     primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
@@ -270,34 +277,10 @@ class ManipulatorConfig(DomeModule):
     # Coordinates
     manipulator_coordinates: List[Coordinate] = Field(
         ...,
-        title="Targeted coordinates in the Instrument CoordinateSystem",
-    )
-    manipulator_axis_positions: Optional[List[Coordinate]] = Field(
-        default=None,
-        title="Manipulator local axis positions, in the device CoordinateSystem",
+        title="Targeted coordinates in the Acquisition.coordinate_system",
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
-    implant_hole_number: Optional[int] = Field(default=None, title="Implant hole number")
-
-    @model_validator(mode="after")
-    def validate_len_coordinates(self):
-        """Validate number of coordinates targeted"""
-
-        lengths = []
-        if self.atlas_coordinates:
-            lengths.append(len(self.atlas_coordinates))
-        if self.manipulator_coordinates:
-            lengths.append(len(self.manipulator_coordinates))
-        if self.manipulator_axis_positions:
-            lengths.append(len(self.manipulator_axis_positions))
-
-        if len(set(lengths)) > 1:
-            raise ValueError(
-                "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same"
-            )
-
-        return self
 
 
 class FiberAssemblyConfig(ManipulatorConfig):
@@ -468,7 +451,7 @@ class ImagingConfig(DataModel):
 
     channels: List[Channel] = Field(..., title="Channels")
     images: List[Annotated[Union[FieldOfView, Image], Field(discriminator="object_type")]] = Field(..., title="Images")
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Coordinate system")
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Coordinate system")  # note: exact field name is used by a validator
 
     @model_validator(mode="after")
     def check_image_channels(self):

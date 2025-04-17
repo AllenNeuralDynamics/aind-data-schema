@@ -240,7 +240,7 @@ class Acquisition(DataCoreModel):
         default=None,
         title="Coordinate system",
         description="Required when coordinates are provided within the Acquisition",
-    )
+    )  # note: exact field name is used by a validator
 
     # Instrument metadata
     calibrations: List[CALIBRATIONS] = Field(
