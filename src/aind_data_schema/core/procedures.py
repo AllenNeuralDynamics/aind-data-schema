@@ -489,6 +489,8 @@ class ProbeImplant(DataModel):
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
+    dye: Optional[str] = Field(default=None, title="Dye")
+
 
 class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
