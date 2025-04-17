@@ -238,7 +238,6 @@ class MousePlatformConfig(DeviceConfig):
     )
 
 
-# Ephys Components
 class DomeModule(DeviceConfig):
     """Movable module that is mounted on the ephys dome insertion system"""
 
