@@ -6,6 +6,7 @@ from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.components.devices import (
+    Device,
     AdditionalImagingDevice,
     DataInterface,
     Detector,
@@ -22,6 +23,11 @@ class DeviceTests(unittest.TestCase):
 
     def test_other_validators(self):
         """tests validators which require notes when an instance of 'other' is used"""
+
+        with self.assertRaises(ValueError) as e1:
+            Device(name="test_device", manufacturer=Organization.OTHER, notes="")
+
+        self.assertIn("Device.notes cannot be empty if manufacturer is 'other'", str(e1.exception))
 
         with self.assertRaises(ValueError) as e2:
             Detector(

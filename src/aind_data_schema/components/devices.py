@@ -69,7 +69,7 @@ class Device(DataModel):
             notes = values.notes
 
             if manufacturer == Organization.OTHER and not notes:
-                raise ValueError("Notes cannot be empty if manufacturer is 'other'")
+                raise ValueError("Device.notes cannot be empty if manufacturer is 'other'")
 
         return values
 
