@@ -180,7 +180,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM4",
+                port="COM4",
             ),
         },
     ),
@@ -189,7 +189,7 @@ connections = [
         connection_data={
             "ASI Tiger": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM3",
+                port="COM3",
             ),
             "Sample stage Z": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -207,7 +207,7 @@ connections = [
         connection_data={
             "MightyZap": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM9",
+                port="COM9",
             ),
             "Lens 1": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,

@@ -86,7 +86,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="123",
+                port="123",
             ),
             "Laser A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -98,7 +98,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="321",
+                port="321",
             ),
             "Probe A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -110,7 +110,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="234",
+                port="234",
             ),
             "Camera A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -122,7 +122,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="2354",
+                port="2354",
             ),
             "Disc A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -726,7 +726,7 @@ class ConnectionTest(unittest.TestCase):
             connection_data={
                 "Neuropixels basestation": ConnectionData(
                     direction=ConnectionDirection.SEND,
-                    channel="123",
+                    port="123",
                 ),
                 "Laser A": ConnectionData(
                     direction=ConnectionDirection.RECEIVE,
@@ -741,7 +741,7 @@ class ConnectionTest(unittest.TestCase):
                 connection_data={
                     "Neuropixels basestation": ConnectionData(
                         direction=ConnectionDirection.SEND,
-                        channel="123",
+                        port="123",
                     ),
                     "Laser A": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,

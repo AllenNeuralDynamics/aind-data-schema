@@ -260,7 +260,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="DO0",
+                port="DO0",
             ),
             "Solenoid Left": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -272,7 +272,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="DO1",
+                port="DO1",
             ),
             "Solenoid Right": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -284,7 +284,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI0",
+                port="DI0",
             ),
             "Janelia_Lick_Detector Left": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -296,7 +296,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI1",
+                port="DI1",
             ),
             "Janelia_Lick_Detector Right": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -308,7 +308,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI3",
+                port="DI3",
             ),
             "Photometry Clock": ConnectionData(
                 direction=ConnectionDirection.SEND,

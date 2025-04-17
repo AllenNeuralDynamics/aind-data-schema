@@ -22,7 +22,6 @@ from aind_data_schema_models.units import (
     VolumeUnit,
 )
 from pydantic import Field, SkipValidation, field_validator, model_validator
-from pydantic_core.core_schema import ValidationInfo
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
@@ -32,6 +31,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.exceptions import OneOfError
 
 
 class ImmunolabelClass(str, Enum):
@@ -72,13 +72,6 @@ class SectionOrientation(str, Enum):
     CORONAL = "Coronal"
     SAGITTAL = "Sagittal"
     TRANSVERSE = "Transverse"
-
-
-class SectionStrategy(str, Enum):
-    """Section strategy"""
-
-    WHOLE = "Whole Brain"
-    HEMI = "Hemi Brain"
 
 
 class ProtectiveMaterial(str, Enum):
@@ -233,32 +226,48 @@ class Antibody(Reagent):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Sectioning(DataModel):
-    """Description of a sectioning procedure"""
+class Section(DataModel):
+    """Description of a slice of brain tissue"""
 
-    number_of_slices: int = Field(..., title="Number of slices")
-    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
+    output_specimen_id: str = Field(..., title="Specimen ID")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
+
+    # Coordinates
+    start_coordinate: Coordinate = Field(..., title="Start coordinate")
+    end_coordinate: Optional[Coordinate] = Field(default=None, title="End coordinate")
+    thickness: Optional[float] = Field(default=None, title="Slice thickness")
+    thickness_unit: Optional[SizeUnit] = Field(default=None, title="Slice thickness unit")
+
+    partial_slice: Optional[List[AnatomicalRelative]] = Field(
+        default=None,
+        title="Partial slice",
+        description="If sectioning does not include the entire slice, indicate which part of the slice is retained.",
+    )
+
+    @model_validator(mode="after")
+    @classmethod
+    def check_one_of_end_thickness(cls, values):
+        """Ensure that either end_coordinate or thickness is provided"""
+
+        if not values.end_coordinate and not values.thickness:
+            raise OneOfError(
+                "Section",
+                ["end_coordinate", "thickness"],
+            )
+        return values
+
+
+class PlanarSectioning(DataModel):
+    """Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane"""
+
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Sectioning coordinate system",
+        description="Only required if different from the Procedures.coordinate_system",
+    )
+
+    sections: List[Section] = Field(..., title="Sections")
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
-    section_thickness: Decimal = Field(..., title="Section thickness")
-    section_thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Section thickness unit")
-    section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
-    section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
-    section_strategy: SectionStrategy = Field(..., title="Slice strategy")
-
-    reference: Origin = Field(..., title="Reference origin")
-
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-
-    @field_validator("output_specimen_ids")
-    def check_output_id_length(cls, v, info: ValidationInfo):
-        """Validator for list of output specimen ids"""
-
-        output_id_len = len(v)
-        expected_len = info.data["number_of_slices"]
-
-        if output_id_len != expected_len:
-            raise AssertionError("List of output specimen ids does not match the number of slices.")
-        return v
 
 
 class SpecimenProcedure(DataModel):
@@ -280,7 +289,7 @@ class SpecimenProcedure(DataModel):
             Union[
                 HCRSeries,
                 Antibody,
-                Sectioning,
+                PlanarSectioning,
                 Reagent,
             ],
             Field(discriminator="object_type"),
@@ -299,7 +308,7 @@ class SpecimenProcedure(DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
-        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
 
         if has_hcr_series + has_antibodies + has_sectioning > 1:
             raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
@@ -691,7 +700,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.20"]] = Field(default="2.0.20")
+    schema_version: SkipValidation[Literal["2.0.21"]] = Field(default="2.0.21")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
