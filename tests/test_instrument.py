@@ -243,7 +243,7 @@ cameras = [
         name="cam",
         target=CameraTarget.FACE,
         relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
-        lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
+        lens=Lens(name="Camera lens", manufacturer=Organization.OTHER, notes="Manufacturer unknown"),
         camera=Camera(
             name="Camera A",
             detector_type=DetectorType.CAMERA,
@@ -254,6 +254,7 @@ cameras = [
             sensor_width=1,
             sensor_height=1,
             chroma="Color",
+            notes="Manufacturer unknown",
         ),
     )
 ]
@@ -298,10 +299,11 @@ stick_microscopes = [
             sensor_width=1,
             sensor_height=1,
             chroma="Color",
+            notes="Manufacturer unknown",
         ),
         target=CameraTarget.BRAIN,
         relative_position=[AnatomicalRelative.SUPERIOR],
-        lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+        lens=Lens(name="Lens A", manufacturer=Organization.OTHER, notes="Manufacturer unknown"),
     )
 ]
 light_sources = [
@@ -614,6 +616,7 @@ class InstrumentTests(unittest.TestCase):
             sensor_width=1,
             sensor_height=1,
             chroma="Color",
+            notes="Manufacturer unknown",
         )
 
         # Create a matching CameraAssembly
@@ -622,7 +625,7 @@ class InstrumentTests(unittest.TestCase):
             camera=camera,
             target=CameraTarget.BRAIN,
             relative_position=[AnatomicalRelative.SUPERIOR],
-            lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+            lens=Lens(name="Lens A", manufacturer=Organization.OTHER, notes="Manufacturer unknown"),
         )
 
         inst = Instrument(

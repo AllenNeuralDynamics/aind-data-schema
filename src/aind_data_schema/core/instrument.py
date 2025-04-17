@@ -5,8 +5,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.organizations import Organization
-from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import DataCoreModel, DataModel

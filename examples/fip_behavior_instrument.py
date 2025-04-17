@@ -72,7 +72,7 @@ camera1 = CameraAssembly(
         model="XC0922LENS",
         manufacturer=Organization.OTHER,
         max_aperture="f/1.4",
-        notes='Focal Length 9-22mm 1/3" IR F1.4',
+        notes='Focal Length 9-22mm 1/3" IR F1.4, manufacturer Xenocam',
     ),
 )
 
@@ -101,7 +101,7 @@ camera2 = CameraAssembly(
         model="XC0922LENS",
         manufacturer=Organization.OTHER,
         max_aperture="f/1.4",
-        notes='Focal Length 9-22mm 1/3" IR F1.4',
+        notes='Focal Length 9-22mm 1/3" IR F1.4, manufacturer Xenocam',
     ),
 )
 

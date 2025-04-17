@@ -59,6 +59,20 @@ class Device(DataModel):
     additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    @model_validator(mode="after")
+    @classmethod
+    def validate_manufacturer_notes(cls, values):
+        """Ensure that notes are not empty if manufacturer is 'other'"""
+
+        if hasattr(values, "manufacturer") and values.manufacturer is not None:
+            manufacturer = values.manufacturer
+            notes = values.notes
+
+            if manufacturer == Organization.OTHER and not notes:
+                raise ValueError("Notes cannot be empty if manufacturer is 'other'")
+
+        return values
+
 
 class Computer(Device):
     """Description of a computer"""

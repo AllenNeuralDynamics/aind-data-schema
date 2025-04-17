@@ -25,7 +25,7 @@ connections = [
             "Fiber A": ConnectionData(
                 direction=ConnectionDirection.SEND,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Patch Cord A", "Hamamatsu Camera"],
@@ -36,7 +36,7 @@ connections = [
             "Hamamatsu Camera": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Patch Cord B", "Fiber B"],
@@ -48,7 +48,7 @@ connections = [
                 direction=ConnectionDirection.SEND,
                 port="ROI 0",
             ),
-        }
+        },
     ),
     Connection(
         device_names=["Patch Cord B", "Hamamatsu Camera"],
@@ -60,7 +60,7 @@ connections = [
                 direction=ConnectionDirection.RECEIVE,
                 port="ROI 1",
             ),
-        }
+        },
     ),
 ]
 
