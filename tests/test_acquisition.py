@@ -27,6 +27,7 @@ from aind_data_schema.core.acquisition import (
     AcquisitionSubjectDetails,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.core.instrument import Connection
 
 
 class AcquisitionTest(unittest.TestCase):
@@ -373,6 +374,38 @@ class AcquisitionTest(unittest.TestCase):
             ],
         )
         self.assertIsNotNone(stream)
+
+    def test_check_connections(self):
+        """Test that every device in a Connection is present in the active_devices list"""
+
+        # Test valid connections
+        stream = DataStream(
+            stream_start_time=datetime.now(),
+            stream_end_time=datetime.now(),
+            modalities=[],
+            active_devices=["DeviceA", "DeviceB"],
+            configurations=[],
+            connections=[
+                Connection(device_names=["DeviceA"]),
+                Connection(device_names=["DeviceB"]),
+            ],
+        )
+        self.assertIsNotNone(stream)
+
+        # Test invalid connections
+        with self.assertRaises(ValueError) as context:
+            DataStream(
+                stream_start_time=datetime.now(),
+                stream_end_time=datetime.now(),
+                modalities=[],
+                active_devices=["DeviceA"],
+                configurations=[],
+                connections=[
+                    Connection(device_names=["DeviceA"]),
+                    Connection(device_names=["DeviceB"]),
+                ],
+            )
+        self.assertIn("Missing devices in active_devices list for connection", str(context.exception))
 
 
 if __name__ == "__main__":

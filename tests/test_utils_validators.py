@@ -8,6 +8,7 @@ from aind_data_schema.utils.validators import (
     recursive_coord_system_check,
     recursive_get_all_names,
     recursive_check_paths,
+    recursive_device_name_check,
     SystemNameException,
     AxisCountException,
     CoordinateSystemException,
@@ -385,6 +386,61 @@ class TestRecursiveCheckPaths(unittest.TestCase):
         test_path = AssetPath("relative/path/to/file.txt")
         recursive_check_paths(test_path, None)
         mock_warning.assert_not_called()
+
+
+class TestImplantedDevice(BaseModel):
+    """Test class with implanted_device_name"""
+
+    implanted_device_name: str
+
+
+class TestImplantedDeviceNames(BaseModel):
+    """Test class with implanted_device_names"""
+
+    implanted_device_names: list[str]
+
+
+class TestRecursiveDeviceNameCheck(unittest.TestCase):
+    """Tests for recursive_device_name_check function"""
+
+    def setUp(self):
+        """Set up test data"""
+        self.implanted_devices = ["Device1", "Device2", "Device3"]
+
+    def test_valid_implanted_device_name(self):
+        """Test valid implanted device name"""
+        obj = TestImplantedDevice(
+            implanted_device_name="Device1",
+        )
+        recursive_device_name_check(obj, self.implanted_devices)
+
+    def test_invalid_implanted_device_name(self):
+        """Test invalid implanted device name"""
+        obj = TestImplantedDevice(
+            implanted_device_name="InvalidDevice",
+        )
+        with self.assertRaises(ValueError) as context:
+            recursive_device_name_check(obj, self.implanted_devices)
+        self.assertIn("implanted_device_name InvalidDevice not found in implanted_devices", str(context.exception))
+
+    def test_valid_implanted_device_names(self):
+        """Test valid implanted device names"""
+        obj = TestImplantedDeviceNames(
+            implanted_device_names=["Device1", "Device2"],
+        )
+        recursive_device_name_check(obj, self.implanted_devices)
+
+    def test_invalid_implanted_device_names(self):
+        """Test invalid implanted device names"""
+        obj = TestImplantedDeviceNames(
+            implanted_device_names=["Device1", "InvalidDevice"],
+        )
+        with self.assertRaises(ValueError) as context:
+            recursive_device_name_check(obj, self.implanted_devices)
+        self.assertIn(
+            "implanted_device_names ['InvalidDevice'] not found in implanted_devices",
+            str(context.exception),
+        )
 
 
 if __name__ == "__main__":

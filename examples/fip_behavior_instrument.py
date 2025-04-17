@@ -217,6 +217,7 @@ connections = [
 ]
 
 lick_spout_assembly = LickSpoutAssembly(
+    name="Lick spout assembly",
     lick_spouts=[
         LickSpout(
             name="Left spout",

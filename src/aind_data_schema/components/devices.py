@@ -38,6 +38,7 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VoltageUnit,
 )
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
@@ -553,6 +554,7 @@ class LickSpout(Device):
 class LickSpoutAssembly(DataModel):
     """Description of multiple lick spouts, possibly mounted on a stage"""
 
+    name: str = Field(..., title="Lick spout assembly name")
     lick_spouts: List[LickSpout] = Field(..., title="Water spouts")
     motorized_stage: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
 
@@ -635,7 +637,28 @@ class Scanner(Device):
     magnetic_strength_unit: MagneticFieldUnit = Field(..., title="Magnetic strength unit")
 
 
+class MyomatrixContact(DataModel):
+    """Description of a contact on a myomatrix thread"""
+
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
+    relative_position: AnatomicalRelative = Field(
+        ..., title="Relative position", description="Position relative to procedures coordinate system"
+    )
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
+    in_muscle: bool = Field(..., title="In muscle")
+
+
+class MyomatrixThread(DataModel):
+    """Description of a thread of a myomatrix array"""
+
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use GroundWireLocations"
+    )
+    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
+
+
 class MyomatrixArray(Device):
     """Description of a Myomatrix array"""
 
     array_type: MyomatrixArrayType = Field(..., title="Array type")
+    threads: List[MyomatrixThread] = Field(..., title="Array threads")

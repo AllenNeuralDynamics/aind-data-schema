@@ -10,10 +10,8 @@ from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
-    ConcentrationUnit,
     CurrentUnit,
     MassUnit,
     SizeUnit,
@@ -28,42 +26,10 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
 from aind_data_schema.utils.exceptions import OneOfError
-
-
-class ImmunolabelClass(str, Enum):
-    """Type of antibodies"""
-
-    PRIMARY = "Primary"
-    SECONDARY = "Secondary"
-    CONJUGATE = "Conjugate"
-
-
-class StainType(str, Enum):
-    """Stain types for probes describing what is being labeled"""
-
-    RNA = "RNA"
-    NUCLEAR = "Nuclear"
-    FILL = "Fill"
-
-
-class Fluorophore(str, Enum):
-    """Fluorophores used in HCR and Immunolabeling"""
-
-    ALEXA_405 = "Alexa Fluor 405"
-    ALEXA_488 = "Alexa Fluor 488"
-    ALEXA_546 = "Alexa Fluor 546"
-    ALEXA_568 = "Alexa Fluor 568"
-    ALEXA_594 = "Alexa Fluor 594"
-    ALEXA_633 = "Alexa Fluor 633"
-    ALEXA_647 = "Alexa Fluor 647"
-    ATTO_488 = "ATTO 488"
-    ATTO_565 = "ATTO 565"
-    ATTO_643 = "ATTO 643"
-    CY3 = "Cyanine Cy 3"
 
 
 class SectionOrientation(str, Enum):
@@ -154,45 +120,6 @@ class InjectionProfile(str, Enum):
     PULSED = "Pulsed"
 
 
-class Readout(Reagent):
-    """Description of a readout"""
-
-    fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
-    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class HCRReadout(Readout):
-    """Description of a readout for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class OligoProbe(Reagent):
-    """Description of an oligonucleotide probe"""
-
-    species: Species.ONE_OF = Field(..., title="Species")
-    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
-    probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: Readout = Field(..., title="Readout")
-
-
-class HCRProbe(OligoProbe):
-    """Description of an oligo probe used for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    readout: HCRReadout = Field(..., title="Readout")
-
-
-class Stain(Reagent):
-    """Description of a non-oligo probe stain"""
-
-    concentration: Decimal = Field(..., title="Concentration")
-    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
-
-
 class HybridizationChainReaction(DataModel):
     """Description of an HCR staining round"""
 
@@ -214,16 +141,6 @@ class HCRSeries(DataModel):
     hcr_rounds: List[HybridizationChainReaction] = Field(..., title="Hybridization Chain Reaction rounds")
     strip_qc_compatible: bool = Field(..., title="Strip QC compatible")
     cell_id: Optional[str] = Field(default=None, title="Cell ID")
-
-
-class Antibody(Reagent):
-    """Description of an antibody used in immunolableing"""
-
-    immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
-    fluorophore: Optional[Fluorophore] = Field(default=None, title="Fluorophore")
-    mass: Decimal = Field(..., title="Mass of antibody")
-    mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class Section(DataModel):
@@ -561,20 +478,16 @@ class TrainingProtocol(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(DataModel):
-    """Description of an implanted ophys probe"""
-
-    ophys_probe: FiberProbe = Field(..., title="Fiber probe")
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-
-    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
-
-
-class FiberImplant(DataModel):
-    """Description of an implant procedure"""
+class ProbeImplant(DataModel):
+    """Description of a probe (fiber, ephys) implant procedure"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    probes: List[OphysProbe] = Field(..., title="Ophys Probes")
+    implanted_device_names: List[str] = Field(
+        ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
+    )  # note: exact field name is used by a validator
+
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
 class WaterRestriction(DataModel):
@@ -595,33 +508,15 @@ class WaterRestriction(DataModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(DataModel):
-    """Description of a contact on a myomatrix thread"""
-
-    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
-    relative_position: AnatomicalRelative = Field(
-        ..., title="Relative position", description="Position relative to procedures coordinate system"
-    )
-    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
-    in_muscle: bool = Field(..., title="In muscle")
-
-
-class MyomatrixThread(DataModel):
-    """Description of a thread of a myomatrix array"""
-
-    ground_electrode_location: MouseAnatomyModel = Field(
-        ..., title="Location of ground electrode", description="Use GroundWireLocations"
-    )
-    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
-
-
 class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
-    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
-    threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
+    implanted_device_name: str = Field(
+        ..., title="Myomatrix array", description="Must match a MyomatrixArray in Procedures.implanted_devices"
+    )  # note: exact field name is used by a validator
 
 
 class Perfusion(DataModel):
@@ -679,7 +574,7 @@ class Surgery(DataModel):
             Union[
                 CatheterImplant,
                 Craniotomy,
-                FiberImplant,
+                ProbeImplant,
                 Headframe,
                 BrainInjection,
                 Injection,
@@ -713,6 +608,9 @@ class Procedures(DataCoreModel):
         ]
     ] = Field(default=[], title="Subject Procedures")
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+
+    # Implanted devices
+    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(default=[], title="Implanted devices")
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
@@ -749,6 +647,15 @@ class Procedures(DataCoreModel):
 
         return values
 
+    @model_validator(mode="after")
+    @classmethod
+    def validate_implanted_device_names(cls, values):
+        """Validate that all implanted device names appear in the device list"""
+        implanted_device_names = [device.name for device in values.implanted_devices]
+        recursive_device_name_check(values, implanted_device_names)
+
+        return values
+
     def __add__(self, other: "Procedures") -> "Procedures":
         """Combine two Procedures objects"""
 
@@ -762,5 +669,6 @@ class Procedures(DataCoreModel):
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
+            implanted_devices=self.implanted_devices + other.implanted_devices,
             notes=merge_notes(self.notes, other.notes),
         )
