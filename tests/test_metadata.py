@@ -30,8 +30,8 @@ from aind_data_schema.core.subject import Subject
 from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
 
 from pathlib import Path
-from tests.resources.spim_instrument import inst
-from tests.resources.ephys_instrument import inst as ephys_inst
+from examples.aibs_smartspim_instrument import inst as spim_inst
+from examples.ephys_instrument import inst as ephys_inst
 
 from aind_data_schema_models.species import Strain
 
@@ -66,7 +66,7 @@ class TestMetadata(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         """Set up the test class."""
-        cls.spim_instrument = inst
+        cls.spim_instrument = spim_inst
 
         subject = Subject(
             subject_id="123456",
@@ -152,7 +152,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
-                instrument=inst,
+                instrument=self.spim_instrument,
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
