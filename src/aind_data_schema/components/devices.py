@@ -404,12 +404,6 @@ class EphysProbe(Device):
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
-class OptoProbe(EphysProbe):
-    """Combined opto/ephys probe"""
-
-    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
-
-
 class EphysAssembly(DataModel):
     """Named assembly for combining a manipulator and ephys probes"""
 
