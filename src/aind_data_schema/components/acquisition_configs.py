@@ -158,9 +158,6 @@ class SlapChannel(Channel):
 class PatchCordConfig(DeviceConfig):
     """Configuration of a patch cord and its output power to another device"""
 
-    output_power: Decimal = Field(..., title="Output power (uW)")
-    output_power_unit: PowerUnit = Field(default=PowerUnit.UW, title="Output power unit")
-    fiber_name: str = Field(..., title="Fiber name (must match procedure)")
     channels: List[Channel] = Field(..., title="Channels")
 
 

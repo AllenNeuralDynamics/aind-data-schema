@@ -10,9 +10,35 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
+from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.acquisition_configs import Channel, DetectorConfig, PatchCordConfig, LaserConfig
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+
+connections = [
+    Connection(
+        device_names=["Patch Cord A", "Fiber A"],
+        connection_data={
+            "Patch Cord A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Fiber A": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        }
+    ),
+    Connection(
+        device_names=["Patch Cord B", "Fiber B"],
+        connection_data={
+            "Patch Cord B": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Fiber B": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        }
+    ),
+]
 
 a = Acquisition(
     experimenters=[Person(name="Scientist Smith")],
@@ -47,9 +73,6 @@ a = Acquisition(
                 ),
                 PatchCordConfig(
                     device_name="Patch Cord A",
-                    output_power=40,
-                    output_power_unit="microwatt",
-                    fiber_name="Fiber A",
                     channels=[
                         Channel(
                             channel_name="Channel A",
@@ -71,9 +94,6 @@ a = Acquisition(
                 ),
                 PatchCordConfig(
                     device_name="Patch Cord B",
-                    output_power=43,
-                    output_power_unit="microwatt",
-                    fiber_name="Fiber B",
                     channels=[
                         Channel(
                             channel_name="Channel B",
