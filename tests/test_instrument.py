@@ -37,6 +37,7 @@ from aind_data_schema.components.devices import (
     OlfactometerChannel,
     OlfactometerChannelType,
     ScanningStage,
+    Microscope,
 )
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import (
@@ -52,6 +53,10 @@ from examples.ephys_instrument import inst as ephys_instrument
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
 computer_W10XXX000 = Computer(name="W10XXX000")
+
+microscope = Microscope(
+    name="Microscope A",
+)
 
 daqs = [
     NeuropixelsBasestation(
@@ -550,7 +555,7 @@ class InstrumentTests(unittest.TestCase):
         """Test that the modality -> device validator does not throw validation errors when devices are present"""
 
         # Mapping is a dictionary of Modality -> List[Device groups]
-        for modality_abbreviation, device_groups in DEVICES_REQUIRED.items():
+        for modality_abbreviation, _ in DEVICES_REQUIRED.items():
 
             inst = Instrument(
                 modalities=[Modality.from_abbreviation(modality_abbreviation)],
@@ -571,37 +576,11 @@ class InstrumentTests(unittest.TestCase):
                     laser,
                     dmd,
                     scan_stage,
+                    microscope,
                 ],
                 calibrations=[],
             )
             self.assertIsNotNone(inst)
-
-    def test_validator_notes(self):
-        """Test the notes validator"""
-
-        # Test when manufacturer is OTHER and notes are empty
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                modalities=[Modality.ECEPHYS],
-                components=[*daqs, *ems],
-                manufacturer=Organization.OTHER,
-                notes=None,
-            )
-
-        # Test when notes are provided for manufacturer OTHER
-        inst = Instrument(
-            instrument_id="123_EPHYS1-OPTO_20220101",
-            modification_date=date(2020, 10, 10),
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            modalities=[Modality.ECEPHYS],
-            components=[*daqs, *ems],
-            manufacturer=Organization.OTHER,
-            notes="This is a custom manufacturer.",
-        )
-        self.assertIsNotNone(inst)
 
     def test_serialize_modalities(self):
         """Tests that modalities serializer can handle different types"""
@@ -625,20 +604,22 @@ class InstrumentTests(unittest.TestCase):
     def test_coordinate_validator(self):
         """Test the coordinate_validator function"""
 
+        camera = Camera(
+            name="Camera A",
+            detector_type=DetectorType.CAMERA,
+            manufacturer=Organization.OTHER,
+            data_interface="USB",
+            frame_rate=144,
+            frame_rate_unit=FrequencyUnit.HZ,
+            sensor_width=1,
+            sensor_height=1,
+            chroma="Color",
+        )
+
         # Create a matching CameraAssembly
-        camera = CameraAssembly(
+        camera_assembly = CameraAssembly(
             name="Assembly A",
-            camera=Camera(
-                name="Camera A",
-                detector_type=DetectorType.CAMERA,
-                manufacturer=Organization.OTHER,
-                data_interface="USB",
-                frame_rate=144,
-                frame_rate_unit=FrequencyUnit.HZ,
-                sensor_width=1,
-                sensor_height=1,
-                chroma="Color",
-            ),
+            camera=camera,
             target=CameraTarget.BRAIN,
             relative_position=[AnatomicalRelative.SUPERIOR],
             lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
@@ -662,7 +643,7 @@ class InstrumentTests(unittest.TestCase):
                 *stimulus_devices,
                 scan_stage,
                 Disc(name="Disc A", radius=1),
-                camera,
+                camera_assembly,
                 computer_ASDF,
             ],
             calibrations=[],

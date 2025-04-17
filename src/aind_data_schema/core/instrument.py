@@ -225,16 +225,6 @@ class Instrument(DataCoreModel):
 
         return self
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
-        """Validator for other/notes"""
-
-        if info.data.get("manufacturer") == Organization.OTHER and not value:
-            raise ValueError(
-                "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
-            )
-        return value
-
     @model_validator(mode="after")
     def validate_modality_device_dependencies(cls, value):
         """
