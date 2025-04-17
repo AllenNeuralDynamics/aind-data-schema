@@ -130,11 +130,11 @@ class TestManipulatorConfig(unittest.TestCase):
                 ],
                 manipulator_coordinates=[
                     Coordinate(
-                        system_name=CoordinateSystemLibrary.PROBE_ARID.name,
+                        system_name=CoordinateSystemLibrary.PINPOINT_PROBE_ARID.name,
                         position=[1, 2, 3, 1],
                     ),
                     Coordinate(
-                        system_name=CoordinateSystemLibrary.PROBE_ARID.name,
+                        system_name=CoordinateSystemLibrary.PINPOINT_PROBE_ARID.name,
                         position=[4, 5, 6, 2],
                     ),
                 ],

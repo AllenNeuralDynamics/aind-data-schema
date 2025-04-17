@@ -353,10 +353,10 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    PROBE_MIS = CoordinateSystem(
-        name="PROBE_MIS",
+    MPM_PROBE_XYZ = CoordinateSystem(
+        name="MPM_PROBE_BLB",
         origin=Origin.TIP,
-        axis_unit=SizeUnit.CM,
+        axis_unit=SizeUnit.UM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.FB),
             Axis(name=AxisName.Y, direction=Direction.RL),
@@ -364,14 +364,14 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    PROBE_ARID = CoordinateSystem(
-        name="PROBE_ARID",
+    PINPOINT_PROBE_RSAB = CoordinateSystem(
+        name="PINPOINT_PROBE_RSAB",
         origin=Origin.TIP,
-        axis_unit=SizeUnit.CM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
-            Axis(name=AxisName.Z, direction=Direction.AP),
+            Axis(name=AxisName.Z, direction=Direction.PA),
             Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     )

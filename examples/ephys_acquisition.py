@@ -15,12 +15,22 @@ from aind_data_schema.components.acquisition_configs import (
     DomeModule,
     ManipulatorConfig,
     StimulusModality,
+    EphysAssemblyConfig,
 )
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 bonsai_software = Software(name="Bonsai", version="2.7")
+
+ephys_assembly_a_config = EphysAssemblyConfig(
+    manipulator=ManipulatorConfig(
+        coordinate_system=CoordinateSystemLibrary.MIS_PROBE_XYZ,
+    ),
+    probes=[
+
+    ],
+)
 
 
 ephys_config_a = ManipulatorConfig(
