@@ -217,17 +217,25 @@ class Atlas(CoordinateSystem):
 
 
 class Coordinate(DataModel):
-    """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
+    """A coordinate in a CoordinateSpace
     """
 
     system_name: str = Field(
-        ..., title="Coordinate system name"
+        ...,
+        title="Coordinate system name",
     )  # note: this field's exact name is used by a validator
     transforms: Translation = Field(..., title="Position")
 
 
+class AtlasCoordinate(DataModel):
+    """A coordinate in an atlas (AtlasSpace)"""
+
+    coordinate_system: Atlas = Field(..., title="Atlas")
+    coordinate: Coordinate = Field(..., title="Coordinate")
+
+
 class Vector(DataModel):
-    """A coordinate and rotation in a brain (CoordinateSpace) or atlas (AtlasSpace)
+    """A coordinate and orientation in a CoordinateSpace
     """
     system_name: str = Field(
         ..., title="Coordinate system name"

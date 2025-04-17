@@ -26,6 +26,8 @@ from aind_data_schema.components.acquisition_configs import (
     ImagingConfig,
     SlapMicroscopeConfig,
     MicroscopeConfig,
+    ProbeConfig,
+    EphysAssemblyConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -128,6 +130,8 @@ class DataStream(DataModel):
                 MicroscopeConfig,
                 SlapMicroscopeConfig,
                 SampleChamberConfig,
+                ProbeConfig,
+                EphysAssemblyConfig,
             ],
             Field(discriminator="object_type"),
         ]
@@ -236,6 +240,8 @@ class Acquisition(DataCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     acquisition_type: str = Field(..., title="Acquisition type")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",

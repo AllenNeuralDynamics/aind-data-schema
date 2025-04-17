@@ -23,7 +23,7 @@ from pydantic import Field, SkipValidation, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
+from aind_data_schema.components.coordinates import Coordinate, Vector, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
@@ -441,9 +441,9 @@ class Injection(DataModel):
 
 
 class BrainInjection(Injection):
-    """Description of a brain injection procedure"""
+    """Description of an injection procedure into a brain"""
 
-    coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
+    coordinates: List[Vector] = Field(..., title="Injection coordinate, depth, and rotation")
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
@@ -485,9 +485,6 @@ class ProbeImplant(DataModel):
     implanted_device_names: List[str] = Field(
         ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
     )  # note: exact field name is used by a validator
-
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
     dye: Optional[str] = Field(default=None, title="Dye")
 

@@ -22,7 +22,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform, CoordinateTransform
+from aind_data_schema.components.coordinates import Coordinate, Vector, AtlasCoordinate, CoordinateSystem, Scale, Transform, CoordinateTransform
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -269,18 +269,25 @@ class ProbeConfig(DeviceConfig):
     other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
         default=None, title="Other targeted structure"
     )
-    atlas_coordinates: Optional[List[Coordinate]] = Field(
+    atlas_coordinate: Optional[AtlasCoordinate] = Field(
         default=None,
-        title="Targeted coordinates in the Acquisition Atlas",
+        title="Target coordinate in Acquisition.atlas",
     )
 
-    # Coordinates
-    manipulator_coordinates: List[Coordinate] = Field(
+    # Transform
+    probe_transform: Vector = Field(
         ...,
-        title="Targeted coordinates in the Acquisition.coordinate_system",
+        title="Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
+
+
+class EphysAssemblyConfig(DeviceConfig):
+    """Group of configurations for an ephys assembly"""
+
+    manipulator: ManipulatorConfig = Field(..., title="Manipulator configuration")
+    probes: List[ProbeConfig] = Field(..., title="Probe configurations")
 
 
 class FiberAssemblyConfig(ManipulatorConfig):

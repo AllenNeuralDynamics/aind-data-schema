@@ -388,7 +388,7 @@ class FiberPatchCord(Device):
 
 
 class LaserAssembly(DataModel):
-    """Assembly for optogenetic stimulation"""
+    """Named assembly combining a manipulator, lasers, collimator, and fibers"""
 
     name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -398,18 +398,20 @@ class LaserAssembly(DataModel):
 
 
 class EphysProbe(Device):
-    """Named probe used in an ephys experiment"""
+    """Probe used in an ephys experiment"""
 
-    # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
-
-    # optional fields
-    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
+class OptoProbe(EphysProbe):
+    """Combined opto/ephys probe"""
+
+    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
+
+
 class EphysAssembly(DataModel):
-    """Module for electrophysiological recording"""
+    """Named assembly for combining a manipulator and ephys probes"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")

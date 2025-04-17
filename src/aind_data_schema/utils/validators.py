@@ -90,11 +90,6 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
         system_name = data.coordinate_system.name
         axis_count = len(data.coordinate_system.axes)
 
-    if hasattr(data, "atlas") and data.atlas:
-        # If we find a new atlas, allow it to over-write our settings
-        system_name = data.atlas.name
-        axis_count = len(data.atlas.axes)
-
     # Check if the object we are looking at has a system_name field
     if hasattr(data, "system_name"):
         _system_check_helper(data, system_name, axis_count)
