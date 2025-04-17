@@ -25,6 +25,7 @@ from aind_data_schema.components.acquisition_configs import (
     SampleChamberConfig,
     ImagingConfig,
     SlapMicroscopeConfig,
+    MicroscopeConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
@@ -124,6 +125,7 @@ class DataStream(DataModel):
                 LickSpoutConfig,
                 AirPuffConfig,
                 ImagingConfig,
+                MicroscopeConfig,
                 SlapMicroscopeConfig,
                 SampleChamberConfig,
             ],
