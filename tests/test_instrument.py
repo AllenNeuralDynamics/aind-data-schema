@@ -47,6 +47,8 @@ from aind_data_schema.core.instrument import (
     Instrument,
 )
 
+from examples.ephys_instrument import inst as ephys_instrument
+
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
 computer_W10XXX000 = Computer(name="W10XXX000")
@@ -407,42 +409,7 @@ class InstrumentTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Instrument()
 
-        inst = Instrument(
-            instrument_id="123_EPHYS1-OPTO_20220101",
-            modification_date=date(2020, 10, 10),
-            modalities=[Modality.ECEPHYS, Modality.FIB],
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            components=[
-                *daqs,
-                *cameras,
-                *stick_microscopes,
-                *light_sources,
-                *lms,
-                laser,
-                *ems,
-                *detectors,
-                *patch_cords,
-                *stimulus_devices,
-                scan_stage,
-                Disc(name="Disc A", radius=1),
-                computer_ASDF,
-                computer_foo,
-                computer_W10XXX000,
-            ],
-            connections=connections,
-            calibrations=[
-                Calibration(
-                    calibration_date=date(2020, 10, 10),
-                    device_name="Laser A",
-                    description="Laser power calibration",
-                    input=[10, 40, 80],
-                    input_unit=PowerUnit.PERCENT,
-                    output=[2, 6, 10],
-                    output_unit=PowerUnit.MW,
-                )
-            ],
-        )
-        self.assertIsNotNone(inst)
+        self.assertIsNotNone(ephys_instrument)
 
     def test_other_camera_target(self):
         """Test that the camera_target being set to Other throws a validation error without notes"""

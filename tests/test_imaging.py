@@ -71,7 +71,6 @@ class ImagingTests(unittest.TestCase):
             modalities=[Modality.SPIM],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             modification_date=datetime.now().date(),
-            manufacturer=Organization.LIFECANVAS,
             components=[objective, laser, scan_stage],
         )
 
@@ -85,7 +84,6 @@ class ImagingTests(unittest.TestCase):
                 modalities=[Modality.SPIM],
                 modification_date=datetime(2020, 10, 10, 0, 0, 0).date(),
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                manufacturer=Organization.OTHER,
                 components=[],
             )
 
