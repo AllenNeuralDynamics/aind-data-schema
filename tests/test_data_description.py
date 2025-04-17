@@ -1,11 +1,8 @@
 """ test DataDescription """
 
 import datetime
-import json
-import os
 import unittest
 from pathlib import Path
-from typing import List
 from unittest.mock import MagicMock, patch
 
 from aind_data_schema_models.data_name_patterns import DataLevel
@@ -25,17 +22,6 @@ DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_
 
 class DataDescriptionTest(unittest.TestCase):
     """test DataDescription"""
-
-    @classmethod
-    def setUpClass(cls):
-        """Load json files before running tests."""
-        data_description_files: List[str] = os.listdir(DATA_DESCRIPTION_FILES_PATH)
-        data_descriptions = []
-        for file_path in data_description_files:
-            with open(DATA_DESCRIPTION_FILES_PATH / file_path) as f:
-                contents = json.load(f)
-            data_descriptions.append((file_path, DataDescription.model_construct(**contents)))
-        cls.data_descriptions = dict(data_descriptions)
 
     BAD_NAME = "fizzbuzz"
     BASIC_NAME = "1234_3033-12-21T042211"
