@@ -30,6 +30,7 @@ from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
+from aind_data_schema.core.instrument import Connection
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
@@ -131,6 +132,12 @@ class DataStream(DataModel):
         ]
     ] = Field(..., title="Device configurations")
 
+    connections: List[Connection] = Field(
+        default=[],
+        title="Connections",
+        description="Connections that are specific to this acquisition, and are not present in the Instrument",
+    )
+
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
         """Check that the required devices are present for the modalities"""
@@ -147,6 +154,15 @@ class DataStream(DataModel):
                     raise ValueError(
                         f"Missing one of required devices {group_types} for modality {modality.name} in {config_types}"
                     )
+
+        return self
+
+    @model_validator(mode="after")
+    def check_connections(self):
+        """Check that every device in a Connection is present in the active_devices list"""
+        for connection in self.connections:
+            if not any(device in self.active_devices for device in connection.device_names):
+                raise ValueError(f"Missing devices in active_devices list for connection {connection}")
 
         return self
 

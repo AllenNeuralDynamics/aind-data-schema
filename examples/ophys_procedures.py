@@ -10,11 +10,9 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Antibody,
-    FiberImplant,
-    FiberProbe,
     Headframe,
     BrainInjection,
-    OphysProbe,
+    ProbeImplant,
     Perfusion,
     Procedures,
     SpecimenProcedure,
@@ -24,6 +22,7 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
 )
+from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate
@@ -31,8 +30,19 @@ from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coo
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
 
+implanted_devices = [
+    FiberProbe(
+        name="Probe A",
+        core_diameter=200,
+        numerical_aperture=0.37,
+        ferrule_material="Ceramic",
+        total_length=0.5,
+    )
+]
+
 p = Procedures(
     subject_id="625100",
+    implanted_devices=implanted_devices,
     subject_procedures=[
         Surgery(
             start_date=t.date(),
@@ -80,24 +90,14 @@ p = Procedures(
                     ],
                     targeted_structure=CCFStructure.VTA,
                 ),
-                FiberImplant(
+                ProbeImplant(
                     protocol_id="TO ENTER",
-                    probes=[
-                        OphysProbe(
-                            ophys_probe=FiberProbe(
-                                name="Probe A",
-                                core_diameter=200,
-                                numerical_aperture=0.37,
-                                ferrule_material="Ceramic",
-                                total_length=0.5,
-                            ),
-                            targeted_structure=CCFStructure.VTA,
-                            coordinate=Coordinate(
-                                system_name="BREGMA_ARID",
-                                position=[-600, -3050, 0, 4200],
-                            ),
-                        )
-                    ],
+                    implanted_device_names=["Probe A"],
+                    targeted_structure=CCFStructure.VTA,
+                    coordinate=Coordinate(
+                        system_name="BREGMA_ARID",
+                        position=[-600, -3050, 0, 4200],
+                    ),
                 ),
             ],
         ),

@@ -24,19 +24,6 @@ class InstrumentAcquisitionCompatibility:
         else:
             return None
 
-    def _compare_stream_devices(self) -> Optional[ValueError]:
-        """Compare acquisition active devices against instrument devices"""
-
-        active_devices = []
-        for stream in getattr(self.acquisition, "data_streams", []):
-            active_devices.extend(getattr(stream, "active_devices", []))
-
-        component_names = [comp.name for comp in self.inst.components if hasattr(comp, "name")]
-
-        for device in active_devices:
-            if device not in component_names:
-                return ValueError(f"Active device {device} in acquisition does not match any device in the instrument.")
-
     def _compare_stimulus_devices(self) -> Optional[ValueError]:
         """Compares stimulus device names"""
         acquisition_stimulus_devices = [
@@ -59,7 +46,6 @@ class InstrumentAcquisitionCompatibility:
         """
         comparisons = [
             self._compare_instrument_id(),
-            self._compare_stream_devices(),
             self._compare_stimulus_devices(),
         ]
         error_messages = [str(error) for error in comparisons if error]
