@@ -298,10 +298,12 @@ class EphysAssemblyConfig(DeviceConfig):
     probes: List[ProbeConfig] = Field(..., title="Probe configurations")
 
 
-class FiberAssemblyConfig(ManipulatorConfig):
+class FiberAssemblyConfig(DeviceConfig):
     """Inserted fiber photometry probe recorded in a stream"""
 
-    patch_cord_connections: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
+    manipulator: ManipulatorConfig = Field(..., title="Manipulator configuration")
+    probes: List[ProbeConfig] = Field(..., title="Probe configurations")
+    patch_cords: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
 class Liquid(str, Enum):
