@@ -99,7 +99,13 @@ class LightEmittingDiodeConfig(DeviceConfig):
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-class SlapMicroscopeConfig(DeviceConfig):
+class MicroscopeConfig(DeviceConfig):
+    """Configuration of a generic microscope"""
+
+    magnification: Optional[str] = Field(default=None, title="Magnification", description="e.g. 10x")
+
+
+class SlapMicroscopeConfig(MicroscopeConfig):
     """Configuration of a Slap microscope"""
 
     slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")

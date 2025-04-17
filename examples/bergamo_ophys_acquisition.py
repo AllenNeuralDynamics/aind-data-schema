@@ -83,7 +83,6 @@ a = Acquisition(
                             ),
                             fov_width=800,
                             fov_height=800,
-                            magnification="1x",
                             fov_scale_factor=1.5,
                             frame_rate=20,
                             frame_rate_unit=FrequencyUnit.HZ,

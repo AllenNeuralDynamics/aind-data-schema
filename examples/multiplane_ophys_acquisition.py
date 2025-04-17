@@ -20,12 +20,18 @@ from aind_data_schema.components.acquisition_configs import (
     MultiPlaneConfig,
     TriggerType,
     ImagingConfig,
+    MicroscopeConfig,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+
+microscope_config = MicroscopeConfig(
+    device_name="Mesoscope",
+    magnification="10x",
+)
 
 a = Acquisition(
     experimenters=[Person(name="John Smith")],
@@ -46,6 +52,7 @@ a = Acquisition(
             modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             active_devices=["Mesoscope", "Eye", "Face", "Behavior", "Vasculature", "Laser A", "PMT 1"],
             configurations=[
+                microscope_config,
                 ImagingConfig(
                     channels=[
                         Channel(
@@ -76,7 +83,6 @@ a = Acquisition(
                             fov_width=512,
                             fov_height=512,
                             fov_size_unit=SizeUnit.UM,
-                            magnification="10x",
                             fov_scale_factor=0.78,
                             frame_rate=9.48,
                             frame_rate_unit=FrequencyUnit.HZ,

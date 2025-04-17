@@ -668,5 +668,3 @@ class MyomatrixArray(Device):
 
 class Microscope(Device):
     """Description of a microscope"""
-
-    magnification: Optional[str] = Field(default=None, title="Magnification", description="e.g. 10x")
