@@ -16,6 +16,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Device,
     Computer,
+    Microscope,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema_models.modalities import Modality
@@ -314,11 +315,15 @@ connections = [
     ),
 ]
 
+scope = Microscope(
+    name="Microscope",
+    manufacturer=Organization.CUSTOM,
+)
+
 inst = Instrument(
     instrument_id="440_exaSPIM1_20231004",
     modalities=[Modality.SPIM],
     modification_date=datetime.date(2023, 10, 4),
-    manufacturer=Organization.CUSTOM,
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     components=[
         *objectives,
@@ -332,6 +337,7 @@ inst = Instrument(
         laser_launch,
         asi_tiger,
         computer,
+        scope,
     ],
     connections=connections,
     temperature_control=False,

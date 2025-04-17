@@ -18,6 +18,7 @@ from aind_data_schema.core.instrument import (
     Connection,
     ConnectionData,
     ConnectionDirection,
+    Microscope,
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
@@ -263,13 +264,18 @@ fluorescence_filters = [filter_1, filter_2, filter_3, filter_4, filter_5, filter
 motorized_stages = [motorized_stage_1, motorized_stage_2, motorized_stage_3, motorized_stage_4, motorized_stage_5]
 scanning_stages = [scanning_stage_1, scanning_stage_2, scanning_stage_3]
 
+scope = Microscope(
+    name="Microscope",
+    manufacturer=Organization.LIFECANVAS,
+)
+
 inst = Instrument(
     instrument_id="440_SmartSPIM1_20231004",
-    manufacturer=Organization.LIFECANVAS,
     modification_date=date(2023, 10, 4),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     modalities=[Modality.SPIM],
     components=[
+        scope,
         *objectives,
         *detectors,
         *lasers,

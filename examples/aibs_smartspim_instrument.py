@@ -13,6 +13,7 @@ from aind_data_schema.components.devices import (
     Objective,
     ScanningStage,
     Device,
+    Microscope,
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
@@ -216,14 +217,19 @@ connections = [
     ),
 ]
 
+spim_scope = Microscope(
+    name="Microscope",
+    manufacturer=Organization.LIFECANVAS,
+)
+
 inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     modalities=[Modality.SPIM],
-    manufacturer=Organization.LIFECANVAS,
     temperature_control=False,
     components=[
+        spim_scope,
         objective,
         camera1,
         laser1,
