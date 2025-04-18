@@ -1,37 +1,33 @@
 """Tests metadata module"""
 
 import json
-import re
 import unittest
 from datetime import datetime, timezone
-from unittest.mock import MagicMock, call, patch
-import uuid
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import (
     EphysAssembly,
     EphysProbe,
     Manipulator,
-    MousePlatform,
     Laser,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
-from aind_data_schema.components.identifiers import Person, Code
-from aind_data_schema.core.acquisition import Acquisition, SubjectDetails
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
+from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.data_description import DataDescription, Funding
-from aind_data_schema.core.metadata import ExternalPlatforms, Metadata, MetadataStatus, create_metadata_json
+from aind_data_schema.core.metadata import Metadata, create_metadata_json
 from aind_data_schema.core.procedures import (
     BrainInjection,
     Procedures,
     Surgery,
 )
 from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
-from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.core.subject import BreedingInfo, Housing, Sex, Species, Subject
+from aind_data_schema.core.instrument import Instrument, Connection
+from aind_data_schema.core.subject import Subject
+from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
 
 from pathlib import Path
 from tests.resources.spim_instrument import inst
@@ -39,7 +35,6 @@ from tests.resources.ephys_instrument import inst as ephys_inst
 
 from aind_data_schema_models.species import Strain
 
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -74,21 +69,23 @@ class TestMetadata(unittest.TestCase):
         cls.spim_instrument = inst
 
         subject = Subject(
-            species=Species.MUS_MUSCULUS,
-            subject_id="12345",
-            sex=Sex.MALE,
-            date_of_birth=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc).date(),
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            subject_id="123456",
+            subject_details=MouseSubject(
+                species=Species.MUS_MUSCULUS,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc).date(),
+                source=Organization.AI,
+                breeding_info=BreedingInfo(
+                    breeding_group="Emx1-IRES-Cre(ND)",
+                    maternal_id="546543",
+                    maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                    paternal_id="232323",
+                    paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+                ),
+                genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
+                housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
             ),
-            genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
-            housing=Housing(home_cage_enrichment=["Running wheel"], cage_id="123"),
-            background_strain=Strain.C57BL_6J,
         )
         dd = DataDescription(
             modalities=[Modality.ECEPHYS],
@@ -98,18 +95,18 @@ class TestMetadata(unittest.TestCase):
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             investigators=[Person(name="Jane Smith")],
+            project_name="Test",
         )
         procedures = Procedures(
             subject_id="12345",
         )
-        processing = Processing(
+        processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
                     experimenters=[Person(name="Dr. Dan")],
-                    name=ProcessName.ANALYSIS,
+                    process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
-                    input_location="/path/to/inputs",
-                    output_location="/path/to/outputs",
+                    output_path="/path/to/outputs",
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -131,96 +128,6 @@ class TestMetadata(unittest.TestCase):
         cls.dd_json = json.loads(dd.model_dump_json())
         cls.procedures_json = json.loads(procedures.model_dump_json())
         cls.processing_json = json.loads(processing.model_dump_json())
-
-    def test_valid_subject_info(self):
-        """Tests that the record is marked as VALID if a valid subject model
-        is present."""
-        s1 = Subject(
-            species=Species.MUS_MUSCULUS,
-            subject_id="123345",
-            sex=Sex.MALE,
-            date_of_birth="2020-10-10",
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
-            ),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
-        )
-        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=s1)
-        self.assertEqual("655019_2023-04-03T181709", d1.name)
-        self.assertEqual("bucket", d1.location)
-        self.assertEqual(MetadataStatus.VALID, d1.metadata_status)
-        self.assertEqual(s1, d1.subject)
-
-    def test_missing_subject_info(self):
-        """Marks the metadata status as MISSING if a Subject model is not
-        present"""
-
-        d1 = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-        )
-        self.assertEqual(MetadataStatus.MISSING, d1.metadata_status)
-        self.assertEqual("655019_2023-04-03T181709", d1.name)
-        self.assertEqual("bucket", d1.location)
-
-        # Assert at least a name and location are required
-        with self.assertRaises(ValidationError) as e:
-            Metadata()
-        expected_exception_message = (
-            "2 validation errors for Metadata\n"
-            "name\n"
-            "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing\n"
-            "location\n"
-            "  Field required [type=missing, input_value={}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/missing"
-        )
-        self.assertEqual(expected_exception_message, str(e.exception))
-
-    def test_invalid_core_models(self):
-        """Test that invalid models don't raise an error, but marks the
-        metadata_status as INVALID"""
-
-        # Invalid subject model
-        d1 = Metadata(name="655019_2023-04-03T181709", location="bucket", subject=Subject.model_construct())
-        self.assertEqual(MetadataStatus.INVALID, d1.metadata_status)
-
-        # Valid subject model, but invalid procedures model
-        s2 = Subject(
-            species=Species.MUS_MUSCULUS,
-            subject_id="123345",
-            sex=Sex.MALE,
-            date_of_birth="2020-10-10",
-            source=Organization.AI,
-            breeding_info=BreedingInfo(
-                breeding_group="Emx1-IRES-Cre(ND)",
-                maternal_id="546543",
-                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
-                paternal_id="232323",
-                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
-            ),
-            genotype="Emx1-IRES-Cre;Camk2a-tTA;Ai93(TITL-GCaMP6f)/wt",
-        )
-        d2 = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-            subject=s2,
-            procedures=Procedures.model_construct(injection_materials=["some materials"]),
-        )
-        self.assertEqual(MetadataStatus.INVALID, d2.metadata_status)
-
-        # Tests constructed via dictionary
-        d3 = Metadata(
-            name="655019_2023-04-03T181709",
-            location="bucket",
-            subject=json.loads(Subject.model_construct().model_dump_json()),
-        )
-        self.assertEqual(MetadataStatus.INVALID, d3.metadata_status)
 
     def test_default_file_extension(self):
         """Tests that the default file extension used is as expected."""
@@ -244,7 +151,7 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(subject_details=SubjectDetails.model_construct()),
+                acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
                 instrument=inst,
                 processing=Processing.model_construct(),
             )
@@ -272,7 +179,7 @@ class TestMetadata(unittest.TestCase):
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
-                    instrument_id="323_EPHYS1_20231003", subject_details=SubjectDetails.model_construct()
+                    instrument_id="323_EPHYS1_20231003", subject_details=AcquisitionSubjectDetails.model_construct()
                 ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -281,11 +188,10 @@ class TestMetadata(unittest.TestCase):
         """Tests that instrument/acquisition compatibility validator works as expected"""
 
         modalities = [Modality.ECEPHYS]
-        mouse_platform = MousePlatform.model_construct(name="platform1")
         inst = Instrument.model_construct(
             instrument_id="123_EPHYS1_20220101",
             modalities=modalities,
-            components=[ephys_assembly, mouse_platform],
+            components=[ephys_assembly],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
         )
         with self.assertRaises(ValidationError) as context:
@@ -304,7 +210,7 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
-                    subject_details=SubjectDetails.model_construct(mouse_platform_name="platform1"),
+                    subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
                 ),
             )
         self.assertIn(
@@ -323,7 +229,6 @@ class TestMetadata(unittest.TestCase):
         m_dict = m.model_dump()
 
         m_dict["schema_version"] = "0.0.0"
-        m_dict.pop("id")
 
         m2 = Metadata(**m_dict)
 
@@ -349,13 +254,11 @@ class TestMetadata(unittest.TestCase):
             processing=self.processing,
         )
         expected_result = json.loads(expected_md.model_dump_json(by_alias=True))
-        # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
-            )
+        result = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons=core_jsons,
+        )
         # check that metadata was created with expected values
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
@@ -363,12 +266,7 @@ class TestMetadata(unittest.TestCase):
         self.assertEqual(self.procedures_json, result["procedures"])
         self.assertEqual(self.processing_json, result["processing"])
         self.assertIsNone(result["acquisition"])
-        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
         # also check the other fields
-        # small hack to mock the _id, created, and last_modified fields
-        expected_result["_id"] = result["_id"]
-        expected_result["created"] = result["created"]
-        expected_result["last_modified"] = result["last_modified"]
         self.assertDictEqual(expected_result, result)
 
     def test_create_from_core_jsons_invalid(self):
@@ -388,113 +286,173 @@ class TestMetadata(unittest.TestCase):
             location=self.sample_location,
             core_jsons=core_jsons,
         )
-        self.assertEqual(MetadataStatus.INVALID.value, metadata["metadata_status"])
+        self.assertIsNotNone(metadata)
 
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""
-        created = datetime(2024, 10, 31, 12, 0, 0, tzinfo=timezone.utc)
         external_links = {
             ExternalPlatforms.CODEOCEAN.value: ["123", "abc"],
         }
-        # there are some userwarnings when creating from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons={
-                    "subject": self.subject_json,
-                },
-                optional_created=created,
-                optional_external_links=external_links,
-            )
+        result = create_metadata_json(
+            name=self.sample_name,
+            location=self.sample_location,
+            core_jsons={
+                "subject": self.subject_json,
+            },
+            optional_external_links=external_links,
+        )
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual("2024-10-31T12:00:00Z", result["created"])
         self.assertEqual(external_links, result["external_links"])
 
-    @patch("logging.warning")
-    @patch("aind_data_schema.core.metadata.is_dict_corrupt")
-    def test_create_from_core_jsons_corrupt(self, mock_is_dict_corrupt: MagicMock, mock_warning: MagicMock):
-        """Tests metadata json creation ignores corrupt core jsons"""
-        # mock corrupt procedures and processing
-        mock_is_dict_corrupt.side_effect = lambda x: (x == self.procedures_json or x == self.processing_json)
-        core_jsons = {
-            "subject": self.subject_json,
-            "data_description": None,
-            "procedures": self.procedures_json,
-            "instrument": None,
-            "processing": self.processing_json,
-            "acquisition": None,
-            "quality_control": None,
-        }
-        # there are some userwarnings when creating Subject from json
-        with self.assertWarns(UserWarning):
-            result = create_metadata_json(
-                name=self.sample_name,
-                location=self.sample_location,
-                core_jsons=core_jsons,
+    def test_validate_expected_files_by_modality(self):
+        """Tests that warnings are issued when metadata is missing required files"""
+        # Test case where required files are missing for 'subject'
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                subject=self.subject,
+                # Missing required files: data_description, procedures, instrument, acquisition
             )
-        # check that metadata was still created
-        self.assertEqual(self.sample_name, result["name"])
-        self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(self.subject_json, result["subject"])
-        self.assertIsNone(result["acquisition"])
-        self.assertEqual(MetadataStatus.VALID.value, result["metadata_status"])
-        # check that corrupt core jsons were ignored
-        self.assertIsNone(result["procedures"])
-        self.assertIsNone(result["processing"])
-        mock_warning.assert_has_calls(
-            [
-                call("Provided processing is corrupt! It will be ignored."),
-                call("Provided procedures is corrupt! It will be ignored."),
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn("Metadata missing required file: data_description", warning_messages)
+        self.assertIn("Metadata missing required file: procedures", warning_messages)
+        self.assertIn("Metadata missing required file: instrument", warning_messages)
+        self.assertIn("Metadata missing required file: acquisition", warning_messages)
+
+        # Test case where no required files exist
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                # No required files provided
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']",
+            warning_messages,
+        )
+
+    def test_validate_acquisition_active_devices(self):
+        """Tests that active devices in acquisition are validated correctly."""
+        # Case where all active devices are present in instrument components
+        instrument = Instrument.model_construct(
+            instrument_id="Test",
+            components=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
             ],
-            any_order=True,
+            modalities=[],
+        )
+        procedures = Procedures.model_construct(
+            implanted_devices=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            subject_procedures=[],
+        )
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            instrument=instrument,
+            acquisition=acquisition,
+            procedures=procedures,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where active devices are missing
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Missing Device"], modalities=[], configurations=[]
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition,
+            )
+        self.assertIn(
+            (
+                "Active devices '{'Missing Device'}' were not found in either "
+                "the Instrument.components or Procedures.implanted_devices."
+            ),
+            str(context.exception),
         )
 
-    def test_last_modified(self):
-        """Test that the last_modified field enforces timezones"""
-        m = Metadata.model_construct(
-            name="name",
-            location="location",
-            id=uuid.uuid4(),
+    def test_validate_acquisition_connections(self):
+        """Tests that acquisition connections are validated correctly."""
+        # Case where all connection devices are present in instrument components
+        instrument = Instrument.model_construct(
+            instrument_id="Test",
+            components=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            modalities=[],
         )
-        m_dict = m.model_dump(by_alias=True)
+        procedures = Procedures.model_construct(
+            implanted_devices=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            subject_procedures=[],
+        )
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            instrument=instrument,
+            acquisition=acquisition,
+            procedures=procedures,
+        )
+        self.assertIsNotNone(metadata)
 
-        # Test that naive datetime is coerced to timezone-aware datetime
-        date = "2022-11-22T08:43:00"
-        date_with_timezone = datetime.fromisoformat(date).astimezone()
-        m_dict["last_modified"] = "2022-11-22T08:43:00"
-        m2 = Metadata(**m_dict)
-        self.assertIsNotNone(m2)
-        self.assertEqual(m2.last_modified, date_with_timezone)
-
-        # Also check that last_modified is now in UTC
-        self.assertEqual(m2.last_modified.tzinfo, timezone.utc)
-
-        # Test that timezone-aware datetime is not coerced
-        date_minus = "2022-11-22T08:43:00-07:00"
-        m_dict["last_modified"] = date_minus
-        m3 = Metadata(**m_dict)
-        self.assertIsNotNone(m3)
-        self.assertEqual(m3.last_modified, datetime.fromisoformat(date_minus))
-
-        # Test that UTC datetime is not coerced
-        date_utc = "2022-11-22T08:43:00+00:00"
-        m_dict["last_modified"] = date_utc
-        m4 = Metadata(**m_dict)
-        self.assertIsNotNone(m4)
-        self.assertEqual(m4.last_modified, datetime.fromisoformat(date_utc))
-
-        def roundtrip_lm(model):
-            """Helper function to roundtrip last_modified field"""
-            model_json = model.model_dump_json(by_alias=True)
-            model_dict = json.loads(model_json)
-            return model_dict["last_modified"]
-
-        # Test that the output looks right
-        self.assertEqual(m.last_modified.isoformat().replace("+00:00", "Z"), roundtrip_lm(m))
-        self.assertEqual("2022-11-22T15:43:00Z", roundtrip_lm(m3))
-        self.assertEqual("2022-11-22T08:43:00Z", roundtrip_lm(m4))
+        # Case where connection devices are missing
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Laser A"],
+                    modalities=[],
+                    configurations=[],
+                    connections=[Connection(device_names=["Probe A", "Missing Device"], connection_data={})],
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition,
+            )
+        self.assertIn(
+            "Connection 'object_type='Connection' device_names=['Probe A', 'Missing Device'] connection_data={}'",
+            str(context.exception),
+        )
 
 
 if __name__ == "__main__":

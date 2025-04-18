@@ -4,52 +4,52 @@ import json
 import unittest
 from datetime import date
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
 from pydantic import ValidationError
-from pydantic_core import PydanticSerializationError
 
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import (
-    Calibration,
     Camera,
     CameraAssembly,
     CameraTarget,
-    ChannelType,
+    Computer,
     DAQChannel,
     Detector,
     DetectorType,
     Device,
+    DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
     EphysProbe,
+    FiberPatchCord,
     Laser,
     LaserAssembly,
     Lens,
+    LickSpout,
+    LickSpoutAssembly,
     Manipulator,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OlfactometerChannel,
-    PatchCord,
-    LickSpoutAssembly,
-    LickSpout,
+    OlfactometerChannelType,
     ScanningStage,
-    DigitalMicromirrorDevice,
 )
-
+from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import (
-    Connection,
-    Instrument,
     DEVICES_REQUIRED,
+    Connection,
     ConnectionData,
     ConnectionDirection,
+    Instrument,
 )
-from aind_data_schema_models.units import SizeUnit
-from aind_data_schema.components.coordinates import (
-    AnatomicalRelative,
-    CoordinateSystemLibrary,
-)
+
+computer_foo = Computer(name="foo")
+computer_ASDF = Computer(name="ASDF")
+computer_W10XXX000 = Computer(name="W10XXX000")
 
 daqs = [
     NeuropixelsBasestation(
@@ -59,7 +59,6 @@ daqs = [
         slot=0,
         manufacturer=Organization.IMEC,
         ports=[],
-        computer_name="foo",
         channels=[
             DAQChannel(
                 channel_name="123",
@@ -130,6 +129,61 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["Neuropixels basestation", "foo"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "foo": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["cam", "ASDF"],
+        connection_data={
+            "cam": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "ASDF": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Neuropixels basestation", "foo"],
+        connection_data={
+            "Neuropixels basestation": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "foo": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Camera A", "ASDF"],
+        connection_data={
+            "Camera A": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "ASDF": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Olfactometer", "W10XXX000"],
+        connection_data={
+            "Olfactometer": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "W10XXX000": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
 ]
 
 ems = [
@@ -168,7 +222,7 @@ lms = [
         ),
         name="Laser_assembly",
         collimator=Device(name="Collimator A"),
-        fiber=PatchCord(
+        fiber=FiberPatchCord(
             name="Bundle Branching Fiber-optic Patch Cord",
             manufacturer=Organization.DORIC,
             model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -188,7 +242,6 @@ cameras = [
             detector_type=DetectorType.CAMERA,
             manufacturer=Organization.OTHER,
             data_interface="USB",
-            computer_name="ASDF",
             frame_rate=144,
             frame_rate_unit=FrequencyUnit.HZ,
             sensor_width=1,
@@ -233,7 +286,6 @@ stick_microscopes = [
             detector_type=DetectorType.CAMERA,
             manufacturer=Organization.OTHER,
             data_interface="USB",
-            computer_name="ASDF",
             frame_rate=144,
             frame_rate_unit=FrequencyUnit.HZ,
             sensor_width=1,
@@ -274,7 +326,7 @@ detectors = [
     )
 ]
 patch_cords = [
-    PatchCord(
+    FiberPatchCord(
         name="Bundle Branching Fiber-optic Patch Cord",
         manufacturer=Organization.DORIC,
         model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -300,21 +352,21 @@ stimulus_devices = [
         serial_number="213456",
         hardware_version="1",
         is_clock_generator=False,
-        computer_name="W10XXX000",
         channels=[
             OlfactometerChannel(
                 channel_index=0,
-                channel_type=ChannelType.CARRIER,
+                channel_type=OlfactometerChannelType.CARRIER,
                 flow_capacity=100,
             ),
             OlfactometerChannel(
                 channel_index=1,
-                channel_type=ChannelType.ODOR,
+                channel_type=OlfactometerChannelType.ODOR,
                 flow_capacity=100,
             ),
         ],
     ),
     LickSpoutAssembly(
+        name="Lick spout assembly",
         lick_spouts=[
             LickSpout(
                 name="Left spout",
@@ -339,8 +391,10 @@ calibration = Calibration(
     calibration_date=date(2020, 10, 10),
     device_name="Laser A",
     description="Laser power calibration",
-    input={"power percent": [10, 40, 80]},
-    output={"power mW": [2, 6, 10]},
+    input=[10, 40, 80],
+    input_unit=PowerUnit.PERCENT,
+    output=[2, 6, 10],
+    output_unit=PowerUnit.MW,
 )
 
 
@@ -371,6 +425,9 @@ class InstrumentTests(unittest.TestCase):
                 *stimulus_devices,
                 scan_stage,
                 Disc(name="Disc A", radius=1),
+                computer_ASDF,
+                computer_foo,
+                computer_W10XXX000,
             ],
             connections=connections,
             calibrations=[
@@ -378,8 +435,10 @@ class InstrumentTests(unittest.TestCase):
                     calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent": [10, 40, 80]},
-                    output={"power mW": [2, 6, 10]},
+                    input=[10, 40, 80],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[2, 6, 10],
+                    output_unit=PowerUnit.MW,
                 )
             ],
         )
@@ -414,8 +473,10 @@ class InstrumentTests(unittest.TestCase):
                         calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
                     )
                 ],
                 connections=[
@@ -447,8 +508,10 @@ class InstrumentTests(unittest.TestCase):
                     calibration_date=date(2020, 10, 10),
                     device_name="Laser A",
                     description="Laser power calibration",
-                    input={"power percent": [10, 40, 80]},
-                    output={"power mW": [2, 6, 10]},
+                    input=[10, 40, 80],
+                    input_unit=PowerUnit.PERCENT,
+                    output=[2, 6, 10],
+                    output_unit=PowerUnit.MW,
                 )
             ],
             connections=[
@@ -486,8 +549,10 @@ class InstrumentTests(unittest.TestCase):
                         calibration_date=date(2020, 10, 10),
                         device_name="Laser A",
                         description="Laser power calibration",
-                        input={"power percent": [10, 40, 80]},
-                        output={"power mW": [2, 6, 10]},
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
                     )
                 ],
                 connections=[
@@ -571,50 +636,6 @@ class InstrumentTests(unittest.TestCase):
         )
         self.assertIsNotNone(inst)
 
-    def test_instrument_id_validator(self):
-        """Tests that instrument_id validator works as expected"""
-
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                components=[
-                    *daqs,
-                    *cameras,
-                    *stick_microscopes,
-                    *light_sources,
-                    *lms,
-                    *ems,
-                    *detectors,
-                    *patch_cords,
-                    *stimulus_devices,
-                    Disc(name="Disc A", radius=1),
-                ],
-                calibrations=[calibration],
-            )
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS-OPTO_2020-01-01",
-                modification_date=date(2020, 10, 10),
-                modalities=[Modality.ECEPHYS, Modality.FIB],
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                components=[
-                    *daqs,
-                    *cameras,
-                    *stick_microscopes,
-                    *light_sources,
-                    *lms,
-                    *ems,
-                    *detectors,
-                    *patch_cords,
-                    *stimulus_devices,
-                    Disc(name="Disc A", radius=1),
-                ],
-                calibrations=[calibration],
-            )
-
     def test_serialize_modalities(self):
         """Tests that modalities serializer can handle different types"""
         expected_modalities = [{"name": "Extracellular electrophysiology", "abbreviation": "ecephys"}]
@@ -634,13 +655,6 @@ class InstrumentTests(unittest.TestCase):
         instrument_dict_data = json.loads(instrument_dict_json)
         self.assertEqual(instrument_dict_data["modalities"], expected_modalities)
 
-        # Case 3: Modality is an unknown type
-        with self.assertRaises(PydanticSerializationError) as context:
-            instrument_unknown_modality = Instrument.model_construct(modalities={"UnknownModality"})
-
-            instrument_unknown_modality.model_dump_json()
-        self.assertIn("Error calling function `serialize_modalities`", str(context.exception))
-
     def test_coordinate_validator(self):
         """Test the coordinate_validator function"""
 
@@ -652,7 +666,6 @@ class InstrumentTests(unittest.TestCase):
                 detector_type=DetectorType.CAMERA,
                 manufacturer=Organization.OTHER,
                 data_interface="USB",
-                computer_name="ASDF",
                 frame_rate=144,
                 frame_rate_unit=FrequencyUnit.HZ,
                 sensor_width=1,
@@ -683,9 +696,22 @@ class InstrumentTests(unittest.TestCase):
                 scan_stage,
                 Disc(name="Disc A", radius=1),
                 camera,
+                computer_ASDF,
             ],
             calibrations=[],
-            connections=[],
+            connections=[
+                Connection(
+                    device_names=["Camera A", "ASDF"],
+                    connection_data={
+                        "Camera A": ConnectionData(
+                            direction=ConnectionDirection.SEND,
+                        ),
+                        "ASDF": ConnectionData(
+                            direction=ConnectionDirection.RECEIVE,
+                        ),
+                    },
+                )
+            ],
         )
         self.assertIsNotNone(inst)
 
@@ -728,6 +754,54 @@ class ConnectionTest(unittest.TestCase):
             )
 
         self.assertIn("Connection data key 'Laser A' does not exist", str(context.exception))
+
+    def test_validate_modalities_sorting(self):
+        """Test that validate_modalities sorts modalities by their name"""
+
+        # Create unsorted modalities
+        unsorted_modalities = [
+            Modality.FIB,
+            Modality.ECEPHYS,
+            Modality.BEHAVIOR_VIDEOS,
+        ]
+
+        # Expected sorted modalities
+        expected_sorted_modalities = [
+            Modality.BEHAVIOR_VIDEOS.abbreviation,
+            Modality.ECEPHYS.abbreviation,
+            Modality.FIB.abbreviation,
+        ]
+
+        # Create an instrument with unsorted modalities
+        inst = Instrument(
+            instrument_id="123_EPHYS1-OPTO_20220101",
+            modification_date=date(2020, 10, 10),
+            modalities=unsorted_modalities,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[
+                *daqs,
+                *cameras,
+                *stick_microscopes,
+                *light_sources,
+                *lms,
+                laser,
+                *ems,
+                *detectors,
+                *patch_cords,
+                *stimulus_devices,
+                scan_stage,
+                Disc(name="Disc A", radius=1),
+                computer_ASDF,
+                computer_foo,
+                computer_W10XXX000,
+            ],
+            connections=connections,
+            calibrations=[],
+        )
+
+        inst_modality_abbr = [modality.abbreviation for modality in inst.modalities]
+        # Validate that the modalities are sorted
+        self.assertEqual(inst_modality_abbr, expected_sorted_modalities)
 
 
 if __name__ == "__main__":

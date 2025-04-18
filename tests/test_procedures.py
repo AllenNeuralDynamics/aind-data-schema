@@ -1,23 +1,20 @@
 """ test Procedures """
 
-import re
 import unittest
+from unittest.mock import patch
 from datetime import date
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import TimeUnit, ConcentrationUnit, VolumeUnit
 from pydantic import ValidationError
-from pydantic import __version__ as pyd_version
 
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
-    FiberImplant,
     BrainInjection,
     NonViralMaterial,
-    OphysProbe,
     Procedures,
-    Sectioning,
+    PlanarSectioning,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
@@ -27,18 +24,22 @@ from aind_data_schema.core.procedures import (
     Injection,
     Craniotomy,
     CraniotomyType,
+    HCRSeries,
+    ProbeImplant,
+    Section,
+    SectionOrientation,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
     Coordinate,
     Origin,
-    AnatomicalRelative,
     Rotation,
+    CoordinateSystemLibrary,
 )
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
-from aind_data_schema_models.units import SizeUnit
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
+from aind_data_schema_models.units import SizeUnit, CurrentUnit
+from aind_data_schema.utils.exceptions import OneOfError
 
 
 class ProceduresTests(unittest.TestCase):
@@ -56,8 +57,11 @@ class ProceduresTests(unittest.TestCase):
         p = Procedures(subject_id="12345")
         self.assertEqual("12345", p.subject_id)
 
-    def test_injection_material_check(self):
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_injection_material_check(self, mock_get_emapa_id):
         """Check for validation error when injection_materials is empty"""
+
+        mock_get_emapa_id.return_value = "123456"
 
         with self.assertRaises(ValidationError) as e:
             Procedures(
@@ -79,10 +83,8 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.RETRO_ORBITAL,
+                                targeted_structure=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -91,8 +93,10 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertIn("injection_materials", repr(e.exception))
 
-    def test_injection_material_none(self):
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_injection_material_none(self, mock_get_emapa_id):
         """Check for validation error when injection_materials is None"""
+        mock_get_emapa_id.return_value = "123456"
         with self.assertRaises(ValidationError) as e:
             Procedures(
                 subject_id="12345",
@@ -113,10 +117,8 @@ class ProceduresTests(unittest.TestCase):
                                         profile=InjectionProfile.BOLUS,
                                     )
                                 ],
-                                target=InjectionTargets.RETRO_ORBITAL,
+                                targeted_structure=InjectionTargets.RETRO_ORBITAL,
                                 relative_position=[AnatomicalRelative.LEFT],
-                                recovery_time=10,
-                                recovery_time_unit=TimeUnit.M,
                             ),
                         ],
                     )
@@ -125,17 +127,32 @@ class ProceduresTests(unittest.TestCase):
 
         self.assertIn("injection_materials", repr(e.exception))
 
-    def test_injection_materials_list(self):
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_injection_materials_list(self, mock_get_emapa_id):
         """Valid injection_materials list"""
+        mock_get_emapa_id.return_value = "123456"
 
         p = Procedures(
             subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            implanted_devices=[
+                FiberProbe(
+                    name="Probe A",
+                    manufacturer=Organization.DORIC,
+                    model="8",
+                    core_diameter=2,
+                    numerical_aperture=1,
+                    ferrule_material="Ceramic",
+                    total_length=10,
+                )
+            ],
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
                     experimenters=[Person(name="Mam Moth")],
                     ethics_review_id="234",
                     protocol_id="123",
+                    coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                     measured_coordinates={
                         Origin.BREGMA: Coordinate(
                             system_name="BREGMA_ARI",
@@ -161,7 +178,7 @@ class ProceduresTests(unittest.TestCase):
                                     titer=2300000000,
                                 )
                             ],
-                            target=InjectionTargets.RETRO_ORBITAL,
+                            targeted_structure=InjectionTargets.RETRO_ORBITAL,
                             relative_position=[AnatomicalRelative.LEFT],
                             dynamics=[
                                 InjectionDynamics(
@@ -172,8 +189,6 @@ class ProceduresTests(unittest.TestCase):
                                     profile=InjectionProfile.BOLUS,
                                 )
                             ],
-                            recovery_time=10,
-                            recovery_time_unit=TimeUnit.M,
                         ),
                         Injection(
                             protocol_id="234",
@@ -187,7 +202,7 @@ class ProceduresTests(unittest.TestCase):
                                     concentration_unit=ConcentrationUnit.UM,
                                 )
                             ],
-                            target=InjectionTargets.INTRAPERITONEAL,
+                            targeted_structure=InjectionTargets.INTRAPERITONEAL,
                             dynamics=[
                                 InjectionDynamics(
                                     volume=1,
@@ -225,33 +240,19 @@ class ProceduresTests(unittest.TestCase):
                                     position=[0.5, 1, 0, 1],
                                 ),
                             ],
-                            recovery_time=10,
-                            recovery_time_unit=TimeUnit.M,
-                            target=CCFStructure.VISP6A,
+                            targeted_structure=CCFStructure.VISP6A,
                         ),
-                        FiberImplant(
+                        ProbeImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
-                            probes=[
-                                OphysProbe(
-                                    ophys_probe=FiberProbe(
-                                        name="Probe A",
-                                        manufacturer=Organization.DORIC,
-                                        model="8",
-                                        core_diameter=2,
-                                        numerical_aperture=1,
-                                        ferrule_material="Ceramic",
-                                        total_length=10,
-                                    ),
-                                    targeted_structure=CCFStructure.MOP,
-                                    coordinate=Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 2, 0, 2],
-                                        angles=Rotation(
-                                            angles=[10, 0, 0],
-                                        ),
-                                    ),
-                                )
-                            ],
+                            implanted_device_names=["Probe A"],
+                            targeted_structure=CCFStructure.MOP,
+                            coordinate=Coordinate(
+                                system_name="BREGMA_ARID",
+                                position=[1, 2, 0, 2],
+                                angles=Rotation(
+                                    angles=[10, 0, 0],
+                                ),
+                            ),
                         ),
                     ],
                 )
@@ -272,17 +273,9 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, notes cannot be empty if procedure_type is Other."
-            " Describe the procedure in the notes field. [type=assertion_error, "
-            "input_value={'specimen_id': '1000', '...nts': [], 'notes': None}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("notes cannot be empty if procedure_type is Other", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -292,17 +285,9 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, antibodies cannot be empty if procedure_type is Immunolabeling."
-            " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [], 'notes': None},"
-            " input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
-        self.assertEqual(expected_exception, repr(e.exception))
+        self.assertIn("Antibody required if procedure_type is Immunolabeling", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -312,18 +297,21 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes=None,
             )
-        expected_exception = (
-            "1 validation error for SpecimenProcedure\n"
-            "  Assertion failed, hcr_series cannot be empty if procedure_type is HCR."
-            " [type=assertion_error, input_value={'specimen_id': '1000', '...nts': [],"
-            " 'notes': None}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/assertion_error"
-        )
+        self.assertIn("HCRSeries required if procedure_type is HCR", repr(e.exception))
 
-        self.assertEqual(expected_exception, repr(e.exception))
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Sectioning",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                notes=None,
+            )
+        self.assertIn("Sectioning required if procedure_type is Sectioning", repr(e.exception))
 
         self.assertIsNotNone(
             SpecimenProcedure(
@@ -333,10 +321,28 @@ class ProceduresTests(unittest.TestCase):
                 end_date=date.fromisoformat("2020-10-11"),
                 experimenters=[Person(name="Mam Moth")],
                 protocol_id=["10"],
-                reagents=[],
                 notes="some extra information",
             )
         )
+
+    def test_validate_procedure_type_multiple(self):
+        """Test that error thrown when multiple types are passed to procedure_details"""
+
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Other",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                notes="some extra information",
+                procedure_details=[
+                    HCRSeries.model_construct(),
+                    PlanarSectioning.model_construct(),
+                ],
+            )
+        self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
 
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on BrainInjection"""
@@ -421,29 +427,61 @@ class ProceduresTests(unittest.TestCase):
     def test_sectioning(self):
         """Test sectioning"""
 
-        section = Sectioning(
-            number_of_slices=3,
-            output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-            section_orientation="Coronal",
-            section_thickness=0.2,
-            section_distance_from_reference=0.3,
-            reference=Origin.BREGMA,
-            section_strategy="Whole Brain",
-            targeted_structure=CCFStructure.MOP,
+        # Updated initialization to use the new Section class
+        sectioning_procedure = PlanarSectioning(
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            sections=[
+                Section(
+                    output_specimen_id="123456_001",
+                    targeted_structure=CCFStructure.MOP,
+                    start_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.3, 0, 0],
+                    ),
+                    end_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 0, 0],
+                    ),
+                ),
+                Section(
+                    output_specimen_id="123456_002",
+                    start_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.5, 0, 0],
+                    ),
+                    end_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.7, 0, 0],
+                    ),
+                ),
+                Section(
+                    output_specimen_id="123456_003",
+                    start_coordinate=Coordinate(
+                        system_name="BREGMA_ARI",
+                        position=[0.7, 0, 0],
+                    ),
+                    thickness=0.1,
+                    thickness_unit=SizeUnit.MM,
+                ),
+            ],
+            section_orientation=SectionOrientation.CORONAL,
         )
-        self.assertEqual(section.number_of_slices, len(section.output_specimen_ids))
+        self.assertIsNotNone(sectioning_procedure)
 
-        # Number of output ids does not match number of slices
-        with self.assertRaises(ValidationError):
-            Sectioning(
-                number_of_slices=2,
-                output_specimen_ids=["123456_001", "123456_002", "123456_003"],
-                section_orientation="Coronal",
-                section_thickness=0.2,
-                section_distance_from_reference=0.3,
-                reference=Origin.BREGMA,
-                section_strategy="Whole Brain",
-                targeted_structure=CCFStructure.MOP,
+        # Raise error if neither end_coordinate nor thickness is provided
+        with self.assertRaises(OneOfError):
+            PlanarSectioning(
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+                sections=[
+                    Section(
+                        output_specimen_id="123456_001",
+                        start_coordinate=Coordinate(
+                            system_name="BREGMA_ARI",
+                            position=[0.3, 0, 0],
+                        ),
+                    ),
+                ],
+                section_orientation=SectionOrientation.CORONAL,
             )
 
     def test_validate_identical_specimen_ids(self):
@@ -460,7 +498,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     ),
                     SpecimenProcedure(
@@ -470,7 +507,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     ),
                 ],
@@ -492,7 +528,6 @@ class ProceduresTests(unittest.TestCase):
                         end_date=date.fromisoformat("2020-10-11"),
                         experimenters=[Person(name="Mam Moth")],
                         protocol_id=["10"],
-                        reagents=[],
                         notes="some notes",
                     )
                 ],
@@ -584,6 +619,32 @@ class ProceduresTests(unittest.TestCase):
             craniotomy_type=CraniotomyType.DHC,
         )
         self.assertIsNotNone(craniotomy)
+
+    def test_check_volume_or_current(self):
+        """Test validation for InjectionDynamics to ensure either volume or injection_current is provided"""
+
+        # Should be valid with volume provided
+        dynamics = InjectionDynamics(
+            profile=InjectionProfile.BOLUS,
+            volume=1.0,
+            volume_unit=VolumeUnit.UL,
+        )
+        self.assertIsNotNone(dynamics)
+
+        # Should be valid with injection_current provided
+        dynamics = InjectionDynamics(
+            profile=InjectionProfile.BOLUS,
+            injection_current=0.5,
+            injection_current_unit=CurrentUnit.UA,
+        )
+        self.assertIsNotNone(dynamics)
+
+        # Should raise an error when neither volume nor injection_current is provided
+        with self.assertRaises(ValueError) as e:
+            InjectionDynamics(
+                profile=InjectionProfile.BOLUS,
+            )
+        self.assertIn("Either volume or injection_current must be provided.", str(e.exception))
 
 
 if __name__ == "__main__":

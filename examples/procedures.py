@@ -41,7 +41,7 @@ surgery1 = Surgery(
     ethics_review_id="2109",
     animal_weight_prior=22.6,
     animal_weight_post=22.3,
-    anaesthesia=Anaesthetic(type="Isoflurane", duration=1, level=1.5),
+    anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
     coordinate_system=CoordinateSystem(
         name="SurgerySystem",
         origin=Origin.LAMBDA,
@@ -79,8 +79,6 @@ surgery1 = Surgery(
                     titer=2300000000,
                 )
             ],
-            recovery_time=0,
-            instrument_id=None,
             coordinates=[
                 Coordinate(
                     system_name="SurgerySystem",
@@ -97,7 +95,7 @@ surgery1 = Surgery(
                     profile=InjectionProfile.BOLUS,
                 )
             ],
-            target=CCFStructure.VISP,
+            targeted_structure=CCFStructure.VISP,
         ),
     ],
 )

@@ -81,7 +81,7 @@
             "fundee": {
                "anyOf": [
                   {
-                     "type": "string"
+                     "$ref": "#/$defs/Person"
                   },
                   {
                      "type": "null"
@@ -108,6 +108,15 @@
             "NBA"
          ],
          "title": "Group",
+         "type": "string"
+      },
+      "License": {
+         "description": "Licenses",
+         "enum": [
+            "MIT",
+            "CC-BY-4.0"
+         ],
+         "title": "License",
          "type": "string"
       },
       "Person": {
@@ -1983,22 +1992,28 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.9",
+         "default": "2.0.9",
          "title": "Schema Version",
          "type": "string"
       },
       "license": {
-         "const": "CC-BY-4.0",
-         "default": "CC-BY-4.0",
-         "title": "License",
-         "type": "string"
+         "$ref": "#/$defs/License",
+         "default": "CC-BY-4.0"
       },
       "subject_id": {
+         "anyOf": [
+            {
+               "pattern": "^[^_]+$",
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
          "description": "Unique identifier for the subject of data acquisition",
-         "pattern": "^[^_]+$",
-         "title": "Subject ID",
-         "type": "string"
+         "title": "Subject ID"
       },
       "creation_time": {
          "description": "Time that data files were created, used to uniquely identify the data",
@@ -2135,18 +2150,10 @@
          "type": "array"
       },
       "project_name": {
-         "anyOf": [
-            {
-               "pattern": "^[^<>:;\"/|?\\\\_]+$",
-               "type": "string"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
          "description": "A name for a set of coordinated activities intended to achieve one or more objectives.",
-         "title": "Project Name"
+         "pattern": "^[^<>:;\"/|?\\\\_]+$",
+         "title": "Project Name",
+         "type": "string"
       },
       "restrictions": {
          "anyOf": [
@@ -2231,19 +2238,6 @@
          "title": "Modalities",
          "type": "array"
       },
-      "input_data": {
-         "anyOf": [
-            {
-               "type": "string"
-            },
-            {
-               "type": "null"
-            }
-         ],
-         "default": null,
-         "description": "Name of the data asset that was used as input to the process that created this asset",
-         "title": "Input data"
-      },
       "data_summary": {
          "anyOf": [
             {
@@ -2259,12 +2253,12 @@
       }
    },
    "required": [
-      "subject_id",
       "creation_time",
       "institution",
       "funding_source",
       "data_level",
       "investigators",
+      "project_name",
       "modalities"
    ],
    "title": "DataDescription",

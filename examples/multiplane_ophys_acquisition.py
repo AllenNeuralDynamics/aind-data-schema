@@ -9,9 +9,9 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import FieldOfView, LaserConfig
+from aind_data_schema.components.acquisition_configs import FieldOfView, LaserConfig
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -23,10 +23,10 @@ a = Acquisition(
     acquisition_start_time=t,
     acquisition_end_time=t,
     subject_id="12345",
-    experiment_type="Mesoscope",
+    acquisition_type="Mesoscope",
     instrument_id="MESO.1",
-    ethics_review_id="12345",
-    subject_details=SubjectDetails(
+    ethics_review_id=["1234"],
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="disc",
     ),
     data_streams=[

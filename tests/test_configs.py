@@ -3,7 +3,14 @@
 import unittest
 from decimal import Decimal
 from pydantic import ValidationError
-from aind_data_schema.components.configs import MRIScan, Scale, ManipulatorConfig, LickSpoutConfig, Liquid, Valence
+from aind_data_schema.components.acquisition_configs import (
+    MRIScan,
+    Scale,
+    ManipulatorConfig,
+    LickSpoutConfig,
+    Liquid,
+    Valence,
+)
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import AngleUnit

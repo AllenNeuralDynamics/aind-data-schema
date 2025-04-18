@@ -10,15 +10,15 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
+from aind_data_schema.components.acquisition_configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
 
 
 mri_scanner = Scanner(
     name="Scanner 72",
-    scanner_location="Fred Hutch",
-    magnetic_strength="7",
+    magnetic_strength=7,
+    magnetic_strength_unit="tesla",
 )
 
 scan1 = MRIScan(
@@ -79,10 +79,11 @@ acquisition = Acquisition(
     acquisition_end_time="2024-03-12T16:27:55.584892Z",
     experimenters=[Person(name="John Smith")],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
-    ethics_review_id="1234",
-    experiment_type="3D MRI Volume",
+    ethics_review_id=["1234"],
+    acquisition_type="3D MRI Volume",
     instrument_id="NA",
-    subject_details=SubjectDetails(
+    coordinate_system=CoordinateSystemLibrary.MRI_LPS,
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="NA",
     ),
     data_streams=[stream],

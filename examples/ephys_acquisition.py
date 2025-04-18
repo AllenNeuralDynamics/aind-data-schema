@@ -9,14 +9,14 @@ from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
     DataStream,
-    SubjectDetails,
+    AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import (
+from aind_data_schema.components.acquisition_configs import (
     DomeModule,
     ManipulatorConfig,
     StimulusModality,
 )
-from aind_data_schema.components.coordinates import Coordinate
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -29,8 +29,8 @@ ephys_config_a = ManipulatorConfig(
     module_angle=8,
     atlas_coordinates=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8150, 3250, 7800],
+            system_name="BREGMA_ARID",
+            position=[8150, 3250, 7800, 0],
         ),
     ],
     device_name="Ephys_assemblyA",
@@ -38,8 +38,8 @@ ephys_config_a = ManipulatorConfig(
     primary_targeted_structure=CCFStructure.LGD,
     manipulator_axis_positions=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8422, 4205, 11087.5],
+            system_name="BREGMA_ARID",
+            position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[
@@ -61,8 +61,8 @@ ephys_config_b = ManipulatorConfig(
     module_angle=-22,
     atlas_coordinates=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8150, 3250, 7800],
+            system_name="BREGMA_ARID",
+            position=[8150, 3250, 7800, 0],
         ),
     ],
     device_name="Ephys_assemblyB",
@@ -70,8 +70,8 @@ ephys_config_b = ManipulatorConfig(
     primary_targeted_structure=CCFStructure.LC,
     manipulator_axis_positions=[
         Coordinate(
-            system_name="BREGMA_ARI",
-            position=[8422, 4205, 11087.5],
+            system_name="BREGMA_ARID",
+            position=[8422, 4205, 11087.5, 0],
         ),
     ],
     manipulator_coordinates=[
@@ -122,12 +122,13 @@ acquisition = Acquisition(
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-    experiment_type="Receptive field mapping",
+    acquisition_type="Receptive field mapping",
     instrument_id="323_EPHYS1_20231003",
-    ethics_review_id="2109",
-    subject_details=SubjectDetails(
+    ethics_review_id=["2109"],
+    subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Running Wheel",
     ),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
     stimulus_epochs=[
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
@@ -136,7 +137,7 @@ acquisition = Acquisition(
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                software=bonsai_software,
+                core_dependency=bonsai_software,
                 parameters=VisualStimulation(
                     stimulus_name="Static Gratings",
                     stimulus_parameters={
@@ -155,7 +156,7 @@ acquisition = Acquisition(
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
-                software=bonsai_software,
+                core_dependency=bonsai_software,
                 parameters=VisualStimulation(
                     stimulus_name="Flashes",
                     stimulus_parameters={

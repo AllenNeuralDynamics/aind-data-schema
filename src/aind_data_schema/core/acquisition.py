@@ -1,46 +1,40 @@
 """ schema describing imaging acquisition """
 
 from decimal import Decimal
-from typing import List, Literal, Optional, Union, Annotated
-
-from pydantic import Field, SkipValidation, model_validator
-
-from aind_data_schema.base import DataCoreModel, DataModel, AwareDatetimeWithDefault, GenericModel, GenericModelType
-from aind_data_schema_models.units import VolumeUnit, MassUnit
-from aind_data_schema.components.devices import (
-    Calibration,
-    Maintenance,
-    Camera,
-    CameraAssembly,
-    EphysAssembly,
-    FiberAssembly,
-)
-from aind_data_schema.core.procedures import Anaesthetic
-from aind_data_schema.components.identifiers import Person, Software, Code
-
-from aind_data_schema.components.configs import (
-    DomeModule,
-    PatchCordConfig,
-    FiberAssemblyConfig,
-    ManipulatorConfig,
-    DetectorConfig,
-    FieldOfView,
-    SlapFieldOfView,
-    SpeakerConfig,
-    LightEmittingDiodeConfig,
-    LaserConfig,
-    MousePlatformConfig,
-    Stack,
-    MRIScan,
-    StimulusModality,
-    InVitroImagingConfig,
-    LickSpoutConfig,
-    AirPuffConfig,
-)
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from typing import Annotated, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import MassUnit, VolumeUnit
+from pydantic import Field, SkipValidation, model_validator
+
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.acquisition_configs import (
+    AirPuffConfig,
+    DetectorConfig,
+    DomeModule,
+    FiberAssemblyConfig,
+    FieldOfView,
+    InVitroImagingConfig,
+    LaserConfig,
+    LickSpoutConfig,
+    LightEmittingDiodeConfig,
+    ManipulatorConfig,
+    MousePlatformConfig,
+    MRIScan,
+    PatchCordConfig,
+    SlapFieldOfView,
+    SpeakerConfig,
+    Stack,
+    StimulusModality,
+)
+from aind_data_schema.components.coordinates import CoordinateSystem
+from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
+from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
+from aind_data_schema.core.instrument import Connection
+from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -67,7 +61,7 @@ CONFIG_DEVICE_REQUIREMENTS = {
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
 
 
-class SubjectDetails(DataModel):
+class AcquisitionSubjectDetails(DataModel):
     """Details about the subject during an acquisition"""
 
     animal_weight_prior: Optional[Decimal] = Field(
@@ -103,8 +97,10 @@ class DataStream(DataModel):
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
     stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    software: Optional[List[Software]] = Field(default=[], title="Software packages")
+    modalities: List[Modality.ONE_OF] = Field(
+        ..., title="Modalities", description="Modalities that are acquired in this stream"
+    )
+    code: Optional[List[Code]] = Field(default=None, title="Acquisition code")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
@@ -135,6 +131,12 @@ class DataStream(DataModel):
         ]
     ] = Field(..., title="Device configurations")
 
+    connections: List[Connection] = Field(
+        default=[],
+        title="Connections",
+        description="Connections that are specific to this acquisition, and are not present in the Instrument",
+    )
+
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
         """Check that the required devices are present for the modalities"""
@@ -146,6 +148,15 @@ class DataStream(DataModel):
             for group in CONFIG_REQUIREMENTS[modality]:
                 if not any(isinstance(config, device) for config in self.configurations for device in group):
                     raise ValueError(f"Missing required devices for modality {modality} in {self.configurations}")
+
+        return self
+
+    @model_validator(mode="after")
+    def check_connections(self):
+        """Check that every device in a Connection is present in the active_devices list"""
+        for connection in self.connections:
+            if not any(device in self.active_devices for device in connection.device_names):
+                raise ValueError(f"Missing devices in active_devices list for connection {connection}")
 
         return self
 
@@ -170,7 +181,7 @@ class StimulusEpoch(DataModel):
         description="Custom code/script used to control the behavior/stimulus and parameters",
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
-    summary: Optional[PerformanceMetrics] = Field(default=None, title="Summary")
+    performance_metrics: Optional[PerformanceMetrics] = Field(default=None, title="Performance metrics")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     active_devices: List[str] = Field(
@@ -198,7 +209,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.11"]] = Field(default="2.0.11")
+    schema_version: SkipValidation[Literal["2.0.22"]] = Field(default="2.0.22")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")
@@ -213,15 +224,19 @@ class Acquisition(DataCoreModel):
         default=[],
         title="experimenter(s)",
     )
-    protocol_id: List[str] = Field(default=[], title="Protocol ID", description="DOI for protocols.io")
-    ethics_review_id: Optional[str] = Field(default=None, title="Ethics review ID")
+    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
     instrument_id: str = Field(..., title="Instrument ID")
-    experiment_type: str = Field(default=None, title="Experiment type")
-    software: Optional[List[Software]] = Field(default=[], title="Acquisition software")
+    acquisition_type: str = Field(..., title="Acquisition type")
     notes: Optional[str] = Field(default=None, title="Notes")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Coordinate system",
+        description="Required when coordinates are provided within the Acquisition",
+    )
 
     # Instrument metadata
-    calibrations: List[Calibration] = Field(
+    calibrations: List[CALIBRATIONS] = Field(
         default=[],
         title="Calibrations",
         description="List of calibration measurements taken prior to acquisition.",
@@ -240,7 +255,7 @@ class Acquisition(DataCoreModel):
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
-    subject_details: Optional[SubjectDetails] = Field(default=None, title="Subject details")
+    subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
     def subject_details_if_not_specimen(self):
@@ -286,17 +301,15 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        ethics_check = self.ethics_review_id != other.ethics_review_id
         inst_check = self.instrument_id != other.instrument_id
-        exp_type_check = self.experiment_type != other.experiment_type
-        if any([subj_check, spec_check, ethics_check, inst_check, exp_type_check]):
+        exp_type_check = self.acquisition_type != other.acquisition_type
+        if any([subj_check, spec_check, inst_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"ethics_review_id: {self.ethics_review_id}/{other.ethics_review_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
-                f"experiment_type: {self.experiment_type}/{other.experiment_type}"
+                f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -307,10 +320,10 @@ class Acquisition(DataCoreModel):
 
         # Combine
         experimenters = self.experimenters + other.experimenters
-        protocol_id = self.protocol_id + other.protocol_id
+        protocol_id = merge_optional_list(self.protocol_id, other.protocol_id)
+        ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        software = merge_optional_list(self.software, other.software)
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
@@ -326,14 +339,13 @@ class Acquisition(DataCoreModel):
             specimen_id=self.specimen_id,
             experimenters=experimenters,
             protocol_id=protocol_id,
-            ethics_review_id=self.ethics_review_id,
+            ethics_review_id=ethics_review_id,
             instrument_id=self.instrument_id,
             calibrations=calibrations,
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,
-            experiment_type=self.experiment_type,
-            software=software,
+            acquisition_type=self.acquisition_type,
             notes=notes,
             data_streams=data_streams,
             stimulus_epochs=stimulus_epochs,

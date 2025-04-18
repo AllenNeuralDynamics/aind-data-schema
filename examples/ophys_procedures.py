@@ -10,11 +10,9 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     Anaesthetic,
     Antibody,
-    FiberImplant,
-    FiberProbe,
     Headframe,
     BrainInjection,
-    OphysProbe,
+    ProbeImplant,
     Perfusion,
     Procedures,
     SpecimenProcedure,
@@ -24,6 +22,7 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
 )
+from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate
@@ -31,8 +30,19 @@ from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coo
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
 
+implanted_devices = [
+    FiberProbe(
+        name="Probe A",
+        core_diameter=200,
+        numerical_aperture=0.37,
+        ferrule_material="Ceramic",
+        total_length=0.5,
+    )
+]
+
 p = Procedures(
     subject_id="625100",
+    implanted_devices=implanted_devices,
     subject_procedures=[
         Surgery(
             start_date=t.date(),
@@ -40,7 +50,7 @@ p = Procedures(
             ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
-            anaesthesia=Anaesthetic(type="Isoflurane", duration=180, level=1.5),
+            anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=180, level=1.5),
             workstation_id="SWS 3",
             protocol_id="doi",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
@@ -65,8 +75,6 @@ p = Procedures(
                             titer=20000000000000,
                         )
                     ],
-                    recovery_time=0,
-                    instrument_id=None,
                     coordinates=[
                         Coordinate(
                             system_name="BREGMA_ARID",
@@ -80,26 +88,16 @@ p = Procedures(
                             profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    target=CCFStructure.VTA,
+                    targeted_structure=CCFStructure.VTA,
                 ),
-                FiberImplant(
+                ProbeImplant(
                     protocol_id="TO ENTER",
-                    probes=[
-                        OphysProbe(
-                            ophys_probe=FiberProbe(
-                                name="Probe A",
-                                core_diameter=200,
-                                numerical_aperture=0.37,
-                                ferrule_material="Ceramic",
-                                total_length=0.5,
-                            ),
-                            targeted_structure=CCFStructure.VTA,
-                            coordinate=Coordinate(
-                                system_name="BREGMA_ARID",
-                                position=[-600, -3050, 0, 4200],
-                            ),
-                        )
-                    ],
+                    implanted_device_names=["Probe A"],
+                    targeted_structure=CCFStructure.VTA,
+                    coordinate=Coordinate(
+                        system_name="BREGMA_ARID",
+                        position=[-600, -3050, 0, 4200],
+                    ),
                 ),
             ],
         ),
@@ -115,7 +113,7 @@ p = Procedures(
             start_date="2023-05-31",
             experimenters=[Person(name="Scientist Smith")],
             ethics_review_id="2109",
-            anaesthesia=Anaesthetic(type="Isoflurane", duration=30, level=3),
+            anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
             protocol_id="doi",
             procedures=[
@@ -131,8 +129,7 @@ p = Procedures(
             end_date="2023-06-12",
             experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
-            reagents=[],
-            antibodies=[
+            procedure_details=[
                 Antibody(
                     name="Chicken polyclonal",
                     source=Organization.ABCAM,
@@ -154,8 +151,7 @@ p = Procedures(
             end_date="2023-06-13",
             experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
-            reagents=[],
-            antibodies=[
+            procedure_details=[
                 Antibody(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source=Organization.THERMO_FISHER_SCIENTIFIC,

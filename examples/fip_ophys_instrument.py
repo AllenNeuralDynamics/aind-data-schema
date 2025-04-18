@@ -3,15 +3,22 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
 from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
-from aind_data_schema.components.coordinates import AnatomicalRelative, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.measurements import Calibration
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema.components.devices import Computer
 
 bonsai_software = Software(name="Bonsai", version="2.5")
+
+computer = Computer(
+    name="W10DTJK7N0M3",
+)
 
 camera_assembly_1 = d.CameraAssembly(
     name="BehaviorVideography_FaceSide",
@@ -24,7 +31,6 @@ camera_assembly_1 = d.CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -54,7 +60,6 @@ camera_assembly_2 = d.CameraAssembly(
         model="ELP-USBFHD05MT-KL170IR",
         notes="The light intensity sensor was removed; IR illumination is constantly on",
         data_interface="USB",
-        computer_name="W10DTJK7N0M3",
         frame_rate=120,
         frame_rate_unit=FrequencyUnit.HZ,
         sensor_width=640,
@@ -73,7 +78,7 @@ camera_assembly_2 = d.CameraAssembly(
     ),
 )
 
-patch_cord = d.PatchCord(
+patch_cord = d.FiberPatchCord(
     name="Bundle Branching Fiber-optic Patch Cord",
     manufacturer=d.Organization.DORIC,
     model="BBP(4)_200/220/900-0.37_Custom_FCM-4xMF1.25",
@@ -160,7 +165,6 @@ filter_1 = d.Filter(
     model="FF01-520/35-25",
     filter_type="Band pass",
     center_wavelength=520,
-    diameter=25,
 )
 
 filter_2 = d.Filter(
@@ -169,7 +173,6 @@ filter_2 = d.Filter(
     model="FF01-600/37-25",
     filter_type="Band pass",
     center_wavelength=600,
-    diameter=25,
 )
 
 filter_3 = d.Filter(
@@ -177,8 +180,6 @@ filter_3 = d.Filter(
     model="FF562-Di03-25x36",
     manufacturer=d.Organization.SEMROCK,
     filter_type="Dichroic",
-    height=25,
-    width=36,
     cut_off_wavelength=562,
 )
 
@@ -188,8 +189,6 @@ filter_4 = d.Filter(
     manufacturer=d.Organization.SEMROCK,
     notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
     filter_type="Multiband",
-    width=36,
-    height=24,
 )
 
 filter_5 = d.Filter(
@@ -197,7 +196,6 @@ filter_5 = d.Filter(
     manufacturer=d.Organization.THORLABS,
     model="FB410-10",
     filter_type="Band pass",
-    diameter=25,
     center_wavelength=410,
 )
 
@@ -207,7 +205,6 @@ filter_6 = d.Filter(
     model="FB470-10",
     filter_type="Band pass",
     center_wavelength=470,
-    diameter=25,
 )
 
 filter_7 = d.Filter(
@@ -215,7 +212,6 @@ filter_7 = d.Filter(
     manufacturer=d.Organization.THORLABS,
     model="FB560-10",
     filter_type="Band pass",
-    diameter=25,
     center_wavelength=560,
 )
 
@@ -225,8 +221,6 @@ filter_8 = d.Filter(
     model="#69-898",
     filter_type="Dichroic",
     cut_off_wavelength=450,
-    width=35.6,
-    height=25.2,
 )
 
 filter_9 = d.Filter(
@@ -235,8 +229,6 @@ filter_9 = d.Filter(
     model="#69-899",
     filter_type="Dichroic",
     cut_off_wavelength=500,
-    width=35.6,
-    height=23.2,
 )
 
 lens = d.Lens(
@@ -246,13 +238,13 @@ lens = d.Lens(
     focal_length=80,
     focal_length_unit=SizeUnit.MM,
     size=1,
+    size_unit=SizeUnit.IN,
 )
 
 daq = d.HarpDevice(
     name="Harp Behavior",
     harp_device_type=d.HarpDeviceType.BEHAVIOR,
     core_version="2.1",
-    computer_name="behavior_computer",
     is_clock_generator=False,
     channels=[
         d.DAQChannel(channel_name="DO0", channel_type="Digital Output"),
@@ -323,11 +315,45 @@ connections = [
             ),
         },
     ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Side face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Side face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Bottom face camera"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Bottom face camera": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["W10DTJK7N0M3", "Harp Behavior"],
+        connection_data={
+            "W10DTJK7N0M3": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Harp Behavior": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
 ]
 
 mouse_platform = d.Disc(name="mouse_disc", radius=8.5)
 
 stimulus_device = d.LickSpoutAssembly(
+    name="Lick spout assembly",
     lick_spouts=[
         d.LickSpout(
             name="Left spout",
@@ -350,12 +376,14 @@ stimulus_device = d.LickSpoutAssembly(
 
 additional_device = d.Device(name="Photometry Clock")
 
-calibration = d.Calibration(
+calibration = Calibration(
     calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
     device_name="470nm LED",
     description="LED calibration",
-    input={"Power setting": [1, 2, 3]},
-    output={"Power mW": [5, 10, 13]},
+    input=[1, 2, 3],
+    input_unit=PowerUnit.PERCENT,
+    output=[5, 10, 13],
+    output_unit=PowerUnit.MW,
 )
 
 instrument = r.Instrument(

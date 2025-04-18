@@ -60,7 +60,7 @@ shield_off_procedure = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 17),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[shield_buffer, shield_epoxy],
+    procedure_details=[shield_buffer, shield_epoxy],
 )
 
 # specimen gets transferred to SHIELD ON and baked
@@ -72,7 +72,7 @@ shield_on_procedure = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 18),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         shield_on,
     ],
     notes="40 deg. C",
@@ -86,7 +86,7 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 19),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         delipidation_buffer,
     ],
 )
@@ -100,7 +100,7 @@ active_delipidation_procedure = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 20),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[delipidation_buffer, conductivity_buffer],
+    procedure_details=[delipidation_buffer, conductivity_buffer],
 )
 
 # First index matching is to 50% EasyIndex
@@ -112,7 +112,7 @@ index1 = procedures.SpecimenProcedure(
     end_date=date(2023, 1, 31),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         easy_index,
         water,
     ],
@@ -127,7 +127,7 @@ index2 = procedures.SpecimenProcedure(
     end_date=date(2023, 2, 2),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         easy_index,
     ],
 )
@@ -140,7 +140,7 @@ embedding = procedures.SpecimenProcedure(
     end_date=date(2023, 2, 2),
     experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         easy_index,
         agarose,
     ],

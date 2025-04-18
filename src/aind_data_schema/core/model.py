@@ -1,25 +1,13 @@
-""" schema describing an analysis model """
+"""schema describing an analysis model"""
 
-from typing import Any, List, Literal, Optional
+from typing import Annotated, Any, List, Literal, Optional, Union
 
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.system_architecture import ModelBackbone
+from aind_data_schema_models.system_architecture import ModelArchitecture
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, DataCoreModel, GenericModel, GenericModelType
-from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.base import DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
-
-
-class ModelArchitecture(DataModel):
-    """Description of model architecture"""
-
-    backbone: ModelBackbone = Field(..., title="Backbone", description="Core network architecture")
-    software: List[Software] = Field(default=[], title="Software packages")
-    layers: Optional[int] = Field(default=None, title="Layers")
-    parameters: GenericModelType = Field(default=GenericModel(), title="Parameters")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class PerformanceMetric(DataModel):
@@ -32,23 +20,29 @@ class PerformanceMetric(DataModel):
 class ModelEvaluation(DataProcess):
     """Description of model evaluation"""
 
-    name: ProcessName = Field(ProcessName.MODEL_EVALUATION, title="Process name")
+    process_type: ProcessName = ProcessName.MODEL_EVALUATION
     performance: List[PerformanceMetric] = Field(..., title="Evaluation performance")
 
 
 class ModelTraining(DataProcess):
     """Description of model training"""
 
-    name: ProcessName = Field(ProcessName.MODEL_TRAINING, title="Process name")
+    process_type: ProcessName = ProcessName.MODEL_TRAINING
     train_performance: List[PerformanceMetric] = Field(
         ..., title="Training performance", description="Performance on training set"
     )
     test_performance: Optional[List[PerformanceMetric]] = Field(
         default=None, title="Test performance", description="Performance on test data, evaluated during training"
     )
-    test_data: Optional[str] = Field(
-        default=None, title="Test data", description="Path or cross-validation/split approach"
+    test_evaluation_method: Optional[str] = Field(
+        default=None, title="Test evaluation method", description="Approach to cross-validation or Train/test splitting"
     )
+
+
+class ModelPretraining(DataModel):
+    """Description of model pretraining"""
+
+    source_url: str = Field(..., title="Pretrained source URL", description="URL for pretrained weights")
 
 
 class Model(DataCoreModel):
@@ -59,15 +53,21 @@ class Model(DataCoreModel):
     schema_version: Literal["2.0.0"] = Field(default="2.0.0")
 
     name: str = Field(..., title="Name")
-    license: str = Field(..., title="License")
-    code: Optional[Code] = Field(default=None, title="Model code")
-    developers: Optional[List[Person]] = Field(default=None, title="Name of developer(s)")
-    developer_institution: Optional[Organization.ONE_OF] = Field(default=None, title="Institute where developed")
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities")
-    architecture: ModelArchitecture = Field(..., title="Model architecture")
+    version: str = Field(..., title="Version")
+    example_run_code: Code = Field(
+        title="Example run code", description="Code to run the model, possibly including example parameters/data"
+    )
+    architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
+    software_framework: Optional[Software] = Field(default=None, title="Software framework")
+    architecture_parameters: GenericModelType = Field(
+        default=GenericModel(),
+        title="Architecture parameters",
+        description="Parameters of model architecture, such as input signature or number of layers.",
+    )
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    pretrained_source_url: Optional[str] = Field(default=None, title="Pretrained source URL")
-    training: Optional[List[ModelTraining]] = Field(default=[], title="Training")
-    evaluations: Optional[List[ModelEvaluation]] = Field(default=[], title="Evaluations")
+    training: List[Annotated[Union[ModelTraining, ModelPretraining], Field(discriminator="object_type")]] = Field(
+        ..., title="Training", min_length=1
+    )
+    evaluations: List[ModelEvaluation] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
