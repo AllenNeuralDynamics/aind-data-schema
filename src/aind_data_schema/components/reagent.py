@@ -90,6 +90,7 @@ class HCRProbe(OligoProbe):
 class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
+    stain_type: StainType = Field(..., title="Stain type")
     concentration: float = Field(..., title="Concentration")
     concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
@@ -102,3 +103,47 @@ class Antibody(Reagent):
     mass: float = Field(..., title="Mass of antibody")
     mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class OligoProbe(DataModel):
+    """Description of an oligonucleotide probe"""
+
+    name: str = Field(..., title="Name")
+    sequence: str = Field(..., title="Sequence")
+
+
+class GeneProbes(DataModel):
+    """Description of a set of oligonucleotide probes targeting a specific gene"""
+
+    gene: PIDName = Field(..., title="Gene name")
+    probes: List[OligoProbe] = Field(..., title="Probes")
+
+
+class OligoProbeSet(Reagent):
+    """set of probes used in BarSEQ"""
+
+    gene_probes: List[GeneProbes] = Field(..., title="Gene probes")
+    # IDT scale stuff?
+
+
+class Readout(Reagent):
+    """Description of a readout"""
+
+    fluorophore: Fluorophore = Field(..., title="Fluorophore")
+    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
+    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
+    stain_type: StainType = Field(..., title="Stain type")
+
+
+class HCRReadout(Readout):
+    """Description of a readout for HCR"""
+
+    initiator_name: str = Field(..., title="Initiator name")
+
+
+class OligoProbeWithReadout(Reagent):  # probably want a different name
+    """probe used for HCR ... but not a HCR probe. Does this need a list of sequences?"""
+
+    gene_probe: GeneProbes = Field(..., title="Gene probe")
+    readout: Readout = Field(..., title="Readout")
+    species: Species.ONE_OF = Field(..., title="Species")  # should this live with the base oligo probe? gene probe?

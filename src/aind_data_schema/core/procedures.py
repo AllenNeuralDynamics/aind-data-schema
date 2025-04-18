@@ -26,7 +26,7 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent, HCRProbe, Stain, Antibody, OligoProbeSet
+from aind_data_schema.components.reagent import Reagent, HCRProbe, Stain, Antibody, OligoProbeSet, OligoProbeWithReadout
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
 from aind_data_schema.utils.exceptions import OneOfError
