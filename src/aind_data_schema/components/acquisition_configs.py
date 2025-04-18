@@ -289,6 +289,7 @@ class ProbeConfig(DeviceConfig):
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class EphysAssemblyConfig(DeviceConfig):

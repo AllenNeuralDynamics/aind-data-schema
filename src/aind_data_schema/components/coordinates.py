@@ -225,7 +225,7 @@ class Coordinate(DataModel):
         ...,
         title="Coordinate system name",
     )  # note: this field's exact name is used by a validator
-    transforms: Translation = Field(..., title="Position")
+    transform: Translation = Field(..., title="Position")
 
 
 class AtlasCoordinate(DataModel):

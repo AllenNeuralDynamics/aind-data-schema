@@ -16,53 +16,54 @@ from aind_data_schema.components.acquisition_configs import (
     ManipulatorConfig,
     StimulusModality,
     EphysAssemblyConfig,
+    ProbeConfig,
 )
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Coordinate, Vector, Translation, Rotation, AtlasCoordinate, AtlasLibrary, CoordinateSystemLibrary
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 bonsai_software = Software(name="Bonsai", version="2.7")
 
 ephys_assembly_a_config = EphysAssemblyConfig(
+    device_config="Ephys_assemblyA",
     manipulator=ManipulatorConfig(
+        device_name="ManipulatorA",
         coordinate_system=CoordinateSystemLibrary.MIS_PROBE_XYZ,
+        local_axis_positions=Coordinate(
+            system_name="MIS_PROBE_XYZ",
+            transform=Translation(
+                position=[8422, 4205, 11087.5],
+            ),
+        ),
     ),
     probes=[
-
+        ProbeConfig(
+            primary_targeted_structure=CCFStructure.LGD,
+            device_name="ProbeA",
+            atlas_coordinate=AtlasCoordinate(
+                coordinate_system=AtlasLibrary.CCFv3_10um,
+                coordinate=Coordinate(
+                    system_name="CCFv3",
+                    position=[8150, 3250, 7800],
+                )
+            ),
+            probe_transform=Vector(
+                system_name="BREGMA_ARID",
+                transforms=[
+                    Translation(
+                        translation=[5000, 5000, 0, 1],
+                    ),
+                    Rotation(
+                        rotation=[8, 5.2, 0, 0],
+                    ),
+                ],
+            ),
+            notes=(
+                "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
+                " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
+            ),
+        )
     ],
-)
-
-
-ephys_config_a = ManipulatorConfig(
-    rotation_angle=0,
-    arc_angle=5.2,
-    module_angle=8,
-    atlas_coordinates=[
-        Coordinate(
-            system_name="BREGMA_ARID",
-            position=[8150, 3250, 7800, 0],
-        ),
-    ],
-    device_name="Ephys_assemblyA",
-    coordinate_transform="behavior/calibration_info_np2_2023_04_24.py",
-    primary_targeted_structure=CCFStructure.LGD,
-    manipulator_axis_positions=[
-        Coordinate(
-            system_name="BREGMA_ARID",
-            position=[8422, 4205, 11087.5, 0],
-        ),
-    ],
-    manipulator_coordinates=[
-        Coordinate(
-            system_name="BREGMA_ARID",
-            position=[5000, 5000, 0, 1],
-        ),
-    ],
-    calibration_date=datetime(year=2023, month=4, day=25, tzinfo=timezone.utc),
-    notes=(
-        "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
-        " with a sudden shift in signals. Lots of motion. Maybe some implant motion."
-    ),
 )
 
 ephys_config_b = ManipulatorConfig(
@@ -95,36 +96,6 @@ ephys_config_b = ManipulatorConfig(
         "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
         " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"
     ),
-)
-
-
-stick_config_1 = DomeModule(
-    rotation_angle=0,
-    device_name="Stick_assembly_1",
-    arc_angle=-180,
-    module_angle=-180,
-    notes="did not record angles, did not calibrate.",
-)
-stick_config_2 = DomeModule(
-    rotation_angle=0,
-    device_name="Stick_assembly_2",
-    arc_angle=-180,
-    module_angle=-180,
-    notes="Did not record angles, did not calibrate",
-)
-stick_config_3 = DomeModule(
-    rotation_angle=0,
-    device_name="Stick_assembly_3",
-    arc_angle=-180,
-    module_angle=-180,
-    notes="Did not record angles, did not calibrate",
-)
-stick_config_4 = DomeModule(
-    rotation_angle=0,
-    device_name="Stick_assembly_4",
-    arc_angle=-180,
-    module_angle=-180,
-    notes="Did not record angles, did not calibrate",
 )
 
 acquisition = Acquisition(
@@ -194,7 +165,7 @@ acquisition = Acquisition(
                 "Ephys_assemblyB",
             ],
             configurations=[
-                ephys_config_a,
+                ephys_assembly_a_config,
                 ephys_config_b,
                 stick_config_1,
                 stick_config_2,
