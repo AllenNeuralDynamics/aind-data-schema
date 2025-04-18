@@ -28,7 +28,7 @@ from aind_data_schema.components.coordinates import (
     AtlasCoordinate,
     CoordinateSystem,
     Scale,
-    Transform,
+    TRANSFORM_TYPES,
     CoordinateTransform,
 )
 from aind_data_schema.components.identifiers import Code
@@ -384,30 +384,29 @@ class SubjectPosition(str, Enum):
 class MRIScan(DeviceConfig):
     """Configuration of a 3D scan"""
 
-    scan_index: int = Field(..., title="Scan index")
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
     )
     scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
     rare_factor: Optional[int] = Field(default=None, title="RARE factor")
-    echo_time: Decimal = Field(..., title="Echo time (ms)")
-    effective_echo_time: Optional[Decimal] = Field(default=None, title="Effective echo time (ms)")
-    echo_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Echo time unit")
-    repetition_time: Decimal = Field(..., title="Repetition time (ms)")
-    repetition_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Repetition time unit")
+    echo_time: Decimal = Field(..., title="Echo time")
+    echo_time_unit: TimeUnit = Field(..., title="Echo time unit")
+    effective_echo_time: Optional[Decimal] = Field(default=None, title="Effective echo time")
+    repetition_time: Decimal = Field(..., title="Repetition time")
+    repetition_time_unit: TimeUnit = Field(..., title="Repetition time unit")
+
     # fields required to get correct orientation
-    vc_transform: Optional[Transform] = Field(default=None, title="Scan transform")
+    scan_coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None, title="Scanner coordinate system"
+    )
+    scan_affine_transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None, title="MRI Scan affine transform", description="NIFTI sform/qform, Bruker vc_transform, etc")
     subject_position: SubjectPosition = Field(..., title="Subject position")
+
     # other fields
-    voxel_sizes: Optional[Scale] = Field(default=None, title="Voxel sizes", description="Resolution")
-    processing_steps: List[
-        Literal[
-            ProcessName.FIDUCIAL_SEGMENTATION,
-            ProcessName.IMAGE_ATLAS_ALIGNMENT,
-            ProcessName.SKULL_STRIPPING,
-        ]
-    ] = Field([])
+    resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
+    resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
     additional_scan_parameters: GenericModelType = Field(..., title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
@@ -424,11 +423,11 @@ class MRIScan(DeviceConfig):
 
     @model_validator(mode="after")
     def validate_primary_scan(self):
-        """Validate that primary scan has vc_transform and voxel_sizes fields"""
+        """Validate that primary scan has scan_affine_transform and resolution fields"""
 
         if self.primary_scan:
-            if not self.vc_transform or not self.voxel_sizes:
-                raise ValueError("Primary scan must have vc_transform and voxel_sizes fields")
+            if not self.scan_affine_transform or not self.resolution:
+                raise ValueError("Primary scan must have scan_affine_transform and resolution fields")
 
         return self
 
