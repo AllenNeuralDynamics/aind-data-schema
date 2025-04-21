@@ -127,7 +127,7 @@ class AcquisitionTest(unittest.TestCase):
                         ],
                     ),
                     subject_position="Supine",
-                    voxel_sizes=Scale(
+                    resolution=Scale(
                         scale=[0.5, 0.4375, 0.52],
                     ),
                     echo_time=2.2,

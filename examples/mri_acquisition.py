@@ -14,6 +14,8 @@ from aind_data_schema.core.acquisition import (
 )
 from aind_data_schema.components.acquisition_configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
 
+from aind_data_schema_models.units import TimeUnit, SizeUnit
+
 
 mri_scanner = Scanner(
     name="Scanner 72",
@@ -29,10 +31,12 @@ scan1 = MRIScan(
     scan_sequence_type=MriScanSequence.RARE,
     rare_factor=8,
     echo_time=Decimal("3.42"),
+    echo_time_unit=TimeUnit.MS,
     repetition_time=Decimal("100.0"),
+    repetition_time_unit=TimeUnit.MS,
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),
-    processing_steps=[],
+    resolution=Scale(scale=[0.5, 0.4375, 0.52]),
+    resolution_unit=SizeUnit.MM,
     additional_scan_parameters={},
     notes="Set up scan for the 3D scan.",
 )
@@ -45,22 +49,21 @@ scan2 = MRIScan(
     scan_sequence_type=MriScanSequence.RARE,
     rare_factor=4,
     echo_time=Decimal(5.33333333333333),
+    echo_time_unit=TimeUnit.MS,
     effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("500.0"),
-    vc_transform=Transform(
-        system_name=CoordinateSystemLibrary.MRI_LPS.name,
-        transforms=[
+    repetition_time_unit=TimeUnit.MS,
+    scan_affine_transform=[
             Affine(
                 affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
             ),
             Translation(
                 translation=[-6.1, 7.0, 7.9],
             ),
-        ],
-    ),
+    ],
     subject_position=SubjectPosition.SUPINE,
-    voxel_sizes=Scale(scale=[0.5, 0.4375, 0.52]),
-    processing_steps=[],
+    resolution=Scale(scale=[0.5, 0.4375, 0.52]),
+    resolution_unit=SizeUnit.MM,
     additional_scan_parameters={},
     notes=None,
 )

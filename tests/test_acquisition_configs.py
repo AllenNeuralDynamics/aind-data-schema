@@ -55,7 +55,7 @@ class TestMRIScan(unittest.TestCase):
                     ),
                 ],
             ),
-            voxel_sizes=Scale(
+            resolution=Scale(
                 scale=[0.5, 0.4375, 0.52],
             ),
             processing_steps=[],

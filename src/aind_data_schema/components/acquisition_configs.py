@@ -387,6 +387,7 @@ class SubjectPosition(str, Enum):
 class MRIScan(DeviceConfig):
     """Configuration of a 3D scan"""
 
+    scan_index: str = Field(..., title="Scan index")
     scan_type: ScanType = Field(..., title="Scan type")
     primary_scan: bool = Field(
         ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
