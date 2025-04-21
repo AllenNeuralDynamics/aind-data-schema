@@ -92,7 +92,7 @@ class PositionedDevice(DataModel):
         transform = values.instrument_to_device_transform
         coordinate_system = values.device_coordinate_system
 
-        if transform ^ coordinate_system:
+        if (transform is None) != (coordinate_system is None):
             raise ValueError(
                 "instrument_to_device_transform and device_coordinate_system must either both be set or both be unset."
             )
