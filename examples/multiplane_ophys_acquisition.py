@@ -6,7 +6,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Translation
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -74,11 +74,12 @@ a = Acquisition(
                     ],
                     images=[
                         FieldOfView(
-                            channel_name="Green channel",
                             targeted_structure=CCFStructure.VISP,
                             center_coordinate=Coordinate(
                                 system_name="BREGMA_ARI",
-                                position=[1.5, 1.5, 0],
+                                transform=Translation(
+                                    translation=[1.5, 1.5, 0],
+                                ),
                             ),
                             fov_width=512,
                             fov_height=512,
@@ -88,6 +89,7 @@ a = Acquisition(
                             frame_rate_unit=FrequencyUnit.HZ,
                             planes=[
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=0,
                                     power=5,
                                     power_unit=PowerUnit.PERCENT,
@@ -98,6 +100,7 @@ a = Acquisition(
                                     coupled_plane_index=1,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=1,
                                     power=42,
                                     power_unit=PowerUnit.PERCENT,
@@ -108,6 +111,7 @@ a = Acquisition(
                                     coupled_plane_index=0,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=2,
                                     power=28,
                                     power_unit=PowerUnit.PERCENT,
@@ -118,6 +122,7 @@ a = Acquisition(
                                     coupled_plane_index=3,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=3,
                                     power=28,
                                     power_unit=PowerUnit.PERCENT,
@@ -128,6 +133,7 @@ a = Acquisition(
                                     coupled_plane_index=2,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=4,
                                     power=12,
                                     power_unit=PowerUnit.PERCENT,
@@ -138,6 +144,7 @@ a = Acquisition(
                                     coupled_plane_index=5,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=5,
                                     power=12,
                                     power_unit=PowerUnit.PERCENT,
@@ -148,6 +155,7 @@ a = Acquisition(
                                     coupled_plane_index=4,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=6,
                                     power=5,
                                     power_unit=PowerUnit.PERCENT,
@@ -158,6 +166,7 @@ a = Acquisition(
                                     coupled_plane_index=7,
                                 ),
                                 MultiPlaneConfig(
+                                    channel_name="Green channel",
                                     index=7,
                                     power=5,
                                     power_unit=PowerUnit.PERCENT,

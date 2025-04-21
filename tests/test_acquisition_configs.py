@@ -6,7 +6,6 @@ from pydantic import ValidationError
 from aind_data_schema.components.acquisition_configs import (
     MRIScan,
     Scale,
-    ManipulatorConfig,
     LickSpoutConfig,
     Liquid,
     Valence,
@@ -16,6 +15,7 @@ from aind_data_schema.components.acquisition_configs import (
     FieldOfView,
     DetectorConfig,
     LaserConfig,
+    SinglePlaneConfig,
 )
 from aind_data_schema.components.coordinates import (
     Coordinate,
@@ -25,7 +25,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateTransform,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.units import AngleUnit, TimeUnit, SizeUnit
+from aind_data_schema_models.units import TimeUnit, SizeUnit
 
 
 class TestMRIScan(unittest.TestCase):
@@ -144,17 +144,21 @@ class TestImagingConfig(unittest.TestCase):
             channels=[self.channel1, self.channel2],
             images=[
                 FieldOfView(
-                    channel_name="Channel1",
                     targeted_structure=CCFStructure.HPF,
                     center_coordinate=Coordinate(
                         system_name=self.coordinate_system.name,
-                        position=[0, 0, 0],
+                        transform=Translation(translation=[0, 0, 0]),
                     ),
                     fov_width=512,
                     fov_height=512,
                     fov_scale_factor=Decimal("0.5"),
                     frame_rate=Decimal("30.0"),
-                    planes=[],
+                    planes=[
+                        SinglePlaneConfig(
+                            channel_name="Channel1",
+                            imaging_depth=1,
+                        )
+                    ],
                 )
             ],
             coordinate_system=self.coordinate_system,
@@ -168,17 +172,21 @@ class TestImagingConfig(unittest.TestCase):
                 channels=[self.channel1],
                 images=[
                     FieldOfView(
-                        channel_name="InvalidChannel",
                         targeted_structure=CCFStructure.HPF,
                         center_coordinate=Coordinate(
                             system_name=self.coordinate_system.name,
-                            position=[0, 0, 0],
+                            transform=Translation(translation=[0, 0, 0]),
                         ),
                         fov_width=512,
                         fov_height=512,
                         fov_scale_factor=Decimal("0.5"),
                         frame_rate=Decimal("30.0"),
-                        planes=[],
+                        planes=[
+                            SinglePlaneConfig(
+                                channel_name="Channel1",
+                                imaging_depth=1,
+                            )
+                        ],
                     )
                 ],
                 coordinate_system=self.coordinate_system,

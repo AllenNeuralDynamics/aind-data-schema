@@ -75,7 +75,6 @@ a = Acquisition(
                     ],
                     images=[
                         FieldOfView(
-                            channel_name="Green channel",
                             targeted_structure=CCFStructure.MOP,
                             center_coordinate=Coordinate(
                                 system_name="BREGMA_ARI",
@@ -90,6 +89,7 @@ a = Acquisition(
                             frame_rate_unit=FrequencyUnit.HZ,
                             planes=[
                                 SinglePlaneConfig(
+                                    channel_name="Green channel",
                                     imaging_depth=150,
                                 )
                             ],

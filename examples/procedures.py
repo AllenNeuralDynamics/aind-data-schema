@@ -18,6 +18,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import VolumeUnit, SizeUnit
+from aind_data_schema.components.coordinates import Translation
 from aind_data_schema.components.coordinates import (
     AxisName,
     CoordinateSystem,
@@ -60,7 +61,7 @@ surgery1 = Surgery(
             protocol_id="1234",
             position=Coordinate(
                 system_name="SurgerySystem",
-                position=[-2, 2, 0, 0],
+                transform=Translation(translation=[-2, 2, 0, 0]),
             ),
             size=1,
             size_unit=SizeUnit.MM,
@@ -82,10 +83,12 @@ surgery1 = Surgery(
             coordinates=[
                 Coordinate(
                     system_name="SurgerySystem",
-                    position=[-0.85, -3.8, 0, 3.3],
-                    angles=Rotation(
-                        angles=[0, 10, 0],
-                    ),
+                    transforms=[
+                        Translation(translation=[-0.85, -3.8, 0, 3.3]),
+                        Rotation(
+                            angles=[0, 10, 0],
+                        ),
+                    ],
                 ),
             ],
             dynamics=[
