@@ -248,8 +248,8 @@ class MousePlatformConfig(DeviceConfig):
     )
 
 
-class DomeModule(DeviceConfig):
-    """Movable module that is mounted on the ephys dome insertion system"""
+class MISModuleConfig(DeviceConfig):
+    """Modular insertion system (MIS) module configuration"""
 
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
@@ -258,13 +258,10 @@ class DomeModule(DeviceConfig):
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )
-    coordinate_transform: Optional[AssetPath] = Field(
-        default=None, title="Path to coordinate transform file", description="Relative path from metadata json to file"
-    )  # [TODO] Remove
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class ManipulatorConfig(DomeModule):
+class ManipulatorConfig(DeviceConfig):
     """Configuration of a manipulator"""
 
     coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")

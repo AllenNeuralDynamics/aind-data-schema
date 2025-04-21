@@ -17,7 +17,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.acquisition_configs import (
-    DomeModule,
+    MISModuleConfig,
     ManipulatorConfig,
     MRIScan,
     ImagingConfig,
@@ -60,7 +60,7 @@ class AcquisitionTest(unittest.TestCase):
                     modalities=[Modality.ECEPHYS],
                     active_devices=["Stick_assembly", "Ephys_assemblyA"],
                     configurations=[
-                        DomeModule(
+                        MISModuleConfig(
                             device_name="Stick_assembly",
                             arc_angle=24,
                             module_angle=10,
@@ -178,7 +178,7 @@ class AcquisitionTest(unittest.TestCase):
                         modalities=[Modality.ECEPHYS],
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
-                            DomeModule(
+                            MISModuleConfig(
                                 device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
@@ -234,7 +234,7 @@ class AcquisitionTest(unittest.TestCase):
                         modalities=[Modality.ECEPHYS],
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
-                            DomeModule(
+                            MISModuleConfig(
                                 device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
@@ -291,7 +291,7 @@ class AcquisitionTest(unittest.TestCase):
                         modalities=[Modality.SPIM],
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
-                            DomeModule(
+                            MISModuleConfig(
                                 device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
@@ -345,7 +345,7 @@ class AcquisitionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             active_devices=["Stick_assembly", "Ephys_assemblyA"],
             configurations=[
-                DomeModule(
+                MISModuleConfig(
                     device_name="Stick_assembly",
                     arc_angle=24,
                     module_angle=10,

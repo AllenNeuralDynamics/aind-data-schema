@@ -16,7 +16,7 @@ from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDet
 from aind_data_schema.components.identifiers import Person
 
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.components.acquisition_configs import DomeModule
+from aind_data_schema.components.acquisition_configs import MISModuleConfig
 from aind_data_schema.core.metadata import Metadata
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.procedures import Procedures
@@ -122,7 +122,7 @@ class TestMetadata(unittest.TestCase):
                             stream_end_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
                             modalities=[Modality.ECEPHYS],
                             active_devices=[],
-                            configurations=[DomeModule.model_construct()],
+                            configurations=[MISModuleConfig.model_construct()],
                         ),
                     ],
                     subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
@@ -165,7 +165,7 @@ class TestMetadata(unittest.TestCase):
                         stream_end_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
                         modalities=[Modality.ECEPHYS],
                         active_devices=[],
-                        configurations=[DomeModule.model_construct()],
+                        configurations=[MISModuleConfig.model_construct()],
                     ),
                 ],
                 subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),

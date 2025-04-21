@@ -11,7 +11,7 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.acquisition_configs import (
     AirPuffConfig,
     DetectorConfig,
-    DomeModule,
+    MISModuleConfig,
     FiberAssemblyConfig,
     LaserConfig,
     LickSpoutConfig,
@@ -43,7 +43,7 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
+    Modality.ECEPHYS: [[MISModuleConfig, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
@@ -119,7 +119,7 @@ class DataStream(DataModel):
                 LightEmittingDiodeConfig,
                 LaserConfig,
                 ManipulatorConfig,
-                DomeModule,
+                MISModuleConfig,
                 DetectorConfig,
                 PatchCordConfig,
                 FiberAssemblyConfig,
