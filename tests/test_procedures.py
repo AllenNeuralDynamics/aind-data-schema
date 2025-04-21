@@ -35,6 +35,8 @@ from aind_data_schema.components.coordinates import (
     Origin,
     Rotation,
     CoordinateSystemLibrary,
+    Vector,
+    Translation,
 )
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
@@ -235,9 +237,13 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             coordinates=[
-                                Coordinate(
+                                Vector(
                                     system_name="BREGMA_ARID",
-                                    position=[0.5, 1, 0, 1],
+                                    transforms=[
+                                        Translation(
+                                            translation=[0.5, 1, 0, 1],
+                                        )
+                                    ],
                                 ),
                             ],
                             targeted_structure=CCFStructure.VISP6A,
@@ -351,13 +357,21 @@ class ProceduresTests(unittest.TestCase):
         inj1 = BrainInjection(
             protocol_id="abc",
             coordinates=[
-                Coordinate(
+                Vector(
                     system_name="BREGMA_ARID",
-                    position=[0.5, 1, 0, 0],
+                    transforms=[
+                        Translation(
+                            translation=[0.5, 1, 0, 0],
+                        )
+                    ],
                 ),
-                Coordinate(
+                Vector(
                     system_name="BREGMA_ARID",
-                    position=[0.5, 1, 0, 1],
+                    transforms=[
+                        Translation(
+                            translation=[0.5, 1, 0, 1],
+                        )
+                    ],
                 ),
             ],
             dynamics=[
@@ -392,13 +406,21 @@ class ProceduresTests(unittest.TestCase):
             BrainInjection(
                 protocol_id="abc",
                 coordinates=[
-                    Coordinate(
+                    Vector(
                         system_name="BREGMA_ARID",
-                        position=[0.5, 1, 0, 0],
+                        transforms=[
+                            Translation(
+                                translation=[0.5, 1, 0, 0],
+                            )
+                        ],
                     ),
-                    Coordinate(
+                    Vector(
                         system_name="BREGMA_ARID",
-                        position=[0.5, 1, 0, 1],
+                        transforms=[
+                            Translation(
+                                translation=[0.5, 1, 0, 1],
+                            )
+                        ],
                     ),
                 ],
                 injection_materials=[
@@ -436,29 +458,29 @@ class ProceduresTests(unittest.TestCase):
                     targeted_structure=CCFStructure.MOP,
                     start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
-                        position=[0.3, 0, 0],
+                        transform=Translation(translation=[0.3, 0, 0]),
                     ),
                     end_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
-                        position=[0.5, 0, 0],
+                        transform=Translation(translation=[0.5, 0, 0]),
                     ),
                 ),
                 Section(
                     output_specimen_id="123456_002",
                     start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
-                        position=[0.5, 0, 0],
+                        transform=Translation(translation=[0.5, 0, 0]),
                     ),
                     end_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
-                        position=[0.7, 0, 0],
+                        transform=Translation(translation=[0.7, 0, 0]),
                     ),
                 ),
                 Section(
                     output_specimen_id="123456_003",
                     start_coordinate=Coordinate(
                         system_name="BREGMA_ARI",
-                        position=[0.7, 0, 0],
+                        transform=Translation(translation=[0.7, 0, 0]),
                     ),
                     thickness=0.1,
                     thickness_unit=SizeUnit.MM,
@@ -477,7 +499,7 @@ class ProceduresTests(unittest.TestCase):
                         output_specimen_id="123456_001",
                         start_coordinate=Coordinate(
                             system_name="BREGMA_ARI",
-                            position=[0.3, 0, 0],
+                            transform=Translation(translation=[0.3, 0, 0]),
                         ),
                     ),
                 ],
@@ -590,7 +612,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            position=Coordinate(system_name="BREGMA_ARID", transform=Translation(translation=[0.5, 1, 0, 0])),
             size=2.0,
             size_unit=SizeUnit.MM,
         )
@@ -601,7 +623,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
-                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+                position=Coordinate(system_name="BREGMA_ARID", transform=Translation(translation=[0.5, 1, 0, 0])),
             )
         self.assertIn("Craniotomy.size must be provided for craniotomy type Circle", str(e.exception))
 
@@ -609,7 +631,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
-                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+                position=Coordinate(system_name="BREGMA_ARID", transform=Translation(translation=[0.5, 1, 0, 0])),
             )
         self.assertIn("Craniotomy.size must be provided for craniotomy type Square", str(e.exception))
 

@@ -17,7 +17,15 @@ from aind_data_schema.components.acquisition_configs import (
     EphysAssemblyConfig,
     ProbeConfig,
 )
-from aind_data_schema.components.coordinates import Coordinate, Vector, Translation, Rotation, AtlasCoordinate, AtlasLibrary, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import (
+    Coordinate,
+    Vector,
+    Translation,
+    Rotation,
+    AtlasCoordinate,
+    AtlasLibrary,
+    CoordinateSystemLibrary,
+)
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -45,8 +53,8 @@ ephys_assembly_a_config = EphysAssemblyConfig(
                     system_name="CCFv3",
                     transform=Translation(
                         translation=[8150, 3250, 7800],
-                    )
-                )
+                    ),
+                ),
             ),
             probe_transform=Vector(
                 system_name="BREGMA_ARID",
@@ -89,8 +97,8 @@ ephys_assembly_b_config = EphysAssemblyConfig(
                     system_name="CCFv3",
                     transform=Translation(
                         translation=[8150, 3250, 7800],
-                    )
-                )
+                    ),
+                ),
             ),
             probe_transform=Vector(
                 system_name="BREGMA_ARID",

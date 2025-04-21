@@ -54,12 +54,12 @@ scan2 = MRIScan(
     repetition_time=Decimal("500.0"),
     repetition_time_unit=TimeUnit.MS,
     scan_affine_transform=[
-            Affine(
-                affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-            ),
-            Translation(
-                translation=[-6.1, 7.0, 7.9],
-            ),
+        Affine(
+            affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+        ),
+        Translation(
+            translation=[-6.1, 7.0, 7.9],
+        ),
     ],
     subject_position=SubjectPosition.SUPINE,
     resolution=Scale(scale=[0.5, 0.4375, 0.52]),

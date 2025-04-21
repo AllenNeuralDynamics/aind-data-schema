@@ -78,9 +78,7 @@ a = Acquisition(
                             targeted_structure=CCFStructure.MOP,
                             center_coordinate=Coordinate(
                                 system_name="BREGMA_ARI",
-                                transform=Translation(
-                                    translation=[1.5, 1.5, 0]
-                                ),
+                                transform=Translation(translation=[1.5, 1.5, 0]),
                             ),
                             fov_width=800,
                             fov_height=800,

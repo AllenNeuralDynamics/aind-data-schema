@@ -559,8 +559,7 @@ class Surgery(DataModel):
         default=None,
         title="Surgery coordinate system",
         description=(
-            "Only required when the Surgery.coordinate_system "
-            "is different from the Procedures.coordinate_system"
+            "Only required when the Surgery.coordinate_system " "is different from the Procedures.coordinate_system"
         ),
     )  # note: exact field name is used by a validator
 
