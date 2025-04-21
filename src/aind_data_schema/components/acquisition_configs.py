@@ -3,12 +3,11 @@
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Annotated, List, Literal, Optional, Union
+from typing import Annotated, List, Optional, Union
 
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
-from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import (
     AngleUnit,
     FrequencyUnit,
@@ -172,6 +171,8 @@ class PatchCordConfig(DeviceConfig):
 class SinglePlaneConfig(DataModel):
     """Configuration of a single plane ophys config"""
 
+    channel_name: str = Field(..., title="Channel name")
+
     imaging_depth: int = Field(..., title="Imaging depth (um)")
     imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
 
@@ -199,6 +200,8 @@ class MultiPlaneConfig(SinglePlaneConfig):
 class StackConfig(DataModel):
     """Configuration of a two photon stack"""
 
+    channel_name: str = Field(..., title="Channel name")
+
     start_depth: int = Field(..., title="Starting depth (um)")
     end_depth: int = Field(..., title="Ending depth (um)")
     depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Depth unit")
@@ -212,7 +215,6 @@ class StackConfig(DataModel):
 class FieldOfView(DataModel):
     """Configuration of an imaging field of view"""
 
-    channel_name: str = Field(..., title="Channel name")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     center_coordinate: Optional[Coordinate] = Field(
         default=None,
@@ -324,7 +326,7 @@ class LickSpoutConfig(DataModel):
     solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Transform] = Field(default=None, title="Initial position")
+    position: Optional[Vector] = Field(default=None, title="Initial position")
 
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
@@ -345,7 +347,7 @@ class AirPuffConfig(DataModel):
 
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Transform] = Field(default=None, title="Initial position")
+    position: Optional[Vector] = Field(default=None, title="Initial position")
 
     pressure: Optional[float] = Field(default=None, title="Pressure")
     pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
@@ -478,9 +480,18 @@ class ImagingConfig(DataModel):
 
         channel_names = [channel.channel_name for channel in self.channels]
 
-        for image in self.images:
+        fovs = [image for image in self.images if isinstance(image, FieldOfView)]
+        images = [image for image in self.images if isinstance(image, Image)]
+
+        for image in images:
             if image.channel_name not in channel_names:
                 raise ValueError(f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list")
+
+        for fov in fovs:
+            for plane in fov.planes:
+                if plane.channel_name not in channel_names:
+                    raise ValueError(f"Channel {plane.channel_name} must be defined in the ImagingConfig.channels list")
+
         return self
 
     @model_validator(mode="after")
