@@ -86,6 +86,9 @@ class DeviceConfig(DataModel):
     device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
 
 
+# IMAGING CONFIGS
+
+
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
@@ -171,12 +174,6 @@ class SlapChannel(Channel):
     description: Optional[str] = Field(default=None, title="Description")
 
 
-class PatchCordConfig(DeviceConfig):
-    """Configuration of a patch cord and its output power to another device"""
-
-    channels: List[Channel] = Field(..., title="Channels")
-
-
 class SinglePlaneConfig(DataModel):
     """Configuration of a single plane ophys config"""
 
@@ -246,6 +243,83 @@ class FieldOfView(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class PatchCordConfig(DeviceConfig):
+    """Configuration of a patch cord and its output power to another device"""
+
+    channels: List[Channel] = Field(..., title="Channels")
+
+
+class Immersion(DataModel):
+    """Configuration of immersion medium"""
+
+    medium: ImmersionMedium = Field(..., title="Immersion medium")
+    refractive_index: Decimal = Field(..., title="Index of refraction")
+
+
+class SampleChamberConfig(DataModel):
+    """Configuration of a sample chamber"""
+
+    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
+    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
+
+
+class Image(DataModel):
+    """Configuration of an image"""
+
+    channel_name: str = Field(..., title="Channel name")
+    coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
+    file_name: Optional[str] = Field(default=None, title="File name")
+    imaging_angle: int = Field(
+        default=0,
+        title="Imaging angle",
+        description="Angle of the detector relative to the image plane relative to perpendicular",
+    )
+    imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
+    image_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition start time")
+    image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
+
+
+class ImagingConfig(DataModel):
+    """Configuration of an imaging instrument"""
+
+    channels: List[Channel] = Field(..., title="Channels")
+    images: List[Annotated[Union[FieldOfView, Image], Field(discriminator="object_type")]] = Field(..., title="Images")
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None, title="Coordinate system"
+    )  # note: exact field name is used by a validator
+
+    @model_validator(mode="after")
+    def check_image_channels(self):
+        """Check that the required channels are present for the images"""
+
+        channel_names = [channel.channel_name for channel in self.channels]
+
+        fovs = [image for image in self.images if isinstance(image, FieldOfView)]
+        images = [image for image in self.images if isinstance(image, Image)]
+
+        for image in images:
+            if image.channel_name not in channel_names:
+                raise ValueError(f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list")
+
+        for fov in fovs:
+            for plane in fov.planes:
+                if plane.channel_name not in channel_names:
+                    raise ValueError(f"Channel {plane.channel_name} must be defined in the ImagingConfig.channels list")
+
+        return self
+
+    @model_validator(mode="after")
+    def require_cs_images(self):
+        """Check that a coordinate system is present if any images are Image"""
+
+        if any(isinstance(image, Image) for image in self.images) and not self.coordinate_system:
+            raise ValueError("Coordinate system is required if any images are Image")
+        return self
+
+
+# MOUSE PLATFORM CONFIGS
+
+
 class MousePlatformConfig(DeviceConfig):
     """Configuration for mouse platforms"""
 
@@ -255,6 +329,52 @@ class MousePlatformConfig(DeviceConfig):
         title="Active control",
         description="True when movement of the mouse platform is dynamically controlled by the experimenter",
     )
+
+
+class LickSpoutConfig(DataModel):
+    """Lick spout acquisition information"""
+
+    solution: Liquid = Field(..., title="Solution")
+    solution_valence: Valence = Field(..., title="Valence")
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Vector] = Field(default=None, title="Initial position")
+
+    notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
+
+    @model_validator(mode="after")
+    def validate_other(cls, values):
+        """Validator for other/notes"""
+
+        if values.solution == Liquid.OTHER and not values.notes:
+            raise ValueError(
+                "Notes cannot be empty if LickSpoutConfig.solution is Other."
+                "Describe the solution in the notes field."
+            )
+        return values
+
+
+class AirPuffConfig(DataModel):
+    """Air puff device configuration"""
+
+    valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
+    position: Optional[Vector] = Field(default=None, title="Initial position")
+
+    pressure: Optional[float] = Field(default=None, title="Pressure")
+    pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
+
+    duration: Optional[float] = Field(default=None, title="Duration")
+
+
+class SpeakerConfig(DeviceConfig):
+    """Configuration of auditory speaker configuration"""
+
+    volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
+    volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
+
+
+# EPHYS CONFIGS
 
 
 class MISModuleConfig(DeviceConfig):
@@ -315,50 +435,9 @@ class FiberAssemblyConfig(DeviceConfig):
     patch_cords: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
 
 
-class LickSpoutConfig(DataModel):
-    """Lick spout acquisition information"""
-
-    solution: Liquid = Field(..., title="Solution")
-    solution_valence: Valence = Field(..., title="Valence")
-
-    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Vector] = Field(default=None, title="Initial position")
-
-    notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
-
-    @model_validator(mode="after")
-    def validate_other(cls, values):
-        """Validator for other/notes"""
-
-        if values.solution == Liquid.OTHER and not values.notes:
-            raise ValueError(
-                "Notes cannot be empty if LickSpoutConfig.solution is Other."
-                "Describe the solution in the notes field."
-            )
-        return values
+# MRI CONFIGS
 
 
-class AirPuffConfig(DataModel):
-    """Air puff device configuration"""
-
-    valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
-    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Vector] = Field(default=None, title="Initial position")
-
-    pressure: Optional[float] = Field(default=None, title="Pressure")
-    pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
-
-    duration: Optional[float] = Field(default=None, title="Duration")
-
-
-class SpeakerConfig(DeviceConfig):
-    """Configuration of auditory speaker configuration"""
-
-    volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
-    volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
-
-
-# MRI components
 class MriScanSequence(str, Enum):
     """MRI scan sequence"""
 
@@ -428,72 +507,4 @@ class MRIScan(DeviceConfig):
             if not self.scan_affine_transform or not self.resolution:
                 raise ValueError("Primary scan must have scan_affine_transform and resolution fields")
 
-        return self
-
-
-class Immersion(DataModel):
-    """Configuration of immersion medium"""
-
-    medium: ImmersionMedium = Field(..., title="Immersion medium")
-    refractive_index: Decimal = Field(..., title="Index of refraction")
-
-
-class SampleChamberConfig(DataModel):
-    """Configuration of a sample chamber"""
-
-    chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
-    sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
-
-
-class Image(DataModel):
-    """Configuration of an image"""
-
-    channel_name: str = Field(..., title="Channel name")
-    coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
-    file_name: Optional[str] = Field(default=None, title="File name")
-    imaging_angle: int = Field(
-        default=0,
-        title="Imaging angle",
-        description="Angle of the detector relative to the image plane relative to perpendicular",
-    )
-    imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
-    image_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition start time")
-    image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
-
-
-class ImagingConfig(DataModel):
-    """Configuration of an imaging instrument"""
-
-    channels: List[Channel] = Field(..., title="Channels")
-    images: List[Annotated[Union[FieldOfView, Image], Field(discriminator="object_type")]] = Field(..., title="Images")
-    coordinate_system: Optional[CoordinateSystem] = Field(
-        default=None, title="Coordinate system"
-    )  # note: exact field name is used by a validator
-
-    @model_validator(mode="after")
-    def check_image_channels(self):
-        """Check that the required channels are present for the images"""
-
-        channel_names = [channel.channel_name for channel in self.channels]
-
-        fovs = [image for image in self.images if isinstance(image, FieldOfView)]
-        images = [image for image in self.images if isinstance(image, Image)]
-
-        for image in images:
-            if image.channel_name not in channel_names:
-                raise ValueError(f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list")
-
-        for fov in fovs:
-            for plane in fov.planes:
-                if plane.channel_name not in channel_names:
-                    raise ValueError(f"Channel {plane.channel_name} must be defined in the ImagingConfig.channels list")
-
-        return self
-
-    @model_validator(mode="after")
-    def require_cs_images(self):
-        """Check that a coordinate system is present if any images are Image"""
-
-        if any(isinstance(image, Image) for image in self.images) and not self.coordinate_system:
-            raise ValueError("Coordinate system is required if any images are Image")
         return self
