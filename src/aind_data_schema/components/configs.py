@@ -150,7 +150,7 @@ class Channel(DataModel):
     ] = Field(default=[], title="Light source configurations")
     excitation_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Excitation filters")
     # emission
-    emission_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Emission filter names")
+    emission_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Emission filters")
     emission_wavelength: Optional[int] = Field(default=None, title="Emission wavelength")
     emission_wavelength_unit: Optional[SizeUnit] = Field(default=None, title="Emission wavelength unit")
 
