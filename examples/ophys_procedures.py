@@ -22,6 +22,7 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
 )
+from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
@@ -95,10 +96,12 @@ p = Procedures(
                 ProbeImplant(
                     protocol_id="TO ENTER",
                     implanted_device_names=["Probe A"],
-                    targeted_structure=CCFStructure.VTA,
-                    coordinate=Coordinate(
-                        system_name="BREGMA_ARID",
-                        transform=Translation(translation=[-600, -3050, 0, 4200]),
+                    probe_config=ProbeConfig(
+                        primary_targeted_structure=CCFStructure.VTA,
+                        probe_transform=Vector(
+                            system_name="BREGMA_ARID",
+                            transforms=Translation(translation=[-600, -3050, 0, 4200]),
+                        ),
                     ),
                 ),
             ],

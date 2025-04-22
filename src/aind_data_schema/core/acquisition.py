@@ -43,7 +43,7 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[MISModuleConfig, ManipulatorConfig]],
+    Modality.ECEPHYS: [[EphysAssemblyConfig, MISModuleConfig, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],

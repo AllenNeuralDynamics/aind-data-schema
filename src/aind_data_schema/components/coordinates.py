@@ -353,8 +353,8 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    MPM_PROBE_XYZ = CoordinateSystem(
-        name="MPM_PROBE_BLB",
+    MPM_PROBE_TODO = CoordinateSystem(
+        name="MPM_PROBE_TODO",
         origin=Origin.TIP,
         axis_unit=SizeUnit.UM,
         axes=[
