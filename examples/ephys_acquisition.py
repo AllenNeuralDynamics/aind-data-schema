@@ -35,9 +35,9 @@ ephys_assembly_a_config = EphysAssemblyConfig(
     device_name="Ephys_assemblyA",
     manipulator=ManipulatorConfig(
         device_name="ManipulatorA",
-        coordinate_system=CoordinateSystemLibrary.MPM_PROBE_XYZ,
+        coordinate_system=CoordinateSystemLibrary.MPM_PROBE_TODO,
         local_axis_positions=Coordinate(
-            system_name="MPM_PROBE_XYZ",
+            system_name="MPM_PROBE_TODO",
             transform=Translation(
                 translation=[8422, 4205, 11087.5],
             ),
