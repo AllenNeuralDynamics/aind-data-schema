@@ -24,8 +24,8 @@ from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import Coordinate, Vector, CoordinateSystem, Origin
-from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
-from aind_data_schema.components.configs import ProbeConfig
+from aind_data_schema.components.devices import FiberProbe, MyomatrixArray, EphysProbe
+from aind_data_schema.components.configs import ProbeConfig, DeviceConfig
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
 from aind_data_schema.utils.merge import merge_notes
@@ -612,7 +612,12 @@ class Procedures(DataCoreModel):
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
 
     # Implanted devices
-    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(default=[], title="Implanted devices")
+    implanted_devices: List[
+        Annotated[Union[EphysProbe, FiberProbe, MyomatrixArray], Field(discriminator="object_type")]
+    ] = Field(default=[], title="Implanted devices")
+    configurations: List[Annotated[Union[ProbeConfig, DeviceConfig], Field(discriminator="object_type")]] = Field(
+        default=[], title="Implanted device configurations"
+    )
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
@@ -634,6 +639,20 @@ class Procedures(DataCoreModel):
                 raise ValueError("All specimen_id must be identical in the specimen_procedures.")
 
         return v
+
+    @model_validator(mode="after")
+    def validate_configurations(cls, values):
+        """Validate that all configurations correspond to an implanted device"""
+
+        device_names = [config.device_name for config in values.configurations]
+
+        for device in values.implanted_devices:
+            if device.name not in device_names:
+                raise ValueError(
+                    f"Configuration for {device.name} in Procedures.configurations must refer to a device in Procedures.implanted_devices."
+                )
+
+        return values
 
     @model_validator(mode="after")
     def validate_subject_specimen_ids(values):
