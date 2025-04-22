@@ -129,20 +129,20 @@ class LaserConfig(DeviceConfig):
 
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    power: Optional[float] = Field(default=None, title="Excitation power (mW)")
+    power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 class VariableLaserConfig(LaserConfig):
     """Configuration of laser settings where the power is variable"""
 
-    power: Optional[List[float]] = Field(default=None, title="Excitation power (mW)")
+    power: Optional[List[float]] = Field(default=None, title="Excitation power")
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
     """Configuration of LED settings"""
 
-    power: Optional[Decimal] = Field(default=None, title="Excitation power (mW)")
+    power: Optional[Decimal] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
