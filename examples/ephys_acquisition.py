@@ -50,7 +50,7 @@ ephys_assembly_a_config = EphysAssemblyConfig(
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
                 coordinate=Coordinate(
-                    system_name="CCFv3",
+                    system_name=AtlasLibrary.CCFv3_10um.name,
                     transform=Translation(
                         translation=[8150, 3250, 7800],
                     ),
@@ -94,7 +94,7 @@ ephys_assembly_b_config = EphysAssemblyConfig(
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
                 coordinate=Coordinate(
-                    system_name="CCFv3",
+                    system_name=AtlasLibrary.CCFv3_10um.name,
                     transform=Translation(
                         translation=[8150, 3250, 7800],
                     ),
