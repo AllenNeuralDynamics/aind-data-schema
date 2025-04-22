@@ -133,12 +133,6 @@ class LaserConfig(DeviceConfig):
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-class VariableLaserConfig(LaserConfig):
-    """Configuration of laser settings where the power is variable"""
-
-    power: Optional[List[float]] = Field(default=None, title="Excitation power")
-
-
 class LightEmittingDiodeConfig(DeviceConfig):
     """Configuration of LED settings"""
 
@@ -161,9 +155,6 @@ class SlapMicroscopeConfig(MicroscopeConfig):
     path_to_array_of_frame_rates: AssetPath = Field(
         ..., title="Array of frame rates", description="Relative path from metadata json to file"
     )
-
-    dilation: Optional[int] = Field(default=None, title="Dilation")
-    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
 
 
 class Channel(DataModel):
@@ -188,6 +179,9 @@ class Channel(DataModel):
             Field(discriminator="object_type"),
         ]
     ] = Field(default=[], title="Light source configurations")
+    variable_power: Optional[bool] = Field(
+        default=False, title="Variable power", description="Set to true when power values change during the experiment"
+    )
     excitation_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Excitation filters")
     # emission
     emission_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Emission filters")
@@ -197,6 +191,9 @@ class Channel(DataModel):
 
 class SlapChannel(Channel):
     """Configuration of a channel for Slap"""
+
+    dilation: Optional[int] = Field(default=None, title="Dilation")
+    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
 
     description: Optional[str] = Field(default=None, title="Description")
 

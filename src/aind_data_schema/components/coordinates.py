@@ -190,8 +190,6 @@ class NonlinearTransform(DataModel):
     )
 
 
-VECTOR_TYPES = List[Annotated[Union[Translation, Rotation], Field(discriminator="object_type")]]
-TRANSFORM_TYPES = List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]]
 TRANSFORM_TYPES_NONLIN = List[
     Annotated[Union[Translation, Rotation, Scale, Affine, NonlinearTransform], Field(discriminator="object_type")]
 ]
@@ -218,30 +216,30 @@ class Atlas(CoordinateSystem):
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
 
-class Coordinate(DataModel):
-    """A coordinate in a CoordinateSpace"""
+# class Coordinate(DataModel):
+#     """A coordinate in a CoordinateSpace"""
 
-    system_name: str = Field(
-        ...,
-        title="Coordinate system name",
-    )  # note: this field's exact name is used by a validator
-    transform: Translation = Field(..., title="Position")
-
-
-class AtlasCoordinate(DataModel):
-    """A coordinate in an atlas (AtlasSpace)"""
-
-    coordinate_system: Atlas = Field(..., title="Atlas")
-    coordinate: Coordinate = Field(..., title="Coordinate")
+#     system_name: str = Field(
+#         ...,
+#         title="Coordinate system name",
+#     )  # note: this field's exact name is used by a validator
+#     transform: Translation = Field(..., title="Position")
 
 
-class Vector(DataModel):
-    """A coordinate and orientation in a CoordinateSpace"""
+# class AtlasCoordinate(DataModel):
+#     """A coordinate in an atlas (AtlasSpace)"""
 
-    system_name: str = Field(
-        ..., title="Coordinate system name"
-    )  # note: this field's exact name is used by a validator
-    transforms: VECTOR_TYPES = Field(..., title="Transforms")
+#     coordinate_system: Atlas = Field(..., title="Atlas")
+#     coordinate: Coordinate = Field(..., title="Coordinate")
+
+
+# class Vector(DataModel):
+#     """A coordinate and orientation in a CoordinateSpace"""
+
+#     system_name: str = Field(
+#         ..., title="Coordinate system name"
+#     )  # note: this field's exact name is used by a validator
+#     transforms: VECTOR_TYPES = Field(..., title="Transforms")
 
 
 class CoordinateTransform(DataModel):
