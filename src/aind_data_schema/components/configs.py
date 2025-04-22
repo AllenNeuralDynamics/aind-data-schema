@@ -240,7 +240,7 @@ class StackConfig(DataModel):
 
 
 class FieldOfView(DataModel):
-    """Configuration of an imaging field of view"""
+    """Configuration of an imaging field of view, capturing a continuous video"""
 
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
     center_coordinate: Optional[Coordinate] = Field(
@@ -285,7 +285,7 @@ class SampleChamberConfig(DataModel):
 
 
 class Image(DataModel):
-    """Configuration of an image"""
+    """Configuration of an imaging field of view, capturing a single image"""
 
     channel_name: str = Field(..., title="Channel name")
     coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
