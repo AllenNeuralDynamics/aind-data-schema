@@ -80,6 +80,27 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
+class MriScanSequence(str, Enum):
+    """MRI scan sequence"""
+
+    RARE = "RARE"
+    OTHER = "Other"
+
+
+class ScanType(str, Enum):
+    """Type of scan"""
+
+    SETUP = "Set Up"
+    SCAN_3D = "3D Scan"
+
+
+class SubjectPosition(str, Enum):
+    """Subject position"""
+
+    PRONE = "Prone"
+    SUPINE = "Supine"
+
+
 class DeviceConfig(DataModel):
     """Parent class for all configurations"""
 
@@ -436,27 +457,6 @@ class FiberAssemblyConfig(DeviceConfig):
 
 
 # MRI CONFIGS
-
-
-class MriScanSequence(str, Enum):
-    """MRI scan sequence"""
-
-    RARE = "RARE"
-    OTHER = "Other"
-
-
-class ScanType(str, Enum):
-    """Type of scan"""
-
-    SETUP = "Set Up"
-    SCAN_3D = "3D Scan"
-
-
-class SubjectPosition(str, Enum):
-    """Subject position"""
-
-    PRONE = "Prone"
-    SUPINE = "Supine"
 
 
 class MRIScan(DeviceConfig):
