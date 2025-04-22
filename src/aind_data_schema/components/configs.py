@@ -116,7 +116,6 @@ class SlapMicroscopeConfig(MicroscopeConfig):
     """Configuration of a Slap microscope"""
 
     slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    target_type: SlapAcquisitionType = Field(..., title="Target type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
     target_branch: Optional[str] = Field(default=None, title="Target branch")
     path_to_array_of_frame_rates: AssetPath = Field(
