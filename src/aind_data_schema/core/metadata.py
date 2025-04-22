@@ -20,7 +20,7 @@ from pydantic import (
 
 from aind_data_schema.components.identifiers import ExternalLinks
 from aind_data_schema.base import DataCoreModel
-from aind_data_schema.core.acquisition import CONFIG_DEVICE_REQUIREMENTS, MODALITY_DEVICE_REQUIREMENTS, Acquisition
+from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.model import Model
@@ -204,54 +204,6 @@ class Metadata(DataCoreModel):
             if any(isinstance(component, device_type) for device_type in device_type_group):
                 return True
         return False
-
-    @model_validator(mode="after")
-    def validate_acquisition_modality_requirements(self):
-        """Validator for acquisition modality -> device requirements
-
-        For certain modalities in acquisition, check that the instrument has the appropriate components
-        """
-
-        if not self.acquisition:
-            return self
-
-        # get all modalities from all data_streams
-        modalities = [modality for data_stream in self.acquisition.data_streams for modality in data_stream.modalities]
-        for modality in modalities:
-            if modality in MODALITY_DEVICE_REQUIREMENTS.keys():
-                for group in MODALITY_DEVICE_REQUIREMENTS[modality]:
-                    if not self._check_for_device(group):
-                        requirement = ", ".join(device.__name__ for device in group)
-                        raise ValueError(
-                            f"Modality '{modality.abbreviation}' requires one " f"of '{requirement}' in instrument"
-                        )
-
-        return self
-
-    @model_validator(mode="after")
-    def validate_acquisition_config_requirements(self):
-        """Validator for acquisition config -> device requirements
-
-        For certain config files in acquisition, check that the instrument has the appropriate devices
-        """
-
-        if not self.acquisition:
-            return self
-
-        configurations = [
-            config for data_stream in self.acquisition.data_streams for config in data_stream.configurations
-        ]
-
-        for config in configurations:
-            if any(type(config).__name__ == config_type for config_type in CONFIG_DEVICE_REQUIREMENTS.keys()):
-                group = CONFIG_DEVICE_REQUIREMENTS[type(config).__name__]
-                if not self._check_for_device(group):
-                    requirement = ", ".join(device.__name__ for device in group)
-                    raise ValueError(
-                        f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument"
-                    )
-
-        return self
 
     @model_validator(mode="after")
     @classmethod

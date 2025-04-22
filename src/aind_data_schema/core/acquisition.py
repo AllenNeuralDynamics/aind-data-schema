@@ -30,7 +30,6 @@ from aind_data_schema.components.configs import (
     EphysAssemblyConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
-from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.core.instrument import Connection
@@ -43,23 +42,12 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[EphysAssemblyConfig, MISModuleConfig, ManipulatorConfig]],
+    Modality.ECEPHYS: [[EphysAssemblyConfig, ProbeConfig, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
     Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
     Modality.SLAP: [[ImagingConfig], [SlapMicroscopeConfig]],
-}
-
-# This is ugly but one of the validators was just checking that the cameras were active in the device name list
-# so to replace that I'm going to add a validator that searches the instrument to make sure the active_devices
-# list contains a valid Camera and/or CameraAssembly. Note that this validator has to go in the `metadata` class
-MODALITY_DEVICE_REQUIREMENTS = {
-    Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
-}
-CONFIG_DEVICE_REQUIREMENTS = {
-    "DomeModule": [EphysAssembly],
-    "FiberAssemblyConfig": [FiberAssembly],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
