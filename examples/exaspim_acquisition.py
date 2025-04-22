@@ -8,7 +8,7 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.acquisition_configs import (
+from aind_data_schema.components.configs import (
     Channel,
     DeviceConfig,
     LaserConfig,

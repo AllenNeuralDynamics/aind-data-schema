@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.coordinates import Coordinate, Vector, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
 from aind_data_schema.utils.merge import merge_notes
@@ -486,7 +487,7 @@ class ProbeImplant(DataModel):
         ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
     )  # note: exact field name is used by a validator
 
-    dye: Optional[str] = Field(default=None, title="Dye")
+    probe_config: ProbeConfig = Field(..., title="Probe configuration")
 
 
 class WaterRestriction(DataModel):

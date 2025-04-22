@@ -3,7 +3,7 @@
 import unittest
 from decimal import Decimal
 from pydantic import ValidationError
-from aind_data_schema.components.acquisition_configs import (
+from aind_data_schema.components.configs import (
     MRIScan,
     Scale,
     LickSpoutConfig,

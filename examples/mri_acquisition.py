@@ -12,7 +12,7 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.acquisition_configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
+from aind_data_schema.components.configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
 
 from aind_data_schema_models.units import TimeUnit, SizeUnit
 

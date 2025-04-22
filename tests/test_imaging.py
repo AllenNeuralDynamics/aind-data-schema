@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 
-from aind_data_schema.components.acquisition_configs import Image
+from aind_data_schema.components.configs import Image
 from aind_data_schema.components.coordinates import (
     Rotation,
     Scale,

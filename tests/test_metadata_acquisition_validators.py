@@ -16,7 +16,7 @@ from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDet
 from aind_data_schema.components.identifiers import Person
 
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.components.acquisition_configs import MISModuleConfig
+from aind_data_schema.components.configs import MISModuleConfig
 from aind_data_schema.core.metadata import Metadata
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.procedures import Procedures

@@ -11,7 +11,7 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.acquisition_configs import (
+from aind_data_schema.components.configs import (
     ManipulatorConfig,
     StimulusModality,
     EphysAssemblyConfig,

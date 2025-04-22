@@ -8,7 +8,7 @@ from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
-from aind_data_schema.components.acquisition_configs import (
+from aind_data_schema.components.configs import (
     AirPuffConfig,
     DetectorConfig,
     MISModuleConfig,
