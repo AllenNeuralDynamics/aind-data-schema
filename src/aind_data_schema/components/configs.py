@@ -63,10 +63,14 @@ class SlapAcquisitionType(str, Enum):
     BRANCH = "Branch"
 
 
-class DeviceConfig(DataModel):
-    """Parent class for all configurations"""
+class Liquid(str, Enum):
+    """Solution names"""
 
-    device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
+    WATER = "Water"
+    SUCROSE = "Sucrose"
+    QUININE = "Quinine"
+    CITRIC_ACID = "Citric acid"
+    OTHER = "Other"
 
 
 class TriggerType(str, Enum):
@@ -74,6 +78,12 @@ class TriggerType(str, Enum):
 
     INTERNAL = "Internal"
     EXTERNAL = "External"
+
+
+class DeviceConfig(DataModel):
+    """Parent class for all configurations"""
+
+    device_name: str = Field(..., title="Device name", description="Must match a device defined in the instrument.json")
 
 
 class DetectorConfig(DeviceConfig):
@@ -303,16 +313,6 @@ class FiberAssemblyConfig(DeviceConfig):
     manipulator: ManipulatorConfig = Field(..., title="Manipulator configuration")
     probes: List[ProbeConfig] = Field(..., title="Probe configurations")
     patch_cords: List[PatchCordConfig] = Field(default=[], title="Fiber photometry devices")
-
-
-class Liquid(str, Enum):
-    """Solution names"""
-
-    WATER = "Water"
-    SUCROSE = "Sucrose"
-    QUININE = "Quinine"
-    CITRIC_ACID = "Citric acid"
-    OTHER = "Other"
 
 
 class LickSpoutConfig(DataModel):
