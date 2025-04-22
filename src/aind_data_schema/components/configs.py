@@ -243,7 +243,7 @@ class MousePlatformConfig(DeviceConfig):
     active_control: bool = Field(
         default=False,
         title="Active control",
-        description="True when movement of the mouse platform is in any way controlled by the experimenter",
+        description="True when movement of the mouse platform is dynamically controlled by the experimenter",
     )
 
 
