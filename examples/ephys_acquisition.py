@@ -18,8 +18,6 @@ from aind_data_schema.components.configs import (
     ProbeConfig,
 )
 from aind_data_schema.components.coordinates import (
-    Coordinate,
-    Vector,
     Translation,
     Rotation,
     AtlasCoordinate,
@@ -36,11 +34,8 @@ ephys_assembly_a_config = EphysAssemblyConfig(
     manipulator=ManipulatorConfig(
         device_name="ManipulatorA",
         coordinate_system=CoordinateSystemLibrary.MPM_PROBE_TODO,
-        local_axis_positions=Coordinate(
-            system_name="MPM_PROBE_TODO",
-            transform=Translation(
-                translation=[8422, 4205, 11087.5],
-            ),
+        local_axis_positions=Translation(
+            translation=[8422, 4205, 11087.5],
         ),
     ),
     probes=[
@@ -49,24 +44,17 @@ ephys_assembly_a_config = EphysAssemblyConfig(
             device_name="ProbeA",
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
-                coordinate=Coordinate(
-                    system_name=AtlasLibrary.CCFv3_10um.name,
-                    transform=Translation(
-                        translation=[8150, 3250, 7800],
-                    ),
+                translation=[8150, 3250, 7800],
+            ),
+            coordinate_system=CoordinateSystemLibrary.MPM_PROBE_TODO,
+            transform=[
+                Translation(
+                    translation=[5000, 5000, 0, 1],
                 ),
-            ),
-            probe_transform=Vector(
-                system_name="BREGMA_ARID",
-                transforms=[
-                    Translation(
-                        translation=[5000, 5000, 0, 1],
-                    ),
-                    Rotation(
-                        angles=[8, 5.2, 0, 0],
-                    ),
-                ],
-            ),
+                Rotation(
+                    angles=[8, 5.2, 0, 0],
+                ),
+            ],
             notes=(
                 "Moved Y to avoid blood vessel, X to avoid edge. Mouse made some noise during the recording"
                 " with a sudden shift in signals. Lots of motion. Maybe some implant motion."

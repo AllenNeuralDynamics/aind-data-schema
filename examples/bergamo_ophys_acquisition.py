@@ -22,7 +22,7 @@ from aind_data_schema.components.configs import (
     StimulusModality,
     ImagingConfig,
 )
-from aind_data_schema.components.coordinates import Coordinate, Translation, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Translation, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -76,9 +76,8 @@ a = Acquisition(
                     images=[
                         FieldOfView(
                             targeted_structure=CCFStructure.MOP,
-                            center_to_acquisition_translation=Coordinate(
-                                system_name="BREGMA_ARI",
-                                transform=Translation(translation=[1.5, 1.5, 0]),
+                            center_to_acquisition_translation=Translation(
+                                translation=[1.5, 1.5, 0],
                             ),
                             fov_width=800,
                             fov_height=800,

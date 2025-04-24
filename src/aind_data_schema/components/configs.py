@@ -25,7 +25,6 @@ from aind_data_schema.components.coordinates import (
     AtlasCoordinate,
     CoordinateSystem,
     Translation,
-    Rotation,
     Scale,
     TRANSFORM_TYPES,
     TRANSFORM_TYPES_NONLIN,
@@ -362,9 +361,9 @@ class LickSpoutConfig(DataModel):
     solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    
+
     # Transform
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, "Device coordinate system")
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
     transform: Optional[TRANSFORM_TYPES] = Field(
         default=None,
         title="Device to acquisition transform",
