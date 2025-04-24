@@ -4,6 +4,9 @@ import unittest
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema.components.coordinates import CoordinateSystem, Scale
+from aind_data_schema.components.devices import PositionedDevice
+from aind_data_schema_models.coordinates import AnatomicalRelative
 
 from aind_data_schema.components.devices import (
     Device,
@@ -16,6 +19,7 @@ from aind_data_schema.components.devices import (
     ImmersionMedium,
     Objective,
 )
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 
 
 class DeviceTests(unittest.TestCase):
@@ -77,6 +81,49 @@ class DeviceTests(unittest.TestCase):
             notes="test notes",
         )
         self.assertEqual(valid.name, "test_additional_imaging")
+
+    def test_position_device(self):
+        """Test that the PositionDevice validator gets raised properly"""
+
+        # Test with both transform and coordinate_system set
+        valid_positioned = PositionedDevice(
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            transform=[
+                Translation(
+                    translation=[1, 1, 1],
+                )
+            ],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+        )
+        self.assertIsNotNone(valid_positioned.transform)
+        self.assertIsNotNone(valid_positioned.coordinate_system)
+
+        # Test with both transform and coordinate_system unset
+        valid_positioned_unset = PositionedDevice(
+            relative_position=[AnatomicalRelative.SUPERIOR],
+        )
+        self.assertIsNone(valid_positioned_unset.transform)
+        self.assertIsNone(valid_positioned_unset.coordinate_system)
+
+        # Test with transform set but coordinate_system unset
+        with self.assertRaises(ValueError) as e1:
+            PositionedDevice(
+                relative_position=[AnatomicalRelative.SUPERIOR],
+                transform=[
+                    Translation(
+                        translation=[1, 1, 1],
+                    )
+                ]
+            )
+        self.assertIn("PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset", str(e1.exception))
+
+        # Test with coordinate_system set but transform unset
+        with self.assertRaises(ValueError) as e2:
+            PositionedDevice(
+                relative_position=[AnatomicalRelative.SUPERIOR],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            )
+        self.assertIn("PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset", str(e2.exception))
 
 
 if __name__ == "__main__":

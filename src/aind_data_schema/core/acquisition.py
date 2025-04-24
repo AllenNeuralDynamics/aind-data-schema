@@ -137,7 +137,7 @@ class DataStream(DataModel):
         for modality in self.modalities:
             if modality not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
-                continue
+                continue  # pragma: no cover
 
             for group in CONFIG_REQUIREMENTS[modality]:
                 if not any(isinstance(config, device_type) for config in self.configurations for device_type in group):

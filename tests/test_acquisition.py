@@ -118,56 +118,14 @@ class AcquisitionTest(unittest.TestCase):
 
     def test_subject_details_if_not_specimen(self):
         """Test that subject details are required if no specimen ID"""
-        with self.assertRaises(ValueError):
-            Acquisition(
-                experimenters=[Person(name="Mam Moth")],
-                acquisition_start_time=datetime.now(),
-                acquisition_end_time=datetime.now(),
-                subject_id="1234",
-                acquisition_type="Test",
-                instrument_id="1234",
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-                data_streams=[
-                    DataStream(
-                        stream_start_time=datetime.now(),
-                        stream_end_time=datetime.now(),
-                        modalities=[Modality.ECEPHYS],
-                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
-                        configurations=[
-                            MISModuleConfig(
-                                device_name="Stick_assembly",
-                                arc_angle=24,
-                                module_angle=10,
-                            ),
-                            EphysAssemblyConfig(
-                                manipulator=ManipulatorConfig(
-                                    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-                                    device_name="ManipulatorA",
-                                    local_axis_positions=Translation(
-                                        translation=[1, 1, 1, 0],
-                                    ),
-                                ),
-                                probes=[
-                                    ProbeConfig(
-                                        device_name="ProbeA",
-                                        primary_targeted_structure=CCFStructure.VISL,
-                                        atlas_coordinate=AtlasCoordinate(
-                                            coordinate_system=AtlasLibrary.CCFv3_10um,
-                                            translation=[1, 1, 1],
-                                        ),
-                                        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-                                        transform=[
-                                            Translation(
-                                                translation=[1, 1, 1, 1],
-                                            ),
-                                        ],
-                                    ),
-                                ],
-                            ),
-                        ],
-                    )
-                ],
-            )
+        with self.assertRaises(ValueError) as context:
+            acq = ephys_acquisition.model_copy()
+
+            acq.subject_details = None
+
+            Acquisition.model_validate_json(acq.model_dump_json())
+
+        self.assertIn("Subject details are required if no specimen ID is provided", str(context.exception))
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
