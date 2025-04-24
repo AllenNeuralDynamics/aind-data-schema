@@ -653,12 +653,13 @@ class Procedures(DataCoreModel):
     def validate_configurations(cls, values):
         """Validate that all configurations correspond to an implanted device"""
 
-        device_names = [config.device_name for config in values.configurations]
+        config_device_names = [config.device_name for config in values.configurations]
+        implanted_device_names = [device.name for device in values.implanted_devices]
 
-        for device in values.implanted_devices:
-            if device.name not in device_names:
+        for config_name in config_device_names:
+            if config_name not in implanted_device_names:
                 raise ValueError(
-                    f"Configuration for {device.name} in Procedures.configurations must refer to a device in Procedures.implanted_devices."
+                    f"Configuration for {config_name} in Procedures.configurations must refer to a device in Procedures.implanted_devices."
                 )
 
         return values
