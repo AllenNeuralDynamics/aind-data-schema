@@ -365,7 +365,7 @@ class ProceduresTests(unittest.TestCase):
                     Translation(
                         translation=[0.5, 1, 0, 1],
                     ),
-                ]
+                ],
             ],
             dynamics=[
                 InjectionDynamics(
@@ -409,7 +409,7 @@ class ProceduresTests(unittest.TestCase):
                         Translation(
                             translation=[0.5, 1, 0, 1],
                         ),
-                    ]
+                    ],
                 ],
                 injection_materials=[
                     ViralMaterial(

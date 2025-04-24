@@ -53,6 +53,7 @@ a = Acquisition(
             ],
             configurations=[
                 ImagingConfig(
+                    device_name="Bergamo",
                     channels=[
                         Channel(
                             channel_name="Green channel",

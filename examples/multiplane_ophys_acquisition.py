@@ -54,6 +54,7 @@ a = Acquisition(
             configurations=[
                 microscope_config,
                 ImagingConfig(
+                    device_name="Mesoscope",
                     channels=[
                         Channel(
                             channel_name="Green channel",

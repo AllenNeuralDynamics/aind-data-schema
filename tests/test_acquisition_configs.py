@@ -81,6 +81,7 @@ class TestLickSpoutConfig(unittest.TestCase):
     def test_validate_other_success(self):
         """Test validate_other method with valid data"""
         lick_spout = LickSpoutConfig(
+            device_name="Spout1",
             solution=Liquid.WATER,
             solution_valence=Valence.POSITIVE,
             relative_position=[],
@@ -91,6 +92,7 @@ class TestLickSpoutConfig(unittest.TestCase):
         """Test validate_other method with invalid data"""
         with self.assertRaises(ValueError) as context:
             LickSpoutConfig(
+                device_name="Spout1",
                 solution=Liquid.OTHER,
                 solution_valence=Valence.POSITIVE,
                 relative_position=[],
@@ -139,6 +141,7 @@ class TestImagingConfig(unittest.TestCase):
     def test_check_image_channels_success(self):
         """Test check_image_channels validator with valid data"""
         imaging_config = ImagingConfig(
+            device_name="ImagingDevice",
             channels=[self.channel1, self.channel2],
             images=[
                 FieldOfView(
@@ -166,6 +169,7 @@ class TestImagingConfig(unittest.TestCase):
         """Test check_image_channels validator with invalid data"""
         with self.assertRaises(ValidationError) as context:
             ImagingConfig(
+                device_name="ImagingDevice",
                 channels=[self.channel1],
                 images=[
                     FieldOfView(
@@ -195,6 +199,7 @@ class TestImagingConfig(unittest.TestCase):
     def test_require_cs_images_success(self):
         """Test require_cs_images validator with valid data"""
         imaging_config = ImagingConfig(
+            device_name="ImagingDevice",
             channels=[self.channel1],
             images=[
                 Image(
@@ -212,6 +217,7 @@ class TestImagingConfig(unittest.TestCase):
         """Test require_cs_images validator with missing coordinate system"""
         with self.assertRaises(ValidationError) as context:
             ImagingConfig(
+                device_name="ImagingDevice",
                 channels=[self.channel1],
                 images=[
                     Image(

@@ -40,6 +40,7 @@ class TestCompatibilityCheck(unittest.TestCase):
 
 class TranslationWrapper(DataModel):
     """Wrapper for Translation class with a system_name field"""
+
     system_name: str
     translation: Translation
 
@@ -58,13 +59,13 @@ class TestRecurseHelper(unittest.TestCase):
                 system_name=self.system_name,
                 translation=Translation(
                     translation=[0.5, 1],
-                )
+                ),
             ),
             TranslationWrapper(
                 system_name=self.system_name,
                 translation=Translation(
                     translation=[0.5, 1],
-                )
+                ),
             ),
         ]
         _recurse_helper(data, system_name=self.system_name, axis_count=2)
@@ -75,19 +76,19 @@ class TestRecurseHelper(unittest.TestCase):
             system_name=self.system_name,
             translation=Translation(
                 translation=[0.5, 1],
-            )
+            ),
         )
         _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
 
 class TestRecursiveSystemCheckHelper(unittest.TestCase):
     """Test for _system_check_helper function"""
+
     def setUp(self):
         """Set up test data"""
         self.system_name = "BREGMA_ARI"
         self.translation_wrapper = TranslationWrapper(
-            system_name=self.system_name,
-            translation=Translation(translation=[0.5, 1])
+            system_name=self.system_name, translation=Translation(translation=[0.5, 1])
         )
 
     def test_system_check_helper_valid(self):
@@ -124,6 +125,7 @@ class TestRecursiveSystemCheckHelper(unittest.TestCase):
 
         class MultiAxisWrapper(DataModel):
             """Wrapper with multiple axis types"""
+
             system_name: str
             translation: Translation
             rotation: Rotation
@@ -133,7 +135,7 @@ class TestRecursiveSystemCheckHelper(unittest.TestCase):
             system_name=self.system_name,
             translation=Translation(translation=[0.5, 1]),
             rotation=Rotation(angles=[90, 180]),
-            scale=Scale(scale=[1.0, 2.0])
+            scale=Scale(scale=[1.0, 2.0]),
         )
 
         _system_check_helper(obj, self.system_name, axis_count=2)
@@ -153,7 +155,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
             system_name=self.system_name,
             translation=Translation(
                 translation=[0.5, 1],
-            )
+            ),
         )
         recursive_coord_system_check(data, self.system_name, axis_count=2)
 
@@ -163,7 +165,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
             system_name="Invalid system name",
             translation=Translation(
                 translation=[0.5, 1],
-            )
+            ),
         )
         with self.assertRaises(SystemNameException) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
@@ -182,13 +184,13 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
                 system_name=self.system_name,
                 translation=Translation(
                     translation=[0.5, 1],
-                )
+                ),
             ),
             TranslationWrapper(
                 system_name=self.system_name,
                 translation=Translation(
                     translation=[0.5, 1],
-                )
+                ),
             ),
         ]
         recursive_coord_system_check(data, self.system_name, axis_count=2)
@@ -199,7 +201,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
             system_name=self.system_name,
             translation=Translation(
                 translation=[0.5, 1, 2],
-            )
+            ),
         )
         with self.assertRaises(AxisCountException) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
