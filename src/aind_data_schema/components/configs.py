@@ -413,7 +413,7 @@ class SpeakerConfig(DeviceConfig):
 
 
 class MISModuleConfig(DeviceConfig):
-    """Modular insertion system (MIS) module configuration"""
+    """Modular insertion system (MIS) module configuration"""  # noqa: codespell:skip
 
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
