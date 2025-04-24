@@ -16,6 +16,8 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
 )
+from aind_data_schema.components.devices import EphysProbe
+from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
@@ -88,8 +90,26 @@ surgery1 = Surgery(
     ],
 )
 
+probe = EphysProbe(
+    name="Probe A",
+    probe_model="Neuropixels UHD (Fixed)",
+)
+
 p = Procedures(
     subject_id="625100",
+    implanted_devices=[probe],
+    configurations=[
+        ProbeConfig(
+            primary_targeted_structure=CCFStructure.VTA,
+            device_name="Probe A",
+            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+            transform=[
+                Translation(
+                    translation=[-600, -3050, 0, 4200],
+                ),
+            ],
+        ),
+    ],
     subject_procedures=[
         surgery1,
         Surgery(

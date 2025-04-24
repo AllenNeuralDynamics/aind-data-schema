@@ -74,6 +74,27 @@ class TestMRIScan(unittest.TestCase):
         with self.assertRaises(ValidationError):
             MRIScan(**invalid_data)
 
+    def test_validate_primary_missing_fields(self):
+        """Test that missing fields raise ValidationError"""
+
+        with self.assertRaises(ValidationError) as context:
+            MRIScan(
+                device_name="MRI Scanner",
+                scan_index=1,
+                scan_type="3D Scan",
+                primary_scan=True,
+                scan_sequence_type="RARE",
+                echo_time=Decimal("10.0"),
+                echo_time_unit=TimeUnit.MS,
+                repetition_time=Decimal("2000.0"),
+                repetition_time_unit=TimeUnit.MS,
+                subject_position="Prone",
+                additional_scan_parameters={},
+                resolution_unit=SizeUnit.MM,
+            )
+
+        self.assertIn("Primary scan must have scan_affine_transform and resolution fields", str(context.exception))
+
 
 class TestLickSpoutConfig(unittest.TestCase):
     """Tests for the LickSpoutConfig class"""
