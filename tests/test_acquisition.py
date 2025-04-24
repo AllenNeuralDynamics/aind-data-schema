@@ -17,6 +17,7 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
     MISModuleConfig,
     ManipulatorConfig,
+    EphysAssemblyConfig,
     MRIScan,
     ImagingConfig,
     SampleChamberConfig,
@@ -175,25 +176,29 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorConfig(
-                                device_name="Ephys_assemblyA",
-                                arc_angle=0,
-                                module_angle=10,
-                                primary_targeted_structure=CCFStructure.VISL,
-                                atlas_coordinates=[
-                                    Translation(
+                            EphysAssemblyConfig(
+                                manipulator=ManipulatorConfig(
+                                    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+                                    device_name="ManipulatorA",
+                                    local_axis_positions=Translation(
                                         translation=[1, 1, 1, 0],
+                                    )
+                                )
+                                probes=[
+                                    ProbeConfig(
+                                        device_name="ProbeA",
+                                        primary_targeted_structure=CCFStructure.VISL,
+                                        atlas_coordinate=AtlasCoordinate(
+                                            coordinate_system=AtlasLibrary.CCFv3_10um,
+                                            translation=[1, 1, 1],
+                                        ),
+                                        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+                                        transform=[
+                                            Translation(
+                                                translation=[1, 1, 1, 1],
+                                            ),
+                                        ],
                                     ),
-                                ],
-                                manipulator_coordinates=[
-                                    Translation(
-                                        translation=[1, 1, 1, 1],
-                                    )
-                                ],
-                                manipulator_axis_positions=[
-                                    Translation(
-                                        translation=[1, 1, 1, 0],
-                                    )
                                 ],
                             ),
                         ],
@@ -228,10 +233,13 @@ class AcquisitionTest(unittest.TestCase):
                                 arc_angle=24,
                                 module_angle=10,
                             ),
-                            ManipulatorConfig(
+                            MISModuleConfig(
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
+                            ),
+                            ManipulatorConfig(
+                                device_name="Ephys_assemblyA",
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
                                     Translation(

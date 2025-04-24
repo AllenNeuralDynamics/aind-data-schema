@@ -66,6 +66,12 @@ class TestRecurseHelper(unittest.TestCase):
         _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
 
+class TranslationWrapper(DataModel):
+    """Wrapper for Translation class with a system_name field"""
+    system_name: str
+    translation: Translation
+
+
 class TestRecursiveCoordSystemCheck(unittest.TestCase):
     """Tests for recursive_coord_system_check function"""
 
@@ -75,17 +81,21 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
     def test_recursive_coord_system_check_with_valid_data(self):
         """Test recursive_coord_system_check with valid data"""
-        data = Translation(
-            translation=[0.5, 1],
+        data = TranslationWrapper(
             system_name=self.system_name,
+            translation=Translation(
+                translation=[0.5, 1],
+            )
         )
         recursive_coord_system_check(data, self.system_name, axis_count=2)
 
     def test_recursive_coord_system_check_with_invalid_system_name(self):
         """Test recursive_coord_system_check with invalid system name"""
-        data = Translation(
-            translation=[0.5, 1],
-            system_name="Invalid System",
+        data = TranslationWrapper(
+            system_name="Invalid system name",
+            translation=Translation(
+                translation=[0.5, 1],
+            )
         )
         with self.assertRaises(SystemNameException) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
@@ -100,22 +110,28 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
     def test_recursive_coord_system_check_with_list_of_coordinates(self):
         """Test recursive_coord_system_check with a list of coordinates"""
         data = [
-            Translation(
-                translation=[0.5, 1],
+            TranslationWrapper(
                 system_name=self.system_name,
+                translation=Translation(
+                    translation=[0.5, 1],
+                )
             ),
-            Translation(
-                translation=[0.5, 1],
+            TranslationWrapper(
                 system_name=self.system_name,
+                translation=Translation(
+                    translation=[0.5, 1],
+                )
             ),
         ]
         recursive_coord_system_check(data, self.system_name, axis_count=2)
 
     def test_recursive_coord_system_check_with_axis_count_mismatch(self):
         """Test recursive_coord_system_check with axis count mismatch"""
-        data = Translation(
-            translation=[0.5, 1, 2],
+        data = TranslationWrapper(
             system_name=self.system_name,
+            translation=Translation(
+                translation=[0.5, 1, 2],
+            )
         )
         with self.assertRaises(AxisCountException) as context:
             recursive_coord_system_check(data, self.system_name, axis_count=2)
