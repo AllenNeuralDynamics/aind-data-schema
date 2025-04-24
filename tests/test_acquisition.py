@@ -34,7 +34,10 @@ from aind_data_schema.core.acquisition import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.core.instrument import Connection
 
+from aind_data_schema_models.units import TimeUnit, SizeUnit
+
 from examples.exaspim_acquisition import acq as exaspim_acquisition
+from examples.ephys_acquisition import acquisition as ephys_acquisition
 
 
 class AcquisitionTest(unittest.TestCase):
@@ -44,58 +47,10 @@ class AcquisitionTest(unittest.TestCase):
         """Test constructing acquisition files"""
 
         with self.assertRaises(pydantic.ValidationError):
-            acquisition = Acquisition()
+            Acquisition()
 
-        acquisition = Acquisition(
-            experimenters=[Person(name="Mam Moth")],
-            acquisition_start_time=datetime.now(),
-            acquisition_end_time=datetime.now(),
-            subject_id="1234",
-            acquisition_type="Test",
-            instrument_id="1234",
-            subject_details=AcquisitionSubjectDetails(
-                mouse_platform_name="Running wheel",
-            ),
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-            data_streams=[
-                DataStream(
-                    stream_start_time=datetime.now(),
-                    stream_end_time=datetime.now(),
-                    modalities=[Modality.ECEPHYS],
-                    active_devices=["Stick_assembly", "Ephys_assemblyA"],
-                    configurations=[
-                        MISModuleConfig(
-                            device_name="Stick_assembly",
-                            arc_angle=24,
-                            module_angle=10,
-                        ),
-                        ManipulatorConfig(
-                            device_name="Ephys_assemblyA",
-                            arc_angle=0,
-                            module_angle=10,
-                            primary_targeted_structure=CCFStructure.VISL,
-                            atlas_coordinates=[
-                                Translation(
-                                    translation=[1, 1, 1, 0],
-                                ),
-                            ],
-                            manipulator_coordinates=[
-                                Translation(
-                                    translation=[1, 1, 1, 1],
-                                )
-                            ],
-                            manipulator_axis_positions=[
-                                Translation(
-                                    translation=[1, 1, 1, 0],
-                                )
-                            ],
-                        ),
-                    ],
-                )
-            ],
-        )
-
-        self.assertIsNotNone(acquisition)
+        acq = ephys_acquisition.model_copy()
+        self.assertIsNotNone(Acquisition.model_validate_json(acq.model_dump_json()))
 
         with self.assertRaises(ValidationError):
             MRIScan(
@@ -128,9 +83,12 @@ class AcquisitionTest(unittest.TestCase):
                     resolution=Scale(
                         scale=[0.5, 0.4375, 0.52],
                     ),
+                    resolution_unit=SizeUnit.MM,
                     echo_time=2.2,
+                    echo_time_unit=TimeUnit.MS,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
+                    repetition_time_unit=TimeUnit.MS,
                     additional_scan_parameters={"number_averages": 3},
                     device_name="Scanner 72",
                 )
@@ -293,32 +251,7 @@ class AcquisitionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             active_devices=["Stick_assembly", "Ephys_assemblyA"],
             configurations=[
-                MISModuleConfig(
-                    device_name="Stick_assembly",
-                    arc_angle=24,
-                    module_angle=10,
-                ),
-                ManipulatorConfig(
-                    device_name="Ephys_assemblyA",
-                    arc_angle=0,
-                    module_angle=10,
-                    primary_targeted_structure=CCFStructure.VISL,
-                    atlas_coordinates=[
-                        Translation(
-                            translation=[1, 1, 1],
-                        ),
-                    ],
-                    manipulator_coordinates=[
-                        Translation(
-                            translation=[1, 1, 1, 1],
-                        )
-                    ],
-                    manipulator_axis_positions=[
-                        Translation(
-                            translation=[1, 1, 1],
-                        )
-                    ],
-                ),
+                EphysAssemblyConfig.model_construct(),
             ],
         )
         self.assertIsNotNone(stream)
@@ -351,6 +284,7 @@ class AcquisitionTest(unittest.TestCase):
                                 images=[],
                             ),
                             SampleChamberConfig(
+                                device_name="Sample chamber",
                                 chamber_immersion=Immersion(
                                     medium="PBS",
                                     refractive_index=1.33,
@@ -387,6 +321,7 @@ class AcquisitionTest(unittest.TestCase):
                             images=[],
                         ),
                         SampleChamberConfig(
+                            device_name="Sample chamber",
                             chamber_immersion=Immersion(
                                 medium="PBS",
                                 refractive_index=1.33,
