@@ -182,8 +182,8 @@ class AcquisitionTest(unittest.TestCase):
                                     device_name="ManipulatorA",
                                     local_axis_positions=Translation(
                                         translation=[1, 1, 1, 0],
-                                    )
-                                )
+                                    ),
+                                ),
                                 probes=[
                                     ProbeConfig(
                                         device_name="ProbeA",

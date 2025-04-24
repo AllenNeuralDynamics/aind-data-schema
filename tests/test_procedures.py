@@ -531,6 +531,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
+            system_name="TestSystem",
             position=Translation(
                 translation=[0.5, 1, 0, 0],
             ),
@@ -544,6 +545,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
+                system_name="TestSystem",
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
@@ -553,6 +555,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
+                system_name="TestSystem",
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
@@ -562,6 +565,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.WHC,
+                system_name="TestSystem",
             )
         self.assertIn(
             "Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception)
@@ -574,6 +578,34 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertIsNotNone(craniotomy)
 
+    def test_craniotomy_system_name_if_position(self):
+        """Test that system_name is required if position is provided"""
+        # Should be okay
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.CIRCLE,
+            system_name="TestSystem",
+            position=Translation(
+                translation=[0.5, 1, 0, 0],
+            ),
+            size=2.0,
+            size_unit=SizeUnit.MM,
+        )
+        self.assertIsNotNone(craniotomy)
+
+        # Missing system_name for required craniotomy types should raise an error
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.CIRCLE,
+                position=Translation(
+                    translation=[0.5, 1, 0, 0],
+                ),
+                size=2.0,
+                size_unit=SizeUnit.MM,
+            )
+        self.assertIn("Craniotomy.system_name must be provided if Craniotomy.position is provided", str(e.exception))
+
     def test_craniotomy_size_validation(self):
         """Test validation for craniotomy size"""
 
@@ -581,6 +613,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
+            system_name="TestSystem",
             position=Translation(
                 translation=[0.5, 1, 0, 0],
             ),
@@ -594,6 +627,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
+                system_name="TestSystem",
                 position=Translation(
                     translation=[0.5, 1, 0, 0],
                 ),
@@ -604,6 +638,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
+                system_name="TestSystem",
                 position=Translation(
                     translation=[0.5, 1, 0, 0],
                 ),
