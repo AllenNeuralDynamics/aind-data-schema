@@ -327,8 +327,8 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    MPM_PROBE_TODO = CoordinateSystem(
-        name="MPM_PROBE_TODO",
+    MPM_MANIP_RFB = CoordinateSystem(
+        name="MPM_MANIP_RFB",
         origin=Origin.TIP,
         axis_unit=SizeUnit.UM,
         axes=[
