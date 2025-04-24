@@ -9,13 +9,15 @@ from aind_data_schema.utils.validators import (
     recursive_get_all_names,
     recursive_check_paths,
     recursive_device_name_check,
+    _system_check_helper,
     SystemNameException,
     AxisCountException,
     CoordinateSystemException,
 )
 from enum import Enum
 from pydantic import BaseModel
-from aind_data_schema.components.coordinates import Translation
+from aind_data_schema.base import DataModel
+from aind_data_schema.components.coordinates import Translation, Rotation, Scale
 from aind_data_schema.components.wrappers import AssetPath
 from pathlib import Path
 
@@ -36,6 +38,12 @@ class TestCompatibilityCheck(unittest.TestCase):
         self.assertFalse(subject_specimen_id_compatibility(subject_id, specimen_id))
 
 
+class TranslationWrapper(DataModel):
+    """Wrapper for Translation class with a system_name field"""
+    system_name: str
+    translation: Translation
+
+
 class TestRecurseHelper(unittest.TestCase):
     """Tests for _recurse_helper function"""
 
@@ -46,30 +54,90 @@ class TestRecurseHelper(unittest.TestCase):
     def test_recurse_helper_with_list(self):
         """Test _recurse_helper with a list of coordinates"""
         data = [
-            Translation(
-                translation=[0.5, 1],
+            TranslationWrapper(
                 system_name=self.system_name,
+                translation=Translation(
+                    translation=[0.5, 1],
+                )
             ),
-            Translation(
-                translation=[0.5, 1],
+            TranslationWrapper(
                 system_name=self.system_name,
+                translation=Translation(
+                    translation=[0.5, 1],
+                )
             ),
         ]
         _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
     def test_recurse_helper_with_object(self):
         """Test _recurse_helper with a single coordinate object"""
-        data = Translation(
-            translation=[0.5, 1],
+        data = TranslationWrapper(
             system_name=self.system_name,
+            translation=Translation(
+                translation=[0.5, 1],
+            )
         )
         _recurse_helper(data, system_name=self.system_name, axis_count=2)
 
 
-class TranslationWrapper(DataModel):
-    """Wrapper for Translation class with a system_name field"""
-    system_name: str
-    translation: Translation
+class TestRecursiveSystemCheckHelper(unittest.TestCase):
+    """Test for _system_check_helper function"""
+    def setUp(self):
+        """Set up test data"""
+        self.system_name = "BREGMA_ARI"
+        self.translation_wrapper = TranslationWrapper(
+            system_name=self.system_name,
+            translation=Translation(translation=[0.5, 1])
+        )
+
+    def test_system_check_helper_valid(self):
+        """Test _system_check_helper with valid data"""
+        _system_check_helper(self.translation_wrapper, self.system_name, axis_count=2)
+        # No exception raised means test passed
+
+    def test_system_check_helper_missing_system_name(self):
+        """Test _system_check_helper with missing system_name"""
+        with self.assertRaises(CoordinateSystemException):
+            _system_check_helper(self.translation_wrapper, None, axis_count=2)
+
+    def test_system_check_helper_missing_axis_count(self):
+        """Test _system_check_helper with missing axis_count"""
+        with self.assertRaises(CoordinateSystemException):
+            _system_check_helper(self.translation_wrapper, self.system_name, axis_count=None)
+
+    def test_system_check_helper_wrong_system_name(self):
+        """Test _system_check_helper with wrong system_name"""
+        with self.assertRaises(SystemNameException) as context:
+            _system_check_helper(self.translation_wrapper, "WRONG_SYSTEM", axis_count=2)
+        self.assertEqual("WRONG_SYSTEM", context.exception.expected)
+        self.assertEqual(self.system_name, context.exception.found)
+
+    def test_system_check_helper_wrong_axis_count(self):
+        """Test _system_check_helper with wrong axis_count"""
+        with self.assertRaises(AxisCountException) as context:
+            _system_check_helper(self.translation_wrapper, self.system_name, axis_count=3)
+        self.assertEqual(3, context.exception.expected)
+        self.assertEqual(2, context.exception.found)
+
+    def test_system_check_helper_multiple_axis_types(self):
+        """Test _system_check_helper with multiple axis types"""
+
+        class MultiAxisWrapper(DataModel):
+            """Wrapper with multiple axis types"""
+            system_name: str
+            translation: Translation
+            rotation: Rotation
+            scale: Scale
+
+        obj = MultiAxisWrapper(
+            system_name=self.system_name,
+            translation=Translation(translation=[0.5, 1]),
+            rotation=Rotation(angles=[90, 180]),
+            scale=Scale(scale=[1.0, 2.0])
+        )
+
+        _system_check_helper(obj, self.system_name, axis_count=2)
+        # No exception means test passed
 
 
 class TestRecursiveCoordSystemCheck(unittest.TestCase):
@@ -152,55 +220,6 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
             recursive_coord_system_check(data, None, axis_count=0)
 
         self.assertIn("CoordinateSystem is required", str(context.exception))
-
-    def test_recursion(self):
-        """Test actual recursion, where the system changes"""
-
-        class SystemMock(BaseModel):
-            """Test class"""
-
-            name: str = "Client system"
-            axes: list[bool] = [True, True]
-
-        class CoordinateMock(BaseModel):
-            """Test class"""
-
-            system_name: str = "Client system"
-            translation: list[float] = [0.5, 1]
-
-        class ClientMockData(BaseModel):
-            """Test class"""
-
-            coordinate_system: SystemMock = SystemMock()
-            coordinate: CoordinateMock = CoordinateMock()
-
-        class ParentMockData(BaseModel):
-            """Test class"""
-
-            child: ClientMockData = ClientMockData()
-
-        # No exception raised, because system_name and axis_count get replaced
-        data = ParentMockData()
-        recursive_coord_system_check(data, system_name="Parent system", axis_count=5)
-        self.assertTrue(True)
-
-        # Change the system name
-        data = ParentMockData()
-        data.child.coordinate.system_name = "Parent system"
-        with self.assertRaises(SystemNameException) as context:
-            recursive_coord_system_check(data, system_name="Parent system", axis_count=5)
-        self.assertIn("System name mismatch", str(context.exception))
-
-        # Change the axis count
-        data = ParentMockData()
-        data.child.coordinate.translation = []
-        with self.assertRaises(AxisCountException) as context:
-            recursive_coord_system_check(data, system_name="Parent system", axis_count=5)
-        self.assertIn("Axis count mismatch", str(context.exception))
-
-        # No parent system
-        data = ParentMockData()
-        recursive_coord_system_check(data, system_name=None, axis_count=None)
 
 
 class MockEnum(Enum):

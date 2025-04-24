@@ -8,7 +8,7 @@ import logging
 from aind_data_schema.components.wrappers import AssetPath
 
 # Fields that should have the same length as the coordinate system axes
-AXIS_FIELD_NAMES = ["scale", "translation", "angles", "position"]
+AXIS_TYPES = ["Translation", "Rotation", "Scale"]
 
 
 class CoordinateSystemException(Exception):
@@ -68,12 +68,19 @@ def _system_check_helper(data, system_name: str, axis_count: int):
     if data.system_name not in system_name:
         raise SystemNameException(system_name, data.system_name)
 
-    # Check lengths of subfields
+    # Check lengths of subfields based on class types
     if hasattr(data, "__dict__"):
         for attr_name, attr_value in data.__dict__.items():
-            if isinstance(attr_value, list) and attr_name in AXIS_FIELD_NAMES:
-                if len(attr_value) != axis_count:
-                    raise AxisCountException(axis_count, len(attr_value))
+            # Check if the attribute's class name is one of the AXIS_TYPES
+            if hasattr(attr_value, "__class__") and attr_value.__class__.__name__ in AXIS_TYPES:
+                # Construct the field name by converting the class name to lowercase
+                field_name = attr_value.__class__.__name__.lower()
+                sub_data = getattr(data, field_name, None)
+                # Check if the object has the corresponding field and if it's a list with correct length
+                if sub_data and hasattr(sub_data, field_name):
+                    field_value = getattr(sub_data, field_name)
+                    if len(field_value) != axis_count:
+                        raise AxisCountException(axis_count, len(field_value))
 
 
 def recursive_coord_system_check(data, system_name: str, axis_count: int):
