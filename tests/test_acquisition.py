@@ -125,7 +125,7 @@ class AcquisitionTest(unittest.TestCase):
 
             Acquisition.model_validate_json(acq.model_dump_json())
 
-        self.assertIn("Subject details are required if no specimen ID is provided", str(context.exception))
+        self.assertIn("Subject details are required for in vivo experiments", str(context.exception))
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
