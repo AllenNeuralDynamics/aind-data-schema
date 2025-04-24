@@ -34,6 +34,8 @@ from aind_data_schema.core.acquisition import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.core.instrument import Connection
 
+from examples.exaspim_acquisition import acq as exaspim_acquisition
+
 
 class AcquisitionTest(unittest.TestCase):
     """Group of tests for the Acquisition class"""
@@ -212,58 +214,10 @@ class AcquisitionTest(unittest.TestCase):
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
         with self.assertRaises(ValueError) as context:
-            Acquisition(
-                experimenters=[Person(name="Mam Moth")],
-                acquisition_start_time=datetime.now(),
-                acquisition_end_time=datetime.now(),
-                subject_id="123456",
-                specimen_id="654321",
-                acquisition_type="Test",
-                instrument_id="1234",
-                subject_details=AcquisitionSubjectDetails(
-                    mouse_platform_name="Running wheel",
-                ),
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-                data_streams=[
-                    DataStream(
-                        stream_start_time=datetime.now(),
-                        stream_end_time=datetime.now(),
-                        modalities=[Modality.ECEPHYS],
-                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
-                        configurations=[
-                            MISModuleConfig(
-                                device_name="Stick_assembly",
-                                arc_angle=24,
-                                module_angle=10,
-                            ),
-                            MISModuleConfig(
-                                device_name="Ephys_assemblyA",
-                                arc_angle=0,
-                                module_angle=10,
-                            ),
-                            ManipulatorConfig(
-                                device_name="Ephys_assemblyA",
-                                primary_targeted_structure=CCFStructure.VISL,
-                                atlas_coordinates=[
-                                    Translation(
-                                        translation=[1, 1, 1, 0],
-                                    ),
-                                ],
-                                manipulator_coordinates=[
-                                    Translation(
-                                        translation=[1, 1, 1, 1],
-                                    )
-                                ],
-                                manipulator_axis_positions=[
-                                    Translation(
-                                        translation=[1, 1, 1, 0],
-                                    )
-                                ],
-                            ),
-                        ],
-                    )
-                ],
-            )
+            acq = exaspim_acquisition.model_copy()
+            acq.specimen_id = "654321"
+
+            Acquisition.model_validate_json(acq.model_dump_json())
 
         self.assertIn("Expected 123456 to appear in 654321", str(context.exception))
 

@@ -108,8 +108,8 @@ chamber_config = SampleChamberConfig(
 
 acq = Acquisition(
     experimenters=[Person(name="John Smith")],
-    specimen_id="###",
-    subject_id="###",
+    specimen_id="123456-123",
+    subject_id="123456",
     instrument_id="###",
     maintenance=[
         Maintenance(
