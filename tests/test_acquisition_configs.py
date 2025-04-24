@@ -183,7 +183,7 @@ class TestImagingConfig(unittest.TestCase):
                         frame_rate=Decimal("30.0"),
                         planes=[
                             SinglePlaneConfig(
-                                channel_name="Channel1",
+                                channel_name="InvalidChannel",
                                 imaging_depth=1,
                             )
                         ],
@@ -230,7 +230,7 @@ class TestImagingConfig(unittest.TestCase):
                 coordinate_system=None,
             )
         self.assertIn(
-            "Coordinate system is required if any images are Image",
+            "ImagingConfig.coordinate_system is required",
             str(context.exception),
         )
 
