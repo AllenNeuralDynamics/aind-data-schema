@@ -44,6 +44,7 @@ image1 = Image(
 )
 
 imaging_config = ImagingConfig(
+    device_name="ExaSPIM",
     channels=[
         Channel(
             channel_name="488",
@@ -97,6 +98,7 @@ imaging_config = ImagingConfig(
 )
 
 chamber_config = SampleChamberConfig(
+    device_name="Sample chamber",
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
