@@ -32,10 +32,10 @@ from aind_data_schema.core.procedures import (
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema.components.coordinates import (
     Origin,
-    Rotation,
     CoordinateSystemLibrary,
     Translation,
 )
+from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.units import SizeUnit, CurrentUnit
@@ -146,6 +146,18 @@ class ProceduresTests(unittest.TestCase):
                     total_length=10,
                 )
             ],
+            configurations=[
+                ProbeConfig(
+                    device_name="Probe A",
+                    primary_targeted_structure=CCFStructure.MOP,
+                    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+                    transform=[
+                        Translation(
+                            translation=[1, 2, 0, 2],
+                        ),
+                    ],
+                ),
+            ],
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
@@ -211,6 +223,7 @@ class ProceduresTests(unittest.TestCase):
                         ),
                         BrainInjection(
                             protocol_id="bca",
+                            system_name="BREGMA_ARI",
                             injection_materials=[
                                 ViralMaterial(
                                     material_type="Virus",
@@ -233,21 +246,17 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             coordinates=[
-                                Translation(
-                                    translation=[0.5, 1, 0, 1],
-                                ),
+                                [
+                                    Translation(
+                                        translation=[0.5, 1, 0, 1],
+                                    ),
+                                ],
                             ],
                             targeted_structure=CCFStructure.VISP6A,
                         ),
                         ProbeImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
                             implanted_device_names=["Probe A"],
-                            probe_config=ProbeConfig(
-                                primary_targeted_structure=CCFStructure.MOP,
-                                probe_transform=Translation(
-                                    translation=[1, 2, 0, 2],
-                                ),
-                            ),
                         ),
                     ],
                 )
@@ -345,13 +354,18 @@ class ProceduresTests(unittest.TestCase):
         # Should be okay
         inj1 = BrainInjection(
             protocol_id="abc",
+            system_name="BREGMA_ARI",
             coordinates=[
-                Translation(
-                    translation=[0.5, 1, 0, 0],
-                ),
-                Translation(
-                    translation=[0.5, 1, 0, 1],
-                ),
+                [
+                    Translation(
+                        translation=[0.5, 1, 0, 0],
+                    ),
+                ],
+                [
+                    Translation(
+                        translation=[0.5, 1, 0, 1],
+                    ),
+                ]
             ],
             dynamics=[
                 InjectionDynamics(
@@ -384,13 +398,18 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             BrainInjection(
                 protocol_id="abc",
+                system_name="BREGMA_ARI",
                 coordinates=[
-                    Translation(
-                        translation=[0.5, 1, 0, 0],
-                    ),
-                    Translation(
-                        translation=[0.5, 1, 0, 1],
-                    ),
+                    [
+                        Translation(
+                            translation=[0.5, 1, 0, 0],
+                        ),
+                    ],
+                    [
+                        Translation(
+                            translation=[0.5, 1, 0, 1],
+                        ),
+                    ]
                 ],
                 injection_materials=[
                     ViralMaterial(
