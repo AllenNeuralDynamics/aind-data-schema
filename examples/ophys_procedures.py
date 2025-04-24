@@ -76,6 +76,7 @@ p = Procedures(
                             titer=20000000000000,
                         )
                     ],
+                    system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
                     coordinates=[
                         [
                             Translation(
@@ -97,9 +98,13 @@ p = Procedures(
                     implanted_device_names=["Probe A"],
                     probe_config=ProbeConfig(
                         primary_targeted_structure=CCFStructure.VTA,
-                        probe_transform=Translation(
-                            translation=[-600, -3050, 0, 4200],
-                        ),
+                        device_name="Probe A",
+                        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+                        transform=[
+                            Translation(
+                                translation=[-600, -3050, 0, 4200],
+                            ),
+                        ],
                     ),
                 ),
             ],

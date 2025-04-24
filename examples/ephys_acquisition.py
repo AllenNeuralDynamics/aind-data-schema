@@ -46,7 +46,7 @@ ephys_assembly_a_config = EphysAssemblyConfig(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
                 translation=[8150, 3250, 7800],
             ),
-            coordinate_system=CoordinateSystemLibrary.MPM_PROBE_TODO,
+            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
             transform=[
                 Translation(
                     translation=[5000, 5000, 0, 1],
