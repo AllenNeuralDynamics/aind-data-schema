@@ -78,23 +78,25 @@ class PositionedDevice(DataModel):
     """Device with a position"""
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    instrument_to_device_transform: Optional[TRANSFORM_TYPES] = Field(
+
+    # Position
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+    transform: Optional[TRANSFORM_TYPES] = Field(
         default=None,
-        title="Transform",
-        description="Transform from instrument to device coordinate system",
+        title="Device to instrument transform",
+        description="Position and orientation of the device in the instrument coordinate system",
     )
-    device_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
 
     @model_validator(mode="after")
     @classmethod
     def validate_transform_and_cs(cls, values):
         """Ensure that transform and coordinate system are either both set or both unset"""
-        transform = values.instrument_to_device_transform
+        transform = values.transform
         coordinate_system = values.device_coordinate_system
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(
-                "instrument_to_device_transform and device_coordinate_system must either both be set or both be unset."
+                "PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset."
             )
 
         return values

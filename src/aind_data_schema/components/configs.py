@@ -22,13 +22,11 @@ from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
 from aind_data_schema.components.coordinates import (
-    Coordinate,
-    Vector,
     AtlasCoordinate,
     CoordinateSystem,
     Scale,
     TRANSFORM_TYPES,
-    CoordinateTransform,
+    TRANSFORM_TYPES_NONLIN,
 )
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
@@ -246,7 +244,7 @@ class FieldOfView(DataModel):
     """Configuration of an imaging field of view, capturing a continuous video"""
 
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    center_coordinate: Optional[Coordinate] = Field(
+    center_coordinate: Optional[Translation] = Field(
         default=None,
         title="FOV coordinate",
         description="Center point of the FOV in the instrument coordinate system",
@@ -291,7 +289,7 @@ class Image(DataModel):
     """Configuration of an imaging field of view, capturing a single image"""
 
     channel_name: str = Field(..., title="Channel name")
-    coordinate_transform: CoordinateTransform = Field(..., title="Image coordinate transformations")
+    image_to_acquisition_transform: TRANSFORM_TYPES_NONLIN = Field(..., title="Image to acquisition transform")
     file_name: Optional[str] = Field(default=None, title="File name")
     imaging_angle: int = Field(
         default=0,
@@ -337,7 +335,7 @@ class ImagingConfig(DataModel):
         """Check that a coordinate system is present if any images are Image"""
 
         if any(isinstance(image, Image) for image in self.images) and not self.coordinate_system:
-            raise ValueError("Coordinate system is required if any images are Image")
+            raise ValueError("ImagingConfig.coordinate_system is required when ImagingConfig.images are Image objects")
         return self
 
 
@@ -362,8 +360,14 @@ class LickSpoutConfig(DataModel):
     solution_valence: Valence = Field(..., title="Valence")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Vector] = Field(default=None, title="Initial position")
-
+    
+    # Transform
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, "Device coordinate system")
+    transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Device to acquisition transform",
+        description="Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
+    )
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @model_validator(mode="after")
@@ -383,7 +387,8 @@ class AirPuffConfig(DataModel):
 
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    position: Optional[Vector] = Field(default=None, title="Initial position")
+    transform_position: Translation = Field(default=None, title="Lick spout position")
+    transform_rotation: Rotation = Field(default=None, title="Lick spout rotation")
 
     pressure: Optional[float] = Field(default=None, title="Pressure")
     pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
@@ -418,7 +423,7 @@ class ManipulatorConfig(DeviceConfig):
     """Configuration of a manipulator"""
 
     coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
-    local_axis_positions: Coordinate = Field(..., title="Local axis positions")
+    local_axis_positions: Translation = Field(..., title="Local axis positions")
 
 
 class ProbeConfig(DeviceConfig):
@@ -435,9 +440,11 @@ class ProbeConfig(DeviceConfig):
     )
 
     # Transform
-    probe_transform: Vector = Field(
+    coordinate_system: CoordinateSystem = Field(..., "Device coordinate system")
+    transform: TRANSFORM_TYPES = Field(
         ...,
-        title="Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
+        title="Device to acquisition transform",
+        description="Entry coordinate, depth, and rotation in the Acquisition.coordinate_system",
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
