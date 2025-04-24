@@ -198,13 +198,6 @@ class Metadata(DataCoreModel):
             check.run_compatibility_check()
         return self
 
-    def _check_for_device(self, device_type_group):
-        """Check if the instrument has a device of a certain type"""
-        for component in self.instrument.components:
-            if any(isinstance(component, device_type) for device_type in device_type_group):
-                return True
-        return False
-
     @model_validator(mode="after")
     @classmethod
     def validate_acquisition_active_devices(cls, values):
