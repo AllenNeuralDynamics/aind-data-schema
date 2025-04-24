@@ -6,7 +6,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Translation
+from aind_data_schema.components.coordinates import Translation, CoordinateSystemLibrary
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -75,11 +75,8 @@ a = Acquisition(
                     images=[
                         FieldOfView(
                             targeted_structure=CCFStructure.VISP,
-                            center_to_acquisition_translation=Coordinate(
-                                system_name="BREGMA_ARI",
-                                transform=Translation(
-                                    translation=[1.5, 1.5, 0],
-                                ),
+                            center_to_acquisition_translation=Translation(
+                                translation=[1.5, 1.5, 0],
                             ),
                             fov_width=512,
                             fov_height=512,

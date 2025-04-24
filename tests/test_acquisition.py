@@ -11,8 +11,6 @@ from aind_data_schema.components.coordinates import (
     Affine,
     Scale,
     Translation,
-    Coordinate,
-    Transform,
     CoordinateSystemLibrary,
 )
 from aind_data_schema.components.identifiers import Person
@@ -71,21 +69,18 @@ class AcquisitionTest(unittest.TestCase):
                             module_angle=10,
                             primary_targeted_structure=CCFStructure.VISL,
                             atlas_coordinates=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[1, 1, 1, 0],
+                                Translation(
+                                    translation=[1, 1, 1, 0],
                                 ),
                             ],
                             manipulator_coordinates=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[1, 1, 1, 1],
+                                Translation(
+                                    translation=[1, 1, 1, 1],
                                 )
                             ],
                             manipulator_axis_positions=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[1, 1, 1, 0],
+                                Translation(
+                                    translation=[1, 1, 1, 0],
                                 )
                             ],
                         ),
@@ -115,17 +110,14 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_transform=Transform(
-                        system_name=CoordinateSystemLibrary.MRI_LPS.name,
-                        transforms=[
-                            Affine(
-                                affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-                            ),
-                            Translation(
-                                translation=[1, 1, 1],
-                            ),
-                        ],
-                    ),
+                    scan_affine_transform=[
+                        Affine(
+                            affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+                        ),
+                        Translation(
+                            translation=[1, 1, 1],
+                        ),
+                    ],
                     subject_position="Supine",
                     resolution=Scale(
                         scale=[0.5, 0.4375, 0.52],
@@ -189,21 +181,18 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 1],
+                                    Translation(
+                                        translation=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -245,21 +234,18 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 1],
+                                    Translation(
+                                        translation=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -302,21 +288,18 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 1],
+                                    Translation(
+                                        translation=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -356,21 +339,18 @@ class AcquisitionTest(unittest.TestCase):
                     module_angle=10,
                     primary_targeted_structure=CCFStructure.VISL,
                     atlas_coordinates=[
-                        Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
+                        Translation(
+                            translation=[1, 1, 1],
                         ),
                     ],
                     manipulator_coordinates=[
-                        Coordinate(
-                            system_name="BREGMA_ARID",
-                            position=[1, 1, 1, 1],
+                        Translation(
+                            translation=[1, 1, 1, 1],
                         )
                     ],
                     manipulator_axis_positions=[
-                        Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
+                        Translation(
+                            translation=[1, 1, 1],
                         )
                     ],
                 ),

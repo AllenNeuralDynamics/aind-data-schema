@@ -92,7 +92,7 @@ class PositionedDevice(DataModel):
     def validate_transform_and_cs(cls, values):
         """Ensure that transform and coordinate system are either both set or both unset"""
         transform = values.transform
-        coordinate_system = values.device_coordinate_system
+        coordinate_system = values.coordinate_system
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(

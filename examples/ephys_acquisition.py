@@ -79,17 +79,13 @@ ephys_assembly_b_config = EphysAssemblyConfig(
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
                 translation=[8150, 3250, 7800],
-                ),
             ),
             coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-            probe_transform=Vector(
-                system_name="BREGMA_ARID",
-                transforms=[
-                    Translation(
-                        translation=[5000, 5000, 0, 1],
-                    ),
-                ],
-            ),
+            transform=[
+                Translation(
+                    translation=[5000, 5000, 0, 1],
+                ),
+            ],
             notes=(
                 "Trouble penetrating. Lots of compression, needed to move probe. Small amount of surface"
                 " bleeding/bruising. Initial Target: X;10070.3\tY:7476.6"

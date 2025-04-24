@@ -19,7 +19,6 @@ from aind_data_schema.components.subjects import BreedingInfo, Housing, Species,
 from aind_data_schema_models.species import Strain
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema.components.coordinates import (
-    Vector,
     Translation,
     Rotation,
 )
@@ -120,16 +119,11 @@ for session_idx, session in sessions_df.iterrows():
                         ],
                         targeted_structure=proc_row["brain_area"],
                         coordinates=[
-                            Vector(
-                                system_name="BREGMA_ARI",
-                                transforms=[
-                                    Translation(
-                                        translation=[coords[1], coords[0], coords[2]],
-                                    ),
-                                    Rotation(
-                                        angles=[0, coords[3], 0],
-                                    ),
-                                ],
+                            Translation(
+                                translation=[float(coords[1]), float(coords[0]), float(coords[2])],
+                            ),
+                            Rotation(
+                                angles=[0, float(coords[3]), 0],
                             ),
                         ],
                         dynamics=[

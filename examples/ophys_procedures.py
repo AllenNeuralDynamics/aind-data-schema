@@ -26,7 +26,7 @@ from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate, Vector, Translation
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -77,12 +77,11 @@ p = Procedures(
                         )
                     ],
                     coordinates=[
-                        Vector(
-                            system_name="BREGMA_ARID",
-                            transforms=[
-                                Translation(translation=[-600, -3050, 0, 4200]),
-                            ],
-                        ),
+                        [
+                            Translation(
+                                translation=[-600, -3050, 0, 4200],
+                            ),
+                        ],
                     ],
                     dynamics=[
                         InjectionDynamics(
@@ -98,9 +97,8 @@ p = Procedures(
                     implanted_device_names=["Probe A"],
                     probe_config=ProbeConfig(
                         primary_targeted_structure=CCFStructure.VTA,
-                        probe_transform=Vector(
-                            system_name="BREGMA_ARID",
-                            transforms=Translation(translation=[-600, -3050, 0, 4200]),
+                        probe_transform=Translation(
+                            translation=[-600, -3050, 0, 4200],
                         ),
                     ),
                 ),
