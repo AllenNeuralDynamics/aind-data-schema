@@ -13,7 +13,6 @@ from aind_data_schema.components.coordinates import (
     Translation,
     Affine,
     CoordinateSystemLibrary,
-    CoordinateTransform,
 )
 from aind_data_schema.components.devices import Objective, Laser, ScanningStage
 from aind_data_schema.core.acquisition import Acquisition
@@ -95,31 +94,23 @@ class ImagingTests(unittest.TestCase):
             "tiles": [
                 Image(
                     channel_name="488",
-                    coordinate_transform=CoordinateTransform(
-                        input="SPIM_IJK",
-                        output="BREGMA_ARI",
-                        transforms=[
-                            Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
-                        ],
-                    ),
+                    image_to_acquisition_transform=[
+                        Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                    ],
                 ),
                 Image(
                     channel_name="488",
-                    coordinate_transform=CoordinateTransform(
-                        input="SPIM_IJK",
-                        output="BREGMA_ARI",
-                        transforms=[
-                            Translation(
-                                translation=[0, 1, 2],
-                            ),
-                            Rotation(
-                                angles=[1, 2, 3],
-                            ),
-                            Scale(
-                                scale=[1, 2, 3],
-                            ),
-                        ],
-                    ),
+                    image_to_acquisition_transform=[
+                        Translation(
+                            translation=[0, 1, 2],
+                        ),
+                        Rotation(
+                            angles=[1, 2, 3],
+                        ),
+                        Scale(
+                            scale=[1, 2, 3],
+                        ),
+                    ],
                 ),
             ],
         }
