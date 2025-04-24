@@ -263,16 +263,18 @@ class Metadata(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_unique_configurations(self):
-        """Validate that Procedures.configurations and Instrument.configurations don't share target devices."""
+        """Validate that Procedures.configurations and Acquisition.configurations don't share target devices."""
 
-        if self.procedures and self.instrument:
+        if self.procedures and self.acquisition:
             procedure_configurations = [config.device_name for config in self.procedures.configurations]
-            instrument_configurations = [config.device_name for config in self.instrument.configurations]
+            acquisition_configurations = []
+            for data_stream in self.acquisition.data_streams:
+                acquisition_configurations.extend([config.device_name for config in data_stream.configurations])
 
-            if set(procedure_configurations) & set(instrument_configurations):
+            if set(procedure_configurations) & set(acquisition_configurations):
                 # Get the overlap
-                overlap = set(procedure_configurations) & set(instrument_configurations)
-                raise ValueError(f"Procedures and Instrument configurations share target devices: {overlap}")
+                overlap = set(procedure_configurations) & set(acquisition_configurations)
+                raise ValueError(f"Procedures and Acquisition configurations share target devices: {overlap}")
 
         return self
 
