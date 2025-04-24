@@ -279,7 +279,7 @@ class Immersion(DataModel):
     refractive_index: Decimal = Field(..., title="Index of refraction")
 
 
-class SampleChamberConfig(DataModel):
+class SampleChamberConfig(DeviceConfig):
     """Configuration of a sample chamber"""
 
     chamber_immersion: Immersion = Field(..., title="Acquisition chamber immersion data")
@@ -302,7 +302,7 @@ class Image(DataModel):
     image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
 
 
-class ImagingConfig(DataModel):
+class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
     channels: List[Channel] = Field(..., title="Channels")
@@ -354,7 +354,7 @@ class MousePlatformConfig(DeviceConfig):
     )
 
 
-class LickSpoutConfig(DataModel):
+class LickSpoutConfig(DeviceConfig):
     """Lick spout acquisition information"""
 
     solution: Liquid = Field(..., title="Solution")
@@ -383,7 +383,7 @@ class LickSpoutConfig(DataModel):
         return values
 
 
-class AirPuffConfig(DataModel):
+class AirPuffConfig(DeviceConfig):
     """Air puff device configuration"""
 
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
