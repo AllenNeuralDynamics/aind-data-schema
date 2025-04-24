@@ -4,6 +4,7 @@ import unittest
 
 
 from examples.bergamo_ophys_acquisition import a as bergamo_acquisition
+from examples.exaspim_acquisition import acq as exaspim_acquisition
 from aind_data_schema.components.configs import ImagingConfig
 
 
@@ -11,7 +12,7 @@ class ImagingConfigTest(unittest.TestCase):
     """Test for ImagingConfig"""
 
     def test_image_channels_invalid(self):
-        """ Test ValidationError raised if channels are missing"""
+        """Test ValidationError raised if channels are missing"""
 
         acq = bergamo_acquisition.model_copy()
 
@@ -21,6 +22,13 @@ class ImagingConfigTest(unittest.TestCase):
         with self.assertRaises(ValueError) as e:
             ImagingConfig.model_validate_json(imaging_config.model_dump_json())
 
+        self.assertIn("must be defined in the ImagingConfig.channels", str(e.exception))
+
+        acq2 = exaspim_acquisition.model_copy()
+        imaging_config2 = acq2.data_streams[0].configurations[0]
+        imaging_config2.channels = []
+        with self.assertRaises(ValueError) as e:
+            ImagingConfig.model_validate_json(imaging_config2.model_dump_json())
         self.assertIn("must be defined in the ImagingConfig.channels", str(e.exception))
 
 

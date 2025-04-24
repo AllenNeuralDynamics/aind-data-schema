@@ -4,7 +4,6 @@ import unittest
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema.components.coordinates import CoordinateSystem, Scale
 from aind_data_schema.components.devices import PositionedDevice
 from aind_data_schema_models.coordinates import AnatomicalRelative
 
@@ -113,9 +112,12 @@ class DeviceTests(unittest.TestCase):
                     Translation(
                         translation=[1, 1, 1],
                     )
-                ]
+                ],
             )
-        self.assertIn("PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset", str(e1.exception))
+        self.assertIn(
+            "PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset",
+            str(e1.exception),
+        )
 
         # Test with coordinate_system set but transform unset
         with self.assertRaises(ValueError) as e2:
@@ -123,7 +125,10 @@ class DeviceTests(unittest.TestCase):
                 relative_position=[AnatomicalRelative.SUPERIOR],
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             )
-        self.assertIn("PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset", str(e2.exception))
+        self.assertIn(
+            "PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset",
+            str(e2.exception),
+        )
 
 
 if __name__ == "__main__":

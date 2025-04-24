@@ -659,7 +659,8 @@ class Procedures(DataCoreModel):
         for config_name in config_device_names:
             if config_name not in implanted_device_names:
                 raise ValueError(
-                    f"Configuration for {config_name} in Procedures.configurations must refer to a device in Procedures.implanted_devices."
+                    f"Configuration for {config_name} in Procedures.configurations"
+                    " must refer to a device in Procedures.implanted_devices."
                 )
 
         return values

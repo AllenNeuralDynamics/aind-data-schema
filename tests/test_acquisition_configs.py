@@ -206,7 +206,7 @@ class TestImagingConfig(unittest.TestCase):
                     channel_name="Channel1",
                     image_to_acquisition_transform=[
                         Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
-                    ]
+                    ],
                 ),
             ],
             coordinate_system=self.coordinate_system,

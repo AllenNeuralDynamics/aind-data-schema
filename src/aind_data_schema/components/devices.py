@@ -96,7 +96,8 @@ class PositionedDevice(DataModel):
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(
-                "PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset."
+                "PositionDevice.transform and PositionedDevice.coordinate_system"
+                " must either both be set or both be unset."
             )
 
         return values

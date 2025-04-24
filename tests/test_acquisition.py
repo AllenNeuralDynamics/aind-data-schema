@@ -12,8 +12,6 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
     CoordinateSystemLibrary,
-    AtlasCoordinate,
-    AtlasLibrary,
 )
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
@@ -24,7 +22,6 @@ from aind_data_schema.components.configs import (
     ImagingConfig,
     SampleChamberConfig,
     Immersion,
-    ProbeConfig,
 )
 from aind_data_schema.core.acquisition import (
     Acquisition,
