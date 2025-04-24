@@ -247,14 +247,14 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.SI, direction=Direction.SI),
         ],
     )
-    LAMBDA_ARI = CoordinateSystem(
-        name="LAMBDA_ARI",
-        origin=Origin.LAMBDA,
+    BREGMA_RAS = CoordinateSystem(
+        name="BREGMA_RAS",
+        origin=Origin.BREGMA,
         axis_unit=SizeUnit.UM,
         axes=[
-            Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.SI, direction=Direction.IS),
         ],
     )
 
@@ -270,14 +270,14 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     )
-    LAMBDA_ARID = CoordinateSystem(
-        name="LAMBDA_ARID",
-        origin=Origin.LAMBDA,
+    BREGMA_RASD = CoordinateSystem(
+        name="BREGMA_RASD",
+        origin=Origin.BREGMA,
         axis_unit=SizeUnit.UM,
         axes=[
-            Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.SI, direction=Direction.IS),
             Axis(name=AxisName.DEPTH, direction=Direction.TB),
         ],
     )

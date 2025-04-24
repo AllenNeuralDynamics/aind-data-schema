@@ -33,7 +33,7 @@ ephys_assembly_a_config = EphysAssemblyConfig(
     device_name="Ephys_assemblyA",
     manipulator=ManipulatorConfig(
         device_name="ManipulatorA",
-        coordinate_system=CoordinateSystemLibrary.MPM_PROBE_TODO,
+        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
         local_axis_positions=Translation(
             translation=[8422, 4205, 11087.5],
         ),
@@ -67,27 +67,21 @@ ephys_assembly_b_config = EphysAssemblyConfig(
     device_name="Ephys_assemblyB",
     manipulator=ManipulatorConfig(
         device_name="ManipulatorB",
-        coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-        local_axis_positions=Coordinate(
-            system_name="BREGMA_ARID",
-            transform=Translation(
-                translation=[8422, 4205, 11087.5],
-            ),
+        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+        local_axis_positions=Translation(
+            translation=[8422, 4205, 11087.5],
         ),
     ),
     probes=[
         ProbeConfig(
-            primary_targeted_structure=CCFStructure.LC,
             device_name="ProbeB",
+            primary_targeted_structure=CCFStructure.LC,
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
-                coordinate=Coordinate(
-                    system_name=AtlasLibrary.CCFv3_10um.name,
-                    transform=Translation(
-                        translation=[8150, 3250, 7800],
-                    ),
+                translation=[8150, 3250, 7800],
                 ),
             ),
+            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
             probe_transform=Vector(
                 system_name="BREGMA_ARID",
                 transforms=[

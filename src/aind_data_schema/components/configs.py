@@ -446,7 +446,7 @@ class ProbeConfig(DeviceConfig):
     )
 
     # Transform
-    coordinate_system: CoordinateSystem = Field(..., "Device coordinate system")
+    coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
     transform: TRANSFORM_TYPES = Field(
         ...,
         title="Device to acquisition transform",

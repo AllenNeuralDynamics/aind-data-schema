@@ -23,7 +23,7 @@ from pydantic import Field, SkipValidation, field_validator, model_validator
 from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
-from aind_data_schema.components.coordinates import Coordinate, Vector, CoordinateSystem, Origin
+from aind_data_schema.components.coordinates import Translation, CoordinateSystem, Origin, TRANSFORM_TYPES
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray, EphysProbe
 from aind_data_schema.components.configs import ProbeConfig, DeviceConfig
 from aind_data_schema.components.identifiers import Person
@@ -151,8 +151,9 @@ class Section(DataModel):
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
     # Coordinates
-    start_coordinate: Coordinate = Field(..., title="Start coordinate")
-    end_coordinate: Optional[Coordinate] = Field(default=None, title="End coordinate")
+    system_name: str = Field(..., title="Coordinate system name")
+    start_coordinate: Translation = Field(..., title="Start coordinate")
+    end_coordinate: Optional[Translation] = Field(default=None, title="End coordinate")
     thickness: Optional[float] = Field(default=None, title="Slice thickness")
     thickness_unit: Optional[SizeUnit] = Field(default=None, title="Slice thickness unit")
 
@@ -293,7 +294,8 @@ class Craniotomy(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
-    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
+    system_name: Optional[str] = Field(default=None, title="Coordinate system name")
+    position: Optional[Union[Translation, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
     size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
@@ -301,6 +303,14 @@ class Craniotomy(DataModel):
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
+
+    @model_validator(mode="after")
+    def check_system_if_position(cls, values):
+        """Ensure that system_name is provided if position is provided"""
+
+        if values.position and not values.system_name:
+            raise ValueError("Craniotomy.system_name must be provided if Craniotomy.position is provided")
+        return values
 
     @model_validator(mode="after")
     def check_position(cls, values):
@@ -444,7 +454,8 @@ class Injection(DataModel):
 class BrainInjection(Injection):
     """Description of an injection procedure into a brain"""
 
-    coordinates: List[Vector] = Field(..., title="Injection coordinate, depth, and rotation")
+    system_name: str = Field(..., title="Coordinate system name")
+    coordinates: List[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
@@ -565,7 +576,7 @@ class Surgery(DataModel):
     )  # note: exact field name is used by a validator
 
     # Measured coordinates
-    measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
+    measured_coordinates: Optional[Dict[Origin, Translation]] = Field(
         default=None,
         title="Measured coordinates",
         description="Coordinates measured during the procedure, for example Bregma and Lambda",
