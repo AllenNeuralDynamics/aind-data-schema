@@ -24,6 +24,8 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericMo
 from aind_data_schema.components.coordinates import (
     AtlasCoordinate,
     CoordinateSystem,
+    Translation,
+    Rotation,
     Scale,
     TRANSFORM_TYPES,
     TRANSFORM_TYPES_NONLIN,
@@ -244,7 +246,7 @@ class FieldOfView(DataModel):
     """Configuration of an imaging field of view, capturing a continuous video"""
 
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    center_coordinate: Optional[Translation] = Field(
+    center_to_acquisition_translation: Optional[Translation] = Field(
         default=None,
         title="FOV coordinate",
         description="Center point of the FOV in the instrument coordinate system",
@@ -387,8 +389,13 @@ class AirPuffConfig(DataModel):
 
     valence: Valence = Field(default=Valence.NEGATIVE, title="Valence")
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
-    transform_position: Translation = Field(default=None, title="Lick spout position")
-    transform_rotation: Rotation = Field(default=None, title="Lick spout rotation")
+
+    # Transform
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+    transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Device to acquisition transform",
+    )
 
     pressure: Optional[float] = Field(default=None, title="Pressure")
     pressure_unit: Optional[PressureUnit] = Field(default=None, title="Pressure unit")
@@ -411,8 +418,8 @@ class MISModuleConfig(DeviceConfig):
 
     arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
-    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
+    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     calibration_date: Optional[datetime] = Field(
         default=None, title="Date on which coordinate transform was last calibrated"
     )

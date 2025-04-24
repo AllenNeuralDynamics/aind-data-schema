@@ -219,21 +219,10 @@ class Atlas(CoordinateSystem):
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
 
-class AtlasCoordinate(DataModel):
-    """A coordinate in an atlas (AtlasSpace)"""
+class AtlasCoordinate(Translation):
+    """A point in an Atlas"""
 
     coordinate_system: Atlas = Field(..., title="Atlas")
-    coordinate: Translation = Field(..., title="Coordinate")
-
-
-class CoordinateTransform(DataModel):
-    """Affine or non-linear transformation from one CoordinateSystem to another
-
-    For example, a transformation from BREGMA_ARI to DEVICE_XYZ"""
-
-    input: str = Field(..., title="Input coordinate system")
-    output: str = Field(..., title="Output coordinate system")
-    transforms: TRANSFORM_TYPES_NONLIN = Field(..., title="Transform")
 
 
 class CoordinateSystemLibrary:

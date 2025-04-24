@@ -18,11 +18,9 @@ from aind_data_schema.components.configs import (
     SinglePlaneConfig,
 )
 from aind_data_schema.components.coordinates import (
-    Coordinate,
     CoordinateSystemLibrary,
     Affine,
     Translation,
-    CoordinateTransform,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.units import TimeUnit, SizeUnit
@@ -136,7 +134,7 @@ class TestImagingConfig(unittest.TestCase):
                 )
             ],
         )
-        self.coordinate_system = CoordinateSystemLibrary.BREGMA_ARI
+        self.coordinate_system = CoordinateSystemLibrary.SPIM_IJK
 
     def test_check_image_channels_success(self):
         """Test check_image_channels validator with valid data"""
@@ -145,9 +143,8 @@ class TestImagingConfig(unittest.TestCase):
             images=[
                 FieldOfView(
                     targeted_structure=CCFStructure.HPF,
-                    center_coordinate=Coordinate(
-                        system_name=self.coordinate_system.name,
-                        transform=Translation(translation=[0, 0, 0]),
+                    center_to_acquisition_translation=Translation(
+                        translation=[0, 0, 0],
                     ),
                     fov_width=512,
                     fov_height=512,
@@ -159,7 +156,7 @@ class TestImagingConfig(unittest.TestCase):
                             imaging_depth=1,
                         )
                     ],
-                )
+                ),
             ],
             coordinate_system=self.coordinate_system,
         )
@@ -173,9 +170,8 @@ class TestImagingConfig(unittest.TestCase):
                 images=[
                     FieldOfView(
                         targeted_structure=CCFStructure.HPF,
-                        center_coordinate=Coordinate(
-                            system_name=self.coordinate_system.name,
-                            transform=Translation(translation=[0, 0, 0]),
+                        center_to_acquisition_translation=Translation(
+                            translation=[0, 0, 0],
                         ),
                         fov_width=512,
                         fov_height=512,
@@ -203,13 +199,9 @@ class TestImagingConfig(unittest.TestCase):
             images=[
                 Image(
                     channel_name="Channel1",
-                    coordinate_transform=CoordinateTransform(
-                        input="SPIM_IJK",
-                        output="BREGMA_ARI",
-                        transforms=[
-                            Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
-                        ],
-                    ),
+                    image_to_acquisition_transform=[
+                        Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                    ]
                 ),
             ],
             coordinate_system=self.coordinate_system,
@@ -224,14 +216,9 @@ class TestImagingConfig(unittest.TestCase):
                 images=[
                     Image(
                         channel_name="Channel1",
-                        coordinate_transform=CoordinateTransform(
-                            input="SPIM_IJK",
-                            output="BREGMA_ARI",
-                            transforms=[
-                                Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
-                            ],
-                        ),
-                    ),
+                        image_to_acquisition_transform=[
+                            Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
+                        ],
                 ],
                 coordinate_system=None,
             )

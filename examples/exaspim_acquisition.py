@@ -18,7 +18,7 @@ from aind_data_schema.components.configs import (
     DetectorConfig,
     SampleChamberConfig,
 )
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema.core.procedures import Reagent
@@ -31,21 +31,16 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 tile_scale = Scale(
     scale=[0.748, 0.748, 1],
 )
-coordinate_transform = CoordinateTransform(
-    input="SPIM_IJK",
-    output="SPIM_RPI",
-    transforms=[tile_scale],
-)
 
 image0 = Image(
     channel_name="488",
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    coordinate_transform=coordinate_transform,
+    image_to_acquisition_transform=[tile_scale],
 )
 image1 = Image(
     channel_name="561",
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-    coordinate_transform=coordinate_transform,
+    image_to_acquisition_transform=[tile_scale],
 )
 
 imaging_config = ImagingConfig(

@@ -76,7 +76,7 @@ a = Acquisition(
                     images=[
                         FieldOfView(
                             targeted_structure=CCFStructure.MOP,
-                            center_coordinate=Coordinate(
+                            center_to_acquisition_translation=Coordinate(
                                 system_name="BREGMA_ARI",
                                 transform=Translation(translation=[1.5, 1.5, 0]),
                             ),
