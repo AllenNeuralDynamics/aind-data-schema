@@ -498,8 +498,6 @@ class ProbeImplant(DataModel):
         ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
     )  # note: exact field name is used by a validator
 
-    probe_config: ProbeConfig = Field(..., title="Probe configuration")
-
 
 class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""

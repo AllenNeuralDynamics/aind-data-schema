@@ -44,6 +44,18 @@ implanted_devices = [
 p = Procedures(
     subject_id="625100",
     implanted_devices=implanted_devices,
+    configurations=[
+        ProbeConfig(
+            primary_targeted_structure=CCFStructure.VTA,
+            device_name="Probe A",
+            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+            transform=[
+                Translation(
+                    translation=[-600, -3050, 0, 4200],
+                ),
+            ],
+        ),
+    ],
     subject_procedures=[
         Surgery(
             start_date=t.date(),
@@ -96,16 +108,6 @@ p = Procedures(
                 ProbeImplant(
                     protocol_id="TO ENTER",
                     implanted_device_names=["Probe A"],
-                    probe_config=ProbeConfig(
-                        primary_targeted_structure=CCFStructure.VTA,
-                        device_name="Probe A",
-                        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-                        transform=[
-                            Translation(
-                                translation=[-600, -3050, 0, 4200],
-                            ),
-                        ],
-                    ),
                 ),
             ],
         ),
