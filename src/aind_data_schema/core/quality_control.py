@@ -84,6 +84,7 @@ class CurationMetric(QCMetric):
     """Description of a curation metric"""
 
     value: List[Any] = Field(..., title="Curation value")
+    type: str = Field(..., title="Curation type")
     curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
 
 
