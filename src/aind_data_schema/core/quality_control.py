@@ -2,12 +2,13 @@
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, List, Literal, Optional, Union
+from typing import Any, List, Literal, Optional, Union, Annotated
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -72,6 +73,20 @@ class QCMetric(BaseModel):
         return v
 
 
+class CurationHistory(BaseModel):
+    """Schema to track curator name and timestamp for curation events"""
+
+    curator: Person = Field(..., title="Curator")
+    timestamp: datetime = Field(..., title="Timestamp")
+
+
+class CurationMetric(QCMetric):
+    """Description of a curation metric"""
+
+    value: List[Any] = Field(..., title="Curation value")
+    curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
+
+
 class QCEvaluation(DataModel):
     """Description of one evaluation stage, with one or more metrics"""
 
@@ -79,7 +94,7 @@ class QCEvaluation(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: List[QCMetric] = Field(..., title="QC metrics")
+    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(..., title="QC and curation metrics")
     tags: Optional[List[str]] = Field(
         default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
     )
