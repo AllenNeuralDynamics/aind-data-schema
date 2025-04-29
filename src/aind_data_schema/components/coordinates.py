@@ -265,7 +265,7 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.SI, direction=Direction.SI),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+            Axis(name=AxisName.DEPTH, direction=Direction.UD),
         ],
     )
     BREGMA_RASD = CoordinateSystem(
@@ -276,7 +276,7 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.SI, direction=Direction.IS),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+            Axis(name=AxisName.DEPTH, direction=Direction.UD),
         ],
     )
 
@@ -288,7 +288,7 @@ class CoordinateSystemLibrary:
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.FB),
-            Axis(name=AxisName.Z, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.DU),
         ],
     )
 
@@ -298,7 +298,7 @@ class CoordinateSystemLibrary:
         axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
-            Axis(name=AxisName.Y, direction=Direction.TB),
+            Axis(name=AxisName.Y, direction=Direction.UD),
             Axis(name=AxisName.Z, direction=Direction.BF),
         ],
     )
@@ -309,7 +309,7 @@ class CoordinateSystemLibrary:
         axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
-            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Y, direction=Direction.DU),
             Axis(name=AxisName.Z, direction=Direction.BF),
         ],
     )
@@ -320,7 +320,7 @@ class CoordinateSystemLibrary:
         axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.RL),
-            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Y, direction=Direction.DU),
             Axis(name=AxisName.Z, direction=Direction.FB),
         ],
     )
@@ -332,7 +332,7 @@ class CoordinateSystemLibrary:
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BF),
-            Axis(name=AxisName.Z, direction=Direction.TB),
+            Axis(name=AxisName.Z, direction=Direction.UD),
         ],
     )
 
@@ -344,7 +344,7 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
             Axis(name=AxisName.Z, direction=Direction.PA),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+            Axis(name=AxisName.DEPTH, direction=Direction.UD),
         ],
     )
 

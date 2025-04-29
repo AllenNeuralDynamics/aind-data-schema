@@ -12,10 +12,13 @@ from aind_data_schema.components.configs import (
     ImagingConfig,
     Channel,
     Image,
-    FieldOfView,
+    ImageSPIM,
+    PlanarImage,
+    Plane,
     DetectorConfig,
     LaserConfig,
     SinglePlaneConfig,
+    SamplingStrategy,
 )
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
@@ -23,7 +26,7 @@ from aind_data_schema.components.coordinates import (
     Translation,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.units import TimeUnit, SizeUnit
+from aind_data_schema_models.units import TimeUnit, SizeUnit, FrequencyUnit, AngleUnit
 
 
 class TestMRIScan(unittest.TestCase):
@@ -158,6 +161,10 @@ class TestImagingConfig(unittest.TestCase):
             ],
         )
         self.coordinate_system = CoordinateSystemLibrary.SPIM_IJK
+        self.sampling_strategy = SamplingStrategy(
+            frame_rate=30.0,
+            frame_rate_unit=FrequencyUnit.HZ,
+        )
 
     def test_check_image_channels_success(self):
         """Test check_image_channels validator with valid data"""
@@ -165,23 +172,28 @@ class TestImagingConfig(unittest.TestCase):
             device_name="ImagingDevice",
             channels=[self.channel1, self.channel2],
             images=[
-                FieldOfView(
-                    targeted_structure=CCFStructure.HPF,
-                    center_to_acquisition_translation=Translation(
-                        translation=[0, 0, 0],
+                PlanarImage(
+                    channel_name="Channel1",
+                    image_to_acquisition_transform=[
+                        Translation(
+                            translation=[0, 0, 0],
+                        ),
+                    ],
+                    dimensions=Scale(
+                        scale=[512, 512],
                     ),
-                    fov_width=512,
-                    fov_height=512,
-                    fov_scale_factor=Decimal("0.5"),
-                    frame_rate=Decimal("30.0"),
                     planes=[
-                        SinglePlaneConfig(
-                            channel_name="Channel1",
-                            imaging_depth=1,
-                        )
+                        Plane(
+                            targeted_structure=CCFStructure.HPF,
+                            depth=150,
+                            depth_unit=SizeUnit.UM,
+                            power=10,
+                            power_unit="milliwatt",
+                        ),
                     ],
                 ),
             ],
+            sampling_strategy=self.sampling_strategy,
             coordinate_system=self.coordinate_system,
         )
         self.assertIsNotNone(imaging_config)
@@ -193,23 +205,28 @@ class TestImagingConfig(unittest.TestCase):
                 device_name="ImagingDevice",
                 channels=[self.channel1],
                 images=[
-                    FieldOfView(
-                        targeted_structure=CCFStructure.HPF,
-                        center_to_acquisition_translation=Translation(
-                            translation=[0, 0, 0],
+                    PlanarImage(
+                        channel_name="InvalidChannel",
+                        image_to_acquisition_transform=[
+                            Translation(
+                                translation=[0, 0, 0],
+                            ),
+                        ],
+                        dimensions=Scale(
+                            scale=[512, 512],
                         ),
-                        fov_width=512,
-                        fov_height=512,
-                        fov_scale_factor=Decimal("0.5"),
-                        frame_rate=Decimal("30.0"),
                         planes=[
-                            SinglePlaneConfig(
-                                channel_name="InvalidChannel",
-                                imaging_depth=1,
-                            )
+                            Plane(
+                                targeted_structure=CCFStructure.HPF,
+                                depth=150,
+                                depth_unit=SizeUnit.UM,
+                                power=10,
+                                power_unit="milliwatt",
+                            ),
                         ],
                     )
                 ],
+                sampling_strategy=self.sampling_strategy,
                 coordinate_system=self.coordinate_system,
             )
         self.assertIn(
@@ -223,11 +240,14 @@ class TestImagingConfig(unittest.TestCase):
             device_name="ImagingDevice",
             channels=[self.channel1],
             images=[
-                Image(
+                ImageSPIM(
                     channel_name="Channel1",
+                    file_name="test_image.tiff",
                     image_to_acquisition_transform=[
                         Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
                     ],
+                    imaging_angle=45,
+                    imaging_angle_unit=AngleUnit.DEG,
                 ),
             ],
             coordinate_system=self.coordinate_system,
@@ -241,17 +261,20 @@ class TestImagingConfig(unittest.TestCase):
                 device_name="ImagingDevice",
                 channels=[self.channel1],
                 images=[
-                    Image(
+                    ImageSPIM(
                         channel_name="Channel1",
+                        file_name="test_image.tiff",
                         image_to_acquisition_transform=[
                             Affine(affine_transform=[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0, 0, 0, 1]]),
                         ],
+                        imaging_angle=45,
+                        imaging_angle_unit=AngleUnit.DEG,
                     ),
                 ],
                 coordinate_system=None,
             )
         self.assertIn(
-            "ImagingConfig.coordinate_system is required",
+            "ImagingConfig.coordinate_system is required when ImagingConfig.images are ImageSPIM objects",
             str(context.exception),
         )
 

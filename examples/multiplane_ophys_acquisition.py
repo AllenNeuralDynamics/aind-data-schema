@@ -6,7 +6,7 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.coordinates import Translation, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Translation, Scale, CoordinateSystemLibrary
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -15,12 +15,13 @@ from aind_data_schema.core.acquisition import (
 from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,
-    FieldOfView,
     LaserConfig,
-    MultiPlaneConfig,
     TriggerType,
     ImagingConfig,
     MicroscopeConfig,
+    CoupledPlane,
+    PlanarImage,
+    SamplingStrategy,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
 
@@ -31,6 +32,12 @@ t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 microscope_config = MicroscopeConfig(
     device_name="Mesoscope",
     magnification="10x",
+)
+
+# Define the sampling strategy
+sampling_strategy = SamplingStrategy(
+    frame_rate=9.48,
+    frame_rate_unit=FrequencyUnit.HZ,
 )
 
 a = Acquisition(
@@ -66,7 +73,7 @@ a = Acquisition(
                                 LaserConfig(
                                     device_name="Laser A",
                                     wavelength=920,
-                                    wavelength_unit="nanometer",
+                                    wavelength_unit=SizeUnit.NM,
                                     power=10,
                                     power_unit=PowerUnit.MW,
                                 ),
@@ -74,109 +81,93 @@ a = Acquisition(
                         ),
                     ],
                     images=[
-                        FieldOfView(
-                            targeted_structure=CCFStructure.VISP,
-                            center_to_acquisition_translation=Translation(
-                                translation=[1.5, 1.5, 0],
+                        PlanarImage(
+                            channel_name="Green channel",
+                            image_to_acquisition_transform=[
+                                Translation(
+                                    translation=[1500, 1500, 0],
+                                ),
+                            ],
+                            dimensions=Scale(
+                                scale=[800, 800],
                             ),
-                            fov_width=512,
-                            fov_height=512,
-                            fov_size_unit=SizeUnit.UM,
-                            fov_scale_factor=0.78,
-                            frame_rate=9.48,
-                            frame_rate_unit=FrequencyUnit.HZ,
                             planes=[
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=0,
+                                CoupledPlane(
+                                    depth=190,
+                                    depth_unit=SizeUnit.UM,
                                     power=5,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=190,
-                                    scanfield_z=230,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=1,
+                                    power_ratio=0.12,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=1,
+                                CoupledPlane(
+                                    depth=232,
+                                    depth_unit=SizeUnit.UM,
                                     power=42,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=232,
-                                    scanfield_z=257,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=0,
+                                    power_ratio=8.4,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=2,
+                                CoupledPlane(
+                                    depth=136,
+                                    depth_unit=SizeUnit.UM,
                                     power=28,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=136,
-                                    scanfield_z=176,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=3,
+                                    power_ratio=1.0,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=3,
+                                CoupledPlane(
+                                    depth=282,
+                                    depth_unit=SizeUnit.UM,
                                     power=28,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=282,
-                                    scanfield_z=307,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=2,
+                                    power_ratio=1.0,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=4,
+                                CoupledPlane(
+                                    depth=72,
+                                    depth_unit=SizeUnit.UM,
                                     power=12,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=72,
-                                    scanfield_z=112,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=5,
+                                    power_ratio=1.0,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=5,
+                                CoupledPlane(
+                                    depth=326,
+                                    depth_unit=SizeUnit.UM,
                                     power=12,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=326,
-                                    scanfield_z=351,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=4,
+                                    power_ratio=1.0,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=6,
+                                CoupledPlane(
+                                    depth=30,
+                                    depth_unit=SizeUnit.UM,
                                     power=5,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=30,
-                                    scanfield_z=70,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=7,
+                                    power_ratio=1.0,
                                 ),
-                                MultiPlaneConfig(
-                                    channel_name="Green channel",
-                                    index=7,
+                                CoupledPlane(
+                                    depth=364,
+                                    depth_unit=SizeUnit.UM,
                                     power=5,
                                     power_unit=PowerUnit.PERCENT,
-                                    scanimage_roi_index=0,
-                                    imaging_depth=364,
-                                    scanfield_z=389,
-                                    scanfield_z_unit=SizeUnit.UM,
+                                    targeted_structure=CCFStructure.VISP,
                                     coupled_plane_index=6,
+                                    power_ratio=1.0,
                                 ),
                             ],
                         ),
                     ],
+                    sampling_strategy=sampling_strategy,
                 ),
             ],
         )

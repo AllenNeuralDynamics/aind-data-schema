@@ -12,7 +12,7 @@ from aind_data_schema.components.configs import (
     Channel,
     DeviceConfig,
     LaserConfig,
-    Image,
+    ImageSPIM,
     Immersion,
     ImagingConfig,
     DetectorConfig,
@@ -20,6 +20,7 @@ from aind_data_schema.components.configs import (
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.components.measurements import Calibration, Maintenance
@@ -32,14 +33,16 @@ tile_scale = Scale(
     scale=[0.748, 0.748, 1],
 )
 
-image0 = Image(
+image0 = ImageSPIM(
     channel_name="488",
     file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
+    dimensions=Scale(scale=[512, 512, 256]),
     image_to_acquisition_transform=[tile_scale],
 )
-image1 = Image(
+image1 = ImageSPIM(
     channel_name="561",
     file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
+    dimensions=Scale(scale=[512, 512, 256]),
     image_to_acquisition_transform=[tile_scale],
 )
 

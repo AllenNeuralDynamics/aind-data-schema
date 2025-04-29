@@ -146,6 +146,17 @@ class LightEmittingDiodeConfig(DeviceConfig):
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
+LIGHT_TYPES = List[
+    Annotated[
+        Union[
+            LaserConfig,
+            LightEmittingDiodeConfig,
+        ],
+        Field(discriminator="object_type"),
+    ]
+]
+
+
 class MicroscopeConfig(DeviceConfig):
     """Configuration of a generic microscope"""
 
@@ -176,15 +187,7 @@ class Channel(DataModel):
     )
 
     # excitation
-    light_sources: List[
-        Annotated[
-            Union[
-                LaserConfig,
-                LightEmittingDiodeConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(default=[], title="Light source configurations")
+    light_sources: LIGHT_TYPES = Field(default=[], title="Light source configurations")
     variable_power: Optional[bool] = Field(
         default=False, title="Variable power", description="Set to true when power values change during the experiment"
     )
@@ -226,9 +229,6 @@ class SampleChamberConfig(DeviceConfig):
 
 class Plane(DataModel):
     """Configuration of an imaging plane"""
-
-    depth: float = Field(..., title="Depth")
-    depth_unit: SizeUnit = Field(..., title="Depth unit")
     power: float = Field(..., title="Power")
     power_unit: PowerUnit = Field(..., title="Power unit")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
@@ -237,6 +237,8 @@ class Plane(DataModel):
 class CoupledPlane(Plane):
     """Configuration of a pair of coupled imaging plane"""
 
+    depth: float = Field(..., title="Depth")
+    depth_unit: SizeUnit = Field(..., title="Depth unit")
     coupled_plane_index: int = Field(..., title="Coupled plane index")
     power_ratio: float = Field(..., title="Power ratio")
 
@@ -245,6 +247,8 @@ class Image(DataModel):
     """Description of an N-D image"""
 
     channel_name: str = Field(..., title="Channel name")
+    dimensions: Scale = Field(..., title="Dimensions")
+    dimensions_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dimensions unit")
     image_to_acquisition_transform: TRANSFORM_TYPES = Field(..., title="Image to acquisition transform")
 
 
@@ -269,6 +273,15 @@ class PlanarImage(Image):
     planes: List[Annotated[Union[Plane, CoupledPlane], Field(discriminator="object_type")]] = Field(
         ..., title="Imaging planes"
     )
+
+    @model_validator(mode="after")
+    def limit_plane_to_one(self):
+        """Check that only one plane is defined"""
+
+        if any(not isinstance(plane, CoupledPlane) for plane in self.planes) and len(self.planes) > 1:
+            raise ValueError("For single-plane optical physiology only a single Plane should be in PlanarImage.planes")
+
+        return self
 
 
 class PlanarImageStack(PlanarImage):

@@ -16,18 +16,55 @@ from aind_data_schema.core.acquisition import (
 from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,
-    FieldOfView,
     LaserConfig,
-    SinglePlaneConfig,
     StimulusModality,
+    Plane,
+    PlanarImage,
+    SamplingStrategy,
     ImagingConfig,
 )
-from aind_data_schema.components.coordinates import Translation, CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import Translation, Scale, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+
+laser_config_a = LaserConfig(
+    device_name="Laser A",
+    wavelength=405,
+    wavelength_unit="nanometer",
+    power=10,
+    power_unit="milliwatt",
+)
+
+planar_image = PlanarImage(
+    channel_name="Green channel",
+    image_to_acquisition_transform=[
+        Translation(
+            translation=[1500, 1500, 150],
+        ),
+        Scale(
+            scale=[1.5, 1.5, 1],
+        ),
+    ],
+    planes=[
+        Plane(
+            targeted_structure=CCFStructure.MOP,
+            power=10,
+            power_unit="milliwatt",
+        ),
+    ],
+    dimensions=Scale(
+        scale=[800, 800],
+    ),
+)
+
+sampling_strategy = SamplingStrategy(
+    frame_rate=20,
+    frame_rate_unit=FrequencyUnit.HZ,
+)
+                    
 
 a = Acquisition(
     experimenters=[Person(name="John Smith")],
@@ -53,7 +90,7 @@ a = Acquisition(
             ],
             configurations=[
                 ImagingConfig(
-                    device_name="Bergamo",
+                    device_name="Bergamo Microscope",
                     channels=[
                         Channel(
                             channel_name="Green channel",
@@ -63,36 +100,11 @@ a = Acquisition(
                                 exposure_time=0.1,
                                 trigger_type="Internal",
                             ),
-                            light_sources=[
-                                LaserConfig(
-                                    device_name="Laser A",
-                                    wavelength=405,
-                                    wavelength_unit="nanometer",
-                                    power=10,
-                                    power_unit="milliwatt",
-                                ),
-                            ],
+                            light_sources=[laser_config_a],
                         ),
                     ],
-                    images=[
-                        FieldOfView(
-                            targeted_structure=CCFStructure.MOP,
-                            center_to_acquisition_translation=Translation(
-                                translation=[1.5, 1.5, 0],
-                            ),
-                            fov_width=800,
-                            fov_height=800,
-                            fov_scale_factor=1.5,
-                            frame_rate=20,
-                            frame_rate_unit=FrequencyUnit.HZ,
-                            planes=[
-                                SinglePlaneConfig(
-                                    channel_name="Green channel",
-                                    imaging_depth=150,
-                                )
-                            ],
-                        )
-                    ],
+                    images=[planar_image],
+                    sampling_strategy=sampling_strategy,
                 )
             ],
         ),
