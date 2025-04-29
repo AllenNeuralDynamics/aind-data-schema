@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, List, Literal, Optional, Union, Annotated
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.identifiers import Person
@@ -32,7 +32,7 @@ class Stage(str, Enum):
     MULTI_ASSET = "Multi-asset"
 
 
-class QCStatus(BaseModel):
+class QCStatus(DataModel):
     """Description of a QC status, set by an evaluator"""
 
     evaluator: str = Field(..., title="Status evaluator full name")
@@ -40,7 +40,7 @@ class QCStatus(BaseModel):
     timestamp: AwareDatetimeWithDefault = Field(..., title="Status date")
 
 
-class QCMetric(BaseModel):
+class QCMetric(DataModel):
     """Description of a single quality control metric"""
 
     name: str = Field(..., title="Metric name")
@@ -75,7 +75,7 @@ class QCMetric(BaseModel):
         return v
 
 
-class CurationHistory(BaseModel):
+class CurationHistory(DataModel):
     """Schema to track curator name and timestamp for curation events"""
 
     curator: Person = Field(..., title="Curator")
