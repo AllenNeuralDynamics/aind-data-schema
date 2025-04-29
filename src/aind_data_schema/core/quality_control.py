@@ -95,7 +95,9 @@ class QCEvaluation(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(..., title="QC and curation metrics")
+    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(
+        ..., title="QC and curation metrics"
+    )
     tags: Optional[List[str]] = Field(
         default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
     )
