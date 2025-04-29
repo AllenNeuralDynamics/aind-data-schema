@@ -79,7 +79,7 @@ class CurationHistory(BaseModel):
     """Schema to track curator name and timestamp for curation events"""
 
     curator: Person = Field(..., title="Curator")
-    timestamp: datetime = Field(..., title="Timestamp")
+    timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
 
 
 class CurationMetric(QCMetric):
