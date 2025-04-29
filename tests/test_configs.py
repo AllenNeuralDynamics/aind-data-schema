@@ -46,7 +46,9 @@ class TestPlanarImage(unittest.TestCase):
 
         self.transform = [Translation(translation=[0, 0])]
 
-        self.plane = Plane(depth=150, depth_unit=SizeUnit.UM, power=5.0, power_unit=PowerUnit.MW, targeted_structure=CCFStructure.VISP)
+        self.plane = Plane(
+            depth=150, depth_unit=SizeUnit.UM, power=5.0, power_unit=PowerUnit.MW, targeted_structure=CCFStructure.VISP
+        )
 
         self.coupled_plane = CoupledPlane(
             power=5.0,

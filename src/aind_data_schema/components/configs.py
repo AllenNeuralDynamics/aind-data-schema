@@ -250,7 +250,11 @@ class Image(DataModel):
 
     channel_name: str = Field(..., title="Channel name")
     dimensions_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dimensions unit")
-    image_to_acquisition_transform: TRANSFORM_TYPES = Field(..., title="Image to acquisition transform", description="Position, rotation, and scale of the image. Note that depth should be in the planes.")
+    image_to_acquisition_transform: TRANSFORM_TYPES = Field(
+        ...,
+        title="Image to acquisition transform",
+        description="Position, rotation, and scale of the image. Note that depth should be in the planes.",
+    )
 
     dimensions: Optional[Scale] = Field(default=None, title="Dimensions")
 
