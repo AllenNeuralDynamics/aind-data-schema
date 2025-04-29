@@ -267,7 +267,6 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription.parse_name(self.BAD_NAME, DataLevel.RAW)
 
         toks = DataDescription.parse_name(self.DERIVED_NAME, DataLevel.DERIVED)
-        print(toks)
         assert toks["input"] == "1234_3033-12-21_04-22-11"
         assert toks["process_name"] == "spikesorted-ks25"
         assert toks["creation_time"] == datetime.datetime(2022, 10, 12, 23, 23, 11)
