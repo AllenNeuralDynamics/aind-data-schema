@@ -42,14 +42,16 @@ planar_image = PlanarImage(
     channel_name="Green channel",
     image_to_acquisition_transform=[
         Translation(
-            translation=[1500, 1500, 150],
+            translation=[1500, 1500],
         ),
         Scale(
-            scale=[1.5, 1.5, 1],
+            scale=[1.5, 1.5],
         ),
     ],
     planes=[
         Plane(
+            depth=150,
+            depth_unit="micrometer",
             targeted_structure=CCFStructure.MOP,
             power=10,
             power_unit="milliwatt",
@@ -64,7 +66,7 @@ sampling_strategy = SamplingStrategy(
     frame_rate=20,
     frame_rate_unit=FrequencyUnit.HZ,
 )
-                    
+
 
 a = Acquisition(
     experimenters=[Person(name="John Smith")],

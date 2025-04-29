@@ -35,13 +35,13 @@ tile_scale = Scale(
 
 image0 = ImageSPIM(
     channel_name="488",
-    file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
+    file_name=AssetPath("tile_X_0000_Y_0000_Z_0000_CH_488.ims"),
     dimensions=Scale(scale=[512, 512, 256]),
     image_to_acquisition_transform=[tile_scale],
 )
 image1 = ImageSPIM(
     channel_name="561",
-    file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
+    file_name=AssetPath("tile_X_0000_Y_0000_Z_0000_CH_561.ims"),
     dimensions=Scale(scale=[512, 512, 256]),
     image_to_acquisition_transform=[tile_scale],
 )

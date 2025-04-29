@@ -229,6 +229,10 @@ class SampleChamberConfig(DeviceConfig):
 
 class Plane(DataModel):
     """Configuration of an imaging plane"""
+
+    depth: float = Field(..., title="Depth")
+    depth_unit: SizeUnit = Field(..., title="Depth unit")
+
     power: float = Field(..., title="Power")
     power_unit: PowerUnit = Field(..., title="Power unit")
     targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
@@ -237,8 +241,6 @@ class Plane(DataModel):
 class CoupledPlane(Plane):
     """Configuration of a pair of coupled imaging plane"""
 
-    depth: float = Field(..., title="Depth")
-    depth_unit: SizeUnit = Field(..., title="Depth unit")
     coupled_plane_index: int = Field(..., title="Coupled plane index")
     power_ratio: float = Field(..., title="Power ratio")
 
@@ -248,7 +250,7 @@ class Image(DataModel):
 
     channel_name: str = Field(..., title="Channel name")
     dimensions_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dimensions unit")
-    image_to_acquisition_transform: TRANSFORM_TYPES = Field(..., title="Image to acquisition transform")
+    image_to_acquisition_transform: TRANSFORM_TYPES = Field(..., title="Image to acquisition transform", description="Position, rotation, and scale of the image. Note that depth should be in the planes.")
 
     dimensions: Optional[Scale] = Field(default=None, title="Dimensions")
 
