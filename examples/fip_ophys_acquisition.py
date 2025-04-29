@@ -284,67 +284,6 @@ connections = [
             ),
         },
     ),
-    # Connections between LED light sources and patch cords
-    Connection(
-        device_names=["470nm LED", "Patch Cord A"],
-        connection_data={
-            "470nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 0_green",
-            ),
-        },
-    ),
-    Connection(
-        device_names=["415nm LED", "Patch Cord A"],
-        connection_data={
-            "415nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 0_isosbestic",
-            ),
-        },
-    ),
-    Connection(
-        device_names=["565nm LED", "Patch Cord A"],
-        connection_data={
-            "565nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 0_red",
-            ),
-        },
-    ),
-    Connection(
-        device_names=["470nm LED", "Patch Cord B"],
-        connection_data={
-            "470nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 1_green",
-            ),
-        },
-    ),
-    Connection(
-        device_names=["415nm LED", "Patch Cord B"],
-        connection_data={
-            "415nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 1_isosbestic",
-            ),
-        },
-    ),
 ]
 
 # Define stimulus epoch's speaker configuration
