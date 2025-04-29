@@ -24,8 +24,8 @@ class DataDescriptionTest(unittest.TestCase):
     """test DataDescription"""
 
     BAD_NAME = "fizzbuzz"
-    BASIC_NAME = "1234_3033-12-21T042211"
-    DERIVED_NAME = "1234_3033-12-21T042211_spikesorted-ks25_2022-10-12T232311"
+    BASIC_NAME = "1234_3033-12-21_04-22-11"
+    DERIVED_NAME = "1234_3033-12-21_04-22-11_spikesorted-ks25_2022-10-12_23-23-11"
 
     def test_funding_construction(self):
         """Test Funding construction"""
@@ -52,7 +52,7 @@ class DataDescriptionTest(unittest.TestCase):
         """Test build_data_name function"""
         dt = datetime.datetime(2022, 10, 12, 23, 23, 11)
         name = build_data_name("project", dt)
-        self.assertEqual(name, "project_2022-10-12T232311")
+        self.assertEqual(name, "project_2022-10-12_23-23-11")
 
     @patch("aind_data_schema.core.data_description.build_data_name")
     def test_build_name_validation_error(self, mock_build_data_name: MagicMock):

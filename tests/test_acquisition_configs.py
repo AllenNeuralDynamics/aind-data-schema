@@ -11,13 +11,11 @@ from aind_data_schema.components.configs import (
     Valence,
     ImagingConfig,
     Channel,
-    Image,
     ImageSPIM,
     PlanarImage,
     Plane,
     DetectorConfig,
     LaserConfig,
-    SinglePlaneConfig,
     SamplingStrategy,
 )
 from aind_data_schema.components.coordinates import (
