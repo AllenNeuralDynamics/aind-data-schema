@@ -27,10 +27,17 @@ from aind_data_schema.components.coordinates import (
     Translation,
     Scale,
     TRANSFORM_TYPES,
-    TRANSFORM_TYPES_NONLIN,
 )
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
+
+
+class PowerFunction(str, Enum):
+    """Power functions"""
+
+    CONSTANT = "Constant"
+    LINEAR = "Linear"
+    EXPONENTIAL = "Exponential"
 
 
 class StimulusModality(str, Enum):
@@ -197,75 +204,6 @@ class SlapChannel(Channel):
     description: Optional[str] = Field(default=None, title="Description")
 
 
-class SinglePlaneConfig(DataModel):
-    """Configuration of a single plane ophys config"""
-
-    channel_name: str = Field(..., title="Channel name")
-
-    imaging_depth: int = Field(..., title="Imaging depth (um)")
-    imaging_depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Imaging depth unit")
-
-
-class MultiPlaneConfig(SinglePlaneConfig):
-    """Configuration of a single multi-plane FOV"""
-
-    index: int = Field(..., title="Index")
-    coupled_plane_index: Optional[int] = Field(
-        default=None, title="Coupled plane index", description="Coupled planes for multiscope"
-    )
-    power: Optional[Decimal] = Field(
-        default=None, title="Power", description="For coupled planes, this power is shared by both planes"
-    )
-    power_unit: PowerUnit = Field(default=PowerUnit.PERCENT, title="Power unit")
-    power_ratio: Optional[Decimal] = Field(default=None, title="Power ratio for coupled planes")
-    scanfield_z: Optional[int] = Field(
-        default=None,
-        title="Z stage position of the fastz actuator for a given targeted depth",
-    )
-    scanfield_z_unit: SizeUnit = Field(default=SizeUnit.UM, title="Z stage position unit")
-    scanimage_roi_index: Optional[int] = Field(default=None, title="ScanImage ROI index")
-
-
-class StackConfig(DataModel):
-    """Configuration of a two photon stack"""
-
-    channel_name: str = Field(..., title="Channel name")
-
-    start_depth: int = Field(..., title="Starting depth (um)")
-    end_depth: int = Field(..., title="Ending depth (um)")
-    depth_unit: SizeUnit = Field(default=SizeUnit.UM, title="Depth unit")
-    number_of_planes: int = Field(..., title="Number of planes")
-    step_size: float = Field(..., title="Step size (um)")
-    step_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Step size unit")
-    number_of_plane_repeats_per_volume: int = Field(..., title="Number of repeats per volume")
-    number_of_volume_repeats: int = Field(..., title="Number of volume repeats")
-
-
-class FieldOfView(DataModel):
-    """Configuration of an imaging field of view, capturing a continuous video"""
-
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    center_to_acquisition_translation: Optional[Translation] = Field(
-        default=None,
-        title="FOV coordinate",
-        description="Center point of the FOV in the instrument coordinate system",
-    )
-    fov_width: int = Field(..., title="FOV width (pixels)")
-    fov_height: int = Field(..., title="FOV height (pixels)")
-    fov_size_unit: SizeUnit = Field(default=SizeUnit.PX, title="FOV size unit")
-    fov_scale_factor: Decimal = Field(..., title="FOV scale factor (um/pixel)")
-    fov_scale_factor_unit: str = Field(default="um/pixel", title="FOV scale factor unit")
-    frame_rate: Decimal = Field(default=..., title="Frame rate (Hz)")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-    planes: List[
-        Annotated[
-            Union[SinglePlaneConfig, MultiPlaneConfig, StackConfig],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(..., title="Two photon imaging configurations")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
 class PatchCordConfig(DeviceConfig):
     """Configuration of a patch cord and its output power to another device"""
 
@@ -286,30 +224,104 @@ class SampleChamberConfig(DeviceConfig):
     sample_immersion: Optional[Immersion] = Field(default=None, title="Acquisition sample immersion data")
 
 
+class Plane(DataModel):
+    """Configuration of an imaging plane"""
+
+    depth: float = Field(..., title="Depth")
+    depth_unit: SizeUnit = Field(..., title="Depth unit")
+    power: float = Field(..., title="Power")
+    power_unit: PowerUnit = Field(..., title="Power unit")
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+
+
+class CoupledPlane(Plane):
+    """Configuration of a pair of coupled imaging plane"""
+
+    coupled_plane_index: int = Field(..., title="Coupled plane index")
+    power_ratio: float = Field(..., title="Power ratio")
+
+
 class Image(DataModel):
-    """Configuration of an imaging field of view, capturing a single image"""
+    """Description of an N-D image"""
 
     channel_name: str = Field(..., title="Channel name")
-    image_to_acquisition_transform: TRANSFORM_TYPES_NONLIN = Field(..., title="Image to acquisition transform")
-    file_name: Optional[str] = Field(default=None, title="File name")
+    image_to_acquisition_transform: TRANSFORM_TYPES = Field(..., title="Image to acquisition transform")
+
+
+class ImageSPIM(Image):
+    """Description of an N-D image acquired with SPIM"""
+
+    file_name: AssetPath = Field(..., title="File name")
     imaging_angle: int = Field(
         default=0,
         title="Imaging angle",
         description="Angle of the detector relative to the image plane relative to perpendicular",
     )
     imaging_angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Imaging angle unit")
+
     image_start_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition start time")
     image_end_time: Optional[AwareDatetimeWithDefault] = Field(default=None, title="Image acquisition end time")
+
+
+class PlanarImage(Image):
+    """Description of an N-D image acquired in a specific imaging plane"""
+
+    planes: List[Annotated[Union[Plane, CoupledPlane], Field(discriminator="object_type")]] = Field(
+        ..., title="Imaging planes"
+    )
+
+
+class PlanarImageStack(PlanarImage):
+    """Description of a stack of N-D images acquired in a specific imaging plane"""
+
+    power_function: PowerFunction = Field(..., title="Power function")
+    depth_start: float = Field(..., title="Starting depth")
+    depth_end: float = Field(..., title="Ending depth")
+    depth_step: float = Field(..., title="Step size")
+    depth_unit: SizeUnit = Field(..., title="Depth unit")
+
+
+class SamplingStrategy(DataModel):
+    """Description of an image sampling strategy"""
+
+    frame_rate: float = Field(..., title="Frame rate")
+    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+
+
+class InterleavedStrategy(SamplingStrategy):
+    """Description of an interleaved image sampling strategy"""
+
+    image_index_sequence: List[int] = Field(..., title="Interleaving sequence")
+
+
+class StackStrategy(SamplingStrategy):
+    """Description of a stack image sampling strategy"""
+
+    image_repeats: int = Field(..., title="Number of image repeats")
+    stack_repeats: int = Field(..., title="Number of stack repeats")
 
 
 class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
-    channels: List[Channel] = Field(..., title="Channels")
-    images: List[Annotated[Union[FieldOfView, Image], Field(discriminator="object_type")]] = Field(..., title="Images")
+    channels: List[Annotated[Union[Channel, SlapChannel], Field(discriminator="object_type")]] = Field(
+        ..., title="Channels"
+    )
     coordinate_system: Optional[CoordinateSystem] = Field(
-        default=None, title="Coordinate system"
+        default=None,
+        title="Coordinate system",
+        description=(
+            "Required for ImageSPIM objects and when the imaging coordinate system differs from the "
+            "Acquisition.coordinate_system"
+        ),
     )  # note: exact field name is used by a validator
+    images: List[Annotated[Union[PlanarImage, PlanarImageStack, ImageSPIM], Field(discriminator="object_type")]] = (
+        Field(..., title="Images")
+    )
+    sampling_strategy: Optional[SamplingStrategy] = Field(
+        default=None,
+        title="Sampling strategy",
+    )
 
     @model_validator(mode="after")
     def check_image_channels(self):
@@ -317,17 +329,9 @@ class ImagingConfig(DeviceConfig):
 
         channel_names = [channel.channel_name for channel in self.channels]
 
-        fovs = [image for image in self.images if isinstance(image, FieldOfView)]
-        images = [image for image in self.images if isinstance(image, Image)]
-
-        for image in images:
+        for image in self.images:
             if image.channel_name not in channel_names:
                 raise ValueError(f"Channel {image.channel_name} must be defined in the ImagingConfig.channels list")
-
-        for fov in fovs:
-            for plane in fov.planes:
-                if plane.channel_name not in channel_names:
-                    raise ValueError(f"Channel {plane.channel_name} must be defined in the ImagingConfig.channels list")
 
         return self
 
@@ -335,8 +339,10 @@ class ImagingConfig(DeviceConfig):
     def require_cs_images(self):
         """Check that a coordinate system is present if any images are Image"""
 
-        if any(isinstance(image, Image) for image in self.images) and not self.coordinate_system:
-            raise ValueError("ImagingConfig.coordinate_system is required when ImagingConfig.images are Image objects")
+        if any(isinstance(image, ImageSPIM) for image in self.images) and not self.coordinate_system:
+            raise ValueError(
+                "ImagingConfig.coordinate_system is required when ImagingConfig.images are ImageSPIM objects"
+            )
         return self
 
 
