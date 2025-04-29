@@ -51,7 +51,9 @@ class QCMetric(BaseModel):
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
         title="List of asset names that this metric depends on",
-        description="Set to None except when a metric's calculation required data coming from a different data asset.",
+        description=(
+            "Set to None except when a metric's calculation required data " "coming from a different data asset."
+        ),
     )
 
     @property
@@ -95,7 +97,9 @@ class QCEvaluation(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(..., title="QC and curation metrics")
+    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(
+        ..., title="QC and curation metrics"
+    )
     tags: Optional[List[str]] = Field(
         default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
     )
