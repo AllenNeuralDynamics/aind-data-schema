@@ -170,11 +170,7 @@ patch_cord_c_config = PatchCordConfig(
         Channel(
             channel_name="disconnected",
             intended_measurement=None,
-            detector=DetectorConfig(
-                device_name="None", 
-                exposure_time=0, 
-                trigger_type=TriggerType.INTERNAL
-            ),
+            detector=DetectorConfig(device_name="None", exposure_time=0, trigger_type=TriggerType.INTERNAL),
             light_sources=[],
             emission_wavelength=300,
             emission_wavelength_unit=SizeUnit.NM,
@@ -189,11 +185,7 @@ patch_cord_d_config = PatchCordConfig(
         Channel(
             channel_name="disconnected",
             intended_measurement=None,
-            detector=DetectorConfig(
-                device_name="None", 
-                exposure_time=0, 
-                trigger_type=TriggerType.INTERNAL
-            ),
+            detector=DetectorConfig(device_name="None", exposure_time=0, trigger_type=TriggerType.INTERNAL),
             light_sources=[],
             emission_wavelength=300,
             emission_wavelength_unit=SizeUnit.NM,
@@ -366,13 +358,20 @@ speaker_config = SpeakerConfig(
 data_stream = DataStream(
     stream_start_time=t_start,
     stream_end_time=t_end,
-    modalities=[
-        Modality.FIB
-    ],
+    modalities=[Modality.FIB],
     active_devices=[
-        "Green CMOS", "Red CMOS", "Patch Cord A", "Patch Cord B",
-        "Patch Cord C", "Patch Cord D", "470nm LED", "415nm LED", "565nm LED", "IR LED",
-        "Fiber 0", "Fiber 1"  # Add implanted fibers to active devices
+        "Green CMOS",
+        "Red CMOS",
+        "Patch Cord A",
+        "Patch Cord B",
+        "Patch Cord C",
+        "Patch Cord D",
+        "470nm LED",
+        "415nm LED",
+        "565nm LED",
+        "IR LED",
+        "Fiber 0",
+        "Fiber 1",  # Add implanted fibers to active devices
     ],
     configurations=[
         green_detector_config,
@@ -386,7 +385,11 @@ data_stream = DataStream(
         patch_cord_d_config,
     ],
     connections=connections,  # Add the connections to the data stream
-    notes="Fib modality: fib mode: Normal This record has been updated to include intended measurements. Fiber connections are repeated for fibers with multiple channels. Disconnected fibers are marked with fiber_name 'disconnected'.",
+    notes=(
+        "Fib modality: fib mode: Normal This record has been updated to include intended measurements. Fiber "
+        "connections are repeated for fibers with multiple channels. Disconnected fibers are marked with "
+        "fiber_name 'disconnected'."
+    ),
 )
 
 # Create the stimulus epoch
