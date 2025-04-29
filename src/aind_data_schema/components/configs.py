@@ -247,9 +247,10 @@ class Image(DataModel):
     """Description of an N-D image"""
 
     channel_name: str = Field(..., title="Channel name")
-    dimensions: Scale = Field(..., title="Dimensions")
     dimensions_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dimensions unit")
     image_to_acquisition_transform: TRANSFORM_TYPES = Field(..., title="Image to acquisition transform")
+
+    dimensions: Optional[Scale] = Field(default=None, title="Dimensions")
 
 
 class ImageSPIM(Image):
