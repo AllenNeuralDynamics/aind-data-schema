@@ -1,3 +1,5 @@
+""" Wrappers for Pydantic types."""
+
 from pathlib import PurePosixPath
 from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
@@ -12,6 +14,7 @@ class AssetPath(PurePosixPath):
     def __get_pydantic_json_schema__(
         cls, core_schema: core_schema.CoreSchema, handler: GetJsonSchemaHandler
     ) -> JsonSchemaValue:
+        """Generate JSON schema for AssetPath."""
         json_schema = handler(core_schema)
         json_schema.update(
             {
@@ -24,6 +27,7 @@ class AssetPath(PurePosixPath):
 
     @classmethod
     def __get_pydantic_core_schema__(cls, _source_type: Any, _handler: GetCoreSchemaHandler) -> core_schema.CoreSchema:
+        """Generate core schema for AssetPath."""
         return core_schema.union_schema(
             [
                 # Handle str -> AssetPath

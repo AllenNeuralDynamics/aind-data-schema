@@ -37,9 +37,10 @@ class ImagingConfigTest(unittest.TestCase):
 
 
 class TestPlanarImage(unittest.TestCase):
+    """Test for PlanarImage class"""
 
     def setUp(self):
-        # Common values for tests
+        """Set up common values for tests"""
         self.channel_name = "test_channel"
         self.dimensions = Scale(scale=[512, 512])
         self.dimensions_unit = SizeUnit.PX
@@ -61,7 +62,7 @@ class TestPlanarImage(unittest.TestCase):
         )
 
     def test_planar_image_with_single_plane(self):
-        # Test with a single Plane - should pass
+        """Test PlanarImage with a single Plane object"""
         planar_image = PlanarImage(
             channel_name=self.channel_name,
             dimensions=self.dimensions,
@@ -73,7 +74,7 @@ class TestPlanarImage(unittest.TestCase):
         self.assertIsInstance(planar_image.planes[0], Plane)
 
     def test_planar_image_with_multiple_planes_raises_error(self):
-        # Test with multiple Plane objects - should raise ValueError
+        """Test PlanarImage with multiple Plane objects - should raise ValueError"""
         with self.assertRaises(ValueError) as context:
             PlanarImage(
                 channel_name=self.channel_name,
@@ -89,7 +90,7 @@ class TestPlanarImage(unittest.TestCase):
         )
 
     def test_planar_image_with_multiple_coupled_planes(self):
-        # Test with multiple CoupledPlane objects - should pass
+        """Test PlanarImage with multiple CoupledPlane objects"""
         planar_image = PlanarImage(
             channel_name=self.channel_name,
             dimensions=self.dimensions,
@@ -102,7 +103,7 @@ class TestPlanarImage(unittest.TestCase):
         self.assertIsInstance(planar_image.planes[1], CoupledPlane)
 
     def test_planar_image_with_mixed_plane_types(self):
-        # Test with mixed plane types - should raise ValueError if at least one is Plane
+        """Test PlanarImage with mixed Plane and CoupledPlane objects - should raise ValueError"""
         with self.assertRaises(ValidationError) as context:
             PlanarImage(
                 channel_name=self.channel_name,
