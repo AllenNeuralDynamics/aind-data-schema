@@ -174,7 +174,7 @@ class TestImagingConfig(unittest.TestCase):
                     channel_name="Channel1",
                     image_to_acquisition_transform=[
                         Translation(
-                            translation=[0, 0, 0],
+                            translation=[0, 0, 150],
                         ),
                     ],
                     dimensions=Scale(
@@ -183,8 +183,6 @@ class TestImagingConfig(unittest.TestCase):
                     planes=[
                         Plane(
                             targeted_structure=CCFStructure.HPF,
-                            depth=150,
-                            depth_unit=SizeUnit.UM,
                             power=10,
                             power_unit="milliwatt",
                         ),
@@ -207,7 +205,7 @@ class TestImagingConfig(unittest.TestCase):
                         channel_name="InvalidChannel",
                         image_to_acquisition_transform=[
                             Translation(
-                                translation=[0, 0, 0],
+                                translation=[0, 0, 150],
                             ),
                         ],
                         dimensions=Scale(
@@ -216,8 +214,6 @@ class TestImagingConfig(unittest.TestCase):
                         planes=[
                             Plane(
                                 targeted_structure=CCFStructure.HPF,
-                                depth=150,
-                                depth_unit=SizeUnit.UM,
                                 power=10,
                                 power_unit="milliwatt",
                             ),
