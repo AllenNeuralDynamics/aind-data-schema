@@ -74,6 +74,7 @@ class ConnectionDirection(str, Enum):
 
     SEND = "send"
     RECEIVE = "receive"
+    BOTH = "send and receive"
 
 
 class ConnectionData(DataModel):

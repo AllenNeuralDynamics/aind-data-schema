@@ -33,15 +33,15 @@ t_end = t_start  # Set end time same as start since it's not specified in the JS
 # Define detector configurations
 green_detector_config = DetectorConfig(
     device_name="Green CMOS",
-    exposure_time=Decimal("5230.42765"),
-    exposure_time_unit=TimeUnit.MS,
+    exposure_time=15350,
+    exposure_time_unit=TimeUnit.US,
     trigger_type=TriggerType.INTERNAL,
 )
 
 red_detector_config = DetectorConfig(
     device_name="Red CMOS",
-    exposure_time=Decimal("5230.42765"),
-    exposure_time_unit=TimeUnit.MS,
+    exposure_time=15350,
+    exposure_time_unit=TimeUnit.US,
     trigger_type=TriggerType.INTERNAL,
 )
 
@@ -76,8 +76,6 @@ fiber0_red_channel = Channel(
     ],
     emission_filters=[
         DeviceConfig(device_name="Red emission bandpass filter"),
-        DeviceConfig(device_name="Emission Dichroic"),
-        DeviceConfig(device_name="dual-edge standard epi-fluorescence dichroic beamsplitter"),
     ],
     emission_wavelength=590,
     emission_wavelength_unit=SizeUnit.NM,
@@ -94,7 +92,6 @@ fiber0_green_channel = Channel(
     ],
     emission_filters=[
         DeviceConfig(device_name="Green emission bandpass filter"),
-        DeviceConfig(device_name="dual-edge standard epi-fluorescence dichroic beamsplitter"),
     ],
     emission_wavelength=510,
     emission_wavelength_unit=SizeUnit.NM,
@@ -111,7 +108,6 @@ fiber0_isosbestic_channel = Channel(
     ],
     emission_filters=[
         DeviceConfig(device_name="Green emission bandpass filter"),
-        DeviceConfig(device_name="dual-edge standard epi-fluorescence dichroic beamsplitter"),
     ],
     emission_wavelength=510,
     emission_wavelength_unit=SizeUnit.NM,
@@ -201,10 +197,10 @@ connections = [
         device_names=["Patch Cord A", "Fiber 0"],
         connection_data={
             "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
+                direction=ConnectionDirection.BOTH,
             ),
             "Fiber 0": ConnectionData(
-                direction=ConnectionDirection.SEND,
+                direction=ConnectionDirection.BOTH,
             ),
         },
     ),
@@ -213,10 +209,10 @@ connections = [
         device_names=["Patch Cord B", "Fiber 1"],
         connection_data={
             "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
+                direction=ConnectionDirection.BOTH,
             ),
             "Fiber 1": ConnectionData(
-                direction=ConnectionDirection.SEND,
+                direction=ConnectionDirection.BOTH,
             ),
         },
     ),
@@ -281,6 +277,68 @@ connections = [
             "Green CMOS": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
                 port="isosbestic",
+            ),
+        },
+    ),
+    # Connections between LEDs and Patch Cord A
+    Connection(
+        device_names=["470nm LED", "Patch Cord A"],
+        connection_data={
+            "470nm LED": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Patch Cord A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                port="Fiber 0_green",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["415nm LED", "Patch Cord A"],
+        connection_data={
+            "415nm LED": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Patch Cord A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                port="Fiber 0_isosbestic",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["565nm LED", "Patch Cord A"],
+        connection_data={
+            "565nm LED": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Patch Cord A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                port="Fiber 0_red",
+            ),
+        },
+    ),
+    # Connections between LEDs and Patch Cord B
+    Connection(
+        device_names=["470nm LED", "Patch Cord B"],
+        connection_data={
+            "470nm LED": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Patch Cord B": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                port="Fiber 1_green",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["415nm LED", "Patch Cord B"],
+        connection_data={
+            "415nm LED": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Patch Cord B": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                port="Fiber 1_isosbestic",
             ),
         },
     ),
