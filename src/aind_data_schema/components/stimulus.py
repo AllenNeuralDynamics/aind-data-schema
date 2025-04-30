@@ -7,7 +7,7 @@ from typing import List, Optional
 from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 from pydantic import Field, model_validator
 
-from aind_data_schema.base import DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import DataModel, GenericModel, GenericModel
 
 
 class PulseShape(str, Enum):
@@ -48,7 +48,7 @@ class OptoStimulation(GenericModel):
         description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Baseline duration unit")
-    other_parameters: GenericModelType = Field(GenericModel(), title="Other parameters")
+    other_parameters: GenericModel = Field(GenericModel(), title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -56,7 +56,7 @@ class VisualStimulation(GenericModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: GenericModelType = Field(
+    stimulus_parameters: GenericModel = Field(
         GenericModel(),
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
@@ -82,7 +82,7 @@ class PhotoStimulationGroup(DataModel):
     spiral_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Spiral duration unit")
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: GenericModelType = Field(GenericModel(), title="Other parameters")
+    other_parameters: GenericModel = Field(GenericModel(), title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -94,7 +94,7 @@ class PhotoStimulation(GenericModel):
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: GenericModelType = Field(GenericModel(), title="Other parameters")
+    other_parameters: GenericModel = Field(GenericModel(), title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

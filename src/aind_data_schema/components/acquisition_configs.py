@@ -21,7 +21,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.base import DataModel, GenericModel
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Scale, Transform
 from aind_data_schema.components.tile import AcquisitionTile, Channel
 from aind_data_schema.components.identifiers import Code
@@ -381,7 +381,7 @@ class MRIScan(DeviceConfig):
             ProcessName.SKULL_STRIPPING,
         ]
     ] = Field([])
-    additional_scan_parameters: GenericModelType = Field(..., title="Parameters")
+    additional_scan_parameters: GenericModel = Field(..., title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")

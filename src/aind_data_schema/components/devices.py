@@ -42,7 +42,7 @@ from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.base import DataModel, GenericModel
 from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
 from aind_data_schema.components.identifiers import Software
 
@@ -56,7 +56,7 @@ class Device(DataModel):
     model: Optional[str] = Field(default=None, title="Model")
 
     # Additional fields
-    additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
+    additional_settings: Optional[GenericModel] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

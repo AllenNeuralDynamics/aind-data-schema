@@ -5,7 +5,7 @@ from typing import Any, List, Literal, Optional
 from aind_data_schema_models.system_architecture import ModelArchitecture
 from pydantic import Field
 
-from aind_data_schema.base import DataCoreModel, DataModel, GenericModel, GenericModelType, DiscriminatedList
+from aind_data_schema.base import DataCoreModel, DataModel, GenericModel, DiscriminatedList
 from aind_data_schema.components.identifiers import Code, Software
 from aind_data_schema.core.processing import DataProcess, ProcessName
 
@@ -59,7 +59,7 @@ class Model(DataCoreModel):
     )
     architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
     software_framework: Optional[Software] = Field(default=None, title="Software framework")
-    architecture_parameters: GenericModelType = Field(
+    architecture_parameters: GenericModel = Field(
         default=GenericModel(),
         title="Architecture parameters",
         description="Parameters of model architecture, such as input signature or number of layers.",
