@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 from unittest.mock import MagicMock, call, mock_open, patch
-import warnings
 
 from pydantic import ValidationError, create_model, SkipValidation, Field
 from typing import Literal
