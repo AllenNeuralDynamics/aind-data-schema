@@ -1,7 +1,6 @@
 """Generates an example instrument JSON for a multiplane-ophys session"""
 
 from datetime import date
-from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -9,9 +8,7 @@ from aind_data_schema_models.units import FrequencyUnit, SizeUnit
 from aind_data_schema_models.devices import CameraTarget
 from aind_data_schema_models.coordinates import AnatomicalRelative
 
-from aind_data_schema.base import GenericModel
 from aind_data_schema.components.coordinates import (
-    Axis,
     CoordinateSystemLibrary,
     Affine,
     Translation,
@@ -26,7 +23,6 @@ from aind_data_schema.components.devices import (
     DAQDevice,
     DataInterface,
     Detector,
-    Device,
     Disc,
     Filter,
     Laser,
@@ -40,8 +36,6 @@ from aind_data_schema.components.identifiers import Software
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 
 instrument = Instrument(
-    describedBy="https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/instrument.py",
-    schema_version="2.0.22",
     instrument_id="429_mesoscope_20220321",
     modification_date=date(2024, 10, 16),
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
