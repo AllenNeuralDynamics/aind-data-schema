@@ -7,7 +7,6 @@ from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
-from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
@@ -217,9 +216,7 @@ class Transform(DataModel):
     system_name: str = Field(
         ..., title="Coordinate system name"
     )  # note: this field's exact name is used by a validator
-    transforms: DiscriminatedList[Translation | Rotation | Scale | Affine] = (
-        Field(..., title="Transform")
-    )
+    transforms: DiscriminatedList[Translation | Rotation | Scale | Affine] = Field(..., title="Transform")
 
 
 class CoordinateTransform(DataModel):
@@ -227,12 +224,9 @@ class CoordinateTransform(DataModel):
 
     input: str = Field(..., title="Input coordinate system")
     output: str = Field(..., title="Output coordinate system")
-    transforms: List[
-        Annotated[
-            Union[Translation, Rotation, Scale, Affine, NonlinearTransform],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(..., title="Transform")
+    transforms: DiscriminatedList[Translation | Rotation | Scale | Affine | NonlinearTransform] = Field(
+        ..., title="Transform"
+    )
 
 
 class Coordinate(DataModel):

@@ -1,4 +1,4 @@
-""" schema for various Procedures """
+"""schema for various Procedures"""
 
 from datetime import date
 from decimal import Decimal
@@ -22,7 +22,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, SkipValidation, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
@@ -201,17 +201,7 @@ class SpecimenProcedure(DataModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
-    procedure_details: List[
-        Annotated[
-            Union[
-                HCRSeries,
-                Antibody,
-                PlanarSectioning,
-                Reagent,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(
+    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent] = Field(
         default=[],
         title="Procedure details",
         description="",
@@ -426,9 +416,9 @@ class InjectionDynamics(DataModel):
 class Injection(DataModel):
     """Description of an injection procedure"""
 
-    injection_materials: List[
-        Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
-    ] = Field(..., title="Injection material", min_length=1)
+    injection_materials: DiscriminatedList[ViralMaterial | NonViralMaterial] = Field(
+        ..., title="Injection material", min_length=1
+    )
     targeted_structure: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
@@ -569,22 +559,17 @@ class Surgery(DataModel):
         description="Coordinates measured during the procedure, for example Bregma and Lambda",
     )
 
-    procedures: List[
-        Annotated[
-            Union[
-                CatheterImplant,
-                Craniotomy,
-                ProbeImplant,
-                Headframe,
-                BrainInjection,
-                Injection,
-                MyomatrixInsertion,
-                GenericSurgeryProcedure,
-                Perfusion,
-                SampleCollection,
-            ],
-            Field(discriminator="object_type"),
-        ]
+    procedures: DiscriminatedList[
+        CatheterImplant
+        | Craniotomy
+        | ProbeImplant
+        | Headframe
+        | BrainInjection
+        | Injection
+        | MyomatrixInsertion
+        | GenericSurgeryProcedure
+        | Perfusion
+        | SampleCollection
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -601,12 +586,9 @@ class Procedures(DataCoreModel):
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    subject_procedures: List[
-        Annotated[
-            Union[Surgery, TrainingProtocol, WaterRestriction, GenericSubjectProcedure],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(default=[], title="Subject Procedures")
+    subject_procedures: DiscriminatedList[Surgery | TrainingProtocol | WaterRestriction | GenericSubjectProcedure] = (
+        Field(default=[], title="Subject Procedures")
+    )
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
 
     # Implanted devices
