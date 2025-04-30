@@ -5,7 +5,7 @@ import logging
 import warnings
 import re
 from pathlib import Path
-from typing import Any, ClassVar, Generic, Literal, Optional, TypeVar, get_args
+from typing import Any, ClassVar, Generic, Literal, Optional, TypeVar, get_args, List
 
 from pydantic import (
     AwareDatetime,
@@ -96,6 +96,9 @@ class GenericModel(BaseModel, extra="allow"):
 
 
 GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
+
+T = TypeVar("T")
+DiscriminatedList = List[Annotated[T, Field(discriminator="object_type")]]
 
 
 class DataModel(BaseModel, Generic[GenericModelType]):

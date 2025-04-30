@@ -9,7 +9,7 @@ from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 from typing_extensions import Annotated
 
-from aind_data_schema.base import DataModel
+from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
 
 
@@ -217,7 +217,7 @@ class Transform(DataModel):
     system_name: str = Field(
         ..., title="Coordinate system name"
     )  # note: this field's exact name is used by a validator
-    transforms: List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]] = (
+    transforms: DiscriminatedList[Translation | Rotation | Scale | Affine] = (
         Field(..., title="Transform")
     )
 
