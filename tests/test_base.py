@@ -1,6 +1,7 @@
 """ tests for base """
 
 import json
+import warnings
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
