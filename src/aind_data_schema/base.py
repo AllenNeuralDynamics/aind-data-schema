@@ -96,7 +96,8 @@ class GenericModel(BaseModel, extra="allow"):
 
 
 T = TypeVar("T")
-DiscriminatedList = List[Annotated[T, Field(discriminator="object_type")]]
+Discriminated = Annotated[T, Field(discriminator="object_type")]
+DiscriminatedList = List[Discriminated[T]]
 
 
 class DataModel(BaseModel):

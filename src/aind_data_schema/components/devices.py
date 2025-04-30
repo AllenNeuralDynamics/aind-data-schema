@@ -42,7 +42,7 @@ from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 from typing_extensions import Annotated
 
-from aind_data_schema.base import DataModel, GenericModel
+from aind_data_schema.base import DataModel, GenericModel, Discriminated
 from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
 from aind_data_schema.components.identifiers import Software
 
@@ -300,7 +300,7 @@ class LightAssembly(DataModel):
 
     # required fields
     name: str = Field(..., title="Light assembly name")
-    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
+    light: Discriminated[Laser | LightEmittingDiode | Lamp]
     lens: Lens = Field(..., title="Lens")
 
     # optional fields
@@ -324,8 +324,8 @@ class NeuropixelsBasestation(DAQDevice):
     ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
-    data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[Union[type(Organization.IMEC)], Field(default=Organization.IMEC, discriminator="name")]
+    data_interface: DataInterface = DataInterface.PXI
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Organization.IMEC
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -599,9 +599,8 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-    harp_device_type: Annotated[
-        Union[type(HarpDeviceType.OLFACTOMETER)], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
-    ]
+    
+    harp_device_type: HarpDeviceType.ONE_OF = Field(HarpDeviceType.OLFACTOMETER, frozen=True, title="Type of Harp device")
     channels: List[OlfactometerChannel]
 
 
