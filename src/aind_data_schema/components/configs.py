@@ -150,13 +150,7 @@ class LightEmittingDiodeConfig(DeviceConfig):
 LIGHT_CONFIGS = DiscriminatedList[LaserConfig | LightEmittingDiodeConfig]
 
 
-class MicroscopeConfig(DeviceConfig):
-    """Configuration of a generic microscope"""
-
-    magnification: Optional[str] = Field(default=None, title="Magnification", description="e.g. 10x")
-
-
-class SlapMicroscopeConfig(MicroscopeConfig):
+class SlapMicroscopeConfig(DeviceConfig):
     """Configuration of a Slap microscope"""
 
     slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
@@ -182,7 +176,9 @@ class Channel(DataModel):
     # excitation
     light_sources: LIGHT_CONFIGS = Field(default=[], title="Light source configurations")
     variable_power: Optional[bool] = Field(
-        default=False, title="Variable power", description="Set to true when power values change during the experiment"
+        default=False,
+        title="Variable power",
+        description="Set to true when the power varies across Planes -- put the power in the Plane.power field",
     )
     excitation_filters: Optional[List[DeviceConfig]] = Field(default=None, title="Excitation filters")
     # emission
