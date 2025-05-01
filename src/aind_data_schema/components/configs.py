@@ -15,6 +15,7 @@ from aind_data_schema_models.units import (
     SizeUnit,
     SoundIntensityUnit,
     TimeUnit,
+    VolumeUnit,
 )
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -360,6 +361,9 @@ class LickSpoutConfig(DeviceConfig):
 
     solution: Liquid = Field(..., title="Solution")
     solution_valence: Valence = Field(..., title="Valence")
+
+    volume: float = Field(..., title="Volume")
+    volume_unit: VolumeUnit = Field(..., title="Volume unit")
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position")
 
