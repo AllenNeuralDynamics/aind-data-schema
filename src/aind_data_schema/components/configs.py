@@ -464,7 +464,7 @@ class EphysAssemblyConfig(DeviceConfig):
     modules: Optional[List[MISModuleConfig]] = Field(
         default=None,
         title="Modules",
-        description=("Configurations for conveniently tracking manipulator modules, e.g. on the New Scale MIS dome."),
+        description=("Configurations for conveniently tracking manipulator modules, e.g. on the New Scale dome."),
     )
 
 
