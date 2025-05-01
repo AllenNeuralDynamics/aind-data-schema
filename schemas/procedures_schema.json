@@ -562,15 +562,8 @@
                "title": "Fluorophore"
             },
             "mass": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Mass of antibody"
+               "title": "Mass of antibody",
+               "type": "number"
             },
             "mass_unit": {
                "$ref": "#/$defs/MassUnit",
@@ -4483,43 +4476,6 @@
          "title": "FerruleMaterial",
          "type": "string"
       },
-      "FiberImplant": {
-         "additionalProperties": false,
-         "description": "Description of an implant procedure",
-         "properties": {
-            "object_type": {
-               "const": "Fiber implant",
-               "default": "Fiber implant",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "protocol_id": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID"
-            },
-            "probes": {
-               "items": {
-                  "$ref": "#/$defs/OphysProbe"
-               },
-               "title": "Ophys Probes",
-               "type": "array"
-            }
-         },
-         "required": [
-            "probes"
-         ],
-         "title": "FiberImplant",
-         "type": "object"
-      },
       "FiberProbe": {
          "additionalProperties": false,
          "description": "Description of a fiber optic probe",
@@ -7369,11 +7325,19 @@
             "array_type": {
                "$ref": "#/$defs/MyomatrixArrayType",
                "title": "Array type"
+            },
+            "threads": {
+               "items": {
+                  "$ref": "#/$defs/MyomatrixThread"
+               },
+               "title": "Array threads",
+               "type": "array"
             }
          },
          "required": [
             "name",
-            "array_type"
+            "array_type",
+            "threads"
          ],
          "title": "MyomatrixArray",
          "type": "object"
@@ -7436,10 +7400,6 @@
                "title": "Object Type",
                "type": "string"
             },
-            "ground_electrode": {
-               "$ref": "#/$defs/GroundWireImplant",
-               "title": "Ground electrode"
-            },
             "protocol_id": {
                "anyOf": [
                   {
@@ -7453,22 +7413,19 @@
                "description": "DOI for protocols.io",
                "title": "Protocol ID"
             },
-            "myomatrix_array": {
-               "$ref": "#/$defs/MyomatrixArray",
-               "title": "Myomatrix array"
+            "ground_electrode": {
+               "$ref": "#/$defs/GroundWireImplant",
+               "title": "Ground electrode"
             },
-            "threads": {
-               "items": {
-                  "$ref": "#/$defs/MyomatrixThread"
-               },
-               "title": "Array threads",
-               "type": "array"
+            "implanted_device_name": {
+               "description": "Must match a MyomatrixArray in Procedures.implanted_devices",
+               "title": "Myomatrix array",
+               "type": "string"
             }
          },
          "required": [
             "ground_electrode",
-            "myomatrix_array",
-            "threads"
+            "implanted_device_name"
          ],
          "title": "MyomatrixInsertion",
          "type": "object"
@@ -8531,19 +8488,229 @@
          "title": "OligoProbe",
          "type": "object"
       },
-      "OphysProbe": {
+      "Origin": {
+         "description": "Origin positions for coordinate systems",
+         "enum": [
+            "Origin",
+            "Bregma",
+            "Lambda",
+            "C1",
+            "C2",
+            "C3",
+            "C4",
+            "C5",
+            "C6",
+            "C7",
+            "Tip",
+            "Front_center",
+            "Arena_center",
+            "Arena_front_left",
+            "Arena_front_right",
+            "Arena_back_left",
+            "Arena_back_right"
+         ],
+         "title": "Origin",
+         "type": "string"
+      },
+      "PIDName": {
          "additionalProperties": false,
-         "description": "Description of an implanted ophys probe",
+         "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Abbreviation"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/BaseName"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry identifier"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "PIDName",
+         "type": "object"
+      },
+      "Perfusion": {
+         "additionalProperties": false,
+         "description": "Description of a perfusion procedure that creates a specimen",
          "properties": {
             "object_type": {
-               "const": "Ophys probe",
-               "default": "Ophys probe",
+               "const": "Perfusion",
+               "default": "Perfusion",
                "title": "Object Type",
                "type": "string"
             },
-            "ophys_probe": {
-               "$ref": "#/$defs/FiberProbe",
-               "title": "Fiber probe"
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "output_specimen_ids": {
+               "description": "IDs of specimens resulting from this procedure.",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Specimen ID",
+               "type": "array"
+            }
+         },
+         "required": [
+            "output_specimen_ids"
+         ],
+         "title": "Perfusion",
+         "type": "object"
+      },
+      "Person": {
+         "additionalProperties": false,
+         "description": "Person identifier",
+         "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
+      "PlanarSectioning": {
+         "additionalProperties": false,
+         "description": "Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane",
+         "properties": {
+            "object_type": {
+               "const": "Planar sectioning",
+               "default": "Planar sectioning",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Only required if different from the Procedures.coordinate_system",
+               "title": "Sectioning coordinate system"
+            },
+            "sections": {
+               "items": {
+                  "$ref": "#/$defs/Section"
+               },
+               "title": "Sections",
+               "type": "array"
+            },
+            "section_orientation": {
+               "$ref": "#/$defs/SectionOrientation",
+               "title": "Sectioning orientation"
+            }
+         },
+         "required": [
+            "sections",
+            "section_orientation"
+         ],
+         "title": "PlanarSectioning",
+         "type": "object"
+      },
+      "ProbeImplant": {
+         "additionalProperties": false,
+         "description": "Description of a probe (fiber, ephys) implant procedure",
+         "properties": {
+            "object_type": {
+               "const": "Probe implant",
+               "default": "Probe implant",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
+            "implanted_device_names": {
+               "description": "Devices must exist in Procedures.implanted_devices",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Implanted device names",
+               "type": "array"
             },
             "targeted_structure": {
                "discriminator": {
@@ -11921,204 +12088,11 @@
             }
          },
          "required": [
-            "ophys_probe",
+            "implanted_device_names",
             "targeted_structure",
             "coordinate"
          ],
-         "title": "OphysProbe",
-         "type": "object"
-      },
-      "Origin": {
-         "description": "Origin positions for coordinate systems",
-         "enum": [
-            "Origin",
-            "Bregma",
-            "Lambda",
-            "C1",
-            "C2",
-            "C3",
-            "C4",
-            "C5",
-            "C6",
-            "C7",
-            "Tip",
-            "Front_center",
-            "Arena_center",
-            "Arena_front_left",
-            "Arena_front_right",
-            "Arena_back_left",
-            "Arena_back_right"
-         ],
-         "title": "Origin",
-         "type": "string"
-      },
-      "PIDName": {
-         "additionalProperties": false,
-         "description": "Model for associate a name with a persistent identifier (PID),\nthe registry for that PID, and abbreviation for that registry",
-         "properties": {
-            "name": {
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Abbreviation"
-            },
-            "registry": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/BaseName"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Registry identifier"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "PIDName",
-         "type": "object"
-      },
-      "Perfusion": {
-         "additionalProperties": false,
-         "description": "Description of a perfusion procedure that creates a specimen",
-         "properties": {
-            "object_type": {
-               "const": "Perfusion",
-               "default": "Perfusion",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "protocol_id": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "DOI for protocols.io",
-               "title": "Protocol ID"
-            },
-            "output_specimen_ids": {
-               "description": "IDs of specimens resulting from this procedure.",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Specimen ID",
-               "type": "array"
-            }
-         },
-         "required": [
-            "output_specimen_ids"
-         ],
-         "title": "Perfusion",
-         "type": "object"
-      },
-      "Person": {
-         "additionalProperties": false,
-         "description": "Person identifier",
-         "properties": {
-            "object_type": {
-               "const": "Person",
-               "default": "Person",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "description": "First and last name OR anonymous ID",
-               "title": "Person's name",
-               "type": "string"
-            },
-            "registry": {
-               "$ref": "#/$defs/_Orcid",
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "ORCID ID"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "Person",
-         "type": "object"
-      },
-      "PlanarSectioning": {
-         "additionalProperties": false,
-         "description": "Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane",
-         "properties": {
-            "object_type": {
-               "const": "Planar sectioning",
-               "default": "Planar sectioning",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "coordinate_system": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/CoordinateSystem"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Only required if different from the Procedures.coordinate_system",
-               "title": "Sectioning coordinate system"
-            },
-            "sections": {
-               "items": {
-                  "$ref": "#/$defs/Section"
-               },
-               "title": "Sections",
-               "type": "array"
-            },
-            "section_orientation": {
-               "$ref": "#/$defs/SectionOrientation",
-               "title": "Sectioning orientation"
-            }
-         },
-         "required": [
-            "sections",
-            "section_orientation"
-         ],
-         "title": "PlanarSectioning",
+         "title": "ProbeImplant",
          "type": "object"
       },
       "ProtectiveMaterial": {
@@ -17284,15 +17258,8 @@
                "title": "Lot expiration date"
             },
             "concentration": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "Concentration"
+               "title": "Concentration",
+               "type": "number"
             },
             "concentration_unit": {
                "$ref": "#/$defs/ConcentrationUnit",
@@ -17474,12 +17441,12 @@
                         "Brain injection": "#/$defs/BrainInjection",
                         "Catheter implant": "#/$defs/CatheterImplant",
                         "Craniotomy": "#/$defs/Craniotomy",
-                        "Fiber implant": "#/$defs/FiberImplant",
                         "Generic surgery procedure": "#/$defs/GenericSurgeryProcedure",
                         "Headframe": "#/$defs/Headframe",
                         "Injection": "#/$defs/Injection",
                         "Myomatrix insertion": "#/$defs/MyomatrixInsertion",
                         "Perfusion": "#/$defs/Perfusion",
+                        "Probe implant": "#/$defs/ProbeImplant",
                         "Sample collection": "#/$defs/SampleCollection"
                      },
                      "propertyName": "object_type"
@@ -17492,7 +17459,7 @@
                         "$ref": "#/$defs/Craniotomy"
                      },
                      {
-                        "$ref": "#/$defs/FiberImplant"
+                        "$ref": "#/$defs/ProbeImplant"
                      },
                      {
                         "$ref": "#/$defs/Headframe"
@@ -49212,8 +49179,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.21",
-         "default": "2.0.21",
+         "const": "2.0.22",
+         "default": "2.0.22",
          "title": "Schema Version",
          "type": "string"
       },
@@ -49258,6 +49225,21 @@
             "$ref": "#/$defs/SpecimenProcedure"
          },
          "title": "Specimen Procedures",
+         "type": "array"
+      },
+      "implanted_devices": {
+         "default": [],
+         "items": {
+            "anyOf": [
+               {
+                  "$ref": "#/$defs/FiberProbe"
+               },
+               {
+                  "$ref": "#/$defs/MyomatrixArray"
+               }
+            ]
+         },
+         "title": "Implanted devices",
          "type": "array"
       },
       "coordinate_system": {

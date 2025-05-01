@@ -10085,6 +10085,10 @@
                "title": "Object Type",
                "type": "string"
             },
+            "name": {
+               "title": "Lick spout assembly name",
+               "type": "string"
+            },
             "lick_spouts": {
                "items": {
                   "$ref": "#/$defs/LickSpout"
@@ -10106,6 +10110,7 @@
             }
          },
          "required": [
+            "name",
             "lick_spouts"
          ],
          "title": "LickSpoutAssembly",
@@ -21943,8 +21948,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.22",
-         "default": "2.0.22",
+         "const": "2.0.23",
+         "default": "2.0.23",
          "title": "Schema Version",
          "type": "string"
       },
