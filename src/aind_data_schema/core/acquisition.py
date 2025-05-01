@@ -17,7 +17,6 @@ from aind_data_schema.base import (
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     DetectorConfig,
-    MISModuleConfig,
     FiberAssemblyConfig,
     LaserConfig,
     LickSpoutConfig,
@@ -34,7 +33,6 @@ from aind_data_schema.components.configs import (
     MicroscopeConfig,
     ProbeConfig,
     EphysAssemblyConfig,
-    DomeModule,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, Person
@@ -112,8 +110,6 @@ class DataStream(DataModel):
         LightEmittingDiodeConfig
         | LaserConfig
         | ManipulatorConfig
-        | MISModuleConfig
-        | DomeModule
         | DetectorConfig
         | PatchCordConfig
         | FiberAssemblyConfig

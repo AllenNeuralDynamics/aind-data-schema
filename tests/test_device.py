@@ -4,7 +4,7 @@ import unittest
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema.components.devices import PositionedDevice
+from aind_data_schema.components.devices import DevicePosition
 from aind_data_schema_models.coordinates import AnatomicalRelative
 
 from aind_data_schema.components.devices import (
@@ -85,7 +85,7 @@ class DeviceTests(unittest.TestCase):
         """Test that the PositionDevice validator gets raised properly"""
 
         # Test with both transform and coordinate_system set
-        valid_positioned = PositionedDevice(
+        valid_positioned = DevicePosition(
             relative_position=[AnatomicalRelative.SUPERIOR],
             transform=[
                 Translation(
@@ -98,7 +98,7 @@ class DeviceTests(unittest.TestCase):
         self.assertIsNotNone(valid_positioned.coordinate_system)
 
         # Test with both transform and coordinate_system unset
-        valid_positioned_unset = PositionedDevice(
+        valid_positioned_unset = DevicePosition(
             relative_position=[AnatomicalRelative.SUPERIOR],
         )
         self.assertIsNone(valid_positioned_unset.transform)
@@ -106,7 +106,7 @@ class DeviceTests(unittest.TestCase):
 
         # Test with transform set but coordinate_system unset
         with self.assertRaises(ValueError) as e1:
-            PositionedDevice(
+            DevicePosition(
                 relative_position=[AnatomicalRelative.SUPERIOR],
                 transform=[
                     Translation(
@@ -121,7 +121,7 @@ class DeviceTests(unittest.TestCase):
 
         # Test with coordinate_system set but transform unset
         with self.assertRaises(ValueError) as e2:
-            PositionedDevice(
+            DevicePosition(
                 relative_position=[AnatomicalRelative.SUPERIOR],
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             )

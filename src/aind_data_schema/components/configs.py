@@ -1,6 +1,5 @@
 """ Configurations for devices, software, and other components during acquisition """
 
-from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import Annotated, List, Optional, Union
@@ -190,8 +189,8 @@ class Channel(DataModel):
 class SlapChannel(Channel):
     """Configuration of a channel for Slap"""
 
-    dilation: Optional[int] = Field(default=None, title="Dilation")
-    dilation_unit: Optional[SizeUnit] = Field(default=None, title="Dilation unit")
+    dilation: int = Field(..., title="Dilation")
+    dilation_unit: SizeUnit = Field(..., title="Dilation unit")
 
     description: Optional[str] = Field(default=None, title="Description")
 
@@ -281,7 +280,7 @@ class PlanarImage(Image):
 
 
 class PlanarImageStack(PlanarImage):
-    """Description of a stack of N-D images acquired in a specific imaging plane"""
+    """Description of a stack of images acquired in a specific imaging plane"""
 
     power_function: PowerFunction = Field(..., title="Power function")
     depth_start: float = Field(..., title="Starting depth")
@@ -434,9 +433,6 @@ class MISModuleConfig(DeviceConfig):
     module_angle: Decimal = Field(..., title="Module Angle (deg)")
     rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
     angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    calibration_date: Optional[datetime] = Field(
-        default=None, title="Date on which coordinate transform was last calibrated"
-    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -477,6 +473,12 @@ class EphysAssemblyConfig(DeviceConfig):
 
     manipulator: ManipulatorConfig = Field(..., title="Manipulator configuration")
     probes: List[ProbeConfig] = Field(..., title="Probe configurations")
+
+    modules: Optional[List[MISModuleConfig]] = Field(
+        default=None,
+        title="Modules",
+        description=("Configurations for conveniently tracking manipulator modules, e.g. on the New Scale MIS dome."),
+    )
 
 
 class FiberAssemblyConfig(DeviceConfig):

@@ -197,10 +197,10 @@ connections = [
         device_names=["Patch Cord A", "Fiber 0"],
         connection_data={
             "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.BOTH,
+                direction=ConnectionDirection.SEND_AND_RECEIVE,
             ),
             "Fiber 0": ConnectionData(
-                direction=ConnectionDirection.BOTH,
+                direction=ConnectionDirection.SEND_AND_RECEIVE,
             ),
         },
     ),
@@ -209,10 +209,10 @@ connections = [
         device_names=["Patch Cord B", "Fiber 1"],
         connection_data={
             "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.BOTH,
+                direction=ConnectionDirection.SEND_AND_RECEIVE,
             ),
             "Fiber 1": ConnectionData(
-                direction=ConnectionDirection.BOTH,
+                direction=ConnectionDirection.SEND_AND_RECEIVE,
             ),
         },
     ),

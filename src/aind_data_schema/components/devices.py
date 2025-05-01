@@ -73,8 +73,8 @@ class Device(DataModel):
         return values
 
 
-class PositionedDevice(DataModel):
-    """Device with a position"""
+class DevicePosition(DataModel):
+    """Position class for devices"""
 
     relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
 
@@ -95,7 +95,7 @@ class PositionedDevice(DataModel):
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(
-                "PositionDevice.transform and PositionedDevice.coordinate_system"
+                "DevicePosition.transform and DevicePosition.coordinate_system"
                 " must either both be set or both be unset."
             )
 
@@ -227,7 +227,7 @@ class Objective(Device):
         return value
 
 
-class CameraAssembly(PositionedDevice):
+class CameraAssembly(DevicePosition):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     name: str = Field(..., title="Camera assembly name")
@@ -538,7 +538,7 @@ class Arena(Device):
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
-class Monitor(Device, PositionedDevice):
+class Monitor(Device, DevicePosition):
     """Description of visual display for visual stimuli"""
 
     manufacturer: Organization.MONITOR_MANUFACTURERS
@@ -591,7 +591,7 @@ class AirPuffDevice(Device):
     diameter_unit: SizeUnit = Field(..., title="Size unit")
 
 
-class Speaker(Device, PositionedDevice):
+class Speaker(Device, DevicePosition):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS

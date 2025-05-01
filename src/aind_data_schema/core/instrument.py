@@ -49,7 +49,6 @@ from aind_data_schema.components.devices import (
     Wheel,
     Computer,
     Microscope,
-    MyomatrixArray,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
 from aind_data_schema.utils.validators import recursive_get_all_names
@@ -71,9 +70,9 @@ DEVICES_REQUIRED = {
 class ConnectionDirection(str, Enum):
     """Direction of a connection"""
 
-    SEND = "send"
-    RECEIVE = "receive"
-    BOTH = "send and receive"
+    SEND = "Send"
+    RECEIVE = "Receive"
+    SEND_AND_RECEIVE = "Send and receive"
 
 
 class ConnectionData(DataModel):
@@ -170,7 +169,6 @@ class Instrument(DataCoreModel):
         | DAQDevice
         | Computer
         | Microscope
-        | MyomatrixArray
         | Device
     ] = Field(
         ...,
