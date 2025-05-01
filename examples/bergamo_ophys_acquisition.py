@@ -17,7 +17,6 @@ from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,
     LaserConfig,
-    StimulusModality,
     Plane,
     PlanarImage,
     SamplingStrategy,
@@ -25,6 +24,7 @@ from aind_data_schema.components.configs import (
 )
 from aind_data_schema.components.coordinates import Translation, Scale, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default

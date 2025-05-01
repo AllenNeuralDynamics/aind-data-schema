@@ -40,19 +40,6 @@ class PowerFunction(str, Enum):
     OTHER = "Other"
 
 
-class StimulusModality(str, Enum):
-    """Types of stimulus modalities"""
-
-    AUDITORY = "Auditory"
-    FREE_MOVING = "Free moving"
-    OLFACTORY = "Olfactory"
-    OPTOGENETICS = "Optogenetics"
-    NONE = "None"
-    VIRTUAL_REALITY = "Virtual reality"
-    VISUAL = "Visual"
-    WHEEL_FRICTION = "Wheel friction"
-
-
 class Valence(str, Enum):
     """Valence of a stimulus"""
 

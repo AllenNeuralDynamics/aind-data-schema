@@ -21,10 +21,10 @@ from aind_data_schema.components.configs import (
     PatchCordConfig,
     LightEmittingDiodeConfig,
     TriggerType,
-    StimulusModality,
     SpeakerConfig,
     DeviceConfig,
 )
+from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # The session date from the JSON file is 2024-01-15 with timezone -08:00
 t_start = datetime(2024, 1, 15, 15, 56, 28, tzinfo=timezone.utc)

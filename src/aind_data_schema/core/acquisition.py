@@ -26,7 +26,6 @@ from aind_data_schema.components.configs import (
     MRIScan,
     PatchCordConfig,
     SpeakerConfig,
-    StimulusModality,
     SampleChamberConfig,
     ImagingConfig,
     SlapMicroscopeConfig,
@@ -34,6 +33,7 @@ from aind_data_schema.components.configs import (
     ProbeConfig,
     EphysAssemblyConfig,
 )
+from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance

@@ -13,7 +13,6 @@ from aind_data_schema.core.acquisition import (
 )
 from aind_data_schema.components.configs import (
     ManipulatorConfig,
-    StimulusModality,
     EphysAssemblyConfig,
     ProbeConfig,
 )
@@ -26,6 +25,7 @@ from aind_data_schema.components.coordinates import (
 )
 from aind_data_schema.components.stimulus import VisualStimulation
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.stimulus_modality import StimulusModality
 
 bonsai_software = Software(name="Bonsai", version="2.7")
 
