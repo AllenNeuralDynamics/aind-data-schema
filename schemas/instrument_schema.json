@@ -11196,13 +11196,37 @@
                },
                "discriminator": {
                   "mapping": {
-                     "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center"
+                     "Allen Institute for Neural Dynamics": "#/$defs/_Allen_Institute_For_Neural_Dynamics",
+                     "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
+                     "Interuniversity Microelectronics Center": "#/$defs/_Interuniversity_Microelectronics_Center",
+                     "National Instruments": "#/$defs/_National_Instruments",
+                     "Open Ephys Production Site": "#/$defs/_Open_Ephys_Production_Site",
+                     "Other": "#/$defs/_Other",
+                     "Second Order Effects": "#/$defs/_Second_Order_Effects"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/_Allen_Institute_For_Neural_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Champalimaud_Foundation"
+                  },
+                  {
+                     "$ref": "#/$defs/_National_Instruments"
+                  },
+                  {
                      "$ref": "#/$defs/_Interuniversity_Microelectronics_Center"
+                  },
+                  {
+                     "$ref": "#/$defs/_Open_Ephys_Production_Site"
+                  },
+                  {
+                     "$ref": "#/$defs/_Second_Order_Effects"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
                   }
                ],
                "title": "Manufacturer"
@@ -11244,10 +11268,8 @@
                "title": "Notes"
             },
             "data_interface": {
-               "const": "PXI",
-               "default": "PXI",
-               "title": "Data Interface",
-               "type": "string"
+               "$ref": "#/$defs/DataInterface",
+               "default": "PXI"
             },
             "channels": {
                "default": [],
@@ -12012,16 +12034,76 @@
                },
                "discriminator": {
                   "mapping": {
-                     "Olfactometer": "#/$defs/_Olfactometer"
+                     "Behavior": "#/$defs/aind_data_schema_models__harp_types___Behavior",
+                     "Camera Controller": "#/$defs/_Camera_Controller",
+                     "Clock Synchronizer": "#/$defs/_Clock_Synchronizer",
+                     "Cuttlefish": "#/$defs/_Cuttlefish",
+                     "Generic Harp Device": "#/$defs/_Generic_Harp_Device",
+                     "Input Expander": "#/$defs/_Input_Expander",
+                     "Lickety Split": "#/$defs/_Lickety_Split",
+                     "Load Cells": "#/$defs/_Load_Cells",
+                     "Olfactometer": "#/$defs/_Olfactometer",
+                     "Sniff Detector": "#/$defs/_Sniff_Detector",
+                     "Sound Card": "#/$defs/_Sound_Card",
+                     "Stepper Driver": "#/$defs/_Stepper_Driver",
+                     "Synchronizer": "#/$defs/_Synchronizer",
+                     "Timestamp Generator Gen 1": "#/$defs/_Timestamp_Generator_Gen_1",
+                     "Timestamp Generator Gen 3": "#/$defs/_Timestamp_Generator_Gen_3",
+                     "Treadmill": "#/$defs/_Treadmill"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__harp_types___Behavior"
+                  },
+                  {
+                     "$ref": "#/$defs/_Camera_Controller"
+                  },
+                  {
+                     "$ref": "#/$defs/_Clock_Synchronizer"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/_Generic_Harp_Device"
+                  },
+                  {
+                     "$ref": "#/$defs/_Input_Expander"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lickety_Split"
+                  },
+                  {
+                     "$ref": "#/$defs/_Load_Cells"
+                  },
+                  {
                      "$ref": "#/$defs/_Olfactometer"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sniff_Detector"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sound_Card"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stepper_Driver"
+                  },
+                  {
+                     "$ref": "#/$defs/_Synchronizer"
+                  },
+                  {
+                     "$ref": "#/$defs/_Timestamp_Generator_Gen_1"
+                  },
+                  {
+                     "$ref": "#/$defs/_Timestamp_Generator_Gen_3"
+                  },
+                  {
+                     "$ref": "#/$defs/_Treadmill"
                   }
                ],
-               "title": "Harp Device Type"
+               "title": "Type of Harp device"
             },
             "core_version": {
                "anyOf": [
@@ -21948,8 +22030,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.23",
-         "default": "2.0.23",
+         "const": "2.0.24",
+         "default": "2.0.24",
          "title": "Schema Version",
          "type": "string"
       },
