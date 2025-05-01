@@ -19,7 +19,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList, GenericModelType
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.coordinates import (
     AtlasCoordinate,
     CoordinateSystem,
@@ -505,7 +505,7 @@ class MRIScan(DeviceConfig):
     # other fields
     resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
     resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
-    additional_scan_parameters: GenericModelType = Field(..., title="Parameters")
+    additional_scan_parameters: GenericModel = Field(..., title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")

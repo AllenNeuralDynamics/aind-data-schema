@@ -1,4 +1,4 @@
-""" test round trip (de)serialization behavior of AindGeneric models"""
+""" test round trip (de)serialization behavior of GenericModel models"""
 
 import unittest
 
@@ -27,7 +27,7 @@ class SubGenericContainer(GenericContainer):
     contains_model: Bar
 
 
-class AindGenericTests(unittest.TestCase):
+class GenericModelTests(unittest.TestCase):
     """tests device schemas"""
 
     def test_sub_generic_container_round_trip(self):
