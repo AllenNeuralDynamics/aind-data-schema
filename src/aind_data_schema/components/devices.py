@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import (
@@ -40,7 +40,6 @@ from aind_data_schema_models.units import (
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
-from typing_extensions import Annotated
 
 from aind_data_schema.base import DataModel, GenericModel, Discriminated
 from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate

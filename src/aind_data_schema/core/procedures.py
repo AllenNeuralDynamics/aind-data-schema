@@ -20,7 +20,6 @@ from aind_data_schema_models.units import (
     VolumeUnit,
 )
 from pydantic import Field, SkipValidation, field_validator, model_validator
-from typing_extensions import Annotated
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin

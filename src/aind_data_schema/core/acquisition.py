@@ -13,7 +13,6 @@ from aind_data_schema.base import (
     DataModel,
     DiscriminatedList,
     GenericModel,
-    GenericModel,
 )
 from aind_data_schema.components.acquisition_configs import (
     AirPuffConfig,
