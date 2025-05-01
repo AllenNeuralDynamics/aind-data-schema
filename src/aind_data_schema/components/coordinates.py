@@ -189,10 +189,8 @@ class NonlinearTransform(DataModel):
     )
 
 
-TRANSFORM_TYPES = List[Annotated[Union[Translation, Rotation, Scale, Affine], Field(discriminator="object_type")]]
-TRANSFORM_TYPES_NONLINEAR = List[
-    Annotated[Union[Translation, Rotation, Scale, Affine, NonlinearTransform], Field(discriminator="object_type")]
-]
+TRANSFORM_TYPES = DiscriminatedList[Translation | Rotation | Scale | Affine]
+TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | Affine | NonlinearTransform]
 
 
 class CoordinateSystem(DataModel):

@@ -602,10 +602,10 @@ class Procedures(DataCoreModel):
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
 
     # Implanted devices
-    implanted_devices: List[
-        Annotated[Union[EphysProbe, FiberProbe, MyomatrixArray], Field(discriminator="object_type")]
-    ] = Field(default=[], title="Implanted devices")
-    configurations: List[Annotated[Union[ProbeConfig, DeviceConfig], Field(discriminator="object_type")]] = Field(
+    implanted_devices: DiscriminatedList[EphysProbe | FiberProbe | MyomatrixArray] = Field(
+        default=[], title="Implanted devices"
+    )
+    configurations: DiscriminatedList[ProbeConfig | DeviceConfig] = Field(
         default=[], title="Implanted device configurations"
     )
 
