@@ -599,8 +599,10 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-    
-    harp_device_type: HarpDeviceType.ONE_OF = Field(HarpDeviceType.OLFACTOMETER, frozen=True, title="Type of Harp device")
+
+    harp_device_type: HarpDeviceType.ONE_OF = Field(
+        HarpDeviceType.OLFACTOMETER, frozen=True, title="Type of Harp device"
+    )
     channels: List[OlfactometerChannel]
 
 

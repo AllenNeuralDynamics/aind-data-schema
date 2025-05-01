@@ -66,8 +66,6 @@ class Model(DataCoreModel):
     )
     intended_use: str = Field(..., title="Intended model use", description="Semantic description of intended use")
     limitations: Optional[str] = Field(default=None, title="Model limitations")
-    training: DiscriminatedList[ModelTraining | ModelPretraining] = Field(
-        ..., title="Training", min_length=1
-    )
+    training: DiscriminatedList[ModelTraining | ModelPretraining] = Field(..., title="Training", min_length=1)
     evaluations: List[ModelEvaluation] = Field(default=[], title="Evaluations")
     notes: Optional[str] = Field(default=None, title="Notes")
