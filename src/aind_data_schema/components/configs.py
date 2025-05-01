@@ -20,7 +20,7 @@ from aind_data_schema_models.units import (
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, GenericModelType
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList, GenericModelType
 from aind_data_schema.components.coordinates import (
     AtlasCoordinate,
     CoordinateSystem,
@@ -38,6 +38,7 @@ class PowerFunction(str, Enum):
     CONSTANT = "Constant"
     LINEAR = "Linear"
     EXPONENTIAL = "Exponential"
+    OTHER = "Other"
 
 
 class StimulusModality(str, Enum):
@@ -146,15 +147,7 @@ class LightEmittingDiodeConfig(DeviceConfig):
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
-LIGHT_TYPES = List[
-    Annotated[
-        Union[
-            LaserConfig,
-            LightEmittingDiodeConfig,
-        ],
-        Field(discriminator="object_type"),
-    ]
-]
+LIGHT_CONFIGS = DiscriminatedList[LaserConfig | LightEmittingDiodeConfig]
 
 
 class MicroscopeConfig(DeviceConfig):
@@ -187,7 +180,7 @@ class Channel(DataModel):
     )
 
     # excitation
-    light_sources: LIGHT_TYPES = Field(default=[], title="Light source configurations")
+    light_sources: LIGHT_CONFIGS = Field(default=[], title="Light source configurations")
     variable_power: Optional[bool] = Field(
         default=False, title="Variable power", description="Set to true when power values change during the experiment"
     )
