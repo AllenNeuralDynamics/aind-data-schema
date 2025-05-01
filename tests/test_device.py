@@ -82,7 +82,7 @@ class DeviceTests(unittest.TestCase):
         self.assertEqual(valid.name, "test_additional_imaging")
 
     def test_position_device(self):
-        """Test that the PositionDevice validator gets raised properly"""
+        """Test that the DevicePosition validator gets raised properly"""
 
         # Test with both transform and coordinate_system set
         valid_positioned = DevicePosition(
@@ -115,7 +115,7 @@ class DeviceTests(unittest.TestCase):
                 ],
             )
         self.assertIn(
-            "PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset",
+            "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
             str(e1.exception),
         )
 
@@ -126,7 +126,7 @@ class DeviceTests(unittest.TestCase):
                 coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
             )
         self.assertIn(
-            "PositionDevice.transform and PositionedDevice.coordinate_system must either both be set or both be unset",
+            "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
             str(e2.exception),
         )
 
