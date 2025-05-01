@@ -2,13 +2,12 @@
 
 from datetime import date
 from enum import Enum
-from typing import Dict, List, Literal, Optional, Union
+from typing import Dict, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
-from typing_extensions import Annotated
 
-from aind_data_schema.base import DataCoreModel, DataModel
+from aind_data_schema.base import DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
@@ -133,51 +132,46 @@ class Instrument(DataCoreModel):
         description="List of all connections between devices in the instrument",
     )
 
-    components: List[
-        Annotated[
-            Union[
-                Monitor,
-                Olfactometer,
-                LickSpout,
-                LickSpoutAssembly,
-                AirPuffDevice,
-                Speaker,
-                CameraAssembly,
-                Enclosure,
-                EphysAssembly,
-                FiberAssembly,
-                LaserAssembly,
-                FiberPatchCord,
-                Laser,
-                LightEmittingDiode,
-                Lamp,
-                Detector,
-                Objective,
-                Scanner,
-                Filter,
-                Lens,
-                DigitalMicromirrorDevice,
-                PolygonalScanner,
-                PockelsCell,
-                HarpDevice,
-                NeuropixelsBasestation,
-                OpenEphysAcquisitionBoard,
-                MotorizedStage,
-                ScanningStage,
-                AdditionalImagingDevice,
-                Disc,
-                Wheel,
-                Tube,
-                Treadmill,
-                Arena,
-                DAQDevice,
-                Computer,
-                Microscope,
-                MyomatrixArray,
-                Device,
-            ],
-            Field(discriminator="object_type"),
-        ]
+    components: DiscriminatedList[
+        Monitor
+        | Olfactometer
+        | LickSpout
+        | LickSpoutAssembly
+        | AirPuffDevice
+        | Speaker
+        | CameraAssembly
+        | Enclosure
+        | EphysAssembly
+        | FiberAssembly
+        | LaserAssembly
+        | FiberPatchCord
+        | Laser
+        | LightEmittingDiode
+        | Lamp
+        | Detector
+        | Objective
+        | Scanner
+        | Filter
+        | Lens
+        | DigitalMicromirrorDevice
+        | PolygonalScanner
+        | PockelsCell
+        | HarpDevice
+        | NeuropixelsBasestation
+        | OpenEphysAcquisitionBoard
+        | MotorizedStage
+        | ScanningStage
+        | AdditionalImagingDevice
+        | Disc
+        | Wheel
+        | Tube
+        | Treadmill
+        | Arena
+        | DAQDevice
+        | Computer
+        | Microscope
+        | MyomatrixArray
+        | Device
     ] = Field(
         ...,
         title="Components",

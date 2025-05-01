@@ -1,13 +1,19 @@
-""" schema describing imaging acquisition """
+"""schema describing imaging acquisition"""
 
 from decimal import Decimal
-from typing import Annotated, List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataCoreModel,
+    DataModel,
+    DiscriminatedList,
+    GenericModel,
+)
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     DetectorConfig,
@@ -28,6 +34,7 @@ from aind_data_schema.components.configs import (
     MicroscopeConfig,
     ProbeConfig,
     EphysAssemblyConfig,
+    DomeModule,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, Person
@@ -76,7 +83,7 @@ class AcquisitionSubjectDetails(DataModel):
 class PerformanceMetrics(DataModel):
     """Summary of a StimulusEpoch"""
 
-    output_parameters: GenericModelType = Field(default=GenericModel(), title="Additional metrics")
+    output_parameters: GenericModel = Field(default=GenericModel(), title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
@@ -101,28 +108,24 @@ class DataStream(DataModel):
         description="Device names must match devices in the Instrument",
     )
 
-    configurations: List[
-        Annotated[
-            Union[
-                LightEmittingDiodeConfig,
-                LaserConfig,
-                ManipulatorConfig,
-                MISModuleConfig,
-                DetectorConfig,
-                PatchCordConfig,
-                FiberAssemblyConfig,
-                MRIScan,
-                LickSpoutConfig,
-                AirPuffConfig,
-                ImagingConfig,
-                MicroscopeConfig,
-                SlapMicroscopeConfig,
-                SampleChamberConfig,
-                ProbeConfig,
-                EphysAssemblyConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
+    configurations: DiscriminatedList[
+        LightEmittingDiodeConfig
+        | LaserConfig
+        | ManipulatorConfig
+        | MISModuleConfig
+        | DomeModule
+        | DetectorConfig
+        | PatchCordConfig
+        | FiberAssemblyConfig
+        | MRIScan
+        | LickSpoutConfig
+        | AirPuffConfig
+        | ImagingConfig
+        | MicroscopeConfig
+        | SlapMicroscopeConfig
+        | SampleChamberConfig
+        | ProbeConfig
+        | EphysAssemblyConfig
     ] = Field(..., title="Device configurations")
 
     connections: List[Connection] = Field(
@@ -189,17 +192,9 @@ class StimulusEpoch(DataModel):
         description="Device names must match devices in the Instrument",
     )
 
-    configurations: List[
-        Annotated[
-            Union[
-                SpeakerConfig,
-                LightEmittingDiodeConfig,
-                LaserConfig,
-                MousePlatformConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(default=[], title="Device configurations")
+    configurations: DiscriminatedList[SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig] = (
+        Field(default=[], title="Device configurations")
+    )
 
 
 class Acquisition(DataCoreModel):

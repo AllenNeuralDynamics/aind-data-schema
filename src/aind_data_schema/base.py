@@ -5,7 +5,7 @@ import logging
 import warnings
 import re
 from pathlib import Path
-from typing import Any, ClassVar, Generic, Literal, Optional, TypeVar, get_args
+from typing import Any, ClassVar, Literal, Optional, TypeVar, get_args, List
 
 from pydantic import (
     AwareDatetime,
@@ -95,10 +95,12 @@ class GenericModel(BaseModel, extra="allow"):
         return self
 
 
-GenericModelType = TypeVar("GenericModelType", bound=GenericModel)
+T = TypeVar("T")
+Discriminated = Annotated[T, Field(discriminator="object_type")]
+DiscriminatedList = List[Discriminated[T]]
 
 
-class DataModel(BaseModel, Generic[GenericModelType]):
+class DataModel(BaseModel):
     """BaseModel that disallows extra fields
 
     Also performs validation checks / coercion / upgrades where necessary

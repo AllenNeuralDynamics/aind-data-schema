@@ -7,9 +7,8 @@ from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
-from typing_extensions import Annotated
 
-from aind_data_schema.base import DataModel
+from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
 
 
