@@ -18,7 +18,6 @@ from aind_data_schema.components.configs import (
     LaserConfig,
     TriggerType,
     ImagingConfig,
-    MicroscopeConfig,
     CoupledPlane,
     PlanarImage,
     SamplingStrategy,
@@ -28,11 +27,6 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
-
-microscope_config = MicroscopeConfig(
-    device_name="Mesoscope",
-    magnification="10x",
-)
 
 # Define the sampling strategy
 sampling_strategy = SamplingStrategy(
@@ -59,7 +53,6 @@ a = Acquisition(
             modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
             active_devices=["Mesoscope", "Eye", "Face", "Behavior", "Vasculature", "Laser A", "PMT 1"],
             configurations=[
-                microscope_config,
                 ImagingConfig(
                     device_name="Mesoscope",
                     channels=[

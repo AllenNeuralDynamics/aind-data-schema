@@ -29,7 +29,6 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
     ImagingConfig,
     SlapMicroscopeConfig,
-    MicroscopeConfig,
     ProbeConfig,
     EphysAssemblyConfig,
 )
@@ -117,7 +116,6 @@ class DataStream(DataModel):
         | LickSpoutConfig
         | AirPuffConfig
         | ImagingConfig
-        | MicroscopeConfig
         | SlapMicroscopeConfig
         | SampleChamberConfig
         | ProbeConfig
