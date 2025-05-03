@@ -24,7 +24,7 @@ from aind_data_schema.components.coordinates import (
     Translation,
 )
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.units import TimeUnit, SizeUnit, FrequencyUnit, AngleUnit
+from aind_data_schema_models.units import TimeUnit, SizeUnit, FrequencyUnit, AngleUnit, VolumeUnit
 
 
 class TestMRIScan(unittest.TestCase):
@@ -107,7 +107,7 @@ class TestLickSpoutConfig(unittest.TestCase):
             solution=Liquid.WATER,
             solution_valence=Valence.POSITIVE,
             volume=1.0,
-            volume_unit=SizeUnit.ML,
+            volume_unit=VolumeUnit.ML,
             relative_position=[],
         )
         self.assertIsNotNone(lick_spout)
@@ -120,7 +120,7 @@ class TestLickSpoutConfig(unittest.TestCase):
                 solution=Liquid.OTHER,
                 solution_valence=Valence.POSITIVE,
                 volume=1.0,
-                volume_unit=SizeUnit.ML,
+                volume_unit=VolumeUnit.ML,
                 relative_position=[],
             )
         self.assertIn(
