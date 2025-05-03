@@ -106,6 +106,8 @@ class TestLickSpoutConfig(unittest.TestCase):
             device_name="Spout1",
             solution=Liquid.WATER,
             solution_valence=Valence.POSITIVE,
+            volume=1.0,
+            volume_unit=SizeUnit.ML,
             relative_position=[],
         )
         self.assertIsNotNone(lick_spout)
@@ -117,6 +119,8 @@ class TestLickSpoutConfig(unittest.TestCase):
                 device_name="Spout1",
                 solution=Liquid.OTHER,
                 solution_valence=Valence.POSITIVE,
+                volume=1.0,
+                volume_unit=SizeUnit.ML,
                 relative_position=[],
             )
         self.assertIn(
