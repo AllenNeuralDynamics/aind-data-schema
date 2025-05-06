@@ -3,38 +3,27 @@
 import json
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.species import Strain
 from pydantic import ValidationError
 
-from aind_data_schema.components.devices import (
-    EphysAssembly,
-    EphysProbe,
-    Manipulator,
-    Laser,
-)
+from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
+from aind_data_schema.components.identifiers import Code, ExternalPlatforms, Person
+from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
-from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.data_description import DataDescription, Funding
+from aind_data_schema.core.instrument import Connection, Instrument
 from aind_data_schema.core.metadata import Metadata, create_metadata_json
-from aind_data_schema.core.procedures import (
-    BrainInjection,
-    Procedures,
-    Surgery,
-)
-from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
-from aind_data_schema.core.instrument import Instrument, Connection
+from aind_data_schema.core.procedures import BrainInjection, Procedures, Surgery
+from aind_data_schema.core.processing import DataProcess, Processing, ProcessName, ProcessStage
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
-
-from pathlib import Path
-from tests.resources.spim_instrument import inst
-from tests.resources.ephys_instrument import inst as ephys_inst
-
-from aind_data_schema_models.species import Strain
-
+from examples.aibs_smartspim_instrument import inst as spim_inst
+from examples.ephys_instrument import inst as ephys_inst
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -66,7 +55,7 @@ class TestMetadata(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         """Set up the test class."""
-        cls.spim_instrument = inst
+        cls.spim_instrument = spim_inst
 
         subject = Subject(
             subject_id="123456",
@@ -152,7 +141,7 @@ class TestMetadata(unittest.TestCase):
                 subject=Subject.model_construct(),
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
-                instrument=inst,
+                instrument=self.spim_instrument,
                 processing=Processing.model_construct(),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -452,6 +441,79 @@ class TestMetadata(unittest.TestCase):
         self.assertIn(
             "Connection 'object_type='Connection' device_names=['Probe A', 'Missing Device'] connection_data={}'",
             str(context.exception),
+        )
+
+    def test_validate_unique_configurations(self):
+        """Tests that configurations don't share target devices between Procedures and Acquisition."""
+
+        # Case where configurations don't overlap
+        instrument = Instrument.model_construct(
+            instrument_id="Test",
+            components=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser B"),
+            ],
+            modalities=[],
+        )
+        procedures = Procedures.model_construct(
+            implanted_devices=[
+                EphysProbe.model_construct(name="Probe A"),
+            ],
+            configurations=[
+                DeviceConfig(device_name="Probe A"),
+            ],
+            subject_procedures=[],
+        )
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Laser B"],
+                    modalities=[],
+                    configurations=[
+                        DeviceConfig(device_name="Laser B"),
+                    ],
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # This should pass validation
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            instrument=instrument,
+            acquisition=acquisition,
+            procedures=procedures,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where configurations overlap
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Laser B"],
+                    modalities=[],
+                    configurations=[
+                        DeviceConfig(device_name="Probe A"),
+                    ],
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # This should fail validation
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition,
+                procedures=procedures,
+            )
+        self.assertIn(
+            "Procedures and Acquisition configurations share target devices: {'Probe A'}", str(context.exception)
         )
 
 

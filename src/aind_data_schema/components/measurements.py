@@ -5,7 +5,7 @@ from typing import List, Literal, Optional
 from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit
 
 from aind_data_schema.base import AwareDatetimeWithDefault, Discriminated, Field
-from aind_data_schema.components.acquisition_configs import DeviceConfig
+from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.reagent import Reagent
 
 

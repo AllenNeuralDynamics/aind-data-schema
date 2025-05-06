@@ -22,10 +22,11 @@ from aind_data_schema.core.procedures import (
     InjectionDynamics,
     InjectionProfile,
 )
+from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Coordinate
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
@@ -43,6 +44,18 @@ implanted_devices = [
 p = Procedures(
     subject_id="625100",
     implanted_devices=implanted_devices,
+    configurations=[
+        ProbeConfig(
+            primary_targeted_structure=CCFStructure.VTA,
+            device_name="Probe A",
+            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+            transform=[
+                Translation(
+                    translation=[-600, -3050, 0, 4200],
+                ),
+            ],
+        ),
+    ],
     subject_procedures=[
         Surgery(
             start_date=t.date(),
@@ -75,11 +88,13 @@ p = Procedures(
                             titer=20000000000000,
                         )
                     ],
+                    system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
                     coordinates=[
-                        Coordinate(
-                            system_name="BREGMA_ARID",
-                            position=[-600, -3050, 0, 4200],
-                        ),
+                        [
+                            Translation(
+                                translation=[-600, -3050, 0, 4200],
+                            ),
+                        ],
                     ],
                     dynamics=[
                         InjectionDynamics(
@@ -93,11 +108,6 @@ p = Procedures(
                 ProbeImplant(
                     protocol_id="TO ENTER",
                     implanted_device_names=["Probe A"],
-                    targeted_structure=CCFStructure.VTA,
-                    coordinate=Coordinate(
-                        system_name="BREGMA_ARID",
-                        position=[-600, -3050, 0, 4200],
-                    ),
                 ),
             ],
         ),
@@ -170,6 +180,8 @@ p = Procedures(
         ),
     ],
 )
-serialized = p.model_dump_json()
-deserialized = Procedures.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ophys")
+
+if __name__ == "__main__":
+    serialized = p.model_dump_json()
+    deserialized = Procedures.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="ophys")

@@ -13,6 +13,7 @@ from aind_data_schema.components.devices import (
     Objective,
     ScanningStage,
     Device,
+    Microscope,
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
@@ -180,7 +181,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM4",
+                port="COM4",
             ),
         },
     ),
@@ -189,7 +190,7 @@ connections = [
         connection_data={
             "ASI Tiger": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM3",
+                port="COM3",
             ),
             "Sample stage Z": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -207,7 +208,7 @@ connections = [
         connection_data={
             "MightyZap": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM9",
+                port="COM9",
             ),
             "Lens 1": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -216,14 +217,19 @@ connections = [
     ),
 ]
 
+spim_scope = Microscope(
+    name="Microscope",
+    manufacturer=Organization.LIFECANVAS,
+)
+
 inst = Instrument(
     instrument_id="440_SmartSPIM2_20231004",
     modification_date=datetime.date(2023, 10, 4),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     modalities=[Modality.SPIM],
-    manufacturer=Organization.LIFECANVAS,
     temperature_control=False,
     components=[
+        spim_scope,
         objective,
         camera1,
         laser1,
@@ -250,6 +256,8 @@ inst = Instrument(
     ],
     connections=connections,
 )
-serialized = inst.model_dump_json()
-deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="aibs_smartspim")
+
+if __name__ == "__main__":
+    serialized = inst.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="aibs_smartspim")

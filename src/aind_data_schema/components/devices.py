@@ -27,6 +27,7 @@ from aind_data_schema_models.devices import (
     StageAxisDirection,
 )
 from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
@@ -38,11 +39,10 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VoltageUnit,
 )
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import DataModel, GenericModel, Discriminated
-from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
+from aind_data_schema.base import DataModel, Discriminated, GenericModel
+from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
 from aind_data_schema.components.identifiers import Software
 
 
@@ -57,6 +57,49 @@ class Device(DataModel):
     # Additional fields
     additional_settings: Optional[GenericModel] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_manufacturer_notes(cls, values):
+        """Ensure that notes are not empty if manufacturer is 'other'"""
+
+        if hasattr(values, "manufacturer") and values.manufacturer is not None:
+            manufacturer = values.manufacturer
+            notes = values.notes
+
+            if manufacturer == Organization.OTHER and not notes:
+                raise ValueError("Device.notes cannot be empty if manufacturer is 'other'")
+
+        return values
+
+
+class DevicePosition(DataModel):
+    """Position class for devices"""
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+
+    # Position
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+    transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Device to instrument transform",
+        description="Position and orientation of the device in the instrument coordinate system",
+    )
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_transform_and_cs(cls, values):
+        """Ensure that transform and coordinate system are either both set or both unset"""
+        transform = values.transform
+        coordinate_system = values.coordinate_system
+
+        if (transform is None) != (coordinate_system is None):
+            raise ValueError(
+                "DevicePosition.transform and DevicePosition.coordinate_system"
+                " must either both be set or both be unset."
+            )
+
+        return values
 
 
 class Computer(Device):
@@ -123,6 +166,8 @@ class Detector(Device):
 class Camera(Detector):
     """Camera Detector"""
 
+    detector_type: DetectorType = Field(default=DetectorType.CAMERA)
+
 
 class Filter(Device):
     """Filter used in a light path"""
@@ -182,21 +227,13 @@ class Objective(Device):
         return value
 
 
-class CameraAssembly(DataModel):
+class CameraAssembly(DevicePosition):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
     name: str = Field(..., title="Camera assembly name")
     target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
-
-    # position information
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
 
     filter: Optional[Filter] = Field(default=None, title="Filter")
 
@@ -353,7 +390,7 @@ class FiberPatchCord(Device):
 
 
 class LaserAssembly(DataModel):
-    """Assembly for optogenetic stimulation"""
+    """Named assembly combining a manipulator, lasers, collimator, and fibers"""
 
     name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -363,18 +400,14 @@ class LaserAssembly(DataModel):
 
 
 class EphysProbe(Device):
-    """Named probe used in an ephys experiment"""
+    """Probe used in an ephys experiment"""
 
-    # required fields
     probe_model: ProbeModel = Field(..., title="Probe model")
-
-    # optional fields
-    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
 class EphysAssembly(DataModel):
-    """Module for electrophysiological recording"""
+    """Named assembly for combining a manipulator and ephys probes"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -505,7 +538,7 @@ class Arena(Device):
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
-class Monitor(Device):
+class Monitor(Device, DevicePosition):
     """Description of visual display for visual stimuli"""
 
     manufacturer: Organization.MONITOR_MANUFACTURERS
@@ -515,13 +548,6 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
 
     contrast: Optional[int] = Field(
         default=None,
@@ -565,17 +591,10 @@ class AirPuffDevice(Device):
     diameter_unit: SizeUnit = Field(..., title="Size unit")
 
 
-class Speaker(Device):
+class Speaker(Device, DevicePosition):
     """Description of a speaker for auditory stimuli"""
 
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-
-    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
-    position: Optional[Coordinate] = Field(
-        default=None,
-        title="Position",
-        description="Exact position of the camera assembly in the instrument",
-    )
 
 
 class OlfactometerChannelType(Enum):
@@ -662,3 +681,7 @@ class MyomatrixArray(Device):
 
     array_type: MyomatrixArrayType = Field(..., title="Array type")
     threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+
+class Microscope(Device):
+    """Description of a microscope"""

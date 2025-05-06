@@ -2,12 +2,13 @@
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, List, Literal, Optional, Union
+from typing import Annotated, Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import BaseModel, Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.components.identifiers import Person
 from aind_data_schema.utils.merge import merge_notes
 
 
@@ -31,7 +32,7 @@ class Stage(str, Enum):
     MULTI_ASSET = "Multi-asset"
 
 
-class QCStatus(BaseModel):
+class QCStatus(DataModel):
     """Description of a QC status, set by an evaluator"""
 
     evaluator: str = Field(..., title="Status evaluator full name")
@@ -39,7 +40,7 @@ class QCStatus(BaseModel):
     timestamp: AwareDatetimeWithDefault = Field(..., title="Status date")
 
 
-class QCMetric(BaseModel):
+class QCMetric(DataModel):
     """Description of a single quality control metric"""
 
     name: str = Field(..., title="Metric name")
@@ -50,7 +51,9 @@ class QCMetric(BaseModel):
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
         title="List of asset names that this metric depends on",
-        description="Set to None except when a metric's calculation required data coming from a different data asset.",
+        description=(
+            "Set to None except when a metric's calculation required data " "coming from a different data asset."
+        ),
     )
 
     @property
@@ -72,6 +75,21 @@ class QCMetric(BaseModel):
         return v
 
 
+class CurationHistory(DataModel):
+    """Schema to track curator name and timestamp for curation events"""
+
+    curator: Person = Field(..., title="Curator")
+    timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
+
+
+class CurationMetric(QCMetric):
+    """Description of a curation metric"""
+
+    value: List[Any] = Field(..., title="Curation value")
+    type: str = Field(..., title="Curation type")
+    curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
+
+
 class QCEvaluation(DataModel):
     """Description of one evaluation stage, with one or more metrics"""
 
@@ -79,7 +97,9 @@ class QCEvaluation(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: List[QCMetric] = Field(..., title="QC metrics")
+    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(
+        ..., title="QC and curation metrics"
+    )
     tags: Optional[List[str]] = Field(
         default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
     )

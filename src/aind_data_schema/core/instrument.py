@@ -5,8 +5,7 @@ from enum import Enum
 from typing import Dict, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.organizations import Organization
-from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem
@@ -16,6 +15,7 @@ from aind_data_schema.components.devices import (
     Arena,
     CameraAssembly,
     CameraTarget,
+    Computer,
     DAQDevice,
     Detector,
     Device,
@@ -24,6 +24,7 @@ from aind_data_schema.components.devices import (
     Enclosure,
     EphysAssembly,
     FiberAssembly,
+    FiberPatchCord,
     Filter,
     HarpDevice,
     Lamp,
@@ -33,13 +34,13 @@ from aind_data_schema.components.devices import (
     LickSpout,
     LickSpoutAssembly,
     LightEmittingDiode,
+    Microscope,
     Monitor,
     MotorizedStage,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
-    FiberPatchCord,
     PockelsCell,
     PolygonalScanner,
     Scanner,
@@ -48,7 +49,6 @@ from aind_data_schema.components.devices import (
     Treadmill,
     Tube,
     Wheel,
-    Computer,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
 from aind_data_schema.utils.validators import recursive_get_all_names
@@ -60,7 +60,7 @@ DEVICES_REQUIRED = {
     Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
-    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice]],
+    Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
     Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
@@ -70,15 +70,16 @@ DEVICES_REQUIRED = {
 class ConnectionDirection(str, Enum):
     """Direction of a connection"""
 
-    SEND = "send"
-    RECEIVE = "receive"
+    SEND = "Send"
+    RECEIVE = "Receive"
+    SEND_AND_RECEIVE = "Send and receive"
 
 
 class ConnectionData(DataModel):
     """Data for a connection"""
 
     direction: Optional[ConnectionDirection] = Field(default=None, title="Connection direction")
-    channel: Optional[str] = Field(default=None, title="Connection channel or port index")
+    port: Optional[str] = Field(default=None, title="Connection port index/name")
 
 
 class Connection(DataModel):
@@ -116,10 +117,11 @@ class Instrument(DataCoreModel):
     calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
     # coordinate system
-    coordinate_system: CoordinateSystem = Field(..., title="Coordinate system")
+    coordinate_system: CoordinateSystem = Field(
+        ..., title="Coordinate system"
+    )  # note: exact field name is used by a validator
 
     # instrument details
-    manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Instrument manufacturer")
     temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -166,6 +168,7 @@ class Instrument(DataCoreModel):
         | Arena
         | DAQDevice
         | Computer
+        | Microscope
         | Device
     ] = Field(
         ...,
@@ -215,16 +218,6 @@ class Instrument(DataCoreModel):
                     raise ValueError(f"Device name validation error: '{device_name}' is not part of the instrument.")
 
         return self
-
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
-        """Validator for other/notes"""
-
-        if info.data.get("manufacturer") == Organization.OTHER and not value:
-            raise ValueError(
-                "Notes cannot be empty if manufacturer is Other. Describe the manufacturer in the notes field."
-            )
-        return value
 
     @model_validator(mode="after")
     def validate_modality_device_dependencies(cls, value):

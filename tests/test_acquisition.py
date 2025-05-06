@@ -4,30 +4,26 @@ import unittest
 from datetime import datetime, timezone
 
 import pydantic
+from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import SizeUnit, TimeUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components.coordinates import (
-    Affine,
-    Scale,
-    Translation,
-    Coordinate,
-    Transform,
-    CoordinateSystemLibrary,
-)
-from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.acquisition_configs import (
-    DomeModule,
+from aind_data_schema.components.configs import (
+    EphysAssemblyConfig,
+    ImagingConfig,
+    Immersion,
     ManipulatorConfig,
+    MISModuleConfig,
     MRIScan,
+    SampleChamberConfig,
 )
-from aind_data_schema.core.acquisition import (
-    Acquisition,
-    DataStream,
-    AcquisitionSubjectDetails,
-)
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Scale, Translation
+from aind_data_schema.components.identifiers import Person
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.instrument import Connection
+from examples.ephys_acquisition import acquisition as ephys_acquisition
+from examples.exaspim_acquisition import acq as exaspim_acquisition
 
 
 class AcquisitionTest(unittest.TestCase):
@@ -37,61 +33,10 @@ class AcquisitionTest(unittest.TestCase):
         """Test constructing acquisition files"""
 
         with self.assertRaises(pydantic.ValidationError):
-            acquisition = Acquisition()
+            Acquisition()
 
-        acquisition = Acquisition(
-            experimenters=[Person(name="Mam Moth")],
-            acquisition_start_time=datetime.now(),
-            acquisition_end_time=datetime.now(),
-            subject_id="1234",
-            acquisition_type="Test",
-            instrument_id="1234",
-            subject_details=AcquisitionSubjectDetails(
-                mouse_platform_name="Running wheel",
-            ),
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-            data_streams=[
-                DataStream(
-                    stream_start_time=datetime.now(),
-                    stream_end_time=datetime.now(),
-                    modalities=[Modality.ECEPHYS],
-                    active_devices=["Stick_assembly", "Ephys_assemblyA"],
-                    configurations=[
-                        DomeModule(
-                            device_name="Stick_assembly",
-                            arc_angle=24,
-                            module_angle=10,
-                        ),
-                        ManipulatorConfig(
-                            device_name="Ephys_assemblyA",
-                            arc_angle=0,
-                            module_angle=10,
-                            primary_targeted_structure=CCFStructure.VISL,
-                            atlas_coordinates=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[1, 1, 1, 0],
-                                ),
-                            ],
-                            manipulator_coordinates=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[1, 1, 1, 1],
-                                )
-                            ],
-                            manipulator_axis_positions=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[1, 1, 1, 0],
-                                )
-                            ],
-                        ),
-                    ],
-                )
-            ],
-        )
-
-        self.assertIsNotNone(acquisition)
+        acq = ephys_acquisition.model_copy()
+        self.assertIsNotNone(Acquisition.model_validate_json(acq.model_dump_json()))
 
         with self.assertRaises(ValidationError):
             MRIScan(
@@ -112,24 +57,24 @@ class AcquisitionTest(unittest.TestCase):
                     scan_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    vc_transform=Transform(
-                        system_name=CoordinateSystemLibrary.MRI_LPS.name,
-                        transforms=[
-                            Affine(
-                                affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-                            ),
-                            Translation(
-                                translation=[1, 1, 1],
-                            ),
-                        ],
-                    ),
+                    scan_affine_transform=[
+                        Affine(
+                            affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+                        ),
+                        Translation(
+                            translation=[1, 1, 1],
+                        ),
+                    ],
                     subject_position="Supine",
-                    voxel_sizes=Scale(
+                    resolution=Scale(
                         scale=[0.5, 0.4375, 0.52],
                     ),
+                    resolution_unit=SizeUnit.MM,
                     echo_time=2.2,
+                    echo_time_unit=TimeUnit.MS,
                     effective_echo_time=2.0,
                     repetition_time=1.2,
+                    repetition_time_unit=TimeUnit.MS,
                     additional_scan_parameters={"number_averages": 3},
                     device_name="Scanner 72",
                 )
@@ -159,111 +104,22 @@ class AcquisitionTest(unittest.TestCase):
 
     def test_subject_details_if_not_specimen(self):
         """Test that subject details are required if no specimen ID"""
-        with self.assertRaises(ValueError):
-            Acquisition(
-                experimenters=[Person(name="Mam Moth")],
-                acquisition_start_time=datetime.now(),
-                acquisition_end_time=datetime.now(),
-                subject_id="1234",
-                acquisition_type="Test",
-                instrument_id="1234",
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-                data_streams=[
-                    DataStream(
-                        stream_start_time=datetime.now(),
-                        stream_end_time=datetime.now(),
-                        modalities=[Modality.ECEPHYS],
-                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
-                        configurations=[
-                            DomeModule(
-                                device_name="Stick_assembly",
-                                arc_angle=24,
-                                module_angle=10,
-                            ),
-                            ManipulatorConfig(
-                                device_name="Ephys_assemblyA",
-                                arc_angle=0,
-                                module_angle=10,
-                                primary_targeted_structure=CCFStructure.VISL,
-                                atlas_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
-                                    ),
-                                ],
-                                manipulator_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 1],
-                                    )
-                                ],
-                                manipulator_axis_positions=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
-                                    )
-                                ],
-                            ),
-                        ],
-                    )
-                ],
-            )
+        with self.assertRaises(ValueError) as context:
+            acq = ephys_acquisition.model_copy()
+
+            acq.subject_details = None
+
+            Acquisition.model_validate_json(acq.model_dump_json())
+
+        self.assertIn("Subject details are required for in vivo experiments", str(context.exception))
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
         with self.assertRaises(ValueError) as context:
-            Acquisition(
-                experimenters=[Person(name="Mam Moth")],
-                acquisition_start_time=datetime.now(),
-                acquisition_end_time=datetime.now(),
-                subject_id="123456",
-                specimen_id="654321",
-                acquisition_type="Test",
-                instrument_id="1234",
-                subject_details=AcquisitionSubjectDetails(
-                    mouse_platform_name="Running wheel",
-                ),
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-                data_streams=[
-                    DataStream(
-                        stream_start_time=datetime.now(),
-                        stream_end_time=datetime.now(),
-                        modalities=[Modality.ECEPHYS],
-                        active_devices=["Stick_assembly", "Ephys_assemblyA"],
-                        configurations=[
-                            DomeModule(
-                                device_name="Stick_assembly",
-                                arc_angle=24,
-                                module_angle=10,
-                            ),
-                            ManipulatorConfig(
-                                device_name="Ephys_assemblyA",
-                                arc_angle=0,
-                                module_angle=10,
-                                primary_targeted_structure=CCFStructure.VISL,
-                                atlas_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
-                                    ),
-                                ],
-                                manipulator_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 1],
-                                    )
-                                ],
-                                manipulator_axis_positions=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
-                                    )
-                                ],
-                            ),
-                        ],
-                    )
-                ],
-            )
+            acq = exaspim_acquisition.model_copy()
+            acq.specimen_id = "654321"
+
+            Acquisition.model_validate_json(acq.model_dump_json())
 
         self.assertIn("Expected 123456 to appear in 654321", str(context.exception))
 
@@ -288,7 +144,7 @@ class AcquisitionTest(unittest.TestCase):
                         modalities=[Modality.SPIM],
                         active_devices=["Stick_assembly", "Ephys_assemblyA"],
                         configurations=[
-                            DomeModule(
+                            MISModuleConfig(
                                 device_name="Stick_assembly",
                                 arc_angle=24,
                                 module_angle=10,
@@ -299,21 +155,18 @@ class AcquisitionTest(unittest.TestCase):
                                 module_angle=10,
                                 primary_targeted_structure=CCFStructure.VISL,
                                 atlas_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     ),
                                 ],
                                 manipulator_coordinates=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 1],
+                                    Translation(
+                                        translation=[1, 1, 1, 1],
                                     )
                                 ],
                                 manipulator_axis_positions=[
-                                    Coordinate(
-                                        system_name="BREGMA_ARID",
-                                        position=[1, 1, 1, 0],
+                                    Translation(
+                                        translation=[1, 1, 1, 0],
                                     )
                                 ],
                             ),
@@ -342,38 +195,87 @@ class AcquisitionTest(unittest.TestCase):
             modalities=[Modality.ECEPHYS],
             active_devices=["Stick_assembly", "Ephys_assemblyA"],
             configurations=[
-                DomeModule(
-                    device_name="Stick_assembly",
-                    arc_angle=24,
-                    module_angle=10,
-                ),
-                ManipulatorConfig(
-                    device_name="Ephys_assemblyA",
-                    arc_angle=0,
-                    module_angle=10,
-                    primary_targeted_structure=CCFStructure.VISL,
-                    atlas_coordinates=[
-                        Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                        ),
-                    ],
-                    manipulator_coordinates=[
-                        Coordinate(
-                            system_name="BREGMA_ARID",
-                            position=[1, 1, 1, 1],
-                        )
-                    ],
-                    manipulator_axis_positions=[
-                        Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[1, 1, 1],
-                        )
-                    ],
-                ),
+                EphysAssemblyConfig.model_construct(),
             ],
         )
         self.assertIsNotNone(stream)
+
+    def test_specimen_required_for_in_vitro_modalities(self):
+        """Test that specimen ID is required for in vitro imaging modalities"""
+
+        # Test case where specimen ID is missing for in vitro modality
+        with self.assertRaises(ValueError) as context:
+            Acquisition(
+                experimenters=[Person(name="Mam Moth")],
+                acquisition_start_time=datetime.now(),
+                acquisition_end_time=datetime.now(),
+                subject_id="123456",
+                acquisition_type="Test",
+                instrument_id="1234",
+                subject_details=AcquisitionSubjectDetails(
+                    mouse_platform_name="Running wheel",
+                ),
+                data_streams=[
+                    DataStream(
+                        stream_start_time=datetime.now(),
+                        stream_end_time=datetime.now(),
+                        modalities=[Modality.SPIM],
+                        active_devices=["Device1"],
+                        configurations=[
+                            ImagingConfig(
+                                device_name="Device1",
+                                channels=[],
+                                images=[],
+                            ),
+                            SampleChamberConfig(
+                                device_name="Sample chamber",
+                                chamber_immersion=Immersion(
+                                    medium="PBS",
+                                    refractive_index=1.33,
+                                ),
+                            ),
+                        ],
+                    )
+                ],
+            )
+        self.assertIn("Specimen ID is required for modalities", str(context.exception))
+
+        # Test case where specimen ID is provided for in vitro modality
+        acquisition = Acquisition(
+            experimenters=[Person(name="Mam Moth")],
+            acquisition_start_time=datetime.now(),
+            acquisition_end_time=datetime.now(),
+            subject_id="123456",
+            specimen_id="SP123456",
+            acquisition_type="Test",
+            instrument_id="1234",
+            subject_details=AcquisitionSubjectDetails(
+                mouse_platform_name="Running wheel",
+            ),
+            data_streams=[
+                DataStream(
+                    stream_start_time=datetime.now(),
+                    stream_end_time=datetime.now(),
+                    modalities=[Modality.SPIM],
+                    active_devices=["Device1"],
+                    configurations=[
+                        ImagingConfig(
+                            device_name="Device1",
+                            channels=[],
+                            images=[],
+                        ),
+                        SampleChamberConfig(
+                            device_name="Sample chamber",
+                            chamber_immersion=Immersion(
+                                medium="PBS",
+                                refractive_index=1.33,
+                            ),
+                        ),
+                    ],
+                )
+            ],
+        )
+        self.assertIsNotNone(acquisition)
 
     def test_check_connections(self):
         """Test that every device in a Connection is present in the active_devices list"""

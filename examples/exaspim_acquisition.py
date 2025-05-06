@@ -5,14 +5,23 @@ from datetime import datetime, timezone
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
-from aind_data_schema_models.units import PowerUnit
+from aind_data_schema_models.units import PowerUnit, SizeUnit
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components import tile
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, CoordinateTransform
+from aind_data_schema.components.configs import (
+    Channel,
+    DeviceConfig,
+    LaserConfig,
+    ImageSPIM,
+    Immersion,
+    ImagingConfig,
+    DetectorConfig,
+    SampleChamberConfig,
+)
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.components.acquisition_configs import Immersion, InVitroImagingConfig
 from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.components.measurements import Calibration, Maintenance
 
@@ -23,58 +32,87 @@ t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
 tile_scale = Scale(
     scale=[0.748, 0.748, 1],
 )
-coordinate_transform = CoordinateTransform(
-    input="SPIM_IJK",
-    output="SPIM_RPI",
-    transforms=[tile_scale],
+
+image0 = ImageSPIM(
+    channel_name="488",
+    file_name=AssetPath("tile_X_0000_Y_0000_Z_0000_CH_488.ims"),
+    dimensions=Scale(scale=[512, 512, 256]),
+    image_to_acquisition_transform=[tile_scale],
+)
+image1 = ImageSPIM(
+    channel_name="561",
+    file_name=AssetPath("tile_X_0000_Y_0000_Z_0000_CH_561.ims"),
+    dimensions=Scale(scale=[512, 512, 256]),
+    image_to_acquisition_transform=[tile_scale],
 )
 
-tile0 = tile.AcquisitionTile(
-    file_name="tile_X_0000_Y_0000_Z_0000_CH_488.ims",
-    coordinate_transform=coordinate_transform,
-    channel=tile.Channel(
-        channel_name="488",
-        excitation_wavelength=488,
-        excitation_power=200,
-        light_source_name="Ex_488",
-        filter_names=["Em_600"],
-        detector_name="PMT_1",
-        filter_wheel_index=0,
-    ),
-    notes="these are my notes",
-)
-tile1 = tile.AcquisitionTile(
-    file_name="tile_X_0000_Y_0000_Z_0000_CH_561.ims",
-    coordinate_transform=coordinate_transform,
-    channel=tile.Channel(
-        channel_name="561",
-        excitation_wavelength=561,
-        excitation_power=200,
-        light_source_name="Ex_561",
-        filter_names=["Em_600"],
-        detector_name="PMT_1",
-        filter_wheel_index=0,
-    ),
-    notes="these are my notes",
+imaging_config = ImagingConfig(
+    device_name="ExaSPIM",
+    channels=[
+        Channel(
+            channel_name="488",
+            intended_measurement="GFP signal",
+            light_sources=[
+                LaserConfig(
+                    device_name="LAS_08308",
+                    wavelength=488,
+                    wavelength_unit=SizeUnit.NM,
+                    power=200,
+                    power_unit=PowerUnit.MW,
+                ),
+            ],
+            emission_filters=[
+                DeviceConfig(
+                    device_name="Multiband filter",
+                ),
+            ],
+            detector=DetectorConfig(
+                device_name="PMT_1",
+                exposure_time=1,
+                trigger_type="Internal",
+            ),
+        ),
+        Channel(
+            channel_name="561",
+            intended_measurement="TdTomato signal",
+            light_sources=[
+                LaserConfig(
+                    device_name="539251",
+                    wavelength=561,
+                    wavelength_unit=SizeUnit.NM,
+                    power=200,
+                    power_unit=PowerUnit.MW,
+                ),
+            ],
+            emission_filters=[
+                DeviceConfig(
+                    device_name="Multiband filter",
+                )
+            ],
+            detector=DetectorConfig(
+                device_name="PMT_1",
+                exposure_time=1,
+                trigger_type="Internal",
+            ),
+        ),
+    ],
+    images=[image0, image1],
+    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
 )
 
-invitro_config = InVitroImagingConfig(
+chamber_config = SampleChamberConfig(
+    device_name="Sample chamber",
     chamber_immersion=Immersion(
         medium="PBS",
         refractive_index=1.33,
     ),
-    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-    tiles=[
-        tile0,
-        tile1,
-    ],
 )
 
 
 acq = Acquisition(
     experimenters=[Person(name="John Smith")],
-    specimen_id="###",
-    subject_id="###",
+    specimen_id="123456-123",
+    subject_id="123456",
     instrument_id="###",
     maintenance=[
         Maintenance(
@@ -108,8 +146,14 @@ acq = Acquisition(
             stream_start_time=t,
             stream_end_time=t,
             modalities=[Modality.SPIM],
-            active_devices=[],
-            configurations=[invitro_config],
+            active_devices=[
+                "LAS_08308",
+                "539251",
+            ],
+            configurations=[
+                imaging_config,
+                chamber_config,
+            ],
         )
     ],
     acquisition_start_time=t,
@@ -117,6 +161,7 @@ acq = Acquisition(
     acquisition_type="ExaSPIM",
 )
 
-serialized = acq.model_dump_json()
-deserialized = Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="exaspim")
+if __name__ == "__main__":
+    serialized = acq.model_dump_json()
+    deserialized = Acquisition.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="exaspim")

@@ -16,6 +16,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Device,
     Computer,
+    Microscope,
 )
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 from aind_data_schema_models.modalities import Modality
@@ -213,7 +214,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM4",
+                port="COM4",
             ),
         },
     ),
@@ -225,7 +226,7 @@ connections = [
             ),
             "COM Device": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="COM3",
+                port="COM3",
             ),
         },
     ),
@@ -237,7 +238,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="3",
+                port="3",
             ),
         },
     ),
@@ -249,7 +250,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="5",
+                port="5",
             ),
         },
     ),
@@ -261,7 +262,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="4",
+                port="4",
             ),
         },
     ),
@@ -273,7 +274,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="2",
+                port="2",
             ),
         },
     ),
@@ -285,7 +286,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="0",
+                port="0",
             ),
         },
     ),
@@ -297,7 +298,7 @@ connections = [
             ),
             "Dev2": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="6",
+                port="6",
             ),
         },
     ),
@@ -314,11 +315,15 @@ connections = [
     ),
 ]
 
+scope = Microscope(
+    name="Microscope",
+    manufacturer=Organization.CUSTOM,
+)
+
 inst = Instrument(
     instrument_id="440_exaSPIM1_20231004",
     modalities=[Modality.SPIM],
     modification_date=datetime.date(2023, 10, 4),
-    manufacturer=Organization.CUSTOM,
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     components=[
         *objectives,
@@ -332,11 +337,13 @@ inst = Instrument(
         laser_launch,
         asi_tiger,
         computer,
+        scope,
     ],
     connections=connections,
     temperature_control=False,
 )
 
-serialized = inst.model_dump_json()
-deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="exaspim")
+if __name__ == "__main__":
+    serialized = inst.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="exaspim")

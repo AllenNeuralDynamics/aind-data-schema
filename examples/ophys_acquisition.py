@@ -10,10 +10,59 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.acquisition_configs import DetectorConfig, PatchCordConfig, LaserConfig
-from aind_data_schema.components.tile import Channel
+from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.configs import Channel, DetectorConfig, PatchCordConfig, LaserConfig
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+
+connections = [
+    Connection(
+        device_names=["Patch Cord A", "Fiber A"],
+        connection_data={
+            "Patch Cord A": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Fiber A": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Patch Cord A", "Hamamatsu Camera"],
+        connection_data={
+            "Patch Cord A": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Hamamatsu Camera": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Patch Cord B", "Fiber B"],
+        connection_data={
+            "Patch Cord B": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+            ),
+            "Fiber B": ConnectionData(
+                direction=ConnectionDirection.SEND,
+                port="ROI 0",
+            ),
+        },
+    ),
+    Connection(
+        device_names=["Patch Cord B", "Hamamatsu Camera"],
+        connection_data={
+            "Patch Cord B": ConnectionData(
+                direction=ConnectionDirection.SEND,
+            ),
+            "Hamamatsu Camera": ConnectionData(
+                direction=ConnectionDirection.RECEIVE,
+                port="ROI 1",
+            ),
+        },
+    ),
+]
 
 a = Acquisition(
     experimenters=[Person(name="Scientist Smith")],
@@ -43,54 +92,57 @@ a = Acquisition(
                     device_name="Laser A",
                     wavelength=405,
                     wavelength_unit="nanometer",
-                    excitation_power=10,
-                    excitation_power_unit="milliwatt",
+                    power=10,
+                    power_unit="milliwatt",
                 ),
-                LaserConfig(
-                    device_name="Laser B",
-                    wavelength=473,
-                    wavelength_unit="nanometer",
-                    excitation_power=7,
-                    excitation_power_unit="milliwatt",
-                ),
-                DetectorConfig(device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"),
                 PatchCordConfig(
                     device_name="Patch Cord A",
-                    output_power=40,
-                    output_power_unit="microwatt",
-                    fiber_name="Fiber A",
-                    channel=Channel(
-                        channel_name="Channel A",
-                        intended_measurement="Dopamine",
-                        light_source_name="Laser A",
-                        filter_names=["Excitation filter 410nm"],
-                        detector_name="Green CMOS",
-                        excitation_wavelength=410,
-                        excitation_power=10,
-                        emission_wavelength=600,
-                    ),
+                    channels=[
+                        Channel(
+                            channel_name="Channel A",
+                            intended_measurement="Dopamine",
+                            detector=DetectorConfig(
+                                device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
+                            ),
+                            light_sources=[
+                                LaserConfig(
+                                    device_name="Laser A",
+                                    wavelength=405,
+                                    wavelength_unit="nanometer",
+                                    power=10,
+                                    power_unit="milliwatt",
+                                ),
+                            ],
+                        ),
+                    ],
                 ),
                 PatchCordConfig(
                     device_name="Patch Cord B",
-                    output_power=43,
-                    output_power_unit="microwatt",
-                    fiber_name="Fiber B",
-                    channel=Channel(
-                        channel_name="Channel B",
-                        intended_measurement="Dopamine",
-                        light_source_name="Laser B",
-                        filter_names=["Excitation filter 560nm"],
-                        detector_name="Red CMOS",
-                        excitation_wavelength=560,
-                        excitation_power=7,
-                        emission_wavelength=700,
-                    ),
+                    channels=[
+                        Channel(
+                            channel_name="Channel B",
+                            intended_measurement="GCaMP",
+                            detector=DetectorConfig(
+                                device_name="Hamamatsu Camera", exposure_time=10, trigger_type="Internal"
+                            ),
+                            light_sources=[
+                                LaserConfig(
+                                    device_name="Laser B",
+                                    wavelength=473,
+                                    wavelength_unit="nanometer",
+                                    power=7,
+                                    power_unit="milliwatt",
+                                ),
+                            ],
+                        )
+                    ],
                 ),
             ],
-            notes="Internal trigger.",
         )
     ],
 )
-serialized = a.model_dump_json()
-deserialized = Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ophys")
+
+if __name__ == "__main__":
+    serialized = a.model_dump_json()
+    deserialized = Acquisition.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="ophys")

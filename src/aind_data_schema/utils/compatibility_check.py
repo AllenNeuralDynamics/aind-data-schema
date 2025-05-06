@@ -33,7 +33,7 @@ class InstrumentAcquisitionCompatibility:
         ]
         instrument_component_names = [getattr(comp, "name", None) for comp in getattr(self.inst, "components", [])]
 
-        if not set(acquisition_stimulus_devices).issubset(set(instrument_component_names)):
+        if any(device not in instrument_component_names for device in acquisition_stimulus_devices):
             return ValueError(
                 f"Stimulus epoch device names in acquisition do not match stimulus device names in instrument."
                 f"\nacquisition_stimulus_devices: {set(acquisition_stimulus_devices)} "
