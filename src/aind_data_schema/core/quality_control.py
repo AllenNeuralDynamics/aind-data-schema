@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, List, Literal, Optional, Union, Annotated
+from typing import Annotated, Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator

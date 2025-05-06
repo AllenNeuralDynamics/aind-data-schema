@@ -3,14 +3,13 @@
 import unittest
 from datetime import datetime, timezone
 
-from aind_data_schema.core.quality_control import QualityControl, QCEvaluation, QCMetric, QCStatus, Status, Stage
-
-from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
-from aind_data_schema.core.procedures import Procedures
-from aind_data_schema.core.acquisition import AcquisitionSubjectDetails
-from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema_models.modalities import Modality
 
+from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.core.acquisition import AcquisitionSubjectDetails
+from aind_data_schema.core.procedures import Procedures
+from aind_data_schema.core.processing import DataProcess, Processing, ProcessName, ProcessStage
+from aind_data_schema.core.quality_control import QCEvaluation, QCMetric, QCStatus, QualityControl, Stage, Status
 from examples.exaspim_acquisition import acq
 from examples.procedures import p, t, t2
 

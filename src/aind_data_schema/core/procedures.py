@@ -11,25 +11,18 @@ from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
-from aind_data_schema_models.units import (
-    CurrentUnit,
-    MassUnit,
-    SizeUnit,
-    TimeUnit,
-    UnitlessUnit,
-    VolumeUnit,
-)
+from aind_data_schema_models.units import CurrentUnit, MassUnit, SizeUnit, TimeUnit, UnitlessUnit, VolumeUnit
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.components.coordinates import Translation, CoordinateSystem, Origin, TRANSFORM_TYPES
-from aind_data_schema.components.devices import FiberProbe, MyomatrixArray, EphysProbe
-from aind_data_schema.components.configs import ProbeConfig, DeviceConfig
+from aind_data_schema.components.configs import DeviceConfig, ProbeConfig
+from aind_data_schema.components.coordinates import TRANSFORM_TYPES, CoordinateSystem, Origin, Translation
+from aind_data_schema.components.devices import EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
-from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
+from aind_data_schema.components.reagent import Antibody, HCRProbe, OligoProbe, Reagent, Stain
 from aind_data_schema.utils.exceptions import OneOfError
+from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.validators import recursive_device_name_check, subject_specimen_id_compatibility
 
 
 class SectionOrientation(str, Enum):

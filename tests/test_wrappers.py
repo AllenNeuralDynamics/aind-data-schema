@@ -1,8 +1,9 @@
 """Test wrappers module"""
 
 import unittest
-from aind_data_schema.components.wrappers import AssetPath
 from pathlib import Path, PureWindowsPath
+
+from aind_data_schema.components.wrappers import AssetPath
 
 
 class TestAssetPath(unittest.TestCase):

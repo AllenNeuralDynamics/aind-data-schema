@@ -11,11 +11,7 @@ from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.data_description import (
-    DataDescription,
-    Funding,
-    build_data_name,
-)
+from aind_data_schema.core.data_description import DataDescription, Funding, build_data_name
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 

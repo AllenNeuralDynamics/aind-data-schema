@@ -4,8 +4,8 @@ import json
 import os
 import unittest
 from pathlib import Path
-from aind_data_schema.utils.examples_generator import ExamplesGenerator
 
+from aind_data_schema.utils.examples_generator import ExamplesGenerator
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 

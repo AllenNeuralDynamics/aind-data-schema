@@ -7,7 +7,7 @@ from typing import Dict, List, Optional
 from aind_data_schema_models.registries import Registry, _Orcid
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, GenericModel, DiscriminatedList
+from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
 
 
 class ExternalPlatforms(str, Enum):

@@ -4,20 +4,17 @@ from decimal import Decimal
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import (
-    AwareDatetimeWithDefault,
-    DataCoreModel,
-    DataModel,
-    DiscriminatedList,
-    GenericModel,
-)
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     DetectorConfig,
+    EphysAssemblyConfig,
     FiberAssemblyConfig,
+    ImagingConfig,
     LaserConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
@@ -25,14 +22,11 @@ from aind_data_schema.components.configs import (
     MousePlatformConfig,
     MRIScan,
     PatchCordConfig,
-    SpeakerConfig,
-    SampleChamberConfig,
-    ImagingConfig,
-    SlapMicroscopeConfig,
     ProbeConfig,
-    EphysAssemblyConfig,
+    SampleChamberConfig,
+    SlapMicroscopeConfig,
+    SpeakerConfig,
 )
-from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance

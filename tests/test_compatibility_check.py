@@ -2,10 +2,11 @@
 
 import unittest
 from unittest.mock import MagicMock
-from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
+
+from aind_data_schema.components.devices import Device
 from aind_data_schema.core.acquisition import Acquisition, StimulusEpoch
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema.components.devices import Device
+from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
 
 class TestInstrumentAcquisitionCompatibility(unittest.TestCase):

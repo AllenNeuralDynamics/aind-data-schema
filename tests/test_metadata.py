@@ -3,39 +3,27 @@
 import json
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.species import Strain
 from pydantic import ValidationError
 
-from aind_data_schema.components.devices import (
-    EphysAssembly,
-    EphysProbe,
-    Manipulator,
-    Laser,
-)
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.configs import DeviceConfig
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
+from aind_data_schema.components.identifiers import Code, ExternalPlatforms, Person
+from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
-from aind_data_schema.components.identifiers import Person, Code, ExternalPlatforms
 from aind_data_schema.core.data_description import DataDescription, Funding
+from aind_data_schema.core.instrument import Connection, Instrument
 from aind_data_schema.core.metadata import Metadata, create_metadata_json
-from aind_data_schema.core.procedures import (
-    BrainInjection,
-    Procedures,
-    Surgery,
-)
-from aind_data_schema.core.processing import Processing, DataProcess, ProcessName, ProcessStage
-from aind_data_schema.core.instrument import Instrument, Connection
+from aind_data_schema.core.procedures import BrainInjection, Procedures, Surgery
+from aind_data_schema.core.processing import DataProcess, Processing, ProcessName, ProcessStage
 from aind_data_schema.core.subject import Subject
-from aind_data_schema.components.subjects import BreedingInfo, Housing, Sex, Species, MouseSubject
-
-from pathlib import Path
 from examples.aibs_smartspim_instrument import inst as spim_inst
 from examples.ephys_instrument import inst as ephys_inst
-
-from aind_data_schema_models.species import Strain
-
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"

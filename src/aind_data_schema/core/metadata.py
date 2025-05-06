@@ -8,6 +8,7 @@ from typing import Dict, Literal, Optional, get_args
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import (
+    ConfigDict,
     Field,
     PrivateAttr,
     SkipValidation,
@@ -15,11 +16,10 @@ from pydantic import (
     ValidationInfo,
     field_validator,
     model_validator,
-    ConfigDict,
 )
 
-from aind_data_schema.components.identifiers import ExternalLinks
 from aind_data_schema.base import DataCoreModel
+from aind_data_schema.components.identifiers import ExternalLinks
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument

@@ -3,24 +3,17 @@
 import unittest
 from datetime import datetime, timezone
 
+from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 
 from aind_data_schema.components.configs import Image
-from aind_data_schema.components.coordinates import (
-    Rotation,
-    Scale,
-    Translation,
-    Affine,
-    CoordinateSystemLibrary,
-)
-from aind_data_schema.components.devices import Objective, Laser, ScanningStage
+from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Rotation, Scale, Translation
+from aind_data_schema.components.devices import Laser, Objective, ScanningStage
+from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.core.acquisition import Acquisition
-from aind_data_schema.core.processing import DataProcess, ProcessStage, ProcessName
 from aind_data_schema.core.instrument import Instrument
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema.components.identifiers import Person, Code
-
+from aind_data_schema.core.processing import DataProcess, ProcessName, ProcessStage
 from examples.exaspim_acquisition import acq
 
 

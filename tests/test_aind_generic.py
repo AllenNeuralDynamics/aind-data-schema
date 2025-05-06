@@ -4,7 +4,7 @@ import unittest
 
 from pydantic import BaseModel, Field
 
-from aind_data_schema.base import GenericModel, DataModel
+from aind_data_schema.base import DataModel, GenericModel
 
 
 class GenericContainer(DataModel):

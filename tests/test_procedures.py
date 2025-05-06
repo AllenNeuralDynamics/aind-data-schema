@@ -1,47 +1,40 @@
 """ test Procedures """
 
 import unittest
-from unittest.mock import patch
 from datetime import date
+from unittest.mock import patch
 
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import TimeUnit, ConcentrationUnit, VolumeUnit
+from aind_data_schema_models.units import ConcentrationUnit, CurrentUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
 
+from aind_data_schema.components.configs import ProbeConfig
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     BrainInjection,
+    Craniotomy,
+    CraniotomyType,
+    HCRSeries,
+    Injection,
+    InjectionDynamics,
+    InjectionProfile,
     NonViralMaterial,
-    Procedures,
     PlanarSectioning,
+    ProbeImplant,
+    Procedures,
+    Section,
+    SectionOrientation,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
-    InjectionDynamics,
-    InjectionProfile,
-    Injection,
-    Craniotomy,
-    CraniotomyType,
-    HCRSeries,
-    ProbeImplant,
-    Section,
-    SectionOrientation,
 )
-from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import (
-    Origin,
-    CoordinateSystemLibrary,
-    Translation,
-)
-from aind_data_schema.components.configs import ProbeConfig
-from aind_data_schema_models.coordinates import AnatomicalRelative
-from aind_data_schema_models.mouse_anatomy import InjectionTargets
-from aind_data_schema_models.units import SizeUnit, CurrentUnit
 from aind_data_schema.utils.exceptions import OneOfError
-
-
 from examples.procedures import p as procedures
 
 

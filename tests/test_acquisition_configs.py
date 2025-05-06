@@ -2,29 +2,27 @@
 
 import unittest
 from decimal import Decimal
+
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.units import AngleUnit, FrequencyUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
+
 from aind_data_schema.components.configs import (
-    MRIScan,
-    Scale,
+    Channel,
+    DetectorConfig,
+    ImageSPIM,
+    ImagingConfig,
+    LaserConfig,
     LickSpoutConfig,
     Liquid,
-    Valence,
-    ImagingConfig,
-    Channel,
-    ImageSPIM,
+    MRIScan,
     PlanarImage,
     Plane,
-    DetectorConfig,
-    LaserConfig,
     SamplingStrategy,
+    Scale,
+    Valence,
 )
-from aind_data_schema.components.coordinates import (
-    CoordinateSystemLibrary,
-    Affine,
-    Translation,
-)
-from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.units import TimeUnit, SizeUnit, FrequencyUnit, AngleUnit, VolumeUnit
+from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Translation
 
 
 class TestMRIScan(unittest.TestCase):

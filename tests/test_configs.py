@@ -1,13 +1,13 @@
 """Test for configs"""
 
 import unittest
+
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.units import PowerUnit, SizeUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components.configs import ImagingConfig, Plane, PlanarImage, CoupledPlane
+from aind_data_schema.components.configs import CoupledPlane, ImagingConfig, PlanarImage, Plane
 from aind_data_schema.components.coordinates import Scale, Translation
-from aind_data_schema_models.units import SizeUnit, PowerUnit
-from aind_data_schema_models.brain_atlas import CCFStructure
-
 from examples.bergamo_ophys_acquisition import a as bergamo_acquisition
 from examples.exaspim_acquisition import acq as exaspim_acquisition
 

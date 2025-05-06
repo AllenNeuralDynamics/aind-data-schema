@@ -22,11 +22,11 @@ from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.coordinates import (
+    TRANSFORM_TYPES,
     AtlasCoordinate,
     CoordinateSystem,
-    Translation,
     Scale,
-    TRANSFORM_TYPES,
+    Translation,
 )
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath

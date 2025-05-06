@@ -2,23 +2,23 @@
 
 import unittest
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema.components.devices import DevicePosition
-from aind_data_schema_models.coordinates import AnatomicalRelative
 
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 from aind_data_schema.components.devices import (
-    Device,
     AdditionalImagingDevice,
     DataInterface,
     Detector,
     DetectorType,
+    Device,
+    DevicePosition,
     HarpDevice,
     ImagingDeviceType,
     ImmersionMedium,
     Objective,
 )
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 
 
 class DeviceTests(unittest.TestCase):

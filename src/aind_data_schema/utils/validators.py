@@ -1,9 +1,9 @@
 """ Validator utility functions """
 
-from enum import Enum
-from typing import Any, List, Optional
-from pathlib import Path
 import logging
+from enum import Enum
+from pathlib import Path
+from typing import Any, List, Optional
 
 from aind_data_schema.components.wrappers import AssetPath
 

@@ -1,10 +1,11 @@
 """ Wrappers for Pydantic types."""
 
 from pathlib import PurePosixPath
+from typing import Any
+
 from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
-from typing import Any
 
 
 class AssetPath(PurePosixPath):

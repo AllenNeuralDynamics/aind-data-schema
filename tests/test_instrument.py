@@ -31,13 +31,13 @@ from aind_data_schema.components.devices import (
     LickSpout,
     LickSpoutAssembly,
     Manipulator,
+    Microscope,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
     OlfactometerChannel,
     OlfactometerChannelType,
     ScanningStage,
-    Microscope,
 )
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import (
@@ -47,7 +47,6 @@ from aind_data_schema.core.instrument import (
     ConnectionDirection,
     Instrument,
 )
-
 from examples.ephys_instrument import inst as ephys_instrument
 
 computer_foo = Computer(name="foo")

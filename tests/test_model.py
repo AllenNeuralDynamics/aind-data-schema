@@ -6,7 +6,7 @@ import unittest
 import pydantic
 from aind_data_schema_models.system_architecture import ModelArchitecture
 
-from aind_data_schema.components.identifiers import Person, Software, Code, DataAsset
+from aind_data_schema.components.identifiers import Code, DataAsset, Person, Software
 from aind_data_schema.core.model import Model, ModelEvaluation, ModelTraining, PerformanceMetric
 from aind_data_schema.core.processing import ProcessStage
 

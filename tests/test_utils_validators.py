@@ -1,25 +1,27 @@
 """ Tests for compatibility check utilities """
 
 import unittest
+from enum import Enum
+from pathlib import Path
 from unittest.mock import MagicMock, patch
+
+from pydantic import BaseModel
+
+from aind_data_schema.base import DataModel
+from aind_data_schema.components.coordinates import Rotation, Scale, Translation
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.validators import (
-    subject_specimen_id_compatibility,
-    _recurse_helper,
-    recursive_coord_system_check,
-    recursive_get_all_names,
-    recursive_check_paths,
-    recursive_device_name_check,
-    _system_check_helper,
-    SystemNameException,
     AxisCountException,
     CoordinateSystemException,
+    SystemNameException,
+    _recurse_helper,
+    _system_check_helper,
+    recursive_check_paths,
+    recursive_coord_system_check,
+    recursive_device_name_check,
+    recursive_get_all_names,
+    subject_specimen_id_compatibility,
 )
-from enum import Enum
-from pydantic import BaseModel
-from aind_data_schema.base import DataModel
-from aind_data_schema.components.coordinates import Translation, Rotation, Scale
-from aind_data_schema.components.wrappers import AssetPath
-from pathlib import Path
 
 
 class TestCompatibilityCheck(unittest.TestCase):

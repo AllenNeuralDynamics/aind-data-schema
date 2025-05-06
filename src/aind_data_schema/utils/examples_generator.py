@@ -2,9 +2,9 @@
 
 import logging
 import os
+import subprocess
 from glob import glob
 from pathlib import Path
-import subprocess
 
 CURRENT_DIR = Path(os.path.dirname(os.path.realpath(__file__)))
 ROOT_DIR = CURRENT_DIR.parents[2]

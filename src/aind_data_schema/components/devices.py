@@ -27,6 +27,7 @@ from aind_data_schema_models.devices import (
     StageAxisDirection,
 )
 from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
@@ -38,11 +39,10 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VoltageUnit,
 )
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import DataModel, GenericModel, Discriminated
-from aind_data_schema.components.coordinates import AxisName, Scale, CoordinateSystem, TRANSFORM_TYPES
+from aind_data_schema.base import DataModel, Discriminated, GenericModel
+from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
 from aind_data_schema.components.identifiers import Software
 
 

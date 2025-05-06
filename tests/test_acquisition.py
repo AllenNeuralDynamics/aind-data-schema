@@ -4,37 +4,26 @@ import unittest
 from datetime import datetime, timezone
 
 import pydantic
+from aind_data_schema_models.brain_atlas import CCFStructure
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import SizeUnit, TimeUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components.coordinates import (
-    Affine,
-    Scale,
-    Translation,
-    CoordinateSystemLibrary,
-)
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.configs import (
-    MISModuleConfig,
-    ManipulatorConfig,
     EphysAssemblyConfig,
-    MRIScan,
     ImagingConfig,
-    SampleChamberConfig,
     Immersion,
+    ManipulatorConfig,
+    MISModuleConfig,
+    MRIScan,
+    SampleChamberConfig,
 )
-from aind_data_schema.core.acquisition import (
-    Acquisition,
-    DataStream,
-    AcquisitionSubjectDetails,
-)
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Scale, Translation
+from aind_data_schema.components.identifiers import Person
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.instrument import Connection
-
-from aind_data_schema_models.units import TimeUnit, SizeUnit
-
-from examples.exaspim_acquisition import acq as exaspim_acquisition
 from examples.ephys_acquisition import acquisition as ephys_acquisition
+from examples.exaspim_acquisition import acq as exaspim_acquisition
 
 
 class AcquisitionTest(unittest.TestCase):
