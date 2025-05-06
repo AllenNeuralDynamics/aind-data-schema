@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import (
@@ -38,10 +38,10 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
     VoltageUnit,
 )
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, ValidationInfo, field_validator, model_validator
-from typing_extensions import Annotated
 
-from aind_data_schema.base import DataModel, GenericModelType
+from aind_data_schema.base import DataModel, GenericModel, Discriminated
 from aind_data_schema.components.coordinates import AxisName, Scale, Coordinate
 from aind_data_schema.components.identifiers import Software
 
@@ -55,7 +55,7 @@ class Device(DataModel):
     model: Optional[str] = Field(default=None, title="Model")
 
     # Additional fields
-    additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
+    additional_settings: Optional[GenericModel] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -299,7 +299,7 @@ class LightAssembly(DataModel):
 
     # required fields
     name: str = Field(..., title="Light assembly name")
-    light: Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="object_type")]
+    light: Discriminated[Laser | LightEmittingDiode | Lamp]
     lens: Lens = Field(..., title="Lens")
 
     # optional fields
@@ -323,8 +323,8 @@ class NeuropixelsBasestation(DAQDevice):
     ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
-    data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[Union[type(Organization.IMEC)], Field(default=Organization.IMEC, discriminator="name")]
+    data_interface: DataInterface = DataInterface.PXI
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Organization.IMEC
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
@@ -553,6 +553,7 @@ class LickSpout(Device):
 class LickSpoutAssembly(DataModel):
     """Description of multiple lick spouts, possibly mounted on a stage"""
 
+    name: str = Field(..., title="Lick spout assembly name")
     lick_spouts: List[LickSpout] = Field(..., title="Water spouts")
     motorized_stage: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
 
@@ -597,9 +598,10 @@ class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-    harp_device_type: Annotated[
-        Union[type(HarpDeviceType.OLFACTOMETER)], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
-    ]
+
+    harp_device_type: HarpDeviceType.ONE_OF = Field(
+        HarpDeviceType.OLFACTOMETER, frozen=True, title="Type of Harp device"
+    )
     channels: List[OlfactometerChannel]
 
 
@@ -635,7 +637,28 @@ class Scanner(Device):
     magnetic_strength_unit: MagneticFieldUnit = Field(..., title="Magnetic strength unit")
 
 
+class MyomatrixContact(DataModel):
+    """Description of a contact on a myomatrix thread"""
+
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
+    relative_position: AnatomicalRelative = Field(
+        ..., title="Relative position", description="Position relative to procedures coordinate system"
+    )
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
+    in_muscle: bool = Field(..., title="In muscle")
+
+
+class MyomatrixThread(DataModel):
+    """Description of a thread of a myomatrix array"""
+
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use GroundWireLocations"
+    )
+    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
+
+
 class MyomatrixArray(Device):
     """Description of a Myomatrix array"""
 
     array_type: MyomatrixArrayType = Field(..., title="Array type")
+    threads: List[MyomatrixThread] = Field(..., title="Array threads")

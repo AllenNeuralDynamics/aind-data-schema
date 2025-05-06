@@ -313,24 +313,18 @@
                "title": "Experimenters",
                "type": "array"
             },
-            "pipeline_steps": {
+            "pipeline_name": {
                "anyOf": [
                   {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
+                     "type": "string"
                   },
                   {
                      "type": "null"
                   }
                ],
                "default": null,
-               "description": [
-                  "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
-                  " that are part of the pipeline. Each object must show up in the data_processes list."
-               ],
-               "title": "Pipeline steps"
+               "description": "Pipeline names must exist in Processing.pipelines",
+               "title": "Pipeline name"
             },
             "start_date_time": {
                "format": "date-time",
@@ -487,6 +481,7 @@
             "Image flat-field correction",
             "Image importing",
             "Image mip visualization",
+            "Image radial correction",
             "Image spot detection",
             "Image spot spectral unmixing",
             "Image thresholding",
@@ -781,8 +776,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.50",
-         "default": "2.0.50",
+         "const": "2.0.54",
+         "default": "2.0.54",
          "title": "Schema Version",
          "type": "string"
       },
@@ -792,6 +787,22 @@
          },
          "title": "Data processing",
          "type": "array"
+      },
+      "pipelines": {
+         "anyOf": [
+            {
+               "items": {
+                  "$ref": "#/$defs/Code"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess.",
+         "title": "Pipelines"
       },
       "notes": {
          "anyOf": [
@@ -812,10 +823,7 @@
             },
             "type": "array"
          },
-         "description": [
-            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
-            "process names that are inputs to that process."
-         ],
+         "description": "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process.",
          "title": "Dependency graph",
          "type": "object"
       }

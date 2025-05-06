@@ -9,10 +9,10 @@ from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.wrappers import AssetPath
-from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 
 
 class ProcessStage(str, Enum):
@@ -60,22 +60,15 @@ class DataProcess(DataModel):
     stage: ProcessStage = Field(..., title="Processing stage")
     code: Code = Field(..., title="Code", description="Code used for processing")
     experimenters: List[Person] = Field(..., title="Experimenters", description="People responsible for processing")
-    pipeline_steps: Optional[List[str]] = Field(
-        default=None,
-        title="Pipeline steps",
-        description=(
-            "For pipeline processes (ProcessName.PIPELINE) only, list names of all DataProcess objects",
-            " that are part of the pipeline. Each object must show up in the data_processes list.",
-        ),
+    pipeline_name: Optional[str] = Field(
+        default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines"
     )
     start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
     end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
     output_path: Optional[AssetPath] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
-    output_parameters: GenericModelType = Field(
-        default=GenericModel(), description="Output parameters", title="Outputs"
-    )
+    output_parameters: GenericModel = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -103,17 +96,25 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.50"]] = Field(default="2.0.50")
+    schema_version: SkipValidation[Literal["2.0.54"]] = Field(default="2.0.54")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
+    pipelines: Optional[List[Code]] = Field(
+        default=None,
+        title="Pipelines",
+        description=(
+            "For processing done with pipelines, list the repositories here. Pipelines must use the name field "
+            ",and be referenced in the pipeline_name field of a DataProcess."
+        ),
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     dependency_graph: Dict[str, List[str]] = Field(
         ...,
         title="Dependency graph",
         description=(
-            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of ",
-            "process names that are inputs to that process.",
+            "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of "
+            "process names that are inputs to that process."
         ),
     )
 
@@ -151,18 +152,19 @@ class Processing(DataCoreModel):
         return cls(dependency_graph=dependency_graph, data_processes=data_processes, **kwargs)
 
     @model_validator(mode="after")
-    def validate_process_graph(self) -> "Processing":
+    @classmethod
+    def validate_process_graph(cls, values):
         """Check that the same processes are represented in data_processes and dependency_graph"""
 
-        if not hasattr(self, "data_processes"):  # bypass for testing
-            return self
+        if not hasattr(values, "data_processes"):  # bypass for testing
+            return values
 
-        processes = set(self.process_names)
+        processes = set(values.process_names)
         # Validate that all processes have a unique name
-        if len(processes) != len(self.data_processes):
+        if len(processes) != len(values.data_processes):
             raise ValueError("data_processes must have unique names.")
 
-        graph_processes = set(self.dependency_graph.keys())
+        graph_processes = set(values.dependency_graph.keys())
         missing_processes = processes - graph_processes
         if missing_processes:
             raise ValueError(
@@ -173,34 +175,23 @@ class Processing(DataCoreModel):
             raise ValueError(
                 f"data_processes must include all processes in dependency_graph. Missing processes: {missing_processes}"
             )
-        return self
+        return values
 
     @model_validator(mode="after")
-    def validate_pipeline_steps(self) -> "Processing":
-        """Validator for pipeline_steps"""
+    @classmethod
+    def validate_pipeline_names(cls, values):
+        """Ensure that all pipeline names in the processes are in the pipelines list"""
 
-        if not hasattr(self, "data_processes"):  # bypass for testing
-            return self
+        if not hasattr(values, "data_processes"):  # bypass for testing
+            return values
 
-        for process in self.data_processes:
-            # For each process, make sure it's either a pipeline and has all its processes downstream
-            if process.process_type == ProcessName.PIPELINE:
-                if not hasattr(process, "pipeline_steps") or not process.pipeline_steps:
-                    raise ValueError("Pipeline processes should have a pipeline_steps attribute.")
+        pipeline_names = [pipeline.name for pipeline in values.pipelines] if values.pipelines else []
 
-                # Validate that all referenced processes are in the data_processes list
-                for step in process.pipeline_steps:
-                    if step not in self.process_names:
-                        raise ValueError(
-                            f"Processing step '{step}' not found in data_processes",
-                            f" (reference in process '{process.name}').",
-                        )
+        for process in values.data_processes:
+            if process.pipeline_name and process.pipeline_name not in pipeline_names:
+                raise ValueError(f"Pipeline name '{process.pipeline_name}' not found in pipelines list.")
 
-            # Or make sure it doesn't have any pipeline steps
-            elif hasattr(process, "pipeline_steps") and process.pipeline_steps:
-                raise ValueError("pipeline_steps should only be provided for ProcessName.PIPELINE processes.")
-
-        return self
+        return values
 
     def __add__(self, other: "Processing") -> "Processing":
         """Combine two Processing objects"""
@@ -243,6 +234,7 @@ class Processing(DataCoreModel):
             combined_process_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
 
         return Processing(
+            pipelines=merge_optional_list(self.pipelines, other.pipelines),
             data_processes=self.data_processes + other.data_processes,
             dependency_graph=combined_process_graph,
             notes=merge_notes(self.notes, other.notes),

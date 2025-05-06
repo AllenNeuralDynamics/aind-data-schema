@@ -1,10 +1,10 @@
 """ schema for mostly mouse metadata """
 
-from typing import Annotated, Literal, Optional, Union
+from typing import Literal, Optional
 
 from pydantic import Field, SkipValidation
 
-from aind_data_schema.base import DataCoreModel
+from aind_data_schema.base import DataCoreModel, Discriminated
 from aind_data_schema.components.subjects import HumanSubject, MouseSubject
 
 
@@ -20,12 +20,6 @@ class Subject(DataCoreModel):
         title="Subject ID",
     )
 
-    subject_details: Annotated[
-        Union[
-            MouseSubject,
-            HumanSubject,
-        ],
-        Field(discriminator="object_type"),
-    ] = Field(..., title="Subject Details")
+    subject_details: Discriminated[MouseSubject | HumanSubject] = Field(..., title="Subject Details")
 
     notes: Optional[str] = Field(default=None, title="Notes")

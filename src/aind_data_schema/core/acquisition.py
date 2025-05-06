@@ -1,13 +1,19 @@
-""" schema describing imaging acquisition """
+"""schema describing imaging acquisition"""
 
 from decimal import Decimal
-from typing import Annotated, List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataCoreModel,
+    DataModel,
+    DiscriminatedList,
+    GenericModel,
+)
 from aind_data_schema.components.acquisition_configs import (
     AirPuffConfig,
     DetectorConfig,
@@ -31,6 +37,7 @@ from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
+from aind_data_schema.core.instrument import Connection
 from aind_data_schema.core.procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
@@ -83,7 +90,7 @@ class AcquisitionSubjectDetails(DataModel):
 class PerformanceMetrics(DataModel):
     """Summary of a StimulusEpoch"""
 
-    output_parameters: GenericModelType = Field(default=GenericModel(), title="Additional metrics")
+    output_parameters: GenericModel = Field(default=GenericModel(), title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
@@ -108,27 +115,28 @@ class DataStream(DataModel):
         description="Device names must match devices in the Instrument",
     )
 
-    configurations: List[
-        Annotated[
-            Union[
-                LightEmittingDiodeConfig,
-                LaserConfig,
-                ManipulatorConfig,
-                DomeModule,
-                DetectorConfig,
-                PatchCordConfig,
-                FiberAssemblyConfig,
-                FieldOfView,
-                SlapFieldOfView,
-                Stack,
-                MRIScan,
-                InVitroImagingConfig,
-                LickSpoutConfig,
-                AirPuffConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
+    configurations: DiscriminatedList[
+        LightEmittingDiodeConfig
+        | LaserConfig
+        | ManipulatorConfig
+        | DomeModule
+        | DetectorConfig
+        | PatchCordConfig
+        | FiberAssemblyConfig
+        | FieldOfView
+        | SlapFieldOfView
+        | Stack
+        | MRIScan
+        | InVitroImagingConfig
+        | LickSpoutConfig
+        | AirPuffConfig
     ] = Field(..., title="Device configurations")
+
+    connections: List[Connection] = Field(
+        default=[],
+        title="Connections",
+        description="Connections that are specific to this acquisition, and are not present in the Instrument",
+    )
 
     @model_validator(mode="after")
     def check_modality_config_requirements(self):
@@ -141,6 +149,15 @@ class DataStream(DataModel):
             for group in CONFIG_REQUIREMENTS[modality]:
                 if not any(isinstance(config, device) for config in self.configurations for device in group):
                     raise ValueError(f"Missing required devices for modality {modality} in {self.configurations}")
+
+        return self
+
+    @model_validator(mode="after")
+    def check_connections(self):
+        """Check that every device in a Connection is present in the active_devices list"""
+        for connection in self.connections:
+            if not any(device in self.active_devices for device in connection.device_names):
+                raise ValueError(f"Missing devices in active_devices list for connection {connection}")
 
         return self
 
@@ -174,17 +191,9 @@ class StimulusEpoch(DataModel):
         description="Device names must match devices in the Instrument",
     )
 
-    configurations: List[
-        Annotated[
-            Union[
-                SpeakerConfig,
-                LightEmittingDiodeConfig,
-                LaserConfig,
-                MousePlatformConfig,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(default=[], title="Device configurations")
+    configurations: DiscriminatedList[SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig] = (
+        Field(default=[], title="Device configurations")
+    )
 
 
 class Acquisition(DataCoreModel):
@@ -193,7 +202,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.21"]] = Field(default="2.0.21")
+    schema_version: SkipValidation[Literal["2.0.22"]] = Field(default="2.0.22")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")

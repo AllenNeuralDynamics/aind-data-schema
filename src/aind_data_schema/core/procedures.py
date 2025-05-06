@@ -1,4 +1,4 @@
-""" schema for various Procedures """
+"""schema for various Procedures"""
 
 from datetime import date
 from decimal import Decimal
@@ -10,10 +10,8 @@ from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import (
-    ConcentrationUnit,
     CurrentUnit,
     MassUnit,
     SizeUnit,
@@ -22,48 +20,15 @@ from aind_data_schema_models.units import (
     VolumeUnit,
 )
 from pydantic import Field, SkipValidation, field_validator, model_validator
-from pydantic_core.core_schema import ValidationInfo
-from typing_extensions import Annotated
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
-
-
-class ImmunolabelClass(str, Enum):
-    """Type of antibodies"""
-
-    PRIMARY = "Primary"
-    SECONDARY = "Secondary"
-    CONJUGATE = "Conjugate"
-
-
-class StainType(str, Enum):
-    """Stain types for probes describing what is being labeled"""
-
-    RNA = "RNA"
-    NUCLEAR = "Nuclear"
-    FILL = "Fill"
-
-
-class Fluorophore(str, Enum):
-    """Fluorophores used in HCR and Immunolabeling"""
-
-    ALEXA_405 = "Alexa Fluor 405"
-    ALEXA_488 = "Alexa Fluor 488"
-    ALEXA_546 = "Alexa Fluor 546"
-    ALEXA_568 = "Alexa Fluor 568"
-    ALEXA_594 = "Alexa Fluor 594"
-    ALEXA_633 = "Alexa Fluor 633"
-    ALEXA_647 = "Alexa Fluor 647"
-    ATTO_488 = "ATTO 488"
-    ATTO_565 = "ATTO 565"
-    ATTO_643 = "ATTO 643"
-    CY3 = "Cyanine Cy 3"
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
+from aind_data_schema.utils.exceptions import OneOfError
 
 
 class SectionOrientation(str, Enum):
@@ -72,13 +37,6 @@ class SectionOrientation(str, Enum):
     CORONAL = "Coronal"
     SAGITTAL = "Sagittal"
     TRANSVERSE = "Transverse"
-
-
-class SectionStrategy(str, Enum):
-    """Section strategy"""
-
-    WHOLE = "Whole Brain"
-    HEMI = "Hemi Brain"
 
 
 class ProtectiveMaterial(str, Enum):
@@ -161,45 +119,6 @@ class InjectionProfile(str, Enum):
     PULSED = "Pulsed"
 
 
-class Readout(Reagent):
-    """Description of a readout"""
-
-    fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
-    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class HCRReadout(Readout):
-    """Description of a readout for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class OligoProbe(Reagent):
-    """Description of an oligonucleotide probe"""
-
-    species: Species.ONE_OF = Field(..., title="Species")
-    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
-    probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: Readout = Field(..., title="Readout")
-
-
-class HCRProbe(OligoProbe):
-    """Description of an oligo probe used for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    readout: HCRReadout = Field(..., title="Readout")
-
-
-class Stain(Reagent):
-    """Description of a non-oligo probe stain"""
-
-    concentration: Decimal = Field(..., title="Concentration")
-    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
-
-
 class HybridizationChainReaction(DataModel):
     """Description of an HCR staining round"""
 
@@ -223,42 +142,48 @@ class HCRSeries(DataModel):
     cell_id: Optional[str] = Field(default=None, title="Cell ID")
 
 
-class Antibody(Reagent):
-    """Description of an antibody used in immunolableing"""
+class Section(DataModel):
+    """Description of a slice of brain tissue"""
 
-    immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
-    fluorophore: Optional[Fluorophore] = Field(default=None, title="Fluorophore")
-    mass: Decimal = Field(..., title="Mass of antibody")
-    mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+    output_specimen_id: str = Field(..., title="Specimen ID")
+    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
+
+    # Coordinates
+    start_coordinate: Coordinate = Field(..., title="Start coordinate")
+    end_coordinate: Optional[Coordinate] = Field(default=None, title="End coordinate")
+    thickness: Optional[float] = Field(default=None, title="Slice thickness")
+    thickness_unit: Optional[SizeUnit] = Field(default=None, title="Slice thickness unit")
+
+    partial_slice: Optional[List[AnatomicalRelative]] = Field(
+        default=None,
+        title="Partial slice",
+        description="If sectioning does not include the entire slice, indicate which part of the slice is retained.",
+    )
+
+    @model_validator(mode="after")
+    @classmethod
+    def check_one_of_end_thickness(cls, values):
+        """Ensure that either end_coordinate or thickness is provided"""
+
+        if not values.end_coordinate and not values.thickness:
+            raise OneOfError(
+                "Section",
+                ["end_coordinate", "thickness"],
+            )
+        return values
 
 
-class Sectioning(DataModel):
-    """Description of a sectioning procedure"""
+class PlanarSectioning(DataModel):
+    """Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane"""
 
-    number_of_slices: int = Field(..., title="Number of slices")
-    output_specimen_ids: List[str] = Field(..., title="Output specimen ids", min_length=1)
+    coordinate_system: Optional[CoordinateSystem] = Field(
+        default=None,
+        title="Sectioning coordinate system",
+        description="Only required if different from the Procedures.coordinate_system",
+    )
+
+    sections: List[Section] = Field(..., title="Sections")
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
-    section_thickness: Decimal = Field(..., title="Section thickness")
-    section_thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Section thickness unit")
-    section_distance_from_reference: Decimal = Field(..., title="Section distance from reference")
-    section_distance_unit: SizeUnit = Field(default=SizeUnit.MM, title="Distance unit")
-    section_strategy: SectionStrategy = Field(..., title="Slice strategy")
-
-    reference: Origin = Field(..., title="Reference origin")
-
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-
-    @field_validator("output_specimen_ids")
-    def check_output_id_length(cls, v, info: ValidationInfo):
-        """Validator for list of output specimen ids"""
-
-        output_id_len = len(v)
-        expected_len = info.data["number_of_slices"]
-
-        if output_id_len != expected_len:
-            raise AssertionError("List of output specimen ids does not match the number of slices.")
-        return v
 
 
 class SpecimenProcedure(DataModel):
@@ -275,17 +200,7 @@ class SpecimenProcedure(DataModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
-    procedure_details: List[
-        Annotated[
-            Union[
-                HCRSeries,
-                Antibody,
-                Sectioning,
-                Reagent,
-            ],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(
+    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent] = Field(
         default=[],
         title="Procedure details",
         description="",
@@ -299,7 +214,7 @@ class SpecimenProcedure(DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
-        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
 
         if has_hcr_series + has_antibodies + has_sectioning > 1:
             raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
@@ -500,9 +415,9 @@ class InjectionDynamics(DataModel):
 class Injection(DataModel):
     """Description of an injection procedure"""
 
-    injection_materials: List[
-        Annotated[Union[ViralMaterial, NonViralMaterial], Field(..., discriminator="material_type")]
-    ] = Field(..., title="Injection material", min_length=1)
+    injection_materials: DiscriminatedList[ViralMaterial | NonViralMaterial] = Field(
+        ..., title="Injection material", min_length=1
+    )
     targeted_structure: Optional[MouseAnatomyModel] = Field(
         default=None, title="Injection target", description="Use InjectionTargets"
     )
@@ -552,20 +467,16 @@ class TrainingProtocol(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class OphysProbe(DataModel):
-    """Description of an implanted ophys probe"""
-
-    ophys_probe: FiberProbe = Field(..., title="Fiber probe")
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-
-    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
-
-
-class FiberImplant(DataModel):
-    """Description of an implant procedure"""
+class ProbeImplant(DataModel):
+    """Description of a probe (fiber, ephys) implant procedure"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    probes: List[OphysProbe] = Field(..., title="Ophys Probes")
+    implanted_device_names: List[str] = Field(
+        ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
+    )  # note: exact field name is used by a validator
+
+    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
 class WaterRestriction(DataModel):
@@ -586,33 +497,15 @@ class WaterRestriction(DataModel):
     end_date: Optional[date] = Field(default=None, title="Water restriction end date")
 
 
-class MyomatrixContact(DataModel):
-    """Description of a contact on a myomatrix thread"""
-
-    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
-    relative_position: AnatomicalRelative = Field(
-        ..., title="Relative position", description="Position relative to procedures coordinate system"
-    )
-    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
-    in_muscle: bool = Field(..., title="In muscle")
-
-
-class MyomatrixThread(DataModel):
-    """Description of a thread of a myomatrix array"""
-
-    ground_electrode_location: MouseAnatomyModel = Field(
-        ..., title="Location of ground electrode", description="Use GroundWireLocations"
-    )
-    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
-
-
 class MyomatrixInsertion(DataModel):
     """Description of a Myomatrix array insertion for EMG"""
 
-    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    myomatrix_array: MyomatrixArray = Field(..., title="Myomatrix array")
-    threads: List[MyomatrixThread] = Field(..., title="Array threads")
+
+    ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
+    implanted_device_name: str = Field(
+        ..., title="Myomatrix array", description="Must match a MyomatrixArray in Procedures.implanted_devices"
+    )  # note: exact field name is used by a validator
 
 
 class Perfusion(DataModel):
@@ -665,22 +558,17 @@ class Surgery(DataModel):
         description="Coordinates measured during the procedure, for example Bregma and Lambda",
     )
 
-    procedures: List[
-        Annotated[
-            Union[
-                CatheterImplant,
-                Craniotomy,
-                FiberImplant,
-                Headframe,
-                BrainInjection,
-                Injection,
-                MyomatrixInsertion,
-                GenericSurgeryProcedure,
-                Perfusion,
-                SampleCollection,
-            ],
-            Field(discriminator="object_type"),
-        ]
+    procedures: DiscriminatedList[
+        CatheterImplant
+        | Craniotomy
+        | ProbeImplant
+        | Headframe
+        | BrainInjection
+        | Injection
+        | MyomatrixInsertion
+        | GenericSurgeryProcedure
+        | Perfusion
+        | SampleCollection
     ] = Field(title="Procedures", min_length=1)
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -691,19 +579,19 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.20"]] = Field(default="2.0.20")
+    schema_version: SkipValidation[Literal["2.0.23"]] = Field(default="2.0.23")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
         title="Subject ID",
     )
-    subject_procedures: List[
-        Annotated[
-            Union[Surgery, TrainingProtocol, WaterRestriction, GenericSubjectProcedure],
-            Field(discriminator="object_type"),
-        ]
-    ] = Field(default=[], title="Subject Procedures")
+    subject_procedures: DiscriminatedList[Surgery | TrainingProtocol | WaterRestriction | GenericSubjectProcedure] = (
+        Field(default=[], title="Subject Procedures")
+    )
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+
+    # Implanted devices
+    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(default=[], title="Implanted devices")
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
@@ -740,6 +628,15 @@ class Procedures(DataCoreModel):
 
         return values
 
+    @model_validator(mode="after")
+    @classmethod
+    def validate_implanted_device_names(cls, values):
+        """Validate that all implanted device names appear in the device list"""
+        implanted_device_names = [device.name for device in values.implanted_devices]
+        recursive_device_name_check(values, implanted_device_names)
+
+        return values
+
     def __add__(self, other: "Procedures") -> "Procedures":
         """Combine two Procedures objects"""
 
@@ -753,5 +650,6 @@ class Procedures(DataCoreModel):
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
+            implanted_devices=self.implanted_devices + other.implanted_devices,
             notes=merge_notes(self.notes, other.notes),
         )

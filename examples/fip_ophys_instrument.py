@@ -353,6 +353,7 @@ connections = [
 mouse_platform = d.Disc(name="mouse_disc", radius=8.5)
 
 stimulus_device = d.LickSpoutAssembly(
+    name="Lick spout assembly",
     lick_spouts=[
         d.LickSpout(
             name="Left spout",

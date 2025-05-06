@@ -1,10 +1,10 @@
 """Calibration data models"""
 
-from typing import Annotated, List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit
 
-from aind_data_schema.base import AwareDatetimeWithDefault, Field
+from aind_data_schema.base import AwareDatetimeWithDefault, Discriminated, Field
 from aind_data_schema.components.acquisition_configs import DeviceConfig
 from aind_data_schema.components.reagent import Reagent
 
@@ -51,14 +51,7 @@ class LaserCalibration(Calibration):
     )
 
 
-CALIBRATIONS = Annotated[
-    Union[
-        Calibration,
-        LiquidCalibration,
-        LaserCalibration,
-    ],
-    Field(discriminator="object_type"),
-]
+CALIBRATIONS = Discriminated[Calibration | LiquidCalibration | LaserCalibration]
 
 
 class Maintenance(DeviceConfig):

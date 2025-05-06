@@ -68,7 +68,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.50"]] = Field(default="2.0.50")
+    schema_version: SkipValidation[Literal["2.0.54"]] = Field(default="2.0.54")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -250,6 +250,62 @@ class Metadata(DataCoreModel):
                     raise ValueError(
                         f"Configuration '{type(config).__name__}' requires one of '{requirement}' in instrument"
                     )
+
+        return self
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_acquisition_active_devices(cls, values):
+        """Ensure that all Acquisition.data_streams.active_devices exist in either the instrument or procedures."""
+
+        active_devices = []
+
+        if values.acquisition:
+            for data_stream in values.acquisition.data_streams:
+                active_devices.extend(data_stream.active_devices)
+
+        device_names = []
+
+        if values.instrument:
+            for component in values.instrument.components:
+                device_names.append(component.name)
+        if values.procedures:
+            for device in values.procedures.implanted_devices:
+                device_names.append(device.name)
+
+        # Check if all active devices are in the available devices
+        if not all(device in device_names for device in active_devices):
+            missing_devices = set(active_devices) - set(device_names)
+            raise ValueError(
+                f"Active devices '{missing_devices}' were not found in either the Instrument.components or "
+                f"Procedures.implanted_devices."
+            )
+
+        return values
+
+    @model_validator(mode="after")
+    def validate_acquisition_connections(self):
+        """Validate for Acquisition.data_streams.connections that all connections map between devices either in the
+        instrument OR procedures"""
+
+        device_names = []
+
+        if self.instrument:
+            for component in self.instrument.components:
+                device_names.append(component.name)
+        if self.procedures:
+            for device in self.procedures.implanted_devices:
+                device_names.append(device.name)
+
+        # Check if all connection devices are in the available devices
+        if self.acquisition:
+            data_streams = self.acquisition.data_streams
+            for data_stream in data_streams:
+                for connection in data_stream.connections:
+                    if not all(device in device_names for device in connection.device_names):
+                        raise ValueError(
+                            f"Connection '{connection}' contains devices not found in instrument or procedures."
+                        )
 
         return self
 

@@ -1006,6 +1006,85 @@
          "title": "ConcentrationUnit",
          "type": "string"
       },
+      "Connection": {
+         "additionalProperties": false,
+         "description": "Connection between two devices",
+         "properties": {
+            "object_type": {
+               "const": "Connection",
+               "default": "Connection",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_names": {
+               "items": {
+                  "type": "string"
+               },
+               "title": "Names of connected devices",
+               "type": "array"
+            },
+            "connection_data": {
+               "additionalProperties": {
+                  "$ref": "#/$defs/ConnectionData"
+               },
+               "default": {},
+               "title": "Connection data",
+               "type": "object"
+            }
+         },
+         "required": [
+            "device_names"
+         ],
+         "title": "Connection",
+         "type": "object"
+      },
+      "ConnectionData": {
+         "additionalProperties": false,
+         "description": "Data for a connection",
+         "properties": {
+            "object_type": {
+               "const": "Connection data",
+               "default": "Connection data",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "direction": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/ConnectionDirection"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Connection direction"
+            },
+            "channel": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Connection channel or port index"
+            }
+         },
+         "title": "ConnectionData",
+         "type": "object"
+      },
+      "ConnectionDirection": {
+         "description": "Direction of a connection",
+         "enum": [
+            "send",
+            "receive"
+         ],
+         "title": "ConnectionDirection",
+         "type": "string"
+      },
       "Container": {
          "additionalProperties": false,
          "description": "Code container identifier, e.g. Docker",
@@ -1410,6 +1489,15 @@
                   ]
                },
                "title": "Device configurations",
+               "type": "array"
+            },
+            "connections": {
+               "default": [],
+               "description": "Connections that are specific to this acquisition, and are not present in the Instrument",
+               "items": {
+                  "$ref": "#/$defs/Connection"
+               },
+               "title": "Connections",
                "type": "array"
             }
          },
@@ -59663,8 +59751,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.21",
-         "default": "2.0.21",
+         "const": "2.0.22",
+         "default": "2.0.22",
          "title": "Schema Version",
          "type": "string"
       },
