@@ -24,7 +24,7 @@ from aind_data_schema.components.configs import (
     PatchCordConfig,
     ProbeConfig,
     SampleChamberConfig,
-    SlapMicroscopeConfig,
+    SlapPlane,
     SpeakerConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
@@ -45,7 +45,7 @@ CONFIG_REQUIREMENTS = {
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
     Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
-    Modality.SLAP: [[ImagingConfig], [SlapMicroscopeConfig]],
+    Modality.SLAP: [[ImagingConfig], [SlapPlane]],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
@@ -110,7 +110,7 @@ class DataStream(DataModel):
         | LickSpoutConfig
         | AirPuffConfig
         | ImagingConfig
-        | SlapMicroscopeConfig
+        | SlapPlane
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig
