@@ -619,7 +619,9 @@ class ProceduresTests(unittest.TestCase):
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
-        self.assertIn("Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided", str(e.exception))
+        self.assertIn(
+            "Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided", str(e.exception)
+        )
 
     def test_craniotomy_size_validation(self):
         """Test validation for craniotomy size"""
