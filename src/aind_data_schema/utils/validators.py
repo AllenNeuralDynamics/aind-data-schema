@@ -60,13 +60,13 @@ def _recurse_helper(data, **kwargs):
             recursive_coord_system_check(attr_value, **kwargs)
 
 
-def _system_check_helper(data, system_name: str, axis_count: int):
-    """Helper function to raise errors if the system_name or axis_count don't match"""
-    if not system_name or not axis_count:
+def _system_check_helper(data, coordinate_system_name: str, axis_count: int):
+    """Helper function to raise errors if the coordinate_system_name or axis_count don't match"""
+    if not coordinate_system_name or not axis_count:
         raise CoordinateSystemException()
 
-    if data.system_name not in system_name:
-        raise SystemNameException(system_name, data.system_name)
+    if data.coordinate_system_name not in coordinate_system_name:
+        raise SystemNameException(coordinate_system_name, data.coordinate_system_name)
 
     # Check lengths of subfields based on class types
     if hasattr(data, "__dict__"):
@@ -83,7 +83,7 @@ def _system_check_helper(data, system_name: str, axis_count: int):
                         raise AxisCountException(axis_count, len(field_value))
 
 
-def recursive_coord_system_check(data, system_name: str, axis_count: int):
+def recursive_coord_system_check(data, coordinate_system_name: str, axis_count: int):
     """Recursively check fields, see if they are Coordinates and check if they match a List[values]
 
     Note that we just need to check if the axes all show up, not necessarily in matching order
@@ -94,14 +94,14 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
 
     if hasattr(data, "coordinate_system") and data.coordinate_system:
         # If we find a new coordinate_system, allow it to over-write our settings
-        system_name = data.coordinate_system.name
+        coordinate_system_name = data.coordinate_system.name
         axis_count = len(data.coordinate_system.axes)
 
-    # Check if the object we are looking at has a system_name field
-    if hasattr(data, "system_name"):
-        _system_check_helper(data, system_name, axis_count)
+    # Check if the object we are looking at has a coordinate_system_name field
+    if hasattr(data, "coordinate_system_name"):
+        _system_check_helper(data, coordinate_system_name, axis_count)
 
-    _recurse_helper(data=data, system_name=system_name, axis_count=axis_count)
+    _recurse_helper(data=data, coordinate_system_name=coordinate_system_name, axis_count=axis_count)
 
 
 def recursive_get_all_names(obj: Any) -> List[str]:

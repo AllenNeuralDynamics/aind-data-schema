@@ -41,9 +41,9 @@ class TestCompatibilityCheck(unittest.TestCase):
 
 
 class TranslationWrapper(DataModel):
-    """Wrapper for Translation class with a system_name field"""
+    """Wrapper for Translation class with a coordinate_system_name field"""
 
-    system_name: str
+    coordinate_system_name: str
     translation: Translation
 
 
@@ -52,35 +52,35 @@ class TestRecurseHelper(unittest.TestCase):
 
     def setUp(self):
         """Set up test data"""
-        self.system_name = "BREGMA_ARI"
+        self.coordinate_system_name = "BREGMA_ARI"
 
     def test_recurse_helper_with_list(self):
         """Test _recurse_helper with a list of coordinates"""
         data = [
             TranslationWrapper(
-                system_name=self.system_name,
+                coordinate_system_name=self.coordinate_system_name,
                 translation=Translation(
                     translation=[0.5, 1],
                 ),
             ),
             TranslationWrapper(
-                system_name=self.system_name,
+                coordinate_system_name=self.coordinate_system_name,
                 translation=Translation(
                     translation=[0.5, 1],
                 ),
             ),
         ]
-        _recurse_helper(data, system_name=self.system_name, axis_count=2)
+        _recurse_helper(data, coordinate_system_name=self.coordinate_system_name, axis_count=2)
 
     def test_recurse_helper_with_object(self):
         """Test _recurse_helper with a single coordinate object"""
         data = TranslationWrapper(
-            system_name=self.system_name,
+            coordinate_system_name=self.coordinate_system_name,
             translation=Translation(
                 translation=[0.5, 1],
             ),
         )
-        _recurse_helper(data, system_name=self.system_name, axis_count=2)
+        _recurse_helper(data, coordinate_system_name=self.coordinate_system_name, axis_count=2)
 
 
 class TestRecursiveSystemCheckHelper(unittest.TestCase):
@@ -88,37 +88,37 @@ class TestRecursiveSystemCheckHelper(unittest.TestCase):
 
     def setUp(self):
         """Set up test data"""
-        self.system_name = "BREGMA_ARI"
+        self.coordinate_system_name = "BREGMA_ARI"
         self.translation_wrapper = TranslationWrapper(
-            system_name=self.system_name, translation=Translation(translation=[0.5, 1])
+            coordinate_system_name=self.coordinate_system_name, translation=Translation(translation=[0.5, 1])
         )
 
     def test_system_check_helper_valid(self):
         """Test _system_check_helper with valid data"""
-        _system_check_helper(self.translation_wrapper, self.system_name, axis_count=2)
+        _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=2)
         # No exception raised means test passed
 
     def test_system_check_helper_missing_system_name(self):
-        """Test _system_check_helper with missing system_name"""
+        """Test _system_check_helper with missing coordinate_system_name"""
         with self.assertRaises(CoordinateSystemException):
             _system_check_helper(self.translation_wrapper, None, axis_count=2)
 
     def test_system_check_helper_missing_axis_count(self):
         """Test _system_check_helper with missing axis_count"""
         with self.assertRaises(CoordinateSystemException):
-            _system_check_helper(self.translation_wrapper, self.system_name, axis_count=None)
+            _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=None)
 
     def test_system_check_helper_wrong_system_name(self):
-        """Test _system_check_helper with wrong system_name"""
+        """Test _system_check_helper with wrong coordinate_system_name"""
         with self.assertRaises(SystemNameException) as context:
             _system_check_helper(self.translation_wrapper, "WRONG_SYSTEM", axis_count=2)
         self.assertEqual("WRONG_SYSTEM", context.exception.expected)
-        self.assertEqual(self.system_name, context.exception.found)
+        self.assertEqual(self.coordinate_system_name, context.exception.found)
 
     def test_system_check_helper_wrong_axis_count(self):
         """Test _system_check_helper with wrong axis_count"""
         with self.assertRaises(AxisCountException) as context:
-            _system_check_helper(self.translation_wrapper, self.system_name, axis_count=3)
+            _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=3)
         self.assertEqual(3, context.exception.expected)
         self.assertEqual(2, context.exception.found)
 
@@ -128,19 +128,19 @@ class TestRecursiveSystemCheckHelper(unittest.TestCase):
         class MultiAxisWrapper(DataModel):
             """Wrapper with multiple axis types"""
 
-            system_name: str
+            coordinate_system_name: str
             translation: Translation
             rotation: Rotation
             scale: Scale
 
         obj = MultiAxisWrapper(
-            system_name=self.system_name,
+            coordinate_system_name=self.coordinate_system_name,
             translation=Translation(translation=[0.5, 1]),
             rotation=Rotation(angles=[90, 180]),
             scale=Scale(scale=[1.0, 2.0]),
         )
 
-        _system_check_helper(obj, self.system_name, axis_count=2)
+        _system_check_helper(obj, self.coordinate_system_name, axis_count=2)
         # No exception means test passed
 
 
@@ -149,64 +149,64 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
     def setUp(self):
         """Set up test data"""
-        self.system_name = "BREGMA_ARI"
+        self.coordinate_system_name = "BREGMA_ARI"
 
     def test_recursive_coord_system_check_with_valid_data(self):
         """Test recursive_coord_system_check with valid data"""
         data = TranslationWrapper(
-            system_name=self.system_name,
+            coordinate_system_name=self.coordinate_system_name,
             translation=Translation(
                 translation=[0.5, 1],
             ),
         )
-        recursive_coord_system_check(data, self.system_name, axis_count=2)
+        recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
     def test_recursive_coord_system_check_with_invalid_system_name(self):
         """Test recursive_coord_system_check with invalid system name"""
         data = TranslationWrapper(
-            system_name="Invalid system name",
+            coordinate_system_name="Invalid system name",
             translation=Translation(
                 translation=[0.5, 1],
             ),
         )
         with self.assertRaises(SystemNameException) as context:
-            recursive_coord_system_check(data, self.system_name, axis_count=2)
+            recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
         self.assertIn("System name mismatch", str(context.exception))
 
     def test_recursive_coord_system_check_with_empty_data(self):
         """Test recursive_coord_system_check with empty data"""
         data = None
-        recursive_coord_system_check(data, self.system_name, axis_count=0)
+        recursive_coord_system_check(data, self.coordinate_system_name, axis_count=0)
 
     def test_recursive_coord_system_check_with_list_of_coordinates(self):
         """Test recursive_coord_system_check with a list of coordinates"""
         data = [
             TranslationWrapper(
-                system_name=self.system_name,
+                coordinate_system_name=self.coordinate_system_name,
                 translation=Translation(
                     translation=[0.5, 1],
                 ),
             ),
             TranslationWrapper(
-                system_name=self.system_name,
+                coordinate_system_name=self.coordinate_system_name,
                 translation=Translation(
                     translation=[0.5, 1],
                 ),
             ),
         ]
-        recursive_coord_system_check(data, self.system_name, axis_count=2)
+        recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
     def test_recursive_coord_system_check_with_axis_count_mismatch(self):
         """Test recursive_coord_system_check with axis count mismatch"""
         data = TranslationWrapper(
-            system_name=self.system_name,
+            coordinate_system_name=self.coordinate_system_name,
             translation=Translation(
                 translation=[0.5, 1, 2],
             ),
         )
         with self.assertRaises(AxisCountException) as context:
-            recursive_coord_system_check(data, self.system_name, axis_count=2)
+            recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
         self.assertIn("Axis count mismatch", str(context.exception))
 
@@ -216,9 +216,9 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
         class MockData(BaseModel):
             """Test class"""
 
-            system_name: str
+            coordinate_system_name: str
 
-        data = MockData(system_name=self.system_name)
+        data = MockData(coordinate_system_name=self.coordinate_system_name)
 
         with self.assertRaises(CoordinateSystemException) as context:
             recursive_coord_system_check(data, None, axis_count=0)

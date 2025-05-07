@@ -50,7 +50,7 @@ surgery1 = Surgery(
         Craniotomy(
             craniotomy_type=CraniotomyType.CIRCLE,
             protocol_id="1234",
-            system_name="LAMBDA_RASD",
+            coordinate_system_name="LAMBDA_RASD",
             position=Translation(translation=[-2, 2, 0, 0]),
             size=1,
             size_unit=SizeUnit.MM,
@@ -69,7 +69,7 @@ surgery1 = Surgery(
                     titer=2300000000,
                 )
             ],
-            system_name=coordinate_system.name,
+            coordinate_system_name=coordinate_system.name,
             coordinates=[
                 [
                     Translation(translation=[-0.85, -3.8, 0, 3.3]),

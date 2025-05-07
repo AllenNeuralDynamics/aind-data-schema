@@ -143,7 +143,7 @@ class Section(DataModel):
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
     # Coordinates
-    system_name: str = Field(..., title="Coordinate system name")
+    coordinate_system_name: str = Field(..., title="Coordinate system name")
     start_coordinate: Translation = Field(..., title="Start coordinate")
     end_coordinate: Optional[Translation] = Field(default=None, title="End coordinate")
     thickness: Optional[float] = Field(default=None, title="Slice thickness")
@@ -276,7 +276,7 @@ class Craniotomy(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
-    system_name: Optional[str] = Field(default=None, title="Coordinate system name")
+    coordinate_system_name: Optional[str] = Field(default=None, title="Coordinate system name")
     position: Optional[Union[Translation, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
@@ -288,10 +288,10 @@ class Craniotomy(DataModel):
 
     @model_validator(mode="after")
     def check_system_if_position(cls, values):
-        """Ensure that system_name is provided if position is provided"""
+        """Ensure that coordinate_system_name is provided if position is provided"""
 
-        if values.position and not values.system_name:
-            raise ValueError("Craniotomy.system_name must be provided if Craniotomy.position is provided")
+        if values.position and not values.coordinate_system_name:
+            raise ValueError("Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided")
         return values
 
     @model_validator(mode="after")
@@ -436,7 +436,7 @@ class Injection(DataModel):
 class BrainInjection(Injection):
     """Description of an injection procedure into a brain"""
 
-    system_name: str = Field(..., title="Coordinate system name")
+    coordinate_system_name: str = Field(..., title="Coordinate system name")
     coordinates: List[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
