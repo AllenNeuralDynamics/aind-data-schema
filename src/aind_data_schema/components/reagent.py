@@ -141,9 +141,9 @@ class HCRReadout(Readout):
     initiator_name: str = Field(..., title="Initiator name")
 
 
-class OligoProbeWithReadout(Reagent):  # probably want a different name
-    """probe used for HCR ... but not a HCR probe. Does this need a list of sequences?"""
+class OligoProbeWithReadout(Reagent):
+    """Description of an oligonucleotide probe and readout"""
 
     gene_probe: GeneProbes = Field(..., title="Gene probe")
     readout: Readout = Field(..., title="Readout")
-    species: Species.ONE_OF = Field(..., title="Species")  # should this live with the base oligo probe? gene probe?
+    species: Species.ONE_OF = Field(..., title="Species")
