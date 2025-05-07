@@ -9,7 +9,7 @@ from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
@@ -68,9 +68,7 @@ class DataProcess(DataModel):
     output_path: Optional[AssetPath] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
-    output_parameters: GenericModelType = Field(
-        default=GenericModel(), description="Output parameters", title="Outputs"
-    )
+    output_parameters: GenericModel = Field(default=GenericModel(), description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
@@ -98,7 +96,7 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.53"]] = Field(default="2.0.53")
+    schema_version: SkipValidation[Literal["2.0.54"]] = Field(default="2.0.54")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     pipelines: Optional[List[Code]] = Field(

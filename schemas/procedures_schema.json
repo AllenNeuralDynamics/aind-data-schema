@@ -674,10 +674,10 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Reagent": "#/$defs/NonViralMaterial",
-                        "Virus": "#/$defs/ViralMaterial"
+                        "Non viral material": "#/$defs/NonViralMaterial",
+                        "Viral material": "#/$defs/ViralMaterial"
                      },
-                     "propertyName": "material_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -6534,10 +6534,10 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Reagent": "#/$defs/NonViralMaterial",
-                        "Virus": "#/$defs/ViralMaterial"
+                        "Non viral material": "#/$defs/NonViralMaterial",
+                        "Viral material": "#/$defs/ViralMaterial"
                      },
-                     "propertyName": "material_type"
+                     "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
@@ -49179,8 +49179,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.22",
-         "default": "2.0.22",
+         "const": "2.0.23",
+         "default": "2.0.23",
          "title": "Schema Version",
          "type": "string"
       },
