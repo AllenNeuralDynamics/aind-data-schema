@@ -3,7 +3,7 @@
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit, PowerUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
@@ -44,7 +44,6 @@ camera_assembly_1 = d.CameraAssembly(
         name="Xenocam 1",
         model="XC0922LENS",
         manufacturer=d.Organization.OTHER,
-        max_aperture="f/1.4",
         notes='Focal Length 9-22mm 1/3" IR F1.4',
     ),
 )
@@ -73,7 +72,6 @@ camera_assembly_2 = d.CameraAssembly(
         name="Xenocam 2",
         model="XC0922LENS",
         manufacturer=d.Organization.OTHER,
-        max_aperture="f/1.4",
         notes='Focal Length 9-22mm 1/3" IR F1.4',
     ),
 )
@@ -235,10 +233,6 @@ lens = d.Lens(
     manufacturer=d.Organization.THORLABS,
     model="AC254-080-A-ML",
     name="Image focusing lens",
-    focal_length=80,
-    focal_length_unit=SizeUnit.MM,
-    size=1,
-    size_unit=SizeUnit.IN,
 )
 
 daq = d.HarpDevice(
@@ -260,7 +254,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="DO0",
+                port="DO0",
             ),
             "Solenoid Left": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -272,7 +266,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="DO1",
+                port="DO1",
             ),
             "Solenoid Right": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -284,7 +278,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI0",
+                port="DI0",
             ),
             "Janelia_Lick_Detector Left": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -296,7 +290,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI1",
+                port="DI1",
             ),
             "Janelia_Lick_Detector Right": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -308,7 +302,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI3",
+                port="DI3",
             ),
             "Photometry Clock": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -419,6 +413,7 @@ instrument = r.Instrument(
     calibrations=[calibration],
 )
 
-serialized = instrument.model_dump_json()
-deserialized = r.Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="fip_ophys")
+if __name__ == "__main__":
+    serialized = instrument.model_dump_json()
+    deserialized = r.Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="fip_ophys")

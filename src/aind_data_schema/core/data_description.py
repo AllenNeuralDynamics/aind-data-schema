@@ -121,7 +121,7 @@ class DataDescription(DataCoreModel):
         if m is None:
             raise ValueError(f"name({name}) does not match pattern")
 
-        creation_time = datetime_from_name_string(m.group("c_datetime"))  # replace with fromisoformat in python >3.11
+        creation_time = datetime_from_name_string(m.group("c_datetime"))
 
         if data_level == DataLevel.RAW:
             return dict(

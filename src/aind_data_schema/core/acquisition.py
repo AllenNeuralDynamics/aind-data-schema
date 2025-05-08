@@ -4,23 +4,17 @@ from decimal import Decimal
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import (
-    AwareDatetimeWithDefault,
-    DataCoreModel,
-    DataModel,
-    DiscriminatedList,
-    GenericModel,
-)
-from aind_data_schema.components.acquisition_configs import (
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
+from aind_data_schema.components.configs import (
     AirPuffConfig,
     DetectorConfig,
-    DomeModule,
+    EphysAssemblyConfig,
     FiberAssemblyConfig,
-    FieldOfView,
-    InVitroImagingConfig,
+    ImagingConfig,
     LaserConfig,
     LickSpoutConfig,
     LightEmittingDiodeConfig,
@@ -28,13 +22,12 @@ from aind_data_schema.components.acquisition_configs import (
     MousePlatformConfig,
     MRIScan,
     PatchCordConfig,
-    SlapFieldOfView,
+    ProbeConfig,
+    SampleChamberConfig,
+    SlapPlane,
     SpeakerConfig,
-    Stack,
-    StimulusModality,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
-from aind_data_schema.components.devices import Camera, CameraAssembly, EphysAssembly, FiberAssembly
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.core.instrument import Connection
@@ -47,21 +40,12 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[DomeModule, ManipulatorConfig]],
+    Modality.ECEPHYS: [[EphysAssemblyConfig, ProbeConfig, ManipulatorConfig]],
     Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
-    Modality.POPHYS: [[FieldOfView, SlapFieldOfView, Stack]],
+    Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
-}
-
-# This is ugly but one of the validators was just checking that the cameras were active in the device name list
-# so to replace that I'm going to add a validator that searches the instrument to make sure the active_devices
-# list contains a valid Camera and/or CameraAssembly. Note that this validator has to go in the `metadata` class
-MODALITY_DEVICE_REQUIREMENTS = {
-    Modality.BEHAVIOR_VIDEOS: [[CameraAssembly, Camera]],
-}
-CONFIG_DEVICE_REQUIREMENTS = {
-    "DomeModule": [EphysAssembly],
-    "FiberAssemblyConfig": [FiberAssembly],
+    Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
+    Modality.SLAP: [[ImagingConfig], [SlapPlane]],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
@@ -119,17 +103,17 @@ class DataStream(DataModel):
         LightEmittingDiodeConfig
         | LaserConfig
         | ManipulatorConfig
-        | DomeModule
         | DetectorConfig
         | PatchCordConfig
         | FiberAssemblyConfig
-        | FieldOfView
-        | SlapFieldOfView
-        | Stack
         | MRIScan
-        | InVitroImagingConfig
         | LickSpoutConfig
         | AirPuffConfig
+        | ImagingConfig
+        | SlapPlane
+        | SampleChamberConfig
+        | ProbeConfig
+        | EphysAssemblyConfig
     ] = Field(..., title="Device configurations")
 
     connections: List[Connection] = Field(
@@ -144,11 +128,16 @@ class DataStream(DataModel):
         for modality in self.modalities:
             if modality not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
-                continue
+                continue  # pragma: no cover
 
             for group in CONFIG_REQUIREMENTS[modality]:
-                if not any(isinstance(config, device) for config in self.configurations for device in group):
-                    raise ValueError(f"Missing required devices for modality {modality} in {self.configurations}")
+                if not any(isinstance(config, device_type) for config in self.configurations for device_type in group):
+                    # Get the types of all configurations
+                    group_types = [device_type.__name__ for device_type in group]
+                    config_types = [type(config).__name__ for config in self.configurations]
+                    raise ValueError(
+                        f"Missing one of required devices {group_types} for modality {modality.name} in {config_types}"
+                    )
 
         return self
 
@@ -222,11 +211,13 @@ class Acquisition(DataCoreModel):
     instrument_id: str = Field(..., title="Instrument ID")
     acquisition_type: str = Field(..., title="Acquisition type")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+    # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
         description="Required when coordinates are provided within the Acquisition",
-    )
+    )  # note: exact field name is used by a validator
 
     # Instrument metadata
     calibrations: List[CALIBRATIONS] = Field(
@@ -296,13 +287,15 @@ class Acquisition(DataCoreModel):
         spec_check = self.specimen_id != other.specimen_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        if any([subj_check, spec_check, inst_check, exp_type_check]):
+        cs_check = self.coordinate_system != other.coordinate_system
+        if any([subj_check, spec_check, inst_check, exp_type_check, cs_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
+                f"coordinate_system: {self.coordinate_system}/{other.coordinate_system}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -335,6 +328,7 @@ class Acquisition(DataCoreModel):
             ethics_review_id=ethics_review_id,
             instrument_id=self.instrument_id,
             calibrations=calibrations,
+            coordinate_system=self.coordinate_system,
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,

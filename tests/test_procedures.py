@@ -1,45 +1,41 @@
 """ test Procedures """
 
 import unittest
-from unittest.mock import patch
 from datetime import date
+from unittest.mock import patch
 
+from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import TimeUnit, ConcentrationUnit, VolumeUnit
+from aind_data_schema_models.units import ConcentrationUnit, CurrentUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
 
+from aind_data_schema.components.configs import ProbeConfig
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.procedures import (
     BrainInjection,
+    Craniotomy,
+    CraniotomyType,
+    HCRSeries,
+    Injection,
+    InjectionDynamics,
+    InjectionProfile,
     NonViralMaterial,
-    Procedures,
     PlanarSectioning,
+    ProbeImplant,
+    Procedures,
+    Section,
+    SectionOrientation,
     SpecimenProcedure,
     Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
-    InjectionDynamics,
-    InjectionProfile,
-    Injection,
-    Craniotomy,
-    CraniotomyType,
-    HCRSeries,
-    ProbeImplant,
-    Section,
-    SectionOrientation,
 )
-from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema.components.coordinates import (
-    Coordinate,
-    Origin,
-    Rotation,
-    CoordinateSystemLibrary,
-)
-from aind_data_schema_models.coordinates import AnatomicalRelative
-from aind_data_schema_models.mouse_anatomy import InjectionTargets
-from aind_data_schema_models.units import SizeUnit, CurrentUnit
 from aind_data_schema.utils.exceptions import OneOfError
+from examples.procedures import p as procedures
 
 
 class ProceduresTests(unittest.TestCase):
@@ -146,6 +142,18 @@ class ProceduresTests(unittest.TestCase):
                     total_length=10,
                 )
             ],
+            configurations=[
+                ProbeConfig(
+                    device_name="Probe A",
+                    primary_targeted_structure=CCFStructure.MOP,
+                    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+                    transform=[
+                        Translation(
+                            translation=[1, 2, 0, 2],
+                        ),
+                    ],
+                ),
+            ],
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
@@ -154,13 +162,11 @@ class ProceduresTests(unittest.TestCase):
                     protocol_id="123",
                     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
                     measured_coordinates={
-                        Origin.BREGMA: Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[0, 0, 0],
+                        Origin.BREGMA: Translation(
+                            translation=[0, 0, 0],
                         ),
-                        Origin.LAMBDA: Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[-4.1, 0, 0],
+                        Origin.LAMBDA: Translation(
+                            translation=[-4.1, 0, 0],
                         ),
                     },
                     procedures=[
@@ -213,6 +219,7 @@ class ProceduresTests(unittest.TestCase):
                         ),
                         BrainInjection(
                             protocol_id="bca",
+                            coordinate_system_name="BREGMA_ARI",
                             injection_materials=[
                                 ViralMaterial(
                                     material_type="Virus",
@@ -235,24 +242,17 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             coordinates=[
-                                Coordinate(
-                                    system_name="BREGMA_ARID",
-                                    position=[0.5, 1, 0, 1],
-                                ),
+                                [
+                                    Translation(
+                                        translation=[0.5, 1, 0, 1],
+                                    ),
+                                ],
                             ],
                             targeted_structure=CCFStructure.VISP6A,
                         ),
                         ProbeImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
                             implanted_device_names=["Probe A"],
-                            targeted_structure=CCFStructure.MOP,
-                            coordinate=Coordinate(
-                                system_name="BREGMA_ARID",
-                                position=[1, 2, 0, 2],
-                                angles=Rotation(
-                                    angles=[10, 0, 0],
-                                ),
-                            ),
                         ),
                     ],
                 )
@@ -350,15 +350,18 @@ class ProceduresTests(unittest.TestCase):
         # Should be okay
         inj1 = BrainInjection(
             protocol_id="abc",
+            coordinate_system_name="BREGMA_ARI",
             coordinates=[
-                Coordinate(
-                    system_name="BREGMA_ARID",
-                    position=[0.5, 1, 0, 0],
-                ),
-                Coordinate(
-                    system_name="BREGMA_ARID",
-                    position=[0.5, 1, 0, 1],
-                ),
+                [
+                    Translation(
+                        translation=[0.5, 1, 0, 0],
+                    ),
+                ],
+                [
+                    Translation(
+                        translation=[0.5, 1, 0, 1],
+                    ),
+                ],
             ],
             dynamics=[
                 InjectionDynamics(
@@ -391,15 +394,18 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             BrainInjection(
                 protocol_id="abc",
+                coordinate_system_name="BREGMA_ARI",
                 coordinates=[
-                    Coordinate(
-                        system_name="BREGMA_ARID",
-                        position=[0.5, 1, 0, 0],
-                    ),
-                    Coordinate(
-                        system_name="BREGMA_ARID",
-                        position=[0.5, 1, 0, 1],
-                    ),
+                    [
+                        Translation(
+                            translation=[0.5, 1, 0, 0],
+                        ),
+                    ],
+                    [
+                        Translation(
+                            translation=[0.5, 1, 0, 1],
+                        ),
+                    ],
                 ],
                 injection_materials=[
                     ViralMaterial(
@@ -434,31 +440,29 @@ class ProceduresTests(unittest.TestCase):
                 Section(
                     output_specimen_id="123456_001",
                     targeted_structure=CCFStructure.MOP,
-                    start_coordinate=Coordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.3, 0, 0],
+                    coordinate_system_name="BREGMA_ARI",
+                    start_coordinate=Translation(
+                        translation=[0.3, 0, 0],
                     ),
-                    end_coordinate=Coordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.5, 0, 0],
+                    end_coordinate=Translation(
+                        translation=[0.5, 0, 0],
                     ),
                 ),
                 Section(
                     output_specimen_id="123456_002",
-                    start_coordinate=Coordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.5, 0, 0],
+                    coordinate_system_name="BREGMA_ARI",
+                    start_coordinate=Translation(
+                        translation=[0.5, 0, 0],
                     ),
-                    end_coordinate=Coordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.7, 0, 0],
+                    end_coordinate=Translation(
+                        translation=[0.7, 0, 0],
                     ),
                 ),
                 Section(
                     output_specimen_id="123456_003",
-                    start_coordinate=Coordinate(
-                        system_name="BREGMA_ARI",
-                        position=[0.7, 0, 0],
+                    coordinate_system_name="BREGMA_ARI",
+                    start_coordinate=Translation(
+                        translation=[0.7, 0, 0],
                     ),
                     thickness=0.1,
                     thickness_unit=SizeUnit.MM,
@@ -475,9 +479,9 @@ class ProceduresTests(unittest.TestCase):
                 sections=[
                     Section(
                         output_specimen_id="123456_001",
-                        start_coordinate=Coordinate(
-                            system_name="BREGMA_ARI",
-                            position=[0.3, 0, 0],
+                        coordinate_system_name="BREGMA_ARI",
+                        start_coordinate=Translation(
+                            translation=[0.3, 0, 0],
                         ),
                     ),
                 ],
@@ -542,7 +546,10 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            coordinate_system_name="TestSystem",
+            position=Translation(
+                translation=[0.5, 1, 0, 0],
+            ),
             size=2.0,
             size_unit=SizeUnit.MM,
         )
@@ -553,6 +560,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
+                coordinate_system_name="TestSystem",
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
@@ -562,6 +570,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
+                coordinate_system_name="TestSystem",
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
@@ -571,6 +580,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.WHC,
+                coordinate_system_name="TestSystem",
             )
         self.assertIn(
             "Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception)
@@ -583,6 +593,36 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertIsNotNone(craniotomy)
 
+    def test_craniotomy_system_name_if_position(self):
+        """Test that coordinate_system_name is required if position is provided"""
+        # Should be okay
+        craniotomy = Craniotomy(
+            protocol_id="123",
+            craniotomy_type=CraniotomyType.CIRCLE,
+            coordinate_system_name="TestSystem",
+            position=Translation(
+                translation=[0.5, 1, 0, 0],
+            ),
+            size=2.0,
+            size_unit=SizeUnit.MM,
+        )
+        self.assertIsNotNone(craniotomy)
+
+        # Missing coordinate_system_name for required craniotomy types should raise an error
+        with self.assertRaises(ValueError) as e:
+            Craniotomy(
+                protocol_id="123",
+                craniotomy_type=CraniotomyType.CIRCLE,
+                position=Translation(
+                    translation=[0.5, 1, 0, 0],
+                ),
+                size=2.0,
+                size_unit=SizeUnit.MM,
+            )
+        self.assertIn(
+            "Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided", str(e.exception)
+        )
+
     def test_craniotomy_size_validation(self):
         """Test validation for craniotomy size"""
 
@@ -590,7 +630,10 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+            coordinate_system_name="TestSystem",
+            position=Translation(
+                translation=[0.5, 1, 0, 0],
+            ),
             size=2.0,
             size_unit=SizeUnit.MM,
         )
@@ -601,7 +644,10 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
-                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+                coordinate_system_name="TestSystem",
+                position=Translation(
+                    translation=[0.5, 1, 0, 0],
+                ),
             )
         self.assertIn("Craniotomy.size must be provided for craniotomy type Circle", str(e.exception))
 
@@ -609,7 +655,10 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
-                position=Coordinate(system_name="BREGMA_ARID", position=[0.5, 1, 0, 0]),
+                coordinate_system_name="TestSystem",
+                position=Translation(
+                    translation=[0.5, 1, 0, 0],
+                ),
             )
         self.assertIn("Craniotomy.size must be provided for craniotomy type Square", str(e.exception))
 
@@ -645,6 +694,18 @@ class ProceduresTests(unittest.TestCase):
                 profile=InjectionProfile.BOLUS,
             )
         self.assertIn("Either volume or injection_current must be provided.", str(e.exception))
+
+    def test_validate_configurations(self):
+        """Validate that configurations without an implanted_device throw errors"""
+
+        proc = procedures.model_copy()
+        proc.implanted_devices = []
+
+        with self.assertRaises(ValidationError) as e:
+
+            Procedures.model_validate_json(proc.model_dump_json())
+
+        self.assertIn("Configuration for Probe A in Procedures.configurations", repr(e.exception))
 
 
 if __name__ == "__main__":

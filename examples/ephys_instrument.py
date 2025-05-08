@@ -63,21 +63,21 @@ connections = [
     Connection(
         device_names=["Harp Behavior", "Face Camera"],
         connection_data={
-            "Harp Behavior": ConnectionData(channel="DO0", direction=ConnectionDirection.SEND),
+            "Harp Behavior": ConnectionData(port="DO0", direction=ConnectionDirection.SEND),
             "Face Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
         },
     ),
     Connection(
         device_names=["Harp Behavior", "Body Camera"],
         connection_data={
-            "Harp Behavior": ConnectionData(channel="DO1", direction=ConnectionDirection.SEND),
+            "Harp Behavior": ConnectionData(port="DO1", direction=ConnectionDirection.SEND),
             "Body Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
         },
     ),
     Connection(
         device_names=["Harp Behavior", "Running Wheel"],
         connection_data={
-            "Harp Behavior": ConnectionData(channel="AI0", direction=ConnectionDirection.RECEIVE),
+            "Harp Behavior": ConnectionData(port="AI0", direction=ConnectionDirection.RECEIVE),
             "Running Wheel": ConnectionData(direction=ConnectionDirection.SEND),
         },
     ),
@@ -262,10 +262,7 @@ filt = Filter(
 
 lens = Lens(
     name="Camera lens",
-    focal_length=15,
-    focal_length_unit=SizeUnit.MM,
     manufacturer=Organization.EDMUND_OPTICS,
-    max_aperture="f/2",
 )
 
 face_camera = Camera(
@@ -361,6 +358,8 @@ inst = Instrument(
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
-serialized = inst.model_dump_json()
-deserialized = Instrument.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="ephys")
+
+if __name__ == "__main__":
+    serialized = inst.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="ephys")

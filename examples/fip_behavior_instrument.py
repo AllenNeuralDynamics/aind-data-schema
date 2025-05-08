@@ -71,8 +71,7 @@ camera1 = CameraAssembly(
         name="Xenocam 1",
         model="XC0922LENS",
         manufacturer=Organization.OTHER,
-        max_aperture="f/1.4",
-        notes='Focal Length 9-22mm 1/3" IR F1.4',
+        notes='Focal Length 9-22mm 1/3" IR F1.4, manufacturer Xenocam',
     ),
 )
 
@@ -100,8 +99,7 @@ camera2 = CameraAssembly(
         name="Xenocam 2",
         model="XC0922LENS",
         manufacturer=Organization.OTHER,
-        max_aperture="f/1.4",
-        notes='Focal Length 9-22mm 1/3" IR F1.4',
+        notes='Focal Length 9-22mm 1/3" IR F1.4, manufacturer Xenocam',
     ),
 )
 
@@ -126,7 +124,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="DO0",
+                port="DO0",
             ),
             "Solenoid Left": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -138,7 +136,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="DO1",
+                port="DO1",
             ),
             "Solenoid Right": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -150,7 +148,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI0",
+                port="DI0",
             ),
             "Janelia_Lick_Detector Left": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -162,7 +160,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI1",
+                port="DI1",
             ),
             "Janelia_Lick_Detector Right": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -174,7 +172,7 @@ connections = [
         connection_data={
             "Harp Behavior": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
-                channel="DI3",
+                port="DI3",
             ),
             "Photometry Clock": ConnectionData(
                 direction=ConnectionDirection.SEND,
@@ -400,10 +398,6 @@ lens = Lens(
     manufacturer=Organization.THORLABS,
     model="AC254-080-A-ML",
     name="Image focusing lens",
-    focal_length=80,
-    focal_length_unit=SizeUnit.MM,
-    size=1,
-    size_unit=SizeUnit.IN,
 )
 
 tube = Tube(name="mouse_tube_foraging", diameter=4.0)
@@ -465,4 +459,8 @@ inst = Instrument(
     calibrations=calibrations,
 )
 
-inst.write_standard_file(prefix="fip_behavior")
+
+if __name__ == "__main__":
+    serialized = inst.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="fip_behavior")

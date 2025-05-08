@@ -1,7 +1,9 @@
 """Test identifier module"""
 
 import unittest
+
 from pydantic import ValidationError
+
 from aind_data_schema.components.identifiers import Person
 
 

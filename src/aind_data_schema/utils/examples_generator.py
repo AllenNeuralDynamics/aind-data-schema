@@ -2,7 +2,7 @@
 
 import logging
 import os
-import runpy
+import subprocess
 from glob import glob
 from pathlib import Path
 
@@ -18,17 +18,18 @@ class ExamplesGenerator:
         """Generate all examples in EXAMPLES_DIR"""
 
         logging.info(f"Running all examples in {EXAMPLES_DIR}")
-        for example_file in glob(f"{EXAMPLES_DIR}/*.py"):
-            logging.info(f"Running {example_file}")
-            runpy.run_path(path_name=example_file)
+        for example_file in glob(str(EXAMPLES_DIR / "*.py")):
+            if Path(example_file).name == "__init__.py":
+                continue
+            self.generate_example(example_file)
 
     def generate_example(self, example_file):
         """Generate example from example_file"""
 
         logging.info(f"Running {example_file}")
         try:
-            runpy.run_path(path_name=example_file)
-        except Exception as e:
+            subprocess.run(["python", example_file], check=True)
+        except subprocess.CalledProcessError as e:
             logging.info(f"Error running {example_file}: {e}")
 
 

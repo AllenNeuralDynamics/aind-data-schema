@@ -31,6 +31,7 @@ from aind_data_schema.components.devices import (
     LickSpout,
     LickSpoutAssembly,
     Manipulator,
+    Microscope,
     NeuropixelsBasestation,
     Objective,
     Olfactometer,
@@ -46,10 +47,15 @@ from aind_data_schema.core.instrument import (
     ConnectionDirection,
     Instrument,
 )
+from examples.ephys_instrument import inst as ephys_instrument
 
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
 computer_W10XXX000 = Computer(name="W10XXX000")
+
+microscope = Microscope(
+    name="Microscope A",
+)
 
 daqs = [
     NeuropixelsBasestation(
@@ -86,7 +92,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="123",
+                port="123",
             ),
             "Laser A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -98,7 +104,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="321",
+                port="321",
             ),
             "Probe A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -110,7 +116,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="234",
+                port="234",
             ),
             "Camera A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -122,7 +128,7 @@ connections = [
         connection_data={
             "Neuropixels basestation": ConnectionData(
                 direction=ConnectionDirection.SEND,
-                channel="2354",
+                port="2354",
             ),
             "Disc A": ConnectionData(
                 direction=ConnectionDirection.RECEIVE,
@@ -236,7 +242,7 @@ cameras = [
         name="cam",
         target=CameraTarget.FACE,
         relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.INFERIOR],
-        lens=Lens(name="Camera lens", manufacturer=Organization.OTHER),
+        lens=Lens(name="Camera lens", manufacturer=Organization.OTHER, notes="Manufacturer unknown"),
         camera=Camera(
             name="Camera A",
             detector_type=DetectorType.CAMERA,
@@ -247,6 +253,7 @@ cameras = [
             sensor_width=1,
             sensor_height=1,
             chroma="Color",
+            notes="Manufacturer unknown",
         ),
     )
 ]
@@ -291,10 +298,11 @@ stick_microscopes = [
             sensor_width=1,
             sensor_height=1,
             chroma="Color",
+            notes="Manufacturer unknown",
         ),
         target=CameraTarget.BRAIN,
         relative_position=[AnatomicalRelative.SUPERIOR],
-        lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+        lens=Lens(name="Lens A", manufacturer=Organization.OTHER, notes="Manufacturer unknown"),
     )
 ]
 light_sources = [
@@ -407,42 +415,7 @@ class InstrumentTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             Instrument()
 
-        inst = Instrument(
-            instrument_id="123_EPHYS1-OPTO_20220101",
-            modification_date=date(2020, 10, 10),
-            modalities=[Modality.ECEPHYS, Modality.FIB],
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            components=[
-                *daqs,
-                *cameras,
-                *stick_microscopes,
-                *light_sources,
-                *lms,
-                laser,
-                *ems,
-                *detectors,
-                *patch_cords,
-                *stimulus_devices,
-                scan_stage,
-                Disc(name="Disc A", radius=1),
-                computer_ASDF,
-                computer_foo,
-                computer_W10XXX000,
-            ],
-            connections=connections,
-            calibrations=[
-                Calibration(
-                    calibration_date=date(2020, 10, 10),
-                    device_name="Laser A",
-                    description="Laser power calibration",
-                    input=[10, 40, 80],
-                    input_unit=PowerUnit.PERCENT,
-                    output=[2, 6, 10],
-                    output_unit=PowerUnit.MW,
-                )
-            ],
-        )
-        self.assertIsNotNone(inst)
+        self.assertIsNotNone(ephys_instrument)
 
     def test_other_camera_target(self):
         """Test that the camera_target being set to Other throws a validation error without notes"""
@@ -583,7 +556,7 @@ class InstrumentTests(unittest.TestCase):
         """Test that the modality -> device validator does not throw validation errors when devices are present"""
 
         # Mapping is a dictionary of Modality -> List[Device groups]
-        for modality_abbreviation, device_groups in DEVICES_REQUIRED.items():
+        for modality_abbreviation, _ in DEVICES_REQUIRED.items():
 
             inst = Instrument(
                 modalities=[Modality.from_abbreviation(modality_abbreviation)],
@@ -604,37 +577,11 @@ class InstrumentTests(unittest.TestCase):
                     laser,
                     dmd,
                     scan_stage,
+                    microscope,
                 ],
                 calibrations=[],
             )
             self.assertIsNotNone(inst)
-
-    def test_validator_notes(self):
-        """Test the notes validator"""
-
-        # Test when manufacturer is OTHER and notes are empty
-        with self.assertRaises(ValidationError):
-            Instrument(
-                instrument_id="123_EPHYS1-OPTO_20220101",
-                modification_date=date(2020, 10, 10),
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                modalities=[Modality.ECEPHYS],
-                components=[*daqs, *ems],
-                manufacturer=Organization.OTHER,
-                notes=None,
-            )
-
-        # Test when notes are provided for manufacturer OTHER
-        inst = Instrument(
-            instrument_id="123_EPHYS1-OPTO_20220101",
-            modification_date=date(2020, 10, 10),
-            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            modalities=[Modality.ECEPHYS],
-            components=[*daqs, *ems],
-            manufacturer=Organization.OTHER,
-            notes="This is a custom manufacturer.",
-        )
-        self.assertIsNotNone(inst)
 
     def test_serialize_modalities(self):
         """Tests that modalities serializer can handle different types"""
@@ -658,23 +605,26 @@ class InstrumentTests(unittest.TestCase):
     def test_coordinate_validator(self):
         """Test the coordinate_validator function"""
 
+        camera = Camera(
+            name="Camera A",
+            detector_type=DetectorType.CAMERA,
+            manufacturer=Organization.OTHER,
+            data_interface="USB",
+            frame_rate=144,
+            frame_rate_unit=FrequencyUnit.HZ,
+            sensor_width=1,
+            sensor_height=1,
+            chroma="Color",
+            notes="Manufacturer unknown",
+        )
+
         # Create a matching CameraAssembly
-        camera = CameraAssembly(
+        camera_assembly = CameraAssembly(
             name="Assembly A",
-            camera=Camera(
-                name="Camera A",
-                detector_type=DetectorType.CAMERA,
-                manufacturer=Organization.OTHER,
-                data_interface="USB",
-                frame_rate=144,
-                frame_rate_unit=FrequencyUnit.HZ,
-                sensor_width=1,
-                sensor_height=1,
-                chroma="Color",
-            ),
+            camera=camera,
             target=CameraTarget.BRAIN,
             relative_position=[AnatomicalRelative.SUPERIOR],
-            lens=Lens(name="Lens A", manufacturer=Organization.OTHER),
+            lens=Lens(name="Lens A", manufacturer=Organization.OTHER, notes="Manufacturer unknown"),
         )
 
         inst = Instrument(
@@ -695,7 +645,7 @@ class InstrumentTests(unittest.TestCase):
                 *stimulus_devices,
                 scan_stage,
                 Disc(name="Disc A", radius=1),
-                camera,
+                camera_assembly,
                 computer_ASDF,
             ],
             calibrations=[],
@@ -727,7 +677,7 @@ class ConnectionTest(unittest.TestCase):
             connection_data={
                 "Neuropixels basestation": ConnectionData(
                     direction=ConnectionDirection.SEND,
-                    channel="123",
+                    port="123",
                 ),
                 "Laser A": ConnectionData(
                     direction=ConnectionDirection.RECEIVE,
@@ -742,7 +692,7 @@ class ConnectionTest(unittest.TestCase):
                 connection_data={
                     "Neuropixels basestation": ConnectionData(
                         direction=ConnectionDirection.SEND,
-                        channel="123",
+                        port="123",
                     ),
                     "Laser A": ConnectionData(
                         direction=ConnectionDirection.RECEIVE,

@@ -1,0 +1,444 @@
+"""Generates an example instrument JSON for a multiplane-ophys session"""
+
+from datetime import date
+
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.devices import CameraTarget
+from aind_data_schema_models.coordinates import AnatomicalRelative
+
+from aind_data_schema.components.coordinates import (
+    CoordinateSystemLibrary,
+    Affine,
+    Translation,
+)
+from aind_data_schema.components.devices import (
+    BinMode,
+    Camera,
+    CameraAssembly,
+    Cooling,
+    DAQChannel,
+    DaqChannelType,
+    DAQDevice,
+    DataInterface,
+    Detector,
+    Disc,
+    Filter,
+    Laser,
+    Lens,
+    Monitor,
+    PockelsCell,
+    Computer,
+)
+from aind_data_schema.components.devices import Objective
+from aind_data_schema.components.identifiers import Software
+from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+
+instrument = Instrument(
+    instrument_id="429_mesoscope_20220321",
+    modification_date=date(2024, 10, 16),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+    modalities=[Modality.POPHYS],
+    notes=None,
+    temperature_control=None,
+    components=[
+        Disc(
+            name="MindScope Running Disc",
+            serial_number=None,
+            manufacturer=Organization.AIND,
+            model=None,
+            notes=None,
+            surface_material="Kittrich Magic Cover Solid Grip Liner",
+            radius=8.255,
+            radius_unit="centimeter",
+            output="Digital Output",
+            encoder="CUI Devices AMT102-V 0000 Dip Switch 2048 ppr",
+            decoder="LS7366R",
+            encoder_firmware=Software(
+                name="ls7366r_quadrature_counter",
+                version="0.1.6",
+            ),
+        ),
+        Monitor(
+            name="Stimulus Screen",
+            serial_number=None,
+            manufacturer=Organization.ASUS,
+            model="PA248Q",
+            notes="viewing distance is from screen normal to bregma",
+            refresh_rate=60,
+            width=1920,
+            height=1200,
+            size_unit="pixel",
+            viewing_distance=15.5,
+            viewing_distance_unit="centimeter",
+            relative_position=[AnatomicalRelative.ANTERIOR],
+            contrast=None,
+            brightness=None,
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            transform=[
+                Affine(
+                    affine_transform=[
+                        [
+                            -0.80914,
+                            -0.58761,
+                            0,
+                        ],
+                        [
+                            -0.12391,
+                            0.17063,
+                            0.97751,
+                        ],
+                        [
+                            -0.5744,
+                            0.79095,
+                            -0.21087,
+                        ],
+                    ],
+                ),
+                Translation(
+                    translation=[
+                        0.08751,
+                        -0.12079,
+                        0.02298,
+                    ],
+                ),
+            ],
+        ),
+        CameraAssembly(
+            name="Behavior Camera",
+            target=CameraTarget.BODY,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            camera=Camera(
+                name="Behavior Camera",
+                serial_number=None,
+                manufacturer=Organization.ALLIED,
+                model="Mako G-32B",
+                notes=None,
+                data_interface="Ethernet",
+                cooling=Cooling.NONE,
+                frame_rate=60.0,
+                frame_rate_unit=FrequencyUnit.HZ,
+                immersion=None,
+                chroma="Monochrome",
+                sensor_width=658,
+                sensor_height=492,
+                size_unit=SizeUnit.IN,
+                sensor_format="1/3",
+                sensor_format_unit=SizeUnit.IN,
+                bit_depth=8,
+                bin_mode=BinMode.NONE,
+                bin_width=None,
+                bin_height=None,
+                bin_unit=SizeUnit.PX,
+                gain=4.0,
+                crop_width=None,
+                crop_height=None,
+                crop_unit=SizeUnit.PX,
+                recording_software=Software(
+                    name="MultiVideoRecorder",
+                    version="1.1.7",
+                ),
+                driver="Vimba",
+                driver_version="Vimba GigE Transport Layer 1.6.0",
+            ),
+            lens=Lens(
+                name="Behavior Camera Lens",
+                manufacturer=Organization.THORLABS,
+                model="MVL6WA",
+            ),
+            filter=Filter(
+                name="Behavior Camera Filter",
+                serial_number=None,
+                manufacturer=Organization.SEMROCK,
+                model="FF01-747/33-25",
+                notes=None,
+                filter_type="Band pass",
+                cut_off_wavelength=780,
+                cut_on_wavelength=714,
+                center_wavelength=747,
+                wavelength_unit=SizeUnit.NM,
+            ),
+        ),
+        CameraAssembly(
+            name="Eye Camera",
+            target=CameraTarget.EYE,
+            relative_position=[AnatomicalRelative.LEFT],
+            camera=Camera(
+                name="Eye Camera",
+                serial_number=None,
+                manufacturer=Organization.ALLIED,
+                model="Mako G-32B",
+                notes=None,
+                data_interface="Ethernet",
+                cooling=Cooling.NONE,
+                frame_rate=60.0,
+                frame_rate_unit=FrequencyUnit.HZ,
+                immersion=None,
+                chroma="Monochrome",
+                sensor_width=658,
+                sensor_height=492,
+                size_unit=SizeUnit.IN,
+                sensor_format="1/3",
+                sensor_format_unit=SizeUnit.IN,
+                bit_depth=8,
+                bin_mode=BinMode.NONE,
+                bin_width=None,
+                bin_height=None,
+                bin_unit=SizeUnit.PX,
+                gain=22.0,
+                crop_width=None,
+                crop_height=None,
+                crop_unit=SizeUnit.PX,
+                recording_software=Software(
+                    name="MultiVideoRecorder",
+                    version="1.1.7",
+                ),
+                driver="Vimba",
+                driver_version="Vimba GigE Transport Layer 1.6.0",
+            ),
+            lens=Lens(
+                name="Eye Camera Lens",
+                manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
+                model="213073",
+            ),
+            filter=Filter(
+                name="Eye Camera Filter",
+                serial_number=None,
+                manufacturer=Organization.SEMROCK,
+                model="FF01-850/10-25",
+                notes=None,
+                filter_type="Band pass",
+                cut_off_wavelength=860,
+                cut_on_wavelength=840,
+                center_wavelength=850,
+                wavelength_unit=SizeUnit.NM,
+            ),
+        ),
+        CameraAssembly(
+            name="Face Camera",
+            target=CameraTarget.FACE,
+            relative_position=[AnatomicalRelative.ANTERIOR],
+            camera=Camera(
+                name="Face Camera",
+                serial_number=None,
+                manufacturer=Organization.ALLIED,
+                model="Mako G-32B",
+                notes=None,
+                detector_type="Camera",
+                data_interface="Ethernet",
+                cooling=Cooling.NONE,
+                frame_rate=60.0,
+                frame_rate_unit=FrequencyUnit.HZ,
+                immersion=None,
+                chroma="Monochrome",
+                sensor_width=658,
+                sensor_height=492,
+                size_unit=SizeUnit.IN,
+                sensor_format="1/3",
+                sensor_format_unit=SizeUnit.IN,
+                bit_depth=8,
+                bin_mode=BinMode.NONE,
+                bin_width=None,
+                bin_height=None,
+                bin_unit=SizeUnit.PX,
+                gain=13.0,
+                crop_width=None,
+                crop_height=None,
+                crop_unit=SizeUnit.PX,
+                recording_software=Software(
+                    name="MultiVideoRecorder",
+                    version="1.1.7",
+                ),
+                driver="Vimba",
+                driver_version="Vimba GigE Transport Layer 1.6.0",
+            ),
+            lens=Lens(
+                name="Face Camera Lens",
+                manufacturer=Organization.EDMUND_OPTICS,
+                model="86-604",
+            ),
+            filter=Filter(
+                name="Face Camera Filter",
+                serial_number=None,
+                manufacturer=Organization.SEMROCK,
+                model="FF01-715/LP-25",
+                notes=None,
+                filter_type="Long pass",
+                cut_on_wavelength=715,
+                center_wavelength=None,
+                wavelength_unit=SizeUnit.NM,
+            ),
+        ),
+        Laser(
+            name="Axon 920-2 TPC",
+            wavelength=920,
+            wavelength_unit=SizeUnit.NM,
+            serial_number="GDP.1007S.3490",
+            manufacturer=Organization.COHERENT_SCIENTIFIC,
+        ),
+        Detector(
+            name="H11706-40",
+            detector_type="Photomultiplier Tube",
+            manufacturer=Organization.HAMAMATSU,
+            data_interface=DataInterface.PCIE,
+        ),
+        Objective(
+            name="Mesoscope JenOptik Objective",
+            numerical_aperture=0.8,
+            magnification=3.6,
+            manufacturer=Organization.JENOPTIK,
+            immersion="water",
+            model="14163000",
+        ),
+        PockelsCell(
+            name="Pockels Cell 1",
+            polygonal_scanner="",
+            on_time=12.0,
+            off_time=13.0,
+            manufacturer=Organization.CONOPTICS,
+            model="350-80",
+            serial_number="354683BK",
+        ),
+        Computer(
+            name="MESO1STIM",
+            operating_system=None,
+        ),
+        Computer(
+            name="MESO1SYNC",
+            operating_system=None,
+        ),
+        Computer(
+            name="Video Monitor",
+            operating_system=None,
+        ),
+        DAQDevice(
+            name="VBEB DAQ",
+            serial_number=None,
+            manufacturer=Organization.NATIONAL_INSTRUMENTS,
+            channels=[],
+            model="USB-6001",
+            notes=None,
+            data_interface="USB",
+            firmware_version=None,
+            hardware_version=None,
+        ),
+        DAQDevice(
+            name="SYNC DAQ",
+            serial_number=None,
+            manufacturer=Organization.NATIONAL_INSTRUMENTS,
+            model="PCIe-6612",
+            notes=None,
+            data_interface="PCIe",
+            channels=[
+                DAQChannel(
+                    channel_name="P0.3",
+                    channel_type=DaqChannelType.DI,
+                    port=0,
+                    channel_index=3,
+                    sample_rate=100.0,
+                    sample_rate_unit=FrequencyUnit.KHZ,
+                )
+            ],
+            firmware_version=None,
+            hardware_version=None,
+        ),
+        DAQDevice(
+            name="STIM DAQ",
+            serial_number=None,
+            manufacturer=Organization.NATIONAL_INSTRUMENTS,
+            model="PCIe-6321",
+            notes=None,
+            data_interface="PCIe",
+            channels=[],
+            firmware_version=None,
+            hardware_version=None,
+        ),
+    ],
+    connections=[
+        Connection(
+            device_names=["SYNC DAQ", "MESO1STIM"],
+            connection_data={
+                "SYNC DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                    port="P0.3",
+                ),
+                "MESO1STIM": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["Video Monitor", "Behavior Camera"],
+            connection_data={
+                "Video Monitor": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "Behavior Camera": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["Video Monitor", "Eye Camera"],
+            connection_data={
+                "Video Monitor": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "Eye Camera": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["Video Monitor", "Face Camera"],
+            connection_data={
+                "Video Monitor": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "Face Camera": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["VBEB DAQ", "MESO1STIM"],
+            connection_data={
+                "VBEB DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "MESO1STIM": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["SYNC DAQ", "MESO1SYNC"],
+            connection_data={
+                "SYNC DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "MESO1SYNC": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["STIM DAQ", "MESO1STIM"],
+            connection_data={
+                "STIM DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "MESO1STIM": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+    ],
+    calibrations=[],
+)
+
+if __name__ == "__main__":
+    serialized = instrument.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="multiplane_ophys")

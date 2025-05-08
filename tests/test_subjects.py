@@ -2,11 +2,13 @@
 
 import unittest
 from datetime import datetime
-from aind_data_schema.components.subjects import MouseSubject, Housing, LightCycle, Sex
+
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species, Strain
+
+from aind_data_schema.components.subjects import Housing, LightCycle, MouseSubject, Sex
 
 
 class TestMouseSubject(unittest.TestCase):

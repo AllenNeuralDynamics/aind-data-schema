@@ -1,6 +1,7 @@
 """Test components.stimulus"""
 
 import unittest
+
 from aind_data_schema.components.stimulus import AuditoryStimulation
 
 

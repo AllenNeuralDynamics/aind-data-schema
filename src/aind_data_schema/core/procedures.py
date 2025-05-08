@@ -11,24 +11,18 @@ from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
-from aind_data_schema_models.units import (
-    CurrentUnit,
-    MassUnit,
-    SizeUnit,
-    TimeUnit,
-    UnitlessUnit,
-    VolumeUnit,
-)
+from aind_data_schema_models.units import CurrentUnit, MassUnit, SizeUnit, TimeUnit, UnitlessUnit, VolumeUnit
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
-from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
+from aind_data_schema.components.configs import DeviceConfig, ProbeConfig
+from aind_data_schema.components.coordinates import TRANSFORM_TYPES, CoordinateSystem, Origin, Translation
+from aind_data_schema.components.devices import EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent, OligoProbe, HCRProbe, Stain, Antibody
-from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
+from aind_data_schema.components.reagent import Antibody, HCRProbe, OligoProbe, Reagent, Stain
 from aind_data_schema.utils.exceptions import OneOfError
+from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.validators import recursive_device_name_check, subject_specimen_id_compatibility
 
 
 class SectionOrientation(str, Enum):
@@ -149,8 +143,9 @@ class Section(DataModel):
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
     # Coordinates
-    start_coordinate: Coordinate = Field(..., title="Start coordinate")
-    end_coordinate: Optional[Coordinate] = Field(default=None, title="End coordinate")
+    coordinate_system_name: str = Field(..., title="Coordinate system name")
+    start_coordinate: Translation = Field(..., title="Start coordinate")
+    end_coordinate: Optional[Translation] = Field(default=None, title="End coordinate")
     thickness: Optional[float] = Field(default=None, title="Slice thickness")
     thickness_unit: Optional[SizeUnit] = Field(default=None, title="Slice thickness unit")
 
@@ -180,7 +175,7 @@ class PlanarSectioning(DataModel):
         default=None,
         title="Sectioning coordinate system",
         description="Only required if different from the Procedures.coordinate_system",
-    )
+    )  # note: exact field name is used by a validator
 
     sections: List[Section] = Field(..., title="Sections")
     section_orientation: SectionOrientation = Field(..., title="Sectioning orientation")
@@ -281,7 +276,8 @@ class Craniotomy(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
-    position: Optional[Union[Coordinate, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
+    coordinate_system_name: Optional[str] = Field(default=None, title="Coordinate system name")
+    position: Optional[Union[Translation, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
     size_unit: Optional[SizeUnit] = Field(default=None, title="Craniotomy size unit")
@@ -289,6 +285,14 @@ class Craniotomy(DataModel):
     protective_material: Optional[ProtectiveMaterial] = Field(default=None, title="Protective material")
     implant_part_number: Optional[str] = Field(default=None, title="Implant part number")
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
+
+    @model_validator(mode="after")
+    def check_system_if_position(cls, values):
+        """Ensure that coordinate_system_name is provided if position is provided"""
+
+        if values.position and not values.coordinate_system_name:
+            raise ValueError("Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided")
+        return values
 
     @model_validator(mode="after")
     def check_position(cls, values):
@@ -430,9 +434,10 @@ class Injection(DataModel):
 
 
 class BrainInjection(Injection):
-    """Description of a brain injection procedure"""
+    """Description of an injection procedure into a brain"""
 
-    coordinates: List[Coordinate] = Field(..., title="Injection coordinate")
+    coordinate_system_name: str = Field(..., title="Coordinate system name")
+    coordinates: List[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
@@ -474,9 +479,6 @@ class ProbeImplant(DataModel):
     implanted_device_names: List[str] = Field(
         ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
     )  # note: exact field name is used by a validator
-
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    coordinate: Coordinate = Field(..., title="Stereotactic coordinate")
 
 
 class WaterRestriction(DataModel):
@@ -548,11 +550,13 @@ class Surgery(DataModel):
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Surgery coordinate system",
-        description="Only use this field when different from the Procedures.coordinate_system",
-    )
+        description=(
+            "Only required when the Surgery.coordinate_system " "is different from the Procedures.coordinate_system"
+        ),
+    )  # note: exact field name is used by a validator
 
     # Measured coordinates
-    measured_coordinates: Optional[Dict[Origin, Coordinate]] = Field(
+    measured_coordinates: Optional[Dict[Origin, Translation]] = Field(
         default=None,
         title="Measured coordinates",
         description="Coordinates measured during the procedure, for example Bregma and Lambda",
@@ -591,14 +595,19 @@ class Procedures(DataCoreModel):
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
 
     # Implanted devices
-    implanted_devices: List[Union[FiberProbe, MyomatrixArray]] = Field(default=[], title="Implanted devices")
+    implanted_devices: DiscriminatedList[EphysProbe | FiberProbe | MyomatrixArray] = Field(
+        default=[], title="Implanted devices"
+    )
+    configurations: DiscriminatedList[ProbeConfig | DeviceConfig] = Field(
+        default=[], title="Implanted device configurations"
+    )
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate System",
         description="Required when coordinates are provided in the procedures",
-    )
+    )  # note: exact field name is used by a validator
 
     notes: Optional[str] = Field(default=None, title="Notes")
 
@@ -613,6 +622,22 @@ class Procedures(DataCoreModel):
                 raise ValueError("All specimen_id must be identical in the specimen_procedures.")
 
         return v
+
+    @model_validator(mode="after")
+    def validate_configurations(cls, values):
+        """Validate that all configurations correspond to an implanted device"""
+
+        config_device_names = [config.device_name for config in values.configurations]
+        implanted_device_names = [device.name for device in values.implanted_devices]
+
+        for config_name in config_device_names:
+            if config_name not in implanted_device_names:
+                raise ValueError(
+                    f"Configuration for {config_name} in Procedures.configurations"
+                    " must refer to a device in Procedures.implanted_devices."
+                )
+
+        return values
 
     @model_validator(mode="after")
     def validate_subject_specimen_ids(values):

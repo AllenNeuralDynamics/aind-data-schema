@@ -2,25 +2,24 @@
 
 import json
 import unittest
+import warnings
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
+from typing import Literal, Optional
 from unittest.mock import MagicMock, call, mock_open, patch
-import warnings
 
-from pydantic import ValidationError, create_model, SkipValidation, Field
-from typing import Literal
+from aind_data_schema_models.brain_atlas import CCFStructure
+from pydantic import Field, SkipValidation, ValidationError, create_model
 
 from aind_data_schema.base import (
-    GenericModel,
-    AwareDatetimeWithDefault,
-    is_dict_corrupt,
-    DataModel,
-    DataCoreModel,
     MAX_FILE_SIZE,
+    AwareDatetimeWithDefault,
+    DataCoreModel,
+    DataModel,
+    GenericModel,
+    is_dict_corrupt,
 )
 from aind_data_schema.core.subject import Subject
-from aind_data_schema_models.brain_atlas import CCFStructure
 
 
 class BaseTests(unittest.TestCase):
