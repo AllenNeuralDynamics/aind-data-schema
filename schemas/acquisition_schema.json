@@ -5732,11 +5732,6 @@
                "title": "Object Type",
                "type": "string"
             },
-            "device_name": {
-               "description": "Must match a device defined in the instrument.json",
-               "title": "Device name",
-               "type": "string"
-            },
             "arc_angle": {
                "title": "Arc Angle (deg)",
                "type": "number"
@@ -5776,7 +5771,6 @@
             }
          },
          "required": [
-            "device_name",
             "arc_angle",
             "module_angle"
          ],
@@ -52842,8 +52836,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.23",
-         "default": "2.0.23",
+         "const": "2.0.24",
+         "default": "2.0.24",
          "title": "Schema Version",
          "type": "string"
       },

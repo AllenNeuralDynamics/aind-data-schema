@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.23",
-               "default": "2.0.23",
+               "const": "2.0.24",
+               "default": "2.0.24",
                "title": "Schema Version",
                "type": "string"
             },
@@ -17600,6 +17600,35 @@
          "title": "Funding",
          "type": "object"
       },
+      "GeneProbes": {
+         "additionalProperties": false,
+         "description": "Description of a set of oligonucleotide probes targeting a specific gene",
+         "properties": {
+            "object_type": {
+               "const": "Gene probes",
+               "default": "Gene probes",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "gene": {
+               "$ref": "#/$defs/PIDName",
+               "title": "Gene name"
+            },
+            "probes": {
+               "items": {
+                  "$ref": "#/$defs/OligoProbe"
+               },
+               "title": "Probes",
+               "type": "array"
+            }
+         },
+         "required": [
+            "gene",
+            "probes"
+         ],
+         "title": "GeneProbes",
+         "type": "object"
+      },
       "GenericModel": {
          "additionalProperties": true,
          "description": "Base class for generic types that can be used in AIND schema",
@@ -17725,107 +17754,13 @@
          "title": "GenericSurgeryProcedure",
          "type": "object"
       },
-      "GroundWireImplant": {
+      "GeneticStain": {
          "additionalProperties": false,
-         "description": "Ground wire implant procedure",
+         "description": "Description of an oligonucleotide probe(s) targeting a gene and readout",
          "properties": {
             "object_type": {
-               "const": "Ground wire implant",
-               "default": "Ground wire implant",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "ground_electrode_location": {
-               "$ref": "#/$defs/MouseAnatomyModel",
-               "title": "Location of ground electrode"
-            },
-            "ground_wire_hole": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "For SHIELD implants, the hole number for the ground wire",
-               "title": "Ground wire hole"
-            },
-            "ground_wire_material": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/GroundWireMaterial"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire material"
-            },
-            "ground_wire_diameter": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire diameter"
-            },
-            "ground_wire_diameter_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Ground wire diameter unit"
-            }
-         },
-         "required": [
-            "ground_electrode_location"
-         ],
-         "title": "GroundWireImplant",
-         "type": "object"
-      },
-      "GroundWireMaterial": {
-         "description": "Ground wire material name",
-         "enum": [
-            "Silver",
-            "Platinum iridium"
-         ],
-         "title": "GroundWireMaterial",
-         "type": "string"
-      },
-      "Group": {
-         "description": "Data collection group name",
-         "enum": [
-            "behavior",
-            "ephys",
-            "MSMA",
-            "ophys",
-            "NBA"
-         ],
-         "title": "Group",
-         "type": "string"
-      },
-      "HCRProbe": {
-         "additionalProperties": false,
-         "description": "Description of an oligo probe used for HCR",
-         "properties": {
-            "object_type": {
-               "const": "HCR probe",
-               "default": "HCR probe",
+               "const": "Genetic stain",
+               "default": "Genetic stain",
                "title": "Object Type",
                "type": "string"
             },
@@ -18288,6 +18223,28 @@
                "default": null,
                "title": "Lot expiration date"
             },
+            "gene_probe": {
+               "$ref": "#/$defs/GeneProbes",
+               "title": "Gene probe"
+            },
+            "readout": {
+               "discriminator": {
+                  "mapping": {
+                     "HCR readout": "#/$defs/HCRReadout",
+                     "Readout": "#/$defs/Readout"
+                  },
+                  "propertyName": "object_type"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/Readout"
+                  },
+                  {
+                     "$ref": "#/$defs/HCRReadout"
+                  }
+               ],
+               "title": "Readout"
+            },
             "species": {
                "discriminator": {
                   "mapping": {
@@ -18317,39 +18274,112 @@
                   }
                ],
                "title": "Species"
-            },
-            "gene": {
-               "$ref": "#/$defs/PIDName",
-               "title": "Gene name, accession number, and registry"
-            },
-            "probe_sequences": {
-               "items": {
-                  "type": "string"
-               },
-               "title": "Probe sequences",
-               "type": "array"
-            },
-            "readout": {
-               "$ref": "#/$defs/HCRReadout",
-               "title": "Readout"
-            },
-            "initiator_name": {
-               "title": "Initiator name",
-               "type": "string"
             }
          },
          "required": [
             "name",
             "source",
             "lot_number",
-            "species",
-            "gene",
-            "probe_sequences",
+            "gene_probe",
             "readout",
-            "initiator_name"
+            "species"
          ],
-         "title": "HCRProbe",
+         "title": "GeneticStain",
          "type": "object"
+      },
+      "GroundWireImplant": {
+         "additionalProperties": false,
+         "description": "Ground wire implant procedure",
+         "properties": {
+            "object_type": {
+               "const": "Ground wire implant",
+               "default": "Ground wire implant",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "ground_electrode_location": {
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "title": "Location of ground electrode"
+            },
+            "ground_wire_hole": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For SHIELD implants, the hole number for the ground wire",
+               "title": "Ground wire hole"
+            },
+            "ground_wire_material": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GroundWireMaterial"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire material"
+            },
+            "ground_wire_diameter": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter"
+            },
+            "ground_wire_diameter_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Ground wire diameter unit"
+            }
+         },
+         "required": [
+            "ground_electrode_location"
+         ],
+         "title": "GroundWireImplant",
+         "type": "object"
+      },
+      "GroundWireMaterial": {
+         "description": "Ground wire material name",
+         "enum": [
+            "Silver",
+            "Platinum iridium"
+         ],
+         "title": "GroundWireMaterial",
+         "type": "string"
+      },
+      "Group": {
+         "description": "Data collection group name",
+         "enum": [
+            "behavior",
+            "ephys",
+            "MSMA",
+            "ophys",
+            "NBA"
+         ],
+         "title": "Group",
+         "type": "string"
       },
       "HCRReadout": {
          "additionalProperties": false,
@@ -19806,19 +19836,11 @@
                "title": "Round end time",
                "type": "string"
             },
-            "HCR_probes": {
+            "genetic_stains": {
                "items": {
-                  "$ref": "#/$defs/HCRProbe"
+                  "$ref": "#/$defs/GeneticStain"
                },
-               "title": "HCR probes",
-               "type": "array"
-            },
-            "other_probes": {
-               "default": [],
-               "items": {
-                  "$ref": "#/$defs/OligoProbe"
-               },
-               "title": "Other probes",
+               "title": "Genetic stains",
                "type": "array"
             },
             "probe_concentration": {
@@ -19850,7 +19872,7 @@
             "round_index",
             "start_time",
             "end_time",
-            "HCR_probes",
+            "genetic_stains",
             "probe_concentration"
          ],
          "title": "HybridizationChainReaction",
@@ -22772,11 +22794,6 @@
                "title": "Object Type",
                "type": "string"
             },
-            "device_name": {
-               "description": "Must match a device defined in the instrument.json",
-               "title": "Device name",
-               "type": "string"
-            },
             "arc_angle": {
                "title": "Arc Angle (deg)",
                "type": "number"
@@ -22816,7 +22833,6 @@
             }
          },
          "required": [
-            "device_name",
             "arc_angle",
             "module_angle"
          ],
@@ -27451,6 +27467,32 @@
                "title": "Name",
                "type": "string"
             },
+            "sequence": {
+               "title": "Sequence",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "sequence"
+         ],
+         "title": "OligoProbe",
+         "type": "object"
+      },
+      "OligoProbeSet": {
+         "additionalProperties": false,
+         "description": "set of probes used in BarSEQ",
+         "properties": {
+            "object_type": {
+               "const": "Oligo probe set",
+               "default": "Oligo probe set",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
             "source": {
                "discriminator": {
                   "mapping": {
@@ -27906,61 +27948,21 @@
                "default": null,
                "title": "Lot expiration date"
             },
-            "species": {
-               "discriminator": {
-                  "mapping": {
-                     "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
-                     "Homo sapiens": "#/$defs/_Homo_Sapiens",
-                     "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
-                     "Mus musculus": "#/$defs/_Mus_Musculus",
-                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
-                  },
-                  "propertyName": "name"
-               },
-               "oneOf": [
-                  {
-                     "$ref": "#/$defs/_Callithrix_Jacchus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Homo_Sapiens"
-                  },
-                  {
-                     "$ref": "#/$defs/_Macaca_Mulatta"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mus_Musculus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rattus_Norvegicus"
-                  }
-               ],
-               "title": "Species"
-            },
-            "gene": {
-               "$ref": "#/$defs/PIDName",
-               "title": "Gene name, accession number, and registry"
-            },
-            "probe_sequences": {
+            "gene_probes": {
                "items": {
-                  "type": "string"
+                  "$ref": "#/$defs/GeneProbes"
                },
-               "title": "Probe sequences",
+               "title": "Gene probes",
                "type": "array"
-            },
-            "readout": {
-               "$ref": "#/$defs/Readout"
             }
          },
          "required": [
             "name",
             "source",
             "lot_number",
-            "species",
-            "gene",
-            "probe_sequences",
-            "readout"
+            "gene_probes"
          ],
-         "title": "OligoProbe",
+         "title": "OligoProbeSet",
          "type": "object"
       },
       "OpenEphysAcquisitionBoard": {
@@ -40150,8 +40152,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.24",
-               "default": "2.0.24",
+               "const": "2.0.25",
+               "default": "2.0.25",
                "title": "Schema Version",
                "type": "string"
             },
@@ -40354,8 +40356,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.55",
-               "default": "2.0.55",
+               "const": "2.0.56",
+               "default": "2.0.56",
                "title": "Schema Version",
                "type": "string"
             },
@@ -50607,6 +50609,7 @@
                      "mapping": {
                         "Antibody": "#/$defs/Antibody",
                         "HCR series": "#/$defs/HCRSeries",
+                        "Oligo probe set": "#/$defs/OligoProbeSet",
                         "Planar sectioning": "#/$defs/PlanarSectioning",
                         "Reagent": "#/$defs/Reagent"
                      },
@@ -50624,6 +50627,9 @@
                      },
                      {
                         "$ref": "#/$defs/Reagent"
+                     },
+                     {
+                        "$ref": "#/$defs/OligoProbeSet"
                      }
                   ]
                },
@@ -51176,6 +51182,10 @@
                "default": null,
                "title": "Lot expiration date"
             },
+            "stain_type": {
+               "$ref": "#/$defs/StainType",
+               "title": "Stain type"
+            },
             "concentration": {
                "title": "Concentration",
                "type": "number"
@@ -51190,6 +51200,7 @@
             "name",
             "source",
             "lot_number",
+            "stain_type",
             "concentration"
          ],
          "title": "Stain",
@@ -85805,8 +85816,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.55",
-         "default": "2.0.55",
+         "const": "2.0.56",
+         "default": "2.0.56",
          "title": "Schema Version",
          "type": "string"
       },
