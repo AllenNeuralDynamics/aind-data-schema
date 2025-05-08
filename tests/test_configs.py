@@ -52,6 +52,7 @@ class TestPlanarImage(unittest.TestCase):
         )
 
         self.coupled_plane = CoupledPlane(
+            plane_index=0,
             power=5.0,
             power_unit=PowerUnit.MW,
             targeted_structure=CCFStructure.VISP,

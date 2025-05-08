@@ -117,7 +117,6 @@ instrument = Instrument(
                 notes=None,
                 data_interface="Ethernet",
                 cooling=Cooling.NONE,
-                computer_name="Video Monitor",
                 frame_rate=60.0,
                 frame_rate_unit=FrequencyUnit.HZ,
                 immersion=None,
@@ -145,17 +144,8 @@ instrument = Instrument(
             ),
             lens=Lens(
                 name="Behavior Camera Lens",
-                serial_number=None,
                 manufacturer=Organization.THORLABS,
                 model="MVL6WA",
-                notes=None,
-                focal_length=6.0,
-                focal_length_unit=SizeUnit.MM,
-                size=None,
-                lens_size_unit=SizeUnit.IN,
-                optimized_wavelength_range=None,
-                wavelength_unit=SizeUnit.NM,
-                max_aperture="f/1.4",
             ),
             filter=Filter(
                 name="Behavior Camera Filter",
@@ -182,7 +172,6 @@ instrument = Instrument(
                 notes=None,
                 data_interface="Ethernet",
                 cooling=Cooling.NONE,
-                computer_name="Video Monitor",
                 frame_rate=60.0,
                 frame_rate_unit=FrequencyUnit.HZ,
                 immersion=None,
@@ -210,17 +199,8 @@ instrument = Instrument(
             ),
             lens=Lens(
                 name="Eye Camera Lens",
-                serial_number=None,
                 manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
                 model="213073",
-                notes=None,
-                focal_length=None,
-                focal_length_unit=SizeUnit.MM,
-                size=None,
-                lens_size_unit=SizeUnit.IN,
-                optimized_wavelength_range=None,
-                wavelength_unit=SizeUnit.NM,
-                max_aperture=None,
             ),
             filter=Filter(
                 name="Eye Camera Filter",
@@ -248,7 +228,6 @@ instrument = Instrument(
                 detector_type="Camera",
                 data_interface="Ethernet",
                 cooling=Cooling.NONE,
-                computer_name="Video Monitor",
                 frame_rate=60.0,
                 frame_rate_unit=FrequencyUnit.HZ,
                 immersion=None,
@@ -276,17 +255,8 @@ instrument = Instrument(
             ),
             lens=Lens(
                 name="Face Camera Lens",
-                serial_number=None,
                 manufacturer=Organization.EDMUND_OPTICS,
                 model="86-604",
-                notes=None,
-                focal_length=8.5,
-                focal_length_unit=SizeUnit.MM,
-                size=None,
-                lens_size_unit=SizeUnit.IN,
-                optimized_wavelength_range=None,
-                wavelength_unit=SizeUnit.NM,
-                max_aperture="f/8",
             ),
             filter=Filter(
                 name="Face Camera Filter",
@@ -317,10 +287,9 @@ instrument = Instrument(
             name="Mesoscope JenOptik Objective",
             numerical_aperture=0.8,
             magnification=3.6,
-            manufacturer=Organization.THORLABS,
+            manufacturer=Organization.JENOPTIK,
             immersion="water",
-            notes="Part from JenOptik: 14163000",
-            serial_number="110",
+            model="14163000",
         ),
         PockelsCell(
             name="Pockels Cell 1",
@@ -351,7 +320,6 @@ instrument = Instrument(
             model="USB-6001",
             notes=None,
             data_interface="USB",
-            computer_name="STIM",
             firmware_version=None,
             hardware_version=None,
         ),
@@ -362,7 +330,6 @@ instrument = Instrument(
             model="PCIe-6612",
             notes=None,
             data_interface="PCIe",
-            computer_name="SYNC",
             channels=[
                 DAQChannel(
                     channel_name="P0.3",
@@ -383,7 +350,6 @@ instrument = Instrument(
             model="PCIe-6321",
             notes=None,
             data_interface="PCIe",
-            computer_name="STIM",
             channels=[],
             firmware_version=None,
             hardware_version=None,
@@ -406,10 +372,65 @@ instrument = Instrument(
             device_names=["Video Monitor", "Behavior Camera"],
             connection_data={
                 "Video Monitor": ConnectionData(
-                    direction=ConnectionDirection.SEND,
+                    direction=ConnectionDirection.RECEIVE,
                 ),
                 "Behavior Camera": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["Video Monitor", "Eye Camera"],
+            connection_data={
+                "Video Monitor": ConnectionData(
                     direction=ConnectionDirection.RECEIVE,
+                ),
+                "Eye Camera": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["Video Monitor", "Face Camera"],
+            connection_data={
+                "Video Monitor": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "Face Camera": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["VBEB DAQ", "MESO1STIM"],
+            connection_data={
+                "VBEB DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "MESO1STIM": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["SYNC DAQ", "MESO1SYNC"],
+            connection_data={
+                "SYNC DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "MESO1SYNC": ConnectionData(
+                    direction=ConnectionDirection.SEND,
+                ),
+            },
+        ),
+        Connection(
+            device_names=["STIM DAQ", "MESO1STIM"],
+            connection_data={
+                "STIM DAQ": ConnectionData(
+                    direction=ConnectionDirection.RECEIVE,
+                ),
+                "MESO1STIM": ConnectionData(
+                    direction=ConnectionDirection.SEND,
                 ),
             },
         ),

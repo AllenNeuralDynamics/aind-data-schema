@@ -71,7 +71,6 @@ camera1 = CameraAssembly(
         name="Xenocam 1",
         model="XC0922LENS",
         manufacturer=Organization.OTHER,
-        max_aperture="f/1.4",
         notes='Focal Length 9-22mm 1/3" IR F1.4, manufacturer Xenocam',
     ),
 )
@@ -100,7 +99,6 @@ camera2 = CameraAssembly(
         name="Xenocam 2",
         model="XC0922LENS",
         manufacturer=Organization.OTHER,
-        max_aperture="f/1.4",
         notes='Focal Length 9-22mm 1/3" IR F1.4, manufacturer Xenocam',
     ),
 )
@@ -400,10 +398,6 @@ lens = Lens(
     manufacturer=Organization.THORLABS,
     model="AC254-080-A-ML",
     name="Image focusing lens",
-    focal_length=80,
-    focal_length_unit=SizeUnit.MM,
-    size=1,
-    size_unit=SizeUnit.IN,
 )
 
 tube = Tube(name="mouse_tube_foraging", diameter=4.0)
