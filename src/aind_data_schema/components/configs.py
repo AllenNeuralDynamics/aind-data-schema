@@ -206,7 +206,8 @@ class Plane(DataModel):
 class CoupledPlane(Plane):
     """Configuration of a pair of coupled imaging plane"""
 
-    coupled_plane_index: int = Field(..., title="Coupled plane index")
+    plane_index: int = Field(..., title="Plane index")
+    coupled_plane_index: int = Field(..., title="Coupled plane index", description="Plane index of the coupled plane")
     power_ratio: float = Field(..., title="Power ratio")
 
 

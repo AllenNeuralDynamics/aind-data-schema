@@ -189,15 +189,6 @@ class Lens(Device):
     # required fields
     manufacturer: Organization.LENS_MANUFACTURERS
 
-    # optional fields
-    focal_length: Optional[Decimal] = Field(default=None, title="Focal length of the lens (mm)")
-    focal_length_unit: Optional[SizeUnit] = Field(default=None, title="Focal length unit")
-    size: Optional[float] = Field(default=None, title="Size")
-    size_unit: Optional[SizeUnit] = Field(default=None, title="Lens size unit")
-    optimized_wavelength_range: Optional[str] = Field(default=None, title="Optimized wavelength range (nm)")
-    wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    max_aperture: Optional[str] = Field(default=None, title="Max aperture (e.g. f/2)")
-
 
 class MotorizedStage(Device):
     """Description of motorized stage"""

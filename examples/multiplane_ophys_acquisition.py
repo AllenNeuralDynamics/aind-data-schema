@@ -82,7 +82,7 @@ a = Acquisition(
                                 ),
                             ],
                             dimensions=Scale(
-                                scale=[800, 800],
+                                scale=[512, 512],
                             ),
                             planes=[
                                 CoupledPlane(
