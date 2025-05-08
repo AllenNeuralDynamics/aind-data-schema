@@ -383,6 +383,8 @@
             "output_path": {
                "anyOf": [
                   {
+                     "description": "Relative path to a file from the metadata root folder",
+                     "format": "uri-reference",
                      "type": "string"
                   },
                   {
@@ -529,6 +531,8 @@
             "output_path": {
                "anyOf": [
                   {
+                     "description": "Relative path to a file from the metadata root folder",
+                     "format": "uri-reference",
                      "type": "string"
                   },
                   {
