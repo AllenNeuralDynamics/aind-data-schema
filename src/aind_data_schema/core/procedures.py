@@ -25,7 +25,7 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.coordinates import Coordinate, CoordinateSystem, Origin
 from aind_data_schema.components.devices import FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent, HCRProbe, Stain, Antibody, OligoProbeSet, OligoProbeWithReadout
+from aind_data_schema.components.reagent import Reagent, HCRProbe, Stain, Antibody, OligoProbeSet, GeneticStain
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility, recursive_device_name_check
 from aind_data_schema.utils.exceptions import OneOfError
@@ -126,7 +126,7 @@ class HybridizationChainReaction(DataModel):
     start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
     end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
     HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
-    other_probes: List[OligoProbeWithReadout] = Field(default=[], title="Other probes")
+    other_probes: List[GeneticStain] = Field(default=[], title="Other probes")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field(default="M", title="Probe concentration unit")
     other_stains: List[Stain] = Field(default=[], title="Other stains")

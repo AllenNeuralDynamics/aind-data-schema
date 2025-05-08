@@ -10,7 +10,7 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.units import ConcentrationUnit, SizeUnit, MassUnit
 from aind_data_schema_models.species import Species
 
-from aind_data_schema.base import DataModel
+from aind_data_schema.base import DataModel, Discriminated
 
 
 class ImmunolabelClass(str, Enum):
@@ -55,38 +55,6 @@ class Reagent(DataModel):
     expiration_date: Optional[date] = Field(default=None, title="Lot expiration date")
 
 
-class Readout(Reagent):
-    """Description of a readout"""
-
-    fluorophore: Fluorophore = Field(..., title="Fluorophore")
-    excitation_wavelength: int = Field(..., title="Excitation wavelength (nm)")
-    excitation_wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Excitation wavelength unit")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class HCRReadout(Readout):
-    """Description of a readout for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    stain_type: StainType = Field(..., title="Stain type")
-
-
-class OligoProbe(Reagent):
-    """Description of an oligonucleotide probe"""
-
-    species: Species.ONE_OF = Field(..., title="Species")
-    gene: PIDName = Field(..., title="Gene name, accession number, and registry")
-    probe_sequences: List[str] = Field(..., title="Probe sequences")
-    readout: Readout = Field(..., title="Readout")
-
-
-class HCRProbe(OligoProbe):
-    """Description of an oligo probe used for HCR"""
-
-    initiator_name: str = Field(..., title="Initiator name")
-    readout: HCRReadout = Field(..., title="Readout")
-
-
 class Stain(Reagent):
     """Description of a non-oligo probe stain"""
 
@@ -103,6 +71,9 @@ class Antibody(Reagent):
     mass: float = Field(..., title="Mass of antibody")
     mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
     notes: Optional[str] = Field(default=None, title="Notes")
+
+
+# Gene-targeting oligonucleotide probes
 
 
 class OligoProbe(DataModel):
@@ -141,9 +112,9 @@ class HCRReadout(Readout):
     initiator_name: str = Field(..., title="Initiator name")
 
 
-class OligoProbeWithReadout(Reagent):
-    """Description of an oligonucleotide probe and readout"""
+class GeneticStain(Reagent):
+    """Description of an oligonucleotide probe(s) targeting a gene and readout"""
 
     gene_probe: GeneProbes = Field(..., title="Gene probe")
-    readout: Readout = Field(..., title="Readout")
+    readout: Discriminated[Readout | HCRReadout] = Field(..., title="Readout")
     species: Species.ONE_OF = Field(..., title="Species")
