@@ -13,17 +13,60 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.acquisition_configs import (
+from aind_data_schema.components.configs import (
+    Channel,
     DetectorConfig,
-    FieldOfView,
     LaserConfig,
-    StimulusModality,
+    Plane,
+    PlanarImage,
+    SamplingStrategy,
+    ImagingConfig,
 )
+from aind_data_schema.components.coordinates import Translation, Scale, CoordinateSystemLibrary
 from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+
+laser_config_a = LaserConfig(
+    device_name="Laser A",
+    wavelength=405,
+    wavelength_unit="nanometer",
+    power=10,
+    power_unit="milliwatt",
+)
+
+planar_image = PlanarImage(
+    channel_name="Green channel",
+    image_to_acquisition_transform=[
+        Translation(
+            translation=[1500, 1500],
+        ),
+        Scale(
+            scale=[1.5, 1.5],
+        ),
+    ],
+    planes=[
+        Plane(
+            depth=150,
+            depth_unit="micrometer",
+            targeted_structure=CCFStructure.MOP,
+            power=10,
+            power_unit="milliwatt",
+        ),
+    ],
+    dimensions=Scale(
+        scale=[800, 800],
+    ),
+)
+
+sampling_strategy = SamplingStrategy(
+    frame_rate=20,
+    frame_rate_unit=FrequencyUnit.HZ,
+)
+
 
 a = Acquisition(
     experimenters=[Person(name="John Smith")],
@@ -36,6 +79,7 @@ a = Acquisition(
     subject_details=AcquisitionSubjectDetails(
         mouse_platform_name="Mouse tube",
     ),
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     data_streams=[
         DataStream(
             stream_start_time=t,
@@ -47,32 +91,23 @@ a = Acquisition(
                 "Face Camera",
             ],
             configurations=[
-                LaserConfig(
-                    device_name="Laser A",
-                    wavelength=405,
-                    wavelength_unit="nanometer",
-                    excitation_power=10,
-                    excitation_power_unit="milliwatt",
-                ),
-                DetectorConfig(
-                    device_name="PMT A",
-                    exposure_time=0.1,
-                    trigger_type="Internal",
-                ),
-                FieldOfView(
-                    index=0,
-                    imaging_depth=150,
-                    targeted_structure=CCFStructure.MOP,
-                    fov_coordinate_ml=1.5,
-                    fov_coordinate_ap=1.5,
-                    fov_reference="Bregma",
-                    fov_width=800,
-                    fov_height=800,
-                    magnification="1x",
-                    fov_scale_factor=1.5,
-                    frame_rate=20,
-                    frame_rate_unit=FrequencyUnit.HZ,
-                ),
+                ImagingConfig(
+                    device_name="Bergamo Microscope",
+                    channels=[
+                        Channel(
+                            channel_name="Green channel",
+                            intended_measurement="GCaMP",
+                            detector=DetectorConfig(
+                                device_name="PMT A",
+                                exposure_time=0.1,
+                                trigger_type="Internal",
+                            ),
+                            light_sources=[laser_config_a],
+                        ),
+                    ],
+                    images=[planar_image],
+                    sampling_strategy=sampling_strategy,
+                )
             ],
         ),
     ],
@@ -114,6 +149,7 @@ a = Acquisition(
     ],
 )
 
-serialized = a.model_dump_json()
-deserialized = Acquisition.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="bergamo_ophys")
+if __name__ == "__main__":
+    serialized = a.model_dump_json()
+    deserialized = Acquisition.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="bergamo_ophys")

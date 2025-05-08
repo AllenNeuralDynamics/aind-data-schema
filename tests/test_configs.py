@@ -1,170 +1,120 @@
-""" Tests for the configs module """
+"""Test for configs"""
 
 import unittest
-from decimal import Decimal
-from pydantic import ValidationError
-from aind_data_schema.components.acquisition_configs import (
-    MRIScan,
-    Scale,
-    ManipulatorConfig,
-    LickSpoutConfig,
-    Liquid,
-    Valence,
-)
-from aind_data_schema.components.coordinates import Coordinate, CoordinateSystemLibrary, Transform, Affine, Translation
+
 from aind_data_schema_models.brain_atlas import CCFStructure
-from aind_data_schema_models.units import AngleUnit
+from aind_data_schema_models.units import PowerUnit, SizeUnit
+from pydantic import ValidationError
+
+from aind_data_schema.components.configs import CoupledPlane, ImagingConfig, PlanarImage, Plane
+from aind_data_schema.components.coordinates import Scale, Translation
+from examples.bergamo_ophys_acquisition import a as bergamo_acquisition
+from examples.exaspim_acquisition import acq as exaspim_acquisition
 
 
-class TestMRIScan(unittest.TestCase):
-    """Tests for the MRIScan class"""
+class ImagingConfigTest(unittest.TestCase):
+    """Test for ImagingConfig"""
 
-    def test_validate_primary_scan_success(self):
-        """Test validate_primary_scan method with valid primary scan data"""
-        scan = MRIScan(
-            device_name="MRI Scanner",
-            scan_index=1,
-            scan_type="3D Scan",
-            primary_scan=True,
-            scan_sequence_type="RARE",
-            echo_time=Decimal("10.0"),
-            repetition_time=Decimal("2000.0"),
-            subject_position="Prone",
-            additional_scan_parameters={},
-            vc_transform=Transform(
-                system_name=CoordinateSystemLibrary.MRI_LPS.name,
-                transforms=[
-                    Affine(
-                        affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-                    ),
-                    Translation(
-                        translation=[1, 2, 3],
-                    ),
-                ],
-            ),
-            voxel_sizes=Scale(
-                scale=[0.5, 0.4375, 0.52],
-            ),
-            processing_steps=[],
+    def test_image_channels_invalid(self):
+        """Test ValidationError raised if channels are missing"""
+
+        acq = bergamo_acquisition.model_copy()
+
+        imaging_config = acq.data_streams[0].configurations[0]
+        imaging_config.channels = []
+
+        with self.assertRaises(ValueError) as e:
+            ImagingConfig.model_validate_json(imaging_config.model_dump_json())
+
+        self.assertIn("must be defined in the ImagingConfig.channels", str(e.exception))
+
+        acq2 = exaspim_acquisition.model_copy()
+        imaging_config2 = acq2.data_streams[0].configurations[0]
+        imaging_config2.channels = []
+        with self.assertRaises(ValueError) as e:
+            ImagingConfig.model_validate_json(imaging_config2.model_dump_json())
+        self.assertIn("must be defined in the ImagingConfig.channels", str(e.exception))
+
+
+class TestPlanarImage(unittest.TestCase):
+    """Test for PlanarImage class"""
+
+    def setUp(self):
+        """Set up common values for tests"""
+        self.channel_name = "test_channel"
+        self.dimensions = Scale(scale=[512, 512])
+        self.dimensions_unit = SizeUnit.PX
+
+        self.transform = [Translation(translation=[0, 0])]
+
+        self.plane = Plane(
+            depth=150, depth_unit=SizeUnit.UM, power=5.0, power_unit=PowerUnit.MW, targeted_structure=CCFStructure.VISP
         )
-        self.assertIsNotNone(scan)
 
-    def test_validate_primary_scan_failure(self):
-        """Test validate_primary_scan method with invalid primary scan data"""
-        invalid_data = {
-            "device_name": "MRI Scanner",
-            "scan_index": 1,
-            "scan_type": "3D Scan",
-            "primary_scan": True,
-            "scan_sequence_type": "RARE",
-            "echo_time": Decimal("10.0"),
-            "repetition_time": Decimal("2000.0"),
-            "subject_position": "Prone",
-            "additional_scan_parameters": {},
-        }
-        with self.assertRaises(ValidationError):
-            MRIScan(**invalid_data)
-
-
-class TestManipulatorConfig(unittest.TestCase):
-    """Tests for the ManipulatorConfig class"""
-
-    def test_validate_len_coordinates_success(self):
-        """Test validate_len_coordinates method with valid coordinate lengths"""
-        coordinate1 = Coordinate(
-            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-            position=[1, 2, 3],
+        self.coupled_plane = CoupledPlane(
+            power=5.0,
+            power_unit=PowerUnit.MW,
+            targeted_structure=CCFStructure.VISP,
+            depth=100.0,
+            depth_unit=SizeUnit.UM,
+            coupled_plane_index=1,
+            power_ratio=0.5,
         )
-        coordinate2 = Coordinate(
-            system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-            position=[4, 5, 6],
-        )
-        coordinate1_surface = Coordinate(
-            system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
-            position=[1, 2, 3, 1],
-        )
-        coordinate2_surface = Coordinate(
-            system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
-            position=[4, 5, 6, 2],
-        )
-        config = ManipulatorConfig(
-            device_name="Manipulator",
-            arc_angle=Decimal("45.0"),
-            module_angle=Decimal("30.0"),
-            angle_unit=AngleUnit.DEG,
-            primary_targeted_structure=CCFStructure.HPF,
-            atlas_coordinates=[coordinate1, coordinate2],
-            manipulator_coordinates=[coordinate1_surface, coordinate2_surface],
-            manipulator_axis_positions=[coordinate1, coordinate2],
-        )
-        self.assertIsInstance(config, ManipulatorConfig)
 
-    def test_validate_len_coordinates_failure(self):
-        """Test validate_len_coordinates method with invalid coordinate lengths"""
+    def test_planar_image_with_single_plane(self):
+        """Test PlanarImage with a single Plane object"""
+        planar_image = PlanarImage(
+            channel_name=self.channel_name,
+            dimensions=self.dimensions,
+            dimensions_unit=self.dimensions_unit,
+            image_to_acquisition_transform=self.transform,
+            planes=[self.plane],
+        )
+        self.assertEqual(len(planar_image.planes), 1)
+        self.assertIsInstance(planar_image.planes[0], Plane)
 
+    def test_planar_image_with_multiple_planes_raises_error(self):
+        """Test PlanarImage with multiple Plane objects - should raise ValueError"""
         with self.assertRaises(ValueError) as context:
-            ManipulatorConfig(
-                device_name="Manipulator",
-                arc_angle=Decimal("45.0"),
-                module_angle=Decimal("30.0"),
-                angle_unit=AngleUnit.DEG,
-                primary_targeted_structure=CCFStructure.HPF,
-                atlas_coordinates=[
-                    Coordinate(
-                        system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-                        position=[1, 2, 3],
-                    ),
-                ],
-                manipulator_coordinates=[
-                    Coordinate(
-                        system_name=CoordinateSystemLibrary.PROBE_ARID.name,
-                        position=[1, 2, 3, 1],
-                    ),
-                    Coordinate(
-                        system_name=CoordinateSystemLibrary.PROBE_ARID.name,
-                        position=[4, 5, 6, 2],
-                    ),
-                ],
-                manipulator_axis_positions=[
-                    Coordinate(
-                        system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-                        position=[1, 2, 3],
-                    ),
-                    Coordinate(
-                        system_name=CoordinateSystemLibrary.BREGMA_ARI.name,
-                        position=[4, 5, 6],
-                    ),
-                ],
+            PlanarImage(
+                channel_name=self.channel_name,
+                dimensions=self.dimensions,
+                dimensions_unit=self.dimensions_unit,
+                image_to_acquisition_transform=self.transform,
+                planes=[self.plane, self.plane],
             )
 
         self.assertIn(
-            "Length of atlas_coordinates, manipulator_coordinates, and manipulator_axis_positions must be the same",
+            "For single-plane optical physiology only a single Plane should be in PlanarImage.planes",
             str(context.exception),
         )
 
-
-class TestLickSpoutConfig(unittest.TestCase):
-    """Tests for the LickSpoutConfig class"""
-
-    def test_validate_other_success(self):
-        """Test validate_other method with valid data"""
-        lick_spout = LickSpoutConfig(
-            solution=Liquid.WATER,
-            solution_valence=Valence.POSITIVE,
-            relative_position=[],
+    def test_planar_image_with_multiple_coupled_planes(self):
+        """Test PlanarImage with multiple CoupledPlane objects"""
+        planar_image = PlanarImage(
+            channel_name=self.channel_name,
+            dimensions=self.dimensions,
+            dimensions_unit=self.dimensions_unit,
+            image_to_acquisition_transform=self.transform,
+            planes=[self.coupled_plane, self.coupled_plane],
         )
-        self.assertIsNotNone(lick_spout)
+        self.assertEqual(len(planar_image.planes), 2)
+        self.assertIsInstance(planar_image.planes[0], CoupledPlane)
+        self.assertIsInstance(planar_image.planes[1], CoupledPlane)
 
-    def test_validate_other_failure(self):
-        """Test validate_other method with invalid data"""
-        with self.assertRaises(ValueError) as context:
-            LickSpoutConfig(
-                solution=Liquid.OTHER,
-                solution_valence=Valence.POSITIVE,
-                relative_position=[],
+    def test_planar_image_with_mixed_plane_types(self):
+        """Test PlanarImage with mixed Plane and CoupledPlane objects - should raise ValueError"""
+        with self.assertRaises(ValidationError) as context:
+            PlanarImage(
+                channel_name=self.channel_name,
+                dimensions=self.dimensions,
+                dimensions_unit=self.dimensions_unit,
+                image_to_acquisition_transform=self.transform,
+                planes=[self.plane, self.coupled_plane],
             )
+
         self.assertIn(
-            "Notes cannot be empty if LickSpoutConfig.solution is Other." "Describe the solution in the notes field.",
+            "For single-plane optical physiology only a single Plane should be in PlanarImage.planes",
             str(context.exception),
         )
 

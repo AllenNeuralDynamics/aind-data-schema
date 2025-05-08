@@ -7,7 +7,7 @@ from typing import Dict, List, Optional
 from aind_data_schema_models.registries import Registry, _Orcid
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, GenericModel, DiscriminatedList
+from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
 
 
 class ExternalPlatforms(str, Enum):
@@ -28,7 +28,7 @@ class DataAsset(DataModel):
 class CombinedData(DataModel):
     """Description of a group of data assets"""
 
-    assets: List[DataAsset] = Field(..., title="Data assets", min_items=1)
+    assets: List[DataAsset] = Field(..., title="Data assets", min_length=1)
     name: Optional[str] = Field(default=None, title="Name")
     external_links: ExternalLinks = Field(
         default=dict(), title="External Links", description="Links to the Combined Data asset, if materialized."

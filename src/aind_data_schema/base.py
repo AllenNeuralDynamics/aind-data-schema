@@ -2,10 +2,10 @@
 
 import json
 import logging
-import warnings
 import re
+import warnings
 from pathlib import Path
-from typing import Any, ClassVar, Literal, Optional, TypeVar, get_args, List
+from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -23,7 +23,7 @@ from pydantic import (
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
 
-from aind_data_schema.utils.validators import recursive_coord_system_check, recursive_check_paths
+from aind_data_schema.utils.validators import recursive_check_paths, recursive_coord_system_check
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 

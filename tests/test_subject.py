@@ -9,8 +9,8 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species, Strain
 
-from aind_data_schema.core.subject import Subject
 from aind_data_schema.components.subjects import BreedingInfo, Housing, LightCycle, MouseSubject
+from aind_data_schema.core.subject import Subject
 
 
 class SubjectTests(unittest.TestCase):

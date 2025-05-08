@@ -7,14 +7,14 @@ import pydantic
 from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
 from aind_data_schema_models.units import MemoryUnit
 
-from aind_data_schema.components.identifiers import Person, Code, DataAsset
+from aind_data_schema.components.identifiers import Code, DataAsset, Person
 from aind_data_schema.core.processing import (
     DataProcess,
-    ProcessName,
     Processing,
+    ProcessName,
+    ProcessStage,
     ResourceTimestamped,
     ResourceUsage,
-    ProcessStage,
 )
 
 t = datetime.fromisoformat("2024-09-13T14:00:00")

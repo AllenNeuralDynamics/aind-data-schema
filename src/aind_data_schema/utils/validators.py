@@ -1,14 +1,14 @@
 """ Validator utility functions """
 
-from enum import Enum
-from typing import Any, List, Optional
-from pathlib import Path
 import logging
+from enum import Enum
+from pathlib import Path
+from typing import Any, List, Optional
 
 from aind_data_schema.components.wrappers import AssetPath
 
 # Fields that should have the same length as the coordinate system axes
-AXIS_FIELD_NAMES = ["scale", "translation", "angles", "position"]
+AXIS_TYPES = ["Translation", "Rotation", "Scale"]
 
 
 class CoordinateSystemException(Exception):
@@ -60,7 +60,30 @@ def _recurse_helper(data, **kwargs):
             recursive_coord_system_check(attr_value, **kwargs)
 
 
-def recursive_coord_system_check(data, system_name: str, axis_count: int):
+def _system_check_helper(data, coordinate_system_name: str, axis_count: int):
+    """Helper function to raise errors if the coordinate_system_name or axis_count don't match"""
+    if not coordinate_system_name or not axis_count:
+        raise CoordinateSystemException()
+
+    if data.coordinate_system_name not in coordinate_system_name:
+        raise SystemNameException(coordinate_system_name, data.coordinate_system_name)
+
+    # Check lengths of subfields based on class types
+    if hasattr(data, "__dict__"):
+        for attr_name, attr_value in data.__dict__.items():
+            # Check if the attribute's class name is one of the AXIS_TYPES
+            if hasattr(attr_value, "__class__") and attr_value.__class__.__name__ in AXIS_TYPES:
+                # Construct the field name by converting the class name to lowercase
+                field_name = attr_value.__class__.__name__.lower()
+                sub_data = getattr(data, field_name, None)
+                # Check if the object has the corresponding field and if it's a list with correct length
+                if sub_data and hasattr(sub_data, field_name):
+                    field_value = getattr(sub_data, field_name)
+                    if len(field_value) != axis_count:
+                        raise AxisCountException(axis_count, len(field_value))
+
+
+def recursive_coord_system_check(data, coordinate_system_name: str, axis_count: int):
     """Recursively check fields, see if they are Coordinates and check if they match a List[values]
 
     Note that we just need to check if the axes all show up, not necessarily in matching order
@@ -71,25 +94,14 @@ def recursive_coord_system_check(data, system_name: str, axis_count: int):
 
     if hasattr(data, "coordinate_system") and data.coordinate_system:
         # If we find a new coordinate_system, allow it to over-write our settings
-        system_name = data.coordinate_system.name
+        coordinate_system_name = data.coordinate_system.name
         axis_count = len(data.coordinate_system.axes)
 
-    # Check if the object we are looking at has a system_name field
-    if hasattr(data, "system_name"):
-        if not system_name or not axis_count:
-            raise CoordinateSystemException()
+    # Check if the object we are looking at has a coordinate_system_name field
+    if hasattr(data, "coordinate_system_name"):
+        _system_check_helper(data, coordinate_system_name, axis_count)
 
-        if data.system_name not in system_name:
-            raise SystemNameException(system_name, data.system_name)
-
-        # Check lengths of subfields
-        if hasattr(data, "__dict__"):
-            for attr_name, attr_value in data.__dict__.items():
-                if isinstance(attr_value, list) and attr_name in AXIS_FIELD_NAMES:
-                    if len(attr_value) != axis_count:
-                        raise AxisCountException(axis_count, len(attr_value))
-
-    _recurse_helper(data=data, system_name=system_name, axis_count=axis_count)
+    _recurse_helper(data=data, coordinate_system_name=coordinate_system_name, axis_count=axis_count)
 
 
 def recursive_get_all_names(obj: Any) -> List[str]:

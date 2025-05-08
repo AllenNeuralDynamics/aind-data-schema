@@ -1,7 +1,7 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from typing import List, Optional, Union
+from typing import List, Union
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
@@ -189,6 +189,10 @@ class NonlinearTransform(DataModel):
     )
 
 
+TRANSFORM_TYPES = DiscriminatedList[Translation | Rotation | Scale | Affine]
+TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | Affine | NonlinearTransform]
+
+
 class CoordinateSystem(DataModel):
     """Definition of a coordinate system relative to a brain"""
 
@@ -210,43 +214,10 @@ class Atlas(CoordinateSystem):
     resolution_unit: SizeUnit = Field(..., title="Resolution unit")
 
 
-class Transform(DataModel):
-    """Affine transformation in a coordinate system"""
+class AtlasCoordinate(Translation):
+    """A point in an Atlas"""
 
-    system_name: str = Field(
-        ..., title="Coordinate system name"
-    )  # note: this field's exact name is used by a validator
-    transforms: DiscriminatedList[Translation | Rotation | Scale | Affine] = Field(..., title="Transform")
-
-
-class CoordinateTransform(DataModel):
-    """Transformation from one CoordinateSystem to another"""
-
-    input: str = Field(..., title="Input coordinate system")
-    output: str = Field(..., title="Output coordinate system")
-    transforms: DiscriminatedList[Translation | Rotation | Scale | Affine | NonlinearTransform] = Field(
-        ..., title="Transform"
-    )
-
-
-class Coordinate(DataModel):
-    """A coordinate in a brain (CoordinateSpace) or atlas (AtlasSpace)
-
-    Angles can be optionally provided
-    """
-
-    system_name: str = Field(
-        ..., title="Coordinate system name"
-    )  # note: this field's exact name is used by a validator
-    position: List[float] = Field(
-        ..., title="Position in coordinate system", description="Position units are inherited from the CoordinateSystem"
-    )
-    angles: Optional[Rotation] = Field(
-        default=None,
-        title="Orientation in coordinate system",
-        description="Angles can be optionally provided to define a vector (e.g. for an insertion)",
-    )
-    angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+    coordinate_system: Atlas = Field(..., title="Atlas")
 
 
 class CoordinateSystemLibrary:
@@ -254,7 +225,10 @@ class CoordinateSystemLibrary:
 
     Convention is to use the following naming scheme:
 
-    <ORIGIN>_<GLOBAL_AXES><LOCAL_AXES>
+    <SOURCE(Optional)>_<ORIGIN>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc
+
+    Where SOURCE is the "owner" so to speak, like SIPE, Pinpoint, etc
+    ORIGIN is the origin in the world, Bregma, "front
     """
 
     # Standard coordinates
@@ -268,14 +242,14 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.SI, direction=Direction.SI),
         ],
     )
-    LAMBDA_ARI = CoordinateSystem(
-        name="LAMBDA_ARI",
-        origin=Origin.LAMBDA,
+    BREGMA_RAS = CoordinateSystem(
+        name="BREGMA_RAS",
+        origin=Origin.BREGMA,
         axis_unit=SizeUnit.UM,
         axes=[
-            Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.SI, direction=Direction.IS),
         ],
     )
 
@@ -288,18 +262,18 @@ class CoordinateSystemLibrary:
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.SI, direction=Direction.SI),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+            Axis(name=AxisName.DEPTH, direction=Direction.UD),
         ],
     )
-    LAMBDA_ARID = CoordinateSystem(
-        name="LAMBDA_ARID",
-        origin=Origin.LAMBDA,
+    BREGMA_RASD = CoordinateSystem(
+        name="BREGMA_RASD",
+        origin=Origin.BREGMA,
         axis_unit=SizeUnit.UM,
         axes=[
-            Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
-            Axis(name=AxisName.SI, direction=Direction.SI),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+            Axis(name=AxisName.AP, direction=Direction.PA),
+            Axis(name=AxisName.SI, direction=Direction.IS),
+            Axis(name=AxisName.DEPTH, direction=Direction.UD),
         ],
     )
 
@@ -311,41 +285,63 @@ class CoordinateSystemLibrary:
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.FB),
-            Axis(name=AxisName.Z, direction=Direction.BT),
+            Axis(name=AxisName.Z, direction=Direction.DU),
         ],
     )
 
-    DEVICE_SIPE = CoordinateSystem(
-        name="CAMERA_SIPE",
+    SIPE_CAMERA_RBF = CoordinateSystem(
+        name="SIPE_CAMERA_RBF",
         origin=Origin.FRONT_CENTER,
         axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
-            Axis(name=AxisName.Y, direction=Direction.BT),
+            Axis(name=AxisName.Y, direction=Direction.UD),
             Axis(name=AxisName.Z, direction=Direction.BF),
         ],
     )
 
-    PROBE_MIS = CoordinateSystem(
-        name="PROBE_MIS",
-        origin=Origin.TIP,
-        axis_unit=SizeUnit.CM,
+    SIPE_MONITOR_RTF = CoordinateSystem(
+        name="SIPE_MONITOR_RTF",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
         axes=[
-            Axis(name=AxisName.X, direction=Direction.FB),
-            Axis(name=AxisName.Y, direction=Direction.RL),
-            Axis(name=AxisName.Z, direction=Direction.TB),
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.DU),
+            Axis(name=AxisName.Z, direction=Direction.BF),
         ],
     )
 
-    PROBE_ARID = CoordinateSystem(
-        name="PROBE_ARID",
+    SIPE_SPEAKER_LTF = CoordinateSystem(
+        name="SIPE_SPEAKER_LTF",
+        origin=Origin.FRONT_CENTER,
+        axis_unit=SizeUnit.MM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.RL),
+            Axis(name=AxisName.Y, direction=Direction.DU),
+            Axis(name=AxisName.Z, direction=Direction.FB),
+        ],
+    )
+
+    MPM_MANIP_RFB = CoordinateSystem(
+        name="MPM_MANIP_RFB",
         origin=Origin.TIP,
-        axis_unit=SizeUnit.CM,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.Y, direction=Direction.BF),
+            Axis(name=AxisName.Z, direction=Direction.UD),
+        ],
+    )
+
+    PINPOINT_PROBE_RSAB = CoordinateSystem(
+        name="PINPOINT_PROBE_RSAB",
+        origin=Origin.TIP,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.IS),
-            Axis(name=AxisName.Z, direction=Direction.AP),
-            Axis(name=AxisName.DEPTH, direction=Direction.TB),
+            Axis(name=AxisName.Z, direction=Direction.PA),
+            Axis(name=AxisName.DEPTH, direction=Direction.UD),
         ],
     )
 
@@ -393,7 +389,11 @@ class CoordinateSystemLibrary:
         ],
     )
 
-    CCFv3 = Atlas(
+
+class AtlasLibrary:
+    """Library of common atlases"""
+
+    CCFv3_10um = Atlas(
         name=AtlasName.CCF,
         version="3",
         origin=Origin.ORIGIN,
@@ -405,5 +405,20 @@ class CoordinateSystemLibrary:
         ],
         size=[1320, 800, 1140],
         resolution=[10, 10, 10],
+        resolution_unit=SizeUnit.UM,
+    )
+
+    CCFv3_25um = Atlas(
+        name=AtlasName.CCF,
+        version="3",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.UM,
+        axes=[
+            Axis(name=AxisName.AP, direction=Direction.AP),
+            Axis(name=AxisName.SI, direction=Direction.SI),
+            Axis(name=AxisName.ML, direction=Direction.LR),
+        ],
+        size=[528, 320, 456],
+        resolution=[25, 25, 25],
         resolution_unit=SizeUnit.UM,
     )

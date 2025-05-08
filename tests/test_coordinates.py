@@ -1,21 +1,23 @@
 """ Tests for the coordinates module """
 
 import unittest
-from aind_data_schema.components.coordinates import (
-    Scale,
-    AxisName,
-    Translation,
-    Rotation,
-    Affine,
-    Axis,
-    Direction,
-    Atlas,
-    Origin,
-)
+
+import numpy as np
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.units import SizeUnit
-import numpy as np
 from scipy.spatial.transform import Rotation as R
+
+from aind_data_schema.components.coordinates import (
+    Affine,
+    Atlas,
+    Axis,
+    AxisName,
+    Direction,
+    Origin,
+    Rotation,
+    Scale,
+    Translation,
+)
 
 
 class TestScale(unittest.TestCase):
