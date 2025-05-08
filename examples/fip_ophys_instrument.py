@@ -44,7 +44,6 @@ camera_assembly_1 = d.CameraAssembly(
         name="Xenocam 1",
         model="XC0922LENS",
         manufacturer=d.Organization.OTHER,
-        max_aperture="f/1.4",
         notes='Focal Length 9-22mm 1/3" IR F1.4',
     ),
 )
@@ -73,7 +72,6 @@ camera_assembly_2 = d.CameraAssembly(
         name="Xenocam 2",
         model="XC0922LENS",
         manufacturer=d.Organization.OTHER,
-        max_aperture="f/1.4",
         notes='Focal Length 9-22mm 1/3" IR F1.4',
     ),
 )
@@ -235,10 +233,6 @@ lens = d.Lens(
     manufacturer=d.Organization.THORLABS,
     model="AC254-080-A-ML",
     name="Image focusing lens",
-    focal_length=80,
-    focal_length_unit=SizeUnit.MM,
-    size=1,
-    size_unit=SizeUnit.IN,
 )
 
 daq = d.HarpDevice(

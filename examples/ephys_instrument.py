@@ -262,10 +262,7 @@ filt = Filter(
 
 lens = Lens(
     name="Camera lens",
-    focal_length=15,
-    focal_length_unit=SizeUnit.MM,
     manufacturer=Organization.EDMUND_OPTICS,
-    max_aperture="f/2",
 )
 
 face_camera = Camera(
