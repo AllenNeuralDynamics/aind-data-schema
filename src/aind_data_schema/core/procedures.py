@@ -19,7 +19,7 @@ from aind_data_schema.components.configs import DeviceConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, CoordinateSystem, Origin, Translation
 from aind_data_schema.components.devices import EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Antibody, HCRProbe, OligoProbe, Reagent, Stain
+from aind_data_schema.components.reagent import Reagent, Stain, Antibody, OligoProbeSet, GeneticStain
 from aind_data_schema.utils.exceptions import OneOfError
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import recursive_device_name_check, subject_specimen_id_compatibility
@@ -119,8 +119,7 @@ class HybridizationChainReaction(DataModel):
     round_index: int = Field(..., title="Round index")
     start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
     end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
-    HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
-    other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
+    genetic_stains: List[GeneticStain] = Field(..., title="Genetic stains")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field(default="M", title="Probe concentration unit")
     other_stains: List[Stain] = Field(default=[], title="Other stains")
@@ -195,7 +194,7 @@ class SpecimenProcedure(DataModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
-    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent] = Field(
+    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent | OligoProbeSet] = Field(
         default=[],
         title="Procedure details",
         description="",

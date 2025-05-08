@@ -422,16 +422,6 @@ class SpeakerConfig(DeviceConfig):
 # EPHYS CONFIGS
 
 
-class MISModuleConfig(DeviceConfig):
-    """Modular insertion system module configuration"""
-
-    arc_angle: float = Field(..., title="Arc Angle (deg)")
-    module_angle: float = Field(..., title="Module Angle (deg)")
-    rotation_angle: Optional[float] = Field(default=None, title="Rotation Angle (deg)")
-    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-
 class ManipulatorConfig(DeviceConfig):
     """Configuration of a manipulator"""
 
@@ -461,6 +451,16 @@ class ProbeConfig(DeviceConfig):
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class MISModuleConfig(DataModel):
+    """Modular insertion system module configuration"""
+
+    arc_angle: float = Field(..., title="Arc Angle (deg)")
+    module_angle: float = Field(..., title="Module Angle (deg)")
+    rotation_angle: Optional[float] = Field(default=None, title="Rotation Angle (deg)")
+    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
