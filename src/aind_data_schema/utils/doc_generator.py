@@ -12,8 +12,8 @@ def get_model_fields(model: Type[BaseModel], stop_at: Type[BaseModel]) -> Dict[s
         if not issubclass(cls, BaseModel) or cls == stop_at:
             break
 
-        annotations = getattr(cls, '__annotations__', {})
-        model_fields = getattr(cls, 'model_fields', {})
+        annotations = getattr(cls, "__annotations__", {})
+        model_fields = getattr(cls, "model_fields", {})
 
         for name, annotation in annotations.items():
             if name not in field_data:
@@ -26,12 +26,12 @@ def get_model_fields(model: Type[BaseModel], stop_at: Type[BaseModel]) -> Dict[s
 
 def get_type_string(tp: Type) -> str:
     """Format the type into a readable string."""
-    origin = getattr(tp, '__origin__', None)
-    args = getattr(tp, '__args__', None)
+    origin = getattr(tp, "__origin__", None)
+    args = getattr(tp, "__args__", None)
 
     if origin is None:
         try:
-            if hasattr(tp, '__name__') and issubclass(tp, DataModel):
+            if hasattr(tp, "__name__") and issubclass(tp, DataModel):
                 return f"{{{tp.__name__}}}"  # Wrap class names in {} for DataModel subclasses
         except:
             pass
@@ -40,7 +40,7 @@ def get_type_string(tp: Type) -> str:
         return f"List[{get_type_string(args[0])}]"
     if origin is dict or origin is Dict:
         return f"Dict[{get_type_string(args[0])}, {get_type_string(args[1])}]"
-    union_type = getattr(__import__('typing'), 'Union', None)
+    union_type = getattr(__import__("typing"), "Union", None)
     if origin is union_type and len(args) == 2 and type(None) in args:
         non_none_type = next(arg for arg in args if arg is not type(None))
         return f"Optional[{get_type_string(non_none_type)}]"
@@ -89,7 +89,7 @@ if __name__ == "__main__":
             if file.endswith(".py") and file != "__init__.py":
                 module_path = os.path.join(root, file)
                 module_name = os.path.splitext(os.path.relpath(module_path, src_folder))[0].replace(os.sep, ".")
-                
+
                 spec = importlib.util.spec_from_file_location(module_name, module_path)
                 module = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(module)
