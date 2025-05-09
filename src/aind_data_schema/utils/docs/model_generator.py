@@ -236,7 +236,7 @@ if __name__ == "__main__":
                             link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
 
                             # Add to our mapping dictionary using the format "{ClassName}" as the key
-                            model_link_map[f"{attr.__name__}"] = link
+                            model_link_map[f"{{{attr.__name__}}}"] = link
                         else:
                             pass
                 except Exception as e:

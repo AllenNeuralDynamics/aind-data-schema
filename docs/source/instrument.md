@@ -104,27 +104,27 @@ require position information.
 
 ## Model definitions
 
-### `[Connection](instrument#Connection)`
+### `Connection`
 
-[Connection](instrument#Connection) between two devices
+Connection between two devices
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `device_names` | `List[str]` |  |
-| `connection_data` | Dict[str, {[Connection](instrument#Connection)Data}] |  |
+| `connection_data` | Dict[str, [ConnectionData](instrument#ConnectionData)] |  |
 
 
-### `[Connection](instrument#Connection)Data`
+### `ConnectionData`
 
 Data for a connection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `direction` | `Optional[[Connection](instrument#Connection)Direction]` |  |
+| `direction` | `Optional[ConnectionDirection]` |  |
 | `port` | `Optional[str]` |  |
 
 
-### `[Instrument](instrument#Instrument)`
+### `Instrument`
 
 Description of an instrument
 
@@ -133,9 +133,9 @@ Description of an instrument
 | `instrument_id` | `str` | Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD> |
 | `modification_date` | `datetime.date` |  |
 | `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | Modalities that CAN BE acquired |
-| `calibrations` | Optional[List[{[Calibration](components/measurements#Calibration)} | {Liquid[Calibration](components/measurements#Calibration)} | {[Laser](components/devices#Laser)[Calibration](components/measurements#Calibration)}]] |  |
-| `coordinate_system` | {[CoordinateSystem](components/coordinates#CoordinateSystem)} |  |
+| `calibrations` | Optional[List[[Calibration](components/measurements#Calibration) | [LiquidCalibration](components/measurements#LiquidCalibration) | [LaserCalibration](components/measurements#LaserCalibration)]] |  |
+| `coordinate_system` | [CoordinateSystem](components/coordinates#CoordinateSystem) |  |
 | `temperature_control` | `Optional[bool]` |  |
 | `notes` | `Optional[str]` |  |
-| `connections` | List[{[Connection](instrument#Connection)}] | List of all connections between devices in the instrument |
-| `components` | List[{[Monitor](components/devices#Monitor)} | {[Olfactometer](components/devices#Olfactometer)} | {[LickSpout](components/devices#LickSpout)} | {[LickSpout](components/devices#LickSpout)Assembly} | {[AirPuff[Device](components/devices#Device)](components/devices#AirPuff[Device](components/devices#Device))} | {[Speaker](components/devices#Speaker)} | {[Camera](components/devices#Camera)Assembly} | {[Enclosure](components/devices#Enclosure)} | {[EphysAssembly](components/devices#EphysAssembly)} | {[FiberAssembly](components/devices#FiberAssembly)} | {[Laser](components/devices#Laser)Assembly} | {[FiberPatchCord](components/devices#FiberPatchCord)} | {[Laser](components/devices#Laser)} | {[LightEmittingDiode](components/devices#LightEmittingDiode)} | {[Lamp](components/devices#Lamp)} | {[Detector](components/devices#Detector)} | {[Objective](components/devices#Objective)} | {[Scanner](components/devices#Scanner)} | {[Filter](components/devices#Filter)} | {[Lens](components/devices#Lens)} | {DigitalMicromirror[Device](components/devices#Device)} | {[Polygonal[Scanner](components/devices#Scanner)](components/devices#Polygonal[Scanner](components/devices#Scanner))} | {[PockelsCell](components/devices#PockelsCell)} | {Harp[Device](components/devices#Device)} | {[NeuropixelsBasestation](components/devices#NeuropixelsBasestation)} | {OpenEphys[Acquisition](acquisition#Acquisition)Board} | {[MotorizedStage](components/devices#MotorizedStage)} | {[ScanningStage](components/devices#ScanningStage)} | {[AdditionalImaging[Device](components/devices#Device)](components/devices#AdditionalImaging[Device](components/devices#Device))} | {[Disc](components/devices#Disc)} | {[Wheel](components/devices#Wheel)} | {[Tube](components/devices#Tube)} | {[Treadmill](components/devices#Treadmill)} | {[Arena](components/devices#Arena)} | {[DAQ[Device](components/devices#Device)](components/devices#DAQ[Device](components/devices#Device))} | {[Computer](components/devices#Computer)} | {[Microscope](components/devices#Microscope)} | {[Device](components/devices#Device)}] | List of all devices in the instrument |
+| `connections` | List[[Connection](instrument#Connection)] | List of all connections between devices in the instrument |
+| `components` | List[[Monitor](components/devices#Monitor) | [Olfactometer](components/devices#Olfactometer) | [LickSpout](components/devices#LickSpout) | [LickSpoutAssembly](components/devices#LickSpoutAssembly) | [AirPuffDevice](components/devices#AirPuffDevice) | [Speaker](components/devices#Speaker) | [CameraAssembly](components/devices#CameraAssembly) | [Enclosure](components/devices#Enclosure) | [EphysAssembly](components/devices#EphysAssembly) | [FiberAssembly](components/devices#FiberAssembly) | [LaserAssembly](components/devices#LaserAssembly) | [FiberPatchCord](components/devices#FiberPatchCord) | [Laser](components/devices#Laser) | [LightEmittingDiode](components/devices#LightEmittingDiode) | [Lamp](components/devices#Lamp) | [Detector](components/devices#Detector) | [Objective](components/devices#Objective) | [Scanner](components/devices#Scanner) | [Filter](components/devices#Filter) | [Lens](components/devices#Lens) | [DigitalMicromirrorDevice](components/devices#DigitalMicromirrorDevice) | [PolygonalScanner](components/devices#PolygonalScanner) | [PockelsCell](components/devices#PockelsCell) | [HarpDevice](components/devices#HarpDevice) | [NeuropixelsBasestation](components/devices#NeuropixelsBasestation) | [OpenEphysAcquisitionBoard](components/devices#OpenEphysAcquisitionBoard) | [MotorizedStage](components/devices#MotorizedStage) | [ScanningStage](components/devices#ScanningStage) | [AdditionalImagingDevice](components/devices#AdditionalImagingDevice) | [Disc](components/devices#Disc) | [Wheel](components/devices#Wheel) | [Tube](components/devices#Tube) | [Treadmill](components/devices#Treadmill) | [Arena](components/devices#Arena) | [DAQDevice](components/devices#DAQDevice) | [Computer](components/devices#Computer) | [Microscope](components/devices#Microscope) | [Device](components/devices#Device)] | List of all devices in the instrument |

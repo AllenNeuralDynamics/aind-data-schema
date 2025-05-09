@@ -12,12 +12,12 @@ The subject file contains information regarding the background of the subject su
 ## Model definitions
 
 
-### `[Subject](subject#Subject)`
+### `Subject`
 
 Description of a subject of data collection
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
-| `subject_details` | {Mouse[Subject](subject#Subject)} | {Human[Subject](subject#Subject)} |  |
+| `subject_details` | [MouseSubject](components/subjects#MouseSubject) | [HumanSubject](components/subjects#HumanSubject) |  |
 | `notes` | `Optional[str]` |  |
