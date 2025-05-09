@@ -1,12 +1,6 @@
 # Acquisition
 
-An acquisition is single episode of data collection that creates one data asset.
-
-**Q: What does this file contain?**
-
-This schema returns information about the data acquisition. It details what instrument devices were active, any session 
-specific device parameters (e.g. laser power), and what the subject was doing during the session. A session consists of 
-parallel `Streams` and `Stimulus Epochs`, described below.
+An acquisition is single episode of data collection that creates one data asset. The acquisition metadata describes what devices were active and their configurations, as well as what stimulus was presented to the subject. An acquisition consists of parallel `Data Streams` and `Stimulus Epochs`, described below.
 
 **Q: What are Streams?**
 
@@ -25,16 +19,19 @@ the streams and the stimulus epochs may or may not be aligned.
 
 Perhaps these diagrams can help?
 
-.. image:: session_image_1.png
+![image](_static/session_image_1.png)
 
 Example session with single stream and epoch
 
-.. image:: session_image_2.png
+![image](_static/session_image_2.png)
 
 Example where the animal is engaged with a single behavior, and there are two distinct data streams. E.g. repositioned 
 probes to target different structures. 
 
-.. image:: session_image_3.png
+![image](_static/session_image_3.png)
+
+Example where there is one data stream during the session, but multiple stimulus epochs. E.g. active behavior, passive 
+behavior replay, and optotagging.
 
 Example where there is one data stream during the session, but multiple stimulus epochs. E.g. active behavior, passive 
 behavior replay, and optotagging.

@@ -9,8 +9,14 @@ import re
 
 special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
-    "aind_data_schema_models.organizations": "[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)",
-    "aind_data_schema_models.modalities": "[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)",
+    "aind_data_schema_models.organizations": (
+        "[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-"
+        "models/blob/main/src/aind_data_schema_models/organizations.py)"
+    ),
+    "aind_data_schema_models.modalities": (
+        "[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
+        "/blob/main/src/aind_data_schema_models/modalities.py)"
+    ),
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -47,6 +53,22 @@ def check_for_replacement(value: str) -> str:
     return value
 
 
+def _get_type_string_helper(tp: Type, origin, args) -> str:
+    """Helper function to format the type into a readable string."""
+    if origin is list or origin is List:
+        return f"List[{get_type_string(args[0])}]"
+    if origin is dict or origin is Dict:
+        return f"Dict[{get_type_string(args[0])}, {get_type_string(args[1])}]"
+    union_type = getattr(__import__("typing"), "Union", None)
+    if origin is union_type and len(args) == 2 and type(None) in args:
+        non_none_type = next(arg for arg in args if arg is not type(None))
+        return f"Optional[{get_type_string(non_none_type)}]"
+    if origin is union_type:
+        return " | ".join(get_type_string(arg) for arg in args)
+
+    return check_for_replacement(str(tp))
+
+
 def get_type_string(tp: Type) -> str:
     """Format the type into a readable string."""
     origin = getattr(tp, "__origin__", None)
@@ -66,18 +88,7 @@ def get_type_string(tp: Type) -> str:
             if match:
                 return match.group(1)
 
-    if origin is list or origin is List:
-        return f"List[{get_type_string(args[0])}]"
-    if origin is dict or origin is Dict:
-        return f"Dict[{get_type_string(args[0])}, {get_type_string(args[1])}]"
-    union_type = getattr(__import__("typing"), "Union", None)
-    if origin is union_type and len(args) == 2 and type(None) in args:
-        non_none_type = next(arg for arg in args if arg is not type(None))
-        return f"Optional[{get_type_string(non_none_type)}]"
-    if origin is union_type:
-        return " | ".join(get_type_string(arg) for arg in args)
-
-    return check_for_replacement(str(tp))
+    return _get_type_string_helper(tp, origin, args)
 
 
 def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) -> str:
@@ -177,7 +188,6 @@ if __name__ == "__main__":
                             model_link_map[f"{{{attr.__name__}}}"] = link
                         else:
                             pass
-                            # print(f"Skipping {attr_name} in {module_name} as it is not a DataModel subclass or not defined in this module.")
                 except Exception as e:
                     print(f"Error processing {module_path}: {e}")
 
