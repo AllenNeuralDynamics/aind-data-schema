@@ -1,3 +1,5 @@
+"""Code to generate markdown tables for each model"""
+
 from typing import Type, List, Dict
 from pydantic import BaseModel
 import inspect
@@ -53,6 +55,46 @@ def check_for_replacement(value: str) -> str:
     return value
 
 
+def check_for_union(value: str) -> str:
+    """Extract class names from Annotated types in complex strings and wrap them with {}.
+    
+    Example:
+    Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
+    Output: "List[{Calibration} | {LiquidCalibration}]"
+    """
+    # Check if this is an Annotated type
+    if "Annotated" in value:
+        # Extract content between Annotated[ and the first , or ] if no comma
+        annotated_content_match = re.search(r'Annotated\[(.*?)(?:,|\])', value)
+        if annotated_content_match:
+            annotated_content = annotated_content_match.group(1)
+            
+            # Process union types within the annotated content
+            if "|" in annotated_content:
+                # Split by | and process each type
+                types = annotated_content.split("|")
+                clean_types = []
+                
+                for t in types:
+                    # Extract just the class name from the full path
+                    class_match = re.search(r'\.([A-Za-z0-9_]+)$', t.strip())
+                    if class_match:
+                        clean_types.append(f"{{{class_match.group(1)}}}")
+                    else:
+                        # If pattern doesn't match, use the original trimmed string
+                        clean_types.append(f"{{{t.strip()}}}")
+                
+                # If this is inside a List or other container, preserve that structure
+                list_match = re.match(r'(List|Dict|Optional)\[(.*)', value)
+                if list_match:
+                    container = list_match.group(1)
+                    return f"{container}[{' | '.join(clean_types)}]"
+                
+                return " | ".join(clean_types)
+    
+    return value
+
+
 def _get_type_string_helper(tp: Type, origin, args) -> str:
     """Helper function to format the type into a readable string."""
     if origin is list or origin is List:
@@ -66,7 +108,15 @@ def _get_type_string_helper(tp: Type, origin, args) -> str:
     if origin is union_type:
         return " | ".join(get_type_string(arg) for arg in args)
 
-    return check_for_replacement(str(tp))
+    # Check for annotated types and unions in the string representation
+    str_rep = str(tp)
+    result = check_for_union(str_rep)
+    
+    # Only proceed with normal replacement if check_for_union didn't change anything
+    if result == str_rep:
+        result = check_for_replacement(str_rep)
+        
+    return result
 
 
 def get_type_string(tp: Type) -> str:
@@ -92,6 +142,7 @@ def get_type_string(tp: Type) -> str:
 
 
 def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) -> str:
+    """Generate the full markdown table for a model"""
     model_name = model.__name__
     header = f"### `{model_name}`\n\n"
     docstring = inspect.getdoc(model)
@@ -121,8 +172,8 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
 # Example usage
 if __name__ == "__main__":
 
-    src_folder = "/Users/daniel.birman/proj/aind-data-schema/src"
-    doc_folder = "/Users/daniel.birman/proj/aind-data-schema/docs_base/models"
+    src_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
+    doc_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../docs/base/models"))
 
     # Get absolute path of this script to skip it
     current_script_path = os.path.abspath(__file__)
@@ -185,7 +236,7 @@ if __name__ == "__main__":
                             link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
 
                             # Add to our mapping dictionary using the format "{ClassName}" as the key
-                            model_link_map[f"{{{attr.__name__}}}"] = link
+                            model_link_map[f"{attr.__name__}"] = link
                         else:
                             pass
                 except Exception as e:

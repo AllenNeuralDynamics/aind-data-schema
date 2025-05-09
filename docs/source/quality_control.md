@@ -56,17 +56,17 @@ Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allow
 
 ## Model definitions
 
-## `CurationHistory`
+### `[CurationHistory](quality_control#CurationHistory)`
 
 Schema to track curator name and timestamp for curation events
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `curator` | [Person](components/identifiers#Person) |  |
+| `curator` | {[Person](components/identifiers#Person)} |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
-## `CurationMetric`
+### `[CurationMetric](quality_control#CurationMetric)`
 
 Description of a curation metric
 
@@ -74,15 +74,15 @@ Description of a curation metric
 |-------|------|-------------|
 | `value` | `List[typing.Any]` |  |
 | `type` | `str` |  |
-| `curation_history` | List[[CurationHistory](quality_control#CurationHistory)] |  |
+| `curation_history` | List[{[CurationHistory](quality_control#CurationHistory)}] |  |
 | `name` | `str` |  |
-| `status_history` | List[[QCStatus](quality_control#QCStatus)] |  |
+| `status_history` | List[{[QCStatus](quality_control#QCStatus)}] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
 
 
-## `QCEvaluation`
+### `[QCEvaluation](quality_control#QCEvaluation)`
 
 Description of one evaluation stage, with one or more metrics
 
@@ -92,15 +92,15 @@ Description of one evaluation stage, with one or more metrics
 | `stage` | `Stage` |  |
 | `name` | `str` |  |
 | `description` | `Optional[str]` |  |
-| `metrics` | `List[typing.Annotated[typing.Union[aind_data_schema.core.quality_control.QCMetric, aind_data_schema.core.quality_control.CurationMetric], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
-| `tags` | `Optional[List[str]]` | Tags can be used to group QCEvaluation objects into groups |
+| `metrics` | `List[typing.Annotated[typing.Union[aind_data_schema.core.quality_control.[QCMetric](quality_control#QCMetric), aind_data_schema.core.quality_control.[CurationMetric](quality_control#CurationMetric)], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
+| `tags` | `Optional[List[str]]` | Tags can be used to group [QCEvaluation](quality_control#QCEvaluation) objects into groups |
 | `notes` | `Optional[str]` |  |
 | `allow_failed_metrics` | `bool` | Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation. |
 | `latest_status` | `Optional[Status]` |  |
 | `created` | `datetime (timezone-aware)` |  |
 
 
-## `QCMetric`
+### `[QCMetric](quality_control#QCMetric)`
 
 Description of a single quality control metric
 
@@ -108,13 +108,13 @@ Description of a single quality control metric
 |-------|------|-------------|
 | `name` | `str` |  |
 | `value` | `typing.Any` |  |
-| `status_history` | List[[QCStatus](quality_control#QCStatus)] |  |
+| `status_history` | List[{[QCStatus](quality_control#QCStatus)}] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
 
 
-## `QCStatus`
+### `[QCStatus](quality_control#QCStatus)`
 
 Description of a QC status, set by an evaluator
 
@@ -125,11 +125,11 @@ Description of a QC status, set by an evaluator
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
-## `QualityControl`
+### `[QualityControl](quality_control#QualityControl)`
 
 Description of quality metrics for a data asset
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `evaluations` | List[[QCEvaluation](quality_control#QCEvaluation)] |  |
+| `evaluations` | List[{[QCEvaluation](quality_control#QCEvaluation)}] |  |
 | `notes` | `Optional[str]` |  |

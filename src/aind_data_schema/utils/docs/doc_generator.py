@@ -20,9 +20,9 @@ def process_core_file(core_file):
     """
     # Define paths
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
-    base_file_path = os.path.join(base_dir, "docs_base", "base_files", f"{core_file}.md")
+    base_file_path = os.path.join(base_dir, "docs", "base", "core", f"{core_file}.md")
     output_file_path = os.path.join(base_dir, "docs", "source", f"{core_file}.md")
-    model_docs_dir = os.path.join(base_dir, "docs_base", "models", "aind_data_schema", "core", core_file)
+    model_docs_dir = os.path.join(base_dir, "docs", "base", "models", "aind_data_schema", "core", core_file)
 
     # Check if files exist
     if not os.path.exists(base_file_path):
@@ -40,7 +40,7 @@ def process_core_file(core_file):
         base_content = base_file.read()
 
     # Load model link map
-    link_map_path = os.path.join(base_dir, "docs_base", "models", "model_links.json")
+    link_map_path = os.path.join(base_dir, "docs", "base", "models", "model_links.json")
     with open(link_map_path, "r") as f:
         model_link_map = json.load(f)
 

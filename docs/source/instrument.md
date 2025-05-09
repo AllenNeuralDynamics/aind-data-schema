@@ -104,27 +104,27 @@ require position information.
 
 ## Model definitions
 
-## `Connection`
+### `[Connection](instrument#Connection)`
 
-Connection between two devices
+[Connection](instrument#Connection) between two devices
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `device_names` | `List[str]` |  |
-| `connection_data` | Dict[str, [ConnectionData](instrument#ConnectionData)] |  |
+| `connection_data` | Dict[str, {[Connection](instrument#Connection)Data}] |  |
 
 
-## `ConnectionData`
+### `[Connection](instrument#Connection)Data`
 
 Data for a connection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `direction` | `Optional[ConnectionDirection]` |  |
+| `direction` | `Optional[[Connection](instrument#Connection)Direction]` |  |
 | `port` | `Optional[str]` |  |
 
 
-## `Instrument`
+### `[Instrument](instrument#Instrument)`
 
 Description of an instrument
 
@@ -133,9 +133,9 @@ Description of an instrument
 | `instrument_id` | `str` | Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD> |
 | `modification_date` | `datetime.date` |  |
 | `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | Modalities that CAN BE acquired |
-| `calibrations` | `Optional[List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration | aind_data_schema.components.measurements.LaserCalibration, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]]` |  |
-| `coordinate_system` | [CoordinateSystem](components/coordinates#CoordinateSystem) |  |
+| `calibrations` | Optional[List[{[Calibration](components/measurements#Calibration)} | {Liquid[Calibration](components/measurements#Calibration)} | {[Laser](components/devices#Laser)[Calibration](components/measurements#Calibration)}]] |  |
+| `coordinate_system` | {[CoordinateSystem](components/coordinates#CoordinateSystem)} |  |
 | `temperature_control` | `Optional[bool]` |  |
 | `notes` | `Optional[str]` |  |
-| `connections` | List[[Connection](instrument#Connection)] | List of all connections between devices in the instrument |
-| `components` | `List[typing.Annotated[aind_data_schema.components.devices.Monitor | aind_data_schema.components.devices.Olfactometer | aind_data_schema.components.devices.LickSpout | aind_data_schema.components.devices.LickSpoutAssembly | aind_data_schema.components.devices.AirPuffDevice | aind_data_schema.components.devices.Speaker | aind_data_schema.components.devices.CameraAssembly | aind_data_schema.components.devices.Enclosure | aind_data_schema.components.devices.EphysAssembly | aind_data_schema.components.devices.FiberAssembly | aind_data_schema.components.devices.LaserAssembly | aind_data_schema.components.devices.FiberPatchCord | aind_data_schema.components.devices.Laser | aind_data_schema.components.devices.LightEmittingDiode | aind_data_schema.components.devices.Lamp | aind_data_schema.components.devices.Detector | aind_data_schema.components.devices.Objective | aind_data_schema.components.devices.Scanner | aind_data_schema.components.devices.Filter | aind_data_schema.components.devices.Lens | aind_data_schema.components.devices.DigitalMicromirrorDevice | aind_data_schema.components.devices.PolygonalScanner | aind_data_schema.components.devices.PockelsCell | aind_data_schema.components.devices.HarpDevice | aind_data_schema.components.devices.NeuropixelsBasestation | aind_data_schema.components.devices.OpenEphysAcquisitionBoard | aind_data_schema.components.devices.MotorizedStage | aind_data_schema.components.devices.ScanningStage | aind_data_schema.components.devices.AdditionalImagingDevice | aind_data_schema.components.devices.Disc | aind_data_schema.components.devices.Wheel | aind_data_schema.components.devices.Tube | aind_data_schema.components.devices.Treadmill | aind_data_schema.components.devices.Arena | aind_data_schema.components.devices.DAQDevice | aind_data_schema.components.devices.Computer | aind_data_schema.components.devices.Microscope | aind_data_schema.components.devices.Device, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` | List of all devices in the instrument |
+| `connections` | List[{[Connection](instrument#Connection)}] | List of all connections between devices in the instrument |
+| `components` | List[{[Monitor](components/devices#Monitor)} | {[Olfactometer](components/devices#Olfactometer)} | {[LickSpout](components/devices#LickSpout)} | {[LickSpout](components/devices#LickSpout)Assembly} | {[AirPuff[Device](components/devices#Device)](components/devices#AirPuff[Device](components/devices#Device))} | {[Speaker](components/devices#Speaker)} | {[Camera](components/devices#Camera)Assembly} | {[Enclosure](components/devices#Enclosure)} | {[EphysAssembly](components/devices#EphysAssembly)} | {[FiberAssembly](components/devices#FiberAssembly)} | {[Laser](components/devices#Laser)Assembly} | {[FiberPatchCord](components/devices#FiberPatchCord)} | {[Laser](components/devices#Laser)} | {[LightEmittingDiode](components/devices#LightEmittingDiode)} | {[Lamp](components/devices#Lamp)} | {[Detector](components/devices#Detector)} | {[Objective](components/devices#Objective)} | {[Scanner](components/devices#Scanner)} | {[Filter](components/devices#Filter)} | {[Lens](components/devices#Lens)} | {DigitalMicromirror[Device](components/devices#Device)} | {[Polygonal[Scanner](components/devices#Scanner)](components/devices#Polygonal[Scanner](components/devices#Scanner))} | {[PockelsCell](components/devices#PockelsCell)} | {Harp[Device](components/devices#Device)} | {[NeuropixelsBasestation](components/devices#NeuropixelsBasestation)} | {OpenEphys[Acquisition](acquisition#Acquisition)Board} | {[MotorizedStage](components/devices#MotorizedStage)} | {[ScanningStage](components/devices#ScanningStage)} | {[AdditionalImaging[Device](components/devices#Device)](components/devices#AdditionalImaging[Device](components/devices#Device))} | {[Disc](components/devices#Disc)} | {[Wheel](components/devices#Wheel)} | {[Tube](components/devices#Tube)} | {[Treadmill](components/devices#Treadmill)} | {[Arena](components/devices#Arena)} | {[DAQ[Device](components/devices#Device)](components/devices#DAQ[Device](components/devices#Device))} | {[Computer](components/devices#Computer)} | {[Microscope](components/devices#Microscope)} | {[Device](components/devices#Device)}] | List of all devices in the instrument |

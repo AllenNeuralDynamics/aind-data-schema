@@ -12,12 +12,12 @@ The subject file contains information regarding the background of the subject su
 ## Model definitions
 
 
-## `Subject`
+### `[Subject](subject#Subject)`
 
 Description of a subject of data collection
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
-| `subject_details` | `typing.Annotated[aind_data_schema.components.subjects.MouseSubject | aind_data_schema.components.subjects.HumanSubject, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]` |  |
+| `subject_details` | {Mouse[Subject](subject#Subject)} | {Human[Subject](subject#Subject)} |  |
 | `notes` | `Optional[str]` |  |

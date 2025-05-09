@@ -1,12 +1,6 @@
 # Acquisition
 
-An acquisition is single episode of data collection that creates one data asset.
-
-**Q: What does this file contain?**
-
-This schema returns information about the data acquisition. It details what instrument devices were active, any session 
-specific device parameters (e.g. laser power), and what the subject was doing during the session. A session consists of 
-parallel `Streams` and `Stimulus Epochs`, described below.
+An acquisition is single episode of data collection that creates one data asset. The acquisition metadata describes what devices were active and their configurations, as well as what stimulus was presented to the subject. An acquisition consists of parallel `Data Streams` and `Stimulus Epochs`, described below.
 
 **Q: What are Streams?**
 
@@ -25,16 +19,19 @@ the streams and the stimulus epochs may or may not be aligned.
 
 Perhaps these diagrams can help?
 
-.. image:: session_image_1.png
+![image](_static/session_image_1.png)
 
 Example session with single stream and epoch
 
-.. image:: session_image_2.png
+![image](_static/session_image_2.png)
 
 Example where the animal is engaged with a single behavior, and there are two distinct data streams. E.g. repositioned 
 probes to target different structures. 
 
-.. image:: session_image_3.png
+![image](_static/session_image_3.png)
+
+Example where there is one data stream during the session, but multiple stimulus epochs. E.g. active behavior, passive 
+behavior replay, and optotagging.
 
 Example where there is one data stream during the session, but multiple stimulus epochs. E.g. active behavior, passive 
 behavior replay, and optotagging.
@@ -97,7 +94,7 @@ dictionary structures when you do the same calibrations (when possible).
 
 ## Model definitions
 
-## `Acquisition`
+### `[Acquisition](acquisition#Acquisition)`
 
 Description of an imaging acquisition
 
@@ -107,21 +104,21 @@ Description of an imaging acquisition
 | `specimen_id` | `Optional[str]` | Specimen ID is required for in vitro imaging modalities |
 | `acquisition_start_time` | `datetime (timezone-aware)` |  |
 | `acquisition_end_time` | `datetime (timezone-aware)` |  |
-| `experimenters` | List[[Person](components/identifiers#Person)] |  |
+| `experimenters` | List[{[Person](components/identifiers#Person)}] |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
 | `ethics_review_id` | `Optional[List[str]]` |  |
 | `instrument_id` | `str` |  |
 | `acquisition_type` | `str` |  |
 | `notes` | `Optional[str]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates#CoordinateSystem)] | Required when coordinates are provided within the Acquisition |
-| `calibrations` | `List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration | aind_data_schema.components.measurements.LaserCalibration, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` | List of calibration measurements taken prior to acquisition. |
-| `maintenance` | List[[Maintenance](components/measurements#Maintenance)] | List of maintenance on instrument prior to acquisition. |
-| `data_streams` | List[[DataStream](acquisition#DataStream)] | A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location) |
-| `stimulus_epochs` | List[[StimulusEpoch](acquisition#StimulusEpoch)] |  |
-| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition#AcquisitionSubjectDetails)] |  |
+| `coordinate_system` | Optional[{[CoordinateSystem](components/coordinates#CoordinateSystem)}] | Required when coordinates are provided within the [Acquisition](acquisition#Acquisition) |
+| `calibrations` | List[{[Calibration](components/measurements#Calibration)} | {Liquid[Calibration](components/measurements#Calibration)} | {[Laser](components/devices#Laser)[Calibration](components/measurements#Calibration)}] | List of calibration measurements taken prior to acquisition. |
+| `maintenance` | List[{[Maintenance](components/measurements#Maintenance)}] | List of maintenance on instrument prior to acquisition. |
+| `data_streams` | List[{[DataStream](acquisition#DataStream)}] | A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location) |
+| `stimulus_epochs` | List[{[StimulusEpoch](acquisition#StimulusEpoch)}] |  |
+| `subject_details` | Optional[{[Acquisition](acquisition#Acquisition)[Subject](subject#Subject)Details}] |  |
 
 
-## `AcquisitionSubjectDetails`
+### `[Acquisition](acquisition#Acquisition)[Subject](subject#Subject)Details`
 
 Details about the subject during an acquisition
 
@@ -130,13 +127,13 @@ Details about the subject during an acquisition
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
 | `weight_unit` | `MassUnit` |  |
-| `anaesthesia` | Optional[[Anaesthetic](procedures#Anaesthetic)] |  |
+| `anaesthesia` | Optional[{[Anaesthetic](procedures#Anaesthetic)}] |  |
 | `mouse_platform_name` | `str` |  |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` |  |
 | `reward_consumed_unit` | `Optional[VolumeUnit]` |  |
 
 
-## `DataStream`
+### `[DataStream](acquisition#DataStream)`
 
 Data streams with a start and stop time
 
@@ -145,20 +142,20 @@ Data streams with a start and stop time
 | `stream_start_time` | `datetime (timezone-aware)` |  |
 | `stream_end_time` | `datetime (timezone-aware)` |  |
 | `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | Modalities that are acquired in this stream |
-| `code` | Optional[List[[Code](components/identifiers#Code)]] |  |
+| `code` | Optional[List[{[Code](components/identifiers#Code)}]] |  |
 | `notes` | `Optional[str]` |  |
-| `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | `List[typing.Annotated[aind_data_schema.components.configs.LightEmittingDiodeConfig | aind_data_schema.components.configs.LaserConfig | aind_data_schema.components.configs.ManipulatorConfig | aind_data_schema.components.configs.DetectorConfig | aind_data_schema.components.configs.PatchCordConfig | aind_data_schema.components.configs.FiberAssemblyConfig | aind_data_schema.components.configs.MRIScan | aind_data_schema.components.configs.LickSpoutConfig | aind_data_schema.components.configs.AirPuffConfig | aind_data_schema.components.configs.ImagingConfig | aind_data_schema.components.configs.SlapPlane | aind_data_schema.components.configs.SampleChamberConfig | aind_data_schema.components.configs.ProbeConfig | aind_data_schema.components.configs.EphysAssemblyConfig, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
-| `connections` | List[[Connection](instrument#Connection)] | Connections that are specific to this acquisition, and are not present in the Instrument |
+| `active_devices` | `List[str]` | [Device](components/devices#Device) names must match devices in the [Instrument](instrument#Instrument) |
+| `configurations` | List[{[[LightEmittingDiode](components/devices#LightEmittingDiode)Config](components/configs#[LightEmittingDiode](components/devices#LightEmittingDiode)Config)} | {[[Laser](components/devices#Laser)Config](components/configs#[Laser](components/devices#Laser)Config)} | {[[Manipulator](components/devices#Manipulator)Config](components/configs#[Manipulator](components/devices#Manipulator)Config)} | {[[Detector](components/devices#Detector)Config](components/configs#[Detector](components/devices#Detector)Config)} | {[PatchCordConfig](components/configs#PatchCordConfig)} | {[[FiberAssembly](components/devices#FiberAssembly)Config](components/configs#[FiberAssembly](components/devices#FiberAssembly)Config)} | {[MRIScan](components/configs#MRIScan)} | {[[LickSpout](components/devices#LickSpout)Config](components/configs#[LickSpout](components/devices#LickSpout)Config)} | {[AirPuffConfig](components/configs#AirPuffConfig)} | {[ImagingConfig](components/configs#ImagingConfig)} | {Slap[Plane](components/configs#Plane)} | {[SampleChamberConfig](components/configs#SampleChamberConfig)} | {[ProbeConfig](components/configs#ProbeConfig)} | {[[EphysAssembly](components/devices#EphysAssembly)Config](components/configs#[EphysAssembly](components/devices#EphysAssembly)Config)}] |  |
+| `connections` | List[{[Connection](instrument#Connection)}] | [Connection](instrument#Connection)s that are specific to this acquisition, and are not present in the [Instrument](instrument#Instrument) |
 
 
-## `PerformanceMetrics`
+### `[PerformanceMetric](model#PerformanceMetric)s`
 
-Summary of a StimulusEpoch
+Summary of a [StimulusEpoch](acquisition#StimulusEpoch)
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `output_parameters` | `aind_data_schema.base.GenericModel` |  |
+| `output_parameters` | `aind_data_schema.base.Generic[Model](model#Model)` |  |
 | `reward_consumed_during_epoch` | `Optional[decimal.Decimal]` |  |
 | `reward_consumed_unit` | `Optional[VolumeUnit]` |  |
 | `trials_total` | `Optional[int]` |  |
@@ -166,7 +163,7 @@ Summary of a StimulusEpoch
 | `trials_rewarded` | `Optional[int]` |  |
 
 
-## `StimulusEpoch`
+### `[StimulusEpoch](acquisition#StimulusEpoch)`
 
 Description of stimulus used during data acquisition
 
@@ -175,9 +172,9 @@ Description of stimulus used during data acquisition
 | `stimulus_start_time` | `datetime (timezone-aware)` | When a specific stimulus begins. This might be the same as the acquisition start time. |
 | `stimulus_end_time` | `datetime (timezone-aware)` | When a specific stimulus ends. This might be the same as the acquisition end time. |
 | `stimulus_name` | `str` |  |
-| `code` | Optional[[Code](components/identifiers#Code)] | Custom code/script used to control the behavior/stimulus and parameters |
+| `code` | Optional[{[Code](components/identifiers#Code)}] | Custom code/script used to control the behavior/stimulus and parameters |
 | `stimulus_modalities` | `List[StimulusModality]` |  |
-| `performance_metrics` | Optional[[PerformanceMetrics](acquisition#PerformanceMetrics)] |  |
+| `performance_metrics` | Optional[{[PerformanceMetric](model#PerformanceMetric)s}] |  |
 | `notes` | `Optional[str]` |  |
-| `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | `List[typing.Annotated[aind_data_schema.components.configs.SpeakerConfig | aind_data_schema.components.configs.LightEmittingDiodeConfig | aind_data_schema.components.configs.LaserConfig | aind_data_schema.components.configs.MousePlatformConfig, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
+| `active_devices` | `List[str]` | [Device](components/devices#Device) names must match devices in the [Instrument](instrument#Instrument) |
+| `configurations` | List[{[[Speaker](components/devices#Speaker)Config](components/configs#[Speaker](components/devices#Speaker)Config)} | {[[LightEmittingDiode](components/devices#LightEmittingDiode)Config](components/configs#[LightEmittingDiode](components/devices#LightEmittingDiode)Config)} | {[[Laser](components/devices#Laser)Config](components/configs#[Laser](components/devices#Laser)Config)} | {[MousePlatformConfig](components/configs#MousePlatformConfig)}] |  |
