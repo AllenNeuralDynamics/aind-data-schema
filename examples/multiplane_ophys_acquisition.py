@@ -82,10 +82,11 @@ a = Acquisition(
                                 ),
                             ],
                             dimensions=Scale(
-                                scale=[800, 800],
+                                scale=[512, 512],
                             ),
                             planes=[
                                 CoupledPlane(
+                                    plane_index=0,
                                     depth=190,
                                     depth_unit=SizeUnit.UM,
                                     power=5,
@@ -95,6 +96,7 @@ a = Acquisition(
                                     power_ratio=0.12,
                                 ),
                                 CoupledPlane(
+                                    plane_index=1,
                                     depth=232,
                                     depth_unit=SizeUnit.UM,
                                     power=42,
@@ -104,6 +106,7 @@ a = Acquisition(
                                     power_ratio=8.4,
                                 ),
                                 CoupledPlane(
+                                    plane_index=2,
                                     depth=136,
                                     depth_unit=SizeUnit.UM,
                                     power=28,
@@ -113,6 +116,7 @@ a = Acquisition(
                                     power_ratio=1.0,
                                 ),
                                 CoupledPlane(
+                                    plane_index=3,
                                     depth=282,
                                     depth_unit=SizeUnit.UM,
                                     power=28,
@@ -122,6 +126,7 @@ a = Acquisition(
                                     power_ratio=1.0,
                                 ),
                                 CoupledPlane(
+                                    plane_index=4,
                                     depth=72,
                                     depth_unit=SizeUnit.UM,
                                     power=12,
@@ -131,6 +136,7 @@ a = Acquisition(
                                     power_ratio=1.0,
                                 ),
                                 CoupledPlane(
+                                    plane_index=5,
                                     depth=326,
                                     depth_unit=SizeUnit.UM,
                                     power=12,
@@ -140,6 +146,7 @@ a = Acquisition(
                                     power_ratio=1.0,
                                 ),
                                 CoupledPlane(
+                                    plane_index=6,
                                     depth=30,
                                     depth_unit=SizeUnit.UM,
                                     power=5,
@@ -149,6 +156,7 @@ a = Acquisition(
                                     power_ratio=1.0,
                                 ),
                                 CoupledPlane(
+                                    plane_index=7,
                                     depth=364,
                                     depth_unit=SizeUnit.UM,
                                     power=5,

@@ -13,7 +13,7 @@ from aind_data_schema.base import DataCoreModel
 
 # Import all modules in core package
 for mod in core.__loader__.get_resource_reader().contents():
-    if "__" not in mod:
+    if "__" not in mod and mod.endswith(".py"):
         importlib.import_module(f"aind_data_schema.core.{mod.replace('.py', '')}")
 
 

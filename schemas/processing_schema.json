@@ -339,6 +339,8 @@
             "output_path": {
                "anyOf": [
                   {
+                     "description": "Relative path to a file from the metadata root folder",
+                     "format": "uri-reference",
                      "type": "string"
                   },
                   {
@@ -776,8 +778,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.54",
-         "default": "2.0.54",
+         "const": "2.0.56",
+         "default": "2.0.56",
          "title": "Schema Version",
          "type": "string"
       },

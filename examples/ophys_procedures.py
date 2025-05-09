@@ -88,7 +88,7 @@ p = Procedures(
                             titer=20000000000000,
                         )
                     ],
-                    system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
+                    coordinate_system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
                     coordinates=[
                         [
                             Translation(

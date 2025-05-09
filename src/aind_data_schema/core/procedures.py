@@ -19,7 +19,7 @@ from aind_data_schema.components.configs import DeviceConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, CoordinateSystem, Origin, Translation
 from aind_data_schema.components.devices import EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Antibody, HCRProbe, OligoProbe, Reagent, Stain
+from aind_data_schema.components.reagent import Reagent, Stain, Antibody, OligoProbeSet, GeneticStain
 from aind_data_schema.utils.exceptions import OneOfError
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import recursive_device_name_check, subject_specimen_id_compatibility
@@ -119,8 +119,7 @@ class HybridizationChainReaction(DataModel):
     round_index: int = Field(..., title="Round index")
     start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
     end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
-    HCR_probes: List[HCRProbe] = Field(..., title="HCR probes")
-    other_probes: List[OligoProbe] = Field(default=[], title="Other probes")
+    genetic_stains: List[GeneticStain] = Field(..., title="Genetic stains")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field(default="M", title="Probe concentration unit")
     other_stains: List[Stain] = Field(default=[], title="Other stains")
@@ -143,7 +142,7 @@ class Section(DataModel):
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
 
     # Coordinates
-    system_name: str = Field(..., title="Coordinate system name")
+    coordinate_system_name: str = Field(..., title="Coordinate system name")
     start_coordinate: Translation = Field(..., title="Start coordinate")
     end_coordinate: Optional[Translation] = Field(default=None, title="End coordinate")
     thickness: Optional[float] = Field(default=None, title="Slice thickness")
@@ -195,7 +194,7 @@ class SpecimenProcedure(DataModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
-    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent] = Field(
+    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent | OligoProbeSet] = Field(
         default=[],
         title="Procedure details",
         description="",
@@ -276,7 +275,7 @@ class Craniotomy(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
-    system_name: Optional[str] = Field(default=None, title="Coordinate system name")
+    coordinate_system_name: Optional[str] = Field(default=None, title="Coordinate system name")
     position: Optional[Union[Translation, List[AnatomicalRelative]]] = Field(default=None, title="Craniotomy position")
 
     size: Optional[float] = Field(default=None, title="Craniotomy size", description="Diameter or side length")
@@ -288,10 +287,10 @@ class Craniotomy(DataModel):
 
     @model_validator(mode="after")
     def check_system_if_position(cls, values):
-        """Ensure that system_name is provided if position is provided"""
+        """Ensure that coordinate_system_name is provided if position is provided"""
 
-        if values.position and not values.system_name:
-            raise ValueError("Craniotomy.system_name must be provided if Craniotomy.position is provided")
+        if values.position and not values.coordinate_system_name:
+            raise ValueError("Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided")
         return values
 
     @model_validator(mode="after")
@@ -436,7 +435,7 @@ class Injection(DataModel):
 class BrainInjection(Injection):
     """Description of an injection procedure into a brain"""
 
-    system_name: str = Field(..., title="Coordinate system name")
+    coordinate_system_name: str = Field(..., title="Coordinate system name")
     coordinates: List[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
     targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
 
@@ -583,7 +582,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.23"]] = Field(default="2.0.23")
+    schema_version: SkipValidation[Literal["2.0.25"]] = Field(default="2.0.25")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",

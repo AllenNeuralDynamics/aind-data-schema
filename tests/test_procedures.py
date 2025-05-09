@@ -219,7 +219,7 @@ class ProceduresTests(unittest.TestCase):
                         ),
                         BrainInjection(
                             protocol_id="bca",
-                            system_name="BREGMA_ARI",
+                            coordinate_system_name="BREGMA_ARI",
                             injection_materials=[
                                 ViralMaterial(
                                     material_type="Virus",
@@ -350,7 +350,7 @@ class ProceduresTests(unittest.TestCase):
         # Should be okay
         inj1 = BrainInjection(
             protocol_id="abc",
-            system_name="BREGMA_ARI",
+            coordinate_system_name="BREGMA_ARI",
             coordinates=[
                 [
                     Translation(
@@ -394,7 +394,7 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValidationError) as e:
             BrainInjection(
                 protocol_id="abc",
-                system_name="BREGMA_ARI",
+                coordinate_system_name="BREGMA_ARI",
                 coordinates=[
                     [
                         Translation(
@@ -440,7 +440,7 @@ class ProceduresTests(unittest.TestCase):
                 Section(
                     output_specimen_id="123456_001",
                     targeted_structure=CCFStructure.MOP,
-                    system_name="BREGMA_ARI",
+                    coordinate_system_name="BREGMA_ARI",
                     start_coordinate=Translation(
                         translation=[0.3, 0, 0],
                     ),
@@ -450,7 +450,7 @@ class ProceduresTests(unittest.TestCase):
                 ),
                 Section(
                     output_specimen_id="123456_002",
-                    system_name="BREGMA_ARI",
+                    coordinate_system_name="BREGMA_ARI",
                     start_coordinate=Translation(
                         translation=[0.5, 0, 0],
                     ),
@@ -460,7 +460,7 @@ class ProceduresTests(unittest.TestCase):
                 ),
                 Section(
                     output_specimen_id="123456_003",
-                    system_name="BREGMA_ARI",
+                    coordinate_system_name="BREGMA_ARI",
                     start_coordinate=Translation(
                         translation=[0.7, 0, 0],
                     ),
@@ -479,7 +479,7 @@ class ProceduresTests(unittest.TestCase):
                 sections=[
                     Section(
                         output_specimen_id="123456_001",
-                        system_name="BREGMA_ARI",
+                        coordinate_system_name="BREGMA_ARI",
                         start_coordinate=Translation(
                             translation=[0.3, 0, 0],
                         ),
@@ -546,7 +546,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            system_name="TestSystem",
+            coordinate_system_name="TestSystem",
             position=Translation(
                 translation=[0.5, 1, 0, 0],
             ),
@@ -560,7 +560,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
-                system_name="TestSystem",
+                coordinate_system_name="TestSystem",
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
@@ -570,7 +570,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
-                system_name="TestSystem",
+                coordinate_system_name="TestSystem",
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
@@ -580,7 +580,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.WHC,
-                system_name="TestSystem",
+                coordinate_system_name="TestSystem",
             )
         self.assertIn(
             "Craniotomy.position must be provided for craniotomy type Whole hemisphere craniotomy", str(e.exception)
@@ -594,12 +594,12 @@ class ProceduresTests(unittest.TestCase):
         self.assertIsNotNone(craniotomy)
 
     def test_craniotomy_system_name_if_position(self):
-        """Test that system_name is required if position is provided"""
+        """Test that coordinate_system_name is required if position is provided"""
         # Should be okay
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            system_name="TestSystem",
+            coordinate_system_name="TestSystem",
             position=Translation(
                 translation=[0.5, 1, 0, 0],
             ),
@@ -608,7 +608,7 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertIsNotNone(craniotomy)
 
-        # Missing system_name for required craniotomy types should raise an error
+        # Missing coordinate_system_name for required craniotomy types should raise an error
         with self.assertRaises(ValueError) as e:
             Craniotomy(
                 protocol_id="123",
@@ -619,7 +619,9 @@ class ProceduresTests(unittest.TestCase):
                 size=2.0,
                 size_unit=SizeUnit.MM,
             )
-        self.assertIn("Craniotomy.system_name must be provided if Craniotomy.position is provided", str(e.exception))
+        self.assertIn(
+            "Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided", str(e.exception)
+        )
 
     def test_craniotomy_size_validation(self):
         """Test validation for craniotomy size"""
@@ -628,7 +630,7 @@ class ProceduresTests(unittest.TestCase):
         craniotomy = Craniotomy(
             protocol_id="123",
             craniotomy_type=CraniotomyType.CIRCLE,
-            system_name="TestSystem",
+            coordinate_system_name="TestSystem",
             position=Translation(
                 translation=[0.5, 1, 0, 0],
             ),
@@ -642,7 +644,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.CIRCLE,
-                system_name="TestSystem",
+                coordinate_system_name="TestSystem",
                 position=Translation(
                     translation=[0.5, 1, 0, 0],
                 ),
@@ -653,7 +655,7 @@ class ProceduresTests(unittest.TestCase):
             Craniotomy(
                 protocol_id="123",
                 craniotomy_type=CraniotomyType.SQUARE,
-                system_name="TestSystem",
+                coordinate_system_name="TestSystem",
                 position=Translation(
                     translation=[0.5, 1, 0, 0],
                 ),

@@ -1,5 +1,158 @@
 {
    "$defs": {
+      "CurationHistory": {
+         "additionalProperties": false,
+         "description": "Schema to track curator name and timestamp for curation events",
+         "properties": {
+            "object_type": {
+               "const": "Curation history",
+               "default": "Curation history",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "curator": {
+               "$ref": "#/$defs/Person",
+               "title": "Curator"
+            },
+            "timestamp": {
+               "format": "date-time",
+               "title": "Timestamp",
+               "type": "string"
+            }
+         },
+         "required": [
+            "curator",
+            "timestamp"
+         ],
+         "title": "CurationHistory",
+         "type": "object"
+      },
+      "CurationMetric": {
+         "additionalProperties": false,
+         "description": "Description of a curation metric",
+         "properties": {
+            "object_type": {
+               "const": "Curation metric",
+               "default": "Curation metric",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Metric name",
+               "type": "string"
+            },
+            "value": {
+               "items": {},
+               "title": "Curation value",
+               "type": "array"
+            },
+            "status_history": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/QCStatus"
+               },
+               "title": "Metric status history",
+               "type": "array"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Metric description"
+            },
+            "reference": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Metric reference image URL or plot type"
+            },
+            "evaluated_assets": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Set to None except when a metric's calculation required data coming from a different data asset.",
+               "title": "List of asset names that this metric depends on"
+            },
+            "type": {
+               "title": "Curation type",
+               "type": "string"
+            },
+            "curation_history": {
+               "default": [],
+               "items": {
+                  "$ref": "#/$defs/CurationHistory"
+               },
+               "title": "Curation history",
+               "type": "array"
+            }
+         },
+         "required": [
+            "name",
+            "value",
+            "type"
+         ],
+         "title": "CurationMetric",
+         "type": "object"
+      },
+      "Person": {
+         "additionalProperties": false,
+         "description": "Person identifier",
+         "properties": {
+            "object_type": {
+               "const": "Person",
+               "default": "Person",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "First and last name OR anonymous ID",
+               "title": "Person's name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/_Orcid",
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "ORCID ID"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Person",
+         "type": "object"
+      },
       "QCEvaluation": {
          "additionalProperties": false,
          "description": "Description of one evaluation stage, with one or more metrics",
@@ -98,9 +251,23 @@
             },
             "metrics": {
                "items": {
-                  "$ref": "#/$defs/QCMetric"
+                  "discriminator": {
+                     "mapping": {
+                        "Curation metric": "#/$defs/CurationMetric",
+                        "QC metric": "#/$defs/QCMetric"
+                     },
+                     "propertyName": "object_type"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/QCMetric"
+                     },
+                     {
+                        "$ref": "#/$defs/CurationMetric"
+                     }
+                  ]
                },
-               "title": "QC metrics",
+               "title": "QC and curation metrics",
                "type": "array"
             },
             "tags": {
@@ -165,8 +332,15 @@
          "type": "object"
       },
       "QCMetric": {
+         "additionalProperties": false,
          "description": "Description of a single quality control metric",
          "properties": {
+            "object_type": {
+               "const": "QC metric",
+               "default": "QC metric",
+               "title": "Object Type",
+               "type": "string"
+            },
             "name": {
                "title": "Metric name",
                "type": "string"
@@ -231,8 +405,15 @@
          "type": "object"
       },
       "QCStatus": {
+         "additionalProperties": false,
          "description": "Description of a QC status, set by an evaluator",
          "properties": {
+            "object_type": {
+               "const": "QC status",
+               "default": "QC status",
+               "title": "Object Type",
+               "type": "string"
+            },
             "evaluator": {
                "title": "Status evaluator full name",
                "type": "string"
@@ -495,6 +676,26 @@
          "title": "_Mri",
          "type": "object"
       },
+      "_Orcid": {
+         "additionalProperties": false,
+         "description": "Model ORCID",
+         "properties": {
+            "name": {
+               "const": "Open Researcher and Contributor ID",
+               "default": "Open Researcher and Contributor ID",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "ORCID",
+               "default": "ORCID",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Orcid",
+         "type": "object"
+      },
       "_Pophys": {
          "additionalProperties": false,
          "description": "Model pophys",
@@ -572,8 +773,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.2",
-         "default": "2.0.2",
+         "const": "2.0.3",
+         "default": "2.0.3",
          "title": "Schema Version",
          "type": "string"
       },

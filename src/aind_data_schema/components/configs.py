@@ -107,7 +107,7 @@ class DeviceConfig(DataModel):
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
-    exposure_time: Decimal = Field(..., title="Exposure time (ms)")
+    exposure_time: float = Field(..., title="Exposure time (ms)")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
@@ -130,22 +130,11 @@ class LaserConfig(DeviceConfig):
 class LightEmittingDiodeConfig(DeviceConfig):
     """Configuration of LED settings"""
 
-    power: Optional[Decimal] = Field(default=None, title="Excitation power")
+    power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
 
 
 LIGHT_CONFIGS = DiscriminatedList[LaserConfig | LightEmittingDiodeConfig]
-
-
-class SlapMicroscopeConfig(DeviceConfig):
-    """Configuration of a Slap microscope"""
-
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-    target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
-    )
 
 
 class Channel(DataModel):
@@ -193,7 +182,7 @@ class Immersion(DataModel):
     """Configuration of immersion medium"""
 
     medium: ImmersionMedium = Field(..., title="Immersion medium")
-    refractive_index: Decimal = Field(..., title="Index of refraction")
+    refractive_index: float = Field(..., title="Index of refraction")
 
 
 class SampleChamberConfig(DeviceConfig):
@@ -217,8 +206,24 @@ class Plane(DataModel):
 class CoupledPlane(Plane):
     """Configuration of a pair of coupled imaging plane"""
 
-    coupled_plane_index: int = Field(..., title="Coupled plane index")
+    plane_index: int = Field(..., title="Plane index")
+    coupled_plane_index: int = Field(..., title="Coupled plane index", description="Plane index of the coupled plane")
     power_ratio: float = Field(..., title="Power ratio")
+
+
+class SlapPlane(Plane):
+    """Configuration of an imagine plane on a Slap microscope"""
+
+    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
+    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
+    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+
+    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
+    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+    target_branch: Optional[str] = Field(default=None, title="Target branch")
+    path_to_array_of_frame_rates: AssetPath = Field(
+        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    )
 
 
 class Image(DataModel):
@@ -253,7 +258,7 @@ class ImageSPIM(Image):
 class PlanarImage(Image):
     """Description of an N-D image acquired in a specific imaging plane"""
 
-    planes: List[Annotated[Union[Plane, CoupledPlane], Field(discriminator="object_type")]] = Field(
+    planes: List[Annotated[Union[Plane, CoupledPlane, SlapPlane], Field(discriminator="object_type")]] = Field(
         ..., title="Imaging planes"
     )
 
@@ -410,21 +415,11 @@ class AirPuffConfig(DeviceConfig):
 class SpeakerConfig(DeviceConfig):
     """Configuration of auditory speaker configuration"""
 
-    volume: Optional[Decimal] = Field(default=None, title="Volume (dB)")
+    volume: Optional[float] = Field(default=None, title="Volume (dB)")
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
 
 # EPHYS CONFIGS
-
-
-class MISModuleConfig(DeviceConfig):
-    """Modular insertion system module configuration"""
-
-    arc_angle: Decimal = Field(..., title="Arc Angle (deg)")
-    module_angle: Decimal = Field(..., title="Module Angle (deg)")
-    rotation_angle: Optional[Decimal] = Field(default=None, title="Rotation Angle (deg)")
-    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class ManipulatorConfig(DeviceConfig):
@@ -456,6 +451,16 @@ class ProbeConfig(DeviceConfig):
     )
 
     dye: Optional[str] = Field(default=None, title="Dye")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
+class MISModuleConfig(DataModel):
+    """Modular insertion system module configuration"""
+
+    arc_angle: float = Field(..., title="Arc Angle (deg)")
+    module_angle: float = Field(..., title="Module Angle (deg)")
+    rotation_angle: Optional[float] = Field(default=None, title="Rotation Angle (deg)")
+    angle_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
