@@ -131,7 +131,8 @@ Contributions are more than welcome for this project! If you'd like to develop t
 To generate the rst files source files for documentation, run:
 
 ```
-sphinx-apidoc -o docs/source/ src
+python src/aind_data_schema/utils/model_generator.py
+python src/aind_data_scehma/utils/doc_generator.py
 ```
 
 Then to create the documentation html files, run:
