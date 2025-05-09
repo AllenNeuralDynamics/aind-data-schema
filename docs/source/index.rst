@@ -60,8 +60,7 @@ Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` 
    data_description
    subject
    procedures
-   rig
-   session
+   instrument
    acquisition
    processing
    quality_control

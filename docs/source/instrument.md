@@ -1,5 +1,4 @@
-Rig/Instrument
-==============
+# Instrument
 
 **Q: What is a rig? What is an instrument?**
 
@@ -96,3 +95,47 @@ best for you, but I recommend discussing it with your team and SIPE. Some device
 information in order for the data to be interpretable  (e.g. cameras or visual monitors). Other devices are positioned 
 wherever they fit and their position doesn’t impact what they do or how the data is interpreted. These devices do not 
 require position information. 
+
+
+```{literalinclude} ../../examples/ephys_instrument.py
+:language: python
+:linenos:
+```
+
+## Model definitions
+
+## `Connection`
+
+Connection between two devices
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `device_names` | `List[str]` |  |
+| `connection_data` | Dict[str, [ConnectionData](instrument#ConnectionData)] |  |
+
+
+## `ConnectionData`
+
+Data for a connection
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `direction` | `Optional[ConnectionDirection]` |  |
+| `port` | `Optional[str]` |  |
+
+
+## `Instrument`
+
+Description of an instrument
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `instrument_id` | `str` | Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD> |
+| `modification_date` | `datetime.date` |  |
+| `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | Modalities that CAN BE acquired |
+| `calibrations` | `Optional[List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration | aind_data_schema.components.measurements.LaserCalibration, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]]` |  |
+| `coordinate_system` | [CoordinateSystem](components/coordinates#CoordinateSystem) |  |
+| `temperature_control` | `Optional[bool]` |  |
+| `notes` | `Optional[str]` |  |
+| `connections` | List[[Connection](instrument#Connection)] | List of all connections between devices in the instrument |
+| `components` | `List[typing.Annotated[aind_data_schema.components.devices.Monitor | aind_data_schema.components.devices.Olfactometer | aind_data_schema.components.devices.LickSpout | aind_data_schema.components.devices.LickSpoutAssembly | aind_data_schema.components.devices.AirPuffDevice | aind_data_schema.components.devices.Speaker | aind_data_schema.components.devices.CameraAssembly | aind_data_schema.components.devices.Enclosure | aind_data_schema.components.devices.EphysAssembly | aind_data_schema.components.devices.FiberAssembly | aind_data_schema.components.devices.LaserAssembly | aind_data_schema.components.devices.FiberPatchCord | aind_data_schema.components.devices.Laser | aind_data_schema.components.devices.LightEmittingDiode | aind_data_schema.components.devices.Lamp | aind_data_schema.components.devices.Detector | aind_data_schema.components.devices.Objective | aind_data_schema.components.devices.Scanner | aind_data_schema.components.devices.Filter | aind_data_schema.components.devices.Lens | aind_data_schema.components.devices.DigitalMicromirrorDevice | aind_data_schema.components.devices.PolygonalScanner | aind_data_schema.components.devices.PockelsCell | aind_data_schema.components.devices.HarpDevice | aind_data_schema.components.devices.NeuropixelsBasestation | aind_data_schema.components.devices.OpenEphysAcquisitionBoard | aind_data_schema.components.devices.MotorizedStage | aind_data_schema.components.devices.ScanningStage | aind_data_schema.components.devices.AdditionalImagingDevice | aind_data_schema.components.devices.Disc | aind_data_schema.components.devices.Wheel | aind_data_schema.components.devices.Tube | aind_data_schema.components.devices.Treadmill | aind_data_schema.components.devices.Arena | aind_data_schema.components.devices.DAQDevice | aind_data_schema.components.devices.Computer | aind_data_schema.components.devices.Microscope | aind_data_schema.components.devices.Device, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` | List of all devices in the instrument |

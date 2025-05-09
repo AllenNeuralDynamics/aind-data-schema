@@ -1,5 +1,4 @@
-Procedures
-==========
+# Procedures
 
 The `procedures.json` file contains Procedures, anything done to the subject or specimen prior to data collection. This can include surgeries, injections, tissue processing, sectioning, immunolabeleing, etc.
 

@@ -1,10 +1,6 @@
-Session
-=======
+# Acquisition
 
-**Q: What is a session?** 
-
-A single episode of data collection that creates one data asset. We use `session` in reference to physiology and 
-behavior data and `acquisition` in reference to light sheet imaging.
+An acquisition is single episode of data collection that creates one data asset.
 
 **Q: What does this file contain?**
 
@@ -92,3 +88,11 @@ output dictionary. You can use this as makes most sense for your needs, but we e
 input values (say laser power percentage settings) and the output dictionary having output values (say the measured 
 wattage out of the laser). You define the key and provide a list of the values. We recommed that you use the same 
 dictionary structures when you do the same calibrations (when possible).
+
+
+```{literalinclude} ../../examples/exaspim_acquisition.py
+:language: python
+:linenos:
+```
+
+## Model definitions
