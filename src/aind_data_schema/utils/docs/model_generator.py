@@ -10,7 +10,7 @@ import re
 special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
     "aind_data_schema_models.organizations": "[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)",
-    "aind_data_schema_models.modalities": "[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)"
+    "aind_data_schema_models.modalities": "[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -112,10 +112,10 @@ if __name__ == "__main__":
 
     src_folder = "/Users/daniel.birman/proj/aind-data-schema/src"
     doc_folder = "/Users/daniel.birman/proj/aind-data-schema/docs_base/models"
-    
+
     # Get absolute path of this script to skip it
     current_script_path = os.path.abspath(__file__)
-    
+
     # Dictionary to store model name to link mappings
     model_link_map = {}
 
@@ -127,12 +127,12 @@ if __name__ == "__main__":
                 # Skip the current script to avoid circular import issues
                 if os.path.abspath(module_path) == current_script_path:
                     continue
-                
+
                 # Get the relative module path from src folder
                 rel_module_path = os.path.relpath(module_path, src_folder)
                 # Convert to directory structure (remove .py extension)
                 rel_dir_path = os.path.splitext(rel_module_path)[0]
-                
+
                 module_name = rel_dir_path.replace(os.sep, ".")
                 print(f"Processing module: {module_name}")
 
@@ -145,32 +145,34 @@ if __name__ == "__main__":
                         attr = getattr(module, attr_name)
 
                         # Check if the attribute is a DataModel subclass AND is defined in this module
-                        if (isinstance(attr, type) and 
-                            issubclass(attr, DataModel) and 
-                            attr is not DataModel and 
-                            attr.__module__ == module_name):  # Check if defined in current module
-                            
+                        if (
+                            isinstance(attr, type)
+                            and issubclass(attr, DataModel)
+                            and attr is not DataModel
+                            and attr.__module__ == module_name
+                        ):  # Check if defined in current module
+
                             markdown_output = generate_markdown_table(attr, BaseModel)
-                            
+
                             # Create the target directory structure
                             target_dir = os.path.join(doc_folder, rel_dir_path)
                             os.makedirs(target_dir, exist_ok=True)
-                            
+
                             # Save the file in the appropriate subdirectory
                             output_file = os.path.join(target_dir, f"{attr.__name__}.md")
                             with open(output_file, "w") as f:
                                 f.write(markdown_output)
-                            
+
                             # Construct the relative documentation path for the link map
                             # Convert directory separators to forward slashes for URLs
-                            doc_rel_path = rel_dir_path.replace(os.sep, '/')
-                            
+                            doc_rel_path = rel_dir_path.replace(os.sep, "/")
+
                             # Create the link format: "[ClassName](path/to/directory#ClassName)"
                             link = f"[{attr.__name__}]({doc_rel_path}#{attr.__name__})"
 
                             # Strip out "aind_data_schema/" and "aind_data_schema/core/" from the links
                             link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
-                            
+
                             # Add to our mapping dictionary using the format "{ClassName}" as the key
                             model_link_map[f"{{{attr.__name__}}}"] = link
                         else:
@@ -178,11 +180,12 @@ if __name__ == "__main__":
                             # print(f"Skipping {attr_name} in {module_name} as it is not a DataModel subclass or not defined in this module.")
                 except Exception as e:
                     print(f"Error processing {module_path}: {e}")
-    
+
     # Save the model link map as a JSON file
     import json
+
     link_map_path = os.path.join(doc_folder, "model_links.json")
     with open(link_map_path, "w") as f:
         json.dump(model_link_map, f, indent=2)
-    
+
     print(f"Model link map saved to {link_map_path}")

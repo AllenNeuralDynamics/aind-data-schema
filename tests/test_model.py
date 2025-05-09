@@ -16,7 +16,7 @@ class ModelTests(unittest.TestCase):
         """try building model"""
 
         with self.assertRaises(pydantic.ValidationError):
-            Model()        
+            Model()
 
         Model.model_validate_json(m.model_dump_json())
 
