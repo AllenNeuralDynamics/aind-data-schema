@@ -144,4 +144,4 @@ notebook/
 ephys_instrument.json
 examples/*.json
 *.json
-docs_base/models/*
+docs/base/models/*
