@@ -68,7 +68,7 @@ def check_for_union(value: str) -> str:
     
     Example:
     Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
-    Output: "List[{Calibration} | {LiquidCalibration}]"
+    Output: "List[{Calibration} or {LiquidCalibration}]"
     """
     # Check if this is an Annotated type
     if "Annotated" in value:
@@ -114,7 +114,7 @@ def _get_type_string_helper(tp: Type, origin, args) -> str:
         non_none_type = next(arg for arg in args if arg is not type(None))
         return f"Optional[{get_type_string(non_none_type)}]"
     if origin is union_type:
-        return " | ".join(get_type_string(arg) for arg in args)
+        return " or ".join(get_type_string(arg) for arg in args)
 
     # Check for annotated types and unions in the string representation
     str_rep = str(tp)

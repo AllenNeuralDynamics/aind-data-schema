@@ -11,9 +11,9 @@ Generic calibration class
 | `calibration_date` | `datetime (timezone-aware)` |  |
 | `description` | `str` | Brief description of what is being calibrated |
 | `input` | `List[float | str]` | Calibration input |
-| `input_unit` | `SizeUnit | MassUnit | FrequencyUnit | SpeedUnit | VolumeUnit | AngleUnit | TimeUnit | PowerUnit | CurrentUnit | ConcentrationUnit | TemperatureUnit | SoundIntensityUnit | VoltageUnit | MemoryUnit | UnitlessUnit | MagneticFieldUnit | PressureUnit` |  |
+| `input_unit` | `SizeUnit or MassUnit or FrequencyUnit or SpeedUnit or VolumeUnit or AngleUnit or TimeUnit or PowerUnit or CurrentUnit or ConcentrationUnit or TemperatureUnit or SoundIntensityUnit or VoltageUnit or MemoryUnit or UnitlessUnit or MagneticFieldUnit or PressureUnit` |  |
 | `output` | `List[float | str]` | Calibration output |
-| `output_unit` | `SizeUnit | MassUnit | FrequencyUnit | SpeedUnit | VolumeUnit | AngleUnit | TimeUnit | PowerUnit | CurrentUnit | ConcentrationUnit | TemperatureUnit | SoundIntensityUnit | VoltageUnit | MemoryUnit | UnitlessUnit | MagneticFieldUnit | PressureUnit` |  |
+| `output_unit` | `SizeUnit or MassUnit or FrequencyUnit or SpeedUnit or VolumeUnit or AngleUnit or TimeUnit or PowerUnit or CurrentUnit or ConcentrationUnit or TemperatureUnit or SoundIntensityUnit or VoltageUnit or MemoryUnit or UnitlessUnit or MagneticFieldUnit or PressureUnit` |  |
 | `notes` | `Optional[str]` | Fit equation, etc |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 

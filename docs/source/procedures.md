@@ -63,7 +63,7 @@ Description of craniotomy procedure
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `craniotomy_type` | `CraniotomyType` |  |
 | `coordinate_system_name` | `Optional[str]` |  |
-| `position` | [Translation](components/coordinates.md#translation) | List[AnatomicalRelative] | NoneType |  |
+| `position` | [Translation](components/coordinates.md#translation) or List[AnatomicalRelative] or NoneType |  |
 | `size` | `Optional[float]` | Diameter or side length |
 | `size_unit` | `Optional[SizeUnit]` |  |
 | `protective_material` | `Optional[ProtectiveMaterial]` |  |
