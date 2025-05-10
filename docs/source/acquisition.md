@@ -113,9 +113,9 @@ Description of an imaging acquisition
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided within the Acquisition |
 | `calibrations` | List[[Calibration](components/measurements.md#calibration) or [LiquidCalibration](components/measurements.md#liquidcalibration) or [LaserCalibration](components/measurements.md#lasercalibration)] | List of calibration measurements taken prior to acquisition. |
 | `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | List of maintenance on instrument prior to acquisition. |
-| `data_streams` | List[[DataStream](acquisition.md#datastream)] | A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location) |
-| `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] |  |
-| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] |  |
+| `data_streams` | List[[DataStream](#datastream)] | A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location) |
+| `stimulus_epochs` | List[[StimulusEpoch](#stimulusepoch)] |  |
+| `subject_details` | Optional[[AcquisitionSubjectDetails](#acquisitionsubjectdetails)] |  |
 
 
 ### AcquisitionSubjectDetails
@@ -174,7 +174,7 @@ Description of stimulus used during data acquisition
 | `stimulus_name` | `str` |  |
 | `code` | Optional[[Code](components/identifiers.md#code)] | Custom code/script used to control the behavior/stimulus and parameters |
 | `stimulus_modalities` | `List[StimulusModality]` |  |
-| `performance_metrics` | Optional[[PerformanceMetrics](acquisition.md#performancemetrics)] |  |
+| `performance_metrics` | Optional[[PerformanceMetrics](#performancemetrics)] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
 | `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] |  |

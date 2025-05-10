@@ -59,7 +59,7 @@ Generic maintenance class
 | `maintenance_date` | `datetime (timezone-aware)` |  |
 | `description` | `str` | Description on maintenance procedure |
 | `protocol_id` | `Optional[str]` |  |
-| `reagents` | Optional[List[[Reagent](components/reagent.md#reagent)]] |  |
+| `reagents` | Optional[List[[Reagent](reagent.md#reagent)]] |  |
 | `notes` | `Optional[str]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 

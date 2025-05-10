@@ -11,13 +11,13 @@ Code or script identifier
 | `url` | `str` | URL to code repository |
 | `name` | `Optional[str]` |  |
 | `version` | `Optional[str]` |  |
-| `container` | Optional[[Container](components/identifiers.md#container)] |  |
+| `container` | Optional[[Container](#container)] |  |
 | `run_script` | `Optional[pathlib.Path]` | Path to run script |
 | `language` | `Optional[str]` | Programming language used |
 | `language_version` | `Optional[str]` |  |
-| `input_data` | Optional[List[[DataAsset](components/identifiers.md#dataasset) or [CombinedData](components/identifiers.md#combineddata)]] | Input data used in the code or script |
+| `input_data` | Optional[List[[DataAsset](#dataasset) or [CombinedData](#combineddata)]] | Input data used in the code or script |
 | `parameters` | `Optional[aind_data_schema.base.GenericModel]` | Parameters used in the code or script |
-| `core_dependency` | Optional[[Software](components/identifiers.md#software)] | For code with a core software package dependency, e.g. Bonsai |
+| `core_dependency` | Optional[[Software](#software)] | For code with a core software package dependency, e.g. Bonsai |
 
 
 ### CombinedData
@@ -26,7 +26,7 @@ Description of a group of data assets
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `assets` | List[[DataAsset](components/identifiers.md#dataasset)] |  |
+| `assets` | List[[DataAsset](#dataasset)] |  |
 | `name` | `Optional[str]` |  |
 | `external_links` | `Dict[ExternalPlatforms, List[str]]` | Links to the Combined Data asset, if materialized. |
 | `description` | `Optional[str]` | Intention or approach used to select group of assets |

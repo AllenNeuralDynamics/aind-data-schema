@@ -27,7 +27,7 @@ Description of a set of oligonucleotide probes targeting a specific gene
 | Field | Type | Description |
 |-------|------|-------------|
 | `gene` | `aind_data_schema_models.pid_names.PIDName` |  |
-| `probes` | List[[OligoProbe](components/reagent.md#oligoprobe)] |  |
+| `probes` | List[[OligoProbe](#oligoprobe)] |  |
 
 
 ### GeneticStain
@@ -36,8 +36,8 @@ Description of an oligonucleotide probe(s) targeting a gene and readout
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `gene_probe` | [GeneProbes](components/reagent.md#geneprobes) |  |
-| `readout` | [Readout](components/reagent.md#readout) or [HCRReadout](components/reagent.md#hcrreadout) |  |
+| `gene_probe` | [GeneProbes](#geneprobes) |  |
+| `readout` | [Readout](#readout) or [HCRReadout](#hcrreadout) |  |
 | `species` | `typing.Annotated[typing.Union[aind_data_schema_models.species._Callithrix_Jacchus, aind_data_schema_models.species._Homo_Sapiens, aind_data_schema_models.species._Macaca_Mulatta, aind_data_schema_models.species._Mus_Musculus, aind_data_schema_models.species._Rattus_Norvegicus], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
 | `name` | `str` |  |
 | `source` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
@@ -80,7 +80,7 @@ set of probes used in BarSEQ
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `gene_probes` | List[[GeneProbes](components/reagent.md#geneprobes)] |  |
+| `gene_probes` | List[[GeneProbes](#geneprobes)] |  |
 | `name` | `str` |  |
 | `source` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |

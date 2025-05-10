@@ -24,7 +24,7 @@ Definition an atlas
 | `resolution` | `List[float]` |  |
 | `resolution_unit` | `SizeUnit` |  |
 | `origin` | `Origin` | Defines the position of (0,0,0) in the coordinate system |
-| `axes` | List[[Axis](components/coordinates.md#axis)] | Axis names and directions |
+| `axes` | List[[Axis](#axis)] | Axis names and directions |
 | `axis_unit` | `SizeUnit` |  |
 
 
@@ -34,7 +34,7 @@ A point in an Atlas
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `coordinate_system` | [Atlas](components/coordinates.md#atlas) |  |
+| `coordinate_system` | [Atlas](#atlas) |  |
 | `translation` | `List[float]` |  |
 
 
@@ -56,7 +56,7 @@ Definition of a coordinate system relative to a brain
 |-------|------|-------------|
 | `name` | `str` |  |
 | `origin` | `Origin` | Defines the position of (0,0,0) in the coordinate system |
-| `axes` | List[[Axis](components/coordinates.md#axis)] | Axis names and directions |
+| `axes` | List[[Axis](#axis)] | Axis names and directions |
 | `axis_unit` | `SizeUnit` |  |
 
 

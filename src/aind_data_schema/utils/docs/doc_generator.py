@@ -61,6 +61,7 @@ def process_core_file(core_file):
         for link in model_link_map:
             # Replace the link in the model content
             model_content = model_content.replace(link, model_link_map[link])
+            model_content = model_content.replace(f"{core_file}.md", "")
 
         all_model_content.append(model_content)
 
@@ -122,6 +123,8 @@ def process_components(component_folder):
         # Apply the link map replacements
         for link in model_link_map:
             model_content = model_content.replace(link, model_link_map[link])
+            model_content = model_content.replace("components/", "")
+            model_content = model_content.replace(f"{component_folder}.md", "")
             
         combined_content += f"{model_content}\n\n"
     

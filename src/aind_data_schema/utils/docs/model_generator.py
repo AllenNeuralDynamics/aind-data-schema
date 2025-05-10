@@ -22,7 +22,11 @@ special_cases = {
     "aind_data_schema_models.brain_atlas": (
         "[BrainAtlas](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
         "/blob/main/src/aind_data_schema_models/brain_atlas.py)"
-    )
+    ),
+    "aind_data_schema_models.harp_types": (
+        "[HarpDeviceType](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
+        "/blob/main/src/aind_data_schema_models/harp_types.py)"
+    ),
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]

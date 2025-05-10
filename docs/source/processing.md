@@ -28,7 +28,7 @@ Description of a single processing step
 | `output_path` | `Optional[aind_data_schema.components.wrappers.AssetPath]` | Path to processing outputs, if stored. |
 | `output_parameters` | `aind_data_schema.base.GenericModel` | Output parameters |
 | `notes` | `Optional[str]` |  |
-| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
+| `resources` | Optional[[ResourceUsage](#resourceusage)] |  |
 
 
 ### Processing
@@ -37,7 +37,7 @@ Description of all processes run on data
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `data_processes` | List[[DataProcess](processing.md#dataprocess)] |  |
+| `data_processes` | List[[DataProcess](#dataprocess)] |  |
 | `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess. |
 | `notes` | `Optional[str]` |  |
 | `dependency_graph` | `Dict[str, List[str]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
@@ -68,7 +68,7 @@ Description of resources used by a process
 | `system_memory_unit` | `Optional[MemoryUnit]` |  |
 | `ram` | `Optional[float]` |  |
 | `ram_unit` | `Optional[MemoryUnit]` |  |
-| `cpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
-| `gpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
-| `ram_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
+| `cpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
+| `gpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
+| `ram_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
 | `usage_unit` | `str` |  |

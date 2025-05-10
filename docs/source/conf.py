@@ -50,6 +50,11 @@ html_theme_options = {
     "dark_logo": "dark-logo.svg",
 }
 
+
+def setup(app):
+    app.add_css_file('custom.css')
+
+
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 html_show_sphinx = False
 

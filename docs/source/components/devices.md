@@ -39,9 +39,9 @@ Description of a rectangular arena
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `size` | [Scale](components/coordinates.md#scale) |  |
+| `size` | [Scale](coordinates.md#scale) |  |
 | `size_unit` | `SizeUnit` |  |
-| `objects_in_arena` | List[[Device](components/devices.md#device)] |  |
+| `objects_in_arena` | List[[Device](#device)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)] |  |
@@ -80,7 +80,7 @@ Camera Detector
 | `crop_width` | `Optional[int]` |  |
 | `crop_height` | `Optional[int]` |  |
 | `crop_unit` | `SizeUnit` |  |
-| `recording_software` | Optional[[Software](components/identifiers.md#software)] |  |
+| `recording_software` | Optional[[Software](identifiers.md#software)] |  |
 | `driver` | `Optional[DeviceDriver]` |  |
 | `driver_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -98,12 +98,12 @@ Named assembly of a camera and lens (and optionally a filter)
 |-------|------|-------------|
 | `name` | `str` |  |
 | `target` | `CameraTarget` |  |
-| `camera` | [Camera](components/devices.md#camera) |  |
-| `lens` | [Lens](components/devices.md#lens) |  |
-| `filter` | Optional[[Filter](components/devices.md#filter)] |  |
+| `camera` | [Camera](#camera) |  |
+| `lens` | [Lens](#lens) |  |
+| `filter` | Optional[[Filter](#filter)] |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### Computer
@@ -144,7 +144,7 @@ Data acquisition device containing multiple I/O channels
 |-------|------|-------------|
 | `data_interface` | `DataInterface` |  |
 | `manufacturer` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
-| `channels` | List[[DAQChannel](components/devices.md#daqchannel)] |  |
+| `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -184,7 +184,7 @@ Description of a generic detector
 | `crop_width` | `Optional[int]` |  |
 | `crop_height` | `Optional[int]` |  |
 | `crop_unit` | `SizeUnit` |  |
-| `recording_software` | Optional[[Software](components/identifiers.md#software)] |  |
+| `recording_software` | Optional[[Software](identifiers.md#software)] |  |
 | `driver` | `Optional[DeviceDriver]` |  |
 | `driver_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -215,8 +215,8 @@ Position class for devices
 | Field | Type | Description |
 |-------|------|-------------|
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### DigitalMicromirrorDevice
@@ -258,7 +258,7 @@ Description of a running disc (i.e. MindScope Disc)
 | `output` | `Optional[DaqChannelType]` | analog or digital electronics |
 | `encoder` | `Optional[str]` | Encoder hardware type |
 | `decoder` | `Optional[str]` | Decoder chip type |
-| `encoder_firmware` | Optional[[Software](components/identifiers.md#software)] | Firmware to read from decoder chip counts |
+| `encoder_firmware` | Optional[[Software](identifiers.md#software)] | Firmware to read from decoder chip counts |
 | `surface_material` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -274,7 +274,7 @@ Description of an enclosure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `size` | [Scale](components/coordinates.md#scale) |  |
+| `size` | [Scale](coordinates.md#scale) |  |
 | `size_unit` | `SizeUnit` |  |
 | `internal_material` | `Optional[str]` |  |
 | `external_material` | `str` |  |
@@ -296,8 +296,8 @@ Named assembly for combining a manipulator and ephys probes
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `manipulator` | [Manipulator](components/devices.md#manipulator) |  |
-| `probes` | List[[EphysProbe](components/devices.md#ephysprobe)] |  |
+| `manipulator` | [Manipulator](#manipulator) |  |
+| `probes` | List[[EphysProbe](#ephysprobe)] |  |
 
 
 ### EphysProbe
@@ -307,7 +307,7 @@ Probe used in an ephys experiment
 | Field | Type | Description |
 |-------|------|-------------|
 | `probe_model` | `ProbeModel` |  |
-| `headstage` | Optional[[Device](components/devices.md#device)] |  |
+| `headstage` | Optional[[Device](#device)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)] |  |
@@ -323,8 +323,8 @@ Module for inserted fiber photometry recording
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `manipulator` | [Manipulator](components/devices.md#manipulator) |  |
-| `fibers` | List[[FiberProbe](components/devices.md#fiberprobe)] |  |
+| `manipulator` | [Manipulator](#manipulator) |  |
+| `fibers` | List[[FiberProbe](#fiberprobe)] |  |
 
 
 ### FiberPatchCord
@@ -391,12 +391,12 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 | Field | Type | Description |
 |-------|------|-------------|
 | `manufacturer` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
-| `harp_device_type` | `typing.Annotated[typing.Union[aind_data_schema_models.harp_types._Behavior, aind_data_schema_models.harp_types._Camera_Controller, aind_data_schema_models.harp_types._Clock_Synchronizer, aind_data_schema_models.harp_types._Cuttlefish, aind_data_schema_models.harp_types._Generic_Harp_Device, aind_data_schema_models.harp_types._Input_Expander, aind_data_schema_models.harp_types._Lickety_Split, aind_data_schema_models.harp_types._Load_Cells, aind_data_schema_models.harp_types._Olfactometer, aind_data_schema_models.harp_types._Sniff_Detector, aind_data_schema_models.harp_types._Sound_Card, aind_data_schema_models.harp_types._Stepper_Driver, aind_data_schema_models.harp_types._Synchronizer, aind_data_schema_models.harp_types._Timestamp_Generator_Gen_1, aind_data_schema_models.harp_types._Timestamp_Generator_Gen_3, aind_data_schema_models.harp_types._Treadmill], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
+| `harp_device_type` | [HarpDeviceType](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/harp_types.py) |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
 | `data_interface` | `DataInterface` |  |
 | `is_clock_generator` | `bool` |  |
-| `channels` | List[[DAQChannel](components/devices.md#daqchannel)] |  |
+| `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -452,10 +452,10 @@ Named assembly combining a manipulator, lasers, collimator, and fibers
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `manipulator` | [Manipulator](components/devices.md#manipulator) |  |
-| `lasers` | List[[Laser](components/devices.md#laser)] |  |
-| `collimator` | [Device](components/devices.md#device) |  |
-| `fiber` | [FiberPatchCord](components/devices.md#fiberpatchcord) |  |
+| `manipulator` | [Manipulator](#manipulator) |  |
+| `lasers` | List[[Laser](#laser)] |  |
+| `collimator` | [Device](#device) |  |
+| `fiber` | [FiberPatchCord](#fiberpatchcord) |  |
 
 
 ### Lens
@@ -480,8 +480,8 @@ Description of a lick spout
 |-------|------|-------------|
 | `spout_diameter` | `decimal.Decimal` |  |
 | `spout_diameter_unit` | `SizeUnit` |  |
-| `solenoid_valve` | [Device](components/devices.md#device) |  |
-| `lick_sensor` | [Device](components/devices.md#device) |  |
+| `solenoid_valve` | [Device](#device) |  |
+| `lick_sensor` | [Device](#device) |  |
 | `lick_sensor_type` | `Optional[LickSensorType]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -498,8 +498,8 @@ Description of multiple lick spouts, possibly mounted on a stage
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `lick_spouts` | List[[LickSpout](components/devices.md#lickspout)] |  |
-| `motorized_stage` | Optional[[MotorizedStage](components/devices.md#motorizedstage)] |  |
+| `lick_spouts` | List[[LickSpout](#lickspout)] |  |
+| `motorized_stage` | Optional[[MotorizedStage](#motorizedstage)] |  |
 
 
 ### LightAssembly
@@ -509,9 +509,9 @@ Named assembly of a light source and lens
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `light` | [Laser](components/devices.md#laser) or [LightEmittingDiode](components/devices.md#lightemittingdiode) or [Lamp](components/devices.md#lamp) |  |
-| `lens` | [Lens](components/devices.md#lens) |  |
-| `filter` | Optional[[Filter](components/devices.md#filter)] |  |
+| `light` | [Laser](#laser) or [LightEmittingDiode](#lightemittingdiode) or [Lamp](#lamp) |  |
+| `lens` | [Lens](#lens) |  |
+| `filter` | Optional[[Filter](#filter)] |  |
 
 
 ### LightEmittingDiode
@@ -581,8 +581,8 @@ Description of visual display for visual stimuli
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### MotorizedStage
@@ -593,7 +593,7 @@ Description of motorized stage
 |-------|------|-------------|
 | `travel` | `decimal.Decimal` |  |
 | `travel_unit` | `SizeUnit` |  |
-| `firmware` | Optional[[Software](components/identifiers.md#software)] |  |
+| `firmware` | Optional[[Software](identifiers.md#software)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)] |  |
@@ -609,7 +609,7 @@ Description of a Myomatrix array
 | Field | Type | Description |
 |-------|------|-------------|
 | `array_type` | `MyomatrixArrayType` |  |
-| `threads` | List[[MyomatrixThread](components/devices.md#myomatrixthread)] |  |
+| `threads` | List[[MyomatrixThread](#myomatrixthread)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)] |  |
@@ -637,7 +637,7 @@ Description of a thread of a myomatrix array
 | Field | Type | Description |
 |-------|------|-------------|
 | `ground_electrode_location` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` | Use GroundWireLocations |
-| `contacts` | List[[MyomatrixContact](components/devices.md#myomatrixcontact)] |  |
+| `contacts` | List[[MyomatrixContact](#myomatrixcontact)] |  |
 
 
 ### NeuropixelsBasestation
@@ -649,10 +649,10 @@ PXI-based Neuropixels DAQ
 | `basestation_firmware_version` | `str` |  |
 | `bsc_firmware_version` | `str` |  |
 | `slot` | `int` |  |
-| `ports` | List[[ProbePort](components/devices.md#probeport)] |  |
+| `ports` | List[[ProbePort](#probeport)] |  |
 | `data_interface` | `DataInterface` |  |
 | `manufacturer` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
-| `channels` | List[[DAQChannel](components/devices.md#daqchannel)] |  |
+| `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -687,8 +687,8 @@ Description of an olfactometer for odor stimuli
 | Field | Type | Description |
 |-------|------|-------------|
 | `manufacturer` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
-| `harp_device_type` | `typing.Annotated[typing.Union[aind_data_schema_models.harp_types._Behavior, aind_data_schema_models.harp_types._Camera_Controller, aind_data_schema_models.harp_types._Clock_Synchronizer, aind_data_schema_models.harp_types._Cuttlefish, aind_data_schema_models.harp_types._Generic_Harp_Device, aind_data_schema_models.harp_types._Input_Expander, aind_data_schema_models.harp_types._Lickety_Split, aind_data_schema_models.harp_types._Load_Cells, aind_data_schema_models.harp_types._Olfactometer, aind_data_schema_models.harp_types._Sniff_Detector, aind_data_schema_models.harp_types._Sound_Card, aind_data_schema_models.harp_types._Stepper_Driver, aind_data_schema_models.harp_types._Synchronizer, aind_data_schema_models.harp_types._Timestamp_Generator_Gen_1, aind_data_schema_models.harp_types._Timestamp_Generator_Gen_3, aind_data_schema_models.harp_types._Treadmill], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
-| `channels` | List[[OlfactometerChannel](components/devices.md#olfactometerchannel)] |  |
+| `harp_device_type` | [HarpDeviceType](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/harp_types.py) |  |
+| `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
 | `data_interface` | `DataInterface` |  |
@@ -720,10 +720,10 @@ Multichannel electrophysiology DAQ
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ports` | List[[ProbePort](components/devices.md#probeport)] |  |
+| `ports` | List[[ProbePort](#probeport)] |  |
 | `data_interface` | `typing.Literal[<DataInterface.USB: 'USB'>]` |  |
 | `manufacturer` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
-| `channels` | List[[DAQChannel](components/devices.md#daqchannel)] |  |
+| `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -806,7 +806,7 @@ Description of a scanning motorized stages
 | `stage_axis_name` | `AxisName` |  |
 | `travel` | `decimal.Decimal` |  |
 | `travel_unit` | `SizeUnit` |  |
-| `firmware` | Optional[[Software](components/identifiers.md#software)] |  |
+| `firmware` | Optional[[Software](identifiers.md#software)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)] |  |
@@ -828,8 +828,8 @@ Description of a speaker for auditory stimuli
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### Treadmill
@@ -840,7 +840,7 @@ Description of treadmill platform
 |-------|------|-------------|
 | `treadmill_width` | `decimal.Decimal` |  |
 | `width_unit` | `SizeUnit` |  |
-| `encoder` | Optional[[Device](components/devices.md#device)] |  |
+| `encoder` | Optional[[Device](#device)] |  |
 | `pulse_per_revolution` | `Optional[int]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -875,10 +875,10 @@ Description of a running wheel
 | `radius` | `decimal.Decimal` |  |
 | `width` | `decimal.Decimal` |  |
 | `size_unit` | `SizeUnit` |  |
-| `encoder` | [Device](components/devices.md#device) |  |
+| `encoder` | [Device](#device) |  |
 | `pulse_per_revolution` | `int` |  |
-| `magnetic_brake` | [Device](components/devices.md#device) |  |
-| `torque_sensor` | [Device](components/devices.md#device) |  |
+| `magnetic_brake` | [Device](#device) |  |
+| `torque_sensor` | [Device](#device) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py)] |  |

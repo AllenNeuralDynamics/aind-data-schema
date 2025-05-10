@@ -23,7 +23,7 @@ Description of subject housing
 |-------|------|-------------|
 | `cage_id` | `Optional[str]` |  |
 | `room_id` | `Optional[str]` |  |
-| `light_cycle` | Optional[[LightCycle](components/subjects.md#lightcycle)] |  |
+| `light_cycle` | Optional[[LightCycle](#lightcycle)] |  |
 | `home_cage_enrichment` | `List[HomeCageEnrichment]` |  |
 | `cohoused_subjects` | `List[str]` | List of IDs of other subjects housed in same cage |
 
@@ -61,9 +61,9 @@ Description of a mouse subject
 | `species` | `typing.Annotated[typing.Union[aind_data_schema_models.species._Callithrix_Jacchus, aind_data_schema_models.species._Homo_Sapiens, aind_data_schema_models.species._Macaca_Mulatta, aind_data_schema_models.species._Mus_Musculus, aind_data_schema_models.species._Rattus_Norvegicus], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
 | `alleles` | `List[aind_data_schema_models.pid_names.PIDName]` | Allele names and persistent IDs |
 | `genotype` | `str` | Genotype of the animal providing both alleles |
-| `breeding_info` | Optional[[BreedingInfo](components/subjects.md#breedinginfo)] |  |
-| `wellness_reports` | List[[WellnessReport](components/subjects.md#wellnessreport)] |  |
-| `housing` | Optional[[Housing](components/subjects.md#housing)] |  |
+| `breeding_info` | Optional[[BreedingInfo](#breedinginfo)] |  |
+| `wellness_reports` | List[[WellnessReport](#wellnessreport)] |  |
+| `housing` | Optional[[Housing](#housing)] |  |
 | `source` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) | Where the subject was acquired from. If bred in-house, use Allen Institute. |
 | `restrictions` | `Optional[str]` | Any restrictions on use or publishing based on subject source |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` | RRID of mouse if acquired from supplier |
