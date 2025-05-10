@@ -56,17 +56,17 @@ Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allow
 
 ## Model definitions
 
-### `CurationHistory`
+### CurationHistory
 
 Schema to track curator name and timestamp for curation events
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `curator` | [Person](components/identifiers#Person) |  |
+| `curator` | [Person](components/identifiers.md#person) |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
-### `CurationMetric`
+### CurationMetric
 
 Description of a curation metric
 
@@ -74,15 +74,15 @@ Description of a curation metric
 |-------|------|-------------|
 | `value` | `List[typing.Any]` |  |
 | `type` | `str` |  |
-| `curation_history` | List[[CurationHistory](quality_control#CurationHistory)] |  |
+| `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] |  |
 | `name` | `str` |  |
-| `status_history` | List[[QCStatus](quality_control#QCStatus)] |  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
 
 
-### `QCEvaluation`
+### QCEvaluation
 
 Description of one evaluation stage, with one or more metrics
 
@@ -100,7 +100,7 @@ Description of one evaluation stage, with one or more metrics
 | `created` | `datetime (timezone-aware)` |  |
 
 
-### `QCMetric`
+### QCMetric
 
 Description of a single quality control metric
 
@@ -108,13 +108,13 @@ Description of a single quality control metric
 |-------|------|-------------|
 | `name` | `str` |  |
 | `value` | `typing.Any` |  |
-| `status_history` | List[[QCStatus](quality_control#QCStatus)] |  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
 
 
-### `QCStatus`
+### QCStatus
 
 Description of a QC status, set by an evaluator
 
@@ -125,11 +125,11 @@ Description of a QC status, set by an evaluator
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
-### `QualityControl`
+### QualityControl
 
 Description of quality metrics for a data asset
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `evaluations` | List[[QCEvaluation](quality_control#QCEvaluation)] |  |
+| `evaluations` | List[[QCEvaluation](quality_control.md#qcevaluation)] |  |
 | `notes` | `Optional[str]` |  |

@@ -64,6 +64,15 @@ Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` 
    acquisition
    processing
    quality_control
+   
+
+
+.. toctree::
+   :caption: Components
+   :hidden:
+   :maxdepth: 2
+
+   components
 
 
 .. toctree::

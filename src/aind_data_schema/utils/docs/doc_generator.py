@@ -76,6 +76,79 @@ def process_core_file(core_file):
     print(f"Documentation generated for {core_file} with {len(md_files)} files: {output_file_path}")
 
 
+def process_components(component_folder):
+    """
+    Process a component folder and generate a markdown file with all models in that folder.
+    
+    Args:
+        component_folder: Name of the component folder to process (e.g., "configs")
+    """
+    # Define paths
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+    component_docs_dir = os.path.join(base_dir, "docs", "base", "models", "aind_data_schema", "components", component_folder)
+    output_dir = os.path.join(base_dir, "docs", "source", "components")
+    output_file_path = os.path.join(output_dir, f"{component_folder}.md")
+    
+    # Check if directory exists
+    if not os.path.exists(component_docs_dir):
+        print(f"Warning: Component documentation directory not found: {component_docs_dir}")
+        return
+        
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Load model link map
+    link_map_path = os.path.join(base_dir, "docs", "base", "models", "model_links.json")
+    with open(link_map_path, "r") as f:
+        model_link_map = json.load(f)
+    
+    # Find all .md files in the component_docs_dir
+    md_files = sorted([f for f in os.listdir(component_docs_dir) if f.endswith(".md")])
+    
+    if not md_files:
+        print(f"Warning: No markdown files found in: {component_docs_dir}")
+        return
+        
+    # Create the content with headers
+    capitalized_name = component_folder.capitalize()
+    combined_content = f"# {capitalized_name}\n\n## Model definitions\n\n"
+    
+    # Read and process all model content
+    for md_file in md_files:
+        model_doc_path = os.path.join(component_docs_dir, md_file)
+        with open(model_doc_path, "r") as model_doc:
+            model_content = model_doc.read()
+            
+        # Apply the link map replacements
+        for link in model_link_map:
+            model_content = model_content.replace(link, model_link_map[link])
+            
+        combined_content += f"{model_content}\n\n"
+    
+    # Write to the output file
+    with open(output_file_path, "w") as output_file:
+        output_file.write(combined_content)
+        
+    print(f"Documentation generated for component {component_folder} with {len(md_files)} files: {output_file_path}")
+
+
+def generate_all_component_documentation():
+    """
+    Generate documentation for all component folders.
+    """
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+    components_dir = os.path.join(base_dir, "docs", "base", "models", "aind_data_schema", "components")
+    
+    if not os.path.exists(components_dir):
+        print(f"Warning: Components directory not found: {components_dir}")
+        return
+        
+    component_folders = [d for d in os.listdir(components_dir) if os.path.isdir(os.path.join(components_dir, d))]
+    
+    for component_folder in component_folders:
+        process_components(component_folder)
+
+
 def generate_all_core_documentation():
     """
     Generate documentation for all core files defined in CORE_FILES.
@@ -86,3 +159,4 @@ def generate_all_core_documentation():
 
 if __name__ == "__main__":
     generate_all_core_documentation()
+    generate_all_component_documentation()

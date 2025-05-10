@@ -19,6 +19,10 @@ special_cases = {
         "[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
         "/blob/main/src/aind_data_schema_models/modalities.py)"
     ),
+    "aind_data_schema_models.brain_atlas": (
+        "[BrainAtlas](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
+        "/blob/main/src/aind_data_schema_models/brain_atlas.py)"
+    )
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -88,9 +92,9 @@ def check_for_union(value: str) -> str:
                 list_match = re.match(r'(List|Dict|Optional)\[(.*)', value)
                 if list_match:
                     container = list_match.group(1)
-                    return f"{container}[{' | '.join(clean_types)}]"
+                    return f"{container}[{' or '.join(clean_types)}]"
                 
-                return " | ".join(clean_types)
+                return " or ".join(clean_types)
     
     return value
 
@@ -144,7 +148,7 @@ def get_type_string(tp: Type) -> str:
 def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) -> str:
     """Generate the full markdown table for a model"""
     model_name = model.__name__
-    header = f"### `{model_name}`\n\n"
+    header = f"### {model_name}\n\n"
     docstring = inspect.getdoc(model)
     if docstring:
         header += f"{docstring}\n\n"
@@ -230,7 +234,7 @@ if __name__ == "__main__":
                             doc_rel_path = rel_dir_path.replace(os.sep, "/")
 
                             # Create the link format: "[ClassName](path/to/directory#ClassName)"
-                            link = f"[{attr.__name__}]({doc_rel_path}#{attr.__name__})"
+                            link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
 
                             # Strip out "aind_data_schema/" and "aind_data_schema/core/" from the links
                             link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
