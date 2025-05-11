@@ -1,13 +1,15 @@
 """Code to generate markdown tables for each model"""
 
-from typing import Type, List, Dict
-from pydantic import BaseModel
-import inspect
-import os
-from aind_data_schema.base import DataModel
 import importlib.util
+import inspect
+import json
+import os
 import re
+from typing import Dict, List, Type
 
+from pydantic import BaseModel
+
+from aind_data_schema.base import DataModel
 
 special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
@@ -177,7 +179,6 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
     return header + "\n".join(rows) + "\n"
 
 
-# Example usage
 if __name__ == "__main__":
 
     src_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
@@ -251,7 +252,6 @@ if __name__ == "__main__":
                     print(f"Error processing {module_path}: {e}")
 
     # Save the model link map as a JSON file
-    import json
 
     link_map_path = os.path.join(doc_folder, "model_links.json")
     with open(link_map_path, "w") as f:

@@ -3,9 +3,8 @@
 Script to generate documentation for AIND data schema.
 """
 
-import os
 import json
-
+import os
 
 from aind_data_schema.core.metadata import CORE_FILES
 
