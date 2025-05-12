@@ -371,7 +371,7 @@ Filter used in a light path
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `filter_type` | {FilterType} |  |
+| `filter_type` | [FilterType](stimulus.md#filtertype) |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `cut_off_wavelength` | `Optional[int]` |  |
 | `cut_on_wavelength` | `Optional[int]` |  |
@@ -709,9 +709,19 @@ description of a Olfactometer channel
 | Field | Type | Description |
 |-------|------|-------------|
 | `channel_index` | `int` |  |
-| `channel_type` | {OlfactometerChannelType} |  |
+| `channel_type` | [OlfactometerChannelType](#olfactometerchanneltype) |  |
 | `flow_capacity` | `typing.Literal[100, 1000]` |  |
 | `flow_unit` | `str` |  |
+
+
+### OlfactometerChannelType
+
+Olfactometer channel types
+
+| Name | Value |
+|------|-------|
+| `ODOR` | `Odor` |
+| `CARRIER` | `Carrier` |
 
 
 ### OpenEphysAcquisitionBoard

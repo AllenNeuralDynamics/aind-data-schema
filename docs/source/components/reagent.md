@@ -8,8 +8,8 @@ Description of an antibody used in immunolableing
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `immunolabel_class` | {ImmunolabelClass} |  |
-| `fluorophore` | Optional[{Fluorophore}] |  |
+| `immunolabel_class` | [ImmunolabelClass](#immunolabelclass) |  |
+| `fluorophore` | Optional[[Fluorophore](#fluorophore)] |  |
 | `mass` | `float` |  |
 | `mass_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
 | `notes` | `Optional[str]` |  |
@@ -18,6 +18,25 @@ Description of an antibody used in immunolableing
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
+
+
+### Fluorophore
+
+Fluorophores used in HCR and Immunolabeling
+
+| Name | Value |
+|------|-------|
+| `ALEXA_405` | `Alexa Fluor 405` |
+| `ALEXA_488` | `Alexa Fluor 488` |
+| `ALEXA_546` | `Alexa Fluor 546` |
+| `ALEXA_568` | `Alexa Fluor 568` |
+| `ALEXA_594` | `Alexa Fluor 594` |
+| `ALEXA_633` | `Alexa Fluor 633` |
+| `ALEXA_647` | `Alexa Fluor 647` |
+| `ATTO_488` | `ATTO 488` |
+| `ATTO_565` | `ATTO 565` |
+| `ATTO_643` | `ATTO 643` |
+| `CY3` | `Cyanine Cy 3` |
 
 
 ### GeneProbes
@@ -53,15 +72,26 @@ Description of a readout for HCR
 | Field | Type | Description |
 |-------|------|-------------|
 | `initiator_name` | `str` |  |
-| `fluorophore` | {Fluorophore} |  |
+| `fluorophore` | [Fluorophore](#fluorophore) |  |
 | `excitation_wavelength` | `int` |  |
 | `excitation_wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
-| `stain_type` | {StainType} |  |
+| `stain_type` | [StainType](#staintype) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
+
+
+### ImmunolabelClass
+
+Type of antibodies
+
+| Name | Value |
+|------|-------|
+| `PRIMARY` | `Primary` |
+| `SECONDARY` | `Secondary` |
+| `CONJUGATE` | `Conjugate` |
 
 
 ### OligoProbe
@@ -94,10 +124,10 @@ Description of a readout
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `fluorophore` | {Fluorophore} |  |
+| `fluorophore` | [Fluorophore](#fluorophore) |  |
 | `excitation_wavelength` | `int` |  |
 | `excitation_wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
-| `stain_type` | {StainType} |  |
+| `stain_type` | [StainType](#staintype) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
@@ -124,7 +154,7 @@ Description of a non-oligo probe stain
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `stain_type` | {StainType} |  |
+| `stain_type` | [StainType](#staintype) |  |
 | `concentration` | `float` |  |
 | `concentration_unit` | [ConcentrationUnit](aind_data_schema_models/units.md#concentrationunit) |  |
 | `name` | `str` |  |
@@ -132,5 +162,16 @@ Description of a non-oligo probe stain
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
+
+
+### StainType
+
+Stain types for probes describing what is being labeled
+
+| Name | Value |
+|------|-------|
+| `RNA` | `RNA` |
+| `NUCLEAR` | `Nuclear` |
+| `FILL` | `Fill` |
 
 

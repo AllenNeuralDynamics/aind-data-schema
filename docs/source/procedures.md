@@ -46,6 +46,17 @@ Description of an injection procedure into a brain
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 
 
+### CatheterDesign
+
+Type of catheter design
+
+| Name | Value |
+|------|-------|
+| `MAGNETIC` | `Magnetic` |
+| `NONMAGNETIC` | `Non-magnetic` |
+| `NA` | `N/A` |
+
+
 ### CatheterImplant
 
 Description of a catheter implant procedure
@@ -53,10 +64,31 @@ Description of a catheter implant procedure
 | Field | Type | Description |
 |-------|------|-------------|
 | `where_performed` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
-| `catheter_material` | {CatheterMaterial} |  |
-| `catheter_design` | {CatheterDesign} |  |
-| `catheter_port` | {CatheterPort} |  |
+| `catheter_material` | [CatheterMaterial](#cathetermaterial) |  |
+| `catheter_design` | [CatheterDesign](#catheterdesign) |  |
+| `catheter_port` | [CatheterPort](#catheterport) |  |
 | `targeted_structure` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` | Use options from MouseBloodVessels |
+
+
+### CatheterMaterial
+
+Type of catheter material
+
+| Name | Value |
+|------|-------|
+| `NAKED` | `Naked` |
+| `SILICONE` | `VAB silicone` |
+| `MESH` | `VAB mesh` |
+
+
+### CatheterPort
+
+Type of catheter port
+
+| Name | Value |
+|------|-------|
+| `SINGLE` | `Single` |
+| `DOUBLE` | `Double` |
 
 
 ### Craniotomy
@@ -66,14 +98,27 @@ Description of craniotomy procedure
 | Field | Type | Description |
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
-| `craniotomy_type` | {CraniotomyType} |  |
+| `craniotomy_type` | [CraniotomyType](#craniotomytype) |  |
 | `coordinate_system_name` | `Optional[str]` |  |
 | `position` | [Translation](components/coordinates.md#translation) or List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)] or NoneType |  |
 | `size` | `Optional[float]` | Diameter or side length |
 | `size_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
-| `protective_material` | Optional[{ProtectiveMaterial}] |  |
+| `protective_material` | Optional[[ProtectiveMaterial](#protectivematerial)] |  |
 | `implant_part_number` | `Optional[str]` |  |
 | `dura_removed` | `Optional[bool]` |  |
+
+
+### CraniotomyType
+
+Name of craniotomy Type
+
+| Name | Value |
+|------|-------|
+| `DHC` | `Dual hemisphere craniotomy` |
+| `WHC` | `Whole hemisphere craniotomy` |
+| `CIRCLE` | `Circle` |
+| `SQUARE` | `Square` |
+| `OTHER` | `Other` |
 
 
 ### GenericSubjectProcedure
@@ -109,9 +154,19 @@ Ground wire implant procedure
 |-------|------|-------------|
 | `ground_electrode_location` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` |  |
 | `ground_wire_hole` | `Optional[int]` | For SHIELD implants, the hole number for the ground wire |
-| `ground_wire_material` | Optional[{GroundWireMaterial}] |  |
+| `ground_wire_material` | Optional[[GroundWireMaterial](#groundwirematerial)] |  |
 | `ground_wire_diameter` | `Optional[decimal.Decimal]` |  |
 | `ground_wire_diameter_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
+
+
+### GroundWireMaterial
+
+Ground wire material name
+
+| Name | Value |
+|------|-------|
+| `SILVER` | `Silver` |
+| `PLATINUM_IRIDIUM` | `Platinum iridium` |
 
 
 ### HCRSeries
@@ -136,9 +191,20 @@ Description of headframe procedure
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `headframe_type` | `str` |  |
 | `headframe_part_number` | `str` |  |
-| `headframe_material` | Optional[{HeadframeMaterial}] |  |
+| `headframe_material` | Optional[[HeadframeMaterial](#headframematerial)] |  |
 | `well_part_number` | `Optional[str]` |  |
 | `well_type` | `Optional[str]` |  |
+
+
+### HeadframeMaterial
+
+Headframe material name
+
+| Name | Value |
+|------|-------|
+| `STEEL` | `Steel` |
+| `TITANIUM` | `Titanium` |
+| `WHITE_ZIRCONIA` | `White Zirconia` |
 
 
 ### HybridizationChainReaction
@@ -175,7 +241,7 @@ Description of the volume and rate of an injection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `profile` | {InjectionProfile} |  |
+| `profile` | [InjectionProfile](#injectionprofile) |  |
 | `volume` | `Optional[decimal.Decimal]` |  |
 | `volume_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
 | `rate` | `Optional[decimal.Decimal]` |  |
@@ -185,6 +251,17 @@ Description of the volume and rate of an injection
 | `injection_current` | `Optional[decimal.Decimal]` |  |
 | `injection_current_unit` | Optional[[CurrentUnit](aind_data_schema_models/units.md#currentunit)] |  |
 | `alternating_current` | `Optional[str]` |  |
+
+
+### InjectionProfile
+
+Injection profile
+
+| Name | Value |
+|------|-------|
+| `BOLUS` | `Bolus` |
+| `CONTINUOUS` | `Continuous` |
+| `PULSED` | `Pulsed` |
 
 
 ### MyomatrixInsertion
@@ -232,7 +309,7 @@ Description of a sectioning procedure performed on the coronal, sagittal, or tra
 |-------|------|-------------|
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Only required if different from the Procedures.coordinate_system |
 | `sections` | List[[Section](#section)] |  |
-| `section_orientation` | {SectionOrientation} |  |
+| `section_orientation` | [SectionOrientation](#sectionorientation) |  |
 
 
 ### ProbeImplant
@@ -260,17 +337,40 @@ Description of all procedures performed on a subject
 | `notes` | `Optional[str]` |  |
 
 
+### ProtectiveMaterial
+
+Name of material applied to craniotomy
+
+| Name | Value |
+|------|-------|
+| `AGAROSE` | `Agarose` |
+| `DURAGEL` | `Duragel` |
+| `KWIK_CAST` | `Kwik-Cast` |
+| `SORTA_CLEAR` | `SORTA-clear` |
+| `OTHER` | `Other - see notes` |
+
+
 ### SampleCollection
 
 Description of a single sample collection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `sample_type` | {SampleType} |  |
+| `sample_type` | [SampleType](#sampletype) |  |
 | `time` | `datetime (timezone-aware)` |  |
 | `collection_volume` | `decimal.Decimal` |  |
 | `collection_volume_unit` | [VolumeUnit](aind_data_schema_models/units.md#volumeunit) |  |
 | `collection_method` | `Optional[str]` |  |
+
+
+### SampleType
+
+Sample type
+
+| Name | Value |
+|------|-------|
+| `BLOOD` | `Blood` |
+| `OTHER` | `Other` |
 
 
 ### Section
@@ -287,6 +387,17 @@ Description of a slice of brain tissue
 | `thickness` | `Optional[float]` |  |
 | `thickness_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
 | `partial_slice` | Optional[List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)]] | If sectioning does not include the entire slice, indicate which part of the slice is retained. |
+
+
+### SectionOrientation
+
+Orientation of sectioning
+
+| Name | Value |
+|------|-------|
+| `CORONAL` | `Coronal` |
+| `SAGITTAL` | `Sagittal` |
+| `TRANSVERSE` | `Transverse` |
 
 
 ### SpecimenProcedure
@@ -337,7 +448,7 @@ TARS data for a viral prep
 | `plasmid_tars_alias` | `Optional[List[str]]` | Alias used to reference the plasmid, usually begins 'AiP' |
 | `prep_lot_number` | `str` |  |
 | `prep_date` | `Optional[datetime.date]` | Date this prep lot was titered |
-| `prep_type` | Optional[{VirusPrepType}] |  |
+| `prep_type` | Optional[[VirusPrepType](#viruspreptype)] |  |
 | `prep_protocol` | `Optional[str]` |  |
 
 
@@ -366,6 +477,16 @@ Description of viral material for injections
 | `addgene_id` | `Optional[aind_data_schema_models.pid_names.PIDName]` | Registry must be Addgene |
 | `titer` | `Optional[int]` | Final titer of viral material, accounting for mixture/diliution |
 | `titer_unit` | `Optional[str]` | For example, gc/mL |
+
+
+### VirusPrepType
+
+Type of virus preparation
+
+| Name | Value |
+|------|-------|
+| `CRUDE` | `Crude` |
+| `PURIFIED` | `Purified` |
 
 
 ### WaterRestriction

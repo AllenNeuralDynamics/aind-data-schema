@@ -8,7 +8,7 @@ Air puff device configuration
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `valence` | {Valence} |  |
+| `valence` | [Valence](#valence) |  |
 | `relative_position` | List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] |  |
@@ -60,7 +60,7 @@ Configuration of detector settings
 |-------|------|-------------|
 | `exposure_time` | `float` |  |
 | `exposure_time_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
-| `trigger_type` | {TriggerType} |  |
+| `trigger_type` | [TriggerType](#triggertype) |  |
 | `compression` | Optional[[Code](identifiers.md#code)] | Compression algorithm used during acquisition |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
@@ -180,8 +180,8 @@ Lick spout acquisition information
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `solution` | {Liquid} |  |
-| `solution_valence` | {Valence} |  |
+| `solution` | [Liquid](#liquid) |  |
+| `solution_valence` | [Valence](#valence) |  |
 | `volume` | `float` |  |
 | `volume_unit` | [VolumeUnit](aind_data_schema_models/units.md#volumeunit) |  |
 | `relative_position` | List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
@@ -200,6 +200,19 @@ Configuration of LED settings
 | `power` | `Optional[float]` |  |
 | `power_unit` | Optional[[PowerUnit](aind_data_schema_models/units.md#powerunit)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
+
+
+### Liquid
+
+Solution names
+
+| Name | Value |
+|------|-------|
+| `WATER` | `Water` |
+| `SUCROSE` | `Sucrose` |
+| `QUININE` | `Quinine` |
+| `CITRIC_ACID` | `Citric acid` |
+| `OTHER` | `Other` |
 
 
 ### MISModuleConfig
@@ -222,9 +235,9 @@ Configuration of a 3D scan
 | Field | Type | Description |
 |-------|------|-------------|
 | `scan_index` | `int` |  |
-| `scan_type` | {ScanType} |  |
+| `scan_type` | [ScanType](#scantype) |  |
 | `primary_scan` | `bool` | Indicates the primary scan used for downstream analysis |
-| `scan_sequence_type` | {MriScanSequence} |  |
+| `scan_sequence_type` | [MriScanSequence](#mriscansequence) |  |
 | `rare_factor` | `Optional[int]` |  |
 | `echo_time` | `decimal.Decimal` |  |
 | `echo_time_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
@@ -233,7 +246,7 @@ Configuration of a 3D scan
 | `repetition_time_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
 | `scan_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `scan_affine_transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | NIFTI sform/qform, Bruker vc_transform, etc |
-| `subject_position` | {SubjectPosition} |  |
+| `subject_position` | [SubjectPosition](#subjectposition) |  |
 | `resolution` | Optional[[Scale](coordinates.md#scale)] |  |
 | `resolution_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
 | `additional_scan_parameters` | `aind_data_schema.base.GenericModel` |  |
@@ -261,6 +274,16 @@ Configuration for mouse platforms
 | `objects_in_arena` | `Optional[List[str]]` |  |
 | `active_control` | `bool` | True when movement of the mouse platform is dynamically controlled by the experimenter |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
+
+
+### MriScanSequence
+
+MRI scan sequence
+
+| Name | Value |
+|------|-------|
+| `RARE` | `RARE` |
+| `OTHER` | `Other` |
 
 
 ### PatchCordConfig
@@ -292,7 +315,7 @@ Description of a stack of images acquired in a specific imaging plane
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `power_function` | {PowerFunction} |  |
+| `power_function` | [PowerFunction](#powerfunction) |  |
 | `depth_start` | `float` |  |
 | `depth_end` | `float` |  |
 | `depth_step` | `float` |  |
@@ -315,6 +338,18 @@ Configuration of an imaging plane
 | `power` | `float` |  |
 | `power_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
 | `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
+
+
+### PowerFunction
+
+Power functions
+
+| Name | Value |
+|------|-------|
+| `CONSTANT` | `Constant` |
+| `LINEAR` | `Linear` |
+| `EXPONENTIAL` | `Exponential` |
+| `OTHER` | `Other` |
 
 
 ### ProbeConfig
@@ -354,6 +389,26 @@ Description of an image sampling strategy
 | `frame_rate_unit` | [FrequencyUnit](aind_data_schema_models/units.md#frequencyunit) |  |
 
 
+### ScanType
+
+Type of scan
+
+| Name | Value |
+|------|-------|
+| `SETUP` | `Set Up` |
+| `SCAN_3D` | `3D Scan` |
+
+
+### SlapAcquisitionType
+
+Type of slap acquisition
+
+| Name | Value |
+|------|-------|
+| `PARENT` | `Parent` |
+| `BRANCH` | `Branch` |
+
+
 ### SlapChannel
 
 Configuration of a channel for Slap
@@ -384,7 +439,7 @@ Configuration of an imagine plane on a Slap microscope
 | `dmd_dilation_x` | `int` |  |
 | `dmd_dilation_y` | `int` |  |
 | `dilation_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
-| `slap_acquisition_type` | {SlapAcquisitionType} |  |
+| `slap_acquisition_type` | [SlapAcquisitionType](#slapacquisitiontype) |  |
 | `target_neuron` | `Optional[str]` |  |
 | `target_branch` | `Optional[str]` |  |
 | `path_to_array_of_frame_rates` | `aind_data_schema.components.wrappers.AssetPath` | Relative path from metadata json to file |
@@ -416,5 +471,37 @@ Description of a stack image sampling strategy
 | `stack_repeats` | `int` |  |
 | `frame_rate` | `float` |  |
 | `frame_rate_unit` | [FrequencyUnit](aind_data_schema_models/units.md#frequencyunit) |  |
+
+
+### SubjectPosition
+
+Subject position
+
+| Name | Value |
+|------|-------|
+| `PRONE` | `Prone` |
+| `SUPINE` | `Supine` |
+
+
+### TriggerType
+
+Types of detector triggers
+
+| Name | Value |
+|------|-------|
+| `INTERNAL` | `Internal` |
+| `EXTERNAL` | `External` |
+
+
+### Valence
+
+Valence of a stimulus
+
+| Name | Value |
+|------|-------|
+| `POSITIVE` | `Positive` |
+| `NEGATIVE` | `Negative` |
+| `NEUTRAL` | `Neutral` |
+| `UNKNOWN` | `Unknown` |
 
 

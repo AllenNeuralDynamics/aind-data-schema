@@ -123,8 +123,19 @@ Data for a connection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `direction` | Optional[{ConnectionDirection}] |  |
+| `direction` | Optional[[ConnectionDirection](#connectiondirection)] |  |
 | `port` | `Optional[str]` |  |
+
+
+### ConnectionDirection
+
+Direction of a connection
+
+| Name | Value |
+|------|-------|
+| `SEND` | `Send` |
+| `RECEIVE` | `Receive` |
+| `SEND_AND_RECEIVE` | `Send and receive` |
 
 
 ### Instrument

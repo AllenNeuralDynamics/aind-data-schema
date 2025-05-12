@@ -28,7 +28,7 @@ Description of model evaluation
 | `process_type` | {ProcessName} |  |
 | `performance` | List[[PerformanceMetric](#performancemetric)] |  |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | {ProcessStage} |  |
+| `stage` | [ProcessStage](processing.md#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
 | `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
@@ -60,7 +60,7 @@ Description of model training
 | `test_performance` | Optional[List[[PerformanceMetric](#performancemetric)]] | Performance on test data, evaluated during training |
 | `test_evaluation_method` | `Optional[str]` | Approach to cross-validation or Train/test splitting |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | {ProcessStage} |  |
+| `stage` | [ProcessStage](processing.md#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
 | `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |

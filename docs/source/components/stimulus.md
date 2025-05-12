@@ -2,6 +2,16 @@
 
 ## Model definitions
 
+### FilterType
+
+Types of bandpass filters for auditory stim
+
+| Name | Value |
+|------|-------|
+| `BUTTERWORTH` | `Butterworth` |
+| `OTHER` | `Other` |
+
+
 ### OlfactometerChannelConfig
 
 Description of olfactometer channel configurations
@@ -33,5 +43,16 @@ Description of a photostimulation group
 | `inter_spiral_interval_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
 | `other_parameters` | `aind_data_schema.base.GenericModel` |  |
 | `notes` | `Optional[str]` |  |
+
+
+### PulseShape
+
+Types of Opto stim pulse shapes
+
+| Name | Value |
+|------|-------|
+| `SQUARE` | `Square` |
+| `RAMP` | `Ramp` |
+| `SINE` | `Sinusoidal` |
 
 

@@ -22,7 +22,7 @@ Description of a single processing step
 |-------|------|-------------|
 | `process_type` | {ProcessName} |  |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | {ProcessStage} |  |
+| `stage` | [ProcessStage](#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
 | `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
@@ -32,6 +32,16 @@ Description of a single processing step
 | `output_parameters` | `aind_data_schema.base.GenericModel` | Output parameters |
 | `notes` | `Optional[str]` |  |
 | `resources` | Optional[[ResourceUsage](#resourceusage)] |  |
+
+
+### ProcessStage
+
+Stages of processing
+
+| Name | Value |
+|------|-------|
+| `PROCESSING` | `Processing` |
+| `ANALYSIS` | `Analysis` |
 
 
 ### Processing

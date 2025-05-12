@@ -15,6 +15,19 @@ Description of breeding info for subject
 | `paternal_genotype` | `str` |  |
 
 
+### HomeCageEnrichment
+
+Materials provided in animal home cage
+
+| Name | Value |
+|------|-------|
+| `NONE` | `None` |
+| `PLASTIC_SHELTER` | `Plastic shelter` |
+| `PLASTIC_TUBE` | `Plastic tube` |
+| `RUNNING_WHEEL` | `Running wheel` |
+| `OTHER` | `Other` |
+
+
 ### Housing
 
 Description of subject housing
@@ -24,7 +37,7 @@ Description of subject housing
 | `cage_id` | `Optional[str]` |  |
 | `room_id` | `Optional[str]` |  |
 | `light_cycle` | Optional[[LightCycle](#lightcycle)] |  |
-| `home_cage_enrichment` | List[{HomeCageEnrichment}] |  |
+| `home_cage_enrichment` | List[[HomeCageEnrichment](#homecageenrichment)] |  |
 | `cohoused_subjects` | `List[str]` | List of IDs of other subjects housed in same cage |
 
 
@@ -34,7 +47,7 @@ Description of a human subject
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `sex` | {Sex} |  |
+| `sex` | [Sex](#sex) |  |
 | `year_of_birth` | `int` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Where the subject was acquired from. |
 
@@ -55,7 +68,7 @@ Description of a mouse subject
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `sex` | {Sex} |  |
+| `sex` | [Sex](#sex) |  |
 | `date_of_birth` | `datetime.date` |  |
 | `strain` | `typing.Annotated[typing.Union[aind_data_schema_models.species._C57Bl_6J, aind_data_schema_models.species._Balb_C], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
 | `species` | `typing.Annotated[typing.Union[aind_data_schema_models.species._Callithrix_Jacchus, aind_data_schema_models.species._Homo_Sapiens, aind_data_schema_models.species._Macaca_Mulatta, aind_data_schema_models.species._Mus_Musculus, aind_data_schema_models.species._Rattus_Norvegicus], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
@@ -67,6 +80,16 @@ Description of a mouse subject
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Where the subject was acquired from. If bred in-house, use Allen Institute. |
 | `restrictions` | `Optional[str]` | Any restrictions on use or publishing based on subject source |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` | RRID of mouse if acquired from supplier |
+
+
+### Sex
+
+Subject sex name
+
+| Name | Value |
+|------|-------|
+| `FEMALE` | `Female` |
+| `MALE` | `Male` |
 
 
 ### WellnessReport

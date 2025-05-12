@@ -11,6 +11,7 @@ from typing import Dict, List, Type
 from pydantic import BaseModel
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.utils.docs.utils import generate_enum_table
 
 special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
@@ -18,6 +19,7 @@ special_cases = {
     "aind_data_schema_models.modalities": ("[Modality](aind_data_schema_models/modalities.md#modality)"),
     "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)"),
     "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
+    "aind_data_schema.core.quality_control.QCMetric": "{QCMetric} or {CurationMetric}",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -263,6 +265,31 @@ if __name__ == "__main__":
                             link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
 
                             # Add to our mapping dictionary using the format "{ClassName}" as the key
+                            model_link_map[f"{{{attr.__name__}}}"] = link
+                        elif isinstance(attr, type) and issubclass(attr, Enum) and attr.__module__ == module_name:
+                            # Only process enums defined in this module
+                            markdown_output = generate_enum_table(attr)
+
+                            # Create the target directory structure
+                            target_dir = os.path.join(doc_folder, rel_dir_path)
+                            os.makedirs(target_dir, exist_ok=True)
+
+                            # Save the file in the appropriate subdirectory
+                            output_file = os.path.join(target_dir, f"{attr.__name__}.md")
+                            with open(output_file, "w") as f:
+                                f.write(markdown_output)
+
+                            # Construct the relative documentation path for the link map
+                            # Convert directory separators to forward slashes for URLs
+                            doc_rel_path = rel_dir_path.replace(os.sep, "/")
+
+                            # Create the link format: "[EnumName](path/to/directory#EnumName)"
+                            link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
+
+                            # Strip out "aind_data_schema/" and "aind_data_schema/core/" from the links
+                            link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
+
+                            # Add to our mapping dictionary using the format "{EnumName}" as the key
                             model_link_map[f"{{{attr.__name__}}}"] = link
                         else:
                             pass

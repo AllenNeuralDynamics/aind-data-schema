@@ -8,6 +8,9 @@ from enum import Enum
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.brain_atlas import CCFStructure
 
+# Name patterns
+from aind_data_schema_models.data_name_patterns import DataLevel, Group
+
 # Coordinates models
 from aind_data_schema_models.coordinates import Origin, AxisName, Direction, AnatomicalRelative
 
@@ -47,6 +50,9 @@ registries = [
     # Atlas and brain structure models
     AtlasName,
     CCFStructure,
+    # Name patterns
+    DataLevel,
+    Group,
     # Coordinates models
     Origin,
     AxisName,

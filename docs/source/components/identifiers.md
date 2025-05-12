@@ -28,7 +28,7 @@ Description of a group of data assets
 |-------|------|-------------|
 | `assets` | List[[DataAsset](#dataasset)] |  |
 | `name` | `Optional[str]` |  |
-| `external_links` | Dict[{ExternalPlatforms}, List[str]] | Links to the Combined Data asset, if materialized. |
+| `external_links` | Dict[[ExternalPlatforms](#externalplatforms), List[str]] | Links to the Combined Data asset, if materialized. |
 | `description` | `Optional[str]` | Intention or approach used to select group of assets |
 
 
@@ -50,6 +50,15 @@ Description of a single data asset
 | Field | Type | Description |
 |-------|------|-------------|
 | `url` | `str` | URL pointing to the data asset |
+
+
+### ExternalPlatforms
+
+External Platforms of Data Assets.
+
+| Name | Value |
+|------|-------|
+| `CODEOCEAN` | `Code Ocean` |
 
 
 ### Person
