@@ -51,7 +51,6 @@ Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` 
    data_organization
    
 
-
 .. toctree::
    :caption: Core Schemas
    :hidden:
@@ -66,7 +65,6 @@ Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` 
    quality_control
    
 
-
 .. toctree::
    :caption: Components
    :hidden:
@@ -74,6 +72,12 @@ Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` 
 
    components
 
+.. toctree::
+   :caption: Registries
+   :hidden:
+   :maxdepth: 2
+
+   registries
 
 .. toctree::
    :caption: Getting Started
