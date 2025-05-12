@@ -62,7 +62,7 @@ Schema to track curator name and timestamp for curation events
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `curator` | {Person} |  |
+| `curator` | [Person](components/identifiers.md#person) |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
@@ -74,9 +74,9 @@ Description of a curation metric
 |-------|------|-------------|
 | `value` | `List[typing.Any]` |  |
 | `type` | `str` |  |
-| `curation_history` | List[{CurationHistory}] |  |
+| `curation_history` | List[[CurationHistory](#curationhistory)] |  |
 | `name` | `str` |  |
-| `status_history` | List[{QCStatus}] |  |
+| `status_history` | List[[QCStatus](#qcstatus)] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
@@ -108,7 +108,7 @@ Description of a single quality control metric
 |-------|------|-------------|
 | `name` | `str` |  |
 | `value` | `typing.Any` |  |
-| `status_history` | List[{QCStatus}] |  |
+| `status_history` | List[[QCStatus](#qcstatus)] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
@@ -131,5 +131,5 @@ Description of quality metrics for a data asset
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `evaluations` | List[{QCEvaluation}] |  |
+| `evaluations` | List[[QCEvaluation](#qcevaluation)] |  |
 | `notes` | `Optional[str]` |  |

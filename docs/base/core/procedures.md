@@ -12,3 +12,15 @@ immunolabeleing, sectioning, etc.). Sectioned specimens will have unique IDs (`s
 
 `iacuc_protocol` all experimental work with animals must follow an IACUC (Institute Animal Care Use Committee) protocol. The protocol ID refers to the DOI for a published protocol, for example those stored in the 
 `AIND protocols.io workspace <https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics>`_.
+
+## Examples
+
+```{literalinclude} ../../examples/procedures.py
+:language: python
+:linenos:
+```
+
+Additional examples:
+
+- [SmartSPIM procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/aibs_smartspim_procedures.py)
+- [Ophys procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_procedures.py)

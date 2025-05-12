@@ -104,18 +104,18 @@ Description of an imaging acquisition
 | `specimen_id` | `Optional[str]` | Specimen ID is required for in vitro imaging modalities |
 | `acquisition_start_time` | `datetime (timezone-aware)` |  |
 | `acquisition_end_time` | `datetime (timezone-aware)` |  |
-| `experimenters` | List[{Person}] |  |
+| `experimenters` | List[[Person](components/identifiers.md#person)] |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
 | `ethics_review_id` | `Optional[List[str]]` |  |
 | `instrument_id` | `str` |  |
 | `acquisition_type` | `str` |  |
 | `notes` | `Optional[str]` |  |
-| `coordinate_system` | Optional[{CoordinateSystem}] | Required when coordinates are provided within the Acquisition |
-| `calibrations` | List[{Calibration} or {LiquidCalibration} or {LaserCalibration}] | List of calibration measurements taken prior to acquisition. |
-| `maintenance` | List[{Maintenance}] | List of maintenance on instrument prior to acquisition. |
-| `data_streams` | List[{DataStream}] | A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location) |
-| `stimulus_epochs` | List[{StimulusEpoch}] |  |
-| `subject_details` | Optional[{AcquisitionSubjectDetails}] |  |
+| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided within the Acquisition |
+| `calibrations` | List[[Calibration](components/measurements.md#calibration) or [LiquidCalibration](components/measurements.md#liquidcalibration) or [LaserCalibration](components/measurements.md#lasercalibration)] | List of calibration measurements taken prior to acquisition. |
+| `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | List of maintenance on instrument prior to acquisition. |
+| `data_streams` | List[[DataStream](#datastream)] | A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location) |
+| `stimulus_epochs` | List[[StimulusEpoch](#stimulusepoch)] |  |
+| `subject_details` | Optional[[AcquisitionSubjectDetails](#acquisitionsubjectdetails)] |  |
 
 
 ### AcquisitionSubjectDetails
@@ -127,7 +127,7 @@ Details about the subject during an acquisition
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
 | `weight_unit` | `MassUnit` |  |
-| `anaesthesia` | Optional[{Anaesthetic}] |  |
+| `anaesthesia` | Optional[[Anaesthetic](procedures.md#anaesthetic)] |  |
 | `mouse_platform_name` | `str` |  |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` |  |
 | `reward_consumed_unit` | `Optional[VolumeUnit]` |  |
@@ -142,11 +142,11 @@ Data streams with a start and stop time
 | `stream_start_time` | `datetime (timezone-aware)` |  |
 | `stream_end_time` | `datetime (timezone-aware)` |  |
 | `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities that are acquired in this stream |
-| `code` | Optional[List[{Code}]] |  |
+| `code` | Optional[List[[Code](components/identifiers.md#code)]] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | List[{LightEmittingDiodeConfig} or {LaserConfig} or {ManipulatorConfig} or {DetectorConfig} or {PatchCordConfig} or {FiberAssemblyConfig} or {MRIScan} or {LickSpoutConfig} or {AirPuffConfig} or {ImagingConfig} or {SlapPlane} or {SampleChamberConfig} or {ProbeConfig} or {EphysAssemblyConfig}] |  |
-| `connections` | List[{Connection}] | Connections that are specific to this acquisition, and are not present in the Instrument |
+| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig)] |  |
+| `connections` | List[[Connection](instrument.md#connection)] | Connections that are specific to this acquisition, and are not present in the Instrument |
 
 
 ### PerformanceMetrics
@@ -172,9 +172,9 @@ Description of stimulus used during data acquisition
 | `stimulus_start_time` | `datetime (timezone-aware)` | When a specific stimulus begins. This might be the same as the acquisition start time. |
 | `stimulus_end_time` | `datetime (timezone-aware)` | When a specific stimulus ends. This might be the same as the acquisition end time. |
 | `stimulus_name` | `str` |  |
-| `code` | Optional[{Code}] | Custom code/script used to control the behavior/stimulus and parameters |
+| `code` | Optional[[Code](components/identifiers.md#code)] | Custom code/script used to control the behavior/stimulus and parameters |
 | `stimulus_modalities` | `List[StimulusModality]` |  |
-| `performance_metrics` | Optional[{PerformanceMetrics}] |  |
+| `performance_metrics` | Optional[[PerformanceMetrics](#performancemetrics)] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | List[{SpeakerConfig} or {LightEmittingDiodeConfig} or {LaserConfig} or {MousePlatformConfig}] |  |
+| `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] |  |
