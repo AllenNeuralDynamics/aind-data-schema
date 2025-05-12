@@ -24,7 +24,7 @@ Organization
 | `BU` | `BU` | `{}` | `None` | `set()` | `Boston University` | `name='Research Organization Registry' abbreviation='ROR'` | `05qwgg493` |
 | `CAMBRIDGE_TECHNOLOGY` | `None` | `{}` | `None` | `set()` | `Cambridge Technology` | `None` | `None` |
 | `CARL_ZEISS` | `None` | `{}` | `None` | `set()` | `Carl Zeiss` | `name='Research Organization Registry' abbreviation='ROR'` | `01xk5xs43` |
-| `CATHETER_IMPLANT_INSTITUTIONS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `CATHETER_IMPLANT_INSTITUTIONS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `CHAMPALIMAUD` | `Champalimaud` | `{}` | `None` | `set()` | `Champalimaud Foundation` | `name='Research Organization Registry' abbreviation='ROR'` | `03g001n57` |
 | `CHROMA` | `None` | `{}` | `None` | `set()` | `Chroma` | `None` | `None` |
 | `COHERENT_SCIENTIFIC` | `None` | `{}` | `None` | `set()` | `Coherent Scientific` | `name='Research Organization Registry' abbreviation='ROR'` | `031tysd23` |
@@ -34,8 +34,8 @@ Organization
 | `CRL` | `CRL` | `{}` | `None` | `set()` | `Charles River Laboratories` | `name='Research Organization Registry' abbreviation='ROR'` | `03ndmsg87` |
 | `CUSTOM` | `None` | `{}` | `None` | `set()` | `Custom` | `None` | `None` |
 | `CZI` | `CZI` | `{}` | `None` | `set()` | `Chan Zuckerberg Initiative` | `name='Research Organization Registry' abbreviation='ROR'` | `02qenvm24` |
-| `DAQ_DEVICE_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
-| `DETECTOR_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `DAQ_DEVICE_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| `DETECTOR_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `DIGIKEY` | `None` | `{}` | `None` | `set()` | `DigiKey` | `None` | `None` |
 | `DODOTRONIC` | `None` | `{}` | `None` | `set()` | `Dodotronic` | `None` | `None` |
 | `DORIC` | `None` | `{}` | `None` | `set()` | `Doric` | `name='Research Organization Registry' abbreviation='ROR'` | `059n53q30` |
@@ -43,10 +43,10 @@ Organization
 | `EDMUND_OPTICS` | `None` | `{}` | `None` | `set()` | `Edmund Optics` | `name='Research Organization Registry' abbreviation='ROR'` | `01j1gwp17` |
 | `EMORY` | `Emory` | `{}` | `None` | `set()` | `Emory University` | `name='Research Organization Registry' abbreviation='ROR'` | `03czfpz43` |
 | `EURESYS` | `None` | `{}` | `None` | `set()` | `Euresys` | `None` | `None` |
-| `FILTER_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `FILTER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `FLIR` | `FLIR` | `{}` | `None` | `set()` | `Teledyne FLIR` | `name='Research Organization Registry' abbreviation='ROR'` | `01j1gwp17` |
 | `FUJINON` | `None` | `{}` | `None` | `set()` | `Fujinon` | `None` | `None` |
-| `FUNDERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `FUNDERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `HAMAMATSU` | `None` | `{}` | `None` | `set()` | `Hamamatsu` | `name='Research Organization Registry' abbreviation='ROR'` | `03natb733` |
 | `HAMILTON` | `None` | `{}` | `None` | `set()` | `Hamilton` | `None` | `None` |
 | `HUST` | `HUST` | `{}` | `None` | `set()` | `Huazhong University of Science and Technology` | `name='Research Organization Registry' abbreviation='ROR'` | `00p991c53` |
@@ -62,14 +62,14 @@ Organization
 | `JHU` | `JHU` | `{}` | `None` | `set()` | `Johns Hopkins University` | `name='Research Organization Registry' abbreviation='ROR'` | `00za53h95` |
 | `JULABO` | `None` | `{}` | `None` | `set()` | `Julabo` | `None` | `None` |
 | `KOWA` | `None` | `{}` | `None` | `set()` | `Kowa` | `name='Research Organization Registry' abbreviation='ROR'` | `03zbwg482` |
-| `LASER_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
-| `LED_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `LASER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| `LED_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `LEICA` | `None` | `{}` | `None` | `set()` | `Leica` | `None` | `None` |
-| `LENS_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `LENS_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `LG` | `None` | `{}` | `None` | `set()` | `LG` | `name='Research Organization Registry' abbreviation='ROR'` | `02b948n83` |
 | `LIFECANVAS` | `None` | `{}` | `None` | `set()` | `LifeCanvas` | `None` | `None` |
 | `LUMEN_DYNAMICS` | `None` | `{}` | `None` | `set()` | `Lumen Dynamics` | `None` | `None` |
-| `MANIPULATOR_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `MANIPULATOR_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `MBF` | `MBF` | `{}` | `None` | `set()` | `MBF Bioscience` | `name='Research Organization Registry' abbreviation='ROR'` | `02zynam48` |
 | `MEADOWLARK_OPTICS` | `None` | `{}` | `None` | `set()` | `Meadowlark Optics` | `name='Research Organization Registry' abbreviation='ROR'` | `00n8qbq54` |
 | `MIBR` | `MIBR` | `{}` | `None` | `set()` | `McGovern Institute for Brain Research` | `name='Research Organization Registry' abbreviation='ROR'` | `05ymca674` |
@@ -79,7 +79,7 @@ Organization
 | `MIT_BCS` | `MIT-BCS` | `{}` | `None` | `set()` | `MIT Department of Brain and Cognitive Sciences` | `None` | `None` |
 | `MJFF` | `MJFF` | `{}` | `None` | `set()` | `Michael J. Fox Foundation for Parkinson's Research` | `name='Research Organization Registry' abbreviation='ROR'` | `03arq3225` |
 | `MKS_NEWPORT` | `None` | `{}` | `None` | `set()` | `MKS Newport` | `name='Research Organization Registry' abbreviation='ROR'` | `00k17f049` |
-| `MONITOR_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `MONITOR_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `MPI` | `MPI` | `{}` | `None` | `set()` | `MPI` | `None` | `None` |
 | `NATIONAL_INSTRUMENTS` | `None` | `{}` | `None` | `set()` | `National Instruments` | `name='Research Organization Registry' abbreviation='ROR'` | `026exqw73` |
 | `NAVITAR` | `None` | `{}` | `None` | `set()` | `Navitar` | `None` | `None` |
@@ -100,7 +100,7 @@ Organization
 | `PRIZMATIX` | `None` | `{}` | `None` | `set()` | `Prizmatix` | `None` | `None` |
 | `QUANTIFI` | `None` | `{}` | `None` | `set()` | `Quantifi` | `None` | `None` |
 | `RASPBERRY_PI` | `None` | `{}` | `None` | `set()` | `Raspberry Pi` | `None` | `None` |
-| `RESEARCH_INSTITUTIONS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `RESEARCH_INSTITUTIONS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `SAME_SKY` | `None` | `{}` | `None` | `set()` | `Same Sky` | `None` | `None` |
 | `SCHNEIDER_KREUZNACH` | `None` | `{}` | `None` | `set()` | `Schneider-Kreuznach` | `None` | `None` |
 | `SECOND_ORDER_EFFECTS` | `None` | `{}` | `None` | `set()` | `Second Order Effects` | `None` | `None` |
@@ -108,9 +108,9 @@ Organization
 | `SICGEN` | `None` | `{}` | `None` | `set()` | `SICGEN` | `None` | `None` |
 | `SIGMA_ALDRICH` | `None` | `{}` | `None` | `set()` | `Sigma-Aldrich` | `None` | `None` |
 | `SIMONS_FOUNDATION` | `None` | `{}` | `None` | `set()` | `Simons Foundation` | `name='Research Organization Registry' abbreviation='ROR'` | `01cmst727` |
-| `SPEAKER_MANUFACTURERS` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `SPEAKER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `SPINNAKER` | `None` | `{}` | `None` | `set()` | `Spinnaker` | `None` | `None` |
-| `SUBJECT_SOURCES` | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| `SUBJECT_SOURCES` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `TAMRON` | `None` | `{}` | `None` | `set()` | `Tamron` | `None` | `None` |
 | `THERMO_FISHER_SCIENTIFIC` | `None` | `{}` | `None` | `set()` | `Thermo Fisher Scientific` | `name='Research Organization Registry' abbreviation='ROR'` | `03x1ewr52` |
 | `THE_IMAGING_SOURCE` | `None` | `{}` | `None` | `set()` | `The Imaging Source` | `None` | `None` |

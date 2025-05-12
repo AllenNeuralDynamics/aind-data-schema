@@ -42,7 +42,6 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.system_architecture import ModelArchitecture, OperatingSystem, CPUArchitecture
-from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.harp_types import HarpDeviceType
 
 from aind_data_schema.utils.docs.utils import generate_enum_table, save_model_info, update_model_links
@@ -90,107 +89,103 @@ registries = [
 
 
 def generate_model_instance_table(model_class) -> str:
-    """Generate a markdown table for any class that contains model instances
-
-    This function replaces the specific CCFStructure table generator with a more generic
-    approach that can handle any class that contains model instances like BrainStructureModel,
-    Organization, etc.
-    """
+    """Generate a markdown table for any class that contains model instances."""
     model_name = model_class.__name__
-    header = f"### {model_name}\n\n"
-    docstring = inspect.getdoc(model_class)
-    if docstring:
-        header += f"{docstring}\n\n"
-
-    # Collect all model instances regardless of type
-    model_instances = []
-    model_instance_types = {}
-
-    # First pass: collect all instances that have annotations
-    for attr_name, attr_value in inspect.getmembers(model_class):
-        # Skip special attributes, methods and specific markers
-        if (
-            attr_name.startswith("_")
-            or inspect.ismethod(attr_value)
-            or inspect.isfunction(attr_value)
-            or "ALL" in attr_name
-            or "ONE_OF" in attr_name
-        ):
-            continue
-
-        # Check if the attribute is a model instance (has __annotations__)
-        if hasattr(attr_value, "__class__") and hasattr(attr_value.__class__, "__annotations__"):
-            model_instances.append((attr_name, attr_value))
-
-            # Track the model type for later grouping
-            model_type = attr_value.__class__
-            if model_type not in model_instance_types:
-                model_instance_types[model_type] = []
-            model_instance_types[model_type].append((attr_name, attr_value))
-
-    print(f"Found {len(model_instances)} model instances in {model_name}")
+    header = generate_table_header(model_class, model_name)
+    model_instances, field_names = collect_model_instances_and_fields(model_class)
 
     if not model_instances:
         print(f"Warning: No model instances found in {model_name}")
         return header
 
-    # If there are multiple types, use the most common one as reference
-    model_type = max(model_instance_types.keys(), key=lambda k: len(model_instance_types[k]))
-    reference_instances = model_instance_types[model_type]
+    header += create_table_structure(field_names, model_instances)
+    return header
 
-    # Get field names from the model's annotations and instance attributes
-    # First try annotations
-    field_names = list(model_type.__annotations__.keys()) if hasattr(model_type, "__annotations__") else []
 
-    # If field_names is empty or incomplete, try to get fields from one instance
+def generate_table_header(model_class, model_name) -> str:
+    """Generate the header for the markdown table."""
+    header = f"### {model_name}\n\n"
+    docstring = inspect.getdoc(model_class)
+    if docstring:
+        header += f"{docstring}\n\n"
+    return header
+
+
+def collect_model_instances_and_fields(model_class):
+    """Collect model instances and determine field names."""
+    model_instances = []
+    model_instance_types = {}
+
+    for attr_name, attr_value in inspect.getmembers(model_class):
+        if is_valid_model_instance(attr_name, attr_value):
+            model_instances.append((attr_name, attr_value))
+            model_type = attr_value.__class__
+            model_instance_types.setdefault(model_type, []).append((attr_name, attr_value))
+
+    field_names = determine_field_names(model_instance_types, model_instances, model_class)
+    return model_instances, field_names
+
+
+def is_valid_model_instance(attr_name, attr_value) -> bool:
+    """Check if an attribute is a valid model instance."""
+    return (
+        not attr_name.startswith("_")
+        and not inspect.ismethod(attr_value)
+        and not inspect.isfunction(attr_value)
+        and hasattr(attr_value, "__class__")
+        and hasattr(attr_value.__class__, "__annotations__")
+        and "ALL" not in attr_name
+        and "ONE_OF" not in attr_name
+    )
+
+
+def determine_field_names(model_instance_types, model_instances, model_class):
+    """Determine the field names for the table."""
+    if model_instance_types:
+        model_type = max(model_instance_types.keys(), key=lambda k: len(model_instance_types[k]))
+        field_names = list(model_type.__annotations__.keys()) if hasattr(model_type, "__annotations__") else []
+    else:
+        field_names = []
+
     if not field_names and model_instances:
-        # Get the first instance
         sample_instance = model_instances[0][1]
-        # Get fields from instance (excluding dunder methods and callable attributes)
-        instance_fields = [
-            attr
-            for attr in dir(sample_instance)
-            if not attr.startswith("_")
-            and not callable(getattr(sample_instance, attr))
-            and not attr in ("ALL", "ONE_OF", "model_config", "model_fields")
-        ]
-        # Add any fields not already in field_names
-        for field in instance_fields:
-            if field not in field_names:
-                field_names.append(field)
+        field_names = extract_instance_fields(sample_instance)
 
-    # Handle Organization model specifically - make sure to include abbreviation and registry_identifier
-    if model_class.__name__ == "Organization" and model_instances:
-        sample_instance = model_instances[0][1]
-        for key in ["abbreviation", "registry", "registry_identifier"]:
-            if hasattr(sample_instance, key) and key not in field_names:
-                field_names.append(key)
+    if model_class.__name__ == "Organization":
+        field_names = ensure_organization_fields(field_names, model_instances)
 
-    # Create table header with these fields
-    header_row = "| Name |"
-    for field in field_names:
-        header_row += f" {field} |"
-    header += header_row + "\n"
+    return field_names
 
-    # Add separator row
-    separator_row = "|------|"
-    for _ in field_names:
-        separator_row += "------|"
-    header += separator_row + "\n"
 
-    # Populate table rows
-    rows = []
-    for attr_name, attr_value in model_instances:
-        row = f"| `{attr_name}` |"
-        for field in field_names:
-            try:
-                value = getattr(attr_value, field)
-                row += f" `{value}` |"
-            except AttributeError:
-                row += " N/A |"
-        rows.append(row)
+def extract_instance_fields(sample_instance):
+    """Extract fields from a sample instance."""
+    return [
+        attr
+        for attr in dir(sample_instance)
+        if not attr.startswith("_")
+        and not callable(getattr(sample_instance, attr))
+        and attr not in ("ALL", "ONE_OF", "model_config", "model_fields")
+    ]
 
-    return header + "\n".join(rows) + "\n"
+
+def ensure_organization_fields(field_names, model_instances):
+    """Ensure specific fields are included for the Organization model."""
+    sample_instance = model_instances[0][1]
+    for key in ["abbreviation", "registry", "registry_identifier"]:
+        if hasattr(sample_instance, key) and key not in field_names:
+            field_names.append(key)
+    return field_names
+
+
+def create_table_structure(field_names, model_instances) -> str:
+    """Create the markdown table structure."""
+    header_row = "| Name |" + "".join(f" {field} |" for field in field_names) + "\n"
+    separator_row = "|------|" + "------|" * len(field_names) + "\n"
+    rows = [
+        f"| `{attr_name}` |" + "".join(f" `{getattr(attr_value, field, 'N/A')}` |" for field in field_names)
+        for attr_name, attr_value in model_instances
+    ]
+    return header_row + separator_row + "\n".join(rows) + "\n"
 
 
 def detect_registry_type(registry):
@@ -242,7 +237,7 @@ def generate_registry_docs():
 
     # Update the model links file
     update_model_links(doc_folder, model_link_map)
-    print(f"Registry documentation generated successfully.")
+    print("Registry documentation generated successfully.")
 
 
 if __name__ == "__main__":
