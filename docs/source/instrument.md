@@ -132,7 +132,7 @@ Description of an instrument
 |-------|------|-------------|
 | `instrument_id` | `str` | Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD> |
 | `modification_date` | `datetime.date` |  |
-| `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | Modalities that CAN BE acquired |
+| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities that CAN BE acquired |
 | `calibrations` | Optional[List[[Calibration](components/measurements.md#calibration) or [LiquidCalibration](components/measurements.md#liquidcalibration) or [LaserCalibration](components/measurements.md#lasercalibration)]] |  |
 | `coordinate_system` | [CoordinateSystem](components/coordinates.md#coordinatesystem) |  |
 | `temperature_control` | `Optional[bool]` |  |

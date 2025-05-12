@@ -141,7 +141,7 @@ Data streams with a start and stop time
 |-------|------|-------------|
 | `stream_start_time` | `datetime (timezone-aware)` |  |
 | `stream_end_time` | `datetime (timezone-aware)` |  |
-| `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | Modalities that are acquired in this stream |
+| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities that are acquired in this stream |
 | `code` | Optional[List[[Code](components/identifiers.md#code)]] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |

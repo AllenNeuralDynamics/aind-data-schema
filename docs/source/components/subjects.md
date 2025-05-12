@@ -36,7 +36,7 @@ Description of a human subject
 |-------|------|-------------|
 | `sex` | `Sex` |  |
 | `year_of_birth` | `int` |  |
-| `source` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) | Where the subject was acquired from. |
+| `source` | [Organization](aind_data_schema_models/organizations.md#organization) | Where the subject was acquired from. |
 
 
 ### LightCycle
@@ -64,7 +64,7 @@ Description of a mouse subject
 | `breeding_info` | Optional[[BreedingInfo](#breedinginfo)] |  |
 | `wellness_reports` | List[[WellnessReport](#wellnessreport)] |  |
 | `housing` | Optional[[Housing](#housing)] |  |
-| `source` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) | Where the subject was acquired from. If bred in-house, use Allen Institute. |
+| `source` | [Organization](aind_data_schema_models/organizations.md#organization) | Where the subject was acquired from. If bred in-house, use Allen Institute. |
 | `restrictions` | `Optional[str]` | Any restrictions on use or publishing based on subject source |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` | RRID of mouse if acquired from supplier |
 

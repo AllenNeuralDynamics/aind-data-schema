@@ -76,3 +76,19 @@ more ontologies into our schema. We currently use:
 * Research Resource Identifiers (RRID) to identify reagents and other resources
 * Addgene to identify viruses and plasmids
 * Mouse Genome Informatics (MGI) to identify transgenic alleles
+
+Flexibility, versioning, and upgrading
+--------------------------------------
+
+``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
+also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
+they are used to generate.
+
+When new versions of schemas are released, data collectors can decide if they want to update the metadata
+from their existing data assets to the new schema. Metadata upgrading capabilities can be found in 
+`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_.
+
+Related metadata standards
+--------------------------
+
+Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` complements these standards, adding new concepts and detail as needed to support AIND's discovery science. 

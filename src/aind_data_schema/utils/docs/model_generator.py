@@ -14,20 +14,16 @@ from aind_data_schema.base import DataModel
 special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
     "aind_data_schema_models.organizations": (
-        "[Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-"
-        "models/blob/main/src/aind_data_schema_models/organizations.py)"
+        "[Organization](aind_data_schema_models/organizations.md#organization)"
     ),
     "aind_data_schema_models.modalities": (
-        "[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
-        "/blob/main/src/aind_data_schema_models/modalities.py)"
+        "[Modality](aind_data_schema_models/modalities.md#modality)"
     ),
     "aind_data_schema_models.brain_atlas": (
-        "[BrainAtlas](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
-        "/blob/main/src/aind_data_schema_models/brain_atlas.py)"
+        "[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)"
     ),
     "aind_data_schema_models.harp_types": (
-        "[HarpDeviceType](https://github.com/AllenNeuralDynamics/aind-data-schema-models"
-        "/blob/main/src/aind_data_schema_models/harp_types.py)"
+        "[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"
     ),
 }
 

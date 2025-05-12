@@ -20,35 +20,25 @@ The metadata also covers models that are derived from data or used to analyze da
 
 - :doc:`model <model>`: Metadata describing how the data has been evaluated for quality control.
 
-Controlled vocabularies
------------------------
+I want to...
+------------
 
-``aind-data-schema`` relies on controlled vocabularies. We store these controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
+- `Create metadata for my data assets`<>_. 
+- `Query metadata`<>_.
+- `Learn about the philosophy behind aind-data-schema`<>_.
 
-Flexibility, versioning, and upgrading
---------------------------------------
 
-``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
-also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
-they are used to generate.
+Components and Registries
+-------------------------
 
-When new versions of schemas are released, data collectors can decide if they want to update the metadata
-from their existing data assets to the new schema. Metadata upgrading capabilities can be found in 
-`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_.
-
-Related metadata standards
---------------------------
-
-Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` complements these standards, adding new concepts and detail as needed to support AIND's discovery science. 
-
+``aind-data-schema`` relies on many individual components as well as controlled vocabularies. The components are stored in their own files. We store these controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
 
 .. toctree::
-   :caption: Data and Metadata
+   :caption: Getting Started
    :hidden:
    :maxdepth: 1
-
-   general
-   data_organization
+   
+   example_workflow/example_workflow
    
 
 .. toctree::
@@ -79,17 +69,11 @@ Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` 
 
    registries
 
+
 .. toctree::
-   :caption: Getting Started
+   :caption: Data and Metadata
    :hidden:
    :maxdepth: 1
-   
-   example_workflow/example_workflow
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   general
+   data_organization

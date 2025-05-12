@@ -88,7 +88,7 @@ Description of one evaluation stage, with one or more metrics
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `modality` | [Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py) |  |
+| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
 | `stage` | `Stage` |  |
 | `name` | `str` |  |
 | `description` | `Optional[str]` |  |

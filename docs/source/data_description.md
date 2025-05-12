@@ -21,14 +21,14 @@ Description of a logical collection of data files
 | `creation_time` | `datetime (timezone-aware)` | Time that data files were created, used to uniquely identify the data |
 | `tags` | `Optional[List[str]]` | Descriptive strings to help categorize and search for data |
 | `name` | `Optional[str]` | Name of data, conventionally also the name of the directory containing all data and metadata |
-| `institution` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) | An established society, corporation, foundation or other organization that collected this data |
+| `institution` | [Organization](aind_data_schema_models/organizations.md#organization) | An established society, corporation, foundation or other organization that collected this data |
 | `funding_source` | List[[Funding](#funding)] | Funding source. If internal funding, select 'Allen Institute' |
 | `data_level` | `DataLevel` | level of processing that data has undergone |
 | `group` | `Optional[Group]` | A short name for the group of individuals that collected this data |
 | `investigators` | List[[Person](components/identifiers.md#person)] | Full name(s) of key investigators (e.g. PI, lead scientist, contact person) |
 | `project_name` | `str` | A name for a set of coordinated activities intended to achieve one or more objectives. |
 | `restrictions` | `Optional[str]` | Detail any restrictions on publishing or sharing these data |
-| `modalities` | List[[Modality](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/modalities.py)] | A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study |
+| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study |
 | `data_summary` | `Optional[str]` | Semantic summary of experimental goal |
 
 
@@ -38,6 +38,6 @@ Description of funding sources
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `funder` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
+| `funder` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
 | `grant_number` | `Optional[str]` |  |
 | `fundee` | Optional[[Person](components/identifiers.md#person)] | Person(s) funded by this mechanism |

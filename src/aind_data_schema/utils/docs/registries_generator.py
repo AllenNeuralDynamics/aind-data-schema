@@ -2,10 +2,43 @@
 import os
 import inspect
 from enum import Enum
-from typing import Dict, List, Any, Type, Optional
 
+# Atlas models
 from aind_data_schema_models.atlas import AtlasName
-from aind_data_schema_models.brain_atlas import CCFStructure, BrainStructureModel
+from aind_data_schema_models.brain_atlas import CCFStructure
+
+# Coordinates models
+from aind_data_schema_models.coordinates import Origin, AxisName, Direction, AnatomicalRelative
+
+# Organization models
+from aind_data_schema_models.organizations import Organization
+
+# Species models
+from aind_data_schema_models.species import Species, Strain
+
+# Units models
+from aind_data_schema_models.units import (
+    AngleUnit, 
+    ConcentrationUnit, 
+    CurrentUnit, 
+    FrequencyUnit, 
+    MassUnit, 
+    MemoryUnit, 
+    PowerUnit, 
+    SizeUnit, 
+    TimeUnit, 
+    UnitlessUnit, 
+    VolumeUnit
+)
+
+# Other registry models
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.pid_names import PIDName
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
+from aind_data_schema_models.stimulus_modality import StimulusModality
+from aind_data_schema_models.system_architecture import ModelArchitecture, OperatingSystem, CPUArchitecture
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.harp_types import HarpDeviceType
 
 from aind_data_schema.utils.docs.utils import (
     generate_enum_table,
@@ -13,29 +46,97 @@ from aind_data_schema.utils.docs.utils import (
     update_model_links
 )
 
-registries = [AtlasName, CCFStructure]
+registries = [
+    # Atlas and brain structure models
+    AtlasName,
+    CCFStructure,
+    
+    # Coordinates models
+    Origin, 
+    AxisName, 
+    Direction, 
+    AnatomicalRelative,
+    
+    # Organization models
+    Organization,
+    
+    # Species models
+    Species,
+    Strain,
+    
+    # Units models
+    AngleUnit,
+    ConcentrationUnit,
+    CurrentUnit,
+    FrequencyUnit,
+    MassUnit,
+    MemoryUnit,
+    PowerUnit,
+    SizeUnit,
+    TimeUnit,
+    UnitlessUnit,
+    VolumeUnit,
+    
+    # Other registry models
+    Modality,
+    PIDName,
+    SpecimenProcedureType,
+    StimulusModality,
+    ModelArchitecture,
+    OperatingSystem,
+    CPUArchitecture,
+    HarpDeviceType
+]
 
 
-def generate_ccf_structure_table(ccf_structure_class) -> str:
-    """Generate a markdown table for the CCFStructure class"""
-    model_name = ccf_structure_class.__name__
+def generate_model_instance_table(model_class) -> str:
+    """Generate a markdown table for any class that contains model instances
+    
+    This function replaces the specific CCFStructure table generator with a more generic
+    approach that can handle any class that contains model instances like BrainStructureModel,
+    Organization, etc.
+    """
+    model_name = model_class.__name__
     header = f"### {model_name}\n\n"
-    docstring = inspect.getdoc(ccf_structure_class)
+    docstring = inspect.getdoc(model_class)
     if docstring:
         header += f"{docstring}\n\n"
     
-    # Find the first BrainStructureModel instance to use as reference
-    reference_model = None
-    for attr_name, attr_value in inspect.getmembers(ccf_structure_class):
-        if not attr_name.startswith("_") and isinstance(attr_value, BrainStructureModel):
-            reference_model = attr_value
-            break
+    # Collect all model instances regardless of type
+    model_instances = []
+    model_instance_types = {}
     
-    if not reference_model:
-        print(f"Warning: No BrainStructureModel instances found in {model_name}")
+    # First pass: collect all instances that have annotations
+    for attr_name, attr_value in inspect.getmembers(model_class):
+        # Skip special attributes, methods and specific markers
+        if (attr_name.startswith("_") or
+            inspect.ismethod(attr_value) or 
+            inspect.isfunction(attr_value) or
+            "ALL" in attr_name or "ONE_OF" in attr_name):
+            continue
+            
+        # Check if the attribute is a model instance (has __annotations__)
+        if hasattr(attr_value, "__class__") and hasattr(attr_value.__class__, "__annotations__"):
+            model_instances.append((attr_name, attr_value))
+            
+            # Track the model type for later grouping
+            model_type = attr_value.__class__
+            if model_type not in model_instance_types:
+                model_instance_types[model_type] = []
+            model_instance_types[model_type].append((attr_name, attr_value))
+    
+    print(f"Found {len(model_instances)} model instances in {model_name}")
+    
+    if not model_instances:
+        print(f"Warning: No model instances found in {model_name}")
         return header
+    
+    # If there are multiple types, use the most common one as reference
+    model_type = max(model_instance_types.keys(), key=lambda k: len(model_instance_types[k]))
+    reference_instances = model_instance_types[model_type]
         
-    field_names = list(reference_model.__class__.__annotations__.keys())
+    # Get field names from the model's annotations
+    field_names = list(model_type.__annotations__.keys())
     
     # Create table header with these fields
     header_row = "| Name |"
@@ -51,18 +152,36 @@ def generate_ccf_structure_table(ccf_structure_class) -> str:
     
     # Populate table rows
     rows = []
-    for attr_name, attr_value in inspect.getmembers(ccf_structure_class):
-        # Skip private attributes and non-BrainStructureModel instances
-        if attr_name.startswith("_") or not isinstance(attr_value, BrainStructureModel):
-            continue
-        
+    for attr_name, attr_value in model_instances:
         row = f"| `{attr_name}` |"
         for field in field_names:
-            value = getattr(attr_value, field)
-            row += f" `{value}` |"
+            try:
+                value = getattr(attr_value, field)
+                row += f" `{value}` |"
+            except AttributeError:
+                row += " N/A |"
         rows.append(row)
-    
+
     return header + "\n".join(rows) + "\n"
+
+
+def detect_registry_type(registry):
+    """Detect the registry type based on its attributes and structure"""
+    # Check if it's an Enum subclass
+    if issubclass(registry, Enum):
+        return "enum"
+    
+    # Check if it has at least one model instance
+    for attr_name, attr_value in inspect.getmembers(registry):
+        if attr_name.startswith("_") or inspect.ismethod(attr_value) or inspect.isfunction(attr_value):
+            continue
+            
+        # If an attribute has __annotations__, it's likely a model instance
+        if hasattr(attr_value, "__class__") and hasattr(attr_value.__class__, "__annotations__"):
+            return "model_instance"
+    
+    # If we can't determine the type, return unknown
+    return "unknown"
 
 
 def generate_registry_docs():
@@ -71,23 +190,27 @@ def generate_registry_docs():
     model_link_map = {}
     
     for registry in registries:
-        # Determine the output directory (use the module path)
-        module_name = registry.__module__
-        rel_dir_path = module_name.replace(".", os.sep)
-        
-        # Generate the appropriate table based on registry type
-        if issubclass(registry, Enum):
-            # Generate enum table
-            output = generate_enum_table(registry)
-        elif registry is CCFStructure:
-            # Generate CCF Structure table
-            output = generate_ccf_structure_table(registry)
-        else:
-            print(f"Unknown registry type: {registry.__name__}")
-            continue
-        
-        # Save the model and update the link map
-        save_model_info(registry.__name__, output, rel_dir_path, doc_folder, model_link_map)
+        try:
+            # Determine the output directory (use the module path)
+            module_name = registry.__module__
+            rel_dir_path = module_name.replace(".", os.sep)
+            
+            # Detect registry type
+            registry_type = detect_registry_type(registry)
+            
+            # Generate the appropriate table based on registry type
+            if registry_type == "enum":
+                output = generate_enum_table(registry)
+            elif registry_type == "model_instance":
+                output = generate_model_instance_table(registry)
+            else:
+                print(f"Unknown registry type for {registry.__name__}")
+                continue
+            
+            # Save the model and update the link map
+            save_model_info(registry.__name__, output, rel_dir_path, doc_folder, model_link_map)
+        except Exception as e:
+            print(f"Error processing registry {registry.__name__}: {str(e)}")
     
     # Update the model links file
     update_model_links(doc_folder, model_link_map)

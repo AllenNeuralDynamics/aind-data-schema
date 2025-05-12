@@ -34,7 +34,7 @@ Description of an injection procedure into a brain
 |-------|------|-------------|
 | `coordinate_system_name` | `str` |  |
 | `coordinates` | List[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] |  |
-| `targeted_structure` | Optional[[BrainAtlas](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/brain_atlas.py)] |  |
+| `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
 | `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
 | `relative_position` | `Optional[List[AnatomicalRelative]]` |  |
 | `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
@@ -47,7 +47,7 @@ Description of a catheter implant procedure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `where_performed` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
+| `where_performed` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
 | `catheter_material` | `CatheterMaterial` |  |
 | `catheter_design` | `CatheterDesign` |  |
 | `catheter_port` | `CatheterPort` |  |
@@ -203,7 +203,7 @@ Description of a non-viral injection material
 | `concentration` | `Optional[float]` | Must provide concentration unit |
 | `concentration_unit` | `Optional[str]` | For example, mg/mL |
 | `name` | `str` |  |
-| `source` | [Organization](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/organizations.py) |  |
+| `source` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
@@ -275,7 +275,7 @@ Description of a slice of brain tissue
 | Field | Type | Description |
 |-------|------|-------------|
 | `output_specimen_id` | `str` |  |
-| `targeted_structure` | Optional[[BrainAtlas](https://github.com/AllenNeuralDynamics/aind-data-schema-models/blob/main/src/aind_data_schema_models/brain_atlas.py)] |  |
+| `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
 | `coordinate_system_name` | `str` |  |
 | `start_coordinate` | [Translation](components/coordinates.md#translation) |  |
 | `end_coordinate` | Optional[[Translation](components/coordinates.md#translation)] |  |
