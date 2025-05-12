@@ -13,18 +13,10 @@ from aind_data_schema.base import DataModel
 
 special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
-    "aind_data_schema_models.organizations": (
-        "[Organization](aind_data_schema_models/organizations.md#organization)"
-    ),
-    "aind_data_schema_models.modalities": (
-        "[Modality](aind_data_schema_models/modalities.md#modality)"
-    ),
-    "aind_data_schema_models.brain_atlas": (
-        "[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)"
-    ),
-    "aind_data_schema_models.harp_types": (
-        "[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"
-    ),
+    "aind_data_schema_models.organizations": ("[Organization](aind_data_schema_models/organizations.md#organization)"),
+    "aind_data_schema_models.modalities": ("[Modality](aind_data_schema_models/modalities.md#modality)"),
+    "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)"),
+    "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -55,7 +47,7 @@ def get_model_fields(model: Type[BaseModel], stop_at: Type[BaseModel]) -> Dict[s
 
 def check_for_replacement(value: str, in_subdirectory: bool = False) -> str:
     """Check if the value is in special cases and return the replacement.
-    
+
     Args:
         value: The string to check for replacement
         in_subdirectory: If True, adjust links to go up one directory level
@@ -71,7 +63,7 @@ def check_for_replacement(value: str, in_subdirectory: bool = False) -> str:
 
 def check_for_union(value: str) -> str:
     """Extract class names from Annotated types in complex strings and wrap them with {}.
-    
+
     Example:
     Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
     Output: "List[{Calibration} or {LiquidCalibration}]"
@@ -79,41 +71,41 @@ def check_for_union(value: str) -> str:
     # Check if this is an Annotated type
     if "Annotated" in value:
         # Extract content between Annotated[ and the first , or ] if no comma
-        annotated_content_match = re.search(r'Annotated\[(.*?)(?:,|\])', value)
+        annotated_content_match = re.search(r"Annotated\[(.*?)(?:,|\])", value)
         if annotated_content_match:
             annotated_content = annotated_content_match.group(1)
-            
+
             # Process union types within the annotated content
             if "|" in annotated_content:
                 # Split by | and process each type
                 types = annotated_content.split("|")
                 clean_types = []
-                
+
                 for t in types:
                     # Extract just the class name from the full path
-                    class_match = re.search(r'\.([A-Za-z0-9_]+)$', t.strip())
+                    class_match = re.search(r"\.([A-Za-z0-9_]+)$", t.strip())
                     if class_match:
                         clean_types.append(f"{{{class_match.group(1)}}}")
                     else:
                         # If pattern doesn't match, use the original trimmed string
                         clean_types.append(f"{{{t.strip()}}}")
-                
+
                 # If this is inside a List or other container, preserve that structure
-                list_match = re.match(r'(List|Dict|Optional)\[(.*)', value)
+                list_match = re.match(r"(List|Dict|Optional)\[(.*)", value)
                 if list_match:
                     container = list_match.group(1)
                     return f"{container}[{' or '.join(clean_types)}]"
-                
+
                 return " or ".join(clean_types)
-    
+
     return value
 
 
 def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     """Helper function to format the type into a readable string."""
     # Get in_subdirectory parameter or default to False
-    in_subdirectory = kwargs.get('in_subdirectory', False)
-    
+    in_subdirectory = kwargs.get("in_subdirectory", False)
+
     if origin is list or origin is List:
         return f"List[{get_type_string(args[0], in_subdirectory=in_subdirectory)}]"
     if origin is dict or origin is Dict:
@@ -128,18 +120,18 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     # Check for annotated types and unions in the string representation
     str_rep = str(tp)
     result = check_for_union(str_rep)
-    
+
     # Only proceed with normal replacement if check_for_union didn't change anything
     if result == str_rep:
         # Pass in_subdirectory parameter from the calling function
-        result = check_for_replacement(str_rep, in_subdirectory=kwargs.get('in_subdirectory', False))
-        
+        result = check_for_replacement(str_rep, in_subdirectory=kwargs.get("in_subdirectory", False))
+
     return result
 
 
 def get_type_string(tp: Type, in_subdirectory: bool = False) -> str:
     """Format the type into a readable string.
-    
+
     Args:
         tp: The type to format
         in_subdirectory: If True, adjust links to go up one directory level
@@ -166,7 +158,7 @@ def get_type_string(tp: Type, in_subdirectory: bool = False) -> str:
 
 def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel], in_subdirectory: bool = False) -> str:
     """Generate the full markdown table for a model
-    
+
     Args:
         model: The model to generate documentation for
         stop_at: The parent class to stop at when getting fields

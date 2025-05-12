@@ -19,5 +19,5 @@ Description of a subject of data collection
 | Field | Type | Description |
 |-------|------|-------------|
 | `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
-| `subject_details` | [MouseSubject](components/subjects.md#mousesubject) or [HumanSubject](components/subjects.md#humansubject) |  |
+| `subject_details` | {MouseSubject} or {HumanSubject} |  |
 | `notes` | `Optional[str]` |  |

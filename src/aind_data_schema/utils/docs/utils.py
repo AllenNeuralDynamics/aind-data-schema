@@ -4,7 +4,7 @@ import inspect
 import json
 import os
 import re
-from typing import Dict, List, Type, Any
+from typing import Dict, List, Type
 
 from pydantic import BaseModel
 
@@ -44,7 +44,7 @@ def check_for_replacement(value: str) -> str:
 
 def check_for_union(value: str) -> str:
     """Extract class names from Annotated types in complex strings and wrap them with {}.
-    
+
     Example:
     Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
     Output: "List[{Calibration} or {LiquidCalibration}]"
@@ -52,30 +52,30 @@ def check_for_union(value: str) -> str:
     # Check if this is an Annotated type
     if "Annotated" in value:
         # Extract content between Annotated[ and the first , or ] if no comma
-        annotated_content_match = re.search(r'Annotated\[(.*?)(?:,|\])', value)
+        annotated_content_match = re.search(r"Annotated\[(.*?)(?:,|\])", value)
         if annotated_content_match:
             annotated_content = annotated_content_match.group(1)
-            
+
             # Process union types within the annotated content
             if "|" in annotated_content:
                 # Split by | and process each type
                 types = annotated_content.split("|")
                 clean_types = []
-                
+
                 for t in types:
                     # Extract just the class name from the full path
-                    class_match = re.search(r'\.([A-Za-z0-9_]+)$', t.strip())
+                    class_match = re.search(r"\.([A-Za-z0-9_]+)$", t.strip())
                     if class_match:
                         clean_types.append(f"{{{class_match.group(1)}}}")
-                
+
                 # If this is inside a List or other container, preserve that structure
-                list_match = re.match(r'(List|Dict|Optional)\[(.*)', value)
+                list_match = re.match(r"(List|Dict|Optional)\[(.*)", value)
                 if list_match:
                     container = list_match.group(1)
                     return f"{container}[{' or '.join(clean_types)}]"
-                
+
                 return " or ".join(clean_types)
-    
+
     return value
 
 
@@ -85,7 +85,7 @@ def _get_type_string_helper(tp: Type, origin, args) -> str:
         return f"List[{get_type_string(args[0])}]"
     if origin is dict or origin is Dict:
         return f"Dict[{get_type_string(args[0])}, {get_type_string(args[1])}]"
-    
+
     # Handle Union type
     union_type = getattr(__import__("typing"), "Union", None)
     if origin is union_type and len(args) == 2 and type(None) in args:
@@ -97,11 +97,11 @@ def _get_type_string_helper(tp: Type, origin, args) -> str:
     # Check for annotated types and unions in the string representation
     str_rep = str(tp)
     result = check_for_union(str_rep)
-    
+
     # Only proceed with normal replacement if check_for_union didn't change anything
     if result == str_rep:
         result = check_for_replacement(str_rep)
-        
+
     return result
 
 
@@ -164,15 +164,17 @@ def generate_enum_table(enum_class) -> str:
     if docstring:
         header += f"{docstring}\n\n"
     header += "| Name | Value |\n|------|-------|\n"
-    
+
     rows = []
     for name, member in enum_class.__members__.items():
         rows.append(f"| `{name}` | `{member.value}` |")
-    
+
     return header + "\n".join(rows) + "\n"
 
 
-def save_model_info(model_name: str, output: str, rel_dir_path: str, doc_folder: str, model_link_map: Dict[str, str]) -> None:
+def save_model_info(
+    model_name: str, output: str, rel_dir_path: str, doc_folder: str, model_link_map: Dict[str, str]
+) -> None:
     """Save model information to a file and update the link map."""
     # Create the target directory structure
     target_dir = os.path.join(doc_folder, rel_dir_path)
@@ -200,14 +202,14 @@ def save_model_info(model_name: str, output: str, rel_dir_path: str, doc_folder:
 def update_model_links(doc_folder: str, model_link_map: Dict[str, str]) -> None:
     """Update the model_links.json file with new entries."""
     link_map_path = os.path.join(doc_folder, "model_links.json")
-    
+
     # If file exists, load and update it
     if os.path.exists(link_map_path):
         with open(link_map_path, "r") as f:
             existing_map = json.load(f)
         existing_map.update(model_link_map)
         model_link_map = existing_map
-    
+
     # Save the updated model link map
     with open(link_map_path, "w") as f:
         json.dump(model_link_map, f, indent=2)

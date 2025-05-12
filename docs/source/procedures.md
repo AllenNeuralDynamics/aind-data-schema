@@ -33,11 +33,11 @@ Description of an injection procedure into a brain
 | Field | Type | Description |
 |-------|------|-------------|
 | `coordinate_system_name` | `str` |  |
-| `coordinates` | List[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] |  |
+| `coordinates` | List[List[{Translation} or {Rotation} or {Scale} or {Affine}]] |  |
 | `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
-| `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
+| `injection_materials` | List[{ViralMaterial} or {NonViralMaterial}] |  |
 | `relative_position` | `Optional[List[AnatomicalRelative]]` |  |
-| `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
+| `dynamics` | List[{InjectionDynamics}] | List of injection events, one per location/depth |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 
 
@@ -63,7 +63,7 @@ Description of craniotomy procedure
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `craniotomy_type` | `CraniotomyType` |  |
 | `coordinate_system_name` | `Optional[str]` |  |
-| `position` | [Translation](components/coordinates.md#translation) or List[AnatomicalRelative] or NoneType |  |
+| `position` | {Translation} or List[AnatomicalRelative] or NoneType |  |
 | `size` | `Optional[float]` | Diameter or side length |
 | `size_unit` | `Optional[SizeUnit]` |  |
 | `protective_material` | `Optional[ProtectiveMaterial]` |  |
@@ -78,7 +78,7 @@ Description of a non-surgical procedure performed on a subject
 | Field | Type | Description |
 |-------|------|-------------|
 | `start_date` | `datetime.date` |  |
-| `experimenters` | Optional[List[[Person](components/identifiers.md#person)]] |  |
+| `experimenters` | Optional[List[{Person}]] |  |
 | `ethics_review_id` | `str` |  |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `description` | `str` |  |
@@ -117,7 +117,7 @@ Description of series of HCR staining rounds for mFISH
 |-------|------|-------------|
 | `codebook_name` | `str` |  |
 | `number_of_rounds` | `int` |  |
-| `hcr_rounds` | List[[HybridizationChainReaction](#hybridizationchainreaction)] |  |
+| `hcr_rounds` | List[{HybridizationChainReaction}] |  |
 | `strip_qc_compatible` | `bool` |  |
 | `cell_id` | `Optional[str]` |  |
 
@@ -145,10 +145,10 @@ Description of an HCR staining round
 | `round_index` | `int` |  |
 | `start_time` | `datetime (timezone-aware)` |  |
 | `end_time` | `datetime (timezone-aware)` |  |
-| `genetic_stains` | List[[GeneticStain](components/reagent.md#geneticstain)] |  |
+| `genetic_stains` | List[{GeneticStain}] |  |
 | `probe_concentration` | `decimal.Decimal` |  |
 | `probe_concentration_unit` | `str` |  |
-| `other_stains` | List[[Stain](components/reagent.md#stain)] |  |
+| `other_stains` | List[{Stain}] |  |
 
 
 ### Injection
@@ -157,10 +157,10 @@ Description of an injection procedure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
+| `injection_materials` | List[{ViralMaterial} or {NonViralMaterial}] |  |
 | `targeted_structure` | `Optional[aind_data_schema_models.mouse_anatomy.MouseAnatomyModel]` | Use InjectionTargets |
 | `relative_position` | `Optional[List[AnatomicalRelative]]` |  |
-| `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
+| `dynamics` | List[{InjectionDynamics}] | List of injection events, one per location/depth |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 
 
@@ -189,7 +189,7 @@ Description of a Myomatrix array insertion for EMG
 | Field | Type | Description |
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
-| `ground_electrode` | [GroundWireImplant](#groundwireimplant) |  |
+| `ground_electrode` | {GroundWireImplant} |  |
 | `implanted_device_name` | `str` | Must match a MyomatrixArray in Procedures.implanted_devices |
 
 
@@ -225,8 +225,8 @@ Description of a sectioning procedure performed on the coronal, sagittal, or tra
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Only required if different from the Procedures.coordinate_system |
-| `sections` | List[[Section](#section)] |  |
+| `coordinate_system` | Optional[{CoordinateSystem}] | Only required if different from the Procedures.coordinate_system |
+| `sections` | List[{Section}] |  |
 | `section_orientation` | `SectionOrientation` |  |
 
 
@@ -247,11 +247,11 @@ Description of all procedures performed on a subject
 | Field | Type | Description |
 |-------|------|-------------|
 | `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
-| `subject_procedures` | List[[Surgery](#surgery) or [TrainingProtocol](#trainingprotocol) or [WaterRestriction](#waterrestriction) or [GenericSubjectProcedure](#genericsubjectprocedure)] |  |
-| `specimen_procedures` | List[[SpecimenProcedure](#specimenprocedure)] |  |
-| `implanted_devices` | List[[EphysProbe](components/devices.md#ephysprobe) or [FiberProbe](components/devices.md#fiberprobe) or [MyomatrixArray](components/devices.md#myomatrixarray)] |  |
-| `configurations` | List[[ProbeConfig](components/configs.md#probeconfig) or [DeviceConfig](components/configs.md#deviceconfig)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided in the procedures |
+| `subject_procedures` | List[{Surgery} or {TrainingProtocol} or {WaterRestriction} or {GenericSubjectProcedure}] |  |
+| `specimen_procedures` | List[{SpecimenProcedure}] |  |
+| `implanted_devices` | List[{EphysProbe} or {FiberProbe} or {MyomatrixArray}] |  |
+| `configurations` | List[{ProbeConfig} or {DeviceConfig}] |  |
+| `coordinate_system` | Optional[{CoordinateSystem}] | Required when coordinates are provided in the procedures |
 | `notes` | `Optional[str]` |  |
 
 
@@ -277,8 +277,8 @@ Description of a slice of brain tissue
 | `output_specimen_id` | `str` |  |
 | `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
 | `coordinate_system_name` | `str` |  |
-| `start_coordinate` | [Translation](components/coordinates.md#translation) |  |
-| `end_coordinate` | Optional[[Translation](components/coordinates.md#translation)] |  |
+| `start_coordinate` | {Translation} |  |
+| `end_coordinate` | Optional[{Translation}] |  |
 | `thickness` | `Optional[float]` |  |
 | `thickness_unit` | `Optional[SizeUnit]` |  |
 | `partial_slice` | `Optional[List[AnatomicalRelative]]` | If sectioning does not include the entire slice, indicate which part of the slice is retained. |
@@ -295,9 +295,9 @@ Description of surgical or other procedure performed on a specimen
 | `specimen_id` | `str` |  |
 | `start_date` | `datetime.date` |  |
 | `end_date` | `datetime.date` |  |
-| `experimenters` | List[[Person](components/identifiers.md#person)] |  |
+| `experimenters` | List[{Person}] |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
-| `procedure_details` | List[[HCRSeries](#hcrseries) or [Antibody](components/reagent.md#antibody) or [PlanarSectioning](#planarsectioning) or [Reagent](components/reagent.md#reagent) or [OligoProbeSet](components/reagent.md#oligoprobeset)] |  |
+| `procedure_details` | List[{HCRSeries} or {Antibody} or {PlanarSectioning} or {Reagent} or {OligoProbeSet}] |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -309,16 +309,16 @@ Description of subject procedures performed at one time
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `start_date` | `datetime.date` |  |
-| `experimenters` | Optional[List[[Person](components/identifiers.md#person)]] |  |
+| `experimenters` | Optional[List[{Person}]] |  |
 | `ethics_review_id` | `Optional[str]` |  |
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
 | `weight_unit` | `MassUnit` |  |
-| `anaesthesia` | Optional[[Anaesthetic](#anaesthetic)] |  |
+| `anaesthesia` | Optional[{Anaesthetic}] |  |
 | `workstation_id` | `Optional[str]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system |
-| `measured_coordinates` | Optional[Dict[Origin, [Translation](components/coordinates.md#translation)]] | Coordinates measured during the procedure, for example Bregma and Lambda |
-| `procedures` | List[[CatheterImplant](#catheterimplant) or [Craniotomy](#craniotomy) or [ProbeImplant](#probeimplant) or [Headframe](#headframe) or [BrainInjection](#braininjection) or [Injection](#injection) or [MyomatrixInsertion](#myomatrixinsertion) or [GenericSurgeryProcedure](#genericsurgeryprocedure) or [Perfusion](#perfusion) or [SampleCollection](#samplecollection)] |  |
+| `coordinate_system` | Optional[{CoordinateSystem}] | Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system |
+| `measured_coordinates` | Optional[Dict[Origin, {Translation}]] | Coordinates measured during the procedure, for example Bregma and Lambda |
+| `procedures` | List[{CatheterImplant} or {Craniotomy} or {ProbeImplant} or {Headframe} or {BrainInjection} or {Injection} or {MyomatrixInsertion} or {GenericSurgeryProcedure} or {Perfusion} or {SampleCollection}] |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -357,7 +357,7 @@ Description of viral material for injections
 |-------|------|-------------|
 | `material_type` | `typing.Literal['Virus']` |  |
 | `name` | `str` | Full genome for virus construct |
-| `tars_identifiers` | Optional[[TarsVirusIdentifiers](#tarsvirusidentifiers)] | TARS database identifiers |
+| `tars_identifiers` | Optional[{TarsVirusIdentifiers}] | TARS database identifiers |
 | `addgene_id` | `Optional[aind_data_schema_models.pid_names.PIDName]` | Registry must be Addgene |
 | `titer` | `Optional[int]` | Final titer of viral material, accounting for mixture/diliution |
 | `titer_unit` | `Optional[str]` | For example, gc/mL |

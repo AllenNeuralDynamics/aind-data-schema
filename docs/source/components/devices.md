@@ -39,9 +39,9 @@ Description of a rectangular arena
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) |  |
+| `size` | {Scale} |  |
 | `size_unit` | `SizeUnit` |  |
-| `objects_in_arena` | List[[Device](#device)] |  |
+| `objects_in_arena` | List[{Device}] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -80,7 +80,7 @@ Camera Detector
 | `crop_width` | `Optional[int]` |  |
 | `crop_height` | `Optional[int]` |  |
 | `crop_unit` | `SizeUnit` |  |
-| `recording_software` | Optional[[Software](identifiers.md#software)] |  |
+| `recording_software` | Optional[{Software}] |  |
 | `driver` | `Optional[DeviceDriver]` |  |
 | `driver_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -98,12 +98,12 @@ Named assembly of a camera and lens (and optionally a filter)
 |-------|------|-------------|
 | `name` | `str` |  |
 | `target` | `CameraTarget` |  |
-| `camera` | [Camera](#camera) |  |
-| `lens` | [Lens](#lens) |  |
-| `filter` | Optional[[Filter](#filter)] |  |
+| `camera` | {Camera} |  |
+| `lens` | {Lens} |  |
+| `filter` | Optional[{Filter}] |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### Computer
@@ -144,7 +144,7 @@ Data acquisition device containing multiple I/O channels
 |-------|------|-------------|
 | `data_interface` | `DataInterface` |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
+| `channels` | List[{DAQChannel}] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -184,7 +184,7 @@ Description of a generic detector
 | `crop_width` | `Optional[int]` |  |
 | `crop_height` | `Optional[int]` |  |
 | `crop_unit` | `SizeUnit` |  |
-| `recording_software` | Optional[[Software](identifiers.md#software)] |  |
+| `recording_software` | Optional[{Software}] |  |
 | `driver` | `Optional[DeviceDriver]` |  |
 | `driver_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -215,8 +215,8 @@ Position class for devices
 | Field | Type | Description |
 |-------|------|-------------|
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### DigitalMicromirrorDevice
@@ -258,7 +258,7 @@ Description of a running disc (i.e. MindScope Disc)
 | `output` | `Optional[DaqChannelType]` | analog or digital electronics |
 | `encoder` | `Optional[str]` | Encoder hardware type |
 | `decoder` | `Optional[str]` | Decoder chip type |
-| `encoder_firmware` | Optional[[Software](identifiers.md#software)] | Firmware to read from decoder chip counts |
+| `encoder_firmware` | Optional[{Software}] | Firmware to read from decoder chip counts |
 | `surface_material` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -274,7 +274,7 @@ Description of an enclosure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) |  |
+| `size` | {Scale} |  |
 | `size_unit` | `SizeUnit` |  |
 | `internal_material` | `Optional[str]` |  |
 | `external_material` | `str` |  |
@@ -296,8 +296,8 @@ Named assembly for combining a manipulator and ephys probes
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `manipulator` | [Manipulator](#manipulator) |  |
-| `probes` | List[[EphysProbe](#ephysprobe)] |  |
+| `manipulator` | {Manipulator} |  |
+| `probes` | List[{EphysProbe}] |  |
 
 
 ### EphysProbe
@@ -307,7 +307,7 @@ Probe used in an ephys experiment
 | Field | Type | Description |
 |-------|------|-------------|
 | `probe_model` | `ProbeModel` |  |
-| `headstage` | Optional[[Device](#device)] |  |
+| `headstage` | Optional[{Device}] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -323,8 +323,8 @@ Module for inserted fiber photometry recording
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `manipulator` | [Manipulator](#manipulator) |  |
-| `fibers` | List[[FiberProbe](#fiberprobe)] |  |
+| `manipulator` | {Manipulator} |  |
+| `fibers` | List[{FiberProbe}] |  |
 
 
 ### FiberPatchCord
@@ -396,7 +396,7 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 | `tag_version` | `Optional[str]` |  |
 | `data_interface` | `DataInterface` |  |
 | `is_clock_generator` | `bool` |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
+| `channels` | List[{DAQChannel}] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -452,10 +452,10 @@ Named assembly combining a manipulator, lasers, collimator, and fibers
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `manipulator` | [Manipulator](#manipulator) |  |
-| `lasers` | List[[Laser](#laser)] |  |
-| `collimator` | [Device](#device) |  |
-| `fiber` | [FiberPatchCord](#fiberpatchcord) |  |
+| `manipulator` | {Manipulator} |  |
+| `lasers` | List[{Laser}] |  |
+| `collimator` | {Device} |  |
+| `fiber` | {FiberPatchCord} |  |
 
 
 ### Lens
@@ -480,8 +480,8 @@ Description of a lick spout
 |-------|------|-------------|
 | `spout_diameter` | `decimal.Decimal` |  |
 | `spout_diameter_unit` | `SizeUnit` |  |
-| `solenoid_valve` | [Device](#device) |  |
-| `lick_sensor` | [Device](#device) |  |
+| `solenoid_valve` | {Device} |  |
+| `lick_sensor` | {Device} |  |
 | `lick_sensor_type` | `Optional[LickSensorType]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -498,8 +498,8 @@ Description of multiple lick spouts, possibly mounted on a stage
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `lick_spouts` | List[[LickSpout](#lickspout)] |  |
-| `motorized_stage` | Optional[[MotorizedStage](#motorizedstage)] |  |
+| `lick_spouts` | List[{LickSpout}] |  |
+| `motorized_stage` | Optional[{MotorizedStage}] |  |
 
 
 ### LightAssembly
@@ -509,9 +509,9 @@ Named assembly of a light source and lens
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `light` | [Laser](#laser) or [LightEmittingDiode](#lightemittingdiode) or [Lamp](#lamp) |  |
-| `lens` | [Lens](#lens) |  |
-| `filter` | Optional[[Filter](#filter)] |  |
+| `light` | {Laser} or {LightEmittingDiode} or {Lamp} |  |
+| `lens` | {Lens} |  |
+| `filter` | Optional[{Filter}] |  |
 
 
 ### LightEmittingDiode
@@ -581,8 +581,8 @@ Description of visual display for visual stimuli
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### MotorizedStage
@@ -593,7 +593,7 @@ Description of motorized stage
 |-------|------|-------------|
 | `travel` | `decimal.Decimal` |  |
 | `travel_unit` | `SizeUnit` |  |
-| `firmware` | Optional[[Software](identifiers.md#software)] |  |
+| `firmware` | Optional[{Software}] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -609,7 +609,7 @@ Description of a Myomatrix array
 | Field | Type | Description |
 |-------|------|-------------|
 | `array_type` | `MyomatrixArrayType` |  |
-| `threads` | List[[MyomatrixThread](#myomatrixthread)] |  |
+| `threads` | List[{MyomatrixThread}] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -637,7 +637,7 @@ Description of a thread of a myomatrix array
 | Field | Type | Description |
 |-------|------|-------------|
 | `ground_electrode_location` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` | Use GroundWireLocations |
-| `contacts` | List[[MyomatrixContact](#myomatrixcontact)] |  |
+| `contacts` | List[{MyomatrixContact}] |  |
 
 
 ### NeuropixelsBasestation
@@ -649,10 +649,10 @@ PXI-based Neuropixels DAQ
 | `basestation_firmware_version` | `str` |  |
 | `bsc_firmware_version` | `str` |  |
 | `slot` | `int` |  |
-| `ports` | List[[ProbePort](#probeport)] |  |
+| `ports` | List[{ProbePort}] |  |
 | `data_interface` | `DataInterface` |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
+| `channels` | List[{DAQChannel}] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -688,7 +688,7 @@ Description of an olfactometer for odor stimuli
 |-------|------|-------------|
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) |  |
-| `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |  |
+| `channels` | List[{OlfactometerChannel}] |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
 | `data_interface` | `DataInterface` |  |
@@ -720,10 +720,10 @@ Multichannel electrophysiology DAQ
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ports` | List[[ProbePort](#probeport)] |  |
+| `ports` | List[{ProbePort}] |  |
 | `data_interface` | `typing.Literal[<DataInterface.USB: 'USB'>]` |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
+| `channels` | List[{DAQChannel}] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -806,7 +806,7 @@ Description of a scanning motorized stages
 | `stage_axis_name` | `AxisName` |  |
 | `travel` | `decimal.Decimal` |  |
 | `travel_unit` | `SizeUnit` |  |
-| `firmware` | Optional[[Software](identifiers.md#software)] |  |
+| `firmware` | Optional[{Software}] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -828,8 +828,8 @@ Description of a speaker for auditory stimuli
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] | Position and orientation of the device in the instrument coordinate system |
 
 
 ### Treadmill
@@ -840,7 +840,7 @@ Description of treadmill platform
 |-------|------|-------------|
 | `treadmill_width` | `decimal.Decimal` |  |
 | `width_unit` | `SizeUnit` |  |
-| `encoder` | Optional[[Device](#device)] |  |
+| `encoder` | Optional[{Device}] |  |
 | `pulse_per_revolution` | `Optional[int]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -875,10 +875,10 @@ Description of a running wheel
 | `radius` | `decimal.Decimal` |  |
 | `width` | `decimal.Decimal` |  |
 | `size_unit` | `SizeUnit` |  |
-| `encoder` | [Device](#device) |  |
+| `encoder` | {Device} |  |
 | `pulse_per_revolution` | `int` |  |
-| `magnetic_brake` | [Device](#device) |  |
-| `torque_sensor` | [Device](#device) |  |
+| `magnetic_brake` | {Device} |  |
+| `torque_sensor` | {Device} |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |

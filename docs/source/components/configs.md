@@ -10,8 +10,8 @@ Air puff device configuration
 |-------|------|-------------|
 | `valence` | `Valence` |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] |  |
+| `coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] |  |
 | `pressure` | `Optional[float]` |  |
 | `pressure_unit` | `Optional[PressureUnit]` |  |
 | `duration` | `Optional[float]` |  |
@@ -26,12 +26,12 @@ Configuration of a channel
 |-------|------|-------------|
 | `channel_name` | `str` |  |
 | `intended_measurement` | `Optional[str]` | What signal is this channel measuring |
-| `detector` | [DetectorConfig](#detectorconfig) |  |
-| `additional_device_names` | Optional[List[[DeviceConfig](#deviceconfig)]] | Mirrors, dichroics, etc |
-| `light_sources` | List[[LaserConfig](#laserconfig) or [LightEmittingDiodeConfig](#lightemittingdiodeconfig)] |  |
+| `detector` | {DetectorConfig} |  |
+| `additional_device_names` | Optional[List[{DeviceConfig}]] | Mirrors, dichroics, etc |
+| `light_sources` | List[{LaserConfig} or {LightEmittingDiodeConfig}] |  |
 | `variable_power` | `Optional[bool]` | Set to true when the power varies across Planes -- put the power in the Plane.power field |
-| `excitation_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
-| `emission_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
+| `excitation_filters` | Optional[List[{DeviceConfig}]] |  |
+| `emission_filters` | Optional[List[{DeviceConfig}]] |  |
 | `emission_wavelength` | `Optional[int]` |  |
 | `emission_wavelength_unit` | `Optional[SizeUnit]` |  |
 
@@ -61,7 +61,7 @@ Configuration of detector settings
 | `exposure_time` | `float` |  |
 | `exposure_time_unit` | `TimeUnit` |  |
 | `trigger_type` | `TriggerType` |  |
-| `compression` | Optional[[Code](identifiers.md#code)] | Compression algorithm used during acquisition |
+| `compression` | Optional[{Code}] | Compression algorithm used during acquisition |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -80,9 +80,9 @@ Group of configurations for an ephys assembly
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manipulator` | [ManipulatorConfig](#manipulatorconfig) |  |
-| `probes` | List[[ProbeConfig](#probeconfig)] |  |
-| `modules` | Optional[List[[MISModuleConfig](#mismoduleconfig)]] | Configurations for conveniently tracking manipulator modules, e.g. on the New Scale dome. |
+| `manipulator` | {ManipulatorConfig} |  |
+| `probes` | List[{ProbeConfig}] |  |
+| `modules` | Optional[List[{MISModuleConfig}]] | Configurations for conveniently tracking manipulator modules, e.g. on the New Scale dome. |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -92,9 +92,9 @@ Inserted fiber photometry probe recorded in a stream
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manipulator` | [ManipulatorConfig](#manipulatorconfig) |  |
-| `probes` | List[[ProbeConfig](#probeconfig)] |  |
-| `patch_cords` | List[[PatchCordConfig](#patchcordconfig)] |  |
+| `manipulator` | {ManipulatorConfig} |  |
+| `probes` | List[{ProbeConfig}] |  |
+| `patch_cords` | List[{PatchCordConfig}] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -106,8 +106,8 @@ Description of an N-D image
 |-------|------|-------------|
 | `channel_name` | `str` |  |
 | `dimensions_unit` | `SizeUnit` |  |
-| `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
+| `image_to_acquisition_transform` | List[{Translation} or {Rotation} or {Scale} or {Affine}] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
+| `dimensions` | Optional[{Scale}] |  |
 
 
 ### ImageSPIM
@@ -123,8 +123,8 @@ Description of an N-D image acquired with SPIM
 | `image_end_time` | `Optional[datetime (timezone-aware)]` |  |
 | `channel_name` | `str` |  |
 | `dimensions_unit` | `SizeUnit` |  |
-| `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
+| `image_to_acquisition_transform` | List[{Translation} or {Rotation} or {Scale} or {Affine}] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
+| `dimensions` | Optional[{Scale}] |  |
 
 
 ### ImagingConfig
@@ -134,9 +134,9 @@ Configuration of an imaging instrument
 | Field | Type | Description |
 |-------|------|-------------|
 | `channels` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Channel, aind_data_schema.components.configs.SlapChannel], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system |
+| `coordinate_system` | Optional[{CoordinateSystem}] | Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system |
 | `images` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.PlanarImage, aind_data_schema.components.configs.PlanarImageStack, aind_data_schema.components.configs.ImageSPIM], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
-| `sampling_strategy` | Optional[[SamplingStrategy](#samplingstrategy)] |  |
+| `sampling_strategy` | Optional[{SamplingStrategy}] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -185,8 +185,8 @@ Lick spout acquisition information
 | `volume` | `float` |  |
 | `volume_unit` | `VolumeUnit` |  |
 | `relative_position` | `List[AnatomicalRelative]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
+| `coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
 | `notes` | `Optional[str]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
@@ -231,10 +231,10 @@ Configuration of a 3D scan
 | `effective_echo_time` | `Optional[decimal.Decimal]` |  |
 | `repetition_time` | `decimal.Decimal` |  |
 | `repetition_time_unit` | `TimeUnit` |  |
-| `scan_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `scan_affine_transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | NIFTI sform/qform, Bruker vc_transform, etc |
+| `scan_coordinate_system` | Optional[{CoordinateSystem}] |  |
+| `scan_affine_transform` | Optional[List[{Translation} or {Rotation} or {Scale} or {Affine}]] | NIFTI sform/qform, Bruker vc_transform, etc |
 | `subject_position` | `SubjectPosition` |  |
-| `resolution` | Optional[[Scale](coordinates.md#scale)] |  |
+| `resolution` | Optional[{Scale}] |  |
 | `resolution_unit` | `Optional[SizeUnit]` |  |
 | `additional_scan_parameters` | `aind_data_schema.base.GenericModel` |  |
 | `notes` | `Optional[str]` |  |
@@ -247,8 +247,8 @@ Configuration of a manipulator
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) |  |
-| `local_axis_positions` | [Translation](coordinates.md#translation) |  |
+| `coordinate_system` | {CoordinateSystem} |  |
+| `local_axis_positions` | {Translation} |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -269,7 +269,7 @@ Configuration of a patch cord and its output power to another device
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `channels` | List[[Channel](#channel)] |  |
+| `channels` | List[{Channel}] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -282,8 +282,8 @@ Description of an N-D image acquired in a specific imaging plane
 | `planes` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Plane, aind_data_schema.components.configs.CoupledPlane, aind_data_schema.components.configs.SlapPlane], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
 | `channel_name` | `str` |  |
 | `dimensions_unit` | `SizeUnit` |  |
-| `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
+| `image_to_acquisition_transform` | List[{Translation} or {Rotation} or {Scale} or {Affine}] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
+| `dimensions` | Optional[{Scale}] |  |
 
 
 ### PlanarImageStack
@@ -300,8 +300,8 @@ Description of a stack of images acquired in a specific imaging plane
 | `planes` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Plane, aind_data_schema.components.configs.CoupledPlane, aind_data_schema.components.configs.SlapPlane], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
 | `channel_name` | `str` |  |
 | `dimensions_unit` | `SizeUnit` |  |
-| `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
-| `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
+| `image_to_acquisition_transform` | List[{Translation} or {Rotation} or {Scale} or {Affine}] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
+| `dimensions` | Optional[{Scale}] |  |
 
 
 ### Plane
@@ -325,9 +325,9 @@ Configuration for a device inserted into a brain
 |-------|------|-------------|
 | `primary_targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 | `other_targeted_structure` | Optional[List[[BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure)]] |  |
-| `atlas_coordinate` | Optional[[AtlasCoordinate](coordinates.md#atlascoordinate)] |  |
-| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) |  |
-| `transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
+| `atlas_coordinate` | Optional[{AtlasCoordinate}] |  |
+| `coordinate_system` | {CoordinateSystem} |  |
+| `transform` | List[{Translation} or {Rotation} or {Scale} or {Affine}] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
 | `dye` | `Optional[str]` |  |
 | `notes` | `Optional[str]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
@@ -339,8 +339,8 @@ Configuration of a sample chamber
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `chamber_immersion` | [Immersion](#immersion) |  |
-| `sample_immersion` | Optional[[Immersion](#immersion)] |  |
+| `chamber_immersion` | {Immersion} |  |
+| `sample_immersion` | Optional[{Immersion}] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -365,12 +365,12 @@ Configuration of a channel for Slap
 | `description` | `Optional[str]` |  |
 | `channel_name` | `str` |  |
 | `intended_measurement` | `Optional[str]` | What signal is this channel measuring |
-| `detector` | [DetectorConfig](#detectorconfig) |  |
-| `additional_device_names` | Optional[List[[DeviceConfig](#deviceconfig)]] | Mirrors, dichroics, etc |
-| `light_sources` | List[[LaserConfig](#laserconfig) or [LightEmittingDiodeConfig](#lightemittingdiodeconfig)] |  |
+| `detector` | {DetectorConfig} |  |
+| `additional_device_names` | Optional[List[{DeviceConfig}]] | Mirrors, dichroics, etc |
+| `light_sources` | List[{LaserConfig} or {LightEmittingDiodeConfig}] |  |
 | `variable_power` | `Optional[bool]` | Set to true when the power varies across Planes -- put the power in the Plane.power field |
-| `excitation_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
-| `emission_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
+| `excitation_filters` | Optional[List[{DeviceConfig}]] |  |
+| `emission_filters` | Optional[List[{DeviceConfig}]] |  |
 | `emission_wavelength` | `Optional[int]` |  |
 | `emission_wavelength_unit` | `Optional[SizeUnit]` |  |
 
