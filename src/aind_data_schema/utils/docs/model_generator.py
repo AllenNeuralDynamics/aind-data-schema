@@ -68,7 +68,8 @@ def check_for_union(value: str) -> str:
     """Extract class names from Annotated types in complex strings and wrap them with {}.
 
     Example:
-    Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration | aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
+    Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration |
+        aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
     Output: "List[{Calibration} or {LiquidCalibration}]"
     """
     # Check if this is an Annotated type
@@ -112,7 +113,10 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     if origin is list or origin is List:
         return f"List[{get_type_string(args[0], in_subdirectory=in_subdirectory)}]"
     if origin is dict or origin is Dict:
-        return f"Dict[{get_type_string(args[0], in_subdirectory=in_subdirectory)}, {get_type_string(args[1], in_subdirectory=in_subdirectory)}]"
+        return (
+            f"Dict[{get_type_string(args[0], in_subdirectory=in_subdirectory)},"
+            f" {get_type_string(args[1], in_subdirectory=in_subdirectory)}]"
+        )
     union_type = getattr(__import__("typing"), "Union", None)
     if origin is union_type and len(args) == 2 and type(None) in args:
         non_none_type = next(arg for arg in args if arg is not type(None))
@@ -197,15 +201,79 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel], in
     return header + "\n".join(rows) + "\n"
 
 
-if __name__ == "__main__":
+def process_module(module_name, module_path, src_folder, doc_folder, current_script_path, model_link_map):
+    """Process a single module to generate markdown documentation."""
+    try:
+        spec = importlib.util.spec_from_file_location(module_name, module_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
 
+        rel_dir_path = os.path.splitext(os.path.relpath(module_path, src_folder))[0]
+
+        for attr_name in dir(module):
+            attr = getattr(module, attr_name)
+
+            # Check if the attribute is a DataModel subclass AND is defined in this module
+            if (
+                isinstance(attr, type)
+                and issubclass(attr, DataModel)
+                and attr is not DataModel
+                and attr.__module__ == module_name
+            ):
+                process_data_model(attr, rel_dir_path, doc_folder, model_link_map)
+            elif isinstance(attr, type) and issubclass(attr, Enum) and attr.__module__ == module_name:
+                process_enum(attr, rel_dir_path, doc_folder, model_link_map)
+    except Exception as e:
+        print(f"Error processing {module_path}: {e}")
+
+
+def process_data_model(attr, rel_dir_path, doc_folder, model_link_map):
+    """Generate markdown documentation for a DataModel."""
+    is_component = "components" in rel_dir_path
+    markdown_output = generate_markdown_table(attr, BaseModel, in_subdirectory=is_component)
+
+    target_dir = os.path.join(doc_folder, rel_dir_path)
+    os.makedirs(target_dir, exist_ok=True)
+
+    output_file = os.path.join(target_dir, f"{attr.__name__}.md")
+    with open(output_file, "w") as f:
+        f.write(markdown_output)
+
+    doc_rel_path = rel_dir_path.replace(os.sep, "/")
+    link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
+    link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
+    model_link_map[f"{{{attr.__name__}}}"] = link
+
+
+def process_enum(attr, rel_dir_path, doc_folder, model_link_map):
+    """Generate markdown documentation for an Enum."""
+    markdown_output = generate_enum_table(attr)
+
+    target_dir = os.path.join(doc_folder, rel_dir_path)
+    os.makedirs(target_dir, exist_ok=True)
+
+    output_file = os.path.join(target_dir, f"{attr.__name__}.md")
+    with open(output_file, "w") as f:
+        f.write(markdown_output)
+
+    doc_rel_path = rel_dir_path.replace(os.sep, "/")
+    link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
+    link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
+    model_link_map[f"{{{attr.__name__}}}"] = link
+
+
+def save_model_link_map(doc_folder, model_link_map):
+    """Save the model link map as a JSON file."""
+    link_map_path = os.path.join(doc_folder, "model_links.json")
+    with open(link_map_path, "w") as f:
+        json.dump(model_link_map, f, indent=2)
+    print(f"Model link map saved to {link_map_path}")
+
+
+if __name__ == "__main__":
     src_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
     doc_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../docs/base/models"))
-
-    # Get absolute path of this script to skip it
     current_script_path = os.path.abspath(__file__)
-
-    # Dictionary to store model name to link mappings
     model_link_map = {}
 
     for root, _, files in os.walk(src_folder):
@@ -213,93 +281,11 @@ if __name__ == "__main__":
             if file.endswith(".py") and file != "__init__.py":
                 module_path = os.path.join(root, file)
 
-                # Skip the current script to avoid circular import issues
                 if os.path.abspath(module_path) == current_script_path:
                     continue
 
-                # Get the relative module path from src folder
-                rel_module_path = os.path.relpath(module_path, src_folder)
-                # Convert to directory structure (remove .py extension)
-                rel_dir_path = os.path.splitext(rel_module_path)[0]
-
-                module_name = rel_dir_path.replace(os.sep, ".")
+                module_name = os.path.splitext(os.path.relpath(module_path, src_folder))[0].replace(os.sep, ".")
                 print(f"Processing module: {module_name}")
+                process_module(module_name, module_path, src_folder, doc_folder, current_script_path, model_link_map)
 
-                try:
-                    spec = importlib.util.spec_from_file_location(module_name, module_path)
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
-
-                    for attr_name in dir(module):
-                        attr = getattr(module, attr_name)
-
-                        # Check if the attribute is a DataModel subclass AND is defined in this module
-                        if (
-                            isinstance(attr, type)
-                            and issubclass(attr, DataModel)
-                            and attr is not DataModel
-                            and attr.__module__ == module_name
-                        ):  # Check if defined in current module
-
-                            # Check if this is a component or other file that will be rendered in a subdirectory
-                            is_component = "components" in rel_dir_path
-                            markdown_output = generate_markdown_table(attr, BaseModel, in_subdirectory=is_component)
-
-                            # Create the target directory structure
-                            target_dir = os.path.join(doc_folder, rel_dir_path)
-                            os.makedirs(target_dir, exist_ok=True)
-
-                            # Save the file in the appropriate subdirectory
-                            output_file = os.path.join(target_dir, f"{attr.__name__}.md")
-                            with open(output_file, "w") as f:
-                                f.write(markdown_output)
-
-                            # Construct the relative documentation path for the link map
-                            # Convert directory separators to forward slashes for URLs
-                            doc_rel_path = rel_dir_path.replace(os.sep, "/")
-
-                            # Create the link format: "[ClassName](path/to/directory#ClassName)"
-                            link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
-
-                            # Strip out "aind_data_schema/" and "aind_data_schema/core/" from the links
-                            link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
-
-                            # Add to our mapping dictionary using the format "{ClassName}" as the key
-                            model_link_map[f"{{{attr.__name__}}}"] = link
-                        elif isinstance(attr, type) and issubclass(attr, Enum) and attr.__module__ == module_name:
-                            # Only process enums defined in this module
-                            markdown_output = generate_enum_table(attr)
-
-                            # Create the target directory structure
-                            target_dir = os.path.join(doc_folder, rel_dir_path)
-                            os.makedirs(target_dir, exist_ok=True)
-
-                            # Save the file in the appropriate subdirectory
-                            output_file = os.path.join(target_dir, f"{attr.__name__}.md")
-                            with open(output_file, "w") as f:
-                                f.write(markdown_output)
-
-                            # Construct the relative documentation path for the link map
-                            # Convert directory separators to forward slashes for URLs
-                            doc_rel_path = rel_dir_path.replace(os.sep, "/")
-
-                            # Create the link format: "[EnumName](path/to/directory#EnumName)"
-                            link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
-
-                            # Strip out "aind_data_schema/" and "aind_data_schema/core/" from the links
-                            link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
-
-                            # Add to our mapping dictionary using the format "{EnumName}" as the key
-                            model_link_map[f"{{{attr.__name__}}}"] = link
-                        else:
-                            pass
-                except Exception as e:
-                    print(f"Error processing {module_path}: {e}")
-
-    # Save the model link map as a JSON file
-
-    link_map_path = os.path.join(doc_folder, "model_links.json")
-    with open(link_map_path, "w") as f:
-        json.dump(model_link_map, f, indent=2)
-
-    print(f"Model link map saved to {link_map_path}")
+    save_model_link_map(doc_folder, model_link_map)
