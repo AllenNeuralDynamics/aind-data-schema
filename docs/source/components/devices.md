@@ -416,7 +416,7 @@ Description of a Lamp lightsource
 | `wavelength_max` | `Optional[int]` |  |
 | `wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
 | `temperature` | `Optional[int]` |  |
-| `temperature_unit` | Optional[{TemperatureUnit}] |  |
+| `temperature_unit` | Optional[[TemperatureUnit](aind_data_schema_models/units.md#temperatureunit)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -754,7 +754,7 @@ Description of a Pockels Cell
 | `off_time` | `Optional[decimal.Decimal]` |  |
 | `time_setting_unit` | [UnitlessUnit](aind_data_schema_models/units.md#unitlessunit) |  |
 | `beam_modulation` | `Optional[decimal.Decimal]` |  |
-| `beam_modulation_unit` | Optional[{VoltageUnit}] |  |
+| `beam_modulation_unit` | Optional[[VoltageUnit](aind_data_schema_models/units.md#voltageunit)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -797,7 +797,7 @@ Description of a MRI Scanner
 | Field | Type | Description |
 |-------|------|-------------|
 | `magnetic_strength` | `float` |  |
-| `magnetic_strength_unit` | {MagneticFieldUnit} |  |
+| `magnetic_strength_unit` | [MagneticFieldUnit](aind_data_schema_models/units.md#magneticfieldunit) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |

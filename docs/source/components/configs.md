@@ -13,7 +13,7 @@ Air puff device configuration
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] |  |
 | `pressure` | `Optional[float]` |  |
-| `pressure_unit` | Optional[{PressureUnit}] |  |
+| `pressure_unit` | Optional[[PressureUnit](aind_data_schema_models/units.md#pressureunit)] |  |
 | `duration` | `Optional[float]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
@@ -457,7 +457,7 @@ Configuration of auditory speaker configuration
 | Field | Type | Description |
 |-------|------|-------------|
 | `volume` | `Optional[float]` |  |
-| `volume_unit` | Optional[{SoundIntensityUnit}] |  |
+| `volume_unit` | Optional[[SoundIntensityUnit](aind_data_schema_models/units.md#soundintensityunit)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 

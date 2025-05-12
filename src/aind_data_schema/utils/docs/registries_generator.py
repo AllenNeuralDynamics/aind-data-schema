@@ -18,6 +18,9 @@ from aind_data_schema_models.coordinates import Origin, AxisName, Direction, Ana
 # Organization models
 from aind_data_schema_models.organizations import Organization
 
+# Registries
+from aind_data_schema_models.registries import Registry
+
 # Species models
 from aind_data_schema_models.species import Species, Strain
 
@@ -34,6 +37,13 @@ from aind_data_schema_models.units import (
     TimeUnit,
     UnitlessUnit,
     VolumeUnit,
+    PressureUnit,
+    TemperatureUnit,
+    SoundIntensityUnit,
+    VoltageUnit,
+    MemoryUnit,
+    MagneticFieldUnit,
+    UnitlessUnit,
 )
 
 # Other registry models
@@ -61,6 +71,8 @@ registries = [
     AnatomicalRelative,
     # Organization models
     Organization,
+    # Registries
+    Registry,
     # Species models
     Species,
     Strain,
@@ -76,6 +88,13 @@ registries = [
     TimeUnit,
     UnitlessUnit,
     VolumeUnit,
+    PressureUnit,
+    TemperatureUnit,
+    SoundIntensityUnit,
+    VoltageUnit,
+    MemoryUnit,
+    MagneticFieldUnit,
+    UnitlessUnit,
     # Other registry models
     Modality,
     PIDName,
@@ -86,6 +105,17 @@ registries = [
     CPUArchitecture,
     HarpDeviceType,
 ]
+
+special_cases = {
+    "ADDGENE": "[Addgene](aind_data_schema_models/registries.md#registry)",
+    "EMAPA": "[Emapa](aind_data_schema_models/registries.md#registry)",
+    "MGI": "[MGI](aind_data_schema_models/registries.md#registry)",
+    "NCBI": "[NBCI](aind_data_schema_models/registries.md#registry)",
+    "ORCID": "[ORCID](aind_data_schema_models/registries.md#registry)",
+    "ROR": "[ROR](aind_data_schema_models/registries.md#registry)",
+    "RID": "[RID](aind_data_schema_models/registries.md#registry)",
+    "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
+}
 
 
 def generate_model_instance_table(model_class) -> str:
@@ -164,7 +194,16 @@ def extract_instance_fields(sample_instance):
         for attr in dir(sample_instance)
         if not attr.startswith("_")
         and not callable(getattr(sample_instance, attr))
-        and attr not in ("ALL", "ONE_OF", "model_config", "model_fields")
+        and attr
+        not in (
+            "ALL",
+            "ONE_OF",
+            "model_config",
+            "model_fields",
+            "model_computed_fields",
+            "model_extra",
+            "model_fields_set",
+        )
     ]
 
 
@@ -181,10 +220,23 @@ def create_table_structure(field_names, model_instances) -> str:
     """Create the markdown table structure."""
     header_row = "| Name |" + "".join(f" {field} |" for field in field_names) + "\n"
     separator_row = "|------|" + "------|" * len(field_names) + "\n"
-    rows = [
-        f"| `{attr_name}` |" + "".join(f" `{getattr(attr_value, field, 'N/A')}` |" for field in field_names)
-        for attr_name, attr_value in model_instances
-    ]
+
+    rows = []
+    for attr_name, attr_value in model_instances:
+        row_data = []
+        for field in field_names:
+            field_value = getattr(attr_value, field, "N/A")
+            # Check if this is a registry value that needs to be remapped
+            if field == "registry" and any(str(field_value) in key for key in special_cases.keys()):
+                # Map the registry value to its corresponding special case
+                key = next(key for key in special_cases.keys() if str(field_value) in key)
+                
+                row_data.append(f" {special_cases[key]} |")
+            else:
+                row_data.append(f" `{field_value}` |")
+
+        rows.append(f"| `{attr_name}` |" + "".join(row_data))
+
     return header_row + separator_row + "\n".join(rows) + "\n"
 
 

@@ -20,6 +20,7 @@ special_cases = {
     "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)"),
     "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
     "aind_data_schema.core.quality_control.QCMetric": "{QCMetric} or {CurationMetric}",
+    "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]

@@ -45,6 +45,17 @@ Enumeration of Frequency Measurements
 | `mHZ` | `millihertz` |
 
 
+### MagneticFieldUnit
+
+Magnetic field units
+
+| Name | Value |
+|------|-------|
+| `T` | `tesla` |
+| `MT` | `millitesla` |
+| `UT` | `microtesla` |
+
+
 ### MassUnit
 
 Enumeration of Mass Measurements
@@ -84,6 +95,17 @@ Unit for power, set or measured
 | `PERCENT` | `percent` |
 
 
+### PressureUnit
+
+Enumeration of Pressure Measurements
+
+| Name | Value |
+|------|-------|
+| `MPA` | `millipascal` |
+| `PA` | `pascal` |
+| `KPA` | `kilopascal` |
+
+
 ### SizeUnit
 
 Enumeration of Length Measurements
@@ -97,6 +119,25 @@ Enumeration of Length Measurements
 | `NM` | `nanometer` |
 | `IN` | `inch` |
 | `PX` | `pixel` |
+
+
+### SoundIntensityUnit
+
+Sound intensity units
+
+| Name | Value |
+|------|-------|
+| `DB` | `decibels` |
+
+
+### TemperatureUnit
+
+Temperature units
+
+| Name | Value |
+|------|-------|
+| `C` | `Celsius` |
+| `K` | `Kelvin` |
 
 
 ### TimeUnit
@@ -121,6 +162,15 @@ Unitless options
 |------|-------|
 | `PERCENT` | `percent` |
 | `FC` | `fraction of cycle` |
+
+
+### VoltageUnit
+
+Voltage units
+
+| Name | Value |
+|------|-------|
+| `V` | `Volts` |
 
 
 ### VolumeUnit
