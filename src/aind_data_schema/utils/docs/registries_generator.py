@@ -10,6 +10,7 @@ from aind_data_schema_models.brain_atlas import CCFStructure
 
 # Name patterns
 from aind_data_schema_models.data_name_patterns import DataLevel, Group
+from aind_data_schema_models.licenses import License
 
 # Coordinates models
 from aind_data_schema_models.coordinates import Origin, AxisName, Direction, AnatomicalRelative
@@ -53,6 +54,7 @@ registries = [
     # Name patterns
     DataLevel,
     Group,
+    License,
     # Coordinates models
     Origin,
     AxisName,
