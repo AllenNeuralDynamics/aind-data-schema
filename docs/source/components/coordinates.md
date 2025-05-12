@@ -17,15 +17,15 @@ Definition an atlas
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `name` | `AtlasName` |  |
+| `name` | [AtlasName](aind_data_schema_models/atlas.md#atlasname) |  |
 | `version` | `str` |  |
 | `size` | `List[float]` |  |
-| `size_unit` | `SizeUnit` |  |
+| `size_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
 | `resolution` | `List[float]` |  |
-| `resolution_unit` | `SizeUnit` |  |
-| `origin` | `Origin` | Defines the position of (0,0,0) in the coordinate system |
+| `resolution_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `origin` | [Origin](aind_data_schema_models/#origin) | Defines the position of (0,0,0) in the coordinate system |
 | `axes` | List[[Axis](#axis)] | Axis names and directions |
-| `axis_unit` | `SizeUnit` |  |
+| `axis_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
 
 
 ### AtlasCoordinate
@@ -44,8 +44,8 @@ Linked direction and axis
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `name` | `AxisName` |  |
-| `direction` | `Direction` | Direction of positive values along the axis |
+| `name` | [AxisName](aind_data_schema_models/#axisname) |  |
+| `direction` | [Direction](aind_data_schema_models/#direction) | Direction of positive values along the axis |
 
 
 ### CoordinateSystem
@@ -55,9 +55,9 @@ Definition of a coordinate system relative to a brain
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `origin` | `Origin` | Defines the position of (0,0,0) in the coordinate system |
+| `origin` | [Origin](aind_data_schema_models/#origin) | Defines the position of (0,0,0) in the coordinate system |
 | `axes` | List[[Axis](#axis)] | Axis names and directions |
-| `axis_unit` | `SizeUnit` |  |
+| `axis_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
 
 
 ### NonlinearTransform
@@ -80,7 +80,7 @@ Angles follow right-hand rule, with positive angles rotating counter-clockwise.
 | Field | Type | Description |
 |-------|------|-------------|
 | `angles` | `List[float]` | Right-hand rule, positive angles rotate CCW |
-| `angles_unit` | `AngleUnit` |  |
+| `angles_unit` | [AngleUnit](aind_data_schema_models/units.md#angleunit) |  |
 
 
 ### Scale

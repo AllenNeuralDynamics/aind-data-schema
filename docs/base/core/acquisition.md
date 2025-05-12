@@ -86,10 +86,12 @@ input values (say laser power percentage settings) and the output dictionary hav
 wattage out of the laser). You define the key and provide a list of the values. We recommed that you use the same 
 dictionary structures when you do the same calibrations (when possible).
 
+## Examples
 
-```{literalinclude} ../../examples/exaspim_acquisition.py
-:language: python
-:linenos:
-```
+- [Ephys acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ephys_acquisition.py)
+- [ExaSPIM acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/exaspim_acquisition.py)
+- [Bergamo ophys acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/bergamo_ophys_acquisition.py)
+- [Multi-plane ophys acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/multiplane_ophys_acquisition.py)
+- [Ophys acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_acquisition.py)
 
 ## Model definitions

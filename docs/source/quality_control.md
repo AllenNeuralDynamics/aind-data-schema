@@ -89,14 +89,14 @@ Description of one evaluation stage, with one or more metrics
 | Field | Type | Description |
 |-------|------|-------------|
 | `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
-| `stage` | `Stage` |  |
+| `stage` | {Stage} |  |
 | `name` | `str` |  |
 | `description` | `Optional[str]` |  |
 | `metrics` | `List[typing.Annotated[typing.Union[aind_data_schema.core.quality_control.QCMetric, aind_data_schema.core.quality_control.CurationMetric], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
 | `tags` | `Optional[List[str]]` | Tags can be used to group QCEvaluation objects into groups |
 | `notes` | `Optional[str]` |  |
 | `allow_failed_metrics` | `bool` | Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation. |
-| `latest_status` | `Optional[Status]` |  |
+| `latest_status` | Optional[{Status}] |  |
 | `created` | `datetime (timezone-aware)` |  |
 
 
@@ -121,7 +121,7 @@ Description of a QC status, set by an evaluator
 | Field | Type | Description |
 |-------|------|-------------|
 | `evaluator` | `str` |  |
-| `status` | `Status` |  |
+| `status` | {Status} |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 

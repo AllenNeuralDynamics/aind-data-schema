@@ -5,6 +5,7 @@ import inspect
 import json
 import os
 import re
+from enum import Enum
 from typing import Dict, List, Type
 
 from pydantic import BaseModel
@@ -141,10 +142,14 @@ def get_type_string(tp: Type, in_subdirectory: bool = False) -> str:
 
     if origin is None:
         try:
+            # Wrap class names in {} for DataModel subclasses
             if hasattr(tp, "__name__") and issubclass(tp, DataModel):
-                return f"{{{tp.__name__}}}"  # Wrap class names in {} for DataModel subclasses
+                return f"{{{tp.__name__}}}"
+            # Also wrap Enum types in {} for proper linking
+            if hasattr(tp, "__name__") and hasattr(tp, "__members__") and issubclass(tp, Enum):
+                return f"{{{tp.__name__}}}"
         except Exception as e:
-            print(f"Error checking if {tp} is a DataModel subclass: {e}")
+            print(f"Error checking if {tp} is a DataModel or Enum subclass: {e}")
 
         str_repr = str(tp)
         if str_repr.startswith("<") and "'" in str_repr:

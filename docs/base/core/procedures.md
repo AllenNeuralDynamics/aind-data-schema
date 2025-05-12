@@ -15,12 +15,6 @@ immunolabeleing, sectioning, etc.). Sectioned specimens will have unique IDs (`s
 
 ## Examples
 
-```{literalinclude} ../../examples/procedures.py
-:language: python
-:linenos:
-```
-
-Additional examples:
-
+- [Generic procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/procedures.py)
 - [SmartSPIM procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/aibs_smartspim_procedures.py)
 - [Ophys procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_procedures.py)

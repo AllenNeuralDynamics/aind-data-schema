@@ -120,7 +120,7 @@ Data for a connection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `direction` | `Optional[ConnectionDirection]` |  |
+| `direction` | Optional[{ConnectionDirection}] |  |
 | `port` | `Optional[str]` |  |
 
 

@@ -17,9 +17,9 @@ Description of a single processing step
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `process_type` | `ProcessName` |  |
+| `process_type` | {ProcessName} |  |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | `ProcessStage` |  |
+| `stage` | {ProcessStage} |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
 | `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
@@ -65,9 +65,9 @@ Description of resources used by a process
 | `cpu_cores` | `Optional[int]` |  |
 | `gpu` | `Optional[str]` |  |
 | `system_memory` | `Optional[float]` |  |
-| `system_memory_unit` | `Optional[MemoryUnit]` |  |
+| `system_memory_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] |  |
 | `ram` | `Optional[float]` |  |
-| `ram_unit` | `Optional[MemoryUnit]` |  |
+| `ram_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] |  |
 | `cpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
 | `gpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
 | `ram_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |

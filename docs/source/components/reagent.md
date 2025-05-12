@@ -8,10 +8,10 @@ Description of an antibody used in immunolableing
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `immunolabel_class` | `ImmunolabelClass` |  |
-| `fluorophore` | `Optional[Fluorophore]` |  |
+| `immunolabel_class` | {ImmunolabelClass} |  |
+| `fluorophore` | Optional[{Fluorophore}] |  |
 | `mass` | `float` |  |
-| `mass_unit` | `MassUnit` |  |
+| `mass_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
 | `notes` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
@@ -53,10 +53,10 @@ Description of a readout for HCR
 | Field | Type | Description |
 |-------|------|-------------|
 | `initiator_name` | `str` |  |
-| `fluorophore` | `Fluorophore` |  |
+| `fluorophore` | {Fluorophore} |  |
 | `excitation_wavelength` | `int` |  |
-| `excitation_wavelength_unit` | `SizeUnit` |  |
-| `stain_type` | `StainType` |  |
+| `excitation_wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `stain_type` | {StainType} |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
@@ -94,10 +94,10 @@ Description of a readout
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `fluorophore` | `Fluorophore` |  |
+| `fluorophore` | {Fluorophore} |  |
 | `excitation_wavelength` | `int` |  |
-| `excitation_wavelength_unit` | `SizeUnit` |  |
-| `stain_type` | `StainType` |  |
+| `excitation_wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `stain_type` | {StainType} |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
@@ -124,9 +124,9 @@ Description of a non-oligo probe stain
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `stain_type` | `StainType` |  |
+| `stain_type` | {StainType} |  |
 | `concentration` | `float` |  |
-| `concentration_unit` | `ConcentrationUnit` |  |
+| `concentration_unit` | [ConcentrationUnit](aind_data_schema_models/units.md#concentrationunit) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |

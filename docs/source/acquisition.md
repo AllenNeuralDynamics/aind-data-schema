@@ -126,11 +126,11 @@ Details about the subject during an acquisition
 |-------|------|-------------|
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
-| `weight_unit` | `MassUnit` |  |
+| `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
 | `anaesthesia` | Optional[[Anaesthetic](procedures.md#anaesthetic)] |  |
 | `mouse_platform_name` | `str` |  |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` |  |
-| `reward_consumed_unit` | `Optional[VolumeUnit]` |  |
+| `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
 
 
 ### DataStream
@@ -157,7 +157,7 @@ Summary of a StimulusEpoch
 |-------|------|-------------|
 | `output_parameters` | `aind_data_schema.base.GenericModel` |  |
 | `reward_consumed_during_epoch` | `Optional[decimal.Decimal]` |  |
-| `reward_consumed_unit` | `Optional[VolumeUnit]` |  |
+| `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
 | `trials_total` | `Optional[int]` |  |
 | `trials_finished` | `Optional[int]` |  |
 | `trials_rewarded` | `Optional[int]` |  |
@@ -173,7 +173,7 @@ Description of stimulus used during data acquisition
 | `stimulus_end_time` | `datetime (timezone-aware)` | When a specific stimulus ends. This might be the same as the acquisition end time. |
 | `stimulus_name` | `str` |  |
 | `code` | Optional[[Code](components/identifiers.md#code)] | Custom code/script used to control the behavior/stimulus and parameters |
-| `stimulus_modalities` | `List[StimulusModality]` |  |
+| `stimulus_modalities` | List[[StimulusModality](aind_data_schema_models/stimulus_modality.md#stimulusmodality)] |  |
 | `performance_metrics` | Optional[[PerformanceMetrics](#performancemetrics)] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |

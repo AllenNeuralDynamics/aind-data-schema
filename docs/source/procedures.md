@@ -33,7 +33,7 @@ Description of an anaesthetic
 |-------|------|-------------|
 | `anaesthetic_type` | `str` |  |
 | `duration` | `decimal.Decimal` |  |
-| `duration_unit` | `TimeUnit` |  |
+| `duration_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
 | `level` | `Optional[decimal.Decimal]` |  |
 
 
@@ -47,7 +47,7 @@ Description of an injection procedure into a brain
 | `coordinates` | List[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] |  |
 | `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
 | `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
-| `relative_position` | `Optional[List[AnatomicalRelative]]` |  |
+| `relative_position` | Optional[List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)]] |  |
 | `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 
@@ -59,9 +59,9 @@ Description of a catheter implant procedure
 | Field | Type | Description |
 |-------|------|-------------|
 | `where_performed` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
-| `catheter_material` | `CatheterMaterial` |  |
-| `catheter_design` | `CatheterDesign` |  |
-| `catheter_port` | `CatheterPort` |  |
+| `catheter_material` | {CatheterMaterial} |  |
+| `catheter_design` | {CatheterDesign} |  |
+| `catheter_port` | {CatheterPort} |  |
 | `targeted_structure` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` | Use options from MouseBloodVessels |
 
 
@@ -72,12 +72,12 @@ Description of craniotomy procedure
 | Field | Type | Description |
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
-| `craniotomy_type` | `CraniotomyType` |  |
+| `craniotomy_type` | {CraniotomyType} |  |
 | `coordinate_system_name` | `Optional[str]` |  |
-| `position` | [Translation](components/coordinates.md#translation) or List[AnatomicalRelative] or NoneType |  |
+| `position` | [Translation](components/coordinates.md#translation) or List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)] or NoneType |  |
 | `size` | `Optional[float]` | Diameter or side length |
-| `size_unit` | `Optional[SizeUnit]` |  |
-| `protective_material` | `Optional[ProtectiveMaterial]` |  |
+| `size_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
+| `protective_material` | Optional[{ProtectiveMaterial}] |  |
 | `implant_part_number` | `Optional[str]` |  |
 | `dura_removed` | `Optional[bool]` |  |
 
@@ -115,9 +115,9 @@ Ground wire implant procedure
 |-------|------|-------------|
 | `ground_electrode_location` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` |  |
 | `ground_wire_hole` | `Optional[int]` | For SHIELD implants, the hole number for the ground wire |
-| `ground_wire_material` | `Optional[GroundWireMaterial]` |  |
+| `ground_wire_material` | Optional[{GroundWireMaterial}] |  |
 | `ground_wire_diameter` | `Optional[decimal.Decimal]` |  |
-| `ground_wire_diameter_unit` | `Optional[SizeUnit]` |  |
+| `ground_wire_diameter_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
 
 
 ### HCRSeries
@@ -142,7 +142,7 @@ Description of headframe procedure
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `headframe_type` | `str` |  |
 | `headframe_part_number` | `str` |  |
-| `headframe_material` | `Optional[HeadframeMaterial]` |  |
+| `headframe_material` | Optional[{HeadframeMaterial}] |  |
 | `well_part_number` | `Optional[str]` |  |
 | `well_type` | `Optional[str]` |  |
 
@@ -170,7 +170,7 @@ Description of an injection procedure
 |-------|------|-------------|
 | `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
 | `targeted_structure` | `Optional[aind_data_schema_models.mouse_anatomy.MouseAnatomyModel]` | Use InjectionTargets |
-| `relative_position` | `Optional[List[AnatomicalRelative]]` |  |
+| `relative_position` | Optional[List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)]] |  |
 | `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 
@@ -181,15 +181,15 @@ Description of the volume and rate of an injection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `profile` | `InjectionProfile` |  |
+| `profile` | {InjectionProfile} |  |
 | `volume` | `Optional[decimal.Decimal]` |  |
-| `volume_unit` | `Optional[VolumeUnit]` |  |
+| `volume_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
 | `rate` | `Optional[decimal.Decimal]` |  |
-| `rate_unit` | `Optional[VolumeUnit]` |  |
+| `rate_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
 | `duration` | `Optional[decimal.Decimal]` |  |
-| `duration_unit` | `Optional[TimeUnit]` |  |
+| `duration_unit` | Optional[[TimeUnit](aind_data_schema_models/units.md#timeunit)] |  |
 | `injection_current` | `Optional[decimal.Decimal]` |  |
-| `injection_current_unit` | `Optional[CurrentUnit]` |  |
+| `injection_current_unit` | Optional[[CurrentUnit](aind_data_schema_models/units.md#currentunit)] |  |
 | `alternating_current` | `Optional[str]` |  |
 
 
@@ -238,7 +238,7 @@ Description of a sectioning procedure performed on the coronal, sagittal, or tra
 |-------|------|-------------|
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Only required if different from the Procedures.coordinate_system |
 | `sections` | List[[Section](#section)] |  |
-| `section_orientation` | `SectionOrientation` |  |
+| `section_orientation` | {SectionOrientation} |  |
 
 
 ### ProbeImplant
@@ -272,10 +272,10 @@ Description of a single sample collection
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `sample_type` | `SampleType` |  |
+| `sample_type` | {SampleType} |  |
 | `time` | `datetime (timezone-aware)` |  |
 | `collection_volume` | `decimal.Decimal` |  |
-| `collection_volume_unit` | `VolumeUnit` |  |
+| `collection_volume_unit` | [VolumeUnit](aind_data_schema_models/units.md#volumeunit) |  |
 | `collection_method` | `Optional[str]` |  |
 
 
@@ -291,8 +291,8 @@ Description of a slice of brain tissue
 | `start_coordinate` | [Translation](components/coordinates.md#translation) |  |
 | `end_coordinate` | Optional[[Translation](components/coordinates.md#translation)] |  |
 | `thickness` | `Optional[float]` |  |
-| `thickness_unit` | `Optional[SizeUnit]` |  |
-| `partial_slice` | `Optional[List[AnatomicalRelative]]` | If sectioning does not include the entire slice, indicate which part of the slice is retained. |
+| `thickness_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
+| `partial_slice` | Optional[List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)]] | If sectioning does not include the entire slice, indicate which part of the slice is retained. |
 
 
 ### SpecimenProcedure
@@ -301,7 +301,7 @@ Description of surgical or other procedure performed on a specimen
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `procedure_type` | `SpecimenProcedureType` |  |
+| `procedure_type` | [SpecimenProcedureType](aind_data_schema_models/specimen_procedure_types.md#specimenproceduretype) |  |
 | `procedure_name` | `Optional[str]` |  |
 | `specimen_id` | `str` |  |
 | `start_date` | `datetime.date` |  |
@@ -324,11 +324,11 @@ Description of subject procedures performed at one time
 | `ethics_review_id` | `Optional[str]` |  |
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
-| `weight_unit` | `MassUnit` |  |
+| `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
 | `anaesthesia` | Optional[[Anaesthetic](#anaesthetic)] |  |
 | `workstation_id` | `Optional[str]` |  |
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Only required when the Surgery.coordinate_system is different from the Procedures.coordinate_system |
-| `measured_coordinates` | Optional[Dict[Origin, [Translation](components/coordinates.md#translation)]] | Coordinates measured during the procedure, for example Bregma and Lambda |
+| `measured_coordinates` | Optional[Dict[[Origin](aind_data_schema_models/coordinates.md#origin), [Translation](components/coordinates.md#translation)]] | Coordinates measured during the procedure, for example Bregma and Lambda |
 | `procedures` | List[[CatheterImplant](#catheterimplant) or [Craniotomy](#craniotomy) or [ProbeImplant](#probeimplant) or [Headframe](#headframe) or [BrainInjection](#braininjection) or [Injection](#injection) or [MyomatrixInsertion](#myomatrixinsertion) or [GenericSurgeryProcedure](#genericsurgeryprocedure) or [Perfusion](#perfusion) or [SampleCollection](#samplecollection)] |  |
 | `notes` | `Optional[str]` |  |
 
@@ -343,7 +343,7 @@ TARS data for a viral prep
 | `plasmid_tars_alias` | `Optional[List[str]]` | Alias used to reference the plasmid, usually begins 'AiP' |
 | `prep_lot_number` | `str` |  |
 | `prep_date` | `Optional[datetime.date]` | Date this prep lot was titered |
-| `prep_type` | `Optional[VirusPrepType]` |  |
+| `prep_type` | Optional[{VirusPrepType}] |  |
 | `prep_protocol` | `Optional[str]` |  |
 
 
@@ -382,10 +382,10 @@ Description of a water restriction procedure
 |-------|------|-------------|
 | `ethics_review_id` | `str` |  |
 | `target_fraction_weight` | `int` |  |
-| `target_fraction_weight_unit` | `UnitlessUnit` |  |
+| `target_fraction_weight_unit` | [UnitlessUnit](aind_data_schema_models/units.md#unitlessunit) |  |
 | `minimum_water_per_day` | `decimal.Decimal` |  |
-| `minimum_water_per_day_unit` | `VolumeUnit` |  |
+| `minimum_water_per_day_unit` | [VolumeUnit](aind_data_schema_models/units.md#volumeunit) |  |
 | `baseline_weight` | `decimal.Decimal` | Weight at start of water restriction |
-| `weight_unit` | `MassUnit` |  |
+| `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
 | `start_date` | `datetime.date` |  |
 | `end_date` | `Optional[datetime.date]` |  |

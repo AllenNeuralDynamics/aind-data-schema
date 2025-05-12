@@ -11,7 +11,7 @@ Description of olfactometer channel configurations
 | `channel_index` | `int` |  |
 | `odorant` | `str` |  |
 | `odorant_dilution` | `decimal.Decimal` |  |
-| `odorant_dilution_unit` | `ConcentrationUnit` |  |
+| `odorant_dilution_unit` | [ConcentrationUnit](aind_data_schema_models/units.md#concentrationunit) |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -24,13 +24,13 @@ Description of a photostimulation group
 | `group_index` | `int` |  |
 | `number_of_neurons` | `int` |  |
 | `stimulation_laser_power` | `decimal.Decimal` |  |
-| `stimulation_laser_power_unit` | `PowerUnit` |  |
+| `stimulation_laser_power_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
 | `number_trials` | `int` |  |
 | `number_spirals` | `int` |  |
 | `spiral_duration` | `decimal.Decimal` |  |
-| `spiral_duration_unit` | `TimeUnit` |  |
+| `spiral_duration_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
 | `inter_spiral_interval` | `decimal.Decimal` |  |
-| `inter_spiral_interval_unit` | `TimeUnit` |  |
+| `inter_spiral_interval_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
 | `other_parameters` | `aind_data_schema.base.GenericModel` |  |
 | `notes` | `Optional[str]` |  |
 
