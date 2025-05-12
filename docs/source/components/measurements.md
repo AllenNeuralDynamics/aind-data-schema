@@ -28,7 +28,7 @@ Calibration of a laser device
 | `input_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
 | `output` | `List[float]` | Laser strength |
 | `output_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
-| `description` | `typing.Literal['Laser power measured for various percentage output strengths']` |  |
+| `description` | `"Laser power measured for various percentage output strengths"` |  |
 | `calibration_date` | `datetime (timezone-aware)` |  |
 | `notes` | `Optional[str]` | Fit equation, etc |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
@@ -44,7 +44,7 @@ Calibration of a liquid delivery device
 | `input_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
 | `output` | `List[float]` | Liquid output |
 | `output_unit` | [VolumeUnit](aind_data_schema_models/units.md#volumeunit) |  |
-| `description` | `typing.Literal['Liquid volume measured for various solenoid opening times']` |  |
+| `description` | `"Liquid volume measured for various solenoid opening times"` |  |
 | `calibration_date` | `datetime (timezone-aware)` |  |
 | `notes` | `Optional[str]` | Fit equation, etc |
 | `device_name` | `str` | Must match a device defined in the instrument.json |

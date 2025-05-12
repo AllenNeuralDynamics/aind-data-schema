@@ -437,7 +437,7 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 | `power_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
 | `coupling` | Optional[{Coupling}] |  |
 | `coupling_efficiency` | `Optional[decimal.Decimal]` |  |
-| `coupling_efficiency_unit` | `typing.Literal['percent']` |  |
+| `coupling_efficiency_unit` | `"percent"` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
@@ -710,7 +710,7 @@ description of a Olfactometer channel
 |-------|------|-------------|
 | `channel_index` | `int` |  |
 | `channel_type` | [OlfactometerChannelType](#olfactometerchanneltype) |  |
-| `flow_capacity` | `typing.Literal[100, 1000]` |  |
+| `flow_capacity` | `100 or 1000` |  |
 | `flow_unit` | `str` |  |
 
 
@@ -731,7 +731,7 @@ Multichannel electrophysiology DAQ
 | Field | Type | Description |
 |-------|------|-------------|
 | `ports` | List[[ProbePort](#probeport)] |  |
-| `data_interface` | `typing.Literal[<DataInterface.USB: 'USB'>]` |  |
+| `data_interface` | `"DataInterface.USB"` |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |

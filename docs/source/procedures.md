@@ -281,7 +281,7 @@ Description of a non-viral injection material
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `material_type` | `typing.Literal['Reagent']` |  |
+| `material_type` | `"Reagent"` |  |
 | `concentration` | `Optional[float]` | Must provide concentration unit |
 | `concentration_unit` | `Optional[str]` | For example, mg/mL |
 | `name` | `str` |  |
@@ -471,7 +471,7 @@ Description of viral material for injections
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `material_type` | `typing.Literal['Virus']` |  |
+| `material_type` | `"Virus"` |  |
 | `name` | `str` | Full genome for virus construct |
 | `tars_identifiers` | Optional[[TarsVirusIdentifiers](#tarsvirusidentifiers)] | TARS database identifiers |
 | `addgene_id` | `Optional[aind_data_schema_models.pid_names.PIDName]` | Registry must be Addgene |

@@ -141,6 +141,15 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
         return f"Optional[{get_type_string(non_none_type, in_subdirectory=in_subdirectory)}]"
     if origin is union_type:
         return " or ".join(get_type_string(arg, in_subdirectory=in_subdirectory) for arg in args)
+    
+    # Handle Literal types - extract the string content directly if it's a string literal
+    literal_type = getattr(__import__("typing"), "Literal", None)
+    if origin is literal_type:
+        # If there's only one argument and it's a string, return just the string content
+        if len(args) == 1 and isinstance(args[0], str):
+            return f'"{args[0]}"'
+        # Otherwise return all literal values joined with 'or'
+        return " or ".join(f'"{arg}"' if isinstance(arg, str) else str(arg) for arg in args)
 
     # Check for annotated types and unions in the string representation
     str_rep = str(tp)
