@@ -230,7 +230,7 @@ def create_table_structure(field_names, model_instances) -> str:
             if field == "registry" and any(str(field_value) in key for key in special_cases.keys()):
                 # Map the registry value to its corresponding special case
                 key = next(key for key in special_cases.keys() if str(field_value) in key)
-                
+
                 row_data.append(f" {special_cases[key]} |")
             else:
                 row_data.append(f" `{field_value}` |")

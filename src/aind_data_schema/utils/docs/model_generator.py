@@ -72,7 +72,7 @@ def check_for_union(value: str) -> str:
     Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration |
         aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
     Output: "List[{Calibration} or {LiquidCalibration}]"
-    
+
     Input: "List[float | str]"
     Output: "List[float or str]"
     """
@@ -82,14 +82,14 @@ def check_for_union(value: str) -> str:
         container = container_match.group(1)
         content = container_match.group(2)
         # Replace pipes with 'or' in the content but maintain the structure
-        content_with_or = re.sub(r'\s*\|\s*', ' or ', content)
+        content_with_or = re.sub(r"\s*\|\s*", " or ", content)
         return f"{container}[{content_with_or}]"
-    
+
     # Check if this is a direct union type without container (like 'float | str')
     elif "|" in value and not any(x in value for x in ["Annotated", "List[", "Dict[", "Optional["]):
         # Replace pipes with 'or'
-        return re.sub(r'\s*\|\s*', ' or ', value)
-    
+        return re.sub(r"\s*\|\s*", " or ", value)
+
     # Check if this is an Annotated type
     elif "Annotated" in value:
         # Extract content between Annotated[ and the first , or ] if no comma
@@ -141,7 +141,7 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
         return f"Optional[{get_type_string(non_none_type, in_subdirectory=in_subdirectory)}]"
     if origin is union_type:
         return " or ".join(get_type_string(arg, in_subdirectory=in_subdirectory) for arg in args)
-    
+
     # Handle Literal types - extract the string content directly if it's a string literal
     literal_type = getattr(__import__("typing"), "Literal", None)
     if origin is literal_type:
