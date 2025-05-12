@@ -54,6 +54,13 @@ You should follow the preferred/alternate workflows described above. If your mul
 
 Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allows you to pass a list of values which will be matched up with the `evaluated_assets` names. You can also include options which will appear as dropdowns or checkboxes.
 
+## Example
+
+```{literalinclude} ../../examples/quality_control.py
+:language: python
+:linenos:
+```
+
 ## Model definitions
 
 ### CurationHistory

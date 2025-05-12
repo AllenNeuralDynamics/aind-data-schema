@@ -5,9 +5,12 @@ This tracks what code was used for each step, when it was run, what the input an
 set. This includes things like spike sorting, image alignment, cell segmentation. It also includes manual annotation, 
 quality control, and data analysis. This file should be appended with each subsequent stage of processing or analysis.
 
+## Example
+
 ```{literalinclude} ../../examples/processing.py
 :language: python
 :linenos:
+```
 
 ## Model definitions
 

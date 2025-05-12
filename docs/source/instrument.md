@@ -96,11 +96,14 @@ information in order for the data to be interpretable  (e.g. cameras or visual m
 wherever they fit and their position doesn’t impact what they do or how the data is interpreted. These devices do not 
 require position information. 
 
+## Examples
 
-```{literalinclude} ../../examples/ephys_instrument.py
-:language: python
-:linenos:
-```
+- [Ephys instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ephys_instrument.py)
+- [AIBS Smartspim instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/aibs_smartspim.py)
+- [AIND Smartspim instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/aind_smartspim_instrument.py)
+- [Exaspim instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/exaspim_instrument.py)
+- [FIP / Ophys instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/fip_ophys_instrument.py)
+- [Multi-plane ophys instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/multiplane_ophys_instrument.py)
 
 ## Model definitions
 
