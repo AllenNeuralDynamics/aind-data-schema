@@ -11,7 +11,7 @@ Description of additional devices
 | `imaging_device_type` | `ImagingDeviceType` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -27,7 +27,7 @@ Description of an air puff device
 | `diameter_unit` | `SizeUnit` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -44,7 +44,7 @@ Description of a rectangular arena
 | `objects_in_arena` | List[[Device](#device)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -57,7 +57,7 @@ Camera Detector
 | Field | Type | Description |
 |-------|------|-------------|
 | `detector_type` | `DetectorType` |  |
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `data_interface` | `DataInterface` |  |
 | `cooling` | `Cooling` |  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate being used |
@@ -115,7 +115,7 @@ Description of a computer
 | `operating_system` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -143,7 +143,7 @@ Data acquisition device containing multiple I/O channels
 | Field | Type | Description |
 |-------|------|-------------|
 | `data_interface` | `DataInterface` |  |
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
@@ -161,7 +161,7 @@ Description of a generic detector
 | Field | Type | Description |
 |-------|------|-------------|
 | `detector_type` | `DetectorType` |  |
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `data_interface` | `DataInterface` |  |
 | `cooling` | `Cooling` |  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate being used |
@@ -202,7 +202,7 @@ Generic device
 |-------|------|-------------|
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -241,7 +241,7 @@ Description of a Digital Micromirror Device (DMD)
 | `line_shear_units` | `SizeUnit` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -262,7 +262,7 @@ Description of a running disc (i.e. MindScope Disc)
 | `surface_material` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -283,7 +283,7 @@ Description of an enclosure
 | `air_filtration` | `bool` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -310,7 +310,7 @@ Probe used in an ephys experiment
 | `headstage` | Optional[[Device](#device)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -338,7 +338,7 @@ Description of a patch cord
 | `photobleaching_date` | `Optional[datetime.date]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -359,7 +359,7 @@ Description of a fiber optic probe
 | `length_unit` | `SizeUnit` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -372,7 +372,7 @@ Filter used in a light path
 | Field | Type | Description |
 |-------|------|-------------|
 | `filter_type` | `FilterType` |  |
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `cut_off_wavelength` | `Optional[int]` |  |
 | `cut_on_wavelength` | `Optional[int]` |  |
 | `center_wavelength` | `Optional[int]` |  |
@@ -390,8 +390,8 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
-| `harp_device_type` | [HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
+| `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
 | `data_interface` | `DataInterface` |  |
@@ -419,7 +419,7 @@ Description of a Lamp lightsource
 | `temperature_unit` | `Optional[TemperatureUnit]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -431,7 +431,7 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `wavelength` | `int` |  |
 | `wavelength_unit` | `SizeUnit` |  |
 | `power_unit` | `PowerUnit` |  |
@@ -464,7 +464,7 @@ Lens
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
@@ -485,7 +485,7 @@ Description of a lick spout
 | `lick_sensor_type` | `Optional[LickSensorType]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -520,7 +520,7 @@ Description of a Light Emitting Diode (LED) device
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `wavelength` | `int` |  |
 | `wavelength_unit` | `SizeUnit` |  |
 | `bandwidth` | `Optional[int]` |  |
@@ -538,7 +538,7 @@ Manipulator used on a dome module
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
@@ -554,7 +554,7 @@ Description of a microscope
 |-------|------|-------------|
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -566,7 +566,7 @@ Description of visual display for visual stimuli
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `refresh_rate` | `int` |  |
 | `width` | `int` |  |
 | `height` | `int` |  |
@@ -596,7 +596,7 @@ Description of motorized stage
 | `firmware` | Optional[[Software](identifiers.md#software)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -612,7 +612,7 @@ Description of a Myomatrix array
 | `threads` | List[[MyomatrixThread](#myomatrixthread)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -651,7 +651,7 @@ PXI-based Neuropixels DAQ
 | `slot` | `int` |  |
 | `ports` | List[[ProbePort](#probeport)] |  |
 | `data_interface` | `DataInterface` |  |
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
@@ -674,7 +674,7 @@ Description of an objective device
 | `objective_type` | `Optional[ObjectiveType]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -686,8 +686,8 @@ Description of an olfactometer for odor stimuli
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
-| `harp_device_type` | [HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
+| `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) |  |
 | `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
@@ -722,7 +722,7 @@ Multichannel electrophysiology DAQ
 |-------|------|-------------|
 | `ports` | List[[ProbePort](#probeport)] |  |
 | `data_interface` | `typing.Literal[<DataInterface.USB: 'USB'>]` |  |
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
@@ -747,7 +747,7 @@ Description of a Pockels Cell
 | `beam_modulation_unit` | `Optional[VoltageUnit]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -764,7 +764,7 @@ Description of a Polygonal scanner
 | `number_faces` | `int` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -790,7 +790,7 @@ Description of a MRI Scanner
 | `magnetic_strength_unit` | `MagneticFieldUnit` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -809,7 +809,7 @@ Description of a scanning motorized stages
 | `firmware` | Optional[[Software](identifiers.md#software)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -821,7 +821,7 @@ Description of a speaker for auditory stimuli
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `manufacturer` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
@@ -844,7 +844,7 @@ Description of treadmill platform
 | `pulse_per_revolution` | `Optional[int]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -860,7 +860,7 @@ Description of a tube platform
 | `diameter_unit` | `SizeUnit` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
@@ -881,7 +881,7 @@ Description of a running wheel
 | `torque_sensor` | [Device](#device) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](aind_data_schema_models/organizations.md#organization)] |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |

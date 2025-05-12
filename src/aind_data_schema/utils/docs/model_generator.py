@@ -53,10 +53,18 @@ def get_model_fields(model: Type[BaseModel], stop_at: Type[BaseModel]) -> Dict[s
     return field_data
 
 
-def check_for_replacement(value: str) -> str:
-    """Check if the value is in special cases and return the replacement."""
+def check_for_replacement(value: str, in_subdirectory: bool = False) -> str:
+    """Check if the value is in special cases and return the replacement.
+    
+    Args:
+        value: The string to check for replacement
+        in_subdirectory: If True, adjust links to go up one directory level
+    """
     for special_case, replacement in special_cases.items():
         if special_case in value:
+            if in_subdirectory and "aind_data_schema_models/" in replacement:
+                # Add ../ prefix to make the link work from subdirectories
+                return replacement.replace("aind_data_schema_models/", "../aind_data_schema_models/")
             return replacement
     return value
 
@@ -101,18 +109,21 @@ def check_for_union(value: str) -> str:
     return value
 
 
-def _get_type_string_helper(tp: Type, origin, args) -> str:
+def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     """Helper function to format the type into a readable string."""
+    # Get in_subdirectory parameter or default to False
+    in_subdirectory = kwargs.get('in_subdirectory', False)
+    
     if origin is list or origin is List:
-        return f"List[{get_type_string(args[0])}]"
+        return f"List[{get_type_string(args[0], in_subdirectory=in_subdirectory)}]"
     if origin is dict or origin is Dict:
-        return f"Dict[{get_type_string(args[0])}, {get_type_string(args[1])}]"
+        return f"Dict[{get_type_string(args[0], in_subdirectory=in_subdirectory)}, {get_type_string(args[1], in_subdirectory=in_subdirectory)}]"
     union_type = getattr(__import__("typing"), "Union", None)
     if origin is union_type and len(args) == 2 and type(None) in args:
         non_none_type = next(arg for arg in args if arg is not type(None))
-        return f"Optional[{get_type_string(non_none_type)}]"
+        return f"Optional[{get_type_string(non_none_type, in_subdirectory=in_subdirectory)}]"
     if origin is union_type:
-        return " or ".join(get_type_string(arg) for arg in args)
+        return " or ".join(get_type_string(arg, in_subdirectory=in_subdirectory) for arg in args)
 
     # Check for annotated types and unions in the string representation
     str_rep = str(tp)
@@ -120,13 +131,19 @@ def _get_type_string_helper(tp: Type, origin, args) -> str:
     
     # Only proceed with normal replacement if check_for_union didn't change anything
     if result == str_rep:
-        result = check_for_replacement(str_rep)
+        # Pass in_subdirectory parameter from the calling function
+        result = check_for_replacement(str_rep, in_subdirectory=kwargs.get('in_subdirectory', False))
         
     return result
 
 
-def get_type_string(tp: Type) -> str:
-    """Format the type into a readable string."""
+def get_type_string(tp: Type, in_subdirectory: bool = False) -> str:
+    """Format the type into a readable string.
+    
+    Args:
+        tp: The type to format
+        in_subdirectory: If True, adjust links to go up one directory level
+    """
     origin = getattr(tp, "__origin__", None)
     args = getattr(tp, "__args__", None)
 
@@ -144,11 +161,17 @@ def get_type_string(tp: Type) -> str:
             if match:
                 return match.group(1)
 
-    return _get_type_string_helper(tp, origin, args)
+    return _get_type_string_helper(tp, origin, args, in_subdirectory=in_subdirectory)
 
 
-def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) -> str:
-    """Generate the full markdown table for a model"""
+def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel], in_subdirectory: bool = False) -> str:
+    """Generate the full markdown table for a model
+    
+    Args:
+        model: The model to generate documentation for
+        stop_at: The parent class to stop at when getting fields
+        in_subdirectory: If True, adjust links to go up one directory level
+    """
     model_name = model.__name__
     header = f"### {model_name}\n\n"
     docstring = inspect.getdoc(model)
@@ -159,7 +182,7 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
     fields = get_model_fields(model, stop_at)
     rows = []
     for name, (annotation, field_info) in fields.items():
-        type_str = get_type_string(annotation)
+        type_str = get_type_string(annotation, in_subdirectory=in_subdirectory)
         desc = field_info.description or ""
 
         # Check of the type_str includes a markdown link [text](link)
@@ -219,7 +242,9 @@ if __name__ == "__main__":
                             and attr.__module__ == module_name
                         ):  # Check if defined in current module
 
-                            markdown_output = generate_markdown_table(attr, BaseModel)
+                            # Check if this is a component or other file that will be rendered in a subdirectory
+                            is_component = "components" in rel_dir_path
+                            markdown_output = generate_markdown_table(attr, BaseModel, in_subdirectory=is_component)
 
                             # Create the target directory structure
                             target_dir = os.path.join(doc_folder, rel_dir_path)

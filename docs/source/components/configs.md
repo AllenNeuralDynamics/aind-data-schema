@@ -49,7 +49,7 @@ Configuration of a pair of coupled imaging plane
 | `depth_unit` | `SizeUnit` |  |
 | `power` | `float` |  |
 | `power_unit` | `PowerUnit` |  |
-| `targeted_structure` | [BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
+| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 
 
 ### DetectorConfig
@@ -314,7 +314,7 @@ Configuration of an imaging plane
 | `depth_unit` | `SizeUnit` |  |
 | `power` | `float` |  |
 | `power_unit` | `PowerUnit` |  |
-| `targeted_structure` | [BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
+| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 
 
 ### ProbeConfig
@@ -323,8 +323,8 @@ Configuration for a device inserted into a brain
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `primary_targeted_structure` | [BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
-| `other_targeted_structure` | Optional[List[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)]] |  |
+| `primary_targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
+| `other_targeted_structure` | Optional[List[[BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure)]] |  |
 | `atlas_coordinate` | Optional[[AtlasCoordinate](coordinates.md#atlascoordinate)] |  |
 | `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) |  |
 | `transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
@@ -392,7 +392,7 @@ Configuration of an imagine plane on a Slap microscope
 | `depth_unit` | `SizeUnit` |  |
 | `power` | `float` |  |
 | `power_unit` | `PowerUnit` |  |
-| `targeted_structure` | [BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
+| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 
 
 ### SpeakerConfig
