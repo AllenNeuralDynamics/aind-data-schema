@@ -66,15 +66,32 @@ def check_for_replacement(value: str, in_subdirectory: bool = False) -> str:
 
 
 def check_for_union(value: str) -> str:
-    """Extract class names from Annotated types in complex strings and wrap them with {}.
+    """Extract class names from complex strings and replace pipe symbols with 'or'.
 
-    Example:
+    Examples:
     Input: "List[typing.Annotated[aind_data_schema.components.measurements.Calibration |
         aind_data_schema.components.measurements.LiquidCalibration, FieldInfo(...)]]"
     Output: "List[{Calibration} or {LiquidCalibration}]"
+    
+    Input: "List[float | str]"
+    Output: "List[float or str]"
     """
+    # Check direct pipe syntax first (handles List[float | str] case)
+    container_match = re.match(r"(List|Dict|Optional|Set|Tuple|Sequence)\[(.*)\]", value)
+    if container_match and "|" in container_match.group(2):
+        container = container_match.group(1)
+        content = container_match.group(2)
+        # Replace pipes with 'or' in the content but maintain the structure
+        content_with_or = re.sub(r'\s*\|\s*', ' or ', content)
+        return f"{container}[{content_with_or}]"
+    
+    # Check if this is a direct union type without container (like 'float | str')
+    elif "|" in value and not any(x in value for x in ["Annotated", "List[", "Dict[", "Optional["]):
+        # Replace pipes with 'or'
+        return re.sub(r'\s*\|\s*', ' or ', value)
+    
     # Check if this is an Annotated type
-    if "Annotated" in value:
+    elif "Annotated" in value:
         # Extract content between Annotated[ and the first , or ] if no comma
         annotated_content_match = re.search(r"Annotated\[(.*?)(?:,|\])", value)
         if annotated_content_match:
