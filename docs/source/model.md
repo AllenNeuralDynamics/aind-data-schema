@@ -1,5 +1,7 @@
 # Model
 
+## Model definitions
+
 ### Model
 
 Description of an analysis model

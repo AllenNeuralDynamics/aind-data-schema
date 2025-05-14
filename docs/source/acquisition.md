@@ -13,7 +13,7 @@ Both streams and epochs have independent start and stop times and can contain mu
 - Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quite wakefulness, receptive field mapping, etc.
 - Single stimulus epoch with multiple data streams: less common, but can occur if you switch modalities during an experiment or change the position of an acute recording device.
 
-**Q: Diagrams **
+## Diagrams
 
 ![image](_static/session_image_1.png)
 

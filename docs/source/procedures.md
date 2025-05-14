@@ -26,6 +26,8 @@ Protocol ID refers to the DOI for a published experimental protocol, for example
 - [SmartSPIM procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/aibs_smartspim_procedures.py)
 - [Ophys procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_procedures.py)
 
+## Model definitions
+
 ### Anaesthetic
 
 Description of an anaesthetic
