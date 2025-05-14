@@ -11,14 +11,14 @@ Data assets acquired from a live subject or in vivo specimen must contain the fo
 - :doc:`instrument <instrument>`: Metadata describing the equipment used to acquire data, including part names, serial numbers.
 - :doc:`acquisition <acquisition>`: Metadata describing what devices were active during acquisition and their configuration.
 
-After data analysis, additional quality control and processing metadata is captured:
+After data analysis, additional processing and quality control metadata is captured:
 
 - :doc:`processing <processing>`: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used.
 - :doc:`quality_control <quality_control>`: Evaluations and metrics describing the quality of a data asset.
 
 The metadata also covers models that are derived from data or used to analyze data:
 
-- :doc:`model <model>`: Metadata describing how the data has been evaluated for quality control.
+- :doc:`model <model>`: Metadata describing models created from or used to analyze data assets.
 
 I want to...
 ------------

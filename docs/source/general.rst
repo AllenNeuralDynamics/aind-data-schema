@@ -4,14 +4,13 @@ Metadata in general
 
 **Q: What is metadata?**
 
-Metadata is data about data. This documents information about acquired data that enables us to be able to analyze and 
+Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and 
 interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
-it moves through processing and analysis workflows, and the quality of the data. We use this metadata to keep track of 
-the data assets and to communicate the embodied context of those data.
+it moves through processing and analysis workflows, and the quality of the data.
 
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
-How acquisition software represents metadata evolves over time and often does not capture 
+Metadata captured by acquisition software evolves over time and often does not capture 
 everything we need to know to interpret data. These JSON files represent our ground truth 
 viewpoint on what is essential to know about our data in a single location. 
 
