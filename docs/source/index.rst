@@ -23,9 +23,9 @@ The metadata also covers models that are derived from data or used to analyze da
 I want to...
 ------------
 
-- `Create metadata for my data assets <example_workflow/example_workflow>`_. 
-- `Query metadata<query>`_.
-- `Learn about the philosophy behind aind-data-schema<>`_.
+- :doc:`Create metadata for my data assets <example_workflow/example_workflow>`. 
+- :doc:`Query metadata<query>`.
+- :doc:`Learn about the philosophy behind aind-data-schema<general>`.
 
 
 Components and Registries
