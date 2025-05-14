@@ -1,6 +1,6 @@
-================
-Example Workflow
-================
+===================
+Generating metadata
+===================
 
 This tutorial walks through a hypothetical example of how to generate metadata
 for a cellular 2-photon imaging session. This won't focus on acquisition or instrument
