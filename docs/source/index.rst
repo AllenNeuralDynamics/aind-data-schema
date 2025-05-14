@@ -3,7 +3,7 @@ Welcome to aind-data-schema
 
 Data acquired at the Allen Institute for Neural Dynamics (AIND) is accompanied by metadata describing how it was acquired, processed, and analyzed. This metadata is stored in JSON files according to the schema defined in this library. Our goal in capturing this metadata is to make our data findable and understandable.
 
-Data assets acquired from a live subject or in vivo specimen must contain the following JSON files:
+Data assets acquired from a live subject or in vivo specimen must contain the following metadata files:
 
 - :doc:`data_description <data_description>`: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
 - :doc:`subject <subject>`: Species, genotype, age, sex, and source.
@@ -25,12 +25,17 @@ I want to...
 
 - :doc:`Create metadata for my data assets <example_workflow/example_workflow>`. 
 - :doc:`Learn about the philosophy behind aind-data-schema<general>`.
+- :doc:`Request additions or changes to the metadata schema<contributing>`.
 
 
 Components and Registries
 -------------------------
 
-``aind-data-schema`` relies on many individual components as well as controlled vocabularies. The components are stored in their own files. We store these controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
+``aind-data-schema`` relies on many individual component schemas as well as controlled vocabularies (registries). These additional model classes are stored in their own files to keep the metadata schema simple. We store these controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
+
+- :doc:`Components<components>`. 
+- :doc:`Registries<registries>`.
+
 
 .. toctree::
    :caption: Getting Started
@@ -76,3 +81,4 @@ Components and Registries
 
    general
    data_organization
+   contributing
