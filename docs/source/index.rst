@@ -24,7 +24,6 @@ I want to...
 ------------
 
 - :doc:`Create metadata for my data assets <example_workflow/example_workflow>`. 
-- :doc:`Query metadata<query>`.
 - :doc:`Learn about the philosophy behind aind-data-schema<general>`.
 
 
