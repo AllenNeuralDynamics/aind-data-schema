@@ -1,4 +1,4 @@
-# Coordinate Systems
+# Coordinate systems
 
 The metadata schema supports flexible definitions of coordinate systems, both relative to anatomy and devices. This allows us to store the positions of devices, insertion coordinates, etc, all with one standardized system of metadata.
 
