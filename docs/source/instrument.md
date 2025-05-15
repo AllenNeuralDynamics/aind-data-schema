@@ -21,35 +21,22 @@ lens attached to it, or an ephys probe with its manipulator.
 
 ### Devices that aren't in the schema
 
-This depends on if you need to track more information than name/manufacturer/part number/serial number? 
-**No:** This doesn't need a specific class and you can add it under `additional_devices` using the `Device` 
-class. Feel free to use the notes field to add a description of the device and how you are using it if needed. 
-**Yes:** if this is a device that you need to specify more information about, we will need to add a specific
-class for it. Open an issue on GitHub specifying what kind of information is needed to be tracked and we’ll be in 
-touch about adding it shortly.
+This depends on if you need to track more information than name/manufacturer/part number/serial number?
+
+- **No:** This doesn't need a specific class and you can add it to the components list using the `Device` class. Feel free to use the notes field to add a description of the device and how you are using it if needed.
+- **Yes:** if this is a device that you need to specify more information about, we will need to add a specific class for it. Open an issue on GitHub specifying what kind of information is needed to be tracked and we’ll be in touch about adding it shortly.
 
 ### Missing organizations
 
-Check the `organizations.py` file in the `aind-data-schema-models` which contains the master list of organizations. This 
-list gets sublisted to specific manufacturers for specific device types to make it easier for you to find relevant 
-options. If your manufacturer is in the master list but isn't an option for the device you are trying to use it for, open 
-a GitHub issue for the `aind-data-schema-models` repo asking that your manufacturer be added to the options for your 
-device type. If your manufacturer is not in the master list, open a GitHub issue for the `aind-data-schema-models` repo 
-asking that your manufacturer be added to the list. Also specify what device type(s) it is relevant to. Please try to 
-provide (1) the full name of the Manufacturer, (2) any common acronym or abbreviation they might use, and (3) if 
-possible identify the RORID for the company at ror.org. Not every company is in that registry, so you might not find it 
-(in which case let us know that you tried). You are more likely than we are to be able to disambiguate between 
-similarly named companies if there are other companies with similar names in the registry.
+You can find the full list of [Organizations](aind_data_schema_models/organizations.md) in the `aind-data-schema-models` repository. Some device types are restricted to a subset of this full list to simplify the `metadata-entry` app. Please open an issue if you need a manufacturer that isn't available in either the main list or one of the subsets.
 
 ### Position
 
-The `RelativePosition` class enables you to specify the position of a device in the rig. This class includes both 
-position and rotation information of the device. For this to communicate anything, you must also specify the reference 
-point and axes of the device as well as the `origin` and `rig_axes` of the Rig. You get to define these how it works 
-best for you, but I recommend discussing it with your team and SIPE. Some devices really should have position 
-information in order for the data to be interpretable  (e.g. cameras or visual monitors). Other devices are positioned 
-wherever they fit and their position doesn’t impact what they do or how the data is interpreted. These devices do not 
-require position information.
+#### RelativePosition
+
+For all devices where a position is expected you are *required* to provide the relative position. This is a `List[AnatomicalRelative]`, for example you can specify that a computer monitor is `[Anterior]`. Relative positions should be used for devices that might have small position adjustments made from day-to-day and where the exact position is not important.
+
+For devices where you know the exact position you need to describe the `CoordinateSystem` and and `transform` of the device. The transform describes the `device_to_instrument` transformation, i.e. given a point in the device's coordinate system (0,0,0) how do you need to translate (and rotate/scale) that point to place it in the instrument's coordinate system. Please refer to the [Coordinate Systems](coordinate_systems.md) page for additional details.
 
 ## Examples
 
