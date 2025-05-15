@@ -9,7 +9,7 @@ from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 
 
 class Status(str, Enum):
@@ -210,6 +210,10 @@ class QualityControl(DataCoreModel):
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.3"]] = Field(default="2.0.3")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
+    key_experimenters: Optional[List[Person]] = Field(
+        default=None, title="Key experimenters",
+        description="Experimenters who are responsible for quality control of this data asset"
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     def status(
@@ -265,6 +269,7 @@ class QualityControl(DataCoreModel):
 
         # Combine
         evaluations = self.evaluations + other.evaluations
+        experimenters = merge_optional_list(self.key_experimenters, other.key_experimenters)
         notes = merge_notes(self.notes, other.notes)
 
-        return QualityControl(evaluations=evaluations, notes=notes)
+        return QualityControl(evaluations=evaluations, notes=notes, key_experimenters=experimenters)
