@@ -773,8 +773,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.3",
-         "default": "2.0.3",
+         "const": "2.0.4",
+         "default": "2.0.4",
          "title": "Schema Version",
          "type": "string"
       },
@@ -784,6 +784,22 @@
          },
          "title": "Evaluations",
          "type": "array"
+      },
+      "key_experimenters": {
+         "anyOf": [
+            {
+               "items": {
+                  "$ref": "#/$defs/Person"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Experimenters who are responsible for quality control of this data asset",
+         "title": "Key experimenters"
       },
       "notes": {
          "anyOf": [
