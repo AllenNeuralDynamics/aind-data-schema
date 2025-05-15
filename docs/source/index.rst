@@ -57,6 +57,7 @@ Components and Registries
    acquisition
    processing
    quality_control
+   model
    
 
 .. toctree::
