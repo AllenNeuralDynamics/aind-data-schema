@@ -90,7 +90,7 @@ All primary data assets have the following naming convention:
 
 A few points: 
 
-- ``<acquisition-datetime>``: yyyy-mm-ddThhmmss at end of acquisition  
+- ``<acquisition-datetime>``: yyyy-mm-dd_hh-mm-ss at end of acquisition  
 - Acquisition date and time are essential for uniqueness
 - Acquisition date and time are in local time zone 
 - Time-zone is documented in metadata 
@@ -126,13 +126,13 @@ Example for simultaneous electrophysiology with optotagging and fiber photometry
     - EFIP_655568_2022-04-26_11-48-09
         - <metadata JSON files> 
         - FIB 
-            - L415_2022-04-26T11_48_09.csv 
-            - L470_2022-04-26T11_48_09.csv 
-            - L560_2022-04-26T11_48_09.3024512-07_00 
-            - Raw2022-04-26T11_48_09.csv 
-            - TTL_2022-04-26T11_48_08.1780864-07_00 
-            - TTL_TS2022-04-26T11_48_08.csv 
-            - TimeStamp_2022-04-26T11_48_08.csv 
+            - L415_2022-04-26_11-48-09.csv 
+            - L470_2022-04-26_11-48-09.csv 
+            - L560_2022-04-26_11-48-09.3024512-07_00 
+            - Raw2022-04-26_11-48-09.csv 
+            - TTL_2022-04-26_11-48-08.1780864-07_00 
+            - TTL_TS2022-04-26_11-48-08.csv 
+            - TimeStamp_2022-04-26_11-48-08.csv 
         - ecephys 
             - 220426114809_655568.opto.csv 
             - Record Node 104 
@@ -143,7 +143,7 @@ Example for simultaneous electrophysiology with optotagging and fiber photometry
 
 Example for lightsheet microscopy data:
 
-    - 655568_2022-04-26T114809
+    - 655568_2022-04-26_11-48-09
         - <metadata JSON files> 
         - SPIM 
             - SPIM.ome.zarr 
@@ -160,8 +160,8 @@ Anything computed in a single run should be logically grouped in a folder. The f
 
 For example:
 
-- ``ANM457202_2022-07-11T221132_processed_2022-08-11T221132``
-- ``595262_2022-02-21T151807_processed_2022-08-11T221132``
+- ``ANM457202_2022-07-11_22-11-32_processed_2022-08-11_22-11-32``
+- ``595262_2022-02-21_15-18-07_processed_2022-08-11_22-11-32``
 
 Processed outputs are usually the result of a multi-stage pipeline, so often <process-label> should 
 just be “processed.” Other common process labels include: 
@@ -197,8 +197,8 @@ When naming files, we should:
 
 - use terms from vocabularies defined in aind-data-schema, e.g. 
     - modalities, etc
-    - use isoformat datetimes, e.g. "YYYY-MM-DDThhmmss"
+    - use isoformat datetimes, e.g. "YYYY-MM-DD_hh-mm-ss"
     - use “yyyy-mm-dd" and “hh-mm-ss" in local time zone for dates and times 
 - separate tokens with underscores, and not include underscores in tokens, e.g. 
-    - Do this: ``655568_2022-04-26T114809``
-- Do not include illegal filename characters in tokens 
+    - Do this: ``655568_2022-04-26_11-48-09``
+- Do not include illegal filename characters in tokens
