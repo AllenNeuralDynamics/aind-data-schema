@@ -13,7 +13,7 @@ For a few special cases like coordinates in an [Atlas](components/coordinates.md
 
 A [CoordinateSystem](components/coordinates.md#coordinatesystem) is defined by an [Origin](aind_data_schema_models/coordinates.md#origin) and a list of axis and direction pairs. The name of a coordinate system is created by combining the origin and positive directions of the axes. For example, `BREGMA_ARI` is a coordinate system with an origin at bregma and three axes pointing anterior, right, and inferior. This is made explicit in the full definition:
 
-```{python}
+```{code} python
 CoordinateSystem(
     name="BREGMA_ARI",
     origin=Origin.BREGMA,
@@ -48,7 +48,7 @@ Each [Axis](components/coordinates.md#axis) is a combination of an [AxisName](ai
 
 We know that allowing complete flexibility with coordinate systems will be a source of confusion. With that in mind, we encourage everybody to use the `CoordinateSystemLibrary` class, which comes with a pre-defined set of standard coordinate systems. For example, you can import the `BREGMA_ARI` coordinate system and then re-use it as follows:
 
-```{python}
+```{code} python
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
 ...

@@ -123,7 +123,7 @@ Modality terms come from controlled vocabularies in aind-data-schema-models.
 
 Example for simultaneous electrophysiology with optotagging and fiber photometry:
 
-    - EFIP_655568_2022-04-26_11-48-09
+    - 655568_2022-04-26_11-48-09
         - <metadata JSON files> 
         - FIB 
             - L415_2022-04-26_11-48-09.csv 
@@ -164,10 +164,7 @@ For example:
 - ``595262_2022-02-21_15-18-07_processed_2022-08-11_22-11-32``
 
 Processed outputs are usually the result of a multi-stage pipeline, so often <process-label> should 
-just be “processed.” Other common process labels include: 
-
-- ``curation`` - tags assigned to input data (e.g. merge/split/noise calls for ephys units) 
-- ... 
+just be “processed.”
 
 Overlong names are difficult to read, so do not daisy-chain. The goal is to keep names as simple 
 as possible while being readable, not to encode all metadata or the entire provenance chain. If 
@@ -195,9 +192,8 @@ File name guidelines
 
 When naming files, we should: 
 
-- use terms from vocabularies defined in aind-data-schema, e.g. 
+- use terms from vocabularies defined in aind-data-schema-models, e.g. 
     - modalities, etc
-    - use isoformat datetimes, e.g. "YYYY-MM-DD_hh-mm-ss"
     - use “yyyy-mm-dd" and “hh-mm-ss" in local time zone for dates and times 
 - separate tokens with underscores, and not include underscores in tokens, e.g. 
     - Do this: ``655568_2022-04-26_11-48-09``
