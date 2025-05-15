@@ -28,13 +28,13 @@ CoordinateSystem(
 
 This matches the image below:
 
-![BREGMA_ARI Coordinate System](../_static/coordinates2.png)
+![BREGMA_ARI Coordinate System](_static/coordinates2.png)
 
 ## Origin
 
 An [Origin](aind_data_schema_models/coordinates.md#origin) is a point in space, often relative to the mouse's anatomy but it can also be a point on a device. Standard anatomical references are positions like Bregma or Lambda
 
-![Bregma and Lambda](../_static/bregma_and_lambda2.png)
+![Bregma and Lambda](_static/bregma_and_lambda2.png)
 
 ## Axis definitions
 

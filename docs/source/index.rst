@@ -65,6 +65,7 @@ Components and Registries
    :maxdepth: 2
 
    components
+   coordinate_systems
 
 .. toctree::
    :caption: Registries

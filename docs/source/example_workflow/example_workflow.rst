@@ -100,7 +100,7 @@ Finally, we're ready to generate all the metadata files. We'll loop over the ses
 Other metadata
 -----------------
 
-The remaining metadata files (`Instrument<../instrument.md>`_` and `Acquisition<../acquisition.md>`_) follow the same pattern: extract the relevant information from a data source, transform it into the schema, and use the `write_standard_file()` function to write the file. Follow the links above to the relevant sections for more information on these files.
+The remaining metadata files (:doc:`Instrument<../instrument.md>` and `Acquisition<../acquisition.md>`_) follow the same pattern: extract the relevant information from a data source, transform it into the schema, and use the `write_standard_file()` function to write the file. Follow the links above to the relevant sections for more information on these files.
 
 .. _Instrument: ../instrument.md
 
