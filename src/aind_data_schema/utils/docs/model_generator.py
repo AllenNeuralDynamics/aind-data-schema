@@ -21,6 +21,7 @@ special_cases = {
     "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
     "aind_data_schema.core.quality_control.QCMetric": "{QCMetric} or {CurationMetric}",
     "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
+    "aind_data_schema.base.GenericModel": "dict",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -147,9 +148,7 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     str_rep = str(tp)
     result = check_for_union(str_rep)
 
-    # Only proceed with normal replacement if check_for_union didn't change anything
-    if result == str_rep:
-        result = check_for_replacement(str_rep)
+    result = check_for_replacement(result)
 
     return result
 
