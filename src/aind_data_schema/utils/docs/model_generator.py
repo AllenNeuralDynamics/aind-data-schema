@@ -71,9 +71,7 @@ def check_for_union(value: str) -> str:
 
     Input: "List[float | str]"
     Output: "List[float or str]"
-    
-    Input: "List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Channel, aind_data_schema.components.configs.SlapChannel], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]"
-    
+
     """
     # Check direct pipe syntax first (handles List[float | str] case)
     container_match = re.match(r"(List|Dict|Optional|Set|Tuple|Sequence)\[(.*)\]", value)
@@ -227,7 +225,7 @@ def process_module(module_name, module_path, src_folder, doc_folder, model_link_
         spec.loader.exec_module(module)
 
         rel_dir_path = os.path.splitext(os.path.relpath(module_path, src_folder))[0]
-        
+
         output_path = os.path.join(doc_folder, rel_dir_path)
 
         # Clear the output directory:

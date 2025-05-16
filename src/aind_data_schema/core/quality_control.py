@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Annotated, Any, List, Literal, Optional, Union
+from typing import Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
@@ -97,9 +97,7 @@ class QCEvaluation(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(
-        ..., title="QC and curation metrics"
-    )
+    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="QC and curation metrics")
     tags: Optional[List[str]] = Field(
         default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
     )
