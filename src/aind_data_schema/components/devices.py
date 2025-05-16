@@ -441,7 +441,7 @@ class DigitalMicromirrorDevice(Device):
     dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
     dmd_curtain_unit: SizeUnit = Field(default=SizeUnit.PX, title="dmd_curtain_unit")
     line_shear: List[int] = Field(..., title="Line shear (pixels)")
-    line_shear_units: SizeUnit = Field(default=SizeUnit.PX, title="Line shear units")
+    line_shear_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear unit")
 
 
 class PolygonalScanner(Device):
