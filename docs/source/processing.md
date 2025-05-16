@@ -34,6 +34,116 @@ Description of a single processing step
 | `resources` | Optional[[ResourceUsage](#resourceusage)] |  |
 
 
+### Enum
+
+Create a collection of name/value pairs.
+
+Example enumeration:
+
+>>> class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+
+Access them by:
+
+- attribute access:
+
+  >>> Color.RED
+  <Color.RED: 1>
+
+- value lookup:
+
+  >>> Color(1)
+  <Color.RED: 1>
+
+- name lookup:
+
+  >>> Color['RED']
+  <Color.RED: 1>
+
+Enumerations can be iterated over, and know how many members they have:
+
+>>> len(Color)
+3
+
+>>> list(Color)
+[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
+
+Methods can be added to enumerations, and members can have their own
+attributes -- see the documentation for details.
+
+| Name | Value |
+|------|-------|
+
+
+
+### MemoryUnit
+
+Computer memory units
+
+| Name | Value |
+|------|-------|
+| `B` | `Byte` |
+| `KB` | `Kilobyte` |
+| `MB` | `Megabyte` |
+| `GB` | `Gigabyte` |
+| `TB` | `Terabyte` |
+| `PB` | `Petabyte` |
+| `EB` | `Exabyte` |
+
+
+### ProcessName
+
+Process names
+
+| Name | Value |
+|------|-------|
+| `ANALYSIS` | `Analysis` |
+| `COMPRESSION` | `Compression` |
+| `DENOISING` | `Denoising` |
+| `EPHYS_CURATION` | `Ephys curation` |
+| `EPHYS_POSTPROCESSING` | `Ephys postprocessing` |
+| `EPHYS_PREPROCESSING` | `Ephys preprocessing` |
+| `EPHYS_VISUALIZATION` | `Ephys visualization` |
+| `FIDUCIAL_SEGMENTATION` | `Fiducial segmentation` |
+| `FILE_FORMAT_CONVERSION` | `File format conversion` |
+| `FLUORESCENCE_EVENT_DETECTION` | `Fluorescence event detection` |
+| `IMAGE_ATLAS_ALIGNMENT` | `Image atlas alignment` |
+| `IMAGE_BACKGROUND_SUBTRACTION` | `Image background subtraction` |
+| `IMAGE_CELL_CLASSIFICATION` | `Image cell classification` |
+| `IMAGE_CELL_QUANTIFICATION` | `Image cell quantification` |
+| `IMAGE_CELL_SEGMENTATION` | `Image cell segmentation` |
+| `IMAGE_CROSS_IMAGE_ALIGNMENT` | `Image cross-image alignment` |
+| `IMAGE_DESTRIPING` | `Image destriping` |
+| `IMAGE_FLAT_FIELD_CORRECTION` | `Image flat-field correction` |
+| `IMAGE_IMPORTING` | `Image importing` |
+| `IMAGE_MIP_VISUALIZATION` | `Image mip visualization` |
+| `IMAGE_RADIAL_CORRECTION` | `Image radial correction` |
+| `IMAGE_SPOT_DETECTION` | `Image spot detection` |
+| `IMAGE_SPOT_SPECTRAL_UNMIXING` | `Image spot spectral unmixing` |
+| `IMAGE_THRESHOLDING` | `Image thresholding` |
+| `IMAGE_TILE_ALIGNMENT` | `Image tile alignment` |
+| `IMAGE_TILE_FUSING` | `Image tile fusing` |
+| `IMAGE_TILE_PROJECTION` | `Image tile projection` |
+| `MODEL_EVALUATION` | `Model evaluation` |
+| `MODEL_TRAINING` | `Model training` |
+| `NEUROPIL_SUBTRACTION` | `Neuropil subtraction` |
+| `OTHER` | `Other` |
+| `PIPELINE` | `Pipeline` |
+| `SIMULATION` | `Simulation` |
+| `SKULL_STRIPPING` | `Skull stripping` |
+| `SPATIAL_TIMESERIES_DEMIXING` | `Spatial timeseries demixing` |
+| `SPIKE_SORTING` | `Spike sorting` |
+| `VIDEO_ROI_CLASSIFICATION` | `Video ROI classification` |
+| `VIDEO_ROI_CROSS_SESSION_MATCHING` | `Video ROI cross session matching` |
+| `VIDEO_ROI_SEGMENTATION` | `Video ROI segmentation` |
+| `VIDEO_ROI_TIMESERIES_EXTRACTION` | `Video ROI timeseries extraction` |
+| `VIDEO_MOTION_CORRECTION` | `Video motion correction` |
+| `VIDEO_PLANE_DECROSSTALK` | `Video plane decrosstalk` |
+| `DF_F_ESTIMATION` | `dF/F estimation` |
+
+
 ### ProcessStage
 
 Stages of processing
@@ -85,3 +195,13 @@ Description of resources used by a process
 | `gpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
 | `ram_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
 | `usage_unit` | `str` |  |
+
+
+### UnitlessUnit
+
+Unitless options
+
+| Name | Value |
+|------|-------|
+| `PERCENT` | `percent` |
+| `FC` | `fraction of cycle` |

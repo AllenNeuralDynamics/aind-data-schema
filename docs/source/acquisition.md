@@ -93,6 +93,19 @@ Data streams with a start and stop time
 | `connections` | List[[Connection](instrument.md#connection)] | Connections that are specific to this acquisition, and are not present in the Instrument |
 
 
+### MassUnit
+
+Enumeration of Mass Measurements
+
+| Name | Value |
+|------|-------|
+| `KG` | `kilogram` |
+| `G` | `gram` |
+| `MG` | `milligram` |
+| `UG` | `microgram` |
+| `NG` | `nanogram` |
+
+
 ### PerformanceMetrics
 
 Summary of a StimulusEpoch
@@ -122,3 +135,31 @@ Description of stimulus used during data acquisition
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
 | `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] |  |
+
+
+### StimulusModality
+
+Stimulus modalities
+
+| Name | Value |
+|------|-------|
+| `AUDITORY` | `Auditory` |
+| `FREE_MOVING` | `Free moving` |
+| `NO_STIMULUS` | `No stimulus` |
+| `OLFACTORY` | `Olfactory` |
+| `OPTOGENETICS` | `Optogenetics` |
+| `VIRTUAL_REALITY` | `Virtual reality` |
+| `VISUAL` | `Visual` |
+| `WHEEL_FRICTION` | `Wheel friction` |
+
+
+### VolumeUnit
+
+Enumeration of Volume Measurements
+
+| Name | Value |
+|------|-------|
+| `L` | `liter` |
+| `ML` | `milliliter` |
+| `UL` | `microliter` |
+| `NL` | `nanoliter` |

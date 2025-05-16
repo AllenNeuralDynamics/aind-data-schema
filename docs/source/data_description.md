@@ -33,6 +33,32 @@ Description of a logical collection of data files
 | `data_summary` | `Optional[str]` | Semantic summary of experimental goal |
 
 
+### DataLevel
+
+Data level name
+
+| Name | Value |
+|------|-------|
+| `DERIVED` | `derived` |
+| `RAW` | `raw` |
+| `SIMULATED` | `simulated` |
+
+
+### DataRegex
+
+Regular expression patterns for different kinds of data and their properties
+
+| Name | Value |
+|------|-------|
+| `DATA` | `^(?P<label>.+?)_(?P<c_datetime>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})$` |
+| `RAW` | `^(?P<subject_id>.+?)_(?P<c_datetime>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})$` |
+| `DERIVED` | `^(?P<input>.+?_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})_(?P<process_name>.+?)_(?P<c_datetime>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})` |
+| `ANALYZED` | `^(?P<project_abbreviation>.+?)_(?P<analysis_name>.+?)_(?P<c_datetime>\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})$` |
+| `NO_UNDERSCORES` | `^[^_]+$` |
+| `NO_SPECIAL_CHARS` | `^[^<>:;"/|? \\_]+$` |
+| `NO_SPECIAL_CHARS_EXCEPT_SPACE` | `^[^<>:;"/|?\\_]+$` |
+
+
 ### Funding
 
 Description of funding sources
@@ -42,3 +68,26 @@ Description of funding sources
 | `funder` | [Organization](aind_data_schema_models/organizations.md#organization) |  |
 | `grant_number` | `Optional[str]` |  |
 | `fundee` | Optional[[Person](components/identifiers.md#person)] | Person(s) funded by this mechanism |
+
+
+### Group
+
+Data collection group name
+
+| Name | Value |
+|------|-------|
+| `BEHAVIOR` | `behavior` |
+| `EPHYS` | `ephys` |
+| `MSMA` | `MSMA` |
+| `OPHYS` | `ophys` |
+| `NBA` | `NBA` |
+
+
+### License
+
+Licenses
+
+| Name | Value |
+|------|-------|
+| `MIT` | `MIT` |
+| `CC_BY_40` | `CC-BY-4.0` |

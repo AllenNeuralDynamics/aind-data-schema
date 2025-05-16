@@ -5,6 +5,7 @@ Script to generate documentation for AIND data schema.
 
 import json
 import os
+import re
 
 from aind_data_schema.core.metadata import CORE_FILES
 
@@ -124,7 +125,12 @@ def process_components(component_folder, output_rel_path):
         # Apply the link map replacements
         for link in model_link_map:
             model_content = model_content.replace(link, model_link_map[link])
-            model_content = model_content.replace("components/", "")
+
+            # Replace "aind_data_schema_models/" with "../aind_data_schema_models/" only if not already prefixed
+            model_content = re.sub(r"(?<!\.\./)aind_data_schema_models/", "../aind_data_schema_models/", model_content)
+
+            # Replace "components/" with an empty string
+            model_content = re.sub(r"\bcomponents/\b", "", model_content)
             model_content = model_content.replace(f"{component_folder}.md", "")
 
         combined_content += f"{model_content}\n\n"

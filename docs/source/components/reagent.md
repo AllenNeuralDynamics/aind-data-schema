@@ -11,13 +11,70 @@ Description of an antibody used in immunolableing
 | `immunolabel_class` | [ImmunolabelClass](#immunolabelclass) |  |
 | `fluorophore` | Optional[[Fluorophore](#fluorophore)] |  |
 | `mass` | `float` |  |
-| `mass_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
+| `mass_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) |  |
 | `notes` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
+
+
+### ConcentrationUnit
+
+Concentraion units
+
+| Name | Value |
+|------|-------|
+| `M` | `molar` |
+| `UM` | `micromolar` |
+| `NM` | `nanomolar` |
+| `MASS_PERCENT` | `% m/m` |
+| `VOLUME_PERCENT` | `% v/v` |
+
+
+### Enum
+
+Create a collection of name/value pairs.
+
+Example enumeration:
+
+>>> class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+
+Access them by:
+
+- attribute access:
+
+  >>> Color.RED
+  <Color.RED: 1>
+
+- value lookup:
+
+  >>> Color(1)
+  <Color.RED: 1>
+
+- name lookup:
+
+  >>> Color['RED']
+  <Color.RED: 1>
+
+Enumerations can be iterated over, and know how many members they have:
+
+>>> len(Color)
+3
+
+>>> list(Color)
+[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
+
+Methods can be added to enumerations, and members can have their own
+attributes -- see the documentation for details.
+
+| Name | Value |
+|------|-------|
+
 
 
 ### Fluorophore
@@ -74,7 +131,7 @@ Description of a readout for HCR
 | `initiator_name` | `str` |  |
 | `fluorophore` | [Fluorophore](#fluorophore) |  |
 | `excitation_wavelength` | `int` |  |
-| `excitation_wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `excitation_wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `stain_type` | [StainType](#staintype) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
@@ -92,6 +149,19 @@ Type of antibodies
 | `PRIMARY` | `Primary` |
 | `SECONDARY` | `Secondary` |
 | `CONJUGATE` | `Conjugate` |
+
+
+### MassUnit
+
+Enumeration of Mass Measurements
+
+| Name | Value |
+|------|-------|
+| `KG` | `kilogram` |
+| `G` | `gram` |
+| `MG` | `milligram` |
+| `UG` | `microgram` |
+| `NG` | `nanogram` |
 
 
 ### OligoProbe
@@ -126,7 +196,7 @@ Description of a readout
 |-------|------|-------------|
 | `fluorophore` | [Fluorophore](#fluorophore) |  |
 | `excitation_wavelength` | `int` |  |
-| `excitation_wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `excitation_wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `stain_type` | [StainType](#staintype) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
@@ -148,6 +218,21 @@ Description of reagent used in procedure
 | `expiration_date` | `Optional[datetime.date]` |  |
 
 
+### SizeUnit
+
+Enumeration of Length Measurements
+
+| Name | Value |
+|------|-------|
+| `M` | `meter` |
+| `CM` | `centimeter` |
+| `MM` | `millimeter` |
+| `UM` | `micrometer` |
+| `NM` | `nanometer` |
+| `IN` | `inch` |
+| `PX` | `pixel` |
+
+
 ### Stain
 
 Description of a non-oligo probe stain
@@ -156,7 +241,7 @@ Description of a non-oligo probe stain
 |-------|------|-------------|
 | `stain_type` | [StainType](#staintype) |  |
 | `concentration` | `float` |  |
-| `concentration_unit` | [ConcentrationUnit](aind_data_schema_models/units.md#concentrationunit) |  |
+| `concentration_unit` | [ConcentrationUnit](../aind_data_schema_models/units.md#concentrationunit) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |

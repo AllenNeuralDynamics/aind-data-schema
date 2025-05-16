@@ -9,13 +9,40 @@ Air puff device configuration
 | Field | Type | Description |
 |-------|------|-------------|
 | `valence` | [Valence](#valence) |  |
-| `relative_position` | List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] |  |
 | `pressure` | `Optional[float]` |  |
-| `pressure_unit` | Optional[[PressureUnit](aind_data_schema_models/units.md#pressureunit)] |  |
+| `pressure_unit` | Optional[[PressureUnit](../aind_data_schema_models/units.md#pressureunit)] |  |
 | `duration` | `Optional[float]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
+
+
+### AnatomicalRelative
+
+Relative positions in 3D space
+
+| Name | Value |
+|------|-------|
+| `SUPERIOR` | `Superior` |
+| `INFERIOR` | `Inferior` |
+| `ANTERIOR` | `Anterior` |
+| `POSTERIOR` | `Posterior` |
+| `LEFT` | `Left` |
+| `RIGHT` | `Right` |
+| `MEDIAL` | `Medial` |
+| `LATERAL` | `Lateral` |
+| `ORIGIN` | `Origin` |
+
+
+### AngleUnit
+
+Enumeration of Angle Measurements
+
+| Name | Value |
+|------|-------|
+| `RAD` | `radians` |
+| `DEG` | `degrees` |
 
 
 ### Channel
@@ -33,7 +60,7 @@ Configuration of a channel
 | `excitation_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
 | `emission_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
 | `emission_wavelength` | `Optional[int]` |  |
-| `emission_wavelength_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
+| `emission_wavelength_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] |  |
 
 
 ### CoupledPlane
@@ -46,9 +73,9 @@ Configuration of a pair of coupled imaging plane
 | `coupled_plane_index` | `int` | Plane index of the coupled plane |
 | `power_ratio` | `float` |  |
 | `depth` | `float` |  |
-| `depth_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |
-| `power_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
+| `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
 | `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 
 
@@ -59,7 +86,7 @@ Configuration of detector settings
 | Field | Type | Description |
 |-------|------|-------------|
 | `exposure_time` | `float` |  |
-| `exposure_time_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
+| `exposure_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) |  |
 | `trigger_type` | [TriggerType](#triggertype) |  |
 | `compression` | Optional[[Code](identifiers.md#code)] | Compression algorithm used during acquisition |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
@@ -72,6 +99,50 @@ Parent class for all configurations
 | Field | Type | Description |
 |-------|------|-------------|
 | `device_name` | `str` | Must match a device defined in the instrument.json |
+
+
+### Enum
+
+Create a collection of name/value pairs.
+
+Example enumeration:
+
+>>> class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+
+Access them by:
+
+- attribute access:
+
+  >>> Color.RED
+  <Color.RED: 1>
+
+- value lookup:
+
+  >>> Color(1)
+  <Color.RED: 1>
+
+- name lookup:
+
+  >>> Color['RED']
+  <Color.RED: 1>
+
+Enumerations can be iterated over, and know how many members they have:
+
+>>> len(Color)
+3
+
+>>> list(Color)
+[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
+
+Methods can be added to enumerations, and members can have their own
+attributes -- see the documentation for details.
+
+| Name | Value |
+|------|-------|
+
 
 
 ### EphysAssemblyConfig
@@ -98,6 +169,17 @@ Inserted fiber photometry probe recorded in a stream
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
+### FrequencyUnit
+
+Enumeration of Frequency Measurements
+
+| Name | Value |
+|------|-------|
+| `KHZ` | `kilohertz` |
+| `HZ` | `hertz` |
+| `mHZ` | `millihertz` |
+
+
 ### Image
 
 Description of an N-D image
@@ -105,7 +187,7 @@ Description of an N-D image
 | Field | Type | Description |
 |-------|------|-------------|
 | `channel_name` | `str` |  |
-| `dimensions_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
 | `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
 
@@ -118,11 +200,11 @@ Description of an N-D image acquired with SPIM
 |-------|------|-------------|
 | `file_name` | `aind_data_schema.components.wrappers.AssetPath` |  |
 | `imaging_angle` | `int` | Angle of the detector relative to the image plane relative to perpendicular |
-| `imaging_angle_unit` | [AngleUnit](aind_data_schema_models/units.md#angleunit) |  |
+| `imaging_angle_unit` | [AngleUnit](../aind_data_schema_models/units.md#angleunit) |  |
 | `image_start_time` | `Optional[datetime (timezone-aware)]` |  |
 | `image_end_time` | `Optional[datetime (timezone-aware)]` |  |
 | `channel_name` | `str` |  |
-| `dimensions_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
 | `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
 
@@ -150,6 +232,23 @@ Configuration of immersion medium
 | `refractive_index` | `float` |  |
 
 
+### ImmersionMedium
+
+Immersion medium name
+
+| Name | Value |
+|------|-------|
+| `AIR` | `air` |
+| `MULTI` | `multi` |
+| `OIL` | `oil` |
+| `PBS` | `PBS` |
+| `WATER` | `water` |
+| `OTHER` | `other` |
+| `EASYINDEX` | `easy index` |
+| `ECI` | `ethyl cinnimate` |
+| `ACB` | `aqueous clearing buffer` |
+
+
 ### InterleavedStrategy
 
 Description of an interleaved image sampling strategy
@@ -158,7 +257,7 @@ Description of an interleaved image sampling strategy
 |-------|------|-------------|
 | `image_index_sequence` | `List[int]` |  |
 | `frame_rate` | `float` |  |
-| `frame_rate_unit` | [FrequencyUnit](aind_data_schema_models/units.md#frequencyunit) |  |
+| `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) |  |
 
 
 ### LaserConfig
@@ -168,9 +267,9 @@ Configuration of laser settings in an acquisition
 | Field | Type | Description |
 |-------|------|-------------|
 | `wavelength` | `int` |  |
-| `wavelength_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `Optional[float]` |  |
-| `power_unit` | Optional[[PowerUnit](aind_data_schema_models/units.md#powerunit)] |  |
+| `power_unit` | Optional[[PowerUnit](../aind_data_schema_models/units.md#powerunit)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -183,8 +282,8 @@ Lick spout acquisition information
 | `solution` | [Liquid](#liquid) |  |
 | `solution_valence` | [Valence](#valence) |  |
 | `volume` | `float` |  |
-| `volume_unit` | [VolumeUnit](aind_data_schema_models/units.md#volumeunit) |  |
-| `relative_position` | List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
+| `volume_unit` | [VolumeUnit](../aind_data_schema_models/units.md#volumeunit) |  |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
 | `notes` | `Optional[str]` |  |
@@ -198,7 +297,7 @@ Configuration of LED settings
 | Field | Type | Description |
 |-------|------|-------------|
 | `power` | `Optional[float]` |  |
-| `power_unit` | Optional[[PowerUnit](aind_data_schema_models/units.md#powerunit)] |  |
+| `power_unit` | Optional[[PowerUnit](../aind_data_schema_models/units.md#powerunit)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -224,7 +323,7 @@ Modular insertion system module configuration
 | `arc_angle` | `float` |  |
 | `module_angle` | `float` |  |
 | `rotation_angle` | `Optional[float]` |  |
-| `angle_unit` | [AngleUnit](aind_data_schema_models/units.md#angleunit) |  |
+| `angle_unit` | [AngleUnit](../aind_data_schema_models/units.md#angleunit) |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -240,15 +339,15 @@ Configuration of a 3D scan
 | `scan_sequence_type` | [MriScanSequence](#mriscansequence) |  |
 | `rare_factor` | `Optional[int]` |  |
 | `echo_time` | `decimal.Decimal` |  |
-| `echo_time_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
+| `echo_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) |  |
 | `effective_echo_time` | `Optional[decimal.Decimal]` |  |
 | `repetition_time` | `decimal.Decimal` |  |
-| `repetition_time_unit` | [TimeUnit](aind_data_schema_models/units.md#timeunit) |  |
+| `repetition_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) |  |
 | `scan_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `scan_affine_transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | NIFTI sform/qform, Bruker vc_transform, etc |
 | `subject_position` | [SubjectPosition](#subjectposition) |  |
 | `resolution` | Optional[[Scale](coordinates.md#scale)] |  |
-| `resolution_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
+| `resolution_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] |  |
 | `additional_scan_parameters` | `aind_data_schema.base.GenericModel` |  |
 | `notes` | `Optional[str]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
@@ -304,7 +403,7 @@ Description of an N-D image acquired in a specific imaging plane
 |-------|------|-------------|
 | `planes` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Plane, aind_data_schema.components.configs.CoupledPlane, aind_data_schema.components.configs.SlapPlane], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
 | `channel_name` | `str` |  |
-| `dimensions_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
 | `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
 
@@ -319,10 +418,10 @@ Description of a stack of images acquired in a specific imaging plane
 | `depth_start` | `float` |  |
 | `depth_end` | `float` |  |
 | `depth_step` | `float` |  |
-| `depth_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `planes` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Plane, aind_data_schema.components.configs.CoupledPlane, aind_data_schema.components.configs.SlapPlane], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
 | `channel_name` | `str` |  |
-| `dimensions_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
 | `dimensions` | Optional[[Scale](coordinates.md#scale)] |  |
 
@@ -334,9 +433,9 @@ Configuration of an imaging plane
 | Field | Type | Description |
 |-------|------|-------------|
 | `depth` | `float` |  |
-| `depth_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |
-| `power_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
+| `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
 | `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 
 
@@ -350,6 +449,28 @@ Power functions
 | `LINEAR` | `Linear` |
 | `EXPONENTIAL` | `Exponential` |
 | `OTHER` | `Other` |
+
+
+### PowerUnit
+
+Unit for power, set or measured
+
+| Name | Value |
+|------|-------|
+| `UW` | `microwatt` |
+| `MW` | `milliwatt` |
+| `PERCENT` | `percent` |
+
+
+### PressureUnit
+
+Enumeration of Pressure Measurements
+
+| Name | Value |
+|------|-------|
+| `MPA` | `millipascal` |
+| `PA` | `pascal` |
+| `KPA` | `kilopascal` |
 
 
 ### ProbeConfig
@@ -386,7 +507,7 @@ Description of an image sampling strategy
 | Field | Type | Description |
 |-------|------|-------------|
 | `frame_rate` | `float` |  |
-| `frame_rate_unit` | [FrequencyUnit](aind_data_schema_models/units.md#frequencyunit) |  |
+| `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) |  |
 
 
 ### ScanType
@@ -397,6 +518,21 @@ Type of scan
 |------|-------|
 | `SETUP` | `Set Up` |
 | `SCAN_3D` | `3D Scan` |
+
+
+### SizeUnit
+
+Enumeration of Length Measurements
+
+| Name | Value |
+|------|-------|
+| `M` | `meter` |
+| `CM` | `centimeter` |
+| `MM` | `millimeter` |
+| `UM` | `micrometer` |
+| `NM` | `nanometer` |
+| `IN` | `inch` |
+| `PX` | `pixel` |
 
 
 ### SlapAcquisitionType
@@ -416,7 +552,7 @@ Configuration of a channel for Slap
 | Field | Type | Description |
 |-------|------|-------------|
 | `dilation` | `int` |  |
-| `dilation_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `dilation_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `description` | `Optional[str]` |  |
 | `channel_name` | `str` |  |
 | `intended_measurement` | `Optional[str]` | What signal is this channel measuring |
@@ -427,7 +563,7 @@ Configuration of a channel for Slap
 | `excitation_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
 | `emission_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] |  |
 | `emission_wavelength` | `Optional[int]` |  |
-| `emission_wavelength_unit` | Optional[[SizeUnit](aind_data_schema_models/units.md#sizeunit)] |  |
+| `emission_wavelength_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] |  |
 
 
 ### SlapPlane
@@ -438,16 +574,25 @@ Configuration of an imagine plane on a Slap microscope
 |-------|------|-------------|
 | `dmd_dilation_x` | `int` |  |
 | `dmd_dilation_y` | `int` |  |
-| `dilation_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `dilation_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `slap_acquisition_type` | [SlapAcquisitionType](#slapacquisitiontype) |  |
 | `target_neuron` | `Optional[str]` |  |
 | `target_branch` | `Optional[str]` |  |
 | `path_to_array_of_frame_rates` | `aind_data_schema.components.wrappers.AssetPath` | Relative path from metadata json to file |
 | `depth` | `float` |  |
-| `depth_unit` | [SizeUnit](aind_data_schema_models/units.md#sizeunit) |  |
+| `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |
-| `power_unit` | [PowerUnit](aind_data_schema_models/units.md#powerunit) |  |
+| `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
 | `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
+
+
+### SoundIntensityUnit
+
+Sound intensity units
+
+| Name | Value |
+|------|-------|
+| `DB` | `decibels` |
 
 
 ### SpeakerConfig
@@ -457,7 +602,7 @@ Configuration of auditory speaker configuration
 | Field | Type | Description |
 |-------|------|-------------|
 | `volume` | `Optional[float]` |  |
-| `volume_unit` | Optional[[SoundIntensityUnit](aind_data_schema_models/units.md#soundintensityunit)] |  |
+| `volume_unit` | Optional[[SoundIntensityUnit](../aind_data_schema_models/units.md#soundintensityunit)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
@@ -470,7 +615,7 @@ Description of a stack image sampling strategy
 | `image_repeats` | `int` |  |
 | `stack_repeats` | `int` |  |
 | `frame_rate` | `float` |  |
-| `frame_rate_unit` | [FrequencyUnit](aind_data_schema_models/units.md#frequencyunit) |  |
+| `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) |  |
 
 
 ### SubjectPosition
@@ -481,6 +626,20 @@ Subject position
 |------|-------|
 | `PRONE` | `Prone` |
 | `SUPINE` | `Supine` |
+
+
+### TimeUnit
+
+Enumeration of Time Measurements
+
+| Name | Value |
+|------|-------|
+| `HR` | `hour` |
+| `M` | `minute` |
+| `S` | `second` |
+| `MS` | `millisecond` |
+| `US` | `microsecond` |
+| `NS` | `nanosecond` |
 
 
 ### TriggerType
@@ -503,5 +662,17 @@ Valence of a stimulus
 | `NEGATIVE` | `Negative` |
 | `NEUTRAL` | `Neutral` |
 | `UNKNOWN` | `Unknown` |
+
+
+### VolumeUnit
+
+Enumeration of Volume Measurements
+
+| Name | Value |
+|------|-------|
+| `L` | `liter` |
+| `ML` | `milliliter` |
+| `UL` | `microliter` |
+| `NL` | `nanoliter` |
 
 

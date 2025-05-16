@@ -40,6 +40,23 @@ Description of an anaesthetic
 | `level` | `Optional[decimal.Decimal]` |  |
 
 
+### AnatomicalRelative
+
+Relative positions in 3D space
+
+| Name | Value |
+|------|-------|
+| `SUPERIOR` | `Superior` |
+| `INFERIOR` | `Inferior` |
+| `ANTERIOR` | `Anterior` |
+| `POSTERIOR` | `Posterior` |
+| `LEFT` | `Left` |
+| `RIGHT` | `Right` |
+| `MEDIAL` | `Medial` |
+| `LATERAL` | `Lateral` |
+| `ORIGIN` | `Origin` |
+
+
 ### BrainInjection
 
 Description of an injection procedure into a brain
@@ -128,6 +145,59 @@ Name of craniotomy Type
 | `CIRCLE` | `Circle` |
 | `SQUARE` | `Square` |
 | `OTHER` | `Other` |
+
+
+### CurrentUnit
+
+Current units
+
+| Name | Value |
+|------|-------|
+| `UA` | `microamps` |
+
+
+### Enum
+
+Create a collection of name/value pairs.
+
+Example enumeration:
+
+>>> class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+
+Access them by:
+
+- attribute access:
+
+  >>> Color.RED
+  <Color.RED: 1>
+
+- value lookup:
+
+  >>> Color(1)
+  <Color.RED: 1>
+
+- name lookup:
+
+  >>> Color['RED']
+  <Color.RED: 1>
+
+Enumerations can be iterated over, and know how many members they have:
+
+>>> len(Color)
+3
+
+>>> list(Color)
+[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
+
+Methods can be added to enumerations, and members can have their own
+attributes -- see the documentation for details.
+
+| Name | Value |
+|------|-------|
+
 
 
 ### GenericSubjectProcedure
@@ -273,6 +343,19 @@ Injection profile
 | `PULSED` | `Pulsed` |
 
 
+### MassUnit
+
+Enumeration of Mass Measurements
+
+| Name | Value |
+|------|-------|
+| `KG` | `kilogram` |
+| `G` | `gram` |
+| `MG` | `milligram` |
+| `UG` | `microgram` |
+| `NG` | `nanogram` |
+
+
 ### MyomatrixInsertion
 
 Description of a Myomatrix array insertion for EMG
@@ -298,6 +381,31 @@ Description of a non-viral injection material
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
+
+
+### Origin
+
+Origin positions for coordinate systems
+
+| Name | Value |
+|------|-------|
+| `ORIGIN` | `Origin` |
+| `BREGMA` | `Bregma` |
+| `LAMBDA` | `Lambda` |
+| `C1` | `C1` |
+| `C2` | `C2` |
+| `C3` | `C3` |
+| `C4` | `C4` |
+| `C5` | `C5` |
+| `C6` | `C6` |
+| `C7` | `C7` |
+| `TIP` | `Tip` |
+| `FRONT_CENTER` | `Front_center` |
+| `ARENA_CENTER` | `Arena_center` |
+| `ARENA_FRONT_LEFT` | `Arena_front_left` |
+| `ARENA_FRONT_RIGHT` | `Arena_front_right` |
+| `ARENA_BACK_LEFT` | `Arena_back_left` |
+| `ARENA_BACK_RIGHT` | `Arena_back_right` |
 
 
 ### Perfusion
@@ -409,6 +517,21 @@ Orientation of sectioning
 | `TRANSVERSE` | `Transverse` |
 
 
+### SizeUnit
+
+Enumeration of Length Measurements
+
+| Name | Value |
+|------|-------|
+| `M` | `meter` |
+| `CM` | `centimeter` |
+| `MM` | `millimeter` |
+| `UM` | `micrometer` |
+| `NM` | `nanometer` |
+| `IN` | `inch` |
+| `PX` | `pixel` |
+
+
 ### SpecimenProcedure
 
 Description of surgical or other procedure performed on a specimen
@@ -424,6 +547,33 @@ Description of surgical or other procedure performed on a specimen
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
 | `procedure_details` | List[[HCRSeries](#hcrseries) or [Antibody](components/reagent.md#antibody) or [PlanarSectioning](#planarsectioning) or [Reagent](components/reagent.md#reagent) or [OligoProbeSet](components/reagent.md#oligoprobeset)] |  |
 | `notes` | `Optional[str]` |  |
+
+
+### SpecimenProcedureType
+
+Specimen procedures
+
+| Name | Value |
+|------|-------|
+| `BARSEQ` | `BARSeq` |
+| `CLEARING` | `Clearing` |
+| `DELIPIDATION` | `Delipidation` |
+| `EMBEDDING` | `Embedding` |
+| `EXPANSION` | `Expansion` |
+| `FIXATION` | `Fixation` |
+| `FIXATION_AND_PERMEABILIZATION` | `Fixation and permeabilization` |
+| `GELATION` | `Gelation` |
+| `HYBRIDICATION_AND_AMPLIFICATION` | `Hybridication and amplification` |
+| `HYBRIDIZATION_CHAIN_REACTION` | `Hybridization Chain Reaction` |
+| `IMMUNOLABELING` | `Immunolabeling` |
+| `MOUNTING` | `Mounting` |
+| `OTHER` | `Other` |
+| `REFRACTIVE_INDEX_MATCHING` | `Refractive index matching` |
+| `SECTIONING` | `Sectioning` |
+| `SOAK` | `Soak` |
+| `STORAGE` | `Storage` |
+| `STRIPPING` | `Stripping` |
+| `TAMOXIFEN_INDUCTION` | `Tamoxifen induction` |
 
 
 ### Surgery
@@ -461,6 +611,20 @@ TARS data for a viral prep
 | `prep_protocol` | `Optional[str]` |  |
 
 
+### TimeUnit
+
+Enumeration of Time Measurements
+
+| Name | Value |
+|------|-------|
+| `HR` | `hour` |
+| `M` | `minute` |
+| `S` | `second` |
+| `MS` | `millisecond` |
+| `US` | `microsecond` |
+| `NS` | `nanosecond` |
+
+
 ### TrainingProtocol
 
 Description of an animal training protocol
@@ -472,6 +636,16 @@ Description of an animal training protocol
 | `start_date` | `datetime.date` |  |
 | `end_date` | `Optional[datetime.date]` |  |
 | `notes` | `Optional[str]` |  |
+
+
+### UnitlessUnit
+
+Unitless options
+
+| Name | Value |
+|------|-------|
+| `PERCENT` | `percent` |
+| `FC` | `fraction of cycle` |
 
 
 ### ViralMaterial
@@ -496,6 +670,18 @@ Type of virus preparation
 |------|-------|
 | `CRUDE` | `Crude` |
 | `PURIFIED` | `Purified` |
+
+
+### VolumeUnit
+
+Enumeration of Volume Measurements
+
+| Name | Value |
+|------|-------|
+| `L` | `liter` |
+| `ML` | `milliliter` |
+| `UL` | `microliter` |
+| `NL` | `nanoliter` |
 
 
 ### WaterRestriction
