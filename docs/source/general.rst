@@ -6,7 +6,7 @@ Metadata in general
 
 Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and 
 interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
-it moves through processing and analysis workflows, and the quality of the data.
+it moves through processing and analysis workflows, and the quality of the data. To learn more about why we are developing our own schema, see the :doc:`related_standards` page.
 
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
@@ -86,8 +86,3 @@ they are used to generate.
 When new versions of schemas are released, data collectors can decide if they want to update the metadata
 from their existing data assets to the new schema. Metadata upgrading capabilities can be found in 
 `aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_.
-
-Related metadata standards
---------------------------
-
-Community standards like NWB, OME, and BIDS are essential. ``aind-data-schema`` complements these standards, adding new concepts and detail as needed to support AIND's discovery science. 

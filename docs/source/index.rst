@@ -83,4 +83,5 @@ Components and Registries
 
    general
    data_organization
+   related_standards
    contributing
