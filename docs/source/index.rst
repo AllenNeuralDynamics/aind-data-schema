@@ -77,7 +77,7 @@ Components and Registries
 
 
 .. toctree::
-   :caption: Data and Metadata
+   :caption: Philosophy
    :hidden:
    :maxdepth: 1
 
