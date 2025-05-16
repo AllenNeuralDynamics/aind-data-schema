@@ -238,7 +238,7 @@ Description of a Digital Micromirror Device (DMD)
 | `dmd_curtain` | `List[decimal.Decimal]` |  |
 | `dmd_curtain_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `line_shear` | `List[int]` |  |
-| `line_shear_units` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
+| `line_shear_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
