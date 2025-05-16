@@ -11,18 +11,42 @@ If you have a broader suggestion or a question about how things work, start a ne
 NOTE: If your request requires upgrading pydantic, create a separate ticket and a dedicated engineer will handle the upgrade.
 
 ## Installation and Development
+
 To develop the software, *clone* the repository and create a new branch for your changes.
 Please do not fork this repository unless you are an external developer.
+
 ```bash
 git clone git@github.com:AllenNeuralDynamics/aind-metadata-mapper.git
 git checkout -b my-new-feature-branch
-``` 
+```
+
 Then run the following command in the checked out directory. 
+
 ```bash
 pip install -e .[dev]
 ```
 
+### Documentation
+
+**Note**: The core files (`docs/source/acquisition.md`, etc) are auto-generated from the base files in the folder `docs/base/core` with the models appended. You must modify the **base** file or your changes will be overwritten when you run the generators.
+
+To generate the source files for the documentation and model class links, run:
+
+```python
+python src/aind_data_schema/utils/model_generator.py
+python src/aind_data_scehma/utils/doc_generator.py
+```
+
+Then to create the documentation html files, run:
+
+```
+sphinx-build -b html docs/source/ docs/build/html
+```
+
+More info on sphinx installation can be found here: https://www.sphinx-doc.org/en/master/usage/installation.html
+
 ### Testing
+
 Testing is required to open a PR in this repository to ensure robustness and reliability of our codebase.
 - **1:1 Correspondence:** Structure unit tests in a manner that mirrors the module structure. 
   - For every package in the src directory, there should be a corresponding test package.
@@ -100,10 +124,12 @@ fov_height: type = Field(...)
 fov_unit: XUnit = Field(...)
 ```
 
-## Documentation and Style Guide
-Documentation is required for contributing to this project. We have settled on using Numpy's conventions as a default: [Numpy docstring standards](https://numpydoc.readthedocs.io/en/latest/format.html)
+## Docstrings
+
+Docstrings are required for contributing to this project. We have settled on using Numpy's conventions as a default: [Numpy docstring standards](https://numpydoc.readthedocs.io/en/latest/format.html)
 
 ## Pull Requests
+
 For internal members, please create a branch. For external members, please fork the repo and open a pull request from the fork. We'll primarily use [Angular](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit) style for commit messages. Roughly, they should follow the pattern:
 ```
 <type>(<scope>): <short summary>
