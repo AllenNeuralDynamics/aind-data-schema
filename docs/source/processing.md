@@ -28,8 +28,8 @@ Description of a single processing step
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
 | `start_date_time` | `datetime (timezone-aware)` |  |
 | `end_date_time` | `datetime (timezone-aware)` |  |
-| `output_path` | `Optional[aind_data_schema.components.wrappers.AssetPath]` | Path to processing outputs, if stored. |
-| `output_parameters` | `aind_data_schema.base.GenericModel` | Output parameters |
+| `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
+| `output_parameters` | `dict` | Output parameters |
 | `notes` | `Optional[str]` |  |
 | `resources` | Optional[[ResourceUsage](#resourceusage)] |  |
 

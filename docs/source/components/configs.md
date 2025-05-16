@@ -116,7 +116,7 @@ Description of an N-D image acquired with SPIM
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `file_name` | `aind_data_schema.components.wrappers.AssetPath` |  |
+| `file_name` | `AssetPath` |  |
 | `imaging_angle` | `int` | Angle of the detector relative to the image plane relative to perpendicular |
 | `imaging_angle_unit` | [AngleUnit](../aind_data_schema_models/units.md#angleunit) |  |
 | `image_start_time` | `Optional[datetime (timezone-aware)]` |  |
@@ -249,7 +249,7 @@ Configuration of a 3D scan
 | `subject_position` | [SubjectPosition](#subjectposition) |  |
 | `resolution` | Optional[[Scale](coordinates.md#scale)] |  |
 | `resolution_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] |  |
-| `additional_scan_parameters` | `aind_data_schema.base.GenericModel` |  |
+| `additional_scan_parameters` | `dict` |  |
 | `notes` | `Optional[str]` |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
@@ -442,7 +442,7 @@ Configuration of an imagine plane on a Slap microscope
 | `slap_acquisition_type` | [SlapAcquisitionType](#slapacquisitiontype) |  |
 | `target_neuron` | `Optional[str]` |  |
 | `target_branch` | `Optional[str]` |  |
-| `path_to_array_of_frame_rates` | `aind_data_schema.components.wrappers.AssetPath` | Relative path from metadata json to file |
+| `path_to_array_of_frame_rates` | `AssetPath` | Relative path from metadata json to file |
 | `depth` | `float` |  |
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |

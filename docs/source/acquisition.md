@@ -99,7 +99,7 @@ Summary of a StimulusEpoch
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `output_parameters` | `aind_data_schema.base.GenericModel` |  |
+| `output_parameters` | `dict` |  |
 | `reward_consumed_during_epoch` | `Optional[decimal.Decimal]` |  |
 | `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
 | `trials_total` | `Optional[int]` |  |

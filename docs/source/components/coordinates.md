@@ -66,7 +66,7 @@ Definition of a nonlinear transform
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `path` | `aind_data_schema.components.wrappers.AssetPath` | Relative path from metadata json to file |
+| `path` | `AssetPath` | Relative path from metadata json to file |
 
 
 ### Rotation

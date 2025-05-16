@@ -41,7 +41,7 @@ Description of a photostimulation group
 | `spiral_duration_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) |  |
 | `inter_spiral_interval` | `decimal.Decimal` |  |
 | `inter_spiral_interval_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) |  |
-| `other_parameters` | `aind_data_schema.base.GenericModel` |  |
+| `other_parameters` | `dict` |  |
 | `notes` | `Optional[str]` |  |
 
 

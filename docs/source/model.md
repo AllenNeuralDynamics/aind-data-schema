@@ -13,7 +13,7 @@ Description of an analysis model
 | `example_run_code` | [Code](components/identifiers.md#code) | Code to run the model, possibly including example parameters/data |
 | `architecture` | [ModelArchitecture](aind_data_schema_models/system_architecture.md#modelarchitecture) | Model architecture / type of model |
 | `software_framework` | Optional[[Software](components/identifiers.md#software)] |  |
-| `architecture_parameters` | `aind_data_schema.base.GenericModel` | Parameters of model architecture, such as input signature or number of layers. |
+| `architecture_parameters` | `dict` | Parameters of model architecture, such as input signature or number of layers. |
 | `intended_use` | `str` | Semantic description of intended use |
 | `limitations` | `Optional[str]` |  |
 | `training` | List[[ModelTraining](#modeltraining) or [ModelPretraining](#modelpretraining)] |  |
@@ -36,8 +36,8 @@ Description of model evaluation
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
 | `start_date_time` | `datetime (timezone-aware)` |  |
 | `end_date_time` | `datetime (timezone-aware)` |  |
-| `output_path` | `Optional[aind_data_schema.components.wrappers.AssetPath]` | Path to processing outputs, if stored. |
-| `output_parameters` | `aind_data_schema.base.GenericModel` | Output parameters |
+| `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
+| `output_parameters` | `dict` | Output parameters |
 | `notes` | `Optional[str]` |  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
 
@@ -68,8 +68,8 @@ Description of model training
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
 | `start_date_time` | `datetime (timezone-aware)` |  |
 | `end_date_time` | `datetime (timezone-aware)` |  |
-| `output_path` | `Optional[aind_data_schema.components.wrappers.AssetPath]` | Path to processing outputs, if stored. |
-| `output_parameters` | `aind_data_schema.base.GenericModel` | Output parameters |
+| `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
+| `output_parameters` | `dict` | Output parameters |
 | `notes` | `Optional[str]` |  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
 

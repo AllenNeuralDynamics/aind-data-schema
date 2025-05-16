@@ -16,7 +16,7 @@ Code or script identifier
 | `language` | `Optional[str]` | Programming language used |
 | `language_version` | `Optional[str]` |  |
 | `input_data` | Optional[List[[DataAsset](#dataasset) or [CombinedData](#combineddata)]] | Input data used in the code or script |
-| `parameters` | `Optional[aind_data_schema.base.GenericModel]` | Parameters used in the code or script |
+| `parameters` | `Optional[dict]` | Parameters used in the code or script |
 | `core_dependency` | Optional[[Software](#software)] | For code with a core software package dependency, e.g. Bonsai |
 
 

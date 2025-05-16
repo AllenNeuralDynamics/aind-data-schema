@@ -72,7 +72,6 @@ def check_for_union(value: str) -> str:
 
     Input: "List[float | str]"
     Output: "List[float or str]"
-
     """
     # Check direct pipe syntax first (handles List[float | str] case)
     container_match = re.match(r"(List|Dict|Optional|Set|Tuple|Sequence)\[(.*)\]", value)
@@ -148,6 +147,7 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     str_rep = str(tp)
     result = check_for_union(str_rep)
 
+    # Check for special cases
     result = check_for_replacement(result)
 
     return result
@@ -166,10 +166,10 @@ def get_type_string(tp: Type) -> str:
         try:
             # Wrap class names in {} for DataModel subclasses
             if hasattr(tp, "__name__") and issubclass(tp, DataModel):
-                return f"{{{tp.__name__}}}"
+                return check_for_replacement(f"{{{tp.__name__}}}")
             # Also wrap Enum types in {} for proper linking
             if hasattr(tp, "__name__") and hasattr(tp, "__members__") and issubclass(tp, Enum):
-                return f"{{{tp.__name__}}}"
+                return check_for_replacement(f"{{{tp.__name__}}}")
         except Exception as e:
             print(f"Error checking if {tp} is a DataModel or Enum subclass: {e}")
 
@@ -178,7 +178,7 @@ def get_type_string(tp: Type) -> str:
             # Extract the type name between single quotes
             match = re.search(r"'([^']+)'", str_repr)
             if match:
-                return match.group(1)
+                return check_for_replacement(match.group(1))
 
     return _get_type_string_helper(tp, origin, args)
 

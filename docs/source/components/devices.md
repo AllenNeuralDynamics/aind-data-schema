@@ -13,7 +13,7 @@ Description of additional devices
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -29,7 +29,7 @@ Description of an air puff device
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -46,7 +46,7 @@ Description of a rectangular arena
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -86,7 +86,7 @@ Camera Detector
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -117,7 +117,7 @@ Description of a computer
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -150,7 +150,7 @@ Data acquisition device containing multiple I/O channels
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -190,7 +190,7 @@ Description of a generic detector
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -204,7 +204,7 @@ Generic device
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -243,7 +243,7 @@ Description of a Digital Micromirror Device (DMD)
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -264,7 +264,7 @@ Description of a running disc (i.e. MindScope Disc)
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -285,7 +285,7 @@ Description of an enclosure
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -312,7 +312,7 @@ Probe used in an ephys experiment
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -340,7 +340,7 @@ Description of a patch cord
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -361,7 +361,7 @@ Description of a fiber optic probe
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -380,7 +380,7 @@ Filter used in a light path
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -402,7 +402,7 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -421,7 +421,7 @@ Description of a Lamp lightsource
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -441,7 +441,7 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -468,7 +468,7 @@ Lens
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -487,7 +487,7 @@ Description of a lick spout
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -528,7 +528,7 @@ Description of a Light Emitting Diode (LED) device
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -542,7 +542,7 @@ Manipulator used on a dome module
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -556,7 +556,7 @@ Description of a microscope
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -578,7 +578,7 @@ Description of visual display for visual stimuli
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
@@ -598,7 +598,7 @@ Description of motorized stage
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -614,7 +614,7 @@ Description of a Myomatrix array
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -658,7 +658,7 @@ PXI-based Neuropixels DAQ
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -676,7 +676,7 @@ Description of an objective device
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -698,7 +698,7 @@ Description of an olfactometer for odor stimuli
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -739,7 +739,7 @@ Multichannel electrophysiology DAQ
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -759,7 +759,7 @@ Description of a Pockels Cell
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -776,7 +776,7 @@ Description of a Polygonal scanner
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -802,7 +802,7 @@ Description of a MRI Scanner
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -821,7 +821,7 @@ Description of a scanning motorized stages
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -835,7 +835,7 @@ Description of a speaker for auditory stimuli
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
@@ -856,7 +856,7 @@ Description of treadmill platform
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -872,7 +872,7 @@ Description of a tube platform
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -893,7 +893,7 @@ Description of a running wheel
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
+| `additional_settings` | `Optional[dict]` |  |
 | `notes` | `Optional[str]` |  |
 
 
