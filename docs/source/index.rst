@@ -24,6 +24,7 @@ I want to...
 ------------
 
 - :doc:`Create metadata for my data assets <example_workflow/example_workflow>`. 
+- :doc:`Create metadata using the AIND metadata-mapper <todo>`. 
 - :doc:`Learn about the philosophy behind aind-data-schema<general>`.
 - :doc:`Request additions or changes to the metadata schema<contributing>`.
 
