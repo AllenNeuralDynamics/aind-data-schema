@@ -258,7 +258,7 @@ class ImageSPIM(Image):
 class PlanarImage(Image):
     """Description of an N-D image acquired in a specific imaging plane"""
 
-    planes: List[Annotated[Union[Plane, CoupledPlane, SlapPlane], Field(discriminator="object_type")]] = Field(
+    planes: DiscriminatedList[Plane | CoupledPlane | SlapPlane] = Field(
         ..., title="Imaging planes"
     )
 
@@ -305,8 +305,7 @@ class StackStrategy(SamplingStrategy):
 class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
-    channels: List[Annotated[Union[Channel, SlapChannel], Field(discriminator="object_type")]] = Field(
-        ..., title="Channels"
+    channels: DiscriminatedList[Channel | SlapChannel] = Field(
     )
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
@@ -316,7 +315,7 @@ class ImagingConfig(DeviceConfig):
             "Acquisition.coordinate_system"
         ),
     )  # note: exact field name is used by a validator
-    images: List[Annotated[Union[PlanarImage, PlanarImageStack, ImageSPIM], Field(discriminator="object_type")]] = (
+    images: DiscriminatedList[PlanarImage | PlanarImageStack | ImageSPIM] = (
         Field(..., title="Images")
     )
     sampling_strategy: Optional[SamplingStrategy] = Field(

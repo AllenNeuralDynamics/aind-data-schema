@@ -71,6 +71,9 @@ def check_for_union(value: str) -> str:
 
     Input: "List[float | str]"
     Output: "List[float or str]"
+    
+    Input: "List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Channel, aind_data_schema.components.configs.SlapChannel], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]"
+    
     """
     # Check direct pipe syntax first (handles List[float | str] case)
     container_match = re.match(r"(List|Dict|Optional|Set|Tuple|Sequence)\[(.*)\]", value)
@@ -125,10 +128,7 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     if origin is list or origin is List:
         return f"List[{get_type_string(args[0])}]"
     if origin is dict or origin is Dict:
-        return (
-            f"Dict[{get_type_string(args[0])},"
-            f" {get_type_string(args[1])}]"
-        )
+        return f"Dict[{get_type_string(args[0])}," f" {get_type_string(args[1])}]"
     union_type = getattr(__import__("typing"), "Union", None)
     if origin is union_type and len(args) == 2 and type(None) in args:
         non_none_type = next(arg for arg in args if arg is not type(None))
@@ -219,7 +219,7 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
     return header + "\n".join(rows) + "\n"
 
 
-def process_module(module_name, module_path, src_folder, doc_folder, current_script_path, model_link_map):
+def process_module(module_name, module_path, src_folder, doc_folder, model_link_map):
     """Process a single module to generate markdown documentation."""
     try:
         spec = importlib.util.spec_from_file_location(module_name, module_path)
@@ -227,20 +227,26 @@ def process_module(module_name, module_path, src_folder, doc_folder, current_scr
         spec.loader.exec_module(module)
 
         rel_dir_path = os.path.splitext(os.path.relpath(module_path, src_folder))[0]
+        
+        output_path = os.path.join(doc_folder, rel_dir_path)
+
+        # Clear the output directory:
+        if os.path.exists(output_path):
+            for root, dirs, files in os.walk(output_path):
+                for file in files:
+                    os.remove(os.path.join(root, file))
 
         for attr_name in dir(module):
             attr = getattr(module, attr_name)
 
-            # Check if the attribute is a DataModel subclass AND is defined in this module
-            if (
-                isinstance(attr, type)
-                and issubclass(attr, DataModel)
-                and attr is not DataModel
-                and attr.__module__ == module_name
-            ):
+            # Check if the attribute is defined in this module
+            if not isinstance(attr, type) or not attr.__module__ == module_name:
+                continue
+
+            # Check if the attribute is a DataModel subclass or an Enum
+            if issubclass(attr, DataModel) and attr is not DataModel:
                 process_data_model(attr, rel_dir_path, doc_folder, model_link_map)
-            elif isinstance(attr, type) and issubclass(attr, Enum) and attr.__module__ == module_name:
-                print(f"Processing enum: {attr.__name__}")
+            elif issubclass(attr, Enum) and attr is not Enum:
                 process_enum(attr, rel_dir_path, doc_folder, model_link_map)
     except Exception as e:
         print(f"Error processing {module_path}: {e}")
@@ -304,6 +310,6 @@ if __name__ == "__main__":
 
                 module_name = os.path.splitext(os.path.relpath(module_path, src_folder))[0].replace(os.sep, ".")
                 print(f"Processing module: {module_name}")
-                process_module(module_name, module_path, src_folder, doc_folder, current_script_path, model_link_map)
+                process_module(module_name, module_path, src_folder, doc_folder, model_link_map)
 
     save_model_link_map(doc_folder, model_link_map)

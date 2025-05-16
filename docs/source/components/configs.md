@@ -18,33 +18,6 @@ Air puff device configuration
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
-### AnatomicalRelative
-
-Relative positions in 3D space
-
-| Name | Value |
-|------|-------|
-| `SUPERIOR` | `Superior` |
-| `INFERIOR` | `Inferior` |
-| `ANTERIOR` | `Anterior` |
-| `POSTERIOR` | `Posterior` |
-| `LEFT` | `Left` |
-| `RIGHT` | `Right` |
-| `MEDIAL` | `Medial` |
-| `LATERAL` | `Lateral` |
-| `ORIGIN` | `Origin` |
-
-
-### AngleUnit
-
-Enumeration of Angle Measurements
-
-| Name | Value |
-|------|-------|
-| `RAD` | `radians` |
-| `DEG` | `degrees` |
-
-
 ### Channel
 
 Configuration of a channel
@@ -101,50 +74,6 @@ Parent class for all configurations
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
-### Enum
-
-Create a collection of name/value pairs.
-
-Example enumeration:
-
->>> class Color(Enum):
-...     RED = 1
-...     BLUE = 2
-...     GREEN = 3
-
-Access them by:
-
-- attribute access:
-
-  >>> Color.RED
-  <Color.RED: 1>
-
-- value lookup:
-
-  >>> Color(1)
-  <Color.RED: 1>
-
-- name lookup:
-
-  >>> Color['RED']
-  <Color.RED: 1>
-
-Enumerations can be iterated over, and know how many members they have:
-
->>> len(Color)
-3
-
->>> list(Color)
-[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
-
-Methods can be added to enumerations, and members can have their own
-attributes -- see the documentation for details.
-
-| Name | Value |
-|------|-------|
-
-
-
 ### EphysAssemblyConfig
 
 Group of configurations for an ephys assembly
@@ -167,17 +96,6 @@ Inserted fiber photometry probe recorded in a stream
 | `probes` | List[[ProbeConfig](#probeconfig)] |  |
 | `patch_cords` | List[[PatchCordConfig](#patchcordconfig)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
-
-
-### FrequencyUnit
-
-Enumeration of Frequency Measurements
-
-| Name | Value |
-|------|-------|
-| `KHZ` | `kilohertz` |
-| `HZ` | `hertz` |
-| `mHZ` | `millihertz` |
 
 
 ### Image
@@ -215,9 +133,9 @@ Configuration of an imaging instrument
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `channels` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Channel, aind_data_schema.components.configs.SlapChannel], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
+| `channels` | List[[Channel](#channel) or [SlapChannel](#slapchannel)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system |
-| `images` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.PlanarImage, aind_data_schema.components.configs.PlanarImageStack, aind_data_schema.components.configs.ImageSPIM], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
+| `images` | List[[PlanarImage](#planarimage) or [PlanarImageStack](#planarimagestack) or [ImageSPIM](#imagespim)] |  |
 | `sampling_strategy` | Optional[[SamplingStrategy](#samplingstrategy)] |  |
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
@@ -228,25 +146,8 @@ Configuration of immersion medium
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `medium` | {ImmersionMedium} |  |
+| `medium` | [ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium) |  |
 | `refractive_index` | `float` |  |
-
-
-### ImmersionMedium
-
-Immersion medium name
-
-| Name | Value |
-|------|-------|
-| `AIR` | `air` |
-| `MULTI` | `multi` |
-| `OIL` | `oil` |
-| `PBS` | `PBS` |
-| `WATER` | `water` |
-| `OTHER` | `other` |
-| `EASYINDEX` | `easy index` |
-| `ECI` | `ethyl cinnimate` |
-| `ACB` | `aqueous clearing buffer` |
 
 
 ### InterleavedStrategy
@@ -401,7 +302,7 @@ Description of an N-D image acquired in a specific imaging plane
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `planes` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Plane, aind_data_schema.components.configs.CoupledPlane, aind_data_schema.components.configs.SlapPlane], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
+| `planes` | List[[Plane](#plane) or [CoupledPlane](#coupledplane) or [SlapPlane](#slapplane)] |  |
 | `channel_name` | `str` |  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
@@ -419,7 +320,7 @@ Description of a stack of images acquired in a specific imaging plane
 | `depth_end` | `float` |  |
 | `depth_step` | `float` |  |
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `planes` | `List[typing.Annotated[typing.Union[aind_data_schema.components.configs.Plane, aind_data_schema.components.configs.CoupledPlane, aind_data_schema.components.configs.SlapPlane], FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |  |
+| `planes` | List[[Plane](#plane) or [CoupledPlane](#coupledplane) or [SlapPlane](#slapplane)] |  |
 | `channel_name` | `str` |  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Position, rotation, and scale of the image. Note that depth should be in the planes. |
@@ -449,28 +350,6 @@ Power functions
 | `LINEAR` | `Linear` |
 | `EXPONENTIAL` | `Exponential` |
 | `OTHER` | `Other` |
-
-
-### PowerUnit
-
-Unit for power, set or measured
-
-| Name | Value |
-|------|-------|
-| `UW` | `microwatt` |
-| `MW` | `milliwatt` |
-| `PERCENT` | `percent` |
-
-
-### PressureUnit
-
-Enumeration of Pressure Measurements
-
-| Name | Value |
-|------|-------|
-| `MPA` | `millipascal` |
-| `PA` | `pascal` |
-| `KPA` | `kilopascal` |
 
 
 ### ProbeConfig
@@ -518,21 +397,6 @@ Type of scan
 |------|-------|
 | `SETUP` | `Set Up` |
 | `SCAN_3D` | `3D Scan` |
-
-
-### SizeUnit
-
-Enumeration of Length Measurements
-
-| Name | Value |
-|------|-------|
-| `M` | `meter` |
-| `CM` | `centimeter` |
-| `MM` | `millimeter` |
-| `UM` | `micrometer` |
-| `NM` | `nanometer` |
-| `IN` | `inch` |
-| `PX` | `pixel` |
 
 
 ### SlapAcquisitionType
@@ -586,15 +450,6 @@ Configuration of an imagine plane on a Slap microscope
 | `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfstructure) |  |
 
 
-### SoundIntensityUnit
-
-Sound intensity units
-
-| Name | Value |
-|------|-------|
-| `DB` | `decibels` |
-
-
 ### SpeakerConfig
 
 Configuration of auditory speaker configuration
@@ -628,20 +483,6 @@ Subject position
 | `SUPINE` | `Supine` |
 
 
-### TimeUnit
-
-Enumeration of Time Measurements
-
-| Name | Value |
-|------|-------|
-| `HR` | `hour` |
-| `M` | `minute` |
-| `S` | `second` |
-| `MS` | `millisecond` |
-| `US` | `microsecond` |
-| `NS` | `nanosecond` |
-
-
 ### TriggerType
 
 Types of detector triggers
@@ -662,17 +503,5 @@ Valence of a stimulus
 | `NEGATIVE` | `Negative` |
 | `NEUTRAL` | `Neutral` |
 | `UNKNOWN` | `Unknown` |
-
-
-### VolumeUnit
-
-Enumeration of Volume Measurements
-
-| Name | Value |
-|------|-------|
-| `L` | `liter` |
-| `ML` | `milliliter` |
-| `UL` | `microliter` |
-| `NL` | `nanoliter` |
 
 

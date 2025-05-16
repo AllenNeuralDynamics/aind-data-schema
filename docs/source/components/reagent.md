@@ -20,63 +20,6 @@ Description of an antibody used in immunolableing
 | `expiration_date` | `Optional[datetime.date]` |  |
 
 
-### ConcentrationUnit
-
-Concentraion units
-
-| Name | Value |
-|------|-------|
-| `M` | `molar` |
-| `UM` | `micromolar` |
-| `NM` | `nanomolar` |
-| `MASS_PERCENT` | `% m/m` |
-| `VOLUME_PERCENT` | `% v/v` |
-
-
-### Enum
-
-Create a collection of name/value pairs.
-
-Example enumeration:
-
->>> class Color(Enum):
-...     RED = 1
-...     BLUE = 2
-...     GREEN = 3
-
-Access them by:
-
-- attribute access:
-
-  >>> Color.RED
-  <Color.RED: 1>
-
-- value lookup:
-
-  >>> Color(1)
-  <Color.RED: 1>
-
-- name lookup:
-
-  >>> Color['RED']
-  <Color.RED: 1>
-
-Enumerations can be iterated over, and know how many members they have:
-
->>> len(Color)
-3
-
->>> list(Color)
-[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
-
-Methods can be added to enumerations, and members can have their own
-attributes -- see the documentation for details.
-
-| Name | Value |
-|------|-------|
-
-
-
 ### Fluorophore
 
 Fluorophores used in HCR and Immunolabeling
@@ -151,19 +94,6 @@ Type of antibodies
 | `CONJUGATE` | `Conjugate` |
 
 
-### MassUnit
-
-Enumeration of Mass Measurements
-
-| Name | Value |
-|------|-------|
-| `KG` | `kilogram` |
-| `G` | `gram` |
-| `MG` | `milligram` |
-| `UG` | `microgram` |
-| `NG` | `nanogram` |
-
-
 ### OligoProbe
 
 Description of an oligonucleotide probe
@@ -216,21 +146,6 @@ Description of reagent used in procedure
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
 | `lot_number` | `str` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
-
-
-### SizeUnit
-
-Enumeration of Length Measurements
-
-| Name | Value |
-|------|-------|
-| `M` | `meter` |
-| `CM` | `centimeter` |
-| `MM` | `millimeter` |
-| `UM` | `micrometer` |
-| `NM` | `nanometer` |
-| `IN` | `inch` |
-| `PX` | `pixel` |
 
 
 ### Stain

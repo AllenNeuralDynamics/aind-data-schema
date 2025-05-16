@@ -7,7 +7,7 @@ from typing import Annotated, Any, List, Literal, Optional, Union
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.utils.merge import merge_notes
 
@@ -97,7 +97,7 @@ class QCEvaluation(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     name: str = Field(..., title="Evaluation name")
     description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: List[Annotated[Union[QCMetric, CurationMetric], Field(discriminator="object_type")]] = Field(
+    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(
         ..., title="QC and curation metrics"
     )
     tags: Optional[List[str]] = Field(

@@ -44,6 +44,28 @@ from aind_data_schema_models.units import (
     UnitlessUnit,
 )
 
+# Devices models
+from aind_data_schema_models.devices import (
+    ImagingDeviceType,
+    StageAxisDirection,
+    DeviceDriver,
+    Coupling,
+    DataInterface,
+    FilterType,
+    CameraChroma,
+    DaqChannelType,
+    ImmersionMedium,
+    ObjectiveType,
+    CameraTarget,
+    ProbeModel,
+    DetectorType,
+    Cooling,
+    BinMode,
+    FerruleMaterial,
+    LickSensorType,
+    MyomatrixArrayType,
+)
+
 # Other registry models
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.pid_names import PIDName
@@ -93,6 +115,25 @@ registries = [
     MemoryUnit,
     MagneticFieldUnit,
     UnitlessUnit,
+    # Devices models
+    ImagingDeviceType,
+    StageAxisDirection,
+    DeviceDriver,
+    Coupling,
+    DataInterface,
+    FilterType,
+    CameraChroma,
+    DaqChannelType,
+    ImmersionMedium,
+    ObjectiveType,
+    CameraTarget,
+    ProbeModel,
+    DetectorType,
+    Cooling,
+    BinMode,
+    FerruleMaterial,
+    LickSensorType,
+    MyomatrixArrayType,
     # Other registry models
     Modality,
     PIDName,

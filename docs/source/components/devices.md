@@ -8,7 +8,7 @@ Description of additional devices
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `imaging_device_type` | {ImagingDeviceType} |  |
+| `imaging_device_type` | [ImagingDeviceType](../aind_data_schema_models/#imagingdevicetype) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -33,23 +33,6 @@ Description of an air puff device
 | `notes` | `Optional[str]` |  |
 
 
-### AnatomicalRelative
-
-Relative positions in 3D space
-
-| Name | Value |
-|------|-------|
-| `SUPERIOR` | `Superior` |
-| `INFERIOR` | `Inferior` |
-| `ANTERIOR` | `Anterior` |
-| `POSTERIOR` | `Posterior` |
-| `LEFT` | `Left` |
-| `RIGHT` | `Right` |
-| `MEDIAL` | `Medial` |
-| `LATERAL` | `Lateral` |
-| `ORIGIN` | `Origin` |
-
-
 ### Arena
 
 Description of a rectangular arena
@@ -67,53 +50,27 @@ Description of a rectangular arena
 | `notes` | `Optional[str]` |  |
 
 
-### AxisName
-
-Axis name
-
-| Name | Value |
-|------|-------|
-| `X` | `X` |
-| `Y` | `Y` |
-| `Z` | `Z` |
-| `AP` | `AP` |
-| `ML` | `ML` |
-| `SI` | `SI` |
-| `DEPTH` | `Depth` |
-
-
-### BinMode
-
-Detector binning mode
-
-| Name | Value |
-|------|-------|
-| `ADDITIVE` | `Additive` |
-| `AVERAGE` | `Average` |
-| `NONE` | `None` |
-
-
 ### Camera
 
 Camera Detector
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `detector_type` | {DetectorType} |  |
+| `detector_type` | [DetectorType](../aind_data_schema_models/#detectortype) |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `data_interface` | {DataInterface} |  |
-| `cooling` | {Cooling} |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/#datainterface) |  |
+| `cooling` | [Cooling](../aind_data_schema_models/#cooling) |  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate being used |
 | `frame_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] |  |
-| `immersion` | Optional[{ImmersionMedium}] |  |
-| `chroma` | Optional[{CameraChroma}] |  |
+| `immersion` | Optional[[ImmersionMedium](../aind_data_schema_models/#immersionmedium)] |  |
+| `chroma` | Optional[[CameraChroma](../aind_data_schema_models/#camerachroma)] |  |
 | `sensor_width` | `Optional[int]` |  |
 | `sensor_height` | `Optional[int]` |  |
 | `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `sensor_format` | `Optional[str]` |  |
 | `sensor_format_unit` | `Optional[str]` |  |
 | `bit_depth` | `Optional[int]` |  |
-| `bin_mode` | {BinMode} |  |
+| `bin_mode` | [BinMode](../aind_data_schema_models/#binmode) |  |
 | `bin_width` | `Optional[int]` |  |
 | `bin_height` | `Optional[int]` |  |
 | `bin_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
@@ -124,7 +81,7 @@ Camera Detector
 | `crop_height` | `Optional[int]` |  |
 | `crop_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `recording_software` | Optional[[Software](identifiers.md#software)] |  |
-| `driver` | Optional[{DeviceDriver}] |  |
+| `driver` | Optional[[DeviceDriver](../aind_data_schema_models/#devicedriver)] |  |
 | `driver_version` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -140,37 +97,13 @@ Named assembly of a camera and lens (and optionally a filter)
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `target` | {CameraTarget} |  |
+| `target` | [CameraTarget](../aind_data_schema_models/#cameratarget) |  |
 | `camera` | [Camera](#camera) |  |
 | `lens` | [Lens](#lens) |  |
 | `filter` | Optional[[Filter](#filter)] |  |
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
-
-
-### CameraChroma
-
-Color vs. black & white
-
-| Name | Value |
-|------|-------|
-| `COLOR` | `Color` |
-| `BW` | `Monochrome` |
-
-
-### CameraTarget
-
-Target of camera
-
-| Name | Value |
-|------|-------|
-| `BODY` | `Body` |
-| `BRAIN` | `Brain` |
-| `EYE` | `Eye` |
-| `FACE` | `Face` |
-| `TONGUE` | `Tongue` |
-| `OTHER` | `Other` |
 
 
 ### Computer
@@ -188,29 +121,6 @@ Description of a computer
 | `notes` | `Optional[str]` |  |
 
 
-### Cooling
-
-Cooling medium name
-
-| Name | Value |
-|------|-------|
-| `AIR` | `Air` |
-| `WATER` | `Water` |
-| `NONE` | `None` |
-
-
-### Coupling
-
-Laser coupling type
-
-| Name | Value |
-|------|-------|
-| `FREE_SPACE` | `Free-space` |
-| `MMF` | `Multi-mode fiber` |
-| `SMF` | `Single-mode fiber` |
-| `OTHER` | `Other` |
-
-
 ### DAQChannel
 
 Named input or output channel on a DAQ device
@@ -218,7 +128,7 @@ Named input or output channel on a DAQ device
 | Field | Type | Description |
 |-------|------|-------------|
 | `channel_name` | `str` |  |
-| `channel_type` | {DaqChannelType} |  |
+| `channel_type` | [DaqChannelType](../aind_data_schema_models/#daqchanneltype) |  |
 | `port` | `Optional[int]` |  |
 | `channel_index` | `Optional[int]` |  |
 | `sample_rate` | `Optional[decimal.Decimal]` |  |
@@ -232,7 +142,7 @@ Data acquisition device containing multiple I/O channels
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `data_interface` | {DataInterface} |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/#datainterface) |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
@@ -244,54 +154,27 @@ Data acquisition device containing multiple I/O channels
 | `notes` | `Optional[str]` |  |
 
 
-### DaqChannelType
-
-DAQ Channel type
-
-| Name | Value |
-|------|-------|
-| `AI` | `Analog Input` |
-| `AO` | `Analog Output` |
-| `DI` | `Digital Input` |
-| `DO` | `Digital Output` |
-
-
-### DataInterface
-
-Connection between a device and a PC
-
-| Name | Value |
-|------|-------|
-| `CAMERALINK` | `CameraLink` |
-| `COAX` | `Coax` |
-| `ETH` | `Ethernet` |
-| `PCIE` | `PCIe` |
-| `PXI` | `PXI` |
-| `USB` | `USB` |
-| `OTHER` | `Other` |
-
-
 ### Detector
 
 Description of a generic detector
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `detector_type` | {DetectorType} |  |
+| `detector_type` | [DetectorType](../aind_data_schema_models/#detectortype) |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `data_interface` | {DataInterface} |  |
-| `cooling` | {Cooling} |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/#datainterface) |  |
+| `cooling` | [Cooling](../aind_data_schema_models/#cooling) |  |
 | `frame_rate` | `Optional[decimal.Decimal]` | Frame rate being used |
 | `frame_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] |  |
-| `immersion` | Optional[{ImmersionMedium}] |  |
-| `chroma` | Optional[{CameraChroma}] |  |
+| `immersion` | Optional[[ImmersionMedium](../aind_data_schema_models/#immersionmedium)] |  |
+| `chroma` | Optional[[CameraChroma](../aind_data_schema_models/#camerachroma)] |  |
 | `sensor_width` | `Optional[int]` |  |
 | `sensor_height` | `Optional[int]` |  |
 | `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `sensor_format` | `Optional[str]` |  |
 | `sensor_format_unit` | `Optional[str]` |  |
 | `bit_depth` | `Optional[int]` |  |
-| `bin_mode` | {BinMode} |  |
+| `bin_mode` | [BinMode](../aind_data_schema_models/#binmode) |  |
 | `bin_width` | `Optional[int]` |  |
 | `bin_height` | `Optional[int]` |  |
 | `bin_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
@@ -302,24 +185,13 @@ Description of a generic detector
 | `crop_height` | `Optional[int]` |  |
 | `crop_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `recording_software` | Optional[[Software](identifiers.md#software)] |  |
-| `driver` | Optional[{DeviceDriver}] |  |
+| `driver` | Optional[[DeviceDriver](../aind_data_schema_models/#devicedriver)] |  |
 | `driver_version` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### DetectorType
-
-Detector type name
-
-| Name | Value |
-|------|-------|
-| `CAMERA` | `Camera` |
-| `PMT` | `Photomultiplier Tube` |
-| `OTHER` | `Other` |
 
 
 ### Device
@@ -334,17 +206,6 @@ Generic device
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### DeviceDriver
-
-DeviceDriver name
-
-| Name | Value |
-|------|-------|
-| `OPENGL` | `OpenGL` |
-| `VIMBA` | `Vimba` |
-| `NVIDIA` | `Nvidia Graphics` |
 
 
 ### DevicePosition
@@ -394,7 +255,7 @@ Description of a running disc (i.e. MindScope Disc)
 |-------|------|-------------|
 | `radius` | `decimal.Decimal` |  |
 | `radius_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `output` | Optional[{DaqChannelType}] | analog or digital electronics |
+| `output` | Optional[[DaqChannelType](../aind_data_schema_models/#daqchanneltype)] | analog or digital electronics |
 | `encoder` | `Optional[str]` | Encoder hardware type |
 | `decoder` | `Optional[str]` | Decoder chip type |
 | `encoder_firmware` | Optional[[Software](identifiers.md#software)] | Firmware to read from decoder chip counts |
@@ -428,50 +289,6 @@ Description of an enclosure
 | `notes` | `Optional[str]` |  |
 
 
-### Enum
-
-Create a collection of name/value pairs.
-
-Example enumeration:
-
->>> class Color(Enum):
-...     RED = 1
-...     BLUE = 2
-...     GREEN = 3
-
-Access them by:
-
-- attribute access:
-
-  >>> Color.RED
-  <Color.RED: 1>
-
-- value lookup:
-
-  >>> Color(1)
-  <Color.RED: 1>
-
-- name lookup:
-
-  >>> Color['RED']
-  <Color.RED: 1>
-
-Enumerations can be iterated over, and know how many members they have:
-
->>> len(Color)
-3
-
->>> list(Color)
-[<Color.RED: 1>, <Color.BLUE: 2>, <Color.GREEN: 3>]
-
-Methods can be added to enumerations, and members can have their own
-attributes -- see the documentation for details.
-
-| Name | Value |
-|------|-------|
-
-
-
 ### EphysAssembly
 
 Named assembly for combining a manipulator and ephys probes
@@ -489,7 +306,7 @@ Probe used in an ephys experiment
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `probe_model` | {ProbeModel} |  |
+| `probe_model` | [ProbeModel](../aind_data_schema_models/#probemodel) |  |
 | `headstage` | Optional[[Device](#device)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -497,16 +314,6 @@ Probe used in an ephys experiment
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### FerruleMaterial
-
-Fiber probe ferrule material type name
-
-| Name | Value |
-|------|-------|
-| `CERAMIC` | `Ceramic` |
-| `STAINLESS_STEEL` | `Stainless steel` |
 
 
 ### FiberAssembly
@@ -546,7 +353,7 @@ Description of a fiber optic probe
 | `core_diameter` | `decimal.Decimal` |  |
 | `core_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `numerical_aperture` | `decimal.Decimal` |  |
-| `ferrule_material` | Optional[{FerruleMaterial}] |  |
+| `ferrule_material` | Optional[[FerruleMaterial](../aind_data_schema_models/#ferrulematerial)] |  |
 | `active_length` | `Optional[decimal.Decimal]` | Length of taper |
 | `total_length` | `decimal.Decimal` |  |
 | `length_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
@@ -564,7 +371,7 @@ Filter used in a light path
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `filter_type` | [FilterType](stimulus.md#filtertype) |  |
+| `filter_type` | [FilterType](../aind_data_schema_models/#filtertype) |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `cut_off_wavelength` | `Optional[int]` |  |
 | `cut_on_wavelength` | `Optional[int]` |  |
@@ -577,32 +384,6 @@ Filter used in a light path
 | `notes` | `Optional[str]` |  |
 
 
-### FilterType
-
-Filter type
-
-| Name | Value |
-|------|-------|
-| `BANDPASS` | `Band pass` |
-| `DICHROIC` | `Dichroic` |
-| `LONGPASS` | `Long pass` |
-| `MULTIBAND` | `Multiband` |
-| `ND` | `Neutral density` |
-| `NOTCH` | `Notch` |
-| `SHORTPASS` | `Short pass` |
-
-
-### FrequencyUnit
-
-Enumeration of Frequency Measurements
-
-| Name | Value |
-|------|-------|
-| `KHZ` | `kilohertz` |
-| `HZ` | `hertz` |
-| `mHZ` | `millihertz` |
-
-
 ### HarpDevice
 
 DAQ that uses the Harp protocol for synchronization and data transmission
@@ -613,7 +394,7 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 | `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
-| `data_interface` | {DataInterface} |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/#datainterface) |  |
 | `is_clock_generator` | `bool` |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
@@ -623,43 +404,6 @@ DAQ that uses the Harp protocol for synchronization and data transmission
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### ImagingDeviceType
-
-Imaginge device type name
-
-| Name | Value |
-|------|-------|
-| `BEAM_EXPANDER` | `Beam expander` |
-| `SAMPLE_CHAMBER` | `Sample Chamber` |
-| `DIFFUSER` | `Diffuser` |
-| `GALVO` | `Galvo` |
-| `LASER_COMBINER` | `Laser combiner` |
-| `LASER_COUPLER` | `Laser coupler` |
-| `PRISM` | `Prism` |
-| `OBJECTIVE` | `Objective` |
-| `ROTATION_MOUNT` | `Rotation mount` |
-| `SLIT` | `Slit` |
-| `TUNABLE_LENS` | `Tunable lens` |
-| `OTHER` | `Other` |
-
-
-### ImmersionMedium
-
-Immersion medium name
-
-| Name | Value |
-|------|-------|
-| `AIR` | `air` |
-| `MULTI` | `multi` |
-| `OIL` | `oil` |
-| `PBS` | `PBS` |
-| `WATER` | `water` |
-| `OTHER` | `other` |
-| `EASYINDEX` | `easy index` |
-| `ECI` | `ethyl cinnimate` |
-| `ACB` | `aqueous clearing buffer` |
 
 
 ### Lamp
@@ -691,7 +435,7 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 | `wavelength` | `int` |  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
-| `coupling` | Optional[{Coupling}] |  |
+| `coupling` | Optional[[Coupling](../aind_data_schema_models/#coupling)] |  |
 | `coupling_efficiency` | `Optional[decimal.Decimal]` |  |
 | `coupling_efficiency_unit` | `"percent"` |  |
 | `name` | `str` |  |
@@ -728,17 +472,6 @@ Lens
 | `notes` | `Optional[str]` |  |
 
 
-### LickSensorType
-
-Type of lick sensor
-
-| Name | Value |
-|------|-------|
-| `CAPACITIVE` | `Capacitive` |
-| `CONDUCTIVE` | `Conductive` |
-| `PIEZOELECTIC` | `Piezoelectric` |
-
-
 ### LickSpout
 
 Description of a lick spout
@@ -749,7 +482,7 @@ Description of a lick spout
 | `spout_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `solenoid_valve` | [Device](#device) |  |
 | `lick_sensor` | [Device](#device) |  |
-| `lick_sensor_type` | Optional[{LickSensorType}] |  |
+| `lick_sensor_type` | Optional[[LickSensorType](../aind_data_schema_models/#licksensortype)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
@@ -797,17 +530,6 @@ Description of a Light Emitting Diode (LED) device
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### MagneticFieldUnit
-
-Magnetic field units
-
-| Name | Value |
-|------|-------|
-| `T` | `tesla` |
-| `MT` | `millitesla` |
-| `UT` | `microtesla` |
 
 
 ### Manipulator
@@ -886,7 +608,7 @@ Description of a Myomatrix array
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `array_type` | {MyomatrixArrayType} |  |
+| `array_type` | [MyomatrixArrayType](../aind_data_schema_models/#myomatrixarraytype) |  |
 | `threads` | List[[MyomatrixThread](#myomatrixthread)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -894,16 +616,6 @@ Description of a Myomatrix array
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### MyomatrixArrayType
-
-Type of Myomatrix array
-
-| Name | Value |
-|------|-------|
-| `INJECTED` | `Injected` |
-| `SUTURED` | `Sutured` |
 
 
 ### MyomatrixContact
@@ -938,7 +650,7 @@ PXI-based Neuropixels DAQ
 | `bsc_firmware_version` | `str` |  |
 | `slot` | `int` |  |
 | `ports` | List[[ProbePort](#probeport)] |  |
-| `data_interface` | {DataInterface} |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/#datainterface) |  |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `channels` | List[[DAQChannel](#daqchannel)] |  |
 | `firmware_version` | `Optional[str]` |  |
@@ -958,24 +670,14 @@ Description of an objective device
 |-------|------|-------------|
 | `numerical_aperture` | `decimal.Decimal` |  |
 | `magnification` | `decimal.Decimal` |  |
-| `immersion` | {ImmersionMedium} |  |
-| `objective_type` | Optional[{ObjectiveType}] |  |
+| `immersion` | [ImmersionMedium](../aind_data_schema_models/#immersionmedium) |  |
+| `objective_type` | Optional[[ObjectiveType](../aind_data_schema_models/#objectivetype)] |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### ObjectiveType
-
-Objective type for Slap2
-
-| Name | Value |
-|------|-------|
-| `REMOTE` | `Remote` |
-| `PRIMARY` | `Primary` |
 
 
 ### Olfactometer
@@ -989,7 +691,7 @@ Description of an olfactometer for odor stimuli
 | `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |  |
 | `core_version` | `Optional[str]` |  |
 | `tag_version` | `Optional[str]` |  |
-| `data_interface` | {DataInterface} |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/#datainterface) |  |
 | `is_clock_generator` | `bool` |  |
 | `firmware_version` | `Optional[str]` |  |
 | `hardware_version` | `Optional[str]` |  |
@@ -1078,34 +780,6 @@ Description of a Polygonal scanner
 | `notes` | `Optional[str]` |  |
 
 
-### PowerUnit
-
-Unit for power, set or measured
-
-| Name | Value |
-|------|-------|
-| `UW` | `microwatt` |
-| `MW` | `milliwatt` |
-| `PERCENT` | `percent` |
-
-
-### ProbeModel
-
-Probe model name
-
-| Name | Value |
-|------|-------|
-| `MI_ULED_PROBE` | `Michigan uLED Probe (Version 1)` |
-| `MP_PHOTONIC_V1` | `MPI Photonic Probe (Version 1)` |
-| `NP_OPTO_DEMONSTRATOR` | `Neuropixels Opto (Demonstrator)` |
-| `NP_UHD_FIXED` | `Neuropixels UHD (Fixed)` |
-| `NP_UHD_SWITCHABLE` | `Neuropixels UHD (Switchable)` |
-| `NP1` | `Neuropixels 1.0` |
-| `NP2_SINGLE_SHANK` | `Neuropixels 2.0 (Single Shank)` |
-| `NP2_MULTI_SHANK` | `Neuropixels 2.0 (Multi Shank)` |
-| `NP2_QUAD_BASE` | `Neuropixels 2.0 (Quad Base)` |
-
-
 ### ProbePort
 
 Port for a probe connection
@@ -1138,7 +812,7 @@ Description of a scanning motorized stages
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `stage_axis_direction` | {StageAxisDirection} |  |
+| `stage_axis_direction` | [StageAxisDirection](../aind_data_schema_models/#stageaxisdirection) |  |
 | `stage_axis_name` | [AxisName](../aind_data_schema_models/coordinates.md#axisname) |  |
 | `travel` | `decimal.Decimal` |  |
 | `travel_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
@@ -1149,21 +823,6 @@ Description of a scanning motorized stages
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### SizeUnit
-
-Enumeration of Length Measurements
-
-| Name | Value |
-|------|-------|
-| `M` | `meter` |
-| `CM` | `centimeter` |
-| `MM` | `millimeter` |
-| `UM` | `micrometer` |
-| `NM` | `nanometer` |
-| `IN` | `inch` |
-| `PX` | `pixel` |
 
 
 ### Speaker
@@ -1181,36 +840,6 @@ Description of a speaker for auditory stimuli
 | `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
-
-
-### SpeedUnit
-
-Enumeration of Speed Measurements
-
-| Name | Value |
-|------|-------|
-| `RPM` | `rotations per minute` |
-
-
-### StageAxisDirection
-
-Direction of motion for motorized stage
-
-| Name | Value |
-|------|-------|
-| `DETECTION_AXIS` | `Detection axis` |
-| `ILLUMINATION_AXIS` | `Illumination axis` |
-| `PERPENDICULAR_AXIS` | `Perpendicular axis` |
-
-
-### TemperatureUnit
-
-Temperature units
-
-| Name | Value |
-|------|-------|
-| `C` | `Celsius` |
-| `K` | `Kelvin` |
 
 
 ### Treadmill
@@ -1245,25 +874,6 @@ Description of a tube platform
 | `model` | `Optional[str]` |  |
 | `additional_settings` | `Optional[aind_data_schema.base.GenericModel]` |  |
 | `notes` | `Optional[str]` |  |
-
-
-### UnitlessUnit
-
-Unitless options
-
-| Name | Value |
-|------|-------|
-| `PERCENT` | `percent` |
-| `FC` | `fraction of cycle` |
-
-
-### VoltageUnit
-
-Voltage units
-
-| Name | Value |
-|------|-------|
-| `V` | `Volts` |
 
 
 ### Wheel
