@@ -4,39 +4,42 @@ The `instrument.json` collects the components, mostly hardware devices, used to 
 
 Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a maintenance event is performed that requires an update. Changes to the instrument should be timestamped using the `Instrument.date_of_modification` field.
 
-## FAQs
+## Uniqueness
+
+It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `instrument_id` and `date_of_modification` uniquely specify the state of an instrument.
 
 ### instrument_id
 
+[TODO: change]
 Best practice for tracking instruments is to store (1) the location, (2) the common name, and (3) the last modification date in the `Instrument.instrument_id` field using the pattern `<location>_<name>_<date>`. This makes it very easy to query the metadata to find all acquisitions performed with identical hardware conditions.
 
-### Device.name
+## Devices
 
-The `Device.name` field is a "foreign key" in the metadata schema that allows us to link together the device definitions in the instrument with their configurations in the acquisition, as well as to link devices with connections. You should use simple descriptive names like "Red laser" or "Laser 1". Do 
+Each `Device` has a `name` field which is used as a "foreign key" in the metadata schema. The `name` allows us to link together device definitions in the instrument with their configurations in the acquisition, as well as to link devices with connections. Use simple descriptive names like "Red laser".
 
 ### Assemblies
 
-An assembly is a collection of devices that function together and share a single position. E.g. a camera and the 
-lens attached to it, or an ephys probe with its manipulator.
+An assembly is a collection of devices that function together and share a single position. E.g. a camera and the lens attached to it, or an ephys probe with its manipulator.
 
 ### Devices that aren't in the schema
 
-This depends on if you need to track more information than name/manufacturer/part number/serial number?
+If you only need to track the `name`, `manufacturer`, `model`, and `serial_number` you can create custom devices using the `Device` class. The `Device.notes` field should be used to provide a description of the device and how it is used.
 
-- **No:** This doesn't need a specific class and you can add it to the components list using the `Device` class. Feel free to use the notes field to add a description of the device and how you are using it if needed.
-- **Yes:** if this is a device that you need to specify more information about, we will need to add a specific class for it. Open an issue on GitHub specifying what kind of information is needed to be tracked and we’ll be in touch about adding it shortly.
+If you need to specify additional information about a device we will need to add a specific class for it. Open an [issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) specifying what kind of information is needed to be tracked and developers will follow up with you.
 
 ### Missing organizations
 
-You can find the full list of [Organizations](aind_data_schema_models/organizations.md) in the `aind-data-schema-models` repository. Some device types are restricted to a subset of this full list to simplify the `metadata-entry` app. Please open an issue if you need a manufacturer that isn't available in either the main list or one of the subsets.
+You can find the full list of [Organizations](aind_data_schema_models/organizations.md) in the `aind-data-schema-models` repository. Some device types are restricted to a subset of this full list to simplify the `metadata-entry` app. Please open an [issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) if you need a manufacturer that isn't available in either the main list or one of the subsets.
 
-### Position
+## Position
 
-#### RelativePosition
+### RelativePosition
 
 For all devices where a position is expected you are *required* to provide the relative position. This is a `List[AnatomicalRelative]`, for example you can specify that a computer monitor is `[Anterior]`. Relative positions should be used for devices that might have small position adjustments made from day-to-day and where the exact position is not important.
 
-For devices where you know the exact position you need to describe the `CoordinateSystem` and and `transform` of the device. The transform describes the `device_to_instrument` transformation, i.e. given a point in the device's coordinate system (0,0,0) how do you need to translate (and rotate/scale) that point to place it in the instrument's coordinate system. Please refer to the [Coordinate Systems](coordinate_systems.md) page for additional details.
+### Exact position
+
+For devices where you know the exact position you need to describe the `CoordinateSystem` and and `transform` of the device. The transform describes the `device_to_instrument` transformation, i.e. given a point in the device's coordinate system (0,0,0) how do you need to translate (and rotate/scale) that point to place it in the instrument's coordinate system. Please refer to the [coordinate systems](coordinate_systems.md) page for additional details.
 
 ## Examples
 
