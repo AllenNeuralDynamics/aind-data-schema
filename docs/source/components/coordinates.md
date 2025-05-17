@@ -23,7 +23,7 @@ Definition an atlas
 | `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `resolution` | `List[float]` |  |
 | `resolution_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `origin` | [Origin](../aind_data_schema_models/#origin) | Defines the position of (0,0,0) in the coordinate system |
+| `origin` | [Origin](../aind_data_schema_models/coordinates.md#origin) | Defines the position of (0,0,0) in the coordinate system |
 | `axes` | List[[Axis](#axis)] | Axis names and directions |
 | `axis_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 
@@ -44,8 +44,8 @@ Linked direction and axis
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `name` | [AxisName](../aind_data_schema_models/#axisname) |  |
-| `direction` | [Direction](../aind_data_schema_models/#direction) | Direction of positive values along the axis |
+| `name` | [AxisName](../aind_data_schema_models/coordinates.md#axisname) |  |
+| `direction` | [Direction](../aind_data_schema_models/coordinates.md#direction) | Direction of positive values along the axis |
 
 
 ### CoordinateSystem
@@ -55,7 +55,7 @@ Definition of a coordinate system relative to a brain
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
-| `origin` | [Origin](../aind_data_schema_models/#origin) | Defines the position of (0,0,0) in the coordinate system |
+| `origin` | [Origin](../aind_data_schema_models/coordinates.md#origin) | Defines the position of (0,0,0) in the coordinate system |
 | `axes` | List[[Axis](#axis)] | Axis names and directions |
 | `axis_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 

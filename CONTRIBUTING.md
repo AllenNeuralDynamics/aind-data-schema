@@ -1,8 +1,10 @@
 # Contributor Guidelines
+
 This repository defines the schemas needed to validate and document metadata. As a core service, it is used across multiple teams and services. Therefore, any contributions must follow certain rules to ensure stability and organization.
 This document will go through best practices for contributing to this project
 
 ## Issues and Feature Requests
+
 Feature requests and bug reports are all welcome as [issues](https://github.com/AllenNeuralDynamics/aind-data-schema/issues). Create a ticket using the provided [templates](https://github.com/AllenNeuralDynamics/aind-metadata-mapper/issues/new/choose) to ensure we have enough information to work with.
 Our team will review, assign, and address the ticket. If the ticket is urgent, you may tag a dedicated engineer in the issue but please refrain from assigning it.
 

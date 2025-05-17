@@ -57,7 +57,7 @@ Description of an oligonucleotide probe(s) targeting a gene and readout
 |-------|------|-------------|
 | `gene_probe` | [GeneProbes](#geneprobes) |  |
 | `readout` | [Readout](#readout) or [HCRReadout](#hcrreadout) |  |
-| `species` | `typing.Annotated[typing.Union[aind_data_schema_models.species._Callithrix_Jacchus, aind_data_schema_models.species._Homo_Sapiens, aind_data_schema_models.species._Macaca_Mulatta, aind_data_schema_models.species._Mus_Musculus, aind_data_schema_models.species._Rattus_Norvegicus], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
+| `species` | [Species](../aind_data_schema_models/species.md#species) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |

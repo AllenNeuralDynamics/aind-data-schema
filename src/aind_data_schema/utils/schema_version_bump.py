@@ -197,6 +197,5 @@ class SchemaVersionHandler:
 
 
 if __name__ == "__main__":
-    # TODO: Pass in the commit message as an argument
     schema_version_handler = SchemaVersionHandler()
     schema_version_handler.run_job()

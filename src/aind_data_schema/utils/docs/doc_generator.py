@@ -5,7 +5,6 @@ Script to generate documentation for AIND data schema.
 
 import json
 import os
-import re
 
 from aind_data_schema.core.metadata import CORE_FILES
 
@@ -57,18 +56,20 @@ def process_core_file(core_file):
         with open(model_doc_path, "r") as model_doc:
             model_content = model_doc.read()
 
-        # Apply the link map replacements
-        for link in model_link_map:
-            # Replace the link in the model content
-            model_content = model_content.replace(link, model_link_map[link])
-            model_content = model_content.replace(f"{core_file}.md", "")
-
         all_model_content.append(model_content)
 
     # Combine the content
     combined_content = base_content
     for content in all_model_content:
         combined_content += f"\n\n{content}"
+
+    # Apply the link map replacements
+    for link in model_link_map:
+        # Replace the link in the model content
+        replacement = model_link_map[link]
+        # Remove the core file name from the replacement link, to avoid circular references
+        replacement = replacement.replace(f"{core_file}.md", "")
+        combined_content = combined_content.replace(link, replacement)
 
     # Write to the output file
     with open(output_file_path, "w") as output_file:
@@ -122,18 +123,23 @@ def process_components(component_folder, output_rel_path):
         with open(model_doc_path, "r") as model_doc:
             model_content = model_doc.read()
 
-        # Apply the link map replacements
-        for link in model_link_map:
-            model_content = model_content.replace(link, model_link_map[link])
-
-            # Replace "aind_data_schema_models/" with "../aind_data_schema_models/" only if not already prefixed
-            model_content = re.sub(r"(?<!\.\./)aind_data_schema_models/", "../aind_data_schema_models/", model_content)
-
-            # Replace "components/" with an empty string
-            model_content = re.sub(r"\bcomponents/\b", "", model_content)
-            model_content = model_content.replace(f"{component_folder}.md", "")
-
         combined_content += f"{model_content}\n\n"
+
+    # Apply the link map replacements
+    for link in model_link_map:
+        replacement = model_link_map[link]
+
+        # Remove the component folder, we're already in it
+        replacement = replacement.replace("components/", "")
+
+        # If we aren't linking out of the component folder, remove the component folder from the link
+        if "aind_data_schema_models/" not in replacement:
+            replacement = replacement.replace(f"{component_folder}.md", "")
+
+        combined_content = combined_content.replace(link, replacement)
+
+    # Deal with special cases which are incorrectly linked too deep
+    combined_content = combined_content.replace("(aind_data_schema_models/", "(../aind_data_schema_models/")
 
     # Write to the output file
     with open(output_file_path, "w") as output_file:

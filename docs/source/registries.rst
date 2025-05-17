@@ -8,6 +8,8 @@ Registries
    aind_data_schema_models/brain_atlas
    aind_data_schema_models/coordinates
    aind_data_schema_models/data_name_patterns
+   aind_data_schema_models/devices
+   aind_data_schema_models/external
    aind_data_schema_models/harp_types
    aind_data_schema_models/licenses
    aind_data_schema_models/modalities

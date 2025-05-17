@@ -70,8 +70,8 @@ Description of a mouse subject
 |-------|------|-------------|
 | `sex` | [Sex](#sex) |  |
 | `date_of_birth` | `datetime.date` |  |
-| `strain` | `typing.Annotated[typing.Union[aind_data_schema_models.species._C57Bl_6J, aind_data_schema_models.species._Balb_C], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
-| `species` | `typing.Annotated[typing.Union[aind_data_schema_models.species._Callithrix_Jacchus, aind_data_schema_models.species._Homo_Sapiens, aind_data_schema_models.species._Macaca_Mulatta, aind_data_schema_models.species._Mus_Musculus, aind_data_schema_models.species._Rattus_Norvegicus], FieldInfo(annotation=NoneType, required=True, discriminator='name')]` |  |
+| `strain` | [Strain](../aind_data_schema_models/species.md#strain) |  |
+| `species` | [Species](../aind_data_schema_models/species.md#species) |  |
 | `alleles` | `List[aind_data_schema_models.pid_names.PIDName]` | Allele names and persistent IDs |
 | `genotype` | `str` | Genotype of the animal providing both alleles |
 | `breeding_info` | Optional[[BreedingInfo](#breedinginfo)] |  |

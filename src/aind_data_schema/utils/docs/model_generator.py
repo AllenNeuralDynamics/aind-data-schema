@@ -19,9 +19,12 @@ special_cases = {
     "aind_data_schema_models.modalities": ("[Modality](aind_data_schema_models/modalities.md#modality)"),
     "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)"),
     "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
+    "aind_data_schema_models.species._C57Bl_6J": "[Strain](aind_data_schema_models/species.md#strain)",
+    "aind_data_schema_models.species._Callithrix_Jacchus": "[Species](aind_data_schema_models/species.md#species)",
     "aind_data_schema.core.quality_control.QCMetric": "{QCMetric} or {CurationMetric}",
     "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
     "aind_data_schema.base.GenericModel": "dict",
+    "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": "[MouseAnatomyModel](aind_data_schema_models/external.md#mouseanatomymodel)",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]

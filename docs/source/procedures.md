@@ -76,7 +76,7 @@ Description of a catheter implant procedure
 | `catheter_material` | [CatheterMaterial](#cathetermaterial) |  |
 | `catheter_design` | [CatheterDesign](#catheterdesign) |  |
 | `catheter_port` | [CatheterPort](#catheterport) |  |
-| `targeted_structure` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` | Use options from MouseBloodVessels |
+| `targeted_structure` | [MouseAnatomyModel](aind_data_schema_models/external.md#mouseanatomymodel) | Use options from MouseBloodVessels |
 
 
 ### CatheterMaterial
@@ -161,7 +161,7 @@ Ground wire implant procedure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ground_electrode_location` | `aind_data_schema_models.mouse_anatomy.MouseAnatomyModel` |  |
+| `ground_electrode_location` | [MouseAnatomyModel](aind_data_schema_models/external.md#mouseanatomymodel) |  |
 | `ground_wire_hole` | `Optional[int]` | For SHIELD implants, the hole number for the ground wire |
 | `ground_wire_material` | Optional[[GroundWireMaterial](#groundwirematerial)] |  |
 | `ground_wire_diameter` | `Optional[decimal.Decimal]` |  |
@@ -238,7 +238,7 @@ Description of an injection procedure
 | Field | Type | Description |
 |-------|------|-------------|
 | `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
-| `targeted_structure` | `Optional[aind_data_schema_models.mouse_anatomy.MouseAnatomyModel]` | Use InjectionTargets |
+| `targeted_structure` | Optional[[MouseAnatomyModel](aind_data_schema_models/external.md#mouseanatomymodel)] | Use InjectionTargets |
 | `relative_position` | Optional[List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)]] |  |
 | `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
