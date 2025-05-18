@@ -29,15 +29,6 @@ I want to...
 - :doc:`Request additions or changes to the metadata schema<contributing>`.
 
 
-Models
--------------------------
-
-``aind-data-schema`` relies on many individual component models as well as controlled vocabularies (registries). Components are stored in their own files to keep the metadata schema simple and we store controlled vocabularies in a separate repository: `aind-data-schema-models <https://github.com/AllenNeuralDynamics/aind-data-schema-models>`_.
-
-- :doc:`Components<components>`. 
-- :doc:`Registries<registries>`.
-
-
 .. toctree::
    :caption: Getting Started
    :hidden:
