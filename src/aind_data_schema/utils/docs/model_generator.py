@@ -24,7 +24,10 @@ special_cases = {
     "aind_data_schema.core.quality_control.QCMetric": "{QCMetric} or {CurationMetric}",
     "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
     "aind_data_schema.base.GenericModel": "dict",
-    "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": "[MouseAnatomyModel](aind_data_schema_models/external.md#mouseanatomymodel)",
+    "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": (
+        "[MouseAnatomyModel](aind_data_schema_models/external"
+        ".md#mouseanatomymodel)"
+    ),
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
