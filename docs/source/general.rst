@@ -2,11 +2,12 @@
 Metadata in general
 ===================
 
-**Q: What is metadata?**
+Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as it moves through processing and analysis workflows, and the quality of the data.
 
-Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and 
-interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
-it moves through processing and analysis workflows, and the quality of the data. To learn more about why we are developing our own schema, see the :doc:`related_standards` page.
+To learn more about why we are developing our own schema, see the :doc:`related_standards` page.
+
+Meta-decisions
+--------------
 
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
@@ -36,6 +37,10 @@ Files, particularly in cloud storage, are reliable and more persistent. By stori
 essential to interpreting an acquisition session alongside the acquisition in a human- and machine-readable 
 format, there will always be an interpretable record of what happened even if e.g. the 
 database stops working. 
+
+
+FAQs
+----------------
 
 **Q: Which fields do I have to provide within these core schemas?**
 

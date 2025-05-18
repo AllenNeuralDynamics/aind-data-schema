@@ -1,7 +1,6 @@
 # Contributor Guidelines
 
-This repository defines the schemas needed to validate and document metadata. As a core service, it is used across multiple teams and services. Therefore, any contributions must follow certain rules to ensure stability and organization.
-This document will go through best practices for contributing to this project
+Contributions to `aind-data-schema` must follow certain rules to ensure stability and organization. This document will go through best practices for contributing to this project
 
 ## Issues and Feature Requests
 
@@ -10,38 +9,49 @@ Our team will review, assign, and address the ticket. If the ticket is urgent, y
 
 If you have a broader suggestion or a question about how things work, start a new [Discussion](https://github.com/AllenNeuralDynamics/aind-data-schema/discussions)!
 
-NOTE: If your request requires upgrading pydantic, create a separate ticket and a dedicated engineer will handle the upgrade.
-
 ## Installation and Development
 
 To develop the software, *clone* the repository and create a new branch for your changes.
 Please do not fork this repository unless you are an external developer.
 
 ```bash
-git clone git@github.com:AllenNeuralDynamics/aind-metadata-mapper.git
+git clone git@github.com:AllenNeuralDynamics/aind-data-schema.git
+cd aind-data-schema
 git checkout -b my-new-feature-branch
 ```
 
-Then run the following command in the checked out directory. 
+It's recommended you work in an isolated virtual environment.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # (unix)
+```
+
+Then run the following command in the checked out directory.
 
 ```bash
 pip install -e .[dev]
 ```
 
+### Upgrades
+
+Starting with the v2.0 release all changes must be accompanied by an [upgrader](https://github.com/AllenNeuralDynamics/aind-metadata-upgrader/) that converts valid metadata from the latest version tag of `aind-data-schema` to valid metadata in the version tag where your changes are introduced. Breaking changes are exempt from this requirement.
+
 ### Documentation
 
-**Note**: The core files (`docs/source/acquisition.md`, etc) are auto-generated from the base files in the folder `docs/base/core` with the models appended. You must modify the **base** file or your changes will be overwritten when you run the generators.
+**Note**: The core files (`docs/source/acquisition.md`, etc) are auto-generated from the base files in the folder `docs/base/core` with the model definitions appended. You must modify the **base** file or your changes will be overwritten when you run the documentation generators.
 
 To generate the source files for the documentation and model class links, run:
 
 ```python
 python src/aind_data_schema/utils/model_generator.py
+python src/aind_data_schema/utils/registries_generator.py
 python src/aind_data_scehma/utils/doc_generator.py
 ```
 
 Then to create the documentation html files, run:
 
-```
+```bash
 sphinx-build -b html docs/source/ docs/build/html
 ```
 
@@ -54,18 +64,29 @@ Testing is required to open a PR in this repository to ensure robustness and rel
   - For every package in the src directory, there should be a corresponding test package.
   - For every module in a package, there should be a corresponding unit test module.
   - For every method in a module, there should be a corresponding unit test.
+  - For complicated functions, keep unit test functions small and interpretable.
 - **Test Coverage:** Aim for comprehensive test coverage to validate all critical paths and edge cases within the module. To open a PR, you will need at least 80% coverage. 
   - Please test your changes using the **coverage** library, which will run the tests and log a coverage report:
+
     ```bash
     coverage run -m unittest discover && coverage report
     ```
+
     To open the coverage report in a browser, you can run
+
     ```bash
     coverage html
     ```
     and find the report in the htmlcov/index.html.
 
+To run a single unit test file you can use
+
+```bash
+coverage run -m unittest tests/your_test.py
+```
+
 ### Linters
+
 There are several libraries used to run linters and check documentation. We've included these in the development package. You can run them as described [here](https://github.com/AllenNeuralDynamics/aind-metadata-mapper/blob/main/README.md#linters-and-testing).
 
 - To run tests locally, navigate to AIND-DATA-SCHEMA directory in terminal and run (this will not run any on-line only tests):
@@ -126,7 +147,7 @@ fov_height: type = Field(...)
 fov_unit: XUnit = Field(...)
 ```
 
-## Docstrings
+### Docstrings
 
 Docstrings are required for contributing to this project. We have settled on using Numpy's conventions as a default: [Numpy docstring standards](https://numpydoc.readthedocs.io/en/latest/format.html)
 
