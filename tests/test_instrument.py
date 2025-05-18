@@ -282,7 +282,7 @@ dmd = DigitalMicromirrorDevice(
     dmd_curtain=[0.1, 0.2, 0.3],
     dmd_curtain_unit=SizeUnit.PX,
     line_shear=[1, 2, 3],
-    line_shear_units=SizeUnit.PX,
+    line_shear_unit=SizeUnit.PX,
 )
 
 stick_microscopes = [
