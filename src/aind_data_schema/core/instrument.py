@@ -113,7 +113,11 @@ class Instrument(DataCoreModel):
         description="Unique instrument identifier",
         title="Instrument ID",
     )
-    modification_date: date = Field(..., title="Date of modification", description="Date of the last change to the instrument, hardware addition/removal, calibration, etc.")
+    modification_date: date = Field(
+        ...,
+        title="Date of modification",
+        description="Date of the last change to the instrument, hardware addition/removal, calibration, etc.",
+    )
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities", description="Modalities that CAN BE acquired")
     calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 
