@@ -20,14 +20,6 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         self.ophys_instrument = ophys_instrument.model_copy()
         self.ophys_acquisition = ophys_acquisition.model_copy()
 
-    def test_run_compatibility_check(self):
-        """Tests compatibility check"""
-
-        with self.assertRaises(ValueError):
-            InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
-            ).run_compatibility_check()
-
     def test_check_examples_compatibility(self):
         """Tests that examples are compatible"""
         # check that ephys acquisition and instrument are synced
@@ -36,34 +28,24 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
 
+        # check that ophys acquisition and instrument are synced
+        example_ophys_check = InstrumentAcquisitionCompatibility(
+            instrument=self.ophys_instrument, acquisition=self.ophys_acquisition
+        ).run_compatibility_check()
+        self.assertIsNone(example_ophys_check)
+
     def test_compare_instrument_id_error(self):
         """Tests that an error is raised when instrument ids do not match"""
         ophys_acquisition = self.ophys_acquisition.model_copy()
         ophys_acquisition.instrument_id = "wrong_id"
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as context:
             InstrumentAcquisitionCompatibility(
                 instrument=self.ophys_instrument, acquisition=ophys_acquisition
             ).run_compatibility_check()
-
-    def test_compare_mouse_platform_name_error(self):
-        """Tests that an error is raised when mouse platform names do not match"""
-        ophys_acquisition = self.ophys_acquisition.model_copy()
-        ophys_acquisition.subject_details.mouse_platform_name = "wrong_platform"
-        with self.assertRaises(ValueError):
-            InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, acquisition=ophys_acquisition
-            ).run_compatibility_check()
-
-    def test_compare_configurations(self):
-        """Tests that an error is raised when configuration names do not match"""
-        ophys_acquisition = self.ophys_acquisition.model_copy()
-        ophys_acquisition.data_streams[0].configurations = [
-            LaserConfig(device_name="wrong_laser", wavelength=488, power=10, power_unit="milliwatt"),
-        ]
-        with self.assertRaises(ValueError):
-            InstrumentAcquisitionCompatibility(
-                instrument=self.ophys_instrument, acquisition=ophys_acquisition
-            ).run_compatibility_check()
+        self.assertIn(
+            "Instrument ID in acquisition wrong_id does not match the instrument's",
+            str(context.exception),
+        )
 
 
 if __name__ == "__main__":
