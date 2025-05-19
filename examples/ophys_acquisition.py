@@ -73,7 +73,7 @@ a = Acquisition(
     instrument_id="FIP1",
     ethics_review_id=["2115"],
     subject_details=AcquisitionSubjectDetails(
-        mouse_platform_name="Disc",
+        mouse_platform_name="mouse_disc",
     ),
     data_streams=[
         DataStream(
