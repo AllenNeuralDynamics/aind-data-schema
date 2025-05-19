@@ -36,7 +36,7 @@ from aind_data_schema.components.identifiers import Software
 from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
 
 instrument = Instrument(
-    room="429",
+    location="429",
     instrument_id="mesoscope",
     modification_date=date(2024, 10, 16),
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,

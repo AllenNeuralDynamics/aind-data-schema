@@ -381,7 +381,7 @@ calibration = Calibration(
 )
 
 instrument = r.Instrument(
-    room="428",
+    location="428",
     instrument_id="FIP1",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],

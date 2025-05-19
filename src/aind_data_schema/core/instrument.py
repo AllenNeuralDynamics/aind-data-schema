@@ -107,7 +107,7 @@ class Instrument(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.25"]] = Field(default="2.0.25")
 
     # instrument definition
-    room: Optional[str] = Field(default=None, title="Room", description="Room where the instrument is located")
+    location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
     instrument_id: str = Field(
         ...,
         description="Unique instrument identifier",

@@ -436,7 +436,7 @@ calibrations = [
 ]
 
 inst = Instrument(
-    room="447",
+    location="447",
     instrument_id="FIP-Behavior",
     modification_date=date(2000, 1, 1),
     modalities=[Modality.BEHAVIOR, Modality.FIB],

@@ -335,7 +335,7 @@ blue_laser_calibration = Calibration(
 )
 
 inst = Instrument(
-    room="323",
+    location="323",
     instrument_id="EPHYS1",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.ECEPHYS],
