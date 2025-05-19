@@ -2,7 +2,6 @@
 
 import unittest
 
-from aind_data_schema.components.configs import LaserConfig
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.ephys_instrument import inst as ephys_instrument
