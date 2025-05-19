@@ -381,7 +381,8 @@ calibration = Calibration(
 )
 
 instrument = r.Instrument(
-    instrument_id="428_FIP1_20231003",
+    room="428",
+    instrument_id="FIP1",
     modification_date=date(2023, 10, 3),
     modalities=[Modality.FIB],
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,

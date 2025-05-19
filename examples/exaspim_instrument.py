@@ -321,7 +321,8 @@ scope = Microscope(
 )
 
 inst = Instrument(
-    instrument_id="440_exaSPIM1_20231004",
+    room="440",
+    instrument_id="exaSPIM1",
     modalities=[Modality.SPIM],
     modification_date=datetime.date(2023, 10, 4),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
