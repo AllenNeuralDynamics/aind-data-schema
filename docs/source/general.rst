@@ -15,7 +15,7 @@ Metadata captured by acquisition software evolves over time and often does not c
 everything we need to know to interpret data. These JSON files represent our ground truth 
 viewpoint on what is essential to know about our data in a single location. 
 
-Additionally, JSON files are trivially both human- and machine-readable. They are viewable on 
+Additionally, JSON files are both human- and machine-readable. They are viewable on 
 any system without additional software to be installed (a text editor is fine). They are easy 
 to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
 
