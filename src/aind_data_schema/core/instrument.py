@@ -107,12 +107,17 @@ class Instrument(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.25"]] = Field(default="2.0.25")
 
     # instrument definition
+    location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
     instrument_id: str = Field(
         ...,
-        description="Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
+        description="Unique instrument identifier",
         title="Instrument ID",
     )
-    modification_date: date = Field(..., title="Date of modification")
+    modification_date: date = Field(
+        ...,
+        title="Date of modification",
+        description="Date of the last change to the instrument, hardware addition/removal, calibration, etc.",
+    )
     modalities: List[Modality.ONE_OF] = Field(..., title="Modalities", description="Modalities that CAN BE acquired")
     calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
 

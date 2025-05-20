@@ -223,7 +223,8 @@ spim_scope = Microscope(
 )
 
 inst = Instrument(
-    instrument_id="440_SmartSPIM2_20231004",
+    location="440",
+    instrument_id="SmartSPIM2",
     modification_date=datetime.date(2023, 10, 4),
     coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
     modalities=[Modality.SPIM],
