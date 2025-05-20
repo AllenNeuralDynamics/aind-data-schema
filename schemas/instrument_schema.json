@@ -22719,17 +22719,31 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.25",
-         "default": "2.0.25",
+         "const": "2.0.26",
+         "default": "2.0.26",
          "title": "Schema Version",
          "type": "string"
       },
+      "location": {
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Location of the instrument",
+         "title": "Location"
+      },
       "instrument_id": {
-         "description": "Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD>",
+         "description": "Unique instrument identifier",
          "title": "Instrument ID",
          "type": "string"
       },
       "modification_date": {
+         "description": "Date of the last change to the instrument, hardware addition/removal, calibration, etc.",
          "format": "date",
          "title": "Date of modification",
          "type": "string"
