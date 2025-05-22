@@ -1,5 +1,7 @@
 # Quality control
 
+[Link to code](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/src/aind_data_schema/core/quality_control.py)
+
 Quality control is a collection of **evaluations** based on sets of **metrics** about the data. 
 
 `QCEvaluation`s should be generated during pipelines: before raw data upload, during processing, and during analysis by researchers.

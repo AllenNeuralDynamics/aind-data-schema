@@ -1,5 +1,7 @@
 # Acquisition
 
+[Link to code](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/src/aind_data_schema/core/acquisition.py)
+
 An acquisition is single episode of data collection that creates one data asset.
 
 The acquisition metadata is split into two parallel pieces the `DataStream` and the `StimulusEpoch`. At any given moment in time the active `DataStream` represents all modalities of data being acquired, while the `StimulusEpoch` represents all stimuli being presented.
