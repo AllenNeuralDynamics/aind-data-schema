@@ -9,4 +9,3 @@ The `subject.json` file describes the subject from which data was obtained.
 :linenos:
 ```
 
-## Model definitions

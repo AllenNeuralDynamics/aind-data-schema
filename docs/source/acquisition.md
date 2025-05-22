@@ -47,7 +47,7 @@ Example acquisition demonstrating **3**: one stimulus epoch, multiple data strea
 - [Multi-plane ophys acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/multiplane_ophys_acquisition.py)
 - [Ophys acquisition](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_acquisition.py)
 
-## Model definitions
+## Core file
 
 ### Acquisition
 
@@ -72,6 +72,8 @@ Description of an imaging acquisition
 | `stimulus_epochs` | List[[StimulusEpoch](#stimulusepoch)] |  |
 | `subject_details` | Optional[[AcquisitionSubjectDetails](#acquisitionsubjectdetails)] |  |
 
+
+## Model definitions
 
 ### AcquisitionSubjectDetails
 

@@ -9,7 +9,7 @@ The `data_description.json` file tracks administrative information about a data 
 :linenos:
 ```
 
-## Model definitions
+## Core file
 
 ### DataDescription
 
@@ -32,6 +32,8 @@ Description of a logical collection of data files
 | `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study |
 | `data_summary` | `Optional[str]` | Semantic summary of experimental goal |
 
+
+## Model definitions
 
 ### Funding
 

@@ -4,8 +4,7 @@ The Model metadata schema is an extension of the Processing schema tailored to m
 
 Thus new evaluations and training steps can easily be appended for new model versions. This metadata should be documented for any models that see widespread internal use or public release, in order to facilitate model reuse and document provenance.
 
-## Model definitions
-
+## Core file
 
 ### Model
 
@@ -25,6 +24,8 @@ Description of an analysis model
 | `evaluations` | List[[ModelEvaluation](#modelevaluation)] |  |
 | `notes` | `Optional[str]` |  |
 
+
+## Model definitions
 
 ### ModelEvaluation
 

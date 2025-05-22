@@ -59,7 +59,7 @@ Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allow
 :linenos:
 ```
 
-## Model definitions
+## Core file
 
 ### QualityControl
 
@@ -70,6 +70,8 @@ Description of quality metrics for a data asset
 | `evaluations` | List[[QCEvaluation](#qcevaluation)] |  |
 | `notes` | `Optional[str]` |  |
 
+
+## Model definitions
 
 ### CurationHistory
 

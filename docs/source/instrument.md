@@ -45,7 +45,7 @@ For devices where you know the exact position you need to describe the `Coordina
 - [FIP / Ophys instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/fip_ophys_instrument.py)
 - [Multi-plane ophys instrument](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/multiplane_ophys_instrument.py)
 
-## Model definitions
+## Core file
 
 ### Instrument
 
@@ -63,6 +63,8 @@ Description of an instrument
 | `connections` | List[[Connection](#connection)] | List of all connections between devices in the instrument |
 | `components` | List[[Monitor](components/devices.md#monitor) or [Olfactometer](components/devices.md#olfactometer) or [LickSpout](components/devices.md#lickspout) or [LickSpoutAssembly](components/devices.md#lickspoutassembly) or [AirPuffDevice](components/devices.md#airpuffdevice) or [Speaker](components/devices.md#speaker) or [CameraAssembly](components/devices.md#cameraassembly) or [Enclosure](components/devices.md#enclosure) or [EphysAssembly](components/devices.md#ephysassembly) or [FiberAssembly](components/devices.md#fiberassembly) or [LaserAssembly](components/devices.md#laserassembly) or [FiberPatchCord](components/devices.md#fiberpatchcord) or [Laser](components/devices.md#laser) or [LightEmittingDiode](components/devices.md#lightemittingdiode) or [Lamp](components/devices.md#lamp) or [Detector](components/devices.md#detector) or [Objective](components/devices.md#objective) or [Scanner](components/devices.md#scanner) or [Filter](components/devices.md#filter) or [Lens](components/devices.md#lens) or [DigitalMicromirrorDevice](components/devices.md#digitalmicromirrordevice) or [PolygonalScanner](components/devices.md#polygonalscanner) or [PockelsCell](components/devices.md#pockelscell) or [HarpDevice](components/devices.md#harpdevice) or [NeuropixelsBasestation](components/devices.md#neuropixelsbasestation) or [OpenEphysAcquisitionBoard](components/devices.md#openephysacquisitionboard) or [MotorizedStage](components/devices.md#motorizedstage) or [ScanningStage](components/devices.md#scanningstage) or [AdditionalImagingDevice](components/devices.md#additionalimagingdevice) or [Disc](components/devices.md#disc) or [Wheel](components/devices.md#wheel) or [Tube](components/devices.md#tube) or [Treadmill](components/devices.md#treadmill) or [Arena](components/devices.md#arena) or [DAQDevice](components/devices.md#daqdevice) or [Computer](components/devices.md#computer) or [Microscope](components/devices.md#microscope) or [Device](components/devices.md#device)] | List of all devices in the instrument |
 
+
+## Model definitions
 
 ### Connection
 

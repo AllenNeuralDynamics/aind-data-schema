@@ -10,5 +10,3 @@ The processing file should be appended to with each subsequent stage of processi
 :language: python
 :linenos:
 ```
-
-## Model definitions

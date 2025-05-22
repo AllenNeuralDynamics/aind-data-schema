@@ -71,8 +71,11 @@ def process_core_file(core_file):
         all_model_content.append(model_content)
 
     # Combine the content
-    combined_content = base_content
-    for content in all_model_content:
+    # Start with the core file content
+    combined_content = base_content + "\n## Core file\n\n" + all_model_content[0]
+
+    combined_content += "\n\n## Model definitions"
+    for content in all_model_content[1:]:
         combined_content += f"\n\n{content}"
 
     # Apply the link map replacements

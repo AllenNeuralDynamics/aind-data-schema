@@ -11,7 +11,7 @@ The processing file should be appended to with each subsequent stage of processi
 :linenos:
 ```
 
-## Model definitions
+## Core file
 
 ### Processing
 
@@ -24,6 +24,8 @@ Description of all processes run on data
 | `notes` | `Optional[str]` |  |
 | `dependency_graph` | `Dict[str, List[str]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
 
+
+## Model definitions
 
 ### DataProcess
 

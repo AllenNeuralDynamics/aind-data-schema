@@ -8,5 +8,3 @@ The `data_description.json` file tracks administrative information about a data 
 :language: python
 :linenos:
 ```
-
-## Model definitions

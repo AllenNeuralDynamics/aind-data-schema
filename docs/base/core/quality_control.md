@@ -58,5 +58,3 @@ Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allow
 :language: python
 :linenos:
 ```
-
-## Model definitions

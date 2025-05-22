@@ -24,7 +24,7 @@ Protocol ID refers to the DOI for a published protocol describing a procedure, f
 - [SmartSPIM procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/aibs_smartspim_procedures.py)
 - [Ophys procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_procedures.py)
 
-## Model definitions
+## Core file
 
 ### Procedures
 
@@ -40,6 +40,8 @@ Description of all procedures performed on a subject
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided in the procedures |
 | `notes` | `Optional[str]` |  |
 
+
+## Model definitions
 
 ### Anaesthetic
 
