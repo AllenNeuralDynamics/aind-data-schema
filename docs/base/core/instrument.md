@@ -2,16 +2,11 @@
 
 The `instrument.json` collects the components, mostly hardware devices, used to collect data. In general, the instrument schema describes the static state of the data acquisition hardware across sessions. The [Acquisition](acquisition.md) is used to describe the configuration of components for a specific session.
 
-Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a maintenance event is performed that requires an update. Changes to the instrument should be timestamped using the `Instrument.date_of_modification` field.
+Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a maintenance event is performed that requires an update. Changes to the instrument should be timestamped using the `Instrument.modification_date` field.
 
 ## Uniqueness
 
-It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `instrument_id` and `date_of_modification` uniquely specify the state of an instrument.
-
-### instrument_id
-
-[TODO: change]
-Best practice for tracking instruments is to store (1) the location, (2) the common name, and (3) the last modification date in the `Instrument.instrument_id` field using the pattern `<location>_<name>_<date>`. This makes it very easy to query the metadata to find all acquisitions performed with identical hardware conditions.
+It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `location`, `instrument_id`, and `modification_date` uniquely specify the state of an instrument.
 
 ## Devices
 
