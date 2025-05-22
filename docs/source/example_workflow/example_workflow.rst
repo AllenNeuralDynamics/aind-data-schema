@@ -100,7 +100,7 @@ Finally, we're ready to generate all the metadata files. We'll loop over the ses
 Other metadata
 -----------------
 
-The remaining metadata files (:doc:`../instrument.md` and `Acquisition<../acquisition.md>`_) follow the same pattern: extract the relevant information from a data source, transform it into the schema, and use the `write_standard_file()` function to write the file. Follow the links above to the relevant sections for more information on these files.
+The remaining metadata files (:doc:`../../instrument` and :doc:`../../acquisition`) follow the same pattern: extract the relevant information from a data source, transform it into the schema, and use the `write_standard_file()` function to write the file. Follow the links above to the relevant sections for more information on these files.
 
-During processing and analysis, you will also generate the `Processing<../processing.md>`_, `Quality Control<../quality_control.md>`_, and possibly a `Model<../model.md>`_ metadata file.
+During processing and analysis, you will also generate the :doc:`../../processing`, :doc:`../../quality_control`, and possibly a :doc:`../../model` metadata file.
    

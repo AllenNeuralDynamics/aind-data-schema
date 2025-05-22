@@ -44,9 +44,9 @@ Starting with the v2.0 release all changes must be accompanied by an [upgrader](
 To generate the source files for the documentation and model class links, run:
 
 ```python
-python src/aind_data_schema/utils/model_generator.py
-python src/aind_data_schema/utils/registries_generator.py
-python src/aind_data_scehma/utils/doc_generator.py
+python src/aind_data_schema/utils/docs/model_generator.py
+python src/aind_data_schema/utils/docs/registries_generator.py
+python src/aind_data_schema/utils/docs/doc_generator.py
 ```
 
 Then to create the documentation html files, run:

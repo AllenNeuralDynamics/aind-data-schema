@@ -1,7 +1,5 @@
 # Quality control
 
-## Overview
-
 Quality control is a collection of **evaluations** based on sets of **metrics** about the data. 
 
 `QCEvaluation`s should be generated during pipelines: before raw data upload, during processing, and during analysis by researchers.
@@ -62,6 +60,16 @@ Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allow
 ```
 
 ## Model definitions
+
+### QualityControl
+
+Description of quality metrics for a data asset
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `evaluations` | List[[QCEvaluation](#qcevaluation)] |  |
+| `notes` | `Optional[str]` |  |
+
 
 ### CurationHistory
 
@@ -130,16 +138,6 @@ Description of a QC status, set by an evaluator
 | `evaluator` | `str` |  |
 | `status` | [Status](#status) |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
-
-
-### QualityControl
-
-Description of quality metrics for a data asset
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `evaluations` | List[[QCEvaluation](#qcevaluation)] |  |
-| `notes` | `Optional[str]` |  |
 
 
 ### Stage

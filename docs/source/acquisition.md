@@ -2,31 +2,42 @@
 
 An acquisition is single episode of data collection that creates one data asset.
 
-The acquisition metadata is split into two parallel pieces:
+The acquisition metadata is split into two parallel pieces the `DataStream` and the `StimulusEpoch`. At any given moment in time the active `DataStream` represents all modalities of data being acquired, while the `StimulusEpoch` represents all stimuli being presented.
 
-- `DataStream`: What devices were active and their configurations.
-- `StimulusEpoch`: What stimulus was presented to the subject.
+- `DataStream`: All devices that are acquiring data and their configurations.
+- `StimulusEpoch`: All stimuli being presented to the subject.
 
-Both streams and epochs have independent start and stop times and can contain multiple modalities. Your acquisition probably falls into one of the three common types:
+In situations where data or stimulus modalities change, or where the configuration of devices or presented stimuli change significantly, you should start a new `DataStream` or `StimulusEpoch`. Note that because the start and stop times are independent almost all acquisitions will fall into one of these three common types:
 
-- Single data stream and one stimulus epoch (or no stimulus): these acquisitions are common for imaging experiments with specimens where there's no stimulus.
-- Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quite wakefulness, receptive field mapping, etc.
-- Single stimulus epoch with multiple data streams: less common, but can occur if you switch modalities during an experiment or change the position of an acute recording device.
+1. Single data stream and one stimulus epoch (including no stimulus): these acquisitions are common for imaging experiments with specimens where there might be no stimulus presented.
+2. Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quite wakefulness, receptive field mapping, etc.
+3. Single stimulus epoch with multiple data streams: less common, but can occur if you switch modalities during an experiment or change the configuration of an acute recording device.
+
+## FAQs
+
+### When should a DataStream be split in two
+
+The `DataStream` should be split if there is a change in data modalities or a significant change in the configuration of devices.
+
+### When should a StimulusEpoch be split in two
+
+The `StimulusEpoch` should be split if the purpose of the presented stimuli changes. For example: receptive field mapping and optogenetic manipulation are two different stimulus epochs. Individual trials of optogenetic manipulation are part of a single stimulus epoch.
+
+Most experimenters will be familiar with the idea of breaking down an experiment into blocks and then further into trials: blocks and trials are part of one stimulus epoch. Information about blocks and trials are *parameters* that describe a stimulus epoch and can be stored in the `StimulusEpoch.code.parameters`.
 
 ## Diagrams
 
 ![image](_static/session_image_1.png)
 
-Example session with single stream and epoch
-
-![image](_static/session_image_2.png)
-
-Example where the animal is engaged with a single behavior, and there are two distinct data streams. E.g. repositioned 
-probes to target different structures. 
+Example acquisition demonstrating situation **1**: one data stream, one stimulus epoch.
 
 ![image](_static/session_image_3.png)
 
-Example where there is one data stream during the session, but multiple stimulus epochs. E.g. active behavior, passive behavior replay, and optotagging.
+Example acquisition demonstrating situation **2**: one data stream, multiple stimulus epochs.
+
+![image](_static/session_image_2.png)
+
+Example acquisition demonstrating **3**: one stimulus epoch, multiple data streams.
 
 ## Examples
 

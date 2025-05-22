@@ -59,6 +59,7 @@ Organization
 | `ITEM` | `None` | `Item` | `None` | `None` |
 | `JANELIA` | `Janelia` | `Janelia Research Campus` | `name='Research Organization Registry' abbreviation='ROR'` | `013sk6x84` |
 | `JAX` | `JAX` | `Jackson Laboratory` | `name='Research Organization Registry' abbreviation='ROR'` | `021sy4w91` |
+| `JENOPTIK` | `None` | `Jenoptik` | `name='Research Organization Registry' abbreviation='ROR'` | `05g7t5c49` |
 | `JHU` | `JHU` | `Johns Hopkins University` | `name='Research Organization Registry' abbreviation='ROR'` | `00za53h95` |
 | `JULABO` | `None` | `Julabo` | `None` | `None` |
 | `KOWA` | `None` | `Kowa` | `name='Research Organization Registry' abbreviation='ROR'` | `03zbwg482` |

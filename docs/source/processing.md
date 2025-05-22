@@ -1,9 +1,8 @@
 # Processing
 
-The `processing.json` file captures the data processing and analysis steps that have been carried out – mostly for derived data assets. 
-This tracks what code was used for each step, when it was run, what the input and outputs where, what parameters were 
-set. This includes things like spike sorting, image alignment, cell segmentation. It also includes manual annotation, 
-quality control, and data analysis. This file should be appended with each subsequent stage of processing or analysis.
+The `processing.json` file captures the data processing and analysis steps that have been carried out – mostly for derived data assets. This tracks what code was used for each step, when it was run, what the input and outputs where, what parameters were set. This includes things like spike sorting, image alignment, cell segmentation. It also includes manual annotation, quality control, and data analysis.
+
+The processing file should be appended to with each subsequent stage of processing or analysis.
 
 ## Example
 
@@ -13,6 +12,18 @@ quality control, and data analysis. This file should be appended with each subse
 ```
 
 ## Model definitions
+
+### Processing
+
+Description of all processes run on data
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `data_processes` | List[[DataProcess](#dataprocess)] |  |
+| `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess. |
+| `notes` | `Optional[str]` |  |
+| `dependency_graph` | `Dict[str, List[str]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
+
 
 ### DataProcess
 
@@ -42,18 +53,6 @@ Stages of processing
 |------|-------|
 | `PROCESSING` | `Processing` |
 | `ANALYSIS` | `Analysis` |
-
-
-### Processing
-
-Description of all processes run on data
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `data_processes` | List[[DataProcess](#dataprocess)] |  |
-| `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess. |
-| `notes` | `Optional[str]` |  |
-| `dependency_graph` | `Dict[str, List[str]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
 
 
 ### ResourceTimestamped

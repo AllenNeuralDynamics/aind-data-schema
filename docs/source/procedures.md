@@ -1,24 +1,22 @@
 # Procedures
 
-The `procedures.json` file contains Procedures, anything done to the subject or specimen prior to data collection. This can include surgeries, injections, tissue processing, sectioning, immunolabeleing, etc.
+The `procedures.json` file contains anything done to the subject or specimen prior to data collection. This can include surgeries, injections, tissue processing, sectioning, immunolabeling, etc. The procedures metadata also contains implanted devices and their configurations, for example for chronic insertions.
 
-## FAQs
+## Subject vs. specimen
 
-### Subject vs. specimen
+**Subject** procedures are performed on a live subject (e.g. injections, surgeries, implants, perfusions, etc.) whereas **specimen** procedures are performed on tissue extracted after perfusion (e.g. tissue processing, immunolabeling, sectioning, etc.).
 
-**Subject** procedures are performed on a live subject (e.g. injections, surgeries, implants, perfusions, etc.) 
-whereas **specimen** procedures are performed on tissue extracted after perfusion (e.g. tissue processing, 
-immunolabeleing, sectioning, etc.). Sectioned specimens will have unique IDs (`subject_id-specimen_number`)
+Sectioned specimens must have unique IDs appended as a suffix to the subject ID: `subject_id-specimen_number`.
 
-### Perfusions
+## Perfusions
 
 **Perfusions** are subject procedures that produce specimens and sectioning is a specimen procedure that produces new specimens.
 
-### Ethics review ID vs. protocol ID
+## Ethics review ID vs. protocol ID
 
 All experimental work with animals and humans must be approved by an IACUC (Institute Animal Care Use Committee) or IRB (Institutional Review Board), the corresponding ID number should be stored in the `ethics_review_id` fields.
 
-Protocol ID refers to the DOI for a published experimental protocol, for example those stored in the [AIND protocols.io workspace](https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics).
+Protocol ID refers to the DOI for a published protocol describing a procedure, for example those stored in the [AIND protocols.io workspace](https://www.protocols.io/workspaces/allen-institute-for-neural-dynamics).
 
 ## Examples
 
@@ -27,6 +25,21 @@ Protocol ID refers to the DOI for a published experimental protocol, for example
 - [Ophys procedures](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/examples/ophys_procedures.py)
 
 ## Model definitions
+
+### Procedures
+
+Description of all procedures performed on a subject
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
+| `subject_procedures` | List[[Surgery](#surgery) or [TrainingProtocol](#trainingprotocol) or [WaterRestriction](#waterrestriction) or [GenericSubjectProcedure](#genericsubjectprocedure)] |  |
+| `specimen_procedures` | List[[SpecimenProcedure](#specimenprocedure)] |  |
+| `implanted_devices` | List[[EphysProbe](components/devices.md#ephysprobe) or [FiberProbe](components/devices.md#fiberprobe) or [MyomatrixArray](components/devices.md#myomatrixarray)] |  |
+| `configurations` | List[[ProbeConfig](components/configs.md#probeconfig) or [DeviceConfig](components/configs.md#deviceconfig)] |  |
+| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided in the procedures |
+| `notes` | `Optional[str]` |  |
+
 
 ### Anaesthetic
 
@@ -329,21 +342,6 @@ Description of a probe (fiber, ephys) implant procedure
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `implanted_device_names` | `List[str]` | Devices must exist in Procedures.implanted_devices |
-
-
-### Procedures
-
-Description of all procedures performed on a subject
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
-| `subject_procedures` | List[[Surgery](#surgery) or [TrainingProtocol](#trainingprotocol) or [WaterRestriction](#waterrestriction) or [GenericSubjectProcedure](#genericsubjectprocedure)] |  |
-| `specimen_procedures` | List[[SpecimenProcedure](#specimenprocedure)] |  |
-| `implanted_devices` | List[[EphysProbe](components/devices.md#ephysprobe) or [FiberProbe](components/devices.md#fiberprobe) or [MyomatrixArray](components/devices.md#myomatrixarray)] |  |
-| `configurations` | List[[ProbeConfig](components/configs.md#probeconfig) or [DeviceConfig](components/configs.md#deviceconfig)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided in the procedures |
-| `notes` | `Optional[str]` |  |
 
 
 ### ProtectiveMaterial

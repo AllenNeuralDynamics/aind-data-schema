@@ -46,6 +46,18 @@ def process_core_file(core_file):
     # Find all .md files in the model_docs_dir
     md_files = sorted([f for f in os.listdir(model_docs_dir) if f.endswith(".md")])
 
+    # Bring the core file to the front of the md_files list
+    # core file format is "data_description"
+    # file name format is "DataDescription.md"
+    # Convert snake_case to PascalCase (e.g., "data_description" to "DataDescription.md")
+    file_name = "".join(word.capitalize() for word in core_file.split("_")) + ".md"
+
+    # Move the core model file to the front if it exists
+    print((file_name, md_files))
+    if file_name in md_files:
+        md_files.remove(file_name)
+        md_files.insert(0, file_name)
+
     if not md_files:
         print(f"Warning: No markdown files found in: {model_docs_dir}")
 
