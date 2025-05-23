@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.24",
-               "default": "2.0.24",
+               "const": "2.0.25",
+               "default": "2.0.25",
                "title": "Schema Version",
                "type": "string"
             },
@@ -339,6 +339,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -474,6 +475,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -993,6 +997,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -1128,6 +1133,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -1572,6 +1580,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -1707,6 +1716,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -2103,6 +2115,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -2238,6 +2251,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -7512,6 +7528,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -7647,6 +7664,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -13267,6 +13287,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -13402,6 +13423,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -13802,6 +13826,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -13937,6 +13962,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -14335,10 +14363,10 @@
                "title": "Line shear (pixels)",
                "type": "array"
             },
-            "line_shear_units": {
+            "line_shear_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
-               "title": "Line shear units"
+               "title": "Line shear unit"
             }
          },
          "required": [
@@ -14422,6 +14450,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -14557,6 +14586,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -15006,6 +15038,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -15141,6 +15174,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -15635,6 +15671,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -15770,6 +15807,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -16248,6 +16288,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -16383,6 +16424,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -16788,6 +16832,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -16923,6 +16968,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -17785,6 +17833,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -17920,6 +17969,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -18412,6 +18464,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -18547,6 +18600,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -18986,6 +19042,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -19121,6 +19178,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -20414,8 +20474,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.26",
-               "default": "2.0.26",
+               "const": "2.0.27",
+               "default": "2.0.27",
                "title": "Schema Version",
                "type": "string"
             },
@@ -20805,6 +20865,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -20940,6 +21001,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -21852,6 +21916,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -21987,6 +22052,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -23327,6 +23395,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -23462,6 +23531,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -24496,6 +24568,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -24631,6 +24704,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -25331,6 +25407,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -25466,6 +25543,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -26126,6 +26206,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -26261,6 +26342,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -26650,6 +26734,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -26785,6 +26870,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -27524,6 +27612,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -27659,6 +27748,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -32138,6 +32230,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -32273,6 +32366,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -32716,6 +32812,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -32851,6 +32948,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -40166,8 +40266,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.25",
-               "default": "2.0.25",
+               "const": "2.0.26",
+               "default": "2.0.26",
                "title": "Schema Version",
                "type": "string"
             },
@@ -40370,8 +40470,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.58",
-               "default": "2.0.58",
+               "const": "2.0.59",
+               "default": "2.0.59",
                "title": "Schema Version",
                "type": "string"
             },
@@ -40818,6 +40918,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -40953,6 +41054,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -41315,6 +41419,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -41450,6 +41555,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -42187,6 +42295,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -42322,6 +42431,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -42700,6 +42812,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -42835,6 +42948,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -50774,6 +50890,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                      "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -50909,6 +51026,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Boston_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
                      "$ref": "#/$defs/_Cambridge_Technology"
@@ -51928,6 +52048,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -52063,6 +52184,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -52481,6 +52605,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -52616,6 +52741,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -53242,6 +53370,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
                            "Champalimaud Foundation": "#/$defs/_Champalimaud_Foundation",
@@ -53377,6 +53506,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Boston_University"
+                        },
+                        {
+                           "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
                            "$ref": "#/$defs/_Cambridge_Technology"
@@ -58269,6 +58401,73 @@
             }
          },
          "title": "_Ca3",
+         "type": "object"
+      },
+      "_Cajal_Neuroscience": {
+         "description": "Model Cajal Neuroscience",
+         "properties": {
+            "name": {
+               "const": "Cajal Neuroscience",
+               "default": "Cajal Neuroscience",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "Cajal",
+               "default": "Cajal",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "05pdc0q70",
+               "default": "05pdc0q70",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Cajal_Neuroscience",
          "type": "object"
       },
       "_Callithrix_Jacchus": {
@@ -85846,8 +86045,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.58",
-         "default": "2.0.58",
+         "const": "2.0.59",
+         "default": "2.0.59",
          "title": "Schema Version",
          "type": "string"
       },
