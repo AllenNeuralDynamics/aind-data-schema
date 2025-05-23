@@ -1,32 +1,19 @@
-================
-Example Workflow
-================
+===================
+Generating metadata
+===================
 
 This tutorial walks through a hypothetical example of how to generate metadata
-for a cellular 2-photon imaging session. This won't focus on session or rig
-metadata for now, but will expand in the future.
+for a cellular 2-photon imaging session. This won't focus on acquisition or instrument
+metadata, instead you can find examples of those in their respective sections.
 
-The example metadata here is intentionally simple. The names and values don't 
-perfectly align with ``aind-data-schema`` so as to show examples of mapping from
-local conventions to the schema. 
-
-You will see through this example that creating
-these metadata JSON files reveals that some important data were not being
-tracked in the original metadata sources. This is common and are usually information that a
-single person keeps track of implicitly in their head. This information must be entered
-somewhere, either by updating the data sources or hard-coding values in the 
-generation script. The latter is not advised but what we do here in this example
-to demonstrate the issue.
-
+The example metadata here is intentionally simple, our intention is to give you a sense of how to generate the pydantic models, navigate the documentation, and write the metadata files.
 
 Identify metadata sources
 -------------------------
 
-In practice, key metadata is usually distributed into many data sources. They
-could be spreadsheets, databases, TIFF file headers, or even file names. 
+In practice, key metadata is usually distributed into many data sources. They could be spreadsheets, databases, TIFF file headers, or even file names. 
 
-In this example, let's say that our basic subject and surgical procedure 
-metadata are stored in and excel workbook with three sheets: ``mice``, ``sessions``, and ``procedures``. 
+In this example, let's say that our basic subject and surgical procedure metadata are stored in excel workbook with three sheets: ``mice``, ``sessions``, and ``procedures``. 
 
 Let's say they look like this:
 
@@ -59,28 +46,35 @@ were bred locally, and were housed with a running wheel in their cage. Download
 :download:`example_workflow.py <example_workflow.py>` to follow along.
 
 
-Make data description
+Setup Python environment
+----------------------------
+
+First, we'll set up the Python environment and define some shared variables.
+
+.. literalinclude:: example_workflow.py
+    :lines: 1-42
+
+Data description
 ---------------------
 
 The data description schema contains basic administrative metadata. Who collected the data, 
-how was it funded, etc.
+how was it funded, etc. We'll define a function to generate this, and re-use it for each session.
 
 .. literalinclude:: example_workflow.py
-    :lines: 1-46
+    :lines: 47-60
 
-
-Make subject
+Subject
 ------------
 
-The subject metadata is a bit more complex. In this case, certain fields 
-are required but we simply didn't keep track. As a best practice, we acknowledge
-that this information is unavailable by saying it is ``unknown``.
+To create the subject metadata we'll pull some information from the excel spreadsheet.
+
+Some of the required metadata, like the `cage_id` wasn't available to us. We'll put `"unknown"`` in the metadata for that field.
 
 .. literalinclude:: example_workflow.py
-    :lines: 47-73
+    :lines: 63-86
 
 
-Make procedures
+Procedures
 ---------------
 
 While it's best practice to store each surgery as a separate record, in our
@@ -91,9 +85,22 @@ one injection at one depth followed by a perfusion at a later date - we can
 get away with this simplification.
 
 .. literalinclude:: example_workflow.py
-    :lines: 74-
-
-And there you have it. More metadata to come!
+    :lines: 89-136
 
 
+Generating metadata
+--------------------
+
+Finally, we're ready to generate all the metadata files. We'll loop over the sessions listed in the excel spreadsheet and use our functions to build the JSON files. The `write_standard_file()` function will take care of writing the files to disk.
+
+.. literalinclude:: example_workflow.py
+    :lines: 139-162
+
+
+Other metadata
+-----------------
+
+The remaining metadata files (:doc:`../../instrument` and :doc:`../../acquisition`) follow the same pattern: extract the relevant information from a data source, transform it into the schema, and use the `write_standard_file()` function to write the file. Follow the links above to the relevant sections for more information on these files.
+
+During processing and analysis, you will also generate the :doc:`../../processing`, :doc:`../../quality_control`, and possibly a :doc:`../../model` metadata file.
    

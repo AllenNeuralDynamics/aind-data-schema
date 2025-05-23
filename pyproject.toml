@@ -38,10 +38,9 @@ linters = [
 ]
 
 docs = [
-    'Sphinx',
+    'sphinx',
     'sphinx-jinja',
     'furo',
-    'erdantic>=0.7.0,<1.0',
     'autodoc_pydantic',
     'myst-parser'
 ]
@@ -84,7 +83,6 @@ exclude = '''
 [tool.coverage.run]
 omit = [
     "*__init__*",
-    "*/aind_data_schema/utils/diagrams.py",
     "*/aind_data_schema/visualizations/*",
     "*/tests/test_diagram_builder.py"
 ]

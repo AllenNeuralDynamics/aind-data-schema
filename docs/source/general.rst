@@ -2,20 +2,20 @@
 Metadata in general
 ===================
 
-**Q: What is metadata?**
+Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as it moves through processing and analysis workflows, and the quality of the data.
 
-Metadata is data about data. This documents information about acquired data that enables us to be able to analyze and 
-interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as 
-it moves through processing and analysis workflows, and the quality of the data. We use this metadata to keep track of 
-the data assets and to communicate the embodied context of those data.
+To learn more about why we are developing our own schema, see the :doc:`related_standards` page.
+
+Meta-decisions
+--------------
 
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
-How acquisition software represents metadata evolves over time and often does not capture 
+Metadata captured by acquisition software evolves over time and often does not capture 
 everything we need to know to interpret data. These JSON files represent our ground truth 
 viewpoint on what is essential to know about our data in a single location. 
 
-Additionally, JSON files are trivially both human- and machine-readable. They are viewable on 
+Additionally, JSON files are both human- and machine-readable. They are viewable on 
 any system without additional software to be installed (a text editor is fine). They are easy 
 to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
 
@@ -37,6 +37,10 @@ Files, particularly in cloud storage, are reliable and more persistent. By stori
 essential to interpreting an acquisition session alongside the acquisition in a human- and machine-readable 
 format, there will always be an interpretable record of what happened even if e.g. the 
 database stops working. 
+
+
+FAQs
+----------------
 
 **Q: Which fields do I have to provide within these core schemas?**
 
@@ -76,3 +80,14 @@ more ontologies into our schema. We currently use:
 * Research Resource Identifiers (RRID) to identify reagents and other resources
 * Addgene to identify viruses and plasmids
 * Mouse Genome Informatics (MGI) to identify transgenic alleles
+
+Flexibility, versioning, and upgrading
+--------------------------------------
+
+``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
+also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
+they are used to generate.
+
+When new versions of schemas are released, data collectors can decide if they want to update the metadata
+from their existing data assets to the new schema. Metadata upgrading capabilities can be found in 
+`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_.

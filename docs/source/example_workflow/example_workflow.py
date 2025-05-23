@@ -1,6 +1,8 @@
 import os
 
 import pandas as pd
+from typing import List
+
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 
@@ -41,10 +43,12 @@ subject_sex_lookup = {
 # everything is covered by the same IACUC protocol
 ethics_review_id = "2109"
 
-# loop through all of the sessions
-for session_idx, session in sessions_df.iterrows():
-    # our data always contains planar optical physiology and behavior videos
-    d = DataDescription(
+
+def generate_data_description() -> DataDescription:
+    """Create the DataDescription object
+    our data always contains planar optical physiology and behavior videos
+    """
+    return DataDescription(
         modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
         subject_id=str(session["mouse_id"]),
         creation_time=session["end_time"].to_pydatetime(),
@@ -55,18 +59,10 @@ for session_idx, session in sessions_df.iterrows():
         project_name="Example workflow",
     )
 
-    # we will store our json files in a directory named after the session
-    os.makedirs(d.name, exist_ok=True)
 
-    d.write_standard_file(output_directory=d.name)
-
-    # look up the mouse used in this session
-    mouse = mice_df[mice_df["id"] == session["mouse_id"]].iloc[0]
-    dam = mice_df[mice_df["id"] == mouse["dam_id"]].iloc[0]
-    sire = mice_df[mice_df["id"] == mouse["sire_id"]].iloc[0]
-
-    # construct the subject
-    s = Subject(
+def generate_subject(mouse: dict) -> Subject:
+    """Create the subject object"""
+    return Subject(
         subject_id=str(mouse["id"]),
         subject_details=MouseSubject(
             species=Species.MUS_MUSCULUS,  # all subjects are mice
@@ -88,18 +84,11 @@ for session_idx, session in sessions_df.iterrows():
             source=Organization.OTHER,
         )
     )
-    s.write_standard_file(output_directory=d.name)
 
-    # look up the procedures performed in this session
-    proc_row = procedures_df[procedures_df["mouse_id"] == mouse["id"]].iloc[0]
 
-    # we stored the injection coordinates as a comma-delimited string: AP,ML,DV,angle
-    coords = proc_row.injection_coord.split(",")
-
-    # in this example, a single protocol that covers all surgical procedures
-    protocol = str(proc_row["protocol"])
-
-    p = Procedures(
+def generate_procedures(mouse: dict, proc_row: dict, coords: List[float]) -> Procedures:
+    """Create the procedures object"""
+    return Procedures(
         subject_id=str(mouse["id"]),
         subject_procedures=[
             Surgery(
@@ -145,4 +134,29 @@ for session_idx, session in sessions_df.iterrows():
             ),
         ],
     )
-    p.write_standard_file(output_directory=d.name)
+
+
+# loop through all of the sessions
+for session_idx, session in sessions_df.iterrows():
+    # look up the mouse used in this session
+    mouse = mice_df[mice_df["id"] == session["mouse_id"]].iloc[0]
+    dam = mice_df[mice_df["id"] == mouse["dam_id"]].iloc[0]
+    sire = mice_df[mice_df["id"] == mouse["sire_id"]].iloc[0]
+    # look up the procedures performed in this session
+    proc_row = procedures_df[procedures_df["mouse_id"] == mouse["id"]].iloc[0]
+    # we stored the injection coordinates as a comma-delimited string: AP,ML,DV,angle
+    coords = proc_row.injection_coord.split(",")
+    # in this example, a single protocol that covers all surgical procedures
+    protocol = str(proc_row["protocol"])
+
+    data_description = generate_data_description()
+    subject = generate_subject(mouse)
+    procedures = generate_procedures(mouse, proc_row, coords)
+
+    # we will store our json files in a directory named after the session
+    os.makedirs(data_description.name, exist_ok=True)
+
+    # Save the metadata files
+    data_description.write_standard_file(output_directory=data_description.name)
+    subject.write_standard_file(output_directory=data_description.name)
+    procedures.write_standard_file(output_directory=data_description.name)
