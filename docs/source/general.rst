@@ -68,18 +68,21 @@ Questions about the schema should be directed to Saskia de Vries. If you have gi
 repo for the Data Infrastructure team to review and address. Questions about correcting errors in metadata that 
 you've already attached to your data should be directed to David Feng.
 
-**Q: What are the registries that are referenced in the schema?**
+**Q: What are the registries and atlases that are referenced in the schema?**
 
 When possible, we use persistent identifiers (PIDs) to specify metadata features. This affords precision and clarity 
 and allows richer information in public databases to be accessible. Our list of registries will grow as we incorporate 
 more ontologies into our schema. We currently use:
 
 * NCBI Taxonomy to specify species
+* NBCI Gene
 * Research Organization Registry (ROR) to specify organizations (including manufacturer, funders, research organizations)
 * Open Researcher and Contributor ID (ORCID) to identify experimenters
 * Research Resource Identifiers (RRID) to identify reagents and other resources
 * Addgene to identify viruses and plasmids
 * Mouse Genome Informatics (MGI) to identify transgenic alleles
+* Edinburgh Mouse Atlas Project (EMAPA), mouse anatomy
+* Mouse Common Coordinate Framework (CCF), mouse brain anatomy
 
 Flexibility, versioning, and upgrading
 --------------------------------------
