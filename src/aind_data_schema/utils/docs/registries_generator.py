@@ -42,6 +42,7 @@ from aind_data_schema_models.units import (
     MemoryUnit,
     MagneticFieldUnit,
     UnitlessUnit,
+    SpeedUnit,
 )
 
 # Devices models
@@ -111,6 +112,7 @@ registries = [
     PressureUnit,
     TemperatureUnit,
     SoundIntensityUnit,
+    SpeedUnit,
     VoltageUnit,
     MemoryUnit,
     MagneticFieldUnit,
