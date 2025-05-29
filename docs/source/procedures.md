@@ -1,5 +1,7 @@
 # Procedures
 
+[Link to code](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/src/aind_data_schema/core/procedures.py)
+
 The `procedures.json` file contains anything done to the subject or specimen prior to data collection. This can include surgeries, injections, tissue processing, sectioning, immunolabeling, etc. The procedures metadata also contains implanted devices and their configurations, for example for chronic insertions.
 
 ## Subject vs. specimen

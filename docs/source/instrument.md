@@ -1,5 +1,7 @@
 # Instrument
 
+[Link to code](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/src/aind_data_schema/core/instrument.py)
+
 The `instrument.json` collects the components, mostly hardware devices, used to collect data. In general, the instrument schema describes the static state of the data acquisition hardware across sessions. The [Acquisition](acquisition.md) is used to describe the configuration of components for a specific session.
 
 Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a maintenance event is performed that requires an update. Changes to the instrument should be timestamped using the `Instrument.modification_date` field.
@@ -53,8 +55,9 @@ Description of an instrument
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `instrument_id` | `str` | Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD> |
-| `modification_date` | `datetime.date` |  |
+| `location` | `Optional[str]` | Location of the instrument |
+| `instrument_id` | `str` | Unique instrument identifier |
+| `modification_date` | `datetime.date` | Date of the last change to the instrument, hardware addition/removal, calibration, etc. |
 | `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities that CAN BE acquired |
 | `calibrations` | Optional[List[[Calibration](components/measurements.md#calibration) or [LiquidCalibration](components/measurements.md#liquidcalibration) or [LaserCalibration](components/measurements.md#lasercalibration)]] |  |
 | `coordinate_system` | [CoordinateSystem](components/coordinates.md#coordinatesystem) |  |
