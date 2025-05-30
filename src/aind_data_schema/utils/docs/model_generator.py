@@ -25,8 +25,7 @@ special_cases = {
     "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
     "aind_data_schema.base.GenericModel": "dict",
     "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": (
-        "[MouseAnatomyModel](aind_data_schema_models/external"
-        ".md#mouseanatomymodel)"
+        "[MouseAnatomyModel](aind_data_schema_models/external" ".md#mouseanatomymodel)"
     ),
 }
 
