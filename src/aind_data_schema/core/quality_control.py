@@ -209,8 +209,9 @@ class QualityControl(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.4"]] = Field(default="2.0.4")
     evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[Person]] = Field(
-        default=None, title="Key experimenters",
-        description="Experimenters who are responsible for quality control of this data asset"
+        default=None,
+        title="Key experimenters",
+        description="Experimenters who are responsible for quality control of this data asset",
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
