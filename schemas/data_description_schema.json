@@ -81,7 +81,10 @@
             "fundee": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Person"
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
@@ -1992,8 +1995,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.9",
-         "default": "2.0.9",
+         "const": "2.0.10",
+         "default": "2.0.10",
          "title": "Schema Version",
          "type": "string"
       },
