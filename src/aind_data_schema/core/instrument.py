@@ -18,6 +18,7 @@ from aind_data_schema.components.devices import (
     Computer,
     DAQDevice,
     Detector,
+    Camera,
     Device,
     DigitalMicromirrorDevice,
     Disc,
@@ -153,6 +154,7 @@ class Instrument(DataCoreModel):
         | LightEmittingDiode
         | Lamp
         | Detector
+        | Camera
         | Objective
         | Scanner
         | Filter
