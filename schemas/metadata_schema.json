@@ -20477,8 +20477,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.27",
-               "default": "2.0.27",
+               "const": "2.0.28",
+               "default": "2.0.28",
                "title": "Schema Version",
                "type": "string"
             },
@@ -20654,6 +20654,7 @@
                         "Additional imaging device": "#/$defs/AdditionalImagingDevice",
                         "Air puff device": "#/$defs/AirPuffDevice",
                         "Arena": "#/$defs/Arena",
+                        "Camera": "#/$defs/Camera",
                         "Camera assembly": "#/$defs/CameraAssembly",
                         "Computer": "#/$defs/Computer",
                         "DAQ device": "#/$defs/DAQDevice",
@@ -20740,6 +20741,9 @@
                      },
                      {
                         "$ref": "#/$defs/Detector"
+                     },
+                     {
+                        "$ref": "#/$defs/Camera"
                      },
                      {
                         "$ref": "#/$defs/Objective"
@@ -40477,8 +40481,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.60",
-               "default": "2.0.60",
+               "const": "2.0.61",
+               "default": "2.0.61",
                "title": "Schema Version",
                "type": "string"
             },
@@ -86082,8 +86086,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.60",
-         "default": "2.0.60",
+         "const": "2.0.61",
+         "default": "2.0.61",
          "title": "Schema Version",
          "type": "string"
       },
