@@ -9249,11 +9249,6 @@
                "default": "nanometer",
                "title": "Wavelength unit"
             },
-            "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
-               "title": "Power unit"
-            },
             "coupling": {
                "anyOf": [
                   {
@@ -22882,8 +22877,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.28",
-         "default": "2.0.28",
+         "const": "2.0.29",
+         "default": "2.0.29",
          "title": "Schema Version",
          "type": "string"
       },
