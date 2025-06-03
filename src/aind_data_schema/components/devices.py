@@ -291,7 +291,6 @@ class Laser(Device):
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
-    power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
         default=None,
