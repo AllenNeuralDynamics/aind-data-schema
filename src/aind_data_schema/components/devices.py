@@ -32,7 +32,6 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
     MagneticFieldUnit,
-    PowerUnit,
     SizeUnit,
     SpeedUnit,
     TemperatureUnit,
