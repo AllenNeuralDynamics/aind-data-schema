@@ -25,7 +25,7 @@ class Calibration(DeviceConfig):
     )
 
 
-class LiquidCalibration(Calibration):
+class VolumeCalibration(Calibration):
     """Calibration of a liquid delivery device"""
 
     input: List[float] = Field(..., title="Input times", description="Length of time solenoid is open")
@@ -38,7 +38,7 @@ class LiquidCalibration(Calibration):
     )
 
 
-class LaserCalibration(Calibration):
+class PowerCalibration(Calibration):
     """Calibration of a laser device"""
 
     input: List[float] = Field(..., title="Input times", description="Power output percentage")
@@ -46,12 +46,12 @@ class LaserCalibration(Calibration):
     output: List[float] = Field(..., title="Output", description="Laser strength")
     output_unit: PowerUnit = Field(..., title="Output unit")
 
-    description: Literal["Laser power measured for various percentage output strengths"] = (
-        "Laser power measured for various percentage output strengths"
+    description: Literal["Power measured for various power or percentage output strengths"] = (
+        "Power measured for various power or percentage output strengths"
     )
 
 
-CALIBRATIONS = Discriminated[Calibration | LiquidCalibration | LaserCalibration]
+CALIBRATIONS = Discriminated[Calibration | VolumeCalibration | PowerCalibration]
 
 
 class Maintenance(DeviceConfig):
