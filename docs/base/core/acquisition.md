@@ -15,11 +15,15 @@ In situations where data or stimulus modalities change, or where the configurati
 2. Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quite wakefulness, receptive field mapping, etc.
 3. Single stimulus epoch with multiple data streams: less common, but can occur if you switch modalities during an experiment or change the configuration of an acute recording device.
 
+## Uniqueness
+
+You can uniquely identify acquisition sessions (and therefore a specific data asset) by their acquisition datetime (`Acquisition.session_start_time`). In addition, the `Acquisition.acquisition_type` is an open `str` field where you can put information that groups similar acquisitions together. Examples of good acquisition types are strings like: `"Training"`, `"Stage 1"`, `"Behavior with fiber photometry"` and other phrases that clearly identify what part of an experiment this acquisition belongs to.
+
 ## FAQs
 
 ### When should a DataStream be split in two
 
-The `DataStream` should be split if there is a change in data modalities or a significant change in the configuration of devices.
+The `DataStream` should be split if there is a change in data modalities or a change in the configuration of devices.
 
 ### When should a StimulusEpoch be split in two
 
