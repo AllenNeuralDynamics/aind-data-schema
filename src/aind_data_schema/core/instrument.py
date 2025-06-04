@@ -118,16 +118,28 @@ class Instrument(DataCoreModel):
         title="Date of modification",
         description="Date of the last change to the instrument, hardware addition/removal, calibration, etc.",
     )
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities", description="Modalities that CAN BE acquired")
-    calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
+    modalities: List[Modality.ONE_OF] = Field(
+        ...,
+        title="Modalities",
+        description="List of all possible modalities that the instrument is capable of acquiring",
+    )
+    calibrations: Optional[List[CALIBRATIONS]] = Field(
+        default=None,
+        title="Calibrations",
+        description="List of calibration measurements takend during instrument setup and maintenance",
+    )
 
     # coordinate system
     coordinate_system: CoordinateSystem = Field(
-        ..., title="Coordinate system"
+        ...,
+        title="Coordinate system",
+        description="Origin and axis definitions for determining the position of the instrument's components",
     )  # note: exact field name is used by a validator
 
     # instrument details
-    temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
+    temperature_control: Optional[bool] = Field(
+        default=None, title="Temperature control", description="Does the instrument maintain a constant temperature?"
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     connections: List[Connection] = Field(

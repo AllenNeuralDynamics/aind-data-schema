@@ -16,7 +16,7 @@ class Subject(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     subject_id: str = Field(
         ...,
-        description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+        description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
 

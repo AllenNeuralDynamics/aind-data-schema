@@ -585,13 +585,15 @@ class Procedures(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.26"]] = Field(default="2.0.26")
     subject_id: str = Field(
         ...,
-        description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+        description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
     subject_procedures: DiscriminatedList[Surgery | TrainingProtocol | WaterRestriction | GenericSubjectProcedure] = (
-        Field(default=[], title="Subject Procedures")
+        Field(default=[], title="Subject Procedures", description="Procedures performed on a live subject")
     )
-    specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+    specimen_procedures: List[SpecimenProcedure] = Field(
+        default=[], title="Specimen Procedures", description="Procedures performed on tissue extracted after perfusion"
+    )
 
     # Implanted devices
     implanted_devices: DiscriminatedList[EphysProbe | FiberProbe | MyomatrixArray] = Field(
@@ -605,7 +607,10 @@ class Procedures(DataCoreModel):
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate System",
-        description="Required when coordinates are provided in the procedures",
+        description=(
+            "Origin and axis definitions for determining the configured position of devices implanted during"
+            " procedures. Required when coordinates are provided within the Procedures"
+        ),
     )  # note: exact field name is used by a validator
 
     notes: Optional[str] = Field(default=None, title="Notes")

@@ -194,7 +194,7 @@ class Acquisition(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.25"]] = Field(default="2.0.25")
 
     # ID
-    subject_id: str = Field(default=..., title="Subject ID")
+    subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
     specimen_id: Optional[str] = Field(
         default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
     )
@@ -208,15 +208,25 @@ class Acquisition(DataCoreModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
-    instrument_id: str = Field(..., title="Instrument ID")
-    acquisition_type: str = Field(..., title="Acquisition type")
+    instrument_id: str = Field(..., title="Instrument ID", description="Should match the Instrument.instrument_id")
+    acquisition_type: str = Field(
+        ...,
+        title="Acquisition type",
+        description=(
+            "Descriptive string detailing the type of acquisition, "
+            "should be consistent across similar acquisitions for the same experiment."
+        ),
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
-        description="Required when coordinates are provided within the Acquisition",
+        description=(
+            "Origin and axis definitions for determining the configured position of devices during acquisition."
+            " Required when coordinates are provided within the Acquisition"
+        ),
     )  # note: exact field name is used by a validator
 
     # Instrument metadata
@@ -234,11 +244,18 @@ class Acquisition(DataCoreModel):
         ...,
         title="Data streams",
         description=(
-            "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include"
-            " multiple streams (e.g., if the manipulators are moved to a new location)"
+            "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
+            "include multiple streams. Streams should be split when configurations are changed."
         ),
     )
-    stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
+    stimulus_epochs: List[StimulusEpoch] = Field(
+        default=[],
+        title="Stimulus",
+        description=(
+            "A stimulus epoch captures all stimuli being presented during an acquisition."
+            " Epochs should be split when the purpose of the stimulus changes."
+        ),
+    )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
