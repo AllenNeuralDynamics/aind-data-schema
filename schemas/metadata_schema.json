@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.25",
-               "default": "2.0.25",
+               "const": "2.0.26",
+               "default": "2.0.26",
                "title": "Schema Version",
                "type": "string"
             },
@@ -128,8 +128,8 @@
                   "discriminator": {
                      "mapping": {
                         "Calibration": "#/$defs/Calibration",
-                        "Laser calibration": "#/$defs/LaserCalibration",
-                        "Liquid calibration": "#/$defs/LiquidCalibration"
+                        "Power calibration": "#/$defs/PowerCalibration",
+                        "Volume calibration": "#/$defs/VolumeCalibration"
                      },
                      "propertyName": "object_type"
                   },
@@ -138,10 +138,10 @@
                         "$ref": "#/$defs/Calibration"
                      },
                      {
-                        "$ref": "#/$defs/LiquidCalibration"
+                        "$ref": "#/$defs/VolumeCalibration"
                      },
                      {
-                        "$ref": "#/$defs/LaserCalibration"
+                        "$ref": "#/$defs/PowerCalibration"
                      }
                   ]
                },
@@ -20477,8 +20477,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.29",
-               "default": "2.0.29",
+               "const": "2.0.30",
+               "default": "2.0.30",
                "title": "Schema Version",
                "type": "string"
             },
@@ -20583,8 +20583,8 @@
                         "discriminator": {
                            "mapping": {
                               "Calibration": "#/$defs/Calibration",
-                              "Laser calibration": "#/$defs/LaserCalibration",
-                              "Liquid calibration": "#/$defs/LiquidCalibration"
+                              "Power calibration": "#/$defs/PowerCalibration",
+                              "Volume calibration": "#/$defs/VolumeCalibration"
                            },
                            "propertyName": "object_type"
                         },
@@ -20593,10 +20593,10 @@
                               "$ref": "#/$defs/Calibration"
                            },
                            {
-                              "$ref": "#/$defs/LiquidCalibration"
+                              "$ref": "#/$defs/VolumeCalibration"
                            },
                            {
-                              "$ref": "#/$defs/LaserCalibration"
+                              "$ref": "#/$defs/PowerCalibration"
                            }
                         ]
                      },
@@ -21577,81 +21577,6 @@
             "fiber"
          ],
          "title": "LaserAssembly",
-         "type": "object"
-      },
-      "LaserCalibration": {
-         "additionalProperties": false,
-         "description": "Calibration of a laser device",
-         "properties": {
-            "object_type": {
-               "const": "Laser calibration",
-               "default": "Laser calibration",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device defined in the instrument.json",
-               "title": "Device name",
-               "type": "string"
-            },
-            "calibration_date": {
-               "format": "date-time",
-               "title": "Date and time of calibration",
-               "type": "string"
-            },
-            "description": {
-               "const": "Laser power measured for various percentage output strengths",
-               "default": "Laser power measured for various percentage output strengths",
-               "title": "Description",
-               "type": "string"
-            },
-            "input": {
-               "description": "Power output percentage",
-               "items": {
-                  "type": "number"
-               },
-               "title": "Input times",
-               "type": "array"
-            },
-            "input_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "title": "Input unit"
-            },
-            "output": {
-               "description": "Laser strength",
-               "items": {
-                  "type": "number"
-               },
-               "title": "Output",
-               "type": "array"
-            },
-            "output_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "title": "Output unit"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Fit equation, etc",
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "device_name",
-            "calibration_date",
-            "input",
-            "input_unit",
-            "output",
-            "output_unit"
-         ],
-         "title": "LaserCalibration",
          "type": "object"
       },
       "LaserConfig": {
@@ -22792,81 +22717,6 @@
          ],
          "title": "Liquid",
          "type": "string"
-      },
-      "LiquidCalibration": {
-         "additionalProperties": false,
-         "description": "Calibration of a liquid delivery device",
-         "properties": {
-            "object_type": {
-               "const": "Liquid calibration",
-               "default": "Liquid calibration",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "device_name": {
-               "description": "Must match a device defined in the instrument.json",
-               "title": "Device name",
-               "type": "string"
-            },
-            "calibration_date": {
-               "format": "date-time",
-               "title": "Date and time of calibration",
-               "type": "string"
-            },
-            "description": {
-               "const": "Liquid volume measured for various solenoid opening times",
-               "default": "Liquid volume measured for various solenoid opening times",
-               "title": "Description",
-               "type": "string"
-            },
-            "input": {
-               "description": "Length of time solenoid is open",
-               "items": {
-                  "type": "number"
-               },
-               "title": "Input times",
-               "type": "array"
-            },
-            "input_unit": {
-               "$ref": "#/$defs/TimeUnit",
-               "title": "Input unit"
-            },
-            "output": {
-               "description": "Liquid output",
-               "items": {
-                  "type": "number"
-               },
-               "title": "Output",
-               "type": "array"
-            },
-            "output_unit": {
-               "$ref": "#/$defs/VolumeUnit",
-               "title": "Output unit"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Fit equation, etc",
-               "title": "Notes"
-            }
-         },
-         "required": [
-            "device_name",
-            "calibration_date",
-            "input",
-            "input_unit",
-            "output",
-            "output_unit"
-         ],
-         "title": "LiquidCalibration",
-         "type": "object"
       },
       "MISModuleConfig": {
          "additionalProperties": false,
@@ -33295,6 +33145,81 @@
          "title": "PolygonalScanner",
          "type": "object"
       },
+      "PowerCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a laser device",
+         "properties": {
+            "object_type": {
+               "const": "Power calibration",
+               "default": "Power calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Power measured for various power or percentage input strengths",
+               "default": "Power measured for various power or percentage input strengths",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Power or percentage input strength",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Power output",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/PowerUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "PowerCalibration",
+         "type": "object"
+      },
       "PowerFunction": {
          "description": "Power functions",
          "enum": [
@@ -40476,8 +40401,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.62",
-               "default": "2.0.62",
+               "const": "2.0.63",
+               "default": "2.0.63",
                "title": "Schema Version",
                "type": "string"
             },
@@ -53207,6 +53132,81 @@
          ],
          "title": "VoltageUnit",
          "type": "string"
+      },
+      "VolumeCalibration": {
+         "additionalProperties": false,
+         "description": "Calibration of a liquid delivery device",
+         "properties": {
+            "object_type": {
+               "const": "Volume calibration",
+               "default": "Volume calibration",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "calibration_date": {
+               "format": "date-time",
+               "title": "Date and time of calibration",
+               "type": "string"
+            },
+            "description": {
+               "const": "Volume measured for various solenoid opening times",
+               "default": "Volume measured for various solenoid opening times",
+               "title": "Description",
+               "type": "string"
+            },
+            "input": {
+               "description": "Length of time solenoid is open",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Input times",
+               "type": "array"
+            },
+            "input_unit": {
+               "$ref": "#/$defs/TimeUnit",
+               "title": "Input unit"
+            },
+            "output": {
+               "description": "Volume output",
+               "items": {
+                  "type": "number"
+               },
+               "title": "Output",
+               "type": "array"
+            },
+            "output_unit": {
+               "$ref": "#/$defs/VolumeUnit",
+               "title": "Output unit"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation, etc",
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "device_name",
+            "calibration_date",
+            "input",
+            "input_unit",
+            "output",
+            "output_unit"
+         ],
+         "title": "VolumeCalibration",
+         "type": "object"
       },
       "VolumeUnit": {
          "description": "Enumeration of Volume Measurements",
@@ -86081,8 +86081,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.62",
-         "default": "2.0.62",
+         "const": "2.0.63",
+         "default": "2.0.63",
          "title": "Schema Version",
          "type": "string"
       },
