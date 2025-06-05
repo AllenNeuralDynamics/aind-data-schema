@@ -1651,7 +1651,7 @@
          "enum": [
             "Additive",
             "Average",
-            "None"
+            "No binning"
          ],
          "title": "BinMode",
          "type": "string"
@@ -1979,7 +1979,7 @@
             },
             "cooling": {
                "$ref": "#/$defs/Cooling",
-               "default": "None"
+               "default": "No cooling"
             },
             "frame_rate": {
                "anyOf": [
@@ -2100,7 +2100,7 @@
             },
             "bin_mode": {
                "$ref": "#/$defs/BinMode",
-               "default": "None",
+               "default": "No binning",
                "title": "Detector binning mode"
             },
             "bin_width": {
@@ -2987,7 +2987,7 @@
          "enum": [
             "Air",
             "Water",
-            "None"
+            "No cooling"
          ],
          "title": "Cooling",
          "type": "string"
@@ -3440,7 +3440,7 @@
             },
             "cooling": {
                "$ref": "#/$defs/Cooling",
-               "default": "None"
+               "default": "No cooling"
             },
             "frame_rate": {
                "anyOf": [
@@ -3561,7 +3561,7 @@
             },
             "bin_mode": {
                "$ref": "#/$defs/BinMode",
-               "default": "None",
+               "default": "No binning",
                "title": "Detector binning mode"
             },
             "bin_width": {
@@ -9178,6 +9178,7 @@
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
                      "Quantifi": "#/$defs/_Quantifi",
+                     "Thorlabs": "#/$defs/_Thorlabs",
                      "Vortran": "#/$defs/_Vortran"
                   },
                   "propertyName": "name"
@@ -9194,6 +9195,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Thorlabs"
                   },
                   {
                      "$ref": "#/$defs/_Vortran"
@@ -22877,8 +22881,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.30",
-         "default": "2.0.30",
+         "const": "2.0.31",
+         "default": "2.0.31",
          "title": "Schema Version",
          "type": "string"
       },
