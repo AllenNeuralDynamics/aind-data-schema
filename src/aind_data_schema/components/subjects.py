@@ -24,7 +24,7 @@ class Sex(str, Enum):
 class HomeCageEnrichment(str, Enum):
     """Materials provided in animal home cage"""
 
-    NONE = "None"
+    NO_ENRICHMENT = "No enrichment"
     PLASTIC_SHELTER = "Plastic shelter"
     PLASTIC_TUBE = "Plastic tube"
     RUNNING_WHEEL = "Running wheel"
