@@ -268,7 +268,8 @@
                "discriminator": {
                   "mapping": {
                      "BALB/c": "#/$defs/_Balb_C",
-                     "C57BL/6J": "#/$defs/_C57Bl_6J"
+                     "C57BL/6J": "#/$defs/_C57Bl_6J",
+                     "Unknown": "#/$defs/_Unknown"
                   },
                   "propertyName": "name"
                },
@@ -278,6 +279,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Balb_C"
+                  },
+                  {
+                     "$ref": "#/$defs/_Unknown"
                   }
                ],
                "title": "Strain"
@@ -1602,6 +1606,36 @@
          },
          "title": "_Rrid",
          "type": "object"
+      },
+      "_Unknown": {
+         "description": "Model Unknown",
+         "properties": {
+            "name": {
+               "const": "Unknown",
+               "default": "Unknown",
+               "title": "Name",
+               "type": "string"
+            },
+            "species": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Species",
+               "type": "string"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "const": "nan",
+               "default": "nan",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Unknown",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -1620,8 +1654,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.6",
-         "default": "2.0.6",
+         "const": "2.0.7",
+         "default": "2.0.7",
          "title": "Schema Version",
          "type": "string"
       },

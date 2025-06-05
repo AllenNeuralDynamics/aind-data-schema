@@ -26,7 +26,9 @@ class Funding(DataModel):
 
     funder: Organization.FUNDERS = Field(..., title="Funder")
     grant_number: Optional[str] = Field(default=None, title="Grant number")
-    fundee: Optional[Person] = Field(default=None, title="Fundee", description="Person(s) funded by this mechanism")
+    fundee: Optional[List[Person]] = Field(
+        default=None, title="Fundee", description="Person(s) funded by this mechanism"
+    )
 
 
 class DataDescription(DataCoreModel):
@@ -34,7 +36,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.9"]] = Field(default="2.0.9")
+    schema_version: SkipValidation[Literal["2.0.10"]] = Field(default="2.0.10")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(

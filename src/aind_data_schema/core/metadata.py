@@ -68,7 +68,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.59"]] = Field(default="2.0.59")
+    schema_version: SkipValidation[Literal["2.0.62"]] = Field(default="2.0.62")
     name: str = Field(
         ...,
         description="Name of the data asset.",

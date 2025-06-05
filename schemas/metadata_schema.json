@@ -12156,8 +12156,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.9",
-               "default": "2.0.9",
+               "const": "2.0.10",
+               "default": "2.0.10",
                "title": "Schema Version",
                "type": "string"
             },
@@ -17631,7 +17631,10 @@
             "fundee": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/Person"
+                     "items": {
+                        "$ref": "#/$defs/Person"
+                     },
+                     "type": "array"
                   },
                   {
                      "type": "null"
@@ -20474,8 +20477,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.27",
-               "default": "2.0.27",
+               "const": "2.0.29",
+               "default": "2.0.29",
                "title": "Schema Version",
                "type": "string"
             },
@@ -20651,6 +20654,7 @@
                         "Additional imaging device": "#/$defs/AdditionalImagingDevice",
                         "Air puff device": "#/$defs/AirPuffDevice",
                         "Arena": "#/$defs/Arena",
+                        "Camera": "#/$defs/Camera",
                         "Camera assembly": "#/$defs/CameraAssembly",
                         "Computer": "#/$defs/Computer",
                         "DAQ device": "#/$defs/DAQDevice",
@@ -20737,6 +20741,9 @@
                      },
                      {
                         "$ref": "#/$defs/Detector"
+                     },
+                     {
+                        "$ref": "#/$defs/Camera"
                      },
                      {
                         "$ref": "#/$defs/Objective"
@@ -21484,11 +21491,6 @@
                "$ref": "#/$defs/SizeUnit",
                "default": "nanometer",
                "title": "Wavelength unit"
-            },
-            "power_unit": {
-               "$ref": "#/$defs/PowerUnit",
-               "default": "milliwatt",
-               "title": "Power unit"
             },
             "coupling": {
                "anyOf": [
@@ -25182,7 +25184,8 @@
                "discriminator": {
                   "mapping": {
                      "BALB/c": "#/$defs/_Balb_C",
-                     "C57BL/6J": "#/$defs/_C57Bl_6J"
+                     "C57BL/6J": "#/$defs/_C57Bl_6J",
+                     "Unknown": "#/$defs/_Unknown"
                   },
                   "propertyName": "name"
                },
@@ -25192,6 +25195,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Balb_C"
+                  },
+                  {
+                     "$ref": "#/$defs/_Unknown"
                   }
                ],
                "title": "Strain"
@@ -40470,8 +40476,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.59",
-               "default": "2.0.59",
+               "const": "2.0.62",
+               "default": "2.0.62",
                "title": "Schema Version",
                "type": "string"
             },
@@ -51527,8 +51533,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.6",
-               "default": "2.0.6",
+               "const": "2.0.7",
+               "default": "2.0.7",
                "title": "Schema Version",
                "type": "string"
             },
@@ -82218,6 +82224,36 @@
          "title": "_University_Of_California_San_Diego",
          "type": "object"
       },
+      "_Unknown": {
+         "description": "Model Unknown",
+         "properties": {
+            "name": {
+               "const": "Unknown",
+               "default": "Unknown",
+               "title": "Name",
+               "type": "string"
+            },
+            "species": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Species",
+               "type": "string"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "const": "nan",
+               "default": "nan",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Unknown",
+         "type": "object"
+      },
       "_Uvu": {
          "description": "Model UVU",
          "properties": {
@@ -86045,8 +86081,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.59",
-         "default": "2.0.59",
+         "const": "2.0.62",
+         "default": "2.0.62",
          "title": "Schema Version",
          "type": "string"
       },
