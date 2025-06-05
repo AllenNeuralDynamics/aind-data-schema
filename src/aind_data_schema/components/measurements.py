@@ -25,33 +25,33 @@ class Calibration(DeviceConfig):
     )
 
 
-class LiquidCalibration(Calibration):
+class VolumeCalibration(Calibration):
     """Calibration of a liquid delivery device"""
 
     input: List[float] = Field(..., title="Input times", description="Length of time solenoid is open")
     input_unit: TimeUnit = Field(..., title="Input unit")
-    output: List[float] = Field(..., title="Output", description="Liquid output")
+    output: List[float] = Field(..., title="Output", description="Volume output")
     output_unit: VolumeUnit = Field(..., title="Output unit")
 
-    description: Literal["Liquid volume measured for various solenoid opening times"] = (
-        "Liquid volume measured for various solenoid opening times"
+    description: Literal["Volume measured for various solenoid opening times"] = (
+        "Volume measured for various solenoid opening times"
     )
 
 
-class LaserCalibration(Calibration):
+class PowerCalibration(Calibration):
     """Calibration of a laser device"""
 
-    input: List[float] = Field(..., title="Input times", description="Power output percentage")
+    input: List[float] = Field(..., title="Input", description="Power or percentage input strength")
     input_unit: PowerUnit = Field(..., title="Input unit")
-    output: List[float] = Field(..., title="Output", description="Laser strength")
+    output: List[float] = Field(..., title="Output", description="Power output")
     output_unit: PowerUnit = Field(..., title="Output unit")
 
-    description: Literal["Laser power measured for various percentage output strengths"] = (
-        "Laser power measured for various percentage output strengths"
+    description: Literal["Power measured for various power or percentage input strengths"] = (
+        "Power measured for various power or percentage input strengths"
     )
 
 
-CALIBRATIONS = Discriminated[Calibration | LiquidCalibration | LaserCalibration]
+CALIBRATIONS = Discriminated[Calibration | VolumeCalibration | PowerCalibration]
 
 
 class Maintenance(DeviceConfig):
