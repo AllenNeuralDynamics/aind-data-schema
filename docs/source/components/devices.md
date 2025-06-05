@@ -434,7 +434,6 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `wavelength` | `int` |  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
 | `coupling` | Optional[[Coupling](../aind_data_schema_models/devices.md#coupling)] |  |
 | `coupling_efficiency` | `Optional[decimal.Decimal]` |  |
 | `coupling_efficiency_unit` | `"percent"` |  |
@@ -770,7 +769,7 @@ Description of a Polygonal scanner
 | Field | Type | Description |
 |-------|------|-------------|
 | `speed` | `int` |  |
-| `speed_unit` | {SpeedUnit} |  |
+| `speed_unit` | [SpeedUnit](../aind_data_schema_models/units.md#speedunit) |  |
 | `number_faces` | `int` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |

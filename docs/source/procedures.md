@@ -34,12 +34,12 @@ Description of all procedures performed on a subject
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `subject_id` | `str` | Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes. |
-| `subject_procedures` | List[[Surgery](#surgery) or [TrainingProtocol](#trainingprotocol) or [WaterRestriction](#waterrestriction) or [GenericSubjectProcedure](#genericsubjectprocedure)] |  |
-| `specimen_procedures` | List[[SpecimenProcedure](#specimenprocedure)] |  |
+| `subject_id` | `str` | Unique identifier for the subject of data acquisition |
+| `subject_procedures` | List[[Surgery](#surgery) or [TrainingProtocol](#trainingprotocol) or [WaterRestriction](#waterrestriction) or [GenericSubjectProcedure](#genericsubjectprocedure)] | Procedures performed on a live subject |
+| `specimen_procedures` | List[[SpecimenProcedure](#specimenprocedure)] | Procedures performed on tissue extracted after perfusion |
 | `implanted_devices` | List[[EphysProbe](components/devices.md#ephysprobe) or [FiberProbe](components/devices.md#fiberprobe) or [MyomatrixArray](components/devices.md#myomatrixarray)] |  |
 | `configurations` | List[[ProbeConfig](components/configs.md#probeconfig) or [DeviceConfig](components/configs.md#deviceconfig)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Required when coordinates are provided in the procedures |
+| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures |
 | `notes` | `Optional[str]` |  |
 
 
