@@ -113,7 +113,7 @@ class Detector(Device):
     detector_type: DetectorType = Field(..., title="Detector Type")
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(default=Cooling.NONE, title="Cooling")
+    cooling: Cooling = Field(default=Cooling.NO_COOLING, title="Cooling")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)", description="Frame rate being used")
     frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     immersion: Optional[ImmersionMedium] = Field(default=None, title="Immersion")
@@ -124,7 +124,7 @@ class Detector(Device):
     sensor_format: Optional[str] = Field(default=None, title="Sensor format")
     sensor_format_unit: Optional[str] = Field(default=None, title="Sensor format unit")
     bit_depth: Optional[int] = Field(default=None, title="Bit depth")
-    bin_mode: BinMode = Field(default=BinMode.NONE, title="Detector binning mode")
+    bin_mode: BinMode = Field(default=BinMode.NO_BINNING, title="Detector binning mode")
     bin_width: Optional[int] = Field(default=None, title="Bin width")
     bin_height: Optional[int] = Field(default=None, title="Bin height")
     bin_unit: SizeUnit = Field(default=SizeUnit.PX, title="Bin size unit")

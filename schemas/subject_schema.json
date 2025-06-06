@@ -71,7 +71,7 @@
       "HomeCageEnrichment": {
          "description": "Materials provided in animal home cage",
          "enum": [
-            "None",
+            "No enrichment",
             "Plastic shelter",
             "Plastic tube",
             "Running wheel",
@@ -1654,8 +1654,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.7",
-         "default": "2.0.7",
+         "const": "2.0.8",
+         "default": "2.0.8",
          "title": "Schema Version",
          "type": "string"
       },
