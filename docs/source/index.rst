@@ -5,7 +5,7 @@ Welcome to aind-data-schema
 
 Data acquired at the Allen Institute for Neural Dynamics (AIND) is accompanied by metadata describing how it was acquired, processed, and analyzed. This metadata is stored in JSON files according to the schema defined in this library. Our goal in capturing this metadata is to make our data findable and understandable.
 
-Data assets acquired from a live subject or in vivo specimen must contain the following metadata files:
+Data assets acquired from a live subject or in vivo specimen must contain the following *core* metadata files:
 
 - :doc:`data_description <data_description>`: Administrative metadata about the source of the data, funding, relevant licenses, and restrictions on use.
 - :doc:`subject <subject>`: Species, genotype, age, sex, and source.
@@ -17,10 +17,12 @@ After data analysis, additional processing and quality control metadata is captu
 
 - :doc:`processing <processing>`: Metadata describing how data has been processed and analyzed into derived data assets, including information on the software and parameters used.
 - :doc:`quality_control <quality_control>`: Evaluations and metrics describing the quality of a data asset.
+- :doc:`model <model>`: Metadata describing machine learning models created from or used to analyze data assets.
 
-The metadata also covers models that are derived from data or used to analyze data:
+The *core* files are built from many smaller schema objects. These are stored in the components and registries. Registries are specifically used for schema objects that are part of a controlled vocabulary. Some registries are linked to external standards.
 
-- :doc:`model <model>`: Metadata describing models created from or used to analyze data assets.
+- :doc:`components <components>`: Component schemas used to build up the core files (devices, configurations, etc).
+- :doc:`registries <registries>`: Component schemas that are part of a controlled vocabulary.
 
 I want to...
 ------------
@@ -56,7 +58,7 @@ I want to...
    
 
 .. toctree::
-   :caption: Models
+   :caption: Component Schemas
    :hidden:
    :maxdepth: 2
 
