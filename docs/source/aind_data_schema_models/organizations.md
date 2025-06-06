@@ -22,6 +22,7 @@ Organization
 | `BASLER` | `None` | `Basler` | `None` | `None` |
 | `BCM` | `BCM` | `Baylor College of Medicine` | `name='Research Organization Registry' abbreviation='ROR'` | `02pttbw34` |
 | `BU` | `BU` | `Boston University` | `name='Research Organization Registry' abbreviation='ROR'` | `05qwgg493` |
+| `CAJAL` | `Cajal` | `Cajal Neuroscience` | `name='Research Organization Registry' abbreviation='ROR'` | `05pdc0q70` |
 | `CAMBRIDGE_TECHNOLOGY` | `None` | `Cambridge Technology` | `None` | `None` |
 | `CARL_ZEISS` | `None` | `Carl Zeiss` | `name='Research Organization Registry' abbreviation='ROR'` | `01xk5xs43` |
 | `CATHETER_IMPLANT_INSTITUTIONS` | `N/A` | `N/A` | `N/A` | `N/A` |
@@ -85,6 +86,7 @@ Organization
 | `NATIONAL_INSTRUMENTS` | `None` | `National Instruments` | `name='Research Organization Registry' abbreviation='ROR'` | `026exqw73` |
 | `NAVITAR` | `None` | `Navitar` | `None` | `None` |
 | `NCCIH` | `NCCIH` | `National Center for Complementary and Integrative Health` | `name='Research Organization Registry' abbreviation='ROR'` | `00190t495` |
+| `NEURALYNX` | `None` | `NeuraLynx` | `None` | `None` |
 | `NEUROPHOTOMETRICS` | `None` | `Neurophotometrics` | `None` | `None` |
 | `NEW_SCALE_TECHNOLOGIES` | `None` | `New Scale Technologies` | `None` | `None` |
 | `NIKON` | `None` | `Nikon` | `name='Research Organization Registry' abbreviation='ROR'` | `0280y9h11` |

@@ -10,7 +10,7 @@ Detector binning mode
 |------|-------|
 | `ADDITIVE` | `Additive` |
 | `AVERAGE` | `Average` |
-| `NONE` | `None` |
+| `NO_BINNING` | `No binning` |
 
 
 ### CameraChroma
@@ -45,7 +45,7 @@ Cooling medium name
 |------|-------|
 | `AIR` | `Air` |
 | `WATER` | `Water` |
-| `NONE` | `None` |
+| `NO_COOLING` | `No cooling` |
 
 
 ### Coupling
@@ -217,6 +217,7 @@ Probe model name
 | `NP2_SINGLE_SHANK` | `Neuropixels 2.0 (Single Shank)` |
 | `NP2_MULTI_SHANK` | `Neuropixels 2.0 (Multi Shank)` |
 | `NP2_QUAD_BASE` | `Neuropixels 2.0 (Quad Base)` |
+| `CUSTOM` | `Custom` |
 
 
 ### StageAxisDirection

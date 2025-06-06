@@ -20,6 +20,10 @@ After data analysis, additional processing and quality control metadata is captu
 - :doc:`quality_control <quality_control>`: Evaluations and metrics describing the quality of a data asset.
 - :doc:`model <model>`: Metadata describing machine learning models created from or used to analyze data assets.
 
+Finally the *core* files are pulled together into a single `metadata.json` file:
+
+- :doc:`metadata <metadata>`: Metadata describing machine learning models created from or used to analyze data assets.
+
 The *core* files are built from many smaller schema objects. These are stored in the components and registries. Registries are specifically used for schema objects that are part of a controlled vocabulary. Some registries are linked to external standards.
 
 - :doc:`components <components>`: Component schemas used to build up the core files (devices, configurations, etc).
@@ -56,6 +60,7 @@ I want to...
    processing
    quality_control
    model
+   metadata
    
 
 .. toctree::

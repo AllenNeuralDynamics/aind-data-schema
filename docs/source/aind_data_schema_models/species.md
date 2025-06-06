@@ -22,5 +22,6 @@ Strain
 |------|------|------|------|------|
 | `BALB_C` | `BALB/c` | `Mus musculus` | `name='Mouse Genome Informatics' abbreviation='MGI'` | `MGI:2159737` |
 | `C57BL_6J` | `C57BL/6J` | `Mus musculus` | `name='Mouse Genome Informatics' abbreviation='MGI'` | `MGI:3028467` |
+| `UNKNOWN` | `Unknown` | `Mus musculus` | `None` | `nan` |
 
 
