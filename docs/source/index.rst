@@ -22,7 +22,7 @@ After data analysis, additional processing and quality control metadata is captu
 
 Finally the *core* files are pulled together into a single `metadata.json` file:
 
-- :doc:`metadata <metadata>`: Metadata describing machine learning models created from or used to analyze data assets.
+- :doc:`metadata <metadata>`: The combined set of core files, plus the asset location (e.g. on S3).
 
 The *core* files are built from many smaller schema objects. These are stored in the components and registries. Registries are specifically used for schema objects that are part of a controlled vocabulary. Some registries are linked to external standards.
 
@@ -35,6 +35,7 @@ I want to...
 - :doc:`Create metadata for my data assets <example_workflow/example_workflow>`. 
 - :doc:`Create metadata using the AIND metadata-mapper <todo>`. 
 - :doc:`Learn about the philosophy behind aind-data-schema<general>`.
+- :doc:`Learn about how coordinate systems work<coordinate_systems>`.
 - :doc:`Request additions or changes to the metadata schema<contributing>`.
 
 
@@ -44,7 +45,6 @@ I want to...
    :maxdepth: 1
    
    example_workflow/example_workflow
-   coordinate_systems
    
 
 .. toctree::
@@ -78,6 +78,7 @@ I want to...
    :maxdepth: 1
 
    general
+   coordinate_systems
    data_organization
    related_standards
    contributing
