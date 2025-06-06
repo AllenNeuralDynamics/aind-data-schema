@@ -1,7 +1,8 @@
 Welcome to aind-data-schema 
 ===========================
 
-[Code](https://github.com/allenNeuralDynamics/aind-data-schema)
+`Code repository <https://github.com/allenNeuralDynamics/aind-data-schema>`_
+
 
 Data acquired at the Allen Institute for Neural Dynamics (AIND) is accompanied by metadata describing how it was acquired, processed, and analyzed. This metadata is stored in JSON files according to the schema defined in this library. Our goal in capturing this metadata is to make our data findable and understandable.
 
