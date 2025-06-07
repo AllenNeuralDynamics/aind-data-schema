@@ -19,7 +19,7 @@ from pydantic import (
 )
 
 from aind_data_schema.base import DataCoreModel
-from aind_data_schema.components.identifiers import ExternalLinks
+from aind_data_schema.components.identifiers import ExternalIdentifiers
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -79,7 +79,7 @@ class Metadata(DataCoreModel):
         title="Location",
         description="Current location of the data asset.",
     )
-    external_links: ExternalLinks = Field(
+    external_identifiers: ExternalIdentifiers = Field(
         default=dict(), title="External Links", description="Links to the data asset on different platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more

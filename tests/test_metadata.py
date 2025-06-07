@@ -13,7 +13,7 @@ from pydantic import ValidationError
 from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
-from aind_data_schema.components.identifiers import Code, ExternalPlatforms, Person
+from aind_data_schema.components.identifiers import Code, ExternalPlatform, Person
 from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -280,7 +280,7 @@ class TestMetadata(unittest.TestCase):
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""
         external_links = {
-            ExternalPlatforms.CODEOCEAN.value: ["123", "abc"],
+            ExternalPlatform.CODEOCEAN.value: ["123", "abc"],
         }
         result = create_metadata_json(
             name=self.sample_name,
