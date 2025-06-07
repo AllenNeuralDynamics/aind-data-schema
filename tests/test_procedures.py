@@ -174,7 +174,6 @@ class ProceduresTests(unittest.TestCase):
                             protocol_id="134",
                             injection_materials=[
                                 ViralMaterial(
-                                    material_type="Virus",
                                     name="AAV2-Flex-ChrimsonR",
                                     tars_identifiers=TarsVirusIdentifiers(
                                         virus_tars_id="AiV222",
@@ -200,7 +199,6 @@ class ProceduresTests(unittest.TestCase):
                             protocol_id="234",
                             injection_materials=[
                                 NonViralMaterial(
-                                    material_type="Reagent",
                                     name="drug_xyz",
                                     source=Organization.AI,
                                     lot_number="12345",
@@ -222,7 +220,6 @@ class ProceduresTests(unittest.TestCase):
                             coordinate_system_name="BREGMA_ARI",
                             injection_materials=[
                                 ViralMaterial(
-                                    material_type="Virus",
                                     name="AAV2-Flex-ChrimsonR",
                                     tars_identifiers=TarsVirusIdentifiers(
                                         virus_tars_id="AiV222",
@@ -377,7 +374,6 @@ class ProceduresTests(unittest.TestCase):
             ],
             injection_materials=[
                 ViralMaterial(
-                    material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
                     tars_identifiers=TarsVirusIdentifiers(
                         virus_tars_id="AiV222",
@@ -409,7 +405,6 @@ class ProceduresTests(unittest.TestCase):
                 ],
                 injection_materials=[
                     ViralMaterial(
-                        material_type="Virus",
                         name="AAV2-Flex-ChrimsonR",
                         tars_identifiers=TarsVirusIdentifiers(
                             virus_tars_id="AiV222",

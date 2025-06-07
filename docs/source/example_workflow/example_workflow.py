@@ -101,7 +101,6 @@ def generate_procedures(mouse: dict, proc_row: dict, coords: List[float]) -> Pro
                         protocol_id=protocol,
                         injection_materials=[
                             ViralMaterial(
-                                material_type="Virus",
                                 name=proc_row["virus_name"],
                                 titer=proc_row["virus_titer"],
                             )

@@ -59,7 +59,6 @@ surgery1 = Surgery(
             protocol_id="5678",
             injection_materials=[
                 ViralMaterial(
-                    material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
                     tars_identifiers=TarsVirusIdentifiers(
                         virus_tars_id="AiV222",

@@ -359,7 +359,6 @@ class TarsVirusIdentifiers(DataModel):
 class ViralMaterial(DataModel):
     """Description of viral material for injections"""
 
-    material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
     name: str = Field(
         ...,
         title="Full genome name",
@@ -380,7 +379,6 @@ class ViralMaterial(DataModel):
 class NonViralMaterial(Reagent):
     """Description of a non-viral injection material"""
 
-    material_type: Literal["Reagent"] = Field(default="Reagent", title="Injection material type")
     concentration: Optional[float] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )

@@ -78,7 +78,6 @@ p = Procedures(
                     protocol_id="5678",
                     injection_materials=[
                         ViralMaterial(
-                            material_type="Virus",
                             name="AAV2/1-Syn-Flex-ChrimsonR-tdT",
                             addgene_id=PIDName(
                                 registry=Registry.ADDGENE,
