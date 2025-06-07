@@ -365,10 +365,11 @@ class ViralMaterial(DataModel):
         title="Full genome name",
         description="Full genome for virus construct",
     )
-    tars_identifiers: Optional[TarsVirusIdentifiers] = Field(
-        default=None, title="TARS IDs", description="TARS database identifiers"
+    identifiers: Optional[List[Union[TarsVirusIdentifiers, PIDName]]] = Field(
+        default=None,
+        title="Identifiers",
+        description="List of identifiers for the viral material, such as TARS IDs or Addgene IDs",
     )
-    addgene_id: Optional[PIDName] = Field(default=None, title="Addgene id", description="Registry must be Addgene")
     titer: Optional[int] = Field(
         default=None,
         title="Effective titer",
