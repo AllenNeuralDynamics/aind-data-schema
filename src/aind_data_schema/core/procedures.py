@@ -193,6 +193,11 @@ class SpecimenProcedure(DataModel):
         title="experimenter(s)",
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    protocol_parameters: Optional[Dict[str, str]] = Field(
+        default=None,
+        title="Protocol parameters",
+        description="Parameters defined in the protocol and their value during this procedure",
+    )
 
     procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent | OligoProbeSet] = Field(
         default=[],
