@@ -31,8 +31,9 @@ class CombinedData(DataModel):
     assets: List[DataAsset] = Field(..., title="Data assets", min_length=1)
     name: Optional[str] = Field(default=None, title="Name")
     external_identifiers: ExternalIdentifiers = Field(
-        default=dict(), title="External identifiers",
-        description="IDs or links to the Combined Data asset, if materialized."
+        default=dict(),
+        title="External identifiers",
+        description="IDs or links to the Combined Data asset, if materialized.",
     )
     description: Optional[str] = Field(
         default=None, title="Description", description="Intention or approach used to select group of assets"
