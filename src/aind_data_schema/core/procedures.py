@@ -338,7 +338,7 @@ class GroundWireImplant(DataModel):
 
 
 class TarsVirusIdentifiers(DataModel):
-    """TARS data for a viral prep"""
+    """TARS (internal AIND virus database) data for a viral prep"""
 
     virus_tars_id: Optional[str] = Field(default=None, title="Virus ID, usually begins 'AiV'")
     plasmid_tars_alias: Optional[List[str]] = Field(
