@@ -80,11 +80,13 @@ p = Procedures(
                         ViralMaterial(
                             material_type="Virus",
                             name="AAV2/1-Syn-Flex-ChrimsonR-tdT",
-                            identifiers=[PIDName(
-                                registry=Registry.ADDGENE,
-                                name="62723-AAV5",
-                                registry_identifier="v122159",
-                            )],
+                            identifiers=[
+                                PIDName(
+                                    registry=Registry.ADDGENE,
+                                    name="62723-AAV5",
+                                    registry_identifier="v122159",
+                                )
+                            ],
                             titer=20000000000000,
                         )
                     ],

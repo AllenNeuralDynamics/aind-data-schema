@@ -176,11 +176,13 @@ class ProceduresTests(unittest.TestCase):
                                 ViralMaterial(
                                     material_type="Virus",
                                     name="AAV2-Flex-ChrimsonR",
-                                    identifiers=[TarsVirusIdentifiers(
-                                        virus_tars_id="AiV222",
-                                        plasmid_tars_alias=["AiP222"],
-                                        prep_lot_number="VT222",
-                                    )],
+                                    identifiers=[
+                                        TarsVirusIdentifiers(
+                                            virus_tars_id="AiV222",
+                                            plasmid_tars_alias=["AiP222"],
+                                            prep_lot_number="VT222",
+                                        )
+                                    ],
                                     titer=2300000000,
                                 )
                             ],
@@ -224,11 +226,13 @@ class ProceduresTests(unittest.TestCase):
                                 ViralMaterial(
                                     material_type="Virus",
                                     name="AAV2-Flex-ChrimsonR",
-                                    identifiers=[TarsVirusIdentifiers(
-                                        virus_tars_id="AiV222",
-                                        plasmid_tars_alias=["AiP222"],
-                                        prep_lot_number="VT222",
-                                    )],
+                                    identifiers=[
+                                        TarsVirusIdentifiers(
+                                            virus_tars_id="AiV222",
+                                            plasmid_tars_alias=["AiP222"],
+                                            prep_lot_number="VT222",
+                                        )
+                                    ],
                                     titer=2300000000,
                                 )
                             ],
@@ -379,11 +383,13 @@ class ProceduresTests(unittest.TestCase):
                 ViralMaterial(
                     material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
-                    identifiers=[TarsVirusIdentifiers(
-                        virus_tars_id="AiV222",
-                        plasmid_tars_alias=["AiP222", "AiP223"],
-                        prep_lot_number="VT222",
-                    )],
+                    identifiers=[
+                        TarsVirusIdentifiers(
+                            virus_tars_id="AiV222",
+                            plasmid_tars_alias=["AiP222", "AiP223"],
+                            prep_lot_number="VT222",
+                        )
+                    ],
                     titer=2300000000,
                 )
             ],
@@ -411,11 +417,13 @@ class ProceduresTests(unittest.TestCase):
                     ViralMaterial(
                         material_type="Virus",
                         name="AAV2-Flex-ChrimsonR",
-                        identifiers=[TarsVirusIdentifiers(
-                            virus_tars_id="AiV222",
-                            plasmid_tars_alias=["AiP222"],
-                            prep_lot_number="VT222",
-                        )],
+                        identifiers=[
+                            TarsVirusIdentifiers(
+                                virus_tars_id="AiV222",
+                                plasmid_tars_alias=["AiP222"],
+                                prep_lot_number="VT222",
+                            )
+                        ],
                         titer=2300000000,
                     )
                 ],
