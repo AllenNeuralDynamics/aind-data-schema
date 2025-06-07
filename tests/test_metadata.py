@@ -279,7 +279,7 @@ class TestMetadata(unittest.TestCase):
 
     def test_create_from_core_jsons_optional_overwrite(self):
         """Tests metadata json creation with created and external links"""
-        external_links = {
+        external_identifiers = {
             ExternalPlatform.CODEOCEAN.value: ["123", "abc"],
         }
         result = create_metadata_json(
@@ -288,11 +288,11 @@ class TestMetadata(unittest.TestCase):
             core_jsons={
                 "subject": self.subject_json,
             },
-            optional_external_links=external_links,
+            optional_external_identifiers=external_identifiers,
         )
         self.assertEqual(self.sample_name, result["name"])
         self.assertEqual(self.sample_location, result["location"])
-        self.assertEqual(external_links, result["external_links"])
+        self.assertEqual(external_identifiers, result["external_identifiers"])
 
     def test_validate_expected_files_by_modality(self):
         """Tests that warnings are issued when metadata is missing required files"""
