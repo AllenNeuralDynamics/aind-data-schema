@@ -324,7 +324,7 @@ class Headframe(DataModel):
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
-    headframe_part_number: str = Field(..., title="Headframe part number")
+    headframe_part_number: Optional[str] = Field(default=None, title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(default=None, title="Headframe material")
     well_part_number: Optional[str] = Field(default=None, title="Well part number")
     well_type: Optional[str] = Field(default=None, title="Well type")
