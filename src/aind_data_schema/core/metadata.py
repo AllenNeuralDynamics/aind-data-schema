@@ -19,7 +19,7 @@ from pydantic import (
 )
 
 from aind_data_schema.base import DataCoreModel
-from aind_data_schema.components.identifiers import ExternalLinks
+from aind_data_schema.components.identifiers import DatabaseIdentifiers
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -79,8 +79,8 @@ class Metadata(DataCoreModel):
         title="Location",
         description="Current location of the data asset.",
     )
-    external_links: ExternalLinks = Field(
-        default=dict(), title="External Links", description="Links to the data asset on different platforms."
+    other_identifiers: Optional[DatabaseIdentifiers] = Field(
+        default=None, title="Other identifiers", description="Links to the data asset on secondary platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
@@ -270,7 +270,7 @@ def create_metadata_json(
     name: str,
     location: str,
     core_jsons: Dict[str, Optional[dict]],
-    optional_external_links: Optional[dict] = None,
+    other_identifiers: Optional[dict] = None,
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
     # Extract basic parameters and non-corrupt core schema fields
@@ -279,8 +279,8 @@ def create_metadata_json(
         "name": name,
         "location": location,
     }
-    if optional_external_links is not None:
-        params["external_links"] = optional_external_links
+    if other_identifiers is not None:
+        params["other_identifiers"] = other_identifiers
     core_fields = dict()
     for key, value in core_jsons.items():
         if key in CORE_FILES and value is not None:
