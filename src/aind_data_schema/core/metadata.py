@@ -234,8 +234,8 @@ class Metadata(DataCoreModel):
         if self.instrument:
             for component in self.instrument.components:
                 device_names.append(component.name)
-        if values.procedures:
-            for procedure in values.procedures.subject_procedures:
+        if self.procedures:
+            for procedure in self.procedures.subject_procedures:
                 if isinstance(procedure, Surgery):
                     for device in procedure.implanted_devices:
                         device_names.append(device.name)
