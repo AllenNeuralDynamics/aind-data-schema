@@ -183,20 +183,27 @@
                "default": null,
                "title": "Name"
             },
-            "external_links": {
-               "additionalProperties": {
-                  "items": {
-                     "type": "string"
+            "database_identifier": {
+               "anyOf": [
+                  {
+                     "additionalProperties": {
+                        "items": {
+                           "type": "string"
+                        },
+                        "type": "array"
+                     },
+                     "propertyNames": {
+                        "$ref": "#/$defs/Database"
+                     },
+                     "type": "object"
                   },
-                  "type": "array"
-               },
-               "default": {},
-               "description": "Links to the Combined Data asset, if materialized.",
-               "propertyNames": {
-                  "$ref": "#/$defs/ExternalPlatforms"
-               },
-               "title": "External Links",
-               "type": "object"
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "ID or link to the Combined Data asset, if materialized.",
+               "title": "Database identifier"
             },
             "description": {
                "anyOf": [
@@ -274,12 +281,13 @@
          "title": "DataAsset",
          "type": "object"
       },
-      "ExternalPlatforms": {
-         "description": "External Platforms of Data Assets.",
+      "Database": {
+         "description": "Database platforms that can host data assets",
          "enum": [
-            "Code Ocean"
+            "Code Ocean",
+            "DANDI"
          ],
-         "title": "ExternalPlatforms",
+         "title": "Database",
          "type": "string"
       },
       "GenericModel": {

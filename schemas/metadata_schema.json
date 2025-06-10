@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.27",
-               "default": "2.0.27",
+               "const": "2.0.28",
+               "default": "2.0.28",
                "title": "Schema Version",
                "type": "string"
             },
@@ -7464,20 +7464,27 @@
                "default": null,
                "title": "Name"
             },
-            "external_links": {
-               "additionalProperties": {
-                  "items": {
-                     "type": "string"
+            "database_identifier": {
+               "anyOf": [
+                  {
+                     "additionalProperties": {
+                        "items": {
+                           "type": "string"
+                        },
+                        "type": "array"
+                     },
+                     "propertyNames": {
+                        "$ref": "#/$defs/Database"
+                     },
+                     "type": "object"
                   },
-                  "type": "array"
-               },
-               "default": {},
-               "description": "Links to the Combined Data asset, if materialized.",
-               "propertyNames": {
-                  "$ref": "#/$defs/ExternalPlatforms"
-               },
-               "title": "External Links",
-               "type": "object"
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "ID or link to the Combined Data asset, if materialized.",
+               "title": "Database identifier"
             },
             "description": {
                "anyOf": [
@@ -12805,6 +12812,15 @@
          "title": "DataStream",
          "type": "object"
       },
+      "Database": {
+         "description": "Database platforms that can host data assets",
+         "enum": [
+            "Code Ocean",
+            "DANDI"
+         ],
+         "title": "Database",
+         "type": "string"
+      },
       "Detector": {
          "additionalProperties": false,
          "description": "Description of a generic detector",
@@ -16189,14 +16205,6 @@
          ],
          "title": "EphysProbe",
          "type": "object"
-      },
-      "ExternalPlatforms": {
-         "description": "External Platforms of Data Assets.",
-         "enum": [
-            "Code Ocean"
-         ],
-         "title": "ExternalPlatforms",
-         "type": "string"
       },
       "FerruleMaterial": {
          "description": "Fiber probe ferrule material type name",
@@ -40500,8 +40508,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.66",
-               "default": "2.0.66",
+               "const": "2.0.67",
+               "default": "2.0.67",
                "title": "Schema Version",
                "type": "string"
             },
@@ -86250,8 +86258,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.66",
-         "default": "2.0.66",
+         "const": "2.0.67",
+         "default": "2.0.67",
          "title": "Schema Version",
          "type": "string"
       },
@@ -86265,20 +86273,27 @@
          "title": "Location",
          "type": "string"
       },
-      "external_links": {
-         "additionalProperties": {
-            "items": {
-               "type": "string"
+      "other_identifiers": {
+         "anyOf": [
+            {
+               "additionalProperties": {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "propertyNames": {
+                  "$ref": "#/$defs/Database"
+               },
+               "type": "object"
             },
-            "type": "array"
-         },
-         "default": {},
-         "description": "Links to the data asset on different platforms.",
-         "propertyNames": {
-            "$ref": "#/$defs/ExternalPlatforms"
-         },
-         "title": "External Links",
-         "type": "object"
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Links to the data asset on secondary platforms.",
+         "title": "Other identifiers"
       },
       "subject": {
          "anyOf": [
