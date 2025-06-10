@@ -80,7 +80,7 @@ class Metadata(DataCoreModel):
         description="Current location of the data asset.",
     )
     other_identifiers: DatabaseIdentifier = Field(
-        default=dict(), title="Other Identifiers", description="Links to the data asset on secondary platforms."
+        default=dict(), title="Other identifiers", description="Links to the data asset on secondary platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
