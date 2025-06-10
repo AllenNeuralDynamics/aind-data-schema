@@ -17,7 +17,7 @@ class Database(str, Enum):
     DANDI = "DANDI"
 
 
-DatabaseIdentifier = Dict[Database, List[str]]
+DatabaseIdentifiers = Dict[Database, List[str]]
 
 
 class DataAsset(DataModel):
@@ -31,7 +31,7 @@ class CombinedData(DataModel):
 
     assets: List[DataAsset] = Field(..., title="Data assets", min_length=1)
     name: Optional[str] = Field(default=None, title="Name")
-    database_identifier: Optional[DatabaseIdentifier] = Field(
+    database_identifier: Optional[DatabaseIdentifiers] = Field(
         default=None,
         title="Database identifier",
         description="ID or link to the Combined Data asset, if materialized.",

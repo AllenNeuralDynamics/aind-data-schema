@@ -19,7 +19,7 @@ from pydantic import (
 )
 
 from aind_data_schema.base import DataCoreModel
-from aind_data_schema.components.identifiers import DatabaseIdentifier
+from aind_data_schema.components.identifiers import DatabaseIdentifiers
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -79,8 +79,8 @@ class Metadata(DataCoreModel):
         title="Location",
         description="Current location of the data asset.",
     )
-    other_identifiers: DatabaseIdentifier = Field(
-        default=dict(), title="Other identifiers", description="Links to the data asset on secondary platforms."
+    other_identifiers: Optional[DatabaseIdentifiers] = Field(
+        default=None, title="Other identifiers", description="Links to the data asset on secondary platforms."
     )
     # We can make the DataCoreModel fields optional for now and do more
     # granular validations using validators. We may have some older data
