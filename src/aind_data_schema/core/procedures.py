@@ -487,6 +487,8 @@ class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
     ethics_review_id: str = Field(..., title="Ethics review ID")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
