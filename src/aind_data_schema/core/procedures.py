@@ -548,6 +548,14 @@ class Surgery(DataModel):
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     workstation_id: Optional[str] = Field(default=None, title="Workstation ID")
 
+    # Implanted devices
+    implanted_devices: DiscriminatedList[EphysProbe | FiberProbe | MyomatrixArray] = Field(
+        default=[], title="Implanted devices"
+    )
+    configurations: DiscriminatedList[ProbeConfig | DeviceConfig] = Field(
+        default=[], title="Implanted device configurations"
+    )
+
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
@@ -595,14 +603,6 @@ class Procedures(DataCoreModel):
         Field(default=[], title="Subject Procedures")
     )
     specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
-
-    # Implanted devices
-    implanted_devices: DiscriminatedList[EphysProbe | FiberProbe | MyomatrixArray] = Field(
-        default=[], title="Implanted devices"
-    )
-    configurations: DiscriminatedList[ProbeConfig | DeviceConfig] = Field(
-        default=[], title="Implanted device configurations"
-    )
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
@@ -677,6 +677,5 @@ class Procedures(DataCoreModel):
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
-            implanted_devices=self.implanted_devices + other.implanted_devices,
             notes=merge_notes(self.notes, other.notes),
         )

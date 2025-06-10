@@ -209,15 +209,17 @@ class Metadata(DataCoreModel):
             for component in values.instrument.components:
                 device_names.append(component.name)
         if values.procedures:
-            for device in values.procedures.implanted_devices:
-                device_names.append(device.name)
+            for procedure in values.procedures.subject_procedures:
+                if isinstance(procedure, Surgery):
+                    for device in procedure.implanted_devices:
+                        device_names.append(device.name)
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
             missing_devices = set(active_devices) - set(device_names)
             raise ValueError(
                 f"Active devices '{missing_devices}' were not found in either the Instrument.components or "
-                f"Procedures.implanted_devices."
+                f"Surgery.implanted_devices."
             )
 
         return values
@@ -232,9 +234,11 @@ class Metadata(DataCoreModel):
         if self.instrument:
             for component in self.instrument.components:
                 device_names.append(component.name)
-        if self.procedures:
-            for device in self.procedures.implanted_devices:
-                device_names.append(device.name)
+        if values.procedures:
+            for procedure in values.procedures.subject_procedures:
+                if isinstance(procedure, Surgery):
+                    for device in procedure.implanted_devices:
+                        device_names.append(device.name)
 
         # Check if all connection devices are in the available devices
         if self.acquisition:
@@ -253,7 +257,10 @@ class Metadata(DataCoreModel):
         """Validate that Procedures.configurations and Acquisition.configurations don't share target devices."""
 
         if self.procedures and self.acquisition:
-            procedure_configurations = [config.device_name for config in self.procedures.configurations]
+            subject_procedures = self.procedures.subject_procedures
+            surgeries = [proc for proc in subject_procedures if isinstance(proc, Surgery)]
+            configurations = [config for surgery in surgeries for config in surgery.configurations]
+            procedure_configurations = [config.device_name for config in configurations]
             acquisition_configurations = []
             for data_stream in self.acquisition.data_streams:
                 acquisition_configurations.extend([config.device_name for config in data_stream.configurations])

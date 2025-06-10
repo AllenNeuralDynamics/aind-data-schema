@@ -40,11 +40,7 @@ implanted_devices = [
         total_length=0.5,
     )
 ]
-
-p = Procedures(
-    subject_id="625100",
-    implanted_devices=implanted_devices,
-    configurations=[
+configurations=[
         ProbeConfig(
             primary_targeted_structure=CCFStructure.VTA,
             device_name="Probe A",
@@ -55,7 +51,11 @@ p = Procedures(
                 ),
             ],
         ),
-    ],
+    ]
+
+
+p = Procedures(
+    subject_id="625100",    
     subject_procedures=[
         Surgery(
             start_date=t.date(),
@@ -67,6 +67,8 @@ p = Procedures(
             workstation_id="SWS 3",
             protocol_id="doi",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
+            implanted_devices=implanted_devices,
+            configurations=configurations,
             procedures=[
                 Headframe(
                     protocol_id="2109",

@@ -46,6 +46,19 @@ surgery1 = Surgery(
     anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
     coordinate_system=coordinate_system,
     workstation_id="SWS 3",
+    implanted_devices=[probe],
+    configurations=[
+        ProbeConfig(
+            primary_targeted_structure=CCFStructure.VTA,
+            device_name="Probe A",
+            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+            transform=[
+                Translation(
+                    translation=[-600, -3050, 0, 4200],
+                ),
+            ],
+        ),
+    ],
     procedures=[
         Craniotomy(
             craniotomy_type=CraniotomyType.CIRCLE,
@@ -96,19 +109,6 @@ probe = EphysProbe(
 
 p = Procedures(
     subject_id="625100",
-    implanted_devices=[probe],
-    configurations=[
-        ProbeConfig(
-            primary_targeted_structure=CCFStructure.VTA,
-            device_name="Probe A",
-            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-            transform=[
-                Translation(
-                    translation=[-600, -3050, 0, 4200],
-                ),
-            ],
-        ),
-    ],
     subject_procedures=[
         surgery1,
         Surgery(
