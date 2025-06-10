@@ -235,7 +235,7 @@ class CoordinateSystemLibrary:
     BREGMA_ARI = CoordinateSystem(
         name="BREGMA_ARI",
         origin=Origin.BREGMA,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
@@ -245,7 +245,7 @@ class CoordinateSystemLibrary:
     BREGMA_RAS = CoordinateSystem(
         name="BREGMA_RAS",
         origin=Origin.BREGMA,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -257,7 +257,7 @@ class CoordinateSystemLibrary:
     BREGMA_ARID = CoordinateSystem(
         name="BREGMA_ARID",
         origin=Origin.BREGMA,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.AP, direction=Direction.PA),
             Axis(name=AxisName.ML, direction=Direction.LR),
@@ -268,7 +268,7 @@ class CoordinateSystemLibrary:
     BREGMA_RASD = CoordinateSystem(
         name="BREGMA_RASD",
         origin=Origin.BREGMA,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.ML, direction=Direction.LR),
             Axis(name=AxisName.AP, direction=Direction.PA),
@@ -325,7 +325,7 @@ class CoordinateSystemLibrary:
     MPM_MANIP_RFB = CoordinateSystem(
         name="MPM_MANIP_RFB",
         origin=Origin.TIP,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.BF),
@@ -359,7 +359,7 @@ class CoordinateSystemLibrary:
     SPIM_RPI = CoordinateSystem(
         name="SPIM_RPI",
         origin=Origin.ORIGIN,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.LR),
             Axis(name=AxisName.Y, direction=Direction.AP),
@@ -370,7 +370,7 @@ class CoordinateSystemLibrary:
     SPIM_LPS = CoordinateSystem(
         name="SPIM_LPS",
         origin=Origin.ORIGIN,
-        axis_unit=SizeUnit.UM,
+        axis_unit=SizeUnit.MM,
         axes=[
             Axis(name=AxisName.X, direction=Direction.RL),
             Axis(name=AxisName.Y, direction=Direction.AP),
