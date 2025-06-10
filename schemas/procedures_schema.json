@@ -194,6 +194,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -442,6 +443,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -4686,6 +4690,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                            "National Instruments": "#/$defs/_National_Instruments",
                            "Navitar": "#/$defs/_Navitar",
+                           "NeuraLynx": "#/$defs/_Neuralynx",
                            "Neurophotometrics": "#/$defs/_Neurophotometrics",
                            "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                            "New York University": "#/$defs/_New_York_University",
@@ -4934,6 +4939,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/_Neuralynx"
                         },
                         {
                            "$ref": "#/$defs/_Neurophotometrics"
@@ -5235,6 +5243,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                            "National Instruments": "#/$defs/_National_Instruments",
                            "Navitar": "#/$defs/_Navitar",
+                           "NeuraLynx": "#/$defs/_Neuralynx",
                            "Neurophotometrics": "#/$defs/_Neurophotometrics",
                            "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                            "New York University": "#/$defs/_New_York_University",
@@ -5483,6 +5492,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/_Neuralynx"
                         },
                         {
                            "$ref": "#/$defs/_Neurophotometrics"
@@ -5768,6 +5780,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                            "National Instruments": "#/$defs/_National_Instruments",
                            "Navitar": "#/$defs/_Navitar",
+                           "NeuraLynx": "#/$defs/_Neuralynx",
                            "Neurophotometrics": "#/$defs/_Neurophotometrics",
                            "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                            "New York University": "#/$defs/_New_York_University",
@@ -6016,6 +6029,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/_Neuralynx"
                         },
                         {
                            "$ref": "#/$defs/_Neurophotometrics"
@@ -6507,6 +6523,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -6755,6 +6772,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -7126,6 +7146,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -7374,6 +7395,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -8168,6 +8192,7 @@
                            "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                            "National Instruments": "#/$defs/_National_Instruments",
                            "Navitar": "#/$defs/_Navitar",
+                           "NeuraLynx": "#/$defs/_Neuralynx",
                            "Neurophotometrics": "#/$defs/_Neurophotometrics",
                            "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                            "New York University": "#/$defs/_New_York_University",
@@ -8416,6 +8441,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Navitar"
+                        },
+                        {
+                           "$ref": "#/$defs/_Neuralynx"
                         },
                         {
                            "$ref": "#/$defs/_Neurophotometrics"
@@ -8792,6 +8820,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -9042,6 +9071,9 @@
                      "$ref": "#/$defs/_Navitar"
                   },
                   {
+                     "$ref": "#/$defs/_Neuralynx"
+                  },
+                  {
                      "$ref": "#/$defs/_Neurophotometrics"
                   },
                   {
@@ -9177,12 +9209,6 @@
                ],
                "default": null,
                "title": "Lot expiration date"
-            },
-            "material_type": {
-               "const": "Reagent",
-               "default": "Reagent",
-               "title": "Injection material type",
-               "type": "string"
             },
             "concentration": {
                "anyOf": [
@@ -9332,6 +9358,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -9580,6 +9607,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -16823,7 +16853,8 @@
             "Neuropixels 1.0",
             "Neuropixels 2.0 (Single Shank)",
             "Neuropixels 2.0 (Multi Shank)",
-            "Neuropixels 2.0 (Quad Base)"
+            "Neuropixels 2.0 (Quad Base)",
+            "Custom"
          ],
          "title": "ProbeModel",
          "type": "string"
@@ -16927,6 +16958,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -17175,6 +17207,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -17428,6 +17463,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -17676,6 +17712,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -21491,6 +21530,22 @@
                "description": "DOI for protocols.io",
                "title": "Protocol ID"
             },
+            "protocol_parameters": {
+               "anyOf": [
+                  {
+                     "additionalProperties": {
+                        "type": "string"
+                     },
+                     "type": "object"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters defined in the protocol and their value during this procedure",
+               "title": "Protocol parameters"
+            },
             "procedure_details": {
                "default": [],
                "description": "",
@@ -21559,7 +21614,6 @@
             "Fixation",
             "Fixation and permeabilization",
             "Gelation",
-            "Hybridication and amplification",
             "Hybridization Chain Reaction",
             "Immunolabeling",
             "Mounting",
@@ -21661,6 +21715,7 @@
                      "National Institute of Neurological Disorders and Stroke": "#/$defs/_National_Institute_Of_Neurological_Disorders_And_Stroke",
                      "National Instruments": "#/$defs/_National_Instruments",
                      "Navitar": "#/$defs/_Navitar",
+                     "NeuraLynx": "#/$defs/_Neuralynx",
                      "Neurophotometrics": "#/$defs/_Neurophotometrics",
                      "New Scale Technologies": "#/$defs/_New_Scale_Technologies",
                      "New York University": "#/$defs/_New_York_University",
@@ -21909,6 +21964,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Navitar"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neuralynx"
                   },
                   {
                      "$ref": "#/$defs/_Neurophotometrics"
@@ -22508,12 +22566,6 @@
                "const": "Viral material",
                "default": "Viral material",
                "title": "Object Type",
-               "type": "string"
-            },
-            "material_type": {
-               "const": "Virus",
-               "default": "Virus",
-               "title": "Injection material type",
                "type": "string"
             },
             "name": {
@@ -39399,6 +39451,35 @@
          "title": "_Ndb",
          "type": "object"
       },
+      "_Neuralynx": {
+         "description": "Model NeuraLynx",
+         "properties": {
+            "name": {
+               "const": "NeuraLynx",
+               "default": "NeuraLynx",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Neuralynx",
+         "type": "object"
+      },
       "_Neurophotometrics": {
          "description": "Model Neurophotometrics",
          "properties": {
@@ -54132,8 +54213,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.26",
-         "default": "2.0.26",
+         "const": "2.0.27",
+         "default": "2.0.27",
          "title": "Schema Version",
          "type": "string"
       },
