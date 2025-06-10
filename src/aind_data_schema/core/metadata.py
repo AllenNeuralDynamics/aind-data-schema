@@ -270,7 +270,7 @@ def create_metadata_json(
     name: str,
     location: str,
     core_jsons: Dict[str, Optional[dict]],
-    optional_external_identifiers: Optional[dict] = None,
+    other_identifiers: Optional[dict] = None,
 ) -> dict:
     """Creates a Metadata dict from dictionary of core schema fields."""
     # Extract basic parameters and non-corrupt core schema fields
@@ -279,8 +279,8 @@ def create_metadata_json(
         "name": name,
         "location": location,
     }
-    if optional_external_identifiers is not None:
-        params["external_identifiers"] = optional_external_identifiers
+    if other_identifiers is not None:
+        params["other_identifiers"] = other_identifiers
     core_fields = dict()
     for key, value in core_jsons.items():
         if key in CORE_FILES and value is not None:
