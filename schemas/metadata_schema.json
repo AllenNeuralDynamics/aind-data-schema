@@ -19738,8 +19738,16 @@
                "type": "string"
             },
             "headframe_part_number": {
-               "title": "Headframe part number",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Headframe part number"
             },
             "headframe_material": {
                "anyOf": [
@@ -19779,8 +19787,7 @@
             }
          },
          "required": [
-            "headframe_type",
-            "headframe_part_number"
+            "headframe_type"
          ],
          "title": "Headframe",
          "type": "object"
@@ -40304,8 +40311,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.27",
-               "default": "2.0.27",
+               "const": "2.0.28",
+               "default": "2.0.28",
                "title": "Schema Version",
                "type": "string"
             },
@@ -40508,8 +40515,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.67",
-               "default": "2.0.67",
+               "const": "2.0.68",
+               "default": "2.0.68",
                "title": "Schema Version",
                "type": "string"
             },
@@ -53376,6 +53383,19 @@
             "ethics_review_id": {
                "title": "Ethics review ID",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "target_fraction_weight": {
                "title": "Target fraction weight (%)",
@@ -86258,8 +86278,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.67",
-         "default": "2.0.67",
+         "const": "2.0.68",
+         "default": "2.0.68",
          "title": "Schema Version",
          "type": "string"
       },
