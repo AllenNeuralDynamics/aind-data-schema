@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Literal, Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import BrainStructureModel
 from pydantic import Field, SkipValidation, ValidationError, create_model
 
 from aind_data_schema.base import (
@@ -161,7 +161,7 @@ class BaseTests(unittest.TestCase):
         class StructureModel(DataModel):
             """Test model with a targeted_structure"""
 
-            targeted_structure: CCFStructure.ONE_OF
+            targeted_structure: BrainStructureModel
 
         self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
 
