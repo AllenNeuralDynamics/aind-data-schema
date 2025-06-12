@@ -147,4 +147,6 @@ class Stain(Reagent):
     fluorophore: Fluorophore = Field(..., title="Fluorophore")
     stain_type: StainType = Field(..., title="Stain type")
     species: Species.ONE_OF = Field(..., title="Species")
+    concentration: float = Field(..., title="Concentration")
+    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
