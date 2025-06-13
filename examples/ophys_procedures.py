@@ -7,21 +7,17 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.injection_procedures import InjectionDynamics
+from aind_data_schema.components.reagent import Antibody
+from aind_data_schema.components.surgery_procedures import Anaesthetic, BrainInjection, Headframe, ProbeImplant
 from aind_data_schema.core.procedures import (
-    Anaesthetic,
-    Antibody,
-    Headframe,
-    BrainInjection,
-    ProbeImplant,
-    Perfusion,
     Procedures,
     SpecimenProcedure,
     Surgery,
-    ViralMaterial,
     WaterRestriction,
-    InjectionDynamics,
-    InjectionProfile,
 )
+from aind_data_schema.components.injection_procedures import ViralMaterial, InjectionProfile
+from aind_data_schema.components.surgery_procedures import Perfusion
 from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
