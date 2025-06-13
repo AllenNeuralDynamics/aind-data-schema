@@ -181,11 +181,11 @@ class QualityControl(DataCoreModel):
 
             # Compute modality statuses
             for modality in self.modalities:
-                computed_status[modality.abbreviation] = self.evaluate_status(modality=modality)
+                computed_status[modality] = self.evaluate_status(modality=modality)
 
             # Compute stage statuses
             for stage in self.stages:
-                computed_status[stage.value] = self.evaluate_status(stage=stage)
+                computed_status[stage] = self.evaluate_status(stage=stage)
 
             self.status = computed_status
         return self
