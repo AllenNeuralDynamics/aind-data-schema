@@ -7,31 +7,33 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import procedures
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.subject_procedures import Perfusion
 
 experimenters = [Person(name="John Smith")]
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
 # Reagents
-shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source=Organization.LIFECANVAS)
+shield_buffer = Reagent(name="SHIELD Buffer", lot_number="1234", source=Organization.LIFECANVAS)
 
-shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source=Organization.LIFECANVAS)
+shield_epoxy = Reagent(name="SHIELD Epoxy", lot_number="1234", source=Organization.LIFECANVAS)
 
-shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source=Organization.LIFECANVAS)
+shield_on = Reagent(name="SHIELD On", lot_number="1234", source=Organization.LIFECANVAS)
 
-delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source=Organization.OTHER)
+delipidation_buffer = Reagent(name="Delipidation Buffer", lot_number="1234", source=Organization.OTHER)
 
-conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source=Organization.OTHER)
+conductivity_buffer = Reagent(name="Conductivity Buffer", lot_number="1234", source=Organization.OTHER)
 
-easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Organization.LIFECANVAS)
+easy_index = Reagent(name="Easy Index", lot_number="1234", source=Organization.LIFECANVAS)
 
-water = procedures.Reagent(
+water = Reagent(
     name="Deionized water",
     lot_number="DDI/Filtered in house",
     source=Organization.OTHER,
 )
 
-agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Organization.OTHER)
+agarose = Reagent(name="Agarose", lot_number="1234", source=Organization.OTHER)
 
 # Procedures
 
@@ -42,7 +44,7 @@ perfusion = procedures.Surgery(
     protocol_id="doi_of_protocol_surgery",
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     procedures=[
-        procedures.Perfusion(
+        Perfusion(
             protocol_id="doi_of_protocol_perfusion",
             output_specimen_ids=[
                 specimen_id,

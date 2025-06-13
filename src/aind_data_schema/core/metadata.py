@@ -209,7 +209,7 @@ class Metadata(DataCoreModel):
             for component in values.instrument.components:
                 device_names.append(component.name)
         if values.procedures:
-            device_names.extend(values.procedures.get_implanted_device_names())
+            device_names.extend(values.procedures.get_device_names())
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
@@ -232,7 +232,7 @@ class Metadata(DataCoreModel):
             for component in self.instrument.components:
                 device_names.append(component.name)
         if self.procedures:
-            device_names.extend(self.procedures.get_implanted_device_names())
+            device_names.extend(self.procedures.get_device_names())
 
         # Check if all connection devices are in the available devices
         if self.acquisition:
