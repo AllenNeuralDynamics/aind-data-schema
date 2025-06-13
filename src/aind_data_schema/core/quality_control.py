@@ -123,8 +123,8 @@ class QualityControl(DataCoreModel):
     )
     status: Optional[dict] = Field(
         default=None,
-        title="Tag status mapping",
-        description="Mapping of tags to their evaluated status, automatically computed",
+        title="Status mapping",
+        description="Mapping of tags, modalities, and stages to their evaluated status, automatically computed",
     )
 
     @property
@@ -141,14 +141,53 @@ class QualityControl(DataCoreModel):
             all_tags.extend(metric.tags)
         return list(set(all_tags))
 
+    @property
+    def modalities(self) -> List[Modality.ONE_OF]:
+        """Get all unique modalities from all metrics
+
+        Returns
+        -------
+        List[Modality.ONE_OF]
+            List of all unique modalities across all metrics
+        """
+        all_modalities = []
+        for metric in self.metrics:
+            all_modalities.append(metric.modality)
+        return list(set(all_modalities))
+
+    @property
+    def stages(self) -> List[Stage]:
+        """Get all unique stages from all metrics
+
+        Returns
+        -------
+        List[Stage]
+            List of all unique stages across all metrics
+        """
+        all_stages = []
+        for metric in self.metrics:
+            all_stages.append(metric.stage)
+        return list(set(all_stages))
+
     @model_validator(mode="after")
-    def compute_tag_status(self):
-        """Automatically compute status for each tag"""
+    def compute_status(self):
+        """Automatically compute status for each tag, modality, and stage"""
         if self.metrics:
-            tag_status = {}
+            computed_status = {}
+
+            # Compute tag statuses
             for tag in self.tags:
-                tag_status[tag] = self.evaluate_status(tag=tag)
-            self.status = tag_status
+                computed_status[tag] = self.evaluate_status(tag=tag)
+
+            # Compute modality statuses
+            for modality in self.modalities:
+                computed_status[modality.abbreviation] = self.evaluate_status(modality=modality)
+
+            # Compute stage statuses
+            for stage in self.stages:
+                computed_status[stage.value] = self.evaluate_status(stage=stage)
+
+            self.status = computed_status
         return self
 
     def evaluate_status(
@@ -181,7 +220,7 @@ class QualityControl(DataCoreModel):
             modality=modality,
             stage=stage,
             tag=tag,
-            allow_tag_failures=self.allow_tag_failures
+            allow_tag_failures=self.allow_tag_failures,
         )
 
         if any(status == Status.FAIL for status in filtered_statuses):
@@ -255,7 +294,7 @@ def _get_filtered_statuses(
     modality: Optional[List[Modality.ONE_OF]] = None,
     stage: Optional[List[Stage]] = None,
     tag: Optional[List[str]] = None,
-    allow_tag_failures: List[str] = []
+    allow_tag_failures: List[str] = [],
 ):
     """Get the status of metrics filtered by modality, stage, tag, and date."""
     filtered_statuses = []
