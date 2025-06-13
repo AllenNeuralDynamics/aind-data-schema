@@ -45,6 +45,29 @@ from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, C
 from aind_data_schema.components.identifiers import Software
 
 
+class CatheterMaterial(str, Enum):
+    """Type of catheter material"""
+
+    NAKED = "Naked"
+    SILICONE = "VAB silicone"
+    MESH = "VAB mesh"
+
+
+class CatheterPort(str, Enum):
+    """Type of catheter port"""
+
+    SINGLE = "Single"
+    DOUBLE = "Double"
+
+
+class CatheterDesign(str, Enum):
+    """Type of catheter design"""
+
+    MAGNETIC = "Magnetic"
+    NONMAGNETIC = "Non-magnetic"
+    NA = "N/A"
+
+
 class Device(DataModel):
     """Generic device"""
 
@@ -99,6 +122,14 @@ class DevicePosition(DataModel):
             )
 
         return values
+
+
+class Catheter(Device):
+    """Description of a catheter device"""
+
+    catheter_material: CatheterMaterial = Field(..., title="Catheter material")
+    catheter_design: CatheterDesign = Field(..., title="Catheter design")
+    catheter_port: CatheterPort = Field(..., title="Catheter port")
 
 
 class Computer(Device):

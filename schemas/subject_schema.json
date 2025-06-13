@@ -175,7 +175,8 @@
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "New York University": "#/$defs/_New_York_University",
-                     "Other": "#/$defs/_Other"
+                     "Other": "#/$defs/_Other",
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
                   },
                   "propertyName": "name"
                },
@@ -200,6 +201,9 @@
                   },
                   {
                      "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
                      "$ref": "#/$defs/_Other"
@@ -290,10 +294,17 @@
                "discriminator": {
                   "mapping": {
                      "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
+                     "Carpa hircus": "#/$defs/_Carpa_Hircus",
+                     "Cavia porcellus": "#/$defs/_Cavia_Porcellus",
+                     "Equus asinus": "#/$defs/_Equus_Asinus",
+                     "Gallus gallus": "#/$defs/_Gallus_Gallus",
                      "Homo sapiens": "#/$defs/_Homo_Sapiens",
+                     "Lama glama": "#/$defs/_Lama_Glama",
                      "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
                      "Mus musculus": "#/$defs/_Mus_Musculus",
-                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus"
+                     "Oryctolagus cuniculus": "#/$defs/_Oryctolagus_Cuniculus",
+                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus",
+                     "Vicuna pacos": "#/$defs/_Vicuna_Pacos"
                   },
                   "propertyName": "name"
                },
@@ -312,6 +323,27 @@
                   },
                   {
                      "$ref": "#/$defs/_Rattus_Norvegicus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Gallus_Gallus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oryctolagus_Cuniculus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cavia_Porcellus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Carpa_Hircus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Equus_Asinus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lama_Glama"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vicuna_Pacos"
                   }
                ],
                "title": "Species"
@@ -373,7 +405,8 @@
                      "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "New York University": "#/$defs/_New_York_University",
-                     "Other": "#/$defs/_Other"
+                     "Other": "#/$defs/_Other",
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
                   },
                   "propertyName": "name"
                },
@@ -398,6 +431,9 @@
                   },
                   {
                      "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
                      "$ref": "#/$defs/_Other"
@@ -578,7 +614,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -603,6 +640,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -645,7 +685,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -670,6 +711,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -712,7 +756,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -737,6 +782,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -779,7 +827,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -804,6 +853,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -840,7 +892,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -865,6 +918,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -877,6 +933,136 @@
             }
          },
          "title": "_Callithrix_Jacchus",
+         "type": "object"
+      },
+      "_Carpa_Hircus": {
+         "description": "Model Carpa hircus",
+         "properties": {
+            "name": {
+               "const": "Carpa hircus",
+               "default": "Carpa hircus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9925",
+               "default": "NCBI:txid9925",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Carpa_Hircus",
+         "type": "object"
+      },
+      "_Cavia_Porcellus": {
+         "description": "Model Cavia porcellus",
+         "properties": {
+            "name": {
+               "const": "Cavia porcellus",
+               "default": "Cavia porcellus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid10141",
+               "default": "NCBI:txid10141",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Cavia_Porcellus",
          "type": "object"
       },
       "_Columbia_University": {
@@ -907,7 +1093,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -932,6 +1119,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -966,12 +1156,12 @@
          "title": "_Emapa",
          "type": "object"
       },
-      "_Homo_Sapiens": {
-         "description": "Model Homo sapiens",
+      "_Equus_Asinus": {
+         "description": "Model Equus asinus",
          "properties": {
             "name": {
-               "const": "Homo sapiens",
-               "default": "Homo sapiens",
+               "const": "Equus asinus",
+               "default": "Equus asinus",
                "title": "Name",
                "type": "string"
             },
@@ -988,7 +1178,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1013,6 +1204,139 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9793",
+               "default": "NCBI:txid9793",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Equus_Asinus",
+         "type": "object"
+      },
+      "_Gallus_Gallus": {
+         "description": "Model Gallus gallus",
+         "properties": {
+            "name": {
+               "const": "Gallus gallus",
+               "default": "Gallus gallus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9031",
+               "default": "NCBI:txid9031",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Gallus_Gallus",
+         "type": "object"
+      },
+      "_Homo_Sapiens": {
+         "description": "Model Homo sapiens",
+         "properties": {
+            "name": {
+               "const": "Homo sapiens",
+               "default": "Homo sapiens",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1055,7 +1379,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1080,6 +1405,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1122,7 +1450,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1147,6 +1476,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1189,7 +1521,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1214,6 +1547,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1226,6 +1562,71 @@
             }
          },
          "title": "_Janelia_Research_Campus",
+         "type": "object"
+      },
+      "_Lama_Glama": {
+         "description": "Model Lama glama",
+         "properties": {
+            "name": {
+               "const": "Lama glama",
+               "default": "Lama glama",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9844",
+               "default": "NCBI:txid9844",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Lama_Glama",
          "type": "object"
       },
       "_Macaca_Mulatta": {
@@ -1250,7 +1651,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1275,6 +1677,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1331,7 +1736,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1356,6 +1762,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1418,7 +1827,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1443,6 +1853,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1475,6 +1888,71 @@
             }
          },
          "title": "_Orcid",
+         "type": "object"
+      },
+      "_Oryctolagus_Cuniculus": {
+         "description": "Model Oryctolagus cuniculus",
+         "properties": {
+            "name": {
+               "const": "Oryctolagus cuniculus",
+               "default": "Oryctolagus cuniculus",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid9986",
+               "default": "NCBI:txid9986",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Oryctolagus_Cuniculus",
          "type": "object"
       },
       "_Other": {
@@ -1528,7 +2006,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1553,6 +2032,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1607,6 +2089,97 @@
          "title": "_Rrid",
          "type": "object"
       },
+      "_Uniprot": {
+         "additionalProperties": false,
+         "description": "Model UNIPROT",
+         "properties": {
+            "name": {
+               "const": "Universal Protein Resource",
+               "default": "Universal Protein Resource",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UNIPROT",
+               "default": "UNIPROT",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Uniprot",
+         "type": "object"
+      },
+      "_University_Of_Pennsylvania": {
+         "description": "Model University of Pennsylvania",
+         "properties": {
+            "name": {
+               "const": "University of Pennsylvania",
+               "default": "University of Pennsylvania",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UPENN",
+               "default": "UPENN",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00b30xv10",
+               "default": "00b30xv10",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_University_Of_Pennsylvania",
+         "type": "object"
+      },
       "_Unknown": {
          "description": "Model Unknown",
          "properties": {
@@ -1636,6 +2209,71 @@
          },
          "title": "_Unknown",
          "type": "object"
+      },
+      "_Vicuna_Pacos": {
+         "description": "Model Vicuna pacos",
+         "properties": {
+            "name": {
+               "const": "Vicuna pacos",
+               "default": "Vicuna pacos",
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "National Center for Biotechnology Information",
+                  "abbreviation": "NCBI"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "NCBI:txid30538",
+               "default": "NCBI:txid30538",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Vicuna_Pacos",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -1654,8 +2292,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.8",
-         "default": "2.0.8",
+         "const": "2.0.9",
+         "default": "2.0.9",
          "title": "Schema Version",
          "type": "string"
       },

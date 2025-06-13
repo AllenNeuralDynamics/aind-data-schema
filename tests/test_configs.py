@@ -2,7 +2,7 @@
 
 import unittest
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.units import PowerUnit, SizeUnit
 from pydantic import ValidationError
 
@@ -48,14 +48,14 @@ class TestPlanarImage(unittest.TestCase):
         self.transform = [Translation(translation=[0, 0])]
 
         self.plane = Plane(
-            depth=150, depth_unit=SizeUnit.UM, power=5.0, power_unit=PowerUnit.MW, targeted_structure=CCFStructure.VISP
+            depth=150, depth_unit=SizeUnit.UM, power=5.0, power_unit=PowerUnit.MW, targeted_structure=CCFv3.VISP
         )
 
         self.coupled_plane = CoupledPlane(
             plane_index=0,
             power=5.0,
             power_unit=PowerUnit.MW,
-            targeted_structure=CCFStructure.VISP,
+            targeted_structure=CCFv3.VISP,
             depth=100.0,
             depth_unit=SizeUnit.UM,
             coupled_plane_index=1,

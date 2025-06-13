@@ -24,7 +24,7 @@ from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
 )
 from aind_data_schema.components.stimulus import VisualStimulation
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.stimulus_modality import StimulusModality
 
 bonsai_software = Software(name="Bonsai", version="2.7")
@@ -40,7 +40,7 @@ ephys_assembly_a_config = EphysAssemblyConfig(
     ),
     probes=[
         ProbeConfig(
-            primary_targeted_structure=CCFStructure.LGD,
+            primary_targeted_structure=CCFv3.LGD,
             device_name="ProbeA",
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
@@ -75,7 +75,7 @@ ephys_assembly_b_config = EphysAssemblyConfig(
     probes=[
         ProbeConfig(
             device_name="ProbeB",
-            primary_targeted_structure=CCFStructure.LC,
+            primary_targeted_structure=CCFv3.LC,
             atlas_coordinate=AtlasCoordinate(
                 coordinate_system=AtlasLibrary.CCFv3_10um,
                 translation=[8150, 3250, 7800],

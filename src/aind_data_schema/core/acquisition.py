@@ -31,7 +31,7 @@ from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.core.instrument import Connection
-from aind_data_schema.core.procedures import Anaesthetic
+from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
@@ -191,7 +191,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.28"]] = Field(default="2.0.28")
+    schema_version: SkipValidation[Literal["2.0.30"]] = Field(default="2.0.30")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID")

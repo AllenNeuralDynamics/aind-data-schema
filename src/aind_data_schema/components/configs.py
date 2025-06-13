@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
 from aind_data_schema_models.units import (
@@ -17,6 +17,7 @@ from aind_data_schema_models.units import (
     TimeUnit,
     VolumeUnit,
 )
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -200,7 +201,7 @@ class Plane(DataModel):
 
     power: float = Field(..., title="Power")
     power_unit: PowerUnit = Field(..., title="Power unit")
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    targeted_structure: BrainStructureModel = Field(..., title="Targeted structure")
 
 
 class CoupledPlane(Plane):
@@ -427,8 +428,8 @@ class ProbeConfig(DeviceConfig):
     """Configuration for a device inserted into a brain"""
 
     # Target
-    primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
+    primary_targeted_structure: BrainStructureModel = Field(..., title="Targeted structure")
+    other_targeted_structure: Optional[List[BrainStructureModel]] = Field(
         default=None, title="Other targeted structure"
     )
     atlas_coordinate: Optional[AtlasCoordinate] = Field(
@@ -531,3 +532,14 @@ class MRIScan(DeviceConfig):
                 raise ValueError("Primary scan must have scan_affine_transform and resolution fields")
 
         return self
+
+
+# SURGERY CONFIGS
+
+
+class CatheterConfig(DeviceConfig):
+    """Configuration of a catheter"""
+
+    targeted_structure: MouseAnatomyModel = Field(
+        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )

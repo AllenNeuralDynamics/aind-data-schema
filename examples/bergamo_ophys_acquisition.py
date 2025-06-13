@@ -23,7 +23,7 @@ from aind_data_schema.components.configs import (
     ImagingConfig,
 )
 from aind_data_schema.components.coordinates import Translation, Scale, CoordinateSystemLibrary
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -52,7 +52,7 @@ planar_image = PlanarImage(
         Plane(
             depth=150,
             depth_unit="micrometer",
-            targeted_structure=CCFStructure.MOP,
+            targeted_structure=CCFv3.MOP,
             power=10,
             power_unit="milliwatt",
         ),
