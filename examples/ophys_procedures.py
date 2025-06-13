@@ -35,7 +35,7 @@ probe = FiberProbe(
     total_length=0.5,
 )
 config = ProbeConfig(
-    primary_targeted_structure=CCFStructure.VTA,
+    primary_targeted_structure=CCFv3.VTA,
     device_name="Probe A",
     coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
     transform=[

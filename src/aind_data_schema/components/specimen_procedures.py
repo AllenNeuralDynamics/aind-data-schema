@@ -4,7 +4,7 @@ from datetime import date
 from enum import Enum
 from typing import Dict, List, Optional
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 from aind_data_schema_models.units import SizeUnit
@@ -29,7 +29,7 @@ class Section(DataModel):
     """Description of a slice of brain tissue"""
 
     output_specimen_id: str = Field(..., title="Specimen ID")
-    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
+    targeted_structure: Optional[CCFv3.ONE_OF] = Field(default=None, title="Targeted structure")
 
     # Coordinates
     coordinate_system_name: str = Field(..., title="Coordinate system name")

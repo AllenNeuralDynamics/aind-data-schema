@@ -4,7 +4,7 @@ import unittest
 from datetime import date
 from unittest.mock import patch
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.organizations import Organization
@@ -220,7 +220,7 @@ class ProceduresTests(unittest.TestCase):
                                     ),
                                 ],
                             ],
-                            targeted_structure=CCFStructure.VISP6A,
+                            targeted_structure=CCFv3.VISP6A,
                         ),
                     ],
                 )
@@ -405,7 +405,7 @@ class ProceduresTests(unittest.TestCase):
             sections=[
                 Section(
                     output_specimen_id="123456_001",
-                    targeted_structure=CCFStructure.MOP,
+                    targeted_structure=CCFv3.MOP,
                     coordinate_system_name="BREGMA_ARI",
                     start_coordinate=Translation(
                         translation=[0.3, 0, 0],

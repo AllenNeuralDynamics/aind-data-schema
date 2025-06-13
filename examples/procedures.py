@@ -47,7 +47,7 @@ probe = EphysProbe(
 )
 
 config = ProbeConfig(
-    primary_targeted_structure=CCFStructure.VTA,
+    primary_targeted_structure=CCFv3.VTA,
     device_name="Probe A",
     coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
     transform=[
