@@ -55,7 +55,7 @@ Description of an injection procedure into a brain
 |-------|------|-------------|
 | `coordinate_system_name` | `str` |  |
 | `coordinates` | List[List[[Translation](components/coordinates.md#translation) or [Rotation](components/coordinates.md#rotation) or [Scale](components/coordinates.md#scale) or [Affine](components/coordinates.md#affine)]] |  |
-| `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
+| `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#CCFv3)] |  |
 | `injection_materials` | List[[ViralMaterial](#viralmaterial) or [NonViralMaterial](#nonviralmaterial)] |  |
 | `relative_position` | Optional[List[[AnatomicalRelative](aind_data_schema_models/coordinates.md#anatomicalrelative)]] |  |
 | `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | List of injection events, one per location/depth |
@@ -206,7 +206,7 @@ Description of headframe procedure
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `headframe_type` | `str` |  |
-| `headframe_part_number` | `str` |  |
+| `headframe_part_number` | `Optional[str]` |  |
 | `headframe_material` | Optional[[HeadframeMaterial](#headframematerial)] |  |
 | `well_part_number` | `Optional[str]` |  |
 | `well_type` | `Optional[str]` |  |
@@ -297,7 +297,6 @@ Description of a non-viral injection material
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `material_type` | `"Reagent"` |  |
 | `concentration` | `Optional[float]` | Must provide concentration unit |
 | `concentration_unit` | `Optional[str]` | For example, mg/mL |
 | `name` | `str` |  |
@@ -381,7 +380,7 @@ Description of a slice of brain tissue
 | Field | Type | Description |
 |-------|------|-------------|
 | `output_specimen_id` | `str` |  |
-| `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfstructure)] |  |
+| `targeted_structure` | Optional[[BrainAtlas](aind_data_schema_models/brain_atlas.md#CCFv3)] |  |
 | `coordinate_system_name` | `str` |  |
 | `start_coordinate` | [Translation](components/coordinates.md#translation) |  |
 | `end_coordinate` | Optional[[Translation](components/coordinates.md#translation)] |  |
@@ -414,6 +413,7 @@ Description of surgical or other procedure performed on a specimen
 | `end_date` | `datetime.date` |  |
 | `experimenters` | List[[Person](components/identifiers.md#person)] |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
+| `protocol_parameters` | `Optional[Dict[str, str]]` | Parameters defined in the protocol and their value during this procedure |
 | `procedure_details` | List[[HCRSeries](#hcrseries) or [Antibody](components/reagent.md#antibody) or [PlanarSectioning](#planarsectioning) or [Reagent](components/reagent.md#reagent) or [OligoProbeSet](components/reagent.md#oligoprobeset)] |  |
 | `notes` | `Optional[str]` |  |
 
@@ -472,7 +472,6 @@ Description of viral material for injections
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `material_type` | `"Virus"` |  |
 | `name` | `str` | Full genome for virus construct |
 | `tars_identifiers` | Optional[[TarsVirusIdentifiers](#tarsvirusidentifiers)] | TARS database identifiers |
 | `addgene_id` | `Optional[aind_data_schema_models.pid_names.PIDName]` | Registry must be Addgene |
@@ -497,6 +496,7 @@ Description of a water restriction procedure
 | Field | Type | Description |
 |-------|------|-------------|
 | `ethics_review_id` | `str` |  |
+| `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `target_fraction_weight` | `int` |  |
 | `target_fraction_weight_unit` | [UnitlessUnit](aind_data_schema_models/units.md#unitlessunit) |  |
 | `minimum_water_per_day` | `decimal.Decimal` |  |

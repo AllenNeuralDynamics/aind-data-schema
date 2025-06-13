@@ -15,7 +15,7 @@ to easily query and index the data.
 |-------|------|-------------|
 | `name` | `str` | Name of the data asset. |
 | `location` | `str` | Current location of the data asset. |
-| `external_links` | Dict[[ExternalPlatforms](components/identifiers.md#externalplatforms), List[str]] | Links to the data asset on different platforms. |
+| `other_identifiers` | Optional[Dict[[Database](components/identifiers.md#database), List[str]]] | Links to the data asset on secondary platforms. |
 | `subject` | Optional[[Subject](subject.md#subject)] | Subject of data collection. |
 | `data_description` | Optional[[DataDescription](data_description.md#datadescription)] | A logical collection of data files. |
 | `procedures` | Optional[[Procedures](procedures.md#procedures)] | All procedures performed on a subject. |

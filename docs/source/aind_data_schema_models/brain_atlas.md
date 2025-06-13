@@ -2,7 +2,7 @@
 
 ## Model definitions
 
-### CCFStructure
+### CCFv3
 
 CCFStructure
 

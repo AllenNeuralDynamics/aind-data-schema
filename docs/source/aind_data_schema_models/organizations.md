@@ -65,6 +65,7 @@ Organization
 | `JULABO` | `None` | `Julabo` | `None` | `None` |
 | `KOWA` | `None` | `Kowa` | `name='Research Organization Registry' abbreviation='ROR'` | `03zbwg482` |
 | `LASER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
+| `LASOS` | `LASOS` | `LASOS Lasertechnik` | `None` | `None` |
 | `LED_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `LEICA` | `None` | `Leica` | `None` | `None` |
 | `LENS_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
@@ -112,6 +113,7 @@ Organization
 | `SIGMA_ALDRICH` | `None` | `Sigma-Aldrich` | `None` | `None` |
 | `SIMONS_FOUNDATION` | `None` | `Simons Foundation` | `name='Research Organization Registry' abbreviation='ROR'` | `01cmst727` |
 | `SPEAKER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
+| `SPECTRA_PHYSICS` | `None` | `Spectra-Physics` | `name='Research Organization Registry' abbreviation='ROR'` | `02ad9kp97` |
 | `SPINNAKER` | `None` | `Spinnaker` | `None` | `None` |
 | `SUBJECT_SOURCES` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `TAMRON` | `None` | `Tamron` | `None` | `None` |
@@ -124,6 +126,7 @@ Organization
 | `TWCF` | `TWCF` | `Templeton World Charity Foundation` | `name='Research Organization Registry' abbreviation='ROR'` | `00x0z1472` |
 | `TYMPHANY` | `None` | `Tymphany` | `None` | `None` |
 | `UCSD` | `UCSD` | `University of California, San Diego` | `name='Research Organization Registry' abbreviation='ROR'` | `0168r3w48` |
+| `UPENN` | `UPENN` | `University of Pennsylvania` | `name='Research Organization Registry' abbreviation='ROR'` | `00b30xv10` |
 | `VIEWORKS` | `None` | `Vieworks` | `None` | `None` |
 | `VORTRAN` | `None` | `Vortran` | `None` | `None` |
 

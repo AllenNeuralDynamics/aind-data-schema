@@ -12,7 +12,7 @@ Code or script identifier
 | `name` | `Optional[str]` |  |
 | `version` | `Optional[str]` |  |
 | `container` | Optional[[Container](#container)] |  |
-| `run_script` | `Optional[pathlib._local.Path]` | Path to run script |
+| `run_script` | `Optional[pathlib.Path]` | Path to run script |
 | `language` | `Optional[str]` | Programming language used |
 | `language_version` | `Optional[str]` |  |
 | `input_data` | Optional[List[[DataAsset](#dataasset) or [CombinedData](#combineddata)]] | Input data used in the code or script |
@@ -28,7 +28,7 @@ Description of a group of data assets
 |-------|------|-------------|
 | `assets` | List[[DataAsset](#dataasset)] |  |
 | `name` | `Optional[str]` |  |
-| `external_links` | Dict[[ExternalPlatforms](#externalplatforms), List[str]] | Links to the Combined Data asset, if materialized. |
+| `database_identifier` | Optional[Dict[[Database](#database), List[str]]] | ID or link to the Combined Data asset, if materialized. |
 | `description` | `Optional[str]` | Intention or approach used to select group of assets |
 
 
@@ -52,13 +52,14 @@ Description of a single data asset
 | `url` | `str` | URL pointing to the data asset |
 
 
-### ExternalPlatforms
+### Database
 
-External Platforms of Data Assets.
+Database platforms that can host data assets
 
 | Name | Value |
 |------|-------|
 | `CODEOCEAN` | `Code Ocean` |
+| `DANDI` | `DANDI` |
 
 
 ### Person
