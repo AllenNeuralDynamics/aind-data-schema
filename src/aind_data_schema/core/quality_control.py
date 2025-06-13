@@ -44,10 +44,15 @@ class QCMetric(DataModel):
     """Description of a single quality control metric"""
 
     name: str = Field(..., title="Metric name")
+    modality: Modality.ONE_OF = Field(..., title="Modality")
+    stage: Stage = Field(..., title="Evaluation stage")
     value: Any = Field(..., title="Metric value")
-    status_history: List[QCStatus] = Field(default=[], title="Metric status history")
+    status_history: List[QCStatus] = Field(default=[], title="Metric status history", min_length=1)
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
+    tags: List[str] = Field(
+        default=[], title="Tags", description="Tags can be used to group QCMetric objects into groups"
+    )
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
         title="List of asset names that this metric depends on",
@@ -67,11 +72,15 @@ class QCMetric(DataModel):
         """
         return self.status_history[-1]
 
-    @field_validator("status_history")
-    def validate_status_history(cls, v):
-        """Ensure that at least one QCStatus object is provided"""
-        if len(v) == 0:
-            raise ValueError("At least one QCStatus object must be provided")
+    @model_validator(mode="after")
+    def validate_multi_asset(cls, v):
+        """Ensure that evaluated_assets is set correctly for multi-asset metrics"""
+        if v.stage == Stage.MULTI_ASSET and (not v.evaluated_assets or len(v.evaluated_assets) == 0):
+            raise ValueError(f"Metric '{v.name}' is in a multi-asset QCEvaluation and must have evaluated_assets set.")
+        elif v.stage != Stage.MULTI_ASSET and v.evaluated_assets:
+            raise ValueError(
+                f"Metric '{v.name}' is in a single-asset QCEvaluation and should not have evaluated_assets"
+            )
         return v
 
 
@@ -90,124 +99,13 @@ class CurationMetric(QCMetric):
     curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
 
 
-class QCEvaluation(DataModel):
-    """Description of one evaluation stage, with one or more metrics"""
-
-    modality: Modality.ONE_OF = Field(..., title="Modality")
-    stage: Stage = Field(..., title="Evaluation stage")
-    name: str = Field(..., title="Evaluation name")
-    description: Optional[str] = Field(default=None, title="Evaluation description")
-    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="QC and curation metrics")
-    tags: Optional[List[str]] = Field(
-        default=None, title="Tags", description="Tags can be used to group QCEvaluation objects into groups"
-    )
-    notes: Optional[str] = Field(default=None, title="Notes")
-    allow_failed_metrics: bool = Field(
-        default=False,
-        title="Allow metrics to fail",
-        description=(
-            "Set to true for evaluations that are not critical to the overall state of QC for a data asset, this"
-            " will allow individual metrics to fail while still passing the evaluation."
-        ),
-    )
-    latest_status: Optional[Status] = Field(default=None, title="Evaluation status")
-    created: AwareDatetimeWithDefault = Field(
-        default_factory=lambda: datetime.now(tz=timezone.utc), title="Evaluation creation date"
-    )
-
-    @property
-    def failed_metrics(self) -> Optional[List[QCMetric]]:
-        """Return any metrics that are failing
-
-        Returns none if allow_failed_metrics is False
-
-        Returns
-        -------
-        list[QCMetric]
-            Metrics that fail
-        """
-        if not self.allow_failed_metrics:
-            return None
-        else:
-            failing_metrics = []
-            for metric in self.metrics:
-                if metric.status.status == Status.FAIL:
-                    failing_metrics.append(metric)
-
-            return failing_metrics
-
-    @model_validator(mode="after")
-    def compute_latest_status(self):
-        """Compute the status of the evaluation based on the status of its metrics"""
-        self.latest_status = self.evaluate_status()
-        return self
-
-    def evaluate_status(self, date: Optional[datetime] = None) -> Status:
-        """Loop through all metrics and return the evaluation's status
-
-        Any fail -> FAIL
-        If no fails, then any pending -> PENDING
-        All PASS -> PASS
-
-        Returns
-        -------
-        Status
-            Current status of the evaluation
-        """
-        if not date:
-            date = datetime.now(tz=timezone.utc)
-
-        latest_metric_statuses = []
-
-        for metric in self.metrics:
-            # loop backwards through metric statuses until you find one that is before the provided date
-            for status in reversed(metric.status_history):
-                if status.timestamp <= date:
-                    latest_metric_statuses.append(status.status)
-                    break
-
-        if not latest_metric_statuses:
-            raise ValueError(f"No status existed prior to the provided date {date.isoformat()}")
-
-        if (not self.allow_failed_metrics) and any(status == Status.FAIL for status in latest_metric_statuses):
-            return Status.FAIL
-        elif any(status == Status.PENDING for status in latest_metric_statuses):
-            return Status.PENDING
-
-        return Status.PASS
-
-    @model_validator(mode="after")
-    def validate_multi_asset(cls, v):
-        """Ensure that the evaluated_assets field in any attached metrics is set correctly"""
-        stage = v.stage
-        metrics = v.metrics
-
-        if stage == Stage.MULTI_ASSET:
-            for metric in metrics:
-                if not metric.evaluated_assets or len(metric.evaluated_assets) == 0:
-                    raise ValueError(
-                        f"Metric '{metric.name}' is in a multi-asset QCEvaluation and must have evaluated_assets set."
-                    )
-        else:
-            # make sure all evaluated assets are None
-            for metric in metrics:
-                if metric.evaluated_assets:
-                    raise ValueError(
-                        (
-                            f"Metric '{metric.name}' is in a single-asset QCEvaluation"
-                            " and should not have evaluated_assets"
-                        )
-                    )
-        return v
-
-
 class QualityControl(DataCoreModel):
     """Description of quality metrics for a data asset"""
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.4"]] = Field(default="2.0.4")
-    evaluations: List[QCEvaluation] = Field(..., title="Evaluations")
+    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[Person]] = Field(
         default=None,
         title="Key experimenters",
@@ -215,43 +113,89 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    def status(
+    default_grouping: List[str] = Field(
+        ...,
+        title="Default grouping",
+        description="Default tag grouping for this QualityControl object, used in visualizations",
+    )
+    allow_tag_failures: List[str] = Field(
+        default=[],
+        title="Allow tag failures",
+        description="List of tags that are allowed to fail without failing the overall QC",
+    )
+    status: Optional[dict] = Field(
+        default=None,
+        title="Tag status mapping",
+        description="Mapping of tags to their evaluated status, automatically computed",
+    )
+
+    @property
+    def tags(self) -> List[str]:
+        """Get all unique tags from all metrics
+
+        Returns
+        -------
+        List[str]
+            List of all unique tags across all metrics
+        """
+        all_tags = []
+        for metric in self.metrics:
+            all_tags.extend(metric.tags)
+        return list(set(all_tags))
+
+    @model_validator(mode="after")
+    def compute_tag_status(self):
+        """Automatically compute status for each tag"""
+        if self.metrics:
+            tag_status = {}
+            for tag in self.tags:
+                tag_status[tag] = self.evaluate_status(tag=tag)
+            self.status = tag_status
+        return self
+
+    def evaluate_status(
         self,
         modality: Union[Modality.ONE_OF, List[Modality.ONE_OF], None] = None,
         stage: Union[Stage, List[Stage], None] = None,
         tag: Union[str, List[str], None] = None,
         date: Optional[datetime] = None,
     ) -> Status:
-        """Loop through all evaluations and return the overall status
+        """Loop through all metrics and return the overall status
 
-        Any FAIL -> FAIL
+        Any FAIL -> FAIL (unless tag is in allow_tag_failures)
         If no fails, then any PENDING -> PENDING
         All PASS -> PASS
         """
         if not date:
             date = datetime.now(tz=timezone.utc)
 
-        if not modality and not stage and not tag:
-            eval_statuses = [evaluation.evaluate_status(date=date) for evaluation in self.evaluations]
-        else:
-            if modality and not isinstance(modality, list):
-                modality = [modality]
-            if stage and not isinstance(stage, list):
-                stage = [stage]
-            if tag and not isinstance(tag, list):
-                tag = [tag]
+        # Convert to lists for consistent handling
+        if modality and not isinstance(modality, list):
+            modality = [modality]
+        if stage and not isinstance(stage, list):
+            stage = [stage]
+        if tag and not isinstance(tag, list):
+            tag = [tag]
 
-            eval_statuses = [
-                evaluation.evaluate_status(date=date)
-                for evaluation in self.evaluations
-                if (not modality or any(evaluation.modality == mod for mod in modality))
-                and (not stage or any(evaluation.stage == sta for sta in stage))
-                and (not tag or (evaluation.tags and any(t in evaluation.tags for t in tag)))
-            ]
+        filtered_statuses = []
+        for metric in self.metrics:
+            # Apply filters
+            if modality and metric.modality not in modality:
+                continue
+            if stage and metric.stage not in stage:
+                continue
+            if tag and not (metric.tags and any(t in metric.tags for t in tag)):
+                continue
 
-        if any(status == Status.FAIL for status in eval_statuses):
+            status = metric.status.status
+            # Convert FAIL to PASS for metrics with allowed failure tags
+            if status == Status.FAIL and metric.tags and any(t in self.allow_tag_failures for t in metric.tags):
+                status = Status.PASS
+            filtered_statuses.append(status)
+
+        if any(status == Status.FAIL for status in filtered_statuses):
             return Status.FAIL
-        elif any(status == Status.PENDING for status in eval_statuses):
+        elif any(status == Status.PENDING for status in filtered_statuses):
             return Status.PENDING
 
         return Status.PASS
