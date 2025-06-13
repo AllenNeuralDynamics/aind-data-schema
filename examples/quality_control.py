@@ -11,7 +11,7 @@ t = datetime(2022, 11, 22, 0, 0, 0, tzinfo=timezone.utc)
 s = QCStatus(evaluator="Automated", status=Status.PASS, timestamp=t)
 sp = QCStatus(evaluator="", status=Status.PENDING, timestamp=t)
 
-# Example of how to use a dictionary to provide options a metric
+# Example of how to use a dictionary to provide options for a metric in the QC portal
 drift_value_with_options = {
     "value": "",
     "options": ["Low", "Medium", "High"],
@@ -20,7 +20,7 @@ drift_value_with_options = {
         "Fail",
         "Fail",
     ],  # when set, this field will be used to automatically parse the status, blank forces manual update
-    "type": "dropdown",  # other type options: "checkbox"
+    "type": "dropdown",
 }
 
 # Example of how to use a dictionary to provide multiple checkable flags, some of which will fail the metric
