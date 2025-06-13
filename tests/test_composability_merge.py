@@ -28,7 +28,7 @@ class TestComposability(unittest.TestCase):
     def test_merge_quality_control(self):
         """Test adding two QualityControl objects"""
 
-        metrics=[
+        metrics = [
             QCMetric(
                 name="Dict example",
                 modality=Modality.ECEPHYS,

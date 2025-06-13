@@ -6,7 +6,15 @@ from datetime import datetime
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 
-from aind_data_schema.core.quality_control import QCMetric, QCStatus, QualityControl, Stage, Status
+from aind_data_schema.core.quality_control import (
+    QCMetric,
+    QCStatus,
+    QualityControl,
+    Stage,
+    Status,
+    _get_filtered_statuses,
+    _get_status_by_date,
+)
 
 from examples.quality_control import q as quality_control
 
@@ -33,7 +41,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -45,14 +53,11 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             ),
         ]
 
-        q = QualityControl(
-            metrics=test_metrics + test_metrics,  # duplicate the metrics
-            default_grouping=["Drift map"]
-        )
+        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=["Drift map"])  # duplicate the metrics
 
         # check that overall status gets auto-set if it has never been set before
         self.assertEqual(q.evaluate_status(), Status.PASS)
@@ -71,7 +76,7 @@ class QualityControlTests(unittest.TestCase):
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             )
         )
 
@@ -89,7 +94,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             )
         )
 
@@ -104,11 +109,9 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.PROCESSING,
                 value={"stuff": "in_a_dict"},
                 status_history=[
-                    QCStatus(
-                        evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
-                    )
+                    QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -118,11 +121,9 @@ class QualityControlTests(unittest.TestCase):
                 description="Manual evaluation of whether the drift map looks good",
                 reference="s3://some-data-somewhere",
                 status_history=[
-                    QCStatus(
-                        evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
-                    )
+                    QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             ),
         ]
 
@@ -143,7 +144,7 @@ class QualityControlTests(unittest.TestCase):
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             )
         )
 
@@ -161,7 +162,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             )
         )
 
@@ -177,11 +178,9 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.PROCESSING,
                 value={"stuff": "in_a_dict"},
                 status_history=[
-                    QCStatus(
-                        evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS
-                    )
+                    QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -191,9 +190,11 @@ class QualityControlTests(unittest.TestCase):
                 description="Manual evaluation of whether the drift map looks good",
                 reference="s3://some-data-somewhere",
                 status_history=[
-                    QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING)
+                    QCStatus(
+                        evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
+                    )
                 ],
-                tags=["Drift map"]
+                tags=["Drift map"],
             ),
         ]
 
@@ -231,7 +232,7 @@ class QualityControlTests(unittest.TestCase):
                 QCStatus(evaluator="Automated", timestamp=t1, status=Status.PASS),
                 QCStatus(evaluator="Automated", timestamp=t2, status=Status.PASS),
             ],
-            tags=["Drift map"]
+            tags=["Drift map"],
         )
 
         qc = QualityControl(metrics=[metric], default_grouping=["Drift map"])
@@ -281,7 +282,7 @@ class QualityControlTests(unittest.TestCase):
             status_history=[
                 QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
             ],
-            tags=["Test"]
+            tags=["Test"],
         )
 
         qc = QualityControl(metrics=[metric], default_grouping=["Test"])
@@ -300,12 +301,10 @@ class QualityControlTests(unittest.TestCase):
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                 ],
                 evaluated_assets=["asset0", "asset1"],
-                tags=["Test"]
+                tags=["Test"],
             )
 
-        self.assertTrue(
-            "is a single-asset metric and should not have evaluated_assets" in repr(context.exception)
-        )
+        self.assertTrue("is a single-asset metric and should not have evaluated_assets" in repr(context.exception))
 
         # Check that multi-asset with empty evaluated_assets raises a validation error
         with self.assertRaises(ValidationError) as context:
@@ -318,7 +317,7 @@ class QualityControlTests(unittest.TestCase):
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                 ],
                 evaluated_assets=[],
-                tags=["Test"]
+                tags=["Test"],
             )
 
         self.assertTrue("is a multi-asset metric and must have evaluated_assets" in repr(context.exception))
@@ -333,7 +332,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                 ],
-                tags=["Test"]
+                tags=["Test"],
             )
 
         self.assertTrue("is a multi-asset metric and must have evaluated_assets" in repr(context.exception))
@@ -350,7 +349,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["test_group"]
+                tags=["test_group"],
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -362,7 +361,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["test_group"]
+                tags=["test_group"],
             ),
             QCMetric(
                 name="Multiple values example 2",
@@ -372,7 +371,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
-                tags=["test_group2"]
+                tags=["test_group2"],
             ),
             QCMetric(
                 name="Drift map pass/fail 2",
@@ -384,7 +383,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["test_group2"]
+                tags=["test_group2"],
             ),
             QCMetric(
                 name="Multiple values example 3",
@@ -394,7 +393,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING)
                 ],
-                tags=["tag1"]
+                tags=["tag1"],
             ),
             QCMetric(
                 name="Drift map pass/fail 3",
@@ -406,15 +405,12 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["tag1"]
+                tags=["tag1"],
             ),
         ]
 
         # Confirm that the status filters work
-        q = QualityControl(
-            metrics=test_metrics,
-            default_grouping=["test_group", "test_group2", "tag1"]
-        )
+        q = QualityControl(metrics=test_metrics, default_grouping=["test_group", "test_group2", "tag1"])
 
         self.assertEqual(q.evaluate_status(), Status.FAIL)
         self.assertEqual(q.evaluate_status(modality=Modality.BEHAVIOR), Status.FAIL)
@@ -427,13 +423,9 @@ class QualityControlTests(unittest.TestCase):
     def test_status_date(self):
         """QualityControl.status(date=) should return the correct status for the given date"""
 
-        t0_5 = datetime.fromisoformat("0500-01-01 00:00:00+00:00")
         t1 = datetime.fromisoformat("1000-01-01 00:00:00+00:00")
-        t1_5 = datetime.fromisoformat("1500-01-01 00:00:00+00:00")
         t2 = datetime.fromisoformat("2000-01-01 00:00:00+00:00")
-        t2_5 = datetime.fromisoformat("2500-01-01 00:00:00+00:00")
         t3 = datetime.fromisoformat("3000-01-01 00:00:00+00:00")
-        t3_5 = datetime.fromisoformat("3500-01-01 00:00:00+00:00")
 
         metric = QCMetric(
             name="Drift map pass/fail",
@@ -445,15 +437,300 @@ class QualityControlTests(unittest.TestCase):
                 QCStatus(evaluator="Bob", timestamp=t2, status=Status.PENDING),
                 QCStatus(evaluator="Bob", timestamp=t3, status=Status.PASS),
             ],
-            tags=["test_group"]
+            tags=["test_group"],
         )
 
         # Note: The date filtering is currently not implemented in the new schema
         # This test would need to be updated once date filtering is implemented
         qc = QualityControl(metrics=[metric], default_grouping=["test_group"])
 
-        # For now, just test current status
-        self.assertEqual(qc.evaluate_status(), Status.PASS)
+        self.assertEqual(qc.evaluate_status(date=t3), Status.PASS)
+        self.assertEqual(qc.evaluate_status(date=t2), Status.PENDING)
+        self.assertEqual(qc.evaluate_status(date=t1), Status.FAIL)
+
+    def test_get_status_by_date_helper(self):
+        """Test the _get_status_by_date helper function with various scenarios"""
+
+        # Create timestamps for testing
+        t1 = datetime.fromisoformat("2020-01-01T00:00:00+00:00")
+        t2 = datetime.fromisoformat("2020-02-01T00:00:00+00:00")
+        t3 = datetime.fromisoformat("2020-03-01T00:00:00+00:00")
+
+        # Create a metric with multiple status history entries
+        metric = QCMetric(
+            name="Test metric",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=True,
+            status_history=[
+                QCStatus(evaluator="Alice", timestamp=t1, status=Status.FAIL),
+                QCStatus(evaluator="Bob", timestamp=t2, status=Status.PENDING),
+                QCStatus(evaluator="Charlie", timestamp=t3, status=Status.PASS),
+            ],
+            tags=["test"],
+        )
+
+        # Test getting status at different dates
+
+        # Date before any status - should return earliest status
+        early_date = datetime.fromisoformat("1999-01-01T00:00:00+00:00")
+        self.assertEqual(_get_status_by_date(metric, early_date), Status.FAIL)
+
+        # Date exactly at first status
+        self.assertEqual(_get_status_by_date(metric, t1), Status.FAIL)
+
+        # Date between first and second status
+        between_t1_t2 = datetime.fromisoformat("2020-01-15T00:00:00+00:00")
+        self.assertEqual(_get_status_by_date(metric, between_t1_t2), Status.FAIL)
+
+        # Date exactly at second status
+        self.assertEqual(_get_status_by_date(metric, t2), Status.PENDING)
+
+        # Date between second and third status
+        between_t2_t3 = datetime.fromisoformat("2020-02-15T00:00:00+00:00")
+        self.assertEqual(_get_status_by_date(metric, between_t2_t3), Status.PENDING)
+
+        # Date exactly at third status
+        self.assertEqual(_get_status_by_date(metric, t3), Status.PASS)
+
+        # Date after all statuses - should return most recent status
+        future_date = datetime.fromisoformat("2025-01-01T00:00:00+00:00")
+        self.assertEqual(_get_status_by_date(metric, future_date), Status.PASS)
+
+        # Test with single status entry
+        single_status_metric = QCMetric(
+            name="Single status metric",
+            modality=Modality.BEHAVIOR,
+            stage=Stage.RAW,
+            value=42,
+            status_history=[
+                QCStatus(evaluator="Dave", timestamp=t2, status=Status.PASS),
+            ],
+            tags=["single"],
+        )
+
+        # Date before single status - should return that status
+        self.assertEqual(_get_status_by_date(single_status_metric, t1), Status.PASS)
+        # Date at single status
+        self.assertEqual(_get_status_by_date(single_status_metric, t2), Status.PASS)
+        # Date after single status
+        self.assertEqual(_get_status_by_date(single_status_metric, t3), Status.PASS)
+
+    def test_get_filtered_statuses_helper(self):
+        """Test the _get_filtered_statuses helper function with various filters"""
+
+        # Create test date
+        test_date = datetime.fromisoformat("2020-06-01T00:00:00+00:00")
+
+        # Use existing quality_control example and add some test metrics
+        test_metrics = list(quality_control.metrics)  # Copy existing metrics
+
+        # Add some additional test metrics with different modalities, stages, and tags
+        additional_metrics = [
+            QCMetric(
+                name="Test BEHAVIOR metric",
+                modality=Modality.BEHAVIOR,
+                stage=Stage.PROCESSING,
+                value=True,
+                status_history=[QCStatus(evaluator="Test", timestamp=test_date, status=Status.PASS)],
+                tags=["behavior_tag", "shared_tag"],
+            ),
+            QCMetric(
+                name="Test OPHYS metric",
+                modality=Modality.POPHYS,
+                stage=Stage.ANALYSIS,
+                value=42,
+                status_history=[QCStatus(evaluator="Test", timestamp=test_date, status=Status.FAIL)],
+                tags=["ophys_tag", "shared_tag"],
+            ),
+            QCMetric(
+                name="Test metric with early fail",
+                modality=Modality.ECEPHYS,
+                stage=Stage.RAW,
+                value=False,
+                status_history=[
+                    QCStatus(
+                        evaluator="Test",
+                        timestamp=datetime.fromisoformat("2020-01-01T00:00:00+00:00"),
+                        status=Status.FAIL,
+                    ),
+                    QCStatus(evaluator="Test", timestamp=test_date, status=Status.PASS),
+                ],
+                tags=["time_test"],
+            ),
+        ]
+
+        all_metrics = test_metrics + additional_metrics
+
+        # Test filtering by modality
+        ecephys_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            modality=[Modality.ECEPHYS],
+        )
+        # Should include ECEPHYS metrics from quality_control example + our test metric
+        self.assertGreater(len(ecephys_statuses), 0)
+
+        behavior_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            modality=[Modality.BEHAVIOR],
+        )
+        self.assertEqual(len(behavior_statuses), 1)  # Our test BEHAVIOR metric
+        self.assertEqual(behavior_statuses[0], Status.PASS)
+
+        # Test filtering by stage
+        raw_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            stage=[Stage.RAW],
+        )
+        self.assertGreater(len(raw_statuses), 0)
+
+        analysis_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            stage=[Stage.ANALYSIS],
+        )
+        self.assertEqual(len(analysis_statuses), 1)  # Our test OPHYS metric
+        self.assertEqual(analysis_statuses[0], Status.FAIL)
+
+        # Test filtering by tag
+        shared_tag_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            tag=["shared_tag"],
+        )
+        self.assertEqual(len(shared_tag_statuses), 2)  # Our BEHAVIOR and OPHYS test metrics
+        self.assertIn(Status.PASS, shared_tag_statuses)
+        self.assertIn(Status.FAIL, shared_tag_statuses)
+
+        # Test filtering by multiple criteria
+        ecephys_raw_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            modality=[Modality.ECEPHYS],
+            stage=[Stage.RAW],
+        )
+        self.assertGreater(len(ecephys_raw_statuses), 0)
+
+        # Test date-based status retrieval
+        earlier_date = datetime.fromisoformat("2020-03-01T00:00:00+00:00")
+        time_test_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=earlier_date,
+            tag=["time_test"],
+        )
+        self.assertEqual(len(time_test_statuses), 1)
+        self.assertEqual(time_test_statuses[0], Status.FAIL)  # Should get the earlier FAIL status
+
+        # Test allow_tag_failures
+        ophys_fail_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            tag=["ophys_tag"],
+            allow_tag_failures=["ophys_tag"],
+        )
+        self.assertEqual(len(ophys_fail_statuses), 1)
+        self.assertEqual(ophys_fail_statuses[0], Status.PASS)  # FAIL converted to PASS
+
+        # Test with no matching filters
+        no_match_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            tag=["nonexistent_tag"],
+        )
+        self.assertEqual(len(no_match_statuses), 0)
+
+        # Test with empty metrics list
+        empty_statuses = _get_filtered_statuses(
+            metrics=[],
+            date=test_date,
+        )
+        self.assertEqual(len(empty_statuses), 0)
+
+        # Test multiple modalities and stages
+        multi_modality_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            modality=[Modality.BEHAVIOR, Modality.POPHYS],
+        )
+        self.assertEqual(len(multi_modality_statuses), 2)  # Our BEHAVIOR and OPHYS test metrics
+
+        multi_stage_statuses = _get_filtered_statuses(
+            metrics=all_metrics,
+            date=test_date,
+            stage=[Stage.PROCESSING, Stage.ANALYSIS],
+        )
+        self.assertEqual(len(multi_stage_statuses), 2)  # Our BEHAVIOR and OPHYS test metrics
+
+    def test_helper_functions_integration(self):
+        """Test that helper functions work correctly when used by QualityControl.evaluate_status"""
+
+        # Create a test date
+        test_date = datetime.fromisoformat("2020-06-01T00:00:00+00:00")
+
+        # Create metrics with time-based status changes
+        metrics = [
+            QCMetric(
+                name="Time-sensitive metric 1",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value=True,
+                status_history=[
+                    QCStatus(
+                        evaluator="Test",
+                        timestamp=datetime.fromisoformat("2020-01-01T00:00:00+00:00"),
+                        status=Status.FAIL,
+                    ),
+                    QCStatus(
+                        evaluator="Test",
+                        timestamp=datetime.fromisoformat("2020-06-01T00:00:00+00:00"),
+                        status=Status.PASS,
+                    ),
+                ],
+                tags=["time_sensitive"],
+            ),
+            QCMetric(
+                name="Time-sensitive metric 2",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value=False,
+                status_history=[
+                    QCStatus(
+                        evaluator="Test",
+                        timestamp=datetime.fromisoformat("2020-01-01T00:00:00+00:00"),
+                        status=Status.PASS,
+                    ),
+                    QCStatus(
+                        evaluator="Test",
+                        timestamp=datetime.fromisoformat("2020-07-01T00:00:00+00:00"),
+                        status=Status.FAIL,
+                    ),
+                ],
+                tags=["time_sensitive"],
+            ),
+        ]
+
+        qc = QualityControl(
+            metrics=metrics,
+            default_grouping=["time_sensitive"],
+        )
+
+        # Test status at different times
+        early_date = datetime.fromisoformat("2020-02-01T00:00:00+00:00")
+        # At early date: metric 1 is FAIL, metric 2 is PASS -> overall FAIL
+        early_status = qc.evaluate_status(date=early_date, tag="time_sensitive")
+        self.assertEqual(early_status, Status.FAIL)
+
+        # At test date: metric 1 is PASS, metric 2 is PASS -> overall PASS
+        test_status = qc.evaluate_status(date=test_date, tag="time_sensitive")
+        self.assertEqual(test_status, Status.PASS)
+
+        # At late date: metric 1 is PASS, metric 2 is FAIL -> overall FAIL
+        late_date = datetime.fromisoformat("2020-08-01T00:00:00+00:00")
+        late_status = qc.evaluate_status(date=late_date, tag="time_sensitive")
+        self.assertEqual(late_status, Status.FAIL)
 
 
 if __name__ == "__main__":

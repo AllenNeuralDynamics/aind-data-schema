@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.identifiers import Person
@@ -78,9 +78,7 @@ class QCMetric(DataModel):
         if v.stage == Stage.MULTI_ASSET and (not v.evaluated_assets or len(v.evaluated_assets) == 0):
             raise ValueError(f"Metric '{v.name}' is a multi-asset metric and must have evaluated_assets set.")
         elif v.stage != Stage.MULTI_ASSET and v.evaluated_assets:
-            raise ValueError(
-                f"Metric '{v.name}' is a single-asset metric and should not have evaluated_assets"
-            )
+            raise ValueError(f"Metric '{v.name}' is a single-asset metric and should not have evaluated_assets")
         return v
 
 
@@ -177,21 +175,14 @@ class QualityControl(DataCoreModel):
         if tag and not isinstance(tag, list):
             tag = [tag]
 
-        filtered_statuses = []
-        for metric in self.metrics:
-            # Apply filters
-            if modality and metric.modality not in modality:
-                continue
-            if stage and metric.stage not in stage:
-                continue
-            if tag and not (metric.tags and any(t in metric.tags for t in tag)):
-                continue
-
-            status = metric.status.status
-            # Convert FAIL to PASS for metrics with allowed failure tags
-            if status == Status.FAIL and metric.tags and any(t in self.allow_tag_failures for t in metric.tags):
-                status = Status.PASS
-            filtered_statuses.append(status)
+        filtered_statuses = _get_filtered_statuses(
+            metrics=self.metrics,
+            date=date,
+            modality=modality,
+            stage=stage,
+            tag=tag,
+            allow_tag_failures=self.allow_tag_failures
+        )
 
         if any(status == Status.FAIL for status in filtered_statuses):
             return Status.FAIL
@@ -221,5 +212,67 @@ class QualityControl(DataCoreModel):
             notes=combined_notes,
             key_experimenters=combined_experimenters,
             default_grouping=combined_default_grouping,
-            allow_tag_failures=combined_allow_tag_failures
+            allow_tag_failures=combined_allow_tag_failures,
         )
+
+
+def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> Status:
+    """Get the status of a metric at a specific date by looking through status_history.
+
+    Returns the status that was active at the given date by finding the most recent
+    status entry that occurred on or before the specified date.
+
+    Parameters
+    ----------
+    metric : QCMetric | CurationMetric
+        The metric to get the status for
+    date : datetime
+        The date to check the status at
+
+    Returns
+    -------
+    Status
+        The status that was active at the given date
+    """
+    # Find the most recent status that occurred on or before the given date
+    valid_statuses = []
+    for status_entry in metric.status_history:
+        if status_entry.timestamp <= date:
+            valid_statuses.append(status_entry)
+
+    if not valid_statuses:
+        # If no status entries exist on or before the date, return the earliest status
+        # This handles the case where we're asking for a date before any status was recorded
+        return metric.status_history[0].status
+
+    # Return the most recent valid status (status_history should be chronologically ordered)
+    return max(valid_statuses, key=lambda s: s.timestamp).status
+
+
+def _get_filtered_statuses(
+    metrics: list[QCMetric | CurationMetric],
+    date: datetime,
+    modality: Optional[List[Modality.ONE_OF]] = None,
+    stage: Optional[List[Stage]] = None,
+    tag: Optional[List[str]] = None,
+    allow_tag_failures: List[str] = []
+):
+    """Get the status of metrics filtered by modality, stage, tag, and date."""
+    filtered_statuses = []
+    for metric in metrics:
+        # Apply filters
+        if modality and metric.modality not in modality:
+            continue
+        if stage and metric.stage not in stage:
+            continue
+        if tag and not (metric.tags and any(t in metric.tags for t in tag)):
+            continue
+
+        # Get status at the specified date using the helper function
+        status = _get_status_by_date(metric, date)
+        # Convert FAIL to PASS for metrics with allowed failure tags
+        if status == Status.FAIL and metric.tags and any(t in allow_tag_failures for t in metric.tags):
+            status = Status.PASS
+        filtered_statuses.append(status)
+
+    return filtered_statuses
