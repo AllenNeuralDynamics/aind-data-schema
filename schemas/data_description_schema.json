@@ -208,7 +208,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -233,6 +234,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -275,7 +279,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -300,6 +305,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -342,7 +350,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -367,6 +376,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -449,7 +461,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -474,6 +487,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -516,7 +532,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -541,6 +558,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -583,7 +603,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -608,6 +629,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -770,7 +794,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -795,6 +820,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -877,7 +905,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -902,6 +931,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -944,7 +976,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -969,6 +1002,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1011,7 +1047,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1036,6 +1073,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1078,7 +1118,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1103,6 +1144,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1145,7 +1189,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1170,6 +1215,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1252,7 +1300,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1277,6 +1326,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1368,7 +1420,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1393,6 +1446,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1435,7 +1491,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1460,6 +1517,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1502,7 +1562,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1527,6 +1588,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1589,7 +1653,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1614,6 +1679,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1765,7 +1833,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1790,6 +1859,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1872,7 +1944,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1897,6 +1970,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1909,6 +1985,26 @@
             }
          },
          "title": "_Templeton_World_Charity_Foundation",
+         "type": "object"
+      },
+      "_Uniprot": {
+         "additionalProperties": false,
+         "description": "Model UNIPROT",
+         "properties": {
+            "name": {
+               "const": "Universal Protein Resource",
+               "default": "Universal Protein Resource",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UNIPROT",
+               "default": "UNIPROT",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Uniprot",
          "type": "object"
       },
       "_University_Of_California_San_Diego": {
@@ -1939,7 +2035,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -1964,6 +2061,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -1976,6 +2076,77 @@
             }
          },
          "title": "_University_Of_California_San_Diego",
+         "type": "object"
+      },
+      "_University_Of_Pennsylvania": {
+         "description": "Model University of Pennsylvania",
+         "properties": {
+            "name": {
+               "const": "University of Pennsylvania",
+               "default": "University of Pennsylvania",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UPENN",
+               "default": "UPENN",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/_Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00b30xv10",
+               "default": "00b30xv10",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_University_Of_Pennsylvania",
          "type": "object"
       }
    },
@@ -1995,8 +2166,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.10",
-         "default": "2.0.10",
+         "const": "2.0.11",
+         "default": "2.0.11",
          "title": "Schema Version",
          "type": "string"
       },
@@ -2069,7 +2240,8 @@
                "McGovern Institute for Brain Research": "#/$defs/_Mcgovern_Institute_For_Brain_Research",
                "New York University": "#/$defs/_New_York_University",
                "Other": "#/$defs/_Other",
-               "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego"
+               "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+               "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
             },
             "propertyName": "name"
          },
@@ -2109,6 +2281,9 @@
             },
             {
                "$ref": "#/$defs/_University_Of_California_San_Diego"
+            },
+            {
+               "$ref": "#/$defs/_University_Of_Pennsylvania"
             },
             {
                "$ref": "#/$defs/_Other"
