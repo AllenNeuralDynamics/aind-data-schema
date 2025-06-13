@@ -44,22 +44,24 @@ class Procedures(DataCoreModel):
 
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    @classmethod
-    def get_device_names(cls) -> List[str]:
+    def get_device_names(self) -> List[str]:
         """Get all device names for implanted devices in the procedures"""
         device_names = set()
 
-        for procedure in cls.subject_procedures:
-            if hasattr(procedure, "implanted_device"):
+        for procedure in self.subject_procedures:
+            if hasattr(procedure, "implanted_device") and procedure.implanted_device is not None:
                 device_names.add(procedure.implanted_device.name)
             if hasattr(procedure, "procedures"):
                 for surgery_procedure in procedure.procedures:
-                    if hasattr(surgery_procedure, "implanted_device"):
+                    if (
+                        hasattr(surgery_procedure, "implanted_device")
+                        and surgery_procedure.implanted_device is not None
+                    ):
                         device_names.add(surgery_procedure.implanted_device.name)
 
-        for spec_proc in cls.specimen_procedures:
-            if hasattr(spec_proc, "implanted_device"):
-                device_names.add(procedure.implanted_device.name)
+        for spec_proc in self.specimen_procedures:
+            if hasattr(spec_proc, "implanted_device") and spec_proc.implanted_device is not None:
+                device_names.add(spec_proc.implanted_device.name)
 
         return list(device_names)
 
