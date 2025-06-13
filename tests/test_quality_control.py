@@ -82,7 +82,7 @@ class QualityControlTests(unittest.TestCase):
         )
 
         # check that overall status gets auto-set if it has never been set before
-        self.assertEqual(q.evaluate_status(), Status.PASS)
+        self.assertEqual(q.status(), Status.PASS)
 
         # Add a pending metric to the first evaluation
         q.evaluations[0].metrics.append(
@@ -99,7 +99,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(q.evaluate_status(), Status.PENDING)
+        self.assertEqual(q.status(), Status.PENDING)
 
         # Add a failing metric to the first evaluation
         q.evaluations[0].metrics.append(
@@ -114,7 +114,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(q.evaluate_status(), Status.FAIL)
+        self.assertEqual(q.status(), Status.FAIL)
 
     def test_evaluation_status(self):
         """test that evaluation status goes to pass/pending/fail correctly"""
@@ -449,13 +449,13 @@ class QualityControlTests(unittest.TestCase):
             evaluations=[test_eval, test_eval2, test_eval3],
         )
 
-        self.assertEqual(q.evaluate_status(), Status.FAIL)
-        self.assertEqual(q.evaluate_status(modality=Modality.BEHAVIOR), Status.FAIL)
-        self.assertEqual(q.evaluate_status(modality=Modality.ECEPHYS), Status.PASS)
-        self.assertEqual(q.evaluate_status(modality=[Modality.ECEPHYS, Modality.BEHAVIOR]), Status.FAIL)
-        self.assertEqual(q.evaluate_status(stage=Stage.RAW), Status.FAIL)
-        self.assertEqual(q.evaluate_status(stage=Stage.PROCESSING), Status.PASS)
-        self.assertEqual(q.evaluate_status(tag="tag1"), Status.PENDING)
+        self.assertEqual(q.status(), Status.FAIL)
+        self.assertEqual(q.status(modality=Modality.BEHAVIOR), Status.FAIL)
+        self.assertEqual(q.status(modality=Modality.ECEPHYS), Status.PASS)
+        self.assertEqual(q.status(modality=[Modality.ECEPHYS, Modality.BEHAVIOR]), Status.FAIL)
+        self.assertEqual(q.status(stage=Stage.RAW), Status.FAIL)
+        self.assertEqual(q.status(stage=Stage.PROCESSING), Status.PASS)
+        self.assertEqual(q.status(tag="tag1"), Status.PENDING)
 
     def test_status_date(self):
         """QualityControl.status(date=) / QCEvaluation.status(date=)
@@ -494,10 +494,10 @@ class QualityControlTests(unittest.TestCase):
 
         qc = QualityControl(evaluations=[test_eval])
 
-        self.assertRaises(ValueError, qc.evaluate_status, date=t0_5)
-        self.assertEqual(qc.evaluate_status(date=t1_5), Status.FAIL)
-        self.assertEqual(qc.evaluate_status(date=t2_5), Status.PENDING)
-        self.assertEqual(qc.evaluate_status(date=t3_5), Status.PASS)
+        self.assertRaises(ValueError, qc.status, date=t0_5)
+        self.assertEqual(qc.status(date=t1_5), Status.FAIL)
+        self.assertEqual(qc.status(date=t2_5), Status.PENDING)
+        self.assertEqual(qc.status(date=t3_5), Status.PASS)
 
 
 if __name__ == "__main__":
