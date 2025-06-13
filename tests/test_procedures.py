@@ -15,25 +15,23 @@ from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.procedures import (
-    BrainInjection,
-    Craniotomy,
-    CraniotomyType,
-    HCRSeries,
-    Injection,
+from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
     InjectionProfile,
     NonViralMaterial,
-    PlanarSectioning,
-    ProbeImplant,
-    Procedures,
-    Section,
-    SectionOrientation,
-    SpecimenProcedure,
-    Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
 )
+from aind_data_schema.components.specimen_procedures import (
+    HCRSeries,
+    PlanarSectioning,
+    Section,
+    SectionOrientation,
+    SpecimenProcedure,
+)
+from aind_data_schema.components.subject_procedures import BrainInjection, Craniotomy, Injection, ProbeImplant, Surgery
+from aind_data_schema.components.surgery_procedures import CraniotomyType
+from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.utils.exceptions import OneOfError
 from examples.procedures import p as procedures
 

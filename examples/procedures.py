@@ -3,18 +3,22 @@
 from datetime import datetime, timezone
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.procedures import (
-    Anaesthetic,
-    Craniotomy,
-    CraniotomyType,
-    BrainInjection,
-    Perfusion,
-    Procedures,
-    Surgery,
-    TarsVirusIdentifiers,
-    ViralMaterial,
+from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
     InjectionProfile,
+    TarsVirusIdentifiers,
+    ViralMaterial,
+)
+from aind_data_schema.components.surgery_procedures import (
+    Anaesthetic,
+    BrainInjection,
+    Craniotomy,
+    CraniotomyType,
+    Perfusion,
+)
+from aind_data_schema.core.procedures import (
+    Procedures,
+    Surgery,
 )
 from aind_data_schema.components.devices import EphysProbe
 from aind_data_schema.components.configs import ProbeConfig
@@ -35,6 +39,11 @@ t2 = datetime(2022, 9, 23, 10, 22, 00, tzinfo=timezone.utc)
 coordinate_system = CoordinateSystemLibrary.BREGMA_RASD
 coordinate_system.name = "LAMBDA_RASD"
 coordinate_system.origin = Origin.LAMBDA
+
+probe = EphysProbe(
+    name="Probe A",
+    probe_model="Neuropixels UHD (Fixed)",
+)
 
 surgery1 = Surgery(
     start_date=t.date(),
@@ -100,11 +109,6 @@ surgery1 = Surgery(
             targeted_structure=CCFStructure.VISP,
         ),
     ],
-)
-
-probe = EphysProbe(
-    name="Probe A",
-    probe_model="Neuropixels UHD (Fixed)",
 )
 
 p = Procedures(
