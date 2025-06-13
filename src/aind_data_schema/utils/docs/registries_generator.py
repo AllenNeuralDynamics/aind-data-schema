@@ -6,7 +6,7 @@ from enum import Enum
 
 # Atlas models
 from aind_data_schema_models.atlas import AtlasName
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 
 # Coordinates models
 from aind_data_schema_models.coordinates import AnatomicalRelative, AxisName, Direction, Origin
@@ -79,7 +79,7 @@ from aind_data_schema.utils.docs.utils import generate_enum_table, save_model_in
 registries = [
     # Atlas and brain structure models
     AtlasName,
-    CCFStructure,
+    CCFv3,
     # Name patterns
     DataLevel,
     Group,

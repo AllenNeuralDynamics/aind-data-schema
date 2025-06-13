@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import ImmersionMedium
 from aind_data_schema_models.units import (
@@ -201,7 +201,7 @@ class Plane(DataModel):
 
     power: float = Field(..., title="Power")
     power_unit: PowerUnit = Field(..., title="Power unit")
-    targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
+    targeted_structure: BrainStructureModel = Field(..., title="Targeted structure")
 
 
 class CoupledPlane(Plane):
@@ -428,8 +428,8 @@ class ProbeConfig(DeviceConfig):
     """Configuration for a device inserted into a brain"""
 
     # Target
-    primary_targeted_structure: CCFStructure.ONE_OF = Field(..., title="Targeted structure")
-    other_targeted_structure: Optional[List[CCFStructure.ONE_OF]] = Field(
+    primary_targeted_structure: BrainStructureModel = Field(..., title="Targeted structure")
+    other_targeted_structure: Optional[List[BrainStructureModel]] = Field(
         default=None, title="Other targeted structure"
     )
     atlas_coordinate: Optional[AtlasCoordinate] = Field(

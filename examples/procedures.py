@@ -23,7 +23,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.components.devices import EphysProbe
 from aind_data_schema.components.configs import ProbeConfig
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
     Translation,
@@ -109,7 +109,7 @@ surgery1 = Surgery(
                     profile=InjectionProfile.BOLUS,
                 )
             ],
-            targeted_structure=CCFStructure.VISP,
+            targeted_structure=CCFv3.VISP,
         ),
     ],
 )
