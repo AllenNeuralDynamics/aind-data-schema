@@ -49,8 +49,9 @@ class Procedures(DataCoreModel):
         device_names = set()
 
         for procedure in self.subject_procedures:
-            if hasattr(procedure, "implanted_device") and procedure.implanted_device is not None:
-                device_names.add(procedure.implanted_device.name)
+            # These commented lines are left in case we added implanted_devices to a subject procedure
+            # if hasattr(procedure, "implanted_device") and procedure.implanted_device is not None:
+            #     device_names.add(procedure.implanted_device.name)
             if hasattr(procedure, "procedures"):
                 for surgery_procedure in procedure.procedures:
                     if (
@@ -59,9 +60,10 @@ class Procedures(DataCoreModel):
                     ):
                         device_names.add(surgery_procedure.implanted_device.name)
 
-        for spec_proc in self.specimen_procedures:
-            if hasattr(spec_proc, "implanted_device") and spec_proc.implanted_device is not None:
-                device_names.add(spec_proc.implanted_device.name)
+        # These commented lines are left in case we added implanted_devices to a specimen procedure
+        # for spec_proc in self.specimen_procedures:
+        #     if hasattr(spec_proc, "implanted_device") and spec_proc.implanted_device is not None:
+        #         device_names.add(spec_proc.implanted_device.name)
 
         return list(device_names)
 
