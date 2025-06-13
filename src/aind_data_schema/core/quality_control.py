@@ -215,7 +215,7 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    def evaluate_status(
+    def status(
         self,
         modality: Union[Modality.ONE_OF, List[Modality.ONE_OF], None] = None,
         stage: Union[Stage, List[Stage], None] = None,
