@@ -126,13 +126,13 @@ class QualityControl(DataCoreModel):
     status: Optional[dict] = Field(
         default=None,
         title="Tag status mapping",
-        description="Mapping of tags to their evaluated status, automatically computed"
+        description="Mapping of tags to their evaluated status, automatically computed",
     )
 
     @property
     def tags(self) -> List[str]:
         """Get all unique tags from all metrics
-        
+
         Returns
         -------
         List[str]

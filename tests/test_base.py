@@ -156,7 +156,7 @@ class BaseTests(unittest.TestCase):
                 self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
 
     def test_ccf_validator(self):
-        """Tests that CCFStructure validator works"""
+        """Tests that CCFv3 validator works"""
 
         class StructureModel(DataModel):
             """Test model with a targeted_structure"""

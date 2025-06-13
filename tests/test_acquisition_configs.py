@@ -3,7 +3,7 @@
 import unittest
 from decimal import Decimal
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.units import AngleUnit, FrequencyUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
 
@@ -186,7 +186,7 @@ class TestImagingConfig(unittest.TestCase):
                         Plane(
                             depth=150,
                             depth_unit="micrometer",
-                            targeted_structure=CCFStructure.HPF,
+                            targeted_structure=CCFv3.HPF,
                             power=10,
                             power_unit="milliwatt",
                         ),
@@ -219,7 +219,7 @@ class TestImagingConfig(unittest.TestCase):
                             Plane(
                                 depth=150,
                                 depth_unit="micrometer",
-                                targeted_structure=CCFStructure.HPF,
+                                targeted_structure=CCFv3.HPF,
                                 power=10,
                                 power_unit="milliwatt",
                             ),
