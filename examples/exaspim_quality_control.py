@@ -26,11 +26,7 @@ eval0 = QCEvaluation(
         QCMetric(
             name="CCF coordinate",
             description="AP/ML/DV coordinate in CCFv3",
-            value={
-                "ML": 5923.0438,
-                "AP": 4270.0208,
-                "DV": 6984.054
-            },
+            value={"ML": 5923.0438, "AP": 4270.0208, "DV": 6984.054},
             status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
         ),
         QCMetric(
@@ -98,7 +94,7 @@ eval1 = QCEvaluation(
             description="Unknown",
             value="Thalamus",
             status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
-        )
+        ),
     ],
     created=datetime(2024, 7, 11),
 )
