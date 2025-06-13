@@ -376,6 +376,55 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
+    def test_validate_acquisition_active_devices(self):
+        """Tests that acquisition active devices are validated correctly."""
+        # Case where all active devices are present in instrument components
+        instrument = Instrument.model_construct(
+            instrument_id="Test",
+            components=[
+                EphysProbe.model_construct(name="Probe A"),
+                Laser.model_construct(name="Laser A"),
+            ],
+            modalities=[],
+        )
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            instrument=instrument,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where active devices are missing from both instrument and procedures
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Missing Device"], modalities=[], configurations=[]
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition,
+            )
+        self.assertIn(
+            "Active devices '{'Missing Device'}' were not found in either the Instrument.components or "
+            "in an individual procedure's implanted_device field.",
+            str(context.exception),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
