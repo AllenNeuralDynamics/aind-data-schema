@@ -11,9 +11,7 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import ConcentrationUnit, CurrentUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
-from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
@@ -29,11 +27,10 @@ from aind_data_schema.components.specimen_procedures import (
     SectionOrientation,
     SpecimenProcedure,
 )
-from aind_data_schema.components.subject_procedures import BrainInjection, Craniotomy, Injection, ProbeImplant, Surgery
+from aind_data_schema.components.subject_procedures import BrainInjection, Craniotomy, Injection, Surgery
 from aind_data_schema.components.surgery_procedures import CraniotomyType
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.utils.exceptions import OneOfError
-from examples.procedures import p as procedures
 
 
 class ProceduresTests(unittest.TestCase):
