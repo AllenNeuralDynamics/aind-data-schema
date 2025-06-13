@@ -8,9 +8,7 @@ from aind_data_schema_models.units import MassUnit, UnitlessUnit, VolumeUnit
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, DiscriminatedList
-from aind_data_schema.components.configs import DeviceConfig, ProbeConfig
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
-from aind_data_schema.components.devices import EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import Injection
 from aind_data_schema.components.surgery_procedures import (

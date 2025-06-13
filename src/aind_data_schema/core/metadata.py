@@ -209,10 +209,7 @@ class Metadata(DataCoreModel):
             for component in values.instrument.components:
                 device_names.append(component.name)
         if values.procedures:
-            for procedure in values.procedures.subject_procedures:
-                if isinstance(procedure, Surgery):
-                    for device in procedure.implanted_devices:
-                        device_names.append(device.name)
+            device_names.extend(values.procedures.get_implanted_device_names())
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
@@ -235,10 +232,7 @@ class Metadata(DataCoreModel):
             for component in self.instrument.components:
                 device_names.append(component.name)
         if self.procedures:
-            for procedure in self.procedures.subject_procedures:
-                if isinstance(procedure, Surgery):
-                    for device in procedure.implanted_devices:
-                        device_names.append(device.name)
+            device_names.extend(self.procedures.get_implanted_device_names())
 
         # Check if all connection devices are in the available devices
         if self.acquisition:
@@ -249,26 +243,6 @@ class Metadata(DataCoreModel):
                         raise ValueError(
                             f"Connection '{connection}' contains devices not found in instrument or procedures."
                         )
-
-        return self
-
-    @model_validator(mode="after")
-    def validate_unique_configurations(self):
-        """Validate that Procedures.configurations and Acquisition.configurations don't share target devices."""
-
-        if self.procedures and self.acquisition:
-            subject_procedures = self.procedures.subject_procedures
-            surgeries = [proc for proc in subject_procedures if isinstance(proc, Surgery)]
-            configurations = [config for surgery in surgeries for config in surgery.configurations]
-            procedure_configurations = [config.device_name for config in configurations]
-            acquisition_configurations = []
-            for data_stream in self.acquisition.data_streams:
-                acquisition_configurations.extend([config.device_name for config in data_stream.configurations])
-
-            if set(procedure_configurations) & set(acquisition_configurations):
-                # Get the overlap
-                overlap = set(procedure_configurations) & set(acquisition_configurations)
-                raise ValueError(f"Procedures and Acquisition configurations share target devices: {overlap}")
 
         return self
 

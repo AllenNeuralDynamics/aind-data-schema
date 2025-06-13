@@ -27,27 +27,23 @@ from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Tra
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
 
-implanted_devices = [
-    FiberProbe(
-        name="Probe A",
-        core_diameter=200,
-        numerical_aperture=0.37,
-        ferrule_material="Ceramic",
-        total_length=0.5,
-    )
-]
-configurations = [
-    ProbeConfig(
-        primary_targeted_structure=CCFStructure.VTA,
-        device_name="Probe A",
-        coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-        transform=[
-            Translation(
-                translation=[-600, -3050, 0, 4200],
-            ),
-        ],
-    ),
-]
+probe = FiberProbe(
+    name="Probe A",
+    core_diameter=200,
+    numerical_aperture=0.37,
+    ferrule_material="Ceramic",
+    total_length=0.5,
+)
+config = ProbeConfig(
+    primary_targeted_structure=CCFStructure.VTA,
+    device_name="Probe A",
+    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+    transform=[
+        Translation(
+            translation=[-600, -3050, 0, 4200],
+        ),
+    ],
+)
 
 
 p = Procedures(
@@ -63,8 +59,6 @@ p = Procedures(
             workstation_id="SWS 3",
             protocol_id="doi",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
-            implanted_devices=implanted_devices,
-            configurations=configurations,
             procedures=[
                 Headframe(
                     protocol_id="2109",
@@ -104,7 +98,8 @@ p = Procedures(
                 ),
                 ProbeImplant(
                     protocol_id="TO ENTER",
-                    implanted_device_names=["Probe A"],
+                    implanted_device=probe,
+                    device_config=config,
                 ),
             ],
         ),

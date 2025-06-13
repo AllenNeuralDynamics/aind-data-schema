@@ -15,6 +15,7 @@ from aind_data_schema.components.surgery_procedures import (
     Craniotomy,
     CraniotomyType,
     Perfusion,
+    ProbeImplant,
 )
 from aind_data_schema.core.procedures import (
     Procedures,
@@ -45,6 +46,17 @@ probe = EphysProbe(
     probe_model="Neuropixels UHD (Fixed)",
 )
 
+config = ProbeConfig(
+    primary_targeted_structure=CCFStructure.VTA,
+    device_name="Probe A",
+    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+    transform=[
+        Translation(
+            translation=[-600, -3050, 0, 4200],
+        ),
+    ],
+)
+
 surgery1 = Surgery(
     start_date=t.date(),
     protocol_id="doi",
@@ -55,20 +67,11 @@ surgery1 = Surgery(
     anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=1, level=1.5),
     coordinate_system=coordinate_system,
     workstation_id="SWS 3",
-    implanted_devices=[probe],
-    configurations=[
-        ProbeConfig(
-            primary_targeted_structure=CCFStructure.VTA,
-            device_name="Probe A",
-            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-            transform=[
-                Translation(
-                    translation=[-600, -3050, 0, 4200],
-                ),
-            ],
-        ),
-    ],
     procedures=[
+        ProbeImplant(
+            implanted_device=probe,
+            device_config=config,
+        ),
         Craniotomy(
             craniotomy_type=CraniotomyType.CIRCLE,
             protocol_id="1234",

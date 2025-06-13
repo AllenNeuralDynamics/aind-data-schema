@@ -44,6 +44,25 @@ class Procedures(DataCoreModel):
 
     notes: Optional[str] = Field(default=None, title="Notes")
 
+    @classmethod
+    def get_device_names(cls) -> List[str]:
+        """Get all device names for implanted devices in the procedures"""
+        device_names = set()
+
+        for procedure in cls.subject_procedures:
+            if hasattr(procedure, "implanted_device"):
+                device_names.add(procedure.implanted_device.name)
+            if hasattr(procedure, "procedures"):
+                for surgery_procedure in procedure.procedures:
+                    if hasattr(surgery_procedure, "implanted_device"):
+                        device_names.add(surgery_procedure.implanted_device.name)
+
+        for spec_proc in cls.specimen_procedures:
+            if hasattr(spec_proc, "implanted_device"):
+                device_names.add(procedure.implanted_device.name)
+
+        return list(device_names)
+
     @field_validator("specimen_procedures", mode="after")
     def validate_identical_specimen_ids(cls, v, values):
         """Validate that all specimen_id fields are identical in the specimen_procedures"""
