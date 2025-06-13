@@ -57,7 +57,7 @@ class QualityControlTests(unittest.TestCase):
             ),
         ]
 
-        self.assertEqual(test_metrics[0].status, Status.PASS)
+        self.assertEqual(test_metrics[0].status.status, Status.PASS)
 
         q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=["Drift map"])  # duplicate the metrics
 
