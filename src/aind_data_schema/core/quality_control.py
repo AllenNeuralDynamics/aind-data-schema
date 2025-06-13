@@ -21,7 +21,7 @@ class Status(str, Enum):
 
 
 class Stage(str, Enum):
-    """QCEvaluation Stage
+    """Quality control stage
 
     When during data processing the QC metrics were derived.
     """
@@ -76,10 +76,10 @@ class QCMetric(DataModel):
     def validate_multi_asset(cls, v):
         """Ensure that evaluated_assets is set correctly for multi-asset metrics"""
         if v.stage == Stage.MULTI_ASSET and (not v.evaluated_assets or len(v.evaluated_assets) == 0):
-            raise ValueError(f"Metric '{v.name}' is in a multi-asset QCEvaluation and must have evaluated_assets set.")
+            raise ValueError(f"Metric '{v.name}' is a multi-asset metric and must have evaluated_assets set.")
         elif v.stage != Stage.MULTI_ASSET and v.evaluated_assets:
             raise ValueError(
-                f"Metric '{v.name}' is in a single-asset QCEvaluation and should not have evaluated_assets"
+                f"Metric '{v.name}' is a single-asset metric and should not have evaluated_assets"
             )
         return v
 
