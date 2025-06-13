@@ -285,8 +285,6 @@ class QualityControlTests(unittest.TestCase):
             tags=["Test"],
         )
 
-        qc = QualityControl(metrics=[metric], default_grouping=["Test"])
-
         self.assertTrue(metric.stage != Stage.MULTI_ASSET)
         self.assertIsNone(metric.evaluated_assets)
 
