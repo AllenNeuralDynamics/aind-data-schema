@@ -129,29 +129,6 @@ class ProceduresTests(unittest.TestCase):
         p = Procedures(
             subject_id="12345",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            implanted_devices=[
-                FiberProbe(
-                    name="Probe A",
-                    manufacturer=Organization.DORIC,
-                    model="8",
-                    core_diameter=2,
-                    numerical_aperture=1,
-                    ferrule_material="Ceramic",
-                    total_length=10,
-                )
-            ],
-            configurations=[
-                ProbeConfig(
-                    device_name="Probe A",
-                    primary_targeted_structure=CCFStructure.MOP,
-                    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-                    transform=[
-                        Translation(
-                            translation=[1, 2, 0, 2],
-                        ),
-                    ],
-                ),
-            ],
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
@@ -244,10 +221,6 @@ class ProceduresTests(unittest.TestCase):
                                 ],
                             ],
                             targeted_structure=CCFStructure.VISP6A,
-                        ),
-                        ProbeImplant(
-                            protocol_id="dx.doi.org/120.123/fkjd",
-                            implanted_device_names=["Probe A"],
                         ),
                     ],
                 )
