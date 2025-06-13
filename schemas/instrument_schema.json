@@ -81,6 +81,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -122,6 +123,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -134,6 +136,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -292,6 +295,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -415,6 +421,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -449,6 +458,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -624,6 +636,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -665,6 +678,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -677,6 +691,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -835,6 +850,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -958,6 +976,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -992,6 +1013,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -1170,6 +1194,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -1211,6 +1236,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -1223,6 +1249,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -1381,6 +1408,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -1504,6 +1534,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -1538,6 +1571,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -2464,6 +2500,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -2505,6 +2542,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -2517,6 +2555,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -2675,6 +2714,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -2798,6 +2840,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -2832,6 +2877,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -3814,6 +3862,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -3855,6 +3904,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -3867,6 +3917,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -4025,6 +4076,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -4148,6 +4202,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -4182,6 +4239,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -4335,6 +4395,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -4376,6 +4437,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -4388,6 +4450,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -4546,6 +4609,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -4669,6 +4735,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -4703,6 +4772,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -4963,6 +5035,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -5004,6 +5077,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -5016,6 +5090,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -5174,6 +5249,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -5297,6 +5375,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -5331,6 +5412,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -5555,6 +5639,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -5596,6 +5681,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -5608,6 +5694,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -5766,6 +5853,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -5889,6 +5979,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -5923,6 +6016,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -6141,6 +6237,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -6182,6 +6279,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -6194,6 +6292,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -6352,6 +6451,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -6475,6 +6577,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -6509,6 +6614,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -6711,6 +6819,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -6752,6 +6861,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -6764,6 +6874,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -6922,6 +7033,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -7045,6 +7159,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -7079,6 +7196,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -7259,6 +7379,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -7300,6 +7421,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -7312,6 +7434,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -7470,6 +7593,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -7593,6 +7719,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -7627,6 +7756,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -8032,6 +8164,7 @@
                      "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                      "Julabo": "#/$defs/_Julabo",
                      "Kowa": "#/$defs/_Kowa",
+                     "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                      "LG": "#/$defs/_Lg",
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -8073,6 +8206,7 @@
                      "Semrock": "#/$defs/_Semrock",
                      "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
+                     "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -8085,6 +8219,7 @@
                      "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -8243,6 +8378,9 @@
                      "$ref": "#/$defs/_Kowa"
                   },
                   {
+                     "$ref": "#/$defs/_Lasos_Lasertechnik"
+                  },
+                  {
                      "$ref": "#/$defs/_Lg"
                   },
                   {
@@ -8366,6 +8504,9 @@
                      "$ref": "#/$defs/_Simons_Foundation"
                   },
                   {
+                     "$ref": "#/$defs/_Spectra_Physics"
+                  },
+                  {
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
@@ -8400,6 +8541,9 @@
                   },
                   {
                      "$ref": "#/$defs/_University_Of_California_San_Diego"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
                      "$ref": "#/$defs/_Vieworks"
@@ -8713,6 +8857,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -8754,6 +8899,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -8766,6 +8912,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -8924,6 +9071,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -9047,6 +9197,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -9081,6 +9234,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -9227,9 +9383,11 @@
                   "mapping": {
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Hamamatsu": "#/$defs/_Hamamatsu",
+                     "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
                      "Quantifi": "#/$defs/_Quantifi",
+                     "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Vortran": "#/$defs/_Vortran"
                   },
@@ -9243,10 +9401,16 @@
                      "$ref": "#/$defs/_Hamamatsu"
                   },
                   {
+                     "$ref": "#/$defs/_Lasos_Lasertechnik"
+                  },
+                  {
                      "$ref": "#/$defs/_Oxxius"
                   },
                   {
                      "$ref": "#/$defs/_Quantifi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spectra_Physics"
                   },
                   {
                      "$ref": "#/$defs/_Thorlabs"
@@ -9627,6 +9791,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -9668,6 +9833,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -9680,6 +9846,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -9838,6 +10005,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -9961,6 +10131,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -9995,6 +10168,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -10476,6 +10652,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -10517,6 +10694,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -10529,6 +10707,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -10687,6 +10866,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -10810,6 +10992,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -10844,6 +11029,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -11205,6 +11393,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -11246,6 +11435,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -11258,6 +11448,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -11416,6 +11607,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -11539,6 +11733,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -11573,6 +11770,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -11920,6 +12120,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -11961,6 +12162,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -11973,6 +12175,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -12131,6 +12334,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -12254,6 +12460,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -12288,6 +12497,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -12976,6 +13188,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -13017,6 +13230,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -13029,6 +13243,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -13187,6 +13402,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -13310,6 +13528,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -13344,6 +13565,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -13562,6 +13786,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -13603,6 +13828,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -13615,6 +13841,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -13773,6 +14000,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -13896,6 +14126,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -13930,6 +14163,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -14283,6 +14519,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -14324,6 +14561,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -14336,6 +14574,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -14494,6 +14733,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -14617,6 +14859,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -14651,6 +14896,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -14804,6 +15052,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -14845,6 +15094,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -14857,6 +15107,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -15015,6 +15266,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -15138,6 +15392,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -15172,6 +15429,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -15629,6 +15889,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -15670,6 +15931,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -15682,6 +15944,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -15840,6 +16103,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -15963,6 +16229,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -15997,6 +16266,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -16181,6 +16453,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -16222,6 +16495,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -16234,6 +16508,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -16392,6 +16667,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -16515,6 +16793,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -16549,6 +16830,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -16813,6 +17097,7 @@
                            "Johns Hopkins University": "#/$defs/_Johns_Hopkins_University",
                            "Julabo": "#/$defs/_Julabo",
                            "Kowa": "#/$defs/_Kowa",
+                           "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
                            "LG": "#/$defs/_Lg",
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
@@ -16854,6 +17139,7 @@
                            "Semrock": "#/$defs/_Semrock",
                            "Sigma-Aldrich": "#/$defs/_Sigma_Aldrich",
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
+                           "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
@@ -16866,6 +17152,7 @@
                            "Transducer Techniques": "#/$defs/_Transducer_Techniques",
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
+                           "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -17024,6 +17311,9 @@
                            "$ref": "#/$defs/_Kowa"
                         },
                         {
+                           "$ref": "#/$defs/_Lasos_Lasertechnik"
+                        },
+                        {
                            "$ref": "#/$defs/_Lg"
                         },
                         {
@@ -17147,6 +17437,9 @@
                            "$ref": "#/$defs/_Simons_Foundation"
                         },
                         {
+                           "$ref": "#/$defs/_Spectra_Physics"
+                        },
+                        {
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
@@ -17181,6 +17474,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_California_San_Diego"
+                        },
+                        {
+                           "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -17349,7 +17645,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17374,6 +17671,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17445,7 +17745,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17470,6 +17771,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17512,7 +17816,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17537,6 +17842,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17579,7 +17887,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17604,6 +17913,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17675,7 +17987,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17700,6 +18013,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17800,7 +18116,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17825,6 +18142,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17896,7 +18216,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -17921,6 +18242,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -17983,7 +18307,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18008,6 +18333,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18050,7 +18378,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18075,6 +18404,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18165,7 +18497,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18190,6 +18523,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18232,7 +18568,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18257,6 +18594,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18299,7 +18639,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18324,6 +18665,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18366,7 +18710,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18391,6 +18736,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18481,7 +18829,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18506,6 +18855,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18548,7 +18900,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18573,6 +18926,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18799,7 +19155,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18824,6 +19181,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -18915,7 +19275,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -18940,6 +19301,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19022,7 +19386,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19047,6 +19412,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19206,7 +19574,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19231,6 +19600,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19302,7 +19674,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19327,6 +19700,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19437,7 +19813,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19462,6 +19839,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19504,7 +19884,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19529,6 +19910,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19571,7 +19955,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19596,6 +19981,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19745,7 +20133,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19770,6 +20159,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19812,7 +20204,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19837,6 +20230,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19879,7 +20275,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19904,6 +20301,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -19946,7 +20346,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -19971,6 +20372,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20042,7 +20446,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20067,6 +20472,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20079,6 +20487,35 @@
             }
          },
          "title": "_Kowa",
+         "type": "object"
+      },
+      "_Lasos_Lasertechnik": {
+         "description": "Model LASOS Lasertechnik",
+         "properties": {
+            "name": {
+               "const": "LASOS Lasertechnik",
+               "default": "LASOS Lasertechnik",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "LASOS",
+               "default": "LASOS",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": null,
+               "title": "Registry",
+               "type": "null"
+            },
+            "registry_identifier": {
+               "default": null,
+               "title": "Registry Identifier",
+               "type": "null"
+            }
+         },
+         "title": "_Lasos_Lasertechnik",
          "type": "object"
       },
       "_Leica": {
@@ -20138,7 +20575,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20163,6 +20601,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20301,7 +20742,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20326,6 +20768,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20368,7 +20813,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20393,6 +20839,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20435,7 +20884,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20460,6 +20910,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20502,7 +20955,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20527,6 +20981,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20609,7 +21066,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20634,6 +21092,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20763,7 +21224,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20788,6 +21250,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20879,7 +21344,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20904,6 +21370,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -20946,7 +21415,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -20971,6 +21441,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -21013,7 +21486,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -21038,6 +21512,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -21080,7 +21557,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -21105,6 +21583,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -21283,7 +21764,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -21308,6 +21790,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -21350,7 +21835,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -21375,6 +21861,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -21465,7 +21954,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -21490,6 +21980,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -21532,7 +22025,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -21557,6 +22051,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22056,7 +22553,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22081,6 +22579,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22151,6 +22652,77 @@
             }
          },
          "title": "_Sound_Card",
+         "type": "object"
+      },
+      "_Spectra_Physics": {
+         "description": "Model Spectra-Physics",
+         "properties": {
+            "name": {
+               "const": "Spectra-Physics",
+               "default": "Spectra-Physics",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "02ad9kp97",
+               "default": "02ad9kp97",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_Spectra_Physics",
          "type": "object"
       },
       "_Spim": {
@@ -22326,7 +22898,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22351,6 +22924,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22393,7 +22969,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22418,6 +22995,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22518,7 +23098,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22543,6 +23124,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22585,7 +23169,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22610,6 +23195,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22739,6 +23327,26 @@
          "title": "_Tymphany",
          "type": "object"
       },
+      "_Uniprot": {
+         "additionalProperties": false,
+         "description": "Model UNIPROT",
+         "properties": {
+            "name": {
+               "const": "Universal Protein Resource",
+               "default": "Universal Protein Resource",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UNIPROT",
+               "default": "UNIPROT",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Uniprot",
+         "type": "object"
+      },
       "_University_Of_California_San_Diego": {
          "description": "Model University of California, San Diego",
          "properties": {
@@ -22767,7 +23375,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22792,6 +23401,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -22804,6 +23416,77 @@
             }
          },
          "title": "_University_Of_California_San_Diego",
+         "type": "object"
+      },
+      "_University_Of_Pennsylvania": {
+         "description": "Model University of Pennsylvania",
+         "properties": {
+            "name": {
+               "const": "University of Pennsylvania",
+               "default": "University of Pennsylvania",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UPENN",
+               "default": "UPENN",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "default": {
+                  "name": "Research Organization Registry",
+                  "abbreviation": "ROR"
+               },
+               "discriminator": {
+                  "mapping": {
+                     "ADDGENE": "#/$defs/aind_data_schema_models__registries___Addgene",
+                     "EMAPA": "#/$defs/_Emapa",
+                     "MGI": "#/$defs/_Mgi",
+                     "NCBI": "#/$defs/_Ncbi",
+                     "ORCID": "#/$defs/_Orcid",
+                     "ROR": "#/$defs/_Ror",
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__registries___Addgene"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emapa"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mgi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ncbi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Orcid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ror"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
+                  }
+               ],
+               "title": "Registry"
+            },
+            "registry_identifier": {
+               "const": "00b30xv10",
+               "default": "00b30xv10",
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "title": "_University_Of_Pennsylvania",
          "type": "object"
       },
       "_Vieworks": {
@@ -22931,7 +23614,8 @@
                      "NCBI": "#/$defs/_Ncbi",
                      "ORCID": "#/$defs/_Orcid",
                      "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid"
+                     "RRID": "#/$defs/_Rrid",
+                     "UNIPROT": "#/$defs/_Uniprot"
                   },
                   "propertyName": "abbreviation"
                },
@@ -22956,6 +23640,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Rrid"
+                  },
+                  {
+                     "$ref": "#/$defs/_Uniprot"
                   }
                ],
                "title": "Registry"
@@ -23007,8 +23694,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.32",
-         "default": "2.0.32",
+         "const": "2.0.33",
+         "default": "2.0.33",
          "title": "Schema Version",
          "type": "string"
       },
