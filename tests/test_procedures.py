@@ -688,18 +688,6 @@ class ProceduresTests(unittest.TestCase):
             )
         self.assertIn("Either volume or injection_current must be provided.", str(e.exception))
 
-    def test_validate_configurations(self):
-        """Validate that configurations without an implanted_device throw errors"""
-
-        proc = procedures.model_copy()
-        proc.implanted_devices = []
-
-        with self.assertRaises(ValidationError) as e:
-
-            Procedures.model_validate_json(proc.model_dump_json())
-
-        self.assertIn("Configuration for Probe A in Procedures.configurations", repr(e.exception))
-
 
 if __name__ == "__main__":
     unittest.main()

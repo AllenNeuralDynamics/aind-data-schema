@@ -18,7 +18,6 @@ from aind_data_schema.utils.validators import (
     _system_check_helper,
     recursive_check_paths,
     recursive_coord_system_check,
-    recursive_device_name_check,
     recursive_get_all_names,
     subject_specimen_id_compatibility,
 )
@@ -444,49 +443,6 @@ class TestImplantedDeviceNames(BaseModel):
     """Test class with implanted_device_names"""
 
     implanted_device_names: list[str]
-
-
-class TestRecursiveDeviceNameCheck(unittest.TestCase):
-    """Tests for recursive_device_name_check function"""
-
-    def setUp(self):
-        """Set up test data"""
-        self.implanted_devices = ["Device1", "Device2", "Device3"]
-
-    def test_valid_implanted_device_name(self):
-        """Test valid implanted device name"""
-        obj = TestImplantedDevice(
-            implanted_device_name="Device1",
-        )
-        recursive_device_name_check(obj, self.implanted_devices)
-
-    def test_invalid_implanted_device_name(self):
-        """Test invalid implanted device name"""
-        obj = TestImplantedDevice(
-            implanted_device_name="InvalidDevice",
-        )
-        with self.assertRaises(ValueError) as context:
-            recursive_device_name_check(obj, self.implanted_devices)
-        self.assertIn("implanted_device_name InvalidDevice not found in implanted_devices", str(context.exception))
-
-    def test_valid_implanted_device_names(self):
-        """Test valid implanted device names"""
-        obj = TestImplantedDeviceNames(
-            implanted_device_names=["Device1", "Device2"],
-        )
-        recursive_device_name_check(obj, self.implanted_devices)
-
-    def test_invalid_implanted_device_names(self):
-        """Test invalid implanted device names"""
-        obj = TestImplantedDeviceNames(
-            implanted_device_names=["Device1", "InvalidDevice"],
-        )
-        with self.assertRaises(ValueError) as context:
-            recursive_device_name_check(obj, self.implanted_devices)
-        self.assertIn(
-            "implanted_device_names ['InvalidDevice'] not found in implanted_devices",
-            str(context.exception),
-        )
 
 
 if __name__ == "__main__":

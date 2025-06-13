@@ -15,7 +15,7 @@ from aind_data_schema.components.subject_procedures import (
     WaterRestriction,
 )
 from aind_data_schema.utils.merge import merge_notes
-from aind_data_schema.utils.validators import recursive_device_name_check, subject_specimen_id_compatibility
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
 class Procedures(DataCoreModel):
@@ -76,22 +76,6 @@ class Procedures(DataCoreModel):
         return v
 
     @model_validator(mode="after")
-    def validate_configurations(cls, values):
-        """Validate that all configurations correspond to an implanted device"""
-
-        config_device_names = [config.device_name for config in values.configurations]
-        implanted_device_names = [device.name for device in values.implanted_devices]
-
-        for config_name in config_device_names:
-            if config_name not in implanted_device_names:
-                raise ValueError(
-                    f"Configuration for {config_name} in Procedures.configurations"
-                    " must refer to a device in Procedures.implanted_devices."
-                )
-
-        return values
-
-    @model_validator(mode="after")
     def validate_subject_specimen_ids(values):
         """Validate that the subject_id and specimen_id match"""
 
@@ -102,15 +86,6 @@ class Procedures(DataCoreModel):
 
             if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
-
-        return values
-
-    @model_validator(mode="after")
-    @classmethod
-    def validate_implanted_device_names(cls, values):
-        """Validate that all implanted device names appear in the device list"""
-        implanted_device_names = [device.name for device in values.implanted_devices]
-        recursive_device_name_check(values, implanted_device_names)
 
         return values
 

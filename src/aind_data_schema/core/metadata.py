@@ -216,7 +216,7 @@ class Metadata(DataCoreModel):
             missing_devices = set(active_devices) - set(device_names)
             raise ValueError(
                 f"Active devices '{missing_devices}' were not found in either the Instrument.components or "
-                f"Surgery.implanted_devices."
+                f"in an individual procedure's implanted_device field."
             )
 
         return values
