@@ -13,7 +13,7 @@ from pydantic import ValidationError
 
 from aind_data_schema.components.configs import CatheterConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
-from aind_data_schema.components.devices import Catheter, Device
+from aind_data_schema.components.devices import Catheter
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
