@@ -12,6 +12,7 @@ from aind_data_schema_models.units import ConcentrationUnit, CurrentUnit, SizeUn
 from pydantic import ValidationError
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
+from aind_data_schema.components.devices import Device
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
@@ -27,20 +28,10 @@ from aind_data_schema.components.specimen_procedures import (
     SectionOrientation,
     SpecimenProcedure,
 )
-from aind_data_schema.components.subject_procedures import BrainInjection, Craniotomy, Injection, Surgery
-from aind_data_schema.components.surgery_procedures import CraniotomyType
+from aind_data_schema.components.subject_procedures import BrainInjection, Injection, Surgery
+from aind_data_schema.components.surgery_procedures import Craniotomy, CraniotomyType
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.utils.exceptions import OneOfError
-from aind_data_schema.components.devices import Device
-from aind_data_schema.components.subject_procedures import Surgery
-from aind_data_schema.components.specimen_procedures import SpecimenProcedure
-from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.devices import Device
-from aind_data_schema.components.subject_procedures import Surgery
-from aind_data_schema.components.surgery_procedures import Craniotomy
-from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.subject_procedures import Surgery
-from aind_data_schema.components.identifiers import Person
 
 
 class ProceduresTests(unittest.TestCase):
@@ -670,31 +661,29 @@ class ProceduresTests(unittest.TestCase):
 
     def test_get_device_names(self):
         """Test get_device_names method returns correct device names"""
-        
+
         # Test with no devices
         procedures = Procedures(subject_id="12345")
         self.assertEqual(procedures.get_device_names(), [])
-        
+
         # Create mock devices
         device1 = Device(name="device1")
         device2 = Device(name="device2")
         device3 = Device(name="device3")
-        
+
         # Test with subject procedures having implanted devices
         procedures = Procedures(
             subject_id="12345",
             subject_procedures=[
                 Surgery(
-                    start_date=self.start_date,
-                    experimenters=[Person(name="Test Person")],
-                    implanted_device=device1
+                    start_date=self.start_date, experimenters=[Person(name="Test Person")], implanted_device=device1
                 )
-            ]
+            ],
         )
         device_names = procedures.get_device_names()
         self.assertIn("device1", device_names)
         self.assertEqual(len(device_names), 1)
-        
+
         # Test with specimen procedures having implanted devices
         procedures = Procedures(
             subject_id="12345",
@@ -706,22 +695,20 @@ class ProceduresTests(unittest.TestCase):
                     experimenters=[Person(name="Test Person")],
                     protocol_id=["123"],
                     notes="test notes",
-                    implanted_device=device2
+                    implanted_device=device2,
                 )
-            ]
+            ],
         )
         device_names = procedures.get_device_names()
         self.assertIn("device2", device_names)
         self.assertEqual(len(device_names), 1)
-        
+
         # Test with multiple devices and duplicates
         procedures = Procedures(
             subject_id="12345",
             subject_procedures=[
                 Surgery(
-                    start_date=self.start_date,
-                    experimenters=[Person(name="Test Person")],
-                    implanted_device=device1
+                    start_date=self.start_date, experimenters=[Person(name="Test Person")], implanted_device=device1
                 )
             ],
             specimen_procedures=[
@@ -732,7 +719,7 @@ class ProceduresTests(unittest.TestCase):
                     experimenters=[Person(name="Test Person")],
                     protocol_id=["123"],
                     notes="test notes",
-                    implanted_device=device1  # Same device
+                    implanted_device=device1,  # Same device
                 ),
                 SpecimenProcedure(
                     specimen_id="12345_002",
@@ -741,9 +728,9 @@ class ProceduresTests(unittest.TestCase):
                     experimenters=[Person(name="Test Person")],
                     protocol_id=["123"],
                     notes="test notes",
-                    implanted_device=device3
-                )
-            ]
+                    implanted_device=device3,
+                ),
+            ],
         )
         device_names = procedures.get_device_names()
         # Should only have unique device names
@@ -753,25 +740,21 @@ class ProceduresTests(unittest.TestCase):
 
     def test_get_device_names_with_surgery_procedures(self):
         """Test get_device_names method with nested surgery procedures"""
-        
+
         device1 = Device(name="craniotomy_device")
-        
+
         # Test with surgery containing procedures with implanted devices
-        surgery_procedure = Craniotomy(
-            protocol_id="123",
-            craniotomy_type="Other",
-            implanted_device=device1
-        )
-        
+        surgery_procedure = Craniotomy(protocol_id="123", craniotomy_type="Other", implanted_device=device1)
+
         procedures = Procedures(
             subject_id="12345",
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
                     experimenters=[Person(name="Test Person")],
-                    procedures=[surgery_procedure]
+                    procedures=[surgery_procedure],
                 )
-            ]
+            ],
         )
         device_names = procedures.get_device_names()
         self.assertIn("craniotomy_device", device_names)
@@ -779,17 +762,13 @@ class ProceduresTests(unittest.TestCase):
 
     def test_get_device_names_none_values(self):
         """Test get_device_names method handles None implanted_device values"""
-        
+
         # Test with None implanted_device
         procedures = Procedures(
             subject_id="12345",
             subject_procedures=[
-                Surgery(
-                    start_date=self.start_date,
-                    experimenters=[Person(name="Test Person")],
-                    implanted_device=None
-                )
-            ]
+                Surgery(start_date=self.start_date, experimenters=[Person(name="Test Person")], implanted_device=None)
+            ],
         )
         device_names = procedures.get_device_names()
         self.assertEqual(device_names, [])
