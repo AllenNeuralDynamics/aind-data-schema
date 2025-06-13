@@ -51,7 +51,7 @@ class QCMetric(DataModel):
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
     tags: List[str] = Field(
-        default=[], title="Tags", description="Tags can be used to group QCMetric objects into groups"
+        default=[], title="Tags", description="Tags group QCMetric objects to allow for grouping and filtering"
     )
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
