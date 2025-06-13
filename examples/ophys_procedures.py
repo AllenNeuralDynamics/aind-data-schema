@@ -25,7 +25,7 @@ from aind_data_schema.core.procedures import (
 from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
@@ -46,7 +46,7 @@ p = Procedures(
     implanted_devices=implanted_devices,
     configurations=[
         ProbeConfig(
-            primary_targeted_structure=CCFStructure.VTA,
+            primary_targeted_structure=CCFv3.VTA,
             device_name="Probe A",
             coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
             transform=[
@@ -102,7 +102,7 @@ p = Procedures(
                             profile=InjectionProfile.BOLUS,
                         )
                     ],
-                    targeted_structure=CCFStructure.VTA,
+                    targeted_structure=CCFv3.VTA,
                 ),
                 ProbeImplant(
                     protocol_id="TO ENTER",

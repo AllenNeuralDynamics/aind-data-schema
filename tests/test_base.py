@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Literal, Optional
 from unittest.mock import MagicMock, call, mock_open, patch
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import BrainStructureModel
 from pydantic import Field, SkipValidation, ValidationError, create_model
 
 from aind_data_schema.base import (
@@ -156,12 +156,12 @@ class BaseTests(unittest.TestCase):
                 self.assertTrue(any("fields that contain '.' or '$'" in str(warning.message) for warning in w))
 
     def test_ccf_validator(self):
-        """Tests that CCFStructure validator works"""
+        """Tests that CCFv3 validator works"""
 
         class StructureModel(DataModel):
             """Test model with a targeted_structure"""
 
-            targeted_structure: CCFStructure.ONE_OF
+            targeted_structure: BrainStructureModel
 
         self.assertRaises(ValueError, StructureModel, targeted_structure="invalid")
 
