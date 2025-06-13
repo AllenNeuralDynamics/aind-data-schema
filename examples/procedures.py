@@ -18,7 +18,7 @@ from aind_data_schema.core.procedures import (
 )
 from aind_data_schema.components.devices import EphysProbe
 from aind_data_schema.components.configs import ProbeConfig
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.units import VolumeUnit, SizeUnit
 from aind_data_schema.components.coordinates import (
     Translation,
@@ -59,7 +59,6 @@ surgery1 = Surgery(
             protocol_id="5678",
             injection_materials=[
                 ViralMaterial(
-                    material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
                     tars_identifiers=TarsVirusIdentifiers(
                         virus_tars_id="AiV222",
@@ -85,7 +84,7 @@ surgery1 = Surgery(
                     profile=InjectionProfile.BOLUS,
                 )
             ],
-            targeted_structure=CCFStructure.VISP,
+            targeted_structure=CCFv3.VISP,
         ),
     ],
 )
@@ -100,7 +99,7 @@ p = Procedures(
     implanted_devices=[probe],
     configurations=[
         ProbeConfig(
-            primary_targeted_structure=CCFStructure.VTA,
+            primary_targeted_structure=CCFv3.VTA,
             device_name="Probe A",
             coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
             transform=[

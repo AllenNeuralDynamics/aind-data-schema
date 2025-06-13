@@ -5,7 +5,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import Dict, List, Literal, Optional, Union
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
@@ -139,7 +139,7 @@ class Section(DataModel):
     """Description of a slice of brain tissue"""
 
     output_specimen_id: str = Field(..., title="Specimen ID")
-    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Targeted structure")
+    targeted_structure: Optional[BrainStructureModel] = Field(default=None, title="Targeted structure")
 
     # Coordinates
     coordinate_system_name: str = Field(..., title="Coordinate system name")
@@ -193,6 +193,11 @@ class SpecimenProcedure(DataModel):
         title="experimenter(s)",
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    protocol_parameters: Optional[Dict[str, str]] = Field(
+        default=None,
+        title="Protocol parameters",
+        description="Parameters defined in the protocol and their value during this procedure",
+    )
 
     procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent | OligoProbeSet] = Field(
         default=[],
@@ -319,7 +324,7 @@ class Headframe(DataModel):
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
-    headframe_part_number: str = Field(..., title="Headframe part number")
+    headframe_part_number: Optional[str] = Field(default=None, title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(default=None, title="Headframe material")
     well_part_number: Optional[str] = Field(default=None, title="Well part number")
     well_type: Optional[str] = Field(default=None, title="Well type")
@@ -359,7 +364,6 @@ class TarsVirusIdentifiers(DataModel):
 class ViralMaterial(DataModel):
     """Description of viral material for injections"""
 
-    material_type: Literal["Virus"] = Field(default="Virus", title="Injection material type")
     name: str = Field(
         ...,
         title="Full genome name",
@@ -380,7 +384,6 @@ class ViralMaterial(DataModel):
 class NonViralMaterial(Reagent):
     """Description of a non-viral injection material"""
 
-    material_type: Literal["Reagent"] = Field(default="Reagent", title="Injection material type")
     concentration: Optional[float] = Field(
         default=None, title="Concentration", description="Must provide concentration unit"
     )
@@ -437,7 +440,7 @@ class BrainInjection(Injection):
 
     coordinate_system_name: str = Field(..., title="Coordinate system name")
     coordinates: List[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
-    targeted_structure: Optional[CCFStructure.ONE_OF] = Field(default=None, title="Injection targeted brain structure")
+    targeted_structure: Optional[BrainStructureModel] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
     def check_lengths(values):
@@ -484,6 +487,8 @@ class WaterRestriction(DataModel):
     """Description of a water restriction procedure"""
 
     ethics_review_id: str = Field(..., title="Ethics review ID")
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+
     target_fraction_weight: int = Field(..., title="Target fraction weight (%)")
     target_fraction_weight_unit: UnitlessUnit = Field(default=UnitlessUnit.PERCENT, title="Target fraction weight unit")
     minimum_water_per_day: Decimal = Field(..., title="Minimum water per day (mL)")
@@ -582,7 +587,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.26"]] = Field(default="2.0.26")
+    schema_version: SkipValidation[Literal["2.0.29"]] = Field(default="2.0.29")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",

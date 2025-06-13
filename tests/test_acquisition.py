@@ -4,7 +4,7 @@ import unittest
 from datetime import datetime, timezone
 
 import pydantic
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import SizeUnit, TimeUnit
 from pydantic import ValidationError
@@ -153,7 +153,7 @@ class AcquisitionTest(unittest.TestCase):
                                 device_name="Ephys_assemblyA",
                                 arc_angle=0,
                                 module_angle=10,
-                                primary_targeted_structure=CCFStructure.VISL,
+                                primary_targeted_structure=CCFv3.VISL,
                                 atlas_coordinates=[
                                     Translation(
                                         translation=[1, 1, 1, 0],

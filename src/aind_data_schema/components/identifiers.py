@@ -10,13 +10,14 @@ from pydantic import Field
 from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
 
 
-class ExternalPlatforms(str, Enum):
-    """External Platforms of Data Assets."""
+class Database(str, Enum):
+    """Database platforms that can host data assets"""
 
     CODEOCEAN = "Code Ocean"
+    DANDI = "DANDI"
 
 
-ExternalLinks = Dict[ExternalPlatforms, List[str]]
+DatabaseIdentifiers = Dict[Database, List[str]]
 
 
 class DataAsset(DataModel):
@@ -30,8 +31,10 @@ class CombinedData(DataModel):
 
     assets: List[DataAsset] = Field(..., title="Data assets", min_length=1)
     name: Optional[str] = Field(default=None, title="Name")
-    external_links: ExternalLinks = Field(
-        default=dict(), title="External Links", description="Links to the Combined Data asset, if materialized."
+    database_identifier: Optional[DatabaseIdentifiers] = Field(
+        default=None,
+        title="Database identifier",
+        description="ID or link to the Combined Data asset, if materialized.",
     )
     description: Optional[str] = Field(
         default=None, title="Description", description="Intention or approach used to select group of assets"

@@ -4,7 +4,7 @@ import unittest
 from datetime import date
 from unittest.mock import patch
 
-from aind_data_schema_models.brain_atlas import CCFStructure
+from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.organizations import Organization
@@ -145,7 +145,7 @@ class ProceduresTests(unittest.TestCase):
             configurations=[
                 ProbeConfig(
                     device_name="Probe A",
-                    primary_targeted_structure=CCFStructure.MOP,
+                    primary_targeted_structure=CCFv3.MOP,
                     coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
                     transform=[
                         Translation(
@@ -174,7 +174,6 @@ class ProceduresTests(unittest.TestCase):
                             protocol_id="134",
                             injection_materials=[
                                 ViralMaterial(
-                                    material_type="Virus",
                                     name="AAV2-Flex-ChrimsonR",
                                     tars_identifiers=TarsVirusIdentifiers(
                                         virus_tars_id="AiV222",
@@ -200,7 +199,6 @@ class ProceduresTests(unittest.TestCase):
                             protocol_id="234",
                             injection_materials=[
                                 NonViralMaterial(
-                                    material_type="Reagent",
                                     name="drug_xyz",
                                     source=Organization.AI,
                                     lot_number="12345",
@@ -222,7 +220,6 @@ class ProceduresTests(unittest.TestCase):
                             coordinate_system_name="BREGMA_ARI",
                             injection_materials=[
                                 ViralMaterial(
-                                    material_type="Virus",
                                     name="AAV2-Flex-ChrimsonR",
                                     tars_identifiers=TarsVirusIdentifiers(
                                         virus_tars_id="AiV222",
@@ -248,7 +245,7 @@ class ProceduresTests(unittest.TestCase):
                                     ),
                                 ],
                             ],
-                            targeted_structure=CCFStructure.VISP6A,
+                            targeted_structure=CCFv3.VISP6A,
                         ),
                         ProbeImplant(
                             protocol_id="dx.doi.org/120.123/fkjd",
@@ -377,7 +374,6 @@ class ProceduresTests(unittest.TestCase):
             ],
             injection_materials=[
                 ViralMaterial(
-                    material_type="Virus",
                     name="AAV2-Flex-ChrimsonR",
                     tars_identifiers=TarsVirusIdentifiers(
                         virus_tars_id="AiV222",
@@ -409,7 +405,6 @@ class ProceduresTests(unittest.TestCase):
                 ],
                 injection_materials=[
                     ViralMaterial(
-                        material_type="Virus",
                         name="AAV2-Flex-ChrimsonR",
                         tars_identifiers=TarsVirusIdentifiers(
                             virus_tars_id="AiV222",
@@ -439,7 +434,7 @@ class ProceduresTests(unittest.TestCase):
             sections=[
                 Section(
                     output_specimen_id="123456_001",
-                    targeted_structure=CCFStructure.MOP,
+                    targeted_structure=CCFv3.MOP,
                     coordinate_system_name="BREGMA_ARI",
                     start_coordinate=Translation(
                         translation=[0.3, 0, 0],
