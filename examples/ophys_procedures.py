@@ -7,21 +7,17 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.injection_procedures import InjectionDynamics
+from aind_data_schema.components.reagent import Antibody
+from aind_data_schema.components.surgery_procedures import Anaesthetic, BrainInjection, Headframe, ProbeImplant
 from aind_data_schema.core.procedures import (
-    Anaesthetic,
-    Antibody,
-    Headframe,
-    BrainInjection,
-    ProbeImplant,
-    Perfusion,
     Procedures,
     SpecimenProcedure,
     Surgery,
-    ViralMaterial,
     WaterRestriction,
-    InjectionDynamics,
-    InjectionProfile,
 )
+from aind_data_schema.components.injection_procedures import ViralMaterial, InjectionProfile
+from aind_data_schema.components.surgery_procedures import Perfusion
 from aind_data_schema.components.configs import ProbeConfig
 from aind_data_schema.components.devices import FiberProbe
 from aind_data_schema_models.units import VolumeUnit
@@ -31,31 +27,27 @@ from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Tra
 t = datetime.datetime(2022, 7, 12, 7, 00, 00)
 t2 = datetime.datetime(2022, 9, 23, 10, 22, 00)
 
-implanted_devices = [
-    FiberProbe(
-        name="Probe A",
-        core_diameter=200,
-        numerical_aperture=0.37,
-        ferrule_material="Ceramic",
-        total_length=0.5,
-    )
-]
+probe = FiberProbe(
+    name="Probe A",
+    core_diameter=200,
+    numerical_aperture=0.37,
+    ferrule_material="Ceramic",
+    total_length=0.5,
+)
+config = ProbeConfig(
+    primary_targeted_structure=CCFv3.VTA,
+    device_name="Probe A",
+    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+    transform=[
+        Translation(
+            translation=[-600, -3050, 0, 4200],
+        ),
+    ],
+)
+
 
 p = Procedures(
     subject_id="625100",
-    implanted_devices=implanted_devices,
-    configurations=[
-        ProbeConfig(
-            primary_targeted_structure=CCFv3.VTA,
-            device_name="Probe A",
-            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-            transform=[
-                Translation(
-                    translation=[-600, -3050, 0, 4200],
-                ),
-            ],
-        ),
-    ],
     subject_procedures=[
         Surgery(
             start_date=t.date(),
@@ -106,7 +98,8 @@ p = Procedures(
                 ),
                 ProbeImplant(
                     protocol_id="TO ENTER",
-                    implanted_device_names=["Probe A"],
+                    implanted_device=probe,
+                    device_config=config,
                 ),
             ],
         ),

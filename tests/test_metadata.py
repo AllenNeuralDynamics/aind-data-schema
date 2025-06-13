@@ -10,16 +10,16 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.species import Strain
 from pydantic import ValidationError
 
-from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
 from aind_data_schema.components.identifiers import Code, Database, Person
 from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
+from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
 from aind_data_schema.core.instrument import Connection, Instrument
 from aind_data_schema.core.metadata import Metadata, create_metadata_json
-from aind_data_schema.core.procedures import BrainInjection, Procedures, Surgery
+from aind_data_schema.core.procedures import Procedures, Surgery
 from aind_data_schema.core.processing import DataProcess, Processing, ProcessName, ProcessStage
 from aind_data_schema.core.subject import Subject
 from examples.aibs_smartspim_instrument import inst as spim_inst
@@ -325,65 +325,6 @@ class TestMetadata(unittest.TestCase):
             warning_messages,
         )
 
-    def test_validate_acquisition_active_devices(self):
-        """Tests that active devices in acquisition are validated correctly."""
-        # Case where all active devices are present in instrument components
-        instrument = Instrument.model_construct(
-            instrument_id="Test",
-            components=[
-                EphysProbe.model_construct(name="Probe A"),
-                Laser.model_construct(name="Laser A"),
-            ],
-            modalities=[],
-        )
-        procedures = Procedures.model_construct(
-            implanted_devices=[
-                EphysProbe.model_construct(name="Probe A"),
-                Laser.model_construct(name="Laser A"),
-            ],
-            subject_procedures=[],
-        )
-        acquisition = Acquisition.model_construct(
-            instrument_id="Test",
-            data_streams=[
-                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
-            ],
-            subject_details=AcquisitionSubjectDetails.model_construct(),
-        )
-        metadata = Metadata(
-            name="Test Metadata",
-            location="Test Location",
-            instrument=instrument,
-            acquisition=acquisition,
-            procedures=procedures,
-        )
-        self.assertIsNotNone(metadata)
-
-        # Case where active devices are missing
-        acquisition = Acquisition.model_construct(
-            instrument_id="Test",
-            data_streams=[
-                DataStream.model_construct(
-                    active_devices=["Probe A", "Missing Device"], modalities=[], configurations=[]
-                ),
-            ],
-            subject_details=AcquisitionSubjectDetails.model_construct(),
-        )
-        with self.assertRaises(ValueError) as context:
-            Metadata(
-                name="Test Metadata",
-                location="Test Location",
-                instrument=instrument,
-                acquisition=acquisition,
-            )
-        self.assertIn(
-            (
-                "Active devices '{'Missing Device'}' were not found in either "
-                "the Instrument.components or Procedures.implanted_devices."
-            ),
-            str(context.exception),
-        )
-
     def test_validate_acquisition_connections(self):
         """Tests that acquisition connections are validated correctly."""
         # Case where all connection devices are present in instrument components
@@ -395,13 +336,6 @@ class TestMetadata(unittest.TestCase):
             ],
             modalities=[],
         )
-        procedures = Procedures.model_construct(
-            implanted_devices=[
-                EphysProbe.model_construct(name="Probe A"),
-                Laser.model_construct(name="Laser A"),
-            ],
-            subject_procedures=[],
-        )
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
             data_streams=[
@@ -414,7 +348,6 @@ class TestMetadata(unittest.TestCase):
             location="Test Location",
             instrument=instrument,
             acquisition=acquisition,
-            procedures=procedures,
         )
         self.assertIsNotNone(metadata)
 
@@ -443,77 +376,53 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
-    def test_validate_unique_configurations(self):
-        """Tests that configurations don't share target devices between Procedures and Acquisition."""
-
-        # Case where configurations don't overlap
+    def test_validate_acquisition_active_devices(self):
+        """Tests that acquisition active devices are validated correctly."""
+        # Case where all active devices are present in instrument components
         instrument = Instrument.model_construct(
             instrument_id="Test",
             components=[
                 EphysProbe.model_construct(name="Probe A"),
-                Laser.model_construct(name="Laser B"),
+                Laser.model_construct(name="Laser A"),
             ],
             modalities=[],
-        )
-        procedures = Procedures.model_construct(
-            implanted_devices=[
-                EphysProbe.model_construct(name="Probe A"),
-            ],
-            configurations=[
-                DeviceConfig(device_name="Probe A"),
-            ],
-            subject_procedures=[],
         )
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
             data_streams=[
-                DataStream.model_construct(
-                    active_devices=["Probe A", "Laser B"],
-                    modalities=[],
-                    configurations=[
-                        DeviceConfig(device_name="Laser B"),
-                    ],
-                ),
+                DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
             ],
             subject_details=AcquisitionSubjectDetails.model_construct(),
         )
-
-        # This should pass validation
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
             instrument=instrument,
             acquisition=acquisition,
-            procedures=procedures,
         )
         self.assertIsNotNone(metadata)
 
-        # Case where configurations overlap
+        # Case where active devices are missing from both instrument and procedures
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
             data_streams=[
                 DataStream.model_construct(
-                    active_devices=["Probe A", "Laser B"],
-                    modalities=[],
-                    configurations=[
-                        DeviceConfig(device_name="Probe A"),
-                    ],
+                    active_devices=["Probe A", "Missing Device"], modalities=[], configurations=[]
                 ),
             ],
             subject_details=AcquisitionSubjectDetails.model_construct(),
         )
-
-        # This should fail validation
         with self.assertRaises(ValueError) as context:
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
                 instrument=instrument,
                 acquisition=acquisition,
-                procedures=procedures,
             )
         self.assertIn(
-            "Procedures and Acquisition configurations share target devices: {'Probe A'}", str(context.exception)
+            "Active devices '{'Missing Device'}' were not found in either the Instrument.components or "
+            "in an individual procedure's implanted_device field.",
+            str(context.exception),
         )
 
 
