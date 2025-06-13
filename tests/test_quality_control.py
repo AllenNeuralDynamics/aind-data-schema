@@ -6,7 +6,7 @@ from datetime import datetime
 from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 
-from aind_data_schema.core.quality_control import QCEvaluation, QCMetric, QCStatus, QualityControl, Stage, Status
+from aind_data_schema.core.quality_control import QCMetric, QCStatus, QualityControl, Stage, Status
 
 
 class QualityControlTests(unittest.TestCase):
@@ -17,32 +17,31 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertRaises(ValidationError, QualityControl)
 
-        test_eval = QCEvaluation(
-            name="Drift map",
-            modality=Modality.ECEPHYS,
-            stage=Stage.PROCESSING,
-            metrics=[
-                QCMetric(
-                    name="Dict example",
-                    value={"stuff": "in_a_dict"},
-                    status_history=[
-                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
-                    ],
-                ),
-                QCMetric(
-                    name="Drift map pass/fail",
-                    value=False,
-                    description="Manual evaluation of whether the drift map looks good",
-                    reference="s3://some-data-somewhere",
-                    status_history=[
-                        QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
-                    ],
-                ),
-            ],
-        )
+        metrics = [
+            QCMetric(
+                name="Dict example",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value={"stuff": "in_a_dict"},
+                status_history=[
+                    QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                ],
+            ),
+            QCMetric(
+                name="Drift map pass/fail",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value=False,
+                description="Manual evaluation of whether the drift map looks good",
+                reference="s3://some-data-somewhere",
+                status_history=[
+                    QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
+                ],
+            ),
+        ]
 
         q = QualityControl(
-            evaluations=[test_eval],
+            metrics=metrics,
         )
 
         assert q is not None
