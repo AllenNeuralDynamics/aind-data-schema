@@ -11,7 +11,9 @@ from aind_data_schema_models.units import SizeUnit, TimeUnit, VolumeUnit
 from pydantic import Field, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
+from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
+from aind_data_schema.components.devices import Catheter, EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.injection_procedures import Injection
 
 
@@ -39,29 +41,6 @@ class GroundWireMaterial(str, Enum):
     PLATINUM_IRIDIUM = "Platinum iridium"
 
 
-class CatheterMaterial(str, Enum):
-    """Type of catheter material"""
-
-    NAKED = "Naked"
-    SILICONE = "VAB silicone"
-    MESH = "VAB mesh"
-
-
-class CatheterPort(str, Enum):
-    """Type of catheter port"""
-
-    SINGLE = "Single"
-    DOUBLE = "Double"
-
-
-class CatheterDesign(str, Enum):
-    """Type of catheter design"""
-
-    MAGNETIC = "Magnetic"
-    NONMAGNETIC = "Non-magnetic"
-    NA = "N/A"
-
-
 class CraniotomyType(str, Enum):
     """Name of craniotomy Type"""
 
@@ -84,12 +63,14 @@ class CatheterImplant(DataModel):
     """Description of a catheter implant procedure"""
 
     where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
-    catheter_material: CatheterMaterial = Field(..., title="Catheter material")
-    catheter_design: CatheterDesign = Field(..., title="Catheter design")
-    catheter_port: CatheterPort = Field(..., title="Catheter port")
-    targeted_structure: MouseAnatomyModel = Field(
-        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
-    )
+    implanted_device: Catheter = Field(
+        ...,
+        title="Implanted device",
+    )  # note: exact field name is used by a validator
+    device_config: CatheterConfig = Field(
+        ...,
+        title="Device configuration",
+    )  # note: exact field name is used by a validator
 
 
 class Anaesthetic(DataModel):
@@ -158,8 +139,13 @@ class ProbeImplant(DataModel):
     """Description of a probe (fiber, ephys) implant procedure"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    implanted_device_names: List[str] = Field(
-        ..., title="Implanted device names", description="Devices must exist in Procedures.implanted_devices"
+    implanted_device: Union[EphysProbe, FiberProbe] = Field(
+        ...,
+        title="Implanted device",
+    )  # note: exact field name is used by a validator
+    device_config: ProbeConfig = Field(
+        ...,
+        title="Device configuration",
     )  # note: exact field name is used by a validator
 
 
@@ -221,8 +207,10 @@ class MyomatrixInsertion(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
     ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
-    implanted_device_name: str = Field(
-        ..., title="Myomatrix array", description="Must match a MyomatrixArray in Procedures.implanted_devices"
+
+    implanted_device: MyomatrixArray = Field(
+        ...,
+        title="Implanted device",
     )  # note: exact field name is used by a validator
 
 

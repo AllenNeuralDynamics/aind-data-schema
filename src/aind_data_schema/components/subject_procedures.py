@@ -89,14 +89,6 @@ class Surgery(DataModel):
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     workstation_id: Optional[str] = Field(default=None, title="Workstation ID")
 
-    # Implanted devices
-    implanted_devices: DiscriminatedList[EphysProbe | FiberProbe | MyomatrixArray] = Field(
-        default=[], title="Implanted devices"
-    )
-    configurations: DiscriminatedList[ProbeConfig | DeviceConfig] = Field(
-        default=[], title="Implanted device configurations"
-    )
-
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,

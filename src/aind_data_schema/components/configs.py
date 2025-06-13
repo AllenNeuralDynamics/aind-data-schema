@@ -17,6 +17,7 @@ from aind_data_schema_models.units import (
     TimeUnit,
     VolumeUnit,
 )
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -531,3 +532,14 @@ class MRIScan(DeviceConfig):
                 raise ValueError("Primary scan must have scan_affine_transform and resolution fields")
 
         return self
+
+
+# SURGERY CONFIGS
+
+
+class CatheterConfig(DeviceConfig):
+    """Configuration of a catheter"""
+
+    targeted_structure: MouseAnatomyModel = Field(
+        ..., title="Targeted blood vessel", description="Use options from MouseBloodVessels"
+    )
