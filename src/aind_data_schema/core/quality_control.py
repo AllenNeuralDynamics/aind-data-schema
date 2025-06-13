@@ -210,9 +210,16 @@ class QualityControl(DataCoreModel):
                 + f"versions: {self.schema_version} and {other.schema_version}"
             )
 
-        # Combine
-        evaluations = self.evaluations + other.evaluations
-        experimenters = merge_optional_list(self.key_experimenters, other.key_experimenters)
-        notes = merge_notes(self.notes, other.notes)
+        combined_metrics = self.metrics + other.metrics
+        combined_experimenters = merge_optional_list(self.key_experimenters, other.key_experimenters)
+        combined_notes = merge_notes(self.notes, other.notes)
+        combined_default_grouping = list(set(self.default_grouping + other.default_grouping))
+        combined_allow_tag_failures = list(set(self.allow_tag_failures + other.allow_tag_failures))
 
-        return QualityControl(evaluations=evaluations, notes=notes, key_experimenters=experimenters)
+        return QualityControl(
+            metrics=combined_metrics,
+            notes=combined_notes,
+            key_experimenters=combined_experimenters,
+            default_grouping=combined_default_grouping,
+            allow_tag_failures=combined_allow_tag_failures
+        )
