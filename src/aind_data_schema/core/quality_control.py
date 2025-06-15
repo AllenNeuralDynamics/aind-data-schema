@@ -116,7 +116,7 @@ class QualityControl(DataCoreModel):
         title="Default grouping",
         description="Default tag grouping for this QualityControl object, used in visualizations",
     )
-    allow_tag_failures: List[str] = Field(
+    allow_tag_failures: List[str | tuple] = Field(
         default=[],
         title="Allow tag failures",
         description="List of tags that are allowed to fail without failing the overall QC",
@@ -217,9 +217,9 @@ class QualityControl(DataCoreModel):
         filtered_statuses = _get_filtered_statuses(
             metrics=self.metrics,
             date=date,
-            modality=modality,
-            stage=stage,
-            tag=tag,
+            modality_filter=modality,
+            stage_filter=stage,
+            tag_filter=tag,
             allow_tag_failures=self.allow_tag_failures,
         )
 
@@ -291,27 +291,35 @@ def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> St
 def _get_filtered_statuses(
     metrics: list[QCMetric | CurationMetric],
     date: datetime,
-    modality: Optional[List[Modality.ONE_OF]] = None,
-    stage: Optional[List[Stage]] = None,
-    tag: Optional[List[str]] = None,
-    allow_tag_failures: List[str] = [],
+    modality_filter: Optional[List[Modality.ONE_OF]] = None,
+    stage_filter: Optional[List[Stage]] = None,
+    tag_filter: Optional[List[str]] = None,
+    allow_tag_failures: List[str | tuple] = [],
 ):
     """Get the status of metrics filtered by modality, stage, tag, and date."""
     filtered_statuses = []
     for metric in metrics:
         # Apply filters
-        if modality and metric.modality not in modality:
+        if modality_filter and metric.modality not in modality_filter:
             continue
-        if stage and metric.stage not in stage:
+        if stage_filter and metric.stage not in stage_filter:
             continue
-        if tag and not (metric.tags and any(t in metric.tags for t in tag)):
+        if tag_filter and not (metric.tags and any(t in metric.tags for t in tag_filter)):
             continue
 
         # Get status at the specified date using the helper function
         status = _get_status_by_date(metric, date)
-        # Convert FAIL to PASS for metrics with allowed failure tags
-        if status == Status.FAIL and metric.tags and any(t in allow_tag_failures for t in metric.tags):
-            status = Status.PASS
+        # Check if any of our tags are in the allow_tag_failures list
+        if status == Status.FAIL and metric.tags:
+            for fail2pass_tags in allow_tag_failures:
+                if isinstance(fail2pass_tags, tuple):
+                    # If it's a tuple, check if all of the tags match
+                    if all(t in metric.tags for t in fail2pass_tags):
+                        status = Status.PASS
+                        break
+                elif fail2pass_tags in metric.tags:
+                    status = Status.PASS
+                    break
         filtered_statuses.append(status)
 
     return filtered_statuses
