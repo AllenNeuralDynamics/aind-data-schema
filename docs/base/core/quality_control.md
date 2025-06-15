@@ -20,11 +20,11 @@ Each `QCMetric` is annotated with three pieces of additional metadata: the `Stag
 
 ### QualityControl.evaluate_status()
 
-You can evaluate the state of an combination of metrics filtered by the modality, stage, and tags. When evaluating the `Status` of a group of metrics the following rules apply:
+You can evaluate the state of an combination of metrics filtered by the modality, stage, and tags. You can also filter for the status on a specific date. When evaluating the `Status` of a group of metrics the following rules apply:
 
-First: any metric that is failing and also has a tag in the `allow_tag_failures` list is set to pass
+First: any metric that is failing and also has a matching tag (or tuple of tags) in the `allow_tag_failures` list is set to pass.
 
-Then evaluate in order:
+Then given the status of all the metrics in the group:
 
 1. If any metric is still failing, the evaluation fails
 2. If any metric is pending and the rest pass the evaluation is pending
@@ -32,9 +32,9 @@ Then evaluate in order:
 
 **Q: What is a metric reference?**
 
-Metrics should include a `QCMetric.reference`. References are intended to be publicly accessible images, figures, combined figures with multiple panels, or videos that support the metric or provide information necessary for manual annotation of a metric's status.
+Metrics should include a `QCMetric.reference`. References are intended to be publicly accessible images, figures, multi-panel figures, and videos that support the metric or provide information necessary for manual annotation of a metric's status.
 
-See the AIND section for specifics about how references are rendered in the QC Portal.
+It's good practice to share a single multi-panel figure across multiple references to simplify viewing the QC metadata.
 
 **Q: What are the status options for metrics?**
 
