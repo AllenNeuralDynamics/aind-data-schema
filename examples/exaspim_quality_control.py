@@ -13,7 +13,7 @@ metrics = [
         name="Horta coordinates",
         modality=Modality.SPIM,
         stage=Stage.ANALYSIS,
-        description="AP/ML/DV coordinates in Horta space",
+        description="AP/ML/DV coordinates in sample space",
         value={
             "ML": 28698.816,
             "AP": 10885.395,
@@ -63,7 +63,7 @@ metrics = [
         name="Horta coordinates",
         modality=Modality.SPIM,
         stage=Stage.ANALYSIS,
-        description="AP/ML/DV coordinates in Horta space",
+        description="AP/ML/DV coordinates in sample space",
         value={
             "ML": 28531.45,
             "AP": 11628.111,
