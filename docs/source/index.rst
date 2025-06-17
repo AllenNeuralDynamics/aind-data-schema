@@ -36,7 +36,8 @@ I want to...
 - :doc:`Create metadata using the AIND metadata-mapper <todo>`. 
 - :doc:`Learn about the philosophy behind aind-data-schema<general>`.
 - :doc:`Learn about how coordinate systems work<coordinate_systems>`.
-- :doc:`Request additions or changes to the metadata schema<contributing>`.
+- `Report an issue or request an addition to the metadata schema <https://github.com/AllenNeuralDynamics/aind-data-schema/issues>`_.
+- `Build my own changes to the metadata schema <https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/CONTRIBUTING.md>`_.
 
 
 .. toctree::
@@ -81,4 +82,3 @@ I want to...
    coordinate_systems
    data_organization
    related_standards
-   contributing
