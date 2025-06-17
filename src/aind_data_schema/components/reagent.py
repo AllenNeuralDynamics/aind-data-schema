@@ -34,7 +34,9 @@ class FluorophoreType(str, Enum):
 
     ALEXA = "Alexa Fluor"
     ATTO = "ATTO"
+    CF = "CF"
     CYANINE = "Cyanine"
+    DYLIGHT = "DyLight"
 
 
 class Fluorophore(DataModel):
@@ -63,14 +65,14 @@ class Reagent(DataModel):
 #     concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 
 
-class Antibody(Reagent):
-    """Description of an antibody used in immunolableing"""
+# class Antibody(Reagent):
+#     """Description of an antibody used in immunolableing"""
 
-    immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
-    fluorophore: Optional[Fluorophore] = Field(default=None, title="Fluorophore")
-    mass: float = Field(..., title="Mass of antibody")
-    mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
-    notes: Optional[str] = Field(default=None, title="Notes")
+#     immunolabel_class: ImmunolabelClass = Field(..., title="Immunolabel class")
+#     fluorophore: Optional[Fluorophore] = Field(default=None, title="Fluorophore")
+#     mass: float = Field(..., title="Mass of antibody")
+#     mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
+#     notes: Optional[str] = Field(default=None, title="Notes")
 
 
 # Gene-targeting oligonucleotide probes
@@ -83,23 +85,23 @@ class OligoProbe(DataModel):
     sequence: str = Field(..., title="Sequence")
 
 
-class GeneProbes(DataModel):
-    """Description of a set of oligonucleotide probes targeting a specific gene"""
+class GeneProbe(DataModel):
+    """Description of a probe (or set of probes) targeting a specific gene"""
 
     gene: PIDName = Field(..., title="Gene name")
-    probes: List[OligoProbe] = Field(..., title="Probes")
+    probes: Optional[List[OligoProbe]] = Field(default=None, title="Probes")
 
 
-class OligoProbeSet(Reagent):
+class GeneProbeSet(Reagent):
     """set of probes used in BarSEQ"""
 
-    gene_probes: List[GeneProbes] = Field(..., title="Gene probes")
+    gene_probes: List[GeneProbe] = Field(..., title="Gene probes")
 
-class HCRProbe(Reagent):
-    """Oligonucleotide probe used in HCR"""
+# class HCRProbe(Reagent):
+#     """Oligonucleotide probe used in HCR"""
 
-    gene: PIDName = Field(..., title="Gene name")
-    initiator_name: str = Field(..., title="Initiator name")
+#     gene: PIDName = Field(..., title="Gene name")
+#     initiator_name: str = Field(..., title="Initiator name")
 
 
 # class Readout(Reagent):
@@ -140,13 +142,13 @@ class SmallMoleculeProbe(Reagent):
     mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
 
 
-class Stain(Reagent):
+class FluorescentStain(Reagent):
     """Description of a stain"""
 
-    target: Discriminated[HCRProbe | ProteinProbe | SmallMoleculeProbe] == Field(..., title="Target")
+    target: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] == Field(..., title="Target")
     fluorophore: Fluorophore = Field(..., title="Fluorophore")
     stain_type: StainType = Field(..., title="Stain type")
-    species: Species.ONE_OF = Field(..., title="Species")
-    concentration: float = Field(..., title="Concentration")
-    concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
+    species: Optional[Species.ONE_OF] = Field(None, title="Species")
+    # concentration: float = Field(..., title="Concentration")
+    # concentration_unit: ConcentrationUnit = Field(default=ConcentrationUnit.UM, title="Concentration unit")
 

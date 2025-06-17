@@ -19,7 +19,7 @@ from aind_data_schema.components.configs import DeviceConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, CoordinateSystem, Origin, Translation
 from aind_data_schema.components.devices import EphysProbe, FiberProbe, MyomatrixArray
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import Reagent, Stain, Antibody, OligoProbeSet, GeneticStain
+from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, ProteinProbe, Reagent
 from aind_data_schema.utils.exceptions import OneOfError
 from aind_data_schema.utils.merge import merge_notes
 from aind_data_schema.utils.validators import recursive_device_name_check, subject_specimen_id_compatibility
@@ -119,10 +119,10 @@ class HybridizationChainReaction(DataModel):
     round_index: int = Field(..., title="Round index")
     start_time: AwareDatetimeWithDefault = Field(..., title="Round start time")
     end_time: AwareDatetimeWithDefault = Field(..., title="Round end time")
-    genetic_stains: List[GeneticStain] = Field(..., title="Genetic stains")
+    stains: List[Stain] = Field(..., title="Genetic stains")
     probe_concentration: Decimal = Field(..., title="Probe concentration (M)")
     probe_concentration_unit: str = Field(default="M", title="Probe concentration unit")
-    other_stains: List[Stain] = Field(default=[], title="Other stains")
+    # other_stains: List[Stain] = Field(default=[], title="Other stains")
 
 
 class HCRSeries(DataModel):
@@ -194,7 +194,7 @@ class SpecimenProcedure(DataModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
-    procedure_details: DiscriminatedList[HCRSeries | Antibody | PlanarSectioning | Reagent | OligoProbeSet] = Field(
+    procedure_details: DiscriminatedList[HCRSeries | FluorescentStain | PlanarSectioning | Reagent | GeneProbeSet | ProteinProbe] = Field(
         default=[],
         title="Procedure details",
         description="",
@@ -207,7 +207,7 @@ class SpecimenProcedure(DataModel):
         """Adds a validation check on procedure_type"""
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
-        has_antibodies = any(isinstance(detail, Antibody) for detail in self.procedure_details)
+        has_antibodies = any(isinstance(detail, Stain) for detail in self.procedure_details)
         has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
 
         if has_hcr_series + has_antibodies + has_sectioning > 1:
@@ -220,7 +220,7 @@ class SpecimenProcedure(DataModel):
         elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
             raise AssertionError("HCRSeries required if procedure_type is HCR.")
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not has_antibodies:
-            raise AssertionError("Antibody required if procedure_type is Immunolabeling.")
+            raise AssertionError("Stain required if procedure_type is Immunolabeling.")
         elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
             raise AssertionError("Sectioning required if procedure_type is Sectioning.")
         return self
