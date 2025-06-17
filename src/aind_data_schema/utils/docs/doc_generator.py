@@ -74,7 +74,7 @@ def process_core_file(core_file):
     # Start with the core file content
     combined_content = base_content + "\n## Core file\n\n" + all_model_content[0]
 
-    if not core_file == "metadata":
+    if not core_file == "metadata" and len(all_model_content) > 0:
         combined_content += "\n\n## Model definitions"
         for content in all_model_content[1:]:
             combined_content += f"\n\n{content}"
