@@ -29,6 +29,3 @@ Description of all procedures performed on a subject
 | `specimen_procedures` | List[[SpecimenProcedure](components/specimen_procedures.md#specimenprocedure)] | Procedures performed on tissue extracted after perfusion |
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures |
 | `notes` | `Optional[str]` |  |
-
-
-## Model definitions

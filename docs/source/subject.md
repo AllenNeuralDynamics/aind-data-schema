@@ -23,6 +23,3 @@ Description of a subject of data collection
 | `subject_id` | `str` | Unique identifier for the subject of data acquisition |
 | `subject_details` | [MouseSubject](components/subjects.md#mousesubject) or [HumanSubject](components/subjects.md#humansubject) |  |
 | `notes` | `Optional[str]` |  |
-
-
-## Model definitions
