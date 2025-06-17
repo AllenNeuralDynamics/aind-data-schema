@@ -30,9 +30,9 @@ class Procedures(DataCoreModel):
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
-    subject_procedures: DiscriminatedList[Surgery | Injection | TrainingProtocol | WaterRestriction | GenericSubjectProcedure] = (
-        Field(default=[], title="Subject Procedures", description="Procedures performed on a live subject")
-    )
+    subject_procedures: DiscriminatedList[
+        Surgery | Injection | TrainingProtocol | WaterRestriction | GenericSubjectProcedure
+    ] = Field(default=[], title="Subject Procedures", description="Procedures performed on a live subject")
     specimen_procedures: List[SpecimenProcedure] = Field(
         default=[], title="Specimen Procedures", description="Procedures performed on tissue extracted after perfusion"
     )

@@ -413,19 +413,22 @@ class QualityControlTests(unittest.TestCase):
         q = QualityControl(metrics=test_metrics, default_grouping=["test_group", "test_group2", "tag1"])
 
         # Check that the status field was built correctly
-        self.assertEqual(q.status, {
-            # Stages
-            "Processing": Status.PASS,
-            "Raw data": Status.FAIL,
-            # Modalities
-            "behavior": Status.FAIL,
-            "behavior-videos": Status.PENDING,
-            "ecephys": Status.PASS,
-            # Tags
-            "test_group": Status.PASS,
-            "test_group2": Status.FAIL,
-            "tag1": Status.PENDING,
-        })
+        self.assertEqual(
+            q.status,
+            {
+                # Stages
+                "Processing": Status.PASS,
+                "Raw data": Status.FAIL,
+                # Modalities
+                "behavior": Status.FAIL,
+                "behavior-videos": Status.PENDING,
+                "ecephys": Status.PASS,
+                # Tags
+                "test_group": Status.PASS,
+                "test_group2": Status.FAIL,
+                "tag1": Status.PENDING,
+            },
+        )
 
         self.assertEqual(q.evaluate_status(), Status.FAIL)
         self.assertEqual(q.evaluate_status(modality=Modality.BEHAVIOR), Status.FAIL)
