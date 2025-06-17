@@ -10,7 +10,7 @@ from aind_data_schema.core.quality_control import QualityControl, QCMetric, Stag
 metrics = [
     # N001 metrics
     QCMetric(
-        name="Horta coordinates",
+        name="Sample coordinates",
         modality=Modality.SPIM,
         stage=Stage.ANALYSIS,
         description="AP/ML/DV coordinates in sample space",
@@ -60,7 +60,7 @@ metrics = [
     ),
     # N002 metrics
     QCMetric(
-        name="Horta coordinates",
+        name="Sample coordinates",
         modality=Modality.SPIM,
         stage=Stage.ANALYSIS,
         description="AP/ML/DV coordinates in sample space",
