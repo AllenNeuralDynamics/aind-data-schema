@@ -41,6 +41,76 @@
                "title": "Metric name",
                "type": "string"
             },
+            "modality": {
+               "discriminator": {
+                  "mapping": {
+                     "EMG": "#/$defs/_Emg",
+                     "ISI": "#/$defs/_Isi",
+                     "MRI": "#/$defs/_Mri",
+                     "SPIM": "#/$defs/_Spim",
+                     "behavior": "#/$defs/_Behavior",
+                     "behavior-videos": "#/$defs/_Behavior_Videos",
+                     "confocal": "#/$defs/_Confocal",
+                     "ecephys": "#/$defs/_Ecephys",
+                     "fMOST": "#/$defs/_Fmost",
+                     "fib": "#/$defs/_Fib",
+                     "icephys": "#/$defs/_Icephys",
+                     "merfish": "#/$defs/_Merfish",
+                     "pophys": "#/$defs/_Pophys",
+                     "slap": "#/$defs/_Slap"
+                  },
+                  "propertyName": "abbreviation"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Behavior"
+                  },
+                  {
+                     "$ref": "#/$defs/_Behavior_Videos"
+                  },
+                  {
+                     "$ref": "#/$defs/_Confocal"
+                  },
+                  {
+                     "$ref": "#/$defs/_Emg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ecephys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fib"
+                  },
+                  {
+                     "$ref": "#/$defs/_Fmost"
+                  },
+                  {
+                     "$ref": "#/$defs/_Icephys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Isi"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mri"
+                  },
+                  {
+                     "$ref": "#/$defs/_Merfish"
+                  },
+                  {
+                     "$ref": "#/$defs/_Pophys"
+                  },
+                  {
+                     "$ref": "#/$defs/_Slap"
+                  },
+                  {
+                     "$ref": "#/$defs/_Spim"
+                  }
+               ],
+               "title": "Modality"
+            },
+            "stage": {
+               "$ref": "#/$defs/Stage",
+               "title": "Evaluation stage"
+            },
             "value": {
                "items": {},
                "title": "Curation value",
@@ -51,6 +121,7 @@
                "items": {
                   "$ref": "#/$defs/QCStatus"
                },
+               "minItems": 1,
                "title": "Metric status history",
                "type": "array"
             },
@@ -77,6 +148,15 @@
                ],
                "default": null,
                "title": "Metric reference image URL or plot type"
+            },
+            "tags": {
+               "default": [],
+               "description": "Tags group QCMetric objects to allow for grouping and filtering",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Tags",
+               "type": "array"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -109,6 +189,8 @@
          },
          "required": [
             "name",
+            "modality",
+            "stage",
             "value",
             "type"
          ],
@@ -153,14 +235,18 @@
          "title": "Person",
          "type": "object"
       },
-      "QCEvaluation": {
+      "QCMetric": {
          "additionalProperties": false,
-         "description": "Description of one evaluation stage, with one or more metrics",
+         "description": "Description of a single quality control metric",
          "properties": {
             "object_type": {
-               "const": "QC evaluation",
-               "default": "QC evaluation",
+               "const": "QC metric",
+               "default": "QC metric",
                "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Metric name",
                "type": "string"
             },
             "modality": {
@@ -233,118 +319,6 @@
                "$ref": "#/$defs/Stage",
                "title": "Evaluation stage"
             },
-            "name": {
-               "title": "Evaluation name",
-               "type": "string"
-            },
-            "description": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Evaluation description"
-            },
-            "metrics": {
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "Curation metric": "#/$defs/CurationMetric",
-                        "QC metric": "#/$defs/QCMetric"
-                     },
-                     "propertyName": "object_type"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/QCMetric"
-                     },
-                     {
-                        "$ref": "#/$defs/CurationMetric"
-                     }
-                  ]
-               },
-               "title": "QC and curation metrics",
-               "type": "array"
-            },
-            "tags": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "type": "string"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Tags can be used to group QCEvaluation objects into groups",
-               "title": "Tags"
-            },
-            "notes": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Notes"
-            },
-            "allow_failed_metrics": {
-               "default": false,
-               "description": "Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation.",
-               "title": "Allow metrics to fail",
-               "type": "boolean"
-            },
-            "latest_status": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Status"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Evaluation status"
-            },
-            "created": {
-               "format": "date-time",
-               "title": "Evaluation creation date",
-               "type": "string"
-            }
-         },
-         "required": [
-            "modality",
-            "stage",
-            "name",
-            "metrics"
-         ],
-         "title": "QCEvaluation",
-         "type": "object"
-      },
-      "QCMetric": {
-         "additionalProperties": false,
-         "description": "Description of a single quality control metric",
-         "properties": {
-            "object_type": {
-               "const": "QC metric",
-               "default": "QC metric",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "title": "Metric name",
-               "type": "string"
-            },
             "value": {
                "title": "Metric value"
             },
@@ -353,6 +327,7 @@
                "items": {
                   "$ref": "#/$defs/QCStatus"
                },
+               "minItems": 1,
                "title": "Metric status history",
                "type": "array"
             },
@@ -380,6 +355,15 @@
                "default": null,
                "title": "Metric reference image URL or plot type"
             },
+            "tags": {
+               "default": [],
+               "description": "Tags group QCMetric objects to allow for grouping and filtering",
+               "items": {
+                  "type": "string"
+               },
+               "title": "Tags",
+               "type": "array"
+            },
             "evaluated_assets": {
                "anyOf": [
                   {
@@ -399,6 +383,8 @@
          },
          "required": [
             "name",
+            "modality",
+            "stage",
             "value"
          ],
          "title": "QCMetric",
@@ -436,7 +422,7 @@
          "type": "object"
       },
       "Stage": {
-         "description": "QCEvaluation Stage\n\nWhen during data processing the QC metrics were derived.",
+         "description": "Quality control stage\n\nWhen during data processing the QC metrics were derived.",
          "enum": [
             "Raw data",
             "Processing",
@@ -773,14 +759,28 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.4",
-         "default": "2.0.4",
+         "const": "2.0.5",
+         "default": "2.0.5",
          "title": "Schema Version",
          "type": "string"
       },
-      "evaluations": {
+      "metrics": {
          "items": {
-            "$ref": "#/$defs/QCEvaluation"
+            "discriminator": {
+               "mapping": {
+                  "Curation metric": "#/$defs/CurationMetric",
+                  "QC metric": "#/$defs/QCMetric"
+               },
+               "propertyName": "object_type"
+            },
+            "oneOf": [
+               {
+                  "$ref": "#/$defs/QCMetric"
+               },
+               {
+                  "$ref": "#/$defs/CurationMetric"
+               }
+            ]
          },
          "title": "Evaluations",
          "type": "array"
@@ -812,10 +812,50 @@
          ],
          "default": null,
          "title": "Notes"
+      },
+      "default_grouping": {
+         "description": "Default tag grouping for this QualityControl object, used in visualizations",
+         "items": {
+            "type": "string"
+         },
+         "title": "Default grouping",
+         "type": "array"
+      },
+      "allow_tag_failures": {
+         "default": [],
+         "description": "List of tags that are allowed to fail without failing the overall QC",
+         "items": {
+            "anyOf": [
+               {
+                  "type": "string"
+               },
+               {
+                  "items": {},
+                  "type": "array"
+               }
+            ]
+         },
+         "title": "Allow tag failures",
+         "type": "array"
+      },
+      "status": {
+         "anyOf": [
+            {
+               "additionalProperties": true,
+               "type": "object"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Mapping of tags, modalities, and stages to their evaluated status, automatically computed",
+         "title": "Status mapping"
       }
    },
    "required": [
-      "evaluations"
+      "metrics",
+      "default_grouping"
    ],
    "title": "QualityControl",
    "type": "object"
