@@ -22,8 +22,8 @@ Description of an analysis model
 | `architecture_parameters` | `dict` | Parameters of model architecture, such as input signature or number of layers. |
 | `intended_use` | `str` | Semantic description of intended use |
 | `limitations` | `Optional[str]` |  |
-| `training` | List[[ModelTraining](#modeltraining) or [ModelPretraining](#modelpretraining)] |  |
-| `evaluations` | List[[ModelEvaluation](#modelevaluation)] |  |
+| `training` | List[[ModelTraining](model.md#modeltraining) or [ModelPretraining](model.md#modelpretraining)] |  |
+| `evaluations` | List[[ModelEvaluation](model.md#modelevaluation)] |  |
 | `notes` | `Optional[str]` |  |
 
 
@@ -36,7 +36,7 @@ Description of model evaluation
 | Field | Type | Description |
 |-------|------|-------------|
 | `process_type` | {ProcessName} |  |
-| `performance` | List[[PerformanceMetric](#performancemetric)] |  |
+| `performance` | List[[PerformanceMetric](model.md#performancemetric)] |  |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
 | `stage` | [ProcessStage](processing.md#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
@@ -66,8 +66,8 @@ Description of model training
 | Field | Type | Description |
 |-------|------|-------------|
 | `process_type` | {ProcessName} |  |
-| `train_performance` | List[[PerformanceMetric](#performancemetric)] | Performance on training set |
-| `test_performance` | Optional[List[[PerformanceMetric](#performancemetric)]] | Performance on test data, evaluated during training |
+| `train_performance` | List[[PerformanceMetric](model.md#performancemetric)] | Performance on training set |
+| `test_performance` | Optional[List[[PerformanceMetric](model.md#performancemetric)]] | Performance on test data, evaluated during training |
 | `test_evaluation_method` | `Optional[str]` | Approach to cross-validation or Train/test splitting |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
 | `stage` | [ProcessStage](processing.md#processstage) |  |

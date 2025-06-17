@@ -74,9 +74,9 @@ Description of an imaging acquisition
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition |
 | `calibrations` | List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)] | List of calibration measurements taken prior to acquisition. |
 | `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | List of maintenance on instrument prior to acquisition. |
-| `data_streams` | List[[DataStream](#datastream)] | A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. |
-| `stimulus_epochs` | List[[StimulusEpoch](#stimulusepoch)] | A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes. |
-| `subject_details` | Optional[[AcquisitionSubjectDetails](#acquisitionsubjectdetails)] |  |
+| `data_streams` | List[[DataStream](acquisition.md#datastream)] | A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. |
+| `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes. |
+| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] |  |
 
 
 ## Model definitions
@@ -90,7 +90,7 @@ Details about the subject during an acquisition
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
 | `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
-| `anaesthesia` | Optional[[Anaesthetic](procedures.md#anaesthetic)] |  |
+| `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] |  |
 | `mouse_platform_name` | `str` |  |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` |  |
 | `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
@@ -137,7 +137,7 @@ Description of stimulus used during data acquisition
 | `stimulus_name` | `str` |  |
 | `code` | Optional[[Code](components/identifiers.md#code)] | Custom code/script used to control the behavior/stimulus and parameters |
 | `stimulus_modalities` | List[[StimulusModality](aind_data_schema_models/stimulus_modality.md#stimulusmodality)] |  |
-| `performance_metrics` | Optional[[PerformanceMetrics](#performancemetrics)] |  |
+| `performance_metrics` | Optional[[PerformanceMetrics](acquisition.md#performancemetrics)] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
 | `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] |  |

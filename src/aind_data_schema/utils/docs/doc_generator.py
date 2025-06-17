@@ -84,7 +84,7 @@ def process_core_file(core_file):
         # Replace the link in the model content
         replacement = model_link_map[link]
         # Remove the core file name from the replacement link, to avoid circular references
-        replacement = replacement.replace(f"{core_file}.md", "")
+        replacement = replacement.replace(f"/{core_file}.md", "")
         combined_content = combined_content.replace(link, replacement)
 
     # Write to the output file

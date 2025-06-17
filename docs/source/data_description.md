@@ -29,7 +29,7 @@ Description of a logical collection of data files
 | `tags` | `Optional[List[str]]` | Descriptive strings to help categorize and search for data |
 | `name` | `Optional[str]` | Name of data, conventionally also the name of the directory containing all data and metadata |
 | `institution` | [Organization](aind_data_schema_models/organizations.md#organization) | An established society, corporation, foundation or other organization that collected this data |
-| `funding_source` | List[[Funding](#funding)] | Funding source. If internal funding, select 'Allen Institute' |
+| `funding_source` | List[[Funding](data_description.md#funding)] | Funding source. If internal funding, select 'Allen Institute' |
 | `data_level` | [DataLevel](aind_data_schema_models/data_name_patterns.md#datalevel) | Level of processing that data has undergone |
 | `group` | Optional[[Group](aind_data_schema_models/data_name_patterns.md#group)] | A short name for the group of individuals that collected this data |
 | `investigators` | List[[Person](components/identifiers.md#person)] | Full name(s) of key investigators (e.g. PI, lead scientist, contact person) |

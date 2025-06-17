@@ -106,6 +106,55 @@ Named assembly of a camera and lens (and optionally a filter)
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
 
 
+### Catheter
+
+Description of a catheter device
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `catheter_material` | [CatheterMaterial](#cathetermaterial) |  |
+| `catheter_design` | [CatheterDesign](#catheterdesign) |  |
+| `catheter_port` | [CatheterPort](#catheterport) |  |
+| `name` | `str` |  |
+| `serial_number` | `Optional[str]` |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
+| `model` | `Optional[str]` |  |
+| `additional_settings` | `Optional[dict]` |  |
+| `notes` | `Optional[str]` |  |
+
+
+### CatheterDesign
+
+Type of catheter design
+
+| Name | Value |
+|------|-------|
+| `MAGNETIC` | `Magnetic` |
+| `NONMAGNETIC` | `Non-magnetic` |
+| `NA` | `N/A` |
+
+
+### CatheterMaterial
+
+Type of catheter material
+
+| Name | Value |
+|------|-------|
+| `NAKED` | `Naked` |
+| `SILICONE` | `VAB silicone` |
+| `MESH` | `VAB mesh` |
+
+
+### CatheterPort
+
+Type of catheter port
+
+| Name | Value |
+|------|-------|
+| `SINGLE` | `Single` |
+| `DOUBLE` | `Double` |
+
+
 ### Computer
 
 Description of a computer

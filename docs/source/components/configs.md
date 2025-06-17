@@ -18,6 +18,16 @@ Air puff device configuration
 | `device_name` | `str` | Must match a device defined in the instrument.json |
 
 
+### CatheterConfig
+
+Configuration of a catheter
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `targeted_structure` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Use options from MouseBloodVessels |
+| `device_name` | `str` | Must match a device defined in the instrument.json |
+
+
 ### Channel
 
 Configuration of a channel
@@ -49,7 +59,7 @@ Configuration of a pair of coupled imaging plane
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |
 | `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
-| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#CCFv3) |  |
+| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3) |  |
 
 
 ### DetectorConfig
@@ -337,7 +347,7 @@ Configuration of an imaging plane
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |
 | `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
-| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#CCFv3) |  |
+| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3) |  |
 
 
 ### PowerFunction
@@ -358,8 +368,8 @@ Configuration for a device inserted into a brain
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `primary_targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#CCFv3) |  |
-| `other_targeted_structure` | Optional[List[[BrainAtlas](../aind_data_schema_models/brain_atlas.md#CCFv3)]] |  |
+| `primary_targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3) |  |
+| `other_targeted_structure` | Optional[List[[BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3)]] |  |
 | `atlas_coordinate` | Optional[[AtlasCoordinate](coordinates.md#atlascoordinate)] |  |
 | `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) |  |
 | `transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
@@ -447,7 +457,7 @@ Configuration of an imagine plane on a Slap microscope
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `power` | `float` |  |
 | `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
-| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#CCFv3) |  |
+| `targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3) |  |
 
 
 ### SpeakerConfig

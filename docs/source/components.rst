@@ -16,3 +16,7 @@ Components are models that are used to build up each of the core files. These in
    components/reagent
    components/stimulus
    components/subjects
+   components/injection_procedures
+   components/subject_procedures
+   components/specimen_procedures
+   components/surgery_procedures

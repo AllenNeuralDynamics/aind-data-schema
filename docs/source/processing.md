@@ -21,7 +21,7 @@ Description of all processes run on data
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `data_processes` | List[[DataProcess](#dataprocess)] |  |
+| `data_processes` | List[[DataProcess](processing.md#dataprocess)] |  |
 | `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess. |
 | `notes` | `Optional[str]` |  |
 | `dependency_graph` | `Dict[str, List[str]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
@@ -37,7 +37,7 @@ Description of a single processing step
 |-------|------|-------------|
 | `process_type` | {ProcessName} |  |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | [ProcessStage](#processstage) |  |
+| `stage` | [ProcessStage](processing.md#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
 | `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
@@ -46,7 +46,7 @@ Description of a single processing step
 | `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
 | `output_parameters` | `dict` | Output parameters |
 | `notes` | `Optional[str]` |  |
-| `resources` | Optional[[ResourceUsage](#resourceusage)] |  |
+| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
 
 
 ### ProcessStage
@@ -84,7 +84,7 @@ Description of resources used by a process
 | `system_memory_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] |  |
 | `ram` | `Optional[float]` |  |
 | `ram_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] |  |
-| `cpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
-| `gpu_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
-| `ram_usage` | Optional[List[[ResourceTimestamped](#resourcetimestamped)]] |  |
+| `cpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
+| `gpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
+| `ram_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
 | `usage_unit` | `str` |  |
