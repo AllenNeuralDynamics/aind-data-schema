@@ -1,28 +1,58 @@
 """Code to generate markdown tables for registry models"""
 
-import os
 import inspect
+import os
 from enum import Enum
 
 # Atlas models
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.brain_atlas import CCFv3
 
+# Coordinates models
+from aind_data_schema_models.coordinates import AnatomicalRelative, AxisName, Direction, Origin
+
 # Name patterns
 from aind_data_schema_models.data_name_patterns import DataLevel, Group
+
+# Devices models
+from aind_data_schema_models.devices import (
+    BinMode,
+    CameraChroma,
+    CameraTarget,
+    Cooling,
+    Coupling,
+    DaqChannelType,
+    DataInterface,
+    DetectorType,
+    DeviceDriver,
+    FerruleMaterial,
+    FilterType,
+    ImagingDeviceType,
+    ImmersionMedium,
+    LickSensorType,
+    MyomatrixArrayType,
+    ObjectiveType,
+    ProbeModel,
+    StageAxisDirection,
+)
+from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.licenses import License
 
-# Coordinates models
-from aind_data_schema_models.coordinates import Origin, AxisName, Direction, AnatomicalRelative
+# Other registry models
+from aind_data_schema_models.modalities import Modality
 
 # Organization models
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.pid_names import PIDName
 
 # Registries
 from aind_data_schema_models.registries import Registry
 
 # Species models
 from aind_data_schema_models.species import Species, Strain
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
+from aind_data_schema_models.stimulus_modality import StimulusModality
+from aind_data_schema_models.system_architecture import CPUArchitecture, ModelArchitecture, OperatingSystem
 
 # Units models
 from aind_data_schema_models.units import (
@@ -30,50 +60,20 @@ from aind_data_schema_models.units import (
     ConcentrationUnit,
     CurrentUnit,
     FrequencyUnit,
-    MassUnit,
-    PowerUnit,
-    SizeUnit,
-    TimeUnit,
-    VolumeUnit,
-    PressureUnit,
-    TemperatureUnit,
-    SoundIntensityUnit,
-    VoltageUnit,
-    MemoryUnit,
     MagneticFieldUnit,
+    MassUnit,
+    MemoryUnit,
+    PowerUnit,
+    PressureUnit,
+    SizeUnit,
+    SoundIntensityUnit,
+    TemperatureUnit,
+    TimeUnit,
     UnitlessUnit,
     SpeedUnit,
+    VoltageUnit,
+    VolumeUnit,
 )
-
-# Devices models
-from aind_data_schema_models.devices import (
-    ImagingDeviceType,
-    StageAxisDirection,
-    DeviceDriver,
-    Coupling,
-    DataInterface,
-    FilterType,
-    CameraChroma,
-    DaqChannelType,
-    ImmersionMedium,
-    ObjectiveType,
-    CameraTarget,
-    ProbeModel,
-    DetectorType,
-    Cooling,
-    BinMode,
-    FerruleMaterial,
-    LickSensorType,
-    MyomatrixArrayType,
-)
-
-# Other registry models
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
-from aind_data_schema_models.stimulus_modality import StimulusModality
-from aind_data_schema_models.system_architecture import ModelArchitecture, OperatingSystem, CPUArchitecture
-from aind_data_schema_models.harp_types import HarpDeviceType
 
 from aind_data_schema.utils.docs.utils import generate_enum_table, save_model_info, update_model_links
 

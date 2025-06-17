@@ -68,7 +68,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.69"]] = Field(default="2.0.69")
+    schema_version: SkipValidation[Literal["2.0.70"]] = Field(default="2.0.70")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -209,15 +209,14 @@ class Metadata(DataCoreModel):
             for component in values.instrument.components:
                 device_names.append(component.name)
         if values.procedures:
-            for device in values.procedures.implanted_devices:
-                device_names.append(device.name)
+            device_names.extend(values.procedures.get_device_names())
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
             missing_devices = set(active_devices) - set(device_names)
             raise ValueError(
                 f"Active devices '{missing_devices}' were not found in either the Instrument.components or "
-                f"Procedures.implanted_devices."
+                f"in an individual procedure's implanted_device field."
             )
 
         return values
@@ -233,8 +232,7 @@ class Metadata(DataCoreModel):
             for component in self.instrument.components:
                 device_names.append(component.name)
         if self.procedures:
-            for device in self.procedures.implanted_devices:
-                device_names.append(device.name)
+            device_names.extend(self.procedures.get_device_names())
 
         # Check if all connection devices are in the available devices
         if self.acquisition:
@@ -245,23 +243,6 @@ class Metadata(DataCoreModel):
                         raise ValueError(
                             f"Connection '{connection}' contains devices not found in instrument or procedures."
                         )
-
-        return self
-
-    @model_validator(mode="after")
-    def validate_unique_configurations(self):
-        """Validate that Procedures.configurations and Acquisition.configurations don't share target devices."""
-
-        if self.procedures and self.acquisition:
-            procedure_configurations = [config.device_name for config in self.procedures.configurations]
-            acquisition_configurations = []
-            for data_stream in self.acquisition.data_streams:
-                acquisition_configurations.extend([config.device_name for config in data_stream.configurations])
-
-            if set(procedure_configurations) & set(acquisition_configurations):
-                # Get the overlap
-                overlap = set(procedure_configurations) & set(acquisition_configurations)
-                raise ValueError(f"Procedures and Acquisition configurations share target devices: {overlap}")
 
         return self
 

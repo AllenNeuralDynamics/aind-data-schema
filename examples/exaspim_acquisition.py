@@ -20,9 +20,9 @@ from aind_data_schema.components.configs import (
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, Translation
 from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.core.acquisition import Acquisition, DataStream
-from aind_data_schema.core.procedures import Reagent
 from aind_data_schema.components.measurements import Calibration, Maintenance
 
 # If a timezone isn't specified, the timezone of the computer running this

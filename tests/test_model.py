@@ -4,9 +4,8 @@ import unittest
 
 import pydantic
 
-from examples.model import m
-
 from aind_data_schema.core.model import Model
+from examples.model import m
 
 
 class ModelTests(unittest.TestCase):

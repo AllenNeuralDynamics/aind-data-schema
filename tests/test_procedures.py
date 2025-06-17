@@ -11,31 +11,29 @@ from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import ConcentrationUnit, CurrentUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
 
-from aind_data_schema.components.configs import ProbeConfig
+from aind_data_schema.components.configs import CatheterConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
-from aind_data_schema.components.devices import FiberProbe
+from aind_data_schema.components.devices import Catheter
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.procedures import (
-    BrainInjection,
-    Craniotomy,
-    CraniotomyType,
-    HCRSeries,
-    Injection,
+from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
     InjectionProfile,
     NonViralMaterial,
-    PlanarSectioning,
-    ProbeImplant,
-    Procedures,
-    Section,
-    SectionOrientation,
-    SpecimenProcedure,
-    Surgery,
     TarsVirusIdentifiers,
     ViralMaterial,
 )
+from aind_data_schema.components.specimen_procedures import (
+    HCRSeries,
+    PlanarSectioning,
+    Section,
+    SectionOrientation,
+    SpecimenProcedure,
+)
+from aind_data_schema.components.subject_procedures import BrainInjection, Injection, Surgery
+from aind_data_schema.components.surgery_procedures import CatheterImplant, Craniotomy, CraniotomyType
+from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.utils.exceptions import OneOfError
-from examples.procedures import p as procedures
+from aind_data_schema_models.mouse_anatomy import MouseBloodVessels
 
 
 class ProceduresTests(unittest.TestCase):
@@ -131,29 +129,6 @@ class ProceduresTests(unittest.TestCase):
         p = Procedures(
             subject_id="12345",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            implanted_devices=[
-                FiberProbe(
-                    name="Probe A",
-                    manufacturer=Organization.DORIC,
-                    model="8",
-                    core_diameter=2,
-                    numerical_aperture=1,
-                    ferrule_material="Ceramic",
-                    total_length=10,
-                )
-            ],
-            configurations=[
-                ProbeConfig(
-                    device_name="Probe A",
-                    primary_targeted_structure=CCFv3.MOP,
-                    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-                    transform=[
-                        Translation(
-                            translation=[1, 2, 0, 2],
-                        ),
-                    ],
-                ),
-            ],
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
@@ -246,10 +221,6 @@ class ProceduresTests(unittest.TestCase):
                                 ],
                             ],
                             targeted_structure=CCFv3.VISP6A,
-                        ),
-                        ProbeImplant(
-                            protocol_id="dx.doi.org/120.123/fkjd",
-                            implanted_device_names=["Probe A"],
                         ),
                     ],
                 )
@@ -690,17 +661,48 @@ class ProceduresTests(unittest.TestCase):
             )
         self.assertIn("Either volume or injection_current must be provided.", str(e.exception))
 
-    def test_validate_configurations(self):
-        """Validate that configurations without an implanted_device throw errors"""
+    def test_get_device_names(self):
+        """Test get_device_names method returns correct device names"""
 
-        proc = procedures.model_copy()
-        proc.implanted_devices = []
+        # Test with no devices
+        procedures = Procedures(subject_id="12345")
+        self.assertEqual(procedures.get_device_names(), [])
 
-        with self.assertRaises(ValidationError) as e:
+    def test_get_device_names_with_surgery_procedures(self):
+        """Test get_device_names method with nested surgery procedures"""
 
-            Procedures.model_validate_json(proc.model_dump_json())
+        device1 = Catheter(
+            name="Catheter",
+            catheter_port="Single",
+            catheter_design="Magnetic",
+            catheter_material="Naked",
+        )
 
-        self.assertIn("Configuration for Probe A in Procedures.configurations", repr(e.exception))
+        config = CatheterConfig(
+            device_name="Catheter",
+            targeted_structure=MouseBloodVessels.CAROTID_ARTERY,
+        )
+
+        # Test with surgery containing procedures with implanted devices
+        surgery_procedure = CatheterImplant(
+            where_performed=Organization.AIND,
+            implanted_device=device1,
+            device_config=config,
+        )
+
+        procedures = Procedures(
+            subject_id="12345",
+            subject_procedures=[
+                Surgery(
+                    start_date=self.start_date,
+                    experimenters=[Person(name="Test Person")],
+                    procedures=[surgery_procedure],
+                )
+            ],
+        )
+        device_names = procedures.get_device_names()
+        self.assertIn("Catheter", device_names)
+        self.assertEqual(len(device_names), 1)
 
 
 if __name__ == "__main__":

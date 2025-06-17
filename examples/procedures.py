@@ -3,18 +3,23 @@
 from datetime import datetime, timezone
 
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.core.procedures import (
-    Anaesthetic,
-    Craniotomy,
-    CraniotomyType,
-    BrainInjection,
-    Perfusion,
-    Procedures,
-    Surgery,
-    TarsVirusIdentifiers,
-    ViralMaterial,
+from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
     InjectionProfile,
+    TarsVirusIdentifiers,
+    ViralMaterial,
+)
+from aind_data_schema.components.surgery_procedures import (
+    Anaesthetic,
+    BrainInjection,
+    Craniotomy,
+    CraniotomyType,
+    Perfusion,
+    ProbeImplant,
+)
+from aind_data_schema.core.procedures import (
+    Procedures,
+    Surgery,
 )
 from aind_data_schema.components.devices import EphysProbe
 from aind_data_schema.components.configs import ProbeConfig
@@ -36,6 +41,22 @@ coordinate_system = CoordinateSystemLibrary.BREGMA_RASD
 coordinate_system.name = "LAMBDA_RASD"
 coordinate_system.origin = Origin.LAMBDA
 
+probe = EphysProbe(
+    name="Probe A",
+    probe_model="Neuropixels UHD (Fixed)",
+)
+
+config = ProbeConfig(
+    primary_targeted_structure=CCFv3.VTA,
+    device_name="Probe A",
+    coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
+    transform=[
+        Translation(
+            translation=[-600, -3050, 0, 4200],
+        ),
+    ],
+)
+
 surgery1 = Surgery(
     start_date=t.date(),
     protocol_id="doi",
@@ -47,6 +68,10 @@ surgery1 = Surgery(
     coordinate_system=coordinate_system,
     workstation_id="SWS 3",
     procedures=[
+        ProbeImplant(
+            implanted_device=probe,
+            device_config=config,
+        ),
         Craniotomy(
             craniotomy_type=CraniotomyType.CIRCLE,
             protocol_id="1234",
@@ -89,26 +114,8 @@ surgery1 = Surgery(
     ],
 )
 
-probe = EphysProbe(
-    name="Probe A",
-    probe_model="Neuropixels UHD (Fixed)",
-)
-
 p = Procedures(
     subject_id="625100",
-    implanted_devices=[probe],
-    configurations=[
-        ProbeConfig(
-            primary_targeted_structure=CCFv3.VTA,
-            device_name="Probe A",
-            coordinate_system=CoordinateSystemLibrary.MPM_MANIP_RFB,
-            transform=[
-                Translation(
-                    translation=[-600, -3050, 0, 4200],
-                ),
-            ],
-        ),
-    ],
     subject_procedures=[
         surgery1,
         Surgery(
