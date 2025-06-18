@@ -12,6 +12,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.components.devices import Device
 
 
 class Sex(str, Enum):
@@ -139,3 +140,7 @@ class HumanSubject(DataModel):
         description="Where the subject was acquired from.",
         title="Source",
     )
+
+
+class PhantomSubject(Device):
+    """Description of a phantom subject"""
