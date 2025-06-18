@@ -46,6 +46,11 @@ class TrainingProtocol(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Training protocol ID")
     start_date: date = Field(..., title="Training protocol start date")
     end_date: Optional[date] = Field(default=None, title="Training protocol end date")
+    curriculum_code: Optional[Code] = Field(
+        default=None,
+        title="Curriculum code",
+        description="Code describing the directed graph used for the training curriculum",
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
