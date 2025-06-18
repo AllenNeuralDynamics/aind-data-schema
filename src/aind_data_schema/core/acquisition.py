@@ -188,7 +188,9 @@ class StimulusEpoch(DataModel):
     training_protocol_name: Optional[str] = Field(
         default=None,
         title="Training protocol name",
-        description="Name of the training protocol used during the acquisition, must match a protocol in the Procedures",
+        description=(
+            "Name of the training protocol used during the acquisition, " "must match a protocol in the Procedures"
+        ),
     )
     curriculum_status: Optional[str] = Field(
         default=None,
