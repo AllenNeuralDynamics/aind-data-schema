@@ -389,6 +389,17 @@ class CoordinateSystemLibrary:
         ],
     )
 
+    IMAGE_XYZ = CoordinateSystem(
+        name="IMAGE_XYZ",
+        origin=Origin.ORIGIN,
+        axis_unit=SizeUnit.PX,
+        axes=[
+            Axis(name=AxisName.X, direction=Direction.POS),
+            Axis(name=AxisName.Y, direction=Direction.POS),
+            Axis(name=AxisName.Z, direction=Direction.POS),
+        ],
+    )
+
 
 class AtlasLibrary:
     """Library of common atlases"""
