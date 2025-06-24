@@ -142,5 +142,10 @@ class HumanSubject(DataModel):
     )
 
 
-class PhantomSubject(Device):
+class PhantomSubject(DataModel):
     """Description of a phantom subject"""
+
+    description: str = Field(..., title="Description")
+    devices: Optional[list[Device]] = Field(
+        default=None, title="Devices", description="For phantoms that are built up from one or more devices."
+    )
