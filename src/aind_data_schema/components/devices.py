@@ -209,8 +209,29 @@ class Filter(Device):
     # optional fields
     cut_off_wavelength: Optional[int] = Field(default=None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[int] = Field(default=None, title="Cut-on wavelength (nm)")
-    center_wavelength: Optional[int] = Field(default=None, title="Center wavelength (nm)")
+    center_wavelength: Optional[int | list[int]] = Field(
+        default=None,
+        title="Center wavelength (nm)",
+        description="Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters",
+    )
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
+
+    @model_validator(mode="after")
+    def validate_multi_filters(self):
+        """Check for multiband/multinotch filters and make sure center_wavelength is a list"""
+
+        if self.filter_type in {FilterType.MULTIBAND, FilterType.MULTI_NOTCH}:
+            if not isinstance(self.center_wavelength, list):
+                raise ValueError(
+                    "For multiband or multinotch filters, center_wavelength must be a list of wavelengths."
+                )
+        else:
+            if isinstance(self.center_wavelength, list):
+                raise ValueError(
+                    "For non-multiband/non-multinotch filters, center_wavelength must be a single wavelength."
+                )
+
+        return self
 
 
 class Lens(Device):

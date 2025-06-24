@@ -7,6 +7,7 @@ from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
+from aind_data_schema.components.devices import Filter, FilterType
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     DataInterface,
@@ -129,6 +130,61 @@ class DeviceTests(unittest.TestCase):
             "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
             str(e2.exception),
         )
+
+
+class FilterTests(unittest.TestCase):
+    """tests filter schemas"""
+
+    def test_filter(self):
+        """tests the filter validator"""
+
+        # Test valid single center wavelength
+        valid_filter_single = Filter(
+            name="test_filter",
+            filter_type=FilterType.BANDPASS,
+            manufacturer=Organization.CHROMA,
+            center_wavelength=500,
+        )
+        self.assertEqual(valid_filter_single.center_wavelength, 500)
+
+        # Test valid multiple center wavelengths
+        valid_filter_multi = Filter(
+            name="test_filter_multi",
+            filter_type=FilterType.MULTI_NOTCH,
+            manufacturer=Organization.CHROMA,
+            center_wavelength=[450, 550, 650],
+        )
+        self.assertEqual(valid_filter_multi.center_wavelength, [450, 550, 650])
+
+        # Test error for multi-band filter with single center wavelength
+        with self.assertRaises(ValueError) as e1:
+            Filter(
+                name="test_filter_multi_single",
+                filter_type=FilterType.MULTIBAND,
+                manufacturer=Organization.CHROMA,
+                center_wavelength=500,
+            )
+        self.assertIn("center_wavelength must be a list of wavelengths", str(e1.exception))
+
+        # Test error for single-band filter with multiple center wavelengths
+        with self.assertRaises(ValueError) as e2:
+            Filter(
+                name="test_filter_single_multi",
+                filter_type=FilterType.BANDPASS,
+                manufacturer=Organization.CHROMA,
+                center_wavelength=[450, 550],
+            )
+        self.assertIn("center_wavelength must be a single wavelength", str(e2.exception))
+
+        # Test with MULTI_NOTCH filter type and single wavelength (should fail)
+        with self.assertRaises(ValueError) as e3:
+            Filter(
+                name="test_filter_notch_single",
+                filter_type=FilterType.MULTI_NOTCH,
+                manufacturer=Organization.CHROMA,
+                center_wavelength=500,
+            )
+        self.assertIn("center_wavelength must be a list of wavelengths", str(e3.exception))
 
 
 if __name__ == "__main__":
