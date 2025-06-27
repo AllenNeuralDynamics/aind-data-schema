@@ -1,4 +1,4 @@
-"""schema describing imaging acquisition"""
+"""Schema describing data acquisition metadata and configurations"""
 
 from decimal import Decimal
 from typing import List, Literal, Optional
@@ -83,7 +83,9 @@ class PerformanceMetrics(DataModel):
 
 
 class DataStream(DataModel):
-    """Data streams with a start and stop time"""
+    """A set of devices that are acquiring data and their configurations starting and stopping at approximately the
+    same time.
+    """
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
     stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
@@ -114,12 +116,19 @@ class DataStream(DataModel):
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig
-    ] = Field(..., title="Device configurations")
+    ] = Field(
+        ...,
+        title="Device configurations",
+        description="Configurations are parameters controlling active devices during this stream",
+    )
 
     connections: List[Connection] = Field(
         default=[],
         title="Connections",
-        description="Connections that are specific to this acquisition, and are not present in the Instrument",
+        description=(
+            "Connections are links between devices that are specific to this acquisition (i.e."
+            " not already defined in the Instrument)"
+        ),
     )
 
     @model_validator(mode="after")
@@ -152,7 +161,9 @@ class DataStream(DataModel):
 
 
 class StimulusEpoch(DataModel):
-    """Description of stimulus used during data acquisition"""
+    """All stimuli being presented to the subject. starting and stopping at approximately the
+    same time. Not all acquisitions have StimulusEpochs.
+    """
 
     stimulus_start_time: AwareDatetimeWithDefault = Field(
         ...,
@@ -189,7 +200,11 @@ class StimulusEpoch(DataModel):
 
 
 class Acquisition(DataCoreModel):
-    """Description of an imaging acquisition"""
+    """Description of data acquisition metadata including streams, stimuli, and experimental setup.
+
+    The acquisition metadata is split into two parallel pieces: the DataStream and the StimulusEpoch.
+    At any given moment in time the active DataStream(s) represents all modalities of data being acquired,
+    while the StimulusEpoch represents all stimuli being presented."""
 
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"

@@ -77,14 +77,14 @@ class ConnectionDirection(str, Enum):
 
 
 class ConnectionData(DataModel):
-    """Data for a connection"""
+    """Configuration data for a device connection including direction and port information"""
 
     direction: Optional[ConnectionDirection] = Field(default=None, title="Connection direction")
     port: Optional[str] = Field(default=None, title="Connection port index/name")
 
 
 class Connection(DataModel):
-    """Connection between two devices"""
+    """Description of a connection between devices in an instrument"""
 
     device_names: List[str] = Field(..., title="Names of connected devices")
     connection_data: Dict[str, ConnectionData] = Field(default={}, title="Connection data")

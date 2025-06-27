@@ -46,7 +46,7 @@ class ModelPretraining(DataModel):
 
 
 class Model(DataCoreModel):
-    """Description of an analysis model"""
+    """Description of a machine learning model including architecture, training, and evaluation details"""
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/model.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})

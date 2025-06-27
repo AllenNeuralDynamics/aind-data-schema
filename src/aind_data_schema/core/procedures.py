@@ -19,7 +19,7 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
 class Procedures(DataCoreModel):
-    """Description of all procedures performed on a subject"""
+    """Description of all procedures performed on a subject, including surgeries, injections, and tissue processing"""
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})

@@ -98,7 +98,7 @@ class CurationMetric(QCMetric):
 
 
 class QualityControl(DataCoreModel):
-    """Description of quality metrics for a data asset"""
+    """Collection of quality control metrics evaluated on a data asset to determine pass/fail status"""
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
