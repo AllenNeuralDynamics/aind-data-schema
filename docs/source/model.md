@@ -10,7 +10,7 @@ Thus new evaluations and training steps can easily be appended for new model ver
 
 ### Model
 
-Description of an analysis model
+Description of a machine learning model including architecture, training, and evaluation details
 
 | Field | Type | Description |
 |-------|------|-------------|

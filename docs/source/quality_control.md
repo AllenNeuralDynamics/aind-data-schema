@@ -65,7 +65,7 @@ During analysis there are many situations where multiple data assets need to be 
 
 ### QualityControl
 
-Description of quality metrics for a data asset
+Collection of quality control metrics evaluated on a data asset to determine pass/fail status
 
 | Field | Type | Description |
 |-------|------|-------------|

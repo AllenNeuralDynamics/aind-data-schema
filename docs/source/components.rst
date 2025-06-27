@@ -9,6 +9,7 @@ Components are models that are used to build up each of the core files. These in
    :maxdepth: 2
 
    components/configs
+   components/connections
    components/coordinates
    components/devices
    components/identifiers

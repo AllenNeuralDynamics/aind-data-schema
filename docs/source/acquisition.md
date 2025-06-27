@@ -65,7 +65,11 @@ Example acquisition demonstrating **3**: one stimulus epoch, multiple data strea
 
 ### Acquisition
 
-Description of an imaging acquisition
+Description of data acquisition metadata including streams, stimuli, and experimental setup.
+
+The acquisition metadata is split into two parallel pieces: the DataStream and the StimulusEpoch.
+At any given moment in time the active DataStream(s) represents all modalities of data being acquired,
+while the StimulusEpoch represents all stimuli being presented.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -106,7 +110,8 @@ Details about the subject during an acquisition
 
 ### DataStream
 
-Data streams with a start and stop time
+A set of devices that are acquiring data and their configurations starting and stopping at approximately the
+same time.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -116,8 +121,8 @@ Data streams with a start and stop time
 | `code` | Optional[List[[Code](components/identifiers.md#code)]] |  |
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig)] |  |
-| `connections` | List[[Connection](instrument.md#connection)] | Connections that are specific to this acquisition, and are not present in the Instrument |
+| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig)] | Configurations are parameters controlling active devices during this stream |
+| `connections` | List[[Connection](components/connections.md#connection)] | Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument) |
 
 
 ### PerformanceMetrics
@@ -136,7 +141,8 @@ Summary of a StimulusEpoch
 
 ### StimulusEpoch
 
-Description of stimulus used during data acquisition
+All stimuli being presented to the subject. starting and stopping at approximately the
+same time. Not all acquisitions have StimulusEpochs.
 
 | Field | Type | Description |
 |-------|------|-------------|

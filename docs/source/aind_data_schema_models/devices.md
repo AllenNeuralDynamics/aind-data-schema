@@ -131,6 +131,7 @@ Filter type
 | `MULTIBAND` | `Multiband` |
 | `ND` | `Neutral density` |
 | `NOTCH` | `Notch` |
+| `MULTI_NOTCH` | `Multi notch` |
 | `SHORTPASS` | `Short pass` |
 
 

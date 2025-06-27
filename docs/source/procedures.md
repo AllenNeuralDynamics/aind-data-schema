@@ -20,7 +20,7 @@ Sectioned specimens must have a unique number appended as a suffix to the subjec
 
 ### Procedures
 
-Description of all procedures performed on a subject
+Description of all procedures performed on a subject, including surgeries, injections, and tissue processing
 
 | Field | Type | Description |
 |-------|------|-------------|
