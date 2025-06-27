@@ -14,9 +14,14 @@ class Calibration(DeviceConfig):
 
     calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: List[float | str] = Field(..., description="Calibration input", title="inputs")
+    input: List[float | str] = Field(..., description="Calibration input", title="Inputs")
     input_unit: UNITS = Field(..., title="Input unit")
-    output: List[float | str] = Field(..., description="Calibration output", title="outputs")
+    repeats: Optional[int] = Field(
+        default=None,
+        title="Number of repeats",
+        description="If each input was repeated multiple times, provide the number of repeats",
+    )
+    output: List[float | str] = Field(..., description="Calibration output (provide the average if repeated)", title="Outputs")
     output_unit: UNITS = Field(..., title="Output unit")
     notes: Optional[str] = Field(
         default=None,
@@ -30,7 +35,12 @@ class VolumeCalibration(Calibration):
 
     input: List[float] = Field(..., title="Input times", description="Length of time solenoid is open")
     input_unit: TimeUnit = Field(..., title="Input unit")
-    output: List[float] = Field(..., title="Output", description="Volume output")
+    repeats: Optional[int] = Field(
+        default=None,
+        title="Number of repeats",
+        description="If each input was repeated multiple times, provide the number of repeats",
+    )
+    output: List[float] = Field(..., title="Output", description="Volume output (provide the average if repeated)")
     output_unit: VolumeUnit = Field(..., title="Output unit")
 
     description: Literal["Volume measured for various solenoid opening times"] = (
@@ -43,7 +53,7 @@ class PowerCalibration(Calibration):
 
     input: List[float] = Field(..., title="Input", description="Power or percentage input strength")
     input_unit: PowerUnit = Field(..., title="Input unit")
-    output: List[float] = Field(..., title="Output", description="Power output")
+    output: List[float] = Field(..., title="Output", description="Power output (provide the average if repeated)")
     output_unit: PowerUnit = Field(..., title="Output unit")
 
     description: Literal["Power measured for various power or percentage input strengths"] = (
