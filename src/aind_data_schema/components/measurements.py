@@ -21,7 +21,9 @@ class Calibration(DeviceConfig):
         title="Number of repeats",
         description="If each input was repeated multiple times, provide the number of repeats",
     )
-    output: List[float | str] = Field(..., description="Calibration output (provide the average if repeated)", title="Outputs")
+    output: List[float | str] = Field(
+        ..., description="Calibration output (provide the average if repeated)", title="Outputs"
+    )
     output_unit: UNITS = Field(..., title="Output unit")
     notes: Optional[str] = Field(
         default=None,
