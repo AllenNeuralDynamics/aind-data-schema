@@ -39,12 +39,10 @@ from aind_data_schema.components.devices import (
     OlfactometerChannelType,
     ScanningStage,
 )
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import (
     DEVICES_REQUIRED,
-    Connection,
-    ConnectionData,
-    ConnectionDirection,
     Instrument,
 )
 from examples.ephys_instrument import inst as ephys_instrument

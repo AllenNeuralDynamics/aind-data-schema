@@ -14,7 +14,7 @@ from aind_data_schema.core.acquisition import (
     AcquisitionSubjectDetails,
     PerformanceMetrics,
 )
-from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,

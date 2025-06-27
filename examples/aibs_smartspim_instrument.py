@@ -16,7 +16,8 @@ from aind_data_schema.components.devices import (
     Microscope,
 )
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
 )
