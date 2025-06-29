@@ -9,7 +9,7 @@ from pydantic import Field
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
-from aind_data_schema.components.identifiers import Person
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.components.injection_procedures import Injection
 from aind_data_schema.components.surgery_procedures import (
     Anaesthetic,
@@ -46,6 +46,11 @@ class TrainingProtocol(DataModel):
     protocol_id: Optional[str] = Field(default=None, title="Training protocol ID")
     start_date: date = Field(..., title="Training protocol start date")
     end_date: Optional[date] = Field(default=None, title="Training protocol end date")
+    curriculum_code: Optional[Code] = Field(
+        default=None,
+        title="Curriculum code",
+        description="Code describing the directed graph used for the training curriculum",
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
 

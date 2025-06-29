@@ -24,6 +24,8 @@ from aind_data_schema.core.processing import DataProcess, Processing, ProcessNam
 from aind_data_schema.core.subject import Subject
 from examples.aibs_smartspim_instrument import inst as spim_inst
 from examples.ephys_instrument import inst as ephys_inst
+from aind_data_schema.components.subject_procedures import TrainingProtocol
+from aind_data_schema.core.acquisition import StimulusEpoch
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -424,6 +426,108 @@ class TestMetadata(unittest.TestCase):
             "in an individual procedure's implanted_device field.",
             str(context.exception),
         )
+
+    def test_validate_training_protocol_references(self):
+        """Tests that training protocol references are validated correctly."""
+
+        # Case where training protocol references match
+        training_protocol = TrainingProtocol.model_construct(training_name="Protocol A")
+        procedures = Procedures.model_construct(subject_procedures=[training_protocol])
+        stimulus_epoch = StimulusEpoch.model_construct(training_protocol_name="Protocol A")
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            stimulus_epochs=[stimulus_epoch],
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        metadata = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            procedures=procedures,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where training protocol reference doesn't match
+        stimulus_epoch_invalid = StimulusEpoch.model_construct(training_protocol_name="Missing Protocol")
+        acquisition_invalid = Acquisition.model_construct(
+            instrument_id="Test",
+            stimulus_epochs=[stimulus_epoch_invalid],
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                procedures=procedures,
+                acquisition=acquisition_invalid,
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            (
+                "Training protocol 'Missing Protocol' in StimulusEpoch not found in Procedures."
+                " Available protocols: ['Protocol A']"
+            ),
+            warning_messages,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where no training protocols exist in procedures
+        procedures_empty = Procedures.model_construct(subject_procedures=[])
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                procedures=procedures_empty,
+                acquisition=acquisition_invalid,
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            (
+                "Training protocol 'Missing Protocol' in StimulusEpoch not found in Procedures. "
+                "Available protocols: []"
+            ),
+            warning_messages,
+        )
+        self.assertIsNotNone(metadata)
+
+        # Case where stimulus epoch has no training protocol name (should pass)
+        stimulus_epoch_none = StimulusEpoch.model_construct(training_protocol_name=None)
+        acquisition_none = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[],
+            stimulus_epochs=[stimulus_epoch_none],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        metadata_none = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            procedures=procedures,
+            acquisition=acquisition_none,
+        )
+        self.assertIsNotNone(metadata_none)
+
+        # Case where acquisition is None (should pass)
+        metadata_no_acquisition = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            procedures=procedures,
+        )
+        self.assertIsNotNone(metadata_no_acquisition)
+
+        # Case where procedures is None (should pass)
+        metadata_no_procedures = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_no_procedures)
 
 
 if __name__ == "__main__":

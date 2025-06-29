@@ -25,6 +25,7 @@ from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.model import Model
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
+from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.subject import Subject
@@ -242,6 +243,28 @@ class Metadata(DataCoreModel):
                     if not all(device in device_names for device in connection.device_names):
                         raise ValueError(
                             f"Connection '{connection}' contains devices not found in instrument or procedures."
+                        )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_training_protocol_references(self):
+        """Validate that training_protocol_name in StimulusEpoch matches a TrainingProtocol in procedures"""
+
+        if self.acquisition and self.procedures:
+            # Get all training protocol names from procedures
+            training_protocol_names = []
+            for procedure in self.procedures.subject_procedures:
+                if isinstance(procedure, TrainingProtocol):
+                    training_protocol_names.append(procedure.training_name)
+
+            # Check each stimulus epoch's training_protocol_name
+            for stimulus_epoch in self.acquisition.stimulus_epochs:
+                if stimulus_epoch.training_protocol_name:
+                    if stimulus_epoch.training_protocol_name not in training_protocol_names:
+                        warnings.warn(
+                            f"Training protocol '{stimulus_epoch.training_protocol_name}' in StimulusEpoch "
+                            f"not found in Procedures. Available protocols: {training_protocol_names}"
                         )
 
         return self
