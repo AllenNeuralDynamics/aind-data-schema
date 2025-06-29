@@ -465,7 +465,7 @@ class TestMetadata(unittest.TestCase):
                 procedures=procedures,
                 acquisition=acquisition_invalid,
             )
-        
+
         warning_messages = [str(warning.message) for warning in w.warnings]
         self.assertIn(
             (
@@ -485,7 +485,7 @@ class TestMetadata(unittest.TestCase):
                 procedures=procedures_empty,
                 acquisition=acquisition_invalid,
             )
-        
+
         warning_messages = [str(warning.message) for warning in w.warnings]
         self.assertIn(
             (
