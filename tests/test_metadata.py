@@ -458,37 +458,43 @@ class TestMetadata(unittest.TestCase):
             subject_details=AcquisitionSubjectDetails.model_construct(),
         )
 
-        with self.assertRaises(ValueError) as context:
-            Metadata(
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
                 procedures=procedures,
                 acquisition=acquisition_invalid,
             )
+        
+        warning_messages = [str(warning.message) for warning in w.warnings]
         self.assertIn(
             (
                 "Training protocol 'Missing Protocol' in StimulusEpoch not found in Procedures."
                 " Available protocols: ['Protocol A']"
             ),
-            str(context.exception),
+            warning_messages,
         )
+        self.assertIsNotNone(metadata)
 
         # Case where no training protocols exist in procedures
         procedures_empty = Procedures.model_construct(subject_procedures=[])
-        with self.assertRaises(ValueError) as context:
-            Metadata(
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
                 procedures=procedures_empty,
                 acquisition=acquisition_invalid,
             )
+        
+        warning_messages = [str(warning.message) for warning in w.warnings]
         self.assertIn(
             (
                 "Training protocol 'Missing Protocol' in StimulusEpoch not found in Procedures. "
                 "Available protocols: []"
             ),
-            str(context.exception),
+            warning_messages,
         )
+        self.assertIsNotNone(metadata)
 
         # Case where stimulus epoch has no training protocol name (should pass)
         stimulus_epoch_none = StimulusEpoch.model_construct(training_protocol_name=None)

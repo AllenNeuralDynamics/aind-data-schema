@@ -262,7 +262,7 @@ class Metadata(DataCoreModel):
             for stimulus_epoch in self.acquisition.stimulus_epochs:
                 if stimulus_epoch.training_protocol_name:
                     if stimulus_epoch.training_protocol_name not in training_protocol_names:
-                        raise ValueError(
+                        warnings.warn(
                             f"Training protocol '{stimulus_epoch.training_protocol_name}' in StimulusEpoch "
                             f"not found in Procedures. Available protocols: {training_protocol_names}"
                         )
