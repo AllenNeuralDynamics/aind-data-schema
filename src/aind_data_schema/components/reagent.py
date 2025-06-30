@@ -92,4 +92,4 @@ class FluorescentStain(Reagent):
     target: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target of the stain")
     stain_type: StainType = Field(..., title="Stain type")
     fluorophore: Fluorophore = Field(..., title="Fluorophore used in the stain")
-    species: Optional[Species] = Field(default=None, title="Species targeted by the stain")
+    species: Optional[Species.ONE_OF] = Field(default=None, title="Species targeted by the stain")
