@@ -255,7 +255,7 @@ class ProceduresTests(unittest.TestCase):
                 protocol_id=["10"],
                 notes=None,
             )
-        self.assertIn("Antibody required if procedure_type is Immunolabeling", repr(e.exception))
+        self.assertIn("FluorescentStain required if procedure_type is Immunolabeling", repr(e.exception))
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
