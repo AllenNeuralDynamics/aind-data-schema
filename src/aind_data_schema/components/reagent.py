@@ -7,7 +7,7 @@ from typing import List, Optional
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.species import Species
-from aind_data_schema_models.units import ConcentrationUnit, MassUnit, SizeUnit
+from aind_data_schema_models.units import MassUnit, SizeUnit
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, Discriminated
