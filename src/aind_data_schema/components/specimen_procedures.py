@@ -110,10 +110,14 @@ class SpecimenProcedure(DataModel):
         description="Parameters defined in the protocol and their value during this procedure",
     )
 
-    procedure_details: DiscriminatedList[HCRSeries | FluorescentStain | PlanarSectioning | Reagent | GeneProbeSet] = Field(
+    procedure_details: DiscriminatedList[HCRSeries | 
+                                         FluorescentStain | 
+                                         PlanarSectioning | 
+                                         Reagent | 
+                                         GeneProbeSet] = Field(
         default=[],
         title="Procedure details",
-        description="",
+        description="Details of the procedures, including reagents and sectioning information.",
     )
 
     notes: Optional[str] = Field(default=None, title="Notes")
