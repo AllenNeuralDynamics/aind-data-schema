@@ -13,14 +13,6 @@ from pydantic import Field
 from aind_data_schema.base import DataModel, Discriminated
 
 
-class ImmunolabelClass(str, Enum):
-    """Type of antibodies"""
-
-    PRIMARY = "Primary"
-    SECONDARY = "Secondary"
-    CONJUGATE = "Conjugate"
-
-
 class StainType(str, Enum):
     """Stain types for probes describing what is being labeled"""
 
@@ -55,9 +47,6 @@ class Reagent(DataModel):
     rrid: Optional[PIDName] = Field(default=None, title="Research Resource ID")
     lot_number: str = Field(..., title="Lot number")
     expiration_date: Optional[date] = Field(default=None, title="Lot expiration date")
-
-
-# Gene-targeting oligonucleotide probes
 
 
 class OligoProbe(DataModel):
