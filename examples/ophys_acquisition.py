@@ -68,7 +68,7 @@ a = Acquisition(
     experimenters=[Person(name="Scientist Smith")],
     acquisition_start_time=t,
     acquisition_end_time=t,
-    subject_id="652567",
+    subject_id=["652567"],
     acquisition_type="Parameter Testing",
     instrument_id="FIP1",
     ethics_review_id=["2115"],

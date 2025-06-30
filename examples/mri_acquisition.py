@@ -77,7 +77,7 @@ stream = DataStream(
 )
 
 acquisition = Acquisition(
-    subject_id="123456",
+    subject_id=["123456"],
     acquisition_start_time="2024-03-12T16:27:55.584892Z",
     acquisition_end_time="2024-03-12T16:27:55.584892Z",
     experimenters=[Person(name="John Smith")],

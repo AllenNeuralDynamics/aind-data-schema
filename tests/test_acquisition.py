@@ -84,7 +84,7 @@ class AcquisitionTest(unittest.TestCase):
 
         mri = Acquisition(
             experimenters=[Person(name="Mam Moth")],
-            subject_id="123456",
+            subject_id=["123456"],
             acquisition_start_time=datetime.now(tz=timezone.utc),
             acquisition_end_time=datetime.now(tz=timezone.utc),
             protocol_id=["doi_path"],
@@ -130,7 +130,7 @@ class AcquisitionTest(unittest.TestCase):
                 experimenters=[Person(name="Mam Moth")],
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
-                subject_id="123456",
+                subject_id=["123456"],
                 acquisition_type="Test",
                 instrument_id="1234",
                 subject_details=AcquisitionSubjectDetails(
@@ -209,7 +209,7 @@ class AcquisitionTest(unittest.TestCase):
                 experimenters=[Person(name="Mam Moth")],
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
-                subject_id="123456",
+                subject_id=["123456"],
                 acquisition_type="Test",
                 instrument_id="1234",
                 subject_details=AcquisitionSubjectDetails(
@@ -245,7 +245,7 @@ class AcquisitionTest(unittest.TestCase):
             experimenters=[Person(name="Mam Moth")],
             acquisition_start_time=datetime.now(),
             acquisition_end_time=datetime.now(),
-            subject_id="123456",
+            subject_id=["123456"],
             specimen_id="SP123456",
             acquisition_type="Test",
             instrument_id="1234",

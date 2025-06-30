@@ -208,9 +208,9 @@ class Acquisition(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.30"]] = Field(default="2.0.30")
 
     # ID
-    subject_id: str = Field(default=..., title="Subject ID")
-    specimen_id: Optional[str] = Field(
-        default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
+    subject_id: List[str] = Field(default=..., title="Subject ID(s)")
+    specimen_id: Optional[List[str]] = Field(
+        default=None, title="Specimen ID", description="Specimen ID(s) is required for in vitro imaging modalities"
     )
 
     # Acquisition metadata

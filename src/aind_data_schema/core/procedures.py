@@ -85,10 +85,10 @@ class Procedures(DataCoreModel):
 
         # Return if no specimen procedures
         if values.specimen_procedures:
-            subject_id = values.subject_id
+            subject_id = [values.subject_id]  # Convert to list for compatibility function
             specimen_ids = [spec_proc.specimen_id for spec_proc in values.specimen_procedures]
 
-            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
+            if not subject_specimen_id_compatibility(subject_id, specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
 
         return values

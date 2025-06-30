@@ -413,7 +413,7 @@ acquisition = Acquisition(
         Person(name="Bryan MacLennan"),
         Person(name="Kenta Hagihara"),
     ],
-    subject_id="687582",
+    subject_id=["687582"],
     acquisition_start_time=t_start,
     acquisition_end_time=t_end,
     acquisition_type="PavlovianConditioning",

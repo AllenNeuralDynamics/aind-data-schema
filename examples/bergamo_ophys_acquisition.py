@@ -72,7 +72,7 @@ a = Acquisition(
     experimenters=[Person(name="John Smith")],
     acquisition_start_time=t,
     acquisition_end_time=t,
-    subject_id="652567",
+    subject_id=["652567"],
     acquisition_type="BCI Photometry",
     instrument_id="322_bergamo_20220705",
     ethics_review_id=["2115"],

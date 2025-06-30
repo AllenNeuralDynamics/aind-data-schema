@@ -4,7 +4,7 @@ import inspect
 import json
 import logging
 import warnings
-from typing import Dict, Literal, Optional, get_args
+from typing import Dict, List, Literal, Optional, get_args
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import (
@@ -83,19 +83,15 @@ class Metadata(DataCoreModel):
     other_identifiers: Optional[DatabaseIdentifiers] = Field(
         default=None, title="Other identifiers", description="Links to the data asset on secondary platforms."
     )
-    # We can make the DataCoreModel fields optional for now and do more
-    # granular validations using validators. We may have some older data
-    # assets in S3 that don't have metadata attached. We'd still like to
-    # index that data, but we can flag those instances as MISSING or UNKNOWN
-    subject: Optional[Subject] = Field(
+    subjects: Optional[List[Subject]] = Field(
         default=None,
         title="Subject",
-        description="Subject of data collection.",
+        description="Subject(s) of data collection.",
     )
     data_description: Optional[DataDescription] = Field(
         default=None, title="Data Description", description="A logical collection of data files."
     )
-    procedures: Optional[Procedures] = Field(
+    procedures: Optional[List[Procedures]] = Field(
         default=None, title="Procedures", description="All procedures performed on a subject."
     )
     instrument: Optional[Instrument] = Field(
@@ -159,7 +155,8 @@ class Metadata(DataCoreModel):
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
-                for subject_procedure in self.procedures.subject_procedures
+                for procedures in self.procedures
+                for subject_procedure in procedures.subject_procedures
                 if isinstance(subject_procedure, Surgery)
                 for surgery in subject_procedure.procedures
             )
@@ -177,7 +174,8 @@ class Metadata(DataCoreModel):
             and self.procedures
             and any(
                 isinstance(surgery, Injection) and getattr(surgery, "injection_materials", None) is None
-                for subject_procedure in self.procedures.subject_procedures
+                for procedures in self.procedures
+                for subject_procedure in procedures.subject_procedures
                 if isinstance(subject_procedure, Surgery)
                 for surgery in subject_procedure.procedures
             )
@@ -210,7 +208,8 @@ class Metadata(DataCoreModel):
             for component in values.instrument.components:
                 device_names.append(component.name)
         if values.procedures:
-            device_names.extend(values.procedures.get_device_names())
+            for procedures in values.procedures:
+                device_names.extend(procedures.get_device_names())
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
@@ -233,7 +232,8 @@ class Metadata(DataCoreModel):
             for component in self.instrument.components:
                 device_names.append(component.name)
         if self.procedures:
-            device_names.extend(self.procedures.get_device_names())
+            for procedures in self.procedures:
+                device_names.extend(procedures.get_device_names())
 
         # Check if all connection devices are in the available devices
         if self.acquisition:
@@ -254,9 +254,10 @@ class Metadata(DataCoreModel):
         if self.acquisition and self.procedures:
             # Get all training protocol names from procedures
             training_protocol_names = []
-            for procedure in self.procedures.subject_procedures:
-                if isinstance(procedure, TrainingProtocol):
-                    training_protocol_names.append(procedure.training_name)
+            for procedures in self.procedures:
+                for procedure in procedures.subject_procedures:
+                    if isinstance(procedure, TrainingProtocol):
+                        training_protocol_names.append(procedure.training_name)
 
             # Check each stimulus epoch's training_protocol_name
             for stimulus_epoch in self.acquisition.stimulus_epochs:
@@ -266,6 +267,24 @@ class Metadata(DataCoreModel):
                             f"Training protocol '{stimulus_epoch.training_protocol_name}' in StimulusEpoch "
                             f"not found in Procedures. Available protocols: {training_protocol_names}"
                         )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_procedure_subject_references(self):
+        """Validate that all procedures.subject_id correspond to a subject in the subjects list"""
+
+        if self.procedures and self.subjects:
+            # Get all subject IDs from the subjects list
+            subject_ids = [subject.subject_id for subject in self.subjects]
+
+            # Check each procedure's subject_id
+            for procedures in self.procedures:
+                if procedures.subject_id not in subject_ids:
+                    raise ValueError(
+                        f"Procedure subject_id '{procedures.subject_id}' not found in subjects list. "
+                        f"Available subject IDs: {subject_ids}"
+                    )
 
         return self
 

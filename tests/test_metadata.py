@@ -140,8 +140,8 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
-                procedures=Procedures.model_construct(subject_procedures=[surgery2]),
+                subjects=[Subject.model_construct()],
+                procedures=[Procedures.model_construct(subject_procedures=[surgery2])],
                 acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
                 instrument=self.spim_instrument,
                 processing=Processing.model_construct(),
@@ -165,8 +165,8 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
-                procedures=Procedures.model_construct(subject_procedures=[surgery2]),
+                subjects=[Subject.model_construct()],
+                procedures=[Procedures.model_construct(subject_procedures=[surgery2])],
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
@@ -195,8 +195,8 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
-                procedures=Procedures.model_construct(),
+                subjects=[Subject.model_construct()],
+                procedures=[Procedures.model_construct()],
                 instrument=inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
@@ -240,8 +240,8 @@ class TestMetadata(unittest.TestCase):
             name=self.sample_name,
             location=self.sample_location,
             data_description=self.dd,
-            subject=self.subject,
-            procedures=self.procedures,
+            subjects=[self.subject],
+            procedures=[self.procedures],
             processing=self.processing,
         )
         expected_result = json.loads(expected_md.model_dump_json(by_alias=True))
@@ -303,7 +303,7 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="655019_2023-04-03T181709",
                 location="bucket",
-                subject=self.subject,
+                subjects=[self.subject],
                 # Missing required files: data_description, procedures, instrument, acquisition
             )
 
@@ -444,7 +444,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
-            procedures=procedures,
+            procedures=[procedures],
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata)
@@ -462,7 +462,7 @@ class TestMetadata(unittest.TestCase):
             metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
-                procedures=procedures,
+                procedures=[procedures],
                 acquisition=acquisition_invalid,
             )
 
@@ -482,7 +482,7 @@ class TestMetadata(unittest.TestCase):
             metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
-                procedures=procedures_empty,
+                procedures=[procedures_empty],
                 acquisition=acquisition_invalid,
             )
 
@@ -508,7 +508,7 @@ class TestMetadata(unittest.TestCase):
         metadata_none = Metadata(
             name="Test Metadata",
             location="Test Location",
-            procedures=procedures,
+            procedures=[procedures],
             acquisition=acquisition_none,
         )
         self.assertIsNotNone(metadata_none)
@@ -517,7 +517,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_acquisition = Metadata(
             name="Test Metadata",
             location="Test Location",
-            procedures=procedures,
+            procedures=[procedures],
         )
         self.assertIsNotNone(metadata_no_acquisition)
 

@@ -39,9 +39,13 @@ class AxisCountException(Exception):
         super().__init__(f"Axis count mismatch, expected {expected} axes, but found {found}")
 
 
-def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
-    """Check whether a subject_id and specimen_id are compatible"""
-    return subject_id in specimen_id
+def subject_specimen_id_compatibility(subject_ids: List[str], specimen_ids: List[str]) -> bool:
+    """Check whether subject_ids and specimen_ids are compatible"""
+    # For each specimen_id, check if any subject_id is contained within it
+    for specimen_id in specimen_ids:
+        if not any(subject_id in specimen_id for subject_id in subject_ids):
+            return False
+    return True
 
 
 def _recurse_helper(data, **kwargs):
