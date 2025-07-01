@@ -13,7 +13,13 @@ from pydantic import Field, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
 from aind_data_schema.components.identifiers import Person
-from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, Reagent
+from aind_data_schema.components.reagent import (
+    FluorescentStain,
+    GeneProbeSet,
+    ProteinProbe,
+    Reagent,
+    SmallMoleculeProbe
+)
 from aind_data_schema.utils.exceptions import OneOfError
 
 
@@ -113,6 +119,8 @@ class SpecimenProcedure(DataModel):
     procedure_details: DiscriminatedList[HCRSeries |
                                          FluorescentStain |
                                          PlanarSectioning |
+                                         ProteinProbe |
+                                         SmallMoleculeProbe |
                                          Reagent |
                                          GeneProbeSet] = Field(
         default=[],

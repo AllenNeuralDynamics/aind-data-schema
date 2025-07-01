@@ -93,3 +93,5 @@ class FluorescentStain(Reagent):
     stain_type: StainType = Field(..., title="Stain type")
     fluorophore: Fluorophore = Field(..., title="Fluorophore used in the stain")
     species: Optional[Species.ONE_OF] = Field(default=None, title="Species targeted by the stain")
+    initiator: Optional[str] = Field(default=None, title="Initiator for HCR probes")
+    
