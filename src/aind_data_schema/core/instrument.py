@@ -105,7 +105,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.34"]] = Field(default="2.0.34")
+    schema_version: SkipValidation[Literal["2.0.35"]] = Field(default="2.0.35")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
