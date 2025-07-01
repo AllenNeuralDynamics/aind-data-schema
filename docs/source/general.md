@@ -1,13 +1,10 @@
-===================
-Metadata in general
-===================
+# Metadata in general
 
 Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as it moves through processing and analysis workflows, and the quality of the data.
 
-To learn more about why we are developing our own schema, see the :doc:`related_standards` page.
+To learn more about why we are developing our own schema, see the [related_standards](related_standards.md) page.
 
-Meta-decisions
---------------
+## Meta-decisions
 
 **Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
 
@@ -38,21 +35,19 @@ essential to interpreting an acquisition session alongside the acquisition in a 
 format, there will always be an interpretable record of what happened even if e.g. the 
 database stops working. 
 
-
-FAQs
-----------------
+## FAQs
 
 **Q: Which fields do I have to provide within these core schemas?**
 
-All required (non-optional) fields must be completed to create a “valid model”. 
+All required (non-optional) fields must be completed to create a "valid model". 
 
 **Q: Can I skip fields that are optional?**
 
 Optional fields should be included whenever possible but are not required. The reason some fields are optional is 
-usually because they aren’t universal, and so the pertinent question is whether those fields apply to your 
-experiments/devices/etc and not about whether you can ignore things because you don’t want to provide them.
+usually because they aren't universal, and so the pertinent question is whether those fields apply to your 
+experiments/devices/etc and not about whether you can ignore things because you don't want to provide them.
 
-**Q: If I don’t know something (e.g. the serial number of my device) can I just make something up?**
+**Q: If I don't know something (e.g. the serial number of my device) can I just make something up?**
 
 A: No. Fake metadata is harmful. 
 
@@ -84,13 +79,12 @@ more ontologies into our schema. We currently use:
 * Edinburgh Mouse Atlas Project (EMAPA), mouse anatomy
 * Mouse Common Coordinate Framework (CCF), mouse brain anatomy
 
-Flexibility, versioning, and upgrading
---------------------------------------
+## Flexibility, versioning, and upgrading
 
-``aind-data-schema`` is versioned using `Semantic Versioning <https://semver.org/>`_. The core schemas listed above 
-also have their own version numbers, which are documented in the ``schema_version`` field of any JSON file 
+`aind-data-schema` is versioned using [Semantic Versioning](https://semver.org/). The core schemas listed above 
+also have their own version numbers, which are documented in the `schema_version` field of any JSON file 
 they are used to generate.
 
 When new versions of schemas are released, data collectors can decide if they want to update the metadata
 from their existing data assets to the new schema. Metadata upgrading capabilities can be found in 
-`aind-metadata-upgrader <https://github.com/allenneuraldynamics/aind-metadata-upgrader>`_.
+[aind-metadata-upgrader](https://github.com/allenneuraldynamics/aind-metadata-upgrader).
