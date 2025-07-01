@@ -8,7 +8,7 @@ Instrument files are created manually, either through the [metadata-entry app](h
 
 ## Uniqueness
 
-It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `location`, `instrument_id`, and `modification_date` uniquely specify the state of an instrument.
+It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `instrument_id` and `modification_date` uniquely specify the state of an instrument.
 
 ## Devices
 
