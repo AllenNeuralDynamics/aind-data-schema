@@ -87,6 +87,7 @@ fluorescence_filters = [
         filter_type="Multiband",
         manufacturer=Organization.CHROMA,
         model="ZET405/488/561/640mv2",
+        center_wavelength=[405, 488, 561, 640],
         notes="Custom made filter",
     )
 ]

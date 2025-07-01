@@ -356,6 +356,7 @@ filters = [
         manufacturer=Organization.SEMROCK,
         notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
         filter_type="Multiband",
+        center_wavelength=[493, 574],
     ),
     Filter(
         name="Excitation filter 410nm",
