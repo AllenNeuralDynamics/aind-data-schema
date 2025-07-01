@@ -1612,6 +1612,231 @@
          "title": "CatheterPort",
          "type": "string"
       },
+      "Code": {
+         "additionalProperties": false,
+         "description": "Code or script identifier",
+         "properties": {
+            "object_type": {
+               "const": "Code",
+               "default": "Code",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "URL to code repository",
+               "title": "Code URL",
+               "type": "string"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
+            "version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Code version"
+            },
+            "container": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Container"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Container"
+            },
+            "run_script": {
+               "anyOf": [
+                  {
+                     "format": "path",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Path to run script",
+               "title": "Run script"
+            },
+            "language": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Programming language used",
+               "title": "Programming language"
+            },
+            "language_version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Programming language version"
+            },
+            "input_data": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Combined data": "#/$defs/CombinedData",
+                              "Data asset": "#/$defs/DataAsset"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/DataAsset"
+                           },
+                           {
+                              "$ref": "#/$defs/CombinedData"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Input data used in the code or script",
+               "title": "Input data"
+            },
+            "parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters used in the code or script",
+               "title": "Parameters"
+            },
+            "core_dependency": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Software"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For code with a core software package dependency, e.g. Bonsai",
+               "title": "Core dependency"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "Code",
+         "type": "object"
+      },
+      "CombinedData": {
+         "additionalProperties": false,
+         "description": "Description of a group of data assets",
+         "properties": {
+            "object_type": {
+               "const": "Combined data",
+               "default": "Combined data",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "assets": {
+               "items": {
+                  "$ref": "#/$defs/DataAsset"
+               },
+               "minItems": 1,
+               "title": "Data assets",
+               "type": "array"
+            },
+            "name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Name"
+            },
+            "database_identifier": {
+               "anyOf": [
+                  {
+                     "additionalProperties": {
+                        "items": {
+                           "type": "string"
+                        },
+                        "type": "array"
+                     },
+                     "propertyNames": {
+                        "$ref": "#/$defs/Database"
+                     },
+                     "type": "object"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "ID or link to the Combined Data asset, if materialized.",
+               "title": "Database identifier"
+            },
+            "description": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Intention or approach used to select group of assets",
+               "title": "Description"
+            }
+         },
+         "required": [
+            "assets"
+         ],
+         "title": "CombinedData",
+         "type": "object"
+      },
       "ConcentrationUnit": {
          "description": "Concentraion units",
          "enum": [
@@ -1623,6 +1848,40 @@
          ],
          "title": "ConcentrationUnit",
          "type": "string"
+      },
+      "Container": {
+         "additionalProperties": false,
+         "description": "Code container identifier, e.g. Docker",
+         "properties": {
+            "object_type": {
+               "const": "Container",
+               "default": "Container",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "container_type": {
+               "description": "Type of container, e.g. Docker, Singularity",
+               "title": "Type",
+               "type": "string"
+            },
+            "tag": {
+               "description": "Tag of the container, e.g. version number",
+               "title": "Tag",
+               "type": "string"
+            },
+            "uri": {
+               "description": "URI of the container, e.g. Docker Hub URL",
+               "title": "URI",
+               "type": "string"
+            }
+         },
+         "required": [
+            "container_type",
+            "tag",
+            "uri"
+         ],
+         "title": "Container",
+         "type": "object"
       },
       "CoordinateSystem": {
          "additionalProperties": false,
@@ -1807,6 +2066,37 @@
             "microamps"
          ],
          "title": "CurrentUnit",
+         "type": "string"
+      },
+      "DataAsset": {
+         "additionalProperties": false,
+         "description": "Description of a single data asset",
+         "properties": {
+            "object_type": {
+               "const": "Data asset",
+               "default": "Data asset",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "url": {
+               "description": "URL pointing to the data asset",
+               "title": "Asset location",
+               "type": "string"
+            }
+         },
+         "required": [
+            "url"
+         ],
+         "title": "DataAsset",
+         "type": "object"
+      },
+      "Database": {
+         "description": "Database platforms that can host data assets",
+         "enum": [
+            "Code Ocean",
+            "DANDI"
+         ],
+         "title": "Database",
          "type": "string"
       },
       "Device": {
@@ -8696,6 +8986,41 @@
          "title": "SizeUnit",
          "type": "string"
       },
+      "Software": {
+         "additionalProperties": false,
+         "description": "Software package identifier",
+         "properties": {
+            "object_type": {
+               "const": "Software",
+               "default": "Software",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "description": "Name of the software package",
+               "title": "Software name",
+               "type": "string"
+            },
+            "version": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Version of the software package",
+               "title": "Software version"
+            }
+         },
+         "required": [
+            "name"
+         ],
+         "title": "Software",
+         "type": "object"
+      },
       "SpecimenProcedure": {
          "additionalProperties": false,
          "description": "Description of surgical or other procedure performed on a specimen",
@@ -9740,6 +10065,19 @@
                ],
                "default": null,
                "title": "Training protocol end date"
+            },
+            "curriculum_code": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Code"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Code describing the directed graph used for the training curriculum",
+               "title": "Curriculum code"
             },
             "notes": {
                "anyOf": [
@@ -16261,8 +16599,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.28",
-         "default": "2.0.28",
+         "const": "2.0.29",
+         "default": "2.0.29",
          "title": "Schema Version",
          "type": "string"
       },

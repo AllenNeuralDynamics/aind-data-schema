@@ -554,7 +554,7 @@
                      }
                   ]
                },
-               "title": "inputs",
+               "title": "Inputs",
                "type": "array"
             },
             "input_unit": {
@@ -613,8 +613,21 @@
                ],
                "title": "Input unit"
             },
+            "repeats": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If each input was repeated multiple times, provide the number of repeats",
+               "title": "Number of repeats"
+            },
             "output": {
-               "description": "Calibration output",
+               "description": "Calibration output (provide the average if repeated)",
                "items": {
                   "anyOf": [
                      {
@@ -625,7 +638,7 @@
                      }
                   ]
                },
-               "title": "outputs",
+               "title": "Outputs",
                "type": "array"
             },
             "output_unit": {
@@ -3200,8 +3213,21 @@
                "$ref": "#/$defs/PowerUnit",
                "title": "Input unit"
             },
+            "repeats": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If each input was repeated multiple times, provide the number of repeats",
+               "title": "Number of repeats"
+            },
             "output": {
-               "description": "Power output",
+               "description": "Power output (provide the average if repeated)",
                "items": {
                   "type": "number"
                },
@@ -4494,6 +4520,32 @@
                },
                "title": "Device configurations",
                "type": "array"
+            },
+            "training_protocol_name": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Name of the training protocol used during the acquisition, must match a protocol in the Procedures",
+               "title": "Training protocol name"
+            },
+            "curriculum_status": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Status within the training protocol curriculum",
+               "title": "Curriculum status"
             }
          },
          "required": [
@@ -4650,8 +4702,21 @@
                "$ref": "#/$defs/TimeUnit",
                "title": "Input unit"
             },
+            "repeats": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If each input was repeated multiple times, provide the number of repeats",
+               "title": "Number of repeats"
+            },
             "output": {
-               "description": "Volume output",
+               "description": "Volume output (provide the average if repeated)",
                "items": {
                   "type": "number"
                },
@@ -10500,8 +10565,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.30",
-         "default": "2.0.30",
+         "const": "2.0.31",
+         "default": "2.0.31",
          "title": "Schema Version",
          "type": "string"
       },
