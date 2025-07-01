@@ -1741,7 +1741,7 @@
                      }
                   ]
                },
-               "title": "inputs",
+               "title": "Inputs",
                "type": "array"
             },
             "input_unit": {
@@ -1800,8 +1800,21 @@
                ],
                "title": "Input unit"
             },
+            "repeats": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If each input was repeated multiple times, provide the number of repeats",
+               "title": "Number of repeats"
+            },
             "output": {
-               "description": "Calibration output",
+               "description": "Calibration output (provide the average if repeated)",
                "items": {
                   "anyOf": [
                      {
@@ -1812,7 +1825,7 @@
                      }
                   ]
                },
-               "title": "outputs",
+               "title": "Outputs",
                "type": "array"
             },
             "output_unit": {
@@ -8025,10 +8038,17 @@
                      "type": "integer"
                   },
                   {
+                     "items": {
+                        "type": "integer"
+                     },
+                     "type": "array"
+                  },
+                  {
                      "type": "null"
                   }
                ],
                "default": null,
+               "description": "Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters",
                "title": "Center wavelength (nm)"
             },
             "wavelength_unit": {
@@ -8054,6 +8074,7 @@
             "Multiband",
             "Neutral density",
             "Notch",
+            "Multi notch",
             "Short pass"
          ],
          "title": "FilterType",
@@ -14282,8 +14303,21 @@
                "$ref": "#/$defs/PowerUnit",
                "title": "Input unit"
             },
+            "repeats": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If each input was repeated multiple times, provide the number of repeats",
+               "title": "Number of repeats"
+            },
             "output": {
-               "description": "Power output",
+               "description": "Power output (provide the average if repeated)",
                "items": {
                   "type": "number"
                },
@@ -16969,8 +17003,21 @@
                "$ref": "#/$defs/TimeUnit",
                "title": "Input unit"
             },
+            "repeats": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If each input was repeated multiple times, provide the number of repeats",
+               "title": "Number of repeats"
+            },
             "output": {
-               "description": "Volume output",
+               "description": "Volume output (provide the average if repeated)",
                "items": {
                   "type": "number"
                },
@@ -23695,8 +23742,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.34",
-         "default": "2.0.34",
+         "const": "2.0.35",
+         "default": "2.0.35",
          "title": "Schema Version",
          "type": "string"
       },
