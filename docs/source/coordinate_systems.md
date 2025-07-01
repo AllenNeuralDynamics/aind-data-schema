@@ -1,13 +1,13 @@
 # Coordinate systems
 
-The metadata schema supports flexible definitions of coordinate systems, both relative to anatomy and devices. This allows us to store the positions of devices, insertion coordinates, etc, all with one standardized system of metadata.
+The metadata schema supports flexible definitions of coordinate systems, both relative to anatomy and devices. This allows us to store the positions of devices, insertion coordinates, etc, all with one standardized system.
 
-Unlike many parts of the metadata schema it is important to understand **how coordinate systems are stored** to be able to use them properly. There are just two rules to be aware of:
+Unlike many parts of the metadata schema where fields are just floats or strings, it is critical to understand **how coordinate systems are stored in the schema** to be able to use them properly. There are two rules to be aware of:
 
-1. Each [Instrument](instrument.md), [Acquisition](acquisition.md), and [Procedures](procedures.md) has its own `.coordinate_system` field. The coordinate system can be the same or different in each of these files, depending on your needs.
-2. Any transform (i.e. a [Translation](components/coordinates.md#translation), [Rotation](components/coordinates.md#rotation), or [Scale](components/coordinates.md#scale)) defined for a device or configuration of a device **must be defined in it's core file's coordinate system**. To help you avoid mistakes, transform fields are paired with a `.coordinate_system_name` field and the coordinate system name must match the name of the coordinate system defined in the metadata.
+1. Each [Instrument](instrument.md), [Acquisition](acquisition.md), and [Procedures](procedures.md) has its own `.coordinate_system` field. In most assets, the coordinate system is the same in all three files.
+2. Any transform (i.e. a [Translation](components/coordinates.md#translation), [Rotation](components/coordinates.md#rotation), or [Scale](components/coordinates.md#scale)) defined for a device or configuration of a device **must be defined in it's core file's coordinate system**. To help you avoid mistakes, transform fields are paired with a `.coordinate_system_name` field and the coordinate system name must match the name of the coordinate system defined in the core file.
 
-The top-level coordinate systems in the instrument, acquisition, and procedures are all defined in *in vivo* space, usually relative to an origin on an animal's skull. Often when targeting coordinates in the brain we plan our experiments in a **standardized atlas** like the mouse common coordinate framework. When you encounter a field that that requires an atlas transform (i.e. a point or vector in an atlas), you'll see that an [Atlas](components/coordinates.md#atlas) will have to be defined alongside that transform. An Atlas library is available in `aind_data_schema.components.coordinates.AtlasLibrary` for your convenience.
+The top-level coordinate systems in the instrument, acquisition, and procedures are generally defined in *in vivo* space, usually relative to an origin on an animal's skull. Often when targeting coordinates in the brain we plan our experiments in a **standardized atlas** like the mouse common coordinate framework. When you encounter a field that that requires an atlas transform (i.e. a point or vector in an atlas), you'll see that an [Atlas](components/coordinates.md#atlas) will have to be defined alongside that transform. An Atlas library is available in `aind_data_schema.components.coordinates.AtlasLibrary` for your convenience.
 
 ## CoordinateSystem
 
@@ -57,11 +57,11 @@ coordinate_system = CoordinateSystemLibrary.BREGMA_ARI
 coordinate_system_name = CoordinateSystemLibrary.BREGMA_ARI.name
 ```
 
-You can always define your own coordinate system as needed. If you find yourself re-using a coordinate system that isn't available in the library across multiple projects, please request an update to the library by opening an [issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues).
+You can always define your own coordinate system. If you find yourself re-using a coordinate system that isn't available in the library across multiple projects, please request an update to the library by opening an [issue](https://github.com/AllenNeuralDynamics/aind-data-schema/issues).
 
 ## Device transforms
 
-To understand the position and orientation of a **device** in an instrument requires knowing three things: (1) the coordinate system for the instrument, (2) the coordinate system for the device, and (3) the coordinate system transform i.e. how a point in one coordinate system is translated, rotated, and scaled to the other. For example, a [CameraAssembly](components/devices.md#cameraassembly) is a positioned device: it has three special fields `relative_position`, `coordinate_system`, and `transform`. The relative position is required for all positioned devices while the transform and coordinate system are only required when a device's exact position will have an impact on the interpretation of data.
+To understand the position and orientation of a **device** in an instrument requires knowing three things: (1) the coordinate system for the instrument, (2) the coordinate system for the device, and (3) the coordinate system transform i.e. how a point in one coordinate system is translated, rotated, and scaled to the other. For example, a [CameraAssembly](components/devices.md#cameraassembly) is a positioned device: it has three special fields `relative_position`, `coordinate_system`, and `transform`. The relative position is required for all positioned devices while the transform and coordinate system are only required when a device's exact position will have an impact on the interpretation/analysis of data.
 
 The transform we require for devices is the device to instrument transform. I.e. given the origin of the device (0, 0, 0) and the three axis directions, what will be the position of the origin and what direction will the three axes point in the instrument's coordinate system.
 
