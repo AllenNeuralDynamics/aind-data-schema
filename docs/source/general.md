@@ -2,11 +2,16 @@
 
 Metadata is data about data. Metadata documents information about acquired data that enables us to be able to analyze and interpret it well. We use our metadata to document the entire process of creating data, the provenance of that data as it moves through processing and analysis workflows, and the quality of the data.
 
+In capturing metadata we have two goals:
+
+1. Rigorously define the properties of data assets necessary for further data analysis and interpretation.
+2. Create searchable records that make it easy to group data assets (by project, modality, quality control status, etc).
+
 To learn more about why we are developing our own schema, see the [related_standards](related_standards.md) page.
 
 ## Meta-decisions
 
-**Q: My data files already contain some of this metadata. Why store this in additional JSON files?**
+### Why should we enforce a rigorous schema?
 
 Metadata captured by acquisition software evolves over time and often does not capture 
 everything we need to know to interpret data. These JSON files represent our ground truth 
@@ -16,7 +21,7 @@ Additionally, JSON files are both human- and machine-readable. They are viewable
 any system without additional software to be installed (a text editor is fine). They are easy 
 to parse from code without any heavy dependencies (IGOR, H5PY, pynwb, etc). 
 
-**Q: Why JSON rather than CSV, YAML, or a SQL database?**
+### Why did we choose to save metadata in JSON files?
 
 There are many ways to store metadata. JSON is a common format, as are CSV, YAML, and others.
 CSV is ubiquitous but its tabular structure makes it difficult to represent complex biological
@@ -55,13 +60,11 @@ A: No. Fake metadata is harmful.
 
 You are. Even with metadata service and tools, you need to make sure the information attached to your data is 
 accurate and that any issues get resolved. Please reach out with questions if you are unclear about the schema, 
-but you are responsibile for the content.
+but you are responsible for the content.
 
 **Q: Whom should I contact with questions or issues?**
 
-Questions about the schema should be directed to Saskia de Vries. If you have github issues you can add them to the 
-repo for the Data Infrastructure team to review and address. Questions about correcting errors in metadata that 
-you've already attached to your data should be directed to David Feng.
+Questions about the schema should be directed to Saskia de Vries. [Issues](https://github.com/AllenNeuralDynamics/aind-data-schema/issues) can be opened on our GitHub repository. Questions about correcting errors in existing metadata can be directed to the [data migration repository](https://github.com/AllenNeuralDynamics/aind-data-migration-scripts/issues).
 
 **Q: What are the registries and atlases that are referenced in the schema?**
 
