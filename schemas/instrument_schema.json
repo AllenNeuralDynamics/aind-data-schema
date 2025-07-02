@@ -2981,7 +2981,7 @@
       },
       "Connection": {
          "additionalProperties": false,
-         "description": "Connection between two devices",
+         "description": "Description of a connection between devices in an instrument",
          "properties": {
             "object_type": {
                "const": "Connection",
@@ -3013,7 +3013,7 @@
       },
       "ConnectionData": {
          "additionalProperties": false,
-         "description": "Data for a connection",
+         "description": "Configuration data for a device connection including direction and port information",
          "properties": {
             "object_type": {
                "const": "Connection data",
@@ -23742,8 +23742,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.35",
-         "default": "2.0.35",
+         "const": "2.0.36",
+         "default": "2.0.36",
          "title": "Schema Version",
          "type": "string"
       },
@@ -23772,7 +23772,7 @@
          "type": "string"
       },
       "modalities": {
-         "description": "Modalities that CAN BE acquired",
+         "description": "List of all possible modalities that the instrument is capable of acquiring",
          "items": {
             "discriminator": {
                "mapping": {
@@ -23872,10 +23872,12 @@
             }
          ],
          "default": null,
-         "title": "Full calibration of devices"
+         "description": "List of calibration measurements takend during instrument setup and maintenance",
+         "title": "Calibrations"
       },
       "coordinate_system": {
          "$ref": "#/$defs/CoordinateSystem",
+         "description": "Origin and axis definitions for determining the position of the instrument's components",
          "title": "Coordinate system"
       },
       "temperature_control": {
@@ -23888,6 +23890,7 @@
             }
          ],
          "default": null,
+         "description": "Does the instrument maintain a constant temperature?",
          "title": "Temperature control"
       },
       "notes": {

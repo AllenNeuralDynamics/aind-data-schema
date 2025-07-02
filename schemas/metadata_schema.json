@@ -2,7 +2,7 @@
    "$defs": {
       "Acquisition": {
          "additionalProperties": false,
-         "description": "Description of an imaging acquisition",
+         "description": "Description of data acquisition metadata including streams, stimuli, and experimental setup.\n\nThe acquisition metadata is split into two parallel pieces: the DataStream and the StimulusEpoch.\nAt any given moment in time the active DataStream(s) represents all modalities of data being acquired,\nwhile the StimulusEpoch represents all stimuli being presented.",
          "properties": {
             "object_type": {
                "const": "Acquisition",
@@ -17,12 +17,13 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.31",
-               "default": "2.0.31",
+               "const": "2.0.32",
+               "default": "2.0.32",
                "title": "Schema Version",
                "type": "string"
             },
             "subject_id": {
+               "description": "Unique identifier for the subject",
                "title": "Subject ID",
                "type": "string"
             },
@@ -89,10 +90,12 @@
                "title": "Ethics review ID"
             },
             "instrument_id": {
+               "description": "Should match the Instrument.instrument_id",
                "title": "Instrument ID",
                "type": "string"
             },
             "acquisition_type": {
+               "description": "Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.",
                "title": "Acquisition type",
                "type": "string"
             },
@@ -118,7 +121,7 @@
                   }
                ],
                "default": null,
-               "description": "Required when coordinates are provided within the Acquisition",
+               "description": "Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition",
                "title": "Coordinate system"
             },
             "calibrations": {
@@ -158,7 +161,7 @@
                "type": "array"
             },
             "data_streams": {
-               "description": "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location)",
+               "description": "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.",
                "items": {
                   "$ref": "#/$defs/DataStream"
                },
@@ -167,6 +170,7 @@
             },
             "stimulus_epochs": {
                "default": [],
+               "description": "A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.",
                "items": {
                   "$ref": "#/$defs/StimulusEpoch"
                },
@@ -5324,7 +5328,7 @@
       },
       "Connection": {
          "additionalProperties": false,
-         "description": "Connection between two devices",
+         "description": "Description of a connection between devices in an instrument",
          "properties": {
             "object_type": {
                "const": "Connection",
@@ -5356,7 +5360,7 @@
       },
       "ConnectionData": {
          "additionalProperties": false,
-         "description": "Data for a connection",
+         "description": "Configuration data for a device connection including direction and port information",
          "properties": {
             "object_type": {
                "const": "Connection data",
@@ -6180,8 +6184,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.11",
-               "default": "2.0.11",
+               "const": "2.0.12",
+               "default": "2.0.12",
                "title": "Schema Version",
                "type": "string"
             },
@@ -6316,7 +6320,7 @@
             },
             "data_level": {
                "$ref": "#/$defs/DataLevel",
-               "description": "level of processing that data has undergone",
+               "description": "Level of processing that data has undergone",
                "title": "Data Level"
             },
             "group": {
@@ -6361,7 +6365,7 @@
                "title": "Restrictions"
             },
             "modalities": {
-               "description": "A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study",
+               "description": "A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -6601,7 +6605,7 @@
       },
       "DataStream": {
          "additionalProperties": false,
-         "description": "Data streams with a start and stop time",
+         "description": "A set of devices that are acquiring data and their configurations starting and stopping at approximately the\nsame time.",
          "properties": {
             "object_type": {
                "const": "Data stream",
@@ -6725,6 +6729,7 @@
                "type": "array"
             },
             "configurations": {
+               "description": "Configurations are parameters controlling active devices during this stream",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -6795,7 +6800,7 @@
             },
             "connections": {
                "default": [],
-               "description": "Connections that are specific to this acquisition, and are not present in the Instrument",
+               "description": "Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument)",
                "items": {
                   "$ref": "#/$defs/Connection"
                },
@@ -14685,8 +14690,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.35",
-               "default": "2.0.35",
+               "const": "2.0.36",
+               "default": "2.0.36",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14715,7 +14720,7 @@
                "type": "string"
             },
             "modalities": {
-               "description": "Modalities that CAN BE acquired",
+               "description": "List of all possible modalities that the instrument is capable of acquiring",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -14815,10 +14820,12 @@
                   }
                ],
                "default": null,
-               "title": "Full calibration of devices"
+               "description": "List of calibration measurements takend during instrument setup and maintenance",
+               "title": "Calibrations"
             },
             "coordinate_system": {
                "$ref": "#/$defs/CoordinateSystem",
+               "description": "Origin and axis definitions for determining the position of the instrument's components",
                "title": "Coordinate system"
             },
             "temperature_control": {
@@ -14831,6 +14838,7 @@
                   }
                ],
                "default": null,
+               "description": "Does the instrument maintain a constant temperature?",
                "title": "Temperature control"
             },
             "notes": {
@@ -17979,7 +17987,7 @@
       },
       "Model": {
          "additionalProperties": false,
-         "description": "Description of an analysis model",
+         "description": "Description of a machine learning model including architecture, training, and evaluation details",
          "properties": {
             "object_type": {
                "const": "Model",
@@ -24515,7 +24523,7 @@
       },
       "Procedures": {
          "additionalProperties": false,
-         "description": "Description of all procedures performed on a subject",
+         "description": "Description of all procedures performed on a subject, including surgeries, injections, and tissue processing",
          "properties": {
             "object_type": {
                "const": "Procedures",
@@ -24530,18 +24538,19 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.29",
-               "default": "2.0.29",
+               "const": "2.0.30",
+               "default": "2.0.30",
                "title": "Schema Version",
                "type": "string"
             },
             "subject_id": {
-               "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+               "description": "Unique identifier for the subject of data acquisition",
                "title": "Subject ID",
                "type": "string"
             },
             "subject_procedures": {
                "default": [],
+               "description": "Procedures performed on a live subject",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -24576,6 +24585,7 @@
             },
             "specimen_procedures": {
                "default": [],
+               "description": "Procedures performed on tissue extracted after perfusion",
                "items": {
                   "$ref": "#/$defs/SpecimenProcedure"
                },
@@ -24592,7 +24602,7 @@
                   }
                ],
                "default": null,
-               "description": "Required when coordinates are provided in the procedures",
+               "description": "Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures",
                "title": "Coordinate System"
             },
             "notes": {
@@ -24690,8 +24700,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.72",
-               "default": "2.0.72",
+               "const": "2.0.73",
+               "default": "2.0.73",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24949,7 +24959,7 @@
       },
       "QualityControl": {
          "additionalProperties": false,
-         "description": "Description of quality metrics for a data asset",
+         "description": "Collection of quality control metrics evaluated on a data asset to determine pass/fail status",
          "properties": {
             "object_type": {
                "const": "Quality control",
@@ -24964,8 +24974,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.5",
-               "default": "2.0.5",
+               "const": "2.0.6",
+               "default": "2.0.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -28912,7 +28922,7 @@
       },
       "StimulusEpoch": {
          "additionalProperties": false,
-         "description": "Description of stimulus used during data acquisition",
+         "description": "All stimuli being presented to the subject. starting and stopping at approximately the\nsame time. Not all acquisitions have StimulusEpochs.",
          "properties": {
             "object_type": {
                "const": "Stimulus epoch",
@@ -28946,7 +28956,7 @@
                   }
                ],
                "default": null,
-               "description": "Custom code/script used to control the behavior/stimulus and parameters",
+               "description": "Custom code/script used to control the behavior/stimulus. Use the Code.parameters field to store stimulus properties",
                "title": "Code or script"
             },
             "stimulus_modalities": {
@@ -29087,13 +29097,13 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.9",
-               "default": "2.0.9",
+               "const": "2.0.10",
+               "default": "2.0.10",
                "title": "Schema Version",
                "type": "string"
             },
             "subject_id": {
-               "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+               "description": "Unique identifier for the subject of data acquisition",
                "title": "Subject ID",
                "type": "string"
             },
@@ -38621,8 +38631,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.72",
-         "default": "2.0.72",
+         "const": "2.0.73",
+         "default": "2.0.73",
          "title": "Schema Version",
          "type": "string"
       },

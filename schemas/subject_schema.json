@@ -2292,13 +2292,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.9",
-         "default": "2.0.9",
+         "const": "2.0.10",
+         "default": "2.0.10",
          "title": "Schema Version",
          "type": "string"
       },
       "subject_id": {
-         "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+         "description": "Unique identifier for the subject of data acquisition",
          "title": "Subject ID",
          "type": "string"
       },

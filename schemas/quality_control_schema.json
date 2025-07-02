@@ -744,7 +744,7 @@
       }
    },
    "additionalProperties": false,
-   "description": "Description of quality metrics for a data asset",
+   "description": "Collection of quality control metrics evaluated on a data asset to determine pass/fail status",
    "properties": {
       "object_type": {
          "const": "Quality control",
@@ -759,8 +759,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.5",
-         "default": "2.0.5",
+         "const": "2.0.6",
+         "default": "2.0.6",
          "title": "Schema Version",
          "type": "string"
       },

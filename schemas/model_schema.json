@@ -996,7 +996,7 @@
       }
    },
    "additionalProperties": false,
-   "description": "Description of an analysis model",
+   "description": "Description of a machine learning model including architecture, training, and evaluation details",
    "properties": {
       "object_type": {
          "const": "Model",

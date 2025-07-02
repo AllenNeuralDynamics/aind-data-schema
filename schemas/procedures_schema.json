@@ -16584,7 +16584,7 @@
       }
    },
    "additionalProperties": false,
-   "description": "Description of all procedures performed on a subject",
+   "description": "Description of all procedures performed on a subject, including surgeries, injections, and tissue processing",
    "properties": {
       "object_type": {
          "const": "Procedures",
@@ -16599,18 +16599,19 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.29",
-         "default": "2.0.29",
+         "const": "2.0.30",
+         "default": "2.0.30",
          "title": "Schema Version",
          "type": "string"
       },
       "subject_id": {
-         "description": "Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+         "description": "Unique identifier for the subject of data acquisition",
          "title": "Subject ID",
          "type": "string"
       },
       "subject_procedures": {
          "default": [],
+         "description": "Procedures performed on a live subject",
          "items": {
             "discriminator": {
                "mapping": {
@@ -16645,6 +16646,7 @@
       },
       "specimen_procedures": {
          "default": [],
+         "description": "Procedures performed on tissue extracted after perfusion",
          "items": {
             "$ref": "#/$defs/SpecimenProcedure"
          },
@@ -16661,7 +16663,7 @@
             }
          ],
          "default": null,
-         "description": "Required when coordinates are provided in the procedures",
+         "description": "Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures",
          "title": "Coordinate System"
       },
       "notes": {

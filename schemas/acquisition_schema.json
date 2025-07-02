@@ -1106,7 +1106,7 @@
       },
       "Connection": {
          "additionalProperties": false,
-         "description": "Connection between two devices",
+         "description": "Description of a connection between devices in an instrument",
          "properties": {
             "object_type": {
                "const": "Connection",
@@ -1138,7 +1138,7 @@
       },
       "ConnectionData": {
          "additionalProperties": false,
-         "description": "Data for a connection",
+         "description": "Configuration data for a device connection including direction and port information",
          "properties": {
             "object_type": {
                "const": "Connection data",
@@ -1347,7 +1347,7 @@
       },
       "DataStream": {
          "additionalProperties": false,
-         "description": "Data streams with a start and stop time",
+         "description": "A set of devices that are acquiring data and their configurations starting and stopping at approximately the\nsame time.",
          "properties": {
             "object_type": {
                "const": "Data stream",
@@ -1471,6 +1471,7 @@
                "type": "array"
             },
             "configurations": {
+               "description": "Configurations are parameters controlling active devices during this stream",
                "items": {
                   "discriminator": {
                      "mapping": {
@@ -1541,7 +1542,7 @@
             },
             "connections": {
                "default": [],
-               "description": "Connections that are specific to this acquisition, and are not present in the Instrument",
+               "description": "Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument)",
                "items": {
                   "$ref": "#/$defs/Connection"
                },
@@ -4414,7 +4415,7 @@
       },
       "StimulusEpoch": {
          "additionalProperties": false,
-         "description": "Description of stimulus used during data acquisition",
+         "description": "All stimuli being presented to the subject. starting and stopping at approximately the\nsame time. Not all acquisitions have StimulusEpochs.",
          "properties": {
             "object_type": {
                "const": "Stimulus epoch",
@@ -4448,7 +4449,7 @@
                   }
                ],
                "default": null,
-               "description": "Custom code/script used to control the behavior/stimulus and parameters",
+               "description": "Custom code/script used to control the behavior/stimulus. Use the Code.parameters field to store stimulus properties",
                "title": "Code or script"
             },
             "stimulus_modalities": {
@@ -10550,7 +10551,7 @@
       }
    },
    "additionalProperties": false,
-   "description": "Description of an imaging acquisition",
+   "description": "Description of data acquisition metadata including streams, stimuli, and experimental setup.\n\nThe acquisition metadata is split into two parallel pieces: the DataStream and the StimulusEpoch.\nAt any given moment in time the active DataStream(s) represents all modalities of data being acquired,\nwhile the StimulusEpoch represents all stimuli being presented.",
    "properties": {
       "object_type": {
          "const": "Acquisition",
@@ -10565,12 +10566,13 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.31",
-         "default": "2.0.31",
+         "const": "2.0.32",
+         "default": "2.0.32",
          "title": "Schema Version",
          "type": "string"
       },
       "subject_id": {
+         "description": "Unique identifier for the subject",
          "title": "Subject ID",
          "type": "string"
       },
@@ -10637,10 +10639,12 @@
          "title": "Ethics review ID"
       },
       "instrument_id": {
+         "description": "Should match the Instrument.instrument_id",
          "title": "Instrument ID",
          "type": "string"
       },
       "acquisition_type": {
+         "description": "Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.",
          "title": "Acquisition type",
          "type": "string"
       },
@@ -10666,7 +10670,7 @@
             }
          ],
          "default": null,
-         "description": "Required when coordinates are provided within the Acquisition",
+         "description": "Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition",
          "title": "Coordinate system"
       },
       "calibrations": {
@@ -10706,7 +10710,7 @@
          "type": "array"
       },
       "data_streams": {
-         "description": "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include multiple streams (e.g., if the manipulators are moved to a new location)",
+         "description": "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.",
          "items": {
             "$ref": "#/$defs/DataStream"
          },
@@ -10715,6 +10719,7 @@
       },
       "stimulus_epochs": {
          "default": [],
+         "description": "A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.",
          "items": {
             "$ref": "#/$defs/StimulusEpoch"
          },
