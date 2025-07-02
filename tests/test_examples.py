@@ -26,7 +26,8 @@ class ExampleTests(unittest.TestCase):
     def test_examples_generated(self):
         """Test that each example file generates valid JSON."""
         # Get all json files in the examples directory
-        example_files = [f for f in os.listdir(EXAMPLES_DIR) if f.endswith(".json")]
+        example_files = [f for f in os.listdir(EXAMPLES_DIR) if f.endswith(".py") and not f.startswith("__")]
+        example_files = [f.replace(".py", ".json") for f in example_files]
 
         for example_file in example_files:
             example_path = EXAMPLES_DIR / example_file
