@@ -24900,8 +24900,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.74",
-               "default": "2.0.74",
+               "const": "2.0.75",
+               "default": "2.0.75",
                "title": "Schema Version",
                "type": "string"
             },
@@ -39378,8 +39378,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.74",
-         "default": "2.0.74",
+         "const": "2.0.75",
+         "default": "2.0.75",
          "title": "Schema Version",
          "type": "string"
       },
