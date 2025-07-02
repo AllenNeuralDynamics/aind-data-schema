@@ -704,6 +704,38 @@ class ProceduresTests(unittest.TestCase):
         self.assertIn("Catheter", device_names)
         self.assertEqual(len(device_names), 1)
 
+    def test_procedures_addition_coordinate_system_validation(self):
+        """Test that Procedures addition raises error for different coordinate systems"""
+        
+        # Create two procedures with different coordinate systems
+        p1 = Procedures(
+            subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+        )
+        
+        p2 = Procedures(
+            subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,  # Different coordinate system
+        )
+        
+        # Test that combining procedures with different coordinate systems raises ValueError
+        with self.assertRaises(ValueError) as context:
+            _ = p1 + p2
+        
+        self.assertIn("Cannot combine Procedures objects with different coordinate systems", str(context.exception))
+        self.assertIn("BREGMA_ARI", str(context.exception))
+        self.assertIn("BREGMA_ARID", str(context.exception))
+
+        # Test that combining procedures with same coordinate systems works
+        p3 = Procedures(
+            subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,  # Same coordinate system as p1
+        )
+        
+        combined = p1 + p3
+        self.assertEqual(combined.coordinate_system, CoordinateSystemLibrary.BREGMA_ARI)
+        self.assertEqual(len(combined.subject_procedures), 0)  # Both started with empty procedures
+
 
 if __name__ == "__main__":
     unittest.main()
