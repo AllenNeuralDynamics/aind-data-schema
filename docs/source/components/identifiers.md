@@ -12,7 +12,7 @@ Code or script identifier
 | `name` | `Optional[str]` |  |
 | `version` | `Optional[str]` |  |
 | `container` | Optional[[Container](#container)] |  |
-| `run_script` | `Optional[pathlib._local.Path]` | Path to run script |
+| `run_script` | `Optional[pathlib.Path]` | Path to run script |
 | `language` | `Optional[str]` | Programming language used |
 | `language_version` | `Optional[str]` |  |
 | `input_data` | Optional[List[[DataAsset](#dataasset) or [CombinedData](#combineddata)]] | Input data used in the code or script |

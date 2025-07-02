@@ -424,7 +424,7 @@ Filter used in a light path
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `cut_off_wavelength` | `Optional[int]` |  |
 | `cut_on_wavelength` | `Optional[int]` |  |
-| `center_wavelength` | `Optional[int]` |  |
+| `center_wavelength` | `int or List[int] or NoneType` | Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |

@@ -155,3 +155,5 @@ same time. Not all acquisitions have StimulusEpochs.
 | `notes` | `Optional[str]` |  |
 | `active_devices` | `List[str]` | Device names must match devices in the Instrument |
 | `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] |  |
+| `training_protocol_name` | `Optional[str]` | Name of the training protocol used during the acquisition, must match a protocol in the Procedures |
+| `curriculum_status` | `Optional[str]` | Status within the training protocol curriculum |

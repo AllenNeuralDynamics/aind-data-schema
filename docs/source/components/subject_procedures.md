@@ -47,6 +47,7 @@ Description of an animal training protocol
 | `protocol_id` | `Optional[str]` |  |
 | `start_date` | `datetime.date` |  |
 | `end_date` | `Optional[datetime.date]` |  |
+| `curriculum_code` | Optional[[Code](identifiers.md#code)] | Code describing the directed graph used for the training curriculum |
 | `notes` | `Optional[str]` |  |
 
 
