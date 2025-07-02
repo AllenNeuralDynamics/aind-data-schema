@@ -107,9 +107,17 @@ class Procedures(DataCoreModel):
         if not self.subject_id == other.subject_id:
             raise ValueError("Subject IDs must match to combine Procedures objects.")
 
+        # Check for incompatible coordinate systems
+        if self.coordinate_system != other.coordinate_system:
+            raise ValueError(
+                "Cannot combine Procedures objects with different coordinate systems: "
+                f"{self.coordinate_system} vs {other.coordinate_system}"
+            )
+
         return Procedures(
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
+            coordinate_system=self.coordinate_system,
             notes=merge_notes(self.notes, other.notes),
         )

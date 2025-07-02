@@ -52,6 +52,7 @@ from aind_data_schema.components.devices import (
     Wheel,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 from aind_data_schema.utils.validators import recursive_get_all_names
 
 # Define the mapping of modalities to their required device types
@@ -262,3 +263,60 @@ class Instrument(DataCoreModel):
             raise ValueError("\n".join(errors))
 
         return value
+
+    def __add__(self, other: "Instrument") -> "Instrument":
+        """Combine two Instrument objects"""
+
+        # Check for schema version incompatibility
+        if self.schema_version != other.schema_version:
+            raise ValueError(
+                "Cannot combine Instrument objects with different schema versions: "
+                f"{self.schema_version} and {other.schema_version}"
+            )
+
+        # Check for incompatible key fields
+        inst_id_check = self.instrument_id != other.instrument_id
+        location_check = self.location != other.location
+        coord_sys_check = self.coordinate_system != other.coordinate_system
+        temp_control_check = self.temperature_control != other.temperature_control
+
+        if any([inst_id_check, location_check, coord_sys_check, temp_control_check]):
+            raise ValueError(
+                "Cannot combine Instrument objects that differ in key fields:\n"
+                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
+                f"location: {self.location}/{other.location}\n"
+                f"coordinate_system: {self.coordinate_system}/{other.coordinate_system}\n"
+                f"temperature_control: {self.temperature_control}/{other.temperature_control}"
+            )
+
+        # Combine modalities and sort
+        combined_modalities = list(set(self.modalities + other.modalities))
+        combined_modalities = sorted(combined_modalities, key=lambda x: x.abbreviation)
+
+        # Use the latest modification date
+        latest_modification_date = max(self.modification_date, other.modification_date)
+
+        # Combine calibrations
+        combined_calibrations = merge_optional_list(self.calibrations, other.calibrations)
+
+        # Combine connections
+        combined_connections = self.connections + other.connections
+
+        # Combine components
+        combined_components = self.components + other.components
+
+        # Combine notes
+        combined_notes = merge_notes(self.notes, other.notes)
+
+        return Instrument(
+            location=self.location,
+            instrument_id=self.instrument_id,
+            modification_date=latest_modification_date,
+            modalities=combined_modalities,
+            calibrations=combined_calibrations,
+            coordinate_system=self.coordinate_system,
+            temperature_control=self.temperature_control,
+            notes=combined_notes,
+            connections=combined_connections,
+            components=combined_components,
+        )

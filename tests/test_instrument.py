@@ -663,6 +663,80 @@ class InstrumentTests(unittest.TestCase):
         )
         self.assertIsNotNone(inst)
 
+    def test_instrument_addition(self):
+        """Test the __add__ method of Instrument"""
+
+        # Create a copy of the ephys_instrument for testing
+        inst1 = ephys_instrument.model_copy(deep=True)
+        inst2 = ephys_instrument.model_copy(deep=True)
+
+        # Test successful addition
+        combined = inst1 + inst2
+
+        # Verify the combined instrument has the expected properties
+        self.assertEqual(combined.instrument_id, inst1.instrument_id)
+        self.assertEqual(combined.location, inst1.location)
+        self.assertEqual(combined.coordinate_system, inst1.coordinate_system)
+        self.assertEqual(combined.temperature_control, inst1.temperature_control)
+
+        # Check that modalities are combined and sorted (should be the same since we're adding identical instruments)
+        self.assertEqual(len(combined.modalities), len(set(inst1.modalities + inst2.modalities)))
+
+        # Check that components are combined
+        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
+
+        # Check that connections are combined
+        self.assertEqual(len(combined.connections), len(inst1.connections) + len(inst2.connections))
+
+        # Check that calibrations are combined (if they exist)
+        expected_calibrations_len = len(inst1.calibrations or []) + len(inst2.calibrations or [])
+        actual_calibrations_len = len(combined.calibrations or [])
+        self.assertEqual(actual_calibrations_len, expected_calibrations_len)
+
+        # Test incompatible schema versions
+        inst1_orig_schema_v = inst1.schema_version
+        inst1.schema_version = "0.1.0"
+
+        with self.assertRaises(ValueError) as context:
+            inst1 + inst2
+        self.assertIn("Cannot combine Instrument objects with different schema versions", str(context.exception))
+
+        # Restore schema version for next tests
+        inst1.schema_version = inst1_orig_schema_v
+
+        # Test incompatible instrument IDs
+        inst2.instrument_id = "different_instrument_id"
+        with self.assertRaises(ValueError) as context:
+            inst1 + inst2
+        self.assertIn("Cannot combine Instrument objects that differ in key fields", str(context.exception))
+
+        # Test incompatible locations
+        inst2.instrument_id = inst1.instrument_id  # Reset to same
+        inst2.location = "Different Location"
+        with self.assertRaises(ValueError) as context:
+            inst1 + inst2
+        self.assertIn("Cannot combine Instrument objects that differ in key fields", str(context.exception))
+
+        # Test notes combination
+        inst2.location = inst1.location  # Reset to same
+        inst1.notes = "First note"
+        inst2.notes = "Second note"
+        combined = inst1 + inst2
+        self.assertIn("First note", combined.notes)
+        self.assertIn("Second note", combined.notes)
+        self.assertIn("\n", combined.notes)  # Should be joined with newline
+
+        # Test notes combination with None values
+        inst1.notes = "Only note"
+        inst2.notes = None
+        combined = inst1 + inst2
+        self.assertEqual(combined.notes, "Only note")
+
+        inst1.notes = None
+        inst2.notes = "Only note"
+        combined = inst1 + inst2
+        self.assertEqual(combined.notes, "Only note")
+
 
 class ConnectionTest(unittest.TestCase):
     """Test the Connection schema"""
