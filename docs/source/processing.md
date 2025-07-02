@@ -35,7 +35,7 @@ Description of a single processing step
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `process_type` | {ProcessName} |  |
+| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) |  |
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
 | `stage` | [ProcessStage](processing.md#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |

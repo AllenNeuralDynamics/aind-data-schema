@@ -45,6 +45,9 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 
+# Processing
+from aind_data_schema_models.process_names import ProcessName
+
 # Registries
 from aind_data_schema_models.registries import Registry
 
@@ -93,6 +96,8 @@ registries = [
     AnatomicalRelative,
     # Organization models
     Organization,
+    # Process names
+    ProcessName,
     # Registries
     Registry,
     # Species models
