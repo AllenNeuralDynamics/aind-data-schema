@@ -19,6 +19,10 @@ class ExampleTests(unittest.TestCase):
 
         # Move to the examples directory
         os.chdir(EXAMPLES_DIR)
+        # Remove all .json files in the examples directory
+        for file in os.listdir(EXAMPLES_DIR):
+            if file.endswith(".json") and not file.startswith("__"):
+                os.remove(EXAMPLES_DIR / file)
         ExamplesGenerator().generate_all_examples()
         # Return to the original directory
         os.chdir(Path(__file__).parents[1])
