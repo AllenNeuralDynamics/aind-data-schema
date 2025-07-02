@@ -52,7 +52,7 @@ def generate_data_description() -> DataDescription:
         modalities=[Modality.POPHYS, Modality.BEHAVIOR_VIDEOS],
         subject_id=str(session["mouse_id"]),
         creation_time=session["end_time"].to_pydatetime(),
-        institution=Organization.OTHER,
+        institution=Organization.AI,
         funding_source=[Funding(funder=Organization.NIMH)],
         investigators=[experimenter],
         data_level="raw",
@@ -65,7 +65,7 @@ def generate_subject(mouse: dict) -> Subject:
     return Subject(
         subject_id=str(mouse["id"]),
         subject_details=MouseSubject(
-            species=Species.MUS_MUSCULUS,  # all subjects are mice
+            species=Species.MUS_MUSCULUS,
             sex=subject_sex_lookup.get(mouse["sex"]),
             date_of_birth=mouse["dob"],
             genotype=mouse["genotype"],

@@ -1,4 +1,4 @@
-"""schema describing imaging acquisition"""
+"""Schema describing data acquisition metadata and configurations"""
 
 from decimal import Decimal
 from typing import List, Literal, Optional
@@ -30,7 +30,7 @@ from aind_data_schema.components.configs import (
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
-from aind_data_schema.core.instrument import Connection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
@@ -83,7 +83,9 @@ class PerformanceMetrics(DataModel):
 
 
 class DataStream(DataModel):
-    """Data streams with a start and stop time"""
+    """A set of devices that are acquiring data and their configurations starting and stopping at approximately the
+    same time.
+    """
 
     stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
     stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
@@ -114,12 +116,19 @@ class DataStream(DataModel):
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig
-    ] = Field(..., title="Device configurations")
+    ] = Field(
+        ...,
+        title="Device configurations",
+        description="Configurations are parameters controlling active devices during this stream",
+    )
 
     connections: List[Connection] = Field(
         default=[],
         title="Connections",
-        description="Connections that are specific to this acquisition, and are not present in the Instrument",
+        description=(
+            "Connections are links between devices that are specific to this acquisition (i.e."
+            " not already defined in the Instrument)"
+        ),
     )
 
     @model_validator(mode="after")
@@ -152,7 +161,9 @@ class DataStream(DataModel):
 
 
 class StimulusEpoch(DataModel):
-    """Description of stimulus used during data acquisition"""
+    """All stimuli being presented to the subject. starting and stopping at approximately the
+    same time. Not all acquisitions have StimulusEpochs.
+    """
 
     stimulus_start_time: AwareDatetimeWithDefault = Field(
         ...,
@@ -168,7 +179,10 @@ class StimulusEpoch(DataModel):
     code: Optional[Code] = Field(
         default=None,
         title="Code or script",
-        description="Custom code/script used to control the behavior/stimulus and parameters",
+        description=(
+            "Custom code/script used to control the behavior/stimulus."
+            " Use the Code.parameters field to store stimulus properties"
+        ),
     )
     stimulus_modalities: List[StimulusModality] = Field(..., title="Stimulus modalities")
     performance_metrics: Optional[PerformanceMetrics] = Field(default=None, title="Performance metrics")
@@ -200,7 +214,11 @@ class StimulusEpoch(DataModel):
 
 
 class Acquisition(DataCoreModel):
-    """Description of an imaging acquisition"""
+    """Description of data acquisition metadata including streams, stimuli, and experimental setup.
+
+    The acquisition metadata is split into two parallel pieces: the DataStream and the StimulusEpoch.
+    At any given moment in time the active DataStream(s) represents all modalities of data being acquired,
+    while the StimulusEpoch represents all stimuli being presented."""
 
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
@@ -208,7 +226,7 @@ class Acquisition(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.31"]] = Field(default="2.0.31")
 
     # ID
-    subject_id: str = Field(default=..., title="Subject ID")
+    subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
     specimen_id: Optional[str] = Field(
         default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
     )
@@ -222,15 +240,25 @@ class Acquisition(DataCoreModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
-    instrument_id: str = Field(..., title="Instrument ID")
-    acquisition_type: str = Field(..., title="Acquisition type")
+    instrument_id: str = Field(..., title="Instrument ID", description="Should match the Instrument.instrument_id")
+    acquisition_type: str = Field(
+        ...,
+        title="Acquisition type",
+        description=(
+            "Descriptive string detailing the type of acquisition, "
+            "should be consistent across similar acquisitions for the same experiment."
+        ),
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
-        description="Required when coordinates are provided within the Acquisition",
+        description=(
+            "Origin and axis definitions for determining the configured position of devices during acquisition."
+            " Required when coordinates are provided within the Acquisition"
+        ),
     )  # note: exact field name is used by a validator
 
     # Instrument metadata
@@ -248,11 +276,18 @@ class Acquisition(DataCoreModel):
         ...,
         title="Data streams",
         description=(
-            "A data stream is a collection of devices that are recorded simultaneously. Each acquisition can include"
-            " multiple streams (e.g., if the manipulators are moved to a new location)"
+            "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
+            "include multiple streams. Streams should be split when configurations are changed."
         ),
     )
-    stimulus_epochs: List[StimulusEpoch] = Field(default=[], title="Stimulus")
+    stimulus_epochs: List[StimulusEpoch] = Field(
+        default=[],
+        title="Stimulus",
+        description=(
+            "A stimulus epoch captures all stimuli being presented during an acquisition."
+            " Epochs should be split when the purpose of the stimulus changes."
+        ),
+    )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")

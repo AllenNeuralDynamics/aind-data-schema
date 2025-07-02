@@ -16,7 +16,8 @@ from aind_data_schema.components.devices import (
     Microscope,
 )
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
 )
@@ -226,7 +227,7 @@ inst = Instrument(
     location="440",
     instrument_id="SmartSPIM2",
     modification_date=datetime.date(2023, 10, 4),
-    coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+    coordinate_system=CoordinateSystemLibrary.SIPE_MONITOR_RTF,
     modalities=[Modality.SPIM],
     temperature_control=False,
     components=[

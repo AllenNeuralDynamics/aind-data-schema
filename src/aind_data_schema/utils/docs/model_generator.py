@@ -17,7 +17,7 @@ special_cases = {
     "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
     "aind_data_schema_models.organizations": ("[Organization](aind_data_schema_models/organizations.md#organization)"),
     "aind_data_schema_models.modalities": ("[Modality](aind_data_schema_models/modalities.md#modality)"),
-    "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#CCFv3)"),
+    "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfv3)"),
     "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
     "aind_data_schema_models.species._C57Bl_6J": "[Strain](aind_data_schema_models/species.md#strain)",
     "aind_data_schema_models.species._Callithrix_Jacchus": "[Species](aind_data_schema_models/species.md#species)",

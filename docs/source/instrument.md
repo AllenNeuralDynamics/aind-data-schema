@@ -1,8 +1,10 @@
 # Instrument
 
+[Link to code](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/src/aind_data_schema/core/instrument.py)
+
 The `instrument.json` collects the components, mostly hardware devices, used to collect data. In general, the instrument schema describes the static state of the data acquisition hardware across sessions. The [Acquisition](acquisition.md) is used to describe the configuration of components for a specific session.
 
-Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a maintenance event is performed that requires an update. Changes to the instrument should be timestamped using the `Instrument.modification_date` field.
+Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a device is added, removed, or moved, or maintenance is performed. The last change to an instrument should be timestamped in the `Instrument.modification_date` field.
 
 ## Uniqueness
 
@@ -53,45 +55,13 @@ Description of an instrument
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `instrument_id` | `str` | Unique instrument identifier, name convention: <room>_<apparatus name>_<date modified YYYYMMDD> |
-| `modification_date` | `datetime.date` |  |
-| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities that CAN BE acquired |
-| `calibrations` | Optional[List[[Calibration](components/measurements.md#calibration) or [LiquidCalibration](components/measurements.md#liquidcalibration) or [LaserCalibration](components/measurements.md#lasercalibration)]] |  |
-| `coordinate_system` | [CoordinateSystem](components/coordinates.md#coordinatesystem) |  |
-| `temperature_control` | `Optional[bool]` |  |
+| `location` | `Optional[str]` | Location of the instrument |
+| `instrument_id` | `str` | Unique instrument identifier |
+| `modification_date` | `datetime.date` | Date of the last change to the instrument, hardware addition/removal, calibration, etc. |
+| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | List of all possible modalities that the instrument is capable of acquiring |
+| `calibrations` | Optional[List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)]] | List of calibration measurements takend during instrument setup and maintenance |
+| `coordinate_system` | [CoordinateSystem](components/coordinates.md#coordinatesystem) | Origin and axis definitions for determining the position of the instrument's components |
+| `temperature_control` | `Optional[bool]` | Does the instrument maintain a constant temperature? |
 | `notes` | `Optional[str]` |  |
-| `connections` | List[[Connection](#connection)] | List of all connections between devices in the instrument |
-| `components` | List[[Monitor](components/devices.md#monitor) or [Olfactometer](components/devices.md#olfactometer) or [LickSpout](components/devices.md#lickspout) or [LickSpoutAssembly](components/devices.md#lickspoutassembly) or [AirPuffDevice](components/devices.md#airpuffdevice) or [Speaker](components/devices.md#speaker) or [CameraAssembly](components/devices.md#cameraassembly) or [Enclosure](components/devices.md#enclosure) or [EphysAssembly](components/devices.md#ephysassembly) or [FiberAssembly](components/devices.md#fiberassembly) or [LaserAssembly](components/devices.md#laserassembly) or [FiberPatchCord](components/devices.md#fiberpatchcord) or [Laser](components/devices.md#laser) or [LightEmittingDiode](components/devices.md#lightemittingdiode) or [Lamp](components/devices.md#lamp) or [Detector](components/devices.md#detector) or [Objective](components/devices.md#objective) or [Scanner](components/devices.md#scanner) or [Filter](components/devices.md#filter) or [Lens](components/devices.md#lens) or [DigitalMicromirrorDevice](components/devices.md#digitalmicromirrordevice) or [PolygonalScanner](components/devices.md#polygonalscanner) or [PockelsCell](components/devices.md#pockelscell) or [HarpDevice](components/devices.md#harpdevice) or [NeuropixelsBasestation](components/devices.md#neuropixelsbasestation) or [OpenEphysAcquisitionBoard](components/devices.md#openephysacquisitionboard) or [MotorizedStage](components/devices.md#motorizedstage) or [ScanningStage](components/devices.md#scanningstage) or [AdditionalImagingDevice](components/devices.md#additionalimagingdevice) or [Disc](components/devices.md#disc) or [Wheel](components/devices.md#wheel) or [Tube](components/devices.md#tube) or [Treadmill](components/devices.md#treadmill) or [Arena](components/devices.md#arena) or [DAQDevice](components/devices.md#daqdevice) or [Computer](components/devices.md#computer) or [Microscope](components/devices.md#microscope) or [Device](components/devices.md#device)] | List of all devices in the instrument |
-
-
-## Model definitions
-
-### Connection
-
-Connection between two devices
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `device_names` | `List[str]` |  |
-| `connection_data` | Dict[str, [ConnectionData](#connectiondata)] |  |
-
-
-### ConnectionData
-
-Data for a connection
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `direction` | Optional[[ConnectionDirection](#connectiondirection)] |  |
-| `port` | `Optional[str]` |  |
-
-
-### ConnectionDirection
-
-Direction of a connection
-
-| Name | Value |
-|------|-------|
-| `SEND` | `Send` |
-| `RECEIVE` | `Receive` |
-| `SEND_AND_RECEIVE` | `Send and receive` |
+| `connections` | List[[Connection](components/connections.md#connection)] | List of all connections between devices in the instrument |
+| `components` | List[[Monitor](components/devices.md#monitor) or [Olfactometer](components/devices.md#olfactometer) or [LickSpout](components/devices.md#lickspout) or [LickSpoutAssembly](components/devices.md#lickspoutassembly) or [AirPuffDevice](components/devices.md#airpuffdevice) or [Speaker](components/devices.md#speaker) or [CameraAssembly](components/devices.md#cameraassembly) or [Enclosure](components/devices.md#enclosure) or [EphysAssembly](components/devices.md#ephysassembly) or [FiberAssembly](components/devices.md#fiberassembly) or [LaserAssembly](components/devices.md#laserassembly) or [FiberPatchCord](components/devices.md#fiberpatchcord) or [Laser](components/devices.md#laser) or [LightEmittingDiode](components/devices.md#lightemittingdiode) or [Lamp](components/devices.md#lamp) or [Detector](components/devices.md#detector) or [Camera](components/devices.md#camera) or [Objective](components/devices.md#objective) or [Scanner](components/devices.md#scanner) or [Filter](components/devices.md#filter) or [Lens](components/devices.md#lens) or [DigitalMicromirrorDevice](components/devices.md#digitalmicromirrordevice) or [PolygonalScanner](components/devices.md#polygonalscanner) or [PockelsCell](components/devices.md#pockelscell) or [HarpDevice](components/devices.md#harpdevice) or [NeuropixelsBasestation](components/devices.md#neuropixelsbasestation) or [OpenEphysAcquisitionBoard](components/devices.md#openephysacquisitionboard) or [MotorizedStage](components/devices.md#motorizedstage) or [ScanningStage](components/devices.md#scanningstage) or [AdditionalImagingDevice](components/devices.md#additionalimagingdevice) or [Disc](components/devices.md#disc) or [Wheel](components/devices.md#wheel) or [Tube](components/devices.md#tube) or [Treadmill](components/devices.md#treadmill) or [Arena](components/devices.md#arena) or [DAQDevice](components/devices.md#daqdevice) or [Computer](components/devices.md#computer) or [Microscope](components/devices.md#microscope) or [Device](components/devices.md#device)] | List of all devices in the instrument |

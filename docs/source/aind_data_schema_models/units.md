@@ -130,6 +130,15 @@ Sound intensity units
 | `DB` | `decibels` |
 
 
+### SpeedUnit
+
+Enumeration of Speed Measurements
+
+| Name | Value |
+|------|-------|
+| `RPM` | `rotations per minute` |
+
+
 ### TemperatureUnit
 
 Temperature units

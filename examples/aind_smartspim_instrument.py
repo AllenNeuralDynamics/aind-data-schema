@@ -11,13 +11,11 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Device,
 )
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.core.instrument import (
     Detector,
     Instrument,
     Objective,
-    Connection,
-    ConnectionData,
-    ConnectionDirection,
     Microscope,
 )
 from aind_data_schema_models.modalities import Modality

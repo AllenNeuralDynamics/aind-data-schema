@@ -1,38 +1,48 @@
 # Quality control
 
-Quality control is a collection of **evaluations** based on sets of **metrics** about the data. 
+[Link to code](https://github.com/AllenNeuralDynamics/aind-data-schema/blob/dev/src/aind_data_schema/core/quality_control.py)
 
-`QCEvaluation`s should be generated during pipelines: before raw data upload, during processing, and during analysis by researchers.
+Quality control is a collection of **metrics** evaluated on a data asset.
 
-The overall `QualityControl`, each `QCEvaluation`, and each `QCMetric` can be evaluated to get a `aind_data_schema.quality_control.State` which indicates whether the Overall QC/Evaluation/Metric passes, fails, or is in a pending state waiting for manual annotation.
+[QCMetric](#qcmetric) objects should be generated during pipelines: from raw data, during processing, and during analysis by researchers.
 
-The state of an evaluation is set automatically to the lowest of its metric's states. A single failed metric sets an entire evaluation to fail. A single pending metric (with all other metrics passing) sets an entire evaluation to pending. An optional setting `QCEvaluation.allow_failed_metrics` allows you to ignore failures, which can be useful in situations where an evaluation is not critical for quality control.
+Every [QCMetric](#qcmetric) has a `aind_data_schema.quality_control.State` which takes the value of the metric and compares it to some rule. Metrics can only pass or fail. Metrics that require manual evaluation are set to pending.
 
 ## Details
 
-### Evaluations
-
-Each `QCEvaluation` should be thought of as a single aspect of the data asset, from one `Modality`, that is evaluated for quality at a specific `Stage` in data acquisition or analysis. For example, the brain moves a small amount during electrophysiology. This evaluation would be marked with `Stage:RAW` and `Modality:ECEPHYS`. Evaluations will often consist of multiple metrics, some of which can be measured and evaluated automatically, as well as qualititative metrics that need to be evaluated by a human observer.
-
-The state of an evaluation depends on the state of its metrics according to these rules:
-
-- If any metric fails the evaluation fails (except when `allow_failed_metrics=True`, see below)
-- If any metric is pending and the rest pass the evaluation is pending
-- If all metrics pass the evaluation passes
-
-There are many situations where quality control is evaluated on an aspect of the data that isn't critical to the overall experimental goals. For example, you may have a `QCEvaluation` that checks whether the temperature and humidity sensors on the rig were functional, but the overall analysis can proceed with or without the these data. In these situations set `QCEvaluation.allow_failed_metrics=True` to allow the evaluation to pass even if these sensors actually failed. This ensures that the overall `QualityControl` for the data asset can also pass, without regard to these optional elements of the data. 
-
 ### Metrics
 
-Each `QCMetric` is a single value or set of values that can be computed, or observed, about a set of data as part of an evaluation. These can have any type. See the AIND section for special rules for annotating metrics with options.
+Each [QCMetric](#qcmetric) is a single value or array of values that can be computed, or observed, about one modality in a data asset. These can have any type. Metrics should be significant: i.e. whether they pass or fail should matter for the modality. Metrics need to be human understandable. If you find yourself generating more than fifty metrics for a modality you should group them together (i.e. make the value a dictionary combining similar metrics and the rule an evaluation of multiple fields in the dictionary).
 
-`QCMetric`s have a `Status`. The `Status` should depend directly on the `QCMetric.value`, either by a simple function: "value>5", or by a qualitative rule: "Field of view includes visual areas". The `QCMetric.description` field should be used to describe the rule used to set the status. Metrics can be evaluated multiple times, in which case the new status should be appended the `QCMetric.status_history`.
+Each [QCMetric](#qcmetric) has a [Status](#status). The [Status](#status) should depend directly on the `QCMetric.value`, either by a simple function: "value>5", or by a qualitative rule: "Field of view includes visual areas". The `QCMetric.description` field should describe the rule used to set the status. Metrics can be evaluated multiple times, in which case the new status should be appended the `QCMetric.status_history`.
+
+Each [QCMetric](#qcmetric) is annotated with three pieces of additional metadata: the [Stage](#stage) during which it was evaluated, the [Modality](aind_data_schema_models/modalities.md#modality) of the evaluated data, and [tags](#tags).
+
+### Curations
+
+If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+
+### Tags
+
+`tags` are any string that naturally groups sets of metrics together. Good tags are things like: "Probe A", "Motion correction", and "Pose tracking". The stage and modality are automatically treated as tags, you do not need to include them in the tags list.
+
+### QualityControl.evaluate_status()
+
+You can evaluate the state of a set of metrics filtered by any combination of modalities, stages, and tags on a specific date (by default, today). When evaluating the [Status](#status) of a group of metrics the following rules apply:
+
+First, any metric that is failing and also has a matching tag (or tuple of tags) in the `QualityControl.allow_tag_failures` list is set to pass. This allows you to specify that certain metrics are not critical to a data asset.
+
+Then, given the status of all the metrics in the group:
+
+1. If any metric is still failing, the evaluation fails
+2. If any metric is pending and the rest pass the evaluation is pending
+3. If all metrics pass the evaluation passes
 
 **Q: What is a metric reference?**
 
-Metrics should include a `QCMetric.reference`. References are intended to be publicly accessible images, figures, combined figures with multiple panels, or videos that support the metric or provide information necessary for manual annotation of a metric's status.
+Each [QCMetric](#qcmetric) should include a `QCMetric.reference`. References should be publicly accessible images, figures, multi-panel figures, and videos that support the metric value/status or provide the information necessary for manual annotation.
 
-See the AIND section for specifics about how references are rendered in the QC Portal.
+It's good practice to share a single multi-panel figure across multiple references to simplify viewing the quality control.
 
 **Q: What are the status options for metrics?**
 
@@ -42,15 +52,7 @@ We enforce this minimal set of states to prevent ambiguity and make it easier to
 
 ## Multi-asset QC
 
-During analysis there are many situations where multiple data assets need to be pulled together, often for comparison. For example, FOVs across imaging sessions or recording sessions from a chronic probe might need to get matched up across days. When a `QCEvaluation` is being calculated from multiple assets it should be tagged with `Stage:MULTI_ASSET` and each of its `QCMetric` objects needs to track the assets that were used to generate that metric in the `evaluated_assets` list.
-
-**Q: Where do I store multi-asset QC?**
-
-You should follow the preferred/alternate workflows described above. If your multi-asset analysis pipeline generates a new data asset, put the QC there. If your pipeline does not generate an asset, push a copy of each `QCEvaluation` back to **each** individual data asset.
-
-**Q: I want to be able to store data about each of the evaluated assets in this metric**
-
-Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allows you to pass a list of values which will be matched up with the `evaluated_assets` names. You can also include options which will appear as dropdowns or checkboxes.
+During analysis there are many situations where multiple data assets need to be pulled together, often for comparison. For example, FOVs across imaging sessions or recording sessions from a chronic probe might need to get matched up across days. When a [QCMetric](#qcmetric) is being calculated from multiple assets it should be tagged with `Stage:MULTI_ASSET` and each of its metrics needs to track the assets that were used to generate that metric in the `evaluated_assets` list.
 
 ## Example
 
@@ -63,12 +65,16 @@ Take a look at the `MultiAssetMetric` class in `aind-qc-portal-schema`. It allow
 
 ### QualityControl
 
-Description of quality metrics for a data asset
+Collection of quality control metrics evaluated on a data asset to determine pass/fail status
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `evaluations` | List[[QCEvaluation](#qcevaluation)] |  |
+| `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric)] |  |
+| `key_experimenters` | Optional[List[[Person](components/identifiers.md#person)]] | Experimenters who are responsible for quality control of this data asset |
 | `notes` | `Optional[str]` |  |
+| `default_grouping` | `List[str]` | Default tag grouping for this QualityControl object, used in visualizations |
+| `allow_tag_failures` | `List[str or tuple]` | List of tags that are allowed to fail without failing the overall QC |
+| `status` | `Optional[dict]` | Mapping of tags, modalities, and stages to their evaluated status, automatically computed |
 
 
 ## Model definitions
@@ -91,30 +97,15 @@ Description of a curation metric
 |-------|------|-------------|
 | `value` | `List[typing.Any]` |  |
 | `type` | `str` |  |
-| `curation_history` | List[[CurationHistory](#curationhistory)] |  |
+| `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] |  |
 | `name` | `str` |  |
-| `status_history` | List[[QCStatus](#qcstatus)] |  |
+| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
+| `stage` | [Stage](quality_control.md#stage) |  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
+| `tags` | `List[str]` | Tags group QCMetric objects to allow for grouping and filtering |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
-
-
-### QCEvaluation
-
-Description of one evaluation stage, with one or more metrics
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
-| `stage` | [Stage](#stage) |  |
-| `name` | `str` |  |
-| `description` | `Optional[str]` |  |
-| `metrics` | List[[QCMetric](#qcmetric) or [CurationMetric](#curationmetric)] |  |
-| `tags` | `Optional[List[str]]` | Tags can be used to group QCEvaluation objects into groups |
-| `notes` | `Optional[str]` |  |
-| `allow_failed_metrics` | `bool` | Set to true for evaluations that are not critical to the overall state of QC for a data asset, this will allow individual metrics to fail while still passing the evaluation. |
-| `latest_status` | Optional[[Status](#status)] |  |
-| `created` | `datetime (timezone-aware)` |  |
 
 
 ### QCMetric
@@ -124,10 +115,13 @@ Description of a single quality control metric
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `str` |  |
+| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
+| `stage` | [Stage](quality_control.md#stage) |  |
 | `value` | `typing.Any` |  |
-| `status_history` | List[[QCStatus](#qcstatus)] |  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] |  |
 | `description` | `Optional[str]` |  |
 | `reference` | `Optional[str]` |  |
+| `tags` | `List[str]` | Tags group QCMetric objects to allow for grouping and filtering |
 | `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
 
 
@@ -138,13 +132,13 @@ Description of a QC status, set by an evaluator
 | Field | Type | Description |
 |-------|------|-------------|
 | `evaluator` | `str` |  |
-| `status` | [Status](#status) |  |
+| `status` | [Status](quality_control.md#status) |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
 ### Stage
 
-QCEvaluation Stage
+Quality control stage
 
 When during data processing the QC metrics were derived.
 

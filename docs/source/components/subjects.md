@@ -21,7 +21,7 @@ Materials provided in animal home cage
 
 | Name | Value |
 |------|-------|
-| `NONE` | `None` |
+| `NO_ENRICHMENT` | `No enrichment` |
 | `PLASTIC_SHELTER` | `Plastic shelter` |
 | `PLASTIC_TUBE` | `Plastic tube` |
 | `RUNNING_WHEEL` | `Running wheel` |

@@ -74,7 +74,7 @@ class DataDescription(DataCoreModel):
     )
     data_level: DataLevel = Field(
         ...,
-        description="level of processing that data has undergone",
+        description="Level of processing that data has undergone",
         title="Data Level",
     )
     group: Optional[Group] = Field(
@@ -102,7 +102,7 @@ class DataDescription(DataCoreModel):
     modalities: List[Modality.ONE_OF] = Field(
         ...,
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
-        "of any technology or formal procedure to generate data for a study",
+        " of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
     data_summary: Optional[str] = Field(

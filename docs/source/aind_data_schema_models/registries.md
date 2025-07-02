@@ -15,5 +15,6 @@ Registries
 | `ORCID` | `Open Researcher and Contributor ID` | `ORCID` |
 | `ROR` | `Research Organization Registry` | `ROR` |
 | `RRID` | `Research Resource Identifiers` | `RRID` |
+| `UNIPROT` | `Universal Protein Resource` | `UNIPROT` |
 
 

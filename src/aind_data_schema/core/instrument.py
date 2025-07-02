@@ -1,13 +1,13 @@
 """Core Instrument model"""
 
 from datetime import date
-from enum import Enum
-from typing import Dict, List, Literal, Optional
+from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
-from aind_data_schema.base import DataCoreModel, DataModel, DiscriminatedList
+from aind_data_schema.base import DataCoreModel, DiscriminatedList
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
@@ -68,37 +68,6 @@ DEVICES_REQUIRED = {
 }
 
 
-class ConnectionDirection(str, Enum):
-    """Direction of a connection"""
-
-    SEND = "Send"
-    RECEIVE = "Receive"
-    SEND_AND_RECEIVE = "Send and receive"
-
-
-class ConnectionData(DataModel):
-    """Data for a connection"""
-
-    direction: Optional[ConnectionDirection] = Field(default=None, title="Connection direction")
-    port: Optional[str] = Field(default=None, title="Connection port index/name")
-
-
-class Connection(DataModel):
-    """Connection between two devices"""
-
-    device_names: List[str] = Field(..., title="Names of connected devices")
-    connection_data: Dict[str, ConnectionData] = Field(default={}, title="Connection data")
-
-    @model_validator(mode="after")
-    def validate_connection_data(cls, self):
-        """Check that all keys in connection_data exist in device_names"""
-        for key in self.connection_data.keys():
-            if key not in self.device_names:
-                raise ValueError(f"Connection data key '{key}' does not exist in device names")
-
-        return self
-
-
 class Instrument(DataCoreModel):
     """Description of an instrument"""
 
@@ -119,16 +88,28 @@ class Instrument(DataCoreModel):
         title="Date of modification",
         description="Date of the last change to the instrument, hardware addition/removal, calibration, etc.",
     )
-    modalities: List[Modality.ONE_OF] = Field(..., title="Modalities", description="Modalities that CAN BE acquired")
-    calibrations: Optional[List[CALIBRATIONS]] = Field(default=None, title="Full calibration of devices")
+    modalities: List[Modality.ONE_OF] = Field(
+        ...,
+        title="Modalities",
+        description="List of all possible modalities that the instrument is capable of acquiring",
+    )
+    calibrations: Optional[List[CALIBRATIONS]] = Field(
+        default=None,
+        title="Calibrations",
+        description="List of calibration measurements takend during instrument setup and maintenance",
+    )
 
     # coordinate system
     coordinate_system: CoordinateSystem = Field(
-        ..., title="Coordinate system"
+        ...,
+        title="Coordinate system",
+        description="Origin and axis definitions for determining the position of the instrument's components",
     )  # note: exact field name is used by a validator
 
     # instrument details
-    temperature_control: Optional[bool] = Field(default=None, title="Temperature control")
+    temperature_control: Optional[bool] = Field(
+        default=None, title="Temperature control", description="Does the instrument maintain a constant temperature?"
+    )
     notes: Optional[str] = Field(default=None, title="Notes")
 
     connections: List[Connection] = Field(

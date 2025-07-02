@@ -19,7 +19,7 @@ from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
 class Procedures(DataCoreModel):
-    """Description of all procedures performed on a subject"""
+    """Description of all procedures performed on a subject, including surgeries, injections, and tissue processing"""
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
@@ -27,19 +27,24 @@ class Procedures(DataCoreModel):
     schema_version: SkipValidation[Literal["2.0.29"]] = Field(default="2.0.29")
     subject_id: str = Field(
         ...,
-        description="Unique identifier for the subject. If this is not a Allen LAS ID, indicate this in the Notes.",
+        description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
     subject_procedures: DiscriminatedList[
         Surgery | Injection | TrainingProtocol | WaterRestriction | GenericSubjectProcedure
-    ] = Field(default=[], title="Subject Procedures")
-    specimen_procedures: List[SpecimenProcedure] = Field(default=[], title="Specimen Procedures")
+    ] = Field(default=[], title="Subject Procedures", description="Procedures performed on a live subject")
+    specimen_procedures: List[SpecimenProcedure] = Field(
+        default=[], title="Specimen Procedures", description="Procedures performed on tissue extracted after perfusion"
+    )
 
     # Coordinate system
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate System",
-        description="Required when coordinates are provided in the procedures",
+        description=(
+            "Origin and axis definitions for determining the configured position of devices implanted during"
+            " procedures. Required when coordinates are provided within the Procedures"
+        ),
     )  # note: exact field name is used by a validator
 
     notes: Optional[str] = Field(default=None, title="Notes")
