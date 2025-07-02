@@ -13761,73 +13761,173 @@
             "harp_device_type": {
                "discriminator": {
                   "mapping": {
+                     "AnalogInput": "#/$defs/_Analoginput",
+                     "Archimedes": "#/$defs/_Archimedes",
                      "Behavior": "#/$defs/aind_data_schema_models__harp_types___Behavior",
-                     "Camera Controller": "#/$defs/_Camera_Controller",
-                     "Clock Synchronizer": "#/$defs/_Clock_Synchronizer",
-                     "Cuttlefish": "#/$defs/_Cuttlefish",
-                     "Generic Harp Device": "#/$defs/_Generic_Harp_Device",
-                     "Input Expander": "#/$defs/_Input_Expander",
-                     "Lickety Split": "#/$defs/_Lickety_Split",
-                     "Load Cells": "#/$defs/_Load_Cells",
+                     "CameraController": "#/$defs/_Cameracontroller",
+                     "CameraControllerGen2": "#/$defs/_Cameracontrollergen2",
+                     "ClockSynchronizer": "#/$defs/_Clocksynchronizer",
+                     "Driver12Volts": "#/$defs/_Driver12Volts",
+                     "EnvironmentSensor": "#/$defs/_Environmentsensor",
+                     "FlyPad": "#/$defs/_Flypad",
+                     "Hobgoblin": "#/$defs/_Hobgoblin",
+                     "Ibl_behavior_control": "#/$defs/_Ibl_Behavior_Control",
+                     "InputExpander": "#/$defs/_Inputexpander",
+                     "LedController": "#/$defs/_Ledcontroller",
+                     "LicketySplit": "#/$defs/_Licketysplit",
+                     "LoadCells": "#/$defs/_Loadcells",
+                     "MultiPwmGenerator": "#/$defs/_Multipwmgenerator",
+                     "NeurophotometricsFP3002": "#/$defs/_Neurophotometricsfp3002",
                      "Olfactometer": "#/$defs/_Olfactometer",
-                     "Sniff Detector": "#/$defs/_Sniff_Detector",
-                     "Sound Card": "#/$defs/_Sound_Card",
-                     "Stepper Driver": "#/$defs/_Stepper_Driver",
+                     "OutputExpander": "#/$defs/_Outputexpander",
+                     "Pluma": "#/$defs/_Pluma",
+                     "Poke": "#/$defs/_Poke",
+                     "PyControlAdapter": "#/$defs/_Pycontroladapter",
+                     "RfidReader": "#/$defs/_Rfidreader",
+                     "RgbArray": "#/$defs/_Rgbarray",
+                     "SimpleAnalogGenerator": "#/$defs/_Simpleanaloggenerator",
+                     "SniffDetector": "#/$defs/_Sniffdetector",
+                     "SoundCard": "#/$defs/_Soundcard",
+                     "StepperDriver": "#/$defs/_Stepperdriver",
                      "Synchronizer": "#/$defs/_Synchronizer",
-                     "Timestamp Generator Gen 1": "#/$defs/_Timestamp_Generator_Gen_1",
-                     "Timestamp Generator Gen 3": "#/$defs/_Timestamp_Generator_Gen_3",
-                     "Treadmill": "#/$defs/_Treadmill"
+                     "SyringePump": "#/$defs/_Syringepump",
+                     "TimestampGeneratorGen1": "#/$defs/_Timestampgeneratorgen1",
+                     "TimestampGeneratorGen3": "#/$defs/_Timestampgeneratorgen3",
+                     "Treadmill": "#/$defs/_Treadmill",
+                     "USBHub": "#/$defs/_Usbhub",
+                     "VestibularH1": "#/$defs/_Vestibularh1",
+                     "VestibularH2": "#/$defs/_Vestibularh2",
+                     "Wear": "#/$defs/_Wear",
+                     "WearBaseStationGen2": "#/$defs/_Wearbasestationgen2",
+                     "WhiteRabbit": "#/$defs/_Whiterabbit",
+                     "cuTTLefish": "#/$defs/_Cuttlefish",
+                     "cuTTLefishFip": "#/$defs/_Cuttlefishfip"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/_Analoginput"
+                  },
+                  {
+                     "$ref": "#/$defs/_Archimedes"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__harp_types___Behavior"
                   },
                   {
-                     "$ref": "#/$defs/_Camera_Controller"
+                     "$ref": "#/$defs/_Cameracontroller"
                   },
                   {
-                     "$ref": "#/$defs/_Clock_Synchronizer"
+                     "$ref": "#/$defs/_Cameracontrollergen2"
                   },
                   {
-                     "$ref": "#/$defs/_Cuttlefish"
+                     "$ref": "#/$defs/_Clocksynchronizer"
                   },
                   {
-                     "$ref": "#/$defs/_Generic_Harp_Device"
+                     "$ref": "#/$defs/_Driver12Volts"
                   },
                   {
-                     "$ref": "#/$defs/_Input_Expander"
+                     "$ref": "#/$defs/_Environmentsensor"
                   },
                   {
-                     "$ref": "#/$defs/_Lickety_Split"
+                     "$ref": "#/$defs/_Flypad"
                   },
                   {
-                     "$ref": "#/$defs/_Load_Cells"
+                     "$ref": "#/$defs/_Hobgoblin"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ibl_Behavior_Control"
+                  },
+                  {
+                     "$ref": "#/$defs/_Inputexpander"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ledcontroller"
+                  },
+                  {
+                     "$ref": "#/$defs/_Licketysplit"
+                  },
+                  {
+                     "$ref": "#/$defs/_Loadcells"
+                  },
+                  {
+                     "$ref": "#/$defs/_Multipwmgenerator"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neurophotometricsfp3002"
                   },
                   {
                      "$ref": "#/$defs/_Olfactometer"
                   },
                   {
-                     "$ref": "#/$defs/_Sniff_Detector"
+                     "$ref": "#/$defs/_Outputexpander"
                   },
                   {
-                     "$ref": "#/$defs/_Sound_Card"
+                     "$ref": "#/$defs/_Pluma"
                   },
                   {
-                     "$ref": "#/$defs/_Stepper_Driver"
+                     "$ref": "#/$defs/_Poke"
+                  },
+                  {
+                     "$ref": "#/$defs/_Pycontroladapter"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rfidreader"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rgbarray"
+                  },
+                  {
+                     "$ref": "#/$defs/_Simpleanaloggenerator"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sniffdetector"
+                  },
+                  {
+                     "$ref": "#/$defs/_Soundcard"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stepperdriver"
                   },
                   {
                      "$ref": "#/$defs/_Synchronizer"
                   },
                   {
-                     "$ref": "#/$defs/_Timestamp_Generator_Gen_1"
+                     "$ref": "#/$defs/_Syringepump"
                   },
                   {
-                     "$ref": "#/$defs/_Timestamp_Generator_Gen_3"
+                     "$ref": "#/$defs/_Timestampgeneratorgen1"
+                  },
+                  {
+                     "$ref": "#/$defs/_Timestampgeneratorgen3"
                   },
                   {
                      "$ref": "#/$defs/_Treadmill"
+                  },
+                  {
+                     "$ref": "#/$defs/_Usbhub"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vestibularh1"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vestibularh2"
+                  },
+                  {
+                     "$ref": "#/$defs/_Wear"
+                  },
+                  {
+                     "$ref": "#/$defs/_Wearbasestationgen2"
+                  },
+                  {
+                     "$ref": "#/$defs/_Whiterabbit"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cuttlefishfip"
                   }
                ],
                "title": "Type of Harp device"
@@ -14690,8 +14790,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.36",
-               "default": "2.0.36",
+               "const": "2.0.37",
+               "default": "2.0.37",
                "title": "Schema Version",
                "type": "string"
             },
@@ -21623,73 +21723,173 @@
                },
                "discriminator": {
                   "mapping": {
+                     "AnalogInput": "#/$defs/_Analoginput",
+                     "Archimedes": "#/$defs/_Archimedes",
                      "Behavior": "#/$defs/aind_data_schema_models__harp_types___Behavior",
-                     "Camera Controller": "#/$defs/_Camera_Controller",
-                     "Clock Synchronizer": "#/$defs/_Clock_Synchronizer",
-                     "Cuttlefish": "#/$defs/_Cuttlefish",
-                     "Generic Harp Device": "#/$defs/_Generic_Harp_Device",
-                     "Input Expander": "#/$defs/_Input_Expander",
-                     "Lickety Split": "#/$defs/_Lickety_Split",
-                     "Load Cells": "#/$defs/_Load_Cells",
+                     "CameraController": "#/$defs/_Cameracontroller",
+                     "CameraControllerGen2": "#/$defs/_Cameracontrollergen2",
+                     "ClockSynchronizer": "#/$defs/_Clocksynchronizer",
+                     "Driver12Volts": "#/$defs/_Driver12Volts",
+                     "EnvironmentSensor": "#/$defs/_Environmentsensor",
+                     "FlyPad": "#/$defs/_Flypad",
+                     "Hobgoblin": "#/$defs/_Hobgoblin",
+                     "Ibl_behavior_control": "#/$defs/_Ibl_Behavior_Control",
+                     "InputExpander": "#/$defs/_Inputexpander",
+                     "LedController": "#/$defs/_Ledcontroller",
+                     "LicketySplit": "#/$defs/_Licketysplit",
+                     "LoadCells": "#/$defs/_Loadcells",
+                     "MultiPwmGenerator": "#/$defs/_Multipwmgenerator",
+                     "NeurophotometricsFP3002": "#/$defs/_Neurophotometricsfp3002",
                      "Olfactometer": "#/$defs/_Olfactometer",
-                     "Sniff Detector": "#/$defs/_Sniff_Detector",
-                     "Sound Card": "#/$defs/_Sound_Card",
-                     "Stepper Driver": "#/$defs/_Stepper_Driver",
+                     "OutputExpander": "#/$defs/_Outputexpander",
+                     "Pluma": "#/$defs/_Pluma",
+                     "Poke": "#/$defs/_Poke",
+                     "PyControlAdapter": "#/$defs/_Pycontroladapter",
+                     "RfidReader": "#/$defs/_Rfidreader",
+                     "RgbArray": "#/$defs/_Rgbarray",
+                     "SimpleAnalogGenerator": "#/$defs/_Simpleanaloggenerator",
+                     "SniffDetector": "#/$defs/_Sniffdetector",
+                     "SoundCard": "#/$defs/_Soundcard",
+                     "StepperDriver": "#/$defs/_Stepperdriver",
                      "Synchronizer": "#/$defs/_Synchronizer",
-                     "Timestamp Generator Gen 1": "#/$defs/_Timestamp_Generator_Gen_1",
-                     "Timestamp Generator Gen 3": "#/$defs/_Timestamp_Generator_Gen_3",
-                     "Treadmill": "#/$defs/_Treadmill"
+                     "SyringePump": "#/$defs/_Syringepump",
+                     "TimestampGeneratorGen1": "#/$defs/_Timestampgeneratorgen1",
+                     "TimestampGeneratorGen3": "#/$defs/_Timestampgeneratorgen3",
+                     "Treadmill": "#/$defs/_Treadmill",
+                     "USBHub": "#/$defs/_Usbhub",
+                     "VestibularH1": "#/$defs/_Vestibularh1",
+                     "VestibularH2": "#/$defs/_Vestibularh2",
+                     "Wear": "#/$defs/_Wear",
+                     "WearBaseStationGen2": "#/$defs/_Wearbasestationgen2",
+                     "WhiteRabbit": "#/$defs/_Whiterabbit",
+                     "cuTTLefish": "#/$defs/_Cuttlefish",
+                     "cuTTLefishFip": "#/$defs/_Cuttlefishfip"
                   },
                   "propertyName": "name"
                },
                "oneOf": [
                   {
+                     "$ref": "#/$defs/_Analoginput"
+                  },
+                  {
+                     "$ref": "#/$defs/_Archimedes"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__harp_types___Behavior"
                   },
                   {
-                     "$ref": "#/$defs/_Camera_Controller"
+                     "$ref": "#/$defs/_Cameracontroller"
                   },
                   {
-                     "$ref": "#/$defs/_Clock_Synchronizer"
+                     "$ref": "#/$defs/_Cameracontrollergen2"
                   },
                   {
-                     "$ref": "#/$defs/_Cuttlefish"
+                     "$ref": "#/$defs/_Clocksynchronizer"
                   },
                   {
-                     "$ref": "#/$defs/_Generic_Harp_Device"
+                     "$ref": "#/$defs/_Driver12Volts"
                   },
                   {
-                     "$ref": "#/$defs/_Input_Expander"
+                     "$ref": "#/$defs/_Environmentsensor"
                   },
                   {
-                     "$ref": "#/$defs/_Lickety_Split"
+                     "$ref": "#/$defs/_Flypad"
                   },
                   {
-                     "$ref": "#/$defs/_Load_Cells"
+                     "$ref": "#/$defs/_Hobgoblin"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ibl_Behavior_Control"
+                  },
+                  {
+                     "$ref": "#/$defs/_Inputexpander"
+                  },
+                  {
+                     "$ref": "#/$defs/_Ledcontroller"
+                  },
+                  {
+                     "$ref": "#/$defs/_Licketysplit"
+                  },
+                  {
+                     "$ref": "#/$defs/_Loadcells"
+                  },
+                  {
+                     "$ref": "#/$defs/_Multipwmgenerator"
+                  },
+                  {
+                     "$ref": "#/$defs/_Neurophotometricsfp3002"
                   },
                   {
                      "$ref": "#/$defs/_Olfactometer"
                   },
                   {
-                     "$ref": "#/$defs/_Sniff_Detector"
+                     "$ref": "#/$defs/_Outputexpander"
                   },
                   {
-                     "$ref": "#/$defs/_Sound_Card"
+                     "$ref": "#/$defs/_Pluma"
                   },
                   {
-                     "$ref": "#/$defs/_Stepper_Driver"
+                     "$ref": "#/$defs/_Poke"
+                  },
+                  {
+                     "$ref": "#/$defs/_Pycontroladapter"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rfidreader"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rgbarray"
+                  },
+                  {
+                     "$ref": "#/$defs/_Simpleanaloggenerator"
+                  },
+                  {
+                     "$ref": "#/$defs/_Sniffdetector"
+                  },
+                  {
+                     "$ref": "#/$defs/_Soundcard"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stepperdriver"
                   },
                   {
                      "$ref": "#/$defs/_Synchronizer"
                   },
                   {
-                     "$ref": "#/$defs/_Timestamp_Generator_Gen_1"
+                     "$ref": "#/$defs/_Syringepump"
                   },
                   {
-                     "$ref": "#/$defs/_Timestamp_Generator_Gen_3"
+                     "$ref": "#/$defs/_Timestampgeneratorgen1"
+                  },
+                  {
+                     "$ref": "#/$defs/_Timestampgeneratorgen3"
                   },
                   {
                      "$ref": "#/$defs/_Treadmill"
+                  },
+                  {
+                     "$ref": "#/$defs/_Usbhub"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vestibularh1"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vestibularh2"
+                  },
+                  {
+                     "$ref": "#/$defs/_Wear"
+                  },
+                  {
+                     "$ref": "#/$defs/_Wearbasestationgen2"
+                  },
+                  {
+                     "$ref": "#/$defs/_Whiterabbit"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cuttlefish"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cuttlefishfip"
                   }
                ],
                "title": "Type of Harp device"
@@ -24538,8 +24738,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.30",
-               "default": "2.0.30",
+               "const": "2.0.31",
+               "default": "2.0.31",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24700,8 +24900,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.73",
-               "default": "2.0.73",
+               "const": "2.0.74",
+               "default": "2.0.74",
                "title": "Schema Version",
                "type": "string"
             },
@@ -29097,8 +29297,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.10",
-               "default": "2.0.10",
+               "const": "2.0.11",
+               "default": "2.0.11",
                "title": "Schema Version",
                "type": "string"
             },
@@ -32016,6 +32216,25 @@
          "title": "_Ams_Osram",
          "type": "object"
       },
+      "_Analoginput": {
+         "description": "Model AnalogInput",
+         "properties": {
+            "whoami": {
+               "const": 1236,
+               "default": 1236,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "AnalogInput",
+               "default": "AnalogInput",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Analoginput",
+         "type": "object"
+      },
       "_Applied_Scientific_Instrumentation": {
          "description": "Model Applied Scientific Instrumentation",
          "properties": {
@@ -32043,6 +32262,25 @@
             }
          },
          "title": "_Applied_Scientific_Instrumentation",
+         "type": "object"
+      },
+      "_Archimedes": {
+         "description": "Model Archimedes",
+         "properties": {
+            "whoami": {
+               "const": 1136,
+               "default": 1136,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Archimedes",
+               "default": "Archimedes",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Archimedes",
          "type": "object"
       },
       "_Arecont_Vision_Costar": {
@@ -32558,6 +32796,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Common marmoset",
+               "default": "Common marmoset",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -32643,8 +32887,8 @@
          "title": "_Cambridge_Technology",
          "type": "object"
       },
-      "_Camera_Controller": {
-         "description": "Model Camera Controller",
+      "_Cameracontroller": {
+         "description": "Model CameraController",
          "properties": {
             "whoami": {
                "const": 1168,
@@ -32653,13 +32897,32 @@
                "type": "integer"
             },
             "name": {
-               "const": "Camera Controller",
-               "default": "Camera Controller",
+               "const": "CameraController",
+               "default": "CameraController",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Camera_Controller",
+         "title": "_Cameracontroller",
+         "type": "object"
+      },
+      "_Cameracontrollergen2": {
+         "description": "Model CameraControllerGen2",
+         "properties": {
+            "whoami": {
+               "const": 1170,
+               "default": 1170,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "CameraControllerGen2",
+               "default": "CameraControllerGen2",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Cameracontrollergen2",
          "type": "object"
       },
       "_Carl_Zeiss": {
@@ -32742,6 +33005,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Goat",
+               "default": "Goat",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -32805,6 +33074,12 @@
                "const": "Cavia porcellus",
                "default": "Cavia porcellus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Guinea pig",
+               "default": "Guinea pig",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -33105,8 +33380,8 @@
          "title": "_Chroma",
          "type": "object"
       },
-      "_Clock_Synchronizer": {
-         "description": "Model Clock Synchronizer",
+      "_Clocksynchronizer": {
+         "description": "Model ClockSynchronizer",
          "properties": {
             "whoami": {
                "const": 1152,
@@ -33115,13 +33390,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Clock Synchronizer",
-               "default": "Clock Synchronizer",
+               "const": "ClockSynchronizer",
+               "default": "ClockSynchronizer",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Clock_Synchronizer",
+         "title": "_Clocksynchronizer",
          "type": "object"
       },
       "_Coherent_Scientific": {
@@ -33374,7 +33649,7 @@
          "type": "object"
       },
       "_Cuttlefish": {
-         "description": "Model Cuttlefish",
+         "description": "Model cuTTLefish",
          "properties": {
             "whoami": {
                "const": 1403,
@@ -33383,13 +33658,32 @@
                "type": "integer"
             },
             "name": {
-               "const": "Cuttlefish",
-               "default": "Cuttlefish",
+               "const": "cuTTLefish",
+               "default": "cuTTLefish",
                "title": "Name",
                "type": "string"
             }
          },
          "title": "_Cuttlefish",
+         "type": "object"
+      },
+      "_Cuttlefishfip": {
+         "description": "Model cuTTLefishFip",
+         "properties": {
+            "whoami": {
+               "const": 1407,
+               "default": 1407,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "cuTTLefishFip",
+               "default": "cuTTLefishFip",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Cuttlefishfip",
          "type": "object"
       },
       "_Digikey": {
@@ -33519,6 +33813,25 @@
             }
          },
          "title": "_Doric",
+         "type": "object"
+      },
+      "_Driver12Volts": {
+         "description": "Model Driver12Volts",
+         "properties": {
+            "whoami": {
+               "const": 1072,
+               "default": 1072,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Driver12Volts",
+               "default": "Driver12Volts",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Driver12Volts",
          "type": "object"
       },
       "_Ealing": {
@@ -33752,6 +34065,25 @@
          "title": "_Emory_University",
          "type": "object"
       },
+      "_Environmentsensor": {
+         "description": "Model EnvironmentSensor",
+         "properties": {
+            "whoami": {
+               "const": 1405,
+               "default": 1405,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "EnvironmentSensor",
+               "default": "EnvironmentSensor",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Environmentsensor",
+         "type": "object"
+      },
       "_Equus_Asinus": {
          "description": "Model Equus asinus",
          "properties": {
@@ -33759,6 +34091,12 @@
                "const": "Equus asinus",
                "default": "Equus asinus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Donkey",
+               "default": "Donkey",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -33866,6 +34204,25 @@
          "title": "_Fib",
          "type": "object"
       },
+      "_Flypad": {
+         "description": "Model FlyPad",
+         "properties": {
+            "whoami": {
+               "const": 1200,
+               "default": 1200,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "FlyPad",
+               "default": "FlyPad",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Flypad",
+         "type": "object"
+      },
       "_Fmost": {
          "additionalProperties": false,
          "description": "Model fMOST",
@@ -33924,6 +34281,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Chicken",
+               "default": "Chicken",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -33978,25 +34341,6 @@
             }
          },
          "title": "_Gallus_Gallus",
-         "type": "object"
-      },
-      "_Generic_Harp_Device": {
-         "description": "Model Generic Harp Device",
-         "properties": {
-            "whoami": {
-               "const": 0,
-               "default": 0,
-               "title": "Whoami",
-               "type": "integer"
-            },
-            "name": {
-               "const": "Generic Harp Device",
-               "default": "Generic Harp Device",
-               "title": "Name",
-               "type": "string"
-            }
-         },
-         "title": "_Generic_Harp_Device",
          "type": "object"
       },
       "_Hamamatsu": {
@@ -34099,6 +34443,25 @@
          "title": "_Hamilton",
          "type": "object"
       },
+      "_Hobgoblin": {
+         "description": "Model Hobgoblin",
+         "properties": {
+            "whoami": {
+               "const": 123,
+               "default": 123,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Hobgoblin",
+               "default": "Hobgoblin",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Hobgoblin",
+         "type": "object"
+      },
       "_Homo_Sapiens": {
          "description": "Model Homo sapiens",
          "properties": {
@@ -34106,6 +34469,12 @@
                "const": "Homo sapiens",
                "default": "Homo sapiens",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Human",
+               "default": "Human",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -34235,6 +34604,25 @@
          "title": "_Huazhong_University_Of_Science_And_Technology",
          "type": "object"
       },
+      "_Ibl_Behavior_Control": {
+         "description": "Model Ibl_behavior_control",
+         "properties": {
+            "whoami": {
+               "const": 2080,
+               "default": 2080,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Ibl_behavior_control",
+               "default": "Ibl_behavior_control",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Ibl_Behavior_Control",
+         "type": "object"
+      },
       "_Icephys": {
          "additionalProperties": false,
          "description": "Model icephys",
@@ -34284,8 +34672,8 @@
          "title": "_Infinity_Photo_Optical",
          "type": "object"
       },
-      "_Input_Expander": {
-         "description": "Model Input Expander",
+      "_Inputexpander": {
+         "description": "Model InputExpander",
          "properties": {
             "whoami": {
                "const": 1106,
@@ -34294,13 +34682,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Input Expander",
-               "default": "Input Expander",
+               "const": "InputExpander",
+               "default": "InputExpander",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Input_Expander",
+         "title": "_Inputexpander",
          "type": "object"
       },
       "_Integrated_Dna_Technologies": {
@@ -35016,6 +35404,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Llama",
+               "default": "Llama",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -35099,6 +35493,25 @@
             }
          },
          "title": "_Lasos_Lasertechnik",
+         "type": "object"
+      },
+      "_Ledcontroller": {
+         "description": "Model LedController",
+         "properties": {
+            "whoami": {
+               "const": 1088,
+               "default": 1088,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "LedController",
+               "default": "LedController",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Ledcontroller",
          "type": "object"
       },
       "_Leica": {
@@ -35201,8 +35614,8 @@
          "title": "_Lg",
          "type": "object"
       },
-      "_Lickety_Split": {
-         "description": "Model Lickety Split",
+      "_Licketysplit": {
+         "description": "Model LicketySplit",
          "properties": {
             "whoami": {
                "const": 1400,
@@ -35211,13 +35624,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Lickety Split",
-               "default": "Lickety Split",
+               "const": "LicketySplit",
+               "default": "LicketySplit",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Lickety_Split",
+         "title": "_Licketysplit",
          "type": "object"
       },
       "_Lifecanvas": {
@@ -35249,8 +35662,8 @@
          "title": "_Lifecanvas",
          "type": "object"
       },
-      "_Load_Cells": {
-         "description": "Model Load Cells",
+      "_Loadcells": {
+         "description": "Model LoadCells",
          "properties": {
             "whoami": {
                "const": 1232,
@@ -35259,13 +35672,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Load Cells",
-               "default": "Load Cells",
+               "const": "LoadCells",
+               "default": "LoadCells",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Load_Cells",
+         "title": "_Loadcells",
          "type": "object"
       },
       "_Lumen_Dynamics": {
@@ -35304,6 +35717,12 @@
                "const": "Macaca mulatta",
                "default": "Macaca mulatta",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Rhesus macaque",
+               "default": "Rhesus macaque",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -35964,6 +36383,25 @@
          "title": "_Mri",
          "type": "object"
       },
+      "_Multipwmgenerator": {
+         "description": "Model MultiPwmGenerator",
+         "properties": {
+            "whoami": {
+               "const": 1040,
+               "default": 1040,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "MultiPwmGenerator",
+               "default": "MultiPwmGenerator",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Multipwmgenerator",
+         "type": "object"
+      },
       "_Mus_Musculus": {
          "description": "Model Mus musculus",
          "properties": {
@@ -35971,6 +36409,12 @@
                "const": "Mus musculus",
                "default": "Mus musculus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "House mouse",
+               "default": "House mouse",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -36420,6 +36864,25 @@
          "title": "_Neurophotometrics",
          "type": "object"
       },
+      "_Neurophotometricsfp3002": {
+         "description": "Model NeurophotometricsFP3002",
+         "properties": {
+            "whoami": {
+               "const": 2064,
+               "default": 2064,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "NeurophotometricsFP3002",
+               "default": "NeurophotometricsFP3002",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Neurophotometricsfp3002",
+         "type": "object"
+      },
       "_New_Scale_Technologies": {
          "description": "Model New Scale Technologies",
          "properties": {
@@ -36839,6 +37302,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "European rabbit",
+               "default": "European rabbit",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -36924,6 +37393,25 @@
          "title": "_Other",
          "type": "object"
       },
+      "_Outputexpander": {
+         "description": "Model OutputExpander",
+         "properties": {
+            "whoami": {
+               "const": 1108,
+               "default": 1108,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "OutputExpander",
+               "default": "OutputExpander",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Outputexpander",
+         "type": "object"
+      },
       "_Oxxius": {
          "description": "Model Oxxius",
          "properties": {
@@ -36982,6 +37470,44 @@
          "title": "_Placid_Industries",
          "type": "object"
       },
+      "_Pluma": {
+         "description": "Model Pluma",
+         "properties": {
+            "whoami": {
+               "const": 2110,
+               "default": 2110,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Pluma",
+               "default": "Pluma",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Pluma",
+         "type": "object"
+      },
+      "_Poke": {
+         "description": "Model Poke",
+         "properties": {
+            "whoami": {
+               "const": 1024,
+               "default": 1024,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Poke",
+               "default": "Poke",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Poke",
+         "type": "object"
+      },
       "_Pophys": {
          "additionalProperties": false,
          "description": "Model pophys",
@@ -37029,6 +37555,25 @@
             }
          },
          "title": "_Prizmatix",
+         "type": "object"
+      },
+      "_Pycontroladapter": {
+         "description": "Model PyControlAdapter",
+         "properties": {
+            "whoami": {
+               "const": 1184,
+               "default": 1184,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "PyControlAdapter",
+               "default": "PyControlAdapter",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Pycontroladapter",
          "type": "object"
       },
       "_Quantifi": {
@@ -37098,6 +37643,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Norway rat",
+               "default": "Norway rat",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -37152,6 +37703,44 @@
             }
          },
          "title": "_Rattus_Norvegicus",
+         "type": "object"
+      },
+      "_Rfidreader": {
+         "description": "Model RfidReader",
+         "properties": {
+            "whoami": {
+               "const": 2094,
+               "default": 2094,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "RfidReader",
+               "default": "RfidReader",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Rfidreader",
+         "type": "object"
+      },
+      "_Rgbarray": {
+         "description": "Model RgbArray",
+         "properties": {
+            "whoami": {
+               "const": 1248,
+               "default": 1248,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "RgbArray",
+               "default": "RgbArray",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Rgbarray",
          "type": "object"
       },
       "_Ror": {
@@ -37439,6 +38028,25 @@
          "title": "_Simons_Foundation",
          "type": "object"
       },
+      "_Simpleanaloggenerator": {
+         "description": "Model SimpleAnalogGenerator",
+         "properties": {
+            "whoami": {
+               "const": 1121,
+               "default": 1121,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "SimpleAnalogGenerator",
+               "default": "SimpleAnalogGenerator",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Simpleanaloggenerator",
+         "type": "object"
+      },
       "_Slap": {
          "additionalProperties": false,
          "description": "Model slap",
@@ -37459,8 +38067,8 @@
          "title": "_Slap",
          "type": "object"
       },
-      "_Sniff_Detector": {
-         "description": "Model Sniff Detector",
+      "_Sniffdetector": {
+         "description": "Model SniffDetector",
          "properties": {
             "whoami": {
                "const": 1401,
@@ -37469,17 +38077,17 @@
                "type": "integer"
             },
             "name": {
-               "const": "Sniff Detector",
-               "default": "Sniff Detector",
+               "const": "SniffDetector",
+               "default": "SniffDetector",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Sniff_Detector",
+         "title": "_Sniffdetector",
          "type": "object"
       },
-      "_Sound_Card": {
-         "description": "Model Sound Card",
+      "_Soundcard": {
+         "description": "Model SoundCard",
          "properties": {
             "whoami": {
                "const": 1280,
@@ -37488,13 +38096,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Sound Card",
-               "default": "Sound Card",
+               "const": "SoundCard",
+               "default": "SoundCard",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Sound_Card",
+         "title": "_Soundcard",
          "type": "object"
       },
       "_Spectra_Physics": {
@@ -37617,8 +38225,8 @@
          "title": "_Spinnaker",
          "type": "object"
       },
-      "_Stepper_Driver": {
-         "description": "Model Stepper Driver",
+      "_Stepperdriver": {
+         "description": "Model StepperDriver",
          "properties": {
             "whoami": {
                "const": 1130,
@@ -37627,13 +38235,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Stepper Driver",
-               "default": "Stepper Driver",
+               "const": "StepperDriver",
+               "default": "StepperDriver",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Stepper_Driver",
+         "title": "_Stepperdriver",
          "type": "object"
       },
       "_Synchronizer": {
@@ -37653,6 +38261,25 @@
             }
          },
          "title": "_Synchronizer",
+         "type": "object"
+      },
+      "_Syringepump": {
+         "description": "Model SyringePump",
+         "properties": {
+            "whoami": {
+               "const": 1296,
+               "default": 1296,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "SyringePump",
+               "default": "SyringePump",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Syringepump",
          "type": "object"
       },
       "_Tamron": {
@@ -38055,8 +38682,8 @@
          "title": "_Thorlabs",
          "type": "object"
       },
-      "_Timestamp_Generator_Gen_1": {
-         "description": "Model Timestamp Generator Gen 1",
+      "_Timestampgeneratorgen1": {
+         "description": "Model TimestampGeneratorGen1",
          "properties": {
             "whoami": {
                "const": 1154,
@@ -38065,17 +38692,17 @@
                "type": "integer"
             },
             "name": {
-               "const": "Timestamp Generator Gen 1",
-               "default": "Timestamp Generator Gen 1",
+               "const": "TimestampGeneratorGen1",
+               "default": "TimestampGeneratorGen1",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Timestamp_Generator_Gen_1",
+         "title": "_Timestampgeneratorgen1",
          "type": "object"
       },
-      "_Timestamp_Generator_Gen_3": {
-         "description": "Model Timestamp Generator Gen 3",
+      "_Timestampgeneratorgen3": {
+         "description": "Model TimestampGeneratorGen3",
          "properties": {
             "whoami": {
                "const": 1158,
@@ -38084,13 +38711,13 @@
                "type": "integer"
             },
             "name": {
-               "const": "Timestamp Generator Gen 3",
-               "default": "Timestamp Generator Gen 3",
+               "const": "TimestampGeneratorGen3",
+               "default": "TimestampGeneratorGen3",
                "title": "Name",
                "type": "string"
             }
          },
-         "title": "_Timestamp_Generator_Gen_3",
+         "title": "_Timestampgeneratorgen3",
          "type": "object"
       },
       "_Transducer_Techniques": {
@@ -38362,6 +38989,63 @@
          "title": "_Unknown",
          "type": "object"
       },
+      "_Usbhub": {
+         "description": "Model USBHub",
+         "properties": {
+            "whoami": {
+               "const": 256,
+               "default": 256,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "USBHub",
+               "default": "USBHub",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Usbhub",
+         "type": "object"
+      },
+      "_Vestibularh1": {
+         "description": "Model VestibularH1",
+         "properties": {
+            "whoami": {
+               "const": 1224,
+               "default": 1224,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "VestibularH1",
+               "default": "VestibularH1",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Vestibularh1",
+         "type": "object"
+      },
+      "_Vestibularh2": {
+         "description": "Model VestibularH2",
+         "properties": {
+            "whoami": {
+               "const": 1225,
+               "default": 1225,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "VestibularH2",
+               "default": "VestibularH2",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Vestibularh2",
+         "type": "object"
+      },
       "_Vicuna_Pacos": {
          "description": "Model Vicuna pacos",
          "properties": {
@@ -38369,6 +39053,12 @@
                "const": "Vicuna pacos",
                "default": "Vicuna pacos",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Alpaca",
+               "default": "Alpaca",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -38483,6 +39173,63 @@
             }
          },
          "title": "_Vortran",
+         "type": "object"
+      },
+      "_Wear": {
+         "description": "Model Wear",
+         "properties": {
+            "whoami": {
+               "const": 1056,
+               "default": 1056,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "Wear",
+               "default": "Wear",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Wear",
+         "type": "object"
+      },
+      "_Wearbasestationgen2": {
+         "description": "Model WearBaseStationGen2",
+         "properties": {
+            "whoami": {
+               "const": 1058,
+               "default": 1058,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "WearBaseStationGen2",
+               "default": "WearBaseStationGen2",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Wearbasestationgen2",
+         "type": "object"
+      },
+      "_Whiterabbit": {
+         "description": "Model WhiteRabbit",
+         "properties": {
+            "whoami": {
+               "const": 1404,
+               "default": 1404,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "WhiteRabbit",
+               "default": "WhiteRabbit",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Whiterabbit",
          "type": "object"
       },
       "aind_data_schema_models__harp_types___Behavior": {
@@ -38631,8 +39378,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.73",
-         "default": "2.0.73",
+         "const": "2.0.74",
+         "default": "2.0.74",
          "title": "Schema Version",
          "type": "string"
       },

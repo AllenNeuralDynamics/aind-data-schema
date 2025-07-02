@@ -11119,6 +11119,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Common marmoset",
+               "default": "Common marmoset",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -11284,6 +11290,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Goat",
+               "default": "Goat",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -11347,6 +11359,12 @@
                "const": "Cavia porcellus",
                "default": "Cavia porcellus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Guinea pig",
+               "default": "Guinea pig",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -12205,6 +12223,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Donkey",
+               "default": "Donkey",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -12326,6 +12350,12 @@
                "const": "Gallus gallus",
                "default": "Gallus gallus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Chicken",
+               "default": "Chicken",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -12491,6 +12521,12 @@
                "const": "Homo sapiens",
                "default": "Homo sapiens",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Human",
+               "default": "Human",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -13342,6 +13378,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Llama",
+               "default": "Llama",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -13592,6 +13634,12 @@
                "const": "Macaca mulatta",
                "default": "Macaca mulatta",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Rhesus macaque",
+               "default": "Rhesus macaque",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -14219,6 +14267,12 @@
                "const": "Mus musculus",
                "default": "Mus musculus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "House mouse",
+               "default": "House mouse",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -15068,6 +15122,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "European rabbit",
+               "default": "European rabbit",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -15305,6 +15365,12 @@
                "const": "Rattus norvegicus",
                "default": "Rattus norvegicus",
                "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "const": "Norway rat",
+               "default": "Norway rat",
+               "title": "Common Name",
                "type": "string"
             },
             "registry": {
@@ -16377,6 +16443,12 @@
                "title": "Name",
                "type": "string"
             },
+            "common_name": {
+               "const": "Alpaca",
+               "default": "Alpaca",
+               "title": "Common Name",
+               "type": "string"
+            },
             "registry": {
                "default": {
                   "name": "National Center for Biotechnology Information",
@@ -16599,8 +16671,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.30",
-         "default": "2.0.30",
+         "const": "2.0.31",
+         "default": "2.0.31",
          "title": "Schema Version",
          "type": "string"
       },
