@@ -1,6 +1,7 @@
 """ Validator utility functions """
 
 import logging
+from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
 from typing import Any, List, Optional
@@ -91,16 +92,28 @@ def recursive_time_validation_check(data, acquisition_start_time=None, acquisiti
 
 def _validate_time_constraint(field_value, time_validation, start_time, end_time, field_name):
     """Validate a single time field against the specified constraint."""
+    
+    # Handle conversion between date and datetime objects for comparison
+    def convert_to_comparable(value, reference_datetime):
+        """Convert date to datetime using the timezone from reference, or return as-is if already datetime"""
+        if isinstance(value, date) and not isinstance(value, datetime):
+            # Convert date to datetime at midnight with same timezone as reference
+            return datetime.combine(value, datetime.min.time()).replace(tzinfo=reference_datetime.tzinfo)
+        return value
+    
+    # Convert field_value to be comparable with start_time and end_time
+    comparable_field_value = convert_to_comparable(field_value, start_time)
+    
     if time_validation == TimeValidation.BETWEEN:
-        if not (start_time <= field_value <= end_time):
+        if not (start_time <= comparable_field_value <= end_time):
             raise ValueError(
                 f"Field '{field_name}' with value {field_value} must be between {start_time} and {end_time}"
             )
     elif time_validation == TimeValidation.AFTER:
-        if field_value <= start_time:
+        if comparable_field_value <= start_time:
             raise ValueError(f"Field '{field_name}' with value {field_value} must be after {start_time}")
     elif time_validation == TimeValidation.BEFORE:
-        if field_value >= end_time:
+        if comparable_field_value >= end_time:
             raise ValueError(f"Field '{field_name}' with value {field_value} must be before {end_time}")
 
 
