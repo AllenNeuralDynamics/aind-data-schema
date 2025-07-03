@@ -51,7 +51,7 @@ class GeneProbeSet(Reagent):
     gene_probes: List[GeneProbe] = Field(..., title="Gene probes")
 
 
-class ProteinProbe(Reagent):
+class ProteinProbe(DataModel):
     """Description of a protein probe including antibodies"""
 
     protein: PIDName = Field(..., title="Target protein name")
@@ -61,7 +61,7 @@ class ProteinProbe(Reagent):
     sequence: Optional[str] = Field(default=None, title="Amino acid sequence of the probe")
 
 
-class SmallMoleculeProbe(Reagent):
+class SmallMoleculeProbe(DataModel):
     """Description of a small molecule probe"""
 
     molecule: PIDName = Field(..., title="Target small molecule name")
@@ -69,11 +69,16 @@ class SmallMoleculeProbe(Reagent):
     mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
 
 
+class ProbeReagent(Reagent):
+    """Description of a probe used as a reagent"""
+
+    target: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target")
+
+
 class FluorescentStain(Reagent):
     """Description of a fluorescent stain"""
 
-    target: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target of the stain")
+    probe: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target of the stain")
     stain_type: StainType = Field(..., title="Stain type")
     fluorophore: Fluorophore = Field(..., title="Fluorophore used in the stain")
-    species: Optional[Species.ONE_OF] = Field(default=None, title="Species of the stain")
     initiator_name: Optional[str] = Field(default=None, title="Initiator for HCR probes")
