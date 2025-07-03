@@ -55,7 +55,7 @@ Description of a non-viral injection material
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
-| `lot_number` | `str` |  |
+| `lot_number` | `Optional[str]` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
 
 

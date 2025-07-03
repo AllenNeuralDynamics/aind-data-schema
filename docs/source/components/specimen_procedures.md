@@ -24,10 +24,9 @@ Description of an HCR staining round
 | `round_index` | `int` |  |
 | `start_time` | `datetime (timezone-aware)` |  |
 | `end_time` | `datetime (timezone-aware)` |  |
-| `genetic_stains` | List[[GeneticStain](reagent.md#geneticstain)] |  |
+| `stains` | List[[FluorescentStain](reagent.md#fluorescentstain)] |  |
 | `probe_concentration` | `float` |  |
 | `probe_concentration_unit` | `str` |  |
-| `other_stains` | List[[Stain](reagent.md#stain)] |  |
 
 
 ### PlanarSectioning
@@ -82,7 +81,7 @@ Description of surgical or other procedure performed on a specimen
 | `experimenters` | List[[Person](identifiers.md#person)] |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
 | `protocol_parameters` | `Optional[Dict[str, str]]` | Parameters defined in the protocol and their value during this procedure |
-| `procedure_details` | List[[HCRSeries](#hcrseries) or [Antibody](reagent.md#antibody) or [PlanarSectioning](#planarsectioning) or [Reagent](reagent.md#reagent) or [OligoProbeSet](reagent.md#oligoprobeset)] |  |
+| `procedure_details` | List[[HCRSeries](#hcrseries) or [FluorescentStain](reagent.md#fluorescentstain) or [PlanarSectioning](#planarsectioning) or [ProbeReagent](reagent.md#probereagent) or [Reagent](reagent.md#reagent) or [GeneProbeSet](reagent.md#geneprobeset)] | Details of the procedures, including reagents and sectioning information. |
 | `notes` | `Optional[str]` |  |
 
 
