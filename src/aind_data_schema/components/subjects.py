@@ -142,10 +142,11 @@ class HumanSubject(DataModel):
     )
 
 
-class PhantomSubject(DataModel):
-    """Description of a phantom subject"""
+class CalibrationObject(DataModel):
+    """Description of a calibration object"""
 
+    empty: bool = Field(default=False, title="Empty", description="Set to true if the calibration was performed with no object.")
     description: str = Field(..., title="Description")
-    devices: Optional[list[Device]] = Field(
-        default=None, title="Devices", description="For phantoms that are built up from one or more devices."
+    objects: Optional[list[Device]] = Field(
+        default=None, title="Objects", description="For calibration objects that are built up from one or more devices."
     )
