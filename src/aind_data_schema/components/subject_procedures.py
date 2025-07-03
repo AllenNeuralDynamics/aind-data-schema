@@ -23,7 +23,6 @@ from aind_data_schema.components.surgery_procedures import (
     ProbeImplant,
     SampleCollection,
 )
-from aind_data_schema.utils.validators import TimeValidation
 
 
 class GenericSubjectProcedure(DataModel):
