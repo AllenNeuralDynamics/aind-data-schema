@@ -10,7 +10,7 @@ from aind_data_schema.utils.examples_generator import ExamplesGenerator
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
 
-class ExampleTests(unittest.TestCase):
+class ExampleTests(unittest.TestCase):  # pragma: no cover
     """tests for examples"""
 
     @classmethod
