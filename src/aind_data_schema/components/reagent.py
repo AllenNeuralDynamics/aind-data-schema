@@ -27,7 +27,7 @@ class Reagent(DataModel):
     name: str = Field(..., title="Name")
     source: Organization.ONE_OF = Field(..., title="Source")
     rrid: Optional[PIDName] = Field(default=None, title="Research Resource ID")
-    lot_number: str = Field(..., title="Lot number")
+    lot_number: Optional[str] = Field(default=None, title="Lot number")
     expiration_date: Optional[date] = Field(default=None, title="Lot expiration date")
 
 
@@ -55,6 +55,7 @@ class ProteinProbe(Reagent):
     """Description of a protein probe including antibodies"""
 
     protein: PIDName = Field(..., title="Target protein name")
+    species: Optional[Species.ONE_OF] = Field(default=None, title="Species of the probe")
     mass: float = Field(..., title="Mass of protein probe (ug)")
     mass_unit: MassUnit = Field(default=MassUnit.UG, title="Mass unit")
     sequence: Optional[str] = Field(default=None, title="Amino acid sequence of the probe")
@@ -74,5 +75,5 @@ class FluorescentStain(Reagent):
     target: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target of the stain")
     stain_type: StainType = Field(..., title="Stain type")
     fluorophore: Fluorophore = Field(..., title="Fluorophore used in the stain")
-    species: Optional[Species.ONE_OF] = Field(default=None, title="Species targeted by the stain")
+    species: Optional[Species.ONE_OF] = Field(default=None, title="Species of the stain")
     initiator_name: Optional[str] = Field(default=None, title="Initiator for HCR probes")
