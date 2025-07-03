@@ -178,7 +178,7 @@ p = Procedures(
                     fluorophore=Fluorophore(
                         fluorophore_type=FluorophoreType.ALEXA,
                         excitation_wavelength=488,
-                        excitation_wavelength_unit="nm",
+                        excitation_wavelength_unit="nanometer",
                     ),
                 ),
             ],
