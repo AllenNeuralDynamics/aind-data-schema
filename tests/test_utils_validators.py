@@ -517,6 +517,8 @@ class TestTimeValidation(unittest.TestCase):
         """Test _time_validation_recurse_helper with a list"""
 
         class MockTimeModel(BaseModel):
+            """Mock time model with a time field"""
+
             time_field: Annotated[datetime, TimeValidation.BETWEEN]
 
         data = [
@@ -530,6 +532,8 @@ class TestTimeValidation(unittest.TestCase):
         """Test _time_validation_recurse_helper with an object"""
 
         class MockTimeModel(BaseModel):
+            """Mock time model with a time field"""
+
             time_field: Annotated[datetime, TimeValidation.BETWEEN]
 
         data = MockTimeModel(time_field=datetime(2023, 1, 1, 11, 0, 0, tzinfo=timezone.utc))
@@ -540,6 +544,8 @@ class TestTimeValidation(unittest.TestCase):
         """Test recursive_time_validation_check with acquisition times in data"""
 
         class MockAcquisition(BaseModel):
+            """Mock acquisition model with time fields"""
+
             acquisition_start_time: AwareDatetimeWithDefault
             acquisition_end_time: AwareDatetimeWithDefault
             stream_start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
@@ -559,6 +565,8 @@ class TestTimeValidation(unittest.TestCase):
         """Test recursive_time_validation_check with invalid times"""
 
         class MockAcquisition(BaseModel):
+            """Mock acquisition model with time fields"""
+
             acquisition_start_time: AwareDatetimeWithDefault
             acquisition_end_time: AwareDatetimeWithDefault
             stream_start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
@@ -585,6 +593,8 @@ class TestTimeValidation(unittest.TestCase):
         """Test recursive_time_validation_check with data that has no time annotations"""
 
         class MockData(BaseModel):
+            """Mock data model with no time annotations"""
+
             regular_field: str
 
         data = MockData(regular_field="test")
