@@ -324,9 +324,9 @@ class Metadata(DataCoreModel):
 
                         # Get midnight of the acquisition end time day
                         acquisition_date = acquisition_end_time.date()
-                        midnight_of_acquisition_day = datetime.combine(
-                            acquisition_date, datetime.min.time()
-                        ).replace(tzinfo=acquisition_end_time.tzinfo)
+                        midnight_of_acquisition_day = datetime.combine(acquisition_date, datetime.min.time()).replace(
+                            tzinfo=acquisition_end_time.tzinfo
+                        )
 
                         # Validate that name_creation_time is on or after midnight of the acquisition day
                         if (

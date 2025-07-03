@@ -580,7 +580,7 @@ class TestMetadata(unittest.TestCase):
             investigators=[Person(name="Test Person")],
             project_name="Test Project",
         )
-        
+
         metadata_later_same_day = Metadata(
             name="Test Metadata",
             location="Test Location",
@@ -601,7 +601,7 @@ class TestMetadata(unittest.TestCase):
             investigators=[Person(name="Test Person")],
             project_name="Test Project",
         )
-        
+
         metadata_next_day = Metadata(
             name="Test Metadata",
             location="Test Location",
