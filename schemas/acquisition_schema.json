@@ -3882,8 +3882,16 @@
                "title": "Research Resource ID"
             },
             "lot_number": {
-               "title": "Lot number",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Lot number"
             },
             "expiration_date": {
                "anyOf": [
@@ -3901,8 +3909,7 @@
          },
          "required": [
             "name",
-            "source",
-            "lot_number"
+            "source"
          ],
          "title": "Reagent",
          "type": "object"
@@ -10566,8 +10573,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.32",
-         "default": "2.0.32",
+         "const": "2.0.33",
+         "default": "2.0.33",
          "title": "Schema Version",
          "type": "string"
       },
