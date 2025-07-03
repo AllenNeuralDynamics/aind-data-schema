@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=4.2.2',
+    'aind-data-schema-models>=4.2.4',
     'pydantic>=2.7',
     'semver'
 ]

@@ -65,7 +65,7 @@ def generate_subject(mouse: dict) -> Subject:
     return Subject(
         subject_id=str(mouse["id"]),
         subject_details=MouseSubject(
-            species=Species.MUS_MUSCULUS,
+            species=Species.HOUSE_MOUSE,
             sex=subject_sex_lookup.get(mouse["sex"]),
             date_of_birth=mouse["dob"],
             genotype=mouse["genotype"],

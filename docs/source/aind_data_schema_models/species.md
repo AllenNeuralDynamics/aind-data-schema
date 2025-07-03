@@ -6,18 +6,20 @@
 
 Species
 
-| Name | name | registry | registry_identifier |
-|------|------|------|------|
-| `CARPA_HIRCUS` | `Carpa hircus` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9925` |
-| `CAVIA_PORCELLUS` | `Cavia porcellus` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid10141` |
-| `EQUUS_ASINUS` | `Equus asinus` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9793` |
-| `HOMO_SAPIENS` | `Homo sapiens` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9606` |
-| `LAMA_GLAMA` | `Lama glama` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9844` |
-| `MACACA_MULATTA` | `Macaca mulatta` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9544` |
-| `MUS_MUSCULUS` | `Mus musculus` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid10090` |
-| `ORYCTOLAGUS_CUNICULUS` | `Oryctolagus cuniculus` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9986` |
-| `RATTUS_NORVEGICUS` | `Rattus norvegicus` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid10116` |
-| `VICUNA_PACOS` | `Vicuna pacos` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid30538` |
+| Name | name | common_name | registry | registry_identifier |
+|------|------|------|------|------|
+| `ALPACA` | `Vicuna pacos` | `Alpaca` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid30538` |
+| `CHICKEN` | `Gallus gallus` | `Chicken` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9031` |
+| `COMMON_MARMOSET` | `Callithrix jacchus` | `Common marmoset` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9483` |
+| `DONKEY` | `Equus asinus` | `Donkey` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9793` |
+| `EUROPEAN_RABBIT` | `Oryctolagus cuniculus` | `European rabbit` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9986` |
+| `GOAT` | `Carpa hircus` | `Goat` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9925` |
+| `GUINEA_PIG` | `Cavia porcellus` | `Guinea pig` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid10141` |
+| `HOUSE_MOUSE` | `Mus musculus` | `House mouse` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid10090` |
+| `HUMAN` | `Homo sapiens` | `Human` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9606` |
+| `LLAMA` | `Lama glama` | `Llama` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9844` |
+| `NORWAY_RAT` | `Rattus norvegicus` | `Norway rat` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid10116` |
+| `RHESUS_MACAQUE` | `Macaca mulatta` | `Rhesus macaque` | `name='National Center for Biotechnology Information' abbreviation='NCBI'` | `NCBI:txid9544` |
 
 
 ### Strain

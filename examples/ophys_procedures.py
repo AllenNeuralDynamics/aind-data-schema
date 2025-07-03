@@ -5,10 +5,12 @@ import datetime
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
+from aind_data_schema_models.species import Species
+from aind_data_schema_models.reagent import FluorophoreType, StainType
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import InjectionDynamics
-from aind_data_schema.components.reagent import Antibody
+from aind_data_schema.components.reagent import FluorescentStain, ProbeReagent, ProteinProbe, Fluorophore
 from aind_data_schema.components.surgery_procedures import Anaesthetic, BrainInjection, Headframe, ProbeImplant
 from aind_data_schema.core.procedures import (
     Procedures,
@@ -132,17 +134,19 @@ p = Procedures(
             experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             procedure_details=[
-                Antibody(
-                    name="Chicken polyclonal",
+                ProbeReagent(
+                    name="Chicken polyclonal to GFP",
                     source=Organization.ABCAM,
                     rrid=PIDName(
                         name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
                     lot_number="GR3361051-16",
-                    immunolabel_class="Primary",
-                    fluorophore=None,
-                    mass=10,
-                ),
+                    target=ProteinProbe(
+                        protein=PIDName(name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"),
+                        species=Species.CHICKEN,
+                        mass=10,
+                    ),
+                )
             ],
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
         ),
@@ -154,7 +158,7 @@ p = Procedures(
             experimenters=[Person(name="Scientist Smith")],
             protocol_id=["TO ENTER"],
             procedure_details=[
-                Antibody(
+                FluorescentStain(
                     name="Alexa Fluor 488 goat anti-chicken IgY (H+L)",
                     source=Organization.THERMO_FISHER_SCIENTIFIC,
                     rrid=PIDName(
@@ -163,9 +167,19 @@ p = Procedures(
                         registry_identifier="A11039",
                     ),
                     lot_number="2420700",
-                    immunolabel_class="Secondary",
-                    fluorophore="Alexa Fluor 488",
-                    mass=4,
+                    probe=ProteinProbe(
+                        protein=PIDName(
+                            name="Anti-chicken IgY (H+L)",
+                        ),
+                        species=Species.GOAT,
+                        mass=4,
+                    ),
+                    stain_type=StainType.PROTEIN,
+                    fluorophore=Fluorophore(
+                        fluorophore_type=FluorophoreType.ALEXA,
+                        excitation_wavelength=488,
+                        excitation_wavelength_unit="nanometer",
+                    ),
                 ),
             ],
             notes="Secondary dilution factor 1:500 - final concentration 4ug/ml",
