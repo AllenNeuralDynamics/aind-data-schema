@@ -10,7 +10,7 @@ from aind_data_schema_models.reagent import FluorophoreType, StainType
 
 from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import InjectionDynamics
-from aind_data_schema.components.reagent import FluorescentStain, ProbeReagent
+from aind_data_schema.components.reagent import FluorescentStain, ProbeReagent, ProteinProbe, Fluorophore
 from aind_data_schema.components.surgery_procedures import Anaesthetic, BrainInjection, Headframe, ProbeImplant
 from aind_data_schema.core.procedures import (
     Procedures,
@@ -142,9 +142,7 @@ p = Procedures(
                     ),
                     lot_number="GR3361051-16",
                     mass=10,
-                    target=PIDName(
-                        name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"
-                    )
+                    target=PIDName(name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"),
                 )
             ],
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
@@ -171,7 +169,7 @@ p = Procedures(
                             name="Anti-chicken IgY (H+L)",
                         ),
                         species=Species.CARPA_HIRCUS,
-                        mass=4
+                        mass=4,
                     ),
                     stain_type=StainType.PROTEIN,
                     fluorophore=Fluorophore(
