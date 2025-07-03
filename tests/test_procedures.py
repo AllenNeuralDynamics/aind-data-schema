@@ -257,7 +257,7 @@ class ProceduresTests(unittest.TestCase):
                 notes=None,
             )
         self.assertIn(
-            "FluorescentStain ror ProteinProbe equired if procedure_type is Immunolabeling", repr(e.exception)
+            "FluorescentStain or ProbeReagent required if procedure_type is Immunolabeling", repr(e.exception)
         )
 
         with self.assertRaises(ValidationError) as e:
