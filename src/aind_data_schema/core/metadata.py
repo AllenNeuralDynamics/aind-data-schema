@@ -290,6 +290,31 @@ class Metadata(DataCoreModel):
                 acquisition_end_time=acquisition_end_time,
             )
 
+            if self.processing:
+                recursive_time_validation_check(
+                    self.processing,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.subject:
+                recursive_time_validation_check(
+                    self.subject,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.instrument:
+                recursive_time_validation_check(
+                    self.instrument,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.procedures:
+                recursive_time_validation_check(
+                    self.procedures,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+
         return self
 
     @model_validator(mode="after")
