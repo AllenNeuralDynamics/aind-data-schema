@@ -1,7 +1,7 @@
 """Classes to define reagents"""
 
 from datetime import date
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -72,7 +72,7 @@ class SmallMoleculeProbe(DataModel):
 class ProbeReagent(Reagent):
     """Description of a probe used as a reagent"""
 
-    target: Discriminated[GeneProbe | ProteinProbe | SmallMoleculeProbe] = Field(..., title="Target")
+    target: Union[GeneProbe, ProteinProbe, SmallMoleculeProbe] = Field(..., title="Target")
 
 
 class FluorescentStain(Reagent):

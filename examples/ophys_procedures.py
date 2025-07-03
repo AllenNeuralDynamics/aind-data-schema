@@ -141,7 +141,6 @@ p = Procedures(
                         name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
                     lot_number="GR3361051-16",
-                    mass=10,
                     target=PIDName(name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"),
                 )
             ],
