@@ -141,7 +141,11 @@ p = Procedures(
                         name="Chicken polyclonal to GFP", registry=Registry.RRID, registry_identifier="ab13970"
                     ),
                     lot_number="GR3361051-16",
-                    target=ProteinProbe(name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"),
+                    target=ProteinProbe(
+                        protein=PIDName(name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"),
+                        species=Species.GALLUS_GALLUS,
+                        mass=10,
+                    ),
                 )
             ],
             notes="Primary dilution factor 1:1000 ---final concentration is 10ug/ml",
