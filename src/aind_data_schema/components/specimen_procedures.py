@@ -16,9 +16,8 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import (
     FluorescentStain,
     GeneProbeSet,
-    ProteinProbe,
+    ProbeReagent,
     Reagent,
-    SmallMoleculeProbe,
 )
 from aind_data_schema.utils.exceptions import OneOfError
 
@@ -116,9 +115,12 @@ class SpecimenProcedure(DataModel):
         description="Parameters defined in the protocol and their value during this procedure",
     )
 
-    procedure_details: DiscriminatedList[
-        HCRSeries | FluorescentStain | PlanarSectioning | ProteinProbe | SmallMoleculeProbe | Reagent | GeneProbeSet
-    ] = Field(
+    procedure_details: DiscriminatedList[HCRSeries |
+                                         FluorescentStain |
+                                         PlanarSectioning |
+                                         ProbeReagent |
+                                         Reagent |
+                                         GeneProbeSet] = Field(
         default=[],
         title="Procedure details",
         description="Details of the procedures, including reagents and sectioning information.",
