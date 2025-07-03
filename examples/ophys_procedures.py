@@ -143,7 +143,7 @@ p = Procedures(
                     lot_number="GR3361051-16",
                     target=ProteinProbe(
                         protein=PIDName(name="GFP", registry=Registry.UNIPROT, registry_identifier="P42212"),
-                        species=Species.GALLUS_GALLUS,
+                        species=Species.CHICKEN,
                         mass=10,
                     ),
                 )
@@ -171,12 +171,12 @@ p = Procedures(
                         protein=PIDName(
                             name="Anti-chicken IgY (H+L)",
                         ),
-                        species=Species.CARPA_HIRCUS,
+                        species=Species.GOAT,
                         mass=4,
                     ),
                     stain_type=StainType.PROTEIN,
                     fluorophore=Fluorophore(
-                        fluorophore_type=FluorophoreType.ALEXA_FLUOR,
+                        fluorophore_type=FluorophoreType.ALEXA,
                         excitation_wavelength=488,
                         excitation_wavelength_unit="nm",
                     ),

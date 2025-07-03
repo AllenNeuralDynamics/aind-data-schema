@@ -26,7 +26,7 @@ class TestMouseSubject(unittest.TestCase):
                 sex=Sex.MALE,
                 date_of_birth=self.now.date(),
                 strain=Strain.C57BL_6J,
-                species=Species.MUS_MUSCULUS,
+                species=Species.HOUSE_MOUSE,
                 genotype="wt",
                 source=Organization.AI,
                 housing=Housing(
@@ -48,7 +48,7 @@ class TestMouseSubject(unittest.TestCase):
                 sex=Sex.MALE,
                 date_of_birth=self.now.date(),
                 strain=Strain.BALB_C,
-                species=Species.HOMO_SAPIENS,
+                species=Species.HUMAN,
                 genotype="wt",
                 source=Organization.JAX,
                 housing=Housing(

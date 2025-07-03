@@ -18,7 +18,6 @@ from aind_data_schema.components.reagent import (
     GeneProbeSet,
     ProbeReagent,
     Reagent,
-    ProteinProbe,
 )
 from aind_data_schema.utils.exceptions import OneOfError
 
@@ -132,7 +131,7 @@ class SpecimenProcedure(DataModel):
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_fluorescent_stain = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
-        has_protein_probe = any(isinstance(detail, ProteinProbe) for detail in self.procedure_details)
+        has_protein_probe = any(isinstance(detail, ProbeReagent) for detail in self.procedure_details)
         has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
         has_geneprobeset = any(isinstance(detail, GeneProbeSet) for detail in self.procedure_details)
 
@@ -148,7 +147,7 @@ class SpecimenProcedure(DataModel):
         elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not (
             has_fluorescent_stain or has_protein_probe
         ):
-            raise AssertionError("FluorescentStain or ProteinProbe required if procedure_type is Immunolabeling.")
+            raise AssertionError("FluorescentStain or ProbeReagent required if procedure_type is Immunolabeling.")
         elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
             raise AssertionError("Sectioning required if procedure_type is Sectioning.")
         elif self.procedure_type == SpecimenProcedureType.BARSEQ and not has_geneprobeset:
