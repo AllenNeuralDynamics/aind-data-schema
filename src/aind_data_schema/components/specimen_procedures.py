@@ -16,9 +16,8 @@ from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import (
     FluorescentStain,
     GeneProbeSet,
-    ProteinProbe,
+    ProbeReagent,
     Reagent,
-    SmallMoleculeProbe
 )
 from aind_data_schema.utils.exceptions import OneOfError
 
@@ -116,13 +115,9 @@ class SpecimenProcedure(DataModel):
         description="Parameters defined in the protocol and their value during this procedure",
     )
 
-    procedure_details: DiscriminatedList[HCRSeries |
-                                         FluorescentStain |
-                                         PlanarSectioning |
-                                         ProteinProbe |
-                                         SmallMoleculeProbe |
-                                         Reagent |
-                                         GeneProbeSet] = Field(
+    procedure_details: DiscriminatedList[
+        HCRSeries | FluorescentStain | PlanarSectioning | ProbeReagent | Reagent | GeneProbeSet
+    ] = Field(
         default=[],
         title="Procedure details",
         description="Details of the procedures, including reagents and sectioning information.",
@@ -135,11 +130,12 @@ class SpecimenProcedure(DataModel):
         """Adds a validation check on procedure_type"""
 
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
-        has_antibodies = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
+        has_fluorescent_stain = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
+        has_protein_probe = any(isinstance(detail, ProbeReagent) for detail in self.procedure_details)
         has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
         has_geneprobeset = any(isinstance(detail, GeneProbeSet) for detail in self.procedure_details)
 
-        if has_hcr_series + has_antibodies + has_sectioning + has_geneprobeset > 1:
+        if has_hcr_series + has_fluorescent_stain + has_sectioning + has_geneprobeset + has_protein_probe > 1:
             raise AssertionError("SpecimenProcedure.procedure_details should only contain one type of model.")
 
         if self.procedure_type == SpecimenProcedureType.OTHER and not self.notes:
@@ -148,8 +144,10 @@ class SpecimenProcedure(DataModel):
             )
         elif self.procedure_type == SpecimenProcedureType.HYBRIDIZATION_CHAIN_REACTION and not has_hcr_series:
             raise AssertionError("HCRSeries required if procedure_type is HCR.")
-        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not has_antibodies:
-            raise AssertionError("FluorescentStain required if procedure_type is Immunolabeling.")
+        elif self.procedure_type == SpecimenProcedureType.IMMUNOLABELING and not (
+            has_fluorescent_stain or has_protein_probe
+        ):
+            raise AssertionError("FluorescentStain or ProbeReagent required if procedure_type is Immunolabeling.")
         elif self.procedure_type == SpecimenProcedureType.SECTIONING and not has_sectioning:
             raise AssertionError("Sectioning required if procedure_type is Sectioning.")
         elif self.procedure_type == SpecimenProcedureType.BARSEQ and not has_geneprobeset:

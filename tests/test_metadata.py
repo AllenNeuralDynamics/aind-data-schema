@@ -63,7 +63,7 @@ class TestMetadata(unittest.TestCase):
         subject = Subject(
             subject_id="123456",
             subject_details=MouseSubject(
-                species=Species.MUS_MUSCULUS,
+                species=Species.HOUSE_MOUSE,
                 strain=Strain.C57BL_6J,
                 sex=Sex.MALE,
                 date_of_birth=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc).date(),
