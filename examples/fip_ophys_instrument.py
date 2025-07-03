@@ -187,7 +187,7 @@ filter_4 = d.Filter(
     manufacturer=d.Organization.SEMROCK,
     notes="BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
     filter_type="Multiband",
-    center_wavelength=[493, 574]
+    center_wavelength=[493, 574],
 )
 
 filter_5 = d.Filter(
