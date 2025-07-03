@@ -1,11 +1,12 @@
 """Schema describing data acquisition metadata and configurations"""
 
 from decimal import Decimal
-from typing import List, Literal, Optional
+from typing import Annotated, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
+from aind_data_schema.utils.validators import TimeValidation
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
@@ -87,8 +88,16 @@ class DataStream(DataModel):
     same time.
     """
 
-    stream_start_time: AwareDatetimeWithDefault = Field(..., title="Stream start time")
-    stream_end_time: AwareDatetimeWithDefault = Field(..., title="Stream stop time")
+    stream_start_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream start time"),
+        TimeValidation.BETWEEN,
+    ]
+    stream_end_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream stop time"),
+        TimeValidation.BETWEEN,
+    ]
     modalities: List[Modality.ONE_OF] = Field(
         ..., title="Modalities", description="Modalities that are acquired in this stream"
     )
@@ -165,12 +174,12 @@ class StimulusEpoch(DataModel):
     same time. Not all acquisitions have StimulusEpochs.
     """
 
-    stimulus_start_time: AwareDatetimeWithDefault = Field(
+    stimulus_start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
         ...,
         title="Stimulus start time",
         description="When a specific stimulus begins. This might be the same as the acquisition start time.",
     )
-    stimulus_end_time: AwareDatetimeWithDefault = Field(
+    stimulus_end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
         ...,
         title="Stimulus end time",
         description="When a specific stimulus ends. This might be the same as the acquisition end time.",

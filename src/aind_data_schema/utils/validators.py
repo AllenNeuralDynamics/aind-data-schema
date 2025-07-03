@@ -11,6 +11,17 @@ from aind_data_schema.components.wrappers import AssetPath
 AXIS_TYPES = ["Translation", "Rotation", "Scale"]
 
 
+class TimeValidation(Enum):
+    """Enum for time validation types."""
+
+    BETWEEN = "between"
+    """Time should be between start and end."""
+    AFTER = "after"
+    """Time should be after the start time."""
+    BEFORE = "before"
+    """Time should be before the end time."""
+
+
 class CoordinateSystemException(Exception):
     """Raised when a coordinate system is missing."""
 
@@ -42,6 +53,71 @@ class AxisCountException(Exception):
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
     """Check whether a subject_id and specimen_id are compatible"""
     return subject_id in specimen_id
+
+
+def recursive_time_validation_check(data, acquisition_start_time=None, acquisition_end_time=None):
+    """Recursively check fields for TimeValidation annotations and validate against acquisition times.
+
+    Parameters
+    ----------
+    data : Any
+        The data structure to check recursively
+    acquisition_start_time : Optional[datetime]
+        The acquisition start time to validate against
+    acquisition_end_time : Optional[datetime]
+        The acquisition end time to validate against
+    """
+    if not data:
+        return
+
+    # Check if this object has fields with TimeValidation annotations
+    if hasattr(data, "__annotations__") and hasattr(data, "__dict__"):
+        for field_name, field_value in data.__dict__.items():
+            if field_name in getattr(data, "__annotations__", {}):
+                # Check if the field has TimeValidation annotation
+                annotation = data.__annotations__[field_name]
+                if hasattr(annotation, "__metadata__"):
+                    for metadata in annotation.__metadata__:
+                        if isinstance(metadata, TimeValidation):
+                            # Validate the field value against the time constraint
+                            if field_value and acquisition_start_time and acquisition_end_time:
+                                _validate_time_constraint(
+                                    field_value, metadata, acquisition_start_time, acquisition_end_time, field_name
+                                )
+
+    # Recursively check nested structures
+    _time_validation_recurse_helper(data, acquisition_start_time, acquisition_end_time)
+
+
+def _validate_time_constraint(field_value, time_validation, start_time, end_time, field_name):
+    """Validate a single time field against the specified constraint."""
+    if time_validation == TimeValidation.BETWEEN:
+        if not (start_time <= field_value <= end_time):
+            raise ValueError(
+                f"Field '{field_name}' with value {field_value} must be between {start_time} and {end_time}"
+            )
+    elif time_validation == TimeValidation.AFTER:
+        if field_value <= start_time:
+            raise ValueError(f"Field '{field_name}' with value {field_value} must be after {start_time}")
+    elif time_validation == TimeValidation.BEFORE:
+        if field_value >= end_time:
+            raise ValueError(f"Field '{field_name}' with value {field_value} must be before {end_time}")
+
+
+def _time_validation_recurse_helper(data, acquisition_start_time, acquisition_end_time):
+    """Helper function for recursive_time_validation_check: recurse calls for lists and objects only"""
+    if isinstance(data, list):
+        for item in data:
+            recursive_time_validation_check(item, acquisition_start_time, acquisition_end_time)
+        return
+    elif hasattr(data, "__dict__"):
+        for attr_name, attr_value in data.__dict__.items():
+            if attr_name == "object_type":
+                continue  # skip object_type
+            if callable(attr_value):
+                continue  # skip methods
+
+            recursive_time_validation_check(attr_value, acquisition_start_time, acquisition_end_time)
 
 
 def _recurse_helper(data, **kwargs):

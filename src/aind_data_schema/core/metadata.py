@@ -4,6 +4,7 @@ import inspect
 import json
 import logging
 import warnings
+from datetime import datetime
 from typing import Dict, Literal, Optional, get_args
 
 from aind_data_schema_models.modalities import Modality
@@ -30,6 +31,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
+from aind_data_schema.utils.validators import recursive_time_validation_check
 
 CORE_FILES = [
     "subject",
@@ -266,6 +268,72 @@ class Metadata(DataCoreModel):
                             f"Training protocol '{stimulus_epoch.training_protocol_name}' in StimulusEpoch "
                             f"not found in Procedures. Available protocols: {training_protocol_names}"
                         )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_time_constraints(self):
+        """Validate that all fields with TimeValidation annotations respect acquisition time bounds
+        (if acquisition is present)"""
+        if self.acquisition:
+            acquisition_start_time = None
+            acquisition_end_time = None
+            if hasattr(self.acquisition, "acquisition_start_time") and hasattr(
+                self.acquisition, "acquisition_end_time"
+            ):
+                acquisition_start_time = self.acquisition.acquisition_start_time
+                acquisition_end_time = self.acquisition.acquisition_end_time
+
+            recursive_time_validation_check(
+                self.acquisition,
+                acquisition_start_time=acquisition_start_time,
+                acquisition_end_time=acquisition_end_time,
+            )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_data_description_name_time_consistency(self):
+        """Validate that the creation_time from data_description.name matches acquisition.acquisition_end_time"""
+        if self.data_description and self.acquisition:
+            if (
+                self.data_description.name
+                and hasattr(self.acquisition, "acquisition_end_time")
+                and self.acquisition.acquisition_end_time is not None
+            ):
+
+                try:
+                    # Parse the name to extract creation_time
+                    parsed_name = DataDescription.parse_name(
+                        self.data_description.name, self.data_description.data_level
+                    )
+                    name_creation_time = parsed_name.get("creation_time")
+
+                    if name_creation_time:
+                        acquisition_end_time = self.acquisition.acquisition_end_time
+
+                        # If name_creation_time is timezone-naive (local time),
+                        # add the same timezone as acquisition_end_time
+                        if (
+                            isinstance(name_creation_time, datetime)
+                            and name_creation_time.tzinfo is None
+                            and acquisition_end_time.tzinfo is not None
+                        ):
+                            name_creation_time = name_creation_time.replace(tzinfo=acquisition_end_time.tzinfo)
+
+                        if name_creation_time != acquisition_end_time:
+                            raise ValueError(
+                                f"Creation time from data_description.name ({name_creation_time}) "
+                                f"does not match acquisition.acquisition_end_time ({acquisition_end_time})"
+                            )
+                except ValueError as e:
+                    # If the error is about parsing the name, log a warning but don't fail validation
+                    # If the error is about time mismatch, re-raise it
+                    if "does not match pattern" in str(e) or "not supported" in str(e):
+                        warnings.warn(f"Could not parse data_description.name: {e}")
+                    else:
+                        # This is a validation error, not a parsing error - re-raise it
+                        raise
 
         return self
 

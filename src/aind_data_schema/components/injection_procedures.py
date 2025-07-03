@@ -2,7 +2,7 @@
 
 from datetime import date
 from enum import Enum
-from typing import List, Optional
+from typing import Annotated, List, Optional
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
@@ -12,6 +12,7 @@ from pydantic import Field, model_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.utils.validators import TimeValidation
 
 
 class VirusPrepType(str, Enum):
@@ -39,7 +40,7 @@ class TarsVirusIdentifiers(DataModel):
         description="Alias used to reference the plasmid, usually begins 'AiP'",
     )
     prep_lot_number: str = Field(..., title="Preparation lot number")
-    prep_date: Optional[date] = Field(
+    prep_date: Optional[Annotated[date, TimeValidation.BEFORE]] = Field(
         default=None,
         title="Preparation lot date",
         description="Date this prep lot was titered",

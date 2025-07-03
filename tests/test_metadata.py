@@ -17,6 +17,7 @@ from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSub
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
+from aind_data_schema_models.data_name_patterns import DataLevel
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.metadata import Metadata, create_metadata_json
@@ -529,6 +530,79 @@ class TestMetadata(unittest.TestCase):
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata_no_procedures)
+
+    def test_validate_data_description_name_time_consistency(self):
+        """Tests that data_description.name creation_time matches acquisition.acquisition_end_time"""
+
+        # Create a specific datetime for testing
+        test_datetime = datetime(2023, 4, 3, 18, 17, 9, tzinfo=timezone.utc)
+
+        # Create a data description with a name that should match the acquisition end time
+        data_description = DataDescription(
+            creation_time=test_datetime,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+
+        # Create acquisition with matching end time using model_construct
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc),
+            acquisition_end_time=test_datetime,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # This should pass - times match
+        metadata_matching = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_matching)
+
+        # Create acquisition with different end time
+        different_datetime = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
+        acquisition_different = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc),
+            acquisition_end_time=different_datetime,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # This should fail - times don't match
+        with self.assertRaises(ValidationError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                data_description=data_description,
+                acquisition=acquisition_different,
+            )
+        self.assertIn("Creation time from data_description.name", str(context.exception))
+        self.assertIn("does not match acquisition.acquisition_end_time", str(context.exception))
+
+        # Test case where data_description is None (should pass)
+        metadata_no_data_desc = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_no_data_desc)
+
+        # Test case where acquisition is None (should pass)
+        metadata_no_acquisition = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description,
+        )
+        self.assertIsNotNone(metadata_no_acquisition)
 
 
 if __name__ == "__main__":

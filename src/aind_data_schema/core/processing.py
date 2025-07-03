@@ -3,7 +3,7 @@
 import re
 import warnings
 from enum import Enum
-from typing import Dict, List, Literal, Optional
+from typing import Annotated, Dict, List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
@@ -13,6 +13,7 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataM
 from aind_data_schema.components.identifiers import Code, Person
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.validators import TimeValidation
 
 
 class ProcessStage(str, Enum):
@@ -63,8 +64,8 @@ class DataProcess(DataModel):
     pipeline_name: Optional[str] = Field(
         default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines"
     )
-    start_date_time: AwareDatetimeWithDefault = Field(..., title="Start date time")
-    end_date_time: AwareDatetimeWithDefault = Field(..., title="End date time")
+    start_date_time: Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER] = Field(..., title="Start date time")
+    end_date_time: Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER] = Field(..., title="End date time")
     output_path: Optional[AssetPath] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )

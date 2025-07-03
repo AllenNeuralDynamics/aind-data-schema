@@ -1,7 +1,7 @@
 """Subject procedures module for AIND data schema"""
 
 from datetime import date
-from typing import Dict, List, Optional
+from typing import Annotated, Dict, List, Optional
 
 from aind_data_schema_models.coordinates import Origin
 from aind_data_schema_models.units import MassUnit, UnitlessUnit, VolumeUnit
@@ -23,6 +23,7 @@ from aind_data_schema.components.surgery_procedures import (
     ProbeImplant,
     SampleCollection,
 )
+from aind_data_schema.utils.validators import TimeValidation
 
 
 class GenericSubjectProcedure(DataModel):
@@ -44,8 +45,8 @@ class TrainingProtocol(DataModel):
 
     training_name: str = Field(..., title="Training protocol name")
     protocol_id: Optional[str] = Field(default=None, title="Training protocol ID")
-    start_date: date = Field(..., title="Training protocol start date")
-    end_date: Optional[date] = Field(default=None, title="Training protocol end date")
+    start_date: Annotated[date, TimeValidation.BEFORE] = Field(..., title="Training protocol start date")
+    end_date: Optional[Annotated[date, TimeValidation.BEFORE]] = Field(default=None, title="Training protocol end date")
     curriculum_code: Optional[Code] = Field(
         default=None,
         title="Curriculum code",
@@ -68,15 +69,15 @@ class WaterRestriction(DataModel):
         description="Weight at start of water restriction",
     )
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    start_date: date = Field(..., title="Water restriction start date")
-    end_date: Optional[date] = Field(default=None, title="Water restriction end date")
+    start_date: Annotated[date, TimeValidation.BEFORE] = Field(..., title="Water restriction start date")
+    end_date: Optional[Annotated[date, TimeValidation.BEFORE]] = Field(default=None, title="Water restriction end date")
 
 
 class Surgery(DataModel):
     """Description of subject procedures performed at one time"""
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    start_date: date = Field(..., title="Start date")
+    start_date: Annotated[date, TimeValidation.BEFORE] = Field(..., title="Start date")
     experimenters: Optional[List[Person]] = Field(
         default=None,
         title="experimenter(s)",
