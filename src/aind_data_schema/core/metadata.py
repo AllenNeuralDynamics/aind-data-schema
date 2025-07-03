@@ -294,7 +294,8 @@ class Metadata(DataCoreModel):
 
     @model_validator(mode="after")
     def validate_data_description_name_time_consistency(self):
-        """Validate that the creation_time from data_description.name matches acquisition.acquisition_end_time"""
+        """Validate that the creation_time from data_description.name is on or after midnight
+        on the same day as acquisition.acquisition_end_time"""
         if self.data_description and self.acquisition:
             if (
                 self.data_description.name
@@ -321,10 +322,20 @@ class Metadata(DataCoreModel):
                         ):
                             name_creation_time = name_creation_time.replace(tzinfo=acquisition_end_time.tzinfo)
 
-                        if name_creation_time != acquisition_end_time:
+                        # Get midnight of the acquisition end time day
+                        acquisition_date = acquisition_end_time.date()
+                        midnight_of_acquisition_day = datetime.combine(
+                            acquisition_date, datetime.min.time()
+                        ).replace(tzinfo=acquisition_end_time.tzinfo)
+
+                        # Validate that name_creation_time is on or after midnight of the acquisition day
+                        if (
+                            isinstance(name_creation_time, datetime)
+                            and name_creation_time < midnight_of_acquisition_day
+                        ):
                             raise ValueError(
                                 f"Creation time from data_description.name ({name_creation_time}) "
-                                f"does not match acquisition.acquisition_end_time ({acquisition_end_time})"
+                                f"must be on or after midnight of the acquisition day ({midnight_of_acquisition_day})"
                             )
                 except ValueError as e:
                     # If the error is about parsing the name, log a warning but don't fail validation

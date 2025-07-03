@@ -532,7 +532,8 @@ class TestMetadata(unittest.TestCase):
         self.assertIsNotNone(metadata_no_procedures)
 
     def test_validate_data_description_name_time_consistency(self):
-        """Tests that data_description.name creation_time matches acquisition.acquisition_end_time"""
+        """Tests that data_description.name creation_time is on or after midnight
+        on the same day as acquisition.acquisition_end_time"""
 
         # Create a specific datetime for testing
         test_datetime = datetime(2023, 4, 3, 18, 17, 9, tzinfo=timezone.utc)
@@ -558,7 +559,7 @@ class TestMetadata(unittest.TestCase):
             subject_details=AcquisitionSubjectDetails.model_construct(),
         )
 
-        # This should pass - times match
+        # This should pass - creation time is exactly at acquisition end time
         metadata_matching = Metadata(
             name="Test Metadata",
             location="Test Location",
@@ -567,26 +568,71 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertIsNotNone(metadata_matching)
 
-        # Create acquisition with different end time
-        different_datetime = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
-        acquisition_different = Acquisition.model_construct(
-            instrument_id="Test",
-            acquisition_start_time=datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc),
-            acquisition_end_time=different_datetime,
-            data_streams=[],
-            subject_details=AcquisitionSubjectDetails.model_construct(),
+        # Test with creation time later on the same day - should pass
+        later_same_day = datetime(2023, 4, 3, 23, 59, 59, tzinfo=timezone.utc)
+        data_description_later = DataDescription(
+            creation_time=later_same_day,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+        
+        metadata_later_same_day = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description_later,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_later_same_day)
+
+        # Test with creation time on the next day - should pass
+        next_day = datetime(2023, 4, 4, 0, 0, 1, tzinfo=timezone.utc)
+        data_description_next_day = DataDescription(
+            creation_time=next_day,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+        
+        metadata_next_day = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description_next_day,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_next_day)
+
+        # Test with creation time before midnight of acquisition day - should fail
+        before_midnight = datetime(2023, 4, 2, 23, 59, 59, tzinfo=timezone.utc)
+        data_description_before = DataDescription(
+            creation_time=before_midnight,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
         )
 
-        # This should fail - times don't match
+        # This should fail - creation time is before the acquisition day
         with self.assertRaises(ValidationError) as context:
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
-                data_description=data_description,
-                acquisition=acquisition_different,
+                data_description=data_description_before,
+                acquisition=acquisition,
             )
         self.assertIn("Creation time from data_description.name", str(context.exception))
-        self.assertIn("does not match acquisition.acquisition_end_time", str(context.exception))
+        self.assertIn("must be on or after midnight of the acquisition day", str(context.exception))
 
         # Test case where data_description is None (should pass)
         metadata_no_data_desc = Metadata(
