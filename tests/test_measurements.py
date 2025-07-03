@@ -1,8 +1,8 @@
+"""Tests for CalibrationFit from measurements module"""
+
 import unittest
 from pydantic import ValidationError
 from aind_data_schema.components.measurements import CalibrationFit, FitType
-
-"""Tests for CalibrationFit from measurements module"""
 
 
 class TestCalibrationFit(unittest.TestCase):
