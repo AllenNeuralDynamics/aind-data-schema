@@ -81,7 +81,7 @@ Description of surgical or other procedure performed on a specimen
 | `experimenters` | List[[Person](identifiers.md#person)] |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
 | `protocol_parameters` | `Optional[Dict[str, str]]` | Parameters defined in the protocol and their value during this procedure |
-| `procedure_details` | List[[HCRSeries](#hcrseries) or [FluorescentStain](reagent.md#fluorescentstain) or [PlanarSectioning](#planarsectioning) or [ProteinProbe](reagent.md#proteinprobe) or [SmallMoleculeProbe](reagent.md#smallmoleculeprobe) or [Reagent](reagent.md#reagent) or [GeneProbeSet](reagent.md#geneprobeset)] | Details of the procedures, including reagents and sectioning information. |
+| `procedure_details` | List[[HCRSeries](#hcrseries) or [FluorescentStain](reagent.md#fluorescentstain) or [PlanarSectioning](#planarsectioning) or [ProbeReagent](reagent.md#probereagent) or [Reagent](reagent.md#reagent) or [GeneProbeSet](reagent.md#geneprobeset)] | Details of the procedures, including reagents and sectioning information. |
 | `notes` | `Optional[str]` |  |
 
 
