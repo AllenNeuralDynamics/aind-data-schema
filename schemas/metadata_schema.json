@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.33",
-               "default": "2.0.33",
+               "const": "2.0.34",
+               "default": "2.0.34",
                "title": "Schema Version",
                "type": "string"
             },
@@ -2677,6 +2677,19 @@
                ],
                "title": "Output unit"
             },
+            "fit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CalibrationFit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation for the calibration data used during data acquisition",
+               "title": "Fit"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -2687,7 +2700,6 @@
                   }
                ],
                "default": null,
-               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
@@ -2701,6 +2713,40 @@
             "output_unit"
          ],
          "title": "Calibration",
+         "type": "object"
+      },
+      "CalibrationFit": {
+         "additionalProperties": false,
+         "description": "Fit equation for calibration data",
+         "properties": {
+            "object_type": {
+               "const": "Calibration fit",
+               "default": "Calibration fit",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "fit_type": {
+               "$ref": "#/$defs/FitType",
+               "title": "Fit type"
+            },
+            "fit_parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Parameters of the fit equation, e.g. slope and intercept for linear fit",
+               "title": "Fit parameters"
+            }
+         },
+         "required": [
+            "fit_type"
+         ],
+         "title": "CalibrationFit",
          "type": "object"
       },
       "Camera": {
@@ -11149,6 +11195,16 @@
          "title": "FilterType",
          "type": "string"
       },
+      "FitType": {
+         "description": "Type of fit for calibration data",
+         "enum": [
+            "linear_interpolation",
+            "linear",
+            "other"
+         ],
+         "title": "FitType",
+         "type": "string"
+      },
       "FluorescentStain": {
          "additionalProperties": false,
          "description": "Description of a fluorescent stain",
@@ -14227,8 +14283,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.37",
-               "default": "2.0.37",
+               "const": "2.0.38",
+               "default": "2.0.38",
                "title": "Schema Version",
                "type": "string"
             },
@@ -23336,7 +23392,7 @@
       },
       "PowerCalibration": {
          "additionalProperties": false,
-         "description": "Calibration of a laser device",
+         "description": "Calibration of a device that outputs power based on input strength",
          "properties": {
             "object_type": {
                "const": "Power calibration",
@@ -23361,7 +23417,7 @@
                "type": "string"
             },
             "input": {
-               "description": "Power or percentage input strength",
+               "description": "Power, voltage, or percentage input strength",
                "items": {
                   "type": "number"
                },
@@ -23369,7 +23425,14 @@
                "type": "array"
             },
             "input_unit": {
-               "$ref": "#/$defs/PowerUnit",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/PowerUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/VoltageUnit"
+                  }
+               ],
                "title": "Input unit"
             },
             "repeats": {
@@ -23397,6 +23460,19 @@
                "$ref": "#/$defs/PowerUnit",
                "title": "Output unit"
             },
+            "fit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CalibrationFit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation for the calibration data used during data acquisition",
+               "title": "Fit"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -23407,7 +23483,6 @@
                   }
                ],
                "default": null,
-               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
@@ -24358,8 +24433,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.76",
-               "default": "2.0.76",
+               "const": "2.0.77",
+               "default": "2.0.77",
                "title": "Schema Version",
                "type": "string"
             },
@@ -29589,7 +29664,7 @@
       },
       "VolumeCalibration": {
          "additionalProperties": false,
-         "description": "Calibration of a liquid delivery device",
+         "description": "Calibration of a liquid delivery device based on solenoid/valve opening times",
          "properties": {
             "object_type": {
                "const": "Volume calibration",
@@ -29614,7 +29689,7 @@
                "type": "string"
             },
             "input": {
-               "description": "Length of time solenoid is open",
+               "description": "Length of time solenoid/valve is open",
                "items": {
                   "type": "number"
                },
@@ -29650,6 +29725,19 @@
                "$ref": "#/$defs/VolumeUnit",
                "title": "Output unit"
             },
+            "fit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CalibrationFit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Fit equation for the calibration data used during data acquisition",
+               "title": "Fit"
+            },
             "notes": {
                "anyOf": [
                   {
@@ -29660,7 +29748,6 @@
                   }
                ],
                "default": null,
-               "description": "Fit equation, etc",
                "title": "Notes"
             }
          },
@@ -37960,8 +38047,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.76",
-         "default": "2.0.76",
+         "const": "2.0.77",
+         "default": "2.0.77",
          "title": "Schema Version",
          "type": "string"
       },
