@@ -567,21 +567,17 @@ class TestTimeValidation(unittest.TestCase):
         class MockAcquisition(BaseModel):
             """Mock acquisition model with time fields"""
 
-            acquisition_start_time: AwareDatetimeWithDefault
-            acquisition_end_time: AwareDatetimeWithDefault
             stream_start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
             stream_end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
 
         # Invalid case - stream time before acquisition start
         data = MockAcquisition(
-            acquisition_start_time=self.start_time,
-            acquisition_end_time=self.end_time,
             stream_start_time=datetime(2023, 1, 1, 9, 0, 0, tzinfo=timezone.utc),  # Before acquisition start
             stream_end_time=datetime(2023, 1, 1, 11, 30, 0, tzinfo=timezone.utc),
         )
 
         with self.assertRaises(ValueError) as context:
-            recursive_time_validation_check(data)
+            recursive_time_validation_check(data, self.start_time, self.end_time)
         self.assertIn("must be between", str(context.exception))
 
     def test_recursive_time_validation_check_with_none_data(self):
