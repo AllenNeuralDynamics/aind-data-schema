@@ -328,9 +328,7 @@ class Metadata(DataCoreModel):
                 and self.acquisition.acquisition_end_time is not None
             ):
                 # Parse the name to extract creation_time
-                parsed_name = DataDescription.parse_name(
-                    self.data_description.name, self.data_description.data_level
-                )
+                parsed_name = DataDescription.parse_name(self.data_description.name, self.data_description.data_level)
                 name_creation_time = parsed_name.get("creation_time")
 
                 if name_creation_time:
@@ -352,10 +350,7 @@ class Metadata(DataCoreModel):
                     )
 
                     # Validate that name_creation_time is on or after midnight of the acquisition day
-                    if (
-                        isinstance(name_creation_time, datetime)
-                        and name_creation_time < midnight_of_acquisition_day
-                    ):
+                    if isinstance(name_creation_time, datetime) and name_creation_time < midnight_of_acquisition_day:
                         raise ValueError(
                             f"Creation time from data_description.name ({name_creation_time}) "
                             f"must be on or after midnight of the acquisition day ({midnight_of_acquisition_day})"
