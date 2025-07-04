@@ -20,6 +20,8 @@ class Subject(DataCoreModel):
         title="Subject ID",
     )
 
-    subject_details: Discriminated[MouseSubject | HumanSubject | CalibrationObject] = Field(..., title="Subject Details")
+    subject_details: Discriminated[MouseSubject | HumanSubject | CalibrationObject] = Field(
+        ..., title="Subject Details"
+    )
 
     notes: Optional[str] = Field(default=None, title="Notes")
