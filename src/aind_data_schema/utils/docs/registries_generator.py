@@ -6,7 +6,7 @@ from enum import Enum
 
 # Atlas models
 from aind_data_schema_models.atlas import AtlasName
-from aind_data_schema_models.brain_atlas import CCFv3
+from aind_data_schema_models.brain_atlas import BrainStructureModel, CCFv3
 
 # Coordinates models
 from aind_data_schema_models.coordinates import AnatomicalRelative, AxisName, Direction, Origin
@@ -45,6 +45,9 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
 
+# Processing
+from aind_data_schema_models.process_names import ProcessName
+
 # Registries
 from aind_data_schema_models.registries import Registry
 
@@ -70,6 +73,7 @@ from aind_data_schema_models.units import (
     TemperatureUnit,
     TimeUnit,
     UnitlessUnit,
+    SpeedUnit,
     VoltageUnit,
     VolumeUnit,
 )
@@ -79,6 +83,7 @@ from aind_data_schema.utils.docs.utils import generate_enum_table, save_model_in
 registries = [
     # Atlas and brain structure models
     AtlasName,
+    BrainStructureModel,
     CCFv3,
     # Name patterns
     DataLevel,
@@ -91,6 +96,8 @@ registries = [
     AnatomicalRelative,
     # Organization models
     Organization,
+    # Process names
+    ProcessName,
     # Registries
     Registry,
     # Species models
@@ -111,6 +118,7 @@ registries = [
     PressureUnit,
     TemperatureUnit,
     SoundIntensityUnit,
+    SpeedUnit,
     VoltageUnit,
     MemoryUnit,
     MagneticFieldUnit,

@@ -18,7 +18,8 @@ from aind_data_schema.components.devices import (
     Computer,
     Microscope,
 )
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 
@@ -87,6 +88,7 @@ fluorescence_filters = [
         filter_type="Multiband",
         manufacturer=Organization.CHROMA,
         model="ZET405/488/561/640mv2",
+        center_wavelength=[405, 488, 561, 640],
         notes="Custom made filter",
     )
 ]

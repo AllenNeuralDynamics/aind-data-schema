@@ -10,6 +10,7 @@ from aind_data_schema_models.mouse_anatomy import InjectionTargets
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import ConcentrationUnit, CurrentUnit, SizeUnit, TimeUnit, VolumeUnit
 from pydantic import ValidationError
+from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureType
 
 from aind_data_schema.components.configs import CatheterConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
@@ -255,7 +256,9 @@ class ProceduresTests(unittest.TestCase):
                 protocol_id=["10"],
                 notes=None,
             )
-        self.assertIn("Antibody required if procedure_type is Immunolabeling", repr(e.exception))
+        self.assertIn(
+            "FluorescentStain or ProbeReagent required if procedure_type is Immunolabeling", repr(e.exception)
+        )
 
         with self.assertRaises(ValidationError) as e:
             SpecimenProcedure(
@@ -280,6 +283,18 @@ class ProceduresTests(unittest.TestCase):
                 notes=None,
             )
         self.assertIn("Sectioning required if procedure_type is Sectioning", repr(e.exception))
+
+        with self.assertRaises(ValidationError) as e:
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type=SpecimenProcedureType.BARSEQ,
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=[Person(name="Mam Moth")],
+                protocol_id=["10"],
+                notes=None,
+            )
+        self.assertIn("GeneProbeSet required if procedure_type is BarSEQ", repr(e.exception))
 
         self.assertIsNotNone(
             SpecimenProcedure(
@@ -703,6 +718,38 @@ class ProceduresTests(unittest.TestCase):
         device_names = procedures.get_device_names()
         self.assertIn("Catheter", device_names)
         self.assertEqual(len(device_names), 1)
+
+    def test_procedures_addition_coordinate_system_validation(self):
+        """Test that Procedures addition raises error for different coordinate systems"""
+
+        # Create two procedures with different coordinate systems
+        p1 = Procedures(
+            subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+        )
+
+        p2 = Procedures(
+            subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,  # Different coordinate system
+        )
+
+        # Test that combining procedures with different coordinate systems raises ValueError
+        with self.assertRaises(ValueError) as context:
+            _ = p1 + p2
+
+        self.assertIn("Cannot combine Procedures objects with different coordinate systems", str(context.exception))
+        self.assertIn("BREGMA_ARI", str(context.exception))
+        self.assertIn("BREGMA_ARID", str(context.exception))
+
+        # Test that combining procedures with same coordinate systems works
+        p3 = Procedures(
+            subject_id="12345",
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,  # Same coordinate system as p1
+        )
+
+        combined = p1 + p3
+        self.assertEqual(combined.coordinate_system, CoordinateSystemLibrary.BREGMA_ARI)
+        self.assertEqual(len(combined.subject_procedures), 0)  # Both started with empty procedures
 
 
 if __name__ == "__main__":

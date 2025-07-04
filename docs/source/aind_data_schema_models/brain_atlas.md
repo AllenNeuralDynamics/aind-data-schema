@@ -2,9 +2,9 @@
 
 ## Model definitions
 
-### CCFStructure
+### CCFv3
 
-CCFStructure
+CCFv3
 
 | Name | atlas | name | acronym | id |
 |------|------|------|------|------|

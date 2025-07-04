@@ -29,7 +29,8 @@ from aind_data_schema.components.devices import (
     Tube,
     Computer,
 )
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
@@ -356,6 +357,7 @@ filters = [
         manufacturer=Organization.SEMROCK,
         notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
         filter_type="Multiband",
+        center_wavelength=[493, 574],
     ),
     Filter(
         name="Excitation filter 410nm",

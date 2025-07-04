@@ -27,7 +27,7 @@ class SubjectTests(unittest.TestCase):
         s = Subject(
             subject_id="123456",
             subject_details=MouseSubject(
-                species=Species.MUS_MUSCULUS,
+                species=Species.HOUSE_MOUSE,
                 strain=Strain.C57BL_6J,
                 sex="Male",
                 date_of_birth=now.date(),

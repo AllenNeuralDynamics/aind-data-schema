@@ -106,6 +106,55 @@ Named assembly of a camera and lens (and optionally a filter)
 | `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
 
 
+### Catheter
+
+Description of a catheter device
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `catheter_material` | [CatheterMaterial](#cathetermaterial) |  |
+| `catheter_design` | [CatheterDesign](#catheterdesign) |  |
+| `catheter_port` | [CatheterPort](#catheterport) |  |
+| `name` | `str` |  |
+| `serial_number` | `Optional[str]` |  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
+| `model` | `Optional[str]` |  |
+| `additional_settings` | `Optional[dict]` |  |
+| `notes` | `Optional[str]` |  |
+
+
+### CatheterDesign
+
+Type of catheter design
+
+| Name | Value |
+|------|-------|
+| `MAGNETIC` | `Magnetic` |
+| `NONMAGNETIC` | `Non-magnetic` |
+| `NA` | `N/A` |
+
+
+### CatheterMaterial
+
+Type of catheter material
+
+| Name | Value |
+|------|-------|
+| `NAKED` | `Naked` |
+| `SILICONE` | `VAB silicone` |
+| `MESH` | `VAB mesh` |
+
+
+### CatheterPort
+
+Type of catheter port
+
+| Name | Value |
+|------|-------|
+| `SINGLE` | `Single` |
+| `DOUBLE` | `Double` |
+
+
 ### Computer
 
 Description of a computer
@@ -375,7 +424,7 @@ Filter used in a light path
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `cut_off_wavelength` | `Optional[int]` |  |
 | `cut_on_wavelength` | `Optional[int]` |  |
-| `center_wavelength` | `Optional[int]` |  |
+| `center_wavelength` | `int or List[int] or NoneType` | Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |
@@ -434,7 +483,6 @@ Laser module with a specific wavelength (may be a sub-component of a larger asse
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
 | `wavelength` | `int` |  |
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `power_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) |  |
 | `coupling` | Optional[[Coupling](../aind_data_schema_models/devices.md#coupling)] |  |
 | `coupling_efficiency` | `Optional[decimal.Decimal]` |  |
 | `coupling_efficiency_unit` | `"percent"` |  |
@@ -770,7 +818,7 @@ Description of a Polygonal scanner
 | Field | Type | Description |
 |-------|------|-------------|
 | `speed` | `int` |  |
-| `speed_unit` | {SpeedUnit} |  |
+| `speed_unit` | [SpeedUnit](../aind_data_schema_models/units.md#speedunit) |  |
 | `number_faces` | `int` |  |
 | `name` | `str` |  |
 | `serial_number` | `Optional[str]` |  |

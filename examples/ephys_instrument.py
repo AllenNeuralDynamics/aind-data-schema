@@ -28,7 +28,8 @@ from aind_data_schema.components.devices import (
     Computer,
 )
 from aind_data_schema.components.measurements import Calibration
-from aind_data_schema.core.instrument import Instrument, Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import CameraTarget

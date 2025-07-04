@@ -26,10 +26,12 @@ from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.model import Model
 from aind_data_schema.core.procedures import Injection, Procedures, Surgery
+from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
+from aind_data_schema.utils.validators import recursive_time_validation_check, validate_creation_time_after_midnight
 
 CORE_FILES = [
     "subject",
@@ -69,7 +71,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.71"]] = Field(default="2.0.71")
+    schema_version: SkipValidation[Literal["2.0.77"]] = Field(default="2.0.77")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -267,6 +269,100 @@ class Metadata(DataCoreModel):
                     "Adding 'calibration' tag automatically."
                 )
                 self.data_description.tags.append("calibration")
+
+        return self
+
+    def validate_training_protocol_references(self):
+        """Validate that training_protocol_name in StimulusEpoch matches a TrainingProtocol in procedures"""
+
+        if self.acquisition and self.procedures:
+            # Get all training protocol names from procedures
+            training_protocol_names = []
+            for procedure in self.procedures.subject_procedures:
+                if isinstance(procedure, TrainingProtocol):
+                    training_protocol_names.append(procedure.training_name)
+
+            # Check each stimulus epoch's training_protocol_name
+            for stimulus_epoch in self.acquisition.stimulus_epochs:
+                if stimulus_epoch.training_protocol_name:
+                    if stimulus_epoch.training_protocol_name not in training_protocol_names:
+                        warnings.warn(
+                            f"Training protocol '{stimulus_epoch.training_protocol_name}' in StimulusEpoch "
+                            f"not found in Procedures. Available protocols: {training_protocol_names}"
+                        )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_time_constraints(self):
+        """Validate that all fields with TimeValidation annotations respect acquisition time bounds
+        (if acquisition is present)"""
+        if self.acquisition:
+            acquisition_start_time = None
+            acquisition_end_time = None
+            if hasattr(self.acquisition, "acquisition_start_time") and hasattr(
+                self.acquisition, "acquisition_end_time"
+            ):
+                acquisition_start_time = self.acquisition.acquisition_start_time
+                acquisition_end_time = self.acquisition.acquisition_end_time
+
+            recursive_time_validation_check(
+                self.acquisition,
+                acquisition_start_time=acquisition_start_time,
+                acquisition_end_time=acquisition_end_time,
+            )
+
+            if self.processing:
+                recursive_time_validation_check(
+                    self.processing,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.subject:
+                recursive_time_validation_check(
+                    self.subject,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.instrument:
+                recursive_time_validation_check(
+                    self.instrument,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.procedures:
+                recursive_time_validation_check(
+                    self.procedures,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_data_description_name_time_consistency(self):
+        """Validate that the creation_time from data_description.name is on or after midnight
+        on the same day as acquisition.acquisition_end_time"""
+        if self.data_description and self.acquisition:
+            if (
+                self.data_description.name
+                and hasattr(self.acquisition, "acquisition_end_time")
+                and self.acquisition.acquisition_end_time is not None
+            ):
+                # Parse the name to extract creation_time
+                parsed_name = DataDescription.parse_name(self.data_description.name, self.data_description.data_level)
+                name_creation_time = parsed_name.get("creation_time")
+
+                if name_creation_time:
+                    try:
+                        validate_creation_time_after_midnight(name_creation_time, self.acquisition.acquisition_end_time)
+                    except ValueError as e:
+                        # Re-raise with more specific context for data_description.name
+                        raise ValueError(
+                            f"Creation time from data_description.name ({name_creation_time}) "
+                            f"must be on or after midnight of the acquisition day "
+                            f"({self.acquisition.acquisition_end_time.date()})"
+                        ) from e
 
         return self
 

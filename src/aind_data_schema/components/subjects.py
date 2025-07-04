@@ -3,7 +3,7 @@
 from datetime import date as date_type
 from datetime import time
 from enum import Enum
-from typing import List, Optional
+from typing import Annotated, List, Optional
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -12,7 +12,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel
-from aind_data_schema.components.devices import Device
+from aind_data_schema.utils.validators import TimeValidation
 
 
 class Sex(str, Enum):
@@ -82,7 +82,7 @@ class MouseSubject(DataModel):
     """Description of a mouse subject"""
 
     sex: Sex = Field(..., title="Sex")
-    date_of_birth: date_type = Field(..., title="Date of birth")
+    date_of_birth: Annotated[date_type, TimeValidation.BEFORE] = Field(..., title="Date of birth")
     strain: Strain.ONE_OF = Field(..., title="Strain")
     species: Species.ONE_OF = Field(..., title="Species")
     alleles: List[PIDName] = Field(default=[], title="Alleles", description="Allele names and persistent IDs")

@@ -36,7 +36,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.11"]] = Field(default="2.0.11")
+    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(
@@ -74,7 +74,7 @@ class DataDescription(DataCoreModel):
     )
     data_level: DataLevel = Field(
         ...,
-        description="level of processing that data has undergone",
+        description="Level of processing that data has undergone",
         title="Data Level",
     )
     group: Optional[Group] = Field(
@@ -102,7 +102,7 @@ class DataDescription(DataCoreModel):
     modalities: List[Modality.ONE_OF] = Field(
         ...,
         description="A short name for the specific manner, characteristic, pattern of application, or the employment"
-        "of any technology or formal procedure to generate data for a study",
+        " of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
     data_summary: Optional[str] = Field(

@@ -7,7 +7,7 @@ from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 
 import aind_data_schema.components.devices as d
 import aind_data_schema.core.instrument as r
-from aind_data_schema.core.instrument import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.measurements import Calibration
@@ -185,8 +185,9 @@ filter_4 = d.Filter(
     name="dual-edge standard epi-fluorescence dichroic beamsplitter",
     model="FF493/574-Di01-25x36",
     manufacturer=d.Organization.SEMROCK,
-    notes="493/574 nm BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
+    notes="BrightLine dual-edge standard epi-fluorescence dichroic beamsplitter",
     filter_type="Multiband",
+    center_wavelength=[493, 574],
 )
 
 filter_5 = d.Filter(

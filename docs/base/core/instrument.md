@@ -4,11 +4,11 @@
 
 The `instrument.json` collects the components, mostly hardware devices, used to collect data. In general, the instrument schema describes the static state of the data acquisition hardware across sessions. The [Acquisition](acquisition.md) is used to describe the configuration of components for a specific session.
 
-Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a maintenance event is performed that requires an update. Changes to the instrument should be timestamped using the `Instrument.modification_date` field.
+Instrument files are created manually, either through the [metadata-entry app](https://metadata-entry.allenneuraldynamics.org) or by writing python code that uses [aind-data-schema](https://github.com/allenNeuralDynamics/aind-data-schema). In general, your `instrument.json` file should be re-used across every session without changes until a device is added, removed, or moved, or maintenance is performed. The last change to an instrument should be timestamped in the `Instrument.modification_date` field.
 
 ## Uniqueness
 
-It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `location`, `instrument_id`, and `modification_date` uniquely specify the state of an instrument.
+It is critical to be able to identify data assets acquired on the same hardware. The schema is designed such that the combination of the `instrument_id` and `modification_date` uniquely specify the state of an instrument.
 
 ## Devices
 

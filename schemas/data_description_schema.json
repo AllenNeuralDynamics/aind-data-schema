@@ -2166,8 +2166,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.11",
-         "default": "2.0.11",
+         "const": "2.0.12",
+         "default": "2.0.12",
          "title": "Schema Version",
          "type": "string"
       },
@@ -2302,7 +2302,7 @@
       },
       "data_level": {
          "$ref": "#/$defs/DataLevel",
-         "description": "level of processing that data has undergone",
+         "description": "Level of processing that data has undergone",
          "title": "Data Level"
       },
       "group": {
@@ -2347,7 +2347,7 @@
          "title": "Restrictions"
       },
       "modalities": {
-         "description": "A short name for the specific manner, characteristic, pattern of application, or the employmentof any technology or formal procedure to generate data for a study",
+         "description": "A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study",
          "items": {
             "discriminator": {
                "mapping": {

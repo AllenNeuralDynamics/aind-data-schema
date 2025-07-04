@@ -74,16 +74,17 @@ def process_core_file(core_file):
     # Start with the core file content
     combined_content = base_content + "\n## Core file\n\n" + all_model_content[0]
 
-    combined_content += "\n\n## Model definitions"
-    for content in all_model_content[1:]:
-        combined_content += f"\n\n{content}"
+    if not core_file == "metadata" and len(all_model_content) > 1:
+        combined_content += "\n\n## Model definitions"
+        for content in all_model_content[1:]:
+            combined_content += f"\n\n{content}"
 
     # Apply the link map replacements
     for link in model_link_map:
         # Replace the link in the model content
         replacement = model_link_map[link]
         # Remove the core file name from the replacement link, to avoid circular references
-        replacement = replacement.replace(f"{core_file}.md", "")
+        replacement = replacement.replace(f"/{core_file}.md", "")
         combined_content = combined_content.replace(link, replacement)
 
     # Write to the output file
@@ -257,6 +258,8 @@ def generate_all_core_documentation():
     """
     for core_file in CORE_FILES:
         process_core_file(core_file)
+
+    process_core_file("metadata")
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ Organization
 | `BASLER` | `None` | `Basler` | `None` | `None` |
 | `BCM` | `BCM` | `Baylor College of Medicine` | `name='Research Organization Registry' abbreviation='ROR'` | `02pttbw34` |
 | `BU` | `BU` | `Boston University` | `name='Research Organization Registry' abbreviation='ROR'` | `05qwgg493` |
+| `CAJAL` | `Cajal` | `Cajal Neuroscience` | `name='Research Organization Registry' abbreviation='ROR'` | `05pdc0q70` |
 | `CAMBRIDGE_TECHNOLOGY` | `None` | `Cambridge Technology` | `None` | `None` |
 | `CARL_ZEISS` | `None` | `Carl Zeiss` | `name='Research Organization Registry' abbreviation='ROR'` | `01xk5xs43` |
 | `CATHETER_IMPLANT_INSTITUTIONS` | `N/A` | `N/A` | `N/A` | `N/A` |
@@ -64,6 +65,7 @@ Organization
 | `JULABO` | `None` | `Julabo` | `None` | `None` |
 | `KOWA` | `None` | `Kowa` | `name='Research Organization Registry' abbreviation='ROR'` | `03zbwg482` |
 | `LASER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
+| `LASOS` | `LASOS` | `LASOS Lasertechnik` | `None` | `None` |
 | `LED_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `LEICA` | `None` | `Leica` | `None` | `None` |
 | `LENS_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
@@ -85,6 +87,7 @@ Organization
 | `NATIONAL_INSTRUMENTS` | `None` | `National Instruments` | `name='Research Organization Registry' abbreviation='ROR'` | `026exqw73` |
 | `NAVITAR` | `None` | `Navitar` | `None` | `None` |
 | `NCCIH` | `NCCIH` | `National Center for Complementary and Integrative Health` | `name='Research Organization Registry' abbreviation='ROR'` | `00190t495` |
+| `NEURALYNX` | `None` | `NeuraLynx` | `None` | `None` |
 | `NEUROPHOTOMETRICS` | `None` | `Neurophotometrics` | `None` | `None` |
 | `NEW_SCALE_TECHNOLOGIES` | `None` | `New Scale Technologies` | `None` | `None` |
 | `NIKON` | `None` | `Nikon` | `name='Research Organization Registry' abbreviation='ROR'` | `0280y9h11` |
@@ -110,6 +113,7 @@ Organization
 | `SIGMA_ALDRICH` | `None` | `Sigma-Aldrich` | `None` | `None` |
 | `SIMONS_FOUNDATION` | `None` | `Simons Foundation` | `name='Research Organization Registry' abbreviation='ROR'` | `01cmst727` |
 | `SPEAKER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
+| `SPECTRA_PHYSICS` | `None` | `Spectra-Physics` | `name='Research Organization Registry' abbreviation='ROR'` | `02ad9kp97` |
 | `SPINNAKER` | `None` | `Spinnaker` | `None` | `None` |
 | `SUBJECT_SOURCES` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `TAMRON` | `None` | `Tamron` | `None` | `None` |
@@ -122,6 +126,7 @@ Organization
 | `TWCF` | `TWCF` | `Templeton World Charity Foundation` | `name='Research Organization Registry' abbreviation='ROR'` | `00x0z1472` |
 | `TYMPHANY` | `None` | `Tymphany` | `None` | `None` |
 | `UCSD` | `UCSD` | `University of California, San Diego` | `name='Research Organization Registry' abbreviation='ROR'` | `0168r3w48` |
+| `UPENN` | `UPENN` | `University of Pennsylvania` | `name='Research Organization Registry' abbreviation='ROR'` | `00b30xv10` |
 | `VIEWORKS` | `None` | `Vieworks` | `None` | `None` |
 | `VORTRAN` | `None` | `Vortran` | `None` | `None` |
 

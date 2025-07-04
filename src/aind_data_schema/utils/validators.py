@@ -1,14 +1,26 @@
 """ Validator utility functions """
 
 import logging
+from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 from aind_data_schema.components.wrappers import AssetPath
 
 # Fields that should have the same length as the coordinate system axes
 AXIS_TYPES = ["Translation", "Rotation", "Scale"]
+
+
+class TimeValidation(Enum):
+    """Enum for time validation types."""
+
+    BETWEEN = "between"
+    """Time should be between start and end."""
+    AFTER = "after"
+    """Time should be after the start time."""
+    BEFORE = "before"
+    """Time should be before the end time."""
 
 
 class CoordinateSystemException(Exception):
@@ -42,6 +54,83 @@ class AxisCountException(Exception):
 def subject_specimen_id_compatibility(subject_id: str, specimen_id: str) -> bool:
     """Check whether a subject_id and specimen_id are compatible"""
     return subject_id in specimen_id
+
+
+def recursive_time_validation_check(data, acquisition_start_time=None, acquisition_end_time=None):
+    """Recursively check fields for TimeValidation annotations and validate against acquisition times.
+
+    Parameters
+    ----------
+    data : Any
+        The data structure to check recursively
+    acquisition_start_time : Optional[datetime]
+        The acquisition start time to validate against
+    acquisition_end_time : Optional[datetime]
+        The acquisition end time to validate against
+    """
+    if not data:
+        return
+
+    # Check if this object has fields with TimeValidation annotations
+    if hasattr(data, "__annotations__") and hasattr(data, "__dict__"):
+        for field_name, field_value in data.__dict__.items():
+            if field_name in getattr(data, "__annotations__", {}):
+                # Check if the field has TimeValidation annotation
+                annotation = data.__annotations__[field_name]
+                if hasattr(annotation, "__metadata__"):
+                    for metadata in annotation.__metadata__:
+                        if isinstance(metadata, TimeValidation):
+                            # Validate the field value against the time constraint
+                            if field_value and acquisition_start_time and acquisition_end_time:
+                                _validate_time_constraint(
+                                    field_value, metadata, acquisition_start_time, acquisition_end_time, field_name
+                                )
+
+    # Recursively check nested structures
+    _time_validation_recurse_helper(data, acquisition_start_time, acquisition_end_time)
+
+
+def _validate_time_constraint(field_value, time_validation, start_time, end_time, field_name):
+    """Validate a single time field against the specified constraint."""
+
+    # Handle conversion between date and datetime objects for comparison
+    def convert_to_comparable(value, reference_datetime):
+        """Convert date to datetime using the timezone from reference, or return as-is if already datetime"""
+        if isinstance(value, date) and not isinstance(value, datetime):
+            # Convert date to datetime at midnight with same timezone as reference
+            return datetime.combine(value, datetime.min.time()).replace(tzinfo=reference_datetime.tzinfo)
+        return value
+
+    # Convert field_value to be comparable with start_time and end_time
+    comparable_field_value = convert_to_comparable(field_value, start_time)
+
+    if time_validation == TimeValidation.BETWEEN:
+        if not (start_time <= comparable_field_value <= end_time):
+            raise ValueError(
+                f"Field '{field_name}' with value {field_value} must be between {start_time} and {end_time}"
+            )
+    elif time_validation == TimeValidation.AFTER:
+        if comparable_field_value <= start_time:
+            raise ValueError(f"Field '{field_name}' with value {field_value} must be after {start_time}")
+    elif time_validation == TimeValidation.BEFORE:
+        if comparable_field_value >= end_time:
+            raise ValueError(f"Field '{field_name}' with value {field_value} must be before {end_time}")
+
+
+def _time_validation_recurse_helper(data, acquisition_start_time, acquisition_end_time):
+    """Helper function for recursive_time_validation_check: recurse calls for lists and objects only"""
+    if isinstance(data, list):
+        for item in data:
+            recursive_time_validation_check(item, acquisition_start_time, acquisition_end_time)
+        return
+    elif hasattr(data, "__dict__"):
+        for attr_name, attr_value in data.__dict__.items():
+            if attr_name == "object_type":
+                continue  # skip object_type
+            if callable(attr_value):
+                continue  # skip methods
+
+            recursive_time_validation_check(attr_value, acquisition_start_time, acquisition_end_time)
 
 
 def _recurse_helper(data, **kwargs):
@@ -156,3 +245,46 @@ def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
     elif hasattr(obj, "__dict__"):
         for value in vars(obj).values():
             recursive_check_paths(value, directory)
+
+
+def validate_creation_time_after_midnight(
+    creation_time: Optional[Union[datetime, date]], reference_time: Optional[datetime]
+) -> None:
+    """Validate that creation_time is on or after midnight of the reference_time's day.
+
+    Parameters
+    ----------
+    creation_time : Optional[datetime]
+        The creation time to validate (datetime or date objects are supported)
+    reference_time : Optional[datetime]
+        The reference time to compare against (typically acquisition_end_time)
+
+    Raises
+    ------
+    ValueError
+        If creation_time is before midnight of the reference_time's day
+    """
+    if not creation_time or not reference_time:
+        return
+
+    # Convert date to datetime if needed
+    if isinstance(creation_time, date) and not isinstance(creation_time, datetime):
+        creation_time = datetime.combine(creation_time, datetime.min.time())
+
+    # If creation_time is timezone-naive (local time),
+    # add the same timezone as reference_time
+    if isinstance(creation_time, datetime) and creation_time.tzinfo is None and reference_time.tzinfo is not None:
+        creation_time = creation_time.replace(tzinfo=reference_time.tzinfo)
+
+    # Get midnight of the reference time day
+    reference_date = reference_time.date()
+    midnight_of_reference_day = datetime.combine(reference_date, datetime.min.time()).replace(
+        tzinfo=reference_time.tzinfo
+    )
+
+    # Validate that creation_time is on or after midnight of the reference day
+    if isinstance(creation_time, datetime) and creation_time < midnight_of_reference_day:
+        raise ValueError(
+            f"Creation time ({creation_time}) "
+            f"must be on or after midnight of the reference day ({midnight_of_reference_day})"
+        )

@@ -98,11 +98,11 @@ class CurationMetric(QCMetric):
 
 
 class QualityControl(DataCoreModel):
-    """Description of quality metrics for a data asset"""
+    """Collection of quality control metrics evaluated on a data asset to determine pass/fail status"""
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.5"]] = Field(default="2.0.5")
+    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[Person]] = Field(
         default=None,
