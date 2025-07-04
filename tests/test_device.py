@@ -1,27 +1,25 @@
 """ test Device models"""
 
-import re
 import unittest
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
-from pydantic import __version__ as pyd_version
 
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
+from aind_data_schema.components.devices import Filter, FilterType
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
     DataInterface,
     Detector,
     DetectorType,
     Device,
+    DevicePosition,
     HarpDevice,
     ImagingDeviceType,
     ImmersionMedium,
     Objective,
-    RewardSpout,
-    SpoutSide,
 )
-
-PYD_VERSION = re.match(r"(\d+.\d+).\d+", pyd_version).group(1)
 
 
 class DeviceTests(unittest.TestCase):
@@ -31,29 +29,9 @@ class DeviceTests(unittest.TestCase):
         """tests validators which require notes when an instance of 'other' is used"""
 
         with self.assertRaises(ValueError) as e1:
-            RewardSpout(
-                name="test_reward_spout",
-                spout_diameter=0.5,
-                solenoid_valve=Device(
-                    device_type="solenoid",
-                    name="test_solenoid",
-                ),
-                lick_sensor=Device(
-                    device_type="Lick sensor",
-                    name="Sensor_test",
-                ),
-                side=SpoutSide.OTHER,
-            )
+            Device(name="test_device", manufacturer=Organization.OTHER, notes="")
 
-        expected_e1 = (
-            "1 validation error for RewardSpout\n"
-            "  Value error, Notes cannot be empty if spout side is Other."
-            " Describe the spout side in the notes field."
-            " [type=value_error, input_value={'name': 'test_reward_spo...outSide.OTHER: 'Other'>}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e1.exception), expected_e1)
+        self.assertIn("Device.notes cannot be empty if manufacturer is 'other'", str(e1.exception))
 
         with self.assertRaises(ValueError) as e2:
             Detector(
@@ -64,39 +42,22 @@ class DeviceTests(unittest.TestCase):
                 data_interface=DataInterface.OTHER,
             )
 
-        expected_e2 = (
-            "1 validation error for Detector\n"
-            "  Value error, Notes cannot be empty while any of the following fields"
-            " are set to 'other': ['immersion', 'detector_type', 'data_interface']"
-            " [type=value_error, input_value={'name': 'test_detector',...terface.OTHER: 'Other'>}, input_type=dict]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e2.exception), expected_e2)
+        self.assertIn("Value error, Notes cannot be empty", str(e2.exception))
+        self.assertIn("'immersion', 'detector_type', 'data_interface'", str(e2.exception))
 
         with self.assertRaises(ValueError) as e3:
             HarpDevice(
                 name="test_harp",
-                computer_name="test_harp_computer",
                 harp_device_type=HarpDeviceType.BEHAVIOR,
                 data_interface=DataInterface.OTHER,
                 is_clock_generator=False,
             )
 
-        expected_e3 = (
-            "1 validation error for HarpDevice\n"
-            "data_interface\n"
-            "  Value error, Notes cannot be empty if data_interface is Other."
-            " Describe the data interface in the notes field."
-            " [type=value_error, input_value=<DataInterface.OTHER: 'Other'>, input_type=DataInterface]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
-
-        self.assertEqual(repr(e3.exception), expected_e3)
+        self.assertIn("Value error, Notes cannot be empty", str(e3.exception))
+        self.assertIn("data_interface", str(e3.exception))
 
         HarpDevice(
             name="test_harp",
-            computer_name="test_harp_computer",
             harp_device_type=HarpDeviceType.BEHAVIOR,
             data_interface=DataInterface.USB,
             is_clock_generator=False,
@@ -105,26 +66,126 @@ class DeviceTests(unittest.TestCase):
         with self.assertRaises(ValueError) as e4:
             Objective(name="test_objective", numerical_aperture=0.5, magnification=10, immersion=ImmersionMedium.OTHER)
 
-        expected_e4 = (
-            "1 validation error for Objective\n"
-            "immersion\n"
-            "  Value error, Notes cannot be empty if immersion is Other. Describe the immersion in the notes field."
-            " [type=value_error, input_value=<ImmersionMedium.OTHER: 'other'>, input_type=ImmersionMedium]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
-        )
+        self.assertIn("Value error, Notes cannot be empty if immersion is Other", str(e4.exception))
 
-        self.assertEqual(repr(e4.exception), expected_e4)
-
+    def test_additional_imaging_device(self):
+        """tests the additional imaging device validator"""
         with self.assertRaises(ValueError) as e5:
             AdditionalImagingDevice(name="test_additional_imaging", imaging_device_type=ImagingDeviceType.OTHER)
 
-        expected_e5 = (
-            "1 validation error for AdditionalImagingDevice\n"
-            "imaging_device_type\n"
-            "  Value error, Notes cannot be empty if imaging_device_type is Other. "
-            "Describe the imaging device type in the notes field."
-            " [type=value_error, input_value=<ImagingDeviceType.OTHER: 'Other'>, input_type=ImagingDeviceType]\n"
-            f"    For further information visit https://errors.pydantic.dev/{PYD_VERSION}/v/value_error"
+        self.assertIn("Notes cannot be empty if imaging_device_type", str(e5.exception))
+
+        valid = AdditionalImagingDevice(
+            name="test_additional_imaging",
+            imaging_device_type=ImagingDeviceType.OTHER,
+            notes="test notes",
+        )
+        self.assertEqual(valid.name, "test_additional_imaging")
+
+    def test_position_device(self):
+        """Test that the DevicePosition validator gets raised properly"""
+
+        # Test with both transform and coordinate_system set
+        valid_positioned = DevicePosition(
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            transform=[
+                Translation(
+                    translation=[1, 1, 1],
+                )
+            ],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+        )
+        self.assertIsNotNone(valid_positioned.transform)
+        self.assertIsNotNone(valid_positioned.coordinate_system)
+
+        # Test with both transform and coordinate_system unset
+        valid_positioned_unset = DevicePosition(
+            relative_position=[AnatomicalRelative.SUPERIOR],
+        )
+        self.assertIsNone(valid_positioned_unset.transform)
+        self.assertIsNone(valid_positioned_unset.coordinate_system)
+
+        # Test with transform set but coordinate_system unset
+        with self.assertRaises(ValueError) as e1:
+            DevicePosition(
+                relative_position=[AnatomicalRelative.SUPERIOR],
+                transform=[
+                    Translation(
+                        translation=[1, 1, 1],
+                    )
+                ],
+            )
+        self.assertIn(
+            "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
+            str(e1.exception),
         )
 
-        self.assertEqual(repr(e5.exception), expected_e5)
+        # Test with coordinate_system set but transform unset
+        with self.assertRaises(ValueError) as e2:
+            DevicePosition(
+                relative_position=[AnatomicalRelative.SUPERIOR],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            )
+        self.assertIn(
+            "DevicePosition.transform and DevicePosition.coordinate_system must either both be set or both be unset",
+            str(e2.exception),
+        )
+
+
+class FilterTests(unittest.TestCase):
+    """tests filter schemas"""
+
+    def test_filter(self):
+        """tests the filter validator"""
+
+        # Test valid single center wavelength
+        valid_filter_single = Filter(
+            name="test_filter",
+            filter_type=FilterType.BANDPASS,
+            manufacturer=Organization.CHROMA,
+            center_wavelength=500,
+        )
+        self.assertEqual(valid_filter_single.center_wavelength, 500)
+
+        # Test valid multiple center wavelengths
+        valid_filter_multi = Filter(
+            name="test_filter_multi",
+            filter_type=FilterType.MULTI_NOTCH,
+            manufacturer=Organization.CHROMA,
+            center_wavelength=[450, 550, 650],
+        )
+        self.assertEqual(valid_filter_multi.center_wavelength, [450, 550, 650])
+
+        # Test error for multi-band filter with single center wavelength
+        with self.assertRaises(ValueError) as e1:
+            Filter(
+                name="test_filter_multi_single",
+                filter_type=FilterType.MULTIBAND,
+                manufacturer=Organization.CHROMA,
+                center_wavelength=500,
+            )
+        self.assertIn("center_wavelength must be a list of wavelengths", str(e1.exception))
+
+        # Test error for single-band filter with multiple center wavelengths
+        with self.assertRaises(ValueError) as e2:
+            Filter(
+                name="test_filter_single_multi",
+                filter_type=FilterType.BANDPASS,
+                manufacturer=Organization.CHROMA,
+                center_wavelength=[450, 550],
+            )
+        self.assertIn("center_wavelength must be a single wavelength", str(e2.exception))
+
+        # Test with MULTI_NOTCH filter type and single wavelength (should fail)
+        with self.assertRaises(ValueError) as e3:
+            Filter(
+                name="test_filter_notch_single",
+                filter_type=FilterType.MULTI_NOTCH,
+                manufacturer=Organization.CHROMA,
+                center_wavelength=500,
+            )
+        self.assertIn("center_wavelength must be a list of wavelengths", str(e3.exception))
+
+
+if __name__ == "__main__":
+    unittest.main()

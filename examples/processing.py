@@ -1,13 +1,13 @@
-""" example processing """
+"""example processing"""
 
 from datetime import datetime, timezone
 
+from aind_data_schema.components.identifiers import Person, Code
 from aind_data_schema.core.processing import (
-    AnalysisProcess,
     DataProcess,
-    PipelineProcess,
     Processing,
     ProcessName,
+    ProcessStage,
     ResourceTimestamped,
     ResourceUsage,
 )
@@ -39,90 +39,108 @@ file_io_usage_list = [
     ResourceTimestamped(timestamp=datetime(2024, 9, 13, tzinfo=timezone.utc), usage=6.0),
 ]
 
-p = Processing(
-    processing_pipeline=PipelineProcess(
-        processor_full_name="Some Processor",
-        pipeline_url="https://url/for/pipeline",
-        pipeline_version="0.1.1",
-        data_processes=[
-            DataProcess(
-                name=ProcessName.IMAGE_TILE_FUSING,
-                software_version="0.0.1",
-                start_date_time=t,
-                end_date_time=t,
-                input_location="/path/to/inputs",
-                output_location="/path/to/outputs",
-                code_version="0.1",
-                code_url="https://github.com/abcd",
-                parameters={"size": 7},
-                resources=ResourceUsage(
-                    os=OperatingSystem.UBUNTU_20_04,
-                    architecture=CPUArchitecture.X86_64,
-                    cpu="Intel Core i7",
-                    cpu_cores=8,
-                    gpu="NVIDIA GeForce RTX 3080",
-                    system_memory=32.0,
-                    system_memory_unit=MemoryUnit.GB,
-                    ram=16.0,
-                    ram_unit=MemoryUnit.GB,
-                    cpu_usage=cpu_usage_list,
-                    gpu_usage=gpu_usage_list,
-                    ram_usage=ram_usage_list,
-                ),
-            ),
-            DataProcess(
-                name=ProcessName.FILE_FORMAT_CONVERSION,
-                software_version="0.0.1",
-                start_date_time=t,
-                end_date_time=t,
-                input_location="/path/to/inputs",
-                output_location="/path/to/outputs",
-                code_version="0.1",
-                code_url="https://github.com/asdf",
-                parameters={"u": 7, "z": True},
-            ),
-            DataProcess(
-                name=ProcessName.IMAGE_DESTRIPING,
-                software_version="0.2.1",
-                start_date_time=t,
-                end_date_time=t,
-                input_location="/path/to/input",
-                output_location="/path/to/output",
-                code_version="0.3",
-                code_url="https://github.com/fdsa",
-                parameters={"a": 2, "b": -2},
-            ),
-        ],
-    ),
-    analyses=[
-        AnalysisProcess(
-            analyst_full_name="Some Analyzer",
-            description="some description",
-            name="Analysis",
-            software_version="0.0.1",
-            start_date_time=t,
-            end_date_time=t,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
-            code_version="0.1",
-            code_url="https://github.com/abcd",
-            parameters={"size": 7},
+example_code = Code(
+    url="https://github.com/abcd",
+    version="0.1",
+    parameters={"size": 7},
+)
+
+p = Processing.create_with_sequential_process_graph(
+    pipelines=[
+        Code(
+            name="Imaging processing pipeline",
+            url="https://url/for/pipeline",
+            version="0.1.1",
         ),
-        AnalysisProcess(
-            analyst_full_name="Some Analyzer",
-            description="some description",
-            name="Analysis",
-            software_version="0.0.1",
+    ],
+    data_processes=[
+        DataProcess(
+            process_type=ProcessName.IMAGE_TILE_FUSING,
+            experimenters=[Person(name="Dr. Dan")],
+            stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
-            input_location="/path/to/inputs",
-            output_location="/path/to/outputs",
-            code_version="0.1",
-            code_url="https://github.com/asdf",
-            parameters={"u": 7, "z": True},
+            output_path="/path/to/outputs",
+            pipeline_name="Imaging processing pipeline",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"size": 7},
+                )
+            ),
+            resources=ResourceUsage(
+                os=OperatingSystem.UBUNTU_20_04,
+                architecture=CPUArchitecture.X86_64,
+                cpu="Intel Core i7",
+                cpu_cores=8,
+                gpu="NVIDIA GeForce RTX 3080",
+                system_memory=32.0,
+                system_memory_unit=MemoryUnit.GB,
+                ram=16.0,
+                ram_unit=MemoryUnit.GB,
+                cpu_usage=cpu_usage_list,
+                gpu_usage=gpu_usage_list,
+                ram_usage=ram_usage_list,
+            ),
+        ),
+        DataProcess(
+            process_type=ProcessName.FILE_FORMAT_CONVERSION,
+            pipeline_name="Imaging processing pipeline",
+            experimenters=[Person(name="Dr. Dan")],
+            stage=ProcessStage.PROCESSING,
+            start_date_time=t,
+            end_date_time=t,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"u": 7, "z": True},
+                )
+            ),
+        ),
+        DataProcess(
+            process_type=ProcessName.IMAGE_DESTRIPING,
+            pipeline_name="Imaging processing pipeline",
+            experimenters=[Person(name="Dr. Dan")],
+            stage=ProcessStage.PROCESSING,
+            start_date_time=t,
+            end_date_time=t,
+            output_path="/path/to/output",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"a": 2, "b": -2},
+                )
+            ),
+        ),
+        DataProcess(
+            stage=ProcessStage.ANALYSIS,
+            experimenters=[Person(name="Some Analyzer")],
+            process_type=ProcessName.ANALYSIS,
+            start_date_time=t,
+            end_date_time=t,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"size": 7},
+                )
+            ),
+        ),
+        DataProcess(
+            name="Analysis 2",
+            stage=ProcessStage.ANALYSIS,
+            experimenters=[Person(name="Some Analyzer")],
+            process_type=ProcessName.ANALYSIS,
+            start_date_time=t,
+            end_date_time=t,
+            output_path="/path/to/outputs",
+            code=example_code.model_copy(
+                update=dict(
+                    parameters={"u": 7, "z": True},
+                )
+            ),
         ),
     ],
 )
-serialized = p.model_dump_json()
-deserialized = Processing.model_validate_json(serialized)
-p.write_standard_file()
+
+if __name__ == "__main__":
+    serialized = p.model_dump_json()
+    deserialized = Processing.model_validate_json(serialized)
+    p.write_standard_file()

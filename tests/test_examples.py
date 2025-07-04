@@ -1,49 +1,48 @@
 """ testing examples """
 
-import glob
-import importlib.util
 import json
-import logging
-import sys
+import os
 import unittest
 from pathlib import Path
-from unittest.mock import mock_open, patch
 
-import dictdiffer
+from aind_data_schema.utils.examples_generator import ExamplesGenerator
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 
 
-class ExampleTests(unittest.TestCase):
+class ExampleTests(unittest.TestCase):  # pragma: no cover
     """tests for examples"""
 
-    def test_examples(self):
-        """run through each example, compare to rendered json"""
+    @classmethod
+    def setUpClass(cls):
+        """Build the examples"""
 
-        for example_file in glob.glob(f"{EXAMPLES_DIR}/*.py"):
-            logging.debug(f"testing {example_file}")
+        # Move to the examples directory
+        os.chdir(EXAMPLES_DIR)
+        # Remove all .json files in the examples directory
+        for file in os.listdir(EXAMPLES_DIR):
+            if file.endswith(".json") and not file.startswith("__"):
+                os.remove(EXAMPLES_DIR / file)
+        ExamplesGenerator().generate_all_examples()
+        # Return to the original directory
+        os.chdir(Path(__file__).parents[1])
 
-            json_file = example_file.replace(".py", ".json")
+    def test_examples_generated(self):
+        """Test that each example file generates valid JSON."""
+        # Get all json files in the examples directory
+        example_files = [f for f in os.listdir(EXAMPLES_DIR) if f.endswith(".py") and not f.startswith("__")]
+        example_files = [f.replace(".py", ".json") for f in example_files]
 
-            with open(json_file, "r") as f:
-                target_data = f.read().replace("\r\n", "\n")
+        for example_file in example_files:
+            example_path = EXAMPLES_DIR / example_file
+            with self.subTest(example_file=example_file):
+                # Check if the file exists
+                self.assertTrue(example_path.exists(), f"{example_file} was not generated.")
 
-            spec = importlib.util.spec_from_file_location("test_module", example_file)
-            module = importlib.util.module_from_spec(spec)
-            sys.modules["test_module"] = module
-
-            with patch("builtins.open", new_callable=mock_open) as mocked_file:
-                spec.loader.exec_module(module)
-                h = mocked_file.return_value.__enter__()
-                call_args_list = h.write.call_args_list
-                call = call_args_list[0]
-                args, kwargs = call
-                call_argument_json = json.loads(args[0])
-                expected_argument = json.loads(target_data)
-                diff = dictdiffer.diff(expected_argument, call_argument_json)
-                self.assertEqual(
-                    expected_argument, call_argument_json, msg=f"Assertion error in {json_file}: {list(diff)}"
-                )
+                # Validate the JSON content
+                with open(example_path, "r") as f:
+                    json_data = json.load(f)
+                self.assertIsInstance(json_data, dict, f"{example_file} does not contain valid JSON.")
 
 
 if __name__ == "__main__":

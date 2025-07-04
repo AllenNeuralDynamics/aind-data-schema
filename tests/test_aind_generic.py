@@ -1,17 +1,17 @@
-""" test round trip (de)serialization behavior of AindGeneric models"""
+""" test round trip (de)serialization behavior of GenericModel models"""
 
 import unittest
 
 from pydantic import BaseModel, Field
 
-from aind_data_schema.base import AindGeneric, AindModel
+from aind_data_schema.base import DataModel, GenericModel
 
 
-class GenericContainer(AindModel):
+class GenericContainer(DataModel):
     """Represents a generic container"""
 
-    contains_model: AindGeneric
-    contains_dict: AindGeneric
+    contains_model: GenericModel
+    contains_dict: GenericModel
 
 
 class Bar(BaseModel):
@@ -27,7 +27,7 @@ class SubGenericContainer(GenericContainer):
     contains_model: Bar
 
 
-class AindGenericTests(unittest.TestCase):
+class GenericModelTests(unittest.TestCase):
     """tests device schemas"""
 
     def test_sub_generic_container_round_trip(self):
