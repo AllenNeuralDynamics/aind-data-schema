@@ -313,7 +313,22 @@
                      "$ref": "#/$defs/_Callithrix_Jacchus"
                   },
                   {
+                     "$ref": "#/$defs/_Carpa_Hircus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cavia_Porcellus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Equus_Asinus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Gallus_Gallus"
+                  },
+                  {
                      "$ref": "#/$defs/_Homo_Sapiens"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lama_Glama"
                   },
                   {
                      "$ref": "#/$defs/_Macaca_Mulatta"
@@ -322,25 +337,10 @@
                      "$ref": "#/$defs/_Mus_Musculus"
                   },
                   {
-                     "$ref": "#/$defs/_Rattus_Norvegicus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Gallus_Gallus"
-                  },
-                  {
                      "$ref": "#/$defs/_Oryctolagus_Cuniculus"
                   },
                   {
-                     "$ref": "#/$defs/_Cavia_Porcellus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Carpa_Hircus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Equus_Asinus"
-                  },
-                  {
-                     "$ref": "#/$defs/_Lama_Glama"
+                     "$ref": "#/$defs/_Rattus_Norvegicus"
                   },
                   {
                      "$ref": "#/$defs/_Vicuna_Pacos"
@@ -2364,8 +2364,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.11",
-         "default": "2.0.11",
+         "const": "2.0.12",
+         "default": "2.0.12",
          "title": "Schema Version",
          "type": "string"
       },

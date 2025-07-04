@@ -1,13 +1,51 @@
 """Calibration data models"""
 
 from typing import Annotated, List, Literal, Optional
+from enum import Enum
 
-from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit
+from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit, VoltageUnit
+from pydantic import model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, Discriminated, Field
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, Field, GenericModel
 from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.validators import TimeValidation
+
+
+class FitType(Enum):
+    """Type of fit for calibration data"""
+
+    LINEAR_INTERPOLATION = "linear_interpolation"
+    LINEAR = "linear"
+    OTHER = "other"
+
+
+class CalibrationFit(DataModel):
+    """Fit equation for calibration data"""
+
+    fit_type: FitType = Field(
+        ...,
+        title="Fit type",
+    )
+    fit_parameters: Optional[GenericModel] = Field(
+        default=None,
+        title="Fit parameters",
+        description="Parameters of the fit equation, e.g. slope and intercept for linear fit",
+    )
+
+    @model_validator(mode="before")
+    def validate_fit_type(cls, values):
+        """Ensure that parameters are provided for linear and other fits"""
+        fit_type = values.get("fit_type")
+        fit_parameters = values.get("fit_parameters")
+
+        if fit_type in {FitType.LINEAR, FitType.OTHER} and not fit_parameters:
+            raise ValueError(f"Fit parameters must be provided for {fit_type.value} fit type")
+
+        if fit_type == FitType.LINEAR_INTERPOLATION and fit_parameters is not None:
+            raise ValueError("Fit parameters should not be provided for linear interpolation fit type")
+
+        return values
 
 
 class Calibration(DeviceConfig):
@@ -28,17 +66,21 @@ class Calibration(DeviceConfig):
         ..., description="Calibration output (provide the average if repeated)", title="Outputs"
     )
     output_unit: UNITS = Field(..., title="Output unit")
+    fit: Optional[CalibrationFit] = Field(
+        default=None,
+        title="Fit",
+        description="Fit equation for the calibration data used during data acquisition",
+    )
     notes: Optional[str] = Field(
         default=None,
         title="Notes",
-        description="Fit equation, etc",
     )
 
 
 class VolumeCalibration(Calibration):
-    """Calibration of a liquid delivery device"""
+    """Calibration of a liquid delivery device based on solenoid/valve opening times"""
 
-    input: List[float] = Field(..., title="Input times", description="Length of time solenoid is open")
+    input: List[float] = Field(..., title="Input times", description="Length of time solenoid/valve is open")
     input_unit: TimeUnit = Field(..., title="Input unit")
     repeats: Optional[int] = Field(
         default=None,
@@ -54,10 +96,10 @@ class VolumeCalibration(Calibration):
 
 
 class PowerCalibration(Calibration):
-    """Calibration of a laser device"""
+    """Calibration of a device that outputs power based on input strength"""
 
-    input: List[float] = Field(..., title="Input", description="Power or percentage input strength")
-    input_unit: PowerUnit = Field(..., title="Input unit")
+    input: List[float] = Field(..., title="Input", description="Power, voltage, or percentage input strength")
+    input_unit: PowerUnit | VoltageUnit = Field(..., title="Input unit")
     output: List[float] = Field(..., title="Output", description="Power output (provide the average if repeated)")
     output_unit: PowerUnit = Field(..., title="Output unit")
 
