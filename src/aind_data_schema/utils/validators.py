@@ -4,7 +4,7 @@ import logging
 from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -245,3 +245,50 @@ def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
     elif hasattr(obj, "__dict__"):
         for value in vars(obj).values():
             recursive_check_paths(value, directory)
+
+
+def validate_creation_time_after_midnight(
+    creation_time: Optional[Union[datetime, date]], reference_time: Optional[datetime]
+) -> None:
+    """Validate that creation_time is on or after midnight of the reference_time's day.
+
+    Parameters
+    ----------
+    creation_time : Optional[datetime]
+        The creation time to validate (datetime or date objects are supported)
+    reference_time : Optional[datetime]
+        The reference time to compare against (typically acquisition_end_time)
+
+    Raises
+    ------
+    ValueError
+        If creation_time is before midnight of the reference_time's day
+    """
+    if not creation_time or not reference_time:
+        return
+
+    # Convert date to datetime if needed
+    if isinstance(creation_time, date) and not isinstance(creation_time, datetime):
+        creation_time = datetime.combine(creation_time, datetime.min.time())
+
+    # If creation_time is timezone-naive (local time),
+    # add the same timezone as reference_time
+    if (
+        isinstance(creation_time, datetime)
+        and creation_time.tzinfo is None
+        and reference_time.tzinfo is not None
+    ):
+        creation_time = creation_time.replace(tzinfo=reference_time.tzinfo)
+
+    # Get midnight of the reference time day
+    reference_date = reference_time.date()
+    midnight_of_reference_day = datetime.combine(reference_date, datetime.min.time()).replace(
+        tzinfo=reference_time.tzinfo
+    )
+
+    # Validate that creation_time is on or after midnight of the reference day
+    if isinstance(creation_time, datetime) and creation_time < midnight_of_reference_day:
+        raise ValueError(
+            f"Creation time ({creation_time}) "
+            f"must be on or after midnight of the reference day ({midnight_of_reference_day})"
+        )

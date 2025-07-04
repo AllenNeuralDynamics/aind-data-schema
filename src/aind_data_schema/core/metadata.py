@@ -31,7 +31,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
-from aind_data_schema.utils.validators import recursive_time_validation_check
+from aind_data_schema.utils.validators import recursive_time_validation_check, validate_creation_time_after_midnight
 
 CORE_FILES = [
     "subject",
@@ -332,29 +332,15 @@ class Metadata(DataCoreModel):
                 name_creation_time = parsed_name.get("creation_time")
 
                 if name_creation_time:
-                    acquisition_end_time = self.acquisition.acquisition_end_time
-
-                    # If name_creation_time is timezone-naive (local time),
-                    # add the same timezone as acquisition_end_time
-                    if (
-                        isinstance(name_creation_time, datetime)
-                        and name_creation_time.tzinfo is None
-                        and acquisition_end_time.tzinfo is not None
-                    ):
-                        name_creation_time = name_creation_time.replace(tzinfo=acquisition_end_time.tzinfo)
-
-                    # Get midnight of the acquisition end time day
-                    acquisition_date = acquisition_end_time.date()
-                    midnight_of_acquisition_day = datetime.combine(acquisition_date, datetime.min.time()).replace(
-                        tzinfo=acquisition_end_time.tzinfo
-                    )
-
-                    # Validate that name_creation_time is on or after midnight of the acquisition day
-                    if isinstance(name_creation_time, datetime) and name_creation_time < midnight_of_acquisition_day:
+                    try:
+                        validate_creation_time_after_midnight(name_creation_time, self.acquisition.acquisition_end_time)
+                    except ValueError as e:
+                        # Re-raise with more specific context for data_description.name
                         raise ValueError(
                             f"Creation time from data_description.name ({name_creation_time}) "
-                            f"must be on or after midnight of the acquisition day ({midnight_of_acquisition_day})"
-                        )
+                            f"must be on or after midnight of the acquisition day "
+                            f"({self.acquisition.acquisition_end_time.date()})"
+                        ) from e
 
         return self
 

@@ -1,7 +1,7 @@
 """ Tests for compatibility check utilities """
 
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -26,6 +26,7 @@ from aind_data_schema.utils.validators import (
     recursive_get_all_names,
     recursive_time_validation_check,
     subject_specimen_id_compatibility,
+    validate_creation_time_after_midnight,
 )
 
 
@@ -596,6 +597,88 @@ class TestTimeValidation(unittest.TestCase):
         data = MockData(regular_field="test")
         # Should not raise exception
         recursive_time_validation_check(data, self.start_time, self.end_time)
+
+
+class TestValidateCreationTimeAfterMidnight(unittest.TestCase):
+    """Tests for validate_creation_time_after_midnight function"""
+
+    def setUp(self):
+        """Set up test data"""
+        self.reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+
+    def test_valid_creation_time_same_day(self):
+        """Test valid creation time on same day"""
+        creation_time = datetime(2023, 1, 1, 10, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_valid_creation_time_next_day(self):
+        """Test valid creation time on next day"""
+        creation_time = datetime(2023, 1, 2, 5, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_valid_creation_time_at_midnight(self):
+        """Test valid creation time exactly at midnight"""
+        creation_time = datetime(2023, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_invalid_creation_time_before_midnight(self):
+        """Test invalid creation time before midnight of reference day"""
+        creation_time = datetime(2022, 12, 31, 23, 59, 59, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError) as context:
+            validate_creation_time_after_midnight(creation_time, self.reference_time)
+        self.assertIn("must be on or after midnight", str(context.exception))
+
+    def test_timezone_naive_creation_time(self):
+        """Test timezone-naive creation time gets reference timezone"""
+        creation_time = datetime(2023, 1, 1, 10, 0, 0)  # No timezone
+        # Should not raise exception - timezone will be added from reference
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_timezone_naive_creation_time_invalid(self):
+        """Test timezone-naive creation time that's invalid"""
+        creation_time = datetime(2022, 12, 31, 10, 0, 0)  # No timezone, day before
+        with self.assertRaises(ValueError) as context:
+            validate_creation_time_after_midnight(creation_time, self.reference_time)
+        self.assertIn("must be on or after midnight", str(context.exception))
+
+    def test_none_creation_time(self):
+        """Test None creation time"""
+        # Should not raise exception
+        validate_creation_time_after_midnight(None, self.reference_time)
+
+    def test_none_reference_time(self):
+        """Test None reference time"""
+        creation_time = datetime(2023, 1, 1, 10, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception - function returns early when reference_time is None
+        validate_creation_time_after_midnight(creation_time, None)
+
+    def test_different_timezones(self):
+        """Test with different timezones"""
+        # Reference time in UTC
+        reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        # Creation time in different timezone (EST = UTC-5)
+        est = timezone(timedelta(hours=-5))
+        creation_time = datetime(2023, 1, 1, 7, 0, 0, tzinfo=est)  # Same moment as 12:00 UTC
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, reference_time)
+
+    def test_date_object_creation_time(self):
+        """Test with date object instead of datetime"""
+        from datetime import date
+        creation_date = date(2023, 1, 1)
+        # Should not raise exception - date gets converted to datetime at midnight
+        validate_creation_time_after_midnight(creation_date, self.reference_time)
+
+    def test_invalid_date_object_creation_time(self):
+        """Test with invalid date object"""
+        from datetime import date
+        creation_date = date(2022, 12, 31)  # Day before reference
+        with self.assertRaises(ValueError) as context:
+            validate_creation_time_after_midnight(creation_date, self.reference_time)
+        self.assertIn("must be on or after midnight", str(context.exception))
 
 
 if __name__ == "__main__":
