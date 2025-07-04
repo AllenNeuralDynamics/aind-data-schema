@@ -1,7 +1,7 @@
 """Calibration data models"""
 
+from typing import Annotated, List, Literal, Optional
 from enum import Enum
-from typing import List, Literal, Optional
 
 from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit, VoltageUnit
 from pydantic import model_validator
@@ -9,6 +9,7 @@ from pydantic import model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, Field, GenericModel
 from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.utils.validators import TimeValidation
 
 
 class FitType(Enum):
@@ -50,7 +51,9 @@ class CalibrationFit(DataModel):
 class Calibration(DeviceConfig):
     """Generic calibration class"""
 
-    calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
+    calibration_date: Annotated[AwareDatetimeWithDefault, TimeValidation.BEFORE] = Field(
+        ..., title="Date and time of calibration"
+    )
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
     input: List[float | str] = Field(..., description="Calibration input", title="Inputs")
     input_unit: UNITS = Field(..., title="Input unit")
@@ -111,7 +114,9 @@ CALIBRATIONS = Discriminated[Calibration | VolumeCalibration | PowerCalibration]
 class Maintenance(DeviceConfig):
     """Generic maintenance class"""
 
-    maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
+    maintenance_date: Annotated[AwareDatetimeWithDefault, TimeValidation.BEFORE] = Field(
+        ..., title="Date and time of maintenance"
+    )
     description: str = Field(..., title="Description", description="Description on maintenance procedure")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
 

@@ -30,6 +30,7 @@ from aind_data_schema.core.processing import Processing
 from aind_data_schema.core.quality_control import QualityControl
 from aind_data_schema.core.subject import Subject
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
+from aind_data_schema.utils.validators import recursive_time_validation_check, validate_creation_time_after_midnight
 
 CORE_FILES = [
     "subject",
@@ -266,6 +267,79 @@ class Metadata(DataCoreModel):
                             f"Training protocol '{stimulus_epoch.training_protocol_name}' in StimulusEpoch "
                             f"not found in Procedures. Available protocols: {training_protocol_names}"
                         )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_time_constraints(self):
+        """Validate that all fields with TimeValidation annotations respect acquisition time bounds
+        (if acquisition is present)"""
+        if self.acquisition:
+            acquisition_start_time = None
+            acquisition_end_time = None
+            if hasattr(self.acquisition, "acquisition_start_time") and hasattr(
+                self.acquisition, "acquisition_end_time"
+            ):
+                acquisition_start_time = self.acquisition.acquisition_start_time
+                acquisition_end_time = self.acquisition.acquisition_end_time
+
+            recursive_time_validation_check(
+                self.acquisition,
+                acquisition_start_time=acquisition_start_time,
+                acquisition_end_time=acquisition_end_time,
+            )
+
+            if self.processing:
+                recursive_time_validation_check(
+                    self.processing,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.subject:
+                recursive_time_validation_check(
+                    self.subject,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.instrument:
+                recursive_time_validation_check(
+                    self.instrument,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+            if self.procedures:
+                recursive_time_validation_check(
+                    self.procedures,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_data_description_name_time_consistency(self):
+        """Validate that the creation_time from data_description.name is on or after midnight
+        on the same day as acquisition.acquisition_end_time"""
+        if self.data_description and self.acquisition:
+            if (
+                self.data_description.name
+                and hasattr(self.acquisition, "acquisition_end_time")
+                and self.acquisition.acquisition_end_time is not None
+            ):
+                # Parse the name to extract creation_time
+                parsed_name = DataDescription.parse_name(self.data_description.name, self.data_description.data_level)
+                name_creation_time = parsed_name.get("creation_time")
+
+                if name_creation_time:
+                    try:
+                        validate_creation_time_after_midnight(name_creation_time, self.acquisition.acquisition_end_time)
+                    except ValueError as e:
+                        # Re-raise with more specific context for data_description.name
+                        raise ValueError(
+                            f"Creation time from data_description.name ({name_creation_time}) "
+                            f"must be on or after midnight of the acquisition day "
+                            f"({self.acquisition.acquisition_end_time.date()})"
+                        ) from e
 
         return self
 

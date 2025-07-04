@@ -17,6 +17,7 @@ from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSub
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
+from aind_data_schema_models.data_name_patterns import DataLevel
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.metadata import Metadata, create_metadata_json
@@ -529,6 +530,275 @@ class TestMetadata(unittest.TestCase):
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata_no_procedures)
+
+    def test_validate_data_description_name_time_consistency(self):
+        """Tests that data_description.name creation_time is on or after midnight
+        on the same day as acquisition.acquisition_end_time"""
+
+        # Create a specific datetime for testing
+        test_datetime = datetime(2023, 4, 3, 18, 17, 9, tzinfo=timezone.utc)
+
+        # Create a data description with a name that should match the acquisition end time
+        data_description = DataDescription(
+            creation_time=test_datetime,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+
+        # Create acquisition with matching end time using model_construct
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc),
+            acquisition_end_time=test_datetime,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # This should pass - creation time is exactly at acquisition end time
+        metadata_matching = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_matching)
+
+        # Test with creation time later on the same day - should pass
+        later_same_day = datetime(2023, 4, 3, 23, 59, 59, tzinfo=timezone.utc)
+        data_description_later = DataDescription(
+            creation_time=later_same_day,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+
+        metadata_later_same_day = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description_later,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_later_same_day)
+
+        # Test with creation time on the next day - should pass
+        next_day = datetime(2023, 4, 4, 0, 0, 1, tzinfo=timezone.utc)
+        data_description_next_day = DataDescription(
+            creation_time=next_day,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+
+        metadata_next_day = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description_next_day,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_next_day)
+
+        # Test with creation time before midnight of acquisition day - should fail
+        before_midnight = datetime(2023, 4, 2, 23, 59, 59, tzinfo=timezone.utc)
+        data_description_before = DataDescription(
+            creation_time=before_midnight,
+            modalities=[Modality.ECEPHYS],
+            subject_id="655019",
+            data_level=DataLevel.RAW,
+            institution=Organization.AIND,
+            funding_source=[Funding(funder=Organization.NINDS)],
+            investigators=[Person(name="Test Person")],
+            project_name="Test Project",
+        )
+
+        # This should fail - creation time is before the acquisition day
+        with self.assertRaises(ValidationError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                data_description=data_description_before,
+                acquisition=acquisition,
+            )
+        self.assertIn("Creation time from data_description.name", str(context.exception))
+        self.assertIn("must be on or after midnight of the acquisition day", str(context.exception))
+
+        # Test case where data_description is None (should pass)
+        metadata_no_data_desc = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_no_data_desc)
+
+        # Test case where acquisition is None (should pass)
+        metadata_no_acquisition = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            data_description=data_description,
+        )
+        self.assertIsNotNone(metadata_no_acquisition)
+
+    def test_validate_time_constraints_subject(self):
+        """Tests that time constraints are validated for subject with date_of_birth"""
+
+        # Create acquisition with specific times
+        acquisition_start = datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc)
+        acquisition_end = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
+
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=acquisition_start,
+            acquisition_end_time=acquisition_end,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # Test case where subject's date_of_birth is before acquisition (should pass)
+        valid_birth_date = datetime(2022, 1, 1, tzinfo=timezone.utc).date()
+        valid_subject = Subject(
+            subject_id="123456",
+            subject_details=MouseSubject(
+                species=Species.HOUSE_MOUSE,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth=valid_birth_date,
+                source=Organization.AI,
+                genotype="wt",
+                breeding_info=BreedingInfo(
+                    breeding_group="Test",
+                    maternal_id="123",
+                    maternal_genotype="wt",
+                    paternal_id="456",
+                    paternal_genotype="wt",
+                ),
+                housing=Housing(cage_id="123"),
+            ),
+        )
+
+        # This should pass - birth date is before acquisition
+        metadata_valid_birth = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            subject=valid_subject,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_valid_birth)
+
+        # Test case where subject's date_of_birth is after acquisition end (should fail)
+        invalid_birth_date = datetime(2023, 4, 4, tzinfo=timezone.utc).date()  # After acquisition
+        invalid_subject = Subject(
+            subject_id="123456",
+            subject_details=MouseSubject(
+                species=Species.HOUSE_MOUSE,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth=invalid_birth_date,
+                source=Organization.AI,
+                genotype="wt",
+                breeding_info=BreedingInfo(
+                    breeding_group="Test",
+                    maternal_id="123",
+                    maternal_genotype="wt",
+                    paternal_id="456",
+                    paternal_genotype="wt",
+                ),
+                housing=Housing(cage_id="123"),
+            ),
+        )
+
+        # This should fail - birth date is after acquisition end
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=invalid_subject,
+                acquisition=acquisition,
+            )
+        self.assertIn("must be before", str(context.exception))
+        self.assertIn("date_of_birth", str(context.exception))
+
+    def test_validate_time_constraints_processing(self):
+        """Tests that time constraints are validated for processing with start_date_time and end_date_time"""
+
+        # Create acquisition with specific times
+        acquisition_start = datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc)
+        acquisition_end = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
+
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=acquisition_start,
+            acquisition_end_time=acquisition_end,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # Test case where processing times are after acquisition (should pass)
+        valid_processing = Processing.create_with_sequential_process_graph(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    process_type=ProcessName.ANALYSIS,
+                    stage=ProcessStage.ANALYSIS,
+                    output_path="/path/to/outputs",
+                    start_date_time=datetime(2023, 4, 3, 20, 0, 0, tzinfo=timezone.utc),  # After acquisition
+                    end_date_time=datetime(2023, 4, 3, 21, 0, 0, tzinfo=timezone.utc),
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
+        )
+
+        # This should pass - processing times are after acquisition
+        metadata_valid_processing = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            processing=valid_processing,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_valid_processing)
+
+        # Test case where processing start time is before acquisition start (should fail)
+        invalid_processing = Processing.create_with_sequential_process_graph(
+            data_processes=[
+                DataProcess(
+                    experimenters=[Person(name="Dr. Dan")],
+                    process_type=ProcessName.ANALYSIS,
+                    stage=ProcessStage.ANALYSIS,
+                    output_path="/path/to/outputs",
+                    start_date_time=datetime(2023, 4, 3, 17, 0, 0, tzinfo=timezone.utc),  # Before acquisition start
+                    end_date_time=datetime(2023, 4, 3, 21, 0, 0, tzinfo=timezone.utc),
+                    code=Code(
+                        url="https://url/for/pipeline",
+                        version="0.1.1",
+                    ),
+                ),
+            ]
+        )
+
+        # This should fail - processing start time is before acquisition start
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                processing=invalid_processing,
+                acquisition=acquisition,
+            )
+        self.assertIn("must be after", str(context.exception))
+        self.assertIn("start_date_time", str(context.exception))
 
 
 if __name__ == "__main__":

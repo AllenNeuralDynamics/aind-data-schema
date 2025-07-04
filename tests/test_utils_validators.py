@@ -1,25 +1,32 @@
 """ Tests for compatibility check utilities """
 
 import unittest
+from datetime import datetime, timezone, timedelta
 from enum import Enum
 from pathlib import Path
+from typing import Annotated
 from unittest.mock import MagicMock, patch
 
 from pydantic import BaseModel
 
-from aind_data_schema.base import DataModel
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.coordinates import Rotation, Scale, Translation
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.validators import (
     AxisCountException,
     CoordinateSystemException,
     SystemNameException,
+    TimeValidation,
     _recurse_helper,
     _system_check_helper,
+    _time_validation_recurse_helper,
+    _validate_time_constraint,
     recursive_check_paths,
     recursive_coord_system_check,
     recursive_get_all_names,
+    recursive_time_validation_check,
     subject_specimen_id_compatibility,
+    validate_creation_time_after_midnight,
 )
 
 
@@ -443,6 +450,237 @@ class TestImplantedDeviceNames(BaseModel):
     """Test class with implanted_device_names"""
 
     implanted_device_names: list[str]
+
+
+class TestTimeValidation(unittest.TestCase):
+    """Tests for time validation functions"""
+
+    def setUp(self):
+        """Set up test data"""
+        self.start_time = datetime(2023, 1, 1, 10, 0, 0, tzinfo=timezone.utc)
+        self.end_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+
+    def test_validate_time_constraint_between_valid(self):
+        """Test _validate_time_constraint with valid BETWEEN constraint"""
+        valid_time = datetime(2023, 1, 1, 11, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        _validate_time_constraint(valid_time, TimeValidation.BETWEEN, self.start_time, self.end_time, "test_field")
+
+    def test_validate_time_constraint_between_invalid_before(self):
+        """Test _validate_time_constraint with invalid BETWEEN constraint (before start)"""
+        invalid_time = datetime(2023, 1, 1, 9, 0, 0, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError) as context:
+            _validate_time_constraint(
+                invalid_time, TimeValidation.BETWEEN, self.start_time, self.end_time, "test_field"
+            )
+        self.assertIn("must be between", str(context.exception))
+        self.assertIn("test_field", str(context.exception))
+
+    def test_validate_time_constraint_between_invalid_after(self):
+        """Test _validate_time_constraint with invalid BETWEEN constraint (after end)"""
+        invalid_time = datetime(2023, 1, 1, 13, 0, 0, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError) as context:
+            _validate_time_constraint(
+                invalid_time, TimeValidation.BETWEEN, self.start_time, self.end_time, "test_field"
+            )
+        self.assertIn("must be between", str(context.exception))
+        self.assertIn("test_field", str(context.exception))
+
+    def test_validate_time_constraint_after_valid(self):
+        """Test _validate_time_constraint with valid AFTER constraint"""
+        valid_time = datetime(2023, 1, 1, 11, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        _validate_time_constraint(valid_time, TimeValidation.AFTER, self.start_time, self.end_time, "test_field")
+
+    def test_validate_time_constraint_after_invalid(self):
+        """Test _validate_time_constraint with invalid AFTER constraint"""
+        invalid_time = datetime(2023, 1, 1, 9, 0, 0, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError) as context:
+            _validate_time_constraint(invalid_time, TimeValidation.AFTER, self.start_time, self.end_time, "test_field")
+        self.assertIn("must be after", str(context.exception))
+        self.assertIn("test_field", str(context.exception))
+
+    def test_validate_time_constraint_before_valid(self):
+        """Test _validate_time_constraint with valid BEFORE constraint"""
+        valid_time = datetime(2023, 1, 1, 11, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        _validate_time_constraint(valid_time, TimeValidation.BEFORE, self.start_time, self.end_time, "test_field")
+
+    def test_validate_time_constraint_before_invalid(self):
+        """Test _validate_time_constraint with invalid BEFORE constraint"""
+        invalid_time = datetime(2023, 1, 1, 13, 0, 0, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError) as context:
+            _validate_time_constraint(invalid_time, TimeValidation.BEFORE, self.start_time, self.end_time, "test_field")
+        self.assertIn("must be before", str(context.exception))
+        self.assertIn("test_field", str(context.exception))
+
+    def test_time_validation_recurse_helper_with_list(self):
+        """Test _time_validation_recurse_helper with a list"""
+
+        class MockTimeModel(BaseModel):
+            """Mock time model with a time field"""
+
+            time_field: Annotated[datetime, TimeValidation.BETWEEN]
+
+        data = [
+            MockTimeModel(time_field=datetime(2023, 1, 1, 11, 0, 0, tzinfo=timezone.utc)),
+            MockTimeModel(time_field=datetime(2023, 1, 1, 11, 30, 0, tzinfo=timezone.utc)),
+        ]
+        # Should not raise exception
+        _time_validation_recurse_helper(data, self.start_time, self.end_time)
+
+    def test_time_validation_recurse_helper_with_object(self):
+        """Test _time_validation_recurse_helper with an object"""
+
+        class MockTimeModel(BaseModel):
+            """Mock time model with a time field"""
+
+            time_field: Annotated[datetime, TimeValidation.BETWEEN]
+
+        data = MockTimeModel(time_field=datetime(2023, 1, 1, 11, 0, 0, tzinfo=timezone.utc))
+        # Should not raise exception
+        _time_validation_recurse_helper(data, self.start_time, self.end_time)
+
+    def test_recursive_time_validation_check_with_acquisition_times(self):
+        """Test recursive_time_validation_check with acquisition times in data"""
+
+        class MockAcquisition(BaseModel):
+            """Mock acquisition model with time fields"""
+
+            acquisition_start_time: AwareDatetimeWithDefault
+            acquisition_end_time: AwareDatetimeWithDefault
+            stream_start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
+            stream_end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
+
+        # Valid case
+        data = MockAcquisition(
+            acquisition_start_time=self.start_time,
+            acquisition_end_time=self.end_time,
+            stream_start_time=datetime(2023, 1, 1, 10, 30, 0, tzinfo=timezone.utc),
+            stream_end_time=datetime(2023, 1, 1, 11, 30, 0, tzinfo=timezone.utc),
+        )
+        # Should not raise exception
+        recursive_time_validation_check(data)
+
+    def test_recursive_time_validation_check_with_invalid_times(self):
+        """Test recursive_time_validation_check with invalid times"""
+
+        class MockAcquisition(BaseModel):
+            """Mock acquisition model with time fields"""
+
+            stream_start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
+            stream_end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN]
+
+        # Invalid case - stream time before acquisition start
+        data = MockAcquisition(
+            stream_start_time=datetime(2023, 1, 1, 9, 0, 0, tzinfo=timezone.utc),  # Before acquisition start
+            stream_end_time=datetime(2023, 1, 1, 11, 30, 0, tzinfo=timezone.utc),
+        )
+
+        with self.assertRaises(ValueError) as context:
+            recursive_time_validation_check(data, self.start_time, self.end_time)
+        self.assertIn("must be between", str(context.exception))
+
+    def test_recursive_time_validation_check_with_none_data(self):
+        """Test recursive_time_validation_check with None data"""
+        # Should not raise exception
+        recursive_time_validation_check(None)
+
+    def test_recursive_time_validation_check_with_no_time_annotations(self):
+        """Test recursive_time_validation_check with data that has no time annotations"""
+
+        class MockData(BaseModel):
+            """Mock data model with no time annotations"""
+
+            regular_field: str
+
+        data = MockData(regular_field="test")
+        # Should not raise exception
+        recursive_time_validation_check(data, self.start_time, self.end_time)
+
+
+class TestValidateCreationTimeAfterMidnight(unittest.TestCase):
+    """Tests for validate_creation_time_after_midnight function"""
+
+    def setUp(self):
+        """Set up test data"""
+        self.reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+
+    def test_valid_creation_time_same_day(self):
+        """Test valid creation time on same day"""
+        creation_time = datetime(2023, 1, 1, 10, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_valid_creation_time_next_day(self):
+        """Test valid creation time on next day"""
+        creation_time = datetime(2023, 1, 2, 5, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_valid_creation_time_at_midnight(self):
+        """Test valid creation time exactly at midnight"""
+        creation_time = datetime(2023, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_invalid_creation_time_before_midnight(self):
+        """Test invalid creation time before midnight of reference day"""
+        creation_time = datetime(2022, 12, 31, 23, 59, 59, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError) as context:
+            validate_creation_time_after_midnight(creation_time, self.reference_time)
+        self.assertIn("must be on or after midnight", str(context.exception))
+
+    def test_timezone_naive_creation_time(self):
+        """Test timezone-naive creation time gets reference timezone"""
+        creation_time = datetime(2023, 1, 1, 10, 0, 0)  # No timezone
+        # Should not raise exception - timezone will be added from reference
+        validate_creation_time_after_midnight(creation_time, self.reference_time)
+
+    def test_timezone_naive_creation_time_invalid(self):
+        """Test timezone-naive creation time that's invalid"""
+        creation_time = datetime(2022, 12, 31, 10, 0, 0)  # No timezone, day before
+        with self.assertRaises(ValueError) as context:
+            validate_creation_time_after_midnight(creation_time, self.reference_time)
+        self.assertIn("must be on or after midnight", str(context.exception))
+
+    def test_none_creation_time(self):
+        """Test None creation time"""
+        # Should not raise exception
+        validate_creation_time_after_midnight(None, self.reference_time)
+
+    def test_none_reference_time(self):
+        """Test None reference time"""
+        creation_time = datetime(2023, 1, 1, 10, 0, 0, tzinfo=timezone.utc)
+        # Should not raise exception - function returns early when reference_time is None
+        validate_creation_time_after_midnight(creation_time, None)
+
+    def test_different_timezones(self):
+        """Test with different timezones"""
+        # Reference time in UTC
+        reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        # Creation time in different timezone (EST = UTC-5)
+        est = timezone(timedelta(hours=-5))
+        creation_time = datetime(2023, 1, 1, 7, 0, 0, tzinfo=est)  # Same moment as 12:00 UTC
+        # Should not raise exception
+        validate_creation_time_after_midnight(creation_time, reference_time)
+
+    def test_date_object_creation_time(self):
+        """Test with date object instead of datetime"""
+        from datetime import date
+
+        creation_date = date(2023, 1, 1)
+        # Should not raise exception - date gets converted to datetime at midnight
+        validate_creation_time_after_midnight(creation_date, self.reference_time)
+
+    def test_invalid_date_object_creation_time(self):
+        """Test with invalid date object"""
+        from datetime import date
+
+        creation_date = date(2022, 12, 31)  # Day before reference
+        with self.assertRaises(ValueError) as context:
+            validate_creation_time_after_midnight(creation_date, self.reference_time)
+        self.assertIn("must be on or after midnight", str(context.exception))
 
 
 if __name__ == "__main__":
