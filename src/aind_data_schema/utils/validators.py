@@ -273,11 +273,7 @@ def validate_creation_time_after_midnight(
 
     # If creation_time is timezone-naive (local time),
     # add the same timezone as reference_time
-    if (
-        isinstance(creation_time, datetime)
-        and creation_time.tzinfo is None
-        and reference_time.tzinfo is not None
-    ):
+    if isinstance(creation_time, datetime) and creation_time.tzinfo is None and reference_time.tzinfo is not None:
         creation_time = creation_time.replace(tzinfo=reference_time.tzinfo)
 
     # Get midnight of the reference time day

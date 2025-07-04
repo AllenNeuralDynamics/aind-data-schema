@@ -4,7 +4,6 @@ import inspect
 import json
 import logging
 import warnings
-from datetime import datetime
 from typing import Dict, Literal, Optional, get_args
 
 from aind_data_schema_models.modalities import Modality

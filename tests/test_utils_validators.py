@@ -668,6 +668,7 @@ class TestValidateCreationTimeAfterMidnight(unittest.TestCase):
     def test_date_object_creation_time(self):
         """Test with date object instead of datetime"""
         from datetime import date
+
         creation_date = date(2023, 1, 1)
         # Should not raise exception - date gets converted to datetime at midnight
         validate_creation_time_after_midnight(creation_date, self.reference_time)
@@ -675,6 +676,7 @@ class TestValidateCreationTimeAfterMidnight(unittest.TestCase):
     def test_invalid_date_object_creation_time(self):
         """Test with invalid date object"""
         from datetime import date
+
         creation_date = date(2022, 12, 31)  # Day before reference
         with self.assertRaises(ValueError) as context:
             validate_creation_time_after_midnight(creation_date, self.reference_time)
