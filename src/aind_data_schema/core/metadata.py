@@ -327,49 +327,39 @@ class Metadata(DataCoreModel):
                 and hasattr(self.acquisition, "acquisition_end_time")
                 and self.acquisition.acquisition_end_time is not None
             ):
+                # Parse the name to extract creation_time
+                parsed_name = DataDescription.parse_name(
+                    self.data_description.name, self.data_description.data_level
+                )
+                name_creation_time = parsed_name.get("creation_time")
 
-                try:
-                    # Parse the name to extract creation_time
-                    parsed_name = DataDescription.parse_name(
-                        self.data_description.name, self.data_description.data_level
+                if name_creation_time:
+                    acquisition_end_time = self.acquisition.acquisition_end_time
+
+                    # If name_creation_time is timezone-naive (local time),
+                    # add the same timezone as acquisition_end_time
+                    if (
+                        isinstance(name_creation_time, datetime)
+                        and name_creation_time.tzinfo is None
+                        and acquisition_end_time.tzinfo is not None
+                    ):
+                        name_creation_time = name_creation_time.replace(tzinfo=acquisition_end_time.tzinfo)
+
+                    # Get midnight of the acquisition end time day
+                    acquisition_date = acquisition_end_time.date()
+                    midnight_of_acquisition_day = datetime.combine(acquisition_date, datetime.min.time()).replace(
+                        tzinfo=acquisition_end_time.tzinfo
                     )
-                    name_creation_time = parsed_name.get("creation_time")
 
-                    if name_creation_time:
-                        acquisition_end_time = self.acquisition.acquisition_end_time
-
-                        # If name_creation_time is timezone-naive (local time),
-                        # add the same timezone as acquisition_end_time
-                        if (
-                            isinstance(name_creation_time, datetime)
-                            and name_creation_time.tzinfo is None
-                            and acquisition_end_time.tzinfo is not None
-                        ):
-                            name_creation_time = name_creation_time.replace(tzinfo=acquisition_end_time.tzinfo)
-
-                        # Get midnight of the acquisition end time day
-                        acquisition_date = acquisition_end_time.date()
-                        midnight_of_acquisition_day = datetime.combine(acquisition_date, datetime.min.time()).replace(
-                            tzinfo=acquisition_end_time.tzinfo
+                    # Validate that name_creation_time is on or after midnight of the acquisition day
+                    if (
+                        isinstance(name_creation_time, datetime)
+                        and name_creation_time < midnight_of_acquisition_day
+                    ):
+                        raise ValueError(
+                            f"Creation time from data_description.name ({name_creation_time}) "
+                            f"must be on or after midnight of the acquisition day ({midnight_of_acquisition_day})"
                         )
-
-                        # Validate that name_creation_time is on or after midnight of the acquisition day
-                        if (
-                            isinstance(name_creation_time, datetime)
-                            and name_creation_time < midnight_of_acquisition_day
-                        ):
-                            raise ValueError(
-                                f"Creation time from data_description.name ({name_creation_time}) "
-                                f"must be on or after midnight of the acquisition day ({midnight_of_acquisition_day})"
-                            )
-                except ValueError as e:
-                    # If the error is about parsing the name, log a warning but don't fail validation
-                    # If the error is about time mismatch, re-raise it
-                    if "does not match pattern" in str(e) or "not supported" in str(e):
-                        warnings.warn(f"Could not parse data_description.name: {e}")
-                    else:
-                        # This is a validation error, not a parsing error - re-raise it
-                        raise
 
         return self
 
