@@ -9,7 +9,7 @@ Description of a fluorescent stain
 | Field | Type | Description |
 |-------|------|-------------|
 | `probe` | [GeneProbe](#geneprobe) or [ProteinProbe](#proteinprobe) or [SmallMoleculeProbe](#smallmoleculeprobe) |  |
-| `stain_type` | {StainType} |  |
+| `stain_type` | [StainType](../aind_data_schema_models/reagent.md#staintype) |  |
 | `fluorophore` | [Fluorophore](#fluorophore) |  |
 | `initiator_name` | `Optional[str]` |  |
 | `name` | `str` |  |
@@ -25,7 +25,7 @@ Flurophore used in HCR, Immunolabeling, etc
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `fluorophore_type` | {FluorophoreType} |  |
+| `fluorophore_type` | [FluorophoreType](../aind_data_schema_models/reagent.md#fluorophoretype) |  |
 | `excitation_wavelength` | `int` |  |
 | `excitation_wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
 

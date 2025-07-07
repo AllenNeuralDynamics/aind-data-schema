@@ -48,6 +48,9 @@ from aind_data_schema_models.pid_names import PIDName
 # Processing
 from aind_data_schema_models.process_names import ProcessName
 
+# Reagent models
+from aind_data_schema_models.reagent import StainType, FluorophoreType
+
 # Registries
 from aind_data_schema_models.registries import Registry
 
@@ -98,6 +101,9 @@ registries = [
     Organization,
     # Process names
     ProcessName,
+    # Reagent
+    StainType,
+    FluorophoreType,
     # Registries
     Registry,
     # Species models
