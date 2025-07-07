@@ -42,7 +42,8 @@ docs = [
     'sphinx-jinja',
     'furo',
     'autodoc_pydantic',
-    'myst-parser'
+    'myst-parser',
+    'openpyxl',
 ]
 
 transforms = [
