@@ -62,9 +62,9 @@ First, we'll set up the Python environment and define some shared variables.
 
 ### How did we know which `aind-data-schema` classes to import?
 
-Our general recommendation for metadata is to navigate the documentation starting from the core class you are working on. So for the data description you would go to that page: [DataDescription](../../data_description.md). The import for any object can be read from the URL of the page, core classes are found in the core subfolder `from aind_data_schema.core import DataDescription`.
+Our general recommendation for metadata is to navigate the documentation starting from the core class you are working on. So for the data description you would go to that page: [DataDescription](../data_description.md). The import for any object can be read from the URL of the page, core classes are found in the core subfolder `from aind_data_schema.core import DataDescription`.
 
-One of the objects you'll need to build is going to be the [Person](../../components/identifiers.md#person). From the [DataDescription](../../data_description.md) page you can click-through (we recommend you ctrl+click or command+click to open the link in a new tab) to the [Person](../../components/identifiers.md#person) page. Again read the URL to know where to import the file, in this case we're in a subfolder components in the file identifiers `from aind_data_schema.components.identifiers import Person`. After importing the class and populating it in your Python code you can close the extra tab.
+One of the objects you'll need to build is going to be the [Person](../components/identifiers.md#person). From the [DataDescription](../data_description.md) page you can click-through (we recommend you ctrl+click or command+click to open the link in a new tab) to the [Person](../components/identifiers.md#person) page. Again read the URL to know where to import the file, in this case we're in a subfolder components in the file identifiers `from aind_data_schema.components.identifiers import Person`. After importing the class and populating it in your Python code you can close the extra tab.
 
 Let's move on to build the actual data description now.
 
@@ -78,11 +78,11 @@ how was it funded, etc. We'll define a function to generate this, and re-use it 
 :lines: 40-55
 ```
 
-A few of the fields in the data description required us to use enumerated variables, like [DataLevel](../../aind_data_schema_models/data_name_patterns.md#datalevel). Controlled vocabularies like this one are used to standardize the metadata and make it easier for people to search across assets from different experiments. We also use controlled vocabularies that are linked to external registries, like for [Organization](../../aind_data_schema_models/organizations.md#organization)
+A few of the fields in the data description required us to use enumerated variables, like [DataLevel](../aind_data_schema_models/data_name_patterns.md#datalevel). Controlled vocabularies like this one are used to standardize the metadata and make it easier for people to search across assets from different experiments. We also use controlled vocabularies that are linked to external registries, like for [Organization](../aind_data_schema_models/organizations.md#organization)
 
 ## Subject
 
-To create the subject metadata we'll pull some information from the excel spreadsheet and pass it to a function which will return the validated [Subject](../../subject.md#subject) object.
+To create the subject metadata we'll pull some information from the excel spreadsheet and pass it to a function which will return the validated [Subject](../subject.md#subject) object.
 
 Some of the required metadata, like the `cage_id` wasn't available to us. We'll put `"unknown"` in the metadata for that field. Never invent metadata!
 
@@ -93,7 +93,7 @@ Some of the required metadata, like the `cage_id` wasn't available to us. We'll 
 
 ## Procedures
 
-We'll next write a function that will construct the [Procedures](../../procedures.md#procedures) about two surgeries that were performed: a brain injection at a target depth and later (after data acquisition) a perfusion.
+We'll next write a function that will construct the [Procedures](../procedures.md#procedures) about two surgeries that were performed: a brain injection at a target depth and later (after data acquisition) a perfusion.
 
 ```{literalinclude} example_workflow.py
 :language: python
