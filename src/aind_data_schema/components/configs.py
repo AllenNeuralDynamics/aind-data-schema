@@ -432,16 +432,6 @@ class OlfactometerConfig(DeviceConfig):
         description="List of channels with their odorant and concentration",
     )
 
-    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position", description="Position of the odor source")
-
-    # Transform
-    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
-    transform: Optional[TRANSFORM_TYPES] = Field(
-        default=None,
-        title="Device to acquisition transform",
-        description="Position of the odor source in the Acquisition.coordinate_system",
-    )
-
 
 # EPHYS CONFIGS
 
