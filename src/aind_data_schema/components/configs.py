@@ -414,6 +414,35 @@ class SpeakerConfig(DeviceConfig):
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
 
+class OlfactometerChannelConfig(DataModel):
+    """Configuration of a channel in an olfactometer"""
+
+    channel_index: int = Field(..., title="Channel index")
+    odorant: str = Field(..., title="Odorant")
+    concentration: Optional[float] = Field(default=None, title="Concentration")
+    concentration_unit: Optional[str] = Field(default=None, title="Concentration unit")
+
+
+class OlfactometerConfig(DeviceConfig):
+    """Configuration of olfactometer"""
+
+    channel_configs: List[OlfactometerChannelConfig] = Field(
+        ...,
+        title="Channel configurations",
+        description="List of channels with their odorant and concentration",
+    )
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Initial relative position", description="Position of the odor source")
+
+    # Transform
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+    transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Device to acquisition transform",
+        description="Position of the odor source in the Acquisition.coordinate_system",
+    )
+
+
 # EPHYS CONFIGS
 
 
