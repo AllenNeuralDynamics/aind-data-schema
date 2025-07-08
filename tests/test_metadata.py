@@ -532,7 +532,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=["Test Person"],
+            investigators=[Person(name="Test Person")],
             project_name="Test Project",
         )
 
@@ -563,7 +563,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=["Test Person"],
+            investigators=[Person(name="Test Person")],
             project_name="Test Project",
         )
 
@@ -584,7 +584,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=["Test Person"],
+            investigators=[Person(name="Test Person")],
             project_name="Test Project",
         )
 
@@ -605,7 +605,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=["Test Person"],
+            investigators=[Person(name="Test Person")],
             project_name="Test Project",
         )
 
