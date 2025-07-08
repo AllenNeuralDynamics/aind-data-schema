@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
+from aind_data_schema.components.identifiers import Software
 from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
