@@ -302,37 +302,37 @@ def generate_model_schema_table(model_class) -> str:
     """Generate a markdown table for a Pydantic model schema showing its fields."""
     model_name = model_class.__name__
     header = generate_table_header(model_class, model_name)
-    
+
     # Get model fields from Pydantic model
-    if hasattr(model_class, 'model_fields'):
+    if hasattr(model_class, "model_fields"):
         fields = model_class.model_fields
-        
+
         if not fields:
             print(f"Warning: No fields found in model schema {model_name}")
             return header
-        
+
         # Create table structure for model fields
         header_row = "| Field | Type | Description |\n"
         separator_row = "|-------|------|-------------|\n"
-        
+
         rows = []
         for field_name, field_info in fields.items():
-            field_type = str(field_info.annotation) if hasattr(field_info, 'annotation') else "Unknown"
+            field_type = str(field_info.annotation) if hasattr(field_info, "annotation") else "Unknown"
             # Clean up the type representation
             field_type = field_type.replace("typing.", "").replace("<class '", "").replace("'>", "")
-            
+
             description = ""
-            if hasattr(field_info, 'description') and field_info.description:
+            if hasattr(field_info, "description") and field_info.description:
                 description = field_info.description
-            elif hasattr(field_info, 'title') and field_info.title:
+            elif hasattr(field_info, "title") and field_info.title:
                 description = field_info.title
-            
+
             rows.append(f"| `{field_name}` | `{field_type}` | {description} |")
-        
+
         header += header_row + separator_row + "\n".join(rows) + "\n"
     else:
         print(f"Warning: {model_name} does not appear to be a valid Pydantic model")
-        
+
     return header
 
 
