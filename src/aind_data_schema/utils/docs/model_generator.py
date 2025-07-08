@@ -27,6 +27,7 @@ special_cases = {
     "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": (
         "[MouseAnatomyModel](aind_data_schema_models/external" ".md#mouseanatomymodel)"
     ),
+    "aind_data_schema_models.pid_names.PIDName": "{PIDName}",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]

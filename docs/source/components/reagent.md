@@ -14,7 +14,7 @@ Description of a fluorescent stain
 | `initiator_name` | `Optional[str]` |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
+| `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] |  |
 | `lot_number` | `Optional[str]` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
 
@@ -36,7 +36,7 @@ Description of a set of oligonucleotide probes targeting a specific gene
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `gene` | `aind_data_schema_models.pid_names.PIDName` |  |
+| `gene` | [PIDName](../aind_data_schema_models/pid_names.md#pidname) |  |
 | `probes` | Optional[List[[OligoProbe](#oligoprobe)]] |  |
 
 
@@ -49,7 +49,7 @@ set of probes used in BarSEQ
 | `gene_probes` | List[[GeneProbe](#geneprobe)] |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
+| `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] |  |
 | `lot_number` | `Optional[str]` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
 
@@ -73,7 +73,7 @@ Description of a probe used as a reagent
 | `target` | [GeneProbe](#geneprobe) or [ProteinProbe](#proteinprobe) or [SmallMoleculeProbe](#smallmoleculeprobe) |  |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
+| `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] |  |
 | `lot_number` | `Optional[str]` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
 
@@ -84,7 +84,7 @@ Description of a protein probe including antibodies
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `protein` | `aind_data_schema_models.pid_names.PIDName` |  |
+| `protein` | [PIDName](../aind_data_schema_models/pid_names.md#pidname) |  |
 | `species` | Optional[[Species](../aind_data_schema_models/species.md#species)] |  |
 | `mass` | `float` |  |
 | `mass_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) |  |
@@ -99,7 +99,7 @@ Description of reagent used in procedure
 |-------|------|-------------|
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
+| `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] |  |
 | `lot_number` | `Optional[str]` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
 
@@ -110,7 +110,7 @@ Description of a small molecule probe
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `molecule` | `aind_data_schema_models.pid_names.PIDName` |  |
+| `molecule` | [PIDName](../aind_data_schema_models/pid_names.md#pidname) |  |
 | `mass` | `float` |  |
 | `mass_unit` | [MassUnit](../aind_data_schema_models/units.md#massunit) |  |
 
