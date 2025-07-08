@@ -552,11 +552,6 @@ class TestMetadata(unittest.TestCase):
         self.assertIsNotNone(metadata.data_description.tags)
         self.assertIn("calibration", metadata.data_description.tags)
 
-    def test_validate_calibration_object_tags_non_calibration_subject(self):
-        """Tests that no validation occurs for non-CalibrationObject subjects."""
-        # Create a regular MouseSubject
-        mouse_subject = Subject(
-            subject_id="000000",
     def test_validate_training_protocol_references(self):
         """Tests that training protocol references are validated correctly."""
 
@@ -899,6 +894,18 @@ class TestMetadata(unittest.TestCase):
                 if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 0)
+
+    def test_validate_calibration_object_tags_non_calibration_subject(self):
+        """Tests that no validation occurs for non-CalibrationObject subjects."""
+        # Create a regular MouseSubject
+        valid_birth_date = datetime(2022, 1, 1, tzinfo=timezone.utc).date()
+
+        valid_subject = Subject(
+            subject_id="000000",
+            subject_details=MouseSubject(
+                species=Species.HOUSE_MOUSE,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
                 date_of_birth=valid_birth_date,
                 source=Organization.AI,
                 genotype="wt",
@@ -911,6 +918,18 @@ class TestMetadata(unittest.TestCase):
                 ),
                 housing=Housing(cage_id="123"),
             ),
+        )
+
+        # Create acquisition with specific times
+        acquisition_start = datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc)
+        acquisition_end = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
+
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=acquisition_start,
+            acquisition_end_time=acquisition_end,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
         )
 
         # This should pass - birth date is before acquisition

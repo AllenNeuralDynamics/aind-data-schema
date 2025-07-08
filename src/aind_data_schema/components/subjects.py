@@ -12,6 +12,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.components.devices import Device
 from aind_data_schema.utils.validators import TimeValidation
 
 
