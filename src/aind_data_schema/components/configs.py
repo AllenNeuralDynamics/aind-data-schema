@@ -16,6 +16,7 @@ from aind_data_schema_models.units import (
     SoundIntensityUnit,
     TimeUnit,
     VolumeUnit,
+    ConcentrationUnit,
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, field_validator, model_validator
@@ -419,8 +420,8 @@ class OlfactometerChannelConfig(DataModel):
 
     channel_index: int = Field(..., title="Channel index")
     odorant: str = Field(..., title="Odorant")
-    concentration: Optional[float] = Field(default=None, title="Concentration")
-    concentration_unit: Optional[str] = Field(default=None, title="Concentration unit")
+    dilution: Decimal = Field(..., title="Odorant dilution")
+    dilution_unit: ConcentrationUnit = Field(default=ConcentrationUnit.VOLUME_PERCENT, title="Dilution unit")
 
 
 class OlfactometerConfig(DeviceConfig):
