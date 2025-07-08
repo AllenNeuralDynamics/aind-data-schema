@@ -12,7 +12,7 @@ from pydantic import ValidationError
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
-from aind_data_schema.components.identifiers import Code, Database
+from aind_data_schema.components.identifiers import Code, Database, Person
 from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
