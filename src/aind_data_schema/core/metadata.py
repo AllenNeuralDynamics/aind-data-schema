@@ -71,7 +71,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.77"]] = Field(default="2.0.77")
+    schema_version: SkipValidation[Literal["2.0.78"]] = Field(default="2.0.78")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -137,17 +137,11 @@ class Metadata(DataCoreModel):
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
-        validated = False
         for file in REQUIRED_FILE_SETS.keys():
             if getattr(self, file):
                 for file in REQUIRED_FILE_SETS[file]:
                     if not getattr(self, file):
                         warnings.warn(f"Metadata missing required file: {file}")
-                validated = True
-        if not validated:
-            warnings.warn(
-                f"Metadata must contain at least one of the following files: {list(REQUIRED_FILE_SETS.keys())}"
-            )
 
         return self
 

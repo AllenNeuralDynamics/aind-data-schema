@@ -316,20 +316,6 @@ class TestMetadata(unittest.TestCase):
         self.assertIn("Metadata missing required file: instrument", warning_messages)
         self.assertIn("Metadata missing required file: acquisition", warning_messages)
 
-        # Test case where no required files exist
-        with self.assertWarns(UserWarning) as w:
-            Metadata(
-                name="655019_2023-04-03T181709",
-                location="bucket",
-                # No required files provided
-            )
-
-        warning_messages = [str(warning.message) for warning in w.warnings]
-        self.assertIn(
-            "Metadata must contain at least one of the following files: ['subject', 'processing', 'model']",
-            warning_messages,
-        )
-
     def test_validate_acquisition_connections(self):
         """Tests that acquisition connections are validated correctly."""
         # Case where all connection devices are present in instrument components
