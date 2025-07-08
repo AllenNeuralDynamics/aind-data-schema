@@ -4,7 +4,6 @@ import unittest
 
 from pydantic import ValidationError
 
-from aind_data_schema.components.identifiers import Person
 
 
 class Testexperimenter(unittest.TestCase):

@@ -7,7 +7,7 @@ import pydantic
 from aind_data_schema_models.system_architecture import CPUArchitecture, OperatingSystem
 from aind_data_schema_models.units import MemoryUnit
 
-from aind_data_schema.components.identifiers import Code, DataAsset, Person
+from aind_data_schema.components.identifiers import Code, DataAsset
 from aind_data_schema.core.processing import (
     DataProcess,
     Processing,
@@ -41,7 +41,7 @@ class ProcessingTest(unittest.TestCase):
         p = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     code=code,
@@ -127,7 +127,7 @@ class ProcessingTest(unittest.TestCase):
             Processing.create_with_sequential_process_graph(
                 data_processes=[
                     DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
+                        experimenters=["Dr. Dan"],
                         process_type=ProcessName.ANALYSIS,
                         stage=ProcessStage.ANALYSIS,
                         start_date_time=t,
@@ -135,7 +135,7 @@ class ProcessingTest(unittest.TestCase):
                         code=code,
                     ),
                     DataProcess(
-                        experimenters=[Person(name="Dr. Dan")],
+                        experimenters=["Dr. Dan"],
                         process_type=ProcessName.ANALYSIS,
                         stage=ProcessStage.ANALYSIS,
                         start_date_time=t,
@@ -153,7 +153,7 @@ class ProcessingTest(unittest.TestCase):
         p = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="./path/to/outputs",
@@ -171,7 +171,7 @@ class ProcessingTest(unittest.TestCase):
                 data_processes=[
                     [
                         DataProcess(
-                            experimenters=[Person(name="Dr. Dan")],
+                            experimenters=["Dr. Dan"],
                             process_type=ProcessName.ANALYSIS,
                             stage=ProcessStage.ANALYSIS,
                             output_path="./path/to/outputs",
@@ -189,7 +189,7 @@ class ProcessingTest(unittest.TestCase):
         # Create a processing object with multiple processes
         process1 = DataProcess(
             name="process1",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.COMPRESSION,
             stage=ProcessStage.PROCESSING,
             code=code,
@@ -198,7 +198,7 @@ class ProcessingTest(unittest.TestCase):
         )
         process2 = DataProcess(
             name="process2",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.ANALYSIS,
             stage=ProcessStage.ANALYSIS,
             code=code,
@@ -207,7 +207,7 @@ class ProcessingTest(unittest.TestCase):
         )
         process3 = DataProcess(
             name="process3",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.SPIKE_SORTING,
             stage=ProcessStage.PROCESSING,
             code=code,
@@ -250,7 +250,7 @@ class ProcessingTest(unittest.TestCase):
         # Create a valid processing object
         process1 = DataProcess(
             name="process1",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.COMPRESSION,
             stage=ProcessStage.PROCESSING,
             code=code,
@@ -259,7 +259,7 @@ class ProcessingTest(unittest.TestCase):
         )
         process2 = DataProcess(
             name="process2",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.ANALYSIS,
             stage=ProcessStage.ANALYSIS,
             code=code,
@@ -279,7 +279,7 @@ class ProcessingTest(unittest.TestCase):
         # Invalid case 1 - process in data_processes not in dependency_graph
         process3 = DataProcess(
             name="process3",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.SPIKE_SORTING,
             stage=ProcessStage.PROCESSING,
             code=code,
@@ -314,7 +314,7 @@ class ProcessingTest(unittest.TestCase):
         # Create valid data_processes
         process1 = DataProcess(
             name="process1",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.COMPRESSION,
             stage=ProcessStage.PROCESSING,
             code=code,
@@ -324,7 +324,7 @@ class ProcessingTest(unittest.TestCase):
         )
         process2 = DataProcess(
             name="process2",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.ANALYSIS,
             stage=ProcessStage.ANALYSIS,
             code=code,
@@ -344,7 +344,7 @@ class ProcessingTest(unittest.TestCase):
         # Invalid case - pipeline_name not in pipelines list
         process3 = DataProcess(
             name="process3",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             process_type=ProcessName.SPIKE_SORTING,
             stage=ProcessStage.PROCESSING,
             code=code,

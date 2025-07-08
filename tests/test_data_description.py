@@ -10,8 +10,8 @@ from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import ValidationError
 
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.data_description import DataDescription, Funding, build_data_name
+from aind_data_schema.components.identifiers import Person
 
 DATA_DESCRIPTION_FILES_PATH = Path(__file__).parent / "resources" / "ephys_data_description"
 
@@ -39,7 +39,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
         self.assertIsNotNone(da)
@@ -64,7 +64,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-                investigators=[Person(name="Jane Smith")],
+                investigators=["Jane Smith"],
                 project_name="Test",
             )
 
@@ -79,7 +79,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
@@ -96,7 +96,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[f],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
@@ -115,7 +115,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
         self.assertIsNotNone(dd)
@@ -132,7 +132,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
-                investigators=[Person(name="Jane Smith")],
+                investigators=["Jane Smith"],
                 project_name="Test",
             )
 
@@ -156,7 +156,7 @@ class DataDescriptionTest(unittest.TestCase):
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
 
@@ -175,7 +175,7 @@ class DataDescriptionTest(unittest.TestCase):
                 data_level="raw",
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=[Modality.ECEPHYS],
-                investigators=[Person(name="Jane Smith")],
+                investigators=["Jane Smith"],
                 project_name="Test",
             )
 
@@ -192,7 +192,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
 
@@ -220,7 +220,7 @@ class DataDescriptionTest(unittest.TestCase):
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
                 institution=Organization.AIND,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-                investigators=[Person(name="Jane Smith")],
+                investigators=["Jane Smith"],
             )
         self.assertIn("String should match pattern", str(e.exception))
 
@@ -244,7 +244,7 @@ class DataDescriptionTest(unittest.TestCase):
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modalities=[Modality.SPIM],
             subject_id="12345",
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
 

@@ -12,7 +12,7 @@ from pydantic import ValidationError
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
-from aind_data_schema.components.identifiers import Code, Database, Person
+from aind_data_schema.components.identifiers import Code, Database
 from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
@@ -87,7 +87,7 @@ class TestMetadata(unittest.TestCase):
             creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
+            investigators=["Jane Smith"],
             project_name="Test",
         )
         procedures = Procedures(
@@ -96,7 +96,7 @@ class TestMetadata(unittest.TestCase):
         processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",
@@ -532,7 +532,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=[Person(name="Test Person")],
+            investigators=["Test Person"],
             project_name="Test Project",
         )
 
@@ -563,7 +563,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=[Person(name="Test Person")],
+            investigators=["Test Person"],
             project_name="Test Project",
         )
 
@@ -584,7 +584,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=[Person(name="Test Person")],
+            investigators=["Test Person"],
             project_name="Test Project",
         )
 
@@ -605,7 +605,7 @@ class TestMetadata(unittest.TestCase):
             data_level=DataLevel.RAW,
             institution=Organization.AIND,
             funding_source=[Funding(funder=Organization.NINDS)],
-            investigators=[Person(name="Test Person")],
+            investigators=["Test Person"],
             project_name="Test Project",
         )
 
@@ -734,7 +734,7 @@ class TestMetadata(unittest.TestCase):
         valid_processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",
@@ -761,7 +761,7 @@ class TestMetadata(unittest.TestCase):
         invalid_processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",

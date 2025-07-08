@@ -10,7 +10,7 @@ from pydantic import ValidationError
 from aind_data_schema.components.configs import Image
 from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Rotation, Scale, Translation
 from aind_data_schema.components.devices import Laser, Objective, ScanningStage
-from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.processing import DataProcess, ProcessName, ProcessStage
@@ -110,7 +110,7 @@ class ImagingTests(unittest.TestCase):
         t = DataProcess(
             process_type=ProcessName.IMAGE_TILE_ALIGNMENT,
             stage=ProcessStage.PROCESSING,
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             start_date_time=datetime.now(tz=timezone.utc),
             end_date_time=datetime.now(tz=timezone.utc),
             output_path="/some/path",

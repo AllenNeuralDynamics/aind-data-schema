@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import FrequencyUnit
 
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.stimulus import PhotoStimulation, PhotoStimulationGroup
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -69,7 +69,7 @@ sampling_strategy = SamplingStrategy(
 
 
 a = Acquisition(
-    experimenters=[Person(name="John Smith")],
+    experimenters=["John Smith"],
     acquisition_start_time=t,
     acquisition_end_time=t,
     subject_id="652567",

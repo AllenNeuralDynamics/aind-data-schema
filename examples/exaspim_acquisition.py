@@ -19,7 +19,6 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Scale, Translation
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.core.acquisition import Acquisition, DataStream
@@ -113,7 +112,7 @@ chamber_config = SampleChamberConfig(
 
 
 acq = Acquisition(
-    experimenters=[Person(name="John Smith")],
+    experimenters=["John Smith"],
     specimen_id="123456-123",
     subject_id="123456",
     instrument_id="###",
