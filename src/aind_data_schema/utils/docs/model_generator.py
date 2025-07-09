@@ -6,7 +6,7 @@ import json
 import os
 import re
 from enum import Enum
-from typing import Dict, List, Type
+from typing import Dict, List, Optional, Type, get_origin, get_args
 
 from pydantic import BaseModel
 
@@ -27,6 +27,7 @@ special_cases = {
     "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": (
         "[MouseAnatomyModel](aind_data_schema_models/external" ".md#mouseanatomymodel)"
     ),
+    "aind_data_schema_models.pid_names.PIDName": "{PIDName}",
 }
 
 skip_fields = ["object_type", "describedBy", "schema_version"]
@@ -125,7 +126,7 @@ def check_for_union(value: str) -> str:
     return value
 
 
-def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
+def _get_type_string_helper(tp, origin, args, **kwargs) -> str:
     """Helper function to format the type into a readable string."""
 
     if origin is list or origin is List:
@@ -158,14 +159,42 @@ def _get_type_string_helper(tp: Type, origin, args, **kwargs) -> str:
     return result
 
 
-def get_type_string(tp: Type) -> str:
+def _handle_annotated_type(origin, args) -> Optional[str]:
+    """Handle annotated types"""
+    if origin is not None and hasattr(origin, "__name__") and origin.__name__ == "Annotated":
+        if args and len(args) >= 2:
+            # Check if the second argument is NOT a FieldInfo (Pydantic field annotation)
+            # If it's not FieldInfo, it's likely simple metadata we want to unwrap
+            second_arg = args[1]
+            is_field_info = hasattr(second_arg, "__class__") and second_arg.__class__.__name__ == "FieldInfo"
+
+            if not is_field_info:
+                # This is a simple metadata annotation like TimeValidation.BEFORE
+                # Unwrap it to just the first type
+                return get_type_string(args[0])
+            # If it IS FieldInfo, fall through to normal processing
+    return None
+
+
+def get_type_string(tp) -> str:
     """Format the type into a readable string.
 
     Args:
         tp: The type to format
     """
-    origin = getattr(tp, "__origin__", None)
-    args = getattr(tp, "__args__", None)
+    # Use get_origin and get_args for proper type inspection
+    origin = get_origin(tp)
+    args = get_args(tp)
+
+    # Handle Annotated types - but only unwrap if it's a simple metadata annotation
+    annotated_result = _handle_annotated_type(origin, args)
+    if annotated_result is not None:
+        return annotated_result
+
+    # Fallback to old behavior for compatibility
+    if origin is None:
+        origin = getattr(tp, "__origin__", None)
+        args = getattr(tp, "__args__", None)
 
     if origin is None:
         try:
