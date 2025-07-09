@@ -6,7 +6,7 @@ import json
 import os
 import re
 from enum import Enum
-from typing import Dict, List, Type, get_origin, get_args, Any
+from typing import Dict, List, Type, get_origin, get_args
 
 from pydantic import BaseModel
 
@@ -129,12 +129,6 @@ def check_for_union(value: str) -> str:
 def _get_type_string_helper(tp, origin, args, **kwargs) -> str:
     """Helper function to format the type into a readable string."""
 
-    # Handle Annotated types by extracting the actual type (first argument)
-    if origin is not None and hasattr(origin, "__name__") and origin.__name__ == "Annotated":
-        # For Annotated types, the first argument is the actual type
-        if args:
-            return get_type_string(args[0])
-
     if origin is list or origin is List:
         return f"List[{get_type_string(args[0])}]"
     if origin is dict or origin is Dict:
@@ -175,11 +169,22 @@ def get_type_string(tp) -> str:
     origin = get_origin(tp)
     args = get_args(tp)
 
-    # Handle Annotated types by extracting the actual type (first argument)
+    # Handle Annotated types - but only unwrap if it's a simple metadata annotation
     if origin is not None and hasattr(origin, "__name__") and origin.__name__ == "Annotated":
-        # For Annotated types, the first argument is the actual type
-        if args:
-            return get_type_string(args[0])
+        if args and len(args) >= 2:
+            # Check if the second argument is NOT a FieldInfo (Pydantic field annotation)
+            # If it's not FieldInfo, it's likely simple metadata we want to unwrap
+            second_arg = args[1]
+            is_field_info = (
+                hasattr(second_arg, "__class__") and
+                second_arg.__class__.__name__ == "FieldInfo"
+            )
+            
+            if not is_field_info:
+                # This is a simple metadata annotation like TimeValidation.BEFORE
+                # Unwrap it to just the first type
+                return get_type_string(args[0])
+            # If it IS FieldInfo, fall through to normal processing
 
     # Fallback to old behavior for compatibility
     if origin is None:

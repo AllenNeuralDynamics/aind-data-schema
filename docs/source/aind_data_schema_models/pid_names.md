@@ -11,7 +11,7 @@ the registry for that PID, and abbreviation for that registry
 |-------|------|-------------|
 | `name` | `str` | Name |
 | `abbreviation` | `Optional[str]` | Abbreviation |
-| `registry` | `Optional[aind_data_schema_models.pid_names.BaseName]` | Registry |
+| `registry` | `Union[aind_data_schema_models.registries.Registry, str, NoneType]` | Registry |
 | `registry_identifier` | `Optional[str]` | Registry identifier |
 
 

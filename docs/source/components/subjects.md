@@ -69,7 +69,7 @@ Description of a mouse subject
 | Field | Type | Description |
 |-------|------|-------------|
 | `sex` | [Sex](#sex) |  |
-| `date_of_birth` | `typing.Annotated[datetime.date, <TimeValidation.BEFORE: 'before'>]` |  |
+| `date_of_birth` | `datetime.date` |  |
 | `strain` | [Strain](../aind_data_schema_models/species.md#strain) |  |
 | `species` | [Species](../aind_data_schema_models/species.md#species) |  |
 | `alleles` | List[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] | Allele names and persistent IDs |
