@@ -4,7 +4,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from aind_data_schema_models.registries import Registry, _Orcid
+from aind_data_schema_models.registries import Registry
 from pydantic import Field
 
 from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
@@ -46,7 +46,7 @@ class Person(DataModel):
 
     name: str = Field(..., title="Person's name", description="First and last name OR anonymous ID")
 
-    registry: _Orcid = Field(default_factory=lambda: Registry.ORCID, title="Registry")
+    registry: Registry = Field(default=Registry.ORCID, title="Registry")
     registry_identifier: Optional[str] = Field(default=None, title="ORCID ID")
 
 
