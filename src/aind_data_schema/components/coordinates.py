@@ -225,9 +225,8 @@ class CoordinateSystemLibrary:
 
     Convention is to use the following naming scheme:
 
-    <SOURCE(Optional)>_<ORIGIN>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc
+    <<ORIGIN>_<POS_X_DIR><POS_Y_DIR><POS_Z_DIR> etc
 
-    Where SOURCE is the "owner" so to speak, like SIPE, Pinpoint, etc
     ORIGIN is the origin in the world, Bregma, "front
     """
 
