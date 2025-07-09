@@ -2,10 +2,7 @@
 
 ## Why
 
-We are gathering this metadata so that our assets will be **findable**, **accessible**, **interoperable**, and **re-usable**. More specifically, for `aind-data-schema` we are focused on two core principles, our assets should be:
-
-- Searchable: so that the set of assets used in an analysis can be recovered by a *query* over the full set of all assets that exist.
-- Interpretable: any aspect of the data needed for interpretation or analysis that isn't explicit in the raw data should be made explicit in the metadata.
+We are gathering this metadata so that our assets will be FAIR (findable, accessible, interoperable, and re-usable).
 
 After completing this tutorial you will be able to:
 - Build the data description, subject, and procedures metadata for your asset using Python code and pydantic.
