@@ -128,9 +128,9 @@ def check_for_union(value: str) -> str:
 
 def _get_type_string_helper(tp, origin, args, **kwargs) -> str:
     """Helper function to format the type into a readable string."""
-    
+
     # Handle Annotated types by extracting the actual type (first argument)
-    if origin is not None and hasattr(origin, '__name__') and origin.__name__ == 'Annotated':
+    if origin is not None and hasattr(origin, "__name__") and origin.__name__ == "Annotated":
         # For Annotated types, the first argument is the actual type
         if args:
             return get_type_string(args[0])
@@ -174,13 +174,13 @@ def get_type_string(tp) -> str:
     # Use get_origin and get_args for proper type inspection
     origin = get_origin(tp)
     args = get_args(tp)
-    
+
     # Handle Annotated types by extracting the actual type (first argument)
-    if origin is not None and hasattr(origin, '__name__') and origin.__name__ == 'Annotated':
+    if origin is not None and hasattr(origin, "__name__") and origin.__name__ == "Annotated":
         # For Annotated types, the first argument is the actual type
         if args:
             return get_type_string(args[0])
-        
+
     # Fallback to old behavior for compatibility
     if origin is None:
         origin = getattr(tp, "__origin__", None)
