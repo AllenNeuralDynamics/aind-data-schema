@@ -475,6 +475,46 @@ class InstrumentTests(unittest.TestCase):
 
         self.assertIn("Device name validation error: 'Not a real device'", str(context.exception))
 
+        with self.assertRaises(ValueError) as context:
+            Instrument(
+                instrument_id="123_EPHYS1-OPTO_20220101",
+                modification_date=date(2020, 10, 10),
+                modalities=[Modality.ECEPHYS, Modality.FIB],
+                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+                components=[
+                    *daqs,
+                    *cameras,
+                    *stick_microscopes,
+                    *light_sources,
+                    *lms,
+                    *ems,
+                    *detectors,
+                    *patch_cords,
+                    *stimulus_devices,
+                    Disc(name="Disc A", radius=1),
+                    dmd,
+                ],
+                calibrations=[
+                    Calibration(
+                        calibration_date=date(2020, 10, 10),
+                        device_name="Laser A",
+                        description="Laser power calibration",
+                        input=[10, 40, 80],
+                        input_unit=PowerUnit.PERCENT,
+                        output=[2, 6, 10],
+                        output_unit=PowerUnit.MW,
+                    )
+                ],
+                connections=[
+                    Connection(
+                        target_device="Not a real device",
+                        source_device="Some other device",
+                    )
+                ],
+            )
+
+        self.assertIn("Device name validation error: 'Not a real device'", str(context.exception))
+
     def test_validator_modality_device_missing(self):
         """Test that the modality -> device validator throws validation errors when devices are missing"""
 
