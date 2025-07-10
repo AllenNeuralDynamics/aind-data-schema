@@ -14,7 +14,7 @@ from pydantic import ValidationError
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
 from aind_data_schema.components.identifiers import Code, Database, Person
-from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
+from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species, CalibrationObject
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -29,6 +29,9 @@ from examples.aibs_smartspim_instrument import inst as spim_inst
 from examples.ephys_instrument import inst as ephys_inst
 from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.acquisition import StimulusEpoch
+
+from examples.data_description import d as data_description
+
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -712,6 +715,36 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn("must be after", str(context.exception))
         self.assertIn("start_date_time", str(context.exception))
+
+    def test_validate_calibration_object_tags(self):
+        """Tests that calibration tag warning is issued when subject is CalibrationObject but tag is missing"""
+
+        # Create a subject with CalibrationObject
+        calibration_subject = Subject(
+            subject_id="calibration_object_001",
+            subject_details=CalibrationObject(
+                description="Test calibration object",
+            ),
+        )
+
+        # Use the existing data_description from class setup (which doesn't have 'calibration' tag)
+
+        # This should trigger a warning since subject is CalibrationObject but no 'calibration' tag
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=calibration_subject,
+                data_description=data_description,
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Subject is a CalibrationObject but 'calibration' tag is missing from data_description.tags. "
+            "Adding 'calibration' tag automatically.",
+            warning_messages,
+        )
+        self.assertIsNotNone(metadata)
 
 
 if __name__ == "__main__":

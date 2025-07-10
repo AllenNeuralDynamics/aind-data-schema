@@ -20,6 +20,7 @@ from pydantic import (
 
 from aind_data_schema.base import DataCoreModel
 from aind_data_schema.components.identifiers import DatabaseIdentifiers
+from aind_data_schema.components.subjects import CalibrationObject
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -239,6 +240,29 @@ class Metadata(DataCoreModel):
                         raise ValueError(
                             f"Connection '{connection}' contains devices not found in instrument or procedures."
                         )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_calibration_object_tags(self):
+        """Validator to ensure 'calibration' tag is present when subject is a CalibrationObject"""
+
+        if (
+            self.subject
+            and self.subject.subject_details
+            and isinstance(self.subject.subject_details, CalibrationObject)
+            and self.data_description
+        ):
+            if self.data_description.tags is None:
+                # Initialize tags list if it doesn't exist
+                self.data_description.tags = []
+
+            if "calibration" not in self.data_description.tags:
+                warnings.warn(
+                    "Subject is a CalibrationObject but 'calibration' tag is missing from data_description.tags. "
+                    "Adding 'calibration' tag automatically."
+                )
+                self.data_description.tags.append("calibration")
 
         return self
 

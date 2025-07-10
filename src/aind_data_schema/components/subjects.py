@@ -12,6 +12,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.components.devices import Device
 
 
 class Sex(str, Enum):
@@ -138,4 +139,16 @@ class HumanSubject(DataModel):
         ...,
         description="Where the subject was acquired from.",
         title="Source",
+    )
+
+
+class CalibrationObject(DataModel):
+    """Description of a calibration object"""
+
+    empty: bool = Field(
+        default=False, title="Empty", description="Set to true if the calibration was performed with no object."
+    )
+    description: str = Field(..., title="Description")
+    objects: Optional[list[Device]] = Field(
+        default=None, title="Objects", description="For calibration objects that are built up from one or more devices."
     )
