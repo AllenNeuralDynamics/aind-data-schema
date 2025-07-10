@@ -11,7 +11,7 @@ from aind_data_schema.components.identifiers import Person
 
 d = DataDescription(
     modalities=[Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS],
-    subject_id="12345",
+    subject_id="123456",
     creation_time=datetime(2022, 2, 21, 16, 30, 1, tzinfo=timezone.utc),
     institution=Organization.AIND,
     investigators=[Person(name="Daniel Birman", registry_identifier="0000-0003-3748-6289")],  # Include ORCID IDs
