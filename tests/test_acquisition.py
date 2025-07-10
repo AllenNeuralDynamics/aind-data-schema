@@ -322,6 +322,7 @@ class AcquisitionTest(unittest.TestCase):
 
         # Get all subclasses of DeviceConfig using introspection
         def get_all_subclasses(cls):
+            """Recursively get all subclasses of a class"""
             all_subclasses = set()
             for subclass in cls.__subclasses__():
                 all_subclasses.add(subclass)
