@@ -287,8 +287,8 @@ class AcquisitionTest(unittest.TestCase):
             active_devices=["DeviceA", "DeviceB"],
             configurations=[],
             connections=[
-                Connection(device_names=["DeviceA"]),
-                Connection(device_names=["DeviceB"]),
+                Connection(source_device="DeviceA", target_device="SomeTarget"),
+                Connection(source_device="DeviceB", target_device="SomeTarget"),
             ],
         )
         self.assertIsNotNone(stream)

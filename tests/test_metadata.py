@@ -353,7 +353,7 @@ class TestMetadata(unittest.TestCase):
                     active_devices=["Probe A", "Laser A"],
                     modalities=[],
                     configurations=[],
-                    connections=[Connection(device_names=["Probe A", "Missing Device"], connection_data={})],
+                    connections=[Connection(source_device="Probe A", target_device="Missing Device")],
                 ),
             ],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -366,7 +366,7 @@ class TestMetadata(unittest.TestCase):
                 acquisition=acquisition,
             )
         self.assertIn(
-            "Connection 'object_type='Connection' device_names=['Probe A', 'Missing Device'] connection_data={}'",
+            "Missing Device",
             str(context.exception),
         )
 

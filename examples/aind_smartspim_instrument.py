@@ -11,7 +11,7 @@ from aind_data_schema.components.devices import (
     ScanningStage,
     Device,
 )
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import (
     Detector,
     Instrument,
@@ -218,40 +218,19 @@ com_device = Device(
 
 connections = [
     Connection(
-        device_names=["COM Device", "Laser Launch"],
-        connection_data={
-            "Laser Launch": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM4",
-            ),
-        },
+        source_device="COM Device",
+        source_port="COM4",
+        target_device="Laser Launch",
     ),
     Connection(
-        device_names=["COM Device", "ASI Tiger"],
-        connection_data={
-            "ASI Tiger": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM3",
-            ),
-        },
+        source_device="COM Device",
+        source_port="COM3",
+        target_device="ASI Tiger",
     ),
     Connection(
-        device_names=["COM Device", "MightyZap"],
-        connection_data={
-            "MightyZap": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM9",
-            ),
-        },
+        source_device="COM Device",
+        source_port="COM9",
+        target_device="MightyZap",
     ),
 ]
 

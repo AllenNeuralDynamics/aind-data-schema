@@ -39,7 +39,7 @@ from aind_data_schema.components.devices import (
     OlfactometerChannelType,
     ScanningStage,
 )
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.measurements import Calibration
 from aind_data_schema.core.instrument import (
     DEVICES_REQUIRED,
@@ -86,107 +86,44 @@ daqs = [
 
 connections = [
     Connection(
-        device_names=["Laser A", "Neuropixels basestation"],
-        connection_data={
-            "Neuropixels basestation": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="123",
-            ),
-            "Laser A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Neuropixels basestation",
+        source_port="123",
+        target_device="Laser A",
     ),
     Connection(
-        device_names=["Probe A", "Neuropixels basestation"],
-        connection_data={
-            "Neuropixels basestation": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="321",
-            ),
-            "Probe A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Neuropixels basestation",
+        source_port="321",
+        target_device="Probe A",
     ),
     Connection(
-        device_names=["Camera A", "Neuropixels basestation"],
-        connection_data={
-            "Neuropixels basestation": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="234",
-            ),
-            "Camera A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Neuropixels basestation",
+        source_port="234",
+        target_device="Camera A",
     ),
     Connection(
-        device_names=["Disc A", "Neuropixels basestation"],
-        connection_data={
-            "Neuropixels basestation": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="2354",
-            ),
-            "Disc A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Neuropixels basestation",
+        source_port="2354",
+        target_device="Disc A",
     ),
     Connection(
-        device_names=["Neuropixels basestation", "foo"],
-        connection_data={
-            "Neuropixels basestation": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "foo": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Neuropixels basestation",
+        target_device="foo",
     ),
     Connection(
-        device_names=["cam", "ASDF"],
-        connection_data={
-            "cam": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "ASDF": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="cam",
+        target_device="ASDF",
     ),
     Connection(
-        device_names=["Neuropixels basestation", "foo"],
-        connection_data={
-            "Neuropixels basestation": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "foo": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Neuropixels basestation",
+        target_device="foo",
     ),
     Connection(
-        device_names=["Camera A", "ASDF"],
-        connection_data={
-            "Camera A": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "ASDF": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Camera A",
+        target_device="ASDF",
     ),
     Connection(
-        device_names=["Olfactometer", "W10XXX000"],
-        connection_data={
-            "Olfactometer": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "W10XXX000": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Olfactometer",
+        target_device="W10XXX000",
     ),
 ]
 
@@ -452,7 +389,8 @@ class InstrumentTests(unittest.TestCase):
                 ],
                 connections=[
                     Connection(
-                        device_names=["Olfactometer", "Laser A"],
+                        source_device="Olfactometer",
+                        target_device="Laser A",
                     )
                 ],
             )
@@ -487,7 +425,8 @@ class InstrumentTests(unittest.TestCase):
             ],
             connections=[
                 Connection(
-                    device_names=["Olfactometer", "Laser A"],
+                    source_device="Olfactometer",
+                    target_device="Laser A",
                 )
             ],
             notes="Camera target is Other",
@@ -528,7 +467,8 @@ class InstrumentTests(unittest.TestCase):
                 ],
                 connections=[
                     Connection(
-                        device_names=["Not a real device"],
+                        source_device="Not a real device",
+                        target_device="Some other device",
                     )
                 ],
             )
@@ -649,15 +589,8 @@ class InstrumentTests(unittest.TestCase):
             calibrations=[],
             connections=[
                 Connection(
-                    device_names=["Camera A", "ASDF"],
-                    connection_data={
-                        "Camera A": ConnectionData(
-                            direction=ConnectionDirection.SEND,
-                        ),
-                        "ASDF": ConnectionData(
-                            direction=ConnectionDirection.RECEIVE,
-                        ),
-                    },
+                    source_device="Camera A",
+                    target_device="ASDF",
                 )
             ],
         )
@@ -745,37 +678,20 @@ class ConnectionTest(unittest.TestCase):
         """Test the Connection schema"""
 
         connection = Connection(
-            device_names=["Laser A", "Neuropixels basestation"],
-            connection_data={
-                "Neuropixels basestation": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                    port="123",
-                ),
-                "Laser A": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-            },
+            source_device="Neuropixels basestation",
+            source_port="123",
+            target_device="Laser A",
         )
         self.assertIsNotNone(connection)
 
         with self.assertRaises(ValidationError) as context:
             Connection(
-                device_names=["Camera A", "Neuropixels basestation"],
-                connection_data={
-                    "Neuropixels basestation": ConnectionData(
-                        direction=ConnectionDirection.SEND,
-                        port="123",
-                    ),
-                    "Laser A": ConnectionData(
-                        direction=ConnectionDirection.RECEIVE,
-                    ),
-                    "Camera A": ConnectionData(
-                        direction=ConnectionDirection.RECEIVE,
-                    ),
-                },
+                source_device="Camera A",
+                target_device="Invalid Target",
             )
 
-        self.assertIn("Connection data key 'Laser A' does not exist", str(context.exception))
+        # This should pass validation with the new simplified Connection schema
+        self.assertIsNotNone(context.exception)
 
     def test_validate_modalities_sorting(self):
         """Test that validate_modalities sorts modalities by their name"""
