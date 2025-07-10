@@ -164,8 +164,10 @@ class DataStream(DataModel):
         """Check that every device in a Connection is present in the active_devices list"""
         for connection in self.connections:
             # Check that both source and target devices are in active_devices
-            if (connection.source_device not in self.active_devices or
-                    connection.target_device not in self.active_devices):
+            if (
+                connection.source_device not in self.active_devices
+                or connection.target_device not in self.active_devices
+            ):
                 missing_devices = []
                 if connection.source_device not in self.active_devices:
                     missing_devices.append(connection.source_device)

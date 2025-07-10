@@ -242,7 +242,7 @@ class Metadata(DataCoreModel):
                         missing_devices.append(connection.source_device)
                     if connection.target_device not in device_names:
                         missing_devices.append(connection.target_device)
-                    
+
                     if missing_devices:
                         raise ValueError(
                             f"Connection from '{connection.source_device}' to '{connection.target_device}' "
