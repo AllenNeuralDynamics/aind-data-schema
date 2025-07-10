@@ -12,6 +12,7 @@ from pydantic import Field, SkipValidation, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
     AirPuffConfig,
+    CatheterConfig,
     DetectorConfig,
     EphysAssemblyConfig,
     FiberAssemblyConfig,
@@ -22,6 +23,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     MousePlatformConfig,
     MRIScan,
+    OlfactometerConfig,
     PatchCordConfig,
     ProbeConfig,
     SampleChamberConfig,
@@ -125,6 +127,7 @@ class DataStream(DataModel):
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig
+        | CatheterConfig
     ] = Field(
         ...,
         title="Device configurations",
@@ -203,9 +206,9 @@ class StimulusEpoch(DataModel):
         title="Active devices",
         description="Device names must match devices in the Instrument",
     )
-    configurations: DiscriminatedList[SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig] = (
-        Field(default=[], title="Device configurations")
-    )
+    configurations: DiscriminatedList[
+        SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig | OlfactometerConfig
+    ] = Field(default=[], title="Device configurations")
 
     # Training protocol
     training_protocol_name: Optional[str] = Field(
