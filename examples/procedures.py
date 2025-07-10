@@ -2,7 +2,6 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
     InjectionProfile,
@@ -60,7 +59,7 @@ config = ProbeConfig(
 surgery1 = Surgery(
     start_date=t.date(),
     protocol_id="doi",
-    experimenters=[Person(name="Scientist Smith")],
+    experimenters=["Scientist Smith"],
     ethics_review_id="2109",
     animal_weight_prior=22.6,
     animal_weight_post=22.3,
@@ -120,7 +119,7 @@ p = Procedures(
         surgery1,
         Surgery(
             start_date=t2.date(),
-            experimenters=[Person(name="Scientist Smith")],
+            experimenters=["Scientist Smith"],
             ethics_review_id="2109",
             protocol_id="doi",
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,

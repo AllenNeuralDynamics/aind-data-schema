@@ -48,6 +48,9 @@ from aind_data_schema_models.pid_names import PIDName
 # Processing
 from aind_data_schema_models.process_names import ProcessName
 
+# Reagent models
+from aind_data_schema_models.reagent import StainType, FluorophoreType
+
 # Registries
 from aind_data_schema_models.registries import Registry
 
@@ -80,6 +83,11 @@ from aind_data_schema_models.units import (
 
 from aind_data_schema.utils.docs.utils import generate_enum_table, save_model_info, update_model_links
 
+# Special case classes that should be processed as model schemas even if they don't contain model instances
+MODEL_SCHEMA_CLASSES = [
+    "PIDName",
+]
+
 registries = [
     # Atlas and brain structure models
     AtlasName,
@@ -98,6 +106,9 @@ registries = [
     Organization,
     # Process names
     ProcessName,
+    # Reagent
+    StainType,
+    FluorophoreType,
     # Registries
     Registry,
     # Species models
@@ -287,11 +298,53 @@ def create_table_structure(field_names, model_instances) -> str:
     return header_row + separator_row + "\n".join(rows) + "\n"
 
 
+def generate_model_schema_table(model_class) -> str:
+    """Generate a markdown table for a Pydantic model schema showing its fields."""
+    model_name = model_class.__name__
+    header = generate_table_header(model_class, model_name)
+
+    # Get model fields from Pydantic model
+    if hasattr(model_class, "model_fields"):
+        fields = model_class.model_fields
+
+        if not fields:
+            print(f"Warning: No fields found in model schema {model_name}")
+            return header
+
+        # Create table structure for model fields
+        header_row = "| Field | Type | Description |\n"
+        separator_row = "|-------|------|-------------|\n"
+
+        rows = []
+        for field_name, field_info in fields.items():
+            field_type = str(field_info.annotation) if hasattr(field_info, "annotation") else "Unknown"
+            # Clean up the type representation
+            field_type = field_type.replace("typing.", "").replace("<class '", "").replace("'>", "")
+
+            description = ""
+            if hasattr(field_info, "description") and field_info.description:
+                description = field_info.description
+            elif hasattr(field_info, "title") and field_info.title:
+                description = field_info.title
+
+            rows.append(f"| `{field_name}` | `{field_type}` | {description} |")
+
+        header += header_row + separator_row + "\n".join(rows) + "\n"
+    else:
+        print(f"Warning: {model_name} does not appear to be a valid Pydantic model")
+
+    return header
+
+
 def detect_registry_type(registry):
     """Detect the registry type based on its attributes and structure"""
     # Check if it's an Enum subclass
     if issubclass(registry, Enum):
         return "enum"
+
+    # Check if this is a special case model schema class
+    if registry.__name__ in MODEL_SCHEMA_CLASSES:
+        return "model_schema"
 
     # Check if it has at least one model instance
     for attr_name, attr_value in inspect.getmembers(registry):
@@ -325,6 +378,8 @@ def generate_registry_docs():
                 output = generate_enum_table(registry)
             elif registry_type == "model_instance":
                 output = generate_model_instance_table(registry)
+            elif registry_type == "model_schema":
+                output = generate_model_schema_table(registry)
             else:
                 print(f"Unknown registry type for {registry.__name__}")
                 continue

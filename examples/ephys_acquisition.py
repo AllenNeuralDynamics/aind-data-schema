@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.identifiers import Person, Software, Code
+from aind_data_schema.components.identifiers import Software, Code
 from aind_data_schema.core.acquisition import (
     Acquisition,
     StimulusEpoch,
@@ -96,7 +96,7 @@ ephys_assembly_b_config = EphysAssemblyConfig(
 
 
 acquisition = Acquisition(
-    experimenters=[Person(name="John Smith")],
+    experimenters=["John Smith"],
     subject_id="664484",
     acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
     acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),

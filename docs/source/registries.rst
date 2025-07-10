@@ -18,7 +18,9 @@ Registries are models that are linked to an external definition, like the NCBI s
    aind_data_schema_models/licenses
    aind_data_schema_models/modalities
    aind_data_schema_models/organizations
-   aind-data-schema_models/process_names
+   aind_data_schema_models/pid_names
+   aind_data_schema_models/process_names
+   aind_data_schema_models/reagent
    aind_data_schema_models/registries
    aind_data_schema_models/species
    aind_data_schema_models/specimen_procedure_types

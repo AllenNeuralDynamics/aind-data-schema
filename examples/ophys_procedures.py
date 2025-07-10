@@ -8,7 +8,6 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species
 from aind_data_schema_models.reagent import FluorophoreType, StainType
 
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import InjectionDynamics
 from aind_data_schema.components.reagent import FluorescentStain, ProbeReagent, ProteinProbe, Fluorophore
 from aind_data_schema.components.surgery_procedures import Anaesthetic, BrainInjection, Headframe, ProbeImplant
@@ -53,7 +52,7 @@ p = Procedures(
     subject_procedures=[
         Surgery(
             start_date=t.date(),
-            experimenters=[Person(name="Scientist Smith")],
+            experimenters=["Scientist Smith"],
             ethics_review_id="2109",
             animal_weight_prior=22.6,
             animal_weight_post=22.3,
@@ -115,7 +114,7 @@ p = Procedures(
         ),
         Surgery(
             start_date="2023-05-31",
-            experimenters=[Person(name="Scientist Smith")],
+            experimenters=["Scientist Smith"],
             ethics_review_id="2109",
             anaesthesia=Anaesthetic(anaesthetic_type="Isoflurane", duration=30, level=3),
             workstation_id="SWS 3",
@@ -131,7 +130,7 @@ p = Procedures(
             specimen_id="625100_001",
             start_date="2023-06-09",
             end_date="2023-06-12",
-            experimenters=[Person(name="Scientist Smith")],
+            experimenters=["Scientist Smith"],
             protocol_id=["TO ENTER"],
             procedure_details=[
                 ProbeReagent(
@@ -155,7 +154,7 @@ p = Procedures(
             specimen_id="625100_001",
             start_date="2023-06-12",
             end_date="2023-06-13",
-            experimenters=[Person(name="Scientist Smith")],
+            experimenters=["Scientist Smith"],
             protocol_id=["TO ENTER"],
             procedure_details=[
                 FluorescentStain(

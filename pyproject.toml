@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=4.2.4',
+    'aind-data-schema-models>=4.2.7',
     'pydantic>=2.7',
     'semver'
 ]
@@ -42,7 +42,8 @@ docs = [
     'sphinx-jinja',
     'furo',
     'autodoc_pydantic',
-    'myst-parser'
+    'myst-parser',
+    'openpyxl',
 ]
 
 transforms = [

@@ -54,7 +54,7 @@ Description of a non-viral injection material
 | `concentration_unit` | `Optional[str]` | For example, mg/mL |
 | `name` | `str` |  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `rrid` | `Optional[aind_data_schema_models.pid_names.PIDName]` |  |
+| `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] |  |
 | `lot_number` | `Optional[str]` |  |
 | `expiration_date` | `Optional[datetime.date]` |  |
 
@@ -81,7 +81,7 @@ Description of viral material for injections
 |-------|------|-------------|
 | `name` | `str` | Full genome for virus construct |
 | `tars_identifiers` | Optional[[TarsVirusIdentifiers](#tarsvirusidentifiers)] | TARS database identifiers |
-| `addgene_id` | `Optional[aind_data_schema_models.pid_names.PIDName]` | Registry must be Addgene |
+| `addgene_id` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] | Registry must be Addgene |
 | `titer` | `Optional[int]` | Final titer of viral material, accounting for mixture/diliution |
 | `titer_unit` | `Optional[str]` | For example, gc/mL |
 

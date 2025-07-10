@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.core.acquisition import AcquisitionSubjectDetails
 from aind_data_schema.core.procedures import Procedures
 from aind_data_schema.core.processing import DataProcess, Processing, ProcessName, ProcessStage
@@ -174,7 +174,7 @@ class TestComposability(unittest.TestCase):
         p1 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.PROCESSING,
                     output_path="/path/to/outputs1",
@@ -192,7 +192,7 @@ class TestComposability(unittest.TestCase):
         p2 = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Jane")],
+                    experimenters=["Dr. Jane"],
                     process_type=ProcessName.COMPRESSION,
                     stage=ProcessStage.PROCESSING,
                     output_path="/path/to/outputs2",
