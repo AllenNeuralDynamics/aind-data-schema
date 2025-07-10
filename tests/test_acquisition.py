@@ -302,8 +302,8 @@ class AcquisitionTest(unittest.TestCase):
                 active_devices=["DeviceA"],
                 configurations=[],
                 connections=[
-                    Connection(device_names=["DeviceA"]),
-                    Connection(device_names=["DeviceB"]),
+                    Connection(source_device="DeviceA", target_device="SomeTarget"),
+                    Connection(source_device="DeviceB", target_device="SomeTarget"),
                 ],
             )
         self.assertIn("Missing devices in active_devices list for connection", str(context.exception))
