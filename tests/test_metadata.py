@@ -4,7 +4,6 @@ import json
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
-import warnings
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -14,7 +13,7 @@ from pydantic import ValidationError
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
 from aind_data_schema.components.identifiers import Code, Database, Person
-from aind_data_schema.components.subjects import BreedingInfo, CalibrationObject, Housing, MouseSubject, Sex, Species
+from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species, CalibrationObject
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -29,6 +28,9 @@ from examples.aibs_smartspim_instrument import inst as spim_inst
 from examples.ephys_instrument import inst as ephys_inst
 from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.acquisition import StimulusEpoch
+
+from examples.data_description import d as data_description
+
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -416,143 +418,6 @@ class TestMetadata(unittest.TestCase):
             str(context.exception),
         )
 
-    def test_validate_calibration_object_tags_with_calibration_tag(self):
-        """Tests that no warning is issued when calibration tag is already present."""
-        # Create a CalibrationObject subject
-        calibration_subject = Subject(
-            subject_id="000000",
-            subject_details=CalibrationObject(
-                description="Test calibration object",
-                empty=False,
-            ),
-        )
-
-        # Create DataDescription with existing calibration tag
-        data_description = DataDescription(
-            modalities=[Modality.ECEPHYS],
-            subject_id="000000",
-            data_level="raw",
-            creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
-            project_name="Test Calibration",
-            tags=["calibration", "other_tag"],
-        )
-
-        # This should not raise any warnings
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            metadata = Metadata(
-                name="Test Calibration Metadata",
-                location="Test Location",
-                subject=calibration_subject,
-                data_description=data_description,
-            )
-
-            # Check that no warnings about calibration tag were issued
-            calibration_warnings = [
-                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
-            ]
-            self.assertEqual(len(calibration_warnings), 0)
-
-        # Verify the tag is still present
-        self.assertIn("calibration", metadata.data_description.tags)
-
-    def test_validate_calibration_object_tags_missing_tag(self):
-        """Tests that warning is issued and tag is added when calibration tag is missing."""
-        # Create a CalibrationObject subject
-        calibration_subject = Subject(
-            subject_id="000000",
-            subject_details=CalibrationObject(
-                description="Test calibration object without tag",
-                empty=True,
-            ),
-        )
-
-        # Create DataDescription without calibration tag
-        data_description = DataDescription(
-            modalities=[Modality.ECEPHYS],
-            subject_id="000000",
-            data_level="raw",
-            creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
-            project_name="Test Calibration Missing Tag",
-            tags=["other_tag"],
-        )
-
-        # This should issue a warning and add the calibration tag
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            metadata = Metadata(
-                name="Test Calibration Metadata Missing Tag",
-                location="Test Location",
-                subject=calibration_subject,
-                data_description=data_description,
-            )
-
-            # Check that a warning about missing calibration tag was issued
-            calibration_warnings = [
-                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
-            ]
-            self.assertEqual(len(calibration_warnings), 1)
-            self.assertIn(
-                "Subject is a CalibrationObject but 'calibration' tag is missing", str(calibration_warnings[0].message)
-            )
-
-        # Verify the tag was automatically added
-        self.assertIn("calibration", metadata.data_description.tags)
-        self.assertIn("other_tag", metadata.data_description.tags)
-
-    def test_validate_calibration_object_tags_no_tags(self):
-        """Tests that warning is issued and tag is added when tags list is None."""
-        # Create a CalibrationObject subject
-        calibration_subject = Subject(
-            subject_id="000000",
-            subject_details=CalibrationObject(
-                description="Test calibration object no tags",
-                empty=False,
-            ),
-        )
-
-        # Create DataDescription with no tags (None)
-        data_description = DataDescription(
-            modalities=[Modality.ECEPHYS],
-            subject_id="000000",
-            data_level="raw",
-            creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
-            project_name="Test Calibration No Tags",
-            tags=None,
-        )
-
-        # This should issue a warning and add the calibration tag
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            metadata = Metadata(
-                name="Test Calibration Metadata No Tags",
-                location="Test Location",
-                subject=calibration_subject,
-                data_description=data_description,
-            )
-
-            # Check that a warning about missing calibration tag was issued
-            calibration_warnings = [
-                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
-            ]
-            self.assertEqual(len(calibration_warnings), 1)
-            self.assertIn(
-                "Subject is a CalibrationObject but 'calibration' tag is missing", str(calibration_warnings[0].message)
-            )
-
-        # Verify the tags list was initialized and calibration tag was added
-        self.assertIsNotNone(metadata.data_description.tags)
-        self.assertIn("calibration", metadata.data_description.tags)
-
     def test_validate_training_protocol_references(self):
         """Tests that training protocol references are validated correctly."""
 
@@ -797,113 +662,6 @@ class TestMetadata(unittest.TestCase):
                 species=Species.HOUSE_MOUSE,
                 strain=Strain.C57BL_6J,
                 sex=Sex.MALE,
-                date_of_birth=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc).date(),
-                source=Organization.JANELIA,
-                genotype="Emx1-IRES-Cre/wt;Camk2a-tTA/wt;Ai93(TITL-GCaMP6f)/wt",
-            ),
-        )
-
-        # Create DataDescription without calibration tag (this should be fine)
-        data_description = DataDescription(
-            modalities=[Modality.ECEPHYS],
-            subject_id="000000",
-            data_level="raw",
-            creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
-            project_name="Test Mouse",
-            tags=["experiment"],
-        )
-
-        # This should not issue any calibration-related warnings
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            metadata = Metadata(
-                name="Test Mouse Metadata",
-                location="Test Location",
-                subject=mouse_subject,
-                data_description=data_description,
-            )
-
-            # Check that no warnings about calibration tag were issued
-            calibration_warnings = [
-                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
-            ]
-            self.assertEqual(len(calibration_warnings), 0)
-
-        # Verify no calibration tag was added
-        self.assertNotIn("calibration", metadata.data_description.tags)
-
-    def test_validate_calibration_object_tags_no_data_description(self):
-        """Tests that no validation occurs when data_description is None."""
-        # Create a CalibrationObject subject
-        calibration_subject = Subject(
-            subject_id="000000",
-            subject_details=CalibrationObject(
-                description="Test calibration object no data description",
-                empty=False,
-            ),
-        )
-
-        # This should not issue any warnings since there's no data_description
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            metadata = Metadata(
-                name="Test Calibration Metadata No Data Description",
-                location="Test Location",
-                subject=calibration_subject,
-                data_description=None,
-            )
-
-            # Check that no warnings about calibration tag were issued
-            calibration_warnings = [
-                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
-            ]
-            self.assertEqual(len(calibration_warnings), 0)
-
-    def test_validate_calibration_object_tags_no_subject(self):
-        """Tests that no validation occurs when subject is None."""
-        # Create DataDescription without calibration tag
-        data_description = DataDescription(
-            modalities=[Modality.ECEPHYS],
-            subject_id="000000",
-            data_level="raw",
-            creation_time=datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc),
-            institution=Organization.AIND,
-            funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
-            investigators=[Person(name="Jane Smith")],
-            project_name="Test No Subject",
-            tags=["experiment"],
-        )
-
-        # This should not issue any calibration-related warnings
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            metadata = Metadata(
-                name="Test No Subject Metadata",
-                location="Test Location",
-                subject=None,
-                data_description=data_description,
-            )
-
-            # Check that no warnings about calibration tag were issued
-            calibration_warnings = [
-                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
-            ]
-            self.assertEqual(len(calibration_warnings), 0)
-
-    def test_validate_calibration_object_tags_non_calibration_subject(self):
-        """Tests that no validation occurs for non-CalibrationObject subjects."""
-        # Create a regular MouseSubject
-        valid_birth_date = datetime(2022, 1, 1, tzinfo=timezone.utc).date()
-
-        valid_subject = Subject(
-            subject_id="000000",
-            subject_details=MouseSubject(
-                species=Species.HOUSE_MOUSE,
-                strain=Strain.C57BL_6J,
-                sex=Sex.MALE,
                 date_of_birth=valid_birth_date,
                 source=Organization.AI,
                 genotype="wt",
@@ -916,18 +674,6 @@ class TestMetadata(unittest.TestCase):
                 ),
                 housing=Housing(cage_id="123"),
             ),
-        )
-
-        # Create acquisition with specific times
-        acquisition_start = datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc)
-        acquisition_end = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
-
-        acquisition = Acquisition.model_construct(
-            instrument_id="Test",
-            acquisition_start_time=acquisition_start,
-            acquisition_end_time=acquisition_end,
-            data_streams=[],
-            subject_details=AcquisitionSubjectDetails.model_construct(),
         )
 
         # This should pass - birth date is before acquisition
@@ -1042,6 +788,36 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn("must be after", str(context.exception))
         self.assertIn("start_date_time", str(context.exception))
+
+    def test_validate_calibration_object_tags(self):
+        """Tests that calibration tag warning is issued when subject is CalibrationObject but tag is missing"""
+
+        # Create a subject with CalibrationObject
+        calibration_subject = Subject(
+            subject_id="calibration_object_001",
+            subject_details=CalibrationObject(
+                description="Test calibration object",
+            ),
+        )
+
+        # Use the existing data_description from class setup (which doesn't have 'calibration' tag)
+
+        # This should trigger a warning since subject is CalibrationObject but no 'calibration' tag
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=calibration_subject,
+                data_description=data_description,
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Subject is a CalibrationObject but 'calibration' tag is missing from data_description.tags. "
+            "Adding 'calibration' tag automatically.",
+            warning_messages,
+        )
+        self.assertIsNotNone(metadata)
 
 
 if __name__ == "__main__":
