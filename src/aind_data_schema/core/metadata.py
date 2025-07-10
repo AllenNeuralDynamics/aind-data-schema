@@ -266,6 +266,7 @@ class Metadata(DataCoreModel):
 
         return self
 
+    @model_validator(mode="after")
     def validate_training_protocol_references(self):
         """Validate that training_protocol_name in StimulusEpoch matches a TrainingProtocol in procedures"""
 
