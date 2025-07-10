@@ -1,7 +1,9 @@
 """ Test for the acquisition.json """
 
+import inspect
 import unittest
 from datetime import datetime, timezone
+from typing import get_args
 
 import pydantic
 from aind_data_schema_models.brain_atlas import CCFv3
@@ -10,6 +12,7 @@ from aind_data_schema_models.units import SizeUnit, TimeUnit
 from pydantic import ValidationError
 
 from aind_data_schema.components.configs import (
+    DeviceConfig,
     EphysAssemblyConfig,
     ImagingConfig,
     Immersion,
@@ -19,7 +22,7 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Scale, Translation
-from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream, StimulusEpoch
 from aind_data_schema.components.connections import Connection
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.exaspim_acquisition import acq as exaspim_acquisition
@@ -307,6 +310,81 @@ class AcquisitionTest(unittest.TestCase):
                 ],
             )
         self.assertIn("Missing devices in active_devices list for connection", str(context.exception))
+
+    def test_all_device_config_subclasses_covered(self):
+        """Test that all DeviceConfig subclasses are included in either DataStream or StimulusEpoch configurations"""
+
+        # Import the calibration and maintenance base classes to exclude them
+        from aind_data_schema.components.measurements import Calibration, Maintenance
+
+        # Get all subclasses of DeviceConfig using introspection
+        def get_all_subclasses(cls):
+            all_subclasses = set()
+            for subclass in cls.__subclasses__():
+                all_subclasses.add(subclass)
+                all_subclasses.update(get_all_subclasses(subclass))
+            return all_subclasses
+
+        def extract_union_types(annotation):
+            """Extract types from nested annotations like List[Annotated[Union[...], ...]]"""
+            types = set()
+
+            # Get the args from the List type
+            list_args = get_args(annotation)
+            if list_args:
+                # Get the args from the Annotated type (first arg is the union)
+                annotated_args = get_args(list_args[0])
+                if annotated_args:
+                    # Get the args from the Union type
+                    union_args = get_args(annotated_args[0])
+                    types.update(union_args)
+
+            return types
+
+        all_device_config_subclasses = get_all_subclasses(DeviceConfig)
+
+        # Exclude calibration and maintenance classes as they're used elsewhere in Acquisition
+        calibration_subclasses = get_all_subclasses(Calibration)
+        maintenance_subclasses = get_all_subclasses(Maintenance)
+        excluded_classes = calibration_subclasses | maintenance_subclasses | {Calibration, Maintenance}
+
+        # Filter to only include config classes that should be in configurations
+        config_subclasses = all_device_config_subclasses - excluded_classes
+
+        # Extract the config types from DataStream configurations discriminated union
+        datastream_annotation = DataStream.model_fields["configurations"].annotation
+        datastream_config_types = extract_union_types(datastream_annotation)
+
+        # Extract the config types from StimulusEpoch configurations discriminated union
+        stimulus_annotation = StimulusEpoch.model_fields["configurations"].annotation
+        stimulus_epoch_config_types = extract_union_types(stimulus_annotation)
+
+        # Combine all configured types and filter to only include classes
+        all_configured_types = datastream_config_types | stimulus_epoch_config_types
+        all_configured_types = {t for t in all_configured_types if inspect.isclass(t)}
+
+        # Check that all DeviceConfig subclasses are covered
+        uncovered_configs = config_subclasses - all_configured_types
+
+        # Create a helpful error message if there are uncovered configs
+        if uncovered_configs:
+            uncovered_names = [cls.__name__ for cls in uncovered_configs]
+            configured_names = [
+                cls.__name__ for cls in all_configured_types if inspect.isclass(cls) and issubclass(cls, DeviceConfig)
+            ]
+
+            error_msg = (
+                f"The following DeviceConfig subclasses are not included in either "
+                f"DataStream.configurations or StimulusEpoch.configurations: {uncovered_names}\n"
+                f"Currently configured: {sorted(configured_names)}\n"
+                f"Note: Calibration and Maintenance classes are excluded as they belong in "
+                f"the calibrations and maintenance fields respectively.\n"
+                f"Please add the missing configs to the appropriate discriminated union."
+            )
+            self.fail(error_msg)
+
+        # If we get here, all device config subclasses are properly covered
+        self.assertTrue(True, "All DeviceConfig subclasses are properly covered in discriminated unions")
 
 
 if __name__ == "__main__":
