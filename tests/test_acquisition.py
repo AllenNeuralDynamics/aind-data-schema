@@ -311,8 +311,11 @@ class AcquisitionTest(unittest.TestCase):
             )
         self.assertIn("Missing devices in active_devices list for connection", str(context.exception))
 
-    def test_all_device_config_subclasses_covered(self):
-        """Test that all DeviceConfig subclasses are included in either DataStream or StimulusEpoch configurations"""
+    def test_all_device_config_subclasses_covered(self):  # pragma: no cover
+        """Test that all DeviceConfig subclasses are included in either DataStream or StimulusEpoch configurations
+
+        No coverage on this test as it only does schema validation
+        """
 
         # Import the calibration and maintenance base classes to exclude them
         from aind_data_schema.components.measurements import Calibration, Maintenance
