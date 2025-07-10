@@ -684,14 +684,12 @@ class ConnectionTest(unittest.TestCase):
         )
         self.assertIsNotNone(connection)
 
-        with self.assertRaises(ValidationError) as context:
-            Connection(
-                source_device="Camera A",
-                target_device="Invalid Target",
-            )
-
-        # This should pass validation with the new simplified Connection schema
-        self.assertIsNotNone(context.exception)
+        # Test that a simple connection with valid structure is created successfully
+        simple_connection = Connection(
+            source_device="Camera A",
+            target_device="Invalid Target",
+        )
+        self.assertIsNotNone(simple_connection)
 
     def test_validate_modalities_sorting(self):
         """Test that validate_modalities sorts modalities by their name"""

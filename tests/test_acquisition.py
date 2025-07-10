@@ -284,7 +284,7 @@ class AcquisitionTest(unittest.TestCase):
             stream_start_time=datetime.now(),
             stream_end_time=datetime.now(),
             modalities=[],
-            active_devices=["DeviceA", "DeviceB"],
+            active_devices=["DeviceA", "DeviceB", "SomeTarget"],
             configurations=[],
             connections=[
                 Connection(source_device="DeviceA", target_device="SomeTarget"),
