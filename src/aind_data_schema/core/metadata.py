@@ -331,8 +331,8 @@ class Metadata(DataCoreModel):
                         # Issue a warning instead of raising an error
                         warnings.warn(
                             f"Creation time from data_description.name ({name_creation_time}) "
-                            f"should be on or after midnight of the acquisition day "
-                            f"({self.acquisition.acquisition_end_time.date()})"
+                            f"should be close to the acquisition end time "
+                            f"({self.acquisition.acquisition_end_time})"
                         )
 
         return self
