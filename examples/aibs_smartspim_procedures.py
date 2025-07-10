@@ -4,13 +4,12 @@ from datetime import date
 
 from aind_data_schema_models.organizations import Organization
 
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core import procedures
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.subject_procedures import Perfusion
 
-experimenters = [Person(name="John Smith")]
+experimenters = ["John Smith"]
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
@@ -39,7 +38,7 @@ agarose = Reagent(name="Agarose", lot_number="1234", source=Organization.OTHER)
 
 perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
-    experimenters=[Person(name="LAS")],
+    experimenters=["LAS"],
     ethics_review_id="xxxx",
     protocol_id="doi_of_protocol_surgery",
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,

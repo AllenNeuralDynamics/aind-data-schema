@@ -4,7 +4,6 @@ from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -65,7 +64,7 @@ connections = [
 ]
 
 a = Acquisition(
-    experimenters=[Person(name="Scientist Smith")],
+    experimenters=["Scientist Smith"],
     acquisition_start_time=t,
     acquisition_end_time=t,
     subject_id="652567",

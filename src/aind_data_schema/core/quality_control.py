@@ -8,7 +8,6 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 
 
@@ -85,7 +84,7 @@ class QCMetric(DataModel):
 class CurationHistory(DataModel):
     """Schema to track curator name and timestamp for curation events"""
 
-    curator: Person = Field(..., title="Curator")
+    curator: str = Field(..., title="Curator")
     timestamp: AwareDatetimeWithDefault = Field(..., title="Timestamp")
 
 
@@ -104,7 +103,7 @@ class QualityControl(DataCoreModel):
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
-    key_experimenters: Optional[List[Person]] = Field(
+    key_experimenters: Optional[List[str]] = Field(
         default=None,
         title="Key experimenters",
         description="Experimenters who are responsible for quality control of this data asset",

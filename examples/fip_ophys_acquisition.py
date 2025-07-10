@@ -6,7 +6,6 @@ from decimal import Decimal
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import TimeUnit, SizeUnit, PowerUnit, VolumeUnit
 
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -410,8 +409,8 @@ stimulus_epoch = StimulusEpoch(
 # Create the acquisition object
 acquisition = Acquisition(
     experimenters=[
-        Person(name="Bryan MacLennan"),
-        Person(name="Kenta Hagihara"),
+        "Bryan MacLennan",
+        "Kenta Hagihara",
     ],
     subject_id="687582",
     acquisition_start_time=t_start,

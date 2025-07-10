@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.core.processing import (
     DataProcess,
     Processing,
@@ -56,7 +56,7 @@ p = Processing.create_with_sequential_process_graph(
     data_processes=[
         DataProcess(
             process_type=ProcessName.IMAGE_TILE_FUSING,
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
@@ -85,7 +85,7 @@ p = Processing.create_with_sequential_process_graph(
         DataProcess(
             process_type=ProcessName.FILE_FORMAT_CONVERSION,
             pipeline_name="Imaging processing pipeline",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
@@ -99,7 +99,7 @@ p = Processing.create_with_sequential_process_graph(
         DataProcess(
             process_type=ProcessName.IMAGE_DESTRIPING,
             pipeline_name="Imaging processing pipeline",
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             stage=ProcessStage.PROCESSING,
             start_date_time=t,
             end_date_time=t,
@@ -112,7 +112,7 @@ p = Processing.create_with_sequential_process_graph(
         ),
         DataProcess(
             stage=ProcessStage.ANALYSIS,
-            experimenters=[Person(name="Some Analyzer")],
+            experimenters=["Some Analyzer"],
             process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,
@@ -126,7 +126,7 @@ p = Processing.create_with_sequential_process_graph(
         DataProcess(
             name="Analysis 2",
             stage=ProcessStage.ANALYSIS,
-            experimenters=[Person(name="Some Analyzer")],
+            experimenters=["Some Analyzer"],
             process_type=ProcessName.ANALYSIS,
             start_date_time=t,
             end_date_time=t,

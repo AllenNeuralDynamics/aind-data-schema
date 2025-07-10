@@ -15,7 +15,6 @@ from aind_data_schema_models.specimen_procedure_types import SpecimenProcedureTy
 from aind_data_schema.components.configs import CatheterConfig
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Origin, Translation
 from aind_data_schema.components.devices import Catheter
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.injection_procedures import (
     InjectionDynamics,
     InjectionProfile,
@@ -64,7 +63,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=self.start_date,
-                        experimenters=[Person(name="Mam Moth")],
+                        experimenters=["Mam Moth"],
                         procedures=[
                             Injection(
                                 protocol_id="134",
@@ -98,7 +97,7 @@ class ProceduresTests(unittest.TestCase):
                 subject_procedures=[
                     Surgery(
                         start_date=self.start_date,
-                        experimenters=[Person(name="Mam Moth")],
+                        experimenters=["Mam Moth"],
                         procedures=[
                             Injection(
                                 protocol_id="134",
@@ -133,7 +132,7 @@ class ProceduresTests(unittest.TestCase):
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
-                    experimenters=[Person(name="Mam Moth")],
+                    experimenters=["Mam Moth"],
                     ethics_review_id="234",
                     protocol_id="123",
                     coordinate_system=CoordinateSystemLibrary.BREGMA_ARID,
@@ -240,7 +239,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=self.start_date,
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes=None,
             )
@@ -252,7 +251,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Immunolabeling",
                 start_date=self.start_date,
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes=None,
             )
@@ -266,7 +265,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Hybridization Chain Reaction",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes=None,
             )
@@ -278,7 +277,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Sectioning",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes=None,
             )
@@ -290,7 +289,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type=SpecimenProcedureType.BARSEQ,
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes=None,
             )
@@ -302,7 +301,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes="some extra information",
             )
@@ -317,7 +316,7 @@ class ProceduresTests(unittest.TestCase):
                 procedure_type="Other",
                 start_date=date.fromisoformat("2020-10-10"),
                 end_date=date.fromisoformat("2020-10-11"),
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes="some extra information",
                 procedure_details=[
@@ -481,7 +480,7 @@ class ProceduresTests(unittest.TestCase):
                         procedure_type="Other",
                         start_date=date.fromisoformat("2020-10-10"),
                         end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=[Person(name="Mam Moth")],
+                        experimenters=["Mam Moth"],
                         protocol_id=["10"],
                         notes="some notes",
                     ),
@@ -490,7 +489,7 @@ class ProceduresTests(unittest.TestCase):
                         procedure_type="Other",
                         start_date=date.fromisoformat("2020-10-10"),
                         end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=[Person(name="Mam Moth")],
+                        experimenters=["Mam Moth"],
                         protocol_id=["10"],
                         notes="some notes",
                     ),
@@ -511,7 +510,7 @@ class ProceduresTests(unittest.TestCase):
                         procedure_type="Other",
                         start_date=date.fromisoformat("2020-10-10"),
                         end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=[Person(name="Mam Moth")],
+                        experimenters=["Mam Moth"],
                         protocol_id=["10"],
                         notes="some notes",
                     )
@@ -710,7 +709,7 @@ class ProceduresTests(unittest.TestCase):
             subject_procedures=[
                 Surgery(
                     start_date=self.start_date,
-                    experimenters=[Person(name="Test Person")],
+                    experimenters=["Test Person"],
                     procedures=[surgery_procedure],
                 )
             ],

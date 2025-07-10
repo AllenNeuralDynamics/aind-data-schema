@@ -9,7 +9,7 @@ from pydantic import Field
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
-from aind_data_schema.components.identifiers import Person, Code
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.injection_procedures import Injection
 from aind_data_schema.components.surgery_procedures import (
     Anaesthetic,
@@ -29,7 +29,7 @@ class GenericSubjectProcedure(DataModel):
     """Description of a non-surgical procedure performed on a subject"""
 
     start_date: date = Field(..., title="Start date")
-    experimenters: Optional[List[Person]] = Field(
+    experimenters: Optional[List[str]] = Field(
         default=None,
         title="experimenter(s)",
     )
@@ -77,7 +77,7 @@ class Surgery(DataModel):
 
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     start_date: date = Field(..., title="Start date")
-    experimenters: Optional[List[Person]] = Field(
+    experimenters: Optional[List[str]] = Field(
         default=None,
         title="experimenter(s)",
     )

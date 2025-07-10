@@ -96,7 +96,7 @@ class TestMetadata(unittest.TestCase):
         processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",
@@ -734,7 +734,7 @@ class TestMetadata(unittest.TestCase):
         valid_processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",
@@ -761,7 +761,7 @@ class TestMetadata(unittest.TestCase):
         invalid_processing = Processing.create_with_sequential_process_graph(
             data_processes=[
                 DataProcess(
-                    experimenters=[Person(name="Dr. Dan")],
+                    experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.ANALYSIS,
                     output_path="/path/to/outputs",

@@ -19,7 +19,6 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Scale, Translation
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.components.connections import Connection
 from examples.ephys_acquisition import acquisition as ephys_acquisition
@@ -83,7 +82,7 @@ class AcquisitionTest(unittest.TestCase):
         )
 
         mri = Acquisition(
-            experimenters=[Person(name="Mam Moth")],
+            experimenters=["Mam Moth"],
             subject_id="123456",
             acquisition_start_time=datetime.now(tz=timezone.utc),
             acquisition_end_time=datetime.now(tz=timezone.utc),
@@ -127,7 +126,7 @@ class AcquisitionTest(unittest.TestCase):
         """Test that specimen ID is required for in vitro imaging modalities"""
         with self.assertRaises(ValueError):
             Acquisition(
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
                 subject_id="123456",
@@ -206,7 +205,7 @@ class AcquisitionTest(unittest.TestCase):
         # Test case where specimen ID is missing for in vitro modality
         with self.assertRaises(ValueError) as context:
             Acquisition(
-                experimenters=[Person(name="Mam Moth")],
+                experimenters=["Mam Moth"],
                 acquisition_start_time=datetime.now(),
                 acquisition_end_time=datetime.now(),
                 subject_id="123456",
@@ -242,7 +241,7 @@ class AcquisitionTest(unittest.TestCase):
 
         # Test case where specimen ID is provided for in vitro modality
         acquisition = Acquisition(
-            experimenters=[Person(name="Mam Moth")],
+            experimenters=["Mam Moth"],
             acquisition_start_time=datetime.now(),
             acquisition_end_time=datetime.now(),
             subject_id="123456",
