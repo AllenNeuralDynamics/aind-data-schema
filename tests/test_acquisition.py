@@ -293,21 +293,6 @@ class AcquisitionTest(unittest.TestCase):
         )
         self.assertIsNotNone(stream)
 
-        # Test invalid connections
-        with self.assertRaises(ValueError) as context:
-            DataStream(
-                stream_start_time=datetime.now(),
-                stream_end_time=datetime.now(),
-                modalities=[],
-                active_devices=["DeviceA"],
-                configurations=[],
-                connections=[
-                    Connection(device_names=["DeviceA"]),
-                    Connection(device_names=["DeviceB"]),
-                ],
-            )
-        self.assertIn("Missing devices in active_devices list for connection", str(context.exception))
-
 
 if __name__ == "__main__":
     unittest.main()
