@@ -353,7 +353,7 @@ class TestMetadata(unittest.TestCase):
                     active_devices=["Probe A", "Laser A"],
                     modalities=[],
                     configurations=[],
-                    connections=[Connection(device_names=["Probe A", "Missing Device"], connection_data={})],
+                    connections=[Connection(source_device="Probe A", target_device="Missing Device")],
                 ),
             ],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -366,7 +366,32 @@ class TestMetadata(unittest.TestCase):
                 acquisition=acquisition,
             )
         self.assertIn(
-            "Connection 'object_type='Connection' device_names=['Probe A', 'Missing Device'] connection_data={}'",
+            "Missing Device",
+            str(context.exception),
+        )
+
+        # Case where source device is missing
+        acquisition_missing_source = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Laser A"],
+                    modalities=[],
+                    configurations=[],
+                    connections=[Connection(source_device="Missing Source", target_device="Laser A")],
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                instrument=instrument,
+                acquisition=acquisition_missing_source,
+            )
+        self.assertIn(
+            "Missing Source",
             str(context.exception),
         )
 

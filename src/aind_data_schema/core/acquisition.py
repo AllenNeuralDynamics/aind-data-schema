@@ -163,8 +163,20 @@ class DataStream(DataModel):
     def check_connections(self):
         """Check that every device in a Connection is present in the active_devices list"""
         for connection in self.connections:
-            if not any(device in self.active_devices for device in connection.device_names):
-                raise ValueError(f"Missing devices in active_devices list for connection {connection}")
+            # Check that both source and target devices are in active_devices
+            if (
+                connection.source_device not in self.active_devices
+                or connection.target_device not in self.active_devices
+            ):
+                missing_devices = []
+                if connection.source_device not in self.active_devices:
+                    missing_devices.append(connection.source_device)
+                if connection.target_device not in self.active_devices:
+                    missing_devices.append(connection.target_device)
+                raise ValueError(
+                    f"Missing devices in active_devices list for connection "
+                    f"from '{connection.source_device}' to '{connection.target_device}': {missing_devices}"
+                )
 
         return self
 

@@ -18,7 +18,7 @@ from aind_data_schema.components.devices import (
     Computer,
     Microscope,
 )
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
@@ -209,111 +209,48 @@ com_device = Device(
 
 connections = [
     Connection(
-        device_names=["COM Device", "Laser Launch"],
-        connection_data={
-            "Laser Launch": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM4",
-            ),
-        },
+        source_device="COM Device",
+        source_port="COM4",
+        target_device="Laser Launch",
     ),
     Connection(
-        device_names=["COM Device", "ASI Tiger"],
-        connection_data={
-            "ASI Tiger": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM3",
-            ),
-        },
+        source_device="COM Device",
+        source_port="COM3",
+        target_device="ASI Tiger",
     ),
     Connection(
-        device_names=["Dev2", "LAS-08308"],
-        connection_data={
-            "LAS-08308": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="3",
-            ),
-        },
+        source_device="Dev2",
+        source_port="3",
+        target_device="LAS-08308",
     ),
     Connection(
-        device_names=["Dev2", "539251"],
-        connection_data={
-            "539251": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="5",
-            ),
-        },
+        source_device="Dev2",
+        source_port="5",
+        target_device="539251",
     ),
     Connection(
-        device_names=["Dev2", "LAS-08309"],
-        connection_data={
-            "LAS-08309": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="4",
-            ),
-        },
+        source_device="Dev2",
+        source_port="4",
+        target_device="LAS-08309",
     ),
     Connection(
-        device_names=["Dev2", "stage-x"],
-        connection_data={
-            "stage-x": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="2",
-            ),
-        },
+        source_device="Dev2",
+        source_port="2",
+        target_device="stage-x",
     ),
     Connection(
-        device_names=["Dev2", "TL-1"],
-        connection_data={
-            "TL-1": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="0",
-            ),
-        },
+        source_device="Dev2",
+        source_port="0",
+        target_device="TL-1",
     ),
     Connection(
-        device_names=["Dev2", "LAS-08307"],
-        connection_data={
-            "LAS-08307": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="6",
-            ),
-        },
+        source_device="Dev2",
+        source_port="6",
+        target_device="LAS-08307",
     ),
     Connection(
-        device_names=["Dev2", "Dev2-PC"],
-        connection_data={
-            "Dev2-PC": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Dev2": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Dev2",
+        target_device="Dev2-PC",
     ),
 ]
 

@@ -28,7 +28,7 @@ from aind_data_schema.components.devices import (
     Computer,
 )
 from aind_data_schema.components.measurements import Calibration
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema_models.units import PowerUnit
 from aind_data_schema_models.coordinates import AnatomicalRelative
@@ -62,52 +62,51 @@ harp = HarpDevice(
 
 connections = [
     Connection(
-        device_names=["Harp Behavior", "Face Camera"],
-        connection_data={
-            "Harp Behavior": ConnectionData(port="DO0", direction=ConnectionDirection.SEND),
-            "Face Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
-        },
+        source_device="Harp Behavior",
+        source_port="DO0",
+        target_device="Face Camera",
     ),
     Connection(
-        device_names=["Harp Behavior", "Body Camera"],
-        connection_data={
-            "Harp Behavior": ConnectionData(port="DO1", direction=ConnectionDirection.SEND),
-            "Body Camera": ConnectionData(direction=ConnectionDirection.RECEIVE),
-        },
+        source_device="Harp Behavior",
+        source_port="DO1",
+        target_device="Body Camera",
     ),
     Connection(
-        device_names=["Harp Behavior", "Running Wheel"],
-        connection_data={
-            "Harp Behavior": ConnectionData(port="AI0", direction=ConnectionDirection.RECEIVE),
-            "Running Wheel": ConnectionData(direction=ConnectionDirection.SEND),
-        },
+        source_device="Running Wheel",
+        target_device="Harp Behavior",
+        target_port="AI0",
     ),
     Connection(
-        device_names=["Harp Behavior", "Face Camera", "Body Camera", computer_names["Behavior computer"]],
-        connection_data={
-            "Harp Behavior": ConnectionData(direction=ConnectionDirection.SEND),
-            "Face Camera": ConnectionData(direction=ConnectionDirection.SEND),
-            "Body Camera": ConnectionData(direction=ConnectionDirection.SEND),
-            computer_names["Behavior computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
-        },
+        source_device="Harp Behavior",
+        target_device=computer_names["Behavior computer"],
     ),
     Connection(
-        device_names=[
-            computer_names["Ephys computer"],
-            "Basestation Slot 3",
-            "stick microscope 1",
-            "stick microscope 2",
-            "stick microscope 3",
-            "stick microscope 4",
-        ],
-        connection_data={
-            computer_names["Ephys computer"]: ConnectionData(direction=ConnectionDirection.RECEIVE),
-            "Basestation Slot 3": ConnectionData(direction=ConnectionDirection.SEND),
-            "stick microscope 1": ConnectionData(direction=ConnectionDirection.SEND),
-            "stick microscope 2": ConnectionData(direction=ConnectionDirection.SEND),
-            "stick microscope 3": ConnectionData(direction=ConnectionDirection.SEND),
-            "stick microscope 4": ConnectionData(direction=ConnectionDirection.SEND),
-        },
+        source_device="Face Camera",
+        target_device=computer_names["Behavior computer"],
+    ),
+    Connection(
+        source_device="Body Camera",
+        target_device=computer_names["Behavior computer"],
+    ),
+    Connection(
+        source_device="Basestation Slot 3",
+        target_device=computer_names["Ephys computer"],
+    ),
+    Connection(
+        source_device="stick microscope 1",
+        target_device=computer_names["Ephys computer"],
+    ),
+    Connection(
+        source_device="stick microscope 2",
+        target_device=computer_names["Ephys computer"],
+    ),
+    Connection(
+        source_device="stick microscope 3",
+        target_device=computer_names["Ephys computer"],
+    ),
+    Connection(
+        source_device="stick microscope 4",
+        target_device=computer_names["Ephys computer"],
     ),
 ]
 

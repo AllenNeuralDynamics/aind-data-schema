@@ -29,7 +29,7 @@ from aind_data_schema.components.devices import (
     Tube,
     Computer,
 )
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.identifiers import Software
 from aind_data_schema.components.coordinates import (
@@ -121,97 +121,41 @@ harp_behavior = HarpDevice(
 
 connections = [
     Connection(
-        device_names=["Harp Behavior", "Solenoid Left"],
-        connection_data={
-            "Harp Behavior": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="DO0",
-            ),
-            "Solenoid Left": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Harp Behavior",
+        source_port="DO0",
+        target_device="Solenoid Left",
     ),
     Connection(
-        device_names=["Harp Behavior", "Solenoid Right"],
-        connection_data={
-            "Harp Behavior": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="DO1",
-            ),
-            "Solenoid Right": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Harp Behavior",
+        source_port="DO1",
+        target_device="Solenoid Right",
     ),
     Connection(
-        device_names=["Harp Behavior", "Janelia_Lick_Detector Left"],
-        connection_data={
-            "Harp Behavior": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="DI0",
-            ),
-            "Janelia_Lick_Detector Left": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Janelia_Lick_Detector Left",
+        target_device="Harp Behavior",
+        target_port="DI0",
     ),
     Connection(
-        device_names=["Harp Behavior", "Janelia_Lick_Detector Right"],
-        connection_data={
-            "Harp Behavior": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="DI1",
-            ),
-            "Janelia_Lick_Detector Right": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Janelia_Lick_Detector Right",
+        target_device="Harp Behavior",
+        target_port="DI1",
     ),
     Connection(
-        device_names=["Harp Behavior", "Photometry Clock"],
-        connection_data={
-            "Harp Behavior": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="DI3",
-            ),
-            "Photometry Clock": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Photometry Clock",
+        target_device="Harp Behavior",
+        target_port="DI3",
     ),
     Connection(
-        device_names=["W10DTJK7N0M3", "Side face camera"],
-        connection_data={
-            "W10DTJK7N0M3": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Side face camera": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Side face camera",
+        target_device="W10DTJK7N0M3",
     ),
     Connection(
-        device_names=["W10DTJK7N0M3", "Bottom face camera"],
-        connection_data={
-            "W10DTJK7N0M3": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Bottom face camera": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Bottom face camera",
+        target_device="W10DTJK7N0M3",
     ),
     Connection(
-        device_names=["behavior_computer", "Harp Behavior"],
-        connection_data={
-            "behavior_computer": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Harp Behavior": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Harp Behavior",
+        target_device="behavior_computer",
     ),
 ]
 

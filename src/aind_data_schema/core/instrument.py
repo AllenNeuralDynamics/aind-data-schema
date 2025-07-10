@@ -202,9 +202,15 @@ class Instrument(DataCoreModel):
         device_names = Instrument.get_component_names(self)
 
         for connection in self.connections:
-            for device_name in connection.device_names:
-                if device_name not in device_names:
-                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the instrument.")
+            # Check both source and target devices exist
+            if connection.source_device not in device_names:
+                raise ValueError(
+                    f"Device name validation error: '{connection.source_device}' is not part of the instrument."
+                )
+            if connection.target_device not in device_names:
+                raise ValueError(
+                    f"Device name validation error: '{connection.target_device}' is not part of the instrument."
+                )
 
         return self
 

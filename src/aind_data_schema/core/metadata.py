@@ -236,9 +236,17 @@ class Metadata(DataCoreModel):
             data_streams = self.acquisition.data_streams
             for data_stream in data_streams:
                 for connection in data_stream.connections:
-                    if not all(device in device_names for device in connection.device_names):
+                    # Check both source and target devices exist
+                    missing_devices = []
+                    if connection.source_device not in device_names:
+                        missing_devices.append(connection.source_device)
+                    if connection.target_device not in device_names:
+                        missing_devices.append(connection.target_device)
+
+                    if missing_devices:
                         raise ValueError(
-                            f"Connection '{connection}' contains devices not found in instrument or procedures."
+                            f"Connection from '{connection.source_device}' to '{connection.target_device}' "
+                            f"contains devices not found in instrument or procedures: {missing_devices}"
                         )
 
         return self
