@@ -468,7 +468,7 @@ class InstrumentTests(unittest.TestCase):
                 connections=[
                     Connection(
                         source_device="Not a real device",
-                        target_device="Some other device",
+                        target_device="Neuropixels basestation",
                     )
                 ],
             )
@@ -508,7 +508,7 @@ class InstrumentTests(unittest.TestCase):
                 connections=[
                     Connection(
                         target_device="Not a real device",
-                        source_device="Some other device",
+                        source_device="Neuropixels basestation",
                     )
                 ],
             )
