@@ -1,7 +1,7 @@
 """ Tests for compatibility check utilities """
 
 import unittest
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -17,6 +17,7 @@ from aind_data_schema.utils.validators import (
     CoordinateSystemException,
     SystemNameException,
     TimeValidation,
+    _convert_to_comparable,
     _recurse_helper,
     _system_check_helper,
     _time_validation_recurse_helper,
@@ -681,6 +682,29 @@ class TestValidateCreationTimeAfterMidnight(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             validate_creation_time_after_midnight(creation_date, self.reference_time)
         self.assertIn("must be on or after midnight", str(context.exception))
+
+
+class TestConvertToComparable(unittest.TestCase):
+    """Tests for _convert_to_comparable function"""
+
+    def test_convert_date_to_datetime(self):
+        """Test converting date to datetime with timezone from reference"""
+        reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        test_date = date(2023, 1, 2)
+
+        result = _convert_to_comparable(test_date, reference_time)
+
+        expected = datetime(2023, 1, 2, 0, 0, 0, tzinfo=timezone.utc)
+        self.assertEqual(result, expected)
+
+    def test_return_datetime_unchanged(self):
+        """Test that datetime objects are returned unchanged"""
+        reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        test_datetime = datetime(2023, 1, 2, 10, 30, 0, tzinfo=timezone.utc)
+
+        result = _convert_to_comparable(test_datetime, reference_time)
+
+        self.assertEqual(result, test_datetime)
 
 
 if __name__ == "__main__":

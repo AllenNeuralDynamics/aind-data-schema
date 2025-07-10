@@ -351,13 +351,13 @@ class Metadata(DataCoreModel):
                 if name_creation_time:
                     try:
                         validate_creation_time_after_midnight(name_creation_time, self.acquisition.acquisition_end_time)
-                    except ValueError as e:
-                        # Re-raise with more specific context for data_description.name
-                        raise ValueError(
+                    except ValueError:
+                        # Issue a warning instead of raising an error
+                        warnings.warn(
                             f"Creation time from data_description.name ({name_creation_time}) "
-                            f"must be on or after midnight of the acquisition day "
-                            f"({self.acquisition.acquisition_end_time.date()})"
-                        ) from e
+                            f"should be close to the acquisition end time "
+                            f"({self.acquisition.acquisition_end_time})"
+                        )
 
         return self
 
