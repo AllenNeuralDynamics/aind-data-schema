@@ -313,6 +313,12 @@ class Metadata(DataCoreModel):
                     acquisition_start_time=acquisition_start_time,
                     acquisition_end_time=acquisition_end_time,
                 )
+            if self.subject:
+                recursive_time_validation_check(
+                    self.subject,
+                    acquisition_start_time=acquisition_start_time,
+                    acquisition_end_time=acquisition_end_time,
+                )
             if self.instrument:
                 recursive_time_validation_check(
                     self.instrument,

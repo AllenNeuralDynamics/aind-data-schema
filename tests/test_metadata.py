@@ -645,6 +645,85 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertIsNotNone(metadata_no_acquisition)
 
+    def test_validate_time_constraints_subject(self):
+        """Tests that time constraints are validated for subject with date_of_birth"""
+
+        # Create acquisition with specific times
+        acquisition_start = datetime(2023, 4, 3, 18, 0, 0, tzinfo=timezone.utc)
+        acquisition_end = datetime(2023, 4, 3, 19, 0, 0, tzinfo=timezone.utc)
+
+        acquisition = Acquisition.model_construct(
+            instrument_id="Test",
+            acquisition_start_time=acquisition_start,
+            acquisition_end_time=acquisition_end,
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+
+        # Test case where subject's date_of_birth is before acquisition (should pass)
+        valid_birth_date = datetime(2022, 1, 1, tzinfo=timezone.utc).date()
+        valid_subject = Subject(
+            subject_id="123456",
+            subject_details=MouseSubject(
+                species=Species.HOUSE_MOUSE,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth=valid_birth_date,
+                source=Organization.AI,
+                genotype="wt",
+                breeding_info=BreedingInfo(
+                    breeding_group="Test",
+                    maternal_id="123",
+                    maternal_genotype="wt",
+                    paternal_id="456",
+                    paternal_genotype="wt",
+                ),
+                housing=Housing(cage_id="123"),
+            ),
+        )
+
+        # This should pass - birth date is before acquisition
+        metadata_valid_birth = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            subject=valid_subject,
+            acquisition=acquisition,
+        )
+        self.assertIsNotNone(metadata_valid_birth)
+
+        # Test case where subject's date_of_birth is after acquisition end (should fail)
+        invalid_birth_date = datetime(2023, 4, 4, tzinfo=timezone.utc).date()  # After acquisition
+        invalid_subject = Subject(
+            subject_id="123456",
+            subject_details=MouseSubject(
+                species=Species.HOUSE_MOUSE,
+                strain=Strain.C57BL_6J,
+                sex=Sex.MALE,
+                date_of_birth=invalid_birth_date,
+                source=Organization.AI,
+                genotype="wt",
+                breeding_info=BreedingInfo(
+                    breeding_group="Test",
+                    maternal_id="123",
+                    maternal_genotype="wt",
+                    paternal_id="456",
+                    paternal_genotype="wt",
+                ),
+                housing=Housing(cage_id="123"),
+            ),
+        )
+
+        # This should fail - birth date is after acquisition end
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=invalid_subject,
+                acquisition=acquisition,
+            )
+        self.assertIn("must be before", str(context.exception))
+        self.assertIn("date_of_birth", str(context.exception))
+
     def test_validate_time_constraints_processing(self):
         """Tests that time constraints are validated for processing with start_date_time and end_date_time"""
 
