@@ -452,8 +452,7 @@ class TestMetadata(unittest.TestCase):
 
             # Check that no warnings about calibration tag were issued
             calibration_warnings = [
-                warning for warning in w
-                if "calibration" in str(warning.message) and "tag" in str(warning.message)
+                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 0)
 
@@ -496,11 +495,12 @@ class TestMetadata(unittest.TestCase):
 
             # Check that a warning about missing calibration tag was issued
             calibration_warnings = [
-                warning for warning in w
-                if "calibration" in str(warning.message) and "tag" in str(warning.message)
+                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 1)
-            self.assertIn("Subject is a CalibrationObject but 'calibration' tag is missing", str(calibration_warnings[0].message))
+            self.assertIn(
+                "Subject is a CalibrationObject but 'calibration' tag is missing", str(calibration_warnings[0].message)
+            )
 
         # Verify the tag was automatically added
         self.assertIn("calibration", metadata.data_description.tags)
@@ -542,11 +542,12 @@ class TestMetadata(unittest.TestCase):
 
             # Check that a warning about missing calibration tag was issued
             calibration_warnings = [
-                warning for warning in w
-                if "calibration" in str(warning.message) and "tag" in str(warning.message)
+                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 1)
-            self.assertIn("Subject is a CalibrationObject but 'calibration' tag is missing", str(calibration_warnings[0].message))
+            self.assertIn(
+                "Subject is a CalibrationObject but 'calibration' tag is missing", str(calibration_warnings[0].message)
+            )
 
         # Verify the tags list was initialized and calibration tag was added
         self.assertIsNotNone(metadata.data_description.tags)
@@ -827,8 +828,7 @@ class TestMetadata(unittest.TestCase):
 
             # Check that no warnings about calibration tag were issued
             calibration_warnings = [
-                warning for warning in w
-                if "calibration" in str(warning.message) and "tag" in str(warning.message)
+                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 0)
 
@@ -858,8 +858,7 @@ class TestMetadata(unittest.TestCase):
 
             # Check that no warnings about calibration tag were issued
             calibration_warnings = [
-                warning for warning in w
-                if "calibration" in str(warning.message) and "tag" in str(warning.message)
+                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 0)
 
@@ -890,8 +889,7 @@ class TestMetadata(unittest.TestCase):
 
             # Check that no warnings about calibration tag were issued
             calibration_warnings = [
-                warning for warning in w
-                if "calibration" in str(warning.message) and "tag" in str(warning.message)
+                warning for warning in w if "calibration" in str(warning.message) and "tag" in str(warning.message)
             ]
             self.assertEqual(len(calibration_warnings), 0)
 
