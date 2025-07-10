@@ -2,6 +2,7 @@
 
 import json
 import unittest
+import warnings
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -609,16 +610,21 @@ class TestMetadata(unittest.TestCase):
             project_name="Test Project",
         )
 
-        # This should fail - creation time is before the acquisition day
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
+        # This should issue a warning - creation time is before the acquisition day
+        with warnings.catch_warnings(record=True) as warning_list:
+            warnings.simplefilter("always")
+            metadata_with_warning = Metadata(
                 name="Test Metadata",
                 location="Test Location",
                 data_description=data_description_before,
                 acquisition=acquisition,
             )
-        self.assertIn("Creation time from data_description.name", str(context.exception))
-        self.assertIn("must be on or after midnight of the acquisition day", str(context.exception))
+            # Should have successfully created the metadata object
+            self.assertIsNotNone(metadata_with_warning)
+            # Should have issued a warning
+            self.assertEqual(len(warning_list), 1)
+            self.assertIn("Creation time from data_description.name", str(warning_list[0].message))
+            self.assertIn("should be on or after midnight of the acquisition day", str(warning_list[0].message))
 
         # Test case where data_description is None (should pass)
         metadata_no_data_desc = Metadata(
