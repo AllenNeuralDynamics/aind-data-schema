@@ -29,7 +29,7 @@ from aind_data_schema.components.configs import (
     SpeakerConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
-from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
@@ -243,7 +243,7 @@ class Acquisition(DataCoreModel):
     # Acquisition metadata
     acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
-    experimenters: List[Person] = Field(
+    experimenters: List[str] = Field(
         default=[],
         title="experimenter(s)",
     )

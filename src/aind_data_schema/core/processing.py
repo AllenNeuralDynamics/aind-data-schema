@@ -10,7 +10,7 @@ from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
 from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
-from aind_data_schema.components.identifiers import Code, Person
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list
 from aind_data_schema.utils.validators import TimeValidation
@@ -60,7 +60,7 @@ class DataProcess(DataModel):
     )
     stage: ProcessStage = Field(..., title="Processing stage")
     code: Code = Field(..., title="Code", description="Code used for processing")
-    experimenters: List[Person] = Field(..., title="Experimenters", description="People responsible for processing")
+    experimenters: List[str] = Field(..., title="Experimenters", description="People responsible for processing")
     pipeline_name: Optional[str] = Field(
         default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines"
     )

@@ -2,7 +2,7 @@
 
 from aind_data_schema_models.system_architecture import ModelArchitecture
 
-from aind_data_schema.components.identifiers import Code, DataAsset, Person, Software
+from aind_data_schema.components.identifiers import Code, DataAsset, Software
 from aind_data_schema.core.model import Model, ModelEvaluation, ModelTraining, PerformanceMetric
 from aind_data_schema.core.processing import ProcessStage
 import datetime
@@ -31,7 +31,7 @@ m = Model(
     training=[
         ModelTraining(
             stage=ProcessStage.PROCESSING,
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             code=Code(
                 input_data=[
                     DataAsset(url="s3 path to training data"),
@@ -62,7 +62,7 @@ m = Model(
     evaluations=[
         ModelEvaluation(
             stage=ProcessStage.PROCESSING,
-            experimenters=[Person(name="Dr. Dan")],
+            experimenters=["Dr. Dan"],
             code=Code(
                 input_data=[
                     DataAsset(url="s3 path to eval data"),

@@ -12,7 +12,6 @@ from pydantic import Field, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem, Translation
-from aind_data_schema.components.identifiers import Person
 from aind_data_schema.components.reagent import (
     FluorescentStain,
     GeneProbeSet,
@@ -104,7 +103,7 @@ class SpecimenProcedure(DataModel):
     specimen_id: str = Field(..., title="Specimen ID")
     start_date: date = Field(..., title="Start date")
     end_date: date = Field(..., title="End date")
-    experimenters: List[Person] = Field(
+    experimenters: List[str] = Field(
         default=[],
         title="experimenter(s)",
     )
