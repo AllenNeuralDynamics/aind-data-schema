@@ -9,7 +9,7 @@ Description of a non-surgical procedure performed on a subject
 | Field | Type | Description |
 |-------|------|-------------|
 | `start_date` | `datetime.date` |  |
-| `experimenters` | Optional[List[[Person](identifiers.md#person)]] |  |
+| `experimenters` | `Optional[List[str]]` |  |
 | `ethics_review_id` | `str` |  |
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `description` | `str` |  |
@@ -24,7 +24,7 @@ Description of subject procedures performed at one time
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | DOI for protocols.io |
 | `start_date` | `datetime.date` |  |
-| `experimenters` | Optional[List[[Person](identifiers.md#person)]] |  |
+| `experimenters` | `Optional[List[str]]` |  |
 | `ethics_review_id` | `Optional[str]` |  |
 | `animal_weight_prior` | `Optional[float]` | Animal weight before procedure |
 | `animal_weight_post` | `Optional[float]` | Animal weight after procedure |

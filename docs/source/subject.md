@@ -21,5 +21,5 @@ Description of a subject of data collection
 | Field | Type | Description |
 |-------|------|-------------|
 | `subject_id` | `str` | Unique identifier for the subject of data acquisition |
-| `subject_details` | [MouseSubject](components/subjects.md#mousesubject) or [HumanSubject](components/subjects.md#humansubject) |  |
+| `subject_details` | [MouseSubject](components/subjects.md#mousesubject) or [HumanSubject](components/subjects.md#humansubject) or [CalibrationObject](components/subjects.md#calibrationobject) |  |
 | `notes` | `Optional[str]` |  |

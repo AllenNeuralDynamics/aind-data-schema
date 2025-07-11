@@ -77,7 +77,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | `specimen_id` | `Optional[str]` | Specimen ID is required for in vitro imaging modalities |
 | `acquisition_start_time` | `datetime (timezone-aware)` |  |
 | `acquisition_end_time` | `datetime (timezone-aware)` |  |
-| `experimenters` | List[[Person](components/identifiers.md#person)] |  |
+| `experimenters` | `List[str]` |  |
 | `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
 | `ethics_review_id` | `Optional[List[str]]` |  |
 | `instrument_id` | `str` | Should match the Instrument.instrument_id |
