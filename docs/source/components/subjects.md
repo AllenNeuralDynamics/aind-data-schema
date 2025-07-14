@@ -15,6 +15,17 @@ Description of breeding info for subject
 | `paternal_genotype` | `str` |  |
 
 
+### CalibrationObject
+
+Description of a calibration object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `empty` | `bool` | Set to true if the calibration was performed with no object. |
+| `description` | `str` |  |
+| `objects` | Optional[List[[Device](devices.md#device)]] | For calibration objects that are built up from one or more devices. |
+
+
 ### HomeCageEnrichment
 
 Materials provided in animal home cage

@@ -39,7 +39,7 @@ Description of a single processing step
 | `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
 | `stage` | [ProcessStage](processing.md#processstage) |  |
 | `code` | [Code](components/identifiers.md#code) | Code used for processing |
-| `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
+| `experimenters` | `List[str]` | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
 | `start_date_time` | `datetime (timezone-aware)` |  |
 | `end_date_time` | `datetime (timezone-aware)` |  |

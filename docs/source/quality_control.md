@@ -70,7 +70,7 @@ Collection of quality control metrics evaluated on a data asset to determine pas
 | Field | Type | Description |
 |-------|------|-------------|
 | `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric)] |  |
-| `key_experimenters` | Optional[List[[Person](components/identifiers.md#person)]] | Experimenters who are responsible for quality control of this data asset |
+| `key_experimenters` | `Optional[List[str]]` | Experimenters who are responsible for quality control of this data asset |
 | `notes` | `Optional[str]` |  |
 | `default_grouping` | `List[str]` | Default tag grouping for this QualityControl object, used in visualizations |
 | `allow_tag_failures` | `List[str or tuple]` | List of tags that are allowed to fail without failing the overall QC |
@@ -85,7 +85,7 @@ Schema to track curator name and timestamp for curation events
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `curator` | [Person](components/identifiers.md#person) |  |
+| `curator` | `str` |  |
 | `timestamp` | `datetime (timezone-aware)` |  |
 
 
