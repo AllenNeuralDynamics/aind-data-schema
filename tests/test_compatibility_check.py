@@ -26,6 +26,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         device1.name = "component_2"
 
         self.mock_instrument.components = [device0, device1]
+        # Mock the get_component_names method to return the expected component names
+        self.mock_instrument.get_component_names.return_value = ["component_1", "component_2"]
 
         # Mock acquisition attributes
         self.mock_acquisition.instrument_id = "instrument_1"

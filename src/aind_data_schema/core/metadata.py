@@ -203,8 +203,7 @@ class Metadata(DataCoreModel):
         device_names = []
 
         if values.instrument:
-            for component in values.instrument.components:
-                device_names.append(component.name)
+            device_names.extend(values.instrument.get_component_names())
         if values.procedures:
             device_names.extend(values.procedures.get_device_names())
 
@@ -226,8 +225,7 @@ class Metadata(DataCoreModel):
         device_names = []
 
         if self.instrument:
-            for component in self.instrument.components:
-                device_names.append(component.name)
+            device_names.extend(self.instrument.get_component_names())
         if self.procedures:
             device_names.extend(self.procedures.get_device_names())
 

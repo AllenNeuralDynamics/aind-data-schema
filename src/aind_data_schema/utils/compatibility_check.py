@@ -31,7 +31,7 @@ class InstrumentAcquisitionCompatibility:
             for stimulus_epoch in getattr(self.acquisition, "stimulus_epochs", [])
             for stimulus_device_name in getattr(stimulus_epoch, "active_devices")
         ]
-        instrument_component_names = [getattr(comp, "name", None) for comp in getattr(self.inst, "components", [])]
+        instrument_component_names = self.inst.get_component_names()
 
         if any(device not in instrument_component_names for device in acquisition_stimulus_devices):
             return ValueError(

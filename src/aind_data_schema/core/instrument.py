@@ -165,12 +165,11 @@ class Instrument(DataCoreModel):
         description="List of all devices in the instrument",
     )
 
-    @classmethod
-    def get_component_names(cls, instrument: "Instrument") -> List[str]:
+    def get_component_names(self) -> List[str]:
         """Get the name field of all components, recurse into assemblies."""
 
         names = []
-        for component in instrument.components:
+        for component in self.components:
             names.extend(recursive_get_all_names(component))
         names = [name for name in names if name is not None]
 
@@ -199,7 +198,7 @@ class Instrument(DataCoreModel):
     @classmethod
     def validate_connections(cls, self):
         """validate that all connections map between devices that actually exist"""
-        device_names = Instrument.get_component_names(self)
+        device_names = self.get_component_names()
 
         for connection in self.connections:
             # Check both source and target devices exist
