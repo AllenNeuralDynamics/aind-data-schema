@@ -40,6 +40,10 @@ essential to interpreting an acquisition session alongside the acquisition in a 
 format, there will always be an interpretable record of what happened even if e.g. the 
 database stops working. 
 
+## Data organization
+
+Learn more about about [AIND data organization](https://docs.allenneuraldynamics.org/en/latest/metadata/philosophy.html) philosophy and the rules we use to standardize asset naming.
+
 ## FAQs
 
 **Q: Which fields do I have to provide within these core schemas?**
