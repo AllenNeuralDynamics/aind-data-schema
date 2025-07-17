@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "aind-data-schema"
 description = "A library that defines AIND data schema and validates JSON files."
 license = {text = "MIT"}
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3"
 ]
@@ -14,7 +14,7 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=0.5.4, <1.0.0',
+    'aind-data-schema-models>=4.2.7',
     'pydantic>=2.7',
     'semver'
 ]
@@ -23,6 +23,7 @@ dependencies = [
 dev = [
     'aind_data_schema[linters]',
     'pydantic>=2.7, !=2.9.0, !=2.9.1',
+    'scipy',
     'dictdiffer',
 ]
 
@@ -37,12 +38,16 @@ linters = [
 ]
 
 docs = [
-    'Sphinx',
+    'sphinx',
     'sphinx-jinja',
     'furo',
-    'erdantic>=0.7.0,<1.0',
     'autodoc_pydantic',
-    'myst-parser'
+    'myst-parser',
+    'openpyxl',
+]
+
+transforms = [
+    'scipy',
 ]
 
 viz = [
@@ -58,7 +63,6 @@ readme = {file = ["README.md"]}
 
 [tool.black]
 line-length = 120
-target_version = ['py38']
 exclude = '''
 
 (
@@ -80,7 +84,6 @@ exclude = '''
 [tool.coverage.run]
 omit = [
     "*__init__*",
-    "*/aind_data_schema/utils/diagrams.py",
     "*/aind_data_schema/visualizations/*",
     "*/tests/test_diagram_builder.py"
 ]

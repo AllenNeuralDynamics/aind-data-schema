@@ -5,41 +5,45 @@ from datetime import date
 from aind_data_schema_models.organizations import Organization
 
 from aind_data_schema.core import procedures
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.subject_procedures import Perfusion
 
-experimenter = "John Smith"
+experimenters = ["John Smith"]
 # subject and specimen id can be the same?
 specimen_id = "651286"
 
 # Reagents
-shield_buffer = procedures.Reagent(name="SHIELD Buffer", lot_number="1234", source=Organization.LIFECANVAS)
+shield_buffer = Reagent(name="SHIELD Buffer", lot_number="1234", source=Organization.LIFECANVAS)
 
-shield_epoxy = procedures.Reagent(name="SHIELD Epoxy", lot_number="1234", source=Organization.LIFECANVAS)
+shield_epoxy = Reagent(name="SHIELD Epoxy", lot_number="1234", source=Organization.LIFECANVAS)
 
-shield_on = procedures.Reagent(name="SHIELD On", lot_number="1234", source=Organization.LIFECANVAS)
+shield_on = Reagent(name="SHIELD On", lot_number="1234", source=Organization.LIFECANVAS)
 
-delipidation_buffer = procedures.Reagent(name="Delipidation Buffer", lot_number="1234", source=Organization.OTHER)
+delipidation_buffer = Reagent(name="Delipidation Buffer", lot_number="1234", source=Organization.OTHER)
 
-conductivity_buffer = procedures.Reagent(name="Conductivity Buffer", lot_number="1234", source=Organization.OTHER)
+conductivity_buffer = Reagent(name="Conductivity Buffer", lot_number="1234", source=Organization.OTHER)
 
-easy_index = procedures.Reagent(name="Easy Index", lot_number="1234", source=Organization.LIFECANVAS)
+easy_index = Reagent(name="Easy Index", lot_number="1234", source=Organization.LIFECANVAS)
 
-water = procedures.Reagent(
+water = Reagent(
     name="Deionized water",
     lot_number="DDI/Filtered in house",
     source=Organization.OTHER,
 )
 
-agarose = procedures.Reagent(name="Agarose", lot_number="1234", source=Organization.OTHER)
+agarose = Reagent(name="Agarose", lot_number="1234", source=Organization.OTHER)
 
 # Procedures
 
 perfusion = procedures.Surgery(
     start_date=date(2022, 11, 17),
-    experimenter_full_name="LAS",
-    iacuc_protocol="xxxx",
+    experimenters=["LAS"],
+    ethics_review_id="xxxx",
     protocol_id="doi_of_protocol_surgery",
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     procedures=[
-        procedures.Perfusion(
+        Perfusion(
             protocol_id="doi_of_protocol_perfusion",
             output_specimen_ids=[
                 specimen_id,
@@ -55,9 +59,9 @@ shield_off_procedure = procedures.SpecimenProcedure(
     procedure_type="Fixation",
     start_date=date(2023, 1, 13),
     end_date=date(2023, 1, 17),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[shield_buffer, shield_epoxy],
+    procedure_details=[shield_buffer, shield_epoxy],
 )
 
 # specimen gets transferred to SHIELD ON and baked
@@ -67,9 +71,9 @@ shield_on_procedure = procedures.SpecimenProcedure(
     procedure_type="Fixation",
     start_date=date(2023, 1, 17),
     end_date=date(2023, 1, 18),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         shield_on,
     ],
     notes="40 deg. C",
@@ -81,9 +85,9 @@ delipidation_prep_procedure = procedures.SpecimenProcedure(
     procedure_type="Soak",
     start_date=date(2023, 1, 18),
     end_date=date(2023, 1, 19),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         delipidation_buffer,
     ],
 )
@@ -95,9 +99,9 @@ active_delipidation_procedure = procedures.SpecimenProcedure(
     procedure_name="Active Delipidation",
     start_date=date(2023, 1, 19),
     end_date=date(2023, 1, 20),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[delipidation_buffer, conductivity_buffer],
+    procedure_details=[delipidation_buffer, conductivity_buffer],
 )
 
 # First index matching is to 50% EasyIndex
@@ -107,9 +111,9 @@ index1 = procedures.SpecimenProcedure(
     procedure_name="EasyIndex 50%",
     start_date=date(2023, 1, 30),
     end_date=date(2023, 1, 31),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         easy_index,
         water,
     ],
@@ -122,9 +126,9 @@ index2 = procedures.SpecimenProcedure(
     procedure_name="EasyIndex 100%",
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         easy_index,
     ],
 )
@@ -135,9 +139,9 @@ embedding = procedures.SpecimenProcedure(
     procedure_type="Embedding",
     start_date=date(2023, 1, 31),
     end_date=date(2023, 2, 2),
-    experimenter_full_name=experimenter,
+    experimenters=experimenters,
     protocol_id=["unknown"],
-    reagents=[
+    procedure_details=[
         easy_index,
         agarose,
     ],
@@ -159,6 +163,7 @@ all_procedures = procedures.Procedures(
     ],
 )
 
-serialized = all_procedures.model_dump_json()
-deserialized = procedures.Procedures.model_validate_json(serialized)
-deserialized.write_standard_file(prefix="aibs_smartspim")
+if __name__ == "__main__":
+    serialized = all_procedures.model_dump_json()
+    deserialized = procedures.Procedures.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="aibs_smartspim")

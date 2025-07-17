@@ -1,11 +1,11 @@
 """ generic base class with supporting validators and fields for basic AIND schema """
 
 import json
-import re
 import logging
+import re
 import warnings
 from pathlib import Path
-from typing import Any, Generic, Optional, TypeVar, get_args
+from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -17,13 +17,13 @@ from pydantic import (
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
-    model_validator,
     field_validator,
+    model_validator,
 )
 from pydantic.functional_validators import WrapValidator
 from typing_extensions import Annotated
-from aind_data_schema_models.brain_atlas import CCFStructure
 
+from aind_data_schema.utils.validators import recursive_check_paths, recursive_coord_system_check
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 
@@ -77,7 +77,7 @@ def is_dict_corrupt(input_dict: dict) -> bool:
     return has_corrupt_keys(input_dict)
 
 
-class AindGeneric(BaseModel, extra="allow"):
+class GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
 
     # extra="allow" is needed because BaseModel by default drops extra parameters.
@@ -87,7 +87,6 @@ class AindGeneric(BaseModel, extra="allow"):
     @model_validator(mode="after")
     def validate_fieldnames(self):
         """Warn users when field names contain forbidden characters
-
         These characters will cause issues with MongoDB queries
         """
         model_dict = json.loads(self.model_dump_json(by_alias=True))
@@ -96,29 +95,88 @@ class AindGeneric(BaseModel, extra="allow"):
         return self
 
 
-AindGenericType = TypeVar("AindGenericType", bound=AindGeneric)
+T = TypeVar("T")
+Discriminated = Annotated[T, Field(discriminator="object_type")]
+DiscriminatedList = List[Discriminated[T]]
 
 
-class AindModel(BaseModel, Generic[AindGenericType]):
+class DataModel(BaseModel):
     """BaseModel that disallows extra fields
 
     Also performs validation checks / coercion / upgrades where necessary
     """
 
     model_config = ConfigDict(extra="forbid", use_enum_values=True)
+    object_type: ClassVar[str]  # This prevents Pydantic from treating it as a normal field
+
+    def __init_subclass__(cls, **kwargs):
+        """Automatically set the correct `object_type` as a Literal[...]"""
+        super().__init_subclass__(**kwargs)
+        object_type_value = cls._object_type_from_name()
+        cls.__annotations__["object_type"] = Literal[object_type_value]  # Set literal type annotation
+        cls.object_type = object_type_value  # Set the value on the class itself
 
     @model_validator(mode="before")
-    def coerce_targeted_structures(cls, values):
-        """If a user passes a targeted_structure as a str, convert to CCFStructure"""
-        for field_name, value in values.items():
-            if "targeted_structure" in field_name and isinstance(value, str):
-                if not hasattr(CCFStructure, value.upper()):
-                    raise ValueError(f"{value} is not a valid CCF structure")
-                values[field_name] = getattr(CCFStructure, value.upper())
+    def coerce_object_type(cls, values):
+        """Ensure that object_type is set to the correct value
+
+        This ensures that subclasses/parent classes can be deserialized correctly
+        """
+        cls_object_type = cls._object_type_from_name()
+        if values and "object_type" in values and values["object_type"] != cls_object_type:
+            values["object_type"] = cls_object_type
+        return values
+
+    @classmethod
+    def _object_type_from_name(cls) -> str:
+        """Convert a class name to a object_type
+
+        Adds a space anytime a lowercase letter is followed by a capital letter
+        or when multiple capitals are followed by a lowercase
+
+        Then makes everything after the first space lowercase
+        """
+        # add spaces when a lowercase letter is followed by a capital letter
+        name_with_prespaces = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", cls.__name__)
+        # add spaces before the last capital letter in a series of capitals is followed by a lowercase letter
+        name_with_spaces = re.sub(r"(?<=\w)(?=[A-Z][a-z])", " ", name_with_prespaces)
+        name_split = name_with_spaces.split(" ", 1)
+        first_part = name_split[0]
+        if len(name_split) > 1:
+            second_part = " " + name_split[1].lower()
+        else:
+            second_part = ""
+        return first_part + second_part
+
+    @model_validator(mode="after")
+    def unit_validator(cls, values):
+        """Ensure that all fields matching the pattern variable_unit are set if
+        they have a matching variable that is set (!= None)
+
+        This also checks the multi-variable condition, i.e. variable_unit is set
+        if any of variable_* are set
+        """
+        # Accumulate a dictionary mapping variable : unit/unit_value
+        for unit_name, unit_value in values:
+            if "_unit" in unit_name and not unit_value:
+                var_name = unit_name.rsplit("_unit", 1)[0]
+
+                # Go through all the values again, if any value matches the variable name
+                # and is set, then the unit needs to be set as well
+                for variable_name, variable_value in values:
+                    if variable_name == var_name and variable_value:
+                        raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
+
+                # One more time, now looking for the multi-variable condition
+                for variable_name, variable_value in values:
+                    # skip the unit itself
+                    if var_name is not unit_name:
+                        if var_name in variable_name and variable_value:
+                            raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
         return values
 
 
-class AindCoreModel(AindModel):
+class DataCoreModel(DataModel):
     """Generic base class to hold common fields/validators/etc for all basic AIND schema"""
 
     _FILE_EXTENSION = PrivateAttr(default=".json")
@@ -142,7 +200,7 @@ class AindCoreModel(AindModel):
         """
         Returns standard filename in snakecase
         """
-        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != AindCoreModel.__name__]
+        parent_classes = [base_class for base_class in cls.__bases__ if base_class.__name__ != DataCoreModel.__name__]
 
         name = cls.__name__
 
@@ -174,6 +232,10 @@ class AindCoreModel(AindModel):
             Default: None
 
         """
+
+        # Go through the subfields recursively and check whether paths exist
+        recursive_check_paths(self, output_directory)
+
         filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename
@@ -190,3 +252,11 @@ class AindCoreModel(AindModel):
         # Check that size doesn't exceed the maximum
         if len(self.model_dump_json(indent=3)) > MAX_FILE_SIZE:
             logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
+
+    @model_validator(mode="after")
+    def coordinate_system_validator(cls, data):
+        """Validate that all coordinates match the defined coordinate system"""
+
+        recursive_coord_system_check(data, None, None)
+
+        return data

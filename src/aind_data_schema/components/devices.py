@@ -1,15 +1,37 @@
 """ schema for various Devices """
 
-from datetime import date, datetime
+from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 
+from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import (
+    BinMode,
+    CameraChroma,
+    CameraTarget,
+    Cooling,
+    Coupling,
+    DaqChannelType,
+    DataInterface,
+    DetectorType,
+    DeviceDriver,
+    FerruleMaterial,
+    FilterType,
+    ImagingDeviceType,
+    ImmersionMedium,
+    LickSensorType,
+    MyomatrixArrayType,
+    ObjectiveType,
+    ProbeModel,
+    StageAxisDirection,
+)
 from aind_data_schema_models.harp_types import HarpDeviceType
+from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import (
     FrequencyUnit,
-    PowerUnit,
+    MagneticFieldUnit,
     SizeUnit,
     SpeedUnit,
     TemperatureUnit,
@@ -17,308 +39,114 @@ from aind_data_schema_models.units import (
     VoltageUnit,
 )
 from pydantic import Field, ValidationInfo, field_validator, model_validator
-from typing_extensions import Annotated
 
-from aind_data_schema.base import AindGeneric, AindGenericType, AindModel, AwareDatetimeWithDefault
-from aind_data_schema.components.coordinates import RelativePosition, Size3d
-from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.base import DataModel, Discriminated, GenericModel
+from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
+from aind_data_schema.components.identifiers import Software
 
 
-class ImagingDeviceType(str, Enum):
-    """Imaginge device type name"""
+class CatheterMaterial(str, Enum):
+    """Type of catheter material"""
 
-    BEAM_EXPANDER = "Beam expander"
-    SAMPLE_CHAMBER = "Sample Chamber"
-    DIFFUSER = "Diffuser"
-    GALVO = "Galvo"
-    LASER_COMBINER = "Laser combiner"
-    LASER_COUPLER = "Laser coupler"
-    PRISM = "Prism"
-    OBJECTIVE = "Objective"
-    ROTATION_MOUNT = "Rotation mount"
-    SLIT = "Slit"
-    TUNABLE_LENS = "Tunable lens"
-    OTHER = "Other"
+    NAKED = "Naked"
+    SILICONE = "VAB silicone"
+    MESH = "VAB mesh"
 
 
-class ImagingInstrumentType(str, Enum):
-    """Experiment type name"""
+class CatheterPort(str, Enum):
+    """Type of catheter port"""
 
-    CONFOCAL = "confocal"
-    DISPIM = "diSPIM"
-    EXASPIM = "exaSPIM"
-    ECEPHYS = "ecephys"
-    MESOSPIM = "mesoSPIM"
-    OTHER = "Other"
-    SMARTSPIM = "SmartSPIM"
-    TWO_PHOTON = "Two photon"
+    SINGLE = "Single"
+    DOUBLE = "Double"
 
 
-class StageAxisDirection(str, Enum):
-    """Direction of motion for motorized stage"""
+class CatheterDesign(str, Enum):
+    """Type of catheter design"""
 
-    DETECTION_AXIS = "Detection axis"
-    ILLUMINATION_AXIS = "Illumination axis"
-    PERPENDICULAR_AXIS = "Perpendicular axis"
+    MAGNETIC = "Magnetic"
+    NONMAGNETIC = "Non-magnetic"
+    NA = "N/A"
 
 
-class StageAxisName(str, Enum):
-    """Axis names for motorized stages as configured by hardware"""
-
-    X = "X"
-    Y = "Y"
-    Z = "Z"
-
-
-class DeviceDriver(str, Enum):
-    """DeviceDriver name"""
-
-    OPENGL = "OpenGL"
-    VIMBA = "Vimba"
-    NVIDIA = "Nvidia Graphics"
-
-
-class Coupling(str, Enum):
-    """Laser coupling type"""
-
-    FREE_SPACE = "Free-space"
-    MMF = "Multi-mode fiber"
-    SMF = "Single-mode fiber"
-    OTHER = "Other"
-
-
-class DataInterface(str, Enum):
-    """Connection between a device and a PC"""
-
-    CAMERALINK = "CameraLink"
-    COAX = "Coax"
-    ETH = "Ethernet"
-    PCIE = "PCIe"
-    PXI = "PXI"
-    USB = "USB"
-    OTHER = "Other"
-
-
-class FilterType(str, Enum):
-    """Filter type"""
-
-    BANDPASS = "Band pass"
-    DICHROIC = "Dichroic"
-    LONGPASS = "Long pass"
-    MULTIBAND = "Multiband"
-    ND = "Neutral density"
-    NOTCH = "Notch"
-    SHORTPASS = "Short pass"
-
-
-class FilterSize(int, Enum):
-    """Filter size value"""
-
-    FILTER_SIZE_25 = 25
-    FILTER_SIZE_32 = 32
-
-
-class LensSize(int, Enum):
-    """Lens size value"""
-
-    LENS_SIZE_1 = 1
-    LENS_SIZE_2 = 2
-
-
-class CameraChroma(str, Enum):
-    """Color vs. black & white"""
-
-    COLOR = "Color"
-    BW = "Monochrome"
-
-
-class DaqChannelType(str, Enum):
-    """DAQ Channel type"""
-
-    AI = "Analog Input"
-    AO = "Analog Output"
-    DI = "Digital Input"
-    DO = "Digital Output"
-
-
-class ImmersionMedium(str, Enum):
-    """Immersion medium name"""
-
-    AIR = "air"
-    MULTI = "multi"
-    OIL = "oil"
-    PBS = "PBS"
-    WATER = "water"
-    OTHER = "other"
-    EASYINDEX = "easy index"
-    ECI = "ethyl cinnimate"
-    ACB = "aqueous clearing buffer"
-
-
-class ObjectiveType(str, Enum):
-    """Objective type for Slap2"""
-
-    REMOTE = "Remote"
-    PRIMARY = "Primary"
-
-
-class CameraTarget(str, Enum):
-    """Target of camera"""
-
-    BODY = "Body"
-    BOTTOM = "Bottom"
-    BRAIN_SURFACE = "Brain surface"
-    EYE = "Eye"
-    FACE_BOTTOM = "Face bottom"
-    FACE_FORWARD = "Face forward"
-    FACE_SIDE_LEFT = "Face side left"
-    FACE_SIDE_RIGHT = "Face side right"
-    SIDE = "Side"
-    TONGUE = "Tongue"
-    OTHER = "Other"
-
-
-class ProbeModel(str, Enum):
-    """Probe model name"""
-
-    MI_ULED_PROBE = "Michigan uLED Probe (Version 1)"
-    MP_PHOTONIC_V1 = "MPI Photonic Probe (Version 1)"
-    NP_OPTO_DEMONSTRATOR = "Neuropixels Opto (Demonstrator)"
-    NP_UHD_FIXED = "Neuropixels UHD (Fixed)"
-    NP_UHD_SWITCHABLE = "Neuropixels UHD (Switchable)"
-    NP1 = "Neuropixels 1.0"
-    NP2_SINGLE_SHANK = "Neuropixels 2.0 (Single Shank)"
-    NP2_MULTI_SHANK = "Neuropixels 2.0 (Multi Shank)"
-    NP2_QUAD_BASE = "Neuropixels 2.0 (Quad Base)"
-
-
-class DetectorType(str, Enum):
-    """Detector type name"""
-
-    CAMERA = "Camera"
-    PMT = "Photomultiplier Tube"
-    OTHER = "Other"
-
-
-class Cooling(str, Enum):
-    """Cooling medium name"""
-
-    AIR = "Air"
-    WATER = "Water"
-    NONE = "None"
-
-
-class BinMode(str, Enum):
-    """Detector binning mode"""
-
-    ADDITIVE = "Additive"
-    AVERAGE = "Average"
-    NONE = "None"
-
-
-class FerruleMaterial(str, Enum):
-    """Fiber probe ferrule material type name"""
-
-    CERAMIC = "Ceramic"
-    STAINLESS_STEEL = "Stainless steel"
-
-
-class SpoutSide(str, Enum):
-    """Spout sides"""
-
-    LEFT = "Left"
-    RIGHT = "Right"
-    CENTER = "Center"
-    OTHER = "Other"
-
-
-class ScannerLocation(str, Enum):
-    """location of scanner"""
-
-    FRED_HUTCH = "Fred Hutch"
-    UW_SLU = "UW SLU"
-
-
-class MagneticStrength(int, Enum):
-    """Strength of magnet"""
-
-    MRI_7T = 7
-    MRI_14T = 14
-
-
-class LickSensorType(str, Enum):
-    """Type of lick sensor"""
-
-    CAPACITIVE = "Capacitive"
-    CONDUCTIVE = "Conductive"
-    PIEZOELECTIC = "Piezoelectric"
-
-
-class MyomatrixArrayType(str, Enum):
-    """Type of Myomatrix array"""
-
-    INJECTED = "Injected"
-    SUTURED = "Sutured"
-
-
-class Device(AindModel):
+class Device(DataModel):
     """Generic device"""
 
-    device_type: str = Field(..., title="Device type")  # Needs to be set by child classes that inherits
     name: str = Field(..., title="Device name")
     serial_number: Optional[str] = Field(default=None, title="Serial number")
     manufacturer: Optional[Organization.ONE_OF] = Field(default=None, title="Manufacturer")
     model: Optional[str] = Field(default=None, title="Model")
-    path_to_cad: Optional[str] = Field(
-        default=None, title="Path to CAD diagram", description="For CUSTOM manufactured devices"
+
+    # Additional fields
+    additional_settings: Optional[GenericModel] = Field(default=None, title="Additional parameters")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_manufacturer_notes(cls, values):
+        """Ensure that notes are not empty if manufacturer is 'other'"""
+
+        if hasattr(values, "manufacturer") and values.manufacturer is not None:
+            manufacturer = values.manufacturer
+            notes = values.notes
+
+            if manufacturer == Organization.OTHER and not notes:
+                raise ValueError("Device.notes cannot be empty if manufacturer is 'other'")
+
+        return values
+
+
+class DevicePosition(DataModel):
+    """Position class for devices"""
+
+    relative_position: List[AnatomicalRelative] = Field(..., title="Relative position")
+
+    # Position
+    coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Device coordinate system")
+    transform: Optional[TRANSFORM_TYPES] = Field(
+        default=None,
+        title="Device to instrument transform",
+        description="Position and orientation of the device in the instrument coordinate system",
     )
-    port_index: Optional[str] = Field(default=None, title="Port index")
-    additional_settings: AindGenericType = Field(AindGeneric(), title="Additional parameters")
-    notes: Optional[str] = Field(default=None, title="Notes")
+
+    @model_validator(mode="after")
+    @classmethod
+    def validate_transform_and_cs(cls, values):
+        """Ensure that transform and coordinate system are either both set or both unset"""
+        transform = values.transform
+        coordinate_system = values.coordinate_system
+
+        if (transform is None) != (coordinate_system is None):
+            raise ValueError(
+                "DevicePosition.transform and DevicePosition.coordinate_system"
+                " must either both be set or both be unset."
+            )
+
+        return values
 
 
-class Software(AindModel):
-    """Description of generic software"""
+class Catheter(Device):
+    """Description of a catheter device"""
 
-    name: str = Field(..., title="Software name")
-    version: str = Field(..., title="Software version")
-    url: Optional[str] = Field(default=None, title="URL to commit being used")
-    parameters: AindGenericType = Field(AindGeneric(), title="Software parameters")
-
-
-class Calibration(AindModel):
-    """Generic calibration class"""
-
-    calibration_date: AwareDatetimeWithDefault = Field(..., title="Date and time of calibration")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
-    description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
-    input: AindGenericType = Field(AindGeneric(), description="Calibration input", title="inputs")
-    output: AindGenericType = Field(AindGeneric(), description="Calibration output", title="outputs")
-    notes: Optional[str] = Field(default=None, title="Notes")
+    catheter_material: CatheterMaterial = Field(..., title="Catheter material")
+    catheter_design: CatheterDesign = Field(..., title="Catheter design")
+    catheter_port: CatheterPort = Field(..., title="Catheter port")
 
 
-class Maintenance(AindModel):
-    """Generic maintenance class"""
+class Computer(Device):
+    """Description of a computer"""
 
-    maintenance_date: AwareDatetimeWithDefault = Field(..., title="Date and time of maintenance")
-    device_name: str = Field(..., title="Device name", description="Must match a device name in rig/instrument")
-    description: str = Field(..., title="Description", description="Description on maintenance procedure")
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID")
-    reagents: List[Reagent] = Field(default=[], title="Reagents")
-    notes: Optional[str] = Field(default=None, title="Notes")
+    operating_system: Optional[str] = Field(default=None, title="Operating system")
 
 
 class Detector(Device):
     """Description of a generic detector"""
 
-    device_type: Literal["Detector"] = "Detector"
     detector_type: DetectorType = Field(..., title="Detector Type")
     manufacturer: Organization.DETECTOR_MANUFACTURERS
     data_interface: DataInterface = Field(..., title="Data interface")
-    cooling: Cooling = Field(default=Cooling.NONE, title="Cooling")
-    computer_name: Optional[str] = Field(default=None, title="Name of computer receiving data from this camera")
+    cooling: Cooling = Field(default=Cooling.NO_COOLING, title="Cooling")
     frame_rate: Optional[Decimal] = Field(default=None, title="Frame rate (Hz)", description="Frame rate being used")
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+    frame_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Frame rate unit")
     immersion: Optional[ImmersionMedium] = Field(default=None, title="Immersion")
     chroma: Optional[CameraChroma] = Field(default=None, title="Camera chroma")
     sensor_width: Optional[int] = Field(default=None, title="Width of the sensor (pixels)")
@@ -327,7 +155,7 @@ class Detector(Device):
     sensor_format: Optional[str] = Field(default=None, title="Sensor format")
     sensor_format_unit: Optional[str] = Field(default=None, title="Sensor format unit")
     bit_depth: Optional[int] = Field(default=None, title="Bit depth")
-    bin_mode: BinMode = Field(default=BinMode.NONE, title="Detector binning mode")
+    bin_mode: BinMode = Field(default=BinMode.NO_BINNING, title="Detector binning mode")
     bin_width: Optional[int] = Field(default=None, title="Bin width")
     bin_height: Optional[int] = Field(default=None, title="Bin height")
     bin_unit: SizeUnit = Field(default=SizeUnit.PX, title="Bin size unit")
@@ -368,67 +196,64 @@ class Detector(Device):
 class Camera(Detector):
     """Camera Detector"""
 
+    detector_type: DetectorType = Field(default=DetectorType.CAMERA)
+
 
 class Filter(Device):
     """Filter used in a light path"""
 
-    device_type: Literal["Filter"] = "Filter"
     # required fields
     filter_type: FilterType = Field(..., title="Type of filter")
     manufacturer: Organization.FILTER_MANUFACTURERS
 
     # optional fields
-    diameter: Optional[Decimal] = Field(default=None, title="Diameter (mm)")
-    width: Optional[Decimal] = Field(default=None, title="Width (mm)")
-    height: Optional[Decimal] = Field(default=None, title="Height (mm)")
-    size_unit: SizeUnit = Field(default=SizeUnit.MM, title="Size unit")
-    thickness: Optional[Decimal] = Field(default=None, title="Thickness (mm)", ge=0)
-    thickness_unit: SizeUnit = Field(default=SizeUnit.MM, title="Thickness unit")
-    filter_wheel_index: Optional[int] = Field(default=None, title="Filter wheel index")
     cut_off_wavelength: Optional[int] = Field(default=None, title="Cut-off wavelength (nm)")
     cut_on_wavelength: Optional[int] = Field(default=None, title="Cut-on wavelength (nm)")
-    center_wavelength: Optional[int] = Field(default=None, title="Center wavelength (nm)")
-    wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    description: Optional[str] = Field(
+    center_wavelength: Optional[int | list[int]] = Field(
         default=None,
-        title="Description",
-        description="More details about filter properties and where/how it is being used",
+        title="Center wavelength (nm)",
+        description="Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters",
     )
+    wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
+
+    @model_validator(mode="after")
+    def validate_multi_filters(self):
+        """Check for multiband/multinotch filters and make sure center_wavelength is a list"""
+
+        if self.filter_type in {FilterType.MULTIBAND, FilterType.MULTI_NOTCH}:
+            if not isinstance(self.center_wavelength, list):
+                raise ValueError(
+                    "For multiband or multinotch filters, center_wavelength must be a list of wavelengths."
+                )
+        else:
+            if isinstance(self.center_wavelength, list):
+                raise ValueError(
+                    "For non-multiband/non-multinotch filters, center_wavelength must be a single wavelength."
+                )
+
+        return self
 
 
 class Lens(Device):
     """Lens"""
 
-    device_type: Literal["Lens"] = "Lens"
-
     # required fields
     manufacturer: Organization.LENS_MANUFACTURERS
-
-    # optional fields
-    focal_length: Optional[Decimal] = Field(default=None, title="Focal length of the lens (mm)")
-    focal_length_unit: SizeUnit = Field(default=SizeUnit.MM, title="Focal length unit")
-    size: Optional[LensSize] = Field(default=None, title="Size (inches)")
-    lens_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Lens size unit")
-    optimized_wavelength_range: Optional[str] = Field(default=None, title="Optimized wavelength range (nm)")
-    wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
-    max_aperture: Optional[str] = Field(default=None, title="Max aperture (e.g. f/2)")
 
 
 class MotorizedStage(Device):
     """Description of motorized stage"""
 
-    device_type: Literal["Motorized stage"] = "Motorized stage"
     travel: Decimal = Field(..., title="Travel of device (mm)")
     travel_unit: SizeUnit = Field(default=SizeUnit.MM, title="Travel unit")
 
     # optional fields
-    firmware: Optional[str] = Field(default=None, title="Firmware")
+    firmware: Optional[Software] = Field(default=None, title="Firmware")
 
 
 class Objective(Device):
     """Description of an objective device"""
 
-    device_type: Literal["Objective"] = "Objective"
     numerical_aperture: Decimal = Field(..., title="Numerical aperture (in air)")
     magnification: Decimal = Field(..., title="Magnification")
     immersion: ImmersionMedium = Field(..., title="Immersion")
@@ -444,33 +269,29 @@ class Objective(Device):
         return value
 
 
-class CameraAssembly(AindModel):
+class CameraAssembly(DevicePosition):
     """Named assembly of a camera and lens (and optionally a filter)"""
 
-    # required fields
     name: str = Field(..., title="Camera assembly name")
-    camera_target: CameraTarget = Field(..., title="Camera target")
+    target: CameraTarget = Field(..., title="Camera target")
     camera: Camera = Field(..., title="Camera")
     lens: Lens = Field(..., title="Lens")
 
-    # optional fields
     filter: Optional[Filter] = Field(default=None, title="Filter")
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of this assembly")
 
 
-class DAQChannel(AindModel):
+class DAQChannel(DataModel):
     """Named input or output channel on a DAQ device"""
 
     # required fields
     channel_name: str = Field(..., title="DAQ channel name")
-    device_name: str = Field(..., title="Name of connected device")
     channel_type: DaqChannelType = Field(..., title="DAQ channel type")
 
     # optional fields
     port: Optional[int] = Field(default=None, title="DAQ port")
     channel_index: Optional[int] = Field(default=None, title="DAQ channel index")
     sample_rate: Optional[Decimal] = Field(default=None, title="DAQ channel sample rate (Hz)")
-    sample_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Sample rate unit")
+    sample_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         default=None, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
@@ -480,10 +301,8 @@ class DAQDevice(Device):
     """Data acquisition device containing multiple I/O channels"""
 
     # required fields
-    device_type: Literal["DAQ Device"] = "DAQ Device"
     data_interface: DataInterface = Field(..., title="Type of connection to PC")
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS
-    computer_name: str = Field(..., title="Name of computer controlling this DAQ")
 
     # optional fields
     channels: List[DAQChannel] = Field(default=[], title="DAQ channels")
@@ -495,8 +314,7 @@ class HarpDevice(DAQDevice):
     """DAQ that uses the Harp protocol for synchronization and data transmission"""
 
     # required fields
-    device_type: Literal["Harp device"] = "Harp device"
-    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.OEPS)
+    manufacturer: Organization.ONE_OF = Field(default=Organization.OEPS)
     harp_device_type: HarpDeviceType.ONE_OF = Field(..., title="Type of Harp device")
     core_version: Optional[str] = Field(default=None, title="Core version")
     tag_version: Optional[str] = Field(default=None, title="Tag version")
@@ -519,14 +337,11 @@ class Laser(Device):
     """Laser module with a specific wavelength (may be a sub-component of a larger assembly)"""
 
     # required fields
-    device_type: Literal["Laser"] = "Laser"
     manufacturer: Organization.LASER_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
 
     # optional fields
-    maximum_power: Optional[Decimal] = Field(default=None, title="Maximum power (mW)")
-    power_unit: PowerUnit = Field(default=PowerUnit.MW, title="Power unit")
     coupling: Optional[Coupling] = Field(default=None, title="Coupling")
     coupling_efficiency: Optional[Decimal] = Field(
         default=None,
@@ -535,32 +350,41 @@ class Laser(Device):
         le=100,
     )
     coupling_efficiency_unit: Literal["percent"] = Field(default="percent", title="Coupling efficiency unit")
-    item_number: Optional[str] = Field(default=None, title="Item number")
 
 
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
-    device_type: Literal["Light emitting diode"] = "Light emitting diode"
     manufacturer: Organization.LED_MANUFACTURERS
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     bandwidth: Optional[int] = Field(default=None, title="Bandwidth (FWHM)")
-    bandwidth_unit: SizeUnit = Field(default=SizeUnit.NM, title="Bandwidth unit")
+    bandwidth_unit: Optional[SizeUnit] = Field(default=None, title="Bandwidth unit")
 
 
 class Lamp(Device):
     """Description of a Lamp lightsource"""
 
-    device_type: Literal["Lamp"] = "Lamp"
     wavelength_min: Optional[int] = Field(default=None, title="Wavelength minimum (nm)")
     wavelength_max: Optional[int] = Field(default=None, title="Wavelength maximum (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     temperature: Optional[int] = Field(default=None, title="Temperature (K)")
-    temperature_unit: TemperatureUnit = Field(default=TemperatureUnit.K, title="Temperature unit")
+    temperature_unit: Optional[TemperatureUnit] = Field(default=None, title="Temperature unit")
 
 
-class ProbePort(AindModel):
+class LightAssembly(DataModel):
+    """Named assembly of a light source and lens"""
+
+    # required fields
+    name: str = Field(..., title="Light assembly name")
+    light: Discriminated[Laser | LightEmittingDiode | Lamp]
+    lens: Lens = Field(..., title="Lens")
+
+    # optional fields
+    filter: Optional[Filter] = Field(default=None, title="Filter")
+
+
+class ProbePort(DataModel):
     """Port for a probe connection"""
 
     index: int = Field(..., title="One-based port index")
@@ -571,22 +395,20 @@ class NeuropixelsBasestation(DAQDevice):
     """PXI-based Neuropixels DAQ"""
 
     # required fields
-    device_type: Literal["Neuropixels basestation"] = "Neuropixels basestation"
     basestation_firmware_version: str = Field(..., title="Basestation firmware version")
     bsc_firmware_version: str = Field(..., title="Basestation connect board firmware")
     slot: int = Field(..., title="Slot number for this basestation")
     ports: List[ProbePort] = Field(..., title="Basestation ports")
 
     # fixed values
-    data_interface: Literal[DataInterface.PXI] = DataInterface.PXI
-    manufacturer: Annotated[Union[type(Organization.IMEC)], Field(default=Organization.IMEC, discriminator="name")]
+    data_interface: DataInterface = DataInterface.PXI
+    manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Organization.IMEC
 
 
 class OpenEphysAcquisitionBoard(DAQDevice):
     """Multichannel electrophysiology DAQ"""
 
     # required fields
-    device_type: Literal["Open Ephys acquisition board"] = "Open Ephys acquisition board"
     ports: List[ProbePort] = Field(..., title="Acquisition board ports")
 
     # fixed values
@@ -597,49 +419,36 @@ class OpenEphysAcquisitionBoard(DAQDevice):
 class Manipulator(Device):
     """Manipulator used on a dome module"""
 
-    device_type: Literal["Manipulator"] = "Manipulator"
     manufacturer: Organization.MANIPULATOR_MANUFACTURERS
 
 
-class Patch(Device):
+class FiberPatchCord(Device):
     """Description of a patch cord"""
 
-    device_type: Literal["Patch"] = "Patch"
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     photobleaching_date: Optional[date] = Field(default=None, title="Photobleaching date")
 
 
-class LaserAssembly(AindModel):
-    """Assembly for optogenetic stimulation"""
+class LaserAssembly(DataModel):
+    """Named assembly combining a manipulator, lasers, collimator, and fibers"""
 
     name: str = Field(..., title="Laser assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     lasers: List[Laser] = Field(..., title="Lasers connected to this module")
     collimator: Device = Field(..., title="Collimator")
-    fiber: Patch = Field(..., title="Fiber patch")
-
-
-class Headstage(Device):
-    """Headstage used with an ephys probe"""
-
-    device_type: Literal["Headstage"] = "Headstage"
+    fiber: FiberPatchCord = Field(..., title="Fiber patch")
 
 
 class EphysProbe(Device):
-    """Named probe used in an ephys experiment"""
+    """Probe used in an ephys experiment"""
 
-    # required fields
-    device_type: Literal["Ephys probe"] = "Ephys probe"
     probe_model: ProbeModel = Field(..., title="Probe model")
-
-    # optional fields
-    lasers: List[Laser] = Field(default=[], title="Lasers connected to this probe")
-    headstage: Optional[Headstage] = Field(default=None, title="Headstage for this probe")
+    headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
-class EphysAssembly(AindModel):
-    """Module for electrophysiological recording"""
+class EphysAssembly(DataModel):
+    """Named assembly for combining a manipulator and ephys probes"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -649,9 +458,7 @@ class EphysAssembly(AindModel):
 class FiberProbe(Device):
     """Description of a fiber optic probe"""
 
-    device_type: Literal["Fiber optic probe"] = "Fiber optic probe"
     core_diameter: Decimal = Field(..., title="Core diameter (um)")
-    #  TODO: Check if this should be an enum?
     core_diameter_unit: SizeUnit = Field(default=SizeUnit.UM, title="Core diameter unit")
     numerical_aperture: Decimal = Field(..., title="Numerical aperture")
     ferrule_material: Optional[FerruleMaterial] = Field(default=None, title="Ferrule material")
@@ -660,7 +467,7 @@ class FiberProbe(Device):
     length_unit: SizeUnit = Field(default=SizeUnit.MM, title="Length unit")
 
 
-class FiberAssembly(AindModel):
+class FiberAssembly(DataModel):
     """Module for inserted fiber photometry recording"""
 
     name: str = Field(..., title="Fiber assembly name")
@@ -671,7 +478,6 @@ class FiberAssembly(AindModel):
 class DigitalMicromirrorDevice(Device):
     """Description of a Digital Micromirror Device (DMD)"""
 
-    device_type: Literal["Digital micromirror device"] = "Digital micromirror device"
     max_dmd_patterns: int = Field(..., title="Max DMD patterns")
     double_bounce_design: bool = Field(..., title="Double bounce design")
     invert_pixel_values: bool = Field(..., title="Invert pixel values")
@@ -685,13 +491,12 @@ class DigitalMicromirrorDevice(Device):
     dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
     dmd_curtain_unit: SizeUnit = Field(default=SizeUnit.PX, title="dmd_curtain_unit")
     line_shear: List[int] = Field(..., title="Line shear (pixels)")
-    line_shear_units: SizeUnit = Field(default=SizeUnit.PX, title="Line shear units")
+    line_shear_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear unit")
 
 
 class PolygonalScanner(Device):
     """Description of a Polygonal scanner"""
 
-    device_type: Literal["Polygonal scanner"] = "Polygonal scanner"
     speed: int = Field(..., title="Speed (rpm)")
     speed_unit: SpeedUnit = Field(default=SpeedUnit.RPM, title="Speed unit")
     number_faces: int = Field(..., title="Number of faces")
@@ -700,7 +505,6 @@ class PolygonalScanner(Device):
 class PockelsCell(Device):
     """Description of a Pockels Cell"""
 
-    device_type: Literal["Pockels cell"] = "Pockels cell"
     polygonal_scanner: Optional[str] = Field(
         default=None, title="Polygonal scanner", description="Must match name of Polygonal scanner"
     )
@@ -708,33 +512,24 @@ class PockelsCell(Device):
     off_time: Optional[Decimal] = Field(default=None, title="Off time (fraction of cycle)")
     time_setting_unit: UnitlessUnit = Field(default=UnitlessUnit.FC, title="Time setting unit")
     beam_modulation: Optional[Decimal] = Field(default=None, title="Beam modulation (V)")
-    beam_modulation_unit: VoltageUnit = Field(default=VoltageUnit.V, title="Beam modulation unit")
+    beam_modulation_unit: Optional[VoltageUnit] = Field(default=None, title="Beam modulation unit")
 
 
 class Enclosure(Device):
     """Description of an enclosure"""
 
-    device_type: Literal["Enclosure"] = "Enclosure"
-    size: Size3d = Field(..., title="Size")
-    internal_material: str = Field(..., title="Internal material")
+    size: Scale = Field(..., title="Size")
+    size_unit: SizeUnit = Field(..., title="Size unit")
+    internal_material: Optional[str] = Field(default=None, title="Internal material")
     external_material: str = Field(..., title="External material")
     grounded: bool = Field(..., title="Grounded")
     laser_interlock: bool = Field(..., title="Laser interlock")
     air_filtration: bool = Field(..., title="Air filtration")
 
 
-class MousePlatform(Device):
-    """Description of a mouse platform"""
-
-    device_type: Literal["Mouse platform"] = "Mouse platform"
-    surface_material: Optional[str] = Field(default=None, title="Surface material")
-    date_surface_replaced: Optional[datetime] = Field(default=None, title="Date surface replaced")
-
-
-class Disc(MousePlatform):
+class Disc(Device):
     """Description of a running disc (i.e. MindScope Disc)"""
 
-    device_type: Literal["Disc"] = "Disc"
     radius: Decimal = Field(..., title="Radius (cm)", ge=0)
     radius_unit: SizeUnit = Field(default=SizeUnit.CM, title="radius unit")
     output: Optional[DaqChannelType] = Field(default=None, description="analog or digital electronics")
@@ -745,54 +540,48 @@ class Disc(MousePlatform):
         title="Encoder firmware",
         description="Firmware to read from decoder chip counts",
     )
+    surface_material: Optional[str] = Field(default=None, title="Surface material")
 
 
-class Wheel(MousePlatform):
+class Wheel(Device):
     """Description of a running wheel"""
 
-    device_type: Literal["Wheel"] = "Wheel"
     radius: Decimal = Field(..., title="Radius (mm)")
     width: Decimal = Field(..., title="Width (mm)")
     size_unit: SizeUnit = Field(default=SizeUnit.MM, title="Size unit")
     encoder: Device = Field(..., title="Encoder")
-    encoder_output: Optional[DAQChannel] = Field(default=None, title="Encoder DAQ channel")
     pulse_per_revolution: int = Field(..., title="Pulse per revolution")
     magnetic_brake: Device = Field(..., title="Magnetic brake")
-    brake_output: Optional[DAQChannel] = Field(default=None, title="Brake DAQ channel")
     torque_sensor: Device = Field(..., title="Torque sensor")
-    torque_output: Optional[DAQChannel] = Field(default=None, title="Torque DAQ channel")
 
 
-class Tube(MousePlatform):
+class Tube(Device):
     """Description of a tube platform"""
 
-    device_type: Literal["Tube"] = "Tube"
     diameter: Decimal = Field(..., title="Diameter", ge=0)
     diameter_unit: SizeUnit = Field(default=SizeUnit.CM, title="Diameter unit")
 
 
-class Treadmill(MousePlatform):
+class Treadmill(Device):
     """Description of treadmill platform"""
 
-    device_type: Literal["Treadmill"] = "Treadmill"
     treadmill_width: Decimal = Field(..., title="Width of treadmill (mm)")
     width_unit: SizeUnit = Field(default=SizeUnit.CM, title="Width unit")
     encoder: Optional[Device] = Field(default=None, title="Encoder")
     pulse_per_revolution: Optional[int] = Field(default=None, title="Pulse per revolution")
 
 
-class Arena(MousePlatform):
+class Arena(Device):
     """Description of a rectangular arena"""
 
-    device_type: Literal["Arena"] = "Arena"
-    size: Size3d = Field(..., title="3D Size")
+    size: Scale = Field(..., title="3D Size")
+    size_unit: SizeUnit = Field(..., title="Size unit")
     objects_in_arena: List[Device] = Field(default=[], title="Objects in arena")
 
 
-class Monitor(Device):
+class Monitor(Device, DevicePosition):
     """Description of visual display for visual stimuli"""
 
-    device_type: Literal["Monitor"] = "Monitor"
     manufacturer: Organization.MONITOR_MANUFACTURERS
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", ge=60)
     width: int = Field(..., title="Width (pixels)")
@@ -800,7 +589,7 @@ class Monitor(Device):
     size_unit: SizeUnit = Field(default=SizeUnit.PX, title="Size unit")
     viewing_distance: Decimal = Field(..., title="Viewing distance (cm)")
     viewing_distance_unit: SizeUnit = Field(default=SizeUnit.CM, title="Viewing distance unit")
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of the monitor")
+
     contrast: Optional[int] = Field(
         default=None,
         description="Monitor's contrast setting",
@@ -817,59 +606,50 @@ class Monitor(Device):
     )
 
 
-class RewardSpout(Device):
-    """Description of a reward spout"""
+class LickSpout(Device):
+    """Description of a lick spout"""
 
-    device_type: Literal["Reward spout"] = "Reward spout"
-    side: SpoutSide = Field(..., title="Spout side", description="If Other use notes")
     spout_diameter: Decimal = Field(..., title="Spout diameter (mm)")
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
-    spout_position: Optional[RelativePosition] = Field(default=None, title="Spout stage position")
+
     solenoid_valve: Device = Field(..., title="Solenoid valve")
     lick_sensor: Device = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
-    notes: Optional[str] = Field(default=None, title="Notes")
-
-    @model_validator(mode="after")
-    def validate_other(self):
-        """Validator for other/notes"""
-
-        if self.side == SpoutSide.OTHER and self.notes is None:
-            raise ValueError(
-                "Notes cannot be empty if spout side is Other. " "Describe the spout side in the notes field."
-            )
-
-        return self
 
 
-class RewardDelivery(AindModel):
-    """Description of reward delivery system"""
+class LickSpoutAssembly(DataModel):
+    """Description of multiple lick spouts, possibly mounted on a stage"""
 
-    device_type: Literal["Reward delivery"] = "Reward delivery"
-    stage_type: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
-    reward_spouts: List[RewardSpout] = Field(..., title="Water spouts")
+    name: str = Field(..., title="Lick spout assembly name")
+    lick_spouts: List[LickSpout] = Field(..., title="Water spouts")
+    motorized_stage: Optional[MotorizedStage] = Field(default=None, title="Motorized stage")
 
 
-class Speaker(Device):
+class AirPuffDevice(Device):
+    """Description of an air puff device"""
+
+    diameter: float = Field(..., title="Spout diameter")
+    diameter_unit: SizeUnit = Field(..., title="Size unit")
+
+
+class Speaker(Device, DevicePosition):
     """Description of a speaker for auditory stimuli"""
 
-    device_type: Literal["Speaker"] = "Speaker"
     manufacturer: Organization.SPEAKER_MANUFACTURERS
-    position: Optional[RelativePosition] = Field(default=None, title="Relative position of the speaker")
 
 
-class ChannelType(Enum):
+class OlfactometerChannelType(Enum):
     """Olfactometer channel types"""
 
     ODOR = "Odor"
     CARRIER = "Carrier"
 
 
-class OlfactometerChannel(AindModel):
+class OlfactometerChannel(DataModel):
     """description of a Olfactometer channel"""
 
     channel_index: int = Field(..., title="Channel index")
-    channel_type: ChannelType = Field(default=ChannelType.ODOR, title="Channel type")
+    channel_type: OlfactometerChannelType = Field(..., title="Channel type")
     flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
     flow_unit: str = Field(default="mL/min", title="Flow unit")
 
@@ -877,18 +657,17 @@ class OlfactometerChannel(AindModel):
 class Olfactometer(HarpDevice):
     """Description of an olfactometer for odor stimuli"""
 
-    device_type: Literal["Olfactometer"] = "Olfactometer"
     manufacturer: Organization.DAQ_DEVICE_MANUFACTURERS = Field(default=Organization.CHAMPALIMAUD)
-    harp_device_type: Annotated[
-        Union[type(HarpDeviceType.OLFACTOMETER)], Field(default=HarpDeviceType.OLFACTOMETER, discriminator="name")
-    ]
+
+    harp_device_type: HarpDeviceType.ONE_OF = Field(
+        HarpDeviceType.OLFACTOMETER, frozen=True, title="Type of Harp device"
+    )
     channels: List[OlfactometerChannel]
 
 
 class AdditionalImagingDevice(Device):
     """Description of additional devices"""
 
-    device_type: Literal["Additional imaging device"] = "Additional imaging device"
     imaging_device_type: ImagingDeviceType = Field(..., title="Device type")
 
     @field_validator("imaging_device_type", mode="after")
@@ -908,34 +687,42 @@ class ScanningStage(MotorizedStage):
     """Description of a scanning motorized stages"""
 
     stage_axis_direction: StageAxisDirection = Field(..., title="Direction of stage axis")
-    stage_axis_name: StageAxisName = Field(..., title="Name of stage axis")
-
-
-class OpticalTable(Device):
-    """Description of Optical Table"""
-
-    device_type: Literal["Optical table"] = "Optical table"
-    length: Optional[Decimal] = Field(default=None, title="Length (inches)", ge=0)
-    width: Optional[Decimal] = Field(default=None, title="Width (inches)", ge=0)
-    table_size_unit: SizeUnit = Field(default=SizeUnit.IN, title="Table size unit")
-    vibration_control: Optional[bool] = Field(default=None, title="Vibration control")
+    stage_axis_name: AxisName = Field(..., title="Name of stage axis")
 
 
 class Scanner(Device):
     """Description of a MRI Scanner"""
 
-    device_type: Literal["Scanner"] = "Scanner"
-    scanner_location: ScannerLocation = Field(..., title="Scanner location")
-    magnetic_strength: MagneticStrength = Field(..., title="Magnetic strength (T)")
-    #  TODO: Check if this should go into the units module.
-    magnetic_strength_unit: str = Field(default="T", title="Magnetic strength unit")
+    magnetic_strength: float = Field(..., title="Magnetic strength (T)")
+    magnetic_strength_unit: MagneticFieldUnit = Field(..., title="Magnetic strength unit")
+
+
+class MyomatrixContact(DataModel):
+    """Description of a contact on a myomatrix thread"""
+
+    body_part: MouseAnatomyModel = Field(..., title="Body part of contact insertion", description="Use MouseBodyParts")
+    relative_position: AnatomicalRelative = Field(
+        ..., title="Relative position", description="Position relative to procedures coordinate system"
+    )
+    muscle: MouseAnatomyModel = Field(..., title="Muscle of contact insertion", description="Use MouseEmgMuscles")
+    in_muscle: bool = Field(..., title="In muscle")
+
+
+class MyomatrixThread(DataModel):
+    """Description of a thread of a myomatrix array"""
+
+    ground_electrode_location: MouseAnatomyModel = Field(
+        ..., title="Location of ground electrode", description="Use GroundWireLocations"
+    )
+    contacts: List[MyomatrixContact] = Field(..., title="Contacts")
 
 
 class MyomatrixArray(Device):
     """Description of a Myomatrix array"""
 
-    device_type: Literal["Myomatrix Array"] = "Myomatrix Array"
     array_type: MyomatrixArrayType = Field(..., title="Array type")
+    threads: List[MyomatrixThread] = Field(..., title="Array threads")
 
 
-LIGHT_SOURCES = Annotated[Union[Laser, LightEmittingDiode, Lamp], Field(discriminator="device_type")]
+class Microscope(Device):
+    """Description of a microscope"""
