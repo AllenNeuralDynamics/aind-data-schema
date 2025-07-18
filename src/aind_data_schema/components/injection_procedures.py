@@ -7,7 +7,7 @@ from typing import List, Optional
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.units import CurrentUnit, TimeUnit, VolumeUnit
+from aind_data_schema_models.units import CurrentUnit, TimeUnit, VolumeUnit, RateUnit
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
@@ -86,9 +86,6 @@ class InjectionDynamics(DataModel):
 
     volume: Optional[float] = Field(default=None, title="Injection volume")
     volume_unit: Optional[VolumeUnit] = Field(default=None, title="Injection volume unit")
-
-    rate: Optional[float] = Field(default=None, title="Injection rate")
-    rate_unit: Optional[VolumeUnit] = Field(default=None, title="Injection rate unit")
 
     duration: Optional[float] = Field(default=None, title="Injection duration")
     duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
