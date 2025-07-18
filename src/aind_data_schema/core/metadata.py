@@ -146,6 +146,19 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
+    def validate_required_files(self):
+        """Validator to ensure that one of the key files from the file sets is present."""
+
+        one_of_required = REQUIRED_FILE_SETS.keys()
+
+        if not any(getattr(self, file) for file in one_of_required):
+            raise ValueError(
+                f"Metadata must contain at least one of the following files: {', '.join(one_of_required)}"
+            )
+
+        return self
+
+    @model_validator(mode="after")
     def validate_smartspim_metadata(self):
         """Validator for smartspim metadata"""
 
