@@ -438,7 +438,14 @@ class ProbeConfig(DeviceConfig):
     )
 
     # Transform
-    coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
+    coordinate_system: CoordinateSystem = Field(
+        ...,
+        title="Device coordinate system",
+        description=(
+            "Device coordinate system, defines un-rotated probe's orientation relative to the "
+            "Acquisition.coordinate_system"
+        ),
+    )
     transform: TRANSFORM_TYPES = Field(
         ...,
         title="Device to acquisition transform",
