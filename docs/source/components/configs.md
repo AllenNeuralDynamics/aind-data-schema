@@ -371,7 +371,7 @@ Configuration for a device inserted into a brain
 | `primary_targeted_structure` | [BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3) |  |
 | `other_targeted_structure` | Optional[List[[BrainAtlas](../aind_data_schema_models/brain_atlas.md#ccfv3)]] |  |
 | `atlas_coordinate` | Optional[[AtlasCoordinate](coordinates.md#atlascoordinate)] |  |
-| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) |  |
+| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) | Device coordinate system, defines un-rotated probe's orientation relative to the Acquisition.coordinate_system |
 | `transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Entry coordinate, depth, and rotation in the Acquisition.coordinate_system |
 | `dye` | `Optional[str]` |  |
 | `notes` | `Optional[str]` |  |
