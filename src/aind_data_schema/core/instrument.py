@@ -59,7 +59,6 @@ from aind_data_schema.utils.validators import recursive_get_all_names
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
-    Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
