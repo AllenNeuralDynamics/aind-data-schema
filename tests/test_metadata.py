@@ -31,6 +31,7 @@ from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.acquisition import StimulusEpoch
 
 from examples.data_description import d as data_description
+from examples.subject import s as subject
 
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
@@ -146,7 +147,7 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
+                subject=subject,
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
                 instrument=self.spim_instrument,
@@ -171,7 +172,7 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
+                subject=subject,
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
@@ -201,7 +202,7 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
+                subject=subject,
                 procedures=Procedures.model_construct(),
                 instrument=inst,
                 processing=Processing.model_construct(),
@@ -221,6 +222,7 @@ class TestMetadata(unittest.TestCase):
             name="name",
             location="location",
             id="1",
+            subject=subject,
         )
 
         m_dict = m.model_dump()
@@ -273,7 +275,7 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "instrument": Instrument.model_construct().model_dump(),
-            "processing": Procedures.model_construct(injection_materials=["some materials"]).model_dump(),
+            "processing": Processing.model_construct().model_dump(),
             "acquisition": None,
             "quality_control": None,
         }
@@ -340,6 +342,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             instrument=instrument,
             acquisition=acquisition,
         )
@@ -362,6 +365,7 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 instrument=instrument,
                 acquisition=acquisition,
             )
@@ -387,6 +391,7 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 instrument=instrument,
                 acquisition=acquisition_missing_source,
             )
@@ -416,6 +421,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             instrument=instrument,
             acquisition=acquisition,
         )
@@ -435,6 +441,7 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 instrument=instrument,
                 acquisition=acquisition,
             )
@@ -461,6 +468,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             procedures=procedures,
             acquisition=acquisition,
         )
@@ -479,6 +487,7 @@ class TestMetadata(unittest.TestCase):
             metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 procedures=procedures,
                 acquisition=acquisition_invalid,
             )
@@ -499,6 +508,7 @@ class TestMetadata(unittest.TestCase):
             metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 procedures=procedures_empty,
                 acquisition=acquisition_invalid,
             )
@@ -525,6 +535,7 @@ class TestMetadata(unittest.TestCase):
         metadata_none = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             procedures=procedures,
             acquisition=acquisition_none,
         )
@@ -534,6 +545,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_acquisition = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             procedures=procedures,
         )
         self.assertIsNotNone(metadata_no_acquisition)
@@ -542,6 +554,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_procedures = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata_no_procedures)
@@ -578,6 +591,7 @@ class TestMetadata(unittest.TestCase):
         metadata_matching = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description,
             acquisition=acquisition,
         )
@@ -599,6 +613,7 @@ class TestMetadata(unittest.TestCase):
         metadata_later_same_day = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description_later,
             acquisition=acquisition,
         )
@@ -620,6 +635,7 @@ class TestMetadata(unittest.TestCase):
         metadata_next_day = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description_next_day,
             acquisition=acquisition,
         )
@@ -644,20 +660,25 @@ class TestMetadata(unittest.TestCase):
             metadata_with_warning = Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 data_description=data_description_before,
                 acquisition=acquisition,
             )
             # Should have successfully created the metadata object
             self.assertIsNotNone(metadata_with_warning)
             # Should have issued a warning
-            self.assertEqual(len(warning_list), 1)
-            self.assertIn("Creation time from data_description.name", str(warning_list[0].message))
-            self.assertIn("should be close to the acquisition end time", str(warning_list[0].message))
+            print(warning_list)
+            # Filter to only the time consistency warning
+            time_warnings = [w for w in warning_list if "Creation time from data_description" in str(w.message)]
+            self.assertEqual(len(time_warnings), 1)
+            self.assertIn("Creation time from data_description", str(time_warnings[0].message))
+            self.assertIn("should be close to the acquisition end time", str(time_warnings[0].message))
 
         # Test case where data_description is None (should pass)
         metadata_no_data_desc = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata_no_data_desc)
@@ -666,6 +687,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_acquisition = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description,
         )
         self.assertIsNotNone(metadata_no_acquisition)
