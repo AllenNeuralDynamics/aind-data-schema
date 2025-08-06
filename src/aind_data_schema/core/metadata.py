@@ -407,7 +407,7 @@ def create_metadata_json(
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
     except Exception as e:
         logging.warning(f"Issue with metadata construction! {e.args}")
-        metadata = Metadata.model_validate(params)
+        metadata = Metadata.model_construct(**params)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
         for key, value in core_fields.items():
             metadata_json[key] = value
