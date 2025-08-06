@@ -321,6 +321,18 @@ class TestMetadata(unittest.TestCase):
         self.assertIn("Metadata missing required file: instrument", warning_messages)
         self.assertIn("Metadata missing required file: acquisition", warning_messages)
 
+        # Test case where ALL required file set keys are missing (subject, processing, model)
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                # No subject, processing, or model - should trigger validation error
+            )
+        self.assertIn(
+            "Metadata must contain at least one of the following files: subject, processing, model",
+            str(context.exception)
+        )
+
     def test_validate_acquisition_connections(self):
         """Tests that acquisition connections are validated correctly."""
         # Case where all connection devices are present in instrument components
