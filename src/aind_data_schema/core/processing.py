@@ -65,7 +65,9 @@ class DataProcess(DataModel):
         default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines"
     )
     start_date_time: Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER] = Field(..., title="Start date time")
-    end_date_time: Optional[Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER]] = Field(default=None, title="End date time")
+    end_date_time: Optional[Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER]] = Field(
+        default=None, title="End date time"
+    )
     output_path: Optional[AssetPath] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
@@ -143,7 +145,7 @@ class Processing(DataCoreModel):
     @model_validator(mode="after")
     def order_processes(self) -> "Processing":
         """Ensure that processes are ordered by start_date_time"""
-        
+
         # Check if any processes are out of order
         start_times = [process.start_date_time for process in self.data_processes]
         if not all(start_times[i] <= start_times[i + 1] for i in range(len(start_times) - 1)):
