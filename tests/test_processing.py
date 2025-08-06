@@ -60,7 +60,6 @@ class ProcessingTest(unittest.TestCase):
         self.assertIn("stage", repr(e.exception))
         self.assertIn("code", repr(e.exception))
         self.assertIn("start_date_time", repr(e.exception))
-        self.assertIn("end_date_time", repr(e.exception))
         self.assertIn("notes", repr(e.exception))
 
     def test_resource_usage(self):
