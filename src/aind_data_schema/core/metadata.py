@@ -152,9 +152,7 @@ class Metadata(DataCoreModel):
         one_of_required = REQUIRED_FILE_SETS.keys()
 
         if not any(getattr(self, file) for file in one_of_required):
-            raise ValueError(
-                f"Metadata must contain at least one of the following files: {', '.join(one_of_required)}"
-            )
+            raise ValueError(f"Metadata must contain at least one of the following files: {', '.join(one_of_required)}")
 
         return self
 

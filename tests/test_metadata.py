@@ -330,7 +330,7 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn(
             "Metadata must contain at least one of the following files: subject, processing, model",
-            str(context.exception)
+            str(context.exception),
         )
 
     def test_validate_acquisition_connections(self):
