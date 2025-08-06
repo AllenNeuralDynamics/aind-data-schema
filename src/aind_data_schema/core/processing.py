@@ -146,6 +146,9 @@ class Processing(DataCoreModel):
     def order_processes(self) -> "Processing":
         """Ensure that processes are ordered by start_date_time"""
 
+        if not hasattr(self, "data_processes") or not self.data_processes:
+            return self
+
         # Check if any processes are out of order
         start_times = [process.start_date_time for process in self.data_processes]
         if not all(start_times[i] <= start_times[i + 1] for i in range(len(start_times) - 1)):
