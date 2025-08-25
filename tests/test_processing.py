@@ -60,7 +60,6 @@ class ProcessingTest(unittest.TestCase):
         self.assertIn("stage", repr(e.exception))
         self.assertIn("code", repr(e.exception))
         self.assertIn("start_date_time", repr(e.exception))
-        self.assertIn("end_date_time", repr(e.exception))
         self.assertIn("notes", repr(e.exception))
 
     def test_resource_usage(self):
@@ -360,6 +359,96 @@ class ProcessingTest(unittest.TestCase):
                 pipelines=pipelines,
             )
         self.assertIn("Pipeline name 'NonExistentPipeline' not found in pipelines list", str(e.exception))
+
+    def test_order_processes(self):
+        """Test the order_processes method"""
+
+        # Create processes with different start times (out of order)
+        t1 = datetime.fromisoformat("2024-09-13T14:00:00")
+        t2 = datetime.fromisoformat("2024-09-13T12:00:00")  # Earlier time
+        t3 = datetime.fromisoformat("2024-09-13T16:00:00")  # Later time
+
+        process1 = DataProcess(
+            name="process1",
+            experimenters=["Dr. Dan"],
+            process_type=ProcessName.COMPRESSION,
+            stage=ProcessStage.PROCESSING,
+            code=code,
+            start_date_time=t1,
+            end_date_time=t1,
+        )
+        process2 = DataProcess(
+            name="process2",
+            experimenters=["Dr. Dan"],
+            process_type=ProcessName.ANALYSIS,
+            stage=ProcessStage.ANALYSIS,
+            code=code,
+            start_date_time=t2,
+            end_date_time=t2,
+        )
+        process3 = DataProcess(
+            name="process3",
+            experimenters=["Dr. Dan"],
+            process_type=ProcessName.SPIKE_SORTING,
+            stage=ProcessStage.PROCESSING,
+            code=code,
+            start_date_time=t3,
+            end_date_time=t3,
+        )
+
+        # Create Processing with out-of-order processes
+        dependency_graph = {"process1": [], "process2": [], "process3": []}
+        p = Processing(data_processes=[process1, process2, process3], dependency_graph=dependency_graph)
+
+        # Check that processes were reordered by start_date_time
+        expected_order = [process2, process1, process3]  # t2 < t1 < t3
+        actual_names = [proc.name for proc in p.data_processes]
+        expected_names = [proc.name for proc in expected_order]
+        self.assertEqual(actual_names, expected_names)
+
+        # Check that notes were updated
+        self.assertIn("Processes were reordered by start_date_time", p.notes)
+
+        # Test with already ordered processes
+        process4 = DataProcess(
+            name="process4",
+            experimenters=["Dr. Dan"],
+            process_type=ProcessName.COMPRESSION,
+            stage=ProcessStage.PROCESSING,
+            code=code,
+            start_date_time=t1,
+            end_date_time=t1,
+        )
+        process5 = DataProcess(
+            name="process5",
+            experimenters=["Dr. Dan"],
+            process_type=ProcessName.ANALYSIS,
+            stage=ProcessStage.ANALYSIS,
+            code=code,
+            start_date_time=t3,
+            end_date_time=t3,
+        )
+
+        dependency_graph2 = {"process4": [], "process5": []}
+        p2 = Processing(data_processes=[process4, process5], dependency_graph=dependency_graph2)
+
+        # Check that order wasn't changed and no reordering note was added
+        self.assertEqual([proc.name for proc in p2.data_processes], ["process4", "process5"])
+        self.assertIsNone(p2.notes)
+
+        # Test with existing notes
+        dependency_graph3 = {"process1": [], "process2": [], "process3": []}
+        p3 = Processing(
+            data_processes=[process1, process2, process3], dependency_graph=dependency_graph3, notes="Existing notes"
+        )
+
+        # Check that reordering note was appended to existing notes
+        self.assertIn("Existing notes; Processes were reordered by start_date_time", p3.notes)
+
+        # Test with empty data_processes
+        p4 = Processing(data_processes=[], dependency_graph={})
+        self.assertEqual(len(p4.data_processes), 0)
+        self.assertIsNone(p4.notes)
 
 
 if __name__ == "__main__":

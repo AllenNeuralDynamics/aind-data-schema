@@ -87,9 +87,6 @@ class InjectionDynamics(DataModel):
     volume: Optional[float] = Field(default=None, title="Injection volume")
     volume_unit: Optional[VolumeUnit] = Field(default=None, title="Injection volume unit")
 
-    rate: Optional[float] = Field(default=None, title="Injection rate")
-    rate_unit: Optional[VolumeUnit] = Field(default=None, title="Injection rate unit")
-
     duration: Optional[float] = Field(default=None, title="Injection duration")
     duration_unit: Optional[TimeUnit] = Field(default=None, title="Injection duration unit")
 

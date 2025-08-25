@@ -36,7 +36,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.12"]] = Field(default="2.0.12")
+    schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(
@@ -105,6 +105,11 @@ class DataDescription(DataCoreModel):
         " of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
+    source_data: Optional[List[str]] = Field(
+        default=None,
+        description="For derived assets, list the source data asset names used to create this data",
+        title="Source data",
+    )
     data_summary: Optional[str] = Field(
         default=None, title="Data summary", description="Semantic summary of experimental goal"
     )
@@ -156,8 +161,17 @@ class DataDescription(DataCoreModel):
 
         return self
 
+    @model_validator(mode="after")
+    def source_data_when_raw(self):
+        """Ensure that source_data is not provided when data_level is RAW"""
+        if self.data_level == DataLevel.RAW and self.source_data is not None:
+            raise ValueError("source_data must not be set when data_level is 'raw'")
+        return self
+
     @classmethod
-    def from_raw(cls, data_description: "DataDescription", process_name: str, **kwargs) -> "DataDescription":
+    def from_raw(
+        cls, data_description: "DataDescription", process_name: str, source_data: Optional[List[str]] = None, **kwargs
+    ) -> "DataDescription":
         """
         Create a DataLevel.DERIVED DataDescription from a DataLevel.RAW DataDescription object.
 
@@ -205,9 +219,20 @@ class DataDescription(DataCoreModel):
             raise ValueError(f"creation_time({creation_time}) must be a datetime object")
 
         # Upgrade name
-        derived_name = f"{data_description.name}_{process_name}_{datetime_to_name_string(creation_time)}"
+        original_name = data_description.name
+        derived_name = f"{original_name}_{process_name}_{datetime_to_name_string(creation_time)}"
         if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
+
+        # Upgrade source_data
+        if source_data is not None:
+            new_source_data = (
+                source_data if not data_description.source_data else data_description.source_data + source_data
+            )
+        else:
+            new_source_data = (
+                [original_name] if not data_description.source_data else data_description.source_data + [original_name]
+            )
 
         return cls(
             subject_id=get_or_default("subject_id"),
@@ -223,4 +248,5 @@ class DataDescription(DataCoreModel):
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
             data_summary=get_or_default("data_summary"),
+            source_data=new_source_data,
         )

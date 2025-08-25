@@ -59,7 +59,6 @@ from aind_data_schema.utils.validators import recursive_get_all_names
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
-    Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
@@ -75,7 +74,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.38"]] = Field(default="2.0.38")
+    schema_version: SkipValidation[Literal["2.0.39"]] = Field(default="2.0.39")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")

@@ -24,8 +24,6 @@ Description of the volume and rate of an injection
 | `profile` | [InjectionProfile](#injectionprofile) |  |
 | `volume` | `Optional[float]` |  |
 | `volume_unit` | Optional[[VolumeUnit](../aind_data_schema_models/units.md#volumeunit)] |  |
-| `rate` | `Optional[float]` |  |
-| `rate_unit` | Optional[[VolumeUnit](../aind_data_schema_models/units.md#volumeunit)] |  |
 | `duration` | `Optional[float]` |  |
 | `duration_unit` | Optional[[TimeUnit](../aind_data_schema_models/units.md#timeunit)] |  |
 | `injection_current` | `Optional[float]` |  |

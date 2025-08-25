@@ -35,7 +35,7 @@ class DataDescriptionTest(unittest.TestCase):
         da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
-            data_level="raw",
+            data_level=DataLevel.RAW,
             funding_source=[f],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
@@ -75,7 +75,7 @@ class DataDescriptionTest(unittest.TestCase):
         da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
-            data_level="raw",
+            data_level=DataLevel.RAW,
             funding_source=[f],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
@@ -92,7 +92,7 @@ class DataDescriptionTest(unittest.TestCase):
         da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
-            data_level="raw",
+            data_level=DataLevel.RAW,
             funding_source=[f],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
@@ -111,7 +111,7 @@ class DataDescriptionTest(unittest.TestCase):
         dd = DataDescription(
             modalities=[Modality.SPIM],
             subject_id="1234",
-            data_level="raw",
+            data_level=DataLevel.RAW,
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
@@ -128,7 +128,7 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription(
                 modalities=[Modality.SPIM],
                 subject_id="",
-                data_level="raw",
+                data_level=DataLevel.RAW,
                 creation_time=dt,
                 institution=Organization.AIND,
                 funding_source=[f],
@@ -141,7 +141,6 @@ class DataDescriptionTest(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             DataDescription.parse_name("name", "invalid_data_level")
-
         self.assertIn("DataLevel", str(context.exception))
 
     def test_derived_valid(self):
@@ -152,7 +151,7 @@ class DataDescriptionTest(unittest.TestCase):
         dr = DataDescription(
             modalities=[Modality.SPIM],
             subject_id="1234",
-            data_level="raw",
+            data_level=DataLevel.RAW,
             creation_time=dt,
             institution=Organization.AIND,
             funding_source=[f],
@@ -172,7 +171,7 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription(
                 creation_time=dt,
                 institution=Organization.AIND,
-                data_level="raw",
+                data_level=DataLevel.RAW,
                 funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
                 modalities=[Modality.ECEPHYS],
                 investigators=[Person(name="Jane Smith")],
@@ -188,7 +187,7 @@ class DataDescriptionTest(unittest.TestCase):
         da = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
-            data_level="raw",
+            data_level=DataLevel.RAW,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modalities=[Modality.ECEPHYS],
             subject_id="12345",
@@ -203,11 +202,8 @@ class DataDescriptionTest(unittest.TestCase):
 
     def test_data_description_missing_fields(self):
         """Test DataDescription missing fields"""
-        dt = datetime.datetime.now()
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValidationError):
             DataDescription()
-        with self.assertRaises(ValueError):
-            DataDescription(creation_time=dt)
 
     def test_pattern_errors(self):
         """Tests that errors are raised if malformed strings are input"""
@@ -215,7 +211,7 @@ class DataDescriptionTest(unittest.TestCase):
             DataDescription(
                 modalities=[Modality.SPIM],
                 subject_id="1234",
-                data_level="raw",
+                data_level=DataLevel.RAW,
                 project_name="a_32r&!#R$&#",
                 creation_time=datetime.datetime(2020, 10, 10, 10, 10, 10),
                 institution=Organization.AIND,
@@ -240,7 +236,7 @@ class DataDescriptionTest(unittest.TestCase):
         da1 = DataDescription(
             creation_time=dt,
             institution=Organization.AIND,
-            data_level="raw",
+            data_level=DataLevel.RAW,
             funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
             modalities=[Modality.SPIM],
             subject_id="12345",
@@ -274,6 +270,113 @@ class DataDescriptionTest(unittest.TestCase):
         """Tests that abbreviations are unique"""
         modality_abbreviations = [m().abbreviation for m in Modality.ALL]
         self.assertEqual(len(set(modality_abbreviations)), len(modality_abbreviations))
+
+    def test_source_data_field(self):
+        """Tests the source_data field behavior"""
+
+        # source_data should not be set for raw data
+        with self.assertRaises(ValueError) as context:
+            DataDescription(
+                modalities=[Modality.SPIM],
+                subject_id="1234",
+                data_level=DataLevel.RAW,
+                creation_time=datetime.datetime.now(),
+                institution=Organization.AIND,
+                funding_source=[Funding(funder=Organization.NINDS, grant_number="grant001")],
+                investigators=[Person(name="Jane Smith")],
+                project_name="Test",
+                source_data=["some_source_data"],
+            )
+        self.assertIn("source_data must not be set when data_level is 'raw'", str(context.exception))
+
+        # source_data should be set correctly for derived data
+        dt = datetime.datetime.now()
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
+        da = DataDescription(
+            creation_time=dt,
+            institution=Organization.AIND,
+            data_level=DataLevel.RAW,
+            funding_source=[f],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+            project_name="Test",
+        )
+        r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
+        self.assertIsNotNone(r1.source_data)
+        self.assertEqual(len(r1.source_data), 1)
+        self.assertEqual(r1.source_data[0], da.name)
+
+    def test_from_raw_with_explicit_source_data(self):
+        """Test from_raw with explicitly provided source_data parameter"""
+        dt = datetime.datetime.now()
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
+
+        # Create a raw DataDescription
+        da = DataDescription(
+            creation_time=dt,
+            institution=Organization.AIND,
+            data_level=DataLevel.RAW,
+            funding_source=[f],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+            project_name="Test",
+        )
+
+        # Test scenario 3: RAW data → DERIVED with explicit source_data
+        explicit_source = ["external_dataset_1", "external_dataset_2"]
+        r1 = DataDescription.from_raw(da, "spikesort-ks25", source_data=explicit_source, creation_time=dt)
+
+        # Should use the explicit source_data instead of the original name
+        self.assertIsNotNone(r1.source_data)
+        self.assertEqual(len(r1.source_data), 2)
+        self.assertEqual(r1.source_data, explicit_source)
+        self.assertNotIn(da.name, r1.source_data)
+
+        # Test scenario 4: DERIVED data → DERIVED with additional source_data
+        additional_source = ["another_external_dataset"]
+        r2 = DataDescription.from_raw(r1, "clustering", source_data=additional_source, creation_time=dt)
+
+        # Should combine existing source_data with new source_data
+        self.assertIsNotNone(r2.source_data)
+        self.assertEqual(len(r2.source_data), 3)  # 2 from r1 + 1 additional
+        self.assertEqual(r2.source_data[:2], explicit_source)  # First two should be from r1
+        self.assertEqual(r2.source_data[2:], additional_source)  # Last one should be additional
+
+    def test_from_raw_chained_source_data_behavior(self):
+        """Test source_data behavior in chained derived data without explicit source_data"""
+        dt = datetime.datetime.now()
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
+
+        # Create a raw DataDescription
+        da = DataDescription(
+            creation_time=dt,
+            institution=Organization.AIND,
+            data_level=DataLevel.RAW,
+            funding_source=[f],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+            project_name="Test",
+        )
+
+        # First derivation: RAW → DERIVED (should set source_data to original name)
+        r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
+        self.assertEqual(r1.source_data, [da.name])
+
+        # Second derivation: DERIVED → DERIVED (should append to existing source_data)
+        r2 = DataDescription.from_raw(r1, "clustering", creation_time=dt)
+        self.assertEqual(len(r2.source_data), 2)
+        self.assertEqual(r2.source_data[0], da.name)  # Original source
+        self.assertEqual(r2.source_data[1], r1.name)  # Previous derived data
+
+        # Third derivation: should continue the chain
+        r3 = DataDescription.from_raw(r2, "analysis", creation_time=dt)
+        self.assertEqual(len(r3.source_data), 3)
+        self.assertEqual(r3.source_data[0], da.name)  # Original source
+        self.assertEqual(r3.source_data[1], r1.name)  # First derived
+        self.assertEqual(r3.source_data[2], r2.name)  # Second derived
 
 
 if __name__ == "__main__":

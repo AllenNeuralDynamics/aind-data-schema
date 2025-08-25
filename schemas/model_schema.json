@@ -360,7 +360,7 @@
             "experimenters": {
                "description": "People responsible for processing",
                "items": {
-                  "$ref": "#/$defs/Person"
+                  "type": "string"
                },
                "title": "Experimenters",
                "type": "array"
@@ -384,9 +384,17 @@
                "type": "string"
             },
             "end_date_time": {
-               "format": "date-time",
-               "title": "End date time",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "End date time"
             },
             "output_path": {
                "anyOf": [
@@ -446,7 +454,6 @@
             "code",
             "experimenters",
             "start_date_time",
-            "end_date_time",
             "performance"
          ],
          "title": "ModelEvaluation",
@@ -508,7 +515,7 @@
             "experimenters": {
                "description": "People responsible for processing",
                "items": {
-                  "$ref": "#/$defs/Person"
+                  "type": "string"
                },
                "title": "Experimenters",
                "type": "array"
@@ -532,9 +539,17 @@
                "type": "string"
             },
             "end_date_time": {
-               "format": "date-time",
-               "title": "End date time",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "format": "date-time",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "End date time"
             },
             "output_path": {
                "anyOf": [
@@ -624,7 +639,6 @@
             "code",
             "experimenters",
             "start_date_time",
-            "end_date_time",
             "train_performance"
          ],
          "title": "ModelTraining",
@@ -653,44 +667,6 @@
             "value"
          ],
          "title": "PerformanceMetric",
-         "type": "object"
-      },
-      "Person": {
-         "additionalProperties": false,
-         "description": "Person identifier",
-         "properties": {
-            "object_type": {
-               "const": "Person",
-               "default": "Person",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "description": "First and last name OR anonymous ID",
-               "title": "Person's name",
-               "type": "string"
-            },
-            "registry": {
-               "$ref": "#/$defs/_Orcid",
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "ORCID ID"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "Person",
          "type": "object"
       },
       "ProcessName": {
@@ -972,26 +948,6 @@
             "name"
          ],
          "title": "Software",
-         "type": "object"
-      },
-      "_Orcid": {
-         "additionalProperties": false,
-         "description": "Model ORCID",
-         "properties": {
-            "name": {
-               "const": "Open Researcher and Contributor ID",
-               "default": "Open Researcher and Contributor ID",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ORCID",
-               "default": "ORCID",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Orcid",
          "type": "object"
       }
    },

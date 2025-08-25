@@ -71,7 +71,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.78"]] = Field(default="2.0.78")
+    schema_version: SkipValidation[Literal["2.0.79"]] = Field(default="2.0.79")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -142,6 +142,17 @@ class Metadata(DataCoreModel):
                 for file in REQUIRED_FILE_SETS[file]:
                     if not getattr(self, file):
                         warnings.warn(f"Metadata missing required file: {file}")
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_required_files(self):
+        """Validator to ensure that one of the key files from the file sets is present."""
+
+        one_of_required = REQUIRED_FILE_SETS.keys()
+
+        if not any(getattr(self, file) for file in one_of_required):
+            raise ValueError(f"Metadata must contain at least one of the following files: {', '.join(one_of_required)}")
 
         return self
 
@@ -394,7 +405,7 @@ def create_metadata_json(
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
     except Exception as e:
         logging.warning(f"Issue with metadata construction! {e.args}")
-        metadata = Metadata.model_validate(params)
+        metadata = Metadata.model_construct(**params)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
         for key, value in core_fields.items():
             metadata_json[key] = value
