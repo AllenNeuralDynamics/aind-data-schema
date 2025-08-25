@@ -170,11 +170,8 @@ class DataDescription(DataCoreModel):
 
     @classmethod
     def from_raw(
-        cls,
-        data_description: "DataDescription",
-        process_name: str,
-        source_data: Optional[List[str]] = None,
-        **kwargs) -> "DataDescription":
+        cls, data_description: "DataDescription", process_name: str, source_data: Optional[List[str]] = None, **kwargs
+    ) -> "DataDescription":
         """
         Create a DataLevel.DERIVED DataDescription from a DataLevel.RAW DataDescription object.
 
@@ -229,9 +226,13 @@ class DataDescription(DataCoreModel):
 
         # Upgrade source_data
         if source_data is not None:
-            new_source_data = source_data if not data_description.source_data else data_description.source_data + source_data
+            new_source_data = (
+                source_data if not data_description.source_data else data_description.source_data + source_data
+            )
         else:
-            new_source_data = [original_name] if not data_description.source_data else data_description.source_data + [original_name]
+            new_source_data = (
+                [original_name] if not data_description.source_data else data_description.source_data + [original_name]
+            )
 
         return cls(
             subject_id=get_or_default("subject_id"),
