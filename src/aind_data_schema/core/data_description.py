@@ -169,7 +169,12 @@ class DataDescription(DataCoreModel):
         return self
 
     @classmethod
-    def from_raw(cls, data_description: "DataDescription", process_name: str, **kwargs) -> "DataDescription":
+    def from_raw(
+        cls,
+        data_description: "DataDescription",
+        process_name: str,
+        source_data: Optional[List[str]] = None,
+        **kwargs) -> "DataDescription":
         """
         Create a DataLevel.DERIVED DataDescription from a DataLevel.RAW DataDescription object.
 
@@ -222,6 +227,12 @@ class DataDescription(DataCoreModel):
         if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
+        # Upgrade source_data
+        if source_data is not None:
+            new_source_data = source_data if not data_description.source_data else data_description.source_data + source_data
+        else:
+            new_source_data = [original_name] if not data_description.source_data else data_description.source_data + [original_name]
+
         return cls(
             subject_id=get_or_default("subject_id"),
             creation_time=creation_time,
@@ -236,5 +247,5 @@ class DataDescription(DataCoreModel):
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
             data_summary=get_or_default("data_summary"),
-            source_data=[original_name],
+            source_data=new_source_data,
         )

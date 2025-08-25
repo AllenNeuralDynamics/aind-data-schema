@@ -307,6 +307,77 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertEqual(len(r1.source_data), 1)
         self.assertEqual(r1.source_data[0], da.name)
 
+    def test_from_raw_with_explicit_source_data(self):
+        """Test from_raw with explicitly provided source_data parameter"""
+        dt = datetime.datetime.now()
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
+        
+        # Create a raw DataDescription
+        da = DataDescription(
+            creation_time=dt,
+            institution=Organization.AIND,
+            data_level=DataLevel.RAW,
+            funding_source=[f],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+            project_name="Test",
+        )
+        
+        # Test scenario 3: RAW data → DERIVED with explicit source_data
+        explicit_source = ["external_dataset_1", "external_dataset_2"]
+        r1 = DataDescription.from_raw(da, "spikesort-ks25", source_data=explicit_source, creation_time=dt)
+        
+        # Should use the explicit source_data instead of the original name
+        self.assertIsNotNone(r1.source_data)
+        self.assertEqual(len(r1.source_data), 2)
+        self.assertEqual(r1.source_data, explicit_source)
+        self.assertNotIn(da.name, r1.source_data)
+        
+        # Test scenario 4: DERIVED data → DERIVED with additional source_data
+        additional_source = ["another_external_dataset"]
+        r2 = DataDescription.from_raw(r1, "clustering", source_data=additional_source, creation_time=dt)
+        
+        # Should combine existing source_data with new source_data
+        self.assertIsNotNone(r2.source_data)
+        self.assertEqual(len(r2.source_data), 3)  # 2 from r1 + 1 additional
+        self.assertEqual(r2.source_data[:2], explicit_source)  # First two should be from r1
+        self.assertEqual(r2.source_data[2:], additional_source)  # Last one should be additional
+
+    def test_from_raw_chained_source_data_behavior(self):
+        """Test source_data behavior in chained derived data without explicit source_data"""
+        dt = datetime.datetime.now()
+        f = Funding(funder=Organization.NINDS, grant_number="grant001")
+        
+        # Create a raw DataDescription
+        da = DataDescription(
+            creation_time=dt,
+            institution=Organization.AIND,
+            data_level=DataLevel.RAW,
+            funding_source=[f],
+            modalities=[Modality.ECEPHYS],
+            subject_id="12345",
+            investigators=[Person(name="Jane Smith")],
+            project_name="Test",
+        )
+        
+        # First derivation: RAW → DERIVED (should set source_data to original name)
+        r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
+        self.assertEqual(r1.source_data, [da.name])
+        
+        # Second derivation: DERIVED → DERIVED (should append to existing source_data)
+        r2 = DataDescription.from_raw(r1, "clustering", creation_time=dt)
+        self.assertEqual(len(r2.source_data), 2)
+        self.assertEqual(r2.source_data[0], da.name)  # Original source
+        self.assertEqual(r2.source_data[1], r1.name)  # Previous derived data
+        
+        # Third derivation: should continue the chain
+        r3 = DataDescription.from_raw(r2, "analysis", creation_time=dt)
+        self.assertEqual(len(r3.source_data), 3)
+        self.assertEqual(r3.source_data[0], da.name)   # Original source
+        self.assertEqual(r3.source_data[1], r1.name)   # First derived
+        self.assertEqual(r3.source_data[2], r2.name)   # Second derived
+
 
 if __name__ == "__main__":
     unittest.main()
