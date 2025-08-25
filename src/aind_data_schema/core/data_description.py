@@ -105,6 +105,11 @@ class DataDescription(DataCoreModel):
         " of any technology or formal procedure to generate data for a study",
         title="Modalities",
     )
+    source_data: Optional[List[str]] = Field(
+        default=None,
+        description="For derived assets, list the source data asset names used to create this data",
+        title="Source data",
+    )
     data_summary: Optional[str] = Field(
         default=None, title="Data summary", description="Semantic summary of experimental goal"
     )
@@ -156,6 +161,13 @@ class DataDescription(DataCoreModel):
 
         return self
 
+    @model_validator(mode="after")
+    def source_data_when_raw(self):
+        """Ensure that source_data is not provided when data_level is RAW"""
+        if self.data_level == DataLevel.RAW and self.source_data is not None:
+            raise ValueError("source_data must not be set when data_level is 'raw'")
+        return self
+
     @classmethod
     def from_raw(cls, data_description: "DataDescription", process_name: str, **kwargs) -> "DataDescription":
         """
@@ -205,7 +217,8 @@ class DataDescription(DataCoreModel):
             raise ValueError(f"creation_time({creation_time}) must be a datetime object")
 
         # Upgrade name
-        derived_name = f"{data_description.name}_{process_name}_{datetime_to_name_string(creation_time)}"
+        original_name = data_description.name
+        derived_name = f"{original_name}_{process_name}_{datetime_to_name_string(creation_time)}"
         if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
@@ -223,4 +236,5 @@ class DataDescription(DataCoreModel):
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
             data_summary=get_or_default("data_summary"),
+            source_data=[original_name],
         )
