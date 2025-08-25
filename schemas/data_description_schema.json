@@ -138,8 +138,8 @@
                "type": "string"
             },
             "registry": {
-               "$ref": "#/$defs/_Orcid",
-               "title": "Registry"
+               "$ref": "#/$defs/Registry",
+               "default": "Open Researcher and Contributor ID (ORCID)"
             },
             "registry_identifier": {
                "anyOf": [
@@ -160,25 +160,20 @@
          "title": "Person",
          "type": "object"
       },
-      "_Addgene": {
-         "additionalProperties": false,
-         "description": "Model ADDGENE",
-         "properties": {
-            "name": {
-               "const": "Addgene",
-               "default": "Addgene",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ADDGENE",
-               "default": "ADDGENE",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Addgene",
-         "type": "object"
+      "Registry": {
+         "description": "Registries",
+         "enum": [
+            "Addgene (ADDGENE)",
+            "Edinburgh Mouse Atlas Project (EMAPA)",
+            "Mouse Genome Informatics (MGI)",
+            "National Center for Biotechnology Information (NCBI)",
+            "Open Researcher and Contributor ID (ORCID)",
+            "Research Organization Registry (ROR)",
+            "Research Resource Identifiers (RRID)",
+            "Universal Protein Resource (UNIPROT)"
+         ],
+         "title": "Registry",
+         "type": "string"
       },
       "_Allen_Institute": {
          "description": "Model Allen Institute",
@@ -196,56 +191,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "03cpe7c52",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "03cpe7c52",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Allen_Institute",
@@ -267,56 +233,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00dcv1019",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00dcv1019",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Allen_Institute_For_Brain_Science",
@@ -338,56 +275,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "04szwah67",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "04szwah67",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Allen_Institute_For_Neural_Dynamics",
@@ -449,59 +357,50 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "05qwgg493",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "05qwgg493",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Boston_University",
+         "type": "object"
+      },
+      "_Brightfield": {
+         "additionalProperties": false,
+         "description": "Model brightfield",
+         "properties": {
+            "name": {
+               "const": "Brightfield microscopy",
+               "default": "Brightfield microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "brightfield",
+               "default": "brightfield",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Brightfield",
          "type": "object"
       },
       "_Chan_Zuckerberg_Initiative": {
@@ -520,56 +419,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "02qenvm24",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "02qenvm24",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Chan_Zuckerberg_Initiative",
@@ -591,56 +461,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00hj8s172",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00hj8s172",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Columbia_University",
@@ -684,26 +525,6 @@
             }
          },
          "title": "_Ecephys",
-         "type": "object"
-      },
-      "_Emapa": {
-         "additionalProperties": false,
-         "description": "Model EMAPA",
-         "properties": {
-            "name": {
-               "const": "Edinburgh Mouse Atlas Project",
-               "default": "Edinburgh Mouse Atlas Project",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "EMAPA",
-               "default": "EMAPA",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Emapa",
          "type": "object"
       },
       "_Emg": {
@@ -782,56 +603,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00p991c53",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00p991c53",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Huazhong_University_Of_Science_And_Technology",
@@ -893,56 +685,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "013sk6x84",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "013sk6x84",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Janelia_Research_Campus",
@@ -964,56 +727,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00za53h95",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00za53h95",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Johns_Hopkins_University",
@@ -1035,56 +769,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "042nb2s44",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "042nb2s44",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Massachusetts_Institute_Of_Technology",
@@ -1106,56 +811,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "02zynam48",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "02zynam48",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Mbf_Bioscience",
@@ -1177,56 +853,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "05ymca674",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "05ymca674",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Mcgovern_Institute_For_Brain_Research",
@@ -1252,26 +899,6 @@
          "title": "_Merfish",
          "type": "object"
       },
-      "_Mgi": {
-         "additionalProperties": false,
-         "description": "Model MGI",
-         "properties": {
-            "name": {
-               "const": "Mouse Genome Informatics",
-               "default": "Mouse Genome Informatics",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "MGI",
-               "default": "MGI",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Mgi",
-         "type": "object"
-      },
       "_Michael_J_Fox_Foundation_For_Parkinson_S_Research": {
          "description": "Model Michael J. Fox Foundation for Parkinson's Research",
          "properties": {
@@ -1288,56 +915,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "03arq3225",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "03arq3225",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
@@ -1359,14 +957,27 @@
                "type": "string"
             },
             "registry": {
-               "default": null,
-               "title": "Registry",
-               "type": "null"
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
             },
             "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": null,
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Mit_Department_Of_Brain_And_Cognitive_Sciences",
@@ -1408,56 +1019,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00190t495",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00190t495",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_National_Center_For_Complementary_And_Integrative_Health",
@@ -1479,56 +1061,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "04xeg9z08",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "04xeg9z08",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_National_Institute_Of_Mental_Health",
@@ -1550,79 +1103,30 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "01s5ya894",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "01s5ya894",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_National_Institute_Of_Neurological_Disorders_And_Stroke",
-         "type": "object"
-      },
-      "_Ncbi": {
-         "additionalProperties": false,
-         "description": "Model NCBI",
-         "properties": {
-            "name": {
-               "const": "National Center for Biotechnology Information",
-               "default": "National Center for Biotechnology Information",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "NCBI",
-               "default": "NCBI",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Ncbi",
          "type": "object"
       },
       "_New_York_University": {
@@ -1641,79 +1145,30 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "0190ak572",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "0190ak572",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_New_York_University",
-         "type": "object"
-      },
-      "_Orcid": {
-         "additionalProperties": false,
-         "description": "Model ORCID",
-         "properties": {
-            "name": {
-               "const": "Open Researcher and Contributor ID",
-               "default": "Open Researcher and Contributor ID",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ORCID",
-               "default": "ORCID",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Orcid",
          "type": "object"
       },
       "_Other": {
@@ -1732,14 +1187,27 @@
                "type": "null"
             },
             "registry": {
-               "default": null,
-               "title": "Registry",
-               "type": "null"
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
             },
             "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": null,
-               "title": "Registry Identifier",
-               "type": "null"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Other",
@@ -1765,46 +1233,6 @@
          "title": "_Pophys",
          "type": "object"
       },
-      "_Ror": {
-         "additionalProperties": false,
-         "description": "Model ROR",
-         "properties": {
-            "name": {
-               "const": "Research Organization Registry",
-               "default": "Research Organization Registry",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ROR",
-               "default": "ROR",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Ror",
-         "type": "object"
-      },
-      "_Rrid": {
-         "additionalProperties": false,
-         "description": "Model RRID",
-         "properties": {
-            "name": {
-               "const": "Research Resource Identifiers",
-               "default": "Research Resource Identifiers",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "RRID",
-               "default": "RRID",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Rrid",
-         "type": "object"
-      },
       "_Simons_Foundation": {
          "description": "Model Simons Foundation",
          "properties": {
@@ -1821,56 +1249,27 @@
                "type": "null"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "01cmst727",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "01cmst727",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Simons_Foundation",
@@ -1916,6 +1315,26 @@
          "title": "_Spim",
          "type": "object"
       },
+      "_Stpt": {
+         "additionalProperties": false,
+         "description": "Model STPT",
+         "properties": {
+            "name": {
+               "const": "Serial two-photon tomogrophy",
+               "default": "Serial two-photon tomogrophy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "STPT",
+               "default": "STPT",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Stpt",
+         "type": "object"
+      },
       "_Templeton_World_Charity_Foundation": {
          "description": "Model Templeton World Charity Foundation",
          "properties": {
@@ -1932,79 +1351,30 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00x0z1472",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00x0z1472",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_Templeton_World_Charity_Foundation",
-         "type": "object"
-      },
-      "_Uniprot": {
-         "additionalProperties": false,
-         "description": "Model UNIPROT",
-         "properties": {
-            "name": {
-               "const": "Universal Protein Resource",
-               "default": "Universal Protein Resource",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "UNIPROT",
-               "default": "UNIPROT",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Uniprot",
          "type": "object"
       },
       "_University_Of_California_San_Diego": {
@@ -2023,56 +1393,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "0168r3w48",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "0168r3w48",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_University_Of_California_San_Diego",
@@ -2094,56 +1435,27 @@
                "type": "string"
             },
             "registry": {
-               "default": {
-                  "name": "Research Organization Registry",
-                  "abbreviation": "ROR"
-               },
-               "discriminator": {
-                  "mapping": {
-                     "ADDGENE": "#/$defs/_Addgene",
-                     "EMAPA": "#/$defs/_Emapa",
-                     "MGI": "#/$defs/_Mgi",
-                     "NCBI": "#/$defs/_Ncbi",
-                     "ORCID": "#/$defs/_Orcid",
-                     "ROR": "#/$defs/_Ror",
-                     "RRID": "#/$defs/_Rrid",
-                     "UNIPROT": "#/$defs/_Uniprot"
-                  },
-                  "propertyName": "abbreviation"
-               },
-               "oneOf": [
+               "anyOf": [
                   {
-                     "$ref": "#/$defs/_Addgene"
+                     "$ref": "#/$defs/Registry"
                   },
                   {
-                     "$ref": "#/$defs/_Emapa"
-                  },
-                  {
-                     "$ref": "#/$defs/_Mgi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ncbi"
-                  },
-                  {
-                     "$ref": "#/$defs/_Orcid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Ror"
-                  },
-                  {
-                     "$ref": "#/$defs/_Rrid"
-                  },
-                  {
-                     "$ref": "#/$defs/_Uniprot"
+                     "type": "null"
                   }
                ],
-               "title": "Registry"
+               "default": "Research Organization Registry (ROR)"
             },
             "registry_identifier": {
-               "const": "00b30xv10",
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
                "default": "00b30xv10",
-               "title": "Registry Identifier",
-               "type": "string"
+               "title": "Registry Identifier"
             }
          },
          "title": "_University_Of_Pennsylvania",
@@ -2166,8 +1478,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.12",
-         "default": "2.0.12",
+         "const": "2.1.0",
+         "default": "2.1.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -2355,8 +1667,10 @@
                   "ISI": "#/$defs/_Isi",
                   "MRI": "#/$defs/_Mri",
                   "SPIM": "#/$defs/_Spim",
+                  "STPT": "#/$defs/_Stpt",
                   "behavior": "#/$defs/_Behavior",
                   "behavior-videos": "#/$defs/_Behavior_Videos",
+                  "brightfield": "#/$defs/_Brightfield",
                   "confocal": "#/$defs/_Confocal",
                   "ecephys": "#/$defs/_Ecephys",
                   "fMOST": "#/$defs/_Fmost",
@@ -2374,6 +1688,9 @@
                },
                {
                   "$ref": "#/$defs/_Behavior_Videos"
+               },
+               {
+                  "$ref": "#/$defs/_Brightfield"
                },
                {
                   "$ref": "#/$defs/_Confocal"
@@ -2410,11 +1727,30 @@
                },
                {
                   "$ref": "#/$defs/_Spim"
+               },
+               {
+                  "$ref": "#/$defs/_Stpt"
                }
             ]
          },
          "title": "Modalities",
          "type": "array"
+      },
+      "source_data": {
+         "anyOf": [
+            {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "For derived assets, list the source data asset names used to create this data",
+         "title": "Source data"
       },
       "data_summary": {
          "anyOf": [
