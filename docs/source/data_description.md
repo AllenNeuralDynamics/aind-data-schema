@@ -36,6 +36,7 @@ Description of a logical collection of data files
 | `project_name` | `str` | A name for a set of coordinated activities intended to achieve one or more objectives. |
 | `restrictions` | `Optional[str]` | Detail any restrictions on publishing or sharing these data |
 | `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | A short name for the specific manner, characteristic, pattern of application, or the employment of any technology or formal procedure to generate data for a study |
+| `source_data` | `Optional[List[str]]` | For derived assets, list the source data asset names used to create this data |
 | `data_summary` | `Optional[str]` | Semantic summary of experimental goal |
 
 
