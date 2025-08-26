@@ -4,6 +4,7 @@ from datetime import date
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
+import warnings
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import (
@@ -289,12 +290,22 @@ class DAQChannel(DataModel):
 
     # optional fields
     port: Optional[int] = Field(default=None, title="DAQ port")
-    channel_index: Optional[int] = Field(default=None, title="DAQ channel index")
+    channel_index: Optional[int] = Field(default=None, title="DAQ channel index", description="[Deprecated: use port]")
     sample_rate: Optional[Decimal] = Field(default=None, title="DAQ channel sample rate (Hz)")
     sample_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         default=None, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
+
+    @field_validator("channel_index", mode="after")
+    def deprecated_channel_index(cls, value: Optional[int]) -> Optional[int]:
+        """Warn if channel_index is used (deprecated)"""
+        if value is not None:
+            warnings.warn(
+                "DAQChannel.channel_index is deprecated. Use DAQChannel.port instead.",
+                DeprecationWarning,
+            )
+        return value
 
 
 class DAQDevice(Device):
