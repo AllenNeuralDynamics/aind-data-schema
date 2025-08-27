@@ -176,6 +176,23 @@ def _handle_annotated_type(origin, args) -> Optional[str]:
     return None
 
 
+def _handle_class_types(tp) -> Optional[str]:
+    """Handle class types (DataModel, GenericModel, Enum subclasses)"""
+    try:
+        # Wrap class names in {} for DataModel subclasses
+        if hasattr(tp, "__name__") and issubclass(tp, DataModel):
+            return check_for_replacement(f"{{{tp.__name__}}}")
+        # Also wrap GenericModel subclasses in {} for proper linking (but not GenericModel itself)
+        if hasattr(tp, "__name__") and issubclass(tp, GenericModel) and tp is not GenericModel:
+            return check_for_replacement(f"{{{tp.__name__}}}")
+        # Also wrap Enum types in {} for proper linking
+        if hasattr(tp, "__name__") and hasattr(tp, "__members__") and issubclass(tp, Enum):
+            return check_for_replacement(f"{{{tp.__name__}}}")
+    except Exception as e:
+        print(f"Error checking if {tp} is a DataModel, GenericModel, or Enum subclass: {e}")
+    return None
+
+
 def get_type_string(tp) -> str:
     """Format the type into a readable string.
 
@@ -197,18 +214,10 @@ def get_type_string(tp) -> str:
         args = getattr(tp, "__args__", None)
 
     if origin is None:
-        try:
-            # Wrap class names in {} for DataModel subclasses
-            if hasattr(tp, "__name__") and issubclass(tp, DataModel):
-                return check_for_replacement(f"{{{tp.__name__}}}")
-            # Also wrap GenericModel subclasses in {} for proper linking (but not GenericModel itself)
-            if hasattr(tp, "__name__") and issubclass(tp, GenericModel) and tp is not GenericModel:
-                return check_for_replacement(f"{{{tp.__name__}}}")
-            # Also wrap Enum types in {} for proper linking
-            if hasattr(tp, "__name__") and hasattr(tp, "__members__") and issubclass(tp, Enum):
-                return check_for_replacement(f"{{{tp.__name__}}}")
-        except Exception as e:
-            print(f"Error checking if {tp} is a DataModel, GenericModel, or Enum subclass: {e}")
+        # Try to handle class types
+        class_result = _handle_class_types(tp)
+        if class_result is not None:
+            return class_result
 
         str_repr = str(tp)
         if str_repr.startswith("<") and "'" in str_repr:
@@ -253,6 +262,14 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
     return header + "\n".join(rows) + "\n"
 
 
+def clear_directory(path):
+    """Clear all files in the given directory."""
+    if os.path.exists(path):
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                os.remove(os.path.join(root, file))
+
+
 def process_module(module_name, module_path, src_folder, doc_folder, model_link_map):
     """Process a single module to generate markdown documentation."""
     try:
@@ -264,11 +281,7 @@ def process_module(module_name, module_path, src_folder, doc_folder, model_link_
 
         output_path = os.path.join(doc_folder, rel_dir_path)
 
-        # Clear the output directory:
-        if os.path.exists(output_path):
-            for root, dirs, files in os.walk(output_path):
-                for file in files:
-                    os.remove(os.path.join(root, file))
+        clear_directory(output_path)
 
         for attr_name in dir(module):
             attr = getattr(module, attr_name)
