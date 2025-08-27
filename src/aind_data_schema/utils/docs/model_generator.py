@@ -10,7 +10,7 @@ from typing import Dict, List, Optional, Type, get_origin, get_args
 
 from pydantic import BaseModel
 
-from aind_data_schema.base import DataModel
+from aind_data_schema.base import DataModel, GenericModel
 from aind_data_schema.utils.docs.utils import generate_enum_table
 
 special_cases = {
@@ -201,11 +201,14 @@ def get_type_string(tp) -> str:
             # Wrap class names in {} for DataModel subclasses
             if hasattr(tp, "__name__") and issubclass(tp, DataModel):
                 return check_for_replacement(f"{{{tp.__name__}}}")
+            # Also wrap GenericModel subclasses in {} for proper linking (but not GenericModel itself)
+            if hasattr(tp, "__name__") and issubclass(tp, GenericModel) and tp is not GenericModel:
+                return check_for_replacement(f"{{{tp.__name__}}}")
             # Also wrap Enum types in {} for proper linking
             if hasattr(tp, "__name__") and hasattr(tp, "__members__") and issubclass(tp, Enum):
                 return check_for_replacement(f"{{{tp.__name__}}}")
         except Exception as e:
-            print(f"Error checking if {tp} is a DataModel or Enum subclass: {e}")
+            print(f"Error checking if {tp} is a DataModel, GenericModel, or Enum subclass: {e}")
 
         str_repr = str(tp)
         if str_repr.startswith("<") and "'" in str_repr:
@@ -274,8 +277,10 @@ def process_module(module_name, module_path, src_folder, doc_folder, model_link_
             if not isinstance(attr, type) or not attr.__module__ == module_name:
                 continue
 
-            # Check if the attribute is a DataModel subclass or an Enum
+            # Check if the attribute is a DataModel subclass, GenericModel subclass, or an Enum
             if issubclass(attr, DataModel) and attr is not DataModel:
+                process_data_model(attr, rel_dir_path, doc_folder, model_link_map)
+            elif issubclass(attr, GenericModel) and attr is not GenericModel:
                 process_data_model(attr, rel_dir_path, doc_folder, model_link_map)
             elif issubclass(attr, Enum) and attr is not Enum:
                 process_enum(attr, rel_dir_path, doc_folder, model_link_map)
@@ -284,7 +289,7 @@ def process_module(module_name, module_path, src_folder, doc_folder, model_link_
 
 
 def process_data_model(attr, rel_dir_path, doc_folder, model_link_map):
-    """Generate markdown documentation for a DataModel."""
+    """Generate markdown documentation for a DataModel or GenericModel subclass."""
     markdown_output = generate_markdown_table(attr, BaseModel)
 
     target_dir = os.path.join(doc_folder, rel_dir_path)
