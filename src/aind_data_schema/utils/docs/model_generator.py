@@ -236,13 +236,13 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
     for name, (annotation, field_info) in fields.items():
         type_str = get_type_string(annotation)
         desc = field_info.description or ""
-        
+
         # Check if field is deprecated
-        is_deprecated = hasattr(field_info, 'deprecated') and field_info.deprecated
-        
+        is_deprecated = hasattr(field_info, "deprecated") and field_info.deprecated
+
         # Format field name with strikethrough if deprecated
         field_name = f"<del>`{name}`</del>" if is_deprecated else f"`{name}`"
-        
+
         # Prefix description with [DEPRECATED] if deprecated
         if is_deprecated:
             deprecated_msg = field_info.deprecated if isinstance(field_info.deprecated, str) else ""

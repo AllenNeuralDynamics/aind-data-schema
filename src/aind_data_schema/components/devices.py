@@ -290,7 +290,9 @@ class DAQChannel(DataModel):
 
     # optional fields
     port: Optional[int] = Field(default=None, title="DAQ port")
-    channel_index: Optional[int] = Field(default=None, title="DAQ channel index", deprecated="Use DAQChannel.port instead")
+    channel_index: Optional[int] = Field(
+        default=None, title="DAQ channel index", deprecated="Use DAQChannel.port instead"
+    )
     sample_rate: Optional[Decimal] = Field(default=None, title="DAQ channel sample rate (Hz)")
     sample_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
