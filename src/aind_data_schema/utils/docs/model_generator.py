@@ -237,15 +237,26 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
         type_str = get_type_string(annotation)
         desc = field_info.description or ""
 
+        # Check if field is deprecated
+        is_deprecated = hasattr(field_info, "deprecated") and field_info.deprecated
+
+        # Format field name with strikethrough if deprecated
+        field_name = f"<del>`{name}`</del>" if is_deprecated else f"`{name}`"
+
+        # Prefix description with [DEPRECATED] if deprecated
+        if is_deprecated:
+            deprecated_msg = field_info.deprecated if isinstance(field_info.deprecated, str) else ""
+            desc = f"**[DEPRECATED]** {deprecated_msg}. {desc}".strip()
+
         # Check of the type_str includes a markdown link [text](link)
         link_regex = r"\[.*?\]\(.*?\)"
         # Also check if the type_str has {<anything>}
         class_regex = r"\{.*?\}"
         if re.search(link_regex, type_str) or re.search(class_regex, type_str):
             # type str has a link, don't break the link
-            rows.append(f"| `{name}` | {type_str} | {desc} |")
+            rows.append(f"| {field_name} | {type_str} | {desc} |")
         else:
-            rows.append(f"| `{name}` | `{type_str}` | {desc} |")
+            rows.append(f"| {field_name} | `{type_str}` | {desc} |")
 
     return header + "\n".join(rows) + "\n"
 

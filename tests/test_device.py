@@ -1,8 +1,10 @@
 """ test Device models"""
 
 import unittest
+import warnings
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
+from aind_data_schema_models.devices import DaqChannelType
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
 
@@ -10,6 +12,7 @@ from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Tra
 from aind_data_schema.components.devices import Filter, FilterType
 from aind_data_schema.components.devices import (
     AdditionalImagingDevice,
+    DAQChannel,
     DataInterface,
     Detector,
     DetectorType,
@@ -185,6 +188,24 @@ class FilterTests(unittest.TestCase):
                 center_wavelength=500,
             )
         self.assertIn("center_wavelength must be a list of wavelengths", str(e3.exception))
+
+
+class DAQChannelTests(unittest.TestCase):
+    """tests DAQChannel schemas"""
+
+    def test_deprecated_channel_index(self):
+        """Test that using channel_index raises a deprecation warning"""
+
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+
+            DAQChannel(channel_name="test_channel", channel_type=DaqChannelType.DI, channel_index=1)
+
+            # Check that a deprecation warning was raised
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[0].category, DeprecationWarning))
+            self.assertIn("DAQChannel.channel_index is deprecated", str(w[0].message))
+            self.assertIn("Use DAQChannel.port instead", str(w[0].message))
 
 
 if __name__ == "__main__":
