@@ -214,11 +214,11 @@ class ProceduresTests(unittest.TestCase):
                                 )
                             ],
                             coordinates=[
-                                [
+                                (
                                     Translation(
                                         translation=[0.5, 1, 0, 1],
                                     ),
-                                ],
+                                ),
                             ],
                             targeted_structure=CCFv3.VISP6A,
                         ),
@@ -334,16 +334,16 @@ class ProceduresTests(unittest.TestCase):
             protocol_id="abc",
             coordinate_system_name="BREGMA_ARI",
             coordinates=[
-                [
+                (
                     Translation(
                         translation=[0.5, 1, 0, 0],
                     ),
-                ],
-                [
+                ),
+                (
                     Translation(
                         translation=[0.5, 1, 0, 1],
                     ),
-                ],
+                ),
             ],
             dynamics=[
                 InjectionDynamics(
@@ -377,16 +377,16 @@ class ProceduresTests(unittest.TestCase):
                 protocol_id="abc",
                 coordinate_system_name="BREGMA_ARI",
                 coordinates=[
-                    [
+                    (
                         Translation(
                             translation=[0.5, 1, 0, 0],
                         ),
-                    ],
-                    [
+                    ),
+                    (
                         Translation(
                             translation=[0.5, 1, 0, 1],
                         ),
-                    ],
+                    ),
                 ],
                 injection_materials=[
                     ViralMaterial(

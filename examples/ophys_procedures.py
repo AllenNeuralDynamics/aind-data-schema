@@ -82,11 +82,11 @@ p = Procedures(
                     ],
                     coordinate_system_name=CoordinateSystemLibrary.BREGMA_ARID.name,
                     coordinates=[
-                        [
+                        (
                             Translation(
                                 translation=[-600, -3050, 0, 4200],
                             ),
-                        ],
+                        ),
                     ],
                     dynamics=[
                         InjectionDynamics(

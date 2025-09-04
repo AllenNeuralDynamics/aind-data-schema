@@ -128,7 +128,7 @@ def generate_procedures(
             )
         ],
         targeted_structure=getattr(CCFv3, brain_area.upper()),
-        coordinates=[coord],  # Note: this is a list, because we could have multiple depths
+        coordinates=[(coord)],  # Note: this is a list, because we could have multiple depths
         dynamics=[
             InjectionDynamics(
                 volume=injection_volume,

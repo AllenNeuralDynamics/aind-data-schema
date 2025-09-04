@@ -8,7 +8,7 @@ from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, DiscriminatedList
+from aind_data_schema.base import DataModel, DiscriminatedTuple
 from aind_data_schema.components.wrappers import AssetPath
 
 
@@ -189,8 +189,8 @@ class NonlinearTransform(DataModel):
     )
 
 
-TRANSFORM_TYPES = DiscriminatedList[Translation | Rotation | Scale | Affine]
-TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | Affine | NonlinearTransform]
+TRANSFORM_TYPES = DiscriminatedTuple[Translation | Rotation | Scale | Affine]
+TRANSFORM_TYPES_NONLINEAR = DiscriminatedTuple[Translation | Rotation | Scale | Affine | NonlinearTransform]
 
 
 class CoordinateSystem(DataModel):

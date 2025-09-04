@@ -94,12 +94,12 @@ surgery1 = Surgery(
             ],
             coordinate_system_name=coordinate_system.name,
             coordinates=[
-                [
+                (
                     Translation(translation=[-0.85, -3.8, 0, 3.3]),
                     Rotation(
                         angles=[0, 10, 0],
                     ),
-                ],
+                ),
             ],
             dynamics=[
                 InjectionDynamics(
