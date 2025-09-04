@@ -109,7 +109,7 @@ class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
     exposure_time: float = Field(..., title="Exposure time")
-    exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
+    exposure_time_unit: TimeUnit = Field(..., title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
     compression: Optional[Code] = Field(
