@@ -215,19 +215,72 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
         self.assertIn("Axis count mismatch", str(context.exception))
 
     def test_recursive_coord_system_check_with_missing_coordinate_system(self):
-        """Test recursive_coord_system_check with missing coordinate system"""
+        """Test recursive_coord_system_check with missing coordinate system for object WITH transforms"""
 
-        class MockData(BaseModel):
-            """Test class"""
-
-            coordinate_system_name: str
-
-        data = MockData(coordinate_system_name=self.coordinate_system_name)
+        # Object with transforms should still require coordinate system
+        data = TranslationWrapper(
+            coordinate_system_name=self.coordinate_system_name, translation=Translation(translation=[0.5, 1])
+        )
 
         with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, None, axis_count=0)
 
         self.assertIn("CoordinateSystem is required", str(context.exception))
+
+    def test_recursive_coord_system_check_object_without_transforms(self):
+        """Test recursive_coord_system_check with object without transforms (should not require coordinate system)"""
+
+        class ObjectWithoutTransforms(DataModel):
+            """Object without any transform components"""
+
+            coordinate_system_name: str
+            some_field: str
+
+        data = ObjectWithoutTransforms(coordinate_system_name=self.coordinate_system_name, some_field="test_value")
+
+        # Should not raise any exception even with None coordinate_system_name and axis_count
+        recursive_coord_system_check(data, None, axis_count=0)
+
+    def test_system_check_helper_object_without_transforms(self):
+        """Test _system_check_helper with object without transforms (should not require coordinate system)"""
+
+        class ObjectWithoutTransforms(DataModel):
+            """Object without any transform components"""
+
+            coordinate_system_name: str
+            some_field: str
+
+        data = ObjectWithoutTransforms(coordinate_system_name=self.coordinate_system_name, some_field="test_value")
+
+        # Should not raise any exception even with None coordinate_system_name and axis_count
+        _system_check_helper(data, None, axis_count=0)
+
+    def test_mixed_objects_with_and_without_transforms(self):
+        """Test with a mix of objects with and without transforms"""
+
+        class ObjectWithoutTransforms(DataModel):
+            """Object without any transform components"""
+
+            coordinate_system_name: str
+            some_field: str
+
+        class ContainerModel(DataModel):
+            """Container with mixed objects"""
+
+            with_transform: TranslationWrapper
+            without_transform: ObjectWithoutTransforms
+
+        container = ContainerModel(
+            with_transform=TranslationWrapper(
+                coordinate_system_name=self.coordinate_system_name, translation=Translation(translation=[0.5, 1])
+            ),
+            without_transform=ObjectWithoutTransforms(
+                coordinate_system_name="any_name", some_field="test"  # This can be anything since no transforms
+            ),
+        )
+
+        # Should pass validation - only the object with transforms is checked
+        recursive_coord_system_check(container, self.coordinate_system_name, axis_count=2)
 
 
 class MockEnum(Enum):
