@@ -134,7 +134,18 @@ def _time_validation_recurse_helper(data, acquisition_start_time, acquisition_en
 
 
 def _recurse_helper(data, **kwargs):
-    """Helper function for recursive_axis_order_check: recurse calls for lists and objects only"""
+    """Helper function for recursive coordinate system validation.
+
+    Recursively processes lists and objects, calling recursive_coord_system_check
+    on each element or attribute.
+
+    Parameters
+    ----------
+    data : Any
+        The data structure to process recursively
+    **kwargs
+        Keyword arguments passed to recursive_coord_system_check
+    """
     if isinstance(data, list):
         for item in data:
             recursive_coord_system_check(item, **kwargs)
@@ -149,33 +160,90 @@ def _recurse_helper(data, **kwargs):
             recursive_coord_system_check(attr_value, **kwargs)
 
 
-def _system_check_helper(data, coordinate_system_name: str, axis_count: int):
-    """Helper function to raise errors if the coordinate_system_name or axis_count don't match"""
-    if not coordinate_system_name or not axis_count:
-        raise CoordinateSystemException()
+def _system_check_helper(data, coordinate_system_name: Optional[str], axis_count: Optional[int]):
+    """Helper function to validate coordinate system requirements for objects with transforms.
 
-    if data.coordinate_system_name not in coordinate_system_name:
-        raise SystemNameException(coordinate_system_name, data.coordinate_system_name)
+    Only validates coordinate system requirements if the object contains transform components
+    (Translation, Rotation, or Scale). Objects without transforms don't require coordinate systems.
 
-    # Check lengths of subfields based on class types
+    Parameters
+    ----------
+    data : object
+        The object to validate
+    coordinate_system_name : Optional[str]
+        Expected coordinate system name (can be None if no transforms present)
+    axis_count : Optional[int]
+        Expected number of axes in the coordinate system (can be None if no transforms present)
+
+    Raises
+    ------
+    CoordinateSystemException
+        If coordinate system is required but missing
+    SystemNameException
+        If coordinate system name doesn't match expected
+    AxisCountException
+        If transform field length doesn't match axis count
+    """
+    # First check if this object has any transform components
+    has_transforms = False
+    transform_components = []
+
     if hasattr(data, "__dict__"):
         for attr_name, attr_value in data.__dict__.items():
             # Check if the attribute's class name is one of the AXIS_TYPES
             if hasattr(attr_value, "__class__") and attr_value.__class__.__name__ in AXIS_TYPES:
-                # Construct the field name by converting the class name to lowercase
-                field_name = attr_value.__class__.__name__.lower()
-                sub_data = getattr(data, field_name, None)
-                # Check if the object has the corresponding field and if it's a list with correct length
-                if sub_data and hasattr(sub_data, field_name):
-                    field_value = getattr(sub_data, field_name)
-                    if len(field_value) != axis_count:
-                        raise AxisCountException(axis_count, len(field_value))
+                has_transforms = True
+                transform_components.append(attr_value)
+
+    # Only require coordinate system if there are transforms present
+    if has_transforms:
+        if not coordinate_system_name or not axis_count:
+            raise CoordinateSystemException()
+
+        if data.coordinate_system_name not in coordinate_system_name:
+            raise SystemNameException(coordinate_system_name, data.coordinate_system_name)
+
+        # Check lengths of transform fields match axis count
+        for transform_component in transform_components:
+            field_name = transform_component.__class__.__name__.lower()
+            sub_data = getattr(data, field_name, None)
+            # Check if the object has the corresponding field and if it's a list with correct length
+            if sub_data and hasattr(sub_data, field_name):
+                field_value = getattr(sub_data, field_name)
+                if len(field_value) != axis_count:
+                    raise AxisCountException(axis_count, len(field_value))
 
 
-def recursive_coord_system_check(data, coordinate_system_name: str, axis_count: int):
-    """Recursively check fields, see if they are Coordinates and check if they match a List[values]
+def recursive_coord_system_check(data, coordinate_system_name: Optional[str], axis_count: Optional[int]):
+    """Recursively validate coordinate system requirements for objects with transforms.
 
-    Note that we just need to check if the axes all show up, not necessarily in matching order
+    Traverses the data structure and validates that objects with transform components
+    (Translation, Rotation, Scale) have the correct coordinate system name and that
+    transform field lengths match the expected axis count.
+
+    Parameters
+    ----------
+    data : Any
+        The data structure to validate recursively
+    coordinate_system_name : Optional[str]
+        Expected coordinate system name (can be None if no transforms present)
+    axis_count : Optional[int]
+        Expected number of axes in the coordinate system (can be None if no transforms present)
+
+    Raises
+    ------
+    CoordinateSystemException
+        If coordinate system is required but missing
+    SystemNameException
+        If coordinate system name doesn't match expected
+    AxisCountException
+        If transform field length doesn't match axis count
+
+    Notes
+    -----
+    Objects without transform components are not required to have coordinate systems.
+    When a new coordinate_system is encountered in the data, it overrides the provided
+    coordinate_system_name and axis_count for subsequent validation.
     """
 
     if not data:
