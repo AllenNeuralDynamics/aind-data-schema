@@ -123,8 +123,8 @@ def _recurse_helper(data, **kwargs):
 
 def _system_check_helper(data, coordinate_system_name: Optional[str], axis_count: Optional[int]):
     """Helper function to raise errors if the coordinate_system_name or axis_count don't match"""
-    object_type = getattr(data, 'object_type', type(data).__name__)
-    
+    object_type = getattr(data, "object_type", type(data).__name__)
+
     if not coordinate_system_name or not axis_count:
         raise ValueError(
             f"CoordinateSystem is required when a Transform or Coordinate is present (object_type: {object_type})"
