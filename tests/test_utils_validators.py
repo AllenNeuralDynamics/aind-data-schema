@@ -13,9 +13,6 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.coordinates import Rotation, Scale, Translation
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.validators import (
-    AxisCountException,
-    CoordinateSystemException,
-    SystemNameException,
     TimeValidation,
     _convert_to_comparable,
     _recurse_helper,
@@ -107,27 +104,27 @@ class TestRecursiveSystemCheckHelper(unittest.TestCase):
 
     def test_system_check_helper_missing_system_name(self):
         """Test _system_check_helper with missing coordinate_system_name"""
-        with self.assertRaises(CoordinateSystemException):
+        with self.assertRaises(ValueError):
             _system_check_helper(self.translation_wrapper, None, axis_count=2)
 
     def test_system_check_helper_missing_axis_count(self):
         """Test _system_check_helper with missing axis_count"""
-        with self.assertRaises(CoordinateSystemException):
+        with self.assertRaises(ValueError):
             _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=None)
 
     def test_system_check_helper_wrong_system_name(self):
         """Test _system_check_helper with wrong coordinate_system_name"""
-        with self.assertRaises(SystemNameException) as context:
+        with self.assertRaises(ValueError) as context:
             _system_check_helper(self.translation_wrapper, "WRONG_SYSTEM", axis_count=2)
-        self.assertEqual("WRONG_SYSTEM", context.exception.expected)
-        self.assertEqual(self.coordinate_system_name, context.exception.found)
+        self.assertIn("WRONG_SYSTEM", str(context.exception))
+        self.assertIn(self.coordinate_system_name, str(context.exception))
 
     def test_system_check_helper_wrong_axis_count(self):
         """Test _system_check_helper with wrong axis_count"""
-        with self.assertRaises(AxisCountException) as context:
+        with self.assertRaises(ValueError) as context:
             _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=3)
-        self.assertEqual(3, context.exception.expected)
-        self.assertEqual(2, context.exception.found)
+        self.assertIn("3", str(context.exception))
+        self.assertIn("2", str(context.exception))
 
     def test_system_check_helper_multiple_axis_types(self):
         """Test _system_check_helper with multiple axis types"""
@@ -176,7 +173,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
                 translation=[0.5, 1],
             ),
         )
-        with self.assertRaises(SystemNameException) as context:
+        with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
         self.assertIn("System name mismatch", str(context.exception))
@@ -212,7 +209,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
                 translation=[0.5, 1, 2],
             ),
         )
-        with self.assertRaises(AxisCountException) as context:
+        with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
         self.assertIn("Axis count mismatch", str(context.exception))
@@ -227,7 +224,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
 
         data = MockData(coordinate_system_name=self.coordinate_system_name)
 
-        with self.assertRaises(CoordinateSystemException) as context:
+        with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, None, axis_count=0)
 
         self.assertIn("CoordinateSystem is required", str(context.exception))
