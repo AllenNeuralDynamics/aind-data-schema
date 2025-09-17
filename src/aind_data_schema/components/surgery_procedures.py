@@ -1,7 +1,7 @@
 """Surgery procedures components for AIND data schema."""
 
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 from aind_data_schema_models.brain_atlas import BrainStructureModel
 from aind_data_schema_models.coordinates import AnatomicalRelative
@@ -176,7 +176,7 @@ class BrainInjection(Injection):
     """Description of an injection procedure into a brain"""
 
     coordinate_system_name: str = Field(..., title="Coordinate system name")
-    coordinates: List[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
+    coordinates: Tuple[TRANSFORM_TYPES] = Field(..., title="Injection coordinate, depth, and rotation")
     targeted_structure: Optional[BrainStructureModel] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
