@@ -11,8 +11,8 @@
                "type": "string"
             },
             "curator": {
-               "$ref": "#/$defs/Person",
-               "title": "Curator"
+               "title": "Curator",
+               "type": "string"
             },
             "timestamp": {
                "format": "date-time",
@@ -44,12 +44,15 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
+                     "STPT": "#/$defs/_Stpt",
                      "behavior": "#/$defs/_Behavior",
                      "behavior-videos": "#/$defs/_Behavior_Videos",
+                     "brightfield": "#/$defs/_Brightfield",
                      "confocal": "#/$defs/_Confocal",
                      "ecephys": "#/$defs/_Ecephys",
                      "fMOST": "#/$defs/_Fmost",
@@ -69,10 +72,16 @@
                      "$ref": "#/$defs/_Behavior_Videos"
                   },
                   {
+                     "$ref": "#/$defs/_Brightfield"
+                  },
+                  {
                      "$ref": "#/$defs/_Confocal"
                   },
                   {
                      "$ref": "#/$defs/_Emg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Em"
                   },
                   {
                      "$ref": "#/$defs/_Ecephys"
@@ -103,6 +112,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spim"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stpt"
                   }
                ],
                "title": "Modality"
@@ -197,44 +209,6 @@
          "title": "CurationMetric",
          "type": "object"
       },
-      "Person": {
-         "additionalProperties": false,
-         "description": "Person identifier",
-         "properties": {
-            "object_type": {
-               "const": "Person",
-               "default": "Person",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "name": {
-               "description": "First and last name OR anonymous ID",
-               "title": "Person's name",
-               "type": "string"
-            },
-            "registry": {
-               "$ref": "#/$defs/_Orcid",
-               "title": "Registry"
-            },
-            "registry_identifier": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "ORCID ID"
-            }
-         },
-         "required": [
-            "name"
-         ],
-         "title": "Person",
-         "type": "object"
-      },
       "QCMetric": {
          "additionalProperties": false,
          "description": "Description of a single quality control metric",
@@ -252,12 +226,15 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
+                     "STPT": "#/$defs/_Stpt",
                      "behavior": "#/$defs/_Behavior",
                      "behavior-videos": "#/$defs/_Behavior_Videos",
+                     "brightfield": "#/$defs/_Brightfield",
                      "confocal": "#/$defs/_Confocal",
                      "ecephys": "#/$defs/_Ecephys",
                      "fMOST": "#/$defs/_Fmost",
@@ -277,10 +254,16 @@
                      "$ref": "#/$defs/_Behavior_Videos"
                   },
                   {
+                     "$ref": "#/$defs/_Brightfield"
+                  },
+                  {
                      "$ref": "#/$defs/_Confocal"
                   },
                   {
                      "$ref": "#/$defs/_Emg"
+                  },
+                  {
+                     "$ref": "#/$defs/_Em"
                   },
                   {
                      "$ref": "#/$defs/_Ecephys"
@@ -311,6 +294,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Spim"
+                  },
+                  {
+                     "$ref": "#/$defs/_Stpt"
                   }
                ],
                "title": "Modality"
@@ -482,6 +468,26 @@
          "title": "_Behavior_Videos",
          "type": "object"
       },
+      "_Brightfield": {
+         "additionalProperties": false,
+         "description": "Model brightfield",
+         "properties": {
+            "name": {
+               "const": "Brightfield microscopy",
+               "default": "Brightfield microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "brightfield",
+               "default": "brightfield",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Brightfield",
+         "type": "object"
+      },
       "_Confocal": {
          "additionalProperties": false,
          "description": "Model confocal",
@@ -520,6 +526,26 @@
             }
          },
          "title": "_Ecephys",
+         "type": "object"
+      },
+      "_Em": {
+         "additionalProperties": false,
+         "description": "Model EM",
+         "properties": {
+            "name": {
+               "const": "Electron microscopy",
+               "default": "Electron microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EM",
+               "default": "EM",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Em",
          "type": "object"
       },
       "_Emg": {
@@ -662,26 +688,6 @@
          "title": "_Mri",
          "type": "object"
       },
-      "_Orcid": {
-         "additionalProperties": false,
-         "description": "Model ORCID",
-         "properties": {
-            "name": {
-               "const": "Open Researcher and Contributor ID",
-               "default": "Open Researcher and Contributor ID",
-               "title": "Name",
-               "type": "string"
-            },
-            "abbreviation": {
-               "const": "ORCID",
-               "default": "ORCID",
-               "title": "Abbreviation",
-               "type": "string"
-            }
-         },
-         "title": "_Orcid",
-         "type": "object"
-      },
       "_Pophys": {
          "additionalProperties": false,
          "description": "Model pophys",
@@ -741,6 +747,26 @@
          },
          "title": "_Spim",
          "type": "object"
+      },
+      "_Stpt": {
+         "additionalProperties": false,
+         "description": "Model STPT",
+         "properties": {
+            "name": {
+               "const": "Serial two-photon tomogrophy",
+               "default": "Serial two-photon tomogrophy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "STPT",
+               "default": "STPT",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Stpt",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -759,8 +785,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.6",
-         "default": "2.0.6",
+         "const": "2.0.8",
+         "default": "2.0.8",
          "title": "Schema Version",
          "type": "string"
       },
@@ -789,7 +815,7 @@
          "anyOf": [
             {
                "items": {
-                  "$ref": "#/$defs/Person"
+                  "type": "string"
                },
                "type": "array"
             },
