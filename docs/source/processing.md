@@ -24,7 +24,7 @@ Description of all processes run on data
 | `data_processes` | List[[DataProcess](processing.md#dataprocess)] |  |
 | `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess. |
 | `notes` | `Optional[str]` |  |
-| `dependency_graph` | `Dict[str, List[str]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
+| `dependency_graph` | `Optional[Dict[str, List[str]]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
 
 
 ## Model definitions
@@ -42,7 +42,7 @@ Description of a single processing step
 | `experimenters` | `List[str]` | People responsible for processing |
 | `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
 | `start_date_time` | `datetime (timezone-aware)` |  |
-| `end_date_time` | `datetime (timezone-aware)` |  |
+| `end_date_time` | `Optional[datetime (timezone-aware)]` |  |
 | `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
 | `output_parameters` | `dict` | Output parameters |
 | `notes` | `Optional[str]` |  |

@@ -337,7 +337,6 @@ instrument = Instrument(
                     channel_name="P0.3",
                     channel_type=DaqChannelType.DI,
                     port=0,
-                    channel_index=3,
                     sample_rate=100.0,
                     sample_rate_unit=FrequencyUnit.KHZ,
                 )

@@ -179,7 +179,7 @@ Named input or output channel on a DAQ device
 | `channel_name` | `str` |  |
 | `channel_type` | [DaqChannelType](../aind_data_schema_models/devices.md#daqchanneltype) |  |
 | `port` | `Optional[int]` |  |
-| `channel_index` | `Optional[int]` |  |
+| <del>`channel_index`</del> | `Optional[int]` | **[DEPRECATED]** Use DAQChannel.port instead. |
 | `sample_rate` | `Optional[decimal.Decimal]` |  |
 | `sample_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] |  |
 | `event_based_sampling` | `Optional[bool]` |  |

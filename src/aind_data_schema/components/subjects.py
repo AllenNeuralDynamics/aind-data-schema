@@ -125,7 +125,7 @@ class MouseSubject(DataModel):
         """Ensure that the species and strain.species match"""
 
         if value.strain:
-            if value.species.name != value.strain.species:
+            if not value.species or value.species.name != value.strain.species:
                 raise ValueError("The animal species and it's strain's species do not match")
 
         return value

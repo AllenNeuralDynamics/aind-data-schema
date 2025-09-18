@@ -3206,6 +3206,7 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "DAQ channel index"
             },
             "sample_rate": {
@@ -13431,13 +13432,14 @@
             "Origin",
             "Bregma",
             "Lambda",
-            "C1",
-            "C2",
-            "C3",
-            "C4",
-            "C5",
-            "C6",
-            "C7",
+            "Between_C1-C2",
+            "Between_C2-C3",
+            "Between_C3-C4",
+            "Between_C4-C5",
+            "Between_C6-C7",
+            "Between_C7-C8",
+            "Between_C8-T1",
+            "Between_T1-T2",
             "Tip",
             "Front_center",
             "Arena_center",
@@ -19648,6 +19650,26 @@
          "title": "_Edmund_Optics",
          "type": "object"
       },
+      "_Em": {
+         "additionalProperties": false,
+         "description": "Model EM",
+         "properties": {
+            "name": {
+               "const": "Electron microscopy",
+               "default": "Electron microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EM",
+               "default": "EM",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Em",
+         "type": "object"
+      },
       "_Emg": {
          "additionalProperties": false,
          "description": "Model EMG",
@@ -23766,8 +23788,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.39",
-         "default": "2.0.39",
+         "const": "2.0.40",
+         "default": "2.0.40",
          "title": "Schema Version",
          "type": "string"
       },
@@ -23800,6 +23822,7 @@
          "items": {
             "discriminator": {
                "mapping": {
+                  "EM": "#/$defs/_Em",
                   "EMG": "#/$defs/_Emg",
                   "ISI": "#/$defs/_Isi",
                   "MRI": "#/$defs/_Mri",
@@ -23834,6 +23857,9 @@
                },
                {
                   "$ref": "#/$defs/_Emg"
+               },
+               {
+                  "$ref": "#/$defs/_Em"
                },
                {
                   "$ref": "#/$defs/_Ecephys"

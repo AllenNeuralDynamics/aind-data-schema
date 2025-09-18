@@ -527,6 +527,26 @@
          "title": "_Ecephys",
          "type": "object"
       },
+      "_Em": {
+         "additionalProperties": false,
+         "description": "Model EM",
+         "properties": {
+            "name": {
+               "const": "Electron microscopy",
+               "default": "Electron microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "EM",
+               "default": "EM",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Em",
+         "type": "object"
+      },
       "_Emg": {
          "additionalProperties": false,
          "description": "Model EMG",
@@ -1478,8 +1498,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.0",
-         "default": "2.1.0",
+         "const": "2.1.1",
+         "default": "2.1.1",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1663,6 +1683,7 @@
          "items": {
             "discriminator": {
                "mapping": {
+                  "EM": "#/$defs/_Em",
                   "EMG": "#/$defs/_Emg",
                   "ISI": "#/$defs/_Isi",
                   "MRI": "#/$defs/_Mri",
@@ -1697,6 +1718,9 @@
                },
                {
                   "$ref": "#/$defs/_Emg"
+               },
+               {
+                  "$ref": "#/$defs/_Em"
                },
                {
                   "$ref": "#/$defs/_Ecephys"
