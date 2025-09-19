@@ -19,12 +19,12 @@ The processing file should be appended to with each subsequent stage of processi
 
 Description of all processes run on data
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `data_processes` | List[[DataProcess](processing.md#dataprocess)] |  |
-| `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess. |
-| `notes` | `Optional[str]` |  |
-| `dependency_graph` | `Optional[Dict[str, List[str]]]` | Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process. |
+| `data_processes` | List[[DataProcess](processing.md#dataprocess)] | Data processing  |
+| `pipelines` | Optional[List[[Code](components/identifiers.md#code)]] | Pipelines (For processing done with pipelines, list the repositories here. Pipelines must use the name field ,and be referenced in the pipeline_name field of a DataProcess.) |
+| `notes` | `Optional[str]` | Notes  |
+| `dependency_graph` | `Optional[Dict[str, List[str]]]` | Dependency graph (Directed graph of processing step dependencies. Each key is a process name, and the value is a list of process names that are inputs to that process.) |
 
 
 ## Model definitions
@@ -33,20 +33,20 @@ Description of all processes run on data
 
 Description of a single processing step
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) |  |
-| `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | [ProcessStage](processing.md#processstage) |  |
-| `code` | [Code](components/identifiers.md#code) | Code used for processing |
-| `experimenters` | `List[str]` | People responsible for processing |
-| `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
-| `start_date_time` | `datetime (timezone-aware)` |  |
-| `end_date_time` | `Optional[datetime (timezone-aware)]` |  |
-| `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
-| `output_parameters` | `dict` | Output parameters |
-| `notes` | `Optional[str]` |  |
-| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
+| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) | Process type  |
+| `name` | `str` | Name (('Unique name of the processing step.', ' If not provided, the type will be used as the name.')) |
+| `stage` | [ProcessStage](processing.md#processstage) | Processing stage  |
+| `code` | [Code](components/identifiers.md#code) | Code (Code used for processing) |
+| `experimenters` | `List[str]` | Experimenters (People responsible for processing) |
+| `pipeline_name` | `Optional[str]` | Pipeline name (Pipeline names must exist in Processing.pipelines) |
+| `start_date_time` | `datetime (timezone-aware)` | Start date time  |
+| `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
+| `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
+| `output_parameters` | `dict` | Outputs (Output parameters) |
+| `notes` | `Optional[str]` | Notes  |
+| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
 
 
 ### ProcessStage
@@ -63,28 +63,28 @@ Stages of processing
 
 Description of resource usage at a moment in time
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `timestamp` | `datetime (timezone-aware)` |  |
-| `usage` | `float` |  |
+| `timestamp` | `datetime (timezone-aware)` | Timestamp  |
+| `usage` | `float` | Usage  |
 
 
 ### ResourceUsage
 
 Description of resources used by a process
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `os` | `str` |  |
-| `architecture` | `str` |  |
-| `cpu` | `Optional[str]` |  |
-| `cpu_cores` | `Optional[int]` |  |
-| `gpu` | `Optional[str]` |  |
-| `system_memory` | `Optional[float]` |  |
-| `system_memory_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] |  |
-| `ram` | `Optional[float]` |  |
-| `ram_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] |  |
-| `cpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
-| `gpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
-| `ram_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] |  |
-| `usage_unit` | `str` |  |
+| `os` | `str` | Operating system  |
+| `architecture` | `str` | Architecture  |
+| `cpu` | `Optional[str]` | CPU name  |
+| `cpu_cores` | `Optional[int]` | CPU cores  |
+| `gpu` | `Optional[str]` | GPU name  |
+| `system_memory` | `Optional[float]` | System memory  |
+| `system_memory_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] | System memory unit  |
+| `ram` | `Optional[float]` | System RAM  |
+| `ram_unit` | Optional[[MemoryUnit](aind_data_schema_models/units.md#memoryunit)] | Ram unit  |
+| `cpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] | CPU usage  |
+| `gpu_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] | GPU usage  |
+| `ram_usage` | Optional[List[[ResourceTimestamped](processing.md#resourcetimestamped)]] | RAM usage  |
+| `usage_unit` | `str` | Usage unit  |
