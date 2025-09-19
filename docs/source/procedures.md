@@ -22,10 +22,10 @@ Sectioned specimens must have a unique number appended as a suffix to the subjec
 
 Description of all procedures performed on a subject, including surgeries, injections, and tissue processing
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `subject_id` | `str` | Unique identifier for the subject of data acquisition |
-| `subject_procedures` | List[[Surgery](components/subject_procedures.md#surgery) or [Injection](components/injection_procedures.md#injection) or [TrainingProtocol](components/subject_procedures.md#trainingprotocol) or [WaterRestriction](components/subject_procedures.md#waterrestriction) or [GenericSubjectProcedure](components/subject_procedures.md#genericsubjectprocedure)] | Procedures performed on a live subject |
-| `specimen_procedures` | List[[SpecimenProcedure](components/specimen_procedures.md#specimenprocedure)] | Procedures performed on tissue extracted after perfusion |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures |
-| `notes` | `Optional[str]` |  |
+| `subject_id` | `str` | Subject ID (Unique identifier for the subject of data acquisition) |
+| `subject_procedures` | List[[Surgery](components/subject_procedures.md#surgery) or [Injection](components/injection_procedures.md#injection) or [TrainingProtocol](components/subject_procedures.md#trainingprotocol) or [WaterRestriction](components/subject_procedures.md#waterrestriction) or [GenericSubjectProcedure](components/subject_procedures.md#genericsubjectprocedure)] | Subject Procedures (Procedures performed on a live subject) |
+| `specimen_procedures` | List[[SpecimenProcedure](components/specimen_procedures.md#specimenprocedure)] | Specimen Procedures (Procedures performed on tissue extracted after perfusion) |
+| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Coordinate System (Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures) |
+| `notes` | `Optional[str]` | Notes  |
