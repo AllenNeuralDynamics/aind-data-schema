@@ -301,6 +301,33 @@ class ProcessingTest(unittest.TestCase):
             Processing(data_processes=[process1, process2], dependency_graph=invalid_graph)
         self.assertIn("data_processes must include all processes in dependency_graph", str(e.exception))
 
+    def test_dependency_graph_none(self):
+        """Tests that no issue is raised if dependency_graph is None"""
+        processing = Processing(
+            data_processes=[
+                DataProcess(
+                    start_date_time=datetime(2024, 10, 10, 1, 2, 3),
+                    end_date_time=datetime(2024, 10, 11, 1, 2, 3),
+                    process_type=ProcessName.COMPRESSION,
+                    experimenters=["AIND Scientific Computing"],
+                    stage=ProcessStage.PROCESSING,
+                    code=Code(
+                        url="www.example.com/ephys_compression",
+                    ),
+                ),
+                DataProcess(
+                    start_date_time=datetime(2024, 10, 10, 1, 2, 3),
+                    end_date_time=datetime(2024, 10, 11, 1, 2, 4),
+                    process_type=ProcessName.OTHER,
+                    experimenters=["AIND Scientific Computing"],
+                    stage=ProcessStage.PROCESSING,
+                    code=Code(url=""),
+                    notes="Data was copied.",
+                ),
+            ]
+        )
+        self.assertIsNone(processing.dependency_graph)
+
     def test_validate_pipeline_names(self):
         """Test the validate_pipeline_names method"""
 
