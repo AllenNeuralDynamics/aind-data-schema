@@ -182,6 +182,10 @@ class Processing(DataCoreModel):
         if not hasattr(values, "data_processes"):  # bypass for testing
             return values
 
+        # If the dependency_graph is None, then no need to validate
+        if values.dependency_graph is None:
+            return values
+
         processes = set(values.process_names)
         # Validate that all processes have a unique name
         if len(processes) != len(values.data_processes):
