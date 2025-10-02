@@ -18,8 +18,8 @@ The `subject.json` file describes the subject from which data was obtained.
 
 Description of a subject of data collection
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `subject_id` | `str` | Unique identifier for the subject of data acquisition |
-| `subject_details` | [MouseSubject](components/subjects.md#mousesubject) or [HumanSubject](components/subjects.md#humansubject) or [CalibrationObject](components/subjects.md#calibrationobject) |  |
-| `notes` | `Optional[str]` |  |
+| `subject_id` | `str` | Subject ID (Unique identifier for the subject of data acquisition) |
+| `subject_details` | [MouseSubject](components/subjects.md#mousesubject) or [HumanSubject](components/subjects.md#humansubject) or [CalibrationObject](components/subjects.md#calibrationobject) | Subject Details  |
+| `notes` | `Optional[str]` | Notes  |

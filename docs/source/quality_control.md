@@ -67,14 +67,14 @@ During analysis there are many situations where multiple data assets need to be 
 
 Collection of quality control metrics evaluated on a data asset to determine pass/fail status
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric)] |  |
-| `key_experimenters` | `Optional[List[str]]` | Experimenters who are responsible for quality control of this data asset |
-| `notes` | `Optional[str]` |  |
-| `default_grouping` | `List[str]` | Default tag grouping for this QualityControl object, used in visualizations |
-| `allow_tag_failures` | `List[str or tuple]` | List of tags that are allowed to fail without failing the overall QC |
-| `status` | `Optional[dict]` | Mapping of tags, modalities, and stages to their evaluated status, automatically computed |
+| `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric)] | Evaluations  |
+| `key_experimenters` | `Optional[List[str]]` | Key experimenters (Experimenters who are responsible for quality control of this data asset) |
+| `notes` | `Optional[str]` | Notes  |
+| `default_grouping` | `List[str]` | Default grouping (Default tag grouping for this QualityControl object, used in visualizations) |
+| `allow_tag_failures` | `List[str or tuple]` | Allow tag failures (List of tags that are allowed to fail without failing the overall QC) |
+| `status` | `Optional[dict]` | Status mapping (Mapping of tags, modalities, and stages to their evaluated status, automatically computed) |
 
 
 ## Model definitions
@@ -83,57 +83,57 @@ Collection of quality control metrics evaluated on a data asset to determine pas
 
 Schema to track curator name and timestamp for curation events
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `curator` | `str` |  |
-| `timestamp` | `datetime (timezone-aware)` |  |
+| `curator` | `str` | Curator  |
+| `timestamp` | `datetime (timezone-aware)` | Timestamp  |
 
 
 ### CurationMetric
 
 Description of a curation metric
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `value` | `List[typing.Any]` |  |
-| `type` | `str` |  |
-| `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] |  |
-| `name` | `str` |  |
-| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
-| `stage` | [Stage](quality_control.md#stage) |  |
-| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] |  |
-| `description` | `Optional[str]` |  |
-| `reference` | `Optional[str]` |  |
-| `tags` | `List[str]` | Tags group QCMetric objects to allow for grouping and filtering |
-| `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
+| `value` | `List[typing.Any]` | Curation value  |
+| `type` | `str` | Curation type  |
+| `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] | Curation history  |
+| `name` | `str` | Metric name  |
+| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) | Modality  |
+| `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
+| `description` | `Optional[str]` | Metric description  |
+| `reference` | `Optional[str]` | Metric reference image URL or plot type  |
+| `tags` | `List[str]` | Tags (Tags group QCMetric objects to allow for grouping and filtering) |
+| `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |
 
 
 ### QCMetric
 
 Description of a single quality control metric
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) |  |
-| `stage` | [Stage](quality_control.md#stage) |  |
-| `value` | `typing.Any` |  |
-| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] |  |
-| `description` | `Optional[str]` |  |
-| `reference` | `Optional[str]` |  |
-| `tags` | `List[str]` | Tags group QCMetric objects to allow for grouping and filtering |
-| `evaluated_assets` | `Optional[List[str]]` | Set to None except when a metric's calculation required data coming from a different data asset. |
+| `name` | `str` | Metric name  |
+| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) | Modality  |
+| `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |
+| `value` | `typing.Any` | Metric value  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
+| `description` | `Optional[str]` | Metric description  |
+| `reference` | `Optional[str]` | Metric reference image URL or plot type  |
+| `tags` | `List[str]` | Tags (Tags group QCMetric objects to allow for grouping and filtering) |
+| `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |
 
 
 ### QCStatus
 
 Description of a QC status, set by an evaluator
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `evaluator` | `str` |  |
-| `status` | [Status](quality_control.md#status) |  |
-| `timestamp` | `datetime (timezone-aware)` |  |
+| `evaluator` | `str` | Status evaluator full name  |
+| `status` | [Status](quality_control.md#status) | Status  |
+| `timestamp` | `datetime (timezone-aware)` | Status date  |
 
 
 ### Stage

@@ -241,13 +241,15 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
     docstring = inspect.getdoc(model)
     if docstring:
         header += f"{docstring}\n\n"
-    header += "| Field | Type | Description |\n|-------|------|-------------|\n"
+    header += "| Field | Type | Title (Description) |\n|-------|------|-------------|\n"
 
     fields = get_model_fields(model, stop_at)
     rows = []
     for name, (annotation, field_info) in fields.items():
         type_str = get_type_string(annotation)
+        title = field_info.title or ""
         desc = field_info.description or ""
+        desc_str = f"({desc})" if desc else ""
 
         # Check if field is deprecated
         is_deprecated = hasattr(field_info, "deprecated") and field_info.deprecated
@@ -255,10 +257,10 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
         # Format field name with strikethrough if deprecated
         field_name = f"<del>`{name}`</del>" if is_deprecated else f"`{name}`"
 
-        # Prefix description with [DEPRECATED] if deprecated
+        # Prefix title with [DEPRECATED] if deprecated
         if is_deprecated:
             deprecated_msg = field_info.deprecated if isinstance(field_info.deprecated, str) else ""
-            desc = f"**[DEPRECATED]** {deprecated_msg}. {desc}".strip()
+            title = f"**[DEPRECATED]** {deprecated_msg}. {title}".strip()
 
         # Check of the type_str includes a markdown link [text](link)
         link_regex = r"\[.*?\]\(.*?\)"
@@ -266,9 +268,9 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
         class_regex = r"\{.*?\}"
         if re.search(link_regex, type_str) or re.search(class_regex, type_str):
             # type str has a link, don't break the link
-            rows.append(f"| {field_name} | {type_str} | {desc} |")
+            rows.append(f"| {field_name} | {type_str} | {title} {desc_str} |")
         else:
-            rows.append(f"| {field_name} | `{type_str}` | {desc} |")
+            rows.append(f"| {field_name} | `{type_str}` | {title} {desc_str} |")
 
     return header + "\n".join(rows) + "\n"
 
