@@ -359,6 +359,7 @@ calibrations = [
         input_unit=PowerUnit.PERCENT,
         output=[0.02],
         output_unit=PowerUnit.MW,
+        measured_at="patch cord end",
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
@@ -368,6 +369,7 @@ calibrations = [
         input_unit=PowerUnit.PERCENT,
         output=[0.02],
         output_unit=PowerUnit.MW,
+        measured_at="patch cord end",
     ),
     Calibration(
         calibration_date=datetime(2023, 10, 2, 3, 15, 22, tzinfo=timezone.utc),
@@ -377,6 +379,7 @@ calibrations = [
         input_unit=PowerUnit.PERCENT,
         output=[0.02],
         output_unit=PowerUnit.MW,
+        measured_at="patch cord end",
     ),
     # Water calibration comes here#
 ]

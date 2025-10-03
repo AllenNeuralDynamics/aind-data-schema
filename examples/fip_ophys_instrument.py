@@ -323,6 +323,7 @@ calibration = Calibration(
     input_unit=PowerUnit.PERCENT,
     output=[5, 10, 13],
     output_unit=PowerUnit.MW,
+    measured_at="patch cord end",
 )
 
 instrument = r.Instrument(

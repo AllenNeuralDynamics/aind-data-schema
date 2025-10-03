@@ -49,18 +49,21 @@ blue_led_config = LightEmittingDiodeConfig(
     device_name="470nm LED",
     power=20,
     power_unit=PowerUnit.UW,
+    power_measured_at="patch cord end",
 )
 
 uv_led_config = LightEmittingDiodeConfig(
     device_name="415nm LED",
     power=20,
     power_unit=PowerUnit.UW,
+    power_measured_at="patch cord end",
 )
 
 yellow_led_config = LightEmittingDiodeConfig(
     device_name="565nm LED",
     power=20,
     power_unit=PowerUnit.UW,
+    power_measured_at="patch cord end",
 )
 
 # Define channel configurations for each fiber connection
