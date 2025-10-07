@@ -107,7 +107,7 @@ class Craniotomy(DataModel):
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
 
     @model_validator(mode="after")
-    def check_system_if_position(cls, values):
+    def check_system_if_position(values):
         """Ensure that coordinate_system_name is provided if position is provided"""
 
         if values.position and not values.coordinate_system_name:
@@ -115,7 +115,7 @@ class Craniotomy(DataModel):
         return values
 
     @model_validator(mode="after")
-    def check_position(cls, values):
+    def check_position(values):
         """Ensure a position is provided for certain craniotomy types"""
 
         POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
@@ -125,7 +125,7 @@ class Craniotomy(DataModel):
         return values
 
     @model_validator(mode="after")
-    def validate_size(cls, values):
+    def validate_size(values):
         """Ensure that size is provided for certain craniotomy types"""
 
         SIZE_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE]

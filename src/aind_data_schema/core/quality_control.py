@@ -72,7 +72,7 @@ class QCMetric(DataModel):
         return self.status_history[-1]
 
     @model_validator(mode="after")
-    def validate_multi_asset(cls, v):
+    def validate_multi_asset(v):
         """Ensure that evaluated_assets is set correctly for multi-asset metrics"""
         if v.stage == Stage.MULTI_ASSET and (not v.evaluated_assets or len(v.evaluated_assets) == 0):
             raise ValueError(f"Metric '{v.name}' is a multi-asset metric and must have evaluated_assets set.")

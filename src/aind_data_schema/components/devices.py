@@ -82,8 +82,7 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_manufacturer_notes(cls, values):
+    def validate_manufacturer_notes(values):
         """Ensure that notes are not empty if manufacturer is 'other'"""
 
         if hasattr(values, "manufacturer") and values.manufacturer is not None:
@@ -110,8 +109,7 @@ class DevicePosition(DataModel):
     )
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_transform_and_cs(cls, values):
+    def validate_transform_and_cs(values):
         """Ensure that transform and coordinate system are either both set or both unset"""
         transform = values.transform
         coordinate_system = values.coordinate_system

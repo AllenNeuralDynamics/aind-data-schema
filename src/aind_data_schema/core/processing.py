@@ -175,8 +175,7 @@ class Processing(DataCoreModel):
         return cls(dependency_graph=dependency_graph, data_processes=data_processes, **kwargs)
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_process_graph(cls, values):
+    def validate_process_graph(values):
         """Check that the same processes are represented in data_processes and dependency_graph"""
 
         if not hasattr(values, "data_processes"):  # bypass for testing
@@ -205,8 +204,7 @@ class Processing(DataCoreModel):
         return values
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_pipeline_names(cls, values):
+    def validate_pipeline_names(values):
         """Ensure that all pipeline names in the processes are in the pipelines list"""
 
         if not hasattr(values, "data_processes"):  # bypass for testing

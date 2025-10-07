@@ -149,7 +149,7 @@ class DataModel(BaseModel):
         return first_part + second_part
 
     @model_validator(mode="after")
-    def unit_validator(cls, values):
+    def unit_validator(self):
         """Ensure that all fields matching the pattern variable_unit are set if
         they have a matching variable that is set (!= None)
 
@@ -157,6 +157,7 @@ class DataModel(BaseModel):
         if any of variable_* are set
         """
         # Accumulate a dictionary mapping variable : unit/unit_value
+        values = self.model_dump().items()
         for unit_name, unit_value in values:
             if "_unit" in unit_name and not unit_value:
                 var_name = unit_name.rsplit("_unit", 1)[0]
@@ -173,7 +174,7 @@ class DataModel(BaseModel):
                     if var_name is not unit_name:
                         if var_name in variable_name and variable_value:
                             raise ValueError(f"Unit {unit_name} is required when {variable_name} is set.")
-        return values
+        return self
 
 
 class DataCoreModel(DataModel):
@@ -254,9 +255,9 @@ class DataCoreModel(DataModel):
             logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
 
     @model_validator(mode="after")
-    def coordinate_system_validator(cls, data):
+    def coordinate_system_validator(self):
         """Validate that all coordinates match the defined coordinate system"""
 
-        recursive_coord_system_check(data, None, None)
+        recursive_coord_system_check(self, None, None)
 
-        return data
+        return self

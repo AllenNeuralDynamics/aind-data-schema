@@ -377,7 +377,7 @@ class LickSpoutConfig(DeviceConfig):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @model_validator(mode="after")
-    def validate_other(cls, values):
+    def validate_other(values):
         """Validator for other/notes"""
 
         if values.solution == Liquid.OTHER and not values.notes:

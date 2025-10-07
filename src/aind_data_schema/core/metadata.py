@@ -201,8 +201,7 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_acquisition_active_devices(cls, values):
+    def validate_acquisition_active_devices(values):
         """Ensure that all Acquisition.data_streams.active_devices exist in either the instrument or procedures."""
 
         active_devices = []

@@ -95,7 +95,7 @@ class InjectionDynamics(DataModel):
     alternating_current: Optional[str] = Field(default=None, title="Alternating current")
 
     @model_validator(mode="after")
-    def check_volume_or_current(cls, values):
+    def check_volume_or_current(values):
         """Check that either volume or injection_current is provided"""
         if not values.volume and not values.injection_current:
             raise ValueError("Either volume or injection_current must be provided.")

@@ -213,7 +213,7 @@ class Instrument(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_modality_device_dependencies(cls, value):
+    def validate_modality_device_dependencies(value):
         """
         Validate that devices exist for the modalities specified.
 
