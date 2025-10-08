@@ -126,6 +126,9 @@ class LaserConfig(DeviceConfig):
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power_measured_at: Optional[str] = Field(
+        default=None, title="Power measurement location", description="For example: objective, patch cable, etc"
+    )
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
@@ -133,6 +136,9 @@ class LightEmittingDiodeConfig(DeviceConfig):
 
     power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power_measured_at: Optional[str] = Field(
+        default=None, title="Power measurement location", description="For example: objective, patch cable, etc"
+    )
 
 
 LIGHT_CONFIGS = DiscriminatedList[LaserConfig | LightEmittingDiodeConfig]
