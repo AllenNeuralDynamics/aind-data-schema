@@ -121,14 +121,14 @@ class MouseSubject(DataModel):
         return v
 
     @model_validator(mode="after")
-    def validate_species_strain(value):
+    def validate_species_strain(self):
         """Ensure that the species and strain.species match"""
 
-        if value.strain:
-            if not value.species or value.species.name != value.strain.species:
+        if self.strain:
+            if not self.species or self.species.name != self.strain.species:
                 raise ValueError("The animal species and it's strain's species do not match")
 
-        return value
+        return self
 
 
 class HumanSubject(DataModel):
