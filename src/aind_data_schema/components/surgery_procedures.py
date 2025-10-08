@@ -107,32 +107,32 @@ class Craniotomy(DataModel):
     dura_removed: Optional[bool] = Field(default=None, title="Dura removed")
 
     @model_validator(mode="after")
-    def check_system_if_position(cls, values):
+    def check_system_if_position(self):
         """Ensure that coordinate_system_name is provided if position is provided"""
 
-        if values.position and not values.coordinate_system_name:
+        if self.position and not self.coordinate_system_name:
             raise ValueError("Craniotomy.coordinate_system_name must be provided if Craniotomy.position is provided")
-        return values
+        return self
 
     @model_validator(mode="after")
-    def check_position(cls, values):
+    def check_position(self):
         """Ensure a position is provided for certain craniotomy types"""
 
         POS_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE, CraniotomyType.WHC]
 
-        if values.craniotomy_type in POS_REQUIRED and not values.position:
-            raise ValueError(f"Craniotomy.position must be provided for craniotomy type {values.craniotomy_type}")
-        return values
+        if self.craniotomy_type in POS_REQUIRED and not self.position:
+            raise ValueError(f"Craniotomy.position must be provided for craniotomy type {self.craniotomy_type}")
+        return self
 
     @model_validator(mode="after")
-    def validate_size(cls, values):
+    def validate_size(self):
         """Ensure that size is provided for certain craniotomy types"""
 
         SIZE_REQUIRED = [CraniotomyType.CIRCLE, CraniotomyType.SQUARE]
 
-        if values.craniotomy_type in SIZE_REQUIRED and not values.size:
-            raise ValueError(f"Craniotomy.size must be provided for craniotomy type {values.craniotomy_type}")
-        return values
+        if self.craniotomy_type in SIZE_REQUIRED and not self.size:
+            raise ValueError(f"Craniotomy.size must be provided for craniotomy type {self.craniotomy_type}")
+        return self
 
 
 class ProbeImplant(DataModel):
@@ -180,15 +180,15 @@ class BrainInjection(Injection):
     targeted_structure: Optional[BrainStructureModel] = Field(default=None, title="Injection targeted brain structure")
 
     @model_validator(mode="after")
-    def check_lengths(values):
+    def check_lengths(self):
         """Validator for list length of injection volumes and depths"""
 
-        dynamics_len = len(values.dynamics)
-        coords_len = len(values.coordinates)
+        dynamics_len = len(self.dynamics)
+        coords_len = len(self.coordinates)
 
         if dynamics_len != coords_len:
             raise ValueError("Unmatched list sizes for injection volumes and coordinate depths")
-        return values
+        return self
 
 
 class SampleCollection(DataModel):

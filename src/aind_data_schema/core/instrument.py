@@ -194,8 +194,7 @@ class Instrument(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_connections(cls, self):
+    def validate_connections(self):
         """validate that all connections map between devices that actually exist"""
         device_names = self.get_component_names()
 
@@ -213,7 +212,7 @@ class Instrument(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    def validate_modality_device_dependencies(cls, value):
+    def validate_modality_device_dependencies(self):
         """
         Validate that devices exist for the modalities specified.
 
@@ -230,15 +229,15 @@ class Instrument(DataCoreModel):
         """
 
         # Return if there are no modalities listed, this is for testing
-        if len(value.modalities) == 0:
-            return value  # pragma: no cover
+        if len(self.modalities) == 0:
+            return self  # pragma: no cover
 
         # Retrieve the components from the validation info
-        components = value.components
+        components = self.components
         errors = []
 
         # Validate each modality
-        for modality in value.modalities:
+        for modality in self.modalities:
             required_device_groups = DEVICES_REQUIRED.get(modality.abbreviation)
             if not required_device_groups:
                 # Skip modalities that don't require validation
@@ -266,7 +265,7 @@ class Instrument(DataCoreModel):
         if errors:
             raise ValueError("\n".join(errors))
 
-        return value
+        return self
 
     def __add__(self, other: "Instrument") -> "Instrument":
         """Combine two Instrument objects"""

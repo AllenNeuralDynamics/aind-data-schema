@@ -377,15 +377,15 @@ class LickSpoutConfig(DeviceConfig):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @model_validator(mode="after")
-    def validate_other(cls, values):
+    def validate_other(self):
         """Validator for other/notes"""
 
-        if values.solution == Liquid.OTHER and not values.notes:
+        if self.solution == Liquid.OTHER and not self.notes:
             raise ValueError(
                 "Notes cannot be empty if LickSpoutConfig.solution is Other."
                 "Describe the solution in the notes field."
             )
-        return values
+        return self
 
 
 class AirPuffConfig(DeviceConfig):

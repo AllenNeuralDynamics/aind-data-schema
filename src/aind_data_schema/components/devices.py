@@ -82,18 +82,17 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_manufacturer_notes(cls, values):
+    def validate_manufacturer_notes(self):
         """Ensure that notes are not empty if manufacturer is 'other'"""
 
-        if hasattr(values, "manufacturer") and values.manufacturer is not None:
-            manufacturer = values.manufacturer
-            notes = values.notes
+        if hasattr(self, "manufacturer") and self.manufacturer is not None:
+            manufacturer = self.manufacturer
+            notes = self.notes
 
             if manufacturer == Organization.OTHER and not notes:
                 raise ValueError("Device.notes cannot be empty if manufacturer is 'other'")
 
-        return values
+        return self
 
 
 class DevicePosition(DataModel):
@@ -110,11 +109,10 @@ class DevicePosition(DataModel):
     )
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_transform_and_cs(cls, values):
+    def validate_transform_and_cs(self):
         """Ensure that transform and coordinate system are either both set or both unset"""
-        transform = values.transform
-        coordinate_system = values.coordinate_system
+        transform = self.transform
+        coordinate_system = self.coordinate_system
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(
@@ -122,7 +120,7 @@ class DevicePosition(DataModel):
                 " must either both be set or both be unset."
             )
 
-        return values
+        return self
 
 
 class Catheter(Device):
