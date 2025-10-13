@@ -871,7 +871,7 @@ class TestMetadata(unittest.TestCase):
                 name="Test Metadata",
                 location="Test Location",
                 subject=calibration_subject,
-                data_description=data_description,
+                data_description=dd,
             )
 
         warning_messages = [str(warning.message) for warning in w.warnings]
