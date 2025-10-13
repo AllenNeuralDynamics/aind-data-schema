@@ -10,6 +10,7 @@ Generic calibration class
 |-------|------|-------------|
 | `calibration_date` | `datetime (timezone-aware)` | Date and time of calibration  |
 | `description` | `str` | Description (Brief description of what is being calibrated) |
+| `measured_at` | `Optional[str]` | Measurement location  |
 | `input` | `List[float or str]` | Inputs (Calibration input) |
 | `input_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) or [MassUnit](../aind_data_schema_models/units.md#massunit) or [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) or [SpeedUnit](../aind_data_schema_models/units.md#speedunit) or [VolumeUnit](../aind_data_schema_models/units.md#volumeunit) or [AngleUnit](../aind_data_schema_models/units.md#angleunit) or [TimeUnit](../aind_data_schema_models/units.md#timeunit) or [PowerUnit](../aind_data_schema_models/units.md#powerunit) or [CurrentUnit](../aind_data_schema_models/units.md#currentunit) or [ConcentrationUnit](../aind_data_schema_models/units.md#concentrationunit) or [TemperatureUnit](../aind_data_schema_models/units.md#temperatureunit) or [SoundIntensityUnit](../aind_data_schema_models/units.md#soundintensityunit) or [VoltageUnit](../aind_data_schema_models/units.md#voltageunit) or [MemoryUnit](../aind_data_schema_models/units.md#memoryunit) or [UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit) or [MagneticFieldUnit](../aind_data_schema_models/units.md#magneticfieldunit) or [PressureUnit](../aind_data_schema_models/units.md#pressureunit) | Input unit  |
 | `repeats` | `Optional[int]` | Number of repeats (If each input was repeated multiple times, provide the number of repeats) |
@@ -67,6 +68,7 @@ Calibration of a device that outputs power based on input strength
 | `output_unit` | [PowerUnit](../aind_data_schema_models/units.md#powerunit) | Output unit  |
 | `description` | `"Power measured for various power or percentage input strengths"` |   |
 | `calibration_date` | `datetime (timezone-aware)` | Date and time of calibration  |
+| `measured_at` | `Optional[str]` | Measurement location  |
 | `repeats` | `Optional[int]` | Number of repeats (If each input was repeated multiple times, provide the number of repeats) |
 | `fit` | Optional[[CalibrationFit](#calibrationfit)] | Fit (Fit equation for the calibration data used during data acquisition) |
 | `notes` | `Optional[str]` | Notes  |
@@ -86,6 +88,7 @@ Calibration of a liquid delivery device based on solenoid/valve opening times
 | `output_unit` | [VolumeUnit](../aind_data_schema_models/units.md#volumeunit) | Output unit  |
 | `description` | `"Volume measured for various solenoid opening times"` |   |
 | `calibration_date` | `datetime (timezone-aware)` | Date and time of calibration  |
+| `measured_at` | `Optional[str]` | Measurement location  |
 | `fit` | Optional[[CalibrationFit](#calibrationfit)] | Fit (Fit equation for the calibration data used during data acquisition) |
 | `notes` | `Optional[str]` | Notes  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
