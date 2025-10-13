@@ -112,7 +112,10 @@ class OlfactometerChannelConfig(DataModel):
 
 
 class OlfactoryStimulation(GenericModel):
-    """Description of a olfactory stimulus"""
+    """
+    **DEPRECATED**: Use StimulusEpoch.stimulus_name and OlfactometerConfig in aind_data_schema.components.configs
+
+    Description of a olfactory stimulus"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
     channels: Optional[List[OlfactometerChannelConfig]] = Field(

@@ -46,6 +46,8 @@ Description of olfactometer channel configurations
 
 ### OlfactoryStimulation
 
+**DEPRECATED**: Use StimulusEpoch.stimulus_name and OlfactometerConfig in aind_data_schema.components.configs
+
 Description of a olfactory stimulus
 
 | Field | Type | Title (Description) |
