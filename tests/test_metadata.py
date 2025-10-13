@@ -4,7 +4,6 @@ import json
 import unittest
 import warnings
 from datetime import datetime, timezone
-from pathlib import Path
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
