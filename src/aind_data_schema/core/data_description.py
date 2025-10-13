@@ -187,6 +187,9 @@ class DataDescription(DataCoreModel):
 
         """
 
+        if not data_description.data_level == DataLevel.RAW:
+            raise ValueError(f"Input data_description must have data_level=RAW, got {data_description.data_level}")
+
         def get_or_default(field_name: str) -> Any:
             """
             If the field is set in kwargs, use that value. Otherwise, check if
@@ -220,9 +223,6 @@ class DataDescription(DataCoreModel):
         if source_data is not None:
             new_source_data = current_source_data + source_data
         else:
-            # original_name should not be None for a valid DataDescription
-            if original_name is None:
-                raise ValueError("DataDescription name cannot be None")
             new_source_data = current_source_data + [original_name]
 
         return cls(
@@ -310,9 +310,6 @@ class DataDescription(DataCoreModel):
         if source_data is not None:
             new_source_data = current_source_data + source_data
         else:
-            # data_description.name should not be None for a valid DERIVED DataDescription
-            if data_description.name is None:
-                raise ValueError("DataDescription name cannot be None for derived data")
             new_source_data = current_source_data + [data_description.name]
 
         return cls(

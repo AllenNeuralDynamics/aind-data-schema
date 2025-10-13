@@ -102,8 +102,8 @@ class DataDescriptionTest(unittest.TestCase):
             project_name="Test",
         )
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
-        r2 = DataDescription.from_raw(r1, "some-model", creation_time=dt)
-        r3 = DataDescription.from_raw(r2, "a-paper", creation_time=dt)
+        r2 = DataDescription.from_derived(r1, "some-model", creation_time=dt)
+        r3 = DataDescription.from_derived(r2, "a-paper", creation_time=dt)
         self.assertIsNotNone(r3)
 
     def test_data_description_construction(self):
@@ -338,7 +338,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         # Test scenario 4: DERIVED data → DERIVED with additional source_data
         additional_source = ["another_external_dataset"]
-        r2 = DataDescription.from_raw(r1, "clustering", source_data=additional_source, creation_time=dt)
+        r2 = DataDescription.from_derived(r1, "clustering", source_data=additional_source, creation_time=dt)
 
         # Should combine existing source_data with new source_data
         self.assertIsNotNone(r2.source_data)
@@ -368,13 +368,13 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertEqual(r1.source_data, [da.name])
 
         # Second derivation: DERIVED → DERIVED (should append to existing source_data)
-        r2 = DataDescription.from_raw(r1, "clustering", creation_time=dt)
+        r2 = DataDescription.from_derived(r1, "clustering", creation_time=dt)
         self.assertEqual(len(r2.source_data), 2)
         self.assertEqual(r2.source_data[0], da.name)  # Original source
         self.assertEqual(r2.source_data[1], r1.name)  # Previous derived data
 
         # Third derivation: should continue the chain
-        r3 = DataDescription.from_raw(r2, "analysis", creation_time=dt)
+        r3 = DataDescription.from_derived(r2, "analysis", creation_time=dt)
         self.assertEqual(len(r3.source_data), 3)
         self.assertEqual(r3.source_data[0], da.name)  # Original source
         self.assertEqual(r3.source_data[1], r1.name)  # First derived
@@ -555,6 +555,31 @@ class DataDescriptionTest(unittest.TestCase):
         # Should combine existing source_data with explicit source_data
         expected_source_data = [example_data_description.name] + explicit_source
         self.assertEqual(result_derived.source_data, expected_source_data)
+
+    def test_from_derived_with_invalid_creation_time(self):
+        """Test from_derived error when creation_time is not a datetime object"""
+        dt = datetime.datetime.now()
+
+        # Create first derived data
+        derived1 = DataDescription.from_raw(example_data_description, "preprocessing", creation_time=dt)
+
+        with self.assertRaises(ValueError) as context:
+            DataDescription.from_derived(derived1, "analysis", creation_time="not_a_datetime")
+
+        self.assertIn("creation_time(not_a_datetime) must be a datetime object", str(context.exception))
+
+    def test_from_raw_validation_error_on_derived_input(self):
+        """Test from_raw raises error when input data_level is DERIVED"""
+        dt = datetime.datetime.now()
+
+        # Create derived data first
+        derived = DataDescription.from_raw(example_data_description, "preprocessing", creation_time=dt)
+
+        # Try to use from_raw on derived data (should fail)
+        with self.assertRaises(ValueError) as context:
+            DataDescription.from_raw(derived, "another_process", creation_time=dt)
+
+        self.assertIn("Input data_description must have data_level=RAW, got derived", str(context.exception))
 
 
 if __name__ == "__main__":
