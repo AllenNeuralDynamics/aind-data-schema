@@ -362,4 +362,4 @@ class DataDescription(DataCoreModel):
         elif data_description.data_level == DataLevel.DERIVED:
             return cls.from_derived(data_description, process_name, source_data, **kwargs)
         else:
-            raise ValueError(f"Unsupported data_level: {data_description.data_level}")
+            raise ValueError(f"Unsupported data_level: {data_description.data_level.value}")

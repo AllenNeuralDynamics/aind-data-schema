@@ -526,7 +526,7 @@ class DataDescriptionTest(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             DataDescription.from_data_description(derived, "process", creation_time=dt)
 
-        self.assertIn("Unsupported data_level: DataLevel.SIMULATED", str(context.exception))
+        self.assertIn("Unsupported data_level: simulated", str(context.exception))
 
     def test_from_data_description_with_kwargs_and_source_data(self):
         """Test from_data_description passes through kwargs and source_data correctly"""
