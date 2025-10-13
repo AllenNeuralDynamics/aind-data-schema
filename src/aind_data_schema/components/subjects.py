@@ -12,6 +12,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from aind_data_schema.base import DataModel
+from aind_data_schema.components.devices import Device
 from aind_data_schema.utils.validators import TimeValidation
 
 
@@ -120,14 +121,14 @@ class MouseSubject(DataModel):
         return v
 
     @model_validator(mode="after")
-    def validate_species_strain(value):
+    def validate_species_strain(self):
         """Ensure that the species and strain.species match"""
 
-        if value.strain:
-            if value.species.name != value.strain.species:
+        if self.strain:
+            if not self.species or self.species.name != self.strain.species:
                 raise ValueError("The animal species and it's strain's species do not match")
 
-        return value
+        return self
 
 
 class HumanSubject(DataModel):
@@ -139,4 +140,16 @@ class HumanSubject(DataModel):
         ...,
         description="Where the subject was acquired from.",
         title="Source",
+    )
+
+
+class CalibrationObject(DataModel):
+    """Description of a calibration object"""
+
+    empty: bool = Field(
+        default=False, title="Empty", description="Set to true if the calibration was performed with no object."
+    )
+    description: str = Field(..., title="Description")
+    objects: Optional[list[Device]] = Field(
+        default=None, title="Objects", description="For calibration objects that are built up from one or more devices."
     )

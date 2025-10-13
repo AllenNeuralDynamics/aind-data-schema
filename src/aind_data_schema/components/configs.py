@@ -109,7 +109,7 @@ class DeviceConfig(DataModel):
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
-    exposure_time: float = Field(..., title="Exposure time (ms)")
+    exposure_time: float = Field(..., title="Exposure time")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
@@ -127,6 +127,9 @@ class LaserConfig(DeviceConfig):
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power_measured_at: Optional[str] = Field(
+        default=None, title="Power measurement location", description="For example: objective, patch cable, etc"
+    )
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
@@ -134,6 +137,9 @@ class LightEmittingDiodeConfig(DeviceConfig):
 
     power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power_measured_at: Optional[str] = Field(
+        default=None, title="Power measurement location", description="For example: objective, patch cable, etc"
+    )
 
 
 LIGHT_CONFIGS = DiscriminatedList[LaserConfig | LightEmittingDiodeConfig]
@@ -378,15 +384,15 @@ class LickSpoutConfig(DeviceConfig):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @model_validator(mode="after")
-    def validate_other(cls, values):
+    def validate_other(self):
         """Validator for other/notes"""
 
-        if values.solution == Liquid.OTHER and not values.notes:
+        if self.solution == Liquid.OTHER and not self.notes:
             raise ValueError(
                 "Notes cannot be empty if LickSpoutConfig.solution is Other."
                 "Describe the solution in the notes field."
             )
-        return values
+        return self
 
 
 class AirPuffConfig(DeviceConfig):
@@ -458,7 +464,14 @@ class ProbeConfig(DeviceConfig):
     )
 
     # Transform
-    coordinate_system: CoordinateSystem = Field(..., title="Device coordinate system")
+    coordinate_system: CoordinateSystem = Field(
+        ...,
+        title="Device coordinate system",
+        description=(
+            "Device coordinate system, defines un-rotated probe's orientation relative to the "
+            "Acquisition.coordinate_system"
+        ),
+    )
     transform: TRANSFORM_TYPES = Field(
         ...,
         title="Device to acquisition transform",

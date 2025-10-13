@@ -71,24 +71,24 @@ The acquisition metadata is split into two parallel pieces: the DataStream and t
 At any given moment in time the active DataStream(s) represents all modalities of data being acquired,
 while the StimulusEpoch represents all stimuli being presented.
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `subject_id` | `str` | Unique identifier for the subject |
-| `specimen_id` | `Optional[str]` | Specimen ID is required for in vitro imaging modalities |
-| `acquisition_start_time` | `datetime (timezone-aware)` |  |
-| `acquisition_end_time` | `datetime (timezone-aware)` |  |
-| `experimenters` | List[[Person](components/identifiers.md#person)] |  |
-| `protocol_id` | `Optional[List[str]]` | DOI for protocols.io |
-| `ethics_review_id` | `Optional[List[str]]` |  |
-| `instrument_id` | `str` | Should match the Instrument.instrument_id |
-| `acquisition_type` | `str` | Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment. |
-| `notes` | `Optional[str]` |  |
-| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition |
-| `calibrations` | List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)] | List of calibration measurements taken prior to acquisition. |
-| `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | List of maintenance on instrument prior to acquisition. |
-| `data_streams` | List[[DataStream](acquisition.md#datastream)] | A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. |
-| `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes. |
-| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] |  |
+| `subject_id` | `str` | Subject ID (Unique identifier for the subject) |
+| `specimen_id` | `Optional[str]` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
+| `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time  |
+| `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |
+| `experimenters` | `List[str]` | experimenter(s)  |
+| `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
+| `ethics_review_id` | `Optional[List[str]]` | Ethics review ID  |
+| `instrument_id` | `str` | Instrument ID (Should match the Instrument.instrument_id) |
+| `acquisition_type` | `str` | Acquisition type (Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.) |
+| `notes` | `Optional[str]` | Notes  |
+| `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Coordinate system (Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition) |
+| `calibrations` | List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)] | Calibrations (List of calibration measurements taken prior to acquisition.) |
+| `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | Maintenance (List of maintenance on instrument prior to acquisition.) |
+| `data_streams` | List[[DataStream](acquisition.md#datastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.) |
+| `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | Stimulus (A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.) |
+| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details  |
 
 
 ## Model definitions
@@ -97,15 +97,15 @@ while the StimulusEpoch represents all stimuli being presented.
 
 Details about the subject during an acquisition
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight before procedure |
-| `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight after procedure |
-| `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) |  |
-| `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] |  |
-| `mouse_platform_name` | `str` |  |
-| `reward_consumed_total` | `Optional[decimal.Decimal]` |  |
-| `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
+| `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight (g) (Animal weight before procedure) |
+| `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight (g) (Animal weight after procedure) |
+| `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) | Weight unit  |
+| `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia  |
+| `mouse_platform_name` | `str` | Mouse platform  |
+| `reward_consumed_total` | `Optional[decimal.Decimal]` | Total reward consumed (mL)  |
+| `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] | Reward consumed unit  |
 
 
 ### DataStream
@@ -113,30 +113,30 @@ Details about the subject during an acquisition
 A set of devices that are acquiring data and their configurations starting and stopping at approximately the
 same time.
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `stream_start_time` | `datetime (timezone-aware)` |  |
-| `stream_end_time` | `datetime (timezone-aware)` |  |
-| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities that are acquired in this stream |
-| `code` | Optional[List[[Code](components/identifiers.md#code)]] |  |
-| `notes` | `Optional[str]` |  |
-| `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig)] | Configurations are parameters controlling active devices during this stream |
-| `connections` | List[[Connection](components/connections.md#connection)] | Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument) |
+| `stream_start_time` | `datetime (timezone-aware)` | Stream start time  |
+| `stream_end_time` | `datetime (timezone-aware)` | Stream stop time  |
+| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities (Modalities that are acquired in this stream) |
+| `code` | Optional[List[[Code](components/identifiers.md#code)]] | Acquisition code  |
+| `notes` | `Optional[str]` | Notes  |
+| `active_devices` | `List[str]` | Active devices (Device names must match devices in the Instrument) |
+| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig)] | Device configurations (Configurations are parameters controlling active devices during this stream) |
+| `connections` | List[[Connection](components/connections.md#connection)] | Connections (Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument)) |
 
 
 ### PerformanceMetrics
 
 Summary of a StimulusEpoch
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `output_parameters` | `dict` |  |
-| `reward_consumed_during_epoch` | `Optional[decimal.Decimal]` |  |
-| `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] |  |
-| `trials_total` | `Optional[int]` |  |
-| `trials_finished` | `Optional[int]` |  |
-| `trials_rewarded` | `Optional[int]` |  |
+| `output_parameters` | `dict` | Additional metrics  |
+| `reward_consumed_during_epoch` | `Optional[decimal.Decimal]` | Reward consumed during training (uL)  |
+| `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] | Reward consumed unit  |
+| `trials_total` | `Optional[int]` | Total trials  |
+| `trials_finished` | `Optional[int]` | Finished trials  |
+| `trials_rewarded` | `Optional[int]` | Rewarded trials  |
 
 
 ### StimulusEpoch
@@ -144,16 +144,16 @@ Summary of a StimulusEpoch
 All stimuli being presented to the subject. starting and stopping at approximately the
 same time. Not all acquisitions have StimulusEpochs.
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `stimulus_start_time` | `datetime (timezone-aware)` | When a specific stimulus begins. This might be the same as the acquisition start time. |
-| `stimulus_end_time` | `datetime (timezone-aware)` | When a specific stimulus ends. This might be the same as the acquisition end time. |
-| `stimulus_name` | `str` |  |
-| `code` | Optional[[Code](components/identifiers.md#code)] | Custom code/script used to control the behavior/stimulus. Use the Code.parameters field to store stimulus properties |
-| `stimulus_modalities` | List[[StimulusModality](aind_data_schema_models/stimulus_modality.md#stimulusmodality)] |  |
-| `performance_metrics` | Optional[[PerformanceMetrics](acquisition.md#performancemetrics)] |  |
-| `notes` | `Optional[str]` |  |
-| `active_devices` | `List[str]` | Device names must match devices in the Instrument |
-| `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] |  |
-| `training_protocol_name` | `Optional[str]` | Name of the training protocol used during the acquisition, must match a protocol in the Procedures |
-| `curriculum_status` | `Optional[str]` | Status within the training protocol curriculum |
+| `stimulus_start_time` | `datetime (timezone-aware)` | Stimulus start time (When a specific stimulus begins. This might be the same as the acquisition start time.) |
+| `stimulus_end_time` | `datetime (timezone-aware)` | Stimulus end time (When a specific stimulus ends. This might be the same as the acquisition end time.) |
+| `stimulus_name` | `str` | Stimulus name  |
+| `code` | Optional[[Code](components/identifiers.md#code)] | Code or script (Custom code/script used to control the behavior/stimulus. Use the Code.parameters field to store stimulus properties) |
+| `stimulus_modalities` | List[[StimulusModality](aind_data_schema_models/stimulus_modality.md#stimulusmodality)] | Stimulus modalities  |
+| `performance_metrics` | Optional[[PerformanceMetrics](acquisition.md#performancemetrics)] | Performance metrics  |
+| `notes` | `Optional[str]` | Notes  |
+| `active_devices` | `List[str]` | Active devices (Device names must match devices in the Instrument) |
+| `configurations` | List[[SpeakerConfig](components/configs.md#speakerconfig) or [LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [MousePlatformConfig](components/configs.md#mouseplatformconfig)] | Device configurations  |
+| `training_protocol_name` | `Optional[str]` | Training protocol name (Name of the training protocol used during the acquisition, must match a protocol in the Procedures) |
+| `curriculum_status` | `Optional[str]` | Curriculum status (Status within the training protocol curriculum) |

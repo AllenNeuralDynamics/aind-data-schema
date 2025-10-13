@@ -80,5 +80,4 @@ I want to...
 
    general
    coordinate_systems
-   data_organization
    related_standards

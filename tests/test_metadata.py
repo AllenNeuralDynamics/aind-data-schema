@@ -2,6 +2,7 @@
 
 import json
 import unittest
+import warnings
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -13,7 +14,7 @@ from pydantic import ValidationError
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import EphysAssembly, EphysProbe, Laser, Manipulator
 from aind_data_schema.components.identifiers import Code, Database, Person
-from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species
+from aind_data_schema.components.subjects import BreedingInfo, Housing, MouseSubject, Sex, Species, CalibrationObject
 from aind_data_schema.components.surgery_procedures import BrainInjection
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream
 from aind_data_schema.core.data_description import DataDescription, Funding
@@ -28,6 +29,10 @@ from examples.aibs_smartspim_instrument import inst as spim_inst
 from examples.ephys_instrument import inst as ephys_inst
 from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.acquisition import StimulusEpoch
+
+from examples.data_description import d as data_description
+from examples.subject import s as subject
+
 
 EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
 EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
@@ -142,7 +147,7 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
+                subject=subject,
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
                 instrument=self.spim_instrument,
@@ -167,7 +172,7 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
+                subject=subject,
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
@@ -197,7 +202,7 @@ class TestMetadata(unittest.TestCase):
                     subject_id="655019",
                     data_level="raw",
                 ),
-                subject=Subject.model_construct(),
+                subject=subject,
                 procedures=Procedures.model_construct(),
                 instrument=inst,
                 processing=Processing.model_construct(),
@@ -217,6 +222,7 @@ class TestMetadata(unittest.TestCase):
             name="name",
             location="location",
             id="1",
+            subject=subject,
         )
 
         m_dict = m.model_dump()
@@ -269,7 +275,7 @@ class TestMetadata(unittest.TestCase):
             "data_description": None,
             "procedures": self.procedures_json,
             "instrument": Instrument.model_construct().model_dump(),
-            "processing": Procedures.model_construct(injection_materials=["some materials"]).model_dump(),
+            "processing": Processing.model_construct().model_dump(),
             "acquisition": None,
             "quality_control": None,
         }
@@ -315,6 +321,18 @@ class TestMetadata(unittest.TestCase):
         self.assertIn("Metadata missing required file: instrument", warning_messages)
         self.assertIn("Metadata missing required file: acquisition", warning_messages)
 
+        # Test case where ALL required file set keys are missing (subject, processing, model)
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                # No subject, processing, or model - should trigger validation error
+            )
+        self.assertIn(
+            "Metadata must contain at least one of the following files: subject, processing, model",
+            str(context.exception),
+        )
+
     def test_validate_acquisition_connections(self):
         """Tests that acquisition connections are validated correctly."""
         # Case where all connection devices are present in instrument components
@@ -336,6 +354,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             instrument=instrument,
             acquisition=acquisition,
         )
@@ -349,7 +368,7 @@ class TestMetadata(unittest.TestCase):
                     active_devices=["Probe A", "Laser A"],
                     modalities=[],
                     configurations=[],
-                    connections=[Connection(device_names=["Probe A", "Missing Device"], connection_data={})],
+                    connections=[Connection(source_device="Probe A", target_device="Missing Device")],
                 ),
             ],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -358,11 +377,38 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 instrument=instrument,
                 acquisition=acquisition,
             )
         self.assertIn(
-            "Connection 'object_type='Connection' device_names=['Probe A', 'Missing Device'] connection_data={}'",
+            "Missing Device",
+            str(context.exception),
+        )
+
+        # Case where source device is missing
+        acquisition_missing_source = Acquisition.model_construct(
+            instrument_id="Test",
+            data_streams=[
+                DataStream.model_construct(
+                    active_devices=["Probe A", "Laser A"],
+                    modalities=[],
+                    configurations=[],
+                    connections=[Connection(source_device="Missing Source", target_device="Laser A")],
+                ),
+            ],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=subject,
+                instrument=instrument,
+                acquisition=acquisition_missing_source,
+            )
+        self.assertIn(
+            "Missing Source",
             str(context.exception),
         )
 
@@ -387,6 +433,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             instrument=instrument,
             acquisition=acquisition,
         )
@@ -406,6 +453,7 @@ class TestMetadata(unittest.TestCase):
             Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 instrument=instrument,
                 acquisition=acquisition,
             )
@@ -432,6 +480,7 @@ class TestMetadata(unittest.TestCase):
         metadata = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             procedures=procedures,
             acquisition=acquisition,
         )
@@ -450,6 +499,7 @@ class TestMetadata(unittest.TestCase):
             metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 procedures=procedures,
                 acquisition=acquisition_invalid,
             )
@@ -470,6 +520,7 @@ class TestMetadata(unittest.TestCase):
             metadata = Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 procedures=procedures_empty,
                 acquisition=acquisition_invalid,
             )
@@ -496,6 +547,7 @@ class TestMetadata(unittest.TestCase):
         metadata_none = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             procedures=procedures,
             acquisition=acquisition_none,
         )
@@ -505,6 +557,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_acquisition = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             procedures=procedures,
         )
         self.assertIsNotNone(metadata_no_acquisition)
@@ -513,6 +566,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_procedures = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata_no_procedures)
@@ -549,6 +603,7 @@ class TestMetadata(unittest.TestCase):
         metadata_matching = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description,
             acquisition=acquisition,
         )
@@ -570,6 +625,7 @@ class TestMetadata(unittest.TestCase):
         metadata_later_same_day = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description_later,
             acquisition=acquisition,
         )
@@ -591,6 +647,7 @@ class TestMetadata(unittest.TestCase):
         metadata_next_day = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description_next_day,
             acquisition=acquisition,
         )
@@ -609,21 +666,31 @@ class TestMetadata(unittest.TestCase):
             project_name="Test Project",
         )
 
-        # This should fail - creation time is before the acquisition day
-        with self.assertRaises(ValidationError) as context:
-            Metadata(
+        # This should issue a warning - creation time is before the acquisition day
+        with warnings.catch_warnings(record=True) as warning_list:
+            warnings.simplefilter("always")
+            metadata_with_warning = Metadata(
                 name="Test Metadata",
                 location="Test Location",
+                subject=subject,
                 data_description=data_description_before,
                 acquisition=acquisition,
             )
-        self.assertIn("Creation time from data_description.name", str(context.exception))
-        self.assertIn("must be on or after midnight of the acquisition day", str(context.exception))
+            # Should have successfully created the metadata object
+            self.assertIsNotNone(metadata_with_warning)
+            # Should have issued a warning
+            print(warning_list)
+            # Filter to only the time consistency warning
+            time_warnings = [w for w in warning_list if "Creation time from data_description" in str(w.message)]
+            self.assertEqual(len(time_warnings), 1)
+            self.assertIn("Creation time from data_description", str(time_warnings[0].message))
+            self.assertIn("should be close to the acquisition end time", str(time_warnings[0].message))
 
         # Test case where data_description is None (should pass)
         metadata_no_data_desc = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             acquisition=acquisition,
         )
         self.assertIsNotNone(metadata_no_data_desc)
@@ -632,6 +699,7 @@ class TestMetadata(unittest.TestCase):
         metadata_no_acquisition = Metadata(
             name="Test Metadata",
             location="Test Location",
+            subject=subject,
             data_description=data_description,
         )
         self.assertIsNotNone(metadata_no_acquisition)
@@ -785,6 +853,36 @@ class TestMetadata(unittest.TestCase):
             )
         self.assertIn("must be after", str(context.exception))
         self.assertIn("start_date_time", str(context.exception))
+
+    def test_validate_calibration_object_tags(self):
+        """Tests that calibration tag warning is issued when subject is CalibrationObject but tag is missing"""
+
+        # Create a subject with CalibrationObject
+        calibration_subject = Subject(
+            subject_id="calibration_object_001",
+            subject_details=CalibrationObject(
+                description="Test calibration object",
+            ),
+        )
+
+        # Use the existing data_description from class setup (which doesn't have 'calibration' tag)
+
+        # This should trigger a warning since subject is CalibrationObject but no 'calibration' tag
+        with self.assertWarns(UserWarning) as w:
+            metadata = Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=calibration_subject,
+                data_description=data_description,
+            )
+
+        warning_messages = [str(warning.message) for warning in w.warnings]
+        self.assertIn(
+            "Subject is a CalibrationObject but 'calibration' tag is missing from data_description.tags. "
+            "Adding 'calibration' tag automatically.",
+            warning_messages,
+        )
+        self.assertIsNotNone(metadata)
 
 
 if __name__ == "__main__":

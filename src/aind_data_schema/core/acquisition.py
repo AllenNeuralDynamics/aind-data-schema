@@ -166,8 +166,20 @@ class DataStream(DataModel):
     def check_connections(self):
         """Check that every device in a Connection is present in the active_devices list"""
         for connection in self.connections:
-            if not any(device in self.active_devices for device in connection.device_names):
-                raise ValueError(f"Missing devices in active_devices list for connection {connection}")
+            # Check that both source and target devices are in active_devices
+            if (
+                connection.source_device not in self.active_devices
+                or connection.target_device not in self.active_devices
+            ):
+                missing_devices = []
+                if connection.source_device not in self.active_devices:
+                    missing_devices.append(connection.source_device)
+                if connection.target_device not in self.active_devices:
+                    missing_devices.append(connection.target_device)
+                raise ValueError(
+                    f"Missing devices in active_devices list for connection "
+                    f"from '{connection.source_device}' to '{connection.target_device}': {missing_devices}"
+                )
 
         return self
 
@@ -235,7 +247,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.34"]] = Field(default="2.0.34")
+    schema_version: SkipValidation[Literal["2.0.36"]] = Field(default="2.0.36")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")

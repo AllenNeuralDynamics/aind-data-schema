@@ -6,30 +6,12 @@
 
 Description of a connection between devices in an instrument
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `device_names` | `List[str]` |  |
-| `connection_data` | Dict[str, [ConnectionData](#connectiondata)] |  |
-
-
-### ConnectionData
-
-Configuration data for a device connection including direction and port information
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `direction` | Optional[[ConnectionDirection](#connectiondirection)] |  |
-| `port` | `Optional[str]` |  |
-
-
-### ConnectionDirection
-
-Direction of a connection
-
-| Name | Value |
-|------|-------|
-| `SEND` | `Send` |
-| `RECEIVE` | `Receive` |
-| `SEND_AND_RECEIVE` | `Send and receive` |
+| `source_device` | `str` | Source device name  |
+| `source_port` | `Optional[str]` | Source device port index/name  |
+| `target_device` | `str` | Target device name  |
+| `target_port` | `Optional[str]` | Target device port index/name  |
+| `send_and_receive` | `bool` | Send and receive (Whether the connection is bidirectional (send and receive data)) |
 
 

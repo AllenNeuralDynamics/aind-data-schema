@@ -59,7 +59,6 @@ from aind_data_schema.utils.validators import recursive_get_all_names
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light (one of the options) plus a detector and a patch cord
 DEVICES_REQUIRED = {
-    Modality.ECEPHYS.abbreviation: [EphysAssembly],
     Modality.FIB.abbreviation: [[Laser, LightEmittingDiode, Lamp], [Detector], [FiberPatchCord]],
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
@@ -75,7 +74,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.38"]] = Field(default="2.0.38")
+    schema_version: SkipValidation[Literal["2.0.40"]] = Field(default="2.0.40")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
@@ -165,12 +164,11 @@ class Instrument(DataCoreModel):
         description="List of all devices in the instrument",
     )
 
-    @classmethod
-    def get_component_names(cls, instrument: "Instrument") -> List[str]:
+    def get_component_names(self) -> List[str]:
         """Get the name field of all components, recurse into assemblies."""
 
         names = []
-        for component in instrument.components:
+        for component in self.components:
             names.extend(recursive_get_all_names(component))
         names = [name for name in names if name is not None]
 
@@ -196,20 +194,25 @@ class Instrument(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_connections(cls, self):
+    def validate_connections(self):
         """validate that all connections map between devices that actually exist"""
-        device_names = Instrument.get_component_names(self)
+        device_names = self.get_component_names()
 
         for connection in self.connections:
-            for device_name in connection.device_names:
-                if device_name not in device_names:
-                    raise ValueError(f"Device name validation error: '{device_name}' is not part of the instrument.")
+            # Check both source and target devices exist
+            if connection.source_device not in device_names:
+                raise ValueError(
+                    f"Device name validation error: '{connection.source_device}' is not part of the instrument."
+                )
+            if connection.target_device not in device_names:
+                raise ValueError(
+                    f"Device name validation error: '{connection.target_device}' is not part of the instrument."
+                )
 
         return self
 
     @model_validator(mode="after")
-    def validate_modality_device_dependencies(cls, value):
+    def validate_modality_device_dependencies(self):
         """
         Validate that devices exist for the modalities specified.
 
@@ -226,15 +229,15 @@ class Instrument(DataCoreModel):
         """
 
         # Return if there are no modalities listed, this is for testing
-        if len(value.modalities) == 0:
-            return value  # pragma: no cover
+        if len(self.modalities) == 0:
+            return self  # pragma: no cover
 
         # Retrieve the components from the validation info
-        components = value.components
+        components = self.components
         errors = []
 
         # Validate each modality
-        for modality in value.modalities:
+        for modality in self.modalities:
             required_device_groups = DEVICES_REQUIRED.get(modality.abbreviation)
             if not required_device_groups:
                 # Skip modalities that don't require validation
@@ -262,7 +265,7 @@ class Instrument(DataCoreModel):
         if errors:
             raise ValueError("\n".join(errors))
 
-        return value
+        return self
 
     def __add__(self, other: "Instrument") -> "Instrument":
         """Combine two Instrument objects"""

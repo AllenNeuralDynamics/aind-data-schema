@@ -4,6 +4,7 @@ from datetime import date
 from decimal import Decimal
 from enum import Enum
 from typing import List, Literal, Optional
+import warnings
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.devices import (
@@ -81,18 +82,17 @@ class Device(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_manufacturer_notes(cls, values):
+    def validate_manufacturer_notes(self):
         """Ensure that notes are not empty if manufacturer is 'other'"""
 
-        if hasattr(values, "manufacturer") and values.manufacturer is not None:
-            manufacturer = values.manufacturer
-            notes = values.notes
+        if hasattr(self, "manufacturer") and self.manufacturer is not None:
+            manufacturer = self.manufacturer
+            notes = self.notes
 
             if manufacturer == Organization.OTHER and not notes:
                 raise ValueError("Device.notes cannot be empty if manufacturer is 'other'")
 
-        return values
+        return self
 
 
 class DevicePosition(DataModel):
@@ -109,11 +109,10 @@ class DevicePosition(DataModel):
     )
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_transform_and_cs(cls, values):
+    def validate_transform_and_cs(self):
         """Ensure that transform and coordinate system are either both set or both unset"""
-        transform = values.transform
-        coordinate_system = values.coordinate_system
+        transform = self.transform
+        coordinate_system = self.coordinate_system
 
         if (transform is None) != (coordinate_system is None):
             raise ValueError(
@@ -121,7 +120,7 @@ class DevicePosition(DataModel):
                 " must either both be set or both be unset."
             )
 
-        return values
+        return self
 
 
 class Catheter(Device):
@@ -289,12 +288,24 @@ class DAQChannel(DataModel):
 
     # optional fields
     port: Optional[int] = Field(default=None, title="DAQ port")
-    channel_index: Optional[int] = Field(default=None, title="DAQ channel index")
+    channel_index: Optional[int] = Field(
+        default=None, title="DAQ channel index", deprecated="Use DAQChannel.port instead"
+    )
     sample_rate: Optional[Decimal] = Field(default=None, title="DAQ channel sample rate (Hz)")
     sample_rate_unit: Optional[FrequencyUnit] = Field(default=None, title="Sample rate unit")
     event_based_sampling: Optional[bool] = Field(
         default=None, title="Set to true if DAQ channel is sampled at irregular intervals"
     )
+
+    @field_validator("channel_index", mode="after")
+    def deprecated_channel_index(cls, value: Optional[int]) -> Optional[int]:
+        """Warn if channel_index is used (deprecated)"""
+        if value is not None:
+            warnings.warn(
+                "DAQChannel.channel_index is deprecated. Use DAQChannel.port instead.",
+                DeprecationWarning,
+            )
+        return value
 
 
 class DAQDevice(Device):

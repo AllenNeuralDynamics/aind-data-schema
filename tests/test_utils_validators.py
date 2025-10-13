@@ -1,7 +1,7 @@
 """ Tests for compatibility check utilities """
 
 import unittest
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -13,10 +13,8 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.coordinates import Rotation, Scale, Translation
 from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.utils.validators import (
-    AxisCountException,
-    CoordinateSystemException,
-    SystemNameException,
     TimeValidation,
+    _convert_to_comparable,
     _recurse_helper,
     _system_check_helper,
     _time_validation_recurse_helper,
@@ -106,27 +104,27 @@ class TestRecursiveSystemCheckHelper(unittest.TestCase):
 
     def test_system_check_helper_missing_system_name(self):
         """Test _system_check_helper with missing coordinate_system_name"""
-        with self.assertRaises(CoordinateSystemException):
+        with self.assertRaises(ValueError):
             _system_check_helper(self.translation_wrapper, None, axis_count=2)
 
     def test_system_check_helper_missing_axis_count(self):
         """Test _system_check_helper with missing axis_count"""
-        with self.assertRaises(CoordinateSystemException):
+        with self.assertRaises(ValueError):
             _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=None)
 
     def test_system_check_helper_wrong_system_name(self):
         """Test _system_check_helper with wrong coordinate_system_name"""
-        with self.assertRaises(SystemNameException) as context:
+        with self.assertRaises(ValueError) as context:
             _system_check_helper(self.translation_wrapper, "WRONG_SYSTEM", axis_count=2)
-        self.assertEqual("WRONG_SYSTEM", context.exception.expected)
-        self.assertEqual(self.coordinate_system_name, context.exception.found)
+        self.assertIn("WRONG_SYSTEM", str(context.exception))
+        self.assertIn(self.coordinate_system_name, str(context.exception))
 
     def test_system_check_helper_wrong_axis_count(self):
         """Test _system_check_helper with wrong axis_count"""
-        with self.assertRaises(AxisCountException) as context:
+        with self.assertRaises(ValueError) as context:
             _system_check_helper(self.translation_wrapper, self.coordinate_system_name, axis_count=3)
-        self.assertEqual(3, context.exception.expected)
-        self.assertEqual(2, context.exception.found)
+        self.assertIn("3", str(context.exception))
+        self.assertIn("2", str(context.exception))
 
     def test_system_check_helper_multiple_axis_types(self):
         """Test _system_check_helper with multiple axis types"""
@@ -175,7 +173,7 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
                 translation=[0.5, 1],
             ),
         )
-        with self.assertRaises(SystemNameException) as context:
+        with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
         self.assertIn("System name mismatch", str(context.exception))
@@ -211,25 +209,78 @@ class TestRecursiveCoordSystemCheck(unittest.TestCase):
                 translation=[0.5, 1, 2],
             ),
         )
-        with self.assertRaises(AxisCountException) as context:
+        with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, self.coordinate_system_name, axis_count=2)
 
         self.assertIn("Axis count mismatch", str(context.exception))
 
     def test_recursive_coord_system_check_with_missing_coordinate_system(self):
-        """Test recursive_coord_system_check with missing coordinate system"""
+        """Test recursive_coord_system_check with missing coordinate system for object WITH transforms"""
 
-        class MockData(BaseModel):
-            """Test class"""
+        # Object with transforms should still require coordinate system
+        data = TranslationWrapper(
+            coordinate_system_name=self.coordinate_system_name, translation=Translation(translation=[0.5, 1])
+        )
 
-            coordinate_system_name: str
-
-        data = MockData(coordinate_system_name=self.coordinate_system_name)
-
-        with self.assertRaises(CoordinateSystemException) as context:
+        with self.assertRaises(ValueError) as context:
             recursive_coord_system_check(data, None, axis_count=0)
 
         self.assertIn("CoordinateSystem is required", str(context.exception))
+
+    def test_recursive_coord_system_check_object_without_transforms(self):
+        """Test recursive_coord_system_check with object without transforms (should not require coordinate system)"""
+
+        class ObjectWithoutTransforms(DataModel):
+            """Object without any transform components"""
+
+            coordinate_system_name: str
+            some_field: str
+
+        data = ObjectWithoutTransforms(coordinate_system_name=self.coordinate_system_name, some_field="test_value")
+
+        # Should not raise any exception even with None coordinate_system_name and axis_count
+        recursive_coord_system_check(data, None, axis_count=0)
+
+    def test_system_check_helper_object_without_transforms(self):
+        """Test _system_check_helper with object without transforms (should not require coordinate system)"""
+
+        class ObjectWithoutTransforms(DataModel):
+            """Object without any transform components"""
+
+            coordinate_system_name: str
+            some_field: str
+
+        data = ObjectWithoutTransforms(coordinate_system_name=self.coordinate_system_name, some_field="test_value")
+
+        # Should not raise any exception even with None coordinate_system_name and axis_count
+        _system_check_helper(data, None, axis_count=0)
+
+    def test_mixed_objects_with_and_without_transforms(self):
+        """Test with a mix of objects with and without transforms"""
+
+        class ObjectWithoutTransforms(DataModel):
+            """Object without any transform components"""
+
+            coordinate_system_name: str
+            some_field: str
+
+        class ContainerModel(DataModel):
+            """Container with mixed objects"""
+
+            with_transform: TranslationWrapper
+            without_transform: ObjectWithoutTransforms
+
+        container = ContainerModel(
+            with_transform=TranslationWrapper(
+                coordinate_system_name=self.coordinate_system_name, translation=Translation(translation=[0.5, 1])
+            ),
+            without_transform=ObjectWithoutTransforms(
+                coordinate_system_name="any_name", some_field="test"  # This can be anything since no transforms
+            ),
+        )
+
+        # Should pass validation - only the object with transforms is checked
+        recursive_coord_system_check(container, self.coordinate_system_name, axis_count=2)
 
 
 class MockEnum(Enum):
@@ -681,6 +732,29 @@ class TestValidateCreationTimeAfterMidnight(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             validate_creation_time_after_midnight(creation_date, self.reference_time)
         self.assertIn("must be on or after midnight", str(context.exception))
+
+
+class TestConvertToComparable(unittest.TestCase):
+    """Tests for _convert_to_comparable function"""
+
+    def test_convert_date_to_datetime(self):
+        """Test converting date to datetime with timezone from reference"""
+        reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        test_date = date(2023, 1, 2)
+
+        result = _convert_to_comparable(test_date, reference_time)
+
+        expected = datetime(2023, 1, 2, 0, 0, 0, tzinfo=timezone.utc)
+        self.assertEqual(result, expected)
+
+    def test_return_datetime_unchanged(self):
+        """Test that datetime objects are returned unchanged"""
+        reference_time = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        test_datetime = datetime(2023, 1, 2, 10, 30, 0, tzinfo=timezone.utc)
+
+        result = _convert_to_comparable(test_datetime, reference_time)
+
+        self.assertEqual(result, test_datetime)
 
 
 if __name__ == "__main__":

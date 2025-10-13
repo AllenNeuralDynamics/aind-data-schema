@@ -24,7 +24,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.32"]] = Field(default="2.0.32")
+    schema_version: SkipValidation[Literal["2.0.34"]] = Field(default="2.0.34")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",
@@ -85,18 +85,18 @@ class Procedures(DataCoreModel):
         return v
 
     @model_validator(mode="after")
-    def validate_subject_specimen_ids(values):
+    def validate_subject_specimen_ids(self):
         """Validate that the subject_id and specimen_id match"""
 
         # Return if no specimen procedures
-        if values.specimen_procedures:
-            subject_id = values.subject_id
-            specimen_ids = [spec_proc.specimen_id for spec_proc in values.specimen_procedures]
+        if self.specimen_procedures:
+            subject_id = self.subject_id
+            specimen_ids = [spec_proc.specimen_id for spec_proc in self.specimen_procedures]
 
             if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
 
-        return values
+        return self
 
     def __add__(self, other: "Procedures") -> "Procedures":
         """Combine two Procedures objects"""

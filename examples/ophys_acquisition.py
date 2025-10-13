@@ -9,57 +9,29 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.configs import Channel, DetectorConfig, PatchCordConfig, LaserConfig
 
 t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 
 connections = [
     Connection(
-        device_names=["Patch Cord A", "Fiber A"],
-        connection_data={
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Fiber A": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-        },
+        source_device="Fiber A",
+        target_device="Patch Cord A",
     ),
     Connection(
-        device_names=["Patch Cord A", "Hamamatsu Camera"],
-        connection_data={
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Hamamatsu Camera": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Patch Cord A",
+        target_device="Hamamatsu Camera",
     ),
     Connection(
-        device_names=["Patch Cord B", "Fiber B"],
-        connection_data={
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Fiber B": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="ROI 0",
-            ),
-        },
+        source_device="Fiber B",
+        source_port="ROI 0",
+        target_device="Patch Cord B",
     ),
     Connection(
-        device_names=["Patch Cord B", "Hamamatsu Camera"],
-        connection_data={
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Hamamatsu Camera": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="ROI 1",
-            ),
-        },
+        source_device="Patch Cord B",
+        target_device="Hamamatsu Camera",
+        target_port="ROI 1",
     ),
 ]
 

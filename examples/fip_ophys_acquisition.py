@@ -13,7 +13,7 @@ from aind_data_schema.core.acquisition import (
     AcquisitionSubjectDetails,
     PerformanceMetrics,
 )
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,
@@ -49,18 +49,21 @@ blue_led_config = LightEmittingDiodeConfig(
     device_name="470nm LED",
     power=20,
     power_unit=PowerUnit.UW,
+    power_measured_at="patch cord end",
 )
 
 uv_led_config = LightEmittingDiodeConfig(
     device_name="415nm LED",
     power=20,
     power_unit=PowerUnit.UW,
+    power_measured_at="patch cord end",
 )
 
 yellow_led_config = LightEmittingDiodeConfig(
     device_name="565nm LED",
     power=20,
     power_unit=PowerUnit.UW,
+    power_measured_at="patch cord end",
 )
 
 # Define channel configurations for each fiber connection
@@ -191,155 +194,73 @@ patch_cord_d_config = PatchCordConfig(
 
 # Define connections between patch cords, detectors, and implanted fibers
 connections = [
-    # Connection between Patch Cord A and Fiber 0 (implant)
+    # Connection between Patch Cord A and Fiber 0 (implant) - bidirectional
     Connection(
-        device_names=["Patch Cord A", "Fiber 0"],
-        connection_data={
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.SEND_AND_RECEIVE,
-            ),
-            "Fiber 0": ConnectionData(
-                direction=ConnectionDirection.SEND_AND_RECEIVE,
-            ),
-        },
+        source_device="Patch Cord A",
+        target_device="Fiber 0",
+        send_and_receive=True,
     ),
-    # Connection between Patch Cord B and Fiber 1 (implant)
+    # Connection between Patch Cord B and Fiber 1 (implant) - bidirectional
     Connection(
-        device_names=["Patch Cord B", "Fiber 1"],
-        connection_data={
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.SEND_AND_RECEIVE,
-            ),
-            "Fiber 1": ConnectionData(
-                direction=ConnectionDirection.SEND_AND_RECEIVE,
-            ),
-        },
+        source_device="Patch Cord B",
+        target_device="Fiber 1",
+        send_and_receive=True,
     ),
     # Connections between Patch Cord A and detectors for different channels
     Connection(
-        device_names=["Patch Cord A", "Red CMOS"],
-        connection_data={
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="Fiber 0_red",
-            ),
-            "Red CMOS": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Patch Cord A",
+        source_port="Fiber 0_red",
+        target_device="Red CMOS",
     ),
     Connection(
-        device_names=["Patch Cord A", "Green CMOS"],
-        connection_data={
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="Fiber 0_green",
-            ),
-            "Green CMOS": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Patch Cord A",
+        source_port="Fiber 0_green",
+        target_device="Green CMOS",
     ),
     Connection(
-        device_names=["Patch Cord A", "Green CMOS"],
-        connection_data={
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="Fiber 0_isosbestic",
-            ),
-            "Green CMOS": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="isosbestic",
-            ),
-        },
+        source_device="Patch Cord A",
+        source_port="Fiber 0_isosbestic",
+        target_device="Green CMOS",
+        target_port="isosbestic",
     ),
     # Connections between Patch Cord B and detectors
     Connection(
-        device_names=["Patch Cord B", "Green CMOS"],
-        connection_data={
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="Fiber 1_green",
-            ),
-            "Green CMOS": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="Patch Cord B",
+        source_port="Fiber 1_green",
+        target_device="Green CMOS",
     ),
     Connection(
-        device_names=["Patch Cord B", "Green CMOS"],
-        connection_data={
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="Fiber 1_isosbestic",
-            ),
-            "Green CMOS": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="isosbestic",
-            ),
-        },
+        source_device="Patch Cord B",
+        source_port="Fiber 1_isosbestic",
+        target_device="Green CMOS",
+        target_port="isosbestic",
     ),
     # Connections between LEDs and Patch Cord A
     Connection(
-        device_names=["470nm LED", "Patch Cord A"],
-        connection_data={
-            "470nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 0_green",
-            ),
-        },
+        source_device="470nm LED",
+        target_device="Patch Cord A",
+        target_port="Fiber 0_green",
     ),
     Connection(
-        device_names=["415nm LED", "Patch Cord A"],
-        connection_data={
-            "415nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 0_isosbestic",
-            ),
-        },
+        source_device="415nm LED",
+        target_device="Patch Cord A",
+        target_port="Fiber 0_isosbestic",
     ),
     Connection(
-        device_names=["565nm LED", "Patch Cord A"],
-        connection_data={
-            "565nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord A": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 0_red",
-            ),
-        },
+        source_device="565nm LED",
+        target_device="Patch Cord A",
+        target_port="Fiber 0_red",
     ),
     # Connections between LEDs and Patch Cord B
     Connection(
-        device_names=["470nm LED", "Patch Cord B"],
-        connection_data={
-            "470nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 1_green",
-            ),
-        },
+        source_device="470nm LED",
+        target_device="Patch Cord B",
+        target_port="Fiber 1_green",
     ),
     Connection(
-        device_names=["415nm LED", "Patch Cord B"],
-        connection_data={
-            "415nm LED": ConnectionData(
-                direction=ConnectionDirection.SEND,
-            ),
-            "Patch Cord B": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-                port="Fiber 1_isosbestic",
-            ),
-        },
+        source_device="415nm LED",
+        target_device="Patch Cord B",
+        target_port="Fiber 1_isosbestic",
     ),
 ]
 

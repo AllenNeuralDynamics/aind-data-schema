@@ -20,6 +20,7 @@ from pydantic import (
 
 from aind_data_schema.base import DataCoreModel
 from aind_data_schema.components.identifiers import DatabaseIdentifiers
+from aind_data_schema.components.subjects import CalibrationObject
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
@@ -70,7 +71,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.78"]] = Field(default="2.0.78")
+    schema_version: SkipValidation[Literal["2.0.80"]] = Field(default="2.0.80")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -145,6 +146,17 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
+    def validate_required_files(self):
+        """Validator to ensure that one of the key files from the file sets is present."""
+
+        one_of_required = REQUIRED_FILE_SETS.keys()
+
+        if not any(getattr(self, file) for file in one_of_required):
+            raise ValueError(f"Metadata must contain at least one of the following files: {', '.join(one_of_required)}")
+
+        return self
+
+    @model_validator(mode="after")
     def validate_smartspim_metadata(self):
         """Validator for smartspim metadata"""
 
@@ -189,23 +201,21 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_acquisition_active_devices(cls, values):
+    def validate_acquisition_active_devices(self):
         """Ensure that all Acquisition.data_streams.active_devices exist in either the instrument or procedures."""
 
         active_devices = []
 
-        if values.acquisition:
-            for data_stream in values.acquisition.data_streams:
+        if self.acquisition:
+            for data_stream in self.acquisition.data_streams:
                 active_devices.extend(data_stream.active_devices)
 
         device_names = []
 
-        if values.instrument:
-            for component in values.instrument.components:
-                device_names.append(component.name)
-        if values.procedures:
-            device_names.extend(values.procedures.get_device_names())
+        if self.instrument:
+            device_names.extend(self.instrument.get_component_names())
+        if self.procedures:
+            device_names.extend(self.procedures.get_device_names())
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
@@ -215,7 +225,7 @@ class Metadata(DataCoreModel):
                 f"in an individual procedure's implanted_device field."
             )
 
-        return values
+        return self
 
     @model_validator(mode="after")
     def validate_acquisition_connections(self):
@@ -225,8 +235,7 @@ class Metadata(DataCoreModel):
         device_names = []
 
         if self.instrument:
-            for component in self.instrument.components:
-                device_names.append(component.name)
+            device_names.extend(self.instrument.get_component_names())
         if self.procedures:
             device_names.extend(self.procedures.get_device_names())
 
@@ -235,10 +244,41 @@ class Metadata(DataCoreModel):
             data_streams = self.acquisition.data_streams
             for data_stream in data_streams:
                 for connection in data_stream.connections:
-                    if not all(device in device_names for device in connection.device_names):
+                    # Check both source and target devices exist
+                    missing_devices = []
+                    if connection.source_device not in device_names:
+                        missing_devices.append(connection.source_device)
+                    if connection.target_device not in device_names:
+                        missing_devices.append(connection.target_device)
+
+                    if missing_devices:
                         raise ValueError(
-                            f"Connection '{connection}' contains devices not found in instrument or procedures."
+                            f"Connection from '{connection.source_device}' to '{connection.target_device}' "
+                            f"contains devices not found in instrument or procedures: {missing_devices}"
                         )
+
+        return self
+
+    @model_validator(mode="after")
+    def validate_calibration_object_tags(self):
+        """Validator to ensure 'calibration' tag is present when subject is a CalibrationObject"""
+
+        if (
+            self.subject
+            and self.subject.subject_details
+            and isinstance(self.subject.subject_details, CalibrationObject)
+            and self.data_description
+        ):
+            if self.data_description.tags is None:
+                # Initialize tags list if it doesn't exist
+                self.data_description.tags = []
+
+            if "calibration" not in self.data_description.tags:
+                warnings.warn(
+                    "Subject is a CalibrationObject but 'calibration' tag is missing from data_description.tags. "
+                    "Adding 'calibration' tag automatically."
+                )
+                self.data_description.tags.append("calibration")
 
         return self
 
@@ -327,13 +367,13 @@ class Metadata(DataCoreModel):
                 if name_creation_time:
                     try:
                         validate_creation_time_after_midnight(name_creation_time, self.acquisition.acquisition_end_time)
-                    except ValueError as e:
-                        # Re-raise with more specific context for data_description.name
-                        raise ValueError(
+                    except ValueError:
+                        # Issue a warning instead of raising an error
+                        warnings.warn(
                             f"Creation time from data_description.name ({name_creation_time}) "
-                            f"must be on or after midnight of the acquisition day "
-                            f"({self.acquisition.acquisition_end_time.date()})"
-                        ) from e
+                            f"should be close to the acquisition end time "
+                            f"({self.acquisition.acquisition_end_time})"
+                        )
 
         return self
 
@@ -364,7 +404,7 @@ def create_metadata_json(
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
     except Exception as e:
         logging.warning(f"Issue with metadata construction! {e.args}")
-        metadata = Metadata.model_validate(params)
+        metadata = Metadata.model_construct(**params)
         metadata_json = json.loads(metadata.model_dump_json(by_alias=True))
         for key, value in core_fields.items():
             metadata_json[key] = value

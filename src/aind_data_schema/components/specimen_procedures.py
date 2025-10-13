@@ -49,16 +49,15 @@ class Section(DataModel):
     )
 
     @model_validator(mode="after")
-    @classmethod
-    def check_one_of_end_thickness(cls, values):
+    def check_one_of_end_thickness(self):
         """Ensure that either end_coordinate or thickness is provided"""
 
-        if not values.end_coordinate and not values.thickness:
+        if not self.end_coordinate and not self.thickness:
             raise OneOfError(
                 "Section",
                 ["end_coordinate", "thickness"],
             )
-        return values
+        return self
 
 
 class PlanarSectioning(DataModel):

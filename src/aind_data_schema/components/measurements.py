@@ -55,6 +55,7 @@ class Calibration(DeviceConfig):
         ..., title="Date and time of calibration"
     )
     description: str = Field(..., title="Description", description="Brief description of what is being calibrated")
+    measured_at: Optional[str] = Field(default=None, title="Measurement location")
     input: List[float | str] = Field(..., description="Calibration input", title="Inputs")
     input_unit: UNITS = Field(..., title="Input unit")
     repeats: Optional[int] = Field(

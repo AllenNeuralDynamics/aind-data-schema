@@ -72,13 +72,13 @@ class QCMetric(DataModel):
         return self.status_history[-1]
 
     @model_validator(mode="after")
-    def validate_multi_asset(cls, v):
+    def validate_multi_asset(self):
         """Ensure that evaluated_assets is set correctly for multi-asset metrics"""
-        if v.stage == Stage.MULTI_ASSET and (not v.evaluated_assets or len(v.evaluated_assets) == 0):
-            raise ValueError(f"Metric '{v.name}' is a multi-asset metric and must have evaluated_assets set.")
-        elif v.stage != Stage.MULTI_ASSET and v.evaluated_assets:
-            raise ValueError(f"Metric '{v.name}' is a single-asset metric and should not have evaluated_assets")
-        return v
+        if self.stage == Stage.MULTI_ASSET and (not self.evaluated_assets or len(self.evaluated_assets) == 0):
+            raise ValueError(f"Metric '{self.name}' is a multi-asset metric and must have evaluated_assets set.")
+        elif self.stage != Stage.MULTI_ASSET and self.evaluated_assets:
+            raise ValueError(f"Metric '{self.name}' is a single-asset metric and should not have evaluated_assets")
+        return self
 
 
 class CurationHistory(DataModel):
@@ -101,7 +101,7 @@ class QualityControl(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.6"]] = Field(default="2.0.6")
+    schema_version: SkipValidation[Literal["2.0.8"]] = Field(default="2.0.8")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,

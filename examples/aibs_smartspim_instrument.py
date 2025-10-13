@@ -16,7 +16,7 @@ from aind_data_schema.components.devices import (
     Microscope,
 )
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
@@ -175,46 +175,29 @@ com_device = Device(
 
 connections = [
     Connection(
-        device_names=["COM Device", "Laser Launch"],
-        connection_data={
-            "Laser Launch": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "COM Device": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM4",
-            ),
-        },
+        source_device="COM Device",
+        source_port="COM4",
+        target_device="Laser Launch",
     ),
     Connection(
-        device_names=["Sample stage Z", "Sample stage X", "Sample stage Y", "ASI Tiger"],
-        connection_data={
-            "ASI Tiger": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM3",
-            ),
-            "Sample stage Z": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Sample stage Y": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-            "Sample stage X": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="ASI Tiger",
+        source_port="COM3",
+        target_device="Sample stage Z",
     ),
     Connection(
-        device_names=["Lens 1", "MightyZap"],
-        connection_data={
-            "MightyZap": ConnectionData(
-                direction=ConnectionDirection.SEND,
-                port="COM9",
-            ),
-            "Lens 1": ConnectionData(
-                direction=ConnectionDirection.RECEIVE,
-            ),
-        },
+        source_device="ASI Tiger",
+        source_port="COM3",
+        target_device="Sample stage X",
+    ),
+    Connection(
+        source_device="ASI Tiger",
+        source_port="COM3",
+        target_device="Sample stage Y",
+    ),
+    Connection(
+        source_device="MightyZap",
+        source_port="COM9",
+        target_device="Lens 1",
     ),
 ]
 

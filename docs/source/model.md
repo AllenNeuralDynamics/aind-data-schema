@@ -12,19 +12,19 @@ Thus new evaluations and training steps can easily be appended for new model ver
 
 Description of a machine learning model including architecture, training, and evaluation details
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `version` | `str` |  |
-| `example_run_code` | [Code](components/identifiers.md#code) | Code to run the model, possibly including example parameters/data |
-| `architecture` | [ModelArchitecture](aind_data_schema_models/system_architecture.md#modelarchitecture) | Model architecture / type of model |
-| `software_framework` | Optional[[Software](components/identifiers.md#software)] |  |
-| `architecture_parameters` | `dict` | Parameters of model architecture, such as input signature or number of layers. |
-| `intended_use` | `str` | Semantic description of intended use |
-| `limitations` | `Optional[str]` |  |
-| `training` | List[[ModelTraining](model.md#modeltraining) or [ModelPretraining](model.md#modelpretraining)] |  |
-| `evaluations` | List[[ModelEvaluation](model.md#modelevaluation)] |  |
-| `notes` | `Optional[str]` |  |
+| `name` | `str` | Name  |
+| `version` | `str` | Version  |
+| `example_run_code` | [Code](components/identifiers.md#code) | Example run code (Code to run the model, possibly including example parameters/data) |
+| `architecture` | [ModelArchitecture](aind_data_schema_models/system_architecture.md#modelarchitecture) | architecture (Model architecture / type of model) |
+| `software_framework` | Optional[[Software](components/identifiers.md#software)] | Software framework  |
+| `architecture_parameters` | `dict` | Architecture parameters (Parameters of model architecture, such as input signature or number of layers.) |
+| `intended_use` | `str` | Intended model use (Semantic description of intended use) |
+| `limitations` | `Optional[str]` | Model limitations  |
+| `training` | List[[ModelTraining](model.md#modeltraining) or [ModelPretraining](model.md#modelpretraining)] | Training  |
+| `evaluations` | List[[ModelEvaluation](model.md#modelevaluation)] | Evaluations  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ## Model definitions
@@ -33,60 +33,60 @@ Description of a machine learning model including architecture, training, and ev
 
 Description of model evaluation
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) |  |
-| `performance` | List[[PerformanceMetric](model.md#performancemetric)] |  |
-| `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | [ProcessStage](processing.md#processstage) |  |
-| `code` | [Code](components/identifiers.md#code) | Code used for processing |
-| `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
-| `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
-| `start_date_time` | `datetime (timezone-aware)` |  |
-| `end_date_time` | `datetime (timezone-aware)` |  |
-| `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
-| `output_parameters` | `dict` | Output parameters |
-| `notes` | `Optional[str]` |  |
-| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
+| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) |   |
+| `performance` | List[[PerformanceMetric](model.md#performancemetric)] | Evaluation performance  |
+| `name` | `str` | Name (('Unique name of the processing step.', ' If not provided, the type will be used as the name.')) |
+| `stage` | [ProcessStage](processing.md#processstage) | Processing stage  |
+| `code` | [Code](components/identifiers.md#code) | Code (Code used for processing) |
+| `experimenters` | `List[str]` | Experimenters (People responsible for processing) |
+| `pipeline_name` | `Optional[str]` | Pipeline name (Pipeline names must exist in Processing.pipelines) |
+| `start_date_time` | `datetime (timezone-aware)` | Start date time  |
+| `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
+| `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
+| `output_parameters` | `dict` | Outputs (Output parameters) |
+| `notes` | `Optional[str]` | Notes  |
+| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
 
 
 ### ModelPretraining
 
 Description of model pretraining
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `source_url` | `str` | URL for pretrained weights |
+| `source_url` | `str` | Pretrained source URL (URL for pretrained weights) |
 
 
 ### ModelTraining
 
 Description of model training
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) |  |
-| `train_performance` | List[[PerformanceMetric](model.md#performancemetric)] | Performance on training set |
-| `test_performance` | Optional[List[[PerformanceMetric](model.md#performancemetric)]] | Performance on test data, evaluated during training |
-| `test_evaluation_method` | `Optional[str]` | Approach to cross-validation or Train/test splitting |
-| `name` | `str` | ('Unique name of the processing step.', ' If not provided, the type will be used as the name.') |
-| `stage` | [ProcessStage](processing.md#processstage) |  |
-| `code` | [Code](components/identifiers.md#code) | Code used for processing |
-| `experimenters` | List[[Person](components/identifiers.md#person)] | People responsible for processing |
-| `pipeline_name` | `Optional[str]` | Pipeline names must exist in Processing.pipelines |
-| `start_date_time` | `datetime (timezone-aware)` |  |
-| `end_date_time` | `datetime (timezone-aware)` |  |
-| `output_path` | `Optional[AssetPath]` | Path to processing outputs, if stored. |
-| `output_parameters` | `dict` | Output parameters |
-| `notes` | `Optional[str]` |  |
-| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] |  |
+| `process_type` | [ProcessName](aind_data_schema_models/process_names.md#processname) |   |
+| `train_performance` | List[[PerformanceMetric](model.md#performancemetric)] | Training performance (Performance on training set) |
+| `test_performance` | Optional[List[[PerformanceMetric](model.md#performancemetric)]] | Test performance (Performance on test data, evaluated during training) |
+| `test_evaluation_method` | `Optional[str]` | Test evaluation method (Approach to cross-validation or Train/test splitting) |
+| `name` | `str` | Name (('Unique name of the processing step.', ' If not provided, the type will be used as the name.')) |
+| `stage` | [ProcessStage](processing.md#processstage) | Processing stage  |
+| `code` | [Code](components/identifiers.md#code) | Code (Code used for processing) |
+| `experimenters` | `List[str]` | Experimenters (People responsible for processing) |
+| `pipeline_name` | `Optional[str]` | Pipeline name (Pipeline names must exist in Processing.pipelines) |
+| `start_date_time` | `datetime (timezone-aware)` | Start date time  |
+| `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
+| `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
+| `output_parameters` | `dict` | Outputs (Output parameters) |
+| `notes` | `Optional[str]` | Notes  |
+| `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
 
 
 ### PerformanceMetric
 
 Description of a performance metric
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `value` | `typing.Any` |  |
+| `name` | `str` | Metric name  |
+| `value` | `typing.Any` | Metric value  |

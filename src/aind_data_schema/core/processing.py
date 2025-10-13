@@ -65,7 +65,9 @@ class DataProcess(DataModel):
         default=None, title="Pipeline name", description="Pipeline names must exist in Processing.pipelines"
     )
     start_date_time: Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER] = Field(..., title="Start date time")
-    end_date_time: Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER] = Field(..., title="End date time")
+    end_date_time: Optional[Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER]] = Field(
+        default=None, title="End date time"
+    )
     output_path: Optional[AssetPath] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
@@ -97,7 +99,7 @@ class Processing(DataCoreModel):
 
     _DESCRIBED_BY_URL: str = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/processing.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.78"]] = Field(default="2.0.78")
+    schema_version: SkipValidation[Literal["2.1.1"]] = Field(default="2.1.1")
 
     data_processes: List[DataProcess] = Field(..., title="Data processing")
     pipelines: Optional[List[Code]] = Field(
@@ -110,8 +112,8 @@ class Processing(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    dependency_graph: Dict[str, List[str]] = Field(
-        ...,
+    dependency_graph: Optional[Dict[str, List[str]]] = Field(
+        default=None,
         title="Dependency graph",
         description=(
             "Directed graph of processing step dependencies. Each key is a process name, and the value is a list of "
@@ -140,6 +142,26 @@ class Processing(DataCoreModel):
             if old_name in value:
                 value[value.index(old_name)] = new_name
 
+    @model_validator(mode="after")
+    def order_processes(self) -> "Processing":
+        """Ensure that processes are ordered by start_date_time"""
+
+        if not hasattr(self, "data_processes") or not self.data_processes:
+            return self
+
+        # Check if any processes are out of order
+        start_times = [process.start_date_time for process in self.data_processes]
+        if not all(start_times[i] <= start_times[i + 1] for i in range(len(start_times) - 1)):
+            # Sort processes by start_date_time
+            self.data_processes.sort(key=lambda x: x.start_date_time)
+            self.notes = (
+                "Processes were reordered by start_date_time"
+                if not self.notes
+                else f"{self.notes}; Processes were reordered by start_date_time"
+            )
+
+        return self
+
     @classmethod
     def create_with_sequential_process_graph(cls, data_processes: List[DataProcess], **kwargs) -> "Processing":
         """Generate a sequential process graph from a list of DataProcess objects"""
@@ -153,19 +175,22 @@ class Processing(DataCoreModel):
         return cls(dependency_graph=dependency_graph, data_processes=data_processes, **kwargs)
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_process_graph(cls, values):
+    def validate_process_graph(self):
         """Check that the same processes are represented in data_processes and dependency_graph"""
 
-        if not hasattr(values, "data_processes"):  # bypass for testing
-            return values
+        if not hasattr(self, "data_processes"):  # bypass for testing
+            return self
 
-        processes = set(values.process_names)
+        # If the dependency_graph is None, then no need to validate
+        if self.dependency_graph is None:
+            return self
+
+        processes = set(self.process_names)
         # Validate that all processes have a unique name
-        if len(processes) != len(values.data_processes):
+        if len(processes) != len(self.data_processes):
             raise ValueError("data_processes must have unique names.")
 
-        graph_processes = set(values.dependency_graph.keys())
+        graph_processes = set(self.dependency_graph.keys())
         missing_processes = processes - graph_processes
         if missing_processes:
             raise ValueError(
@@ -176,23 +201,22 @@ class Processing(DataCoreModel):
             raise ValueError(
                 f"data_processes must include all processes in dependency_graph. Missing processes: {missing_processes}"
             )
-        return values
+        return self
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_pipeline_names(cls, values):
+    def validate_pipeline_names(self):
         """Ensure that all pipeline names in the processes are in the pipelines list"""
 
-        if not hasattr(values, "data_processes"):  # bypass for testing
-            return values
+        if not hasattr(self, "data_processes"):  # bypass for testing
+            return self
 
-        pipeline_names = [pipeline.name for pipeline in values.pipelines] if values.pipelines else []
+        pipeline_names = [pipeline.name for pipeline in self.pipelines] if self.pipelines else []
 
-        for process in values.data_processes:
+        for process in self.data_processes:
             if process.pipeline_name and process.pipeline_name not in pipeline_names:
                 raise ValueError(f"Pipeline name '{process.pipeline_name}' not found in pipelines list.")
 
-        return values
+        return self
 
     def __add__(self, other: "Processing") -> "Processing":
         """Combine two Processing objects"""

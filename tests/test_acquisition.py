@@ -287,11 +287,11 @@ class AcquisitionTest(unittest.TestCase):
             stream_start_time=datetime.now(),
             stream_end_time=datetime.now(),
             modalities=[],
-            active_devices=["DeviceA", "DeviceB"],
+            active_devices=["DeviceA", "DeviceB", "SomeTarget"],
             configurations=[],
             connections=[
-                Connection(device_names=["DeviceA"]),
-                Connection(device_names=["DeviceB"]),
+                Connection(source_device="DeviceA", target_device="SomeTarget"),
+                Connection(source_device="DeviceB", target_device="SomeTarget"),
             ],
         )
         self.assertIsNotNone(stream)
@@ -305,8 +305,21 @@ class AcquisitionTest(unittest.TestCase):
                 active_devices=["DeviceA"],
                 configurations=[],
                 connections=[
-                    Connection(device_names=["DeviceA"]),
-                    Connection(device_names=["DeviceB"]),
+                    Connection(source_device="SomeTarget", target_device="DeviceA"),
+                ],
+            )
+        self.assertIn("Missing devices in active_devices list for connection", str(context.exception))
+
+        # Test invalid connections
+        with self.assertRaises(ValueError) as context:
+            DataStream(
+                stream_start_time=datetime.now(),
+                stream_end_time=datetime.now(),
+                modalities=[],
+                active_devices=["DeviceA"],
+                configurations=[],
+                connections=[
+                    Connection(source_device="DeviceA", target_device="SomeTarget"),
                 ],
             )
         self.assertIn("Missing devices in active_devices list for connection", str(context.exception))

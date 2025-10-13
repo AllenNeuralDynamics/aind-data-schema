@@ -33,7 +33,7 @@ from aind_data_schema.components.devices import (
 )
 from aind_data_schema.components.devices import Objective
 from aind_data_schema.components.identifiers import Software
-from aind_data_schema.components.connections import Connection, ConnectionData, ConnectionDirection
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.core.instrument import Instrument
 
 instrument = Instrument(
@@ -337,7 +337,6 @@ instrument = Instrument(
                     channel_name="P0.3",
                     channel_type=DaqChannelType.DI,
                     port=0,
-                    channel_index=3,
                     sample_rate=100.0,
                     sample_rate_unit=FrequencyUnit.KHZ,
                 )
@@ -359,82 +358,33 @@ instrument = Instrument(
     ],
     connections=[
         Connection(
-            device_names=["SYNC DAQ", "MESO1STIM"],
-            connection_data={
-                "SYNC DAQ": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                    port="P0.3",
-                ),
-                "MESO1STIM": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="MESO1STIM",
+            target_device="SYNC DAQ",
+            target_port="P0.3",
         ),
         Connection(
-            device_names=["Video Monitor", "Behavior Camera"],
-            connection_data={
-                "Video Monitor": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-                "Behavior Camera": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="Behavior Camera",
+            target_device="Video Monitor",
         ),
         Connection(
-            device_names=["Video Monitor", "Eye Camera"],
-            connection_data={
-                "Video Monitor": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-                "Eye Camera": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="Eye Camera",
+            target_device="Video Monitor",
         ),
         Connection(
-            device_names=["Video Monitor", "Face Camera"],
-            connection_data={
-                "Video Monitor": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-                "Face Camera": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="Face Camera",
+            target_device="Video Monitor",
         ),
         Connection(
-            device_names=["VBEB DAQ", "MESO1STIM"],
-            connection_data={
-                "VBEB DAQ": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-                "MESO1STIM": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="MESO1STIM",
+            target_device="VBEB DAQ",
         ),
         Connection(
-            device_names=["SYNC DAQ", "MESO1SYNC"],
-            connection_data={
-                "SYNC DAQ": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-                "MESO1SYNC": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="MESO1SYNC",
+            target_device="SYNC DAQ",
         ),
         Connection(
-            device_names=["STIM DAQ", "MESO1STIM"],
-            connection_data={
-                "STIM DAQ": ConnectionData(
-                    direction=ConnectionDirection.RECEIVE,
-                ),
-                "MESO1STIM": ConnectionData(
-                    direction=ConnectionDirection.SEND,
-                ),
-            },
+            source_device="MESO1STIM",
+            target_device="STIM DAQ",
         ),
     ],
     calibrations=[],
