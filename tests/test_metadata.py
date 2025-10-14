@@ -906,7 +906,6 @@ class TestMetadata(unittest.TestCase):
         acquisition_with_details = Acquisition.model_construct(
             instrument_id="Test",
             subject_id="123456",
-            specimen_id="123456-001",
             data_streams=[],
             subject_details=AcquisitionSubjectDetails.model_construct(),
         )
@@ -917,6 +916,7 @@ class TestMetadata(unittest.TestCase):
             acquisition=acquisition_with_details,
         )
         self.assertIsNotNone(metadata_with_details)
+
         # Case where neither specimen_id nor subject_details is provided - should fail
         acquisition_missing_both = Acquisition.model_construct(
             subject_id="123456",
