@@ -884,6 +884,54 @@ class TestMetadata(unittest.TestCase):
         )
         self.assertIsNotNone(metadata)
 
+    def test_validate_subject_details_if_not_specimen(self):
+        """Tests that subject details are required if acquisition.specimen_id is not provided"""
+
+        # Case where specimen_id is provided - should pass without subject_details
+        acquisition_with_specimen = Acquisition.model_construct(
+            instrument_id="Test",
+            subject_id="123456",
+            specimen_id="123456-001",
+            data_streams=[],
+        )
+        metadata_with_specimen = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            subject=subject,
+            acquisition=acquisition_with_specimen,
+        )
+        self.assertIsNotNone(metadata_with_specimen)
+
+        # Case where specimen_id is not provided and subject_details is provided - should pass
+        acquisition_with_details = Acquisition.model_construct(
+            instrument_id="Test",
+            subject_id="123456",
+            specimen_id="123456-001",
+            data_streams=[],
+            subject_details=AcquisitionSubjectDetails.model_construct(),
+        )
+        metadata_with_details = Metadata(
+            name="Test Metadata",
+            location="Test Location",
+            subject=subject,
+            acquisition=acquisition_with_details,
+        )
+        self.assertIsNotNone(metadata_with_details)
+        # Case where neither specimen_id nor subject_details is provided - should fail
+        acquisition_missing_both = Acquisition.model_construct(
+            subject_id="123456",
+            instrument_id="Test",
+            data_streams=[],
+        )
+        with self.assertRaises(ValueError) as context:
+            Metadata(
+                name="Test Metadata",
+                location="Test Location",
+                subject=subject,
+                acquisition=acquisition_missing_both,
+            )
+        self.assertIn("Acquisition.subject_details are required for in vivo experiments", str(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

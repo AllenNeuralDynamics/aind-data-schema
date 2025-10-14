@@ -312,14 +312,6 @@ class Acquisition(DataCoreModel):
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
-    def subject_details_if_not_specimen(self):
-        """Check that subject details are present if no specimen ID"""
-        if not self.specimen_id and not self.subject_details:
-            raise ValueError("Subject details are required for in vivo experiments")
-
-        return self
-
-    @model_validator(mode="after")
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
