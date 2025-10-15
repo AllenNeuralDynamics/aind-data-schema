@@ -121,9 +121,8 @@ class TestComposability(unittest.TestCase):
         q3 = q1 + q2
 
         self.assertIsNotNone(q3.key_experimenters)
-        if q3.key_experimenters is not None:
-            self.assertEqual(q3.key_experimenters.count("Bob"), 1)  # Should be deduplicated
-            self.assertEqual(set(q3.key_experimenters), {"Alice", "Bob", "Charlie"})
+        self.assertEqual(q3.key_experimenters.count("Bob"), 1)  # Should be deduplicated
+        self.assertEqual(set(q3.key_experimenters), {"Alice", "Bob", "Charlie"})
 
         self.assertEqual(q3.default_grouping.count("Tag1"), 1)  # Should be deduplicated
         self.assertEqual(set(q3.default_grouping), {"Drift map", "Tag1", "Tag2"})
@@ -173,13 +172,9 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(merged_acq_dedup.experimenters.count("Bob"), 1)  # Should be deduplicated
         self.assertEqual(set(merged_acq_dedup.experimenters), {"Alice", "Bob", "Charlie"})
 
-        if merged_acq_dedup.protocol_id is not None:
-            self.assertEqual(merged_acq_dedup.protocol_id.count("proto2"), 1)  # Should be deduplicated
-            self.assertEqual(set(merged_acq_dedup.protocol_id), {"proto1", "proto2", "proto3"})
-
-        if merged_acq_dedup.ethics_review_id is not None:
-            self.assertEqual(merged_acq_dedup.ethics_review_id.count("ethics2"), 1)  # Should be deduplicated
-            self.assertEqual(set(merged_acq_dedup.ethics_review_id), {"ethics1", "ethics2", "ethics3"})
+        self.assertIsNotNone(merged_acq_dedup.ethics_review_id)
+        self.assertEqual(merged_acq_dedup.ethics_review_id.count("ethics2"), 1)  # Should be deduplicated
+        self.assertEqual(set(merged_acq_dedup.ethics_review_id), {"ethics1", "ethics2", "ethics3"})
 
         # Test incompatible schema versions
         acq1_orig_schema_v = acq1.schema_version
