@@ -15,7 +15,7 @@ dynamic = ["version"]
 
 dependencies = [
     'aind-data-schema-models>=4.2.11',
-    'pydantic>=2.7',
+    'pydantic>=2.7, <=2.11',
     'semver'
 ]
 

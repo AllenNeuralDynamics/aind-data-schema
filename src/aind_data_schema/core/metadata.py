@@ -134,6 +134,16 @@ class Metadata(DataCoreModel):
         return core_model
 
     @model_validator(mode="after")
+    def validate_subject_details_if_not_specimen(self):
+        """Check that subject details are present if an in vivo experiment"""
+
+        if self.acquisition and not self.acquisition.specimen_id:
+            if not self.acquisition.subject_details:
+                raise ValueError("Acquisition.subject_details are required for in vivo experiments")
+
+        return self
+
+    @model_validator(mode="after")
     def validate_expected_files_by_modality(self):
         """Validator warns users if required files are missing"""
 
