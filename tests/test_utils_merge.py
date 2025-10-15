@@ -37,6 +37,40 @@ class TestMergeNotes(unittest.TestCase):
         self.assertIsNone(result)
 
 
+class RemoveDuplicatesTests(unittest.TestCase):
+    """Tests for remove_duplicates function"""
+
+    def test_empty_list(self):
+        """Test with empty list"""
+        from aind_data_schema.utils.merge import remove_duplicates
+        self.assertEqual(remove_duplicates([]), [])
+
+    def test_no_duplicates(self):
+        """Test with list that has no duplicates"""
+        from aind_data_schema.utils.merge import remove_duplicates
+        self.assertEqual(remove_duplicates([1, 2, 3, 4]), [1, 2, 3, 4])
+
+    def test_with_duplicates(self):
+        """Test with list that has duplicates"""
+        from aind_data_schema.utils.merge import remove_duplicates
+        self.assertEqual(remove_duplicates([1, 2, 2, 3, 3, 4]), [1, 2, 3, 4])
+
+    def test_preserves_order(self):
+        """Test that order is preserved when removing duplicates"""
+        from aind_data_schema.utils.merge import remove_duplicates
+        self.assertEqual(remove_duplicates([3, 1, 2, 1, 3, 4]), [3, 1, 2, 4])
+
+    def test_string_duplicates(self):
+        """Test with string duplicates"""
+        from aind_data_schema.utils.merge import remove_duplicates
+        self.assertEqual(remove_duplicates(["a", "b", "a", "c", "b"]), ["a", "b", "c"])
+
+    def test_all_duplicates(self):
+        """Test with all elements being duplicates"""
+        from aind_data_schema.utils.merge import remove_duplicates
+        self.assertEqual(remove_duplicates([1, 1, 1, 1]), [1])
+
+
 class MergeOptionalListTests(unittest.TestCase):
     """Tests for merge_optional_list"""
 
