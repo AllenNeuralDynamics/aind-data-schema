@@ -3,6 +3,12 @@
 from typing import Any, List, Optional
 
 
+def remove_duplicates(lst: List[Any]) -> List[Any]:
+    """Remove duplicates from a list while preserving order"""
+    seen = set()
+    return [x for x in lst if not (x in seen or seen.add(x))]
+
+
 def merge_optional_list(a: Optional[List[Any]], b: Optional[List[Any]]) -> Optional[List[Any]]:
     """Merge two Optional[List[Any]] values"""
 
