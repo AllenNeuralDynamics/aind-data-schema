@@ -374,7 +374,7 @@ class Acquisition(DataCoreModel):
         maintenance = self.maintenance + other.maintenance
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
-        
+
         # Remove duplicates
         experimenters = remove_duplicates(experimenters)
         if ethics_review_id:

@@ -244,7 +244,7 @@ class QualityControl(DataCoreModel):
         combined_notes = merge_notes(self.notes, other.notes)
         combined_default_grouping = list(set(self.default_grouping + other.default_grouping))
         combined_allow_tag_failures = list(set(self.allow_tag_failures + other.allow_tag_failures))
-        
+
         # Remove duplicates
         if combined_experimenters:
             combined_experimenters = remove_duplicates(combined_experimenters)
