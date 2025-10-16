@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional, Union
+from typing import List, Literal, Optional
 import warnings
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
