@@ -3,7 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Union
 import warnings
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
@@ -624,7 +624,7 @@ class LickSpout(Device):
     spout_diameter_unit: SizeUnit = Field(default=SizeUnit.MM, title="Spout diameter unit")
 
     solenoid_valve: Device = Field(..., title="Solenoid valve")
-    lick_sensor: Device = Field(..., title="Lick sensor")
+    lick_sensor: Discriminated[Device | HarpDevice] = Field(..., title="Lick sensor")
     lick_sensor_type: Optional[LickSensorType] = Field(default=None, title="Lick sensor type")
 
 
