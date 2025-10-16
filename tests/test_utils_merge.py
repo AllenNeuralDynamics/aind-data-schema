@@ -56,9 +56,8 @@ class RemoveDuplicatesTests(unittest.TestCase):
         """Test with list that has duplicates"""
         from aind_data_schema.utils.merge import remove_duplicates
 
-        with self.assertLogs('aind_data_schema.utils.merge', level='WARNING') as log:
+        with self.assertLogs(level='INFO') as log:
             self.assertEqual(remove_duplicates([1, 2, 2, 3, 3, 4]), [1, 2, 3, 4])
-        
         self.assertEqual(len(log.output), 1)
         self.assertIn("Removed 2 duplicates from list", log.output[0])
 

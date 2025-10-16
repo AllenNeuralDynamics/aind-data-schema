@@ -11,7 +11,7 @@ def remove_duplicates(lst: List[Any]) -> List[Any]:
     output_list = [x for x in lst if not (x in seen or seen.add(x))]
 
     if len(output_list) != len(lst):
-        logging.warning(f"Removed {len(lst) - len(output_list)} duplicates from list")
+        logging.info(f"Removed {len(lst) - len(output_list)} duplicates from list")
     return output_list
 
 
