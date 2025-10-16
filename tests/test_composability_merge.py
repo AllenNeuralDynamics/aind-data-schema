@@ -93,6 +93,43 @@ class TestComposability(unittest.TestCase):
         q3 = q1 + q2
         self.assertTrue(q3.notes == "note1")
 
+        # Test duplicate removal in merging
+        q1 = QualityControl(
+            metrics=metrics,
+            key_experimenters=["Alice", "Bob"],
+            default_grouping=["Drift map", "Tag1"],
+            allow_tag_failures=["FailTag1", "FailTag2"],
+        )
+
+        q2 = QualityControl(
+            metrics=metrics,
+            key_experimenters=["Bob", "Charlie"],  # Bob is duplicate
+            default_grouping=["Tag1", "Tag2"],  # Tag1 is duplicate
+            allow_tag_failures=["FailTag2", "FailTag3"],  # FailTag2 is duplicate
+        )
+
+        # Test that naive concatenation would have duplicates
+        naive_experimenters = (q1.key_experimenters or []) + (q2.key_experimenters or [])
+        naive_default_grouping = q1.default_grouping + q2.default_grouping
+        naive_allow_tag_failures = q1.allow_tag_failures + q2.allow_tag_failures
+
+        self.assertEqual(naive_experimenters.count("Bob"), 2)  # Should have duplicates
+        self.assertEqual(naive_default_grouping.count("Tag1"), 2)  # Should have duplicates
+        self.assertEqual(naive_allow_tag_failures.count("FailTag2"), 2)  # Should have duplicates
+
+        # Test that the + operator removes duplicates
+        q3 = q1 + q2
+
+        self.assertIsNotNone(q3.key_experimenters)
+        self.assertEqual(q3.key_experimenters.count("Bob"), 1)  # Should be deduplicated
+        self.assertEqual(set(q3.key_experimenters), {"Alice", "Bob", "Charlie"})
+
+        self.assertEqual(q3.default_grouping.count("Tag1"), 1)  # Should be deduplicated
+        self.assertEqual(set(q3.default_grouping), {"Drift map", "Tag1", "Tag2"})
+
+        self.assertEqual(q3.allow_tag_failures.count("FailTag2"), 1)  # Should be deduplicated
+        self.assertEqual(set(q3.allow_tag_failures), {"FailTag1", "FailTag2", "FailTag3"})
+
     def test_merge_acquisition(self):
         """Test merging two Acquisition objects"""
 
@@ -103,13 +140,41 @@ class TestComposability(unittest.TestCase):
 
         merged_acq = acq1 + acq2
 
-        self.assertEqual(len(merged_acq.experimenters), 2)
+        self.assertEqual(len(merged_acq.experimenters), 1)
         self.assertEqual(len(merged_acq.maintenance), 2)
         self.assertEqual(len(merged_acq.calibrations), 2)
         self.assertEqual(len(merged_acq.data_streams), 2)
         self.assertEqual(merged_acq.acquisition_start_time, t)
         self.assertEqual(merged_acq.acquisition_end_time, t)
         self.assertEqual(merged_acq.acquisition_type, "ExaSPIM")
+
+        # Test duplicate removal in merging
+        acq3 = self.exaspim_acquisition.model_copy()
+        acq4 = self.exaspim_acquisition.model_copy()
+
+        # Add duplicate values to test removal
+        acq3.experimenters = ["Alice", "Bob"]
+        acq3.ethics_review_id = ["ethics1", "ethics2"]
+
+        acq4.experimenters = ["Bob", "Charlie"]  # Bob is duplicate
+        acq4.ethics_review_id = ["ethics2", "ethics3"]  # ethics2 is duplicate
+
+        # Test that naive concatenation would have duplicates
+        naive_experimenters = acq3.experimenters + acq4.experimenters
+        naive_ethics_review_id = (acq3.ethics_review_id or []) + (acq4.ethics_review_id or [])
+
+        self.assertEqual(naive_experimenters.count("Bob"), 2)  # Should have duplicates
+        self.assertEqual(naive_ethics_review_id.count("ethics2"), 2)  # Should have duplicates
+
+        # Test that the + operator removes duplicates
+        merged_acq_dedup = acq3 + acq4
+
+        self.assertEqual(merged_acq_dedup.experimenters.count("Bob"), 1)  # Should be deduplicated
+        self.assertEqual(set(merged_acq_dedup.experimenters), {"Alice", "Bob", "Charlie"})
+
+        self.assertIsNotNone(merged_acq_dedup.ethics_review_id)
+        self.assertEqual(merged_acq_dedup.ethics_review_id.count("ethics2"), 1)  # Should be deduplicated
+        self.assertEqual(set(merged_acq_dedup.ethics_review_id), {"ethics1", "ethics2", "ethics3"})
 
         # Test incompatible schema versions
         acq1_orig_schema_v = acq1.schema_version

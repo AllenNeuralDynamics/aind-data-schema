@@ -33,7 +33,7 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 # Define the requirements for each modality
@@ -374,6 +374,11 @@ class Acquisition(DataCoreModel):
         maintenance = self.maintenance + other.maintenance
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
+
+        # Remove duplicates
+        experimenters = remove_duplicates(experimenters)
+        if ethics_review_id:
+            ethics_review_id = remove_duplicates(ethics_review_id)
 
         # Combine notes
         notes = merge_notes(self.notes, other.notes)
