@@ -119,9 +119,7 @@ class OlfactoryStimulation(GenericModel):
 
     stimulus_name: str = Field(..., title="Stimulus name")
     channels: Optional[List[OlfactometerChannelConfig]] = Field(
-        default=None,
-        title="Channels",
-        deprecated="Use OlfactometerConfig instead"
+        default=None, title="Channels", deprecated="Use OlfactometerConfig instead"
     )
     notes: Optional[str] = Field(default=None, title="Notes", deprecated="Use OlfactometerConfig instead")
 
