@@ -515,6 +515,18 @@
                "title": "Description",
                "type": "string"
             },
+            "measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Measurement location"
+            },
             "input": {
                "description": "Calibration input",
                "items": {
@@ -582,6 +594,9 @@
                   },
                   {
                      "$ref": "#/$defs/PressureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TorqueUnit"
                   }
                ],
                "title": "Input unit"
@@ -666,6 +681,9 @@
                   },
                   {
                      "$ref": "#/$defs/PressureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TorqueUnit"
                   }
                ],
                "title": "Output unit"
@@ -740,6 +758,34 @@
             "fit_type"
          ],
          "title": "CalibrationFit",
+         "type": "object"
+      },
+      "CatheterConfig": {
+         "additionalProperties": false,
+         "description": "Configuration of a catheter",
+         "properties": {
+            "object_type": {
+               "const": "Catheter config",
+               "default": "Catheter config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "targeted_structure": {
+               "$ref": "#/$defs/MouseAnatomyModel",
+               "description": "Use options from MouseBloodVessels",
+               "title": "Targeted blood vessel"
+            }
+         },
+         "required": [
+            "device_name",
+            "targeted_structure"
+         ],
+         "title": "CatheterConfig",
          "type": "object"
       },
       "Channel": {
@@ -1483,6 +1529,7 @@
                   "discriminator": {
                      "mapping": {
                         "Air puff config": "#/$defs/AirPuffConfig",
+                        "Catheter config": "#/$defs/CatheterConfig",
                         "Detector config": "#/$defs/DetectorConfig",
                         "Ephys assembly config": "#/$defs/EphysAssemblyConfig",
                         "Fiber assembly config": "#/$defs/FiberAssemblyConfig",
@@ -1541,6 +1588,9 @@
                      },
                      {
                         "$ref": "#/$defs/EphysAssemblyConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/CatheterConfig"
                      }
                   ]
                },
@@ -2086,6 +2136,19 @@
                ],
                "default": null,
                "title": "Excitation power unit"
+            },
+            "power_measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For example: objective, patch cable, etc",
+               "title": "Power measurement location"
             }
          },
          "required": [
@@ -2244,6 +2307,19 @@
                ],
                "default": null,
                "title": "Excitation power unit"
+            },
+            "power_measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For example: objective, patch cable, etc",
+               "title": "Power measurement location"
             }
          },
          "required": [
@@ -2660,6 +2736,29 @@
          "title": "MemoryUnit",
          "type": "string"
       },
+      "MouseAnatomyModel": {
+         "description": "Base model for mouse anatomy",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/Registry"
+            },
+            "registry_identifier": {
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "registry",
+            "registry_identifier"
+         ],
+         "title": "MouseAnatomyModel",
+         "type": "object"
+      },
       "MousePlatformConfig": {
          "additionalProperties": false,
          "description": "Configuration for mouse platforms",
@@ -2711,6 +2810,80 @@
          ],
          "title": "MriScanSequence",
          "type": "string"
+      },
+      "OlfactometerChannelInfo": {
+         "additionalProperties": false,
+         "description": "Configuration of a channel in an olfactometer",
+         "properties": {
+            "object_type": {
+               "const": "Olfactometer channel info",
+               "default": "Olfactometer channel info",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "channel_index": {
+               "title": "Channel index",
+               "type": "integer"
+            },
+            "odorant": {
+               "title": "Odorant",
+               "type": "string"
+            },
+            "dilution": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "string"
+                  }
+               ],
+               "title": "Odorant dilution"
+            },
+            "dilution_unit": {
+               "$ref": "#/$defs/ConcentrationUnit",
+               "default": "% v/v",
+               "title": "Dilution unit"
+            }
+         },
+         "required": [
+            "channel_index",
+            "odorant",
+            "dilution"
+         ],
+         "title": "OlfactometerChannelInfo",
+         "type": "object"
+      },
+      "OlfactometerConfig": {
+         "additionalProperties": false,
+         "description": "Configuration of olfactometer",
+         "properties": {
+            "object_type": {
+               "const": "Olfactometer config",
+               "default": "Olfactometer config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "channel_configs": {
+               "description": "List of channels with their odorant and concentration",
+               "items": {
+                  "$ref": "#/$defs/OlfactometerChannelInfo"
+               },
+               "title": "Channel configurations",
+               "type": "array"
+            }
+         },
+         "required": [
+            "device_name",
+            "channel_configs"
+         ],
+         "title": "OlfactometerConfig",
+         "type": "object"
       },
       "Origin": {
          "description": "Origin positions for coordinate systems",
@@ -3184,6 +3357,18 @@
                "default": "Power measured for various power or percentage input strengths",
                "title": "Description",
                "type": "string"
+            },
+            "measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Measurement location"
             },
             "input": {
                "description": "Power, voltage, or percentage input strength",
@@ -4529,6 +4714,7 @@
                         "Laser config": "#/$defs/LaserConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
                         "Mouse platform config": "#/$defs/MousePlatformConfig",
+                        "Olfactometer config": "#/$defs/OlfactometerConfig",
                         "Speaker config": "#/$defs/SpeakerConfig"
                      },
                      "propertyName": "object_type"
@@ -4545,6 +4731,9 @@
                      },
                      {
                         "$ref": "#/$defs/MousePlatformConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/OlfactometerConfig"
                      }
                   ]
                },
@@ -4633,6 +4822,14 @@
          "title": "TimeUnit",
          "type": "string"
       },
+      "TorqueUnit": {
+         "description": "Torque units",
+         "enum": [
+            "newton meter"
+         ],
+         "title": "TorqueUnit",
+         "type": "string"
+      },
       "Translation": {
          "additionalProperties": false,
          "description": "Translation",
@@ -4719,6 +4916,18 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Measurement location"
             },
             "input": {
                "description": "Length of time solenoid/valve is open",
@@ -9782,8 +9991,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.36",
-         "default": "2.0.36",
+         "const": "2.1.0",
+         "default": "2.1.0",
          "title": "Schema Version",
          "type": "string"
       },

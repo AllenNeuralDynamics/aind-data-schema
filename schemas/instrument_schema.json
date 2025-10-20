@@ -1741,6 +1741,18 @@
                "title": "Description",
                "type": "string"
             },
+            "measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Measurement location"
+            },
             "input": {
                "description": "Calibration input",
                "items": {
@@ -1808,6 +1820,9 @@
                   },
                   {
                      "$ref": "#/$defs/PressureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TorqueUnit"
                   }
                ],
                "title": "Input unit"
@@ -1892,6 +1907,9 @@
                   },
                   {
                      "$ref": "#/$defs/PressureUnit"
+                  },
+                  {
+                     "$ref": "#/$defs/TorqueUnit"
                   }
                ],
                "title": "Output unit"
@@ -10463,7 +10481,21 @@
                "title": "Solenoid valve"
             },
             "lick_sensor": {
-               "$ref": "#/$defs/Device",
+               "discriminator": {
+                  "mapping": {
+                     "Device": "#/$defs/Device",
+                     "Harp device": "#/$defs/HarpDevice"
+                  },
+                  "propertyName": "object_type"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/Device"
+                  },
+                  {
+                     "$ref": "#/$defs/HarpDevice"
+                  }
+               ],
                "title": "Lick sensor"
             },
             "lick_sensor_type": {
@@ -14621,6 +14653,18 @@
                "title": "Description",
                "type": "string"
             },
+            "measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Measurement location"
+            },
             "input": {
                "description": "Power, voltage, or percentage input strength",
                "items": {
@@ -16191,6 +16235,14 @@
          "title": "TimeUnit",
          "type": "string"
       },
+      "TorqueUnit": {
+         "description": "Torque units",
+         "enum": [
+            "newton meter"
+         ],
+         "title": "TorqueUnit",
+         "type": "string"
+      },
       "Translation": {
          "additionalProperties": false,
          "description": "Translation",
@@ -17370,6 +17422,18 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "measured_at": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Measurement location"
             },
             "input": {
                "description": "Length of time solenoid/valve is open",
@@ -23788,8 +23852,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.0.40",
-         "default": "2.0.40",
+         "const": "2.0.41",
+         "default": "2.0.41",
          "title": "Schema Version",
          "type": "string"
       },
