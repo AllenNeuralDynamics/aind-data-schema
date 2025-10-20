@@ -104,17 +104,6 @@ class AcquisitionTest(unittest.TestCase):
 
         assert mri is not None
 
-    def test_subject_details_if_not_specimen(self):
-        """Test that subject details are required if no specimen ID"""
-        with self.assertRaises(ValueError) as context:
-            acq = ephys_acquisition.model_copy()
-
-            acq.subject_details = None
-
-            Acquisition.model_validate_json(acq.model_dump_json())
-
-        self.assertIn("Subject details are required for in vivo experiments", str(context.exception))
-
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
         with self.assertRaises(ValueError) as context:

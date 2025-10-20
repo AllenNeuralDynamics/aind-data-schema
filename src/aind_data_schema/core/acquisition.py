@@ -35,7 +35,7 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 # Define the requirements for each modality
@@ -315,14 +315,6 @@ class Acquisition(DataCoreModel):
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
-    def subject_details_if_not_specimen(self):
-        """Check that subject details are present if no specimen ID"""
-        if not self.specimen_id and not self.subject_details:
-            raise ValueError("Subject details are required for in vivo experiments")
-
-        return self
-
-    @model_validator(mode="after")
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
@@ -385,6 +377,11 @@ class Acquisition(DataCoreModel):
         maintenance = self.maintenance + other.maintenance
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
+
+        # Remove duplicates
+        experimenters = remove_duplicates(experimenters)
+        if ethics_review_id:
+            ethics_review_id = remove_duplicates(ethics_review_id)
 
         # Combine notes
         notes = merge_notes(self.notes, other.notes)
