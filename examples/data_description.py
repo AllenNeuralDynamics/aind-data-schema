@@ -14,10 +14,11 @@ d = DataDescription(
     subject_id="123456",
     creation_time=datetime(2022, 2, 21, 16, 30, 1, tzinfo=timezone.utc),
     institution=Organization.AIND,
-    investigators=[Person(name="Daniel Birman", registry_identifier="0000-0003-3748-6289")],  # Include ORCID IDs
+    investigators=[Person(name="Daniel Birman", registry_identifier="0000-0003-3748-6289")],
     funding_source=[Funding(funder=Organization.AI)],
     project_name="Example project",
     data_level=DataLevel.RAW,
+    tags=["Pilot data"],
 )
 
 if __name__ == "__main__":
