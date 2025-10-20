@@ -593,7 +593,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         # Try to create derived data - should trigger the PydanticUndefined error path
         with self.assertRaises(ValueError) as context:
-            DataDescription.from_raw(base_data, "test_process", creation_time=dt)
+            DataDescription.from_data_description(base_data, "test_process", creation_time=dt)
 
         # Should raise error about the missing required field
         self.assertIn("Required field investigators must have a value", str(context.exception))
@@ -611,7 +611,7 @@ class DataDescriptionTest(unittest.TestCase):
 
         # Try to create derived data - should trigger the PydanticUndefined error path
         with self.assertRaises(ValueError) as context:
-            DataDescription.from_derived(derived_data, "process-2", creation_time=dt)
+            DataDescription.from_data_description(derived_data, "process-2", creation_time=dt)
 
         # Should raise error about the missing required field
         self.assertIn("Required field investigators must have a value", str(context.exception))
