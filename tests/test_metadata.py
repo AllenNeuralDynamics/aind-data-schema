@@ -4,7 +4,6 @@ import json
 import unittest
 import warnings
 from datetime import datetime, timezone
-from pathlib import Path
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
@@ -33,10 +32,6 @@ from aind_data_schema.core.acquisition import StimulusEpoch
 from examples.data_description import d as data_description
 from examples.subject import s as subject
 
-
-EXAMPLES_DIR = Path(__file__).parents[1] / "examples"
-EPHYS_INST_JSON = EXAMPLES_DIR / "ephys_instrument.json"
-EPHYS_SESSION_JSON = EXAMPLES_DIR / "ephys_acquisition.json"
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -866,6 +861,8 @@ class TestMetadata(unittest.TestCase):
         )
 
         # Use the existing data_description from class setup (which doesn't have 'calibration' tag)
+        dd = data_description.model_copy()
+        dd.tags = None  # Ensure no tags are set
 
         # This should trigger a warning since subject is CalibrationObject but no 'calibration' tag
         with self.assertWarns(UserWarning) as w:
@@ -873,7 +870,7 @@ class TestMetadata(unittest.TestCase):
                 name="Test Metadata",
                 location="Test Location",
                 subject=calibration_subject,
-                data_description=data_description,
+                data_description=dd,
             )
 
         warning_messages = [str(warning.message) for warning in w.warnings]

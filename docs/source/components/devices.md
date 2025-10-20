@@ -6,121 +6,121 @@
 
 Description of additional devices
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `imaging_device_type` | [ImagingDeviceType](../aind_data_schema_models/devices.md#imagingdevicetype) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `imaging_device_type` | [ImagingDeviceType](../aind_data_schema_models/devices.md#imagingdevicetype) | Device type  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### AirPuffDevice
 
 Description of an air puff device
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `diameter` | `float` |  |
-| `diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `diameter` | `float` | Spout diameter  |
+| `diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Arena
 
 Description of a rectangular arena
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) |  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `objects_in_arena` | List[[Device](#device)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `size` | [Scale](coordinates.md#scale) | 3D Size  |
+| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `objects_in_arena` | List[[Device](#device)] | Objects in arena  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Camera
 
 Camera Detector
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) |  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |  |
-| `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) |  |
-| `frame_rate` | `Optional[decimal.Decimal]` | Frame rate being used |
-| `frame_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] |  |
-| `immersion` | Optional[[ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium)] |  |
-| `chroma` | Optional[[CameraChroma](../aind_data_schema_models/devices.md#camerachroma)] |  |
-| `sensor_width` | `Optional[int]` |  |
-| `sensor_height` | `Optional[int]` |  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `sensor_format` | `Optional[str]` |  |
-| `sensor_format_unit` | `Optional[str]` |  |
-| `bit_depth` | `Optional[int]` |  |
-| `bin_mode` | [BinMode](../aind_data_schema_models/devices.md#binmode) |  |
-| `bin_width` | `Optional[int]` |  |
-| `bin_height` | `Optional[int]` |  |
-| `bin_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `gain` | `Optional[decimal.Decimal]` |  |
-| `crop_offset_x` | `Optional[int]` |  |
-| `crop_offset_y` | `Optional[int]` |  |
-| `crop_width` | `Optional[int]` |  |
-| `crop_height` | `Optional[int]` |  |
-| `crop_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `recording_software` | Optional[[Software](identifiers.md#software)] |  |
-| `driver` | Optional[[DeviceDriver](../aind_data_schema_models/devices.md#devicedriver)] |  |
-| `driver_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
+| `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) | Cooling  |
+| `frame_rate` | `Optional[decimal.Decimal]` | Frame rate (Hz) (Frame rate being used) |
+| `frame_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] | Frame rate unit  |
+| `immersion` | Optional[[ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium)] | Immersion  |
+| `chroma` | Optional[[CameraChroma](../aind_data_schema_models/devices.md#camerachroma)] | Camera chroma  |
+| `sensor_width` | `Optional[int]` | Width of the sensor (pixels)  |
+| `sensor_height` | `Optional[int]` | Height of the sensor (pixels)  |
+| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `sensor_format` | `Optional[str]` | Sensor format  |
+| `sensor_format_unit` | `Optional[str]` | Sensor format unit  |
+| `bit_depth` | `Optional[int]` | Bit depth  |
+| `bin_mode` | [BinMode](../aind_data_schema_models/devices.md#binmode) | Detector binning mode  |
+| `bin_width` | `Optional[int]` | Bin width  |
+| `bin_height` | `Optional[int]` | Bin height  |
+| `bin_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Bin size unit  |
+| `gain` | `Optional[decimal.Decimal]` | Gain  |
+| `crop_offset_x` | `Optional[int]` | Crop offset x  |
+| `crop_offset_y` | `Optional[int]` | Crop offset y  |
+| `crop_width` | `Optional[int]` | Crop width  |
+| `crop_height` | `Optional[int]` | Crop width  |
+| `crop_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Crop size unit  |
+| `recording_software` | Optional[[Software](identifiers.md#software)] | Recording software  |
+| `driver` | Optional[[DeviceDriver](../aind_data_schema_models/devices.md#devicedriver)] | Driver  |
+| `driver_version` | `Optional[str]` | Driver version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### CameraAssembly
 
 Named assembly of a camera and lens (and optionally a filter)
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `target` | [CameraTarget](../aind_data_schema_models/devices.md#cameratarget) |  |
-| `camera` | [Camera](#camera) |  |
-| `lens` | [Lens](#lens) |  |
-| `filter` | Optional[[Filter](#filter)] |  |
-| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `name` | `str` | Camera assembly name  |
+| `target` | [CameraTarget](../aind_data_schema_models/devices.md#cameratarget) | Camera target  |
+| `camera` | [Camera](#camera) | Camera  |
+| `lens` | [Lens](#lens) | Lens  |
+| `filter` | Optional[[Filter](#filter)] | Filter  |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
 ### Catheter
 
 Description of a catheter device
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `catheter_material` | [CatheterMaterial](#cathetermaterial) |  |
-| `catheter_design` | [CatheterDesign](#catheterdesign) |  |
-| `catheter_port` | [CatheterPort](#catheterport) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `catheter_material` | [CatheterMaterial](#cathetermaterial) | Catheter material  |
+| `catheter_design` | [CatheterDesign](#catheterdesign) | Catheter design  |
+| `catheter_port` | [CatheterPort](#catheterport) | Catheter port  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### CatheterDesign
@@ -159,607 +159,607 @@ Type of catheter port
 
 Description of a computer
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `operating_system` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `operating_system` | `Optional[str]` | Operating system  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### DAQChannel
 
 Named input or output channel on a DAQ device
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `channel_name` | `str` |  |
-| `channel_type` | [DaqChannelType](../aind_data_schema_models/devices.md#daqchanneltype) |  |
-| `port` | `Optional[int]` |  |
-| <del>`channel_index`</del> | `Optional[int]` | **[DEPRECATED]** Use DAQChannel.port instead. |
-| `sample_rate` | `Optional[decimal.Decimal]` |  |
-| `sample_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] |  |
-| `event_based_sampling` | `Optional[bool]` |  |
+| `channel_name` | `str` | DAQ channel name  |
+| `channel_type` | [DaqChannelType](../aind_data_schema_models/devices.md#daqchanneltype) | DAQ channel type  |
+| `port` | `Optional[int]` | DAQ port  |
+| <del>`channel_index`</del> | `Optional[int]` | **[DEPRECATED]** Use DAQChannel.port instead. DAQ channel index  |
+| `sample_rate` | `Optional[decimal.Decimal]` | DAQ channel sample rate (Hz)  |
+| `sample_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] | Sample rate unit  |
+| `event_based_sampling` | `Optional[bool]` | Set to true if DAQ channel is sampled at irregular intervals  |
 
 
 ### DAQDevice
 
 Data acquisition device containing multiple I/O channels
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
-| `firmware_version` | `Optional[str]` |  |
-| `hardware_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Type of connection to PC  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
+| `firmware_version` | `Optional[str]` | Firmware version  |
+| `hardware_version` | `Optional[str]` | Hardware version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Detector
 
 Description of a generic detector
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) |  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |  |
-| `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) |  |
-| `frame_rate` | `Optional[decimal.Decimal]` | Frame rate being used |
-| `frame_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] |  |
-| `immersion` | Optional[[ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium)] |  |
-| `chroma` | Optional[[CameraChroma](../aind_data_schema_models/devices.md#camerachroma)] |  |
-| `sensor_width` | `Optional[int]` |  |
-| `sensor_height` | `Optional[int]` |  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `sensor_format` | `Optional[str]` |  |
-| `sensor_format_unit` | `Optional[str]` |  |
-| `bit_depth` | `Optional[int]` |  |
-| `bin_mode` | [BinMode](../aind_data_schema_models/devices.md#binmode) |  |
-| `bin_width` | `Optional[int]` |  |
-| `bin_height` | `Optional[int]` |  |
-| `bin_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `gain` | `Optional[decimal.Decimal]` |  |
-| `crop_offset_x` | `Optional[int]` |  |
-| `crop_offset_y` | `Optional[int]` |  |
-| `crop_width` | `Optional[int]` |  |
-| `crop_height` | `Optional[int]` |  |
-| `crop_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `recording_software` | Optional[[Software](identifiers.md#software)] |  |
-| `driver` | Optional[[DeviceDriver](../aind_data_schema_models/devices.md#devicedriver)] |  |
-| `driver_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `detector_type` | [DetectorType](../aind_data_schema_models/devices.md#detectortype) | Detector Type  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
+| `cooling` | [Cooling](../aind_data_schema_models/devices.md#cooling) | Cooling  |
+| `frame_rate` | `Optional[decimal.Decimal]` | Frame rate (Hz) (Frame rate being used) |
+| `frame_rate_unit` | Optional[[FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit)] | Frame rate unit  |
+| `immersion` | Optional[[ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium)] | Immersion  |
+| `chroma` | Optional[[CameraChroma](../aind_data_schema_models/devices.md#camerachroma)] | Camera chroma  |
+| `sensor_width` | `Optional[int]` | Width of the sensor (pixels)  |
+| `sensor_height` | `Optional[int]` | Height of the sensor (pixels)  |
+| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `sensor_format` | `Optional[str]` | Sensor format  |
+| `sensor_format_unit` | `Optional[str]` | Sensor format unit  |
+| `bit_depth` | `Optional[int]` | Bit depth  |
+| `bin_mode` | [BinMode](../aind_data_schema_models/devices.md#binmode) | Detector binning mode  |
+| `bin_width` | `Optional[int]` | Bin width  |
+| `bin_height` | `Optional[int]` | Bin height  |
+| `bin_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Bin size unit  |
+| `gain` | `Optional[decimal.Decimal]` | Gain  |
+| `crop_offset_x` | `Optional[int]` | Crop offset x  |
+| `crop_offset_y` | `Optional[int]` | Crop offset y  |
+| `crop_width` | `Optional[int]` | Crop width  |
+| `crop_height` | `Optional[int]` | Crop width  |
+| `crop_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Crop size unit  |
+| `recording_software` | Optional[[Software](identifiers.md#software)] | Recording software  |
+| `driver` | Optional[[DeviceDriver](../aind_data_schema_models/devices.md#devicedriver)] | Driver  |
+| `driver_version` | `Optional[str]` | Driver version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Device
 
 Generic device
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### DevicePosition
 
 Position class for devices
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
 ### DigitalMicromirrorDevice
 
 Description of a Digital Micromirror Device (DMD)
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `max_dmd_patterns` | `int` |  |
-| `double_bounce_design` | `bool` |  |
-| `invert_pixel_values` | `bool` |  |
-| `motion_padding_x` | `int` |  |
-| `motion_padding_y` | `int` |  |
-| `padding_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `pixel_size` | `decimal.Decimal` |  |
-| `pixel_size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `start_phase` | `decimal.Decimal` |  |
-| `dmd_flip` | `bool` |  |
-| `dmd_curtain` | `List[decimal.Decimal]` |  |
-| `dmd_curtain_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `line_shear` | `List[int]` |  |
-| `line_shear_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `max_dmd_patterns` | `int` | Max DMD patterns  |
+| `double_bounce_design` | `bool` | Double bounce design  |
+| `invert_pixel_values` | `bool` | Invert pixel values  |
+| `motion_padding_x` | `int` | Motion padding X (pixels)  |
+| `motion_padding_y` | `int` | Motion padding Y (pixels)  |
+| `padding_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Padding unit  |
+| `pixel_size` | `decimal.Decimal` | DMD Pixel size  |
+| `pixel_size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Pixel size unit  |
+| `start_phase` | `decimal.Decimal` | DMD Start phase (fraction of cycle)  |
+| `dmd_flip` | `bool` | DMD Flip  |
+| `dmd_curtain` | `List[decimal.Decimal]` | DMD Curtain  |
+| `dmd_curtain_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | dmd_curtain_unit  |
+| `line_shear` | `List[int]` | Line shear (pixels)  |
+| `line_shear_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Line shear unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Disc
 
 Description of a running disc (i.e. MindScope Disc)
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `radius` | `decimal.Decimal` |  |
-| `radius_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `output` | Optional[[DaqChannelType](../aind_data_schema_models/devices.md#daqchanneltype)] | analog or digital electronics |
-| `encoder` | `Optional[str]` | Encoder hardware type |
-| `decoder` | `Optional[str]` | Decoder chip type |
-| `encoder_firmware` | Optional[[Software](identifiers.md#software)] | Firmware to read from decoder chip counts |
-| `surface_material` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `radius` | `decimal.Decimal` | Radius (cm)  |
+| `radius_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | radius unit  |
+| `output` | Optional[[DaqChannelType](../aind_data_schema_models/devices.md#daqchanneltype)] |  (analog or digital electronics) |
+| `encoder` | `Optional[str]` | Encoder (Encoder hardware type) |
+| `decoder` | `Optional[str]` | Decoder (Decoder chip type) |
+| `encoder_firmware` | Optional[[Software](identifiers.md#software)] | Encoder firmware (Firmware to read from decoder chip counts) |
+| `surface_material` | `Optional[str]` | Surface material  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Enclosure
 
 Description of an enclosure
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `size` | [Scale](coordinates.md#scale) |  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `internal_material` | `Optional[str]` |  |
-| `external_material` | `str` |  |
-| `grounded` | `bool` |  |
-| `laser_interlock` | `bool` |  |
-| `air_filtration` | `bool` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `size` | [Scale](coordinates.md#scale) | Size  |
+| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `internal_material` | `Optional[str]` | Internal material  |
+| `external_material` | `str` | External material  |
+| `grounded` | `bool` | Grounded  |
+| `laser_interlock` | `bool` | Laser interlock  |
+| `air_filtration` | `bool` | Air filtration  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### EphysAssembly
 
 Named assembly for combining a manipulator and ephys probes
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `manipulator` | [Manipulator](#manipulator) |  |
-| `probes` | List[[EphysProbe](#ephysprobe)] |  |
+| `name` | `str` | Ephys assembly name  |
+| `manipulator` | [Manipulator](#manipulator) | Manipulator  |
+| `probes` | List[[EphysProbe](#ephysprobe)] | Probes that are held by this module  |
 
 
 ### EphysProbe
 
 Probe used in an ephys experiment
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `probe_model` | [ProbeModel](../aind_data_schema_models/devices.md#probemodel) |  |
-| `headstage` | Optional[[Device](#device)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `probe_model` | [ProbeModel](../aind_data_schema_models/devices.md#probemodel) | Probe model  |
+| `headstage` | Optional[[Device](#device)] | Headstage for this probe  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### FiberAssembly
 
 Module for inserted fiber photometry recording
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `manipulator` | [Manipulator](#manipulator) |  |
-| `fibers` | List[[FiberProbe](#fiberprobe)] |  |
+| `name` | `str` | Fiber assembly name  |
+| `manipulator` | [Manipulator](#manipulator) | Manipulator  |
+| `fibers` | List[[FiberProbe](#fiberprobe)] | Probes that are held by this module  |
 
 
 ### FiberPatchCord
 
 Description of a patch cord
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `core_diameter` | `decimal.Decimal` |  |
-| `numerical_aperture` | `decimal.Decimal` |  |
-| `photobleaching_date` | `Optional[datetime.date]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `core_diameter` | `decimal.Decimal` | Core diameter (um)  |
+| `numerical_aperture` | `decimal.Decimal` | Numerical aperture  |
+| `photobleaching_date` | `Optional[datetime.date]` | Photobleaching date  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### FiberProbe
 
 Description of a fiber optic probe
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `core_diameter` | `decimal.Decimal` |  |
-| `core_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `numerical_aperture` | `decimal.Decimal` |  |
-| `ferrule_material` | Optional[[FerruleMaterial](../aind_data_schema_models/devices.md#ferrulematerial)] |  |
-| `active_length` | `Optional[decimal.Decimal]` | Length of taper |
-| `total_length` | `decimal.Decimal` |  |
-| `length_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `core_diameter` | `decimal.Decimal` | Core diameter (um)  |
+| `core_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Core diameter unit  |
+| `numerical_aperture` | `decimal.Decimal` | Numerical aperture  |
+| `ferrule_material` | Optional[[FerruleMaterial](../aind_data_schema_models/devices.md#ferrulematerial)] | Ferrule material  |
+| `active_length` | `Optional[decimal.Decimal]` | Active length (mm) (Length of taper) |
+| `total_length` | `decimal.Decimal` | Total length (mm)  |
+| `length_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Length unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Filter
 
 Filter used in a light path
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `filter_type` | [FilterType](../aind_data_schema_models/devices.md#filtertype) |  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `cut_off_wavelength` | `Optional[int]` |  |
-| `cut_on_wavelength` | `Optional[int]` |  |
-| `center_wavelength` | `int or List[int] or NoneType` | Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters |
-| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `filter_type` | [FilterType](../aind_data_schema_models/devices.md#filtertype) | Type of filter  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `cut_off_wavelength` | `Optional[int]` | Cut-off wavelength (nm)  |
+| `cut_on_wavelength` | `Optional[int]` | Cut-on wavelength (nm)  |
+| `center_wavelength` | `int or List[int] or NoneType` | Center wavelength (nm) (Single wavelength or list of wavelengths for MULTIBAND or MULTI_NOTCH filters) |
+| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### HarpDevice
 
 DAQ that uses the Harp protocol for synchronization and data transmission
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) |  |
-| `core_version` | `Optional[str]` |  |
-| `tag_version` | `Optional[str]` |  |
-| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |  |
-| `is_clock_generator` | `bool` |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
-| `firmware_version` | `Optional[str]` |  |
-| `hardware_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) | Type of Harp device  |
+| `core_version` | `Optional[str]` | Core version  |
+| `tag_version` | `Optional[str]` | Tag version  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
+| `is_clock_generator` | `bool` | Is Clock Generator  |
+| `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
+| `firmware_version` | `Optional[str]` | Firmware version  |
+| `hardware_version` | `Optional[str]` | Hardware version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Lamp
 
 Description of a Lamp lightsource
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `wavelength_min` | `Optional[int]` |  |
-| `wavelength_max` | `Optional[int]` |  |
-| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `temperature` | `Optional[int]` |  |
-| `temperature_unit` | Optional[[TemperatureUnit](../aind_data_schema_models/units.md#temperatureunit)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `wavelength_min` | `Optional[int]` | Wavelength minimum (nm)  |
+| `wavelength_max` | `Optional[int]` | Wavelength maximum (nm)  |
+| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
+| `temperature` | `Optional[int]` | Temperature (K)  |
+| `temperature_unit` | Optional[[TemperatureUnit](../aind_data_schema_models/units.md#temperatureunit)] | Temperature unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Laser
 
 Laser module with a specific wavelength (may be a sub-component of a larger assembly)
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `wavelength` | `int` |  |
-| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `coupling` | Optional[[Coupling](../aind_data_schema_models/devices.md#coupling)] |  |
-| `coupling_efficiency` | `Optional[decimal.Decimal]` |  |
-| `coupling_efficiency_unit` | `"percent"` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `wavelength` | `int` | Wavelength (nm)  |
+| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
+| `coupling` | Optional[[Coupling](../aind_data_schema_models/devices.md#coupling)] | Coupling  |
+| `coupling_efficiency` | `Optional[decimal.Decimal]` | Coupling efficiency (percent)  |
+| `coupling_efficiency_unit` | `"percent"` | Coupling efficiency unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### LaserAssembly
 
 Named assembly combining a manipulator, lasers, collimator, and fibers
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `manipulator` | [Manipulator](#manipulator) |  |
-| `lasers` | List[[Laser](#laser)] |  |
-| `collimator` | [Device](#device) |  |
-| `fiber` | [FiberPatchCord](#fiberpatchcord) |  |
+| `name` | `str` | Laser assembly name  |
+| `manipulator` | [Manipulator](#manipulator) | Manipulator  |
+| `lasers` | List[[Laser](#laser)] | Lasers connected to this module  |
+| `collimator` | [Device](#device) | Collimator  |
+| `fiber` | [FiberPatchCord](#fiberpatchcord) | Fiber patch  |
 
 
 ### Lens
 
 Lens
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### LickSpout
 
 Description of a lick spout
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `spout_diameter` | `decimal.Decimal` |  |
-| `spout_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `solenoid_valve` | [Device](#device) |  |
-| `lick_sensor` | [Device](#device) |  |
-| `lick_sensor_type` | Optional[[LickSensorType](../aind_data_schema_models/devices.md#licksensortype)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `spout_diameter` | `decimal.Decimal` | Spout diameter (mm)  |
+| `spout_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Spout diameter unit  |
+| `solenoid_valve` | [Device](#device) | Solenoid valve  |
+| `lick_sensor` | [Device](#device) | Lick sensor  |
+| `lick_sensor_type` | Optional[[LickSensorType](../aind_data_schema_models/devices.md#licksensortype)] | Lick sensor type  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### LickSpoutAssembly
 
 Description of multiple lick spouts, possibly mounted on a stage
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `lick_spouts` | List[[LickSpout](#lickspout)] |  |
-| `motorized_stage` | Optional[[MotorizedStage](#motorizedstage)] |  |
+| `name` | `str` | Lick spout assembly name  |
+| `lick_spouts` | List[[LickSpout](#lickspout)] | Water spouts  |
+| `motorized_stage` | Optional[[MotorizedStage](#motorizedstage)] | Motorized stage  |
 
 
 ### LightAssembly
 
 Named assembly of a light source and lens
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `light` | [Laser](#laser) or [LightEmittingDiode](#lightemittingdiode) or [Lamp](#lamp) |  |
-| `lens` | [Lens](#lens) |  |
-| `filter` | Optional[[Filter](#filter)] |  |
+| `name` | `str` | Light assembly name  |
+| `light` | [Laser](#laser) or [LightEmittingDiode](#lightemittingdiode) or [Lamp](#lamp) |   |
+| `lens` | [Lens](#lens) | Lens  |
+| `filter` | Optional[[Filter](#filter)] | Filter  |
 
 
 ### LightEmittingDiode
 
 Description of a Light Emitting Diode (LED) device
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `wavelength` | `int` |  |
-| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `bandwidth` | `Optional[int]` |  |
-| `bandwidth_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `wavelength` | `int` | Wavelength (nm)  |
+| `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
+| `bandwidth` | `Optional[int]` | Bandwidth (FWHM)  |
+| `bandwidth_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Bandwidth unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Manipulator
 
 Manipulator used on a dome module
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Microscope
 
 Description of a microscope
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Monitor
 
 Description of visual display for visual stimuli
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `refresh_rate` | `int` |  |
-| `width` | `int` |  |
-| `height` | `int` |  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `viewing_distance` | `decimal.Decimal` |  |
-| `viewing_distance_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `contrast` | `Optional[int]` | Monitor's contrast setting |
-| `brightness` | `Optional[int]` | Monitor's brightness setting |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
-| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `refresh_rate` | `int` | Refresh rate (Hz)  |
+| `width` | `int` | Width (pixels)  |
+| `height` | `int` | Height (pixels)  |
+| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `viewing_distance` | `decimal.Decimal` | Viewing distance (cm)  |
+| `viewing_distance_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Viewing distance unit  |
+| `contrast` | `Optional[int]` | Contrast (Monitor's contrast setting) |
+| `brightness` | `Optional[int]` | Brightness (Monitor's brightness setting) |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
 ### MotorizedStage
 
 Description of motorized stage
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `travel` | `decimal.Decimal` |  |
-| `travel_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `firmware` | Optional[[Software](identifiers.md#software)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `travel` | `decimal.Decimal` | Travel of device (mm)  |
+| `travel_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Travel unit  |
+| `firmware` | Optional[[Software](identifiers.md#software)] | Firmware  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### MyomatrixArray
 
 Description of a Myomatrix array
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `array_type` | [MyomatrixArrayType](../aind_data_schema_models/devices.md#myomatrixarraytype) |  |
-| `threads` | List[[MyomatrixThread](#myomatrixthread)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `array_type` | [MyomatrixArrayType](../aind_data_schema_models/devices.md#myomatrixarraytype) | Array type  |
+| `threads` | List[[MyomatrixThread](#myomatrixthread)] | Array threads  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### MyomatrixContact
 
 Description of a contact on a myomatrix thread
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `body_part` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Use MouseBodyParts |
-| `relative_position` | [AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative) | Position relative to procedures coordinate system |
-| `muscle` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Use MouseEmgMuscles |
-| `in_muscle` | `bool` |  |
+| `body_part` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Body part of contact insertion (Use MouseBodyParts) |
+| `relative_position` | [AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative) | Relative position (Position relative to procedures coordinate system) |
+| `muscle` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Muscle of contact insertion (Use MouseEmgMuscles) |
+| `in_muscle` | `bool` | In muscle  |
 
 
 ### MyomatrixThread
 
 Description of a thread of a myomatrix array
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `ground_electrode_location` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Use GroundWireLocations |
-| `contacts` | List[[MyomatrixContact](#myomatrixcontact)] |  |
+| `ground_electrode_location` | [MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel) | Location of ground electrode (Use GroundWireLocations) |
+| `contacts` | List[[MyomatrixContact](#myomatrixcontact)] | Contacts  |
 
 
 ### NeuropixelsBasestation
 
 PXI-based Neuropixels DAQ
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `basestation_firmware_version` | `str` |  |
-| `bsc_firmware_version` | `str` |  |
-| `slot` | `int` |  |
-| `ports` | List[[ProbePort](#probeport)] |  |
-| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
-| `firmware_version` | `Optional[str]` |  |
-| `hardware_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `basestation_firmware_version` | `str` | Basestation firmware version  |
+| `bsc_firmware_version` | `str` | Basestation connect board firmware  |
+| `slot` | `int` | Slot number for this basestation  |
+| `ports` | List[[ProbePort](#probeport)] | Basestation ports  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
+| `firmware_version` | `Optional[str]` | Firmware version  |
+| `hardware_version` | `Optional[str]` | Hardware version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Objective
 
 Description of an objective device
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `numerical_aperture` | `decimal.Decimal` |  |
-| `magnification` | `decimal.Decimal` |  |
-| `immersion` | [ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium) |  |
-| `objective_type` | Optional[[ObjectiveType](../aind_data_schema_models/devices.md#objectivetype)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `numerical_aperture` | `decimal.Decimal` | Numerical aperture (in air)  |
+| `magnification` | `decimal.Decimal` | Magnification  |
+| `immersion` | [ImmersionMedium](../aind_data_schema_models/devices.md#immersionmedium) | Immersion  |
+| `objective_type` | Optional[[ObjectiveType](../aind_data_schema_models/devices.md#objectivetype)] | Objective type  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Olfactometer
 
 Description of an olfactometer for odor stimuli
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) |  |
-| `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |  |
-| `core_version` | `Optional[str]` |  |
-| `tag_version` | `Optional[str]` |  |
-| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) |  |
-| `is_clock_generator` | `bool` |  |
-| `firmware_version` | `Optional[str]` |  |
-| `hardware_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `harp_device_type` | [HarpDeviceType](../aind_data_schema_models/harp_types.md#harpdevicetype) | Type of Harp device  |
+| `channels` | List[[OlfactometerChannel](#olfactometerchannel)] |   |
+| `core_version` | `Optional[str]` | Core version  |
+| `tag_version` | `Optional[str]` | Tag version  |
+| `data_interface` | [DataInterface](../aind_data_schema_models/devices.md#datainterface) | Data interface  |
+| `is_clock_generator` | `bool` | Is Clock Generator  |
+| `firmware_version` | `Optional[str]` | Firmware version  |
+| `hardware_version` | `Optional[str]` | Hardware version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### OlfactometerChannel
 
 description of a Olfactometer channel
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `channel_index` | `int` |  |
-| `channel_type` | [OlfactometerChannelType](#olfactometerchanneltype) |  |
-| `flow_capacity` | `100 or 1000` |  |
-| `flow_unit` | `str` |  |
+| `channel_index` | `int` | Channel index  |
+| `channel_type` | [OlfactometerChannelType](#olfactometerchanneltype) | Channel type  |
+| `flow_capacity` | `100 or 1000` | Flow capacity  |
+| `flow_unit` | `str` | Flow unit  |
 
 
 ### OlfactometerChannelType
@@ -776,172 +776,172 @@ Olfactometer channel types
 
 Multichannel electrophysiology DAQ
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `ports` | List[[ProbePort](#probeport)] |  |
-| `data_interface` | `"DataInterface.USB"` |  |
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `channels` | List[[DAQChannel](#daqchannel)] |  |
-| `firmware_version` | `Optional[str]` |  |
-| `hardware_version` | `Optional[str]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `ports` | List[[ProbePort](#probeport)] | Acquisition board ports  |
+| `data_interface` | `"DataInterface.USB"` |   |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
+| `firmware_version` | `Optional[str]` | Firmware version  |
+| `hardware_version` | `Optional[str]` | Hardware version  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### PockelsCell
 
 Description of a Pockels Cell
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `polygonal_scanner` | `Optional[str]` | Must match name of Polygonal scanner |
-| `on_time` | `Optional[decimal.Decimal]` |  |
-| `off_time` | `Optional[decimal.Decimal]` |  |
-| `time_setting_unit` | [UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit) |  |
-| `beam_modulation` | `Optional[decimal.Decimal]` |  |
-| `beam_modulation_unit` | Optional[[VoltageUnit](../aind_data_schema_models/units.md#voltageunit)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `polygonal_scanner` | `Optional[str]` | Polygonal scanner (Must match name of Polygonal scanner) |
+| `on_time` | `Optional[decimal.Decimal]` | On time (fraction of cycle)  |
+| `off_time` | `Optional[decimal.Decimal]` | Off time (fraction of cycle)  |
+| `time_setting_unit` | [UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit) | Time setting unit  |
+| `beam_modulation` | `Optional[decimal.Decimal]` | Beam modulation (V)  |
+| `beam_modulation_unit` | Optional[[VoltageUnit](../aind_data_schema_models/units.md#voltageunit)] | Beam modulation unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### PolygonalScanner
 
 Description of a Polygonal scanner
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `speed` | `int` |  |
-| `speed_unit` | [SpeedUnit](../aind_data_schema_models/units.md#speedunit) |  |
-| `number_faces` | `int` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `speed` | `int` | Speed (rpm)  |
+| `speed_unit` | [SpeedUnit](../aind_data_schema_models/units.md#speedunit) | Speed unit  |
+| `number_faces` | `int` | Number of faces  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### ProbePort
 
 Port for a probe connection
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `index` | `int` |  |
-| `probes` | `List[str]` |  |
+| `index` | `int` | One-based port index  |
+| `probes` | `List[str]` | Names of probes connected to this port  |
 
 
 ### Scanner
 
 Description of a MRI Scanner
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `magnetic_strength` | `float` |  |
-| `magnetic_strength_unit` | [MagneticFieldUnit](../aind_data_schema_models/units.md#magneticfieldunit) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `magnetic_strength` | `float` | Magnetic strength (T)  |
+| `magnetic_strength_unit` | [MagneticFieldUnit](../aind_data_schema_models/units.md#magneticfieldunit) | Magnetic strength unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### ScanningStage
 
 Description of a scanning motorized stages
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `stage_axis_direction` | [StageAxisDirection](../aind_data_schema_models/devices.md#stageaxisdirection) |  |
-| `stage_axis_name` | [AxisName](../aind_data_schema_models/coordinates.md#axisname) |  |
-| `travel` | `decimal.Decimal` |  |
-| `travel_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `firmware` | Optional[[Software](identifiers.md#software)] |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `stage_axis_direction` | [StageAxisDirection](../aind_data_schema_models/devices.md#stageaxisdirection) | Direction of stage axis  |
+| `stage_axis_name` | [AxisName](../aind_data_schema_models/coordinates.md#axisname) | Name of stage axis  |
+| `travel` | `decimal.Decimal` | Travel of device (mm)  |
+| `travel_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Travel unit  |
+| `firmware` | Optional[[Software](identifiers.md#software)] | Firmware  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Speaker
 
 Description of a speaker for auditory stimuli
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
-| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] |  |
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] |  |
-| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Position and orientation of the device in the instrument coordinate system |
+| `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
 
 
 ### Treadmill
 
 Description of treadmill platform
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `treadmill_width` | `decimal.Decimal` |  |
-| `width_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `encoder` | Optional[[Device](#device)] |  |
-| `pulse_per_revolution` | `Optional[int]` |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `treadmill_width` | `decimal.Decimal` | Width of treadmill (mm)  |
+| `width_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Width unit  |
+| `encoder` | Optional[[Device](#device)] | Encoder  |
+| `pulse_per_revolution` | `Optional[int]` | Pulse per revolution  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Tube
 
 Description of a tube platform
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `diameter` | `decimal.Decimal` |  |
-| `diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `diameter` | `decimal.Decimal` | Diameter  |
+| `diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Diameter unit  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Wheel
 
 Description of a running wheel
 
-| Field | Type | Description |
+| Field | Type | Title (Description) |
 |-------|------|-------------|
-| `radius` | `decimal.Decimal` |  |
-| `width` | `decimal.Decimal` |  |
-| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) |  |
-| `encoder` | [Device](#device) |  |
-| `pulse_per_revolution` | `int` |  |
-| `magnetic_brake` | [Device](#device) |  |
-| `torque_sensor` | [Device](#device) |  |
-| `name` | `str` |  |
-| `serial_number` | `Optional[str]` |  |
-| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] |  |
-| `model` | `Optional[str]` |  |
-| `additional_settings` | `Optional[dict]` |  |
-| `notes` | `Optional[str]` |  |
+| `radius` | `decimal.Decimal` | Radius (mm)  |
+| `width` | `decimal.Decimal` | Width (mm)  |
+| `size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Size unit  |
+| `encoder` | [Device](#device) | Encoder  |
+| `pulse_per_revolution` | `int` | Pulse per revolution  |
+| `magnetic_brake` | [Device](#device) | Magnetic brake  |
+| `torque_sensor` | [Device](#device) | Torque sensor  |
+| `name` | `str` | Device name  |
+| `serial_number` | `Optional[str]` | Serial number  |
+| `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |
+| `model` | `Optional[str]` | Model  |
+| `additional_settings` | `Optional[dict]` | Additional parameters  |
+| `notes` | `Optional[str]` | Notes  |
 
 

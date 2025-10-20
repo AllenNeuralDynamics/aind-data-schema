@@ -12,6 +12,7 @@ from pydantic import Field, SkipValidation, model_validator
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
     AirPuffConfig,
+    CatheterConfig,
     DetectorConfig,
     EphysAssemblyConfig,
     FiberAssemblyConfig,
@@ -22,6 +23,7 @@ from aind_data_schema.components.configs import (
     ManipulatorConfig,
     MousePlatformConfig,
     MRIScan,
+    OlfactometerConfig,
     PatchCordConfig,
     ProbeConfig,
     SampleChamberConfig,
@@ -33,7 +35,7 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 # Define the requirements for each modality
@@ -125,6 +127,7 @@ class DataStream(DataModel):
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig
+        | CatheterConfig
     ] = Field(
         ...,
         title="Device configurations",
@@ -215,9 +218,9 @@ class StimulusEpoch(DataModel):
         title="Active devices",
         description="Device names must match devices in the Instrument",
     )
-    configurations: DiscriminatedList[SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig] = (
-        Field(default=[], title="Device configurations")
-    )
+    configurations: DiscriminatedList[
+        SpeakerConfig | LightEmittingDiodeConfig | LaserConfig | MousePlatformConfig | OlfactometerConfig
+    ] = Field(default=[], title="Device configurations")
 
     # Training protocol
     training_protocol_name: Optional[str] = Field(
@@ -244,7 +247,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.36"]] = Field(default="2.0.36")
+    schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
@@ -374,6 +377,11 @@ class Acquisition(DataCoreModel):
         maintenance = self.maintenance + other.maintenance
         data_streams = self.data_streams + other.data_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
+
+        # Remove duplicates
+        experimenters = remove_duplicates(experimenters)
+        if ethics_review_id:
+            ethics_review_id = remove_duplicates(ethics_review_id)
 
         # Combine notes
         notes = merge_notes(self.notes, other.notes)

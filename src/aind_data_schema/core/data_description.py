@@ -16,6 +16,7 @@ from aind_data_schema_models.licenses import License
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, model_validator
+from pydantic_core import PydanticUndefined
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.identifiers import Person
@@ -36,7 +37,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.1.1"]] = Field(default="2.1.1")
+    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(
@@ -187,6 +188,9 @@ class DataDescription(DataCoreModel):
 
         """
 
+        if not data_description.data_level == DataLevel.RAW:
+            raise ValueError(f"Input data_description must have data_level=RAW, got {data_description.data_level}")
+
         def get_or_default(field_name: str) -> Any:
             """
             If the field is set in kwargs, use that value. Otherwise, check if
@@ -194,22 +198,20 @@ class DataDescription(DataCoreModel):
             the field default value if the field has a default value. Otherwise,
             return None and allow pydantic to raise a Validation Error if field
             is not Optional.
-            Parameters
-            ----------
-            field_name : str
-                Name of the field to set
-
-            Returns
-            -------
-            Any
-
             """
             if kwargs.get(field_name) is not None:
                 return kwargs.get(field_name)
             elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
                 return getattr(data_description, field_name)
             else:
-                return getattr(DataDescription.model_fields.get(field_name), "default")
+                default_value = getattr(DataDescription.model_fields.get(field_name), "default")
+                if default_value is PydanticUndefined:
+                    raise ValueError(
+                        f"Required field {field_name} must have a value "
+                        "in the original DataDescription or be passed as an argument"
+                    )
+                else:
+                    return default_value
 
         creation_time = (
             datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
@@ -225,14 +227,11 @@ class DataDescription(DataCoreModel):
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
         # Upgrade source_data
+        current_source_data = data_description.source_data or []
         if source_data is not None:
-            new_source_data = (
-                source_data if not data_description.source_data else data_description.source_data + source_data
-            )
+            new_source_data = current_source_data + source_data
         else:
-            new_source_data = (
-                [original_name] if not data_description.source_data else data_description.source_data + [original_name]
-            )
+            new_source_data = current_source_data + [original_name]
 
         return cls(
             subject_id=get_or_default("subject_id"),
@@ -250,3 +249,132 @@ class DataDescription(DataCoreModel):
             data_summary=get_or_default("data_summary"),
             source_data=new_source_data,
         )
+
+    @classmethod
+    def from_derived(
+        cls, data_description: "DataDescription", process_name: str, source_data: Optional[List[str]] = None, **kwargs
+    ) -> "DataDescription":
+        """
+        Create a DataLevel.DERIVED DataDescription from another DataLevel.DERIVED DataDescription object.
+
+        This method extracts the original input name from the existing derived data description
+        and uses it as the base for creating a new derived data description, rather than
+        chaining derived names.
+
+        Parameters
+        ----------
+        data_description : DataDescription
+            The DERIVED DataDescription object to use as the base for the new Derived
+        process_name : str
+            Name of the process that created the data
+        source_data : Optional[List[str]]
+            Optional list of source data names. If None, will use the current data_description.name
+        kwargs
+            DataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
+
+        Returns
+        -------
+        DataDescription
+            New DERIVED DataDescription with name based on the original input, not the full derived name
+
+        """
+        if data_description.data_level != DataLevel.DERIVED:
+            raise ValueError(f"Input data_description must have data_level=DERIVED, got {data_description.data_level}")
+
+        def get_or_default(field_name: str) -> Any:
+            """
+            If the field is set in kwargs, use that value. Otherwise, check if
+            the field is set in the DataDescription object. If not, pull from
+            the field default value if the field has a default value. Otherwise,
+            return None and allow pydantic to raise a Validation Error if field
+            is not Optional.
+            """
+            if kwargs.get(field_name) is not None:
+                return kwargs.get(field_name)
+            elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
+                return getattr(data_description, field_name)
+            else:
+                default_value = getattr(DataDescription.model_fields.get(field_name), "default")
+                if default_value is PydanticUndefined:
+                    raise ValueError(
+                        f"Required field {field_name} must have a value "
+                        "in the original DataDescription or be passed as an argument"
+                    )
+                else:
+                    return default_value
+
+        creation_time = (
+            datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
+        )
+
+        if not isinstance(creation_time, datetime):
+            raise ValueError(f"creation_time({creation_time}) must be a datetime object")
+
+        # Parse the existing derived name to extract the original input
+        parsed_name = cls.parse_name(data_description.name, DataLevel.DERIVED)
+        original_input = parsed_name["input"]  # This is the original raw name with datetime
+
+        # Create new derived name using the original input (not the full derived name)
+        derived_name = f"{original_input}_{process_name}_{datetime_to_name_string(creation_time)}"
+        if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
+            raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
+
+        # Upgrade source_data
+        current_source_data = data_description.source_data or []
+        if source_data is not None:
+            new_source_data = current_source_data + source_data
+        else:
+            new_source_data = current_source_data + [data_description.name]
+
+        return cls(
+            subject_id=get_or_default("subject_id"),
+            creation_time=creation_time,
+            tags=get_or_default("tags"),
+            name=derived_name,
+            institution=get_or_default("institution"),
+            funding_source=get_or_default("funding_source"),
+            data_level=DataLevel.DERIVED,
+            group=get_or_default("group"),
+            investigators=get_or_default("investigators"),
+            project_name=get_or_default("project_name"),
+            restrictions=get_or_default("restrictions"),
+            modalities=get_or_default("modalities"),
+            data_summary=get_or_default("data_summary"),
+            source_data=new_source_data,
+        )
+
+    @classmethod
+    def from_data_description(
+        cls, data_description: "DataDescription", process_name: str, source_data: Optional[List[str]] = None, **kwargs
+    ) -> "DataDescription":
+        """
+        Create a DataLevel.DERIVED DataDescription from any DataDescription object.
+
+        Automatically chooses the appropriate method (from_raw or from_derived) based on
+        the data_level of the input DataDescription.
+
+        Parameters
+        ----------
+        data_description : DataDescription
+            The DataDescription object to use as the base for the new Derived
+        process_name : str
+            Name of the process that created the data
+        source_data : Optional[List[str]]
+            Optional list of source data names
+        kwargs
+            DataDescription fields can be explicitly set and will override
+            values pulled from DataDescription
+
+        Returns
+        -------
+        DataDescription
+            New DERIVED DataDescription
+
+        """
+        if data_description.data_level == DataLevel.RAW:
+            return cls.from_raw(data_description, process_name, source_data, **kwargs)
+        elif data_description.data_level == DataLevel.DERIVED:
+            return cls.from_derived(data_description, process_name, source_data, **kwargs)
+        else:
+            raise ValueError(f"Unsupported data_level: {data_description.data_level.value}")

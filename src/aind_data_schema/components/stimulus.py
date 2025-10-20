@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit, TimeUnit, ConcentrationUnit
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import DataModel, GenericModel
@@ -99,7 +99,10 @@ class PhotoStimulation(GenericModel):
 
 
 class OlfactometerChannelConfig(DataModel):
-    """Description of olfactometer channel configurations"""
+    """
+    **DEPRECATED**: Use OlfactometerConfig in aind_data_schema.components.configs
+
+    Description of olfactometer channel configurations"""
 
     channel_index: int = Field(..., title="Channel index")
     odorant: str = Field(..., title="Odorant")
@@ -109,11 +112,16 @@ class OlfactometerChannelConfig(DataModel):
 
 
 class OlfactoryStimulation(GenericModel):
-    """Description of a olfactory stimulus"""
+    """
+    **DEPRECATED**: Use StimulusEpoch.stimulus_name and OlfactometerConfig in aind_data_schema.components.configs
+
+    Description of a olfactory stimulus"""
 
     stimulus_name: str = Field(..., title="Stimulus name")
-    channels: List[OlfactometerChannelConfig]
-    notes: Optional[str] = Field(default=None, title="Notes")
+    channels: Optional[List[OlfactometerChannelConfig]] = Field(
+        default=None, title="Channels", deprecated="Use OlfactometerConfig instead"
+    )
+    notes: Optional[str] = Field(default=None, title="Notes", deprecated="Use OlfactometerConfig instead")
 
 
 class AuditoryStimulation(GenericModel):

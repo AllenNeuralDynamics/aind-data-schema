@@ -71,7 +71,7 @@ class Metadata(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/metadata.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.0.80"]] = Field(default="2.0.80")
+    schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
     name: str = Field(
         ...,
         description="Name of the data asset.",
@@ -211,22 +211,21 @@ class Metadata(DataCoreModel):
         return self
 
     @model_validator(mode="after")
-    @classmethod
-    def validate_acquisition_active_devices(cls, values):
+    def validate_acquisition_active_devices(self):
         """Ensure that all Acquisition.data_streams.active_devices exist in either the instrument or procedures."""
 
         active_devices = []
 
-        if values.acquisition:
-            for data_stream in values.acquisition.data_streams:
+        if self.acquisition:
+            for data_stream in self.acquisition.data_streams:
                 active_devices.extend(data_stream.active_devices)
 
         device_names = []
 
-        if values.instrument:
-            device_names.extend(values.instrument.get_component_names())
-        if values.procedures:
-            device_names.extend(values.procedures.get_device_names())
+        if self.instrument:
+            device_names.extend(self.instrument.get_component_names())
+        if self.procedures:
+            device_names.extend(self.procedures.get_device_names())
 
         # Check if all active devices are in the available devices
         if not all(device in device_names for device in active_devices):
@@ -236,7 +235,7 @@ class Metadata(DataCoreModel):
                 f"in an individual procedure's implanted_device field."
             )
 
-        return values
+        return self
 
     @model_validator(mode="after")
     def validate_acquisition_connections(self):

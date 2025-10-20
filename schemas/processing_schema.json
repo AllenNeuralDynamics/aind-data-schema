@@ -469,6 +469,7 @@
             "Image tile projection",
             "Model evaluation",
             "Model training",
+            "Neuron skeleton processing",
             "Neuropil subtraction",
             "Other",
             "Pipeline",
@@ -735,8 +736,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.1",
-         "default": "2.1.1",
+         "const": "2.1.2",
+         "default": "2.1.2",
          "title": "Schema Version",
          "type": "string"
       },

@@ -16,6 +16,7 @@ from aind_data_schema_models.units import (
     SoundIntensityUnit,
     TimeUnit,
     VolumeUnit,
+    ConcentrationUnit,
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
 from pydantic import Field, field_validator, model_validator
@@ -126,6 +127,9 @@ class LaserConfig(DeviceConfig):
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power_measured_at: Optional[str] = Field(
+        default=None, title="Power measurement location", description="For example: objective, patch cable, etc"
+    )
 
 
 class LightEmittingDiodeConfig(DeviceConfig):
@@ -133,6 +137,9 @@ class LightEmittingDiodeConfig(DeviceConfig):
 
     power: Optional[float] = Field(default=None, title="Excitation power")
     power_unit: Optional[PowerUnit] = Field(default=None, title="Excitation power unit")
+    power_measured_at: Optional[str] = Field(
+        default=None, title="Power measurement location", description="For example: objective, patch cable, etc"
+    )
 
 
 LIGHT_CONFIGS = DiscriminatedList[LaserConfig | LightEmittingDiodeConfig]
@@ -377,15 +384,15 @@ class LickSpoutConfig(DeviceConfig):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @model_validator(mode="after")
-    def validate_other(cls, values):
+    def validate_other(self):
         """Validator for other/notes"""
 
-        if values.solution == Liquid.OTHER and not values.notes:
+        if self.solution == Liquid.OTHER and not self.notes:
             raise ValueError(
                 "Notes cannot be empty if LickSpoutConfig.solution is Other."
                 "Describe the solution in the notes field."
             )
-        return values
+        return self
 
 
 class AirPuffConfig(DeviceConfig):
@@ -412,6 +419,25 @@ class SpeakerConfig(DeviceConfig):
 
     volume: Optional[float] = Field(default=None, title="Volume (dB)")
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
+
+
+class OlfactometerChannelInfo(DataModel):
+    """Configuration of a channel in an olfactometer"""
+
+    channel_index: int = Field(..., title="Channel index")
+    odorant: str = Field(..., title="Odorant")
+    dilution: Decimal = Field(..., title="Odorant dilution")
+    dilution_unit: ConcentrationUnit = Field(default=ConcentrationUnit.VOLUME_PERCENT, title="Dilution unit")
+
+
+class OlfactometerConfig(DeviceConfig):
+    """Configuration of olfactometer"""
+
+    channel_configs: List[OlfactometerChannelInfo] = Field(
+        ...,
+        title="Channel configurations",
+        description="List of channels with their odorant and concentration",
+    )
 
 
 # EPHYS CONFIGS
