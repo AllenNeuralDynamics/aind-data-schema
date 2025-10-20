@@ -207,9 +207,9 @@ class DataDescription(DataCoreModel):
                 default_value = getattr(DataDescription.model_fields.get(field_name), "default")
                 if default_value is PydanticUndefined:
                     raise ValueError(
-                            f"Required field {field_name} must have a value "
-                            "in the original DataDescription or be passed as an argument"
-                        )
+                        f"Required field {field_name} must have a value "
+                        "in the original DataDescription or be passed as an argument"
+                    )
                 else:
                     return default_value
 
@@ -298,9 +298,9 @@ class DataDescription(DataCoreModel):
                 default_value = getattr(DataDescription.model_fields.get(field_name), "default")
                 if default_value is PydanticUndefined:
                     raise ValueError(
-                            f"Required field {field_name} must have a value "
-                            "in the original DataDescription or be passed as an argument"
-                        )
+                        f"Required field {field_name} must have a value "
+                        "in the original DataDescription or be passed as an argument"
+                    )
                 else:
                     return default_value
 
