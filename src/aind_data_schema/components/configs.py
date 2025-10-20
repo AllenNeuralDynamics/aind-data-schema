@@ -421,7 +421,7 @@ class SpeakerConfig(DeviceConfig):
     volume_unit: Optional[SoundIntensityUnit] = Field(default=None, title="Volume unit")
 
 
-class OlfactometerChannel(DataModel):
+class OlfactometerChannelInfo(DataModel):
     """Configuration of a channel in an olfactometer"""
 
     channel_index: int = Field(..., title="Channel index")
@@ -433,7 +433,7 @@ class OlfactometerChannel(DataModel):
 class OlfactometerConfig(DeviceConfig):
     """Configuration of olfactometer"""
 
-    channel_configs: List[OlfactometerChannel] = Field(
+    channel_configs: List[OlfactometerChannelInfo] = Field(
         ...,
         title="Channel configurations",
         description="List of channels with their odorant and concentration",
