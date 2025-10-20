@@ -298,7 +298,7 @@ MRI scan sequence
 | `OTHER` | `Other` |
 
 
-### OlfactometerChannel
+### OlfactometerChannelInfo
 
 Configuration of a channel in an olfactometer
 
@@ -316,7 +316,7 @@ Configuration of olfactometer
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `channel_configs` | List[[OlfactometerChannel](devices.md#olfactometerchannel)] | Channel configurations (List of channels with their odorant and concentration) |
+| `channel_configs` | List[[OlfactometerChannelInfo](#olfactometerchannelinfo)] | Channel configurations (List of channels with their odorant and concentration) |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
