@@ -181,6 +181,7 @@ Configuration of laser settings in an acquisition
 | `wavelength_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Wavelength unit  |
 | `power` | `Optional[float]` | Excitation power  |
 | `power_unit` | Optional[[PowerUnit](../aind_data_schema_models/units.md#powerunit)] | Excitation power unit  |
+| `power_measured_at` | `Optional[str]` | Power measurement location (For example: objective, patch cable, etc) |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
@@ -209,6 +210,7 @@ Configuration of LED settings
 |-------|------|-------------|
 | `power` | `Optional[float]` | Excitation power  |
 | `power_unit` | Optional[[PowerUnit](../aind_data_schema_models/units.md#powerunit)] | Excitation power unit  |
+| `power_measured_at` | `Optional[str]` | Power measurement location (For example: objective, patch cable, etc) |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
@@ -294,6 +296,28 @@ MRI scan sequence
 |------|-------|
 | `RARE` | `RARE` |
 | `OTHER` | `Other` |
+
+
+### OlfactometerChannelInfo
+
+Configuration of a channel in an olfactometer
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `channel_index` | `int` | Channel index  |
+| `odorant` | `str` | Odorant  |
+| `dilution` | `decimal.Decimal` | Odorant dilution  |
+| `dilution_unit` | [ConcentrationUnit](../aind_data_schema_models/units.md#concentrationunit) | Dilution unit  |
+
+
+### OlfactometerConfig
+
+Configuration of olfactometer
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `channel_configs` | List[[OlfactometerChannelInfo](#olfactometerchannelinfo)] | Channel configurations (List of channels with their odorant and concentration) |
+| `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
 ### PatchCordConfig
