@@ -581,6 +581,27 @@ class DataDescriptionTest(unittest.TestCase):
 
         self.assertIn("Input data_description must have data_level=RAW, got derived", str(context.exception))
 
+    def test_from_raw_missing_required_field_raises_error(self):
+        """Test from_raw raises error when a required field is missing from the base DataDescription"""
+        dt = datetime.datetime.now()
+        
+        # Create a copy of the valid DataDescription to avoid modifying the original
+        base_data = DataDescription.model_validate(example_data_description.model_dump())
+        
+        # Remove a required field to make it invalid
+        delattr(base_data, 'investigators')
+        
+        # Try to create derived data - should trigger the PydanticUndefined error path
+        with self.assertRaises(ValueError) as context:
+            DataDescription.from_raw(
+                base_data,
+                "test_process",
+                creation_time=dt
+            )
+        
+        # Should raise error about the missing required field
+        self.assertIn("Required field investigators must have a value", str(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
