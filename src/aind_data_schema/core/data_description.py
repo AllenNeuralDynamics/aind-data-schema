@@ -16,6 +16,7 @@ from aind_data_schema_models.licenses import License
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from pydantic import Field, SkipValidation, model_validator
+from pydantic_core import PydanticUndefined
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel
 from aind_data_schema.components.identifiers import Person
@@ -203,7 +204,14 @@ class DataDescription(DataCoreModel):
             elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
                 return getattr(data_description, field_name)
             else:
-                return getattr(DataDescription.model_fields.get(field_name), "default")
+                default_value = getattr(DataDescription.model_fields.get(field_name), "default")
+                if default_value is PydanticUndefined:
+                    raise ValueError(
+                            f"Required field {field_name} must have a value "
+                            "in the original DataDescription or be passed as an argument"
+                        )
+                else:
+                    return default_value
 
         creation_time = (
             datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
@@ -287,7 +295,14 @@ class DataDescription(DataCoreModel):
             elif hasattr(data_description, field_name) and getattr(data_description, field_name) is not None:
                 return getattr(data_description, field_name)
             else:
-                return getattr(DataDescription.model_fields.get(field_name), "default")
+                default_value = getattr(DataDescription.model_fields.get(field_name), "default")
+                if default_value is PydanticUndefined:
+                    raise ValueError(
+                            f"Required field {field_name} must have a value "
+                            "in the original DataDescription or be passed as an argument"
+                        )
+                else:
+                    return default_value
 
         creation_time = (
             datetime.now(tz=timezone.utc) if kwargs.get("creation_time") is None else kwargs["creation_time"]
