@@ -14,18 +14,27 @@ from aind_data_schema.base import DataModel, GenericModel
 from aind_data_schema.utils.docs.utils import generate_enum_table
 
 special_cases = {
-    "pydantic.types.AwareDatetime": "datetime: ISO 8601 timestamp with timezone offset",
-    "aind_data_schema_models.organizations": ("[Organization](aind_data_schema_models/organizations.md#organization)"),
-    "aind_data_schema_models.modalities": ("[Modality](aind_data_schema_models/modalities.md#modality)"),
-    "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfv3)"),
-    "aind_data_schema_models.harp_types": ("[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"),
+    "pydantic.types.AwareDatetime": "datetime (timezone-aware, local time)",
+    "aind_data_schema_models.organizations": (
+        "[Organization](aind_data_schema_models/organizations.md#organization)"
+    ),
+    "aind_data_schema_models.modalities": (
+        "[Modality](aind_data_schema_models/modalities.md#modality)"
+    ),
+    "aind_data_schema_models.brain_atlas": (
+        "[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfv3)"
+    ),
+    "aind_data_schema_models.harp_types": (
+        "[HarpDeviceType](aind_data_schema_models/harp_types.md#harpdevicetype)"
+    ),
     "aind_data_schema_models.species._C57Bl_6J": "[Strain](aind_data_schema_models/species.md#strain)",
     "aind_data_schema_models.species._Callithrix_Jacchus": "[Species](aind_data_schema_models/species.md#species)",
     "aind_data_schema.core.quality_control.QCMetric": "{QCMetric} or {CurationMetric}",
     "aind_data_schema.components.wrappers.AssetPath": "AssetPath",
     "aind_data_schema.base.GenericModel": "dict",
     "aind_data_schema_models.mouse_anatomy.MouseAnatomyModel": (
-        "[MouseAnatomyModel](aind_data_schema_models/external" ".md#mouseanatomymodel)"
+        "[MouseAnatomyModel](aind_data_schema_models/external"
+        ".md#mouseanatomymodel)"
     ),
     "aind_data_schema_models.pid_names.PIDName": "{PIDName}",
 }
@@ -33,7 +42,9 @@ special_cases = {
 skip_fields = ["object_type", "describedBy", "schema_version"]
 
 
-def get_model_fields(model: Type[BaseModel], stop_at: Type[BaseModel]) -> Dict[str, tuple]:
+def get_model_fields(
+    model: Type[BaseModel], stop_at: Type[BaseModel]
+) -> Dict[str, tuple]:
     """Collect fields up to (but not including) `stop_at`."""
     field_data = {}
 
@@ -80,7 +91,9 @@ def check_for_union(value: str) -> str:
     Output: "List[float or str]"
     """
     # Check direct pipe syntax first (handles List[float | str] case)
-    container_match = re.match(r"(List|Dict|Optional|Set|Tuple|Sequence)\[(.*)\]", value)
+    container_match = re.match(
+        r"(List|Dict|Optional|Set|Tuple|Sequence)\[(.*)\]", value
+    )
     if container_match and "|" in container_match.group(2):
         container = container_match.group(1)
         content = container_match.group(2)
@@ -89,7 +102,9 @@ def check_for_union(value: str) -> str:
         return f"{container}[{content_with_or}]"
 
     # Check if this is a direct union type without container (like 'float | str')
-    elif "|" in value and not any(x in value for x in ["Annotated", "List[", "Dict[", "Optional["]):
+    elif "|" in value and not any(
+        x in value for x in ["Annotated", "List[", "Dict[", "Optional["]
+    ):
         # Replace pipes with 'or'
         return re.sub(r"\s*\|\s*", " or ", value)
 
@@ -132,7 +147,9 @@ def _get_type_string_helper(tp, origin, args, **kwargs) -> str:
     if origin is list or origin is List:
         return f"List[{get_type_string(args[0])}]"
     if origin is dict or origin is Dict:
-        return f"Dict[{get_type_string(args[0])}," f" {get_type_string(args[1])}]"
+        return (
+            f"Dict[{get_type_string(args[0])}," f" {get_type_string(args[1])}]"
+        )
     union_type = getattr(__import__("typing"), "Union", None)
     if origin is union_type and len(args) == 2 and type(None) in args:
         non_none_type = next(arg for arg in args if arg is not type(None))
@@ -147,7 +164,9 @@ def _get_type_string_helper(tp, origin, args, **kwargs) -> str:
         if len(args) == 1 and isinstance(args[0], str):
             return f'"{args[0]}"'
         # Otherwise return all literal values joined with 'or'
-        return " or ".join(f'"{arg}"' if isinstance(arg, str) else str(arg) for arg in args)
+        return " or ".join(
+            f'"{arg}"' if isinstance(arg, str) else str(arg) for arg in args
+        )
 
     # Check for annotated types and unions in the string representation
     str_rep = str(tp)
@@ -161,12 +180,19 @@ def _get_type_string_helper(tp, origin, args, **kwargs) -> str:
 
 def _handle_annotated_type(origin, args) -> Optional[str]:
     """Handle annotated types"""
-    if origin is not None and hasattr(origin, "__name__") and origin.__name__ == "Annotated":
+    if (
+        origin is not None
+        and hasattr(origin, "__name__")
+        and origin.__name__ == "Annotated"
+    ):
         if args and len(args) >= 2:
             # Check if the second argument is NOT a FieldInfo (Pydantic field annotation)
             # If it's not FieldInfo, it's likely simple metadata we want to unwrap
             second_arg = args[1]
-            is_field_info = hasattr(second_arg, "__class__") and second_arg.__class__.__name__ == "FieldInfo"
+            is_field_info = (
+                hasattr(second_arg, "__class__")
+                and second_arg.__class__.__name__ == "FieldInfo"
+            )
 
             if not is_field_info:
                 # This is a simple metadata annotation like TimeValidation.BEFORE
@@ -183,13 +209,23 @@ def _handle_class_types(tp) -> Optional[str]:
         if hasattr(tp, "__name__") and issubclass(tp, DataModel):
             return check_for_replacement(f"{{{tp.__name__}}}")
         # Also wrap GenericModel subclasses in {} for proper linking (but not GenericModel itself)
-        if hasattr(tp, "__name__") and issubclass(tp, GenericModel) and tp is not GenericModel:
+        if (
+            hasattr(tp, "__name__")
+            and issubclass(tp, GenericModel)
+            and tp is not GenericModel
+        ):
             return check_for_replacement(f"{{{tp.__name__}}}")
         # Also wrap Enum types in {} for proper linking
-        if hasattr(tp, "__name__") and hasattr(tp, "__members__") and issubclass(tp, Enum):
+        if (
+            hasattr(tp, "__name__")
+            and hasattr(tp, "__members__")
+            and issubclass(tp, Enum)
+        ):
             return check_for_replacement(f"{{{tp.__name__}}}")
     except Exception as e:
-        print(f"Error checking if {tp} is a DataModel, GenericModel, or Enum subclass: {e}")
+        print(
+            f"Error checking if {tp} is a DataModel, GenericModel, or Enum subclass: {e}"
+        )
     return None
 
 
@@ -229,7 +265,9 @@ def get_type_string(tp) -> str:
     return _get_type_string_helper(tp, origin, args)
 
 
-def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) -> str:
+def generate_markdown_table(
+    model: Type[BaseModel], stop_at: Type[BaseModel]
+) -> str:
     """Generate the full markdown table for a model
 
     Args:
@@ -252,14 +290,20 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
         desc_str = f"({desc})" if desc else ""
 
         # Check if field is deprecated
-        is_deprecated = hasattr(field_info, "deprecated") and field_info.deprecated
+        is_deprecated = (
+            hasattr(field_info, "deprecated") and field_info.deprecated
+        )
 
         # Format field name with strikethrough if deprecated
         field_name = f"<del>`{name}`</del>" if is_deprecated else f"`{name}`"
 
         # Prefix title with [DEPRECATED] if deprecated
         if is_deprecated:
-            deprecated_msg = field_info.deprecated if isinstance(field_info.deprecated, str) else ""
+            deprecated_msg = (
+                field_info.deprecated
+                if isinstance(field_info.deprecated, str)
+                else ""
+            )
             title = f"**[DEPRECATED]** {deprecated_msg}. {title}".strip()
 
         # Check of the type_str includes a markdown link [text](link)
@@ -270,7 +314,9 @@ def generate_markdown_table(model: Type[BaseModel], stop_at: Type[BaseModel]) ->
             # type str has a link, don't break the link
             rows.append(f"| {field_name} | {type_str} | {title} {desc_str} |")
         else:
-            rows.append(f"| {field_name} | `{type_str}` | {title} {desc_str} |")
+            rows.append(
+                f"| {field_name} | `{type_str}` | {title} {desc_str} |"
+            )
 
     return header + "\n".join(rows) + "\n"
 
@@ -283,14 +329,18 @@ def clear_directory(path):
                 os.remove(os.path.join(root, file))
 
 
-def process_module(module_name, module_path, src_folder, doc_folder, model_link_map):
+def process_module(
+    module_name, module_path, src_folder, doc_folder, model_link_map
+):
     """Process a single module to generate markdown documentation."""
     try:
         spec = importlib.util.spec_from_file_location(module_name, module_path)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
 
-        rel_dir_path = os.path.splitext(os.path.relpath(module_path, src_folder))[0]
+        rel_dir_path = os.path.splitext(
+            os.path.relpath(module_path, src_folder)
+        )[0]
 
         output_path = os.path.join(doc_folder, rel_dir_path)
 
@@ -300,14 +350,21 @@ def process_module(module_name, module_path, src_folder, doc_folder, model_link_
             attr = getattr(module, attr_name)
 
             # Check if the attribute is defined in this module
-            if not isinstance(attr, type) or not attr.__module__ == module_name:
+            if (
+                not isinstance(attr, type)
+                or not attr.__module__ == module_name
+            ):
                 continue
 
             # Check if the attribute is a DataModel subclass, GenericModel subclass, or an Enum
             if issubclass(attr, DataModel) and attr is not DataModel:
-                process_data_model(attr, rel_dir_path, doc_folder, model_link_map)
+                process_data_model(
+                    attr, rel_dir_path, doc_folder, model_link_map
+                )
             elif issubclass(attr, GenericModel) and attr is not GenericModel:
-                process_data_model(attr, rel_dir_path, doc_folder, model_link_map)
+                process_data_model(
+                    attr, rel_dir_path, doc_folder, model_link_map
+                )
             elif issubclass(attr, Enum) and attr is not Enum:
                 process_enum(attr, rel_dir_path, doc_folder, model_link_map)
     except Exception as e:
@@ -327,7 +384,9 @@ def process_data_model(attr, rel_dir_path, doc_folder, model_link_map):
 
     doc_rel_path = rel_dir_path.replace(os.sep, "/")
     link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
-    link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
+    link = link.replace("aind_data_schema/core/", "").replace(
+        "aind_data_schema/", ""
+    )
     model_link_map[f"{{{attr.__name__}}}"] = link
 
 
@@ -344,7 +403,9 @@ def process_enum(attr, rel_dir_path, doc_folder, model_link_map):
 
     doc_rel_path = rel_dir_path.replace(os.sep, "/")
     link = f"[{attr.__name__}]({doc_rel_path}.md#{attr.__name__.lower()})"
-    link = link.replace("aind_data_schema/core/", "").replace("aind_data_schema/", "")
+    link = link.replace("aind_data_schema/core/", "").replace(
+        "aind_data_schema/", ""
+    )
     model_link_map[f"{{{attr.__name__}}}"] = link
 
 
@@ -357,8 +418,12 @@ def save_model_link_map(doc_folder, model_link_map):
 
 
 if __name__ == "__main__":
-    src_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-    doc_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../docs/base/models"))
+    src_folder = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../../../")
+    )
+    doc_folder = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../../../../docs/base/models")
+    )
     current_script_path = os.path.abspath(__file__)
     model_link_map = {}
 
@@ -370,8 +435,16 @@ if __name__ == "__main__":
                 if os.path.abspath(module_path) == current_script_path:
                     continue
 
-                module_name = os.path.splitext(os.path.relpath(module_path, src_folder))[0].replace(os.sep, ".")
+                module_name = os.path.splitext(
+                    os.path.relpath(module_path, src_folder)
+                )[0].replace(os.sep, ".")
                 print(f"Processing module: {module_name}")
-                process_module(module_name, module_path, src_folder, doc_folder, model_link_map)
+                process_module(
+                    module_name,
+                    module_path,
+                    src_folder,
+                    doc_folder,
+                    model_link_map,
+                )
 
     save_model_link_map(doc_folder, model_link_map)
