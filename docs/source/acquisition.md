@@ -28,7 +28,7 @@ For example, in the `"Brain Computer Interface"` project name, good acquisition 
 **Format:** `YYYY-MM-DDTHH:MM:SS.ssssss±HH:MM`  
 **Example:** `2024-10-22T15:29:56-07:00`
 
-Timestamps must represent local time at the experiment location to preserve time-of-day information needed for circadian analysis.
+Timestamps must represent local time at the experiment location to preserve time-of-day information. This allows users to query based on the local time of sessions (e.g. filter based on morning vs evening).
 
 When providing timestamps:
 - **Preferred:** Python datetime objects with local timezone (automatically serialized to ISO format with offset)
