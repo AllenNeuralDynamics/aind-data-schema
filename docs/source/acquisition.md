@@ -23,6 +23,21 @@ You can uniquely identify acquisition sessions (and therefore a specific data as
 
 For example, in the `"Brain Computer Interface"` project name, good acquisition types would be strings like: `"BCI: Single neuron stim"` and `"BCI: Group neuron stim"`. These phrases clearly identify what part of a project these acquisitions belong to, without being overly redundant with controlled fields in the metadata.
 
+## Datetime format requirements
+
+**Format:** `YYYY-MM-DDTHH:MM:SS.ssssss±HH:MM`  
+**Example:** `2024-10-22T15:29:56-07:00`
+
+Timestamps must represent local time at the experiment location to preserve time-of-day information needed for circadian analysis.
+
+When providing timestamps:
+- **Preferred:** Python datetime objects with local timezone (automatically serialized to ISO format with offset)
+- **Valid:** ISO 8601 strings with timezone offset (e.g., `-07:00`, `+00:00`)
+- **Avoid:** UTC timestamps with `Z` suffix lose local time context
+- **Invalid:** Naive timestamps without timezone information
+
+**Note:** If you provide a Python datetime object with timezone information, aind-data-schema automatically serializes it correctly during metadata generation.
+
 ## Stimulus parameters
 
 You should use the `Code.parameters` field to store your stimulus properties for each [StimulusEpoch](#stimulusepoch). We have pre-existing parameter schemas for a subset of stimuli defined [here](components/stimulus.md) or you can define your own schema.

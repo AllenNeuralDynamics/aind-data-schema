@@ -44,18 +44,6 @@ database stops working.
 
 Learn more about about [AIND data organization](https://docs.allenneuraldynamics.org/en/latest/metadata/philosophy.html) philosophy and the rules we use to standardize asset naming.
 
-## Datetime format requirements
-
-All timestamps should be in ISO 8601 format with timezone offset representing local time. This allows for queries that consider local time when experiments were performed.
-
-**Format:** `YYYY-MM-DDTHH:MM:SS.ssssss±HH:MM` (not Z)
-
-**Example:** `"2025-07-18T12:32:35.275046-07:00"`
-
-**Invalid:** `"2025-07-18T19:32:35.275046Z"` (UTC loses local time context)
-
-This format preserves both the actual wall time when data was collected and the timezone context, making it clear when experiments were performed in local time. This is important for understanding experimental conditions, circadian rhythms, and other time-dependent factors that may affect data interpretation.
-
 ## FAQs
 
 **Q: Which fields do I have to provide within these core schemas?**
