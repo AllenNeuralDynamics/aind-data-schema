@@ -30,13 +30,27 @@ For example, in the `"Brain Computer Interface"` project name, good acquisition 
 
 Timestamps must represent local time at the experiment location to preserve time-of-day information. This allows users to query based on the local time of sessions (e.g. filter based on morning vs evening).
 
-When providing timestamps:
-- **Preferred:** Python datetime objects with local timezone (automatically serialized to ISO format with offset)
-- **Valid:** ISO 8601 strings with timezone offset (e.g., `-07:00`, `+00:00`)
-- **Avoid:** UTC timestamps with `Z` suffix lose local time context
-- **Invalid:** Naive timestamps without timezone information
+**Python examples:**
+```python
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-**Note:** If you provide a Python datetime object with timezone information, aind-data-schema automatically serializes it correctly during metadata generation.
+# Preferred: timezone-aware datetime with proper timezone name
+dt = datetime(2024, 10, 22, 15, 29, 56, tzinfo=ZoneInfo("America/Los_Angeles"))
+
+# Also valid: naive datetime (system timezone auto-detected)
+dt = datetime(2024, 10, 22, 15, 29, 56)
+```
+
+When providing timestamps:
+- **Preferred:** Python datetime objects with timezone-aware objects (e.g., `America/Los_Angeles`)
+- **Valid:** Naive Python datetime objects (system timezone auto-detected)
+- **Avoid:** UTC timestamps with `Z` suffix lose local time context
+- **Avoid:** ISO 8601 strings with manual timezone offsets (risk hardcoding `-07:00` vs `-08:00`)
+
+**Note:** Timezone-aware datetime objects with proper timezone names (like `America/Los_Angeles`) automatically handle daylight saving time transitions. Avoid manually setting UTC offsets in strings to prevent hardcoding `-07:00` vs `-08:00`.
+
+**Warning:** If you provide a naive datetime object without timezone information, it will be assumed to be in the timezone where the processing occurs, which may not match the timezone where the data was collected.
 
 ## Stimulus parameters
 
