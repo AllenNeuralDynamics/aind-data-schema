@@ -37,14 +37,11 @@ from zoneinfo import ZoneInfo
 
 # Preferred: timezone-aware datetime with proper timezone name
 dt = datetime(2024, 10, 22, 15, 29, 56, tzinfo=ZoneInfo("America/Los_Angeles"))
-
-# Also valid: naive datetime (system timezone auto-detected)
-dt = datetime(2024, 10, 22, 15, 29, 56)
 ```
 
 When providing timestamps:
 - **Preferred:** Python datetime objects with timezone-aware objects (e.g., `America/Los_Angeles`)
-- **Valid:** Naive Python datetime objects (system timezone auto-detected)
+- **Valid (but discouraged):** Naive Python datetime objects (system timezone auto-detected)
 - **Avoid:** UTC timestamps with `Z` suffix lose local time context
 - **Avoid:** ISO 8601 strings with manual timezone offsets (risk hardcoding `-07:00` vs `-08:00`)
 
