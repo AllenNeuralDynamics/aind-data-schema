@@ -35,12 +35,17 @@ Timestamps must represent local time at the experiment location to preserve time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-# Preferred: timezone-aware datetime with proper timezone name
+# Preferred: timezone-aware datetime with auto-detected local timezone
+dt = datetime.now().astimezone().tzinfo  # Gets system's local timezone
+dt = datetime(2024, 10, 22, 15, 29, 56, tzinfo=dt)
+
+# Or explicitly specify collection timezone
+# (e.g., data collected in the Pacific timezone but processed on cloud workstation in another timezone)
 dt = datetime(2024, 10, 22, 15, 29, 56, tzinfo=ZoneInfo("America/Los_Angeles"))
 ```
 
 When providing timestamps:
-- **Preferred:** Python datetime objects with timezone-aware objects (e.g., `America/Los_Angeles`)
+- **Preferred:** Python datetime objects with timezone-aware objects (local timezone explicitly specified or auto-detected)
 - **Valid (but discouraged):** Naive Python datetime objects (system timezone auto-detected)
 - **Avoid:** UTC timestamps with `Z` suffix lose local time context
 - **Avoid:** ISO 8601 strings with manual timezone offsets (risk hardcoding `-07:00` vs `-08:00`)
