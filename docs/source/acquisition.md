@@ -27,6 +27,10 @@ For example, in the `"Brain Computer Interface"` project name, good acquisition 
 
 You should use the `Code.parameters` field to store your stimulus properties for each [StimulusEpoch](#stimulusepoch). We have pre-existing parameter schemas for a subset of stimuli defined [here](components/stimulus.md) or you can define your own schema.
 
+## Manipulations
+
+Procedures that occur during an acquisition (between the start_time and end_time) should be recorded in the `Acquisition.manipulations` using a [Manipulation](#manipulation). 
+
 ## FAQs
 
 ### When should a DataStream be split in two
@@ -88,6 +92,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | Maintenance (List of maintenance on instrument prior to acquisition.) |
 | `data_streams` | List[[DataStream](acquisition.md#datastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.) |
 | `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | Stimulus (A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.) |
+| `manipulations` | List[[Manipulation](acquisition.md#manipulation)] | Manipulations (Procedures performed during the acquisition.) |
 | `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details  |
 
 
@@ -102,7 +107,7 @@ Details about the subject during an acquisition
 | `animal_weight_prior` | `Optional[decimal.Decimal]` | Animal weight (g) (Animal weight before procedure) |
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight (g) (Animal weight after procedure) |
 | `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) | Weight unit  |
-| `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia  |
+| `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia (Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia) |
 | `mouse_platform_name` | `str` | Mouse platform  |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` | Total reward consumed (mL)  |
 | `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] | Reward consumed unit  |
@@ -123,6 +128,19 @@ same time.
 | `active_devices` | `List[str]` | Active devices (Device names must match devices in the Instrument) |
 | `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig) or [CatheterConfig](components/configs.md#catheterconfig)] | Device configurations (Configurations are parameters controlling active devices during this stream) |
 | `connections` | List[[Connection](components/connections.md#connection)] | Connections (Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument)) |
+
+
+### Manipulation
+
+Description of procedures performed during an acquisition.
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `start_time` | `datetime (timezone-aware)` | Manipulation start time (Must be between the acquisition start and end times) |
+| `end_time` | `datetime (timezone-aware)` | Manipulation end time (Must be between the acquisition start and end times) |
+| `procedures` | Optional[List[[Injection](components/injection_procedures.md#injection) or [BrainInjection](components/surgery_procedures.md#braininjection)]] | Procedures (Procedures performed during the manipulation) |
+| `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia  |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### PerformanceMetrics
