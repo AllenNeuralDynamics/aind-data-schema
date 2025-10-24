@@ -89,11 +89,19 @@ class CurationHistory(DataModel):
 
 
 class CurationMetric(QCMetric):
-    """Description of a curation metric"""
+    """Curations applied to a data asset"""
 
     value: List[Any] = Field(..., title="Curation value")
     type: str = Field(..., title="Curation type")
     curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
+
+
+class ElementCurationMetric(QCMetric):
+    """Curation metric for individual elements within a data asset"""
+
+    value: dict[str, List[Any]] = Field(..., title="Curation value per element")
+    type: str = Field(..., title="Curation type")
+    curation_history: dict[str, List[CurationHistory]] = Field(default={}, title="Curation history per element")
 
 
 class QualityControl(DataCoreModel):
@@ -102,7 +110,7 @@ class QualityControl(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
-    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
+    metrics: DiscriminatedList[QCMetric | CurationMetric | ElementCurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,
         title="Key experimenters",
@@ -258,7 +266,7 @@ class QualityControl(DataCoreModel):
         )
 
 
-def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> Status:
+def _get_status_by_date(metric: QCMetric | CurationMetric | ElementCurationMetric, date: datetime) -> Status:
     """Get the status of a metric at a specific date by looking through status_history.
 
     Returns the status that was active at the given date by finding the most recent
@@ -266,7 +274,7 @@ def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> St
 
     Parameters
     ----------
-    metric : QCMetric | CurationMetric
+    metric : QCMetric | CurationMetric | ElementCurationMetric
         The metric to get the status for
     date : datetime
         The date to check the status at
@@ -292,7 +300,7 @@ def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> St
 
 
 def _get_filtered_statuses(
-    metrics: list[QCMetric | CurationMetric],
+    metrics: list[QCMetric | CurationMetric | ElementCurationMetric],
     date: datetime,
     modality_filter: Optional[List[Modality.ONE_OF]] = None,
     stage_filter: Optional[List[Stage]] = None,
