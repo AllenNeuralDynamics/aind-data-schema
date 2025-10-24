@@ -20,7 +20,12 @@ Each [QCMetric](#qcmetric) is annotated with three pieces of additional metadata
 
 ### Curations
 
-If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) and [ElementCurationMetric](#elementcurationmetric) models for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+
+The difference between the two options is that:
+
+- [CurationMetric](#curationmetric) expects a single dictionary to describe the curation and any update to the curation requires writing a new copy of the entire dictionary. This makes `CurationMetric` best suited to curations that act on multiple elements of the data asset at once, for example: splitting and combining clusters after spike sorting.
+- [ElementCurationMetric](#elementcurationmetric) should be used when each element of a data asset has its own curation and these can change over time. Instead of accepting just one dictionary, the `ElementCurationMetric.value` wraps each element's curation data in an outer dictionary that is split by elements. This makes updating a single element's curation more efficient.
 
 ### Tags
 
@@ -69,7 +74,7 @@ Collection of quality control metrics evaluated on a data asset to determine pas
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric)] | Evaluations  |
+| `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric) or [ElementCurationMetric](quality_control.md#elementcurationmetric)] | Evaluations  |
 | `key_experimenters` | `Optional[List[str]]` | Key experimenters (Experimenters who are responsible for quality control of this data asset) |
 | `notes` | `Optional[str]` | Notes  |
 | `default_grouping` | `List[str]` | Default grouping (Default tag grouping for this QualityControl object, used in visualizations) |
@@ -91,13 +96,32 @@ Schema to track curator name and timestamp for curation events
 
 ### CurationMetric
 
-Description of a curation metric
+Curations applied to a data asset
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `value` | `List[typing.Any]` | Curation value  |
 | `type` | `str` | Curation type  |
 | `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] | Curation history  |
+| `name` | `str` | Metric name  |
+| `modality` | [Modality](aind_data_schema_models/modalities.md#modality) | Modality  |
+| `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |
+| `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
+| `description` | `Optional[str]` | Metric description  |
+| `reference` | `Optional[str]` | Metric reference image URL or plot type  |
+| `tags` | `List[str]` | Tags (Tags group QCMetric objects to allow for grouping and filtering) |
+| `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |
+
+
+### ElementCurationMetric
+
+Curation metric for individual elements within a data asset
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `value` | `Dict[str, List[typing.Any]]` | Curation value per element  |
+| `type` | `str` | Curation type  |
+| `curation_history` | Dict[str, List[[CurationHistory](quality_control.md#curationhistory)]] | Curation history per element  |
 | `name` | `str` | Metric name  |
 | `modality` | [Modality](aind_data_schema_models/modalities.md#modality) | Modality  |
 | `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |

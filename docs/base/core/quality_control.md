@@ -20,7 +20,12 @@ Each [QCMetric](#qcmetric) is annotated with three pieces of additional metadata
 
 ### Curations
 
-If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) and [ElementCurationMetric](#elementcurationmetric) models for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+
+The difference between the two options is that:
+
+- [CurationMetric](#curationmetric) expects a single dictionary to describe the curation and any update to the curation requires writing a new copy of the entire dictionary. This makes `CurationMetric` best suited to curations that act on multiple elements of the data asset at once, for example: splitting and combining clusters after spike sorting.
+- [ElementCurationMetric](#elementcurationmetric) should be used when each element of a data asset has its own curation and these can change over time. Instead of accepting just one dictionary, the `ElementCurationMetric.value` wraps each element's curation data in an outer dictionary that is split by elements. This makes updating a single element's curation more efficient.
 
 ### Tags
 
