@@ -6,8 +6,20 @@ External registries act as an application programming interfaces (API). They all
 
 ### MouseAnatomyModel
 
-Base model for mouse anatomy
+[EMAPA](https://www.ebi.ac.uk/ols4/ontologies/emapa)
+
+Base model for mouse anatomy. Some examples:
 
 | Name | Registry | Registry Identifier |
 |------|-------|--------|
-| `todo` | `todo` |  `todo`  |
+| `heart` | `Registry.EMAPA` |  `16105`  |
+
+### Gene
+
+[GenBank](https://www.ncbi.nlm.nih.gov/genbank/)
+
+Base model for genes. One example:
+
+| Description | Registry | Registry Identifier |
+|------|-------|--------|
+| `Human adenovirus B isolate 340-2010 DNA, complete genome` | `Registry.GENBANK` | `LN515608` |
