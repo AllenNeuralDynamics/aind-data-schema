@@ -37,6 +37,7 @@ from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -68,7 +69,10 @@ class AcquisitionSubjectDetails(DataModel):
         description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia", description=(
+            "Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"
+        )
+    )
     mouse_platform_name: str = Field(..., title="Mouse platform")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
@@ -237,6 +241,22 @@ class StimulusEpoch(DataModel):
     )
 
 
+class Manipulation(DataModel):
+    """Description of procedures performed during an acquisition."""
+
+    start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
+        ..., title="Manipulation start time", description="Must be between the acquisition start and end times"
+    )
+    end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
+        ..., title="Manipulation end time", description="Must be between the acquisition start and end times"
+    )
+    procedures: Optional[DiscriminatedList[Injection | BrainInjection]] = Field(
+        default=None, title="Procedures", description="Procedures performed during the manipulation"
+    )
+    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
 class Acquisition(DataCoreModel):
     """Description of data acquisition metadata including streams, stimuli, and experimental setup.
 
@@ -311,6 +331,9 @@ class Acquisition(DataCoreModel):
             "A stimulus epoch captures all stimuli being presented during an acquisition."
             " Epochs should be split when the purpose of the stimulus changes."
         ),
+    )
+    manipulations: List[Manipulation] = Field(
+        default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
