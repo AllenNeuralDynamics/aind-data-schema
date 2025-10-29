@@ -20,6 +20,6 @@ Base model for mouse anatomy. Some examples:
 
 Base model for genes. One example:
 
-| Description | Registry | Registry Identifier |
-|------|-------|--------|
-| `Human adenovirus B isolate 340-2010 DNA, complete genome` | `Registry.GENBANK` | `LN515608` |
+| Name | Description | Registry | Registry Identifier |
+|------|------|-------|--------|
+| `gfp` | `Human adenovirus B isolate 340-2010 DNA, complete genome` | `Registry.GENBANK` | `LN515608` |
