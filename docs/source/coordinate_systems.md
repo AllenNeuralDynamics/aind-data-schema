@@ -50,9 +50,9 @@ Each [CoordinateSystem](components/coordinates.md#coordinatesystem) defines its 
 
 #### 3D vs 4D and Depth
 
-Because skull shapes vary across animals the most useful coordinates to re-create insertions across animals are often the AP/ML position of the entry coordinate (this assumes you drop down to the brain surface on the SI dimension) and then the "depth", i.e. the insertion distance of the tip of the inserted device from the brain (or dura) surface, whether a probe, fiber, needle, whatever.
+Because skull shapes vary across animals the most useful coordinates to re-create insertions across animals are often the AP/ML position of the entry coordinate and then the "depth", i.e. the insertion distance of the tip of the inserted device from the brain (or dura) surface, whether a probe, fiber, needle, whatever. To support these kinds of insertions we include a depth axis option, making your coordinate system 4-dimensional. In most cases users should report the coordinates of the *entry coordinate* at the brain/dura surface using the first three (AP, ML, SI) values and then the depth *from the brain/dura surface* in the fourth depth coordinate. In many situations scientists don't need to record the SI value, which varies from mouse-to-mouse, as long as they drop directly from the (AP, ML) point to the surface along the SI axis. If your experiments fall into that category you can use an (AP, ML, Depth) coordinate system.
 
-To support these kinds of insertions we include a depth axis option. You can then construct 4-Dimensional coordinate systems that include (AP, ML, SI, Depth) or simply use (AP, ML, Depth). 
+Note that the process by which you perform an insertion should be recorded in a protocol, especially if there are specific details a user would need to know about how to interpret coordinates.
 
 ### CoordinateSystemLibrary
 
@@ -101,21 +101,21 @@ The transform we require for devices is the device to instrument transform. I.e.
 
 #### Building an exact position from scratch
 
-The easiest way to construct the exact position is to start by drawing a picture of your device in the instrument coordinate system at the origin. Define a "neutral" position: for example, a monitor at neutral might be facing posterior as if the mouse is looking at it. Select an origin coordinate for the device, a logical point for a monitor is the center of the screen. Then, define this device coordinate system:
+The easiest way to construct the exact position is to start by drawing two pictures of your device. First, draw your device in the instrument coordinate system at the origin. Define a "neutral" position: for example, a monitor at neutral might be facing posterior as if the mouse is looking at it. Select an origin coordinate for the device, a logical point for a monitor is the center of the screen. Then, define this device coordinate system by adding axis direction information matching the picture you drew so that the X, Y, and Z axes are matched between your instrument coordinate system and the device. Assuming that our instrument coordinate system is BREGMA_ARI, i.e. +X = +Anterior, +Y = +Right, and +Z = +Inferior, then our monitor should be defined as:
 
 ```{code} python
 CoordinateSystem(
-    name="MONITOR_RTF",
+    name="MONITOR_BRU",
     origin=Origin.FRONT_CENTER,
     axis_unit=SizeUnit.MM,
     axes=[
-        Axis(name=AxisName.X, direction=Direction.LR),
-        Axis(name=AxisName.Y, direction=Direction.DU),
-        Axis(name=AxisName.Z, direction=Direction.BF),
+        Axis(name=AxisName.X, direction=Direction.FB),
+        Axis(name=AxisName.Y, direction=Direction.LR),
+        Axis(name=AxisName.Z, direction=Direction.DU),
     ],
 )
 ```
 
-We've now defined our monitor as described above. If you were to store in the metadata that this monitor was positioned at `Translation(translation=[0,0,0])` you would be saying that the front center of the screen is right at Bregma on the mouse's skull (overlapping in space with the mouse), facing posterior.
+The device is now defined in the instrument coordinate system, but at a physically impossible location overlapping the mouse. Now draw a second picture, which is the actual location of your mouse. In our case, lets assume that this monitor is facing the mouse's right eye, at a 45 degree angle (i.e. the eye to monitor vector is perpendicular to the monitor surface.), and at a viewing distance of 100 mm.
 
-To properly position the monitor we now need to apply translations and rotations to bring the device into the instrument coordinate system. In `BREGMA_ARI` The position `Translation(translation=[100,0,-10])` indicates that the monitor's actual origin is 100 mm anterior of Bregma and 10 mm superior. If the monitor was rotated 45 degrees to the right and placed 100 mm away (still pointing at Bregma) the transform would be `[Translation(translation=[70.7, 70.7, -10]), Rotation(angles=[0, 0, -45], angles_unit=AngleUnit.DEG)]`.
+To do this we first translate the monitor to the correct position by applying `Translation(translation=70.7, 70.7, 0)`. Then, we rotate *clockwise* around the Z axis by applying `Rotation(angles=[0, 0, -45], angles_unit=AngleUnit.DEG)`.
