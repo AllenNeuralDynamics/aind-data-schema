@@ -50,9 +50,11 @@ Each [CoordinateSystem](components/coordinates.md#coordinatesystem) defines its 
 
 #### 3D vs 4D and Depth
 
-Because skull shapes vary across animals the most useful coordinates to re-create insertions across animals are often the AP/ML position of the entry coordinate and then the "depth", i.e. the insertion distance of the tip of the inserted device from the brain (or dura) surface, whether a probe, fiber, needle, whatever. To support these kinds of insertions we include a depth axis option, making your coordinate system 4-dimensional. In most cases users should report the coordinates of the *entry coordinate* at the brain/dura surface using the first three (AP, ML, SI) values and then the depth *from the brain/dura surface* in the fourth depth coordinate. In many situations scientists don't need to record the SI value, which varies from mouse-to-mouse, as long as they drop directly from the (AP, ML) point to the surface along the SI axis. If your experiments fall into that category you can use an (AP, ML, Depth) coordinate system.
+Because skull shapes vary across animals the most useful coordinates to re-create insertions across animals are often the AP/ML position of the entry coordinate and then the "depth", i.e. the insertion distance of the tip of the inserted device from the brain (or dura) surface, whether a probe, fiber, needle, whatever. To support these kinds of insertions we include a depth axis option.
 
-Note that the process by which you perform an insertion should be recorded in a protocol, especially if there are specific details a user would need to know about how to interpret coordinates.
+In most cases users should report the coordinates of the *entry coordinate* at the brain/dura surface using the first three (AP, ML, SI) values and then the depth *from the brain/dura surface* in the fourth depth coordinate. Recording all three coordinates disambiguates between the two ways that a probe can be "dropped" to the brain surface (either along the SI axis or down the probe depth axis). You can also use a 3-dimensional coordinate system (AP, ML, Depth) but we don't recommend it, since you need to either report in a protocol or in the notes how you dropped from the AP/ML plane down to the brain surface.
+
+Note that in general, the process by which you perform an insertion should be recorded in a protocol, especially if there are specific details a user would need to know about how to interpret coordinates.
 
 ### CoordinateSystemLibrary
 
