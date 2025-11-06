@@ -529,7 +529,7 @@ Description of a lick spout
 | `spout_diameter` | `decimal.Decimal` | Spout diameter (mm)  |
 | `spout_diameter_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Spout diameter unit  |
 | `solenoid_valve` | [Device](#device) | Solenoid valve  |
-| `lick_sensor` | [Device](#device) | Lick sensor  |
+| `lick_sensor` | [Device](#device) or [HarpDevice](#harpdevice) | Lick sensor  |
 | `lick_sensor_type` | Optional[[LickSensorType](../aind_data_schema_models/devices.md#licksensortype)] | Lick sensor type  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
