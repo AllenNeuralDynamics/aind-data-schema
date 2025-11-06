@@ -118,6 +118,6 @@ CoordinateSystem(
 )
 ```
 
-The device is now defined in the instrument coordinate system, but at a physically impossible location overlapping the mouse. Now draw a second picture, which is the actual location of your mouse. In our case, lets assume that this monitor is facing the mouse's right eye, at a 45 degree angle (i.e. the eye to monitor vector is perpendicular to the monitor surface.), and at a viewing distance of 100 mm.
+The device is now defined in the instrument coordinate system, but at a physically impossible location overlapping the mouse. Now draw a second picture, which is the actual location of your monitor relative to the mouse. In our case, lets assume that this monitor is facing the mouse's right eye, at a 45 degree angle to the axis of the mouse's body (i.e. the eye to monitor vector is perpendicular to the monitor surface.), and at a viewing distance of 100 mm.
 
-To do this we first translate the monitor to the correct position by applying `Translation(translation=70.7, 70.7, 0)`. Then, we rotate *clockwise* around the Z axis by applying `Rotation(angles=[0, 0, -45], angles_unit=AngleUnit.DEG)`.
+Now we calculate the transforms needed to correctly position the device in the acquisition coordinate system. First we translate the monitor to the correct position by applying `Translation(translation=70.7, 70.7, 0)`. Then, we rotate *clockwise* around the Z axis by applying `Rotation(angles=[0, 0, -45], angles_unit=AngleUnit.DEG)`.
