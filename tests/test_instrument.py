@@ -8,6 +8,7 @@ from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema_models.harp_types import HarpDeviceType
 from pydantic import ValidationError
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
@@ -25,6 +26,7 @@ from aind_data_schema.components.devices import (
     EphysAssembly,
     EphysProbe,
     FiberPatchCord,
+    HarpDevice,
     Laser,
     LaserAssembly,
     Lens,
@@ -709,6 +711,68 @@ class InstrumentTests(unittest.TestCase):
         inst2.notes = "Only note"
         combined = inst1 + inst2
         self.assertEqual(combined.notes, "Only note")
+
+    def test_duplicate_non_harp_device_components(self):
+        """Test that duplicate non-HarpDevice components log an error when combining instruments"""
+
+        inst1 = ephys_instrument.model_copy(deep=True)
+        inst2 = ephys_instrument.model_copy(deep=True)
+
+        inst2.components.append(
+            Computer(name="W10DT72941")
+        )
+
+        combined = inst1 + inst2
+
+        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
+
+    def test_duplicate_non_harp_device_with_clock_generator_attribute(self):
+        """Test that duplicate non-HarpDevice components with is_clock_generator log error"""
+
+        inst1 = ephys_instrument.model_copy(deep=True)
+        inst2 = ephys_instrument.model_copy(deep=True)
+
+        harp_clock_gen = HarpDevice(
+            name="CustomClockGenerator",
+            harp_device_type=HarpDeviceType.BEHAVIOR,
+            is_clock_generator=True,
+            channels=[],
+        )
+
+        harp_non_clock_gen = HarpDevice(
+            name="CustomClockGenerator",
+            harp_device_type=HarpDeviceType.BEHAVIOR,
+            is_clock_generator=False,
+            channels=[],
+        )
+
+        inst1.components.append(harp_clock_gen)
+        inst2.components.append(harp_non_clock_gen)
+
+        combined = inst1 + inst2
+
+        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
+
+    def test_duplicate_harp_clock_generator_devices(self):
+        """Test that duplicate HarpDevice clock generators are allowed when combining instruments"""
+
+        inst1 = ephys_instrument.model_copy(deep=True)
+        inst2 = ephys_instrument.model_copy(deep=True)
+
+        harp_clock_gen = HarpDevice(
+            name="Harp Clock Generator",
+            harp_device_type=HarpDeviceType.CLOCKSYNCHRONIZER,
+            core_version="2.1",
+            channels=[],
+            is_clock_generator=True,
+        )
+
+        inst1.components.append(harp_clock_gen)
+        inst2.components.append(harp_clock_gen.model_copy(deep=True))
+
+        combined = inst1 + inst2
+
+        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
 
 
 class ConnectionTest(unittest.TestCase):

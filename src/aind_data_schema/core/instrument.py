@@ -1,6 +1,7 @@
 """Core Instrument model"""
 
 from datetime import date
+import logging
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
@@ -267,6 +268,14 @@ class Instrument(DataCoreModel):
 
         return self
 
+    def _is_harp_clock_generator(self, component: Device) -> bool:
+        """Check if a component is a HarpDevice and a clock generator"""
+        return (
+            isinstance(component, HarpDevice)
+            and hasattr(component, "is_clock_generator")
+            and component.is_clock_generator == True
+        )
+
     def __add__(self, other: "Instrument") -> "Instrument":
         """Combine two Instrument objects"""
 
@@ -306,6 +315,19 @@ class Instrument(DataCoreModel):
         combined_connections = self.connections + other.connections
 
         # Combine components
+        # Search the component list for duplicates by name, raise errors except for HarpDevice
+        for component in self.components:
+            for other_component in other.components:
+                # Allow duplicate HarpDevice components (multiple identical clock generators)
+                if (
+                    component.name == other_component.name
+                    and self._is_harp_clock_generator(component)
+                    and self._is_harp_clock_generator(other_component)
+                ):
+                    logging.error(
+                        f"Instrument objects should not have duplicated components,"
+                        f" this will raise an error in future versions: {component.name}"
+                    )
         combined_components = self.components + other.components
 
         # Combine notes
