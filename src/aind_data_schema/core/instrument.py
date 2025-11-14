@@ -268,13 +268,47 @@ class Instrument(DataCoreModel):
 
         return self
 
-    def _is_harp_clock_generator(self, component: Device) -> bool:
+    def _is_harp_clock_generator(self, component) -> bool:
         """Check if a component is a HarpDevice and a clock generator"""
         return (
             isinstance(component, HarpDevice)
             and hasattr(component, "is_clock_generator")
             and component.is_clock_generator == True
         )
+
+    def _combine_components(self, components: List[Device], other_components: List[Device]) -> List[Device]:
+        """Combine components from two instruments, handling duplicates appropriately."""
+        seen_names = set()
+        combined_components = []
+
+        for component in components:
+            combined_components.append(component)
+            seen_names.add(component.name)
+
+        for other_component in other_components:
+            if other_component.name in seen_names:
+                matching_component = next(
+                    (c for c in components if c.name == other_component.name), None
+                )
+                if (
+                    matching_component
+                    and self._is_harp_clock_generator(matching_component)
+                    and self._is_harp_clock_generator(other_component)
+                ):
+                    logging.info(
+                        f"{other_component.name} is a HarpDevice clock generator, "
+                        f"only one instance will be kept in the combined instrument."
+                    )
+                else:
+                    logging.error(
+                        f"Instruments should not have duplicated components,"
+                        f" this will raise an error in future versions: {other_component.name}"
+                    )
+            else:
+                combined_components.append(other_component)
+                seen_names.add(other_component.name)
+        
+        return combined_components
 
     def __add__(self, other: "Instrument") -> "Instrument":
         """Combine two Instrument objects"""
@@ -315,20 +349,7 @@ class Instrument(DataCoreModel):
         combined_connections = self.connections + other.connections
 
         # Combine components
-        # Search the component list for duplicates by name, raise errors except for HarpDevice
-        for component in self.components:
-            for other_component in other.components:
-                # Allow duplicate HarpDevice components (multiple identical clock generators)
-                if (
-                    component.name == other_component.name
-                    and self._is_harp_clock_generator(component)
-                    and self._is_harp_clock_generator(other_component)
-                ):
-                    logging.error(
-                        f"Instrument objects should not have duplicated components,"
-                        f" this will raise an error in future versions: {component.name}"
-                    )
-        combined_components = self.components + other.components
+        combined_components = self._combine_components(self.components, other.components)
 
         # Combine notes
         combined_notes = merge_notes(self.notes, other.notes)

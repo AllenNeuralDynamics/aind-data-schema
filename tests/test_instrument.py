@@ -1,8 +1,10 @@
 """ test Instrument """
 
 import json
+import logging
 import unittest
 from datetime import date
+from unittest.mock import patch
 
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
@@ -657,8 +659,8 @@ class InstrumentTests(unittest.TestCase):
         # Check that modalities are combined and sorted (should be the same since we're adding identical instruments)
         self.assertEqual(len(combined.modalities), len(set(inst1.modalities + inst2.modalities)))
 
-        # Check that components are combined
-        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
+        # Check that components are deduplicated (same names from both instruments result in keeping only one)
+        self.assertEqual(len(combined.components), len(inst1.components))
 
         # Check that connections are combined
         self.assertEqual(len(combined.connections), len(inst1.connections) + len(inst2.connections))
@@ -715,22 +717,66 @@ class InstrumentTests(unittest.TestCase):
     def test_duplicate_non_harp_device_components(self):
         """Test that duplicate non-HarpDevice components log an error when combining instruments"""
 
-        inst1 = ephys_instrument.model_copy(deep=True)
-        inst2 = ephys_instrument.model_copy(deep=True)
-
-        inst2.components.append(
-            Computer(name="W10DT72941")
+        inst1 = Instrument(
+            instrument_id="test_inst",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[Computer(name="Computer1")],
+        )
+        inst2 = Instrument(
+            instrument_id="test_inst",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[Computer(name="Computer1")],
         )
 
-        combined = inst1 + inst2
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            combined = inst1 + inst2
+            mock_logging.error.assert_called_once()
+            error_call_args = mock_logging.error.call_args[0][0]
+            self.assertIn("Computer1", error_call_args)
+            self.assertIn("duplicated", error_call_args)
 
-        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
+        self.assertEqual(len(combined.components), 1)
+
+    def test_duplicate_harp_clock_generator_devices(self):
+        """Test that duplicate HarpDevice clock generators are allowed when combining instruments"""
+
+        harp_clock_gen = HarpDevice(
+            name="Harp Clock Generator",
+            harp_device_type=HarpDeviceType.CLOCKSYNCHRONIZER,
+            core_version="2.1",
+            channels=[],
+            is_clock_generator=True,
+        )
+
+        inst1 = Instrument(
+            instrument_id="test_inst",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[harp_clock_gen],
+        )
+        inst2 = Instrument(
+            instrument_id="test_inst",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.ECEPHYS],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[harp_clock_gen.model_copy(deep=True)],
+        )
+
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            combined = inst1 + inst2
+            mock_logging.info.assert_called_once()
+            info_call_args = mock_logging.info.call_args[0][0]
+            self.assertIn("Harp Clock Generator", info_call_args)
+
+        self.assertEqual(len(combined.components), 1)
 
     def test_duplicate_non_harp_device_with_clock_generator_attribute(self):
         """Test that duplicate non-HarpDevice components with is_clock_generator log error"""
-
-        inst1 = ephys_instrument.model_copy(deep=True)
-        inst2 = ephys_instrument.model_copy(deep=True)
 
         harp_clock_gen = HarpDevice(
             name="CustomClockGenerator",
@@ -746,33 +792,49 @@ class InstrumentTests(unittest.TestCase):
             channels=[],
         )
 
-        inst1.components.append(harp_clock_gen)
-        inst2.components.append(harp_non_clock_gen)
-
-        combined = inst1 + inst2
-
-        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
-
-    def test_duplicate_harp_clock_generator_devices(self):
-        """Test that duplicate HarpDevice clock generators are allowed when combining instruments"""
-
-        inst1 = ephys_instrument.model_copy(deep=True)
-        inst2 = ephys_instrument.model_copy(deep=True)
-
-        harp_clock_gen = HarpDevice(
-            name="Harp Clock Generator",
-            harp_device_type=HarpDeviceType.CLOCKSYNCHRONIZER,
-            core_version="2.1",
-            channels=[],
-            is_clock_generator=True,
+        inst1 = Instrument(
+            instrument_id="test_inst",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.BEHAVIOR],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[harp_clock_gen, LickSpoutAssembly(
+                name="Lick spout assembly A",
+                lick_spouts=[
+                    LickSpout(
+                        name="Left spout",
+                        spout_diameter=1.2,
+                        solenoid_valve=Device(name="Solenoid Left"),
+                        lick_sensor=Device(name="Lick-o-meter Left"),
+                    ),
+                ],
+            )],
+        )
+        inst2 = Instrument(
+            instrument_id="test_inst",
+            modification_date=date(2020, 10, 10),
+            modalities=[Modality.BEHAVIOR],
+            coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+            components=[harp_non_clock_gen, LickSpoutAssembly(
+                name="Lick spout assembly B",
+                lick_spouts=[
+                    LickSpout(
+                        name="Left spout",
+                        spout_diameter=1.2,
+                        solenoid_valve=Device(name="Solenoid Left"),
+                        lick_sensor=Device(name="Lick-o-meter Left"),
+                    ),
+                ],
+            )],
         )
 
-        inst1.components.append(harp_clock_gen)
-        inst2.components.append(harp_clock_gen.model_copy(deep=True))
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            combined = inst1 + inst2
+            mock_logging.error.assert_called_once()
+            error_call_args = mock_logging.error.call_args[0][0]
+            self.assertIn("CustomClockGenerator", error_call_args)
+            self.assertIn("duplicated", error_call_args)
 
-        combined = inst1 + inst2
-
-        self.assertEqual(len(combined.components), len(inst1.components) + len(inst2.components))
+        self.assertEqual(len(combined.components), 3)
 
 
 class ConnectionTest(unittest.TestCase):
