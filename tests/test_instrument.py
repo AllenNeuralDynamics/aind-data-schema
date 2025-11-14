@@ -1,7 +1,6 @@
 """ test Instrument """
 
 import json
-import logging
 import unittest
 from datetime import date
 from unittest.mock import patch

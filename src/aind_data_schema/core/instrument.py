@@ -273,7 +273,7 @@ class Instrument(DataCoreModel):
         return (
             isinstance(component, HarpDevice)
             and hasattr(component, "is_clock_generator")
-            and component.is_clock_generator == True
+            and component.is_clock_generator is True
         )
 
     def _combine_components(self, components: List[Device], other_components: List[Device]) -> List[Device]:
@@ -287,9 +287,7 @@ class Instrument(DataCoreModel):
 
         for other_component in other_components:
             if other_component.name in seen_names:
-                matching_component = next(
-                    (c for c in components if c.name == other_component.name), None
-                )
+                matching_component = next((c for c in components if c.name == other_component.name), None)
                 if (
                     matching_component
                     and self._is_harp_clock_generator(matching_component)
@@ -307,7 +305,7 @@ class Instrument(DataCoreModel):
             else:
                 combined_components.append(other_component)
                 seen_names.add(other_component.name)
-        
+
         return combined_components
 
     def __add__(self, other: "Instrument") -> "Instrument":
