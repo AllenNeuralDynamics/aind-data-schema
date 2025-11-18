@@ -1,6 +1,5 @@
 """Tests instrument acquisition compatibility check"""
 
-import logging
 import unittest
 
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
