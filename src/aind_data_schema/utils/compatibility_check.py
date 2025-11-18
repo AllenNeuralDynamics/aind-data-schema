@@ -46,8 +46,9 @@ class InstrumentAcquisitionCompatibility:
         Note: This is a partial check - devices may also come from procedures.
         """
         active_devices = []
-        for data_stream in self.acquisition.data_streams:
-            active_devices.extend(data_stream.active_devices)
+        if self.acquisition and self.acquisition.data_streams:
+            for data_stream in self.acquisition.data_streams:
+                active_devices.extend(data_stream.active_devices)
 
         instrument_component_names = self.inst.get_component_names()
 
