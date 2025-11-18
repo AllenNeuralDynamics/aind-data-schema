@@ -1,5 +1,6 @@
 """Tests instrument acquisition compatibility check"""
 
+import logging
 import unittest
 
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
@@ -43,6 +44,20 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
         self.assertIn(
             "Instrument ID in acquisition wrong_id does not match the instrument's",
+            str(context.exception),
+        )
+
+    def test_compare_stimulus_devices_error(self):
+        """Tests that an error is raised when stimulus devices do not match"""
+        ephys_acquisition = self.ephys_acquisition.model_copy()
+        if ephys_acquisition.stimulus_epochs:
+            ephys_acquisition.stimulus_epochs[0].active_devices = ["NonExistentDevice"]
+        with self.assertRaises(ValueError) as context:
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ephys_instrument, acquisition=ephys_acquisition
+            ).run_compatibility_check()
+        self.assertIn(
+            "Stimulus epoch device names in acquisition do not match stimulus device names in instrument",
             str(context.exception),
         )
 
