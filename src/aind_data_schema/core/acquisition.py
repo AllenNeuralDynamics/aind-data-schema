@@ -35,7 +35,7 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
@@ -69,9 +69,10 @@ class AcquisitionSubjectDetails(DataModel):
         description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia", description=(
-            "Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"
-        )
+    anaesthesia: Optional[Anaesthetic] = Field(
+        default=None,
+        title="Anaesthesia",
+        description=("Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"),
     )
     mouse_platform_name: str = Field(..., title="Mouse platform")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
@@ -370,20 +371,21 @@ class Acquisition(DataCoreModel):
                 + f"versions: {self.schema_version} and {other.schema_version}"
             )
 
+        # Figure out what coordinate system to use
+        coordinate_system = merge_coordinate_systems(self.coordinate_system, other.coordinate_system)
+
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        cs_check = self.coordinate_system != other.coordinate_system
-        if any([subj_check, spec_check, inst_check, exp_type_check, cs_check]):
+        if any([subj_check, spec_check, inst_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
-                f"coordinate_system: {self.coordinate_system}/{other.coordinate_system}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -421,7 +423,7 @@ class Acquisition(DataCoreModel):
             ethics_review_id=ethics_review_id,
             instrument_id=self.instrument_id,
             calibrations=calibrations,
-            coordinate_system=self.coordinate_system,
+            coordinate_system=coordinate_system,
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,
