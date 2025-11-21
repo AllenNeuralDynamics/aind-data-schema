@@ -204,6 +204,7 @@ class TestMetadata(unittest.TestCase):
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
                     subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
+                    data_streams=[],
                 ),
             )
         self.assertIn(

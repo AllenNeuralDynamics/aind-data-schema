@@ -46,6 +46,20 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             str(context.exception),
         )
 
+    def test_compare_stimulus_devices_error(self):
+        """Tests that an error is raised when stimulus devices do not match"""
+        ephys_acquisition = self.ephys_acquisition.model_copy()
+        if ephys_acquisition.stimulus_epochs:
+            ephys_acquisition.stimulus_epochs[0].active_devices = ["NonExistentDevice"]
+        with self.assertRaises(ValueError) as context:
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ephys_instrument, acquisition=ephys_acquisition
+            ).run_compatibility_check()
+        self.assertIn(
+            "Stimulus epoch device names in acquisition do not match stimulus device names in instrument",
+            str(context.exception),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
