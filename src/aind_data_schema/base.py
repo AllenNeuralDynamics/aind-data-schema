@@ -245,7 +245,8 @@ class DataCoreModel(DataModel):
         if prefix:
             filename = str(prefix) + "_" + filename
         if filename_suffix:
-            filename = filename + "_" + filename_suffix
+            filename_without_ext = filename.rsplit(self._FILE_EXTENSION, 1)[0]
+            filename = filename_without_ext + "_" + filename_suffix + self._FILE_EXTENSION
         if suffix:
             filename = filename.replace(self._FILE_EXTENSION, suffix)
 
