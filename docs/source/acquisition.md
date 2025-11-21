@@ -35,7 +35,7 @@ Procedures that occur during an acquisition (between the start_time and end_time
 
 ### When should a DataStream be split in two
 
-The `DataStream` should be split if there is a change in data modalities or a change in the configuration of devices. Or if a modality is only acquired during a subset of the time the stream is active. For example, if you acquire behavior videos for a full hour of an acquisition and only collect ecephys for twenty minutes you should separate these into two streams. If the start and ends times are within a few minutes of each other you should combine the modalities into a single stream.
+The `DataStream` should be split if there is a change in data modalities or a change in the configuration of devices. Or if a modality is only acquired during a subset of the time the stream is active. For example, if you acquire behavior videos for a full hour of an acquisition and only collect ecephys for twenty minutes you should separate these into two streams. If the start and end times are within a few minutes of each other you should combine the modalities into a single stream.
 
 ### When should a StimulusEpoch be split in two
 
