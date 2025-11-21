@@ -214,6 +214,7 @@ class DataCoreModel(DataModel):
         self,
         output_directory: Optional[Path] = None,
         prefix: Optional[str] = None,
+        filename_suffix: Optional[str] = None,
         suffix: Optional[str] = None,
     ):
         """
@@ -228,10 +229,13 @@ class DataCoreModel(DataModel):
             optional str for intended filepath with extra naming convention
             Default: None
 
-        suffix: Optional[str]
-            optional str for intended filepath with extra naming convention
+        filename_suffix: Optional[str]
+            optional str for intended filename suffix
             Default: None
 
+        suffix: Optional[str]
+            optional str for replacing the file extension
+            Default: None
         """
 
         # Go through the subfields recursively and check whether paths exist
@@ -240,6 +244,8 @@ class DataCoreModel(DataModel):
         filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename
+        if filename_suffix:
+            filename = filename + "_" + filename_suffix
         if suffix:
             filename = filename.replace(self._FILE_EXTENSION, suffix)
 
