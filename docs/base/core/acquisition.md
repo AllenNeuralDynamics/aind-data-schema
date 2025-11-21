@@ -14,7 +14,7 @@ A single DataStream should capture all the modalities of data acquired as a grou
 Because the start and stop times are independent for data streams and stimulus epochs almost all acquisitions will fall into one of these three common types:
 
 1. Single data stream and one stimulus epoch (including no stimulus): these acquisitions are common for imaging experiments with specimens where there might be no stimulus presented.
-2. Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quite wakefulness, receptive field mapping, etc.
+2. Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quiet wakefulness, receptive field mapping, etc.
 3. Single stimulus epoch with multiple data streams: less common, but can occur if you switch modalities during an experiment or change the configuration of an acute recording device.
 
 ## Uniqueness
