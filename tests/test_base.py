@@ -301,7 +301,9 @@ class DataCoreModelTests(unittest.TestCase):
             schema_version: str = "1.0.0"
 
         model_instance = TestModel()
-        model_instance.write_standard_file(output_directory=Path("dir"), prefix="prefix", filename_suffix="fsuffix", suffix=".suffix")
+        model_instance.write_standard_file(
+            output_directory=Path("dir"), prefix="prefix", filename_suffix="fsuffix", suffix=".suffix"
+        )
 
         expected_filename = Path("dir/prefix_test_model_fsuffix.suffix")
         mock_open.assert_called_once_with(expected_filename, "w")
