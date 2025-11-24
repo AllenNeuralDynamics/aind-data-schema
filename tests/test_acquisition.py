@@ -411,6 +411,13 @@ class AcquisitionTest(unittest.TestCase):
         self.assertEqual(len(combined_stream.active_devices), 4)
         self.assertEqual(len(combined_stream.configurations), 4)
 
+        # Also check that an error is raised if the streams cannot be combined
+
+        stream2.stream_end_time = stream2.stream_end_time.replace(year=2100)
+
+        with self.assertRaises(ValueError):
+            _ = stream1 + stream2
+
     def test_datastream_add_combines_notes(self):
         """Test that notes are properly merged when combining DataStreams"""
         acq = ephys_acquisition.model_copy()
@@ -428,7 +435,7 @@ class AcquisitionTest(unittest.TestCase):
         self.assertIn("Note 1", combined_stream.notes)
         self.assertIn("Note 2", combined_stream.notes)
 
-    def test_datastream_add_with_overlapping_devices_raises_error(self):
+    def test_datastream_add_with_duplicate_devices(self):
         """Test that overlapping active devices are logged as warning when combining"""
         acq = ephys_acquisition.model_copy()
         stream1 = acq.data_streams[0]
