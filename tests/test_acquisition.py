@@ -470,7 +470,7 @@ class AcquisitionTest(unittest.TestCase):
         stream1.active_devices = ["Device1"]
         stream2.active_devices = ["Device2"]
 
-        merged = Acquisition._merge_data_stream_lists([stream1], [stream2])
+        merged = Acquisition._merge_data_streams([stream1], [stream2])
 
         self.assertEqual(len(merged), 2)
 
@@ -484,7 +484,7 @@ class AcquisitionTest(unittest.TestCase):
         stream1.active_devices = ["Device1", "Device2"]
         stream2.active_devices = ["Device3", "Device4"]
 
-        merged = Acquisition._merge_data_stream_lists([stream1], [stream2])
+        merged = Acquisition._merge_data_streams([stream1], [stream2])
 
         self.assertEqual(len(merged), 1)
         self.assertEqual(len(merged[0].active_devices), 4)
@@ -499,7 +499,7 @@ class AcquisitionTest(unittest.TestCase):
         stream1.active_devices = ["Device1"]
         stream2.active_devices = ["Device2"]
 
-        merged = Acquisition._merge_data_stream_lists([stream1], [stream2])
+        merged = Acquisition._merge_data_streams([stream1], [stream2])
 
         self.assertEqual(len(merged), 2)
 
@@ -530,7 +530,7 @@ class AcquisitionTest(unittest.TestCase):
         stream3.stream_start_time = start3
         stream3.stream_end_time = end3
 
-        merged = Acquisition._merge_data_stream_lists([stream1], [stream2, stream3])
+        merged = Acquisition._merge_data_streams([stream1], [stream2, stream3])
 
         for m in merged:
             print(m.stream_start_time, m.stream_end_time, m.active_devices)

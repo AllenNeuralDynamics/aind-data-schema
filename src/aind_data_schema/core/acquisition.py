@@ -411,12 +411,10 @@ class Acquisition(DataCoreModel):
         return self
 
     @classmethod
-    def _merge_data_stream_lists(
-        cls, streams1: List[DataStream], streams2: List[DataStream], overlap_s: int = 120
+    def _merge_data_streams(
+        cls, streams: List[DataStream], overlap_s: int = 120
     ) -> List[DataStream]:
         """Merge two lists of data streams"""
-        streams = streams1 + streams2
-
         groups = []
         visited = set()
         for i in range(len(streams)):
@@ -482,7 +480,7 @@ class Acquisition(DataCoreModel):
         ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        data_streams = Acquisition._merge_data_stream_lists(self.data_streams, other.data_streams)
+        data_streams = Acquisition._merge_data_streams(self.data_streams + other.data_streams)
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
         # Remove duplicates
