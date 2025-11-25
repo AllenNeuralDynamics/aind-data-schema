@@ -164,8 +164,10 @@
          "description": "Registries",
          "enum": [
             "Addgene (ADDGENE)",
+            "Digital Object Identifier (DOI)",
             "Edinburgh Mouse Atlas Project (EMAPA)",
             "Mouse Genome Informatics (MGI)",
+            "NCBI GenBank (GENBANK)",
             "National Center for Biotechnology Information (NCBI)",
             "Open Researcher and Contributor ID (ORCID)",
             "Research Organization Registry (ROR)",
@@ -299,6 +301,26 @@
             }
          },
          "title": "_Allen_Institute_For_Neural_Dynamics",
+         "type": "object"
+      },
+      "_Barseq": {
+         "additionalProperties": false,
+         "description": "Model BARseq",
+         "properties": {
+            "name": {
+               "const": "Barcoded anatomy resolved by sequencing",
+               "default": "Barcoded anatomy resolved by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BARseq",
+               "default": "BARseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Barseq",
          "type": "object"
       },
       "_Behavior": {
@@ -771,6 +793,26 @@
             }
          },
          "title": "_Johns_Hopkins_University",
+         "type": "object"
+      },
+      "_Mapseq": {
+         "additionalProperties": false,
+         "description": "Model MAPseq",
+         "properties": {
+            "name": {
+               "const": "Multiplexed analysis of projections by sequencing",
+               "default": "Multiplexed analysis of projections by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MAPseq",
+               "default": "MAPseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mapseq",
          "type": "object"
       },
       "_Massachusetts_Institute_Of_Technology": {
@@ -1498,8 +1540,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.0",
-         "default": "2.2.0",
+         "const": "2.2.1",
+         "default": "2.2.1",
          "title": "Schema Version",
          "type": "string"
       },
@@ -1683,9 +1725,11 @@
          "items": {
             "discriminator": {
                "mapping": {
+                  "BARseq": "#/$defs/_Barseq",
                   "EM": "#/$defs/_Em",
                   "EMG": "#/$defs/_Emg",
                   "ISI": "#/$defs/_Isi",
+                  "MAPseq": "#/$defs/_Mapseq",
                   "MRI": "#/$defs/_Mri",
                   "SPIM": "#/$defs/_Spim",
                   "STPT": "#/$defs/_Stpt",
@@ -1704,6 +1748,9 @@
                "propertyName": "abbreviation"
             },
             "oneOf": [
+               {
+                  "$ref": "#/$defs/_Barseq"
+               },
                {
                   "$ref": "#/$defs/_Behavior"
                },
@@ -1739,6 +1786,9 @@
                },
                {
                   "$ref": "#/$defs/_Mri"
+               },
+               {
+                  "$ref": "#/$defs/_Mapseq"
                },
                {
                   "$ref": "#/$defs/_Merfish"

@@ -44,9 +44,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -65,6 +67,9 @@
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/_Behavior"
                   },
@@ -100,6 +105,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Mri"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mapseq"
                   },
                   {
                      "$ref": "#/$defs/_Merfish"
@@ -226,9 +234,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -247,6 +257,9 @@
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/_Behavior"
                   },
@@ -282,6 +295,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Mri"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mapseq"
                   },
                   {
                      "$ref": "#/$defs/_Merfish"
@@ -427,6 +443,26 @@
          ],
          "title": "Status",
          "type": "string"
+      },
+      "_Barseq": {
+         "additionalProperties": false,
+         "description": "Model BARseq",
+         "properties": {
+            "name": {
+               "const": "Barcoded anatomy resolved by sequencing",
+               "default": "Barcoded anatomy resolved by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BARseq",
+               "default": "BARseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Barseq",
+         "type": "object"
       },
       "_Behavior": {
          "additionalProperties": false,
@@ -648,6 +684,26 @@
          "title": "_Isi",
          "type": "object"
       },
+      "_Mapseq": {
+         "additionalProperties": false,
+         "description": "Model MAPseq",
+         "properties": {
+            "name": {
+               "const": "Multiplexed analysis of projections by sequencing",
+               "default": "Multiplexed analysis of projections by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MAPseq",
+               "default": "MAPseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mapseq",
+         "type": "object"
+      },
       "_Merfish": {
          "additionalProperties": false,
          "description": "Model merfish",
@@ -785,8 +841,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.0",
-         "default": "2.1.0",
+         "const": "2.1.1",
+         "default": "2.1.1",
          "title": "Schema Version",
          "type": "string"
       },
