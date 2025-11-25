@@ -53,8 +53,6 @@ CONFIG_REQUIREMENTS = {
     Modality.SLAP: [[ImagingConfig], [SlapPlane]],
 }
 
-OVERLAP_THRESHOLD_SECONDS = 2 * 60  # 2 minutes
-
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
 
 
@@ -192,16 +190,16 @@ class DataStream(DataModel):
         return self
 
     @classmethod
-    def overlapping(cls, stream_a: "DataStream", stream_b: "DataStream") -> bool:
+    def overlapping(cls, stream1: "DataStream", stream2: "DataStream", overlap_s: int) -> bool:
         """Check if two DataStream objects have overlapping start and end times"""
-        start_diff = abs((stream_a.stream_start_time - stream_b.stream_start_time).total_seconds())
-        end_diff = abs((stream_a.stream_end_time - stream_b.stream_end_time).total_seconds())
-        return start_diff <= OVERLAP_THRESHOLD_SECONDS and end_diff <= OVERLAP_THRESHOLD_SECONDS
+        start_diff = abs((stream1.stream_start_time - stream2.stream_start_time).total_seconds())
+        end_diff = abs((stream1.stream_end_time - stream2.stream_end_time).total_seconds())
+        return start_diff <= overlap_s and end_diff <= overlap_s
 
-    def __add__(self, other: "DataStream") -> "DataStream":
+    def __add__(self, other: "DataStream", overlap_s: int = 120) -> "DataStream":
         """Combine two DataStream objects"""
 
-        if not DataStream.overlapping(self, other):
+        if not DataStream.overlapping(self, other, overlap_s=overlap_s):
             raise ValueError("Cannot combine DataStreams with non-overlapping start and end times.")
 
         min_start_time = min(self.stream_start_time, other.stream_start_time)
@@ -413,7 +411,7 @@ class Acquisition(DataCoreModel):
         return self
 
     @classmethod
-    def _merge_data_stream_lists(cls, streams1: List[DataStream], streams2: List[DataStream]) -> List[DataStream]:
+    def _merge_data_stream_lists(cls, streams1: List[DataStream], streams2: List[DataStream], overlap_s: int = 120) -> List[DataStream]:
         """Merge two lists of data streams"""
         streams = streams1 + streams2
 
@@ -425,7 +423,7 @@ class Acquisition(DataCoreModel):
             group = [streams[i]]
             visited.add(i)
             for j in range(i + 1, len(streams)):
-                if j not in visited and DataStream.overlapping(streams[i], streams[j]):
+                if j not in visited and DataStream.overlapping(streams[i], streams[j], overlap_s=overlap_s):
                     group.append(streams[j])
                     visited.add(j)
             groups.append(group)
