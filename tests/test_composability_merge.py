@@ -143,7 +143,7 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(len(merged_acq.experimenters), 1)
         self.assertEqual(len(merged_acq.maintenance), 2)
         self.assertEqual(len(merged_acq.calibrations), 2)
-        self.assertEqual(len(merged_acq.data_streams), 2)
+        self.assertEqual(len(merged_acq.data_streams), 1)
         self.assertEqual(merged_acq.acquisition_start_time, t)
         self.assertEqual(merged_acq.acquisition_end_time, t)
         self.assertEqual(merged_acq.acquisition_type, "ExaSPIM")
