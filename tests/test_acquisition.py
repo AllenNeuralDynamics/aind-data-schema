@@ -392,6 +392,166 @@ class AcquisitionTest(unittest.TestCase):
         # If we get here, all device config subclasses are properly covered
         self.assertTrue(True, "All DeviceConfig subclasses are properly covered in discriminated unions")
 
+    def test_datastream_add_basic(self):
+        """Test combining two DataStream objects"""
+        acq = ephys_acquisition.model_copy()
+
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+
+        stream1.active_devices = ["Device1", "Device2"]
+        stream2.active_devices = ["Device3", "Device4"]
+
+        combined_stream = stream1 + stream2
+
+        self.assertIsNotNone(combined_stream)
+        self.assertEqual(combined_stream.stream_start_time, stream1.stream_start_time)
+        self.assertEqual(combined_stream.stream_end_time, stream1.stream_end_time)
+        self.assertEqual(len(combined_stream.modalities), 1)
+        self.assertEqual(len(combined_stream.active_devices), 4)
+        self.assertEqual(len(combined_stream.configurations), 4)
+
+        # Also check that an error is raised if the streams cannot be combined
+
+        stream2.stream_end_time = stream2.stream_end_time.replace(year=2100)
+
+        with self.assertRaises(ValueError):
+            _ = stream1 + stream2
+
+    def test_datastream_add_combines_notes(self):
+        """Test that notes are properly merged when combining DataStreams"""
+        acq = ephys_acquisition.model_copy()
+
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+
+        stream1.active_devices = ["Device1", "Device2"]
+        stream2.active_devices = ["Device3", "Device4"]
+        stream1.notes = "Note 1"
+        stream2.notes = "Note 2"
+
+        combined_stream = stream1 + stream2
+
+        self.assertIn("Note 1", combined_stream.notes)
+        self.assertIn("Note 2", combined_stream.notes)
+
+    def test_datastream_add_with_duplicate_devices(self):
+        """Test that overlapping active devices are logged as warning when combining"""
+        acq = ephys_acquisition.model_copy()
+        stream1 = acq.data_streams[0]
+        stream2 = acq.data_streams[0].model_copy()
+
+        combined_stream = stream1 + stream2
+
+        self.assertIsNotNone(combined_stream)
+
+    def test_datastream_add_combines_connections(self):
+        """Test that connections are properly combined"""
+        acq = ephys_acquisition.model_copy()
+
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+
+        stream1.active_devices = ["Device1", "Device2"]
+        stream2.active_devices = ["Device3", "Device4"]
+        stream1.connections = [Connection(source_device="Device1", target_device="Device2")]
+        stream2.connections = [Connection(source_device="Device3", target_device="Device4")]
+
+        combined_stream = stream1 + stream2
+
+        self.assertEqual(len(combined_stream.connections), 2)
+
+    def test_merge_data_stream_lists_single_streams(self):
+        """Test merging lists with single streams"""
+        acq = ephys_acquisition.model_copy()
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[1].model_copy()
+
+        stream1.active_devices = ["Device1"]
+        stream2.active_devices = ["Device2"]
+
+        merged = Acquisition._merge_data_streams([stream1] + [stream2])
+
+        self.assertEqual(len(merged), 2)
+
+    def test_merge_data_stream_lists_overlapping_streams(self):
+        """Test merging streams with overlapping start/end times"""
+        acq = ephys_acquisition.model_copy()
+
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+
+        stream1.active_devices = ["Device1", "Device2"]
+        stream2.active_devices = ["Device3", "Device4"]
+
+        merged = Acquisition._merge_data_streams([stream1] + [stream2])
+
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(len(merged[0].active_devices), 4)
+
+    def test_merge_data_stream_lists_non_overlapping_streams(self):
+        """Test merging streams with different start/end times"""
+        acq = ephys_acquisition.model_copy()
+
+        stream1 = acq.data_streams[1].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+
+        stream1.active_devices = ["Device1"]
+        stream2.active_devices = ["Device2"]
+
+        merged = Acquisition._merge_data_streams([stream1] + [stream2])
+
+        self.assertEqual(len(merged), 2)
+
+    def test_merge_data_stream_lists_multiple_overlapping_groups(self):
+        """Test merging multiple streams with multiple overlapping groups"""
+        acq = ephys_acquisition.model_copy()
+
+        stream1 = acq.data_streams[0].model_copy()
+        stream2 = acq.data_streams[0].model_copy()
+        stream3 = acq.data_streams[0].model_copy()
+
+        stream1.active_devices = ["DeviceA", "DeviceB"]
+        stream2.active_devices = ["DeviceC"]
+        stream3.active_devices = ["DeviceD", "DeviceE"]
+
+        start1 = datetime(year=2023, month=4, day=25, hour=2, minute=0, second=0, tzinfo=timezone.utc)
+        end1 = datetime(year=2023, month=4, day=25, hour=2, minute=30, second=0, tzinfo=timezone.utc)
+        stream1.stream_start_time = start1
+        stream1.stream_end_time = end1
+
+        start2 = datetime(year=2023, month=4, day=25, hour=2, minute=0, second=30, tzinfo=timezone.utc)
+        end2 = datetime(year=2023, month=4, day=25, hour=2, minute=29, second=30, tzinfo=timezone.utc)
+        stream2.stream_start_time = start2
+        stream2.stream_end_time = end2
+
+        start3 = datetime(year=2023, month=4, day=25, hour=3, minute=0, second=0, tzinfo=timezone.utc)
+        end3 = datetime(year=2023, month=4, day=25, hour=3, minute=30, second=0, tzinfo=timezone.utc)
+        stream3.stream_start_time = start3
+        stream3.stream_end_time = end3
+
+        merged = Acquisition._merge_data_streams([stream1] + [stream2, stream3])
+
+        for m in merged:
+            print(m.stream_start_time, m.stream_end_time, m.active_devices)
+
+        self.assertEqual(len(merged), 2)
+        self.assertEqual(len(merged[0].active_devices), 3)
+
+    def test_datastream_add_with_exaspim_example(self):
+        """Test combining DataStreams using ExaSPIM example"""
+        acq = exaspim_acquisition.model_copy()
+        stream1 = acq.data_streams[0].model_copy()
+
+        stream2 = acq.data_streams[0].model_copy()
+        stream2.active_devices = ["Device99"]
+
+        combined_stream = stream1 + stream2
+
+        self.assertIsNotNone(combined_stream)
+        self.assertIn(Modality.SPIM, combined_stream.modalities)
+        self.assertEqual(len(combined_stream.active_devices), 3)
+
 
 if __name__ == "__main__":
     unittest.main()

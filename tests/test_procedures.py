@@ -736,7 +736,7 @@ class ProceduresTests(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             _ = p1 + p2
 
-        self.assertIn("Cannot combine Procedures objects with different coordinate systems", str(context.exception))
+        self.assertIn("Cannot merge differing coordinate systems", str(context.exception))
         self.assertIn("BREGMA_ARI", str(context.exception))
         self.assertIn("BREGMA_ARID", str(context.exception))
 

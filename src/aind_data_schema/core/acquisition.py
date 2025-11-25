@@ -1,6 +1,7 @@
 """Schema describing data acquisition metadata and configurations"""
 
 from decimal import Decimal
+import logging
 from typing import Annotated, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
@@ -35,8 +36,9 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
@@ -68,7 +70,11 @@ class AcquisitionSubjectDetails(DataModel):
         description="Animal weight after procedure",
     )
     weight_unit: MassUnit = Field(default=MassUnit.G, title="Weight unit")
-    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    anaesthesia: Optional[Anaesthetic] = Field(
+        default=None,
+        title="Anaesthesia",
+        description=("Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"),
+    )
     mouse_platform_name: str = Field(..., title="Mouse platform")
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
@@ -183,6 +189,54 @@ class DataStream(DataModel):
 
         return self
 
+    @classmethod
+    def overlapping(cls, stream1: "DataStream", stream2: "DataStream", overlap_s: int) -> bool:
+        """Check if two DataStream objects have overlapping start and end times"""
+        start_diff = abs((stream1.stream_start_time - stream2.stream_start_time).total_seconds())
+        end_diff = abs((stream1.stream_end_time - stream2.stream_end_time).total_seconds())
+        return start_diff <= overlap_s and end_diff <= overlap_s
+
+    def __add__(self, other: "DataStream", overlap_s: int = 120) -> "DataStream":
+        """Combine two DataStream objects"""
+
+        if not DataStream.overlapping(self, other, overlap_s=overlap_s):
+            raise ValueError("Cannot combine DataStreams with non-overlapping start and end times.")
+
+        min_start_time = min(self.stream_start_time, other.stream_start_time)
+        max_end_time = max(self.stream_end_time, other.stream_end_time)
+
+        # Combine modalities
+        modalities = self.modalities + other.modalities
+        modalities = remove_duplicates(modalities)
+
+        # Combine active devices
+        active_devices = self.active_devices + other.active_devices
+        len_orig_devices = len(active_devices)
+        active_devices = remove_duplicates(active_devices)
+        if len(active_devices) < len_orig_devices:
+            logging.warning(
+                "Duplicate active devices were removed. Only DAQ devices should be shared in overlapped " "DataStreams."
+            )
+
+        # Combine configurations
+        configurations = self.configurations + other.configurations
+
+        # Combine connections
+        connections = self.connections + other.connections
+
+        # Combine notes
+        notes = merge_notes(self.notes, other.notes)
+
+        return DataStream(
+            stream_start_time=min_start_time,
+            stream_end_time=max_end_time,
+            modalities=modalities,
+            active_devices=active_devices,
+            configurations=configurations,
+            connections=connections,
+            notes=notes,
+        )
+
 
 class StimulusEpoch(DataModel):
     """All stimuli being presented to the subject. starting and stopping at approximately the
@@ -237,6 +291,22 @@ class StimulusEpoch(DataModel):
     )
 
 
+class Manipulation(DataModel):
+    """Description of procedures performed during an acquisition."""
+
+    start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
+        ..., title="Manipulation start time", description="Must be between the acquisition start and end times"
+    )
+    end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
+        ..., title="Manipulation end time", description="Must be between the acquisition start and end times"
+    )
+    procedures: Optional[DiscriminatedList[Injection | BrainInjection]] = Field(
+        default=None, title="Procedures", description="Procedures performed during the manipulation"
+    )
+    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
 class Acquisition(DataCoreModel):
     """Description of data acquisition metadata including streams, stimuli, and experimental setup.
 
@@ -247,7 +317,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
+    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
@@ -312,6 +382,9 @@ class Acquisition(DataCoreModel):
             " Epochs should be split when the purpose of the stimulus changes."
         ),
     )
+    manipulations: List[Manipulation] = Field(
+        default=[], title="Manipulations", description="Procedures performed during the acquisition."
+    )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
 
     @model_validator(mode="after")
@@ -337,6 +410,37 @@ class Acquisition(DataCoreModel):
 
         return self
 
+    @classmethod
+    def _merge_data_streams(
+        cls, streams: List[DataStream], overlap_s: int = 120
+    ) -> List[DataStream]:
+        """Merge two lists of data streams"""
+        groups = []
+        visited = set()
+        for i in range(len(streams)):
+            if i in visited:
+                continue
+            group = [streams[i]]
+            visited.add(i)
+            for j in range(i + 1, len(streams)):
+                if j not in visited and DataStream.overlapping(streams[i], streams[j], overlap_s=overlap_s):
+                    group.append(streams[j])
+                    visited.add(j)
+            groups.append(group)
+
+        # Construct the final set of streams, including merged streams where applicable
+        merged_streams = []
+        for group in groups:
+            if len(group) == 1:
+                merged_streams.append(group[0])
+            else:
+                merged_stream = group[0]
+                for stream in group[1:]:
+                    merged_stream = merged_stream + stream
+                merged_streams.append(merged_stream)
+
+        return merged_streams
+
     def __add__(self, other: "Acquisition") -> "Acquisition":
         """Combine two Acquisition objects"""
 
@@ -347,20 +451,21 @@ class Acquisition(DataCoreModel):
                 + f"versions: {self.schema_version} and {other.schema_version}"
             )
 
+        # Figure out what coordinate system to use
+        coordinate_system = merge_coordinate_systems(self.coordinate_system, other.coordinate_system)
+
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
         inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        cs_check = self.coordinate_system != other.coordinate_system
-        if any([subj_check, spec_check, inst_check, exp_type_check, cs_check]):
+        if any([subj_check, spec_check, inst_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
                 f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
-                f"coordinate_system: {self.coordinate_system}/{other.coordinate_system}"
             )
 
         details_check = self.subject_details and other.subject_details
@@ -375,7 +480,7 @@ class Acquisition(DataCoreModel):
         ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        data_streams = self.data_streams + other.data_streams
+        data_streams = Acquisition._merge_data_streams(self.data_streams + other.data_streams)
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
         # Remove duplicates
@@ -398,7 +503,7 @@ class Acquisition(DataCoreModel):
             ethics_review_id=ethics_review_id,
             instrument_id=self.instrument_id,
             calibrations=calibrations,
-            coordinate_system=self.coordinate_system,
+            coordinate_system=coordinate_system,
             maintenance=maintenance,
             acquisition_start_time=start_time,
             acquisition_end_time=end_time,

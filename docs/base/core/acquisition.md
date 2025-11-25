@@ -27,6 +27,10 @@ For example, in the `"Brain Computer Interface"` project name, good acquisition 
 
 You should use the `Code.parameters` field to store your stimulus properties for each [StimulusEpoch](#stimulusepoch). We have pre-existing parameter schemas for a subset of stimuli defined [here](components/stimulus.md) or you can define your own schema.
 
+## Manipulations
+
+Procedures that occur during an acquisition (between the start_time and end_time) should be recorded in the `Acquisition.manipulations` using a [Manipulation](#manipulation). 
+
 ## FAQs
 
 ### When should a DataStream be split in two

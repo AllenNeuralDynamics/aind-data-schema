@@ -2,7 +2,8 @@
 
 import unittest
 
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_coordinate_systems
 
 
 class TestMergeNotes(unittest.TestCase):
@@ -110,6 +111,44 @@ class MergeOptionalListTests(unittest.TestCase):
     def test_both_non_empty(self):
         """Test when both inputs are non-empty lists"""
         self.assertEqual(merge_optional_list([1, 2], [3, 4]), [1, 2, 3, 4])
+
+
+class MergeCSTests(unittest.TestCase):
+    """Tests for merge_coordinate_systems"""
+
+    def setUp(self):
+        """Set up test cases"""
+        self.CSA = CoordinateSystemLibrary.BREGMA_ARI
+        self.CSB = CoordinateSystemLibrary.MPM_MANIP_RFB
+
+    def test_both_none(self):
+        """Test when both inputs are None"""
+
+        self.assertIsNone(merge_coordinate_systems(None, None))
+
+    def test_first_none(self):
+        """Test when first input is None"""
+
+        self.assertEqual(merge_coordinate_systems(None, self.CSA), self.CSA)
+
+    def test_second_none(self):
+        """Test when second input is None"""
+
+        self.assertEqual(merge_coordinate_systems(self.CSA, None), self.CSA)
+
+    def test_both_same(self):
+        """Test when both inputs are the same"""
+
+        self.assertEqual(
+            merge_coordinate_systems(self.CSA, self.CSA),
+            self.CSA,
+        )
+
+    def test_both_different(self):
+        """Test when both inputs are different"""
+
+        with self.assertRaises(ValueError):
+            merge_coordinate_systems(self.CSA, self.CSB)
 
 
 if __name__ == "__main__":
