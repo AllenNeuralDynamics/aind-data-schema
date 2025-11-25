@@ -411,7 +411,9 @@ class Acquisition(DataCoreModel):
         return self
 
     @classmethod
-    def _merge_data_stream_lists(cls, streams1: List[DataStream], streams2: List[DataStream], overlap_s: int = 120) -> List[DataStream]:
+    def _merge_data_stream_lists(
+        cls, streams1: List[DataStream], streams2: List[DataStream], overlap_s: int = 120
+    ) -> List[DataStream]:
         """Merge two lists of data streams"""
         streams = streams1 + streams2
 
