@@ -75,6 +75,36 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             checker.run_compatibility_check()
         self.assertIn("Instrument ID in acquisition", str(context.exception))
 
+    def test_compare_active_devices_missing_with_raise_false(self):
+        """Test that missing active devices logs error when raise_for_missing_devices is False."""
+        self.mock_acquisition.data_streams = [MagicMock(active_devices=["unknown_device"])]
+        checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
+        error = checker._compare_active_devices(raise_for_missing_devices=False)
+        self.assertIsNone(error)
+
+    def test_compare_active_devices_missing_with_raise_true(self):
+        """Test that missing active devices raise ValueError when raise_for_missing_devices is True."""
+        self.mock_acquisition.data_streams = [MagicMock(active_devices=["unknown_device"])]
+        checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
+        error = checker._compare_active_devices(raise_for_missing_devices=True)
+        self.assertIsInstance(error, ValueError)
+        self.assertIn("Active devices", str(error))
+        self.assertIn("were not found in Instrument.components", str(error))
+
+    def test_run_compatibility_check_with_raise_for_missing_devices_false(self):
+        """Test compatibility check with raise_for_missing_devices=False logs missing devices."""
+        self.mock_acquisition.data_streams = [MagicMock(active_devices=["unknown_device"])]
+        checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
+        self.assertIsNone(checker.run_compatibility_check(raise_for_missing_devices=False))
+
+    def test_run_compatibility_check_with_raise_for_missing_devices_true(self):
+        """Test compatibility check with raise_for_missing_devices=True raises ValueError."""
+        self.mock_acquisition.data_streams = [MagicMock(active_devices=["unknown_device"])]
+        checker = InstrumentAcquisitionCompatibility(self.mock_instrument, self.mock_acquisition)
+        with self.assertRaises(ValueError) as context:
+            checker.run_compatibility_check(raise_for_missing_devices=True)
+        self.assertIn("Active devices", str(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

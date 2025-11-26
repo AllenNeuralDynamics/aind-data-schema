@@ -1,5 +1,6 @@
 """Utility methods to check compatibility"""
 
+import logging
 from typing import Optional
 
 from aind_data_schema.core.acquisition import Acquisition
@@ -40,13 +41,42 @@ class InstrumentAcquisitionCompatibility:
                 f"\ninstrument_stimulus_devices: {set(instrument_component_names)}"
             )
 
-    def run_compatibility_check(self) -> None:
+    def _compare_active_devices(self, raise_for_missing_devices: bool = False) -> Optional[ValueError]:
+        """Compares active devices in data streams against instrument components.
+        Note: This is a partial check - devices may also come from procedures.
+        """
+        active_devices = []
+        if self.acquisition and self.acquisition.data_streams:
+            for data_stream in self.acquisition.data_streams:
+                active_devices.extend(data_stream.active_devices)
+
+        instrument_component_names = self.inst.get_component_names()
+
+        # Find devices that are not in instrument (they might be in procedures)
+        missing_from_instrument = [device for device in active_devices if device not in instrument_component_names]
+
+        if missing_from_instrument:
+            if raise_for_missing_devices:
+                return ValueError(
+                    f"Active devices {set(missing_from_instrument)} were not found in Instrument.components. "
+                    f"Note: These devices may be valid if they exist in Procedures."
+                )
+            else:
+                logging.error(
+                    f"Active devices {set(missing_from_instrument)} were not found in Instrument.components. "
+                    f"Note: These devices may be valid if they exist in Procedures."
+                )
+
+        return None
+
+    def run_compatibility_check(self, raise_for_missing_devices: bool = False) -> None:
         """Runs compatibility check.
         Creates a dictionary of fields and whether it matches in instrument and acquisition.
         """
         comparisons = [
             self._compare_instrument_id(),
             self._compare_stimulus_devices(),
+            self._compare_active_devices(raise_for_missing_devices=raise_for_missing_devices),
         ]
         error_messages = [str(error) for error in comparisons if error]
         if error_messages:
