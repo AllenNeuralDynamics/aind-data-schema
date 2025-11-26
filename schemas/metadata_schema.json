@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -177,6 +177,15 @@
                "title": "Stimulus",
                "type": "array"
             },
+            "manipulations": {
+               "default": [],
+               "description": "Procedures performed during the acquisition.",
+               "items": {
+                  "$ref": "#/$defs/Manipulation"
+               },
+               "title": "Manipulations",
+               "type": "array"
+            },
             "subject_details": {
                "anyOf": [
                   {
@@ -258,6 +267,7 @@
                   }
                ],
                "default": null,
+               "description": "Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia",
                "title": "Anaesthesia"
             },
             "mouse_platform_name": {
@@ -436,6 +446,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -763,6 +774,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -1114,6 +1128,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -1441,6 +1456,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -1721,6 +1739,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -2048,6 +2067,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -3455,6 +3477,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -3782,6 +3805,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -4476,6 +4502,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -4803,6 +4830,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -5278,9 +5308,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -5299,6 +5331,9 @@
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                   },
@@ -5334,6 +5369,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Mri"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mapseq"
                   },
                   {
                      "$ref": "#/$defs/_Merfish"
@@ -5744,8 +5782,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5929,9 +5967,11 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
                         "EM": "#/$defs/_Em",
                         "EMG": "#/$defs/_Emg",
                         "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
                         "MRI": "#/$defs/_Mri",
                         "SPIM": "#/$defs/_Spim",
                         "STPT": "#/$defs/_Stpt",
@@ -5950,6 +5990,9 @@
                      "propertyName": "abbreviation"
                   },
                   "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
                      {
                         "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                      },
@@ -5985,6 +6028,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Mri"
+                     },
+                     {
+                        "$ref": "#/$defs/_Mapseq"
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
@@ -6223,9 +6269,11 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
                         "EM": "#/$defs/_Em",
                         "EMG": "#/$defs/_Emg",
                         "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
                         "MRI": "#/$defs/_Mri",
                         "SPIM": "#/$defs/_Spim",
                         "STPT": "#/$defs/_Stpt",
@@ -6244,6 +6292,9 @@
                      "propertyName": "abbreviation"
                   },
                   "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
                      {
                         "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                      },
@@ -6279,6 +6330,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Mri"
+                     },
+                     {
+                        "$ref": "#/$defs/_Mapseq"
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
@@ -7033,6 +7087,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -7360,6 +7415,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -7592,6 +7650,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -7919,6 +7978,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -8236,6 +8298,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -8563,6 +8626,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -8844,6 +8910,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -9171,6 +9238,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -9497,6 +9567,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -9824,6 +9895,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -10126,6 +10200,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -10453,6 +10528,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -10690,6 +10768,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -11017,6 +11096,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -11459,6 +11541,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -11786,6 +11869,9 @@
                   },
                   {
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   {
                      "$ref": "#/$defs/_Vieworks"
@@ -12193,6 +12279,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -12520,6 +12607,9 @@
                   },
                   {
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   {
                      "$ref": "#/$defs/_Vieworks"
@@ -12995,6 +13085,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -13322,6 +13413,9 @@
                   },
                   {
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   {
                      "$ref": "#/$defs/_Vieworks"
@@ -14398,8 +14492,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.41",
-               "default": "2.0.41",
+               "const": "2.1.0",
+               "default": "2.1.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14432,9 +14526,11 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
                         "EM": "#/$defs/_Em",
                         "EMG": "#/$defs/_Emg",
                         "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
                         "MRI": "#/$defs/_Mri",
                         "SPIM": "#/$defs/_Spim",
                         "STPT": "#/$defs/_Stpt",
@@ -14453,6 +14549,9 @@
                      "propertyName": "abbreviation"
                   },
                   "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
                      {
                         "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                      },
@@ -14488,6 +14587,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Mri"
+                     },
+                     {
+                        "$ref": "#/$defs/_Mapseq"
                      },
                      {
                         "$ref": "#/$defs/_Merfish"
@@ -14901,6 +15003,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -15228,6 +15331,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -15917,6 +16023,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -16244,6 +16351,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -17084,6 +17194,90 @@
          "title": "Maintenance",
          "type": "object"
       },
+      "Manipulation": {
+         "additionalProperties": false,
+         "description": "Description of procedures performed during an acquisition.",
+         "properties": {
+            "object_type": {
+               "const": "Manipulation",
+               "default": "Manipulation",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "start_time": {
+               "description": "Must be between the acquisition start and end times",
+               "format": "date-time",
+               "title": "Manipulation start time",
+               "type": "string"
+            },
+            "end_time": {
+               "description": "Must be between the acquisition start and end times",
+               "format": "date-time",
+               "title": "Manipulation end time",
+               "type": "string"
+            },
+            "procedures": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Brain injection": "#/$defs/BrainInjection",
+                              "Injection": "#/$defs/Injection"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/Injection"
+                           },
+                           {
+                              "$ref": "#/$defs/BrainInjection"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Procedures performed during the manipulation",
+               "title": "Procedures"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "start_time",
+            "end_time"
+         ],
+         "title": "Manipulation",
+         "type": "object"
+      },
       "Manipulator": {
          "additionalProperties": false,
          "description": "Manipulator used on a dome module",
@@ -17368,6 +17562,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -17695,6 +17890,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -18575,6 +18773,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -18904,6 +19103,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -19082,7 +19284,7 @@
                   "mapping": {
                      "BALB/c": "#/$defs/_Balb_C",
                      "C57BL/6J": "#/$defs/_C57Bl_6J",
-                     "Unknown": "#/$defs/_Unknown"
+                     "Unknown": "#/$defs/aind_data_schema_models__species___Unknown"
                   },
                   "propertyName": "name"
                },
@@ -19094,7 +19296,7 @@
                      "$ref": "#/$defs/_Balb_C"
                   },
                   {
-                     "$ref": "#/$defs/_Unknown"
+                     "$ref": "#/$defs/aind_data_schema_models__species___Unknown"
                   }
                ],
                "title": "Strain"
@@ -19435,6 +19637,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -19762,6 +19965,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -20258,6 +20464,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -20587,6 +20794,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -20807,6 +21017,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -21134,6 +21345,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -22655,6 +22869,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -22982,6 +23197,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -23257,6 +23475,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -23584,6 +23803,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -24142,6 +24364,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -24471,6 +24694,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -24559,8 +24785,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.34",
-               "default": "2.0.34",
+               "const": "2.0.35",
+               "default": "2.0.35",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24722,8 +24948,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.2",
-               "default": "2.1.2",
+               "const": "2.1.4",
+               "default": "2.1.4",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24926,9 +25152,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -24947,6 +25175,9 @@
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                   },
@@ -24982,6 +25213,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Mri"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mapseq"
                   },
                   {
                      "$ref": "#/$defs/_Merfish"
@@ -25124,8 +25358,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.1.1",
+               "default": "2.1.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25349,6 +25583,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -25678,6 +25913,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -25738,8 +25976,10 @@
          "description": "Registries",
          "enum": [
             "Addgene (ADDGENE)",
+            "Digital Object Identifier (DOI)",
             "Edinburgh Mouse Atlas Project (EMAPA)",
             "Mouse Genome Informatics (MGI)",
+            "NCBI GenBank (GENBANK)",
             "National Center for Biotechnology Information (NCBI)",
             "Open Researcher and Contributor ID (ORCID)",
             "Research Organization Registry (ROR)",
@@ -26260,6 +26500,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -26587,6 +26828,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -26797,6 +27041,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -27124,6 +27369,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -28293,8 +28541,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.13",
-               "default": "2.0.13",
+               "const": "2.0.14",
+               "default": "2.0.14",
                "title": "Schema Version",
                "type": "string"
             },
@@ -28926,6 +29174,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -29253,6 +29502,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -29503,6 +29755,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -29830,6 +30083,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -30380,6 +30636,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -30707,6 +30964,9 @@
                         },
                         {
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
+                        },
+                        {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                         },
                         {
                            "$ref": "#/$defs/_Vieworks"
@@ -31442,6 +31702,26 @@
             }
          },
          "title": "_Balb_C",
+         "type": "object"
+      },
+      "_Barseq": {
+         "additionalProperties": false,
+         "description": "Model BARseq",
+         "properties": {
+            "name": {
+               "const": "Barcoded anatomy resolved by sequencing",
+               "default": "Barcoded anatomy resolved by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BARseq",
+               "default": "BARseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Barseq",
          "type": "object"
       },
       "_Basler": {
@@ -34030,6 +34310,26 @@
             }
          },
          "title": "_Macaca_Mulatta",
+         "type": "object"
+      },
+      "_Mapseq": {
+         "additionalProperties": false,
+         "description": "Model MAPseq",
+         "properties": {
+            "name": {
+               "const": "Multiplexed analysis of projections by sequencing",
+               "default": "Multiplexed analysis of projections by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MAPseq",
+               "default": "MAPseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mapseq",
          "type": "object"
       },
       "_Massachusetts_Institute_Of_Technology": {
@@ -36723,48 +37023,6 @@
          "title": "_University_Of_Pennsylvania",
          "type": "object"
       },
-      "_Unknown": {
-         "description": "Model Unknown",
-         "properties": {
-            "name": {
-               "const": "Unknown",
-               "default": "Unknown",
-               "title": "Name",
-               "type": "string"
-            },
-            "species": {
-               "const": "Mus musculus",
-               "default": "Mus musculus",
-               "title": "Species",
-               "type": "string"
-            },
-            "registry": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Registry"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null
-            },
-            "registry_identifier": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "_Unknown",
-         "type": "object"
-      },
       "_Usbhub": {
          "description": "Model USBHub",
          "properties": {
@@ -37030,6 +37288,90 @@
          },
          "title": "_Behavior",
          "type": "object"
+      },
+      "aind_data_schema_models__organizations___Unknown": {
+         "description": "Model Unknown",
+         "properties": {
+            "name": {
+               "const": "Unknown",
+               "default": "Unknown",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UNKNOWN",
+               "default": "UNKNOWN",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Unknown",
+         "type": "object"
+      },
+      "aind_data_schema_models__species___Unknown": {
+         "description": "Model Unknown",
+         "properties": {
+            "name": {
+               "const": "Unknown",
+               "default": "Unknown",
+               "title": "Name",
+               "type": "string"
+            },
+            "species": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Species",
+               "type": "string"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Unknown",
+         "type": "object"
       }
    },
    "description": "The records in the Data Asset Collection needs to contain certain fields\nto easily query and index the data.",
@@ -37047,8 +37389,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.0",
-         "default": "2.1.0",
+         "const": "2.2.1",
+         "default": "2.2.1",
          "title": "Schema Version",
          "type": "string"
       },
