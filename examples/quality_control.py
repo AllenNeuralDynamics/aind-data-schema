@@ -45,7 +45,10 @@ metrics = [
         value=drift_value_with_options,
         reference="ecephys-drift-map",
         status_history=[sp],
-        tags=["Drift map", "Probe A"],
+        tags={
+            "probe": "Probe A",
+            "type": "drift map",
+        }
     ),
     QCMetric(
         name="Probe B drift",
@@ -55,7 +58,10 @@ metrics = [
         value=drift_value_with_flags,
         reference="ecephys-drift-map",
         status_history=[sp],
-        tags=["Drift map", "Probe B"],
+        tags={
+            "probe": "Probe B",
+            "type": "drift map",
+        }
     ),
     QCMetric(
         name="Probe C drift",
@@ -65,16 +71,10 @@ metrics = [
         value="Low",
         reference="ecephys-drift-map",
         status_history=[s],
-        tags=["Drift map", "Probe C"],
-    ),
-    QCMetric(
-        name="Expected frame count",
-        modality=Modality.BEHAVIOR_VIDEOS,
-        stage=Stage.RAW,
-        description="Expected frame count from experiment length, always pass",
-        value=662,
-        status_history=[s],
-        tags=["Frame count checks"],
+        tags={
+            "probe": "Probe C",
+            "type": "drift map",
+        }
     ),
     QCMetric(
         name="Video 1 frame count",
@@ -83,7 +83,10 @@ metrics = [
         description="Pass when frame count matches expected",
         value=662,
         status_history=[s],
-        tags=["Frame count checks", "Video 1"],
+        tags={
+            "video": "Video 1",
+            "type": "Frame count checks",
+        },
     ),
     QCMetric(
         name="Video 2 num frames",
@@ -92,7 +95,10 @@ metrics = [
         description="Pass when frame count matches expected",
         value=662,
         status_history=[s],
-        tags=["Frame count checks", "Video 2"],
+        tags={
+            "video": "Video 2",
+            "type": "Frame count checks",
+        },
     ),
     QCMetric(
         name="ProbeA",
@@ -101,7 +107,10 @@ metrics = [
         description="Pass when probe is present in the recording",
         value=True,
         status_history=[s],
-        tags=["Probes present"],
+        tags={
+            "probe": "Probe A",
+            "type": "Probes present",
+        },
     ),
     QCMetric(
         name="ProbeB",
@@ -110,7 +119,10 @@ metrics = [
         description="Pass when probe is present in the recording",
         value=True,
         status_history=[s],
-        tags=["Probes present"],
+        tags={
+            "probe": "Probe B",
+            "type": "Probes present",
+        },
     ),
     QCMetric(
         name="ProbeC",
@@ -119,14 +131,17 @@ metrics = [
         description="Pass when probe is present in the recording",
         value=True,
         status_history=[s],
-        tags=["Probes present"],
+        tags={
+            "probe": "Probe C",
+            "type": "Probes present",
+        },
     ),
 ]
 
 q = QualityControl(
     metrics=metrics,
-    default_grouping=["Drift map", "Frame count checks", "Probes present"],
-    allow_tag_failures=["Video 2"],  # this will allow the Video 2 metric to fail without failing the entire QC
+    default_grouping=[["probe", "video"], ["type"]],  # in visualizations group probes together and videos together, then group metrics by type
+    allow_tag_failures=["Video 2"],  # allow any metrics with tag video: Video 2 to fail without failing overall QC
 )
 
 if __name__ == "__main__":

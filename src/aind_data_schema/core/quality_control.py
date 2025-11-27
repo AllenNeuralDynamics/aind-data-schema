@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
@@ -49,8 +49,9 @@ class QCMetric(DataModel):
     status_history: List[QCStatus] = Field(default=[], title="Metric status history", min_length=1)
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    tags: List[str] = Field(
-        default=[], title="Tags", description="Tags group QCMetric objects to allow for grouping and filtering"
+    tags: dict[str, str] = Field(
+        default={}, title="Tags",
+        description="Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}."
     )
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
@@ -78,6 +79,28 @@ class QCMetric(DataModel):
             raise ValueError(f"Metric '{self.name}' is a multi-asset metric and must have evaluated_assets set.")
         elif self.stage != Stage.MULTI_ASSET and self.evaluated_assets:
             raise ValueError(f"Metric '{self.name}' is a single-asset metric and should not have evaluated_assets")
+        return self
+
+    @model_validator(mode="before")
+    @classmethod
+    def fix_tag_lists(cls, self):
+        """Convert tags from list to dict if necessary
+
+        This function is for backwards compatibility with v2.2.X where tags were stored as lists of strings.
+
+        Remove this function in aind-data-schema v3.X
+        """
+        tags = self["tags"]
+        if isinstance(tags, list):
+            # Convert list of strings to dict with string keys
+            if len(tags) == 1:
+                self["tags"] = {
+                    "tag": tags[0],
+                    "name": self["name"],
+                }
+            else:
+                # Unfortunately there is no reasonable way to handle multiple tags, these assets should be re-generated
+                self["tags"] = {f"tag_{i+1}": tag for i, tag in enumerate(tags)}
         return self
 
 
@@ -110,15 +133,15 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    default_grouping: List[str] = Field(
+    default_grouping: List[list[str]] = Field(
         ...,
         title="Default grouping",
-        description="Default tag grouping for this QualityControl object, used in visualizations",
+        description="Tag *keys* that should be used to group metrics hierarchically for visualization",
     )
-    allow_tag_failures: List[str | tuple] = Field(
+    allow_tag_failures: List[str] = Field(
         default=[],
         title="Allow tag failures",
-        description="List of tags that are allowed to fail without failing the overall QC",
+        description="List of tag *values* that are allowed to fail without failing the overall QC",
     )
     status: Optional[dict] = Field(
         default=None,
@@ -256,6 +279,17 @@ class QualityControl(DataCoreModel):
             default_grouping=combined_default_grouping,
             allow_tag_failures=combined_allow_tag_failures,
         )
+
+    @field_validator("default_grouping", mode="before")
+    def fix_default_grouping_list(cls, value: dict) -> dict:
+        """Convert default grouping from list of strings to list of list of strings if necessary
+        This function is for backwards compatibility with v2.2.X where default_grouping was stored as a list of strings.
+        Remove this function in aind-data-schema v3.X
+        """
+        if value and len(value) > 0 and isinstance(value[0], str):
+            # Convert list of strings to list of list of strings
+            value = [[tag] for tag in value]
+        return value
 
 
 def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> Status:
