@@ -55,6 +55,18 @@ class SubjectTests(unittest.TestCase):
 
         self.assertIsNotNone(s)
 
+    def test_breeding_info_deprecated_field(self):
+        """test that using deprecated field raises warning"""
+
+        with self.assertWarns(DeprecationWarning):
+            BreedingInfo(
+                breeding_group="Emx1-IRES-Cre(ND)",
+                maternal_id="546543",
+                maternal_genotype="Emx1-IRES-Cre/wt; Camk2a-tTa/Camk2a-tTA",
+                paternal_id="232323",
+                paternal_genotype="Ai93(TITL-GCaMP6f)/wt",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
