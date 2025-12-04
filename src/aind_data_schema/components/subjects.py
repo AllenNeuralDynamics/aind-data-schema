@@ -72,7 +72,9 @@ class Housing(DataModel):
 class BreedingInfo(DataModel):
     """Description of breeding info for subject"""
 
-    breeding_group: Optional[str] = Field(default=None, title="Breeding Group", deprecated="Field will be removed in future releases")
+    breeding_group: Optional[str] = Field(
+        default=None, title="Breeding Group", deprecated="Field will be removed in future releases"
+    )
     maternal_id: str = Field(..., title="Maternal specimen ID")
     maternal_genotype: str = Field(..., title="Maternal genotype")
     paternal_id: str = Field(..., title="Paternal specimen ID")
