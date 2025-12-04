@@ -54,6 +54,7 @@ class SubjectTests(unittest.TestCase):
         Subject.model_validate_json(s.model_dump_json())
 
         self.assertIsNotNone(s)
+        self.assertIsNone(s.subject_details.breeding_info.breeding_group)
 
     def test_breeding_info_deprecated_field(self):
         """test that using deprecated field raises warning"""
