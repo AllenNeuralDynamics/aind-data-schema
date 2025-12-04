@@ -79,7 +79,7 @@ class BreedingInfo(DataModel):
     paternal_genotype: str = Field(..., title="Paternal genotype")
 
     @field_validator("breeding_group", mode="before")
-    def warn_breeding_group_deprecated(cls, v: str) -> Optional[str]:
+    def warn_breeding_group_deprecated(cls, v: Optional[str]) -> Optional[str]:
         """Validator to warn about deprecated breeding_group field"""
         if v:
             import warnings
