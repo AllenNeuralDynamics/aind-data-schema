@@ -20,7 +20,9 @@ metrics = [
             "DV": 11673.58,
         },
         status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
-        tags=["N001", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N001",
+        },
     ),
     QCMetric(
         name="CCF coordinate",
@@ -29,7 +31,9 @@ metrics = [
         description="AP/ML/DV coordinate in CCFv3",
         value={"ML": 5923.0438, "AP": 4270.0208, "DV": 6984.054},
         status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
-        tags=["N001", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N001",
+        },
     ),
     QCMetric(
         name="CCF soma compartment",
@@ -38,7 +42,9 @@ metrics = [
         description="Location of soma in CCF space",
         value=CCFv3.RT,
         status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
-        tags=["N001", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N001",
+        },
     ),
     QCMetric(
         name="Manual estimate soma compartment",
@@ -47,7 +53,9 @@ metrics = [
         description="Unknown",
         value=CCFv3.AV,
         status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
-        tags=["N001", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N001",
+        },
     ),
     QCMetric(
         name="Soma group",
@@ -56,7 +64,9 @@ metrics = [
         description="Unknown",
         value="Thalamus",
         status_history=[QCStatus(evaluator="Shirali Amin", status=Status.PASS, timestamp=datetime(2024, 7, 12))],
-        tags=["N001", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N001",
+        },
     ),
     # N002 metrics
     QCMetric(
@@ -70,7 +80,9 @@ metrics = [
             "DV": 16348.68,
         },
         status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
-        tags=["N002", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N002",
+        },
     ),
     QCMetric(
         name="CCF coordinate",
@@ -83,7 +95,9 @@ metrics = [
             "DV": 5190.3741,
         },
         status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
-        tags=["N002", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N002",
+        },
     ),
     QCMetric(
         name="CCF soma compartment",
@@ -92,7 +106,9 @@ metrics = [
         description="Location of soma in CCF space",
         value=CCFv3.PT,
         status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
-        tags=["N002", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N002",
+        },
     ),
     QCMetric(
         name="Manual estimate soma compartment",
@@ -101,7 +117,9 @@ metrics = [
         description="Unknown",
         value=CCFv3.AV,
         status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
-        tags=["N002", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N002",
+        },
     ),
     QCMetric(
         name="Soma group",
@@ -110,11 +128,13 @@ metrics = [
         description="Unknown",
         value="Thalamus",
         status_history=[QCStatus(evaluator="Harsh Solanki", status=Status.PASS, timestamp=datetime(2024, 7, 11))],
-        tags=["N002", "Manual reconstruction of neuron"],
+        tags={
+            "neuron_id": "N002",
+        },
     ),
 ]
 
-quality_control = QualityControl(metrics=metrics, default_grouping=["N001", "N002", "Manual reconstruction of neuron"])
+quality_control = QualityControl(metrics=metrics, default_grouping=[["neuron_id"]])
 
 serialized = quality_control.model_dump_json()
 deserialized = QualityControl.model_validate_json(serialized)
