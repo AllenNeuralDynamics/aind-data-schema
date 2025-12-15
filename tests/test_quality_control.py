@@ -59,7 +59,7 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertEqual(test_metrics[0].status.status, Status.PASS)
 
-        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=[["group"]])  # duplicate the metrics
+        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=[("group")])  # duplicate the metrics
 
         # check that overall status gets auto-set if it has never been set before
         self.assertEqual(q.evaluate_status(), Status.PASS)
@@ -129,7 +129,7 @@ class QualityControlTests(unittest.TestCase):
             ),
         ]
 
-        qc = QualityControl(metrics=metrics, default_grouping=[["group"]])
+        qc = QualityControl(metrics=metrics, default_grouping=[("group")])
         self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
@@ -203,7 +203,7 @@ class QualityControlTests(unittest.TestCase):
         # First check that a pending evaluation still evaluates properly
         qc = QualityControl(
             metrics=metrics,
-            default_grouping=[["group"]],
+            default_grouping=[("group")],
         )
 
         self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PENDING)
@@ -237,7 +237,7 @@ class QualityControlTests(unittest.TestCase):
             tags={"group": "Drift map"},
         )
 
-        qc = QualityControl(metrics=[metric], default_grouping=[["group"]])
+        qc = QualityControl(metrics=[metric], default_grouping=[("group")])
 
         # roundtrip to json to check that metric order is preserved
         json = qc.model_dump_json()
@@ -410,7 +410,7 @@ class QualityControlTests(unittest.TestCase):
         ]
 
         # Confirm that the status filters work
-        q = QualityControl(metrics=test_metrics, default_grouping=[["group", "type"]])
+        q = QualityControl(metrics=test_metrics, default_grouping=[("group", "type")])
 
         # Check that the status field was built correctly
         self.assertEqual(
@@ -460,7 +460,7 @@ class QualityControlTests(unittest.TestCase):
 
         # Note: The date filtering is currently not implemented in the new schema
         # This test would need to be updated once date filtering is implemented
-        qc = QualityControl(metrics=[metric], default_grouping=[["group"]])
+        qc = QualityControl(metrics=[metric], default_grouping=[("group")])
 
         self.assertEqual(qc.evaluate_status(date=t3), Status.PASS)
         self.assertEqual(qc.evaluate_status(date=t2), Status.PENDING)
@@ -732,7 +732,7 @@ class QualityControlTests(unittest.TestCase):
 
         qc = QualityControl(
             metrics=metrics,
-            default_grouping=[["group"]],
+            default_grouping=[("group")],
         )
 
         # Test status at different times
