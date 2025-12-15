@@ -29,6 +29,26 @@ class QualityControlTests(unittest.TestCase):
 
         assert quality_control is not None
 
+    def test_tags_list_to_dict_conversion(self):
+        """test that old list[str] tags get converted to dict[str, str]"""
+
+        metric_dict = {
+            "name": "Test metric",
+            "modality": {"name": "Extracellular electrophysiology", "abbreviation": "ecephys"},
+            "stage": "Processing",
+            "value": 42,
+            "status_history": [
+                {"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}
+            ],
+            "tags": ["tag1", "tag2", "tag3"],
+        }
+
+        with self.assertWarns(DeprecationWarning):
+            metric = QCMetric.model_validate(metric_dict)
+
+        self.assertIsInstance(metric.tags, dict)
+        self.assertEqual(metric.tags, {"tag_1": "tag1", "tag_2": "tag2", "tag_3": "tag3"})
+
     def test_overall_status(self):
         """test that overall status goes to pass/pending/fail correctly"""
 
