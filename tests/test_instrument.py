@@ -796,34 +796,40 @@ class InstrumentTests(unittest.TestCase):
             modification_date=date(2020, 10, 10),
             modalities=[Modality.BEHAVIOR],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            components=[harp_clock_gen, LickSpoutAssembly(
-                name="Lick spout assembly A",
-                lick_spouts=[
-                    LickSpout(
-                        name="Left spout",
-                        spout_diameter=1.2,
-                        solenoid_valve=Device(name="Solenoid Left"),
-                        lick_sensor=Device(name="Lick-o-meter Left"),
-                    ),
-                ],
-            )],
+            components=[
+                harp_clock_gen,
+                LickSpoutAssembly(
+                    name="Lick spout assembly A",
+                    lick_spouts=[
+                        LickSpout(
+                            name="Left spout",
+                            spout_diameter=1.2,
+                            solenoid_valve=Device(name="Solenoid Left"),
+                            lick_sensor=Device(name="Lick-o-meter Left"),
+                        ),
+                    ],
+                ),
+            ],
         )
         inst2 = Instrument(
             instrument_id="test_inst",
             modification_date=date(2020, 10, 10),
             modalities=[Modality.BEHAVIOR],
             coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-            components=[harp_non_clock_gen, LickSpoutAssembly(
-                name="Lick spout assembly B",
-                lick_spouts=[
-                    LickSpout(
-                        name="Left spout",
-                        spout_diameter=1.2,
-                        solenoid_valve=Device(name="Solenoid Left"),
-                        lick_sensor=Device(name="Lick-o-meter Left"),
-                    ),
-                ],
-            )],
+            components=[
+                harp_non_clock_gen,
+                LickSpoutAssembly(
+                    name="Lick spout assembly B",
+                    lick_spouts=[
+                        LickSpout(
+                            name="Left spout",
+                            spout_diameter=1.2,
+                            solenoid_valve=Device(name="Solenoid Left"),
+                            lick_sensor=Device(name="Lick-o-meter Left"),
+                        ),
+                    ],
+                ),
+            ],
         )
 
         with patch("aind_data_schema.core.instrument.logging") as mock_logging:

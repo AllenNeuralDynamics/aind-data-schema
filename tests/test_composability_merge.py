@@ -37,7 +37,7 @@ class TestComposability(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group1": "Drift map"},
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -49,18 +49,18 @@ class TestComposability(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group1": "Drift map"},
             ),
         ]
 
         q1 = QualityControl(
             metrics=metrics,
-            default_grouping=["Drift map"],
+            default_grouping=[("group1",)],
         )
 
         q2 = QualityControl(
             metrics=metrics + metrics,
-            default_grouping=["Drift map"],
+            default_grouping=[("group1",)],
         )
 
         q3 = q1 + q2
@@ -97,14 +97,14 @@ class TestComposability(unittest.TestCase):
         q1 = QualityControl(
             metrics=metrics,
             key_experimenters=["Alice", "Bob"],
-            default_grouping=["Drift map", "Tag1"],
+            default_grouping=[("group1",), ("group1", "group2")],
             allow_tag_failures=["FailTag1", "FailTag2"],
         )
 
         q2 = QualityControl(
             metrics=metrics,
             key_experimenters=["Bob", "Charlie"],  # Bob is duplicate
-            default_grouping=["Tag1", "Tag2"],  # Tag1 is duplicate
+            default_grouping=[("group1", "group2"), ("group3",)],  # ("group1", "group2") is duplicate
             allow_tag_failures=["FailTag2", "FailTag3"],  # FailTag2 is duplicate
         )
 
@@ -114,7 +114,7 @@ class TestComposability(unittest.TestCase):
         naive_allow_tag_failures = q1.allow_tag_failures + q2.allow_tag_failures
 
         self.assertEqual(naive_experimenters.count("Bob"), 2)  # Should have duplicates
-        self.assertEqual(naive_default_grouping.count("Tag1"), 2)  # Should have duplicates
+        self.assertEqual(naive_default_grouping.count(("group1", "group2")), 2)  # Should have duplicates
         self.assertEqual(naive_allow_tag_failures.count("FailTag2"), 2)  # Should have duplicates
 
         # Test that the + operator removes duplicates
@@ -124,8 +124,8 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(q3.key_experimenters.count("Bob"), 1)  # Should be deduplicated
         self.assertEqual(set(q3.key_experimenters), {"Alice", "Bob", "Charlie"})
 
-        self.assertEqual(q3.default_grouping.count("Tag1"), 1)  # Should be deduplicated
-        self.assertEqual(set(q3.default_grouping), {"Drift map", "Tag1", "Tag2"})
+        self.assertEqual(q3.default_grouping.count(("group1", "group2")), 1)  # Should be deduplicated
+        self.assertEqual(set(q3.default_grouping), {("group1",), ("group1", "group2"), ("group3",)})
 
         self.assertEqual(q3.allow_tag_failures.count("FailTag2"), 1)  # Should be deduplicated
         self.assertEqual(set(q3.allow_tag_failures), {"FailTag1", "FailTag2", "FailTag3"})

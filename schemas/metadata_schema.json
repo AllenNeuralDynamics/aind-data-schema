@@ -2474,8 +2474,17 @@
                "type": "string"
             },
             "breeding_group": {
-               "title": "Breeding Group",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
+               "title": "Breeding Group"
             },
             "maternal_id": {
                "title": "Maternal specimen ID",
@@ -2495,7 +2504,6 @@
             }
          },
          "required": [
-            "breeding_group",
             "maternal_id",
             "maternal_genotype",
             "paternal_id",
@@ -5434,13 +5442,13 @@
                "title": "Metric reference image URL or plot type"
             },
             "tags": {
-               "default": [],
-               "description": "Tags group QCMetric objects to allow for grouping and filtering",
-               "items": {
+               "additionalProperties": {
                   "type": "string"
                },
+               "default": {},
+               "description": "Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
                "title": "Tags",
-               "type": "array"
+               "type": "object"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -24948,8 +24956,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.4",
-               "default": "2.1.4",
+               "const": "2.1.5",
+               "default": "2.1.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25276,13 +25284,13 @@
                "title": "Metric reference image URL or plot type"
             },
             "tags": {
-               "default": [],
-               "description": "Tags group QCMetric objects to allow for grouping and filtering",
-               "items": {
+               "additionalProperties": {
                   "type": "string"
                },
+               "default": {},
+               "description": "Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
                "title": "Tags",
-               "type": "array"
+               "type": "object"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -25358,8 +25366,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.1",
-               "default": "2.1.1",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25413,26 +25421,21 @@
                "title": "Notes"
             },
             "default_grouping": {
-               "description": "Default tag grouping for this QualityControl object, used in visualizations",
+               "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
                "items": {
-                  "type": "string"
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
                },
                "title": "Default grouping",
                "type": "array"
             },
             "allow_tag_failures": {
                "default": [],
-               "description": "List of tags that are allowed to fail without failing the overall QC",
+               "description": "List of tag *values* that are allowed to fail without failing the overall QC",
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "string"
-                     },
-                     {
-                        "items": {},
-                        "type": "array"
-                     }
-                  ]
+                  "type": "string"
                },
                "title": "Allow tag failures",
                "type": "array"
@@ -28541,8 +28544,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.14",
-               "default": "2.0.14",
+               "const": "2.1.0",
+               "default": "2.1.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -37389,8 +37392,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.1",
-         "default": "2.2.1",
+         "const": "2.2.2",
+         "default": "2.2.2",
          "title": "Schema Version",
          "type": "string"
       },

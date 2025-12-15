@@ -411,9 +411,7 @@ class Acquisition(DataCoreModel):
         return self
 
     @classmethod
-    def _merge_data_streams(
-        cls, streams: List[DataStream], overlap_s: int = 120
-    ) -> List[DataStream]:
+    def _merge_data_streams(cls, streams: List[DataStream], overlap_s: int = 120) -> List[DataStream]:
         """Merge two lists of data streams"""
         groups = []
         visited = set()

@@ -24,13 +24,28 @@ If you find yourself computing a value for something smaller than an entire moda
 
 ### Tags
 
-`tags` are any string that naturally groups sets of metrics together. Good tags are things like: "Probe A", "Motion correction", and "Pose tracking". The stage and modality are automatically treated as tags, you do not need to include them in the tags list.
+`tags` are groups of descriptors that define how metrics are organized hierarchically, making it easier to visualize metrics. Good tag keys (groups) are things like "probe" and good tag values are things like "Probe A" or just "A".
+
+```{python}
+# For an electrophysiology metric
+tags = {
+    "probe": "A",
+    "shank": "0",
+}
+
+# For a behavioral video metric
+tags = {
+    "video": "left body",
+}
+```
+
+Use the `QualityControl.default_grouping` list to define how users should organize a visualization by default. In almost all cases *modality should be the top-level grouping*. For example, building on the example above you might group by: `[["modality"], ["probe", "video"], ["shank"]]` to get a tree split by modality first (which naturally splits ephys and behavior-videos tags into two groups), then by which probe or video a metric belongs to, and finally only for probes the individual shanks are split into groups.
 
 ### QualityControl.evaluate_status()
 
 You can evaluate the state of a set of metrics filtered by any combination of modalities, stages, and tags on a specific date (by default, today). When evaluating the [Status](#status) of a group of metrics the following rules apply:
 
-First, any metric that is failing and also has a matching tag (or tuple of tags) in the `QualityControl.allow_tag_failures` list is set to pass. This allows you to specify that certain metrics are not critical to a data asset.
+First, any metric that is failing and also has a matching tag *value* in the `QualityControl.allow_tag_failures` list is set to pass. This allows you to specify that certain metrics are not critical to a data asset.
 
 Then, given the status of all the metrics in the group:
 
