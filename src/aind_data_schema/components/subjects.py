@@ -72,11 +72,25 @@ class Housing(DataModel):
 class BreedingInfo(DataModel):
     """Description of breeding info for subject"""
 
-    breeding_group: str = Field(..., title="Breeding Group")
+    breeding_group: Optional[str] = Field(
+        default=None, title="Breeding Group", deprecated="Field will be removed in future releases"
+    )
     maternal_id: str = Field(..., title="Maternal specimen ID")
     maternal_genotype: str = Field(..., title="Maternal genotype")
     paternal_id: str = Field(..., title="Paternal specimen ID")
     paternal_genotype: str = Field(..., title="Paternal genotype")
+
+    @field_validator("breeding_group", mode="before")
+    def warn_breeding_group_deprecated(cls, v: Optional[str]) -> Optional[str]:
+        """Validator to warn about deprecated breeding_group field"""
+        if v:
+            import warnings
+
+            warnings.warn(
+                "The 'breeding_group' field is deprecated and will be removed. The field's value has been cleared.",
+                DeprecationWarning,
+            )
+        return None
 
 
 class MouseSubject(DataModel):
