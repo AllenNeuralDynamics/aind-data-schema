@@ -285,7 +285,7 @@ class QualityControl(DataCoreModel):
             return value
         if value["default_grouping"] and isinstance(value["default_grouping"][0], str):
             # Add the modality as the top-level grouping, then tag_0 as the second level, similar to old portal behavior
-            value["default_grouping"] = [["modality"]] + ["tag_0"]
+            value["default_grouping"] = [["modality"], ["tag_0"]]
         return value
 
 
