@@ -47,7 +47,6 @@ metrics = [
         status_history=[sp],
         tags={
             "probe": "Probe A",
-            "type": "drift map",
         }
     ),
     QCMetric(
@@ -60,7 +59,6 @@ metrics = [
         status_history=[sp],
         tags={
             "probe": "Probe B",
-            "type": "drift map",
         }
     ),
     QCMetric(
@@ -73,32 +71,7 @@ metrics = [
         status_history=[s],
         tags={
             "probe": "Probe C",
-            "type": "drift map",
         }
-    ),
-    QCMetric(
-        name="Video 1 frame count",
-        modality=Modality.BEHAVIOR_VIDEOS,
-        stage=Stage.RAW,
-        description="Pass when frame count matches expected",
-        value=662,
-        status_history=[s],
-        tags={
-            "video": "Video 1",
-            "type": "Frame count checks",
-        },
-    ),
-    QCMetric(
-        name="Video 2 num frames",
-        modality=Modality.BEHAVIOR_VIDEOS,
-        stage=Stage.RAW,
-        description="Pass when frame count matches expected",
-        value=662,
-        status_history=[s],
-        tags={
-            "video": "Video 2",
-            "type": "Frame count checks",
-        },
     ),
     QCMetric(
         name="ProbeA",
@@ -109,7 +82,6 @@ metrics = [
         status_history=[s],
         tags={
             "probe": "Probe A",
-            "type": "Probes present",
         },
     ),
     QCMetric(
@@ -121,7 +93,6 @@ metrics = [
         status_history=[s],
         tags={
             "probe": "Probe B",
-            "type": "Probes present",
         },
     ),
     QCMetric(
@@ -133,15 +104,38 @@ metrics = [
         status_history=[s],
         tags={
             "probe": "Probe C",
-            "type": "Probes present",
+        },
+    ),
+    QCMetric(
+        name="Video 1 frame count",
+        modality=Modality.BEHAVIOR_VIDEOS,
+        stage=Stage.RAW,
+        description="Pass when frame count matches expected",
+        value=662,
+        status_history=[s],
+        tags={
+            "video": "Video 1",
+        },
+    ),
+    QCMetric(
+        name="Video 2 num frames",
+        modality=Modality.BEHAVIOR_VIDEOS,
+        stage=Stage.RAW,
+        description="Pass when frame count matches expected",
+        value=662,
+        status_history=[s],
+        tags={
+            "video": "Video 2",
         },
     ),
 ]
 
 q = QualityControl(
     metrics=metrics,
-    default_grouping=[["probe", "video"], ["type"]],  # in visualizations group probes together and videos together, then group metrics by type
-    allow_tag_failures=["Video 2"],  # allow any metrics with tag video: Video 2 to fail without failing overall QC
+    # in visualizations split first by modality, then by probe / video tags
+    default_grouping=[["modality"], ["probe", "video"]],
+    # allow any metrics with tag video: Video 2 to fail without failing overall QC
+    allow_tag_failures=["Video 2"],
 )
 
 if __name__ == "__main__":

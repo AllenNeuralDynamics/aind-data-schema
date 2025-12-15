@@ -41,7 +41,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -53,13 +53,13 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             ),
         ]
 
         self.assertEqual(test_metrics[0].status.status, Status.PASS)
 
-        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=["Drift map"])  # duplicate the metrics
+        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=[["group"]])  # duplicate the metrics
 
         # check that overall status gets auto-set if it has never been set before
         self.assertEqual(q.evaluate_status(), Status.PASS)
@@ -78,7 +78,7 @@ class QualityControlTests(unittest.TestCase):
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             )
         )
 
@@ -96,7 +96,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             )
         )
 
@@ -113,7 +113,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -125,11 +125,11 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             ),
         ]
 
-        qc = QualityControl(metrics=metrics, default_grouping=["Drift map"])
+        qc = QualityControl(metrics=metrics, default_grouping=[["group"]])
         self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
@@ -146,7 +146,7 @@ class QualityControlTests(unittest.TestCase):
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             )
         )
 
@@ -164,7 +164,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             )
         )
 
@@ -182,7 +182,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -196,14 +196,14 @@ class QualityControlTests(unittest.TestCase):
                         evaluator="Automated", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING
                     )
                 ],
-                tags=["Drift map"],
+                tags={"group": "Drift map"},
             ),
         ]
 
         # First check that a pending evaluation still evaluates properly
         qc = QualityControl(
             metrics=metrics,
-            default_grouping=["Drift map"],
+            default_grouping=[["group"]],
         )
 
         self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PENDING)
@@ -234,10 +234,10 @@ class QualityControlTests(unittest.TestCase):
                 QCStatus(evaluator="Automated", timestamp=t1, status=Status.PASS),
                 QCStatus(evaluator="Automated", timestamp=t2, status=Status.PASS),
             ],
-            tags=["Drift map"],
+            tags={"group": "Drift map"},
         )
 
-        qc = QualityControl(metrics=[metric], default_grouping=["Drift map"])
+        qc = QualityControl(metrics=[metric], default_grouping=[["group"]])
 
         # roundtrip to json to check that metric order is preserved
         json = qc.model_dump_json()
@@ -284,7 +284,7 @@ class QualityControlTests(unittest.TestCase):
             status_history=[
                 QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
             ],
-            tags=["Test"],
+            tags={"type": "Test"},
         )
 
         self.assertTrue(metric.stage != Stage.MULTI_ASSET)
@@ -301,7 +301,7 @@ class QualityControlTests(unittest.TestCase):
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                 ],
                 evaluated_assets=["asset0", "asset1"],
-                tags=["Test"],
+                tags={"type": "Test"},
             )
 
         self.assertTrue("is a single-asset metric and should not have evaluated_assets" in repr(context.exception))
@@ -317,7 +317,7 @@ class QualityControlTests(unittest.TestCase):
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                 ],
                 evaluated_assets=[],
-                tags=["Test"],
+                tags={"type": "Test"},
             )
 
         self.assertTrue("is a multi-asset metric and must have evaluated_assets" in repr(context.exception))
@@ -332,7 +332,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
                 ],
-                tags=["Test"],
+                tags={"type": "Test"},
             )
 
         self.assertTrue("is a multi-asset metric and must have evaluated_assets" in repr(context.exception))
@@ -349,7 +349,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["test_group"],
+                tags={"group": "test_group"},
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -361,7 +361,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["test_group"],
+                tags={"group": "test_group"},
             ),
             QCMetric(
                 name="Multiple values example 2",
@@ -371,7 +371,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.FAIL)
                 ],
-                tags=["test_group2"],
+                tags={"group": "test_group2"},
             ),
             QCMetric(
                 name="Drift map pass/fail 2",
@@ -383,7 +383,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["test_group2"],
+                tags={"group": "test_group2"},
             ),
             QCMetric(
                 name="Multiple values example 3",
@@ -393,7 +393,7 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PENDING)
                 ],
-                tags=["tag1"],
+                tags={"type": "tag1"},
             ),
             QCMetric(
                 name="Drift map pass/fail 3",
@@ -405,12 +405,12 @@ class QualityControlTests(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags=["tag1"],
+                tags={"type": "tag1"},
             ),
         ]
 
         # Confirm that the status filters work
-        q = QualityControl(metrics=test_metrics, default_grouping=["test_group", "test_group2", "tag1"])
+        q = QualityControl(metrics=test_metrics, default_grouping=[["group", "type"]])
 
         # Check that the status field was built correctly
         self.assertEqual(
@@ -455,12 +455,12 @@ class QualityControlTests(unittest.TestCase):
                 QCStatus(evaluator="Bob", timestamp=t2, status=Status.PENDING),
                 QCStatus(evaluator="Bob", timestamp=t3, status=Status.PASS),
             ],
-            tags=["test_group"],
+            tags={"group": "test_group"},
         )
 
         # Note: The date filtering is currently not implemented in the new schema
         # This test would need to be updated once date filtering is implemented
-        qc = QualityControl(metrics=[metric], default_grouping=["test_group"])
+        qc = QualityControl(metrics=[metric], default_grouping=[["group"]])
 
         self.assertEqual(qc.evaluate_status(date=t3), Status.PASS)
         self.assertEqual(qc.evaluate_status(date=t2), Status.PENDING)
@@ -485,7 +485,7 @@ class QualityControlTests(unittest.TestCase):
                 QCStatus(evaluator="Bob", timestamp=t2, status=Status.PENDING),
                 QCStatus(evaluator="Charlie", timestamp=t3, status=Status.PASS),
             ],
-            tags=["test"],
+            tags={"type": "test"},
         )
 
         # Test getting status at different dates
@@ -524,7 +524,7 @@ class QualityControlTests(unittest.TestCase):
             status_history=[
                 QCStatus(evaluator="Dave", timestamp=t2, status=Status.PASS),
             ],
-            tags=["single"],
+            tags={"type": "single"},
         )
 
         # Date before single status - should return that status
@@ -551,7 +551,7 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.PROCESSING,
                 value=True,
                 status_history=[QCStatus(evaluator="Test", timestamp=test_date, status=Status.PASS)],
-                tags=["behavior_tag", "shared_tag"],
+                tags={"type": "behavior_tag", "group": "shared_tag"},
             ),
             QCMetric(
                 name="Test OPHYS metric",
@@ -559,7 +559,7 @@ class QualityControlTests(unittest.TestCase):
                 stage=Stage.ANALYSIS,
                 value=42,
                 status_history=[QCStatus(evaluator="Test", timestamp=test_date, status=Status.FAIL)],
-                tags=["ophys_tag", "shared_tag"],
+                tags={"type": "ophys_tag", "group": "shared_tag"},
             ),
             QCMetric(
                 name="Test metric with early fail",
@@ -574,7 +574,7 @@ class QualityControlTests(unittest.TestCase):
                     ),
                     QCStatus(evaluator="Test", timestamp=test_date, status=Status.PASS),
                 ],
-                tags=["time_test"],
+                tags={"test": "time_test"},
             ),
         ]
 
@@ -682,17 +682,6 @@ class QualityControlTests(unittest.TestCase):
         )
         self.assertEqual(len(multi_stage_statuses), 2)  # Our BEHAVIOR and OPHYS test metrics
 
-        # Test filtering using a tuple mixing two tags
-        tuple_tag_statuses = _get_filtered_statuses(
-            metrics=all_metrics,
-            date=test_date,
-            tag_filter=["shared_tag"],
-            allow_tag_failures=[("ophys_tag", "shared_tag")],
-        )
-        self.assertEqual(len(tuple_tag_statuses), 2)
-        self.assertEqual(tuple_tag_statuses[0], Status.PASS)
-        self.assertEqual(tuple_tag_statuses[1], Status.PASS)
-
     def test_helper_functions_integration(self):
         """Test that helper functions work correctly when used by QualityControl.evaluate_status"""
 
@@ -718,7 +707,7 @@ class QualityControlTests(unittest.TestCase):
                         status=Status.PASS,
                     ),
                 ],
-                tags=["time_sensitive"],
+                tags={"group": "time_sensitive"},
             ),
             QCMetric(
                 name="Time-sensitive metric 2",
@@ -737,13 +726,13 @@ class QualityControlTests(unittest.TestCase):
                         status=Status.FAIL,
                     ),
                 ],
-                tags=["time_sensitive"],
+                tags={"group": "time_sensitive"},
             ),
         ]
 
         qc = QualityControl(
             metrics=metrics,
-            default_grouping=["time_sensitive"],
+            default_grouping=[["group"]],
         )
 
         # Test status at different times

@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
+import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
@@ -56,9 +57,7 @@ class QCMetric(DataModel):
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
         title="List of asset names that this metric depends on",
-        description=(
-            "Set to None except when a metric's calculation required data " "coming from a different data asset."
-        ),
+        description="Set to None except when a metric's calculation required data coming from a different data asset.",
     )
 
     @property
@@ -90,17 +89,12 @@ class QCMetric(DataModel):
 
         Remove this function in aind-data-schema v3.X
         """
+        if "tags" not in self:
+            return self
         tags = self["tags"]
         if isinstance(tags, list):
-            # Convert list of strings to dict with string keys
-            if len(tags) == 1:
-                self["tags"] = {
-                    "tag": tags[0],
-                    "name": self["name"],
-                }
-            else:
-                # Unfortunately there is no reasonable way to handle multiple tags, these assets should be re-generated
-                self["tags"] = {f"tag_{i+1}": tag for i, tag in enumerate(tags)}
+            warnings.warn("QCMetric 'tags' field is now a dict. Converting from list to dict", DeprecationWarning)
+            self["tags"] = {f"tag_{i+1}": tag for i, tag in enumerate(tags)}
         return self
 
 
@@ -156,11 +150,11 @@ class QualityControl(DataCoreModel):
         Returns
         -------
         List[str]
-            List of all unique tags across all metrics
+            List of all unique tag values across all metrics
         """
         all_tags = []
         for metric in self.metrics:
-            all_tags.extend(metric.tags)
+            all_tags.extend(metric.tags.values())
         return list(set(all_tags))
 
     @property
@@ -280,15 +274,18 @@ class QualityControl(DataCoreModel):
             allow_tag_failures=combined_allow_tag_failures,
         )
 
-    @field_validator("default_grouping", mode="before")
+    @model_validator(mode="before")
     def fix_default_grouping_list(cls, value: dict) -> dict:
         """Convert default grouping from list of strings to list of list of strings if necessary
         This function is for backwards compatibility with v2.2.X where default_grouping was stored as a list of strings.
         Remove this function in aind-data-schema v3.X
         """
-        if value and len(value) > 0 and isinstance(value[0], str):
+        if "default_grouping" not in value:
+            return value
+        if value["default_grouping"] and isinstance(value["default_grouping"][0], str):
+            # Add the modality as the top-level grouping
             # Convert list of strings to list of list of strings
-            value = [[tag] for tag in value]
+            value["default_grouping"] = [[value["modality"]["abbreviation"]]] + ["tag_0"]
         return value
 
 
@@ -331,7 +328,7 @@ def _get_filtered_statuses(
     modality_filter: Optional[List[Modality.ONE_OF]] = None,
     stage_filter: Optional[List[Stage]] = None,
     tag_filter: Optional[List[str]] = None,
-    allow_tag_failures: List[str | tuple] = [],
+    allow_tag_failures: List[str] = [],
 ):
     """Get the status of metrics filtered by modality, stage, tag, and date."""
     filtered_statuses = []
@@ -341,22 +338,16 @@ def _get_filtered_statuses(
             continue
         if stage_filter and metric.stage not in stage_filter:
             continue
-        if tag_filter and not (metric.tags and any(t in metric.tags for t in tag_filter)):
+        if tag_filter and not (metric.tags and any(t in metric.tags.values() for t in tag_filter)):
             continue
 
         # Get status at the specified date using the helper function
         status = _get_status_by_date(metric, date)
-        # Check if any of our tags are in the allow_tag_failures list
+        # Check if any of our tag values are in the allow_tag_failures list
         if status == Status.FAIL and metric.tags:
-            for fail2pass_tags in allow_tag_failures:
-                if isinstance(fail2pass_tags, tuple):
-                    # If it's a tuple, check if all of the tags match
-                    if all(t in metric.tags for t in fail2pass_tags):
-                        status = Status.PASS
-                        break
-                elif fail2pass_tags in metric.tags:
-                    status = Status.PASS
-                    break
+            metric_tag_values = set(metric.tags.values())
+            if any(tag_value in allow_tag_failures for tag_value in metric_tag_values):
+                status = Status.PASS
         filtered_statuses.append(status)
 
     return filtered_statuses
