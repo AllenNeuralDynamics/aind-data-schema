@@ -6,7 +6,7 @@ from typing import Any, List, Literal, Optional, Union
 import warnings
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
@@ -51,8 +51,9 @@ class QCMetric(DataModel):
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
     tags: dict[str, str] = Field(
-        default={}, title="Tags",
-        description="Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}."
+        default={},
+        title="Tags",
+        description="Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
     )
     evaluated_assets: Optional[List[str]] = Field(
         default=None,

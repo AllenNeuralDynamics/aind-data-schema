@@ -47,7 +47,7 @@ metrics = [
         status_history=[sp],
         tags={
             "probe": "Probe A",
-        }
+        },
     ),
     QCMetric(
         name="Probe B drift",
@@ -59,7 +59,7 @@ metrics = [
         status_history=[sp],
         tags={
             "probe": "Probe B",
-        }
+        },
     ),
     QCMetric(
         name="Probe C drift",
@@ -71,7 +71,7 @@ metrics = [
         status_history=[s],
         tags={
             "probe": "Probe C",
-        }
+        },
     ),
     QCMetric(
         name="ProbeA",
