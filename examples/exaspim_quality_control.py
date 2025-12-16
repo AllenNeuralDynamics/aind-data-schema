@@ -134,7 +134,7 @@ metrics = [
     ),
 ]
 
-quality_control = QualityControl(metrics=metrics, default_grouping=[["neuron_id"]])
+quality_control = QualityControl(metrics=metrics, default_grouping=["neuron_id"])
 
 serialized = quality_control.model_dump_json()
 deserialized = QualityControl.model_validate_json(serialized)

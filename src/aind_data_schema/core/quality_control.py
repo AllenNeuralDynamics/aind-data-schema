@@ -128,7 +128,7 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    default_grouping: List[tuple[str, ...]] = Field(
+    default_grouping: List[str | tuple[str, ...]] = Field(
         ...,
         title="Default grouping",
         description="Tag *keys* that should be used to group metrics hierarchically for visualization",
