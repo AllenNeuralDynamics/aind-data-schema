@@ -39,7 +39,7 @@ tags = {
 }
 ```
 
-Use the `QualityControl.default_grouping` list to define how users should organize a visualization by default. In almost all cases *modality should be the top-level grouping*. For example, building on the example above you might group by: `[["modality"], ["probe", "video"], ["shank"]]` to get a tree split by modality first (which naturally splits ephys and behavior-videos tags into two groups), then by which probe or video a metric belongs to, and finally only for probes the individual shanks are split into groups.
+Use the `QualityControl.default_grouping` list to define how users should organize a visualization by default. In almost all cases *modality should be the top-level grouping*. For example, building on the example above you might group by: `["modality", ("probe", "video"), "shank"]` to get a tree split by modality first (which naturally splits ephys and behavior-videos tags into two groups), then by which probe or video a metric belongs to, and finally only for probes the individual shanks are split into groups.
 
 ### QualityControl.evaluate_status()
 
