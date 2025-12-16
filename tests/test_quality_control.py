@@ -37,9 +37,7 @@ class QualityControlTests(unittest.TestCase):
             "modality": {"name": "Extracellular electrophysiology", "abbreviation": "ecephys"},
             "stage": "Processing",
             "value": 42,
-            "status_history": [
-                {"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}
-            ],
+            "status_history": [{"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}],
             "tags": ["tag1", "tag2", "tag3"],
         }
 
