@@ -284,17 +284,11 @@ class QualityControl(DataCoreModel):
         if "default_grouping" not in value:
             return value
 
-        if not value["default_grouping"]:
-            return value
-
         if all(isinstance(item, str) for item in value["default_grouping"]):
-            if value.get("metrics") and isinstance(value["metrics"], list) and len(value["metrics"]) > 0:
-                first_metric = value["metrics"][0]
-                if isinstance(first_metric, dict) and "tags" in first_metric:
-                    if isinstance(first_metric["tags"], list):
-                        value["default_grouping"] = [["modality"], ["tag_1"]]
-            else:
-                value["default_grouping"] = [["modality"], ["tag_1"]]
+            first_metric = value["metrics"][0]
+            if isinstance(first_metric, dict) and "tags" in first_metric:
+                if isinstance(first_metric["tags"], list):
+                    value["default_grouping"] = [["modality"], ["tag_1"]]
 
         return value
 
