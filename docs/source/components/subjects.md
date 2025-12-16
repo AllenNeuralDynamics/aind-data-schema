@@ -8,7 +8,7 @@ Description of breeding info for subject
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| <del>`breeding_group`</del> | `str` | **[DEPRECATED]** Field will be removed in future releases. Breeding Group  |
+| <del>`breeding_group`</del> | `Optional[str]` | **[DEPRECATED]** Field will be removed in future releases. Breeding Group  |
 | `maternal_id` | `str` | Maternal specimen ID  |
 | `maternal_genotype` | `str` | Maternal genotype  |
 | `paternal_id` | `str` | Paternal specimen ID  |

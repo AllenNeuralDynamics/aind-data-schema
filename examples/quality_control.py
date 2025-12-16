@@ -133,7 +133,7 @@ metrics = [
 q = QualityControl(
     metrics=metrics,
     # in visualizations split first by modality, then by probe / video tags
-    default_grouping=[["modality"], ["probe", "video"]],
+    default_grouping=["modality", ("probe", "video")],
     # allow any metrics with tag video: Video 2 to fail without failing overall QC
     allow_tag_failures=["Video 2"],
 )

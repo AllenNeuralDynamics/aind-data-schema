@@ -37,9 +37,7 @@ class QualityControlTests(unittest.TestCase):
             "modality": {"name": "Extracellular electrophysiology", "abbreviation": "ecephys"},
             "stage": "Processing",
             "value": 42,
-            "status_history": [
-                {"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}
-            ],
+            "status_history": [{"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}],
             "tags": ["tag1", "tag2", "tag3"],
         }
 
@@ -79,7 +77,7 @@ class QualityControlTests(unittest.TestCase):
 
         self.assertEqual(test_metrics[0].status.status, Status.PASS)
 
-        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=[("group")])  # duplicate the metrics
+        q = QualityControl(metrics=test_metrics + test_metrics, default_grouping=["group"])  # duplicate the metrics
 
         # check that overall status gets auto-set if it has never been set before
         self.assertEqual(q.evaluate_status(), Status.PASS)
@@ -149,7 +147,7 @@ class QualityControlTests(unittest.TestCase):
             ),
         ]
 
-        qc = QualityControl(metrics=metrics, default_grouping=[("group")])
+        qc = QualityControl(metrics=metrics, default_grouping=["group"])
         self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PASS)
 
         # Add a pending metric, evaluation should now evaluate to pending
@@ -223,7 +221,7 @@ class QualityControlTests(unittest.TestCase):
         # First check that a pending evaluation still evaluates properly
         qc = QualityControl(
             metrics=metrics,
-            default_grouping=[("group")],
+            default_grouping=["group"],
         )
 
         self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PENDING)
@@ -480,7 +478,7 @@ class QualityControlTests(unittest.TestCase):
 
         # Note: The date filtering is currently not implemented in the new schema
         # This test would need to be updated once date filtering is implemented
-        qc = QualityControl(metrics=[metric], default_grouping=[("group")])
+        qc = QualityControl(metrics=[metric], default_grouping=["group"])
 
         self.assertEqual(qc.evaluate_status(date=t3), Status.PASS)
         self.assertEqual(qc.evaluate_status(date=t2), Status.PENDING)
@@ -752,7 +750,7 @@ class QualityControlTests(unittest.TestCase):
 
         qc = QualityControl(
             metrics=metrics,
-            default_grouping=[("group")],
+            default_grouping=["group"],
         )
 
         # Test status at different times
@@ -769,6 +767,85 @@ class QualityControlTests(unittest.TestCase):
         late_date = datetime.fromisoformat("2020-08-01T00:00:00+00:00")
         late_status = qc.evaluate_status(date=late_date, tag="time_sensitive")
         self.assertEqual(late_status, Status.FAIL)
+
+    def test_backwards_compatibility_default_grouping(self):
+        """Test that fix_default_grouping_list validator handles old v2.2.X format correctly"""
+
+        # Test old v2.2.X format: list of strings for default_grouping + list-based tags
+        old_format_dict = {
+            "metrics": [
+                {
+                    "object_type": "QC metric",
+                    "name": "Old format metric",
+                    "modality": {"name": "Extracellular electrophysiology", "abbreviation": "ecephys"},
+                    "stage": "Processing",
+                    "value": 42,
+                    "status_history": [{"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}],
+                    "tags": ["old_tag1", "old_tag2"],
+                }
+            ],
+            "default_grouping": ["group1", "group2"],
+        }
+
+        with self.assertWarns(DeprecationWarning):
+            qc_old = QualityControl.model_validate(old_format_dict)
+
+        # Should convert to [("modality",), ("tag_1",)] for backwards compatibility
+        self.assertEqual(qc_old.default_grouping, [("modality",), ("tag_1",)])
+        # Tags should be converted to dict
+        self.assertEqual(qc_old.metrics[0].tags, {"tag_1": "old_tag1", "tag_2": "old_tag2"})
+
+    def test_new_format_default_grouping_all_strings(self):
+        """Test that new format with all strings in default_grouping is NOT converted"""
+
+        # Test new format: list of strings for default_grouping + dict-based tags
+        new_format_dict = {
+            "metrics": [
+                {
+                    "object_type": "QC metric",
+                    "name": "New format metric",
+                    "modality": {"name": "Extracellular electrophysiology", "abbreviation": "ecephys"},
+                    "stage": "Processing",
+                    "value": 42,
+                    "status_history": [{"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}],
+                    "tags": {"group": "test_group", "probe": "probeA"},
+                }
+            ],
+            "default_grouping": ["group", "probe"],
+        }
+
+        qc_new = QualityControl.model_validate(new_format_dict)
+
+        # Should NOT convert - keep as-is
+        self.assertEqual(qc_new.default_grouping, ["group", "probe"])
+        # Tags should remain as dict
+        self.assertEqual(qc_new.metrics[0].tags, {"group": "test_group", "probe": "probeA"})
+
+    def test_new_format_default_grouping_mixed(self):
+        """Test that new format with mixed strings and tuples in default_grouping is NOT converted"""
+
+        # Test new format: mixed strings and tuples for default_grouping + dict-based tags
+        new_format_dict = {
+            "metrics": [
+                {
+                    "object_type": "QC metric",
+                    "name": "New format metric",
+                    "modality": {"name": "Extracellular electrophysiology", "abbreviation": "ecephys"},
+                    "stage": "Processing",
+                    "value": 42,
+                    "status_history": [{"evaluator": "Test", "timestamp": "2020-10-10", "status": "Pass"}],
+                    "tags": {"group": "test_group", "probe": "probeA", "shank": "shank1"},
+                }
+            ],
+            "default_grouping": ["group", ("probe", "shank")],
+        }
+
+        qc_new = QualityControl.model_validate(new_format_dict)
+
+        # Should NOT convert - keep as-is
+        self.assertEqual(qc_new.default_grouping, ["group", ("probe", "shank")])
+        # Tags should remain as dict
+        self.assertEqual(qc_new.metrics[0].tags, {"group": "test_group", "probe": "probeA", "shank": "shank1"})
 
 
 if __name__ == "__main__":

@@ -128,7 +128,7 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    default_grouping: List[tuple[str, ...]] = Field(
+    default_grouping: List[str | tuple[str, ...]] = Field(
         ...,
         title="Default grouping",
         description="Tag *keys* that should be used to group metrics hierarchically for visualization",
@@ -283,9 +283,13 @@ class QualityControl(DataCoreModel):
         """
         if "default_grouping" not in value:
             return value
-        if value["default_grouping"] and isinstance(value["default_grouping"][0], str):
-            # Add the modality as the top-level grouping, then tag_1 as the second level, similar to old portal behavior
-            value["default_grouping"] = [["modality"], ["tag_1"]]
+
+        if all(isinstance(item, str) for item in value["default_grouping"]):
+            first_metric = value["metrics"][0]
+            if isinstance(first_metric, dict) and "tags" in first_metric:
+                if isinstance(first_metric["tags"], list):
+                    value["default_grouping"] = [["modality"], ["tag_1"]]
+
         return value
 
 

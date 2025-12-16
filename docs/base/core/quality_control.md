@@ -39,15 +39,15 @@ tags = {
 }
 ```
 
-Use the `QualityControl.default_grouping` list to define how users should organize a visualization by default. In almost all cases *modality should be the top-level grouping*. For example, building on the example above you might group by: `[["modality"], ["probe", "video"], ["shank"]]` to get a tree split by modality first (which naturally splits ephys and behavior-videos tags into two groups), then by which probe or video a metric belongs to, and finally only for probes the individual shanks are split into groups.
+Use the `QualityControl.default_grouping` list to define how users should organize a visualization by default. In almost all cases *modality should be the top-level grouping*. For example, building on the example above you might group by: `["modality", ("probe", "video"), "shank"]` to get a tree split by modality first (which naturally splits ephys and behavior-videos tags into two groups), then by which probe or video a metric belongs to, and finally only for probes the individual shanks are split into groups.
 
 ### QualityControl.evaluate_status()
 
 You can evaluate the state of a set of metrics filtered by any combination of modalities, stages, and tags on a specific date (by default, today). When evaluating the [Status](#status) of a group of metrics the following rules apply:
 
-First, any metric that is failing and also has a matching tag *value* in the `QualityControl.allow_tag_failures` list is set to pass. This allows you to specify that certain metrics are not critical to a data asset.
+First, any metric that has a tag *value* in the `QualityControl.allow_tag_failures` list is ignored. This allows you to specify that certain metrics are not critical to a data asset.
 
-Then, given the status of all the metrics in the group:
+Then, given the status of all the remaining metrics in the group:
 
 1. If any metric is still failing, the evaluation fails
 2. If any metric is pending and the rest pass the evaluation is pending

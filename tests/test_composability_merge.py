@@ -55,12 +55,12 @@ class TestComposability(unittest.TestCase):
 
         q1 = QualityControl(
             metrics=metrics,
-            default_grouping=[("group1",)],
+            default_grouping=["group1"],
         )
 
         q2 = QualityControl(
             metrics=metrics + metrics,
-            default_grouping=[("group1",)],
+            default_grouping=["group1"],
         )
 
         q3 = q1 + q2
@@ -97,14 +97,14 @@ class TestComposability(unittest.TestCase):
         q1 = QualityControl(
             metrics=metrics,
             key_experimenters=["Alice", "Bob"],
-            default_grouping=[("group1",), ("group1", "group2")],
+            default_grouping=["group1", ("group1", "group2")],
             allow_tag_failures=["FailTag1", "FailTag2"],
         )
 
         q2 = QualityControl(
             metrics=metrics,
             key_experimenters=["Bob", "Charlie"],  # Bob is duplicate
-            default_grouping=[("group1", "group2"), ("group3",)],  # ("group1", "group2") is duplicate
+            default_grouping=[("group1", "group2"), "group3"],  # ("group1", "group2") is duplicate
             allow_tag_failures=["FailTag2", "FailTag3"],  # FailTag2 is duplicate
         )
 
@@ -125,7 +125,7 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(set(q3.key_experimenters), {"Alice", "Bob", "Charlie"})
 
         self.assertEqual(q3.default_grouping.count(("group1", "group2")), 1)  # Should be deduplicated
-        self.assertEqual(set(q3.default_grouping), {("group1",), ("group1", "group2"), ("group3",)})
+        self.assertEqual(set(q3.default_grouping), {"group1", ("group1", "group2"), "group3"})
 
         self.assertEqual(q3.allow_tag_failures.count("FailTag2"), 1)  # Should be deduplicated
         self.assertEqual(set(q3.allow_tag_failures), {"FailTag1", "FailTag2", "FailTag3"})
