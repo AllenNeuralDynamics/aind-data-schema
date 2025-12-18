@@ -4,7 +4,9 @@ import logging
 from typing import Any, List, Optional
 
 
-def merge_str_tuple_lists(a: list[str | tuple[str, ...]], b: list[str | tuple[str, ...]]) -> list[str | tuple[str, ...]]:
+def merge_str_tuple_lists(
+    a: list[str | tuple[str, ...]], b: list[str | tuple[str, ...]]
+) -> list[str | tuple[str, ...]]:
     """Merge two lists of strings or tuples of strings such that elements at the
     same index position in both lists are merged into one tuple in the final list"""
 
