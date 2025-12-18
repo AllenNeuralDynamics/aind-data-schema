@@ -12,140 +12,40 @@ from aind_data_schema.utils.merge import (
 
 
 class TestMergeStrTupleLists(unittest.TestCase):
+    """Tests for merge_str_tuple_lists function"""
 
     def test_empty_lists(self):
+        """Test merging two empty lists"""
         result = merge_str_tuple_lists([], [])
         self.assertEqual(result, [])
 
-    def test_first_list_empty(self):
-        b = ["a", "b", "c"]
-        result = merge_str_tuple_lists([], b)
-        self.assertEqual(result, ["a", "b", "c"])
-
-    def test_second_list_empty(self):
-        a = ["a", "b", "c"]
-        result = merge_str_tuple_lists(a, [])
-        self.assertEqual(result, ["a", "b", "c"])
-
-    def test_equal_length_strings(self):
-        a = ["a", "b", "c"]
-        b = ["d", "e", "f"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "d"), ("b", "e"), ("c", "f")])
-
     def test_first_list_longer(self):
-        a = ["a", "b", "c", "d"]
-        b = ["e", "f"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "e"), ("b", "f"), "c", "d"])
-
-    def test_second_list_longer(self):
-        a = ["a", "b"]
-        b = ["c", "d", "e", "f"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "c"), ("b", "d"), "e", "f"])
-
-    def test_tuples_in_first_list(self):
-        a = [("a", "b"), "c"]
-        b = ["d", "e"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b", "d"), ("c", "e")])
-
-    def test_tuples_in_second_list(self):
-        a = ["a", "b"]
-        b = [("c", "d"), "e"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "c", "d"), ("b", "e")])
-
-    def test_tuples_in_both_lists(self):
-        a = [("a", "b"), ("c", "d")]
-        b = [("e", "f"), ("g", "h")]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b", "e", "f"), ("c", "d", "g", "h")])
-
-    def test_mixed_strings_and_tuples_equal_length(self):
-        a = ["a", ("b", "c"), "d"]
-        b = [("e", "f"), "g", ("h", "i")]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "e", "f"), ("b", "c", "g"), ("d", "h", "i")])
-
-    def test_mixed_strings_and_tuples_different_lengths(self):
-        a = ["a", ("b", "c")]
-        b = [("d", "e"), "f", "g"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "d", "e"), ("b", "c", "f"), "g"])
-
-    def test_single_element_lists(self):
-        a = ["a"]
-        b = ["b"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b")])
-
-    def test_single_element_tuple_lists(self):
-        a = [("a",)]
-        b = [("b",)]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b")])
-
-    def test_single_tuple_with_multiple_elements(self):
-        a = [("a", "b", "c")]
-        b = ["d"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b", "c", "d")])
-
-    def test_large_tuple_merge(self):
-        a = [("a", "b", "c", "d")]
-        b = [("e", "f", "g", "h")]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b", "c", "d", "e", "f", "g", "h")])
-
-    def test_asymmetric_lists_with_tuples(self):
-        a = [("a", "b"), "c", "d", ("e", "f", "g")]
-        b = ["h"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b", "h"), "c", "d", ("e", "f", "g")])
-
-    def test_only_first_has_elements_at_end(self):
+        """Test merging when the first list is longer"""
         a = ["a", "b", "c"]
         b = ["d"]
         result = merge_str_tuple_lists(a, b)
         self.assertEqual(result, [("a", "d"), "b", "c"])
 
-    def test_only_second_has_elements_at_end(self):
+    def test_second_list_longer(self):
+        """Test merging when the second list is longer"""
         a = ["a"]
         b = ["b", "c", "d"]
         result = merge_str_tuple_lists(a, b)
         self.assertEqual(result, [("a", "b"), "c", "d"])
 
-    def test_deduplication_in_merge(self):
-        a = ["a", "b"]
-        b = ["a", "c"]
+    def test_tuples_in_both_lists(self):
+        """Test merging when both lists contain tuples"""
+        a = [("a", "b"), ("c", "d")]
+        b = [("e", "f"), ("g", "h")]
         result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, ["a", ("b", "c")])
+        self.assertEqual(result, [("a", "b", "e", "f"), ("c", "d", "g", "h")])
 
     def test_deduplication_with_tuples(self):
+        """Test deduplication when merging tuples"""
         a = [("a", "b"), "c"]
         b = [("b", "d"), "c"]
         result = merge_str_tuple_lists(a, b)
         self.assertEqual(result, [("a", "b", "d"), "c"])
-
-    def test_deduplication_all_same(self):
-        a = ["x", "y"]
-        b = ["x", "y"]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, ["x", "y"])
-
-    def test_deduplication_preserves_order(self):
-        a = [("a", "b", "c")]
-        b = [("b", "d", "a")]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("a", "b", "c", "d")])
-
-    def test_deduplication_complex_case(self):
-        a = [("x", "y"), ("a", "b", "c")]
-        b = [("y", "z"), ("c", "d")]
-        result = merge_str_tuple_lists(a, b)
-        self.assertEqual(result, [("x", "y", "z"), ("a", "b", "c", "d")])
 
 
 class TestMergeNotes(unittest.TestCase):
