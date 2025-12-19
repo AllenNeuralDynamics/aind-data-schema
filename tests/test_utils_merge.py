@@ -4,7 +4,50 @@ import unittest
 from unittest.mock import Mock
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_coordinate_systems, merge_process_graph
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    merge_coordinate_systems,
+    merge_str_tuple_lists,
+    merge_process_graph,
+)
+
+
+class TestMergeStrTupleLists(unittest.TestCase):
+    """Tests for merge_str_tuple_lists function"""
+
+    def test_empty_lists(self):
+        """Test merging two empty lists"""
+        result = merge_str_tuple_lists([], [])
+        self.assertEqual(result, [])
+
+    def test_first_list_longer(self):
+        """Test merging when the first list is longer"""
+        a = ["a", "b", "c"]
+        b = ["d"]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "d"), "b", "c"])
+
+    def test_second_list_longer(self):
+        """Test merging when the second list is longer"""
+        a = ["a"]
+        b = ["b", "c", "d"]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "b"), "c", "d"])
+
+    def test_tuples_in_both_lists(self):
+        """Test merging when both lists contain tuples"""
+        a = [("a", "b"), ("c", "d")]
+        b = [("e", "f"), ("g", "h")]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "b", "e", "f"), ("c", "d", "g", "h")])
+
+    def test_deduplication_with_tuples(self):
+        """Test deduplication when merging tuples"""
+        a = [("a", "b"), "c"]
+        b = [("b", "d"), "c"]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "b", "d"), "c"])
 
 
 class TestMergeNotes(unittest.TestCase):
