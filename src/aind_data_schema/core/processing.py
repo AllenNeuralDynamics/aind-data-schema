@@ -135,12 +135,14 @@ class Processing(DataCoreModel):
                 break
         else:
             raise ValueError(f"Process '{old_name}' not found in data_processes.")
+
         # rename in dependency_graph
-        self.dependency_graph[new_name] = self.dependency_graph.pop(old_name)
-        # replace old_name in dependency_graph values
-        for value in self.dependency_graph.values():
-            if old_name in value:
-                value[value.index(old_name)] = new_name
+        if self.dependency_graph:
+            self.dependency_graph[new_name] = self.dependency_graph.pop(old_name)
+            # replace old_name in dependency_graph values
+            for value in self.dependency_graph.values():
+                if old_name in value:
+                    value[value.index(old_name)] = new_name
 
     @model_validator(mode="after")
     def order_processes(self) -> "Processing":
@@ -252,10 +254,10 @@ class Processing(DataCoreModel):
         if self.dependency_graph and other.dependency_graph:
             merged_graph = self.dependency_graph.copy()
             merged_graph.update(other.dependency_graph)
-        elif self.dependency_graph and not other.dependency_graph:
-            merged_graph = self.dependency_graph
-        elif other.dependency_graph and not self.dependency_graph:
-            merged_graph = other.dependency_graph
+        elif (self.dependency_graph and not other.dependency_graph) or (
+            other.dependency_graph and not self.dependency_graph
+        ):
+            raise ValueError("Cannot merge Processing objects when only one has a dependency_graph.")
         else:
             merged_graph = None
 
