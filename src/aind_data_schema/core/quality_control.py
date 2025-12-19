@@ -9,7 +9,7 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_str_tuple_lists
 
 
 class Status(str, Enum):
@@ -260,7 +260,8 @@ class QualityControl(DataCoreModel):
         combined_metrics = self.metrics + other.metrics
         combined_experimenters = merge_optional_list(self.key_experimenters, other.key_experimenters)
         combined_notes = merge_notes(self.notes, other.notes)
-        combined_default_grouping = list(set(self.default_grouping + other.default_grouping))
+        # Merge each inner tuple in the two default_grouping lists
+        combined_default_grouping = merge_str_tuple_lists(self.default_grouping, other.default_grouping)
         combined_allow_tag_failures = list(set(self.allow_tag_failures + other.allow_tag_failures))
 
         # Remove duplicates

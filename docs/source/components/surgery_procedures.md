@@ -112,7 +112,7 @@ Description of headframe procedure
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `headframe_type` | `str` | Headframe type  |
-| `headframe_part_number` | `str` | Headframe part number  |
+| `headframe_part_number` | `Optional[str]` | Headframe part number  |
 | `headframe_material` | Optional[[HeadframeMaterial](#headframematerial)] | Headframe material  |
 | `well_part_number` | `Optional[str]` | Well part number  |
 | `well_type` | `Optional[str]` | Well type  |
