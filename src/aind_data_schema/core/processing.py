@@ -254,10 +254,16 @@ class Processing(DataCoreModel):
         if self.dependency_graph and other.dependency_graph:
             merged_graph = self.dependency_graph.copy()
             merged_graph.update(other.dependency_graph)
-        elif (self.dependency_graph and not other.dependency_graph) or (
-            other.dependency_graph and not self.dependency_graph
-        ):
-            raise ValueError("Cannot merge Processing objects when only one has a dependency_graph.")
+        elif self.dependency_graph and not other.dependency_graph:
+            merged_graph = self.dependency_graph.copy()
+            # Add entries for other's processes
+            for process in other.data_processes:
+                merged_graph[process.name] = []
+        elif other.dependency_graph and not self.dependency_graph:
+            merged_graph = other.dependency_graph.copy()
+            # Add entries for self's processes
+            for process in self.data_processes:
+                merged_graph[process.name] = []
         else:
             merged_graph = None
 

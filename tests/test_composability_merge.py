@@ -378,7 +378,14 @@ class TestComposability(unittest.TestCase):
         self.assertIn("Compression", combined.dependency_graph)
 
         # Test self has graph, other doesn't
-        self.assertRaises(ValueError, lambda: p3 + p1)
+        combined = p3 + p2
+        self.assertIsNotNone(combined.dependency_graph)
+        self.assertIn("Analysis", combined.dependency_graph)
+
+        # Test other has graph, self doesn't
+        combined = p2 + p4
+        self.assertIsNotNone(combined.dependency_graph)
+        self.assertIn("Compression", combined.dependency_graph)
 
 
 if __name__ == "__main__":
