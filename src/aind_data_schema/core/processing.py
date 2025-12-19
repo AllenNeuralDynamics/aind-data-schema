@@ -12,7 +12,7 @@ from pydantic import Field, SkipValidation, ValidationInfo, field_validator, mod
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_process_graph
 from aind_data_schema.utils.validators import TimeValidation
 
 
@@ -250,22 +250,9 @@ class Processing(DataCoreModel):
                     i += 1
                 other.rename_process(name, new_name)
 
-        # Merge process graphs - start with self's graph and update with other's graph
-        if self.dependency_graph and other.dependency_graph:
-            merged_graph = self.dependency_graph.copy()
-            merged_graph.update(other.dependency_graph)
-        elif self.dependency_graph and not other.dependency_graph:
-            merged_graph = self.dependency_graph.copy()
-            # Add entries for other's processes
-            for process in other.data_processes:
-                merged_graph[process.name] = []
-        elif other.dependency_graph and not self.dependency_graph:
-            merged_graph = other.dependency_graph.copy()
-            # Add entries for self's processes
-            for process in self.data_processes:
-                merged_graph[process.name] = []
-        else:
-            merged_graph = None
+        merged_graph = merge_process_graph(
+            self.dependency_graph, other.dependency_graph, self.data_processes, other.data_processes
+        )
 
         # link self's output to other's input
         # note that this only makes sense if self has a single output process
