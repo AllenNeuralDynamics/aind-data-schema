@@ -376,6 +376,7 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(len(combined.dependency_graph), 2)
         self.assertIn("Analysis", combined.dependency_graph)
         self.assertIn("Compression", combined.dependency_graph)
+        self.assertEqual(combined.dependency_graph["Compression"], ["Analysis"])
 
         # Test self has graph, other doesn't
         combined = p3 + p2
