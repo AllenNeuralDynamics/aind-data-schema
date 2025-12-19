@@ -249,18 +249,25 @@ class Processing(DataCoreModel):
                 other.rename_process(name, new_name)
 
         # Merge process graphs - start with self's graph and update with other's graph
-        combined_process_graph = self.dependency_graph.copy()
-        combined_process_graph.update(other.dependency_graph)
+        if self.dependency_graph and other.dependency_graph:
+            merged_graph = self.dependency_graph.copy()
+            merged_graph.update(other.dependency_graph)
+        elif self.dependency_graph and not other.dependency_graph:
+            merged_graph = self.dependency_graph
+        elif other.dependency_graph and not self.dependency_graph:
+            merged_graph = other.dependency_graph
+        else:
+            merged_graph = None
 
         # link self's output to other's input
         # note that this only makes sense if self has a single output process
         # and other has a single input process
-        if len(self.data_processes) > 0 and len(other.data_processes) > 0:
-            combined_process_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
+        if merged_graph and len(self.data_processes) > 0 and len(other.data_processes) > 0:
+            merged_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
 
         return Processing(
             pipelines=merge_optional_list(self.pipelines, other.pipelines),
             data_processes=self.data_processes + other.data_processes,
-            dependency_graph=combined_process_graph,
+            dependency_graph=merged_graph,
             notes=merge_notes(self.notes, other.notes),
         )
