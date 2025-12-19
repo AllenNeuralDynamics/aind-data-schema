@@ -62,6 +62,7 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
+                     "scRNAseq": "#/$defs/_Scrnaseq",
                      "slap": "#/$defs/_Slap"
                   },
                   "propertyName": "abbreviation"
@@ -123,6 +124,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -252,6 +256,7 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
+                     "scRNAseq": "#/$defs/_Scrnaseq",
                      "slap": "#/$defs/_Slap"
                   },
                   "propertyName": "abbreviation"
@@ -313,6 +318,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -764,6 +772,26 @@
          "title": "_Pophys",
          "type": "object"
       },
+      "_Scrnaseq": {
+         "additionalProperties": false,
+         "description": "Model scRNAseq",
+         "properties": {
+            "name": {
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "scRNAseq",
+               "default": "scRNAseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
       "_Slap": {
          "additionalProperties": false,
          "description": "Model slap",
@@ -841,8 +869,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.0",
-         "default": "2.2.0",
+         "const": "2.3.0",
+         "default": "2.3.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -898,10 +926,17 @@
       "default_grouping": {
          "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
          "items": {
-            "items": {
-               "type": "string"
-            },
-            "type": "array"
+            "anyOf": [
+               {
+                  "type": "string"
+               },
+               {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               }
+            ]
          },
          "title": "Default grouping",
          "type": "array"
