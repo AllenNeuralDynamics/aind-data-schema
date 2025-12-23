@@ -172,6 +172,9 @@ class Instrument(DataCoreModel):
         for component in self.components:
             names.extend(recursive_get_all_names(component))
         names = [name for name in names if name is not None]
+        
+        # Include the instrument ID as a valid name
+        names = names + [self.instrument_id]
 
         return names
 
