@@ -311,6 +311,85 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(combined.data_processes[2].name, "Analysis_2")
         self.assertEqual(combined.data_processes[3].name, "Analysis_3")
 
+    def test_merge_dependency_graph(self):
+        """Test merging dependency graphs"""
+
+        t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+
+        # Test None/None case
+        p1 = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=["Dr. Dan"],
+                    process_type=ProcessName.ANALYSIS,
+                    stage=ProcessStage.PROCESSING,
+                    start_date_time=t,
+                    code=Code(url="https://example.com", version="1.0"),
+                )
+            ],
+            dependency_graph=None,
+        )
+
+        p2 = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=["Dr. Jane"],
+                    process_type=ProcessName.COMPRESSION,
+                    stage=ProcessStage.PROCESSING,
+                    start_date_time=t,
+                    code=Code(url="https://example.com", version="1.0"),
+                )
+            ],
+            dependency_graph=None,
+        )
+
+        combined = p1 + p2
+        self.assertIsNone(combined.dependency_graph)
+
+        # Test both set case
+        p3 = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=["Dr. Dan"],
+                    process_type=ProcessName.ANALYSIS,
+                    stage=ProcessStage.PROCESSING,
+                    start_date_time=t,
+                    code=Code(url="https://example.com", version="1.0"),
+                )
+            ],
+            dependency_graph={"Analysis": []},
+        )
+
+        p4 = Processing(
+            data_processes=[
+                DataProcess(
+                    experimenters=["Dr. Jane"],
+                    process_type=ProcessName.COMPRESSION,
+                    stage=ProcessStage.PROCESSING,
+                    start_date_time=t,
+                    code=Code(url="https://example.com", version="1.0"),
+                )
+            ],
+            dependency_graph={"Compression": []},
+        )
+
+        combined = p3 + p4
+        self.assertIsNotNone(combined.dependency_graph)
+        self.assertEqual(len(combined.dependency_graph), 2)
+        self.assertIn("Analysis", combined.dependency_graph)
+        self.assertIn("Compression", combined.dependency_graph)
+        self.assertEqual(combined.dependency_graph["Compression"], ["Analysis"])
+
+        # Test self has graph, other doesn't
+        combined = p3 + p2
+        self.assertIsNotNone(combined.dependency_graph)
+        self.assertIn("Analysis", combined.dependency_graph)
+
+        # Test other has graph, self doesn't
+        combined = p2 + p4
+        self.assertIsNotNone(combined.dependency_graph)
+        self.assertIn("Compression", combined.dependency_graph)
+
 
 if __name__ == "__main__":
     unittest.main()
