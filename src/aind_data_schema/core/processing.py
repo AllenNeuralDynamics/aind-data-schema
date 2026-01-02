@@ -12,7 +12,7 @@ from pydantic import Field, SkipValidation, ValidationInfo, field_validator, mod
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_process_graph
 from aind_data_schema.utils.validators import TimeValidation
 
 
@@ -135,12 +135,14 @@ class Processing(DataCoreModel):
                 break
         else:
             raise ValueError(f"Process '{old_name}' not found in data_processes.")
+
         # rename in dependency_graph
-        self.dependency_graph[new_name] = self.dependency_graph.pop(old_name)
-        # replace old_name in dependency_graph values
-        for value in self.dependency_graph.values():
-            if old_name in value:
-                value[value.index(old_name)] = new_name
+        if self.dependency_graph:
+            self.dependency_graph[new_name] = self.dependency_graph.pop(old_name)
+            # replace old_name in dependency_graph values
+            for value in self.dependency_graph.values():
+                if old_name in value:
+                    value[value.index(old_name)] = new_name
 
     @model_validator(mode="after")
     def order_processes(self) -> "Processing":
@@ -248,19 +250,19 @@ class Processing(DataCoreModel):
                     i += 1
                 other.rename_process(name, new_name)
 
-        # Merge process graphs - start with self's graph and update with other's graph
-        combined_process_graph = self.dependency_graph.copy()
-        combined_process_graph.update(other.dependency_graph)
+        merged_graph = merge_process_graph(
+            self.dependency_graph, other.dependency_graph, self.data_processes, other.data_processes
+        )
 
         # link self's output to other's input
         # note that this only makes sense if self has a single output process
         # and other has a single input process
-        if len(self.data_processes) > 0 and len(other.data_processes) > 0:
-            combined_process_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
+        if merged_graph and len(self.data_processes) > 0 and len(other.data_processes) > 0:
+            merged_graph[other.data_processes[0].name] = [self.data_processes[-1].name]
 
         return Processing(
             pipelines=merge_optional_list(self.pipelines, other.pipelines),
             data_processes=self.data_processes + other.data_processes,
-            dependency_graph=combined_process_graph,
+            dependency_graph=merged_graph,
             notes=merge_notes(self.notes, other.notes),
         )
