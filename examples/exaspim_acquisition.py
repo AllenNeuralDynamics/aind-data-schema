@@ -149,8 +149,12 @@ acq = Acquisition(
             stream_end_time=t,
             modalities=[Modality.SPIM],
             active_devices=[
-                "LAS-08308",
+                "exaSPIM1",
+                "LAS-08307",
                 "539251",
+                "Multiband filter",
+                "PMT_1",
+                "Sample chamber",
             ],
             configurations=[
                 imaging_config,
