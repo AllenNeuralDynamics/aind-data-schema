@@ -5,6 +5,8 @@ import unittest
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.ephys_instrument import inst as ephys_instrument
+from examples.exaspim_acquisition import acq as exaspim_acquisition
+from examples.exaspim_instrument import inst as exaspim_instrument
 from examples.fip_ophys_instrument import instrument as ophys_instrument
 from examples.ophys_acquisition import a as ophys_acquisition
 
@@ -16,6 +18,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         """Set up test data"""
         self.ephys_instrument = ephys_instrument.model_copy()
         self.ephys_acquisition = ephys_acquisition.model_copy()
+        self.exaspim_instrument = exaspim_instrument.model_copy()
+        self.exaspim_acquisition = exaspim_acquisition.model_copy()
         self.ophys_instrument = ophys_instrument.model_copy()
         self.ophys_acquisition = ophys_acquisition.model_copy()
 
@@ -26,6 +30,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             instrument=self.ephys_instrument, acquisition=self.ephys_acquisition
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
+
+        # check that exaspim acquisition and instrument are synced
+        example_exaspim_check = InstrumentAcquisitionCompatibility(
+            instrument=self.exaspim_instrument, acquisition=self.exaspim_acquisition
+        )
+        self.assertIsNone(example_exaspim_check.run_compatibility_check())
 
         # check that ophys acquisition and instrument are synced
         example_ophys_check = InstrumentAcquisitionCompatibility(

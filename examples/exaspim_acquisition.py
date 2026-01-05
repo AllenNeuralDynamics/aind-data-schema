@@ -149,7 +149,6 @@ acq = Acquisition(
             stream_end_time=t,
             modalities=[Modality.SPIM],
             active_devices=[
-                "exaSPIM1",
                 "LAS-08307",
                 "539251",
                 "Multiband filter",
