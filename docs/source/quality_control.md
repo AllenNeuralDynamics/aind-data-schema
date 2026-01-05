@@ -24,15 +24,30 @@ If you find yourself computing a value for something smaller than an entire moda
 
 ### Tags
 
-`tags` are any string that naturally groups sets of metrics together. Good tags are things like: "Probe A", "Motion correction", and "Pose tracking". The stage and modality are automatically treated as tags, you do not need to include them in the tags list.
+`tags` are groups of descriptors that define how metrics are organized hierarchically, making it easier to visualize metrics. Good tag keys (groups) are things like "probe" and good tag values are things like "Probe A" or just "A".
+
+```{python}
+# For an electrophysiology metric
+tags = {
+    "probe": "A",
+    "shank": "0",
+}
+
+# For a behavioral video metric
+tags = {
+    "video": "left body",
+}
+```
+
+Use the `QualityControl.default_grouping` list to define how users should organize a visualization by default. In almost all cases *modality should be the top-level grouping*. For example, building on the example above you might group by: `["modality", ("probe", "video"), "shank"]` to get a tree split by modality first (which naturally splits ephys and behavior-videos tags into two groups), then by which probe or video a metric belongs to, and finally only for probes the individual shanks are split into groups.
 
 ### QualityControl.evaluate_status()
 
 You can evaluate the state of a set of metrics filtered by any combination of modalities, stages, and tags on a specific date (by default, today). When evaluating the [Status](#status) of a group of metrics the following rules apply:
 
-First, any metric that is failing and also has a matching tag (or tuple of tags) in the `QualityControl.allow_tag_failures` list is set to pass. This allows you to specify that certain metrics are not critical to a data asset.
+First, any metric that has a tag *value* in the `QualityControl.allow_tag_failures` list is ignored. This allows you to specify that certain metrics are not critical to a data asset.
 
-Then, given the status of all the metrics in the group:
+Then, given the status of all the remaining metrics in the group:
 
 1. If any metric is still failing, the evaluation fails
 2. If any metric is pending and the rest pass the evaluation is pending
@@ -72,8 +87,8 @@ Collection of quality control metrics evaluated on a data asset to determine pas
 | `metrics` | List[[QCMetric](quality_control.md#qcmetric) or [CurationMetric](quality_control.md#curationmetric)] | Evaluations  |
 | `key_experimenters` | `Optional[List[str]]` | Key experimenters (Experimenters who are responsible for quality control of this data asset) |
 | `notes` | `Optional[str]` | Notes  |
-| `default_grouping` | `List[str]` | Default grouping (Default tag grouping for this QualityControl object, used in visualizations) |
-| `allow_tag_failures` | `List[str or tuple]` | Allow tag failures (List of tags that are allowed to fail without failing the overall QC) |
+| `default_grouping` | `List[str or tuple[str, ...]]` | Default grouping (Tag *keys* that should be used to group metrics hierarchically for visualization) |
+| `allow_tag_failures` | `List[str]` | Allow tag failures (List of tag *values* that are allowed to fail without failing the overall QC) |
 | `status` | `Optional[dict]` | Status mapping (Mapping of tags, modalities, and stages to their evaluated status, automatically computed) |
 
 
@@ -104,7 +119,7 @@ Description of a curation metric
 | `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
 | `description` | `Optional[str]` | Metric description  |
 | `reference` | `Optional[str]` | Metric reference image URL or plot type  |
-| `tags` | `List[str]` | Tags (Tags group QCMetric objects to allow for grouping and filtering) |
+| `tags` | `Dict[str, str]` | Tags (Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.) |
 | `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |
 
 
@@ -121,7 +136,7 @@ Description of a single quality control metric
 | `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
 | `description` | `Optional[str]` | Metric description  |
 | `reference` | `Optional[str]` | Metric reference image URL or plot type  |
-| `tags` | `List[str]` | Tags (Tags group QCMetric objects to allow for grouping and filtering) |
+| `tags` | `Dict[str, str]` | Tags (Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.) |
 | `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |
 
 

@@ -9,7 +9,7 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_str_tuple_lists
 
 
 class Status(str, Enum):
@@ -119,7 +119,7 @@ class QualityControl(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
+    schema_version: SkipValidation[Literal["2.3.0"]] = Field(default="2.3.0")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,
@@ -128,7 +128,7 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    default_grouping: List[tuple[str, ...]] = Field(
+    default_grouping: List[str | tuple[str, ...]] = Field(
         ...,
         title="Default grouping",
         description="Tag *keys* that should be used to group metrics hierarchically for visualization",
@@ -260,7 +260,8 @@ class QualityControl(DataCoreModel):
         combined_metrics = self.metrics + other.metrics
         combined_experimenters = merge_optional_list(self.key_experimenters, other.key_experimenters)
         combined_notes = merge_notes(self.notes, other.notes)
-        combined_default_grouping = list(set(self.default_grouping + other.default_grouping))
+        # Merge each inner tuple in the two default_grouping lists
+        combined_default_grouping = merge_str_tuple_lists(self.default_grouping, other.default_grouping)
         combined_allow_tag_failures = list(set(self.allow_tag_failures + other.allow_tag_failures))
 
         # Remove duplicates
@@ -283,9 +284,13 @@ class QualityControl(DataCoreModel):
         """
         if "default_grouping" not in value:
             return value
-        if value["default_grouping"] and isinstance(value["default_grouping"][0], str):
-            # Add the modality as the top-level grouping, then tag_1 as the second level, similar to old portal behavior
-            value["default_grouping"] = [["modality"], ["tag_1"]]
+
+        if all(isinstance(item, str) for item in value["default_grouping"]):
+            first_metric = value["metrics"][0]
+            if isinstance(first_metric, dict) and "tags" in first_metric:
+                if isinstance(first_metric["tags"], list):
+                    value["default_grouping"] = [["modality"], ["tag_1"]]
+
         return value
 
 

@@ -37,7 +37,7 @@ class TestComposability(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags={"group1": "Drift map"},
+                tags={"type": "Drift map"},
             ),
             QCMetric(
                 name="Drift map pass/fail",
@@ -49,23 +49,24 @@ class TestComposability(unittest.TestCase):
                 status_history=[
                     QCStatus(evaluator="Bob", timestamp=datetime.fromisoformat("2020-10-10"), status=Status.PASS)
                 ],
-                tags={"group1": "Drift map"},
+                tags={"type": "Drift map"},
             ),
         ]
 
         q1 = QualityControl(
             metrics=metrics,
-            default_grouping=[("group1",)],
+            default_grouping=["type"],
         )
 
         q2 = QualityControl(
             metrics=metrics + metrics,
-            default_grouping=[("group1",)],
+            default_grouping=["type"],
         )
 
         q3 = q1 + q2
         self.assertIsNotNone(q3)
         self.assertTrue(len(q3.metrics) == 6)
+        self.assertEqual(q3.default_grouping, ["type"])
 
         # Test incompatible schema versions
         q1_orig_schema_v = q1.schema_version
@@ -97,14 +98,14 @@ class TestComposability(unittest.TestCase):
         q1 = QualityControl(
             metrics=metrics,
             key_experimenters=["Alice", "Bob"],
-            default_grouping=[("group1",), ("group1", "group2")],
+            default_grouping=["group1", ("group1", "group2")],
             allow_tag_failures=["FailTag1", "FailTag2"],
         )
 
         q2 = QualityControl(
             metrics=metrics,
             key_experimenters=["Bob", "Charlie"],  # Bob is duplicate
-            default_grouping=[("group1", "group2"), ("group3",)],  # ("group1", "group2") is duplicate
+            default_grouping=[("group1", "group2"), "group3"],  # ("group1", "group2") is duplicate
             allow_tag_failures=["FailTag2", "FailTag3"],  # FailTag2 is duplicate
         )
 
@@ -124,8 +125,9 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(q3.key_experimenters.count("Bob"), 1)  # Should be deduplicated
         self.assertEqual(set(q3.key_experimenters), {"Alice", "Bob", "Charlie"})
 
-        self.assertEqual(q3.default_grouping.count(("group1", "group2")), 1)  # Should be deduplicated
-        self.assertEqual(set(q3.default_grouping), {("group1",), ("group1", "group2"), ("group3",)})
+        self.assertEqual(len(q3.default_grouping), 2)
+        self.assertEqual(q3.default_grouping[0], ("group1", "group2"))
+        self.assertEqual(q3.default_grouping[1], ("group1", "group2", "group3"))
 
         self.assertEqual(q3.allow_tag_failures.count("FailTag2"), 1)  # Should be deduplicated
         self.assertEqual(set(q3.allow_tag_failures), {"FailTag1", "FailTag2", "FailTag3"})
