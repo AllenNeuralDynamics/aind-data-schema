@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -2536,6 +2536,19 @@
                "description": "Brief description of what is being calibrated",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -5334,7 +5347,8 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
@@ -5388,13 +5402,16 @@
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -5790,8 +5807,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.2.2",
+               "default": "2.2.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5993,7 +6010,8 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -6047,13 +6065,16 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -6295,7 +6316,8 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -6349,13 +6371,16 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -13749,8 +13774,16 @@
                "type": "string"
             },
             "headframe_part_number": {
-               "title": "Headframe part number",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Headframe part number"
             },
             "headframe_material": {
                "anyOf": [
@@ -13790,8 +13823,7 @@
             }
          },
          "required": [
-            "headframe_type",
-            "headframe_part_number"
+            "headframe_type"
          ],
          "title": "Headframe",
          "type": "object"
@@ -14500,8 +14532,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.1.1",
+               "default": "2.1.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14552,7 +14584,8 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -14606,13 +14639,16 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -23917,6 +23953,19 @@
                "title": "Description",
                "type": "string"
             },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
             "measured_at": {
                "anyOf": [
                   {
@@ -24793,8 +24842,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.35",
-               "default": "2.0.35",
+               "const": "2.0.36",
+               "default": "2.0.36",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24956,8 +25005,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.5",
-               "default": "2.1.5",
+               "const": "2.1.6",
+               "default": "2.1.6",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25178,7 +25227,8 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
@@ -25232,13 +25282,16 @@
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -25366,8 +25419,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25423,10 +25476,17 @@
             "default_grouping": {
                "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
                "items": {
-                  "items": {
-                     "type": "string"
-                  },
-                  "type": "array"
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "items": {
+                           "type": "string"
+                        },
+                        "type": "array"
+                     }
+                  ]
                },
                "title": "Default grouping",
                "type": "array"
@@ -30305,6 +30365,19 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -35997,6 +36070,26 @@
          "title": "_Schneider_Kreuznach",
          "type": "object"
       },
+      "_Scrnaseq": {
+         "additionalProperties": false,
+         "description": "Model scRNAseq",
+         "properties": {
+            "name": {
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "scRNAseq",
+               "default": "scRNAseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
       "_Second_Order_Effects": {
          "description": "Model Second Order Effects",
          "properties": {
@@ -36226,24 +36319,24 @@
          "title": "_Simpleanaloggenerator",
          "type": "object"
       },
-      "_Slap": {
+      "_Slap2": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model slap2",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "slap2",
+               "default": "slap2",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Slap2",
          "type": "object"
       },
       "_Sniffdetector": {
@@ -37392,8 +37485,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.2",
-         "default": "2.2.2",
+         "const": "2.2.3",
+         "default": "2.2.3",
          "title": "Schema Version",
          "type": "string"
       },
