@@ -48,7 +48,7 @@ class OptoStimulation(GenericModel):
         description="Duration of baseline recording prior to first pulse train",
     )
     baseline_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Baseline duration unit")
-    other_parameters: GenericModel = Field(GenericModel(), title="Other parameters")
+    other_parameters: Optional[GenericModel] = Field(default=None, title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -56,8 +56,8 @@ class VisualStimulation(GenericModel):
     """Description of visual stimulus parameters. Provides a high level description of stimulus."""
 
     stimulus_name: str = Field(..., title="Stimulus name")
-    stimulus_parameters: GenericModel = Field(
-        GenericModel(),
+    stimulus_parameters: Optional[GenericModel] = Field(
+        default=None,
         title="Stimulus parameters",
         description="Define and list the parameter values used (e.g. all TF or orientation values)",
     )
