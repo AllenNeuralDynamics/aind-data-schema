@@ -10,7 +10,13 @@ from aind_data_schema_models.units import MassUnit, VolumeUnit
 from aind_data_schema.utils.validators import TimeValidation
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModelType
+from aind_data_schema.base import (
+    AwareDatetimeWithDefault,
+    DataCoreModel,
+    DataModel,
+    DiscriminatedList,
+    GenericModelType
+)
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     CatheterConfig,
