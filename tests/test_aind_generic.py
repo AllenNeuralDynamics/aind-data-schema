@@ -2,7 +2,7 @@
 
 import unittest
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from aind_data_schema.base import DataModel, GenericModel
 
