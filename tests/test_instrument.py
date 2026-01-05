@@ -354,6 +354,7 @@ class InstrumentTests(unittest.TestCase):
             Instrument()
 
         self.assertIsNotNone(ephys_instrument)
+        self.assertIn(ephys_instrument.instrument_id, ephys_instrument.get_component_names())
 
     def test_other_camera_target(self):
         """Test that the camera_target being set to Other throws a validation error without notes"""
