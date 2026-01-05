@@ -618,6 +618,22 @@ class Monitor(Device, DevicePosition):
     )
     brightness_unit: Optional[UnitlessUnit] = Field(default=None, title="Brightness unit")
 
+    @model_validator(mode="before")
+    def add_units_if_needed(cls, data: dict) -> dict:
+        """Add units for contrast and brightness if values are provided but units are missing
+
+        This validator is necessary for backwards compatibility
+        TODO: Remove this validator in v3.0.0
+        """
+
+        if "contrast" in data and data["contrast"] is not None and "contrast_unit" not in data:
+            data["contrast_unit"] = UnitlessUnit.PERCENT
+
+        if "brightness" in data and data["brightness"] is not None and "brightness_unit" not in data:
+            data["brightness_unit"] = UnitlessUnit.PERCENT
+
+        return data
+
 
 class LickSpout(Device):
     """Description of a lick spout"""
