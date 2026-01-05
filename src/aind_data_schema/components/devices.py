@@ -608,6 +608,7 @@ class Monitor(Device, DevicePosition):
         ge=0,
         le=100,
     )
+    contrast_unit: Optional[UnitlessUnit] = Field(default=None, title="Contrast unit")
     brightness: Optional[int] = Field(
         default=None,
         description="Monitor's brightness setting",
@@ -615,6 +616,7 @@ class Monitor(Device, DevicePosition):
         ge=0,
         le=100,
     )
+    brightness_unit: Optional[UnitlessUnit] = Field(default=None, title="Brightness unit")
 
 
 class LickSpout(Device):
