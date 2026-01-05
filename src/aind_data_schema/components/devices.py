@@ -3,6 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
+import logging
 from typing import List, Literal, Optional
 import warnings
 
@@ -617,6 +618,24 @@ class Monitor(Device, DevicePosition):
         le=100,
     )
     brightness_unit: Optional[UnitlessUnit] = Field(default=None, title="Brightness unit")
+
+    @model_validator(mode="before")
+    def add_units_if_needed(cls, data: dict) -> dict:
+        """Add units for contrast and brightness if values are provided but units are missing
+
+        This validator is necessary for backwards compatibility
+        TODO: Remove this validator in v3.0.0
+        """
+
+        if "contrast" in data and data["contrast"] is not None and "contrast_unit" not in data:
+            logging.warning("Adding default unit 'percent' for Monitor.contrast_unit")
+            data["contrast_unit"] = UnitlessUnit.PERCENT
+
+        if "brightness" in data and data["brightness"] is not None and "brightness_unit" not in data:
+            logging.warning("Adding default unit 'percent' for Monitor.brightness_unit")
+            data["brightness_unit"] = UnitlessUnit.PERCENT
+
+        return data
 
 
 class LickSpout(Device):
