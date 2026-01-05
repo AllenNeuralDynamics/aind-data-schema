@@ -14,7 +14,6 @@ from pydantic import (
     Field,
     NaiveDatetime,
     PrivateAttr,
-    SerializeAsAny,
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
@@ -80,7 +79,10 @@ def is_dict_corrupt(input_dict: dict) -> bool:
 
 class GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
+
     # extra="allow" is needed because BaseModel by default drops extra parameters.
+    # Alternatively, consider using 'SerializeAsAny' once this issue is resolved
+    # https://github.com/pydantic/pydantic/issues/6423
 
     @model_validator(mode="after")
     def validate_fieldnames(self):
@@ -92,8 +94,6 @@ class GenericModel(BaseModel, extra="allow"):
             warnings.warn("MongoDB queries may not work as expected for fields that contain '.' or '$'")
         return self
 
-
-GenericModelType = SerializeAsAny[GenericModel]
 
 T = TypeVar("T")
 Discriminated = Annotated[T, Field(discriminator="object_type")]
