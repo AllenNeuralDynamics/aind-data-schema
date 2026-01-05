@@ -351,7 +351,7 @@ def _get_filtered_statuses(
     allow_tag_failures: List[str] = [],
 ):
     """Get the status of metrics filtered by modality, stage, tag, and date.
-    
+
     tag_filter can contain either 'key:value' pairs or just tag values for backward compatibility.
     allow_tag_failures can contain either 'key:value' pairs or just tag values.
     """
@@ -376,8 +376,10 @@ def _get_filtered_statuses(
         if status == Status.FAIL and metric.tags:
             metric_tag_pairs = [f"{k}:{v}" for k, v in metric.tags.items()]
             metric_tag_values = list(metric.tags.values())
-            if any(tag_pair in allow_tag_failures or tag_value in allow_tag_failures 
-                   for tag_pair, tag_value in zip(metric_tag_pairs, metric_tag_values)):
+            if any(
+                tag_pair in allow_tag_failures or tag_value in allow_tag_failures
+                for tag_pair, tag_value in zip(metric_tag_pairs, metric_tag_values)
+            ):
                 status = Status.PASS
         filtered_statuses.append(status)
 
