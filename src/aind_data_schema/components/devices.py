@@ -41,7 +41,7 @@ from aind_data_schema_models.units import (
 )
 from pydantic import Field, ValidationInfo, field_validator, model_validator
 
-from aind_data_schema.base import DataModel, Discriminated, GenericModel
+from aind_data_schema.base import DataModel, Discriminated, GenericModelType
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
 from aind_data_schema.components.identifiers import Software
 
@@ -78,7 +78,7 @@ class Device(DataModel):
     model: Optional[str] = Field(default=None, title="Model")
 
     # Additional fields
-    additional_settings: Optional[GenericModel] = Field(default=None, title="Additional parameters")
+    additional_settings: Optional[GenericModelType] = Field(default=None, title="Additional parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
     @model_validator(mode="after")

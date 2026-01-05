@@ -6,7 +6,7 @@ from enum import Enum
 from aind_data_schema_models.units import UNITS, PowerUnit, TimeUnit, VolumeUnit, VoltageUnit
 from pydantic import model_validator
 
-from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, Field, GenericModel
+from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, Discriminated, Field, GenericModelType
 from aind_data_schema.components.configs import DeviceConfig
 from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.utils.validators import TimeValidation
@@ -27,7 +27,7 @@ class CalibrationFit(DataModel):
         ...,
         title="Fit type",
     )
-    fit_parameters: Optional[GenericModel] = Field(
+    fit_parameters: Optional[GenericModelType] = Field(
         default=None,
         title="Fit parameters",
         description="Parameters of the fit equation, e.g. slope and intercept for linear fit",

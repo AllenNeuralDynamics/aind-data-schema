@@ -7,7 +7,7 @@ from typing import Dict, List, Optional
 from aind_data_schema_models.registries import Registry
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
+from aind_data_schema.base import DataModel, DiscriminatedList, GenericModelType
 
 
 class Database(str, Enum):
@@ -83,7 +83,7 @@ class Code(DataModel):
     input_data: Optional[DiscriminatedList[DataAsset | CombinedData]] = Field(
         default=None, title="Input data", description="Input data used in the code or script"
     )
-    parameters: Optional[GenericModel] = Field(
+    parameters: Optional[GenericModelType] = Field(
         default=None, title="Parameters", description="Parameters used in the code or script"
     )
 
