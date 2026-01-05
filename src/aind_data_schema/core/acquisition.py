@@ -50,7 +50,7 @@ CONFIG_REQUIREMENTS = {
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
     Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
-    Modality.SLAP2: [[ImagingConfig], [SlapPlane]],
+    Modality.SLAP2: [[ImagingConfig]],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
