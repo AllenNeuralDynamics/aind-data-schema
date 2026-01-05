@@ -211,8 +211,10 @@ class DAQChannelTests(unittest.TestCase):
 
 
 class MonitorTests(unittest.TestCase):
+    """tests Monitor schemas"""
 
     def test_add_units_if_needed_validator(self):
+        """tests the Monitor validator for adding units if needed"""
 
         monitor_with_contrast_no_unit = Monitor(
             name="test_monitor",
