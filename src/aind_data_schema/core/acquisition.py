@@ -10,13 +10,7 @@ from aind_data_schema_models.units import MassUnit, VolumeUnit
 from aind_data_schema.utils.validators import TimeValidation
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import (
-    AwareDatetimeWithDefault,
-    DataCoreModel,
-    DataModel,
-    DiscriminatedList,
-    GenericModelType
-)
+from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
     AirPuffConfig,
     CatheterConfig,
@@ -89,7 +83,7 @@ class AcquisitionSubjectDetails(DataModel):
 class PerformanceMetrics(DataModel):
     """Summary of a StimulusEpoch"""
 
-    output_parameters: Optional[GenericModelType] = Field(default=None, title="Additional metrics")
+    output_parameters: Optional[GenericModel] = Field(default=None, title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
