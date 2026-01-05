@@ -3,6 +3,7 @@
 from datetime import date
 from decimal import Decimal
 from enum import Enum
+import logging
 from typing import List, Literal, Optional
 import warnings
 
@@ -627,9 +628,11 @@ class Monitor(Device, DevicePosition):
         """
 
         if "contrast" in data and data["contrast"] is not None and "contrast_unit" not in data:
+            logging.warning("Adding default unit 'percent' for Monitor.contrast_unit")
             data["contrast_unit"] = UnitlessUnit.PERCENT
 
         if "brightness" in data and data["brightness"] is not None and "brightness_unit" not in data:
+            logging.warning("Adding default unit 'percent' for Monitor.brightness_unit")
             data["brightness_unit"] = UnitlessUnit.PERCENT
 
         return data
