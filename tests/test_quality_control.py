@@ -47,6 +47,28 @@ class QualityControlTests(unittest.TestCase):
         self.assertIsInstance(metric.tags, dict)
         self.assertEqual(metric.tags, {"tag_1": "tag1", "tag_2": "tag2", "tag_3": "tag3"})
 
+    def test_tags_property(self):
+        """test that QualityControl.tags returns all unique tag values"""
+        tags = quality_control.tags
+        self.assertIsInstance(tags, list)
+        self.assertIn("Probe A", tags)
+        self.assertIn("Probe B", tags)
+        self.assertIn("Probe C", tags)
+        self.assertIn("Video 1", tags)
+        self.assertIn("Video 2", tags)
+        self.assertEqual(len(tags), 5)
+
+    def test_tag_pairs_property(self):
+        """test that QualityControl.tag_pairs returns all unique key:value pairs"""
+        tag_pairs = quality_control.tag_pairs
+        self.assertIsInstance(tag_pairs, list)
+        self.assertIn("probe:Probe A", tag_pairs)
+        self.assertIn("probe:Probe B", tag_pairs)
+        self.assertIn("probe:Probe C", tag_pairs)
+        self.assertIn("video:Video 1", tag_pairs)
+        self.assertIn("video:Video 2", tag_pairs)
+        self.assertEqual(len(tag_pairs), 5)
+
     def test_overall_status(self):
         """test that overall status goes to pass/pending/fail correctly"""
 
