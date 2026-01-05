@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -2536,6 +2536,19 @@
                "description": "Brief description of what is being calibrated",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -5334,6 +5347,7 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
+                     "scRNAseq": "#/$defs/_Scrnaseq",
                      "slap": "#/$defs/_Slap"
                   },
                   "propertyName": "abbreviation"
@@ -5395,6 +5409,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -5790,8 +5807,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.3.0",
+               "default": "2.3.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5993,6 +6010,7 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
+                        "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap": "#/$defs/_Slap"
                      },
                      "propertyName": "abbreviation"
@@ -6054,6 +6072,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -6295,6 +6316,7 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
+                        "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap": "#/$defs/_Slap"
                      },
                      "propertyName": "abbreviation"
@@ -6356,6 +6378,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -13749,8 +13774,16 @@
                "type": "string"
             },
             "headframe_part_number": {
-               "title": "Headframe part number",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Headframe part number"
             },
             "headframe_material": {
                "anyOf": [
@@ -13790,8 +13823,7 @@
             }
          },
          "required": [
-            "headframe_type",
-            "headframe_part_number"
+            "headframe_type"
          ],
          "title": "Headframe",
          "type": "object"
@@ -14500,8 +14532,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.1.1",
+               "default": "2.1.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14552,6 +14584,7 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
+                        "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap": "#/$defs/_Slap"
                      },
                      "propertyName": "abbreviation"
@@ -14613,6 +14646,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -23917,6 +23953,19 @@
                "title": "Description",
                "type": "string"
             },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
             "measured_at": {
                "anyOf": [
                   {
@@ -24793,8 +24842,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.35",
-               "default": "2.0.35",
+               "const": "2.0.36",
+               "default": "2.0.36",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24956,8 +25005,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.5",
-               "default": "2.1.5",
+               "const": "2.1.8",
+               "default": "2.1.8",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25178,6 +25227,7 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
+                     "scRNAseq": "#/$defs/_Scrnaseq",
                      "slap": "#/$defs/_Slap"
                   },
                   "propertyName": "abbreviation"
@@ -25239,6 +25289,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -25366,8 +25419,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.3.0",
+               "default": "2.3.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25423,10 +25476,17 @@
             "default_grouping": {
                "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
                "items": {
-                  "items": {
-                     "type": "string"
-                  },
-                  "type": "array"
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "items": {
+                           "type": "string"
+                        },
+                        "type": "array"
+                     }
+                  ]
                },
                "title": "Default grouping",
                "type": "array"
@@ -30305,6 +30365,19 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -35997,6 +36070,26 @@
          "title": "_Schneider_Kreuznach",
          "type": "object"
       },
+      "_Scrnaseq": {
+         "additionalProperties": false,
+         "description": "Model scRNAseq",
+         "properties": {
+            "name": {
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "scRNAseq",
+               "default": "scRNAseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
       "_Second_Order_Effects": {
          "description": "Model Second Order Effects",
          "properties": {
@@ -37392,8 +37485,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.2",
-         "default": "2.2.2",
+         "const": "2.2.5",
+         "default": "2.2.5",
          "title": "Schema Version",
          "type": "string"
       },

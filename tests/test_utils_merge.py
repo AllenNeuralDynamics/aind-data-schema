@@ -1,7 +1,6 @@
 """ Tests for merge utilities """
 
 import unittest
-from unittest.mock import Mock
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.utils.merge import (
@@ -9,7 +8,6 @@ from aind_data_schema.utils.merge import (
     merge_optional_list,
     merge_coordinate_systems,
     merge_str_tuple_lists,
-    merge_process_graph,
 )
 
 
@@ -193,38 +191,6 @@ class MergeCSTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             merge_coordinate_systems(self.CSA, self.CSB)
-
-
-class MergeProcessGraphTests(unittest.TestCase):
-    """Tests for merge_process_graph"""
-
-    def test_both_graphs_present(self):
-        """Test merging when both graphs are present"""
-        graph1 = {"proc1": ["proc2"], "proc2": []}
-        graph2 = {"proc3": ["proc4"], "proc4": []}
-        result = merge_process_graph(graph1, graph2, [], [])
-        self.assertEqual(result, {"proc1": ["proc2"], "proc2": [], "proc3": ["proc4"], "proc4": []})
-
-    def test_only_first_graph(self):
-        """Test when only first graph is present"""
-        graph1 = {"proc1": ["proc2"], "proc2": []}
-        proc = Mock()
-        proc.name = "proc3"
-        result = merge_process_graph(graph1, None, [], [proc])
-        self.assertEqual(result, {"proc1": ["proc2"], "proc2": [], "proc3": []})
-
-    def test_only_second_graph(self):
-        """Test when only second graph is present"""
-        graph2 = {"proc3": ["proc4"], "proc4": []}
-        proc = Mock()
-        proc.name = "proc1"
-        result = merge_process_graph(None, graph2, [proc], [])
-        self.assertEqual(result, {"proc3": ["proc4"], "proc4": [], "proc1": []})
-
-    def test_both_graphs_none(self):
-        """Test when both graphs are None"""
-        result = merge_process_graph(None, None, [], [])
-        self.assertIsNone(result)
 
 
 if __name__ == "__main__":
