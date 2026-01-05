@@ -642,6 +642,19 @@
                "title": "Description",
                "type": "string"
             },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
             "measured_at": {
                "anyOf": [
                   {
@@ -1556,6 +1569,7 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
+                        "scRNAseq": "#/$defs/_Scrnaseq",
                         "slap": "#/$defs/_Slap"
                      },
                      "propertyName": "abbreviation"
@@ -1617,6 +1631,9 @@
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -4320,6 +4337,19 @@
                "title": "Description",
                "type": "string"
             },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
             "measured_at": {
                "anyOf": [
                   {
@@ -6054,6 +6084,19 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -10210,6 +10253,26 @@
          "title": "_Schneider_Kreuznach",
          "type": "object"
       },
+      "_Scrnaseq": {
+         "additionalProperties": false,
+         "description": "Model scRNAseq",
+         "properties": {
+            "name": {
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "scRNAseq",
+               "default": "scRNAseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
       "_Second_Order_Effects": {
          "description": "Model Second Order Effects",
          "properties": {
@@ -11211,8 +11274,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.0",
-         "default": "2.2.0",
+         "const": "2.2.1",
+         "default": "2.2.1",
          "title": "Schema Version",
          "type": "string"
       },

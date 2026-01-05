@@ -4,34 +4,6 @@ import logging
 from typing import Any, List, Optional
 
 
-def merge_process_graph(
-    graph1: Optional[dict],
-    graph2: Optional[dict],
-    processes1: List[Any],
-    processes2: List[Any],
-) -> Optional[dict]:
-    """Merge two process dependency graphs"""
-
-    # Merge process graphs - start with self's graph and update with other's graph
-    if graph1 and graph2:
-        merged_graph = graph1.copy()
-        merged_graph.update(graph2)
-    elif graph1 and not graph2:
-        merged_graph = graph1.copy()
-        # Add entries for other's processes
-        for process in processes2:
-            merged_graph[process.name] = []
-    elif graph2 and not graph1:
-        merged_graph = graph2.copy()
-        # Add entries for self's processes
-        for process in processes1:
-            merged_graph[process.name] = []
-    else:
-        merged_graph = None
-
-    return merged_graph
-
-
 def merge_str_tuple_lists(
     a: list[str | tuple[str, ...]], b: list[str | tuple[str, ...]]
 ) -> list[str | tuple[str, ...]]:
