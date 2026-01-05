@@ -4,14 +4,14 @@ import unittest
 
 from pydantic import Field
 
-from aind_data_schema.base import DataModel, GenericModel, GenericModelType
+from aind_data_schema.base import DataModel, GenericModel
 
 
 class GenericContainer(DataModel):
     """Represents a generic container"""
 
-    contains_model: GenericModelType
-    contains_dict: GenericModelType
+    contains_model: GenericModel
+    contains_dict: GenericModel
 
 
 class Bar(GenericModel):

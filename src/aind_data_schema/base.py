@@ -1,11 +1,11 @@
-""" generic base class with supporting validators and fields for basic AIND schema """
+"""generic base class with supporting validators and fields for basic AIND schema"""
 
 import json
 import logging
 import re
 import warnings
 from pathlib import Path
-from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args
+from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args, Annotated
 
 from pydantic import (
     AwareDatetime,
@@ -14,15 +14,14 @@ from pydantic import (
     Field,
     NaiveDatetime,
     PrivateAttr,
-    SerializeAsAny,
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
     field_validator,
     model_validator,
+    SerializeAsAny,
 )
 from pydantic.functional_validators import WrapValidator
-from typing_extensions import Annotated
 
 from aind_data_schema.utils.validators import recursive_check_paths, recursive_coord_system_check
 
@@ -78,10 +77,8 @@ def is_dict_corrupt(input_dict: dict) -> bool:
     return has_corrupt_keys(input_dict)
 
 
-class GenericModel(BaseModel, extra="allow"):
+class _GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
-
-    # extra="allow" is needed because BaseModel by default drops extra parameters.
 
     @model_validator(mode="after")
     def validate_fieldnames(self):
@@ -94,7 +91,7 @@ class GenericModel(BaseModel, extra="allow"):
         return self
 
 
-GenericModelType = SerializeAsAny[GenericModel]
+GenericModel = SerializeAsAny[_GenericModel]
 
 T = TypeVar("T")
 Discriminated = Annotated[T, Field(discriminator="object_type")]
