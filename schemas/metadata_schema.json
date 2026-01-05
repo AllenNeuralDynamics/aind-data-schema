@@ -25005,8 +25005,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.8",
-               "default": "2.1.8",
+               "const": "2.1.9",
+               "default": "2.1.9",
                "title": "Schema Version",
                "type": "string"
             },
@@ -37485,8 +37485,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.5",
-         "default": "2.2.5",
+         "const": "2.2.6",
+         "default": "2.2.6",
          "title": "Schema Version",
          "type": "string"
       },
