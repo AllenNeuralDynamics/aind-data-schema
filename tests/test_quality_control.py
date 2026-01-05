@@ -186,7 +186,7 @@ class QualityControlTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.FAIL)
+        self.assertEqual(qc.evaluate_status(tag="group:Drift map"), Status.FAIL)
 
     def test_allowed_failed_metrics(self):
         """Test that if you set the flag to allow failures that tags pass"""
@@ -224,17 +224,17 @@ class QualityControlTests(unittest.TestCase):
             default_grouping=["group"],
         )
 
-        self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PENDING)
+        self.assertEqual(qc.evaluate_status(tag="group:Drift map"), Status.PENDING)
 
         # Replace the pending evaluation with a fail, evaluation should not evaluate to pass
         qc.metrics[1].status_history[0].status = Status.FAIL
 
-        self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.FAIL)
+        self.assertEqual(qc.evaluate_status(tag="group:Drift map"), Status.FAIL)
 
         # Now add the tag to allow_tag_failures
-        qc.allow_tag_failures = ["Drift map"]
+        qc.allow_tag_failures = ["group:Drift map"]
 
-        self.assertEqual(qc.evaluate_status(tag="Drift map"), Status.PASS)
+        self.assertEqual(qc.evaluate_status(tag="group:Drift map"), Status.PASS)
 
     def test_metric_history_order(self):
         """Test that the order of the metric status history list is preserved when dumping"""
@@ -441,10 +441,10 @@ class QualityControlTests(unittest.TestCase):
                 "behavior": Status.FAIL,
                 "behavior-videos": Status.PENDING,
                 "ecephys": Status.PASS,
-                # Tags
-                "test_group": Status.PASS,
-                "test_group2": Status.FAIL,
-                "tag1": Status.PENDING,
+                # Tags (now in key:value format)
+                "group:test_group": Status.PASS,
+                "group:test_group2": Status.FAIL,
+                "type:tag1": Status.PENDING,
             },
         )
 
@@ -454,7 +454,7 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(q.evaluate_status(modality=[Modality.ECEPHYS, Modality.BEHAVIOR]), Status.FAIL)
         self.assertEqual(q.evaluate_status(stage=Stage.RAW), Status.FAIL)
         self.assertEqual(q.evaluate_status(stage=Stage.PROCESSING), Status.PASS)
-        self.assertEqual(q.evaluate_status(tag="tag1"), Status.PENDING)
+        self.assertEqual(q.evaluate_status(tag="type:tag1"), Status.PENDING)
 
     def test_status_date(self):
         """QualityControl.status(date=) should return the correct status for the given date"""
@@ -635,7 +635,7 @@ class QualityControlTests(unittest.TestCase):
         shared_tag_statuses = _get_filtered_statuses(
             metrics=all_metrics,
             date=test_date,
-            tag_filter=["shared_tag"],
+            tag_filter=["group:shared_tag"],
         )
         self.assertEqual(len(shared_tag_statuses), 2)  # Our BEHAVIOR and OPHYS test metrics
         self.assertIn(Status.PASS, shared_tag_statuses)
@@ -655,7 +655,7 @@ class QualityControlTests(unittest.TestCase):
         time_test_statuses = _get_filtered_statuses(
             metrics=all_metrics,
             date=earlier_date,
-            tag_filter=["time_test"],
+            tag_filter=["test:time_test"],
         )
         self.assertEqual(len(time_test_statuses), 1)
         self.assertEqual(time_test_statuses[0], Status.FAIL)  # Should get the earlier FAIL status
@@ -664,8 +664,8 @@ class QualityControlTests(unittest.TestCase):
         ophys_fail_statuses = _get_filtered_statuses(
             metrics=all_metrics,
             date=test_date,
-            tag_filter=["ophys_tag"],
-            allow_tag_failures=["ophys_tag"],
+            tag_filter=["type:ophys_tag"],
+            allow_tag_failures=["type:ophys_tag"],
         )
         self.assertEqual(len(ophys_fail_statuses), 1)
         self.assertEqual(ophys_fail_statuses[0], Status.PASS)  # FAIL converted to PASS
@@ -756,16 +756,16 @@ class QualityControlTests(unittest.TestCase):
         # Test status at different times
         early_date = datetime.fromisoformat("2020-02-01T00:00:00+00:00")
         # At early date: metric 1 is FAIL, metric 2 is PASS -> overall FAIL
-        early_status = qc.evaluate_status(date=early_date, tag="time_sensitive")
+        early_status = qc.evaluate_status(date=early_date, tag="group:time_sensitive")
         self.assertEqual(early_status, Status.FAIL)
 
         # At test date: metric 1 is PASS, metric 2 is PASS -> overall PASS
-        test_status = qc.evaluate_status(date=test_date, tag="time_sensitive")
+        test_status = qc.evaluate_status(date=test_date, tag="group:time_sensitive")
         self.assertEqual(test_status, Status.PASS)
 
         # At late date: metric 1 is PASS, metric 2 is FAIL -> overall FAIL
         late_date = datetime.fromisoformat("2020-08-01T00:00:00+00:00")
-        late_status = qc.evaluate_status(date=late_date, tag="time_sensitive")
+        late_status = qc.evaluate_status(date=late_date, tag="group:time_sensitive")
         self.assertEqual(late_status, Status.FAIL)
 
     def test_backwards_compatibility_default_grouping(self):
