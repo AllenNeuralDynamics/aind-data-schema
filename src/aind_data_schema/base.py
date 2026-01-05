@@ -91,7 +91,7 @@ class GenericModel(BaseModel, extra="allow"):
         if is_dict_corrupt(model_dict):
             warnings.warn("MongoDB queries may not work as expected for fields that contain '.' or '$'")
         return self
-    
+
 
 GenericModelType = SerializeAsAny[GenericModel]
 
