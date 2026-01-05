@@ -83,7 +83,7 @@ class AcquisitionSubjectDetails(DataModel):
 class PerformanceMetrics(DataModel):
     """Summary of a StimulusEpoch"""
 
-    output_parameters: GenericModel = Field(default=GenericModel(), title="Additional metrics")
+    output_parameters: Optional[GenericModel] = Field(default=None, title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
