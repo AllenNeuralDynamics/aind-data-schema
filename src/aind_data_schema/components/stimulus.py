@@ -82,7 +82,7 @@ class PhotoStimulationGroup(DataModel):
     spiral_duration_unit: TimeUnit = Field(default=TimeUnit.S, title="Spiral duration unit")
     inter_spiral_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_spiral_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: GenericModel = Field(GenericModel(), title="Other parameters")
+    other_parameters: Optional[GenericModel] = Field(default=None, title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
@@ -94,7 +94,7 @@ class PhotoStimulation(GenericModel):
     groups: List[PhotoStimulationGroup] = Field(..., title="Groups")
     inter_trial_interval: Decimal = Field(..., title="Inter trial interval (s)")
     inter_trial_interval_unit: TimeUnit = Field(default=TimeUnit.S, title="Inter trial interval unit")
-    other_parameters: GenericModel = Field(GenericModel(), title="Other parameters")
+    other_parameters: Optional[GenericModel] = Field(default=None, title="Other parameters")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
