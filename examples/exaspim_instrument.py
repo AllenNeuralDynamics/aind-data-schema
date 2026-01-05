@@ -199,7 +199,7 @@ additional_devices = [
         manufacturer=Organization.AI,
         model="Custom exaspim chamber",
         serial_number="01",
-    )
+    ),
 ]
 
 laser_launch = Device(
