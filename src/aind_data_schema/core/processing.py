@@ -72,9 +72,7 @@ class DataProcess(DataModel):
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
     output_parameters: Optional[GenericModelType] = Field(
-        default=None,
-        description="Output parameters",
-        title="Outputs"
+        default=None, description="Output parameters", title="Outputs"
     )
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")

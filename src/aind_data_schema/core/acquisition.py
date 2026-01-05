@@ -15,7 +15,7 @@ from aind_data_schema.base import (
     DataCoreModel,
     DataModel,
     DiscriminatedList,
-    GenericModelType
+    GenericModelType,
 )
 from aind_data_schema.components.configs import (
     AirPuffConfig,

@@ -80,6 +80,7 @@ def is_dict_corrupt(input_dict: dict) -> bool:
 
 class GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
+
     # extra="allow" is needed because BaseModel by default drops extra parameters.
 
     @model_validator(mode="after")
