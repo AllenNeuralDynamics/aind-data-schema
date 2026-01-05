@@ -2,19 +2,19 @@
 
 import unittest
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from aind_data_schema.base import DataModel, GenericModel
+from aind_data_schema.base import DataModel, GenericModel, GenericModelType
 
 
 class GenericContainer(DataModel):
     """Represents a generic container"""
 
-    contains_model: GenericModel
-    contains_dict: GenericModel
+    contains_model: GenericModelType
+    contains_dict: GenericModelType
 
 
-class Bar(BaseModel):
+class Bar(GenericModel):
     """Represents a mock model"""
 
     bar: str = Field(default="bar")
@@ -58,7 +58,7 @@ class GenericModelTests(unittest.TestCase):
             contains_dict={"foodict": 1, "bardict": "bar"},
         )
         parent_container = GenericContainer(
-            contains_model=Bar(bar="baz", foo=2).model_dump(),
+            contains_model=Bar(bar="baz", foo=2),
             contains_dict={"foodict": 1, "bardict": "bar"},
         )
         deserialized = SubGenericContainer.model_validate_json(parent_container.model_dump_json())
