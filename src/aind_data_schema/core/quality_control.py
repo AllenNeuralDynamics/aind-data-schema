@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, List, Literal, Optional, Union
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
@@ -89,19 +89,38 @@ class CurationHistory(DataModel):
 
 
 class CurationMetric(QCMetric):
-    """Curations applied to a data asset"""
+    """Curations applied to a data asset
+    
+    The value field is a dictionary mapping element identifiers to lists of curation data.
+    For backward compatibility, if a List is provided, it will be converted to a dict with a single
+    'default' key.
+    """
 
-    value: List[Any] = Field(..., title="Curation value")
-    type: str = Field(..., title="Curation type")
-    curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
-
-
-class ElementCurationMetric(QCMetric):
-    """Curation metric for individual elements within a data asset"""
-
-    value: dict[str, List[Any]] = Field(..., title="Curation value per element")
+    value: dict[str, List[dict]] = Field(..., title="Curation value per element")
     type: str = Field(..., title="Curation type")
     curation_history: dict[str, List[CurationHistory]] = Field(default={}, title="Curation history per element")
+    
+    @field_validator('value', mode='before')
+    @classmethod
+    def convert_legacy_value(cls, v):
+        """Convert legacy List[dict] format to dict[str, List[dict]] format
+        
+        For backward compatibility, if a List is provided, wrap it under a 'default' key.
+        """
+        if isinstance(v, list):
+            return {'default': v}
+        return v
+    
+    @field_validator('curation_history', mode='before')
+    @classmethod
+    def convert_legacy_history(cls, v):
+        """Convert legacy List[CurationHistory] format to dict[str, List[CurationHistory]] format
+        
+        For backward compatibility, if a List is provided, wrap it under a 'default' key.
+        """
+        if isinstance(v, list):
+            return {'default': v}
+        return v
 
 
 class QualityControl(DataCoreModel):
@@ -110,7 +129,7 @@ class QualityControl(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
     schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
-    metrics: DiscriminatedList[QCMetric | CurationMetric | ElementCurationMetric] = Field(..., title="Evaluations")
+    metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,
         title="Key experimenters",
@@ -266,7 +285,7 @@ class QualityControl(DataCoreModel):
         )
 
 
-def _get_status_by_date(metric: QCMetric | CurationMetric | ElementCurationMetric, date: datetime) -> Status:
+def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> Status:
     """Get the status of a metric at a specific date by looking through status_history.
 
     Returns the status that was active at the given date by finding the most recent
@@ -274,7 +293,7 @@ def _get_status_by_date(metric: QCMetric | CurationMetric | ElementCurationMetri
 
     Parameters
     ----------
-    metric : QCMetric | CurationMetric | ElementCurationMetric
+    metric : QCMetric | CurationMetric
         The metric to get the status for
     date : datetime
         The date to check the status at
@@ -300,7 +319,7 @@ def _get_status_by_date(metric: QCMetric | CurationMetric | ElementCurationMetri
 
 
 def _get_filtered_statuses(
-    metrics: list[QCMetric | CurationMetric | ElementCurationMetric],
+    metrics: list[QCMetric | CurationMetric],
     date: datetime,
     modality_filter: Optional[List[Modality.ONE_OF]] = None,
     stage_filter: Optional[List[Stage]] = None,

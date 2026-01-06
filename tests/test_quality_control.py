@@ -7,6 +7,8 @@ from aind_data_schema_models.modalities import Modality
 from pydantic import ValidationError
 
 from aind_data_schema.core.quality_control import (
+    CurationHistory,
+    CurationMetric,
     QCMetric,
     QCStatus,
     QualityControl,
@@ -760,6 +762,80 @@ class QualityControlTests(unittest.TestCase):
         late_date = datetime.fromisoformat("2020-08-01T00:00:00+00:00")
         late_status = qc.evaluate_status(date=late_date, tag="time_sensitive")
         self.assertEqual(late_status, Status.FAIL)
+
+    def test_curation_metric_backward_compatibility(self):
+        """Test that CurationMetric handles legacy List format and new dict format"""
+        t0 = datetime.fromisoformat("2020-10-10")
+        
+        # Test legacy format - List[dict]
+        legacy_curation = CurationMetric(
+            name="Legacy spike sorting curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=[{"unit_id": 1, "quality": "good"}, {"unit_id": 2, "quality": "mua"}],
+            type="spike_sorting",
+            status_history=[
+                QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+            ],
+            tags=["Curation"],
+            curation_history=[
+                CurationHistory(curator="Alice", timestamp=t0)
+            ]
+        )
+        
+        # Verify it gets converted to element-based format
+        self.assertIsInstance(legacy_curation.value, dict)
+        self.assertIn('default', legacy_curation.value)
+        self.assertEqual(len(legacy_curation.value['default']), 2)
+        self.assertEqual(legacy_curation.value['default'][0]['unit_id'], 1)
+        
+        # Verify curation_history also gets converted
+        self.assertIsInstance(legacy_curation.curation_history, dict)
+        self.assertIn('default', legacy_curation.curation_history)
+        self.assertEqual(len(legacy_curation.curation_history['default']), 1)
+        self.assertEqual(legacy_curation.curation_history['default'][0].curator, "Alice")
+        
+        # Test new element-based format
+        element_curation = CurationMetric(
+            name="Element-based spike sorting curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value={
+                "unit_1": [{"quality": "good", "timestamp": "2020-10-10"}],
+                "unit_2": [{"quality": "mua", "timestamp": "2020-10-10"}]
+            },
+            type="spike_sorting",
+            status_history=[
+                QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+            ],
+            tags=["Curation"],
+            curation_history={
+                "unit_1": [CurationHistory(curator="Alice", timestamp=t0)],
+                "unit_2": [CurationHistory(curator="Bob", timestamp=t0)]
+            }
+        )
+        
+        # Verify new format stays as-is
+        self.assertIsInstance(element_curation.value, dict)
+        self.assertIn('unit_1', element_curation.value)
+        self.assertIn('unit_2', element_curation.value)
+        self.assertEqual(element_curation.value['unit_1'][0]['quality'], 'good')
+        self.assertEqual(element_curation.value['unit_2'][0]['quality'], 'mua')
+        
+        # Verify curation_history with elements
+        self.assertIsInstance(element_curation.curation_history, dict)
+        self.assertEqual(element_curation.curation_history['unit_1'][0].curator, "Alice")
+        self.assertEqual(element_curation.curation_history['unit_2'][0].curator, "Bob")
+        
+        # Test roundtrip serialization for legacy format
+        legacy_json = legacy_curation.model_dump_json()
+        legacy_rebuilt = CurationMetric.model_validate_json(legacy_json)
+        self.assertEqual(legacy_rebuilt.value, legacy_curation.value)
+        
+        # Test roundtrip serialization for element format
+        element_json = element_curation.model_dump_json()
+        element_rebuilt = CurationMetric.model_validate_json(element_json)
+        self.assertEqual(element_rebuilt.value, element_curation.value)
 
 
 if __name__ == "__main__":
