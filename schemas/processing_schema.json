@@ -123,7 +123,7 @@
             "parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -367,8 +367,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -415,13 +422,6 @@
          ],
          "title": "Database",
          "type": "string"
-      },
-      "GenericModel": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "GenericModel",
-         "type": "object"
       },
       "MemoryUnit": {
          "description": "Computer memory units",
@@ -718,6 +718,13 @@
          ],
          "title": "Software",
          "type": "object"
+      },
+      "_GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "_GenericModel",
+         "type": "object"
       }
    },
    "additionalProperties": false,
@@ -736,8 +743,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.9",
-         "default": "2.1.9",
+         "const": "2.2.0",
+         "default": "2.2.0",
          "title": "Schema Version",
          "type": "string"
       },

@@ -50,7 +50,7 @@ CONFIG_REQUIREMENTS = {
     Modality.POPHYS: [[ImagingConfig]],
     Modality.MRI: [[MRIScan]],
     Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
-    Modality.SLAP: [[ImagingConfig], [SlapPlane]],
+    Modality.SLAP2: [[ImagingConfig]],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
@@ -83,7 +83,7 @@ class AcquisitionSubjectDetails(DataModel):
 class PerformanceMetrics(DataModel):
     """Summary of a StimulusEpoch"""
 
-    output_parameters: GenericModel = Field(default=GenericModel(), title="Additional metrics")
+    output_parameters: Optional[GenericModel] = Field(default=None, title="Additional metrics")
     reward_consumed_during_epoch: Optional[Decimal] = Field(default=None, title="Reward consumed during training (uL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
     trials_total: Optional[int] = Field(default=None, title="Total trials")
@@ -317,7 +317,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.1"]] = Field(default="2.2.1")
+    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")

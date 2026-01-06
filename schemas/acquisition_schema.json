@@ -883,7 +883,7 @@
             "fit_parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -1195,7 +1195,7 @@
             "parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -1570,7 +1570,7 @@
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
                         "scRNAseq": "#/$defs/_Scrnaseq",
-                        "slap": "#/$defs/_Slap"
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -1624,7 +1624,7 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
@@ -1983,13 +1983,6 @@
          ],
          "title": "FrequencyUnit",
          "type": "string"
-      },
-      "GenericModel": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "GenericModel",
-         "type": "object"
       },
       "ImageSPIM": {
          "additionalProperties": false,
@@ -2919,7 +2912,15 @@
                "title": "Voxel resolution unit"
             },
             "additional_scan_parameters": {
-               "$ref": "#/$defs/GenericModel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Parameters"
             },
             "notes": {
@@ -2945,8 +2946,7 @@
             "echo_time_unit",
             "repetition_time",
             "repetition_time_unit",
-            "subject_position",
-            "additional_scan_parameters"
+            "subject_position"
          ],
          "title": "MRIScan",
          "type": "object"
@@ -3984,8 +3984,15 @@
                "type": "string"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional metrics"
             },
             "reward_consumed_during_epoch": {
@@ -7907,6 +7914,13 @@
          "title": "_Fujinon",
          "type": "object"
       },
+      "_GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "_GenericModel",
+         "type": "object"
+      },
       "_Hamamatsu": {
          "description": "Model Hamamatsu",
          "properties": {
@@ -10483,24 +10497,24 @@
          "title": "_Simons_Foundation",
          "type": "object"
       },
-      "_Slap": {
+      "_Slap2": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model slap2",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "slap2",
+               "default": "slap2",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Slap2",
          "type": "object"
       },
       "_Spectra_Physics": {
@@ -11274,8 +11288,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.1",
-         "default": "2.2.1",
+         "const": "2.2.3",
+         "default": "2.2.3",
          "title": "Schema Version",
          "type": "string"
       },

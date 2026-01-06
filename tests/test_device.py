@@ -21,8 +21,10 @@ from aind_data_schema.components.devices import (
     HarpDevice,
     ImagingDeviceType,
     ImmersionMedium,
+    Monitor,
     Objective,
 )
+from aind_data_schema_models.units import UnitlessUnit
 
 
 class DeviceTests(unittest.TestCase):
@@ -206,6 +208,87 @@ class DAQChannelTests(unittest.TestCase):
             self.assertTrue(issubclass(w[0].category, DeprecationWarning))
             self.assertIn("DAQChannel.channel_index is deprecated", str(w[0].message))
             self.assertIn("Use DAQChannel.port instead", str(w[0].message))
+
+
+class MonitorTests(unittest.TestCase):
+    """tests Monitor schemas"""
+
+    def test_add_units_if_needed_validator(self):
+        """tests the Monitor validator for adding units if needed"""
+
+        monitor_with_contrast_no_unit = Monitor(
+            name="test_monitor",
+            manufacturer=Organization.ASUS,
+            refresh_rate=60,
+            width=1920,
+            height=1080,
+            viewing_distance=15.0,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            contrast=50,
+        )
+        self.assertEqual(monitor_with_contrast_no_unit.contrast, 50)
+        self.assertEqual(monitor_with_contrast_no_unit.contrast_unit, UnitlessUnit.PERCENT)
+
+        monitor_with_brightness_no_unit = Monitor(
+            name="test_monitor",
+            manufacturer=Organization.ASUS,
+            refresh_rate=60,
+            width=1920,
+            height=1080,
+            viewing_distance=15.0,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            brightness=75,
+        )
+        self.assertEqual(monitor_with_brightness_no_unit.brightness, 75)
+        self.assertEqual(monitor_with_brightness_no_unit.brightness_unit, UnitlessUnit.PERCENT)
+
+        monitor_with_both_no_units = Monitor(
+            name="test_monitor",
+            manufacturer=Organization.ASUS,
+            refresh_rate=60,
+            width=1920,
+            height=1080,
+            viewing_distance=15.0,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            contrast=50,
+            brightness=75,
+        )
+        self.assertEqual(monitor_with_both_no_units.contrast, 50)
+        self.assertEqual(monitor_with_both_no_units.contrast_unit, UnitlessUnit.PERCENT)
+        self.assertEqual(monitor_with_both_no_units.brightness, 75)
+        self.assertEqual(monitor_with_both_no_units.brightness_unit, UnitlessUnit.PERCENT)
+
+        monitor_with_explicit_units = Monitor(
+            name="test_monitor",
+            manufacturer=Organization.ASUS,
+            refresh_rate=60,
+            width=1920,
+            height=1080,
+            viewing_distance=15.0,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+            contrast=50,
+            contrast_unit=UnitlessUnit.PERCENT,
+            brightness=75,
+            brightness_unit=UnitlessUnit.PERCENT,
+        )
+        self.assertEqual(monitor_with_explicit_units.contrast, 50)
+        self.assertEqual(monitor_with_explicit_units.contrast_unit, UnitlessUnit.PERCENT)
+        self.assertEqual(monitor_with_explicit_units.brightness, 75)
+        self.assertEqual(monitor_with_explicit_units.brightness_unit, UnitlessUnit.PERCENT)
+
+        monitor_without_contrast_brightness = Monitor(
+            name="test_monitor",
+            manufacturer=Organization.ASUS,
+            refresh_rate=60,
+            width=1920,
+            height=1080,
+            viewing_distance=15.0,
+            relative_position=[AnatomicalRelative.SUPERIOR],
+        )
+        self.assertIsNone(monitor_without_contrast_brightness.contrast)
+        self.assertIsNone(monitor_without_contrast_brightness.contrast_unit)
+        self.assertIsNone(monitor_without_contrast_brightness.brightness)
+        self.assertIsNone(monitor_without_contrast_brightness.brightness_unit)
 
 
 if __name__ == "__main__":

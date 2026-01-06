@@ -1357,24 +1357,24 @@
          "title": "_Simons_Foundation",
          "type": "object"
       },
-      "_Slap": {
+      "_Slap2": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model slap2",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "slap2",
+               "default": "slap2",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Slap2",
          "type": "object"
       },
       "_Spim": {
@@ -1764,7 +1764,7 @@
                   "merfish": "#/$defs/_Merfish",
                   "pophys": "#/$defs/_Pophys",
                   "scRNAseq": "#/$defs/_Scrnaseq",
-                  "slap": "#/$defs/_Slap"
+                  "slap2": "#/$defs/_Slap2"
                },
                "propertyName": "abbreviation"
             },
@@ -1818,7 +1818,7 @@
                   "$ref": "#/$defs/_Pophys"
                },
                {
-                  "$ref": "#/$defs/_Slap"
+                  "$ref": "#/$defs/_Slap2"
                },
                {
                   "$ref": "#/$defs/_Spim"

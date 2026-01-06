@@ -550,7 +550,7 @@ class AcquisitionTest(unittest.TestCase):
 
         self.assertIsNotNone(combined_stream)
         self.assertIn(Modality.SPIM, combined_stream.modalities)
-        self.assertEqual(len(combined_stream.active_devices), 3)
+        self.assertEqual(len(combined_stream.active_devices), 6)
 
 
 if __name__ == "__main__":

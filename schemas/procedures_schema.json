@@ -903,7 +903,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -1179,7 +1179,7 @@
             "parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2034,7 +2034,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2585,7 +2585,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -3142,7 +3142,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -4402,13 +4402,6 @@
          "title": "GeneProbeSet",
          "type": "object"
       },
-      "GenericModel": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "GenericModel",
-         "type": "object"
-      },
       "GenericSubjectProcedure": {
          "additionalProperties": false,
          "description": "Description of a non-surgical procedure performed on a subject",
@@ -5542,7 +5535,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -10503,6 +10496,13 @@
             }
          },
          "title": "_Gallus_Gallus",
+         "type": "object"
+      },
+      "_GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "_GenericModel",
          "type": "object"
       },
       "_Hamamatsu": {

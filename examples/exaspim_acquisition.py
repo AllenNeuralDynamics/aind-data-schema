@@ -49,14 +49,14 @@ image1 = ImageSPIM(
 )
 
 imaging_config = ImagingConfig(
-    device_name="ExaSPIM",
+    device_name="exaSPIM1",
     channels=[
         Channel(
             channel_name="488",
             intended_measurement="GFP signal",
             light_sources=[
                 LaserConfig(
-                    device_name="LAS_08308",
+                    device_name="LAS-08307",
                     wavelength=488,
                     wavelength_unit=SizeUnit.NM,
                     power=200,
@@ -115,7 +115,7 @@ acq = Acquisition(
     experimenters=["John Smith"],
     specimen_id="123456-123",
     subject_id="123456",
-    instrument_id="###",
+    instrument_id="exaSPIM1",
     maintenance=[
         Maintenance(
             maintenance_date=t,
@@ -149,8 +149,11 @@ acq = Acquisition(
             stream_end_time=t,
             modalities=[Modality.SPIM],
             active_devices=[
-                "LAS_08308",
+                "LAS-08307",
                 "539251",
+                "Multiband filter",
+                "PMT_1",
+                "Sample chamber",
             ],
             configurations=[
                 imaging_config,

@@ -8,6 +8,9 @@ from aind_data_schema.core.acquisition import Acquisition, StimulusEpoch
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
+from examples.exaspim_acquisition import acq
+from examples.exaspim_instrument import inst
+
 
 class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
     """Unit tests for InstrumentAcquisitionCompatibility class."""
@@ -33,6 +36,11 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         self.mock_acquisition.instrument_id = "instrument_1"
         self.mock_acquisition.data_streams = [MagicMock(active_devices=["component_1"])]
         self.mock_acquisition.stimulus_epochs = [MagicMock(active_devices=["component_2"])]
+
+    def test_exaspim_example_compatibility(self):
+        """Test compatibility of the exaspim example instrument and acquisition."""
+        checker = InstrumentAcquisitionCompatibility(inst, acq)
+        self.assertIsNone(checker.run_compatibility_check())
 
     def test_compare_instrument_id_success(self):
         """Test that instrument IDs match."""
