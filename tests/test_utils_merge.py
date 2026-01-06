@@ -1,8 +1,53 @@
 """ Tests for merge utilities """
 
 import unittest
+from unittest.mock import Mock
 
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    merge_coordinate_systems,
+    merge_str_tuple_lists,
+    merge_process_graph,
+)
+
+
+class TestMergeStrTupleLists(unittest.TestCase):
+    """Tests for merge_str_tuple_lists function"""
+
+    def test_empty_lists(self):
+        """Test merging two empty lists"""
+        result = merge_str_tuple_lists([], [])
+        self.assertEqual(result, [])
+
+    def test_first_list_longer(self):
+        """Test merging when the first list is longer"""
+        a = ["a", "b", "c"]
+        b = ["d"]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "d"), "b", "c"])
+
+    def test_second_list_longer(self):
+        """Test merging when the second list is longer"""
+        a = ["a"]
+        b = ["b", "c", "d"]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "b"), "c", "d"])
+
+    def test_tuples_in_both_lists(self):
+        """Test merging when both lists contain tuples"""
+        a = [("a", "b"), ("c", "d")]
+        b = [("e", "f"), ("g", "h")]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "b", "e", "f"), ("c", "d", "g", "h")])
+
+    def test_deduplication_with_tuples(self):
+        """Test deduplication when merging tuples"""
+        a = [("a", "b"), "c"]
+        b = [("b", "d"), "c"]
+        result = merge_str_tuple_lists(a, b)
+        self.assertEqual(result, [("a", "b", "d"), "c"])
 
 
 class TestMergeNotes(unittest.TestCase):
@@ -110,6 +155,76 @@ class MergeOptionalListTests(unittest.TestCase):
     def test_both_non_empty(self):
         """Test when both inputs are non-empty lists"""
         self.assertEqual(merge_optional_list([1, 2], [3, 4]), [1, 2, 3, 4])
+
+
+class MergeCSTests(unittest.TestCase):
+    """Tests for merge_coordinate_systems"""
+
+    def setUp(self):
+        """Set up test cases"""
+        self.CSA = CoordinateSystemLibrary.BREGMA_ARI
+        self.CSB = CoordinateSystemLibrary.MPM_MANIP_RFB
+
+    def test_both_none(self):
+        """Test when both inputs are None"""
+
+        self.assertIsNone(merge_coordinate_systems(None, None))
+
+    def test_first_none(self):
+        """Test when first input is None"""
+
+        self.assertEqual(merge_coordinate_systems(None, self.CSA), self.CSA)
+
+    def test_second_none(self):
+        """Test when second input is None"""
+
+        self.assertEqual(merge_coordinate_systems(self.CSA, None), self.CSA)
+
+    def test_both_same(self):
+        """Test when both inputs are the same"""
+
+        self.assertEqual(
+            merge_coordinate_systems(self.CSA, self.CSA),
+            self.CSA,
+        )
+
+    def test_both_different(self):
+        """Test when both inputs are different"""
+
+        with self.assertRaises(ValueError):
+            merge_coordinate_systems(self.CSA, self.CSB)
+
+
+class MergeProcessGraphTests(unittest.TestCase):
+    """Tests for merge_process_graph"""
+
+    def test_both_graphs_present(self):
+        """Test merging when both graphs are present"""
+        graph1 = {"proc1": ["proc2"], "proc2": []}
+        graph2 = {"proc3": ["proc4"], "proc4": []}
+        result = merge_process_graph(graph1, graph2, [], [])
+        self.assertEqual(result, {"proc1": ["proc2"], "proc2": [], "proc3": ["proc4"], "proc4": []})
+
+    def test_only_first_graph(self):
+        """Test when only first graph is present"""
+        graph1 = {"proc1": ["proc2"], "proc2": []}
+        proc = Mock()
+        proc.name = "proc3"
+        result = merge_process_graph(graph1, None, [], [proc])
+        self.assertEqual(result, {"proc1": ["proc2"], "proc2": [], "proc3": []})
+
+    def test_only_second_graph(self):
+        """Test when only second graph is present"""
+        graph2 = {"proc3": ["proc4"], "proc4": []}
+        proc = Mock()
+        proc.name = "proc1"
+        result = merge_process_graph(None, graph2, [proc], [])
+        self.assertEqual(result, {"proc3": ["proc4"], "proc4": [], "proc1": []})
+
+    def test_both_graphs_none(self):
+        """Test when both graphs are None"""
+        result = merge_process_graph(None, None, [], [])
+        self.assertIsNone(result)
 
 
 if __name__ == "__main__":

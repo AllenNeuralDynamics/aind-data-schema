@@ -37,7 +37,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
+    schema_version: SkipValidation[Literal["2.3.0"]] = Field(default="2.3.0")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(
@@ -226,13 +226,6 @@ class DataDescription(DataCoreModel):
         if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
-        # Upgrade source_data
-        current_source_data = data_description.source_data or []
-        if source_data is not None:
-            new_source_data = current_source_data + source_data
-        else:
-            new_source_data = current_source_data + [original_name]
-
         return cls(
             subject_id=get_or_default("subject_id"),
             creation_time=creation_time,
@@ -247,7 +240,7 @@ class DataDescription(DataCoreModel):
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
             data_summary=get_or_default("data_summary"),
-            source_data=new_source_data,
+            source_data=source_data if source_data else [original_name],
         )
 
     @classmethod
@@ -320,13 +313,6 @@ class DataDescription(DataCoreModel):
         if not re.match(DataRegex.DERIVED.value, derived_name):  # pragma: no cover
             raise ValueError(f"Derived name({derived_name}) does not match allowed Regex pattern")
 
-        # Upgrade source_data
-        current_source_data = data_description.source_data or []
-        if source_data is not None:
-            new_source_data = current_source_data + source_data
-        else:
-            new_source_data = current_source_data + [data_description.name]
-
         return cls(
             subject_id=get_or_default("subject_id"),
             creation_time=creation_time,
@@ -341,7 +327,7 @@ class DataDescription(DataCoreModel):
             restrictions=get_or_default("restrictions"),
             modalities=get_or_default("modalities"),
             data_summary=get_or_default("data_summary"),
-            source_data=new_source_data,
+            source_data=source_data if source_data else [data_description.name],
         )
 
     @classmethod

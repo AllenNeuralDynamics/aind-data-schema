@@ -59,8 +59,8 @@ class Model(DataCoreModel):
     )
     architecture: ModelArchitecture = Field(..., title="architecture", description="Model architecture / type of model")
     software_framework: Optional[Software] = Field(default=None, title="Software framework")
-    architecture_parameters: GenericModel = Field(
-        default=GenericModel(),
+    architecture_parameters: Optional[GenericModel] = Field(
+        default=None,
         title="Architecture parameters",
         description="Parameters of model architecture, such as input signature or number of layers.",
     )

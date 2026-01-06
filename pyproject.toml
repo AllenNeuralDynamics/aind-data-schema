@@ -14,9 +14,8 @@ readme = "README.md"
 dynamic = ["version"]
 
 dependencies = [
-    'aind-data-schema-models>=4.2.11',
+    'aind-data-schema-models>=5,<6',
     'pydantic>=2.7, <2.12',
-    'semver'
 ]
 
 [project.optional-dependencies]
@@ -25,6 +24,7 @@ dev = [
     'pydantic>=2.7, !=2.9.0, !=2.9.1',
     'scipy',
     'dictdiffer',
+    'semver'
 ]
 
 linters = [
@@ -103,4 +103,4 @@ fail-under = 100
 
 [tool.codespell]
 skip = '.git,*.pdf,*.svg'
-ignore-words-list = 'nd,assertIn'
+ignore-words-list = 'nd,assertIn,DeviceC'

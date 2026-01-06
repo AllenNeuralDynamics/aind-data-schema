@@ -542,7 +542,7 @@ class MRIScan(DeviceConfig):
     # other fields
     resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
     resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
-    additional_scan_parameters: GenericModel = Field(..., title="Parameters")
+    additional_scan_parameters: Optional[GenericModel] = Field(default=None, title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")

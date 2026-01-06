@@ -336,15 +336,14 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertEqual(r1.source_data, explicit_source)
         self.assertNotIn(da.name, r1.source_data)
 
-        # Test scenario 4: DERIVED data → DERIVED with additional source_data
+        # Test scenario 4: DERIVED data → DERIVED with explicit source_data
         additional_source = ["another_external_dataset"]
         r2 = DataDescription.from_derived(r1, "clustering", source_data=additional_source, creation_time=dt)
 
-        # Should combine existing source_data with new source_data
+        # Should use the explicit source_data (not combine with existing)
         self.assertIsNotNone(r2.source_data)
-        self.assertEqual(len(r2.source_data), 3)  # 2 from r1 + 1 additional
-        self.assertEqual(r2.source_data[:2], explicit_source)  # First two should be from r1
-        self.assertEqual(r2.source_data[2:], additional_source)  # Last one should be additional
+        self.assertEqual(len(r2.source_data), 1)  # Just the new source_data
+        self.assertEqual(r2.source_data, additional_source)
 
     def test_from_raw_chained_source_data_behavior(self):
         """Test source_data behavior in chained derived data without explicit source_data"""
@@ -367,18 +366,15 @@ class DataDescriptionTest(unittest.TestCase):
         r1 = DataDescription.from_raw(da, "spikesort-ks25", creation_time=dt)
         self.assertEqual(r1.source_data, [da.name])
 
-        # Second derivation: DERIVED → DERIVED (should append to existing source_data)
+        # Second derivation: DERIVED → DERIVED (should use only the immediate predecessor)
         r2 = DataDescription.from_derived(r1, "clustering", creation_time=dt)
-        self.assertEqual(len(r2.source_data), 2)
-        self.assertEqual(r2.source_data[0], da.name)  # Original source
-        self.assertEqual(r2.source_data[1], r1.name)  # Previous derived data
+        self.assertEqual(len(r2.source_data), 1)
+        self.assertEqual(r2.source_data[0], r1.name)  # Only the immediate predecessor
 
-        # Third derivation: should continue the chain
+        # Third derivation: should only reference the immediate predecessor
         r3 = DataDescription.from_derived(r2, "analysis", creation_time=dt)
-        self.assertEqual(len(r3.source_data), 3)
-        self.assertEqual(r3.source_data[0], da.name)  # Original source
-        self.assertEqual(r3.source_data[1], r1.name)  # First derived
-        self.assertEqual(r3.source_data[2], r2.name)  # Second derived
+        self.assertEqual(len(r3.source_data), 1)
+        self.assertEqual(r3.source_data[0], r2.name)  # Only the immediate predecessor
 
     def test_from_derived_basic_functionality(self):
         """Test from_derived creates derived data using original input name"""
@@ -402,9 +398,8 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertIn("quality_control", derived2.name)
         self.assertNotIn("spike_sorting", derived2.name)  # Should not chain process names
         self.assertEqual(derived2.data_level, DataLevel.DERIVED)
-        self.assertEqual(len(derived2.source_data), 2)
-        self.assertEqual(derived2.source_data[0], example_data_description.name)  # Original
-        self.assertEqual(derived2.source_data[1], derived1.name)  # Previous derived
+        self.assertEqual(len(derived2.source_data), 1)
+        self.assertEqual(derived2.source_data[0], derived1.name)  # Only immediate predecessor
 
         # Verify the names have the expected structure
         expected_derived1_prefix = f"{example_data_description.name}_spike_sorting_"
@@ -433,10 +428,9 @@ class DataDescriptionTest(unittest.TestCase):
         explicit_source = ["external_dataset_1", "external_dataset_2"]
         derived2 = DataDescription.from_derived(derived1, "analysis", source_data=explicit_source, creation_time=dt2)
 
-        # Should combine existing source_data with new source_data
-        self.assertEqual(len(derived2.source_data), 3)  # 1 from derived1 + 2 explicit
-        self.assertEqual(derived2.source_data[0], example_data_description.name)  # From derived1
-        self.assertEqual(derived2.source_data[1:], explicit_source)  # Explicit source_data
+        # Should use the explicit source_data (not combine with existing)
+        self.assertEqual(len(derived2.source_data), 2)  # Just the explicit source_data
+        self.assertEqual(derived2.source_data, explicit_source)  # Explicit source_data only
 
     def test_from_derived_chained_behavior(self):
         """Test chained from_derived calls maintain original input name"""
@@ -455,10 +449,10 @@ class DataDescriptionTest(unittest.TestCase):
         self.assertTrue(derived2.name.startswith(f"{original_prefix}_process2_"))
         self.assertTrue(derived3.name.startswith(f"{original_prefix}_process3_"))
 
-        # Verify source_data chains correctly
+        # Verify source_data only contains immediate predecessor
         self.assertEqual(derived1.source_data, [example_data_description.name])
-        self.assertEqual(derived2.source_data, [example_data_description.name, derived1.name])
-        self.assertEqual(derived3.source_data, [example_data_description.name, derived1.name, derived2.name])
+        self.assertEqual(derived2.source_data, [derived1.name])
+        self.assertEqual(derived3.source_data, [derived2.name])
 
     def test_from_derived_name_parsing(self):
         """Test from_derived correctly parses complex derived names"""
@@ -552,9 +546,8 @@ class DataDescriptionTest(unittest.TestCase):
         )
 
         self.assertEqual(result_derived.tags, custom_tags)
-        # Should combine existing source_data with explicit source_data
-        expected_source_data = [example_data_description.name] + explicit_source
-        self.assertEqual(result_derived.source_data, expected_source_data)
+        # Should use the explicit source_data (not combine with existing)
+        self.assertEqual(result_derived.source_data, explicit_source)
 
     def test_from_derived_with_invalid_creation_time(self):
         """Test from_derived error when creation_time is not a datetime object"""

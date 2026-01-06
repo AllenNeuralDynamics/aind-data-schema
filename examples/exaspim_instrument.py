@@ -37,7 +37,7 @@ objectives = [
 
 detectors = [
     Detector(
-        name="Camera 1",
+        name="PMT_1",
         detector_type="Camera",
         data_interface="Coax",
         cooling="Air",
@@ -192,6 +192,13 @@ additional_devices = [
         manufacturer=Organization.OXXIUS,
         model="L6Cc",
         serial_number="L6CC-00513",
+    ),
+    AdditionalImagingDevice(
+        name="Sample chamber",
+        imaging_device_type="Sample Chamber",
+        manufacturer=Organization.AI,
+        model="Custom exaspim chamber",
+        serial_number="01",
     ),
 ]
 

@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.2.3",
+               "default": "2.2.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -177,6 +177,15 @@
                "title": "Stimulus",
                "type": "array"
             },
+            "manipulations": {
+               "default": [],
+               "description": "Procedures performed during the acquisition.",
+               "items": {
+                  "$ref": "#/$defs/Manipulation"
+               },
+               "title": "Manipulations",
+               "type": "array"
+            },
             "subject_details": {
                "anyOf": [
                   {
@@ -258,6 +267,7 @@
                   }
                ],
                "default": null,
+               "description": "Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia",
                "title": "Anaesthesia"
             },
             "mouse_platform_name": {
@@ -436,6 +446,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -765,6 +776,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -797,7 +811,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -1114,6 +1128,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -1443,6 +1458,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -1475,7 +1493,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -1721,6 +1739,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -2050,6 +2069,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -2082,7 +2104,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2452,8 +2474,17 @@
                "type": "string"
             },
             "breeding_group": {
-               "title": "Breeding Group",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
+               "title": "Breeding Group"
             },
             "maternal_id": {
                "title": "Maternal specimen ID",
@@ -2473,7 +2504,6 @@
             }
          },
          "required": [
-            "breeding_group",
             "maternal_id",
             "maternal_genotype",
             "paternal_id",
@@ -2506,6 +2536,19 @@
                "description": "Brief description of what is being calibrated",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -2735,7 +2778,7 @@
             "fit_parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2894,7 +2937,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -3455,6 +3498,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -3784,6 +3828,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -3816,7 +3863,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -4236,7 +4283,7 @@
             "parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -4476,6 +4523,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -4805,6 +4853,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -4837,7 +4888,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -5278,9 +5329,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -5294,11 +5347,15 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                   },
@@ -5336,19 +5393,25 @@
                      "$ref": "#/$defs/_Mri"
                   },
                   {
+                     "$ref": "#/$defs/_Mapseq"
+                  },
+                  {
                      "$ref": "#/$defs/_Merfish"
                   },
                   {
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -5396,13 +5459,13 @@
                "title": "Metric reference image URL or plot type"
             },
             "tags": {
-               "default": [],
-               "description": "Tags group QCMetric objects to allow for grouping and filtering",
-               "items": {
+               "additionalProperties": {
                   "type": "string"
                },
+               "default": {},
+               "description": "Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
                "title": "Tags",
-               "type": "array"
+               "type": "object"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -5628,7 +5691,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -5744,8 +5807,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.3.0",
+               "default": "2.3.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5929,9 +5992,11 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
                         "EM": "#/$defs/_Em",
                         "EMG": "#/$defs/_Emg",
                         "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
                         "MRI": "#/$defs/_Mri",
                         "SPIM": "#/$defs/_Spim",
                         "STPT": "#/$defs/_Stpt",
@@ -5945,11 +6010,15 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
                   "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
                      {
                         "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                      },
@@ -5987,19 +6056,25 @@
                         "$ref": "#/$defs/_Mri"
                      },
                      {
+                        "$ref": "#/$defs/_Mapseq"
+                     },
+                     {
                         "$ref": "#/$defs/_Merfish"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -6158,8 +6233,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -6223,9 +6305,11 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
                         "EM": "#/$defs/_Em",
                         "EMG": "#/$defs/_Emg",
                         "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
                         "MRI": "#/$defs/_Mri",
                         "SPIM": "#/$defs/_Spim",
                         "STPT": "#/$defs/_Stpt",
@@ -6239,11 +6323,15 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
                   "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
                      {
                         "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                      },
@@ -6281,19 +6369,25 @@
                         "$ref": "#/$defs/_Mri"
                      },
                      {
+                        "$ref": "#/$defs/_Mapseq"
+                     },
+                     {
                         "$ref": "#/$defs/_Merfish"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -6537,7 +6631,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -7033,6 +7127,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -7362,6 +7457,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -7394,7 +7492,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -7592,6 +7690,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -7921,6 +8020,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -7953,7 +8055,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -8236,6 +8338,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -8565,6 +8668,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -8597,7 +8703,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -8844,6 +8950,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -9173,6 +9280,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -9205,7 +9315,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -9497,6 +9607,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -9826,6 +9937,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -9858,7 +9972,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -10126,6 +10240,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -10455,6 +10570,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -10487,7 +10605,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -10690,6 +10808,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -11019,6 +11138,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -11051,7 +11173,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -11228,7 +11350,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -11459,6 +11581,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -11786,6 +11909,9 @@
                   },
                   {
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   {
                      "$ref": "#/$defs/_Vieworks"
@@ -12193,6 +12319,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -12522,6 +12649,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -12584,13 +12714,6 @@
             "gene_probes"
          ],
          "title": "GeneProbeSet",
-         "type": "object"
-      },
-      "GenericModel": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "GenericModel",
          "type": "object"
       },
       "GenericSubjectProcedure": {
@@ -12995,6 +13118,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -13324,6 +13448,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -13350,7 +13477,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -13647,8 +13774,16 @@
                "type": "string"
             },
             "headframe_part_number": {
-               "title": "Headframe part number",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Headframe part number"
             },
             "headframe_material": {
                "anyOf": [
@@ -13688,8 +13823,7 @@
             }
          },
          "required": [
-            "headframe_type",
-            "headframe_part_number"
+            "headframe_type"
          ],
          "title": "Headframe",
          "type": "object"
@@ -14398,8 +14532,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.41",
-               "default": "2.0.41",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14432,9 +14566,11 @@
                "items": {
                   "discriminator": {
                      "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
                         "EM": "#/$defs/_Em",
                         "EMG": "#/$defs/_Emg",
                         "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
                         "MRI": "#/$defs/_Mri",
                         "SPIM": "#/$defs/_Spim",
                         "STPT": "#/$defs/_Stpt",
@@ -14448,11 +14584,15 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
                   "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
                      {
                         "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                      },
@@ -14490,19 +14630,25 @@
                         "$ref": "#/$defs/_Mri"
                      },
                      {
+                        "$ref": "#/$defs/_Mapseq"
+                     },
+                     {
                         "$ref": "#/$defs/_Merfish"
                      },
                      {
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -14901,6 +15047,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -15230,6 +15377,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -15262,7 +15412,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -15430,7 +15580,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -15731,7 +15881,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -15917,6 +16067,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -16246,6 +16397,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -16278,7 +16432,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -16612,7 +16766,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -16969,7 +17123,15 @@
                "title": "Voxel resolution unit"
             },
             "additional_scan_parameters": {
-               "$ref": "#/$defs/GenericModel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Parameters"
             },
             "notes": {
@@ -16995,8 +17157,7 @@
             "echo_time_unit",
             "repetition_time",
             "repetition_time_unit",
-            "subject_position",
-            "additional_scan_parameters"
+            "subject_position"
          ],
          "title": "MRIScan",
          "type": "object"
@@ -17084,6 +17245,90 @@
          "title": "Maintenance",
          "type": "object"
       },
+      "Manipulation": {
+         "additionalProperties": false,
+         "description": "Description of procedures performed during an acquisition.",
+         "properties": {
+            "object_type": {
+               "const": "Manipulation",
+               "default": "Manipulation",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "start_time": {
+               "description": "Must be between the acquisition start and end times",
+               "format": "date-time",
+               "title": "Manipulation start time",
+               "type": "string"
+            },
+            "end_time": {
+               "description": "Must be between the acquisition start and end times",
+               "format": "date-time",
+               "title": "Manipulation end time",
+               "type": "string"
+            },
+            "procedures": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Brain injection": "#/$defs/BrainInjection",
+                              "Injection": "#/$defs/Injection"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/Injection"
+                           },
+                           {
+                              "$ref": "#/$defs/BrainInjection"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Procedures performed during the manipulation",
+               "title": "Procedures"
+            },
+            "anaesthesia": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Anaesthetic"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Anaesthesia"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "start_time",
+            "end_time"
+         ],
+         "title": "Manipulation",
+         "type": "object"
+      },
       "Manipulator": {
          "additionalProperties": false,
          "description": "Manipulator used on a dome module",
@@ -17143,7 +17388,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -17368,6 +17613,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -17697,6 +17943,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -17729,7 +17978,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -17810,8 +18059,15 @@
                "title": "Software framework"
             },
             "architecture_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Parameters of model architecture, such as input signature or number of layers.",
                "title": "Architecture parameters"
             },
@@ -17987,8 +18243,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -18142,8 +18405,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -18339,7 +18609,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -18409,6 +18679,18 @@
                "description": "Monitor's contrast setting",
                "title": "Contrast"
             },
+            "contrast_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Contrast unit"
+            },
             "brightness": {
                "anyOf": [
                   {
@@ -18423,6 +18705,18 @@
                "default": null,
                "description": "Monitor's brightness setting",
                "title": "Brightness"
+            },
+            "brightness_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Brightness unit"
             }
          },
          "required": [
@@ -18575,6 +18869,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -18904,6 +19199,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -18936,7 +19234,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -19082,7 +19380,7 @@
                   "mapping": {
                      "BALB/c": "#/$defs/_Balb_C",
                      "C57BL/6J": "#/$defs/_C57Bl_6J",
-                     "Unknown": "#/$defs/_Unknown"
+                     "Unknown": "#/$defs/aind_data_schema_models__species___Unknown"
                   },
                   "propertyName": "name"
                },
@@ -19094,7 +19392,7 @@
                      "$ref": "#/$defs/_Balb_C"
                   },
                   {
-                     "$ref": "#/$defs/_Unknown"
+                     "$ref": "#/$defs/aind_data_schema_models__species___Unknown"
                   }
                ],
                "title": "Strain"
@@ -19435,6 +19733,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -19764,6 +20063,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -19796,7 +20098,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -20047,7 +20349,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -20258,6 +20560,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -20587,6 +20890,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -20807,6 +21113,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -21136,6 +21443,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -21168,7 +21478,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -21339,7 +21649,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -21853,7 +22163,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -22072,8 +22382,15 @@
                "type": "string"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional metrics"
             },
             "reward_consumed_during_epoch": {
@@ -22655,6 +22972,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -22984,6 +23302,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -23016,7 +23337,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -23257,6 +23578,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -23586,6 +23908,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -23618,7 +23943,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -23686,6 +24011,19 @@
                "default": "Power measured for various power or percentage input strengths",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -24142,6 +24480,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -24471,6 +24810,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -24559,8 +24901,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.34",
-               "default": "2.0.34",
+               "const": "2.0.36",
+               "default": "2.0.36",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24722,8 +25064,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.2",
-               "default": "2.1.2",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24926,9 +25268,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -24942,11 +25286,15 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/aind_data_schema_models__modalities___Behavior"
                   },
@@ -24984,19 +25332,25 @@
                      "$ref": "#/$defs/_Mri"
                   },
                   {
+                     "$ref": "#/$defs/_Mapseq"
+                  },
+                  {
                      "$ref": "#/$defs/_Merfish"
                   },
                   {
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -25042,13 +25396,13 @@
                "title": "Metric reference image URL or plot type"
             },
             "tags": {
-               "default": [],
-               "description": "Tags group QCMetric objects to allow for grouping and filtering",
-               "items": {
+               "additionalProperties": {
                   "type": "string"
                },
+               "default": {},
+               "description": "Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
                "title": "Tags",
-               "type": "array"
+               "type": "object"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -25124,8 +25478,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.4.0",
+               "default": "2.4.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25179,26 +25533,28 @@
                "title": "Notes"
             },
             "default_grouping": {
-               "description": "Default tag grouping for this QualityControl object, used in visualizations",
-               "items": {
-                  "type": "string"
-               },
-               "title": "Default grouping",
-               "type": "array"
-            },
-            "allow_tag_failures": {
-               "default": [],
-               "description": "List of tags that are allowed to fail without failing the overall QC",
+               "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
                "items": {
                   "anyOf": [
                      {
                         "type": "string"
                      },
                      {
-                        "items": {},
+                        "items": {
+                           "type": "string"
+                        },
                         "type": "array"
                      }
                   ]
+               },
+               "title": "Default grouping",
+               "type": "array"
+            },
+            "allow_tag_failures": {
+               "default": [],
+               "description": "List of tag *values* that are allowed to fail without failing the overall QC",
+               "items": {
+                  "type": "string"
                },
                "title": "Allow tag failures",
                "type": "array"
@@ -25349,6 +25705,7 @@
                      "Tymphany": "#/$defs/_Tymphany",
                      "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                      "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                      "Vieworks": "#/$defs/_Vieworks",
                      "Vortran": "#/$defs/_Vortran",
                      "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -25678,6 +26035,9 @@
                      "$ref": "#/$defs/_University_Of_Pennsylvania"
                   },
                   {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  {
                      "$ref": "#/$defs/_Vieworks"
                   },
                   {
@@ -25738,8 +26098,10 @@
          "description": "Registries",
          "enum": [
             "Addgene (ADDGENE)",
+            "Digital Object Identifier (DOI)",
             "Edinburgh Mouse Atlas Project (EMAPA)",
             "Mouse Genome Informatics (MGI)",
+            "NCBI GenBank (GENBANK)",
             "National Center for Biotechnology Information (NCBI)",
             "Open Researcher and Contributor ID (ORCID)",
             "Research Organization Registry (ROR)",
@@ -26260,6 +26622,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -26589,6 +26952,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -26621,7 +26987,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -26797,6 +27163,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -27126,6 +27493,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -27158,7 +27528,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -27818,7 +28188,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -28293,8 +28663,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.13",
-               "default": "2.0.13",
+               "const": "2.1.1",
+               "default": "2.1.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -28926,6 +29296,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -29255,6 +29626,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -29287,7 +29661,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -29503,6 +29877,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -29832,6 +30207,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -29864,7 +30242,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -30046,6 +30424,19 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -30380,6 +30771,7 @@
                            "Tymphany": "#/$defs/_Tymphany",
                            "University of California, San Diego": "#/$defs/_University_Of_California_San_Diego",
                            "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                           "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown",
                            "Vieworks": "#/$defs/_Vieworks",
                            "Vortran": "#/$defs/_Vortran",
                            "ams OSRAM": "#/$defs/_Ams_Osram"
@@ -30709,6 +31101,9 @@
                            "$ref": "#/$defs/_University_Of_Pennsylvania"
                         },
                         {
+                           "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                        },
+                        {
                            "$ref": "#/$defs/_Vieworks"
                         },
                         {
@@ -30741,7 +31136,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -31442,6 +31837,26 @@
             }
          },
          "title": "_Balb_C",
+         "type": "object"
+      },
+      "_Barseq": {
+         "additionalProperties": false,
+         "description": "Model BARseq",
+         "properties": {
+            "name": {
+               "const": "Barcoded anatomy resolved by sequencing",
+               "default": "Barcoded anatomy resolved by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BARseq",
+               "default": "BARseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Barseq",
          "type": "object"
       },
       "_Basler": {
@@ -32909,6 +33324,13 @@
          "title": "_Gallus_Gallus",
          "type": "object"
       },
+      "_GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "_GenericModel",
+         "type": "object"
+      },
       "_Hamamatsu": {
          "description": "Model Hamamatsu",
          "properties": {
@@ -34030,6 +34452,26 @@
             }
          },
          "title": "_Macaca_Mulatta",
+         "type": "object"
+      },
+      "_Mapseq": {
+         "additionalProperties": false,
+         "description": "Model MAPseq",
+         "properties": {
+            "name": {
+               "const": "Multiplexed analysis of projections by sequencing",
+               "default": "Multiplexed analysis of projections by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MAPseq",
+               "default": "MAPseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mapseq",
          "type": "object"
       },
       "_Massachusetts_Institute_Of_Technology": {
@@ -35694,6 +36136,26 @@
          "title": "_Schneider_Kreuznach",
          "type": "object"
       },
+      "_Scrnaseq": {
+         "additionalProperties": false,
+         "description": "Model scRNAseq",
+         "properties": {
+            "name": {
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "scRNAseq",
+               "default": "scRNAseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
       "_Second_Order_Effects": {
          "description": "Model Second Order Effects",
          "properties": {
@@ -35923,24 +36385,24 @@
          "title": "_Simpleanaloggenerator",
          "type": "object"
       },
-      "_Slap": {
+      "_Slap2": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model slap2",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "slap2",
+               "default": "slap2",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Slap2",
          "type": "object"
       },
       "_Sniffdetector": {
@@ -36723,48 +37185,6 @@
          "title": "_University_Of_Pennsylvania",
          "type": "object"
       },
-      "_Unknown": {
-         "description": "Model Unknown",
-         "properties": {
-            "name": {
-               "const": "Unknown",
-               "default": "Unknown",
-               "title": "Name",
-               "type": "string"
-            },
-            "species": {
-               "const": "Mus musculus",
-               "default": "Mus musculus",
-               "title": "Species",
-               "type": "string"
-            },
-            "registry": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Registry"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null
-            },
-            "registry_identifier": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Registry Identifier"
-            }
-         },
-         "title": "_Unknown",
-         "type": "object"
-      },
       "_Usbhub": {
          "description": "Model USBHub",
          "properties": {
@@ -37030,6 +37450,90 @@
          },
          "title": "_Behavior",
          "type": "object"
+      },
+      "aind_data_schema_models__organizations___Unknown": {
+         "description": "Model Unknown",
+         "properties": {
+            "name": {
+               "const": "Unknown",
+               "default": "Unknown",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "UNKNOWN",
+               "default": "UNKNOWN",
+               "title": "Abbreviation",
+               "type": "string"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Unknown",
+         "type": "object"
+      },
+      "aind_data_schema_models__species___Unknown": {
+         "description": "Model Unknown",
+         "properties": {
+            "name": {
+               "const": "Unknown",
+               "default": "Unknown",
+               "title": "Name",
+               "type": "string"
+            },
+            "species": {
+               "const": "Mus musculus",
+               "default": "Mus musculus",
+               "title": "Species",
+               "type": "string"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Unknown",
+         "type": "object"
       }
    },
    "description": "The records in the Data Asset Collection needs to contain certain fields\nto easily query and index the data.",
@@ -37047,8 +37551,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.0",
-         "default": "2.1.0",
+         "const": "2.3.0",
+         "default": "2.3.0",
          "title": "Schema Version",
          "type": "string"
       },

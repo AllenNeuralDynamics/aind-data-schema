@@ -14,7 +14,7 @@ from aind_data_schema.components.subject_procedures import (
     TrainingProtocol,
     WaterRestriction,
 )
-from aind_data_schema.utils.merge import merge_notes
+from aind_data_schema.utils.merge import merge_notes, merge_coordinate_systems
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 
@@ -24,7 +24,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.34"]] = Field(default="2.0.34")
+    schema_version: SkipValidation[Literal["2.0.36"]] = Field(default="2.0.36")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",
@@ -107,17 +107,12 @@ class Procedures(DataCoreModel):
         if not self.subject_id == other.subject_id:
             raise ValueError("Subject IDs must match to combine Procedures objects.")
 
-        # Check for incompatible coordinate systems
-        if self.coordinate_system != other.coordinate_system:
-            raise ValueError(
-                "Cannot combine Procedures objects with different coordinate systems: "
-                f"{self.coordinate_system} vs {other.coordinate_system}"
-            )
+        coordinate_system = merge_coordinate_systems(self.coordinate_system, other.coordinate_system)
 
         return Procedures(
             subject_id=self.subject_id,
             subject_procedures=self.subject_procedures + other.subject_procedures,
             specimen_procedures=self.specimen_procedures + other.specimen_procedures,
-            coordinate_system=self.coordinate_system,
+            coordinate_system=coordinate_system,
             notes=merge_notes(self.notes, other.notes),
         )

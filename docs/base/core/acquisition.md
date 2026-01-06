@@ -14,7 +14,7 @@ A single DataStream should capture all the modalities of data acquired as a grou
 Because the start and stop times are independent for data streams and stimulus epochs almost all acquisitions will fall into one of these three common types:
 
 1. Single data stream and one stimulus epoch (including no stimulus): these acquisitions are common for imaging experiments with specimens where there might be no stimulus presented.
-2. Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quite wakefulness, receptive field mapping, etc.
+2. Single data stream with multiple stimulus epochs: common during animal physiology when you might do both an experimental stimulus and then follow that with one or more epochs of quiet wakefulness, receptive field mapping, etc.
 3. Single stimulus epoch with multiple data streams: less common, but can occur if you switch modalities during an experiment or change the configuration of an acute recording device.
 
 ## Uniqueness
@@ -35,7 +35,7 @@ Procedures that occur during an acquisition (between the start_time and end_time
 
 ### When should a DataStream be split in two
 
-The `DataStream` should be split if there is a change in data modalities or a change in the configuration of devices. Or if a modality is only acquired during a subset of the time the stream is active. For example, if you acquire behavior videos for a full hour of an acquisition and only collect ecephys for twenty minutes you should separate these into two streams. If the start and ends times are within a few minutes of each other you should combine the modalities into a single stream.
+The `DataStream` should be split if there is a change in data modalities or a change in the configuration of devices. Or if a modality is only acquired during a subset of the time the stream is active. For example, if you acquire behavior videos for a full hour of an acquisition and only collect ecephys for twenty minutes you should separate these into two streams. If the start and end times are within a few minutes of each other you should combine the modalities into a single stream.
 
 ### When should a StimulusEpoch be split in two
 

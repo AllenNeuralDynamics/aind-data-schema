@@ -44,9 +44,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -60,11 +62,15 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/_Behavior"
                   },
@@ -102,19 +108,25 @@
                      "$ref": "#/$defs/_Mri"
                   },
                   {
+                     "$ref": "#/$defs/_Mapseq"
+                  },
+                  {
                      "$ref": "#/$defs/_Merfish"
                   },
                   {
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -162,13 +174,13 @@
                "title": "Metric reference image URL or plot type"
             },
             "tags": {
-               "default": [],
-               "description": "Tags group QCMetric objects to allow for grouping and filtering",
-               "items": {
+               "additionalProperties": {
                   "type": "string"
                },
+               "default": {},
+               "description": "Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
                "title": "Tags",
-               "type": "array"
+               "type": "object"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -226,9 +238,11 @@
             "modality": {
                "discriminator": {
                   "mapping": {
+                     "BARseq": "#/$defs/_Barseq",
                      "EM": "#/$defs/_Em",
                      "EMG": "#/$defs/_Emg",
                      "ISI": "#/$defs/_Isi",
+                     "MAPseq": "#/$defs/_Mapseq",
                      "MRI": "#/$defs/_Mri",
                      "SPIM": "#/$defs/_Spim",
                      "STPT": "#/$defs/_Stpt",
@@ -242,11 +256,15 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
                "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Barseq"
+                  },
                   {
                      "$ref": "#/$defs/_Behavior"
                   },
@@ -284,19 +302,25 @@
                      "$ref": "#/$defs/_Mri"
                   },
                   {
+                     "$ref": "#/$defs/_Mapseq"
+                  },
+                  {
                      "$ref": "#/$defs/_Merfish"
                   },
                   {
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -342,13 +366,13 @@
                "title": "Metric reference image URL or plot type"
             },
             "tags": {
-               "default": [],
-               "description": "Tags group QCMetric objects to allow for grouping and filtering",
-               "items": {
+               "additionalProperties": {
                   "type": "string"
                },
+               "default": {},
+               "description": "Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
                "title": "Tags",
-               "type": "array"
+               "type": "object"
             },
             "evaluated_assets": {
                "anyOf": [
@@ -427,6 +451,26 @@
          ],
          "title": "Status",
          "type": "string"
+      },
+      "_Barseq": {
+         "additionalProperties": false,
+         "description": "Model BARseq",
+         "properties": {
+            "name": {
+               "const": "Barcoded anatomy resolved by sequencing",
+               "default": "Barcoded anatomy resolved by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "BARseq",
+               "default": "BARseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Barseq",
+         "type": "object"
       },
       "_Behavior": {
          "additionalProperties": false,
@@ -648,6 +692,26 @@
          "title": "_Isi",
          "type": "object"
       },
+      "_Mapseq": {
+         "additionalProperties": false,
+         "description": "Model MAPseq",
+         "properties": {
+            "name": {
+               "const": "Multiplexed analysis of projections by sequencing",
+               "default": "Multiplexed analysis of projections by sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "MAPseq",
+               "default": "MAPseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Mapseq",
+         "type": "object"
+      },
       "_Merfish": {
          "additionalProperties": false,
          "description": "Model merfish",
@@ -708,24 +772,44 @@
          "title": "_Pophys",
          "type": "object"
       },
-      "_Slap": {
+      "_Scrnaseq": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model scRNAseq",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "scRNAseq",
+               "default": "scRNAseq",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
+      "_Slap2": {
+         "additionalProperties": false,
+         "description": "Model slap2",
+         "properties": {
+            "name": {
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "slap2",
+               "default": "slap2",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Slap2",
          "type": "object"
       },
       "_Spim": {
@@ -785,8 +869,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.0",
-         "default": "2.1.0",
+         "const": "2.4.0",
+         "default": "2.4.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -840,26 +924,28 @@
          "title": "Notes"
       },
       "default_grouping": {
-         "description": "Default tag grouping for this QualityControl object, used in visualizations",
-         "items": {
-            "type": "string"
-         },
-         "title": "Default grouping",
-         "type": "array"
-      },
-      "allow_tag_failures": {
-         "default": [],
-         "description": "List of tags that are allowed to fail without failing the overall QC",
+         "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
          "items": {
             "anyOf": [
                {
                   "type": "string"
                },
                {
-                  "items": {},
+                  "items": {
+                     "type": "string"
+                  },
                   "type": "array"
                }
             ]
+         },
+         "title": "Default grouping",
+         "type": "array"
+      },
+      "allow_tag_failures": {
+         "default": [],
+         "description": "List of tag *values* that are allowed to fail without failing the overall QC",
+         "items": {
+            "type": "string"
          },
          "title": "Allow tag failures",
          "type": "array"

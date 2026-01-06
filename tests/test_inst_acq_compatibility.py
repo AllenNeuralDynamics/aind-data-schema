@@ -5,6 +5,8 @@ import unittest
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.ephys_instrument import inst as ephys_instrument
+from examples.exaspim_acquisition import acq as exaspim_acquisition
+from examples.exaspim_instrument import inst as exaspim_instrument
 from examples.fip_ophys_instrument import instrument as ophys_instrument
 from examples.ophys_acquisition import a as ophys_acquisition
 
@@ -16,6 +18,8 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
         """Set up test data"""
         self.ephys_instrument = ephys_instrument.model_copy()
         self.ephys_acquisition = ephys_acquisition.model_copy()
+        self.exaspim_instrument = exaspim_instrument.model_copy()
+        self.exaspim_acquisition = exaspim_acquisition.model_copy()
         self.ophys_instrument = ophys_instrument.model_copy()
         self.ophys_acquisition = ophys_acquisition.model_copy()
 
@@ -26,6 +30,12 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             instrument=self.ephys_instrument, acquisition=self.ephys_acquisition
         )
         self.assertIsNone(example_ephys_check.run_compatibility_check())
+
+        # check that exaspim acquisition and instrument are synced
+        example_exaspim_check = InstrumentAcquisitionCompatibility(
+            instrument=self.exaspim_instrument, acquisition=self.exaspim_acquisition
+        )
+        self.assertIsNone(example_exaspim_check.run_compatibility_check())
 
         # check that ophys acquisition and instrument are synced
         example_ophys_check = InstrumentAcquisitionCompatibility(
@@ -43,6 +53,20 @@ class TestInstrumentAcquisitionCompatibility(unittest.TestCase):
             ).run_compatibility_check()
         self.assertIn(
             "Instrument ID in acquisition wrong_id does not match the instrument's",
+            str(context.exception),
+        )
+
+    def test_compare_stimulus_devices_error(self):
+        """Tests that an error is raised when stimulus devices do not match"""
+        ephys_acquisition = self.ephys_acquisition.model_copy()
+        if ephys_acquisition.stimulus_epochs:
+            ephys_acquisition.stimulus_epochs[0].active_devices = ["NonExistentDevice"]
+        with self.assertRaises(ValueError) as context:
+            InstrumentAcquisitionCompatibility(
+                instrument=self.ephys_instrument, acquisition=ephys_acquisition
+            ).run_compatibility_check()
+        self.assertIn(
+            "Stimulus epoch device names in acquisition do not match stimulus device names in instrument",
             str(context.exception),
         )
 

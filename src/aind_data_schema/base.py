@@ -1,11 +1,11 @@
-""" generic base class with supporting validators and fields for basic AIND schema """
+"""generic base class with supporting validators and fields for basic AIND schema"""
 
 import json
 import logging
 import re
 import warnings
 from pathlib import Path
-from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args
+from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args, Annotated
 
 from pydantic import (
     AwareDatetime,
@@ -19,9 +19,9 @@ from pydantic import (
     create_model,
     field_validator,
     model_validator,
+    SerializeAsAny,
 )
 from pydantic.functional_validators import WrapValidator
-from typing_extensions import Annotated
 
 from aind_data_schema.utils.validators import recursive_check_paths, recursive_coord_system_check
 
@@ -77,12 +77,8 @@ def is_dict_corrupt(input_dict: dict) -> bool:
     return has_corrupt_keys(input_dict)
 
 
-class GenericModel(BaseModel, extra="allow"):
+class _GenericModel(BaseModel, extra="allow"):
     """Base class for generic types that can be used in AIND schema"""
-
-    # extra="allow" is needed because BaseModel by default drops extra parameters.
-    # Alternatively, consider using 'SerializeAsAny' once this issue is resolved
-    # https://github.com/pydantic/pydantic/issues/6423
 
     @model_validator(mode="after")
     def validate_fieldnames(self):
@@ -94,6 +90,8 @@ class GenericModel(BaseModel, extra="allow"):
             warnings.warn("MongoDB queries may not work as expected for fields that contain '.' or '$'")
         return self
 
+
+GenericModel = SerializeAsAny[_GenericModel]
 
 T = TypeVar("T")
 Discriminated = Annotated[T, Field(discriminator="object_type")]
@@ -214,6 +212,7 @@ class DataCoreModel(DataModel):
         self,
         output_directory: Optional[Path] = None,
         prefix: Optional[str] = None,
+        filename_suffix: Optional[str] = None,
         suffix: Optional[str] = None,
     ):
         """
@@ -228,10 +227,13 @@ class DataCoreModel(DataModel):
             optional str for intended filepath with extra naming convention
             Default: None
 
-        suffix: Optional[str]
-            optional str for intended filepath with extra naming convention
+        filename_suffix: Optional[str]
+            optional str for intended filename suffix
             Default: None
 
+        suffix: Optional[str]
+            optional str for replacing the file extension
+            Default: None
         """
 
         # Go through the subfields recursively and check whether paths exist
@@ -240,6 +242,9 @@ class DataCoreModel(DataModel):
         filename = self.default_filename()
         if prefix:
             filename = str(prefix) + "_" + filename
+        if filename_suffix:
+            filename_without_ext = filename.rsplit(self._FILE_EXTENSION, 1)[0]
+            filename = filename_without_ext + "_" + filename_suffix + self._FILE_EXTENSION
         if suffix:
             filename = filename.replace(self._FILE_EXTENSION, suffix)
 

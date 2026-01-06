@@ -3,12 +3,13 @@
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, List, Literal, Optional, Union
+import warnings
 
 from aind_data_schema_models.modalities import Modality
 from pydantic import Field, SkipValidation, field_validator, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_str_tuple_lists
 
 
 class Status(str, Enum):
@@ -49,15 +50,15 @@ class QCMetric(DataModel):
     status_history: List[QCStatus] = Field(default=[], title="Metric status history", min_length=1)
     description: Optional[str] = Field(default=None, title="Metric description")
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
-    tags: List[str] = Field(
-        default=[], title="Tags", description="Tags group QCMetric objects to allow for grouping and filtering"
+    tags: dict[str, str] = Field(
+        default={},
+        title="Tags",
+        description="Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.",
     )
     evaluated_assets: Optional[List[str]] = Field(
         default=None,
         title="List of asset names that this metric depends on",
-        description=(
-            "Set to None except when a metric's calculation required data " "coming from a different data asset."
-        ),
+        description="Set to None except when a metric's calculation required data coming from a different data asset.",
     )
 
     @property
@@ -78,6 +79,23 @@ class QCMetric(DataModel):
             raise ValueError(f"Metric '{self.name}' is a multi-asset metric and must have evaluated_assets set.")
         elif self.stage != Stage.MULTI_ASSET and self.evaluated_assets:
             raise ValueError(f"Metric '{self.name}' is a single-asset metric and should not have evaluated_assets")
+        return self
+
+    @model_validator(mode="before")
+    @classmethod
+    def fix_tag_lists(cls, self):
+        """Convert tags from list to dict if necessary
+
+        This function is for backwards compatibility with v2.2.X where tags were stored as lists of strings.
+
+        Remove this function in aind-data-schema v3.X
+        """
+        if "tags" not in self:
+            return self
+        tags = self["tags"]
+        if isinstance(tags, list):
+            warnings.warn("QCMetric 'tags' field is now a dict. Converting from list to dict", DeprecationWarning)
+            self["tags"] = {f"tag_{i+1}": tag for i, tag in enumerate(tags)}
         return self
 
 
@@ -128,7 +146,7 @@ class QualityControl(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
+    schema_version: SkipValidation[Literal["2.4.0"]] = Field(default="2.4.0")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,
@@ -137,15 +155,15 @@ class QualityControl(DataCoreModel):
     )
     notes: Optional[str] = Field(default=None, title="Notes")
 
-    default_grouping: List[str] = Field(
+    default_grouping: List[str | tuple[str, ...]] = Field(
         ...,
         title="Default grouping",
-        description="Default tag grouping for this QualityControl object, used in visualizations",
+        description="Tag *keys* that should be used to group metrics hierarchically for visualization",
     )
-    allow_tag_failures: List[str | tuple] = Field(
+    allow_tag_failures: List[str] = Field(
         default=[],
         title="Allow tag failures",
-        description="List of tags that are allowed to fail without failing the overall QC",
+        description="List of tag *values* that are allowed to fail without failing the overall QC",
     )
     status: Optional[dict] = Field(
         default=None,
@@ -155,17 +173,32 @@ class QualityControl(DataCoreModel):
 
     @property
     def tags(self) -> List[str]:
-        """Get all unique tags from all metrics
+        """Get all unique tag values from all metrics
 
         Returns
         -------
         List[str]
-            List of all unique tags across all metrics
+            List of all unique tag values across all metrics
         """
         all_tags = []
         for metric in self.metrics:
-            all_tags.extend(metric.tags)
+            all_tags.extend(metric.tags.values())
         return list(set(all_tags))
+
+    @property
+    def tag_pairs(self) -> List[str]:
+        """Get all unique tag key:value pairs from all metrics
+
+        Returns
+        -------
+        List[str]
+            List of all unique tag key:value pairs across all metrics in 'key:value' format
+        """
+        all_tag_pairs = []
+        for metric in self.metrics:
+            for key, value in metric.tags.items():
+                all_tag_pairs.append(f"{key}:{value}")
+        return list(set(all_tag_pairs))
 
     @property
     def modalities(self) -> List[Modality.ONE_OF]:
@@ -201,9 +234,9 @@ class QualityControl(DataCoreModel):
         if self.metrics:
             computed_status = {}
 
-            # Compute tag statuses
-            for tag in self.tags:
-                computed_status[tag] = self.evaluate_status(tag=tag)
+            # Compute tag statuses (using key:value format)
+            for tag_pair in self.tag_pairs:
+                computed_status[tag_pair] = self.evaluate_status(tag=tag_pair)
 
             # Compute modality statuses
             for modality in self.modalities:
@@ -269,7 +302,8 @@ class QualityControl(DataCoreModel):
         combined_metrics = self.metrics + other.metrics
         combined_experimenters = merge_optional_list(self.key_experimenters, other.key_experimenters)
         combined_notes = merge_notes(self.notes, other.notes)
-        combined_default_grouping = list(set(self.default_grouping + other.default_grouping))
+        # Merge each inner tuple in the two default_grouping lists
+        combined_default_grouping = merge_str_tuple_lists(self.default_grouping, other.default_grouping)
         combined_allow_tag_failures = list(set(self.allow_tag_failures + other.allow_tag_failures))
 
         # Remove duplicates
@@ -283,6 +317,23 @@ class QualityControl(DataCoreModel):
             default_grouping=combined_default_grouping,
             allow_tag_failures=combined_allow_tag_failures,
         )
+
+    @model_validator(mode="before")
+    def fix_default_grouping_list(cls, value: dict) -> dict:
+        """Convert default grouping from list of strings to list of list of strings if necessary
+        This function is for backwards compatibility with v2.2.X where default_grouping was stored as a list of strings.
+        Remove this function in aind-data-schema v3.X
+        """
+        if "default_grouping" not in value:
+            return value
+
+        if all(isinstance(item, str) for item in value["default_grouping"]):
+            first_metric = value["metrics"][0]
+            if isinstance(first_metric, dict) and "tags" in first_metric:
+                if isinstance(first_metric["tags"], list):
+                    value["default_grouping"] = [["modality"], ["tag_1"]]
+
+        return value
 
 
 def _get_status_by_date(metric: QCMetric | CurationMetric, date: datetime) -> Status:
@@ -324,9 +375,13 @@ def _get_filtered_statuses(
     modality_filter: Optional[List[Modality.ONE_OF]] = None,
     stage_filter: Optional[List[Stage]] = None,
     tag_filter: Optional[List[str]] = None,
-    allow_tag_failures: List[str | tuple] = [],
+    allow_tag_failures: List[str] = [],
 ):
-    """Get the status of metrics filtered by modality, stage, tag, and date."""
+    """Get the status of metrics filtered by modality, stage, tag, and date.
+
+    tag_filter can contain either 'key:value' pairs or just tag values for backward compatibility.
+    allow_tag_failures can contain either 'key:value' pairs or just tag values.
+    """
     filtered_statuses = []
     for metric in metrics:
         # Apply filters
@@ -334,22 +389,25 @@ def _get_filtered_statuses(
             continue
         if stage_filter and metric.stage not in stage_filter:
             continue
-        if tag_filter and not (metric.tags and any(t in metric.tags for t in tag_filter)):
-            continue
+        if tag_filter:
+            # Check if any of the filter tags match this metric's tags
+            # Support both 'key:value' format and just values for backward compatibility
+            metric_tag_pairs = [f"{k}:{v}" for k, v in metric.tags.items()]
+            metric_tag_values = list(metric.tags.values())
+            if not any(t in metric_tag_pairs or t in metric_tag_values for t in tag_filter):
+                continue
 
         # Get status at the specified date using the helper function
         status = _get_status_by_date(metric, date)
-        # Check if any of our tags are in the allow_tag_failures list
+        # Check if any of our tag key:value pairs or values are in the allow_tag_failures list
         if status == Status.FAIL and metric.tags:
-            for fail2pass_tags in allow_tag_failures:
-                if isinstance(fail2pass_tags, tuple):
-                    # If it's a tuple, check if all of the tags match
-                    if all(t in metric.tags for t in fail2pass_tags):
-                        status = Status.PASS
-                        break
-                elif fail2pass_tags in metric.tags:
-                    status = Status.PASS
-                    break
+            metric_tag_pairs = [f"{k}:{v}" for k, v in metric.tags.items()]
+            metric_tag_values = list(metric.tags.values())
+            if any(
+                tag_pair in allow_tag_failures or tag_value in allow_tag_failures
+                for tag_pair, tag_value in zip(metric_tag_pairs, metric_tag_values)
+            ):
+                status = Status.PASS
         filtered_statuses.append(status)
 
     return filtered_statuses
