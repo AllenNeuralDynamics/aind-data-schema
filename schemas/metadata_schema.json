@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.3",
+               "default": "2.2.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -811,7 +811,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -1493,7 +1493,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2104,7 +2104,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2537,6 +2537,19 @@
                "title": "Description",
                "type": "string"
             },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
+            },
             "measured_at": {
                "anyOf": [
                   {
@@ -2765,7 +2778,7 @@
             "fit_parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -2924,7 +2937,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -3850,7 +3863,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -4270,7 +4283,7 @@
             "parameters": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -4875,7 +4888,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -5334,7 +5347,8 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
@@ -5388,13 +5402,16 @@
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -5674,7 +5691,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -5790,8 +5807,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.3.0",
+               "default": "2.3.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5993,7 +6010,8 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -6047,13 +6065,16 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -6212,8 +6233,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -6295,7 +6323,8 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -6349,13 +6378,16 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -6599,7 +6631,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -7460,7 +7492,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -8023,7 +8055,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -8671,7 +8703,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -9283,7 +9315,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -9940,7 +9972,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -10573,7 +10605,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -11141,7 +11173,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -11318,7 +11350,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -12684,13 +12716,6 @@
          "title": "GeneProbeSet",
          "type": "object"
       },
-      "GenericModel": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "GenericModel",
-         "type": "object"
-      },
       "GenericSubjectProcedure": {
          "additionalProperties": false,
          "description": "Description of a non-surgical procedure performed on a subject",
@@ -13452,7 +13477,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -13749,8 +13774,16 @@
                "type": "string"
             },
             "headframe_part_number": {
-               "title": "Headframe part number",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Headframe part number"
             },
             "headframe_material": {
                "anyOf": [
@@ -13790,8 +13823,7 @@
             }
          },
          "required": [
-            "headframe_type",
-            "headframe_part_number"
+            "headframe_type"
          ],
          "title": "Headframe",
          "type": "object"
@@ -14500,8 +14532,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14552,7 +14584,8 @@
                         "icephys": "#/$defs/_Icephys",
                         "merfish": "#/$defs/_Merfish",
                         "pophys": "#/$defs/_Pophys",
-                        "slap": "#/$defs/_Slap"
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
                      },
                      "propertyName": "abbreviation"
                   },
@@ -14606,13 +14639,16 @@
                         "$ref": "#/$defs/_Pophys"
                      },
                      {
-                        "$ref": "#/$defs/_Slap"
+                        "$ref": "#/$defs/_Slap2"
                      },
                      {
                         "$ref": "#/$defs/_Spim"
                      },
                      {
                         "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
                      }
                   ]
                },
@@ -15376,7 +15412,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -15544,7 +15580,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -15845,7 +15881,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -16396,7 +16432,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -16730,7 +16766,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -17087,7 +17123,15 @@
                "title": "Voxel resolution unit"
             },
             "additional_scan_parameters": {
-               "$ref": "#/$defs/GenericModel",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Parameters"
             },
             "notes": {
@@ -17113,8 +17157,7 @@
             "echo_time_unit",
             "repetition_time",
             "repetition_time_unit",
-            "subject_position",
-            "additional_scan_parameters"
+            "subject_position"
          ],
          "title": "MRIScan",
          "type": "object"
@@ -17345,7 +17388,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -17935,7 +17978,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -18016,8 +18059,15 @@
                "title": "Software framework"
             },
             "architecture_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Parameters of model architecture, such as input signature or number of layers.",
                "title": "Architecture parameters"
             },
@@ -18193,8 +18243,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -18348,8 +18405,15 @@
                "title": "Output path"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "description": "Output parameters",
                "title": "Outputs"
             },
@@ -18545,7 +18609,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -18615,6 +18679,18 @@
                "description": "Monitor's contrast setting",
                "title": "Contrast"
             },
+            "contrast_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Contrast unit"
+            },
             "brightness": {
                "anyOf": [
                   {
@@ -18629,6 +18705,18 @@
                "default": null,
                "description": "Monitor's brightness setting",
                "title": "Brightness"
+            },
+            "brightness_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/UnitlessUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Brightness unit"
             }
          },
          "required": [
@@ -19146,7 +19234,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -20010,7 +20098,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -20261,7 +20349,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -21390,7 +21478,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -21561,7 +21649,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -22075,7 +22163,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -22294,8 +22382,15 @@
                "type": "string"
             },
             "output_parameters": {
-               "$ref": "#/$defs/GenericModel",
-               "default": {},
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
                "title": "Additional metrics"
             },
             "reward_consumed_during_epoch": {
@@ -23242,7 +23337,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -23848,7 +23943,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -23916,6 +24011,19 @@
                "default": "Power measured for various power or percentage input strengths",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -24793,8 +24901,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.35",
-               "default": "2.0.35",
+               "const": "2.0.36",
+               "default": "2.0.36",
                "title": "Schema Version",
                "type": "string"
             },
@@ -24956,8 +25064,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.5",
-               "default": "2.1.5",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25178,7 +25286,8 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
@@ -25232,13 +25341,16 @@
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -25366,8 +25478,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.4.0",
+               "default": "2.4.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25423,10 +25535,17 @@
             "default_grouping": {
                "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
                "items": {
-                  "items": {
-                     "type": "string"
-                  },
-                  "type": "array"
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "items": {
+                           "type": "string"
+                        },
+                        "type": "array"
+                     }
+                  ]
                },
                "title": "Default grouping",
                "type": "array"
@@ -26868,7 +26987,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -27409,7 +27528,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -28069,7 +28188,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -28544,8 +28663,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.0",
-               "default": "2.1.0",
+               "const": "2.1.1",
+               "default": "2.1.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -29542,7 +29661,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -30123,7 +30242,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -30305,6 +30424,19 @@
                "default": "Volume measured for various solenoid opening times",
                "title": "Description",
                "type": "string"
+            },
+            "protocol_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "DOI for protocols.io",
+               "title": "Protocol ID"
             },
             "measured_at": {
                "anyOf": [
@@ -31004,7 +31136,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -33190,6 +33322,13 @@
             }
          },
          "title": "_Gallus_Gallus",
+         "type": "object"
+      },
+      "_GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "_GenericModel",
          "type": "object"
       },
       "_Hamamatsu": {
@@ -35997,6 +36136,26 @@
          "title": "_Schneider_Kreuznach",
          "type": "object"
       },
+      "_Scrnaseq": {
+         "additionalProperties": false,
+         "description": "Model scRNAseq",
+         "properties": {
+            "name": {
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "scRNAseq",
+               "default": "scRNAseq",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
       "_Second_Order_Effects": {
          "description": "Model Second Order Effects",
          "properties": {
@@ -36226,24 +36385,24 @@
          "title": "_Simpleanaloggenerator",
          "type": "object"
       },
-      "_Slap": {
+      "_Slap2": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model slap2",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "slap2",
+               "default": "slap2",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Slap2",
          "type": "object"
       },
       "_Sniffdetector": {
@@ -37392,8 +37551,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.2",
-         "default": "2.2.2",
+         "const": "2.3.0",
+         "default": "2.3.0",
          "title": "Schema Version",
          "type": "string"
       },

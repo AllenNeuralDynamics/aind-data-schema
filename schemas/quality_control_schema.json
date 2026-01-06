@@ -62,7 +62,8 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
@@ -116,13 +117,16 @@
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -252,7 +256,8 @@
                      "icephys": "#/$defs/_Icephys",
                      "merfish": "#/$defs/_Merfish",
                      "pophys": "#/$defs/_Pophys",
-                     "slap": "#/$defs/_Slap"
+                     "scRNAseq": "#/$defs/_Scrnaseq",
+                     "slap2": "#/$defs/_Slap2"
                   },
                   "propertyName": "abbreviation"
                },
@@ -306,13 +311,16 @@
                      "$ref": "#/$defs/_Pophys"
                   },
                   {
-                     "$ref": "#/$defs/_Slap"
+                     "$ref": "#/$defs/_Slap2"
                   },
                   {
                      "$ref": "#/$defs/_Spim"
                   },
                   {
                      "$ref": "#/$defs/_Stpt"
+                  },
+                  {
+                     "$ref": "#/$defs/_Scrnaseq"
                   }
                ],
                "title": "Modality"
@@ -764,24 +772,44 @@
          "title": "_Pophys",
          "type": "object"
       },
-      "_Slap": {
+      "_Scrnaseq": {
          "additionalProperties": false,
-         "description": "Model slap",
+         "description": "Model scRNAseq",
          "properties": {
             "name": {
-               "const": "Scanned line projection imaging",
-               "default": "Scanned line projection imaging",
+               "const": "Single cell RNA sequencing",
+               "default": "Single cell RNA sequencing",
                "title": "Name",
                "type": "string"
             },
             "abbreviation": {
-               "const": "slap",
-               "default": "slap",
+               "const": "scRNAseq",
+               "default": "scRNAseq",
                "title": "Abbreviation",
                "type": "string"
             }
          },
-         "title": "_Slap",
+         "title": "_Scrnaseq",
+         "type": "object"
+      },
+      "_Slap2": {
+         "additionalProperties": false,
+         "description": "Model slap2",
+         "properties": {
+            "name": {
+               "const": "Random access projection microscopy",
+               "default": "Random access projection microscopy",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": "slap2",
+               "default": "slap2",
+               "title": "Abbreviation",
+               "type": "string"
+            }
+         },
+         "title": "_Slap2",
          "type": "object"
       },
       "_Spim": {
@@ -841,8 +869,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.0",
-         "default": "2.2.0",
+         "const": "2.4.0",
+         "default": "2.4.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -898,10 +926,17 @@
       "default_grouping": {
          "description": "Tag *keys* that should be used to group metrics hierarchically for visualization",
          "items": {
-            "items": {
-               "type": "string"
-            },
-            "type": "array"
+            "anyOf": [
+               {
+                  "type": "string"
+               },
+               {
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               }
+            ]
          },
          "title": "Default grouping",
          "type": "array"

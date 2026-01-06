@@ -595,7 +595,7 @@
             "additional_settings": {
                "anyOf": [
                   {
-                     "$ref": "#/$defs/GenericModel"
+                     "$ref": "#/$defs/_GenericModel"
                   },
                   {
                      "type": "null"
@@ -621,13 +621,6 @@
             "name"
          ],
          "title": "Device",
-         "type": "object"
-      },
-      "GenericModel": {
-         "additionalProperties": true,
-         "description": "Base class for generic types that can be used in AIND schema",
-         "properties": {},
-         "title": "GenericModel",
          "type": "object"
       },
       "HomeCageEnrichment": {
@@ -2887,6 +2880,13 @@
             }
          },
          "title": "_Gallus_Gallus",
+         "type": "object"
+      },
+      "_GenericModel": {
+         "additionalProperties": true,
+         "description": "Base class for generic types that can be used in AIND schema",
+         "properties": {},
+         "title": "_GenericModel",
          "type": "object"
       },
       "_Hamamatsu": {
@@ -6301,8 +6301,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.0",
-         "default": "2.1.0",
+         "const": "2.1.1",
+         "default": "2.1.1",
          "title": "Schema Version",
          "type": "string"
       },
