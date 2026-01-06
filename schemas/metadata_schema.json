@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.2.3",
+               "default": "2.2.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5807,8 +5807,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.2",
-               "default": "2.2.2",
+               "const": "2.3.0",
+               "default": "2.3.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14532,8 +14532,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.1",
-               "default": "2.1.1",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25064,8 +25064,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.7",
-               "default": "2.1.7",
+               "const": "2.2.0",
+               "default": "2.2.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25478,8 +25478,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.4.0",
+               "default": "2.4.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -37551,8 +37551,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.4",
-         "default": "2.2.4",
+         "const": "2.3.0",
+         "default": "2.3.0",
          "title": "Schema Version",
          "type": "string"
       },
