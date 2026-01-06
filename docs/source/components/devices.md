@@ -622,9 +622,9 @@ Description of visual display for visual stimuli
 | `viewing_distance` | `decimal.Decimal` | Viewing distance (cm)  |
 | `viewing_distance_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Viewing distance unit  |
 | `contrast` | `Optional[int]` | Contrast (Monitor's contrast setting) |
-| `contrast_unit` | `Optional[UnitlessUnit]` | Contrast unit |
+| `contrast_unit` | Optional[[UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit)] | Contrast unit  |
 | `brightness` | `Optional[int]` | Brightness (Monitor's brightness setting) |
-| `brightness_unit` | `Optional[UnitlessUnit]` | Brightness unit |
+| `brightness_unit` | Optional[[UnitlessUnit](../aind_data_schema_models/units.md#unitlessunit)] | Brightness unit  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
 | `model` | `Optional[str]` | Model  |

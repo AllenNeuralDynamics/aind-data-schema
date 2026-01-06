@@ -339,8 +339,11 @@ def generate_model_schema_table(model_class) -> str:
 def detect_registry_type(registry):
     """Detect the registry type based on its attributes and structure"""
     # Check if it's an Enum subclass
-    if issubclass(registry, Enum):
-        return "enum"
+    try:
+        if isinstance(registry, type) and issubclass(registry, Enum):
+            return "enum"
+    except TypeError:
+        pass
 
     # Check if this is a special case model schema class
     if registry.__name__ in MODEL_SCHEMA_CLASSES:

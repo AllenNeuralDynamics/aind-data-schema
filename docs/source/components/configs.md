@@ -261,7 +261,7 @@ Configuration of a 3D scan
 | `subject_position` | [SubjectPosition](#subjectposition) | Subject position  |
 | `resolution` | Optional[[Scale](coordinates.md#scale)] | Voxel resolution  |
 | `resolution_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Voxel resolution unit  |
-| `additional_scan_parameters` | `dict` | Parameters  |
+| `additional_scan_parameters` | `Optional[dict]` | Parameters  |
 | `notes` | `Optional[str]` | Notes  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
