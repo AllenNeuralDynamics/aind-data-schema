@@ -795,76 +795,135 @@ class QualityControlTests(unittest.TestCase):
     def test_curation_metric_backward_compatibility(self):
         """Test that CurationMetric handles legacy List format and new dict format"""
         t0 = datetime.fromisoformat("2020-10-10")
-        
-        # Test legacy format - List[dict]
+
+        # Test legacy format - List[dict] where inner dict keys become outer dict keys
         legacy_curation = CurationMetric(
             name="Legacy spike sorting curation",
             modality=Modality.ECEPHYS,
             stage=Stage.PROCESSING,
-            value=[{"unit_id": 1, "quality": "good"}, {"unit_id": 2, "quality": "mua"}],
+            value=[{"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}}],
             type="spike_sorting",
             status_history=[
                 QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
             ],
-            tags=["Curation"],
-            curation_history=[
-                CurationHistory(curator="Alice", timestamp=t0)
-            ]
+            tags={"group": "Curation"},
+            curation_history=[CurationHistory(curator="Alice", timestamp=t0)],
         )
-        
+
         # Verify it gets converted to element-based format
         self.assertIsInstance(legacy_curation.value, dict)
-        self.assertIn('default', legacy_curation.value)
-        self.assertEqual(len(legacy_curation.value['default']), 2)
-        self.assertEqual(legacy_curation.value['default'][0]['unit_id'], 1)
-        
-        # Verify curation_history also gets converted
-        self.assertIsInstance(legacy_curation.curation_history, dict)
-        self.assertIn('default', legacy_curation.curation_history)
-        self.assertEqual(len(legacy_curation.curation_history['default']), 1)
-        self.assertEqual(legacy_curation.curation_history['default'][0].curator, "Alice")
-        
-        # Test new element-based format
+        self.assertIn("unit_1", legacy_curation.value)
+        self.assertIn("unit_2", legacy_curation.value)
+        self.assertEqual(legacy_curation.value["unit_1"], [{"quality": "good"}])
+        self.assertEqual(legacy_curation.value["unit_2"], [{"quality": "mua"}])
+
+        # Verify curation_history is a single list
+        self.assertIsInstance(legacy_curation.curation_history, list)
+        self.assertEqual(len(legacy_curation.curation_history), 1)
+        self.assertEqual(legacy_curation.curation_history[0].curator, "Alice")
+
+        # Test new element-based format with multiple curation events
+        t1 = datetime.fromisoformat("2020-10-11")
         element_curation = CurationMetric(
             name="Element-based spike sorting curation",
             modality=Modality.ECEPHYS,
             stage=Stage.PROCESSING,
             value={
-                "unit_1": [{"quality": "good", "timestamp": "2020-10-10"}],
-                "unit_2": [{"quality": "mua", "timestamp": "2020-10-10"}]
+                "unit_1": [
+                    {"quality": "good", "timestamp": "2020-10-10"},
+                    {"quality": "great", "timestamp": "2020-10-11"},
+                ],
+                "unit_2": [
+                    {"quality": "mua", "timestamp": "2020-10-10"},
+                    {"quality": "good", "timestamp": "2020-10-11"},
+                ],
             },
             type="spike_sorting",
             status_history=[
                 QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
             ],
-            tags=["Curation"],
-            curation_history={
-                "unit_1": [CurationHistory(curator="Alice", timestamp=t0)],
-                "unit_2": [CurationHistory(curator="Bob", timestamp=t0)]
-            }
+            tags={"group": "Curation"},
+            curation_history=[
+                CurationHistory(curator="Alice", timestamp=t0),
+                CurationHistory(curator="Bob", timestamp=t1),
+            ],
         )
-        
+
         # Verify new format stays as-is
         self.assertIsInstance(element_curation.value, dict)
-        self.assertIn('unit_1', element_curation.value)
-        self.assertIn('unit_2', element_curation.value)
-        self.assertEqual(element_curation.value['unit_1'][0]['quality'], 'good')
-        self.assertEqual(element_curation.value['unit_2'][0]['quality'], 'mua')
-        
-        # Verify curation_history with elements
-        self.assertIsInstance(element_curation.curation_history, dict)
-        self.assertEqual(element_curation.curation_history['unit_1'][0].curator, "Alice")
-        self.assertEqual(element_curation.curation_history['unit_2'][0].curator, "Bob")
-        
+        self.assertIn("unit_1", element_curation.value)
+        self.assertIn("unit_2", element_curation.value)
+        self.assertEqual(len(element_curation.value["unit_1"]), 2)
+        self.assertEqual(len(element_curation.value["unit_2"]), 2)
+        self.assertEqual(element_curation.value["unit_1"][0]["quality"], "good")
+        self.assertEqual(element_curation.value["unit_1"][1]["quality"], "great")
+
+        # Verify curation_history is shared across all elements
+        self.assertIsInstance(element_curation.curation_history, list)
+        self.assertEqual(len(element_curation.curation_history), 2)
+        self.assertEqual(element_curation.curation_history[0].curator, "Alice")
+        self.assertEqual(element_curation.curation_history[1].curator, "Bob")
+
         # Test roundtrip serialization for legacy format
         legacy_json = legacy_curation.model_dump_json()
         legacy_rebuilt = CurationMetric.model_validate_json(legacy_json)
         self.assertEqual(legacy_rebuilt.value, legacy_curation.value)
-        
+
         # Test roundtrip serialization for element format
         element_json = element_curation.model_dump_json()
         element_rebuilt = CurationMetric.model_validate_json(element_json)
         self.assertEqual(element_rebuilt.value, element_curation.value)
+
+    def test_curation_metric_length_validation(self):
+        """Test that CurationMetric validates all element lists have same length as history"""
+        t0 = datetime.fromisoformat("2020-10-10")
+        t1 = datetime.fromisoformat("2020-10-11")
+
+        # Test that mismatched lengths raise an error
+        with self.assertRaises(ValueError) as context:
+            CurationMetric(
+                name="Invalid curation - mismatched lengths",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value={
+                    "unit_1": [{"quality": "good"}],  # 1 entry
+                    "unit_2": [{"quality": "mua"}, {"quality": "good"}],  # 2 entries - mismatch!
+                },
+                type="spike_sorting",
+                status_history=[
+                    QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                ],
+                tags={"group": "Curation"},
+                curation_history=[
+                    CurationHistory(curator="Alice", timestamp=t0),
+                    CurationHistory(curator="Bob", timestamp=t1),
+                ],
+            )
+
+        # Should catch the first element that doesn't match
+        self.assertIn("curation entries", str(context.exception))
+        self.assertIn("curation_history has 2 entries", str(context.exception))
+
+        # Test that all elements must match history length
+        with self.assertRaises(ValueError) as context:
+            CurationMetric(
+                name="Invalid curation - wrong history length",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value={"unit_1": [{"quality": "good"}], "unit_2": [{"quality": "mua"}]},
+                type="spike_sorting",
+                status_history=[
+                    QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                ],
+                tags={"group": "Curation"},
+                curation_history=[
+                    CurationHistory(curator="Alice", timestamp=t0),
+                    CurationHistory(curator="Bob", timestamp=t1),
+                ],
+            )
+
+        self.assertIn("1 curation entries", str(context.exception))
+        self.assertIn("curation_history has 2 entries", str(context.exception))
 
     def test_backwards_compatibility_default_grouping(self):
         """Test that fix_default_grouping_list validator handles old v2.2.X format correctly"""

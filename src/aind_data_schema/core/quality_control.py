@@ -108,37 +108,55 @@ class CurationHistory(DataModel):
 
 class CurationMetric(QCMetric):
     """Curations applied to a data asset
-    
+
     The value field is a dictionary mapping element identifiers to lists of curation data.
-    For backward compatibility, if a List is provided, it will be converted to a dict with a single
-    'default' key.
+    For backward compatibility, if a List is provided, it will be converted to a dict with element IDs extracted.
     """
 
     value: dict[str, List[dict]] = Field(..., title="Curation value per element")
     type: str = Field(..., title="Curation type")
-    curation_history: dict[str, List[CurationHistory]] = Field(default={}, title="Curation history per element")
-    
-    @field_validator('value', mode='before')
+    curation_history: List[CurationHistory] = Field(default=[], title="Curation history for all elements")
+
+    @field_validator("value", mode="before")
     @classmethod
     def convert_legacy_value(cls, v):
         """Convert legacy List[dict] format to dict[str, List[dict]] format
-        
-        For backward compatibility, if a List is provided, wrap it under a 'default' key.
+
+        For backward compatibility, if a List[dict] is provided, take the keys from each inner dict
+        and use them as the outer dict keys, with the values wrapped in a list.
+
+        Example:
+            Input: [{"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}}]
+            Output: {"unit_1": [{"quality": "good"}], "unit_2": [{"quality": "mua"}]}
         """
         if isinstance(v, list):
-            return {'default': v}
+            result = {}
+            for item in v:
+                if isinstance(item, dict):
+                    for key, value in item.items():
+                        if key not in result:
+                            result[key] = []
+                        result[key].append(value)
+            return result
         return v
-    
-    @field_validator('curation_history', mode='before')
-    @classmethod
-    def convert_legacy_history(cls, v):
-        """Convert legacy List[CurationHistory] format to dict[str, List[CurationHistory]] format
-        
-        For backward compatibility, if a List is provided, wrap it under a 'default' key.
+
+    @model_validator(mode="after")
+    def validate_curation_lengths(self):
+        """Ensure all element curation lists have the same length as curation_history
+
+        Each element should have the same number of curation entries as there are history entries.
         """
-        if isinstance(v, list):
-            return {'default': v}
-        return v
+        history_length = len(self.curation_history)
+
+        for element_id, element_curations in self.value.items():
+            if len(element_curations) != history_length:
+                raise ValueError(
+                    f"Element '{element_id}' has {len(element_curations)} curation entries, "
+                    f"but curation_history has {history_length} entries. All elements must have "
+                    f"the same number of curation entries as the curation_history."
+                )
+
+        return self
 
 
 class QualityControl(DataCoreModel):
