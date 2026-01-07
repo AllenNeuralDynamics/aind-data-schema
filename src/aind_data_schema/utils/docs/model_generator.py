@@ -14,7 +14,7 @@ from aind_data_schema.base import DataModel, _GenericModel
 from aind_data_schema.utils.docs.utils import generate_enum_table
 
 special_cases = {
-    "pydantic.types.AwareDatetime": "datetime (timezone-aware)",
+    "pydantic.types.AwareDatetime": "datetime (timezone-aware, local time)",
     "aind_data_schema_models.organizations": ("[Organization](aind_data_schema_models/organizations.md#organization)"),
     "aind_data_schema_models.modalities": ("[Modality](aind_data_schema_models/modalities.md#modality)"),
     "aind_data_schema_models.brain_atlas": ("[BrainAtlas](aind_data_schema_models/brain_atlas.md#ccfv3)"),

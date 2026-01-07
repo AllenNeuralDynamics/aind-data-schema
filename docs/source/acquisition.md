@@ -23,6 +23,37 @@ You can uniquely identify acquisition sessions (and therefore a specific data as
 
 For example, in the `"Brain Computer Interface"` project name, good acquisition types would be strings like: `"BCI: Single neuron stim"` and `"BCI: Group neuron stim"`. These phrases clearly identify what part of a project these acquisitions belong to, without being overly redundant with controlled fields in the metadata.
 
+## Datetime format requirements
+
+**Format:** `YYYY-MM-DDTHH:MM:SS.ssssss±HH:MM`  
+**Example:** `2024-10-22T15:29:56-07:00`
+
+Timestamps must represent local time at the experiment location to preserve time-of-day information. This allows users to query based on the local time of sessions (e.g. filter based on morning vs evening).
+
+**Python examples:**
+```python
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+# Preferred: timezone-aware datetime with auto-detected local timezone
+dt = datetime.now().astimezone().tzinfo  # Gets system's local timezone
+dt = datetime(2024, 10, 22, 15, 29, 56, tzinfo=dt)
+
+# Or explicitly specify collection timezone
+# (e.g., data collected in the Pacific timezone but processed on cloud workstation in another timezone)
+dt = datetime(2024, 10, 22, 15, 29, 56, tzinfo=ZoneInfo("America/Los_Angeles"))
+```
+
+When providing timestamps:
+- **Preferred:** Python datetime objects with timezone-aware objects (local timezone explicitly specified or auto-detected)
+- **Valid (but discouraged):** Naive Python datetime objects (system timezone auto-detected)
+- **Avoid:** UTC timestamps with `Z` suffix lose local time context
+- **Avoid:** ISO 8601 strings with manual timezone offsets (risk hardcoding `-07:00` vs `-08:00`)
+
+**Note:** Timezone-aware datetime objects with proper timezone names (like `America/Los_Angeles`) automatically handle daylight saving time transitions. Avoid manually setting UTC offsets in strings to prevent hardcoding `-07:00` vs `-08:00`.
+
+**Warning:** If you provide a naive datetime object without timezone information, it will be assumed to be in the timezone where the processing occurs, which may not match the timezone where the data was collected.
+
 ## Stimulus parameters
 
 You should use the `Code.parameters` field to store your stimulus properties for each [StimulusEpoch](#stimulusepoch). We have pre-existing parameter schemas for a subset of stimuli defined [here](components/stimulus.md) or you can define your own schema.
