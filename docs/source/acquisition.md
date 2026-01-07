@@ -149,7 +149,7 @@ Summary of a StimulusEpoch
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `output_parameters` | `dict` | Additional metrics  |
+| `output_parameters` | `Optional[dict]` | Additional metrics  |
 | `reward_consumed_during_epoch` | `Optional[decimal.Decimal]` | Reward consumed during training (uL)  |
 | `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] | Reward consumed unit  |
 | `trials_total` | `Optional[int]` | Total trials  |
