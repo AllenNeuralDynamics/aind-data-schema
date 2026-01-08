@@ -137,12 +137,12 @@ class SerializationTests(unittest.TestCase):
         self.assertEqual(result, data)
 
     def test_expand_list_of_dicts_delta_false_marker(self):
-        """Test expansion with _dc=False returns original"""
+        """Test expansion with _dc=False returns the list (unwrapped)"""
         data = {"_dc": False, "_v": [{"a": 1}, {"b": 2}]}
 
         result = expand_list_of_dicts_delta(data)
 
-        self.assertEqual(result, data)
+        self.assertEqual(result, [{"a": 1}, {"b": 2}])
 
     def test_expand_list_of_dicts_delta_carry_forward(self):
         """Test that values are carried forward correctly"""
