@@ -792,13 +792,14 @@ class QualityControlTests(unittest.TestCase):
         late_status = qc.evaluate_status(date=late_date, tag="group:time_sensitive")
         self.assertEqual(late_status, Status.FAIL)
 
-    def test_curation_metric_backward_compatibility(self):
-        """Test that CurationMetric handles legacy List format and new dict format"""
+    def test_curation_metric_format(self):
+        """Test that CurationMetric handles List[dict] format"""
         t0 = datetime.fromisoformat("2020-10-10")
+        t1 = datetime.fromisoformat("2020-10-11")
 
-        # Test legacy format - List[dict] where inner dict keys become outer dict keys
-        legacy_curation = CurationMetric(
-            name="Legacy spike sorting curation",
+        # Test basic format with single curation event
+        single_curation = CurationMetric(
+            name="Spike sorting curation",
             modality=Modality.ECEPHYS,
             stage=Stage.PROCESSING,
             value=[{"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}}],
@@ -810,34 +811,23 @@ class QualityControlTests(unittest.TestCase):
             curation_history=[CurationHistory(curator="Alice", timestamp=t0)],
         )
 
-        # Verify it gets converted to element-based format
-        self.assertIsInstance(legacy_curation.value, dict)
-        self.assertIn("unit_1", legacy_curation.value)
-        self.assertIn("unit_2", legacy_curation.value)
-        self.assertEqual(legacy_curation.value["unit_1"], [{"quality": "good"}])
-        self.assertEqual(legacy_curation.value["unit_2"], [{"quality": "mua"}])
+        # Verify format
+        self.assertIsInstance(single_curation.value, list)
+        self.assertEqual(len(single_curation.value), 1)
+        self.assertIn("unit_1", single_curation.value[0])
+        self.assertIn("unit_2", single_curation.value[0])
+        self.assertEqual(single_curation.value[0]["unit_1"], {"quality": "good"})
+        self.assertEqual(single_curation.value[0]["unit_2"], {"quality": "mua"})
 
-        # Verify curation_history is a single list
-        self.assertIsInstance(legacy_curation.curation_history, list)
-        self.assertEqual(len(legacy_curation.curation_history), 1)
-        self.assertEqual(legacy_curation.curation_history[0].curator, "Alice")
-
-        # Test new element-based format with multiple curation events
-        t1 = datetime.fromisoformat("2020-10-11")
-        element_curation = CurationMetric(
-            name="Element-based spike sorting curation",
+        # Test format with multiple curation events
+        multi_curation = CurationMetric(
+            name="Multi-event spike sorting curation",
             modality=Modality.ECEPHYS,
             stage=Stage.PROCESSING,
-            value={
-                "unit_1": [
-                    {"quality": "good", "timestamp": "2020-10-10"},
-                    {"quality": "great", "timestamp": "2020-10-11"},
-                ],
-                "unit_2": [
-                    {"quality": "mua", "timestamp": "2020-10-10"},
-                    {"quality": "good", "timestamp": "2020-10-11"},
-                ],
-            },
+            value=[
+                {"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}},
+                {"unit_1": {"quality": "great"}, "unit_2": {"quality": "good"}},
+            ],
             type="spike_sorting",
             status_history=[
                 QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -849,33 +839,22 @@ class QualityControlTests(unittest.TestCase):
             ],
         )
 
-        # Verify new format stays as-is
-        self.assertIsInstance(element_curation.value, dict)
-        self.assertIn("unit_1", element_curation.value)
-        self.assertIn("unit_2", element_curation.value)
-        self.assertEqual(len(element_curation.value["unit_1"]), 2)
-        self.assertEqual(len(element_curation.value["unit_2"]), 2)
-        self.assertEqual(element_curation.value["unit_1"][0]["quality"], "good")
-        self.assertEqual(element_curation.value["unit_1"][1]["quality"], "great")
+        # Verify format
+        self.assertIsInstance(multi_curation.value, list)
+        self.assertEqual(len(multi_curation.value), 2)
+        self.assertEqual(multi_curation.value[0]["unit_1"], {"quality": "good"})
+        self.assertEqual(multi_curation.value[1]["unit_1"], {"quality": "great"})
+        self.assertEqual(multi_curation.value[1]["unit_2"], {"quality": "good"})
 
-        # Verify curation_history is shared across all elements
-        self.assertIsInstance(element_curation.curation_history, list)
-        self.assertEqual(len(element_curation.curation_history), 2)
-        self.assertEqual(element_curation.curation_history[0].curator, "Alice")
-        self.assertEqual(element_curation.curation_history[1].curator, "Bob")
+        # Test roundtrip preserves data
+        json_str = multi_curation.model_dump_json()
+        rebuilt = CurationMetric.model_validate_json(json_str)
 
-        # Test roundtrip serialization for legacy format
-        legacy_json = legacy_curation.model_dump_json()
-        legacy_rebuilt = CurationMetric.model_validate_json(legacy_json)
-        self.assertEqual(legacy_rebuilt.value, legacy_curation.value)
-
-        # Test roundtrip serialization for element format
-        element_json = element_curation.model_dump_json()
-        element_rebuilt = CurationMetric.model_validate_json(element_json)
-        self.assertEqual(element_rebuilt.value, element_curation.value)
+        self.assertEqual(rebuilt.value, multi_curation.value)
+        self.assertEqual(len(rebuilt.value), 2)
 
     def test_curation_metric_length_validation(self):
-        """Test that CurationMetric validates all element lists have same length as history"""
+        """Test that CurationMetric validates value list length matches history"""
         t0 = datetime.fromisoformat("2020-10-10")
         t1 = datetime.fromisoformat("2020-10-11")
 
@@ -885,10 +864,7 @@ class QualityControlTests(unittest.TestCase):
                 name="Invalid curation - mismatched lengths",
                 modality=Modality.ECEPHYS,
                 stage=Stage.PROCESSING,
-                value={
-                    "unit_1": [{"quality": "good"}],  # 1 entry
-                    "unit_2": [{"quality": "mua"}, {"quality": "good"}],  # 2 entries - mismatch!
-                },
+                value=[{"unit_1": {"quality": "good"}}],  # 1 entry
                 type="spike_sorting",
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -896,21 +872,28 @@ class QualityControlTests(unittest.TestCase):
                 tags={"group": "Curation"},
                 curation_history=[
                     CurationHistory(curator="Alice", timestamp=t0),
-                    CurationHistory(curator="Bob", timestamp=t1),
+                    CurationHistory(curator="Bob", timestamp=t1),  # 2 history entries - mismatch!
                 ],
             )
 
-        # Should catch the first element that doesn't match
         self.assertIn("curation entries", str(context.exception))
         self.assertIn("curation_history has 2 entries", str(context.exception))
 
-        # Test that all elements must match history length
+    def test_curation_metric_key_consistency_validation(self):
+        """Test that CurationMetric validates all dicts have identical keys"""
+        t0 = datetime.fromisoformat("2020-10-10")
+        t1 = datetime.fromisoformat("2020-10-11")
+
+        # Test that inconsistent keys raise an error
         with self.assertRaises(ValueError) as context:
             CurationMetric(
-                name="Invalid curation - wrong history length",
+                name="Invalid curation - inconsistent keys",
                 modality=Modality.ECEPHYS,
                 stage=Stage.PROCESSING,
-                value={"unit_1": [{"quality": "good"}], "unit_2": [{"quality": "mua"}]},
+                value=[
+                    {"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}},
+                    {"unit_1": {"quality": "great"}},  # Missing unit_2!
+                ],
                 type="spike_sorting",
                 status_history=[
                     QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
@@ -922,8 +905,31 @@ class QualityControlTests(unittest.TestCase):
                 ],
             )
 
-        self.assertIn("1 curation entries", str(context.exception))
-        self.assertIn("curation_history has 2 entries", str(context.exception))
+        self.assertIn("inconsistent keys", str(context.exception))
+        self.assertIn("unit_2", str(context.exception))
+
+        # Test extra keys also raise error
+        with self.assertRaises(ValueError) as context:
+            CurationMetric(
+                name="Invalid curation - extra keys",
+                modality=Modality.ECEPHYS,
+                stage=Stage.PROCESSING,
+                value=[
+                    {"unit_1": {"quality": "good"}},
+                    {"unit_1": {"quality": "great"}, "unit_2": {"quality": "mua"}},  # Extra unit_2!
+                ],
+                type="spike_sorting",
+                status_history=[
+                    QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+                ],
+                tags={"group": "Curation"},
+                curation_history=[
+                    CurationHistory(curator="Alice", timestamp=t0),
+                    CurationHistory(curator="Bob", timestamp=t1),
+                ],
+            )
+
+        self.assertIn("inconsistent keys", str(context.exception))
 
     def test_backwards_compatibility_default_grouping(self):
         """Test that fix_default_grouping_list validator handles old v2.2.X format correctly"""
@@ -1003,6 +1009,130 @@ class QualityControlTests(unittest.TestCase):
         self.assertEqual(qc_new.default_grouping, ["group", ("probe", "shank")])
         # Tags should remain as dict
         self.assertEqual(qc_new.metrics[0].tags, {"group": "test_group", "probe": "probeA", "shank": "shank1"})
+
+    def test_curation_metric_serialization_non_json_mode(self):
+        """Test that CurationMetric serialization in non-JSON mode does not apply compression"""
+        t0 = datetime.fromisoformat("2020-10-10")
+
+        curation = CurationMetric(
+            name="Test curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=[{"unit_1": {"quality": "good"}}, {"unit_1": {"quality": "great"}}],
+            type="spike_sorting",
+            status_history=[QCStatus(evaluator="Test", timestamp=t0, status=Status.PASS)],
+            tags={"group": "test"},
+            curation_history=[
+                CurationHistory(curator="Alice", timestamp=t0),
+                CurationHistory(curator="Bob", timestamp=t0),
+            ],
+        )
+
+        # Use model_dump (Python mode) instead of model_dump_json
+        python_dict = curation.model_dump()
+
+        # In Python mode, value should remain as list without compression
+        self.assertIsInstance(python_dict["value"], list)
+        self.assertEqual(len(python_dict["value"]), 2)
+        # Should not have _dc marker in Python mode
+        self.assertNotIn("_dc", str(python_dict["value"]))
+
+    def test_curation_metric_serialization_single_value(self):
+        """Test that CurationMetric with single value does not apply compression"""
+        t0 = datetime.fromisoformat("2020-10-10")
+
+        curation = CurationMetric(
+            name="Single value curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=[{"unit_1": {"quality": "good"}}],
+            type="spike_sorting",
+            status_history=[QCStatus(evaluator="Test", timestamp=t0, status=Status.PASS)],
+            tags={"group": "test"},
+            curation_history=[CurationHistory(curator="Alice", timestamp=t0)],
+        )
+
+        # Serialize to JSON
+        json_str = curation.model_dump_json()
+        import json
+
+        json_data = json.loads(json_str)
+
+        # With single value, should not apply compression
+        # Value should remain as plain list without _dc marker
+        self.assertIsInstance(json_data["value"], list)
+        self.assertEqual(len(json_data["value"]), 1)
+
+    def test_curation_metric_validator_with_invalid_input(self):
+        """Test CurationMetric validator handles invalid input gracefully"""
+        # Test with string instead of dict
+        result = CurationMetric.expand_delta_compressed_value("not_a_dict")
+        self.assertEqual(result, "not_a_dict")
+
+        # Test with dict missing 'value' key
+        result = CurationMetric.expand_delta_compressed_value({"other_key": "value"})
+        self.assertEqual(result, {"other_key": "value"})
+
+    def test_curation_metric_with_empty_value_list(self):
+        """Test CurationMetric with empty value list passes validation"""
+        t0 = datetime.fromisoformat("2020-10-10")
+
+        # Empty value list should be valid if history is also empty
+        curation = CurationMetric(
+            name="Empty curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=[],
+            type="spike_sorting",
+            status_history=[QCStatus(evaluator="Test", timestamp=t0, status=Status.PASS)],
+            tags={"group": "test"},
+            curation_history=[],
+        )
+
+        self.assertEqual(len(curation.value), 0)
+        self.assertEqual(len(curation.curation_history), 0)
+
+    def test_quality_control_add_with_mismatched_schema_versions(self):
+        """Test that combining QualityControl objects with different schema versions raises error"""
+        t0 = datetime.fromisoformat("2020-10-10")
+
+        qc1 = QualityControl(
+            metrics=[
+                QCMetric(
+                    name="Metric 1",
+                    modality=Modality.ECEPHYS,
+                    stage=Stage.PROCESSING,
+                    value=1,
+                    status_history=[QCStatus(evaluator="Test", timestamp=t0, status=Status.PASS)],
+                    tags={"group": "test"},
+                )
+            ],
+            default_grouping=["group"],
+        )
+
+        qc2 = QualityControl(
+            metrics=[
+                QCMetric(
+                    name="Metric 2",
+                    modality=Modality.BEHAVIOR,
+                    stage=Stage.RAW,
+                    value=2,
+                    status_history=[QCStatus(evaluator="Test", timestamp=t0, status=Status.PASS)],
+                    tags={"group": "test"},
+                )
+            ],
+            default_grouping=["group"],
+        )
+
+        # Manually modify schema_version to simulate version mismatch
+        qc2.schema_version = "99.99.99"
+
+        with self.assertRaises(ValueError) as context:
+            qc1 + qc2
+
+        self.assertIn("schema version", str(context.exception).lower())
+        self.assertIn("2.4.0", str(context.exception))
+        self.assertIn("99.99.99", str(context.exception))
 
 
 if __name__ == "__main__":

@@ -6,10 +6,12 @@ from typing import Any, List, Literal, Optional, Union
 import warnings
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator, model_serializer
+from pydantic_core.core_schema import SerializerFunctionWrapHandler, SerializationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_str_tuple_lists
+from aind_data_schema.utils.serialization import compress_list_of_dicts_delta, expand_list_of_dicts_delta
 
 
 class Status(str, Enum):
@@ -109,52 +111,94 @@ class CurationHistory(DataModel):
 class CurationMetric(QCMetric):
     """Curations applied to a data asset
 
-    The value field is a dictionary mapping element identifiers to lists of curation data.
-    For backward compatibility, if a List is provided, it will be converted to a dict with element IDs extracted.
+    The value field is a list of dictionaries, where each dict represents one curation event.
+    Each dict maps element identifiers (e.g., unit IDs) to their curation data at that point in time.
+    All dicts in the list must have identical keys (element IDs).
+
+    When serialized to JSON, delta compression is automatically applied: the first dict is stored
+    completely, while subsequent dicts only store elements whose values changed from the previous dict.
     """
 
-    value: dict[str, List[dict]] = Field(..., title="Curation value per element")
+    value: List[dict] = Field(..., title="Curation value")
     type: str = Field(..., title="Curation type")
     curation_history: List[CurationHistory] = Field(default=[], title="Curation history for all elements")
 
-    @field_validator("value", mode="before")
-    @classmethod
-    def convert_legacy_value(cls, v):
-        """Convert legacy List[dict] format to dict[str, List[dict]] format
+    @model_serializer(mode="wrap")
+    def serialize_with_delta_compression(self, handler: SerializerFunctionWrapHandler, info: SerializationInfo):
+        """Apply delta compression when serializing to JSON
 
-        For backward compatibility, if a List[dict] is provided, take the keys from each inner dict
-        and use them as the outer dict keys, with the values wrapped in a list.
+        The first dict in value is serialized completely. Subsequent dicts only include
+        keys (element IDs) whose values changed compared to the previous dict.
+        This dramatically reduces JSON size for large curations with sparse changes.
 
-        Example:
-            Input: [{"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}}]
-            Output: {"unit_1": [{"quality": "good"}], "unit_2": [{"quality": "mua"}]}
+        A special `_dc` marker is added to indicate delta compression was applied.
         """
-        if isinstance(v, list):
-            result = {}
-            for item in v:
-                if isinstance(item, dict):
-                    for key, value in item.items():
-                        if key not in result:
-                            result[key] = []
-                        result[key].append(value)
-            return result
-        return v
+        # Get the default serialization
+        data = handler(self)
+
+        # Only apply delta compression in JSON mode
+        if info.mode != "json":
+            return data
+
+        if not isinstance(data.get("value"), list) or len(data["value"]) <= 1:
+            return data
+
+        # Apply delta compression using utility function
+        data["value"] = compress_list_of_dicts_delta(data["value"])
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def expand_delta_compressed_value(cls, data):
+        """Expand delta-compressed format back to full List[dict] format
+
+        Only expands if the special `_dc` marker is present, which indicates
+        the data was serialized with delta compression.
+        """
+        if not isinstance(data, dict) or "value" not in data:
+            return data
+
+        # Use utility function to expand delta-compressed format
+        data["value"] = expand_list_of_dicts_delta(data["value"])
+        return data
 
     @model_validator(mode="after")
-    def validate_curation_lengths(self):
-        """Ensure all element curation lists have the same length as curation_history
+    def validate_curation_structure(self):
+        """Ensure value list matches curation_history length and all dicts have identical keys
 
-        Each element should have the same number of curation entries as there are history entries.
+        Validates that:
+        1. len(value) == len(curation_history)
+        2. All dicts in value have exactly the same keys (element IDs)
         """
         history_length = len(self.curation_history)
 
-        for element_id, element_curations in self.value.items():
-            if len(element_curations) != history_length:
-                raise ValueError(
-                    f"Element '{element_id}' has {len(element_curations)} curation entries, "
-                    f"but curation_history has {history_length} entries. All elements must have "
-                    f"the same number of curation entries as the curation_history."
-                )
+        if len(self.value) != history_length:
+            raise ValueError(
+                f"CurationMetric has {len(self.value)} curation entries, "
+                f"but curation_history has {history_length} entries. "
+                f"The number of value entries must match the number of history entries."
+            )
+
+        # Validate all dicts have identical keys
+        if len(self.value) > 0:
+            first_keys = set(self.value[0].keys())
+
+            for i, curation_dict in enumerate(self.value):
+                current_keys = set(curation_dict.keys())
+                if current_keys != first_keys:
+                    missing = first_keys - current_keys
+                    extra = current_keys - first_keys
+                    error_parts = []
+                    if missing:
+                        error_parts.append(f"missing keys: {sorted(missing)}")
+                    if extra:
+                        error_parts.append(f"extra keys: {sorted(extra)}")
+
+                    raise ValueError(
+                        f"CurationMetric value at index {i} has inconsistent keys. "
+                        f"All dicts must have identical element IDs. "
+                        f"{', '.join(error_parts)}"
+                    )
 
         return self
 
