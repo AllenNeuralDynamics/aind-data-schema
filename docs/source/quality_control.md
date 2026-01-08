@@ -20,7 +20,9 @@ Each [QCMetric](#qcmetric) is annotated with three pieces of additional metadata
 
 ### Curations
 
-If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+We define quality control as being about the quality of the data asset -- the electrophysiology data, imaging data, etc. When you find yourself computing metrics at the level of *entities* in the data, like a neuron or region of interest, you are performing *curation*. We provide the [CurationMetric](#curationmetric) model for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the entities (usually neurons, ROIs, channels, ...) and their values.
+
+Note that the `CurationMetric.value` accepts a list of dictionaries. The outer list is used to track the *history* of curation and should match the length of the `CurationMetric.curation_history` field. The `.value` field is compressed during serialization and stores only the changes from the initial curation state.
 
 ### Tags
 
@@ -106,13 +108,20 @@ Schema to track curator name and timestamp for curation events
 
 ### CurationMetric
 
-Description of a curation metric
+Curations applied to a data asset
+
+The value field is a list of dictionaries, where each dict represents one curation event.
+Each dict maps element identifiers (e.g., unit IDs) to their curation data at that point in time.
+All dicts in the list must have identical keys (element IDs).
+
+When serialized to JSON, delta compression is automatically applied: the first dict is stored
+completely, while subsequent dicts only store elements whose values changed from the previous dict.
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `value` | `List[typing.Any]` | Curation value  |
+| `value` | `List[dict]` | Curation value  |
 | `type` | `str` | Curation type  |
-| `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] | Curation history  |
+| `curation_history` | List[[CurationHistory](quality_control.md#curationhistory)] | Curation history for all elements  |
 | `name` | `str` | Metric name  |
 | `modality` | [Modality](aind_data_schema_models/modalities.md#modality) | Modality  |
 | `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |

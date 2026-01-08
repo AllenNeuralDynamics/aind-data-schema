@@ -6,10 +6,12 @@ from typing import Any, List, Literal, Optional, Union
 import warnings
 
 from aind_data_schema_models.modalities import Modality
-from pydantic import Field, SkipValidation, model_validator
+from pydantic import Field, SkipValidation, model_validator, model_serializer
+from pydantic_core.core_schema import SerializerFunctionWrapHandler, SerializationInfo
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_str_tuple_lists
+from aind_data_schema.utils.serialization import compress_list_of_dicts_delta, expand_list_of_dicts_delta
 
 
 class Status(str, Enum):
@@ -107,11 +109,75 @@ class CurationHistory(DataModel):
 
 
 class CurationMetric(QCMetric):
-    """Description of a curation metric"""
+    """Curations applied to a data asset
 
-    value: List[Any] = Field(..., title="Curation value")
+    The value field is a list of dictionaries, where each dict represents one curation event.
+    Each dict maps element identifiers (e.g., unit IDs) to their curation data at that point in time.
+    All dicts in the list must have identical keys (element IDs).
+
+    When serialized to JSON, delta compression is automatically applied: the first dict is stored
+    completely, while subsequent dicts only store elements whose values changed from the previous dict.
+    """
+
+    value: List[dict] = Field(..., title="Curation value")
     type: str = Field(..., title="Curation type")
-    curation_history: List[CurationHistory] = Field(default=[], title="Curation history")
+    curation_history: List[CurationHistory] = Field(default=[], title="Curation history for all elements")
+
+    @model_serializer(mode="wrap")
+    def serialize_with_delta_compression(self, handler: SerializerFunctionWrapHandler, info: SerializationInfo):
+        """Apply delta compression when serializing to JSON
+
+        The first dict in value is serialized completely. Subsequent dicts only include
+        keys (element IDs) whose values changed compared to the previous dict.
+        This dramatically reduces JSON size for large curations with sparse changes.
+
+        A special `_dc` marker is added to indicate delta compression was applied.
+        """
+        # Get the default serialization
+        data = handler(self)
+
+        # Only apply delta compression in JSON mode
+        if info.mode != "json":
+            return data
+
+        if not isinstance(data.get("value"), list) or len(data["value"]) <= 1:
+            return data
+
+        # Apply delta compression using utility function
+        data["value"] = compress_list_of_dicts_delta(data["value"])
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def expand_delta_compressed_value(cls, data):
+        """Expand delta-compressed format back to full List[dict] format
+
+        Only expands if the special `_dc` marker is present, which indicates
+        the data was serialized with delta compression.
+        """
+        if not isinstance(data, dict) or "value" not in data:
+            return data
+
+        # Use utility function to expand delta-compressed format
+        data["value"] = expand_list_of_dicts_delta(data["value"])
+        return data
+
+    @model_validator(mode="after")
+    def validate_curation_structure(self):
+        """Ensure value list matches curation_history length
+
+        Validates that len(value) == len(curation_history)
+        """
+        history_length = len(self.curation_history)
+
+        if len(self.value) != history_length:
+            raise ValueError(
+                f"CurationMetric has {len(self.value)} curation entries, "
+                f"but curation_history has {history_length} entries. "
+                f"The number of value entries must match the number of history entries."
+            )
+
+        return self
 
 
 class QualityControl(DataCoreModel):

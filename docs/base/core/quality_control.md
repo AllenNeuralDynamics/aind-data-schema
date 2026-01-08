@@ -20,7 +20,9 @@ Each [QCMetric](#qcmetric) is annotated with three pieces of additional metadata
 
 ### Curations
 
-If you find yourself computing a value for something smaller than an entire modality of data in an asset you are performing *curation*, i.e. you are determining the status of a subset of a modality in the data asset. We provide the [CurationMetric](#curationmetric) for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the subsets (usually neurons, ROIs, channels, etc) and their values.
+We define quality control as being about the quality of the data asset -- the electrophysiology data, imaging data, etc. When you find yourself computing metrics at the level of *entities* in the data, like a neuron or region of interest, you are performing *curation*. We provide the [CurationMetric](#curationmetric) model for this purpose. You should put a dictionary in the `CurationMetric.value` field that contains a mapping between the entities (usually neurons, ROIs, channels, ...) and their values.
+
+Note that the `CurationMetric.value` accepts a list of dictionaries. The outer list is used to track the *history* of curation and should match the length of the `CurationMetric.curation_history` field. The `.value` field is compressed during serialization and stores only the changes from the initial curation state.
 
 ### Tags
 
