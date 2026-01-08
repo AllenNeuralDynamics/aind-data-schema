@@ -8,7 +8,7 @@ def compress_list_of_dicts_delta(value: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     The first dict is stored completely. Subsequent dicts only include
     keys whose values changed compared to the previous dict.
-    
+
     Delta compression is only applied when all dictionaries have identical keys.
     If keys vary across dictionaries, the list is returned uncompressed.
 
@@ -39,7 +39,7 @@ def compress_list_of_dicts_delta(value: List[Dict[str, Any]]) -> Dict[str, Any]:
         return {"_dc": False, "_v": value}
 
     first_keys = set(value[0].keys()) if isinstance(value[0], dict) else set()
-    
+
     for item in value:
         if not isinstance(item, dict) or set(item.keys()) != first_keys:
             return {"_dc": False, "_v": value}
@@ -79,7 +79,7 @@ def expand_list_of_dicts_delta(compressed_data: Dict[str, Any]) -> List[Dict[str
     >>> compressed = {"_dc": True, "_v": [{"a": 1, "b": 2}, {"b": 3}, {"a": 2}]}
     >>> expand_list_of_dicts_delta(compressed)
     [{'a': 1, 'b': 2}, {'a': 1, 'b': 3}, {'a': 2, 'b': 3}]
-    
+
     >>> uncompressed = {"_dc": False, "_v": [{"a": 1}, {"b": 2}]}
     >>> expand_list_of_dicts_delta(uncompressed)
     [{'a': 1}, {'b': 2}]
@@ -90,7 +90,7 @@ def expand_list_of_dicts_delta(compressed_data: Dict[str, Any]) -> List[Dict[str
     if "_dc" not in compressed_data or "_v" not in compressed_data:
         return compressed_data
 
-    if compressed_data["_dc"] != True:
+    if compressed_data["_dc"] is not True:
         return compressed_data["_v"]
 
     compressed = compressed_data["_v"]

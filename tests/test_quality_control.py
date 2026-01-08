@@ -912,12 +912,13 @@ class QualityControlTests(unittest.TestCase):
 
         json_str = curation.model_dump_json()
         import json
+
         json_data = json.loads(json_str)
 
         self.assertIn("value", json_data)
         value_data = json_data["value"]
-        
-        if isinstance(value_data, dict) and value_data.get("_dc") == False:
+
+        if isinstance(value_data, dict) and value_data.get("_dc") is False:
             self.assertEqual(len(value_data["_v"]), 3)
         else:
             self.assertEqual(len(value_data), 3)
@@ -953,11 +954,12 @@ class QualityControlTests(unittest.TestCase):
 
         json_str = curation.model_dump_json()
         import json
+
         json_data = json.loads(json_str)
 
         self.assertIn("value", json_data)
         value_data = json_data["value"]
-        
+
         if isinstance(value_data, dict):
             self.assertTrue(value_data.get("_dc", False))
             self.assertIn("_v", value_data)
