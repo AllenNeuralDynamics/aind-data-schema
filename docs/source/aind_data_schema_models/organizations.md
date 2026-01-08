@@ -16,6 +16,7 @@ Organization
 | `AILIPU` | `Ailipu` | `Ailipu Technology Co` | `None` | `None` |
 | `AIND` | `AIND` | `Allen Institute for Neural Dynamics` | `Registry.ROR` | `04szwah67` |
 | `AMS_OSRAM` | `None` | `ams OSRAM` | `Registry.ROR` | `045d0h266` |
+| `ARDUINO` | `None` | `Arduino` | `None` | `None` |
 | `ARECONT_VISION_COSTAR` | `None` | `Arecont Vision Costar` | `None` | `None` |
 | `ASI` | `ASI` | `Applied Scientific Instrumentation` | `None` | `None` |
 | `ASUS` | `None` | `ASUS` | `Registry.ROR` | `00bxkz165` |
@@ -126,6 +127,7 @@ Organization
 | `TWCF` | `TWCF` | `Templeton World Charity Foundation` | `Registry.ROR` | `00x0z1472` |
 | `TYMPHANY` | `None` | `Tymphany` | `None` | `None` |
 | `UCSD` | `UCSD` | `University of California, San Diego` | `Registry.ROR` | `0168r3w48` |
+| `UNKNOWN` | `UNKNOWN` | `Unknown` | `None` | `None` |
 | `UPENN` | `UPENN` | `University of Pennsylvania` | `Registry.ROR` | `00b30xv10` |
 | `VIEWORKS` | `None` | `Vieworks` | `None` | `None` |
 | `VORTRAN` | `None` | `Vortran` | `None` | `None` |
