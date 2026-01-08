@@ -164,11 +164,9 @@ class CurationMetric(QCMetric):
 
     @model_validator(mode="after")
     def validate_curation_structure(self):
-        """Ensure value list matches curation_history length and all dicts have identical keys
+        """Ensure value list matches curation_history length
 
-        Validates that:
-        1. len(value) == len(curation_history)
-        2. All dicts in value have exactly the same keys (element IDs)
+        Validates that len(value) == len(curation_history)
         """
         history_length = len(self.curation_history)
 
@@ -178,27 +176,6 @@ class CurationMetric(QCMetric):
                 f"but curation_history has {history_length} entries. "
                 f"The number of value entries must match the number of history entries."
             )
-
-        # Validate all dicts have identical keys
-        if len(self.value) > 0:
-            first_keys = set(self.value[0].keys())
-
-            for i, curation_dict in enumerate(self.value):
-                current_keys = set(curation_dict.keys())
-                if current_keys != first_keys:
-                    missing = first_keys - current_keys
-                    extra = current_keys - first_keys
-                    error_parts = []
-                    if missing:
-                        error_parts.append(f"missing keys: {sorted(missing)}")
-                    if extra:
-                        error_parts.append(f"extra keys: {sorted(extra)}")
-
-                    raise ValueError(
-                        f"CurationMetric value at index {i} has inconsistent keys. "
-                        f"All dicts must have identical element IDs. "
-                        f"{', '.join(error_parts)}"
-                    )
 
         return self
 

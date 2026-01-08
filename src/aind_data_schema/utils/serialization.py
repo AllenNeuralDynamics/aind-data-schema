@@ -8,6 +8,9 @@ def compress_list_of_dicts_delta(value: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     The first dict is stored completely. Subsequent dicts only include
     keys whose values changed compared to the previous dict.
+    
+    Delta compression is only applied when all dictionaries have identical keys.
+    If keys vary across dictionaries, the list is returned uncompressed.
 
     Parameters
     ----------
@@ -18,14 +21,15 @@ def compress_list_of_dicts_delta(value: List[Dict[str, Any]]) -> Dict[str, Any]:
     -------
     Dict[str, Any]
         Dictionary with structure {"_dc": True, "_v": compressed_list}
-        where compressed_list has full first dict and deltas for subsequent dicts
+        where compressed_list has full first dict and deltas for subsequent dicts.
+        If compression is not possible, returns {"_dc": False, "_v": value}
 
     Examples
     --------
     >>> data = [
     ...     {"a": 1, "b": 2},
-    ...     {"a": 1, "b": 3},  # only b changed
-    ...     {"a": 2, "b": 3},  # only a changed
+    ...     {"a": 1, "b": 3},
+    ...     {"a": 2, "b": 3},
     ... ]
     >>> result = compress_list_of_dicts_delta(data)
     >>> result["_v"]
@@ -34,17 +38,18 @@ def compress_list_of_dicts_delta(value: List[Dict[str, Any]]) -> Dict[str, Any]:
     if not isinstance(value, list) or len(value) <= 1:
         return {"_dc": False, "_v": value}
 
-    compressed = [value[0]]  # First dict always complete
+    first_keys = set(value[0].keys()) if isinstance(value[0], dict) else set()
+    
+    for item in value:
+        if not isinstance(item, dict) or set(item.keys()) != first_keys:
+            return {"_dc": False, "_v": value}
+
+    compressed = [value[0]]
 
     for i in range(1, len(value)):
         current = value[i]
         previous = value[i - 1]
 
-        if not isinstance(current, dict) or not isinstance(previous, dict):
-            compressed.append(current)
-            continue
-
-        # Only include keys whose values changed
         delta = {key: val for key, val in current.items() if key not in previous or previous[key] != val}
         compressed.append(delta)
 
@@ -54,31 +59,39 @@ def compress_list_of_dicts_delta(value: List[Dict[str, Any]]) -> Dict[str, Any]:
 def expand_list_of_dicts_delta(compressed_data: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Expand delta-compressed list of dictionaries back to full format
 
-    Detects delta-compressed format by looking for the "_dc" marker
-    and expands by carrying forward unchanged values from previous dicts.
+    Detects delta-compressed format by looking for the "_dc" marker.
+    If _dc is True, expands by carrying forward unchanged values from previous dicts.
+    If _dc is False or missing, returns the data as-is.
 
     Parameters
     ----------
     compressed_data : Dict[str, Any]
-        Dictionary with structure {"_dc": True, "_v": compressed_list}
+        Dictionary with structure {"_dc": bool, "_v": compressed_list}
 
     Returns
     -------
     List[Dict[str, Any]]
-        Fully expanded list of dictionaries with all keys in each dict
+        Fully expanded list of dictionaries. If compression was applied,
+        all keys are restored to each dict. If no compression, returns as-is.
 
     Examples
     --------
     >>> compressed = {"_dc": True, "_v": [{"a": 1, "b": 2}, {"b": 3}, {"a": 2}]}
     >>> expand_list_of_dicts_delta(compressed)
     [{'a': 1, 'b': 2}, {'a': 1, 'b': 3}, {'a': 2, 'b': 3}]
+    
+    >>> uncompressed = {"_dc": False, "_v": [{"a": 1}, {"b": 2}]}
+    >>> expand_list_of_dicts_delta(uncompressed)
+    [{'a': 1}, {'b': 2}]
     """
-    # Check for delta compression marker
     if not isinstance(compressed_data, dict):
         return compressed_data
 
-    if compressed_data.get("_dc") != True or "_v" not in compressed_data:
+    if "_dc" not in compressed_data or "_v" not in compressed_data:
         return compressed_data
+
+    if compressed_data["_dc"] != True:
+        return compressed_data["_v"]
 
     compressed = compressed_data["_v"]
     if not isinstance(compressed, list) or len(compressed) == 0:
@@ -87,7 +100,6 @@ def expand_list_of_dicts_delta(compressed_data: Dict[str, Any]) -> List[Dict[str
     if not isinstance(compressed[0], dict):
         return compressed
 
-    # Expand delta-compressed format
     expanded = [compressed[0].copy() if isinstance(compressed[0], dict) else compressed[0]]
 
     for i in range(1, len(compressed)):
@@ -95,13 +107,11 @@ def expand_list_of_dicts_delta(compressed_data: Dict[str, Any]) -> List[Dict[str
             expanded.append(compressed[i])
             continue
 
-        # Start with previous dict's values (if it's a dict)
         if isinstance(expanded[i - 1], dict):
             new_dict = expanded[i - 1].copy()
             new_dict.update(compressed[i])
             expanded.append(new_dict)
         else:
-            # If previous wasn't a dict, just use current as-is
             expanded.append(compressed[i])
 
     return expanded

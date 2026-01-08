@@ -879,57 +879,93 @@ class QualityControlTests(unittest.TestCase):
         self.assertIn("curation entries", str(context.exception))
         self.assertIn("curation_history has 2 entries", str(context.exception))
 
-    def test_curation_metric_key_consistency_validation(self):
-        """Test that CurationMetric validates all dicts have identical keys"""
+    def test_curation_metric_with_variable_keys(self):
+        """Test that CurationMetric allows variable keys across curation events"""
         t0 = datetime.fromisoformat("2020-10-10")
         t1 = datetime.fromisoformat("2020-10-11")
 
-        # Test that inconsistent keys raise an error
-        with self.assertRaises(ValueError) as context:
-            CurationMetric(
-                name="Invalid curation - inconsistent keys",
-                modality=Modality.ECEPHYS,
-                stage=Stage.PROCESSING,
-                value=[
-                    {"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}},
-                    {"unit_1": {"quality": "great"}},  # Missing unit_2!
-                ],
-                type="spike_sorting",
-                status_history=[
-                    QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
-                ],
-                tags={"group": "Curation"},
-                curation_history=[
-                    CurationHistory(curator="Alice", timestamp=t0),
-                    CurationHistory(curator="Bob", timestamp=t1),
-                ],
-            )
+        curation = CurationMetric(
+            name="Variable keys curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=[
+                {"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}},
+                {"unit_1": {"quality": "great"}},
+                {"unit_1": {"quality": "great"}, "unit_3": {"quality": "good"}},
+            ],
+            type="spike_sorting",
+            status_history=[
+                QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+            ],
+            tags={"group": "Curation"},
+            curation_history=[
+                CurationHistory(curator="Alice", timestamp=t0),
+                CurationHistory(curator="Bob", timestamp=t1),
+                CurationHistory(curator="Charlie", timestamp=t1),
+            ],
+        )
 
-        self.assertIn("inconsistent keys", str(context.exception))
-        self.assertIn("unit_2", str(context.exception))
+        self.assertEqual(len(curation.value), 3)
+        self.assertEqual(set(curation.value[0].keys()), {"unit_1", "unit_2"})
+        self.assertEqual(set(curation.value[1].keys()), {"unit_1"})
+        self.assertEqual(set(curation.value[2].keys()), {"unit_1", "unit_3"})
 
-        # Test extra keys also raise error
-        with self.assertRaises(ValueError) as context:
-            CurationMetric(
-                name="Invalid curation - extra keys",
-                modality=Modality.ECEPHYS,
-                stage=Stage.PROCESSING,
-                value=[
-                    {"unit_1": {"quality": "good"}},
-                    {"unit_1": {"quality": "great"}, "unit_2": {"quality": "mua"}},  # Extra unit_2!
-                ],
-                type="spike_sorting",
-                status_history=[
-                    QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
-                ],
-                tags={"group": "Curation"},
-                curation_history=[
-                    CurationHistory(curator="Alice", timestamp=t0),
-                    CurationHistory(curator="Bob", timestamp=t1),
-                ],
-            )
+        json_str = curation.model_dump_json()
+        import json
+        json_data = json.loads(json_str)
 
-        self.assertIn("inconsistent keys", str(context.exception))
+        self.assertIn("value", json_data)
+        value_data = json_data["value"]
+        
+        if isinstance(value_data, dict) and value_data.get("_dc") == False:
+            self.assertEqual(len(value_data["_v"]), 3)
+        else:
+            self.assertEqual(len(value_data), 3)
+
+        rebuilt = CurationMetric.model_validate_json(json_str)
+        self.assertEqual(rebuilt.value, curation.value)
+
+    def test_curation_metric_compression_with_consistent_keys(self):
+        """Test that CurationMetric applies compression when keys are consistent"""
+        t0 = datetime.fromisoformat("2020-10-10")
+        t1 = datetime.fromisoformat("2020-10-11")
+
+        curation = CurationMetric(
+            name="Consistent keys curation",
+            modality=Modality.ECEPHYS,
+            stage=Stage.PROCESSING,
+            value=[
+                {"unit_1": {"quality": "good"}, "unit_2": {"quality": "mua"}},
+                {"unit_1": {"quality": "great"}, "unit_2": {"quality": "mua"}},
+                {"unit_1": {"quality": "great"}, "unit_2": {"quality": "good"}},
+            ],
+            type="spike_sorting",
+            status_history=[
+                QCStatus(evaluator="Automated", timestamp=t0, status=Status.PASS),
+            ],
+            tags={"group": "Curation"},
+            curation_history=[
+                CurationHistory(curator="Alice", timestamp=t0),
+                CurationHistory(curator="Bob", timestamp=t1),
+                CurationHistory(curator="Charlie", timestamp=t1),
+            ],
+        )
+
+        json_str = curation.model_dump_json()
+        import json
+        json_data = json.loads(json_str)
+
+        self.assertIn("value", json_data)
+        value_data = json_data["value"]
+        
+        if isinstance(value_data, dict):
+            self.assertTrue(value_data.get("_dc", False))
+            self.assertIn("_v", value_data)
+            self.assertEqual(len(value_data["_v"][0]), 2)
+            self.assertLess(len(value_data["_v"][1]), 2)
+
+        rebuilt = CurationMetric.model_validate_json(json_str)
+        self.assertEqual(rebuilt.value, curation.value)
 
     def test_backwards_compatibility_default_grouping(self):
         """Test that fix_default_grouping_list validator handles old v2.2.X format correctly"""
