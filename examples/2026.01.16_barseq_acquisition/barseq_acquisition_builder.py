@@ -253,10 +253,7 @@ def create_barseq_acquisition(
         acquisition_start_time=min(gene_seq_start_time, barcode_seq_start_time, hyb_start_time),
         acquisition_end_time=max(gene_seq_end_time, barcode_seq_end_time, hyb_end_time),
         acquisition_type="BarcodeSequencing",
-        protocol_id=protocol_id
-        or [
-            "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"
-        ],
+        protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
         ethics_review_id=ethics_review_id,
         coordinate_system=None,  # CCFv3 not in predefined enum, noted in acquisition notes
         data_streams=[gene_stream, barcode_stream, hyb_stream],

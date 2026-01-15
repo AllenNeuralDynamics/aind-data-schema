@@ -11,8 +11,7 @@
       "PLACEHOLDER_EXPERIMENTER_2"
    ],
    "protocol_id": [
-      "dx.doi.org/10.17504/protocols.io.n2bvj82q5gk5/v1",
-      "dx.doi.org/10.17504/protocols.io.81wgbp4j3vpk/v2"
+      "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"
    ],
    "ethics_review_id": [
       "PLACEHOLDER_IACUC_PROTOCOL"
@@ -59,8 +58,8 @@
                "channels": [
                   {
                      "object_type": "Channel",
-                     "channel_name": "Gene_G",
-                     "intended_measurement": "Gene sequencing - DNA base G",
+                     "channel_name": "GeneSeq_G",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating guanine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -94,8 +93,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Gene_T",
-                     "intended_measurement": "Gene sequencing - DNA base T",
+                     "channel_name": "GeneSeq_T",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating thymine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -129,8 +128,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Gene_A",
-                     "intended_measurement": "Gene sequencing - DNA base A",
+                     "channel_name": "GeneSeq_A",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating adenine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -164,8 +163,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Gene_C",
-                     "intended_measurement": "Gene sequencing - DNA base C",
+                     "channel_name": "GeneSeq_C",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating cytosine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -199,8 +198,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Gene_DAPI",
-                     "intended_measurement": "DAPI nuclear counterstain",
+                     "channel_name": "GeneSeq_DAPI",
+                     "intended_measurement": "Nuclear DNA staining for anatomical reference (DAPI counterstain)",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -281,8 +280,8 @@
                "channels": [
                   {
                      "object_type": "Channel",
-                     "channel_name": "Barcode_G",
-                     "intended_measurement": "Barcode sequencing - DNA base G",
+                     "channel_name": "BarcodeSeq_G",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating guanine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -316,8 +315,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Barcode_T",
-                     "intended_measurement": "Barcode sequencing - DNA base T",
+                     "channel_name": "BarcodeSeq_T",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating thymine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -351,8 +350,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Barcode_A",
-                     "intended_measurement": "Barcode sequencing - DNA base A",
+                     "channel_name": "BarcodeSeq_A",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating adenine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -386,8 +385,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Barcode_C",
-                     "intended_measurement": "Barcode sequencing - DNA base C",
+                     "channel_name": "BarcodeSeq_C",
+                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating cytosine incorporation",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -470,8 +469,8 @@
                "channels": [
                   {
                      "object_type": "Channel",
-                     "channel_name": "Hyb_Probe1_GFP",
-                     "intended_measurement": "Hybridization probe (likely GFP-like)",
+                     "channel_name": "Hyb_XC2758",
+                     "intended_measurement": "Fluorescent in situ hybridization signal - probe XC2758",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -505,8 +504,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Hyb_Probe2",
-                     "intended_measurement": "Hybridization probe",
+                     "channel_name": "Hyb_XC2759",
+                     "intended_measurement": "Fluorescent in situ hybridization signal - probe XC2759",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -540,8 +539,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Hyb_Probe3_TxRed",
-                     "intended_measurement": "Hybridization probe (likely Texas Red-like)",
+                     "channel_name": "Hyb_XC2760",
+                     "intended_measurement": "Fluorescent in situ hybridization signal - probe XC2760",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -575,8 +574,8 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Hyb_Probe4_Cy5",
-                     "intended_measurement": "Hybridization probe (likely Cy5-like)",
+                     "channel_name": "Hyb_YS221",
+                     "intended_measurement": "Fluorescent in situ hybridization signal - probe YS221",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -611,7 +610,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_DAPI",
-                     "intended_measurement": "DAPI nuclear counterstain",
+                     "intended_measurement": "Nuclear DNA staining for cell identification (DAPI counterstain)",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
