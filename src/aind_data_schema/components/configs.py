@@ -171,15 +171,6 @@ class Channel(DataModel):
     emission_wavelength_unit: Optional[SizeUnit] = Field(default=None, title="Emission wavelength unit")
 
 
-class SlapChannel(Channel):
-    """Configuration of a channel for Slap"""
-
-    dilation: int = Field(..., title="Dilation")
-    dilation_unit: SizeUnit = Field(..., title="Dilation unit")
-
-    description: Optional[str] = Field(default=None, title="Description")
-
-
 class PatchCordConfig(DeviceConfig):
     """Configuration of a patch cord and its output power to another device"""
 
