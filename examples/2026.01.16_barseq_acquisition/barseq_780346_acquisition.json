@@ -1,0 +1,666 @@
+{
+   "object_type": "Acquisition",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
+   "schema_version": "2.2.3",
+   "subject_id": "780346",
+   "specimen_id": "780346_PLACEHOLDER_SPECIMEN_ID",
+   "acquisition_start_time": "2025-06-11T12:00:00Z",
+   "acquisition_end_time": "2025-06-11T19:00:00Z",
+   "experimenters": [
+      "PLACEHOLDER_EXPERIMENTER_1",
+      "PLACEHOLDER_EXPERIMENTER_2"
+   ],
+   "protocol_id": [
+      "dx.doi.org/10.17504/protocols.io.n2bvj82q5gk5/v1",
+      "dx.doi.org/10.17504/protocols.io.81wgbp4j3vpk/v2"
+   ],
+   "ethics_review_id": [
+      "PLACEHOLDER_IACUC_PROTOCOL"
+   ],
+   "instrument_id": "Dogwood",
+   "acquisition_type": "BarcodeSequencing",
+   "notes": "BARseq acquisition of Locus Coeruleus for noradrenergic neuron projection mapping. Specimen: 51 coronal sections (20μm) spanning CCF plates 99-112. Subject 780346 received Sindbis HZ120 virus injection 22-28h pre-harvest.  BARseq experiment performed using automation template mounted on microscope. Automated microfluidics setup for reagent delivery.",
+   "coordinate_system": null,
+   "calibrations": [],
+   "maintenance": [],
+   "data_streams": [
+      {
+         "object_type": "Data stream",
+         "stream_start_time": "2025-06-11T12:00:00Z",
+         "stream_end_time": "2025-06-11T14:00:00Z",
+         "modalities": [
+            {
+               "name": "Barcoded anatomy resolved by sequencing",
+               "abbreviation": "BARseq"
+            }
+         ],
+         "code": null,
+         "notes": "Gene sequencing: 7 sequential cycles reading 7-base gene barcodes from 109-gene codebook. Each cycle images 4 DNA bases (G/T/A/C) plus DAPI. Imaging: Z-stack of 10 images, 1.5μm step, 24% tile overlap, 0.33μm pixel size. Sequencing: Illumina MiSeq Reagent Nano Kit v2, primer YS220.",
+         "active_devices": [
+            "Ti2-E__0",
+            "20x Objective",
+            "Camera-1",
+            "XLIGHT Spinning Disk",
+            "PLACEHOLDER_LASER_G",
+            "PLACEHOLDER_LASER_T",
+            "PLACEHOLDER_LASER_A",
+            "PLACEHOLDER_LASER_C",
+            "PLACEHOLDER_LASER_DAPI",
+            "PLACEHOLDER_FILTER_G",
+            "PLACEHOLDER_FILTER_T",
+            "PLACEHOLDER_FILTER_A",
+            "PLACEHOLDER_FILTER_C",
+            "PLACEHOLDER_FILTER_DAPI"
+         ],
+         "configurations": [
+            {
+               "object_type": "Imaging config",
+               "device_name": "Ti2-E__0",
+               "channels": [
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Gene_G",
+                     "intended_measurement": "Gene sequencing - DNA base G",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_G",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_G"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Gene_T",
+                     "intended_measurement": "Gene sequencing - DNA base T",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_T",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_T"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Gene_A",
+                     "intended_measurement": "Gene sequencing - DNA base A",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_A",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_A"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Gene_C",
+                     "intended_measurement": "Gene sequencing - DNA base C",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_C",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_C"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Gene_DAPI",
+                     "intended_measurement": "DAPI nuclear counterstain",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_DAPI",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_DAPI"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  }
+               ],
+               "coordinate_system": null,
+               "images": [],
+               "sampling_strategy": null
+            },
+            {
+               "object_type": "Detector config",
+               "device_name": "Camera-1",
+               "exposure_time": 9999.0,
+               "exposure_time_unit": "millisecond",
+               "trigger_type": "Internal",
+               "compression": null
+            }
+         ],
+         "connections": []
+      },
+      {
+         "object_type": "Data stream",
+         "stream_start_time": "2025-06-11T14:00:00Z",
+         "stream_end_time": "2025-06-11T18:00:00Z",
+         "modalities": [
+            {
+               "name": "Barcoded anatomy resolved by sequencing",
+               "abbreviation": "BARseq"
+            }
+         ],
+         "code": null,
+         "notes": "Barcode sequencing: 15 sequential cycles reading 30-base Sindbis virus barcodes from HZ120 library (~8M diversity). Each cycle images 4 DNA bases (G/T/A/C). Used for neural projection tracing. Sequencing primer: XCAI5.",
+         "active_devices": [
+            "Ti2-E__0",
+            "20x Objective",
+            "Camera-1",
+            "XLIGHT Spinning Disk",
+            "PLACEHOLDER_LASER_G",
+            "PLACEHOLDER_LASER_T",
+            "PLACEHOLDER_LASER_A",
+            "PLACEHOLDER_LASER_C",
+            "PLACEHOLDER_FILTER_G",
+            "PLACEHOLDER_FILTER_T",
+            "PLACEHOLDER_FILTER_A",
+            "PLACEHOLDER_FILTER_C"
+         ],
+         "configurations": [
+            {
+               "object_type": "Imaging config",
+               "device_name": "Ti2-E__0",
+               "channels": [
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Barcode_G",
+                     "intended_measurement": "Barcode sequencing - DNA base G",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_G",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_G"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Barcode_T",
+                     "intended_measurement": "Barcode sequencing - DNA base T",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_T",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_T"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Barcode_A",
+                     "intended_measurement": "Barcode sequencing - DNA base A",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_A",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_A"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Barcode_C",
+                     "intended_measurement": "Barcode sequencing - DNA base C",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_C",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_C"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  }
+               ],
+               "coordinate_system": null,
+               "images": [],
+               "sampling_strategy": null
+            },
+            {
+               "object_type": "Detector config",
+               "device_name": "Camera-1",
+               "exposure_time": 9999.0,
+               "exposure_time_unit": "millisecond",
+               "trigger_type": "Internal",
+               "compression": null
+            }
+         ],
+         "connections": []
+      },
+      {
+         "object_type": "Data stream",
+         "stream_start_time": "2025-06-11T18:00:00Z",
+         "stream_end_time": "2025-06-11T19:00:00Z",
+         "modalities": [
+            {
+               "name": "Barcoded anatomy resolved by sequencing",
+               "abbreviation": "BARseq"
+            }
+         ],
+         "code": null,
+         "notes": "Hybridization: Single cycle with fluorescent probes (XC2758, XC2759, XC2760, YS221) plus DAPI and DIC for anatomical reference and cell identification.",
+         "active_devices": [
+            "Ti2-E__0",
+            "20x Objective",
+            "Camera-1",
+            "XLIGHT Spinning Disk",
+            "PLACEHOLDER_LASER_HYB_1",
+            "PLACEHOLDER_LASER_HYB_2",
+            "PLACEHOLDER_LASER_HYB_3",
+            "PLACEHOLDER_LASER_HYB_4",
+            "PLACEHOLDER_LASER_DAPI",
+            "PLACEHOLDER_FILTER_HYB_1",
+            "PLACEHOLDER_FILTER_HYB_2",
+            "PLACEHOLDER_FILTER_HYB_3",
+            "PLACEHOLDER_FILTER_HYB_4",
+            "PLACEHOLDER_FILTER_DAPI"
+         ],
+         "configurations": [
+            {
+               "object_type": "Imaging config",
+               "device_name": "Ti2-E__0",
+               "channels": [
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Hyb_Probe1_GFP",
+                     "intended_measurement": "Hybridization probe (likely GFP-like)",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_HYB_1",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_HYB_1"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Hyb_Probe2",
+                     "intended_measurement": "Hybridization probe",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_HYB_2",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_HYB_2"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Hyb_Probe3_TxRed",
+                     "intended_measurement": "Hybridization probe (likely Texas Red-like)",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_HYB_3",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_HYB_3"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Hyb_Probe4_Cy5",
+                     "intended_measurement": "Hybridization probe (likely Cy5-like)",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_HYB_4",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_HYB_4"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "Hyb_DAPI",
+                     "intended_measurement": "DAPI nuclear counterstain",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 9999.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "PLACEHOLDER_LASER_DAPI",
+                           "wavelength": 9999,
+                           "wavelength_unit": "nanometer",
+                           "power": 9999.0,
+                           "power_unit": "milliwatt",
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "PLACEHOLDER_FILTER_DAPI"
+                        }
+                     ],
+                     "emission_wavelength": 9999,
+                     "emission_wavelength_unit": "nanometer"
+                  }
+               ],
+               "coordinate_system": null,
+               "images": [],
+               "sampling_strategy": null
+            },
+            {
+               "object_type": "Detector config",
+               "device_name": "Camera-1",
+               "exposure_time": 9999.0,
+               "exposure_time_unit": "millisecond",
+               "trigger_type": "Internal",
+               "compression": null
+            }
+         ],
+         "connections": []
+      }
+   ],
+   "stimulus_epochs": [],
+   "manipulations": [],
+   "subject_details": null
+}
