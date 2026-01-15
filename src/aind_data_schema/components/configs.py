@@ -219,27 +219,19 @@ class CoupledPlane(Plane):
     power_ratio: float = Field(..., title="Power ratio")
 
 
-class Slap2Plane(Plane):
+class SlapPlane(Plane):
     """Configuration of an imagine plane on a Slap microscope"""
 
-    name: Optional[str] = Field(default=None, title="Plane name")
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-
-    mask_image_path: AssetPath = Field(
-        ..., title="Mask image path", description="Relative path from metadata json to file"
-    )
-
-    dilation_image_path: AssetPath = Field(
-        ..., title="Dilation image path", description="Relative path from metadata json to file"
-    )
+    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
+    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
 
-    framerate_image_path: AssetPath = Field(
+    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
+    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+    target_branch: Optional[str] = Field(default=None, title="Target branch")
+    path_to_array_of_frame_rates: AssetPath = Field(
         ..., title="Array of frame rates", description="Relative path from metadata json to file"
     )
-    framerate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
-
 
 
 class Image(DataModel):
