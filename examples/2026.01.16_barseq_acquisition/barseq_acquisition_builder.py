@@ -255,8 +255,7 @@ def create_barseq_acquisition(
         acquisition_type="BarcodeSequencing",
         protocol_id=protocol_id
         or [
-            "dx.doi.org/10.17504/protocols.io.n2bvj82q5gk5/v1",
-            "dx.doi.org/10.17504/protocols.io.81wgbp4j3vpk/v2",
+            "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"
         ],
         ethics_review_id=ethics_review_id,
         coordinate_system=None,  # CCFv3 not in predefined enum, noted in acquisition notes
