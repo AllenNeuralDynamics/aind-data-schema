@@ -263,7 +263,7 @@ class ImageSPIM(Image):
 class PlanarImage(Image):
     """Description of an N-D image acquired in a specific imaging plane"""
 
-    planes: DiscriminatedList[Plane | CoupledPlane | SlapPlane] = Field(..., title="Imaging planes")
+    planes: DiscriminatedList[Plane | CoupledPlane | Slap2Plane] = Field(..., title="Imaging planes")
 
     @model_validator(mode="after")
     def limit_plane_to_one(self):
@@ -308,7 +308,7 @@ class StackStrategy(SamplingStrategy):
 class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
-    channels: DiscriminatedList[Channel | SlapChannel] = Field()
+    channels: DiscriminatedList[Channel] = Field()
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
