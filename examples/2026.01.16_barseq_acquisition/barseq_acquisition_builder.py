@@ -270,15 +270,23 @@ def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
     """Create channels for gene sequencing (G, T, A, C, DAPI)."""
     channels = []
 
+    # Base names and descriptions
+    base_info = [
+        ("G", "guanine"),
+        ("T", "thymine"),
+        ("A", "adenine"),
+        ("C", "cytosine"),
+    ]
+
     # Bases G, T, A, C
-    for base in ["G", "T", "A", "C"]:
+    for base_code, base_name in base_info:
         channels.append(
             Channel(
-                channel_name=f"Gene_{base}",
-                intended_measurement=f"Gene sequencing - DNA base {base}",
+                channel_name=f"GeneSeq_{base_code}",
+                intended_measurement=f"Fluorescent signal from sequencing reaction indicating {base_name} incorporation",
                 light_sources=[
                     LaserConfig(
-                        device_name=f"PLACEHOLDER_LASER_{base}",
+                        device_name=f"PLACEHOLDER_LASER_{base_code}",
                         wavelength=9999,
                         wavelength_unit=SizeUnit.NM,
                         power=9999.0,
@@ -286,7 +294,7 @@ def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
                     ),
                 ],
                 emission_filters=[
-                    DeviceConfig(device_name=f"PLACEHOLDER_FILTER_{base}"),
+                    DeviceConfig(device_name=f"PLACEHOLDER_FILTER_{base_code}"),
                 ],
                 detector=detector,
                 emission_wavelength=9999,
@@ -297,8 +305,8 @@ def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
     # DAPI channel
     channels.append(
         Channel(
-            channel_name="Gene_DAPI",
-            intended_measurement="DAPI nuclear counterstain",
+            channel_name="GeneSeq_DAPI",
+            intended_measurement="Nuclear DNA staining for anatomical reference (DAPI counterstain)",
             light_sources=[
                 LaserConfig(
                     device_name="PLACEHOLDER_LASER_DAPI",
@@ -324,14 +332,22 @@ def _create_barcode_sequencing_channels(detector: DetectorConfig) -> List[Channe
     """Create channels for barcode sequencing (G, T, A, C)."""
     channels = []
 
-    for base in ["G", "T", "A", "C"]:
+    # Base names and descriptions
+    base_info = [
+        ("G", "guanine"),
+        ("T", "thymine"),
+        ("A", "adenine"),
+        ("C", "cytosine"),
+    ]
+
+    for base_code, base_name in base_info:
         channels.append(
             Channel(
-                channel_name=f"Barcode_{base}",
-                intended_measurement=f"Barcode sequencing - DNA base {base}",
+                channel_name=f"BarcodeSeq_{base_code}",
+                intended_measurement=f"Fluorescent signal from sequencing reaction indicating {base_name} incorporation",
                 light_sources=[
                     LaserConfig(
-                        device_name=f"PLACEHOLDER_LASER_{base}",
+                        device_name=f"PLACEHOLDER_LASER_{base_code}",
                         wavelength=9999,
                         wavelength_unit=SizeUnit.NM,
                         power=9999.0,
@@ -339,7 +355,7 @@ def _create_barcode_sequencing_channels(detector: DetectorConfig) -> List[Channe
                     ),
                 ],
                 emission_filters=[
-                    DeviceConfig(device_name=f"PLACEHOLDER_FILTER_{base}"),
+                    DeviceConfig(device_name=f"PLACEHOLDER_FILTER_{base_code}"),
                 ],
                 detector=detector,
                 emission_wavelength=9999,
@@ -354,12 +370,12 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
     """Create channels for hybridization (4 probes + DAPI)."""
     channels = []
 
-    # Hybridization probes - based on instrument notes mentioning GFP/G/TxRed/Cy5
+    # Hybridization probes with actual probe IDs from methods
     probe_info = [
-        ("Hyb_Probe1_GFP", "Hybridization probe (likely GFP-like)", "HYB_1"),
-        ("Hyb_Probe2", "Hybridization probe", "HYB_2"),
-        ("Hyb_Probe3_TxRed", "Hybridization probe (likely Texas Red-like)", "HYB_3"),
-        ("Hyb_Probe4_Cy5", "Hybridization probe (likely Cy5-like)", "HYB_4"),
+        ("Hyb_XC2758", "Fluorescent in situ hybridization signal - probe XC2758", "HYB_1"),
+        ("Hyb_XC2759", "Fluorescent in situ hybridization signal - probe XC2759", "HYB_2"),
+        ("Hyb_XC2760", "Fluorescent in situ hybridization signal - probe XC2760", "HYB_3"),
+        ("Hyb_YS221", "Fluorescent in situ hybridization signal - probe YS221", "HYB_4"),
     ]
 
     for channel_name, measurement, laser_suffix in probe_info:
@@ -389,7 +405,7 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
     channels.append(
         Channel(
             channel_name="Hyb_DAPI",
-            intended_measurement="DAPI nuclear counterstain",
+            intended_measurement="Nuclear DNA staining for cell identification (DAPI counterstain)",
             light_sources=[
                 LaserConfig(
                     device_name="PLACEHOLDER_LASER_DAPI",
