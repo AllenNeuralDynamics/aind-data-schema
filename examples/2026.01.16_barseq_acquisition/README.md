@@ -48,11 +48,10 @@ The scripts automatically validate the generated JSON against the aind-data-sche
 
 ## Placeholders
 
-Each generated JSON contains **60 placeholder values** that need to be replaced with actual experimental data. These are clearly marked with the `PLACEHOLDER_` prefix and fall into these categories:
+Each generated JSON contains **59 placeholder values** that need to be replaced with actual experimental data. These are clearly marked with the `PLACEHOLDER_` prefix and fall into these categories:
 
 1. **Personnel:**
    - Experimenter names
-   - IACUC protocol numbers
 
 2. **Specimen:**
    - Specimen IDs for brain sections

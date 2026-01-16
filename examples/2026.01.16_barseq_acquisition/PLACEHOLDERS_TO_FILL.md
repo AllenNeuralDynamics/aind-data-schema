@@ -4,8 +4,8 @@ This document lists all the missing information needed to complete the BARseq ac
 
 ## Quick Summary
 
-- **Total placeholders:** 60 per acquisition file
-- **Categories:** 4 (Personnel, Specimen IDs, Hardware, Timing)
+- **Total placeholders:** 59 per acquisition file
+- **Categories:** 3 (Personnel, Specimen IDs, Hardware, Timing)
 - **Priority:** Hardware configuration mapping is most critical
 
 ---
@@ -23,14 +23,6 @@ This document lists all the missing information needed to complete the BARseq ac
   "PLACEHOLDER_EXPERIMENTER_1",
   "PLACEHOLDER_EXPERIMENTER_2"
 ]
-```
-
-### Question 1.2: What is the IACUC protocol number?
-- What is the institutional animal care and use committee protocol number for these experiments?
-
-**Current placeholder:**
-```json
-"ethics_review_id": ["PLACEHOLDER_IACUC_PROTOCOL"]
 ```
 
 ---

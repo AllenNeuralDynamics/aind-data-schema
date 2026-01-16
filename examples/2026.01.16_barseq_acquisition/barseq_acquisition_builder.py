@@ -44,7 +44,6 @@ def create_barseq_acquisition(
     exposure_time_unit: TimeUnit = TimeUnit.MS,
     # Additional metadata
     protocol_id: Optional[List[str]] = None,
-    ethics_review_id: Optional[List[str]] = None,
     notes: Optional[str] = None,
 ) -> Acquisition:
     """
@@ -91,8 +90,6 @@ def create_barseq_acquisition(
         Unit for exposure time (default: milliseconds)
     protocol_id : List[str], optional
         Protocol DOI(s)
-    ethics_review_id : List[str], optional
-        IACUC protocol number(s)
     notes : str, optional
         Additional notes
 
@@ -254,7 +251,6 @@ def create_barseq_acquisition(
         acquisition_end_time=max(gene_seq_end_time, barcode_seq_end_time, hyb_end_time),
         acquisition_type="BarcodeSequencing",
         protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
-        ethics_review_id=ethics_review_id,
         coordinate_system=None,  # CCFv3 not in predefined enum, noted in acquisition notes
         data_streams=[gene_stream, barcode_stream, hyb_stream],
         notes=acq_notes,

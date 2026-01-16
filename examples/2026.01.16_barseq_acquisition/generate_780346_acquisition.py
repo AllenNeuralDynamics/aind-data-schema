@@ -50,9 +50,6 @@ def main():
     hyb_start = datetime(2025, 6, 11, 18, 0, 0, tzinfo=timezone.utc)
     hyb_end = datetime(2025, 6, 11, 19, 0, 0, tzinfo=timezone.utc)
     
-    # Ethics approval - NEEDS TO BE FILLED IN
-    ethics_review_id = ["PLACEHOLDER_IACUC_PROTOCOL"]
-    
     # Additional notes from notebook
     notes = (
         "BARseq experiment performed using automation template mounted on microscope. "
@@ -75,7 +72,6 @@ def main():
         barcode_seq_end_time=barcode_seq_end,
         hyb_start_time=hyb_start,
         hyb_end_time=hyb_end,
-        ethics_review_id=ethics_review_id,
         notes=notes,
     )
     
