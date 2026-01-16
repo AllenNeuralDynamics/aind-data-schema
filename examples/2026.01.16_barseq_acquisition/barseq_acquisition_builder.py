@@ -17,10 +17,48 @@ from aind_data_schema.components.configs import (
     DetectorConfig,
     DeviceConfig,
     ImagingConfig,
+    ImageSPIM,
     LaserConfig,
     TriggerType,
 )
+from aind_data_schema.components.coordinates import (
+    CoordinateSystemLibrary,
+    Scale,
+    Translation,
+)
 from aind_data_schema.core.acquisition import Acquisition, DataStream
+
+
+def _create_image_placeholder(channel_name: str) -> ImageSPIM:
+    """
+    Create placeholder ImageSPIM for a single channel.
+    
+    Represents tiled imaging data for one channel. Once tile layout information
+    is available from the BARseq team, this should be replaced with individual
+    ImageSPIM objects for each tile with proper positions.
+    
+    Parameters
+    ----------
+    channel_name : str
+        Name of the channel this image corresponds to
+        
+    Returns
+    -------
+    ImageSPIM
+        Placeholder image object with known parameters filled in
+    """
+    return ImageSPIM(
+        channel_name=channel_name,
+        file_name="PLACEHOLDER_raw_data_path",
+        dimensions_unit=SizeUnit.PX,
+        dimensions=Scale(
+            scale=[9999, 9999, 10]  # PLACEHOLDER width, height; Known: 10 z-planes
+        ),
+        image_to_acquisition_transform=[
+            Translation(translation=[0, 0, 0]),  # PLACEHOLDER tile position in microns
+            Scale(scale=[0.33, 0.33, 1.5])  # Known: pixel size (x,y) and z-step in microns
+        ],
+    )
 
 
 def create_barseq_acquisition(
@@ -128,23 +166,44 @@ def create_barseq_acquisition(
     # Based on instrument notes: hyb cycles use GFP/G/TxRed/Cy5/DAPI/DIC channels
     hyb_channels = _create_hybridization_channels(detector)
 
-    # Create ImagingConfigs
+    # Create ImagingConfigs with placeholder images
+    # Note: Once tile layout info is available, each channel should have one ImageSPIM per tile
     gene_imaging_config = ImagingConfig(
         device_name="Ti2-E__0",
         channels=gene_channels,
-        images=[],
+        coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+        images=[
+            _create_image_placeholder("GeneSeq_G"),
+            _create_image_placeholder("GeneSeq_T"),
+            _create_image_placeholder("GeneSeq_A"),
+            _create_image_placeholder("GeneSeq_C"),
+            _create_image_placeholder("GeneSeq_DAPI"),
+        ],
     )
 
     barcode_imaging_config = ImagingConfig(
         device_name="Ti2-E__0",
         channels=barcode_channels,
-        images=[],
+        coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+        images=[
+            _create_image_placeholder("BarcodeSeq_G"),
+            _create_image_placeholder("BarcodeSeq_T"),
+            _create_image_placeholder("BarcodeSeq_A"),
+            _create_image_placeholder("BarcodeSeq_C"),
+        ],
     )
 
     hyb_imaging_config = ImagingConfig(
         device_name="Ti2-E__0",
         channels=hyb_channels,
-        images=[],
+        coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
+        images=[
+            _create_image_placeholder("Hyb_XC2758"),
+            _create_image_placeholder("Hyb_XC2759"),
+            _create_image_placeholder("Hyb_XC2760"),
+            _create_image_placeholder("Hyb_YS221"),
+            _create_image_placeholder("Hyb_DAPI"),
+        ],
     )
 
     # DataStream 1: Gene Sequencing
@@ -169,12 +228,7 @@ def create_barseq_acquisition(
             "PLACEHOLDER_FILTER_DAPI",
         ],
         configurations=[gene_imaging_config, detector],
-        notes=(
-            f"Gene sequencing: 7 sequential cycles reading 7-base gene barcodes from "
-            f"109-gene codebook. Each cycle images 4 DNA bases (G/T/A/C) plus DAPI. "
-            f"Imaging: Z-stack of 10 images, 1.5μm step, 24% tile overlap, 0.33μm pixel size. "
-            f"Sequencing: Illumina MiSeq Reagent Nano Kit v2, primer YS220."
-        ),
+        notes="Gene barcode sequencing (7 cycles) using sequential base incorporation imaging",
     )
 
     # DataStream 2: Barcode Sequencing
@@ -197,11 +251,7 @@ def create_barseq_acquisition(
             "PLACEHOLDER_FILTER_C",
         ],
         configurations=[barcode_imaging_config, detector],
-        notes=(
-            f"Barcode sequencing: 15 sequential cycles reading 30-base Sindbis virus barcodes "
-            f"from HZ120 library (~8M diversity). Each cycle images 4 DNA bases (G/T/A/C). "
-            f"Used for neural projection tracing. Sequencing primer: XCAI5."
-        ),
+        notes="Viral barcode sequencing (15 cycles) for neural projection tracing",
     )
 
     # DataStream 3: Hybridization
@@ -226,17 +276,14 @@ def create_barseq_acquisition(
             "PLACEHOLDER_FILTER_DAPI",
         ],
         configurations=[hyb_imaging_config, detector],
-        notes=(
-            f"Hybridization: Single cycle with fluorescent probes (XC2758, XC2759, XC2760, YS221) "
-            f"plus DAPI and DIC for anatomical reference and cell identification."
-        ),
+        notes="Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference",
     )
 
     # Build acquisition notes
     acq_notes = (
-        f"BARseq acquisition of Locus Coeruleus for noradrenergic neuron projection mapping. "
-        f"Specimen: {num_sections} coronal sections (20μm) spanning CCF plates {ccf_start_plate}-{ccf_end_plate}. "
-        f"Subject {subject_id} received Sindbis HZ120 virus injection 22-28h pre-harvest. "
+        "BARseq in situ sequencing for neural projection mapping from Locus Coeruleus. "
+        "Three sequential data streams: gene sequencing (7 cycles), viral barcode sequencing (15 cycles), "
+        "and fluorescent in situ hybridization."
     )
     if notes:
         acq_notes += f" {notes}"

@@ -13,12 +13,10 @@
    "protocol_id": [
       "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"
    ],
-   "ethics_review_id": [
-      "PLACEHOLDER_IACUC_PROTOCOL"
-   ],
+   "ethics_review_id": null,
    "instrument_id": "Dogwood",
    "acquisition_type": "BarcodeSequencing",
-   "notes": "BARseq acquisition of Locus Coeruleus for noradrenergic neuron projection mapping. Specimen: 51 coronal sections (20μm) spanning CCF plates 99-112. Subject 780346 received Sindbis HZ120 virus injection 22-28h pre-harvest.  BARseq experiment performed using automation template mounted on microscope. Automated microfluidics setup for reagent delivery.",
+   "notes": "BARseq in situ sequencing for neural projection mapping from Locus Coeruleus. Three sequential data streams: gene sequencing (7 cycles), viral barcode sequencing (15 cycles), and fluorescent in situ hybridization. BARseq experiment performed using automation template mounted on microscope. Automated microfluidics setup for reagent delivery.",
    "coordinate_system": null,
    "calibrations": [],
    "maintenance": [],
@@ -34,7 +32,7 @@
             }
          ],
          "code": null,
-         "notes": "Gene sequencing: 7 sequential cycles reading 7-base gene barcodes from 109-gene codebook. Each cycle images 4 DNA bases (G/T/A/C) plus DAPI. Imaging: Z-stack of 10 images, 1.5μm step, 24% tile overlap, 0.33μm pixel size. Sequencing: Illumina MiSeq Reagent Nano Kit v2, primer YS220.",
+         "notes": "Gene barcode sequencing (7 cycles) using sequential base incorporation imaging",
          "active_devices": [
             "Ti2-E__0",
             "20x Objective",
@@ -232,8 +230,211 @@
                      "emission_wavelength_unit": "nanometer"
                   }
                ],
-               "coordinate_system": null,
-               "images": [],
+               "coordinate_system": {
+                  "object_type": "Coordinate system",
+                  "name": "SPIM_RPI",
+                  "origin": "Origin",
+                  "axes": [
+                     {
+                        "object_type": "Axis",
+                        "name": "X",
+                        "direction": "Left_to_right"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Y",
+                        "direction": "Anterior_to_posterior"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Z",
+                        "direction": "Superior_to_inferior"
+                     }
+                  ],
+                  "axis_unit": "millimeter"
+               },
+               "images": [
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "GeneSeq_G",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "GeneSeq_T",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "GeneSeq_A",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "GeneSeq_C",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "GeneSeq_DAPI",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  }
+               ],
                "sampling_strategy": null
             },
             {
@@ -258,7 +459,7 @@
             }
          ],
          "code": null,
-         "notes": "Barcode sequencing: 15 sequential cycles reading 30-base Sindbis virus barcodes from HZ120 library (~8M diversity). Each cycle images 4 DNA bases (G/T/A/C). Used for neural projection tracing. Sequencing primer: XCAI5.",
+         "notes": "Viral barcode sequencing (15 cycles) for neural projection tracing",
          "active_devices": [
             "Ti2-E__0",
             "20x Objective",
@@ -419,8 +620,175 @@
                      "emission_wavelength_unit": "nanometer"
                   }
                ],
-               "coordinate_system": null,
-               "images": [],
+               "coordinate_system": {
+                  "object_type": "Coordinate system",
+                  "name": "SPIM_RPI",
+                  "origin": "Origin",
+                  "axes": [
+                     {
+                        "object_type": "Axis",
+                        "name": "X",
+                        "direction": "Left_to_right"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Y",
+                        "direction": "Anterior_to_posterior"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Z",
+                        "direction": "Superior_to_inferior"
+                     }
+                  ],
+                  "axis_unit": "millimeter"
+               },
+               "images": [
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_G",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_T",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_A",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_C",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  }
+               ],
                "sampling_strategy": null
             },
             {
@@ -445,7 +813,7 @@
             }
          ],
          "code": null,
-         "notes": "Hybridization: Single cycle with fluorescent probes (XC2758, XC2759, XC2760, YS221) plus DAPI and DIC for anatomical reference and cell identification.",
+         "notes": "Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference",
          "active_devices": [
             "Ti2-E__0",
             "20x Objective",
@@ -643,8 +1011,211 @@
                      "emission_wavelength_unit": "nanometer"
                   }
                ],
-               "coordinate_system": null,
-               "images": [],
+               "coordinate_system": {
+                  "object_type": "Coordinate system",
+                  "name": "SPIM_RPI",
+                  "origin": "Origin",
+                  "axes": [
+                     {
+                        "object_type": "Axis",
+                        "name": "X",
+                        "direction": "Left_to_right"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Y",
+                        "direction": "Anterior_to_posterior"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Z",
+                        "direction": "Superior_to_inferior"
+                     }
+                  ],
+                  "axis_unit": "millimeter"
+               },
+               "images": [
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "Hyb_XC2758",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "Hyb_XC2759",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "Hyb_XC2760",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "Hyb_YS221",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "Hyb_DAPI",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           9999.0,
+                           9999.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_raw_data_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  }
+               ],
                "sampling_strategy": null
             },
             {
