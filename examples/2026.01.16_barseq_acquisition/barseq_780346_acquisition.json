@@ -52,7 +52,7 @@
          "configurations": [
             {
                "object_type": "Imaging config",
-               "device_name": "Ti2-E__0",
+               "device_name": "Dogwood",
                "channels": [
                   {
                      "object_type": "Channel",
@@ -477,7 +477,7 @@
          "configurations": [
             {
                "object_type": "Imaging config",
-               "device_name": "Ti2-E__0",
+               "device_name": "Dogwood",
                "channels": [
                   {
                      "object_type": "Channel",
@@ -833,7 +833,7 @@
          "configurations": [
             {
                "object_type": "Imaging config",
-               "device_name": "Ti2-E__0",
+               "device_name": "Dogwood",
                "channels": [
                   {
                      "object_type": "Channel",

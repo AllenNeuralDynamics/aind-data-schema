@@ -167,7 +167,7 @@ def create_barseq_acquisition(
     # Create ImagingConfigs with placeholder images
     # Note: Once tile layout info is available, each channel should have one ImageSPIM per tile
     gene_imaging_config = ImagingConfig(
-        device_name="Ti2-E__0",
+        device_name=instrument_id,
         channels=gene_channels,
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         images=[
@@ -180,7 +180,7 @@ def create_barseq_acquisition(
     )
 
     barcode_imaging_config = ImagingConfig(
-        device_name="Ti2-E__0",
+        device_name=instrument_id,
         channels=barcode_channels,
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         images=[
@@ -192,7 +192,7 @@ def create_barseq_acquisition(
     )
 
     hyb_imaging_config = ImagingConfig(
-        device_name="Ti2-E__0",
+        device_name=instrument_id,
         channels=hyb_channels,
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         images=[
