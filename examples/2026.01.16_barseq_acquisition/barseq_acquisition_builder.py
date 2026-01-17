@@ -32,16 +32,16 @@ from aind_data_schema.core.acquisition import Acquisition, DataStream
 def _create_image_placeholder(channel_name: str) -> ImageSPIM:
     """
     Create placeholder ImageSPIM for a single channel.
-    
+
     Represents tiled imaging data for one channel. Once tile layout information
     is available from the BARseq team, this should be replaced with individual
     ImageSPIM objects for each tile with proper positions.
-    
+
     Parameters
     ----------
     channel_name : str
         Name of the channel this image corresponds to
-        
+
     Returns
     -------
     ImageSPIM
@@ -51,12 +51,10 @@ def _create_image_placeholder(channel_name: str) -> ImageSPIM:
         channel_name=channel_name,
         file_name="PLACEHOLDER_raw_data_path",
         dimensions_unit=SizeUnit.PX,
-        dimensions=Scale(
-            scale=[9999, 9999, 10]  # PLACEHOLDER width, height; Known: 10 z-planes
-        ),
+        dimensions=Scale(scale=[9999, 9999, 10]),  # PLACEHOLDER width, height; Known: 10 z-planes
         image_to_acquisition_transform=[
             Translation(translation=[0, 0, 0]),  # PLACEHOLDER tile position in microns
-            Scale(scale=[0.33, 0.33, 1.5])  # Known: pixel size (x,y) and z-step in microns
+            Scale(scale=[0.33, 0.33, 1.5]),  # Known: pixel size (x,y) and z-step in microns
         ],
     )
 
@@ -177,7 +175,7 @@ def create_barseq_acquisition(
             _create_image_placeholder("GeneSeq_T"),
             _create_image_placeholder("GeneSeq_A"),
             _create_image_placeholder("GeneSeq_C"),
-            _create_image_placeholder("GeneSeq_DAPI"),
+            _create_image_placeholder("DAPI"),
         ],
     )
 
@@ -202,7 +200,7 @@ def create_barseq_acquisition(
             _create_image_placeholder("Hyb_XC2759"),
             _create_image_placeholder("Hyb_XC2760"),
             _create_image_placeholder("Hyb_YS221"),
-            _create_image_placeholder("Hyb_DAPI"),
+            _create_image_placeholder("DAPI"),
         ],
     )
 
@@ -345,7 +343,7 @@ def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
     # DAPI channel
     channels.append(
         Channel(
-            channel_name="GeneSeq_DAPI",
+            channel_name="DAPI",
             intended_measurement="Nuclear DNA staining for anatomical reference (DAPI counterstain)",
             light_sources=[
                 LaserConfig(
@@ -444,7 +442,7 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
     # DAPI channel
     channels.append(
         Channel(
-            channel_name="Hyb_DAPI",
+            channel_name="DAPI",
             intended_measurement="Nuclear DNA staining for cell identification (DAPI counterstain)",
             light_sources=[
                 LaserConfig(

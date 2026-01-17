@@ -196,7 +196,7 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "GeneSeq_DAPI",
+                     "channel_name": "DAPI",
                      "intended_measurement": "Nuclear DNA staining for anatomical reference (DAPI counterstain)",
                      "detector": {
                         "object_type": "Detector config",
@@ -400,7 +400,7 @@
                   },
                   {
                      "object_type": "Image spim",
-                     "channel_name": "GeneSeq_DAPI",
+                     "channel_name": "DAPI",
                      "dimensions_unit": "pixel",
                      "image_to_acquisition_transform": [
                         {
@@ -977,7 +977,7 @@
                   },
                   {
                      "object_type": "Channel",
-                     "channel_name": "Hyb_DAPI",
+                     "channel_name": "DAPI",
                      "intended_measurement": "Nuclear DNA staining for cell identification (DAPI counterstain)",
                      "detector": {
                         "object_type": "Detector config",
@@ -1181,7 +1181,7 @@
                   },
                   {
                      "object_type": "Image spim",
-                     "channel_name": "Hyb_DAPI",
+                     "channel_name": "DAPI",
                      "dimensions_unit": "pixel",
                      "image_to_acquisition_transform": [
                         {

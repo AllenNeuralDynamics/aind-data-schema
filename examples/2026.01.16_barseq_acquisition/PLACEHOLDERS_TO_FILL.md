@@ -4,9 +4,9 @@ This document lists all the missing information needed to complete the BARseq ac
 
 ## Quick Summary
 
-- **Total placeholders:** 59 per acquisition file
-- **Categories:** 3 (Personnel, Specimen IDs, Hardware, Timing)
-- **Priority:** Hardware configuration mapping is most critical
+- **Total placeholders:** 73 per acquisition file
+- **Categories:** 4 (Personnel, Specimen IDs, Hardware, Timing, Image/Tiling)
+- **Priority:** Hardware configuration mapping and tiling information are most critical
 
 ---
 
@@ -66,6 +66,8 @@ In the Dogwood instrument, there are 7 Lumencor Celesta lasers available:
 - Base C (Cytosine): _______ nm
 - DAPI: _______ nm (likely 365nm or 440nm)
 
+**Current placeholder:** `9999` nm for all wavelengths
+
 **Note:** Device names follow the pattern "Lumencor Celesta {wavelength}nm" and will be auto-generated from the wavelengths above.
 
 ### Question 3.2: Which emission filters and wavelengths are used for each channel?
@@ -76,6 +78,8 @@ The Dogwood instrument has 8 emission filters. For each base/dye, specify which 
 - Base A: Filter _______ (E1-E8), peak emission wavelength: _______ nm
 - Base C: Filter _______ (E1-E8), peak emission wavelength: _______ nm
 - DAPI: Filter _______ (E1-E8), peak emission wavelength: _______ nm (likely ~450-460nm)
+
+**Current placeholders:** Filter device names are `PLACEHOLDER_FILTER_*`, emission wavelengths are `9999` nm
 
 **Available filters from instrument:**
 - E1: FF01-441/511/593/684/817 (DAPI/GFP/Red/Cy5/Cy7)
@@ -95,6 +99,8 @@ For each laser used during acquisition:
 - Base A laser: _______ mW
 - Base C laser: _______ mW
 - DAPI laser: _______ mW
+
+**Current placeholder:** `9999.0` mW for all lasers
 
 ### Question 3.4: Hybridization probes - which fluorophores?
 
@@ -124,9 +130,42 @@ Was the exposure time the same for all channels, or did it vary?
 
 ---
 
-## 5. Acquisition Timing
+## 5. Image and Tiling Information (CRITICAL)
 
-### Question 5.1: What were the actual acquisition times?
+This section requires detailed information about the tiled imaging setup.
+
+### Question 5.1: What are the tile dimensions?
+
+For each field of view (FOV) tile:
+- Tile width: _______ pixels
+- Tile height: _______ pixels
+
+**Current placeholder:** `9999` × `9999` pixels
+
+**Note:** The z-dimension (10 planes) and pixel size (0.33 μm) are already known from the methods document.
+
+### Question 5.2: What is the tiling layout?
+
+- Total number of tiles per section: _______
+- Tiling pattern: _______ (e.g., 10×10 grid, serpentine pattern, etc.)
+- Are tile positions recorded in a metadata file? If yes, what format?
+
+### Question 5.3: What are the file paths for raw image data?
+
+For each channel, what is the file naming convention and path?
+- Example format: _______
+- Are tiles saved as individual files or combined stacks?
+- File format: _______ (e.g., .tif, .ims, .nd2, etc.)
+
+**Current placeholder:** `"PLACEHOLDER_raw_data_path"`
+
+**Note:** There are 14 ImageSPIM objects per acquisition (5 for gene seq, 4 for barcode seq, 5 for hyb). Each currently uses a placeholder file path and tile dimensions. Once tile layout information is available, these single placeholder images should be replaced with one ImageSPIM object per actual tile, with accurate positions in the Translation transform.
+
+---
+
+## 6. Acquisition Timing
+
+### Question 6.1: What were the actual acquisition times?
 
 For each experiment, what were the approximate start and end times for each phase?
 
