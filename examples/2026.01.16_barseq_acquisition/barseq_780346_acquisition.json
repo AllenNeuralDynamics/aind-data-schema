@@ -57,7 +57,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "GeneSeq_G",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating guanine incorporation",
+                     "intended_measurement": "Guanine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -92,7 +92,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "GeneSeq_T",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating thymine incorporation",
+                     "intended_measurement": "Thymine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -127,7 +127,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "GeneSeq_A",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating adenine incorporation",
+                     "intended_measurement": "Adenine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -162,7 +162,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "GeneSeq_C",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating cytosine incorporation",
+                     "intended_measurement": "Cytosine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -197,7 +197,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "DAPI",
-                     "intended_measurement": "Nuclear DNA staining for anatomical reference (DAPI counterstain)",
+                     "intended_measurement": "Nuclear counterstain",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -482,7 +482,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "BarcodeSeq_G",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating guanine incorporation",
+                     "intended_measurement": "Guanine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -517,7 +517,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "BarcodeSeq_T",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating thymine incorporation",
+                     "intended_measurement": "Thymine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -552,7 +552,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "BarcodeSeq_A",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating adenine incorporation",
+                     "intended_measurement": "Adenine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -587,7 +587,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "BarcodeSeq_C",
-                     "intended_measurement": "Fluorescent signal from sequencing reaction indicating cytosine incorporation",
+                     "intended_measurement": "Cytosine",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -838,7 +838,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_XC2758",
-                     "intended_measurement": "Fluorescent in situ hybridization signal - probe XC2758",
+                     "intended_measurement": "Probe XC2758",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -873,7 +873,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_XC2759",
-                     "intended_measurement": "Fluorescent in situ hybridization signal - probe XC2759",
+                     "intended_measurement": "Probe XC2759",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -908,7 +908,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_XC2760",
-                     "intended_measurement": "Fluorescent in situ hybridization signal - probe XC2760",
+                     "intended_measurement": "Probe XC2760",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -943,7 +943,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_YS221",
-                     "intended_measurement": "Fluorescent in situ hybridization signal - probe YS221",
+                     "intended_measurement": "Probe YS221",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -978,7 +978,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "DAPI",
-                     "intended_measurement": "Nuclear DNA staining for cell identification (DAPI counterstain)",
+                     "intended_measurement": "Nuclear counterstain",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
