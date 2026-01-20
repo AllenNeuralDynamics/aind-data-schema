@@ -239,7 +239,6 @@ instrument = Instrument(
 )
 
 if __name__ == "__main__":
-    import json
 
     serialized = instrument.model_dump_json(indent=3)
     print(serialized)
