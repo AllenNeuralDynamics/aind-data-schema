@@ -58,8 +58,11 @@ class DataDescription(DataCoreModel):
     )
     name: Optional[str] = Field(
         default=None,
-        description="Name of data, conventionally also the name of the directory containing all data and metadata",
-        title="Name",
+        description=(
+            "When left blank, a name will be generated based on subject_id and creation_time. "
+            "Conventionally also used as the name of the data folder."
+        ),
+        title="Data asset name",
         validate_default=True,
     )
     institution: Organization.RESEARCH_INSTITUTIONS = Field(
