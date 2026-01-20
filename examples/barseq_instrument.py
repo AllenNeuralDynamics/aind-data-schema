@@ -4,6 +4,7 @@ from datetime import date
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
+from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import (
@@ -174,13 +175,13 @@ light_sources = [
 
 camera = Camera(
     name="Camera-1",
-    manufacturer=Organization.TELEDYNE_PHOTOMETRICS,
+    manufacturer=Organization.TELEDYNE_VISION_SOLUTIONS,
     model="01-KINETIX-M-C",
     data_interface=DataInterface.USB,
     cooling=Cooling.AIR,
     sensor_width=3200,
     sensor_height=3200,
-    size_unit="px",
+    size_unit=SizeUnit.PX,
     chroma=CameraChroma.BW,
     immersion="air",
     bin_mode=BinMode.NO_BINNING,
@@ -188,6 +189,7 @@ camera = Camera(
     sensor_format="20.8 x 20.8",
     sensor_format_unit="mm",
     frame_rate=500,
+    frame_rate_unit="hertz",
 )
 
 microscope = Microscope(
@@ -208,7 +210,6 @@ daq = DAQDevice(
     manufacturer=Organization.NATIONAL_INSTRUMENTS,
     model="NI-DAQ Dev1",
     data_interface="USB",
-    computer_name="Acquisition Computer",
 )
 
 instrument = Instrument(
