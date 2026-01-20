@@ -239,9 +239,6 @@ instrument = Instrument(
 )
 
 if __name__ == "__main__":
-
-    serialized = instrument.model_dump_json(indent=3)
-    print(serialized)
-
-    with open("barseq_instrument.json", "w") as f:
-        f.write(serialized)
+    serialized = instrument.model_dump_json()
+    deserialized = Instrument.model_validate_json(serialized)
+    deserialized.write_standard_file(prefix="barseq")
