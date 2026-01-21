@@ -208,21 +208,24 @@ class Slap2Plane(Plane):
     """Configuration of an imagine plane on a Slap2 microscope"""
 
     name: Optional[str] = Field(default=None, title="Plane name")
-    slap_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap2 experiment type")
+    slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap2 experiment type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
 
-    mask_image_path: AssetPath = Field(
+    superpixel_image_path: AssetPath = Field(
         ..., title="Mask image path", description="Relative path from metadata json to file"
     )
 
+    unique_dilations: List[int] = Field(..., title="Unique dilations")
     dilation_image_path: AssetPath = Field(
         ..., title="Dilation image path", description="Relative path from metadata json to file"
     )
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
 
-    framerate_image_path: AssetPath = Field(
-        ..., title="Framerate image path", description="Relative path from metadata json to file"
+    unique_frame_rates: List[float] = Field(..., title="Unique frame rates")
+    frame_rate_image_path: AssetPath = Field(
+        ..., title="Frame rate image path", description="Relative path from metadata json to file"
     )
+    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
 
 
 class Image(DataModel):
