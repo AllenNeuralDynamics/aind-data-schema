@@ -207,12 +207,11 @@ class CoupledPlane(Plane):
 class Slap2Plane(Plane):
     """Configuration of an imagine plane on a Slap2 microscope"""
 
-    name: Optional[str] = Field(default=None, title="Plane name")
     slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap2 experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+    target_name: Optional[str] = Field(default=None, title="Target name")
 
     superpixel_image_path: AssetPath = Field(
-        ..., title="Mask image path", description="Relative path from metadata json to file"
+        ..., title="Superpixel image path", description="Relative path from metadata json to file"
     )
 
     unique_dilations: List[int] = Field(..., title="Unique dilations")
