@@ -182,3 +182,6 @@ When you are ready to open a pull request, please link any relevant issues and r
 - After review, use a **merge commit** to merge into main, DO NOT SQUASH INTO MAIN
 - Open a PR from main back into dev so they're synced again, bypass the rules to use a **merge commit**, DO NOT SQUASH MAIN INTO DEV
 - Create a Github release with the corresponding tag, modify the auto-generated release notes to focus on the major changes that occurred
+
+### Major releases
+- Create a post in the internal Sci Comp channel titled "aind-data-schema vX.X.X includes breaking changes" and write a bullet point for each breaking change that is being rolled out
