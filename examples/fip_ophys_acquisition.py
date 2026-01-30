@@ -302,7 +302,7 @@ data_stream = DataStream(
         patch_cord_c_config,
         patch_cord_d_config,
     ],
-    connections=connections,  
+    connections=connections,
 )
 
 # Create the stimulus epoch
@@ -318,7 +318,7 @@ stimulus_epoch = StimulusEpoch(
         parameters={
             'stimulus_duration': 1.0,
             'stimulus_duration_unit': TimeUnit.S,
-            'frequency': [5,8,13],
+            'frequency': [5, 8, 13],
             'frequency_unit': FrequencyUnit.KHZ,
         },
     ),
