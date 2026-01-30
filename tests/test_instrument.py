@@ -684,7 +684,7 @@ class InstrumentTests(unittest.TestCase):
         # Test that instrument_id differences are merged in alphabetical order
         inst2.instrument_id = "different-instrument-id"
         inst3 = inst1 + inst2
-        self.assertEqual(inst3.instrument_id, "123_EPHYS1-OPTO_20220101_different-instrument-id")
+        self.assertEqual(inst3.instrument_id, "EPHYS1_different-instrument-id")
 
         # Test incompatible locations
         inst2.instrument_id = inst1.instrument_id  # Reset to same
