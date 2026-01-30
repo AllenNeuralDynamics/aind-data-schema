@@ -33,6 +33,7 @@ Organization
 | `COLUMBIA` | `Columbia` | `Columbia University` | `Registry.ROR` | `00hj8s172` |
 | `COMPUTAR` | `None` | `Computar` | `None` | `None` |
 | `CONOPTICS` | `None` | `Conoptics` | `None` | `None` |
+| `CRESTOPTICS` | `None` | `CrestOptics` | `None` | `None` |
 | `CRL` | `CRL` | `Charles River Laboratories` | `Registry.ROR` | `03ndmsg87` |
 | `CUSTOM` | `None` | `Custom` | `None` | `None` |
 | `CZI` | `CZI` | `Chan Zuckerberg Initiative` | `Registry.ROR` | `02qenvm24` |
@@ -72,6 +73,7 @@ Organization
 | `LENS_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `LG` | `None` | `LG` | `Registry.ROR` | `02b948n83` |
 | `LIFECANVAS` | `None` | `LifeCanvas` | `None` | `None` |
+| `LUMENCOR` | `None` | `Lumencor` | `None` | `None` |
 | `LUMEN_DYNAMICS` | `None` | `Lumen Dynamics` | `None` | `None` |
 | `MANIPULATOR_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `MBF` | `MBF` | `MBF Bioscience` | `Registry.ROR` | `02zynam48` |
@@ -118,6 +120,8 @@ Organization
 | `SPINNAKER` | `None` | `Spinnaker` | `None` | `None` |
 | `SUBJECT_SOURCES` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `TAMRON` | `None` | `Tamron` | `None` | `None` |
+| `TELEDYNE_VISION_SOLUTIONS` | `None` | `Teledyne Vision Solutions` | `None` | `None` |
+| `TE_CONNECTIVITY` | `None` | `TE Connectivity` | `Registry.ROR` | `034frgp20` |
 | `THERMO_FISHER_SCIENTIFIC` | `None` | `Thermo Fisher Scientific` | `Registry.ROR` | `03x1ewr52` |
 | `THE_IMAGING_SOURCE` | `None` | `The Imaging Source` | `None` | `None` |
 | `THE_LEE_COMPANY` | `None` | `The Lee Company` | `None` | `None` |
