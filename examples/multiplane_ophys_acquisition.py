@@ -201,7 +201,7 @@ a = Acquisition(
                     name="OPHYS_1_images_A",
                     version=1.0,
                     parameters={
-                        "image_name":["im066","im061","im085","im063","im062","im077","im069","im065"],
+                        "image_name": ["im066", "im061", "im085", "im063", "im062", "im077", "im069", "im065"],
                     },
                     core_dependency=Software(name="camstim",version=1.0),
                 ),

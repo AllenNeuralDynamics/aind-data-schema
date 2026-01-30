@@ -22,8 +22,8 @@ from aind_data_schema.components.configs import (
     TriggerType,
     SpeakerConfig,
     DeviceConfig,
-from aind_data_schema.components.identifiers import Code
 )
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # The session date from the JSON file is 2024-01-15 with timezone -08:00
