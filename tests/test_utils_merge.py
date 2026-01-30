@@ -10,6 +10,7 @@ from aind_data_schema.utils.merge import (
     merge_coordinate_systems,
     merge_str_tuple_lists,
     merge_process_graph,
+    merge_str_alphabetical,
 )
 
 
@@ -48,6 +49,45 @@ class TestMergeStrTupleLists(unittest.TestCase):
         b = [("b", "d"), "c"]
         result = merge_str_tuple_lists(a, b)
         self.assertEqual(result, [("a", "b", "d"), "c"])
+
+
+class TestMergeStrAlphabetical(unittest.TestCase):
+    """Tests for merge_str_alphabetical function"""
+
+    def test_both_strings_present(self):
+        """Test merging when both strings are present"""
+        result = merge_str_alphabetical("zebra", "apple")
+        self.assertEqual(result, "apple_zebra")
+
+    def test_both_strings_present_reverse_order(self):
+        """Test merging with strings in reverse alphabetical order"""
+        result = merge_str_alphabetical("apple", "zebra")
+        self.assertEqual(result, "apple_zebra")
+
+    def test_identical_strings(self):
+        """Test merging identical strings"""
+        result = merge_str_alphabetical("test", "test")
+        self.assertEqual(result, "test")
+
+    def test_first_string_none(self):
+        """Test merging when first string is None"""
+        result = merge_str_alphabetical(None, "test")
+        self.assertEqual(result, "test")
+
+    def test_second_string_none(self):
+        """Test merging when second string is None"""
+        result = merge_str_alphabetical("test", None)
+        self.assertEqual(result, "test")
+
+    def test_both_strings_none(self):
+        """Test merging when both strings are None"""
+        result = merge_str_alphabetical(None, None)
+        self.assertIsNone(result)
+
+    def test_multiple_words_sorted(self):
+        """Test merging with multiple word strings"""
+        result = merge_str_alphabetical("instrument_2", "instrument_1")
+        self.assertEqual(result, "instrument_1_instrument_2")
 
 
 class TestMergeNotes(unittest.TestCase):

@@ -681,11 +681,10 @@ class InstrumentTests(unittest.TestCase):
         # Restore schema version for next tests
         inst1.schema_version = inst1_orig_schema_v
 
-        # Test incompatible instrument IDs
-        inst2.instrument_id = "different_instrument_id"
-        with self.assertRaises(ValueError) as context:
-            inst1 + inst2
-        self.assertIn("Cannot combine Instrument objects that differ in key fields", str(context.exception))
+        # Test that instrument_id differences are merged in alphabetical order
+        inst2.instrument_id = "different-instrument-id"
+        inst3 = inst1 + inst2
+        self.assertEqual(inst3.instrument_id, "123_EPHYS1-OPTO_20220101_different-instrument-id")
 
         # Test incompatible locations
         inst2.instrument_id = inst1.instrument_id  # Reset to same
