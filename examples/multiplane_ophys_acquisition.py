@@ -199,11 +199,11 @@ a = Acquisition(
             code=Code(
                     url="",
                     name="OPHYS_1_images_A",
-                    version=1.0,
+                    version="1.0",
                     parameters={
                         "image_name": ["im066", "im061", "im085", "im063", "im062", "im077", "im069", "im065"],
                     },
-                    core_dependency=Software(name="camstim", version=1.0),
+                    core_dependency=Software(name="camstim", version="1.0"),
                 ),
             active_devices=['Stimulus Screen'],
             performance_metrics=PerformanceMetrics(
