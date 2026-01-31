@@ -6,7 +6,11 @@ from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import (
+    CoordinateSystemLibrary,
+    Affine,
+    Translation,
+)
 
 from aind_data_schema.components.devices import (
     Camera,
