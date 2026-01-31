@@ -72,6 +72,11 @@ Configuration of detector settings
 | `exposure_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Exposure time unit  |
 | `trigger_type` | [TriggerType](#triggertype) | Trigger type  |
 | `compression` | Optional[[Code](identifiers.md#code)] | Compression (Compression algorithm used during acquisition) |
+| `crop_offset_x` | `Optional[int]` | Crop offset x  |
+| `crop_offset_y` | `Optional[int]` | Crop offset y  |
+| `crop_width` | `Optional[int]` | Crop width  |
+| `crop_height` | `Optional[int]` | Crop height  |
+| `crop_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Crop size unit  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
