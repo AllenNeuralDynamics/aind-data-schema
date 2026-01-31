@@ -118,6 +118,11 @@ class DetectorConfig(DeviceConfig):
         title="Compression",
         description="Compression algorithm used during acquisition",
     )
+    crop_offset_x: Optional[int] = Field(default=None, title="Crop offset x")
+    crop_offset_y: Optional[int] = Field(default=None, title="Crop offset y")
+    crop_width: Optional[int] = Field(default=None, title="Crop width")
+    crop_height: Optional[int] = Field(default=None, title="Crop width")
+    crop_unit: Optional[SizeUnit] = Field(default=SizeUnit.PX, title="Crop size unit")
 
 
 class LaserConfig(DeviceConfig):
