@@ -19,6 +19,7 @@ from aind_data_schema_models.units import (
     ConcentrationUnit,
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -50,13 +51,6 @@ class Valence(str, Enum):
     NEGATIVE = "Negative"
     NEUTRAL = "Neutral"
     UNKNOWN = "Unknown"
-
-
-class SlapAcquisitionType(str, Enum):
-    """Type of slap acquisition"""
-
-    PARENT = "Parent"
-    BRANCH = "Branch"
 
 
 class Liquid(str, Enum):
@@ -214,7 +208,7 @@ class Slap2Plane(Plane):
     """Configuration of an imagine plane on a Slap microscope"""
 
     name: Optional[str] = Field(default=None, title="Plane name")
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
+    slap_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap experiment type")
     target_neuron: Optional[str] = Field(default=None, title="Target neuron")
 
     mask_image_path: AssetPath = Field(
