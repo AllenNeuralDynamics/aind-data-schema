@@ -1,4 +1,4 @@
-""" example Bergamo ophys acquisition """
+"""example Bergamo ophys acquisition"""
 
 from datetime import datetime, timezone
 

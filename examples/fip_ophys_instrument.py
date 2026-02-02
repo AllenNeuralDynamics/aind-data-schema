@@ -1,4 +1,4 @@
-""" example FIP ophys instrument """
+"""example FIP ophys instrument"""
 
 from datetime import date, datetime, timezone
 

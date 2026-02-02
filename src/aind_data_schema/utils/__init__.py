@@ -1,1 +1,1 @@
-""" Utility methods """
+"""Utility methods"""

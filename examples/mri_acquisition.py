@@ -15,7 +15,6 @@ from aind_data_schema.components.configs import MRIScan, MriScanSequence, ScanTy
 
 from aind_data_schema_models.units import TimeUnit, SizeUnit
 
-
 mri_scanner = Scanner(
     name="Scanner 72",
     magnetic_strength=7,

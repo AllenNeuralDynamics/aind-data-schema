@@ -1,4 +1,4 @@
-""" example subject """
+"""example subject"""
 
 from datetime import datetime, timezone
 

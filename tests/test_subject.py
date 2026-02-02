@@ -1,4 +1,4 @@
-""" tests for Subject """
+"""tests for Subject"""
 
 import datetime
 import unittest

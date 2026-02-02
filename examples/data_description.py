@@ -1,4 +1,4 @@
-""" example data description """
+"""example data description"""
 
 from datetime import datetime, timezone
 

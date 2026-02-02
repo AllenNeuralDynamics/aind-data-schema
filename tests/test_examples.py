@@ -1,4 +1,4 @@
-""" testing examples """
+"""testing examples"""
 
 import json
 import os

@@ -1,4 +1,4 @@
-""" example SmartSPIM instrument """
+"""example SmartSPIM instrument"""
 
 import datetime
 

@@ -1,4 +1,4 @@
-""" Test for the acquisition.json """
+"""Test for the acquisition.json"""
 
 import inspect
 import unittest
