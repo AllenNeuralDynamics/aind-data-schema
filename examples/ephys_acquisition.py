@@ -132,6 +132,7 @@ acquisition = Acquisition(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
+            active_devices=['Stimulus Screen'],
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 core_dependency=bonsai_software,
