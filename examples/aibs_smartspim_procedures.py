@@ -1,4 +1,4 @@
-""" example for specimen procedures """
+"""example for specimen procedures"""
 
 from datetime import date
 

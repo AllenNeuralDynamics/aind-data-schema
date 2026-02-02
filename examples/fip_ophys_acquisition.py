@@ -1,4 +1,4 @@
-""" example FIP ophys acquisition """
+"""example FIP ophys acquisition"""
 
 from datetime import datetime, timezone
 from decimal import Decimal

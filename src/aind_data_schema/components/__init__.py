@@ -1,1 +1,1 @@
-""" Component schemas that are used in multiple core schemas"""
+"""Component schemas that are used in multiple core schemas"""

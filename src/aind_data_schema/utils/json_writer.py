@@ -1,4 +1,4 @@
-""" Utility method to write Pydantic schemas to JSON """
+"""Utility method to write Pydantic schemas to JSON"""
 
 import argparse
 import importlib
