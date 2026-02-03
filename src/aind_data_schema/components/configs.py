@@ -509,7 +509,7 @@ class MISCameraConfig(DeviceConfig):
     """Configuration for a camera used in a New Scale modular insertion system"""
 
     detector_config: DetectorConfig = Field(..., title="Detector configuration")
-    module: MISModuleConfig = Field(..., title="MIS module")
+    module: MISModuleConfig = Field(..., title="Module")
 
 
 class FiberAssemblyConfig(DeviceConfig):
