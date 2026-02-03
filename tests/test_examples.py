@@ -25,7 +25,7 @@ class ExampleTests(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """Remove the temporary directory"""
-        if hasattr(cls, 'temp_dir') and os.path.exists(cls.temp_dir):
+        if hasattr(cls, "temp_dir") and os.path.exists(cls.temp_dir):
             shutil.rmtree(cls.temp_dir, ignore_errors=True)
 
     def test_examples_generated(self):
