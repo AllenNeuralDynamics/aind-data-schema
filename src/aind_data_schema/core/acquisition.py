@@ -36,7 +36,13 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems, merge_str_alphabetical
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    remove_duplicates,
+    merge_coordinate_systems,
+    merge_str_alphabetical,
+)
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
