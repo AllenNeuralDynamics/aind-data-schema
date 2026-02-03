@@ -4,6 +4,7 @@ import json
 import os
 import unittest
 import tempfile
+import shutil
 from pathlib import Path
 
 from aind_data_schema.utils.examples_generator import ExamplesGenerator
@@ -23,10 +24,8 @@ class ExampleTests(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Clean up temporary directory"""
-        import shutil
-
-        shutil.rmtree(cls.temp_dir, ignore_errors=True)
+        if hasattr(cls, 'temp_dir') and os.path.exists(cls.temp_dir):
+            shutil.rmtree(cls.temp_dir, ignore_errors=True)
 
     def test_examples_generated(self):
         """Test that each example file generates valid JSON."""
