@@ -25,6 +25,7 @@ class ExampleTests(unittest.TestCase):
     def tearDownClass(cls):
         """Clean up temporary directory"""
         import shutil
+
         shutil.rmtree(cls.temp_dir, ignore_errors=True)
 
     def test_examples_generated(self):

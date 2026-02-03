@@ -186,7 +186,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
     args = parser.parse_args()
-    
+
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
     deserialized.write_standard_file(prefix="ephys", output_directory=args.output_dir)

@@ -37,7 +37,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
     args = parser.parse_args()
-    
+
     serialized = s.model_dump_json()
     deserialized = Subject.model_validate_json(serialized)
     deserialized.write_standard_file(output_directory=args.output_dir)

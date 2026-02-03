@@ -16,7 +16,7 @@ class ExamplesGenerator:
 
     def generate_all_examples(self, output_directory=None):
         """Generate all examples in EXAMPLES_DIR
-        
+
         Parameters
         ----------
         output_directory : str or Path, optional
@@ -32,7 +32,7 @@ class ExamplesGenerator:
 
     def generate_example(self, example_file, output_directory=None):
         """Generate example from example_file
-        
+
         Parameters
         ----------
         example_file : str or Path

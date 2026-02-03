@@ -365,7 +365,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
     args = parser.parse_args()
-    
+
     serialized = instrument.model_dump_json()
     deserialized = r.Instrument.model_validate_json(serialized)
     deserialized.write_standard_file(prefix="fip_ophys", output_directory=args.output_dir)

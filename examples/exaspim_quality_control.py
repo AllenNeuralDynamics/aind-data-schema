@@ -141,7 +141,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
     args = parser.parse_args()
-    
+
     serialized = quality_control.model_dump_json()
     deserialized = QualityControl.model_validate_json(serialized)
     quality_control.write_standard_file(prefix="exaspim", output_directory=args.output_dir)

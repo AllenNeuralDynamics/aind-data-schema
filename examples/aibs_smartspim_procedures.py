@@ -96,7 +96,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
     args = parser.parse_args()
-    
+
     serialized = all_procedures.model_dump_json()
     deserialized = procedures.Procedures.model_validate_json(serialized)
     deserialized.write_standard_file(prefix="aibs_smartspim", output_directory=args.output_dir)

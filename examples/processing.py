@@ -145,7 +145,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
     args = parser.parse_args()
-    
+
     serialized = p.model_dump_json()
     deserialized = Processing.model_validate_json(serialized)
     p.write_standard_file(output_directory=args.output_dir)

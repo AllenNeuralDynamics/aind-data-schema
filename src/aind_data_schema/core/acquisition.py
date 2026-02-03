@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 import logging
-from typing import Annotated, Any, List, Literal, Optional
+from typing import Annotated, List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
