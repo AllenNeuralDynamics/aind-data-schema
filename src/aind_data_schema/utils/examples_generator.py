@@ -43,13 +43,10 @@ class ExamplesGenerator:
         """
 
         logging.info(f"Running {example_file}")
-        try:
-            cmd = ["python", example_file]
-            if output_directory is not None:
-                cmd.extend(["--output-dir", str(output_directory)])
-            subprocess.run(cmd, check=True)
-        except subprocess.CalledProcessError as e:
-            logging.info(f"Error running {example_file}: {e}")
+        cmd = ["python", example_file]
+        if output_directory is not None:
+            cmd.extend(["--output-dir", str(output_directory)])
+        subprocess.run(cmd, check=True)
 
 
 if __name__ == "__main__":
