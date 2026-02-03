@@ -505,6 +505,13 @@ class EphysAssemblyConfig(DeviceConfig):
     )
 
 
+class MISCameraConfig(DeviceConfig):
+    """Configuration for a camera used in a New Scale modular insertion system"""
+
+    detector_config: DetectorConfig = Field(..., title="Detector configuration")
+    module: MISModuleConfig = Field(..., title="MIS module")
+
+
 class FiberAssemblyConfig(DeviceConfig):
     """Inserted fiber photometry probe recorded in a stream"""
 
