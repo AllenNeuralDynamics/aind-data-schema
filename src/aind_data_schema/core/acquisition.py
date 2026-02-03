@@ -9,7 +9,6 @@ from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from aind_data_schema.utils.validators import TimeValidation
 from pydantic import Field, SkipValidation, model_validator
-from pydantic_extra_types.timezone_name import TimeZoneName
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
@@ -38,7 +37,7 @@ from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
 # Define the requirements for each modality
@@ -327,16 +326,7 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition metadata
-    acquisition_start_time: AwareDatetimeWithDefault = Field(
-        ...,
-        title="Acquisition start time",
-        description="During validation, timezone information will be moved into the acquisition_start_tz field.",
-    )
-    acquisition_start_tz: Optional[TimeZoneName] = Field(
-        default=None,
-        title="Acquisition start timezone",
-        description="Automatically populated by a validator based on acquisition_start_time.",
-    )
+    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
     experimenters: List[str] = Field(
         default=[],
@@ -396,13 +386,6 @@ class Acquisition(DataCoreModel):
         default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
-
-    @model_validator(mode="after")
-    def extract_timezone(self):
-        """Extract timezone information from acquisition_start_time and set acquisition_start_tz"""
-        if self.acquisition_start_tz is None and hasattr(self, "acquisition_start_time"):
-            self.acquisition_start_tz = extract_timezone_from_datetime(self.acquisition_start_time)
-        return self
 
     @model_validator(mode="after")
     def check_subject_specimen_id(self):
