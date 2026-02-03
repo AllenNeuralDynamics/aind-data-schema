@@ -23,6 +23,7 @@ from aind_data_schema.components.configs import (
     LightEmittingDiodeConfig,
     ManipulatorConfig,
     MousePlatformConfig,
+    MISCameraConfig,
     MRIScan,
     OlfactometerConfig,
     PatchCordConfig,
@@ -125,6 +126,7 @@ class DataStream(DataModel):
         | DetectorConfig
         | PatchCordConfig
         | FiberAssemblyConfig
+        | MISCameraConfig
         | MRIScan
         | LickSpoutConfig
         | AirPuffConfig
