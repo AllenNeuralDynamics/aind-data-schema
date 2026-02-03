@@ -2,7 +2,7 @@
 
 from typing import List, Literal, Optional
 
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem
