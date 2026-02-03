@@ -1,5 +1,6 @@
 """ example FIP ophys acquisition """
 
+import argparse
 from datetime import datetime, timezone
 from decimal import Decimal
 
@@ -316,10 +317,10 @@ stimulus_epoch = StimulusEpoch(
     code=Code(
         url="github url",
         parameters={
-            'stimulus_duration': 1.0,
-            'stimulus_duration_unit': TimeUnit.S,
-            'frequency': [5, 8, 13],
-            'frequency_unit': FrequencyUnit.KHZ,
+            "stimulus_duration": 1.0,
+            "stimulus_duration_unit": TimeUnit.S,
+            "frequency": [5, 8, 13],
+            "frequency_unit": FrequencyUnit.KHZ,
         },
     ),
     performance_metrics=PerformanceMetrics(
@@ -358,6 +359,10 @@ acquisition = Acquisition(
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="fip_ophys")
+    deserialized.write_standard_file(prefix="fip_ophys", output_directory=args.output_dir)
