@@ -1,7 +1,5 @@
 """Example model file"""
 
-import argparse
-
 from aind_data_schema_models.system_architecture import ModelArchitecture
 
 from aind_data_schema.components.identifiers import Code, DataAsset, Software
@@ -81,10 +79,6 @@ m = Model(
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
-    args = parser.parse_args()
-
     serialized = m.model_dump_json()
     deserialized = Model.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="", output_directory=args.output_dir)
+    deserialized.write_standard_file(prefix="")

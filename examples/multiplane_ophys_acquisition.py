@@ -1,6 +1,5 @@
 """ example fiber photometry acquisition """
 
-import argparse
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
@@ -61,17 +60,17 @@ a = Acquisition(
                     device_name="Eye",
                     exposure_time=15,
                     trigger_type="Internal",
-                ),
+                    ),
                 DetectorConfig(
                     device_name="Face",
                     exposure_time=15,
                     trigger_type="Internal",
-                ),
+                    ),
                 DetectorConfig(
                     device_name="Behavior",
                     exposure_time=15,
                     trigger_type="Internal",
-                ),
+                    ),
                 ImagingConfig(
                     device_name="Mesoscope",
                     channels=[
@@ -192,22 +191,21 @@ a = Acquisition(
             ],
         ),
     ],
-    stimulus_epochs=[
-        StimulusEpoch(
+    stimulus_epochs=[StimulusEpoch(
             stimulus_start_time=t,
             stimulus_end_time=t,
             stimulus_name="OPHYS_1_images_A",
             stimulus_modalities=[StimulusModality.VISUAL],
             code=Code(
-                url="",
-                name="OPHYS_1_images_A",
-                version="1.0",
-                parameters={
-                    "image_name": ["im066", "im061", "im085", "im063", "im062", "im077", "im069", "im065"],
-                },
-                core_dependency=Software(name="camstim", version="1.0"),
-            ),
-            active_devices=["Stimulus Screen"],
+                    url="",
+                    name="OPHYS_1_images_A",
+                    version="1.0",
+                    parameters={
+                        "image_name": ["im066", "im061", "im085", "im063", "im062", "im077", "im069", "im065"],
+                    },
+                    core_dependency=Software(name="camstim", version="1.0"),
+                ),
+            active_devices=['Stimulus Screen'],
             performance_metrics=PerformanceMetrics(
                 reward_consumed_during_epoch=1200,
                 reward_consumed_unit=VolumeUnit.UL,
@@ -215,14 +213,10 @@ a = Acquisition(
                 trials_rewarded=83,
             ),
         ),
-    ],
+    ]
 )
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
-    args = parser.parse_args()
-
     serialized = a.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="multiplane_ophys", output_directory=args.output_dir)
+    deserialized.write_standard_file(prefix="multiplane_ophys")

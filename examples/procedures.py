@@ -1,6 +1,5 @@
 """ ephys procedure mouse 625100 """
 
-import argparse
 from datetime import datetime, timezone
 
 from aind_data_schema.components.injection_procedures import (
@@ -135,10 +134,6 @@ p = Procedures(
 )
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
-    args = parser.parse_args()
-
     serialized = p.model_dump_json()
     deserialized = Procedures.model_validate_json(serialized)
-    deserialized.write_standard_file(output_directory=args.output_dir)
+    deserialized.write_standard_file()

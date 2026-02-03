@@ -1,7 +1,5 @@
 """example MRIAcquisition and MRIScan"""
 
-import argparse
-from datetime import datetime, timezone
 from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
@@ -70,8 +68,8 @@ scan2 = MRIScan(
 )
 
 stream = DataStream(
-    stream_start_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
-    stream_end_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
+    stream_start_time="2024-03-12T16:27:55.584892Z",
+    stream_end_time="2024-03-12T16:27:55.584892Z",
     active_devices=["Scanner 72"],
     configurations=[scan1, scan2],
     modalities=[Modality.MRI],
@@ -79,8 +77,8 @@ stream = DataStream(
 
 acquisition = Acquisition(
     subject_id="123456",
-    acquisition_start_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
-    acquisition_end_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
+    acquisition_start_time="2024-03-12T16:27:55.584892Z",
+    acquisition_end_time="2024-03-12T16:27:55.584892Z",
     experimenters=["John Smith"],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
     ethics_review_id=["1234"],
@@ -95,10 +93,6 @@ acquisition = Acquisition(
 )
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
-    args = parser.parse_args()
-
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="mri", output_directory=args.output_dir)
+    deserialized.write_standard_file(prefix="mri")
