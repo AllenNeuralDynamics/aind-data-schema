@@ -329,7 +329,7 @@ class ProceduresTests(unittest.TestCase):
         self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
 
     def test_section_deprecated_coordinate_fields(self):
-
+        """Test that using deprecated coordinate fields in Section raises deprecation warnings"""
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
             section = Section(
