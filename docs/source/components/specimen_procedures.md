@@ -59,7 +59,7 @@ Description of a sectioning procedure performed on the coronal, sagittal, or tra
 
 ### Section
 
-Description of a single section of brain tissue
+Description of a single section of brain tissue. Slices should use PlanarSection.
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|

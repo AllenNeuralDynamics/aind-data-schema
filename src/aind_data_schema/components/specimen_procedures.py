@@ -31,7 +31,7 @@ class SectionOrientation(str, Enum):
 
 
 class Section(DataModel):
-    """Description of a single section of brain tissue"""
+    """Description of a single section of brain tissue. Slices should use PlanarSection."""
 
     output_specimen_id: str = Field(..., title="Specimen ID")
     targeted_structure: Optional[BrainStructureModel] = Field(default=None, title="Targeted structure")
