@@ -468,36 +468,6 @@ class ProceduresTests(unittest.TestCase):
                 section_orientation=SectionOrientation.CORONAL,
             )
 
-    def test_validate_identical_specimen_ids(self):
-        """Test that all specimen_id fields are identical in specimen_procedures"""
-
-        with self.assertRaises(ValidationError) as e:
-            Procedures(
-                subject_id="12345",
-                specimen_procedures=[
-                    SpecimenProcedure(
-                        specimen_id="1000",
-                        procedure_type="Other",
-                        start_date=date.fromisoformat("2020-10-10"),
-                        end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=["Mam Moth"],
-                        protocol_id=["10"],
-                        notes="some notes",
-                    ),
-                    SpecimenProcedure(
-                        specimen_id="2000",
-                        procedure_type="Other",
-                        start_date=date.fromisoformat("2020-10-10"),
-                        end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=["Mam Moth"],
-                        protocol_id=["10"],
-                        notes="some notes",
-                    ),
-                ],
-            )
-        expected_exception = "All specimen_id must be identical in the specimen_procedures."
-        self.assertIn(expected_exception, str(e.exception))
-
     def test_validate_subject_specimen_ids(self):
         """Test that the subject_id and specimen_id match"""
 

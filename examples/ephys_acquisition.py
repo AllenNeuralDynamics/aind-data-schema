@@ -1,5 +1,6 @@
 """Generates an example JSON file for an ephys acquisition"""
 
+import argparse
 from datetime import datetime, timezone
 
 from aind_data_schema_models.modalities import Modality
@@ -132,6 +133,7 @@ acquisition = Acquisition(
             stimulus_modalities=[StimulusModality.VISUAL],
             stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
             stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
+            active_devices=["Stimulus Screen"],
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 core_dependency=bonsai_software,
@@ -181,6 +183,10 @@ acquisition = Acquisition(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="ephys")
+    deserialized.write_standard_file(prefix="ephys", output_directory=args.output_dir)

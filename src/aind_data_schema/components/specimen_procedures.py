@@ -12,7 +12,7 @@ from aind_data_schema_models.units import SizeUnit
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
-from aind_data_schema.components.coordinates import CoordinateSystem, Translation
+from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
 from aind_data_schema.components.reagent import (
     FluorescentStain,
     GeneProbeSet,
@@ -133,7 +133,7 @@ class Sectioning(DataModel):
 class PlanarSectioning(Sectioning):
     """Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane"""
 
-    coordinate_system: Optional[CoordinateSystem] = Field(
+    coordinate_system: Optional[CoordinateSystem | Atlas] = Field(
         default=None,
         title="Sectioning coordinate system",
         description="Only required if different from the Procedures.coordinate_system",

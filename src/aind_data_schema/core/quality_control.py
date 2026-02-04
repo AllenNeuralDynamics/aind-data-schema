@@ -48,7 +48,11 @@ class QCMetric(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     value: Any = Field(..., title="Metric value")
     status_history: List[QCStatus] = Field(default=[], title="Metric status history", min_length=1)
-    description: Optional[str] = Field(default=None, title="Metric description")
+    description: Optional[str] = Field(
+        default=None,
+        title="Metric description",
+        description="Describes the measured value and the rule that links the value and status.",
+    )
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
     tags: dict[str, str] = Field(
         default={},
