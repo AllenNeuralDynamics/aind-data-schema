@@ -227,6 +227,20 @@ Solution names
 | `OTHER` | `Other` |
 
 
+### MISCameraConfig
+
+Configuration for a camera used in a New Scale modular insertion system
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `detector_config` | [DetectorConfig](#detectorconfig) | Detector configuration  |
+| `module` | [MISModuleConfig](#mismoduleconfig) | Module  |
+| `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
+
+
 ### MISModuleConfig
 
 Modular insertion system module configuration

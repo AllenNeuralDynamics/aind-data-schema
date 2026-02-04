@@ -30,6 +30,7 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
 )
+from aind_data_schema.components.devices import DevicePosition
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -505,7 +506,7 @@ class EphysAssemblyConfig(DeviceConfig):
     )
 
 
-class MISCameraConfig(DeviceConfig):
+class MISCameraConfig(DeviceConfig, DevicePosition):
     """Configuration for a camera used in a New Scale modular insertion system"""
 
     detector_config: DetectorConfig = Field(..., title="Detector configuration")

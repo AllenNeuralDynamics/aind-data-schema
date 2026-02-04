@@ -35,7 +35,7 @@ Description of a sectioning procedure performed on the coronal, sagittal, or tra
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Sectioning coordinate system (Only required if different from the Procedures.coordinate_system) |
+| `coordinate_system` | [CoordinateSystem](coordinates.md#coordinatesystem) or [Atlas](coordinates.md#atlas) or NoneType | Sectioning coordinate system (Only required if different from the Procedures.coordinate_system) |
 | `sections` | List[[Section](#section)] | Sections  |
 | `section_orientation` | [SectionOrientation](#sectionorientation) | Sectioning orientation  |
 
