@@ -265,7 +265,7 @@ class PlanarImage(Image):
     def limit_plane_to_one(self):
         """Check that only one plane is defined"""
 
-        if any(not isinstance(plane, CoupledPlane) for plane in self.planes) and len(self.planes) > 1:
+        if any(not isinstance(plane, (CoupledPlane, Slap2Plane)) for plane in self.planes) and len(self.planes) > 1:
             raise ValueError("For single-plane optical physiology only a single Plane should be in PlanarImage.planes")
 
         return self
