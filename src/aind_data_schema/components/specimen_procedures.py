@@ -80,16 +80,19 @@ class Section(DataModel):
 
         if deprecated_fields:
             warnings.warn(
-                f"Section fields {deprecated_fields} are deprecated. Use PlanarSection for sections with coordinate data.",
+                (
+                    f"Section fields {deprecated_fields} are deprecated. "
+                    "Use PlanarSection for sections with coordinate data."
+                ),
                 DeprecationWarning,
             )
-        
+
         if self.start_coordinate and not self.end_coordinate and not self.thickness:
             raise OneOfError(
                 "Section",
                 ["end_coordinate", "thickness"],
             )
-        
+
         return self
 
 
@@ -115,14 +118,14 @@ class PlanarSection(Section):
 
         if not self.end_coordinate and not self.thickness:
             raise OneOfError(
-                "Section",
+                "PlanarError",
                 ["end_coordinate", "thickness"],
             )
         return self
 
 
 class Sectioning(DataModel):
-    """Base class for sectioning procedures"""
+    """Description of a sectioning procedure targeting a specific structure"""
 
     sections: List[Section] = Field(..., title="Sections")
 
@@ -245,9 +248,7 @@ def section_to_planar_section(section: Section) -> PlanarSection:
         If the section lacks required coordinate data
     """
     if not section.coordinate_system_name or not section.start_coordinate:
-        raise ValueError(
-            "Section must have coordinate_system_name and start_coordinate to convert to PlanarSection"
-        )
+        raise ValueError("Section must have coordinate_system_name and start_coordinate to convert to PlanarSection")
 
     return PlanarSection(
         output_specimen_id=section.output_specimen_id,
