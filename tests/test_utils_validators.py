@@ -19,6 +19,7 @@ from aind_data_schema.utils.validators import (
     _system_check_helper,
     _time_validation_recurse_helper,
     _validate_time_constraint,
+    extract_timezone_from_datetime,
     recursive_check_paths,
     recursive_coord_system_check,
     recursive_get_all_names,
@@ -755,6 +756,42 @@ class TestConvertToComparable(unittest.TestCase):
         result = _convert_to_comparable(test_datetime, reference_time)
 
         self.assertEqual(result, test_datetime)
+
+
+class TestExtractTimezoneFromDatetime(unittest.TestCase):
+    """Tests for extract_timezone_from_datetime function"""
+
+    def test_extract_utc_timezone(self):
+        """Test extracting UTC timezone"""
+        dt = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        from pydantic_extra_types.timezone_name import TimeZoneName
+
+        result = extract_timezone_from_datetime(dt)
+        self.assertIsInstance(result, TimeZoneName)
+
+    def test_extract_offset_timezone(self):
+        """Test extracting timezone with offset"""
+        est = timezone(timedelta(hours=-5))
+        dt = datetime(2023, 1, 1, 7, 0, 0, tzinfo=est)
+        from pydantic_extra_types.timezone_name import TimeZoneName
+
+        result = extract_timezone_from_datetime(dt)
+        self.assertIsInstance(result, TimeZoneName)
+
+    def test_naive_datetime_raises_error(self):
+        """Test that naive datetime raises ValueError"""
+        dt = datetime(2023, 1, 1, 12, 0, 0)
+        with self.assertRaises(ValueError) as context:
+            extract_timezone_from_datetime(dt)
+        self.assertIn("must be timezone-aware", str(context.exception))
+
+    def test_none_tzinfo_raises_error(self):
+        """Test that datetime with None tzinfo raises ValueError"""
+        dt = datetime(2023, 1, 1, 12, 0, 0)
+        dt.replace(tzinfo=None)
+        with self.assertRaises(ValueError) as context:
+            extract_timezone_from_datetime(dt)
+        self.assertIn("must be timezone-aware", str(context.exception))
 
 
 if __name__ == "__main__":
