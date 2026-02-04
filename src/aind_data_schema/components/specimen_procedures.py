@@ -87,12 +87,6 @@ class Section(DataModel):
                 DeprecationWarning,
             )
 
-        if self.start_coordinate and not self.end_coordinate and not self.thickness:
-            raise OneOfError(
-                "Section",
-                ["end_coordinate", "thickness"],
-            )
-
         return self
 
 

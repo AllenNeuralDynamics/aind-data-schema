@@ -474,6 +474,17 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertIsNotNone(sectioning_procedure)
 
+        valid_section = PlanarSection(
+            output_specimen_id="123456_001",
+            coordinate_system_name="BREGMA_ARI",
+            start_coordinate=Translation(
+                translation=[0.3, 0, 0, 0],
+            ),
+            thickness=100.0,
+            thickness_unit=SizeUnit.UM,
+        )
+        self.assertIsNotNone(valid_section)
+
         # Raise error if neither end_coordinate nor thickness is provided
         with self.assertRaises(OneOfError):
             PlanarSection(
