@@ -495,13 +495,11 @@ class DigitalMicromirrorDevice(Device):
     motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
     motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
     padding_unit: SizeUnit = Field(default=SizeUnit.PX, title="Padding unit")
-    pixel_size: Decimal = Field(..., title="DMD Pixel size")
-    pixel_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Pixel size unit")
-    start_phase: Decimal = Field(..., title="DMD Start phase (fraction of cycle)")
-    dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
-    dmd_curtain_unit: SizeUnit = Field(default=SizeUnit.PX, title="dmd_curtain_unit")
     line_shear: List[int] = Field(..., title="Line shear (pixels)")
     line_shear_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear unit")
+    pixel_size: Decimal = Field(..., title="DMD Pixel size (fraction of line scan period)")
+    start_phase: Decimal = Field(..., title="DMD Start phase (fraction of line scan period)")
+    dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain (fraction of DMD scan period)")
 
 
 class PolygonalScanner(Device):
