@@ -291,14 +291,14 @@ class MockEnum(Enum):
     VALUE2 = "value2"
 
 
-class NestedModel(BaseModel):
+class NestedModel(DataModel):
     """Nested model for testing"""
 
     name: str
     value: int
 
 
-class ComplexModel(BaseModel):
+class ComplexModel(DataModel):
     """Complex model for testing"""
 
     name: str
@@ -307,11 +307,25 @@ class ComplexModel(BaseModel):
     enum_field: MockEnum
 
 
-class ComplexParentModel(BaseModel):
+class ComplexParentModel(DataModel):
     """Multi-level model for testing"""
 
     name: str
     child: ComplexModel
+
+
+class NonDataModel(BaseModel):
+    """BaseModel (not DataModel) for testing that names are not extracted from non-DataModel objects"""
+
+    name: str
+    value: int
+
+
+class ModelWithNonDataModelChild(DataModel):
+    """DataModel containing a non-DataModel child"""
+
+    name: str
+    non_data_child: NonDataModel
 
 
 class TestRecursiveGetAllNames(unittest.TestCase):
@@ -379,6 +393,13 @@ class TestRecursiveGetAllNames(unittest.TestCase):
         parent_model = ComplexParentModel(name="parent_name", child=model)
         result = recursive_get_all_names(parent_model)
         self.assertEqual(result, ["parent_name", "complex_name", "nested_name"])
+
+    def test_non_data_model_child_ignored(self):
+        """Test that names from non-DataModel objects (without object_type) are not extracted"""
+        non_data_child = NonDataModel(name="should_be_ignored", value=42)
+        model = ModelWithNonDataModelChild(name="parent_name", non_data_child=non_data_child)
+        result = recursive_get_all_names(model)
+        self.assertEqual(result, ["parent_name"])
 
 
 class TestRecursiveCheckPaths(unittest.TestCase):

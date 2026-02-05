@@ -38,7 +38,13 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    remove_duplicates,
+    merge_coordinate_systems,
+    merge_str_alphabetical,
+)
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
@@ -474,16 +480,17 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        if any([subj_check, spec_check, inst_check, exp_type_check]):
+        if any([subj_check, spec_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
+
+        # Combine instrument_id
+        instrument_id = merge_str_alphabetical(self.instrument_id, other.instrument_id)
 
         details_check = self.subject_details and other.subject_details
         if details_check:
@@ -518,7 +525,7 @@ class Acquisition(DataCoreModel):
             experimenters=experimenters,
             protocol_id=protocol_id,
             ethics_review_id=ethics_review_id,
-            instrument_id=self.instrument_id,
+            instrument_id=instrument_id,
             calibrations=calibrations,
             coordinate_system=coordinate_system,
             maintenance=maintenance,
