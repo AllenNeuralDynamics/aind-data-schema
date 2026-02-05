@@ -491,7 +491,6 @@ class DigitalMicromirrorDevice(Device):
     """Description of a Digital Micromirror Device (DMD)"""
 
     max_dmd_patterns: int = Field(..., title="Max DMD patterns")
-    double_bounce_design: bool = Field(..., title="Double bounce design")
     invert_pixel_values: bool = Field(..., title="Invert pixel values")
     motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
     motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
@@ -499,7 +498,6 @@ class DigitalMicromirrorDevice(Device):
     pixel_size: Decimal = Field(..., title="DMD Pixel size")
     pixel_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Pixel size unit")
     start_phase: Decimal = Field(..., title="DMD Start phase (fraction of cycle)")
-    dmd_flip: bool = Field(..., title="DMD Flip")
     dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
     dmd_curtain_unit: SizeUnit = Field(default=SizeUnit.PX, title="dmd_curtain_unit")
     line_shear: List[int] = Field(..., title="Line shear (pixels)")
