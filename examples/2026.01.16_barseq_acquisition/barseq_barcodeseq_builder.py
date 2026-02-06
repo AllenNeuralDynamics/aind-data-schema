@@ -1,6 +1,6 @@
 """Builder for BARseq Barcode Sequencing acquisition metadata."""
 
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import List, Optional
 
 from aind_data_schema_models.modalities import Modality
@@ -82,8 +82,6 @@ def create_barcodeseq_acquisition(
     acquisition_start_time: datetime,
     acquisition_end_time: datetime,
     instrument_id: str = "Dogwood",
-    exposure_time: float = 37.5,  # Average from channel configs (20-60ms range)
-    exposure_time_unit: TimeUnit = TimeUnit.MS,
     protocol_id: Optional[List[str]] = None,
     notes: Optional[str] = None,
 ) -> Acquisition:
@@ -113,10 +111,6 @@ def create_barcodeseq_acquisition(
         End time of barcode sequencing acquisition
     instrument_id : str, optional
         Instrument ID (default: "Dogwood")
-    exposure_time : float, optional
-        Camera exposure time (default: 9999.0 as placeholder)
-    exposure_time_unit : TimeUnit, optional
-        Unit for exposure time (default: milliseconds)
     protocol_id : List[str], optional
         Protocol DOI(s)
     notes : str, optional
@@ -127,16 +121,8 @@ def create_barcodeseq_acquisition(
     Acquisition
         Barcode sequencing acquisition metadata object
     """
-    # Create detector configuration
-    detector = DetectorConfig(
-        device_name="Camera-1",
-        exposure_time=exposure_time,
-        exposure_time_unit=exposure_time_unit,
-        trigger_type=TriggerType.INTERNAL,
-    )
-
-    # Create barcode sequencing channels
-    channels = _create_barcode_sequencing_channels(detector)
+    # Create barcode sequencing channels (each with its own detector config)
+    channels = _create_barcode_sequencing_channels()
 
     # Create ImagingConfig with placeholder images
     imaging_config = ImagingConfig(
@@ -162,7 +148,7 @@ def create_barcodeseq_acquisition(
             "Camera-1",
             "XLIGHT Spinning Disk",
         ],
-        configurations=[imaging_config, detector],
+        configurations=[imaging_config],
         notes="Viral barcode sequencing (15 cycles) for neural projection tracing",
     )
 
@@ -192,24 +178,22 @@ def create_barcodeseq_acquisition(
     return acquisition
 
 
-def _create_barcode_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
+def _create_barcode_sequencing_channels() -> List[Channel]:
     """Create channels for barcode sequencing (G, T, A, C)."""
     channels = []
 
-    # Base names and descriptions
-    base_info = [
-        ("G", "Guanine"),
-        ("T", "Thymine"),
-        ("A", "Adenine"),
-        ("C", "Cytosine"),
-    ]
-
-    for base_code, base_name in base_info:
+    # Each channel gets its own detector config with the correct exposure time
+    for base_code in ["G", "T", "A", "C"]:
         config = BARCODE_CHANNEL_CONFIG[base_code]
+        detector = DetectorConfig(
+            device_name="Camera-1",
+            exposure_time=config["exposure_ms"],
+            exposure_time_unit=TimeUnit.MS,
+            trigger_type=TriggerType.INTERNAL,
+        )
         channels.append(
             Channel(
                 channel_name=f"BarcodeSeq_{base_code}",
-                intended_measurement=base_name,
                 light_sources=[
                     LaserConfig(
                         device_name=f"Lumencor Celesta {config['laser_wavelength_nm']}nm",

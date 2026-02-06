@@ -1,6 +1,6 @@
 """Builder for BARseq Hybridization acquisition metadata."""
 
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import List, Optional
 
 from aind_data_schema_models.modalities import Modality
@@ -16,43 +16,13 @@ Z_PLANES_PER_TILE = 10
 PIXEL_SIZE_UM = 0.33
 Z_STEP_UM = 1.5
 
-# Hybridization channel configuration (from MMConfig presets)
-# Available hyb channels - mapping to probes (XC2758/XC2759/XC2760/YS221) is unknown
-HYB_CHANNEL_CONFIGS = {
-    "Hyb-DAPI": {
-        "laser_wavelength_nm": 365,
-        "filter_name": "DAPI/GFP/TxRed-69401",
-        "exposure_ms": 30.0,
-    },
-    "Hyb-GFP": {
-        "laser_wavelength_nm": 488,
-        "filter_name": "DAPI/GFP/TxRed-69401",
-        "exposure_ms": 100.0,
-    },
-    "Hyb-YFP": {
-        "laser_wavelength_nm": 514,
-        "filter_name": "565/24",
-        "exposure_ms": 30.0,
-    },
-    "Hyb-TxRed": {
-        "laser_wavelength_nm": 561,
-        "filter_name": "DAPI/GFP/TxRed-69401",
-        "exposure_ms": 30.0,
-    },
-    "Hyb-Cy5": {
-        "laser_wavelength_nm": 640,
-        "filter_name": "532/640",
-        "exposure_ms": 20.0,
-    },
-}
-
-# PLACEHOLDER mapping - which probe uses which fluorophore/channel is unknown
-# Need to confirm with BARseq team
-PROBE_TO_CHANNEL_MAPPING = {
-    "XC2758": "PLACEHOLDER_HYB_CHANNEL_1",  # Could be GFP, YFP, TxRed, or Cy5
-    "XC2759": "PLACEHOLDER_HYB_CHANNEL_2",
-    "XC2760": "PLACEHOLDER_HYB_CHANNEL_3",
-    "YS221": "PLACEHOLDER_HYB_CHANNEL_4",
+# DAPI channel configuration (from MMConfig presets)
+# Note: Other fluorophore configs (GFP, YFP, TxRed, Cy5) will be needed once
+# probe-to-fluorophore mapping is determined
+DAPI_CONFIG = {
+    "laser_wavelength_nm": 365,
+    "filter_name": "DAPI/GFP/TxRed-69401",
+    "exposure_ms": 30.0,
 }
 
 from aind_data_schema.components.configs import (
@@ -96,8 +66,6 @@ def create_hyb_acquisition(
     acquisition_start_time: datetime,
     acquisition_end_time: datetime,
     instrument_id: str = "Dogwood",
-    exposure_time: float = 42.0,  # Average from hyb channel configs (20-100ms range)
-    exposure_time_unit: TimeUnit = TimeUnit.MS,
     protocol_id: Optional[List[str]] = None,
     notes: Optional[str] = None,
 ) -> Acquisition:
@@ -127,10 +95,6 @@ def create_hyb_acquisition(
         End time of hybridization acquisition
     instrument_id : str, optional
         Instrument ID (default: "Dogwood")
-    exposure_time : float, optional
-        Camera exposure time (default: 9999.0 as placeholder)
-    exposure_time_unit : TimeUnit, optional
-        Unit for exposure time (default: milliseconds)
     protocol_id : List[str], optional
         Protocol DOI(s)
     notes : str, optional
@@ -141,16 +105,8 @@ def create_hyb_acquisition(
     Acquisition
         Hybridization acquisition metadata object
     """
-    # Create detector configuration
-    detector = DetectorConfig(
-        device_name="Camera-1",
-        exposure_time=exposure_time,
-        exposure_time_unit=exposure_time_unit,
-        trigger_type=TriggerType.INTERNAL,
-    )
-
-    # Create hybridization channels
-    channels = _create_hybridization_channels(detector)
+    # Create hybridization channels (each with its own detector config)
+    channels = _create_hybridization_channels()
 
     # Create ImagingConfig with placeholder images
     imaging_config = ImagingConfig(
@@ -177,7 +133,7 @@ def create_hyb_acquisition(
             "Camera-1",
             "XLIGHT Spinning Disk",
         ],
-        configurations=[imaging_config, detector],
+        configurations=[imaging_config],
         notes="Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference",
     )
 
@@ -197,7 +153,7 @@ def create_hyb_acquisition(
         instrument_id=instrument_id,
         acquisition_start_time=acquisition_start_time,
         acquisition_end_time=acquisition_end_time,
-        acquisition_type="BarcodeSequencing",
+        acquisition_type="FluorescentInSituHybridization",
         protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
         coordinate_system=None,
         data_streams=[data_stream],
@@ -207,25 +163,26 @@ def create_hyb_acquisition(
     return acquisition
 
 
-def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
+def _create_hybridization_channels() -> List[Channel]:
     """Create channels for hybridization (4 probes + DAPI)."""
     channels = []
 
     # Hybridization probes - fluorophore mapping unknown, using placeholders
     # Available: GFP (488nm), YFP (514nm), TxRed (561nm), Cy5 (640nm)
-    probe_info = [
-        ("Hyb_XC2758", "Probe XC2758"),
-        ("Hyb_XC2759", "Probe XC2759"),
-        ("Hyb_XC2760", "Probe XC2760"),
-        ("Hyb_YS221", "Probe YS221"),
-    ]
+    probe_names = ["Hyb_XC2758", "Hyb_XC2759", "Hyb_XC2760", "Hyb_YS221"]
 
-    for channel_name, measurement in probe_info:
+    for channel_name in probe_names:
         # Using placeholders until probe-to-fluorophore mapping is known
+        # Placeholder exposure time - will be updated when mapping is known
+        detector = DetectorConfig(
+            device_name="Camera-1",
+            exposure_time=9999.0,  # PLACEHOLDER - actual exposure depends on fluorophore
+            exposure_time_unit=TimeUnit.MS,
+            trigger_type=TriggerType.INTERNAL,
+        )
         channels.append(
             Channel(
                 channel_name=channel_name,
-                intended_measurement=measurement,
                 light_sources=[
                     LaserConfig(
                         device_name="PLACEHOLDER_LASER_HYB",
@@ -241,11 +198,16 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
         )
 
     # DAPI channel - configuration is known
-    dapi_config = HYB_CHANNEL_CONFIGS["Hyb-DAPI"]
+    dapi_config = DAPI_CONFIG
+    dapi_detector = DetectorConfig(
+        device_name="Camera-1",
+        exposure_time=dapi_config["exposure_ms"],
+        exposure_time_unit=TimeUnit.MS,
+        trigger_type=TriggerType.INTERNAL,
+    )
     channels.append(
         Channel(
             channel_name="DAPI",
-            intended_measurement="Nuclear counterstain",
             light_sources=[
                 LaserConfig(
                     device_name=f"Lumencor Celesta {dapi_config['laser_wavelength_nm']}nm",
@@ -256,7 +218,7 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
             emission_filters=[
                 DeviceConfig(device_name=dapi_config["filter_name"]),
             ],
-            detector=detector,
+            detector=dapi_detector,
         )
     )
 

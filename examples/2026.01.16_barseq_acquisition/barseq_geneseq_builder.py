@@ -1,6 +1,6 @@
 """Builder for BARseq Gene Sequencing acquisition metadata."""
 
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import List, Optional
 
 from aind_data_schema_models.modalities import Modality
@@ -102,8 +102,6 @@ def create_geneseq_acquisition(
     acquisition_start_time: datetime,
     acquisition_end_time: datetime,
     instrument_id: str = "Dogwood",
-    exposure_time: float = 40.0,  # Average from channel configs (20-60ms range)
-    exposure_time_unit: TimeUnit = TimeUnit.MS,
     protocol_id: Optional[List[str]] = None,
     notes: Optional[str] = None,
 ) -> Acquisition:
@@ -132,10 +130,6 @@ def create_geneseq_acquisition(
         End time of gene sequencing acquisition
     instrument_id : str, optional
         Instrument ID (default: "Dogwood")
-    exposure_time : float, optional
-        Camera exposure time (default: 9999.0 as placeholder)
-    exposure_time_unit : TimeUnit, optional
-        Unit for exposure time (default: milliseconds)
     protocol_id : List[str], optional
         Protocol DOI(s)
     notes : str, optional
@@ -146,16 +140,8 @@ def create_geneseq_acquisition(
     Acquisition
         Gene sequencing acquisition metadata object
     """
-    # Create detector configuration
-    detector = DetectorConfig(
-        device_name="Camera-1",
-        exposure_time=exposure_time,
-        exposure_time_unit=exposure_time_unit,
-        trigger_type=TriggerType.INTERNAL,
-    )
-
-    # Create gene sequencing channels
-    channels = _create_gene_sequencing_channels(detector)
+    # Create gene sequencing channels (each with its own detector config)
+    channels = _create_gene_sequencing_channels()
 
     # Create ImagingConfig with placeholder images
     imaging_config = ImagingConfig(
@@ -182,7 +168,7 @@ def create_geneseq_acquisition(
             "Camera-1",
             "XLIGHT Spinning Disk",
         ],
-        configurations=[imaging_config, detector],
+        configurations=[imaging_config],
         notes="Gene barcode sequencing (7 cycles) using sequential base incorporation imaging",
     )
 
@@ -212,25 +198,22 @@ def create_geneseq_acquisition(
     return acquisition
 
 
-def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
+def _create_gene_sequencing_channels() -> List[Channel]:
     """Create channels for gene sequencing (G, T, A, C, DAPI)."""
     channels = []
 
-    # Base names and descriptions
-    base_info = [
-        ("G", "Guanine"),
-        ("T", "Thymine"),
-        ("A", "Adenine"),
-        ("C", "Cytosine"),
-    ]
-
-    # Bases G, T, A, C
-    for base_code, base_name in base_info:
+    # Bases G, T, A, C - each with its own detector config
+    for base_code in ["G", "T", "A", "C"]:
         config = GENE_CHANNEL_CONFIG[base_code]
+        detector = DetectorConfig(
+            device_name="Camera-1",
+            exposure_time=config["exposure_ms"],
+            exposure_time_unit=TimeUnit.MS,
+            trigger_type=TriggerType.INTERNAL,
+        )
         channels.append(
             Channel(
                 channel_name=f"GeneSeq_{base_code}",
-                intended_measurement=base_name,
                 light_sources=[
                     LaserConfig(
                         device_name=f"Lumencor Celesta {config['laser_wavelength_nm']}nm",
@@ -245,12 +228,17 @@ def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
             )
         )
 
-    # DAPI channel
+    # DAPI channel with its own detector config
     dapi_config = GENE_CHANNEL_CONFIG["DAPI"]
+    dapi_detector = DetectorConfig(
+        device_name="Camera-1",
+        exposure_time=dapi_config["exposure_ms"],
+        exposure_time_unit=TimeUnit.MS,
+        trigger_type=TriggerType.INTERNAL,
+    )
     channels.append(
         Channel(
             channel_name="DAPI",
-            intended_measurement="Nuclear counterstain",
             light_sources=[
                 LaserConfig(
                     device_name=f"Lumencor Celesta {dapi_config['laser_wavelength_nm']}nm",
@@ -261,7 +249,7 @@ def _create_gene_sequencing_channels(detector: DetectorConfig) -> List[Channel]:
             emission_filters=[
                 DeviceConfig(device_name=dapi_config["filter_name"]),
             ],
-            detector=detector,
+            detector=dapi_detector,
         )
     )
 
