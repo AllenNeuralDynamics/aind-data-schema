@@ -16,7 +16,7 @@
    "ethics_review_id": null,
    "instrument_id": "Dogwood",
    "acquisition_type": "BarcodeSequencing",
-   "notes": "BARseq gene sequencing for neural projection mapping from Locus Coeruleus. Imaged 51 × 20μm coronal sections (CCFv3 plates 99-112). BARseq experiment performed using automation template mounted on microscope. Automated microfluidics setup for reagent delivery.",
+   "notes": "BARseq gene sequencing for neural projection mapping from Locus Coeruleus. Imaged 51 x 20um coronal sections (CCFv3 plates 99-112). BARseq experiment performed using automation template mounted on microscope. Automated microfluidics setup for reagent delivery.",
    "coordinate_system": null,
    "calibrations": [],
    "maintenance": [],

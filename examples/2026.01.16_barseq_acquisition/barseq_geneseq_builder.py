@@ -117,7 +117,7 @@ def create_geneseq_acquisition(
     specimen_id : str
         Specimen ID for the brain section(s)
     num_sections : int
-        Number of 20μm sections imaged
+        Number of 20um sections imaged
     ccf_start_plate : int
         Starting CCFv3 plate number
     ccf_end_plate : int
@@ -175,7 +175,7 @@ def create_geneseq_acquisition(
     # Build acquisition notes
     acq_notes = (
         f"BARseq gene sequencing for neural projection mapping from Locus Coeruleus. "
-        f"Imaged {num_sections} × 20μm coronal sections (CCFv3 plates {ccf_start_plate}-{ccf_end_plate})."
+        f"Imaged {num_sections} x 20um coronal sections (CCFv3 plates {ccf_start_plate}-{ccf_end_plate})."
     )
     if notes:
         acq_notes += f" {notes}"
