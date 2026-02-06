@@ -29,12 +29,6 @@ def main():
     barcode_seq_start = datetime(2025, 6, 11, 14, 0, 0, tzinfo=timezone.utc)
     barcode_seq_end = datetime(2025, 6, 11, 18, 0, 0, tzinfo=timezone.utc)
 
-    # Additional notes
-    notes = (
-        "BARseq experiment performed using automation template mounted on microscope. "
-        "Automated microfluidics setup for reagent delivery."
-    )
-
     # Create barcode sequencing acquisition
     acquisition = create_barcodeseq_acquisition(
         subject_id=subject_id,
@@ -45,7 +39,6 @@ def main():
         experimenters=experimenters,
         acquisition_start_time=barcode_seq_start,
         acquisition_end_time=barcode_seq_end,
-        notes=notes,
     )
 
     # Validate and write to file

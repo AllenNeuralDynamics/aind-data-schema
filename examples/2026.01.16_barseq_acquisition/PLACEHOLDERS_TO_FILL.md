@@ -23,9 +23,10 @@ This document lists all the missing information needed to complete the BARseq ac
 - Placeholder laser/filter device names from active_devices lists
 
 **Priority remaining items:**
-1. File paths to max projection files (to extract acquisition times and fill file_name fields)
-2. Probe-to-fluorophore mapping for hybridization channels (affects 8 placeholders)
-3. Personnel information (experimenters, specimen IDs)
+1. **Tile layout and image files (MAJOR GAP):** Current JSONs have ~14 placeholder ImageSPIM objects (one per channel), but reality needs hundreds to thousands (one per tile per channel) with proper positions and file paths
+2. File paths to max projection files (to extract acquisition times and fill file_name fields)
+3. Probe-to-fluorophore mapping for hybridization channels (affects 8 placeholders)
+4. Personnel information (experimenters, specimen IDs)
 
 ---
 
@@ -85,24 +86,43 @@ For each brain section that was imaged:
 
 ---
 
-## 4. File Paths for Raw Image Data - CRITICAL
+## 4. Tile Layout and Image Files - CRITICAL
 
-**Need file paths or directory structure to:**
-1. Extract actual acquisition start/end times from file metadata or timestamps
-2. Fill in `file_name` fields in ImageSPIM objects
+### IMPORTANT: Current ImageSPIM structure is oversimplified
 
-**Questions for BARseq team:**
-- Where are the max projection files stored for each acquisition phase (gene/barcode/hyb)?
-- What is the file naming convention?
-- File format: _______ (e.g., .tif, .ims, .nd2, etc.)
+**Current state:** Each JSON file has one ImageSPIM object per channel as a placeholder:
+- Gene sequencing: 5 ImageSPIM objects (G, T, A, C, DAPI channels)
+- Barcode sequencing: 4 ImageSPIM objects (G, T, A, C channels)
+- Hybridization: 5 ImageSPIM objects (4 probes + DAPI)
 
-**Current placeholder:** `"PLACEHOLDER_raw_data_path"` in all ImageSPIM objects
+**Reality:** BARseq uses tiled imaging with 24% overlap. Each acquisition likely has:
+- 51 sections × multiple tiles per section × channels = hundreds to thousands of tiles total
+- Each tile needs its own ImageSPIM object with:
+  - Unique file path (`file_name`)
+  - Unique spatial position (`Translation` in `image_to_acquisition_transform`)
+  - Tile dimensions (3200 × 3200 × 10 pixels per tile)
 
-**This affects:**
-- Gene sequencing: 5 file paths
-- Barcode sequencing: 4 file paths
-- Hybridization: 5 file paths
-- **Total: 14 placeholders**
+**What's needed from BARseq team:**
+1. **Tile layout information:**
+   - How many tiles per section?
+   - Tile grid dimensions (e.g., 5×5 grid per section?)
+   - Tile positions in microns (X, Y offsets)
+   - Section Z-positions
+
+2. **File paths and naming:**
+   - Where are the max projection files (or raw tile images) stored?
+   - File naming convention (how to identify: section, tile position, channel, cycle)
+   - File format (e.g., .tif, .ims, .nd2)
+
+3. **Timing information:**
+   - File timestamps to extract acquisition start/end times
+
+**Current placeholders:**
+- All tile positions: `Translation([0, 0, 0])` - needs real X,Y,Z positions
+- All file paths: `"PLACEHOLDER_raw_data_path"`
+- All `image_start_time` and `image_end_time`: `null`
+
+**Impact:** This is a major gap. The current JSON files have ~14 placeholder ImageSPIM objects, but the real acquisitions need hundreds to thousands of properly positioned ImageSPIM objects with correct file paths.
 
 ---
 

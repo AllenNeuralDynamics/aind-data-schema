@@ -29,12 +29,6 @@ def main():
     hyb_start = datetime(2025, 6, 11, 18, 0, 0, tzinfo=timezone.utc)
     hyb_end = datetime(2025, 6, 11, 19, 0, 0, tzinfo=timezone.utc)
 
-    # Additional notes
-    notes = (
-        "BARseq experiment performed using automation template mounted on microscope. "
-        "Automated microfluidics setup for reagent delivery."
-    )
-
     # Create hybridization acquisition
     acquisition = create_hyb_acquisition(
         subject_id=subject_id,
@@ -45,7 +39,6 @@ def main():
         experimenters=experimenters,
         acquisition_start_time=hyb_start,
         acquisition_end_time=hyb_end,
-        notes=notes,
     )
 
     # Validate and write to file

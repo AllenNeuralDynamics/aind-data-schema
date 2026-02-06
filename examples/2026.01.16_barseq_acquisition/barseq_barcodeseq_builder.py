@@ -152,11 +152,8 @@ def create_barcodeseq_acquisition(
         notes="Viral barcode sequencing (15 cycles) for neural projection tracing",
     )
 
-    # Build acquisition notes
-    acq_notes = (
-        f"BARseq viral barcode sequencing for neural projection mapping from Locus Coeruleus. "
-        f"Imaged {num_sections} x 20um coronal sections (CCFv3 plates {ccf_start_plate}-{ccf_end_plate})."
-    )
+    # Build acquisition notes - single succinct sentence
+    acq_notes = "BARseq viral barcode sequencing for neural projection mapping from Locus Coeruleus."
     if notes:
         acq_notes += f" {notes}"
 
@@ -170,7 +167,7 @@ def create_barcodeseq_acquisition(
         acquisition_end_time=acquisition_end_time,
         acquisition_type="BarcodeSequencing",
         protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
-        coordinate_system=None,
+        coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         data_streams=[data_stream],
         notes=acq_notes,
     )
@@ -183,6 +180,8 @@ def _create_barcode_sequencing_channels() -> List[Channel]:
     channels = []
 
     # Each channel gets its own detector config with the correct exposure time
+    base_names = {"G": "Guanine", "T": "Thymine", "A": "Adenine", "C": "Cytosine"}
+
     for base_code in ["G", "T", "A", "C"]:
         config = BARCODE_CHANNEL_CONFIG[base_code]
         detector = DetectorConfig(
@@ -194,6 +193,7 @@ def _create_barcode_sequencing_channels() -> List[Channel]:
         channels.append(
             Channel(
                 channel_name=f"BarcodeSeq_{base_code}",
+                intended_measurement=base_names[base_code],
                 light_sources=[
                     LaserConfig(
                         device_name=f"Lumencor Celesta {config['laser_wavelength_nm']}nm",

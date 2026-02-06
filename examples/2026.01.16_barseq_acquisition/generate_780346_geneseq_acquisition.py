@@ -29,12 +29,6 @@ def main():
     gene_seq_start = datetime(2025, 6, 11, 12, 0, 0, tzinfo=timezone.utc)
     gene_seq_end = datetime(2025, 6, 11, 14, 0, 0, tzinfo=timezone.utc)
 
-    # Additional notes from notebook
-    notes = (
-        "BARseq experiment performed using automation template mounted on microscope. "
-        "Automated microfluidics setup for reagent delivery."
-    )
-
     # Create gene sequencing acquisition
     acquisition = create_geneseq_acquisition(
         subject_id=subject_id,
@@ -45,7 +39,6 @@ def main():
         experimenters=experimenters,
         acquisition_start_time=gene_seq_start,
         acquisition_end_time=gene_seq_end,
-        notes=notes,
     )
 
     # Validate and write to file

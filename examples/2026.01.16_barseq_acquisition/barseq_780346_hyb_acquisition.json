@@ -16,8 +16,30 @@
    "ethics_review_id": null,
    "instrument_id": "Dogwood",
    "acquisition_type": "FluorescentInSituHybridization",
-   "notes": "BARseq hybridization for anatomical reference and cell identification. Imaged 51 x 20um coronal sections (CCFv3 plates 99-112). BARseq experiment performed using automation template mounted on microscope. Automated microfluidics setup for reagent delivery.",
-   "coordinate_system": null,
+   "notes": "BARseq hybridization for anatomical reference and cell identification.",
+   "coordinate_system": {
+      "object_type": "Coordinate system",
+      "name": "SPIM_RPI",
+      "origin": "Origin",
+      "axes": [
+         {
+            "object_type": "Axis",
+            "name": "X",
+            "direction": "Left_to_right"
+         },
+         {
+            "object_type": "Axis",
+            "name": "Y",
+            "direction": "Anterior_to_posterior"
+         },
+         {
+            "object_type": "Axis",
+            "name": "Z",
+            "direction": "Superior_to_inferior"
+         }
+      ],
+      "axis_unit": "millimeter"
+   },
    "calibrations": [],
    "maintenance": [],
    "data_streams": [
@@ -47,7 +69,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_XC2758",
-                     "intended_measurement": null,
+                     "intended_measurement": "Probe XC2758",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -82,7 +104,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_XC2759",
-                     "intended_measurement": null,
+                     "intended_measurement": "Probe XC2759",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -117,7 +139,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_XC2760",
-                     "intended_measurement": null,
+                     "intended_measurement": "Probe XC2760",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -152,7 +174,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "Hyb_YS221",
-                     "intended_measurement": null,
+                     "intended_measurement": "Probe YS221",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
@@ -187,7 +209,7 @@
                   {
                      "object_type": "Channel",
                      "channel_name": "DAPI",
-                     "intended_measurement": null,
+                     "intended_measurement": "DAPI counterstain",
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",

@@ -137,11 +137,8 @@ def create_hyb_acquisition(
         notes="Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference",
     )
 
-    # Build acquisition notes
-    acq_notes = (
-        f"BARseq hybridization for anatomical reference and cell identification. "
-        f"Imaged {num_sections} x 20um coronal sections (CCFv3 plates {ccf_start_plate}-{ccf_end_plate})."
-    )
+    # Build acquisition notes - single succinct sentence
+    acq_notes = "BARseq hybridization for anatomical reference and cell identification."
     if notes:
         acq_notes += f" {notes}"
 
@@ -155,7 +152,7 @@ def create_hyb_acquisition(
         acquisition_end_time=acquisition_end_time,
         acquisition_type="FluorescentInSituHybridization",
         protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
-        coordinate_system=None,
+        coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         data_streams=[data_stream],
         notes=acq_notes,
     )
@@ -169,9 +166,14 @@ def _create_hybridization_channels() -> List[Channel]:
 
     # Hybridization probes - fluorophore mapping unknown, using placeholders
     # Available: GFP (488nm), YFP (514nm), TxRed (561nm), Cy5 (640nm)
-    probe_names = ["Hyb_XC2758", "Hyb_XC2759", "Hyb_XC2760", "Hyb_YS221"]
+    probe_measurements = {
+        "Hyb_XC2758": "Probe XC2758",
+        "Hyb_XC2759": "Probe XC2759",
+        "Hyb_XC2760": "Probe XC2760",
+        "Hyb_YS221": "Probe YS221",
+    }
 
-    for channel_name in probe_names:
+    for channel_name, measurement in probe_measurements.items():
         # Using placeholders until probe-to-fluorophore mapping is known
         # Placeholder exposure time - will be updated when mapping is known
         detector = DetectorConfig(
@@ -183,6 +185,7 @@ def _create_hybridization_channels() -> List[Channel]:
         channels.append(
             Channel(
                 channel_name=channel_name,
+                intended_measurement=measurement,
                 light_sources=[
                     LaserConfig(
                         device_name="PLACEHOLDER_LASER_HYB",
@@ -208,6 +211,7 @@ def _create_hybridization_channels() -> List[Channel]:
     channels.append(
         Channel(
             channel_name="DAPI",
+            intended_measurement="DAPI counterstain",
             light_sources=[
                 LaserConfig(
                     device_name=f"Lumencor Celesta {dapi_config['laser_wavelength_nm']}nm",

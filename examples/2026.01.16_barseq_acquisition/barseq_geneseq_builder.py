@@ -172,11 +172,8 @@ def create_geneseq_acquisition(
         notes="Gene barcode sequencing (7 cycles) using sequential base incorporation imaging",
     )
 
-    # Build acquisition notes
-    acq_notes = (
-        f"BARseq gene sequencing for neural projection mapping from Locus Coeruleus. "
-        f"Imaged {num_sections} x 20um coronal sections (CCFv3 plates {ccf_start_plate}-{ccf_end_plate})."
-    )
+    # Build acquisition notes - single succinct sentence
+    acq_notes = "BARseq gene sequencing for neural projection mapping from Locus Coeruleus."
     if notes:
         acq_notes += f" {notes}"
 
@@ -190,7 +187,7 @@ def create_geneseq_acquisition(
         acquisition_end_time=acquisition_end_time,
         acquisition_type="BarcodeSequencing",
         protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
-        coordinate_system=None,  # CCFv3 noted in acquisition notes
+        coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         data_streams=[data_stream],
         notes=acq_notes,
     )
@@ -203,6 +200,8 @@ def _create_gene_sequencing_channels() -> List[Channel]:
     channels = []
 
     # Bases G, T, A, C - each with its own detector config
+    base_names = {"G": "Guanine", "T": "Thymine", "A": "Adenine", "C": "Cytosine"}
+
     for base_code in ["G", "T", "A", "C"]:
         config = GENE_CHANNEL_CONFIG[base_code]
         detector = DetectorConfig(
@@ -214,6 +213,7 @@ def _create_gene_sequencing_channels() -> List[Channel]:
         channels.append(
             Channel(
                 channel_name=f"GeneSeq_{base_code}",
+                intended_measurement=base_names[base_code],
                 light_sources=[
                     LaserConfig(
                         device_name=f"Lumencor Celesta {config['laser_wavelength_nm']}nm",
@@ -239,6 +239,7 @@ def _create_gene_sequencing_channels() -> List[Channel]:
     channels.append(
         Channel(
             channel_name="DAPI",
+            intended_measurement="DAPI counterstain",
             light_sources=[
                 LaserConfig(
                     device_name=f"Lumencor Celesta {dapi_config['laser_wavelength_nm']}nm",
