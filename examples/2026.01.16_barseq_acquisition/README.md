@@ -25,9 +25,9 @@ These 3 raw assets are later processed together to create a single derived asset
 - `generate_780346_hyb_acquisition.py` - Generates hybridization acquisition
 
 **Generated acquisition JSON files:**
-- `barseq_780346_geneseq_acquisition.json` - Gene sequencing (18 placeholders)
-- `barseq_780346_barcodeseq_acquisition.json` - Barcode sequencing (15 placeholders)
-- `barseq_780346_hyb_acquisition.json` - Hybridization (24 placeholders)
+- `barseq_780346_geneseq_acquisition.json` - Gene sequencing (8 placeholders)
+- `barseq_780346_barcodeseq_acquisition.json` - Barcode sequencing (7 placeholders)
+- `barseq_780346_hyb_acquisition.json` - Hybridization (16 placeholders)
 
 **Documentation:**
 - `PLACEHOLDERS_TO_FILL.md` - Detailed list of remaining placeholders
@@ -63,18 +63,21 @@ The scripts automatically validate the generated JSON against the aind-data-sche
 
 ## Placeholders Remaining
 
-**Total: 57 placeholders across all 3 files**
-- Gene sequencing: 18
-- Barcode sequencing: 15
-- Hybridization: 24
+**Total: 31 placeholders across all 3 files** (reduced from 57 by removing optional/questionable fields)
+- Gene sequencing: 8
+- Barcode sequencing: 7
+- Hybridization: 16
+
+### What We Removed:
+- Laser power values (not available from config files)
+- Peak emission wavelengths (only filter ranges available)
+- Placeholder laser/filter device names from active_devices lists
 
 ### Priority Items:
 
-1. **File paths** (CRITICAL): Need paths to max projection files to extract acquisition timestamps
-2. **Hybridization probe mapping** (CRITICAL): Which probe (XC2758/XC2759/XC2760/YS221) uses which fluorophore (GFP/YFP/TxRed/Cy5)?
-3. **Laser powers**: Actual mW values used during acquisition (not available in instrument config)
-4. **Peak emission wavelengths**: For each channel (filter ranges are known, but not peaks)
-5. **Personnel**: Experimenter names and specimen IDs
+1. **File paths** (CRITICAL): Need paths to max projection files to extract acquisition timestamps and fill file_name fields (14 total)
+2. **Hybridization probe mapping** (CRITICAL): Which probe (XC2758/XC2759/XC2760/YS221) uses which fluorophore (GFP/YFP/TxRed/Cy5)? (8 placeholders: 4 lasers + 4 filters)
+3. **Personnel**: Experimenter names and specimen IDs (9 placeholders: 3 per file)
 
 See `PLACEHOLDERS_TO_FILL.md` for complete details.
 

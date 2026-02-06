@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from typing import List, Optional
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import PowerUnit, SizeUnit, TimeUnit
+from aind_data_schema_models.units import SizeUnit, TimeUnit
 
 # Hardware configuration from MMConfig_Ti2E-xc2.1.txt and dogwood.json
 # Tile dimensions (pixels)
@@ -161,14 +161,6 @@ def create_barcodeseq_acquisition(
             "20x Objective",
             "Camera-1",
             "XLIGHT Spinning Disk",
-            "PLACEHOLDER_LASER_G",
-            "PLACEHOLDER_LASER_T",
-            "PLACEHOLDER_LASER_A",
-            "PLACEHOLDER_LASER_C",
-            "PLACEHOLDER_FILTER_G",
-            "PLACEHOLDER_FILTER_T",
-            "PLACEHOLDER_FILTER_A",
-            "PLACEHOLDER_FILTER_C",
         ],
         configurations=[imaging_config, detector],
         notes="Viral barcode sequencing (15 cycles) for neural projection tracing",
@@ -223,16 +215,12 @@ def _create_barcode_sequencing_channels(detector: DetectorConfig) -> List[Channe
                         device_name=f"Lumencor Celesta {config['laser_wavelength_nm']}nm",
                         wavelength=config["laser_wavelength_nm"],
                         wavelength_unit=SizeUnit.NM,
-                        power=9999.0,  # PLACEHOLDER - actual power not in config files
-                        power_unit=PowerUnit.MW,
                     ),
                 ],
                 emission_filters=[
                     DeviceConfig(device_name=config["filter_name"]),
                 ],
                 detector=detector,
-                emission_wavelength=9999,  # PLACEHOLDER - peak emission not specified
-                emission_wavelength_unit=SizeUnit.NM,
             )
         )
 

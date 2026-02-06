@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from typing import List, Optional
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import PowerUnit, SizeUnit, TimeUnit
+from aind_data_schema_models.units import SizeUnit, TimeUnit
 
 # Hardware configuration from MMConfig_Ti2E-xc2.1.txt and dogwood.json
 # Tile dimensions (pixels)
@@ -176,16 +176,6 @@ def create_hyb_acquisition(
             "20x Objective",
             "Camera-1",
             "XLIGHT Spinning Disk",
-            "PLACEHOLDER_LASER_HYB",  # 4 probes - mapping unknown
-            "PLACEHOLDER_LASER_HYB",
-            "PLACEHOLDER_LASER_HYB",
-            "PLACEHOLDER_LASER_HYB",
-            "Lumencor Celesta 365nm",  # DAPI
-            "PLACEHOLDER_FILTER_HYB",  # 4 probes - mapping unknown
-            "PLACEHOLDER_FILTER_HYB",
-            "PLACEHOLDER_FILTER_HYB",
-            "PLACEHOLDER_FILTER_HYB",
-            "DAPI/GFP/TxRed-69401",  # DAPI
         ],
         configurations=[imaging_config, detector],
         notes="Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference",
@@ -241,16 +231,12 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
                         device_name="PLACEHOLDER_LASER_HYB",
                         wavelength=9999,  # Could be 488, 514, 561, or 640nm
                         wavelength_unit=SizeUnit.NM,
-                        power=9999.0,  # PLACEHOLDER - actual power not in config files
-                        power_unit=PowerUnit.MW,
                     ),
                 ],
                 emission_filters=[
                     DeviceConfig(device_name="PLACEHOLDER_FILTER_HYB"),
                 ],
                 detector=detector,
-                emission_wavelength=9999,  # PLACEHOLDER - peak emission not specified
-                emission_wavelength_unit=SizeUnit.NM,
             )
         )
 
@@ -265,16 +251,12 @@ def _create_hybridization_channels(detector: DetectorConfig) -> List[Channel]:
                     device_name=f"Lumencor Celesta {dapi_config['laser_wavelength_nm']}nm",
                     wavelength=dapi_config["laser_wavelength_nm"],
                     wavelength_unit=SizeUnit.NM,
-                    power=9999.0,  # PLACEHOLDER - actual power not in config files
-                    power_unit=PowerUnit.MW,
                 ),
             ],
             emission_filters=[
                 DeviceConfig(device_name=dapi_config["filter_name"]),
             ],
             detector=detector,
-            emission_wavelength=9999,  # PLACEHOLDER - peak emission not specified
-            emission_wavelength_unit=SizeUnit.NM,
         )
     )
 
