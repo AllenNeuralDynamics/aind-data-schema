@@ -103,7 +103,7 @@ class DeviceConfig(DataModel):
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
-    exposure_time: float = Field(..., title="Exposure time")
+    exposure_time: Optional[float] = Field(default=None, title="Exposure time")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
