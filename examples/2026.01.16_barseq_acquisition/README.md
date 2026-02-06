@@ -4,117 +4,116 @@ This directory contains scripts to generate acquisition metadata JSON files for 
 
 ## Overview
 
-BARseq (Barcoded Anatomy Resolved by Sequencing) is a technique for mapping neural projections using barcoded viral libraries and in situ sequencing. The acquisition process consists of three main phases:
+BARseq (Barcoded Anatomy Resolved by Sequencing) is a technique for mapping neural projections using barcoded viral libraries and in situ sequencing. Each BARseq experiment generates **3 separate raw data assets**, each requiring its own acquisition.json file:
 
 1. **Gene Sequencing (7 cycles):** Reads 7-base barcodes from a 109-gene codebook
 2. **Barcode Sequencing (15 cycles):** Reads 30-base Sindbis virus barcodes from HZ120 library
 3. **Hybridization (1 cycle):** Direct fluorescent probe visualization for anatomical reference
 
+These 3 raw assets are later processed together to create a single derived asset.
+
 ## Files
 
-- `barseq_acquisition_builder.py` - Main builder function with shared logic
-- `generate_780345_acquisition.py` - Generates acquisition for subject 780345 (2025-02-19)
-- `generate_780346_acquisition.py` - Generates acquisition for subject 780346 (2025-06-11)
-- `barseq_780345_acquisition.json` - Generated acquisition metadata for 780345
-- `barseq_780346_acquisition.json` - Generated acquisition metadata for 780346
-- `PLACEHOLDERS_TO_FILL.md` - Detailed list of missing information
+**Builder modules:**
+- `barseq_geneseq_builder.py` - Gene sequencing acquisition builder
+- `barseq_barcodeseq_builder.py` - Barcode sequencing acquisition builder
+- `barseq_hyb_builder.py` - Hybridization acquisition builder
 
-## Generated Files
+**Generator scripts for subject 780346:**
+- `generate_780346_geneseq_acquisition.py` - Generates gene seq acquisition
+- `generate_780346_barcodeseq_acquisition.py` - Generates barcode seq acquisition
+- `generate_780346_hyb_acquisition.py` - Generates hybridization acquisition
 
-Each acquisition JSON contains:
-- 3 DataStreams (gene sequencing, barcode sequencing, hybridization)
-- 14 total channels across all streams
-- Complete protocol references
-- Placeholder values clearly marked with `PLACEHOLDER_` prefix
+**Generated acquisition JSON files:**
+- `barseq_780346_geneseq_acquisition.json` - Gene sequencing (18 placeholders)
+- `barseq_780346_barcodeseq_acquisition.json` - Barcode sequencing (15 placeholders)
+- `barseq_780346_hyb_acquisition.json` - Hybridization (24 placeholders)
+
+**Documentation:**
+- `PLACEHOLDERS_TO_FILL.md` - Detailed list of remaining placeholders
+- `README.md` - This file
 
 ## Usage
 
 ### Generating Acquisition Files
 
 ```bash
-# Generate acquisition for subject 780345
-python generate_780345_acquisition.py
-
-# Generate acquisition for subject 780346
-python generate_780346_acquisition.py
+# Using uv (recommended)
+uv run python generate_780346_geneseq_acquisition.py
+uv run python generate_780346_barcodeseq_acquisition.py
+uv run python generate_780346_hyb_acquisition.py
 ```
 
 ### Validating Generated Files
 
 The scripts automatically validate the generated JSON against the aind-data-schema. You'll see:
-- ✓ Success message if validation passes
-- Summary of data streams and channels
-- Count of placeholder values that need to be filled in
+- Success message if validation passes
+- Summary of channels and active devices
+- Count of remaining placeholder values
 
-## Placeholders
+## What's Filled In
 
-Each generated JSON contains **59 placeholder values** that need to be replaced with actual experimental data. These are clearly marked with the `PLACEHOLDER_` prefix and fall into these categories:
+**From instrument config files (MMConfig_Ti2E-xc2.1.txt and dogwood.json):**
+- Tile dimensions: 3200 × 3200 pixels, 10 z-planes
+- Pixel size: 0.33 μm
+- Z-step: 1.5 μm
+- Laser wavelengths for gene/barcode bases (514, 561, 640 nm) and DAPI (365 nm)
+- Emission filter names for all gene/barcode channels
+- Exposure time estimates from presets
 
-1. **Personnel:**
-   - Experimenter names
+## Placeholders Remaining
 
-2. **Specimen:**
-   - Specimen IDs for brain sections
+**Total: 57 placeholders across all 3 files**
+- Gene sequencing: 18
+- Barcode sequencing: 15
+- Hybridization: 24
 
-3. **Hardware Configuration:**
-   - Laser device names (which specific Lumencor lasers for each base)
-   - Laser wavelengths
-   - Laser power settings
-   - Emission filter device names
-   - Emission wavelengths
+### Priority Items:
 
-4. **Acquisition Settings:**
-   - Camera exposure times
-   - Exact start/end times for each sequencing phase
+1. **File paths** (CRITICAL): Need paths to max projection files to extract acquisition timestamps
+2. **Hybridization probe mapping** (CRITICAL): Which probe (XC2758/XC2759/XC2760/YS221) uses which fluorophore (GFP/YFP/TxRed/Cy5)?
+3. **Laser powers**: Actual mW values used during acquisition (not available in instrument config)
+4. **Peak emission wavelengths**: For each channel (filter ranges are known, but not peaks)
+5. **Personnel**: Experimenter names and specimen IDs
 
-See `PLACEHOLDERS_TO_FILL.md` for a complete list of questions to answer.
+See `PLACEHOLDERS_TO_FILL.md` for complete details.
 
 ## File Structure
 
-```json
-{
-  "schema_version": "2.2.3",
-  "subject_id": "780345",
-  "specimen_id": "PLACEHOLDER_SPECIMEN_ID_780345",
-  "experimenters": ["PLACEHOLDER_EXPERIMENTER_1", ...],
-  "acquisition_type": "BarcodeSequencing",
-  "instrument_id": "Dogwood",
-  "data_streams": [
-    {
-      "stream_start_time": "2025-02-19T12:00:00+00:00",
-      "stream_end_time": "2025-02-19T14:00:00+00:00",
-      "modalities": ["BARSEQ"],
-      "configurations": [
-        {
-          "device_name": "Ti2-E__0",
-          "channels": [
-            {
-              "channel_name": "Gene_G",
-              "intended_measurement": "Gene sequencing - base G",
-              "light_sources": [...],
-              "emission_filters": [...],
-              "detector": {...}
-            },
-            ...
-          ]
-        }
-      ]
-    },
-    ...
-  ]
-}
-```
+Each acquisition JSON represents a single raw data asset:
+
+**Gene Sequencing:**
+- 1 DataStream with 5 channels (GeneSeq_G/T/A/C, DAPI)
+- 5 ImageSPIM placeholders (one per channel)
+- Tile dimensions: 3200×3200×10 pixels
+
+**Barcode Sequencing:**
+- 1 DataStream with 4 channels (BarcodeSeq_G/T/A/C)
+- 4 ImageSPIM placeholders
+- Same tile dimensions
+
+**Hybridization:**
+- 1 DataStream with 5 channels (Hyb_XC2758/XC2759/XC2760/YS221, DAPI)
+- 5 ImageSPIM placeholders
+- Same tile dimensions
 
 ## Next Steps
 
-1. **For Schema Review:** The JSON files can be reviewed for format/structure correctness independently of scientific details
-2. **For Scientific Review:** Use `PLACEHOLDERS_TO_FILL.md` to gather missing experimental parameters
-3. **After Filling Placeholders:** Re-run the generator scripts with actual values to create final metadata files
+1. **Obtain file paths** to max projection files for each acquisition phase to extract actual timestamps
+2. **Determine probe-to-fluorophore mapping** for hybridization channels (XC2758/XC2759/XC2760/YS221)
+3. **Gather remaining parameters** using `PLACEHOLDERS_TO_FILL.md` as a guide
+4. **Update generator scripts** with actual values and regenerate JSON files
 
 ## Dependencies
 
+This project uses `uv` for dependency management:
+
 ```bash
-pip install aind-data-schema
+# Install dependencies
+uv sync
+
+# Run generators
+uv run python generate_780346_geneseq_acquisition.py
 ```
 
 ## References

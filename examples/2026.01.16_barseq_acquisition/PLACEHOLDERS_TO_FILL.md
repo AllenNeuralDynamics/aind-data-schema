@@ -4,9 +4,24 @@ This document lists all the missing information needed to complete the BARseq ac
 
 ## Quick Summary
 
-- **Total placeholders:** 73 per acquisition file
-- **Categories:** 4 (Personnel, Specimen IDs, Hardware, Timing, Image/Tiling)
-- **Priority:** Hardware configuration mapping and tiling information are most critical
+**NOTE:** BARseq experiments now generate **3 separate acquisition files** (one per raw data asset):
+1. Gene sequencing (7 cycles) - 18 placeholders
+2. Barcode sequencing (15 cycles) - 15 placeholders
+3. Hybridization (1 cycle) - 24 placeholders
+
+**Total remaining placeholders:** 57 across all 3 files
+
+**What we now have from instrument config files:**
+- Tile dimensions: 3200 × 3200 pixels
+- Laser wavelengths for gene/barcode bases (G/T/A/C) and DAPI
+- Emission filter names for gene/barcode channels and DAPI
+- Exposure time estimates from instrument presets
+
+**Priority remaining items:**
+1. File paths to max projection files (to extract acquisition times)
+2. Probe-to-fluorophore mapping for hybridization channels
+3. Actual laser powers used during acquisition
+4. Personnel information
 
 ---
 
@@ -48,48 +63,25 @@ For each brain section that was imaged:
 
 This section requires input from someone familiar with the Dogwood microscope setup and the BARseq imaging protocol.
 
-### Question 3.1: Which lasers are used for each DNA base?
+### Question 3.1: Laser wavelengths for bases - FILLED
 
-In the Dogwood instrument, there are 7 Lumencor Celesta lasers available:
-- 365nm
-- 440nm
-- 488nm
-- 514nm
-- 561nm
-- 640nm
-- 730nm
+**Gene & Barcode Sequencing lasers (from MMConfig):**
+- Base G (Guanine): **514 nm**
+- Base T (Thymine): **561 nm**
+- Base A (Adenine): **640 nm**
+- Base C (Cytosine): **640 nm**
+- DAPI: **365 nm**
 
-**For Gene & Barcode Sequencing, which laser wavelength is used for each base?**
-- Base G (Guanine): _______ nm
-- Base T (Thymine): _______ nm
-- Base A (Adenine): _______ nm
-- Base C (Cytosine): _______ nm
-- DAPI: _______ nm (likely 365nm or 440nm)
+### Question 3.2: Emission filters for bases - FILLED
 
-**Current placeholder:** `9999` nm for all wavelengths
+**Gene & Barcode Sequencing filters (from MMConfig):**
+- Base G: **565/24**
+- Base T: **441/511/593/684/817**
+- Base A: **676/29**
+- Base C: **775/140**
+- DAPI: **DAPI/GFP/TxRed-69401**
 
-**Note:** Device names follow the pattern "Lumencor Celesta {wavelength}nm" and will be auto-generated from the wavelengths above.
-
-### Question 3.2: Which emission filters and wavelengths are used for each channel?
-
-The Dogwood instrument has 8 emission filters. For each base/dye, specify which filter is used:
-- Base G: Filter _______ (E1-E8), peak emission wavelength: _______ nm
-- Base T: Filter _______ (E1-E8), peak emission wavelength: _______ nm
-- Base A: Filter _______ (E1-E8), peak emission wavelength: _______ nm
-- Base C: Filter _______ (E1-E8), peak emission wavelength: _______ nm
-- DAPI: Filter _______ (E1-E8), peak emission wavelength: _______ nm (likely ~450-460nm)
-
-**Current placeholders:** Filter device names are `PLACEHOLDER_FILTER_*`, emission wavelengths are `9999` nm
-
-**Available filters from instrument:**
-- E1: FF01-441/511/593/684/817 (DAPI/GFP/Red/Cy5/Cy7)
-- E2: FF01-565/24 (YFP)
-- E3: FF01-585/11 (RFP)
-- E4: FF01-676/29 (FarRed)
-- E5: FF01-775/140 (RS Cy5)
-- E6: FF01-391/477/549/639/741-25 (YFP/Rs Cy5)
-- E7: 69401m (DAPI/GFP/TxRed)
-- E8: ZET532/640m (Alexa532/Cy5)
+**Still need:** Peak emission wavelengths for each channel (currently `9999` nm placeholders)
 
 ### Question 3.3: What are the laser power settings?
 
@@ -102,90 +94,92 @@ For each laser used during acquisition:
 
 **Current placeholder:** `9999.0` mW for all lasers
 
-### Question 3.4: Hybridization probes - which fluorophores?
+### Question 3.4: Hybridization probes - which fluorophores? CRITICAL
 
-For the hybridization cycle, which fluorophores are conjugated to each probe?
-- Probe XC2758: _______ (e.g., GFP, Alexa488, FITC, etc.)
-- Probe XC2759: _______ (e.g., Cy3, Texas Red, etc.)
-- Probe XC2760: _______ (e.g., Cy5, Alexa647, etc.)
-- Probe YS221: _______ 
+**Available fluorophore channels in MMConfig:**
+- GFP: 488nm laser, "DAPI/GFP/TxRed-69401" filter
+- YFP: 514nm laser, "565/24" filter
+- TxRed: 561nm laser, "DAPI/GFP/TxRed-69401" filter
+- Cy5: 640nm laser, "532/640" filter
 
-**Note:** Once fluorophores are identified, the corresponding laser wavelengths and emission filters can be determined from the microscope configuration.
+**Need to determine mapping:**
+- Probe XC2758: _______ (GFP, YFP, TxRed, or Cy5?)
+- Probe XC2759: _______ 
+- Probe XC2760: _______ 
+- Probe YS221: _______
+
+**Current status:** Using `PLACEHOLDER_LASER_HYB` and `PLACEHOLDER_FILTER_HYB` until mapping is known.
 
 ---
 
 ## 4. Camera Settings
 
-### Question 4.1: What was the camera exposure time?
+### Question 4.1: Exposure times - ESTIMATED FROM CONFIG
 
-Was the exposure time the same for all channels, or did it vary?
-- If same for all: _______ ms
-- If different, specify for each channel type:
-  - Gene sequencing channels: _______ ms
-  - Barcode sequencing channels: _______ ms
-  - Hybridization channels: _______ ms
-  - DAPI: _______ ms
+**Using values from MMConfig presets (may need adjustment):**
+- Gene/Barcode G: 60 ms
+- Gene/Barcode T: 30 ms
+- Gene/Barcode A: 20 ms
+- Gene/Barcode C: 40 ms
+- DAPI: 30 ms
 
-**Current placeholder:** `9999.0` ms
+**Note:** Detector exposure_time is set to the average (gene: 40ms, barcode: 37.5ms, hyb: 42ms). Individual channel exposure times vary as shown above.
 
 ---
 
-## 5. Image and Tiling Information (CRITICAL)
+## 5. Image and Tiling Information
 
-This section requires detailed information about the tiled imaging setup.
+### Question 5.1: Tile dimensions - FILLED
 
-### Question 5.1: What are the tile dimensions?
+**From dogwood.json and methods doc:**
+- Tile width: **3200 pixels**
+- Tile height: **3200 pixels**
+- Z-planes per tile: **10**
+- Pixel size: **0.33 μm**
+- Z-step: **1.5 μm**
+- Tile overlap: **23%**
 
-For each field of view (FOV) tile:
-- Tile width: _______ pixels
-- Tile height: _______ pixels
-
-**Current placeholder:** `9999` × `9999` pixels
-
-**Note:** The z-dimension (10 planes) and pixel size (0.33 μm) are already known from the methods document.
-
-### Question 5.2: What is the tiling layout?
+### Question 5.2: Tiling layout - STILL NEEDED
 
 - Total number of tiles per section: _______
 - Tiling pattern: _______ (e.g., 10×10 grid, serpentine pattern, etc.)
 - Are tile positions recorded in a metadata file? If yes, what format?
 
-### Question 5.3: What are the file paths for raw image data?
+### Question 5.3: File paths for raw image data - CRITICAL
 
-For each channel, what is the file naming convention and path?
-- Example format: _______
+**Need file paths or directory structure to:**
+1. Extract actual acquisition start/end times from file metadata or timestamps
+2. Fill in `file_name` fields in ImageSPIM objects
+
+**Questions for BARseq team:**
+- Where are the max projection files stored for each acquisition phase (gene/barcode/hyb)?
+- What is the file naming convention?
 - Are tiles saved as individual files or combined stacks?
 - File format: _______ (e.g., .tif, .ims, .nd2, etc.)
 
-**Current placeholder:** `"PLACEHOLDER_raw_data_path"`
+**Current placeholder:** `"PLACEHOLDER_raw_data_path"` in all ImageSPIM objects
 
-**Note:** There are 14 ImageSPIM objects per acquisition (5 for gene seq, 4 for barcode seq, 5 for hyb). Each currently uses a placeholder file path and tile dimensions. Once tile layout information is available, these single placeholder images should be replaced with one ImageSPIM object per actual tile, with accurate positions in the Translation transform.
+**Note:** Once tile layout information is available, the single placeholder ImageSPIM per channel should be replaced with one ImageSPIM object per actual tile, with accurate positions in the Translation transform.
 
 ---
 
-## 6. Acquisition Timing
+## 6. Acquisition Timing - CRITICAL
 
-### Question 6.1: What were the actual acquisition times?
+### Question 6.1: File paths needed to extract acquisition times
 
-For each experiment, what were the approximate start and end times for each phase?
+**To extract actual acquisition start/end times, we need:**
+- File paths or directory locations for max projection files (or raw image folders) for each phase
+- These files should have timestamps in filename, file metadata, or TIFF headers
 
-**Subject 780345 (February 19, 2025):**
-- Gene sequencing started: _______ (time in HH:MM format, e.g., 09:30)
-- Gene sequencing ended: _______
-- Barcode sequencing started: _______
-- Barcode sequencing ended: _______
-- Hybridization started: _______
-- Hybridization ended: _______
+**For Subject 780346 (June 11, 2025):**
+1. Gene sequencing max projection files: _______
+2. Barcode sequencing max projection files: _______
+3. Hybridization max projection files: _______
 
-**Subject 780346 (June 11, 2025):**
-- Gene sequencing started: _______
-- Gene sequencing ended: _______
-- Barcode sequencing started: _______
-- Barcode sequencing ended: _______
-- Hybridization started: _______
-- Hybridization ended: _______
+**Current placeholders in JSON files:**
+- Gene sequencing: 2025-06-11 12:00:00 - 14:00:00 UTC (2 hour estimate)
+- Barcode sequencing: 2025-06-11 14:00:00 - 18:00:00 UTC (4 hour estimate)
+- Hybridization: 2025-06-11 18:00:00 - 19:00:00 UTC (1 hour estimate)
 
-**Current placeholders:** Estimated 2-hour blocks starting at noon (clearly placeholder times)
-
-**Note:** If exact times are not recorded, approximate durations are acceptable. For example, "gene sequencing took approximately 3 hours starting around 10am".
+**Note:** Once file paths are provided, timestamps can be automatically extracted from file system metadata or TIFF headers.
 
