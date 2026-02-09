@@ -214,10 +214,11 @@ class Slap2Plane(Plane):
         ..., title="Superpixel image path", description="Relative path from metadata json to file"
     )
 
-    unique_dilations: List[int] = Field(..., title="Unique dilations")
-    dilation_image_path: AssetPath = Field(
-        ..., title="Dilation image path", description="Relative path from metadata json to file"
+    unique_y_dilations: List[int] = Field(..., title="Unique Y dilations")
+    y_dilation_image_path: AssetPath = Field(
+        ..., title="Y dilation image path", description="Relative path from metadata json to file"
     )
+    x_dilation: int = Field(..., title="X dilation")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
 
     unique_frame_rates: List[float] = Field(..., title="Unique frame rates")
