@@ -8,7 +8,6 @@ from typing import get_args
 import pydantic
 from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import SizeUnit, TimeUnit
 from pydantic import ValidationError
 
 from aind_data_schema.components.configs import (
@@ -21,7 +20,7 @@ from aind_data_schema.components.configs import (
     MRIScan,
     SampleChamberConfig,
 )
-from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Scale, Translation
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
 from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream, StimulusEpoch
 from aind_data_schema.components.connections import Connection
 from examples.ephys_acquisition import acquisition as ephys_acquisition
