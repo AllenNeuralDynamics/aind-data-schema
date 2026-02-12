@@ -527,7 +527,9 @@ class MRIScan(DeviceConfig):
 
     # Scan info
     pulse_sequence_type: PulseSequenceType = Field(..., title="Scan sequence", description="BIDS PulseSequenceType")
-    mr_acquisition_type: MRAcquisitionType = Field(..., title="MR acquisition type", description="BIDS MRAcquisitionType / DICOM Tag 0018,0023")
+    mr_acquisition_type: MRAcquisitionType = Field(
+        ..., title="MR acquisition type", description="BIDS MRAcquisitionType / DICOM Tag 0018,0023"
+    )
     resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
     resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
     additional_scan_parameters: Optional[GenericModel] = Field(default=None, title="Parameters")
@@ -537,7 +539,9 @@ class MRIScan(DeviceConfig):
     echo_time: Decimal = Field(..., title="Echo time (s)", description="BIDS EchoTime / DICOM Tag 0018,0081")
     echo_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Echo time unit")
     effective_echo_time: Optional[Decimal] = Field(default=None, title="Effective echo time")
-    repetition_time: Decimal = Field(..., title="Repetition time (s)", description="BIDS RepetitionTime / DICOM Tag 0018,0080")
+    repetition_time: Decimal = Field(
+        ..., title="Repetition time (s)", description="BIDS RepetitionTime / DICOM Tag 0018,0080"
+    )
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Repetition time unit")
 
     # fields required to get correct orientation
