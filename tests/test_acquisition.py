@@ -26,6 +26,7 @@ from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDet
 from aind_data_schema.components.connections import Connection
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.exaspim_acquisition import acq as exaspim_acquisition
+from examples.mri_acquisition import acquisition as mri_acquisition, scan1
 
 
 class AcquisitionTest(unittest.TestCase):
@@ -40,69 +41,17 @@ class AcquisitionTest(unittest.TestCase):
         acq = ephys_acquisition.model_copy()
         self.assertIsNotNone(Acquisition.model_validate_json(acq.model_dump_json()))
 
-        with self.assertRaises(ValidationError):
-            MRIScan(
-                pulse_sequence_type="Other",
-            )
+        self.assertIsNotNone(ephys_acquisition)
+        self.assertIsNotNone(exaspim_acquisition)
+        self.assertIsNotNone(mri_acquisition)
+
+        scan1_dict = scan1.model_dump()
 
         with self.assertRaises(ValidationError):
-            MRIScan(pulse_sequence_type="Other", notes="")
-
-        stream = DataStream(
-            stream_start_time="2024-03-12T16:27:55.584892Z",
-            stream_end_time="2024-03-12T16:27:55.584892Z",
-            active_devices=["Scanner 72"],
-            configurations=[
-                MRIScan(
-                    scan_index=1,
-                    mr_acquisition_type="3D Scan",
-                    pulse_sequence_type="RARE",
-                    rare_factor=4,
-                    primary_scan=True,
-                    affine_transform=[
-                        Affine(
-                            affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
-                        ),
-                        Translation(
-                            translation=[1, 1, 1],
-                        ),
-                    ],
-                    subject_position="Supine",
-                    resolution=Scale(
-                        scale=[0.5, 0.4375, 0.52],
-                    ),
-                    resolution_unit=SizeUnit.MM,
-                    echo_time=2.2,
-                    echo_time_unit=TimeUnit.MS,
-                    effective_echo_time=2.0,
-                    repetition_time=1.2,
-                    repetition_time_unit=TimeUnit.MS,
-                    additional_scan_parameters={"number_averages": 3},
-                    device_name="Scanner 72",
-                )
-            ],
-            modalities=[Modality.MRI],
-        )
-
-        mri = Acquisition(
-            experimenters=["Mam Moth"],
-            subject_id="123456",
-            acquisition_start_time=datetime.now(tz=timezone.utc),
-            acquisition_end_time=datetime.now(tz=timezone.utc),
-            protocol_id=["doi_path"],
-            ethics_review_id=["1234"],
-            acquisition_type="3D MRI Volume",
-            instrument_id="NA",
-            coordinate_system=CoordinateSystemLibrary.MRI_LPS,
-            subject_details=AcquisitionSubjectDetails(
-                animal_weight_prior=22.1,
-                animal_weight_post=21.9,
-                mouse_platform_name="NA",
-            ),
-            data_streams=[stream],
-        )
-
-        assert mri is not None
+            # Ensure that MRIScan validator is properly enforcing pulse_sequence_type notes requirements
+            scan1_dict["pulse_sequence_type"] = "Other"
+            scan1_dict["notes"] = ""
+            MRIScan.model_validate(scan1_dict)
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""

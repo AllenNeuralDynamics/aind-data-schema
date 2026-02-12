@@ -569,9 +569,8 @@ class MRIScan(DeviceConfig):
     def validate_non_setup(self):
         """Validate that non-setup scans have affine_transform and resolution fields"""
 
-        if self.primary_scan:
-            if not self.affine_transform or not self.resolution:
-                raise ValueError("Primary scan must have affine_transform and resolution fields")
+        if not self.setup and (not self.affine_transform or not self.resolution):
+            raise ValueError("Primary scan must have affine_transform and resolution fields")
 
         return self
 

@@ -15,11 +15,13 @@ from aind_data_schema.components.configs import (
     LaserConfig,
     LickSpoutConfig,
     Liquid,
+    MRAcquisitionType,
     MRIScan,
     PlanarImage,
     Plane,
     SamplingStrategy,
     Scale,
+    SubjectPosition,
     Valence,
 )
 from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibrary, Translation
@@ -28,19 +30,19 @@ from aind_data_schema.components.coordinates import Affine, CoordinateSystemLibr
 class TestMRIScan(unittest.TestCase):
     """Tests for the MRIScan class"""
 
-    def test_validate_primary_scan_success(self):
-        """Test validate_primary_scan method with valid primary scan data"""
+    def test_validate_non_setup_success(self):
+        """Test validate_non_setup method with valid primary scan data"""
         scan = MRIScan(
             device_name="MRI Scanner",
-            scan_index=1,
-            mr_acquisition_type="3D Scan",
-            primary_scan=True,
+            index=1,
+            mr_acquisition_type=MRAcquisitionType.SCAN_3D,
+            setup=False,
             pulse_sequence_type="RARE",
             echo_time=Decimal("10.0"),
             echo_time_unit=TimeUnit.MS,
             repetition_time=Decimal("2000.0"),
             repetition_time_unit=TimeUnit.MS,
-            subject_position="Prone",
+            subject_position=SubjectPosition.PRONE,
             additional_scan_parameters={},
             affine_transform=[
                 Affine(
@@ -57,17 +59,17 @@ class TestMRIScan(unittest.TestCase):
         )
         self.assertIsNotNone(scan)
 
-    def test_validate_primary_scan_failure(self):
-        """Test validate_primary_scan method with invalid primary scan data"""
+    def test_validate_non_setup_failure(self):
+        """Test validate_non_setup method with invalid primary scan data"""
         invalid_data = {
             "device_name": "MRI Scanner",
-            "scan_index": 1,
-            "mr_acquisition_type": "3D Scan",
-            "primary_scan": True,
+            "index": 1,
+            "mr_acquisition_type": MRAcquisitionType.SCAN_3D,
+            "setup": False,
             "pulse_sequence_type": "RARE",
             "echo_time": Decimal("10.0"),
             "repetition_time": Decimal("2000.0"),
-            "subject_position": "Prone",
+            "subject_position": SubjectPosition.PRONE,
             "additional_scan_parameters": {},
         }
         with self.assertRaises(ValidationError):
@@ -79,15 +81,15 @@ class TestMRIScan(unittest.TestCase):
         with self.assertRaises(ValidationError) as context:
             MRIScan(
                 device_name="MRI Scanner",
-                scan_index=1,
-                mr_acquisition_type="3D Scan",
-                primary_scan=True,
+                index=1,
+                mr_acquisition_type=MRAcquisitionType.SCAN_3D,
+                setup=False,
                 pulse_sequence_type="RARE",
                 echo_time=Decimal("10.0"),
                 echo_time_unit=TimeUnit.MS,
                 repetition_time=Decimal("2000.0"),
                 repetition_time_unit=TimeUnit.MS,
-                subject_position="Prone",
+                subject_position=SubjectPosition.PRONE,
                 additional_scan_parameters={},
                 resolution_unit=SizeUnit.MM,
             )
