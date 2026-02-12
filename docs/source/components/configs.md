@@ -247,9 +247,9 @@ Configuration of a 3D scan
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `scan_index` | `int` | Scan index  |
-| `scan_type` | [ScanType](#scantype) | Scan type  |
+| `mr_acquisition_type` | [ScanType](#scantype) | Scan type  |
 | `primary_scan` | `bool` | Primary scan (Indicates the primary scan used for downstream analysis) |
-| `scan_sequence_type` | [MriScanSequence](#mriscansequence) | Scan sequence  |
+| `pulse_sequence_type` | [MriScanSequence](#mriscansequence) | Scan sequence  |
 | `rare_factor` | `Optional[int]` | RARE factor  |
 | `echo_time` | `decimal.Decimal` | Echo time  |
 | `echo_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Echo time unit  |

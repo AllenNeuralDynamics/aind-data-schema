@@ -76,18 +76,20 @@ class TriggerType(str, Enum):
     EXTERNAL = "External"
 
 
-class MriScanSequence(str, Enum):
-    """MRI scan sequence"""
+class PulseSequenceType(str, Enum):
+    """MRI pulse sequence type"""
 
     RARE = "RARE"
+    FLASH = "FLASH"
+    MSME = "MSME"
     OTHER = "Other"
 
 
-class ScanType(str, Enum):
-    """Type of scan"""
+class MRAcquisitionType(str, Enum):
+    """MRI acquisition type"""
 
-    SETUP = "Set Up"
-    SCAN_3D = "3D Scan"
+    SCAN_2D = "2D"
+    SCAN_3D = "3D"
 
 
 class SubjectPosition(str, Enum):
@@ -519,18 +521,24 @@ class FiberAssemblyConfig(DeviceConfig):
 class MRIScan(DeviceConfig):
     """Configuration of a 3D scan"""
 
-    scan_index: int = Field(..., title="Scan index")
-    scan_type: ScanType = Field(..., title="Scan type")
-    primary_scan: bool = Field(
-        ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
-    )
-    scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
+    # Meta-metadata
+    index: int = Field(..., title="Index", description="Index of the scan in the session, starting at 1")
+    setup: bool = Field(..., title="Setup", description="Positioning, shim, and other pre-scan adjustments")
+
+    # Scan info
+    pulse_sequence_type: PulseSequenceType = Field(..., title="Scan sequence", description="BIDS PulseSequenceType")
+    mr_acquisition_type: MRAcquisitionType = Field(..., title="MR acquisition type", description="BIDS MRAcquisitionType / DICOM Tag 0018,0023")
+    resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
+    resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
+    additional_scan_parameters: Optional[GenericModel] = Field(default=None, title="Parameters")
+
+    # Pulse sequence properties
     rare_factor: Optional[int] = Field(default=None, title="RARE factor")
-    echo_time: Decimal = Field(..., title="Echo time")
-    echo_time_unit: TimeUnit = Field(..., title="Echo time unit")
+    echo_time: Decimal = Field(..., title="Echo time (s)", description="BIDS EchoTime / DICOM Tag 0018,0081")
+    echo_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Echo time unit")
     effective_echo_time: Optional[Decimal] = Field(default=None, title="Effective echo time")
-    repetition_time: Decimal = Field(..., title="Repetition time")
-    repetition_time_unit: TimeUnit = Field(..., title="Repetition time unit")
+    repetition_time: Decimal = Field(..., title="Repetition time (s)", description="BIDS RepetitionTime / DICOM Tag 0018,0080")
+    repetition_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Repetition time unit")
 
     # fields required to get correct orientation
     scan_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Scanner coordinate system")
@@ -540,19 +548,16 @@ class MRIScan(DeviceConfig):
     subject_position: SubjectPosition = Field(..., title="Subject position")
 
     # other fields
-    resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
-    resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
-    additional_scan_parameters: Optional[GenericModel] = Field(default=None, title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("scan_sequence_type") == MriScanSequence.OTHER and not value:
+        if info.data.get("pulse_sequence_type") == PulseSequenceType.OTHER and not value:
             raise ValueError(
-                "Notes cannot be empty if scan_sequence_type is Other."
-                " Describe the scan_sequence_type in the notes field."
+                "Notes cannot be empty if pulse_sequence_type is Other."
+                " Describe the pulse_sequence_type in the notes field."
             )
         return value
 

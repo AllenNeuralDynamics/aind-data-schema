@@ -42,11 +42,11 @@ class AcquisitionTest(unittest.TestCase):
 
         with self.assertRaises(ValidationError):
             MRIScan(
-                scan_sequence_type="Other",
+                pulse_sequence_type="Other",
             )
 
         with self.assertRaises(ValidationError):
-            MRIScan(scan_sequence_type="Other", notes="")
+            MRIScan(pulse_sequence_type="Other", notes="")
 
         stream = DataStream(
             stream_start_time="2024-03-12T16:27:55.584892Z",
@@ -55,8 +55,8 @@ class AcquisitionTest(unittest.TestCase):
             configurations=[
                 MRIScan(
                     scan_index=1,
-                    scan_type="3D Scan",
-                    scan_sequence_type="RARE",
+                    mr_acquisition_type="3D Scan",
+                    pulse_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
                     scan_affine_transform=[
