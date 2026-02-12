@@ -42,7 +42,7 @@ class TestMRIScan(unittest.TestCase):
             repetition_time_unit=TimeUnit.MS,
             subject_position="Prone",
             additional_scan_parameters={},
-            scan_affine_transform=[
+            affine_transform=[
                 Affine(
                     affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
                 ),
@@ -92,7 +92,7 @@ class TestMRIScan(unittest.TestCase):
                 resolution_unit=SizeUnit.MM,
             )
 
-        self.assertIn("Primary scan must have scan_affine_transform and resolution fields", str(context.exception))
+        self.assertIn("Primary scan must have affine_transform and resolution fields", str(context.exception))
 
 
 class TestLickSpoutConfig(unittest.TestCase):

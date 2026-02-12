@@ -545,8 +545,8 @@ class MRIScan(DeviceConfig):
     repetition_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Repetition time unit")
 
     # fields required to get correct orientation
-    scan_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Scanner coordinate system")
-    scan_affine_transform: Optional[TRANSFORM_TYPES] = Field(
+    scanner_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Scanner coordinate system")
+    affine_transform: Optional[TRANSFORM_TYPES] = Field(
         default=None, title="MRI Scan affine transform", description="NIFTI sform/qform, Bruker vc_transform, etc"
     )
     subject_position: SubjectPosition = Field(..., title="Subject position")
@@ -566,12 +566,12 @@ class MRIScan(DeviceConfig):
         return value
 
     @model_validator(mode="after")
-    def validate_primary_scan(self):
-        """Validate that primary scan has scan_affine_transform and resolution fields"""
+    def validate_non_setup(self):
+        """Validate that non-setup scans have affine_transform and resolution fields"""
 
         if self.primary_scan:
-            if not self.scan_affine_transform or not self.resolution:
-                raise ValueError("Primary scan must have scan_affine_transform and resolution fields")
+            if not self.affine_transform or not self.resolution:
+                raise ValueError("Primary scan must have affine_transform and resolution fields")
 
         return self
 

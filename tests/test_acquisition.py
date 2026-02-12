@@ -59,7 +59,7 @@ class AcquisitionTest(unittest.TestCase):
                     pulse_sequence_type="RARE",
                     rare_factor=4,
                     primary_scan=True,
-                    scan_affine_transform=[
+                    affine_transform=[
                         Affine(
                             affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
                         ),

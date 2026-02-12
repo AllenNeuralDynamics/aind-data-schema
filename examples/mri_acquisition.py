@@ -53,7 +53,7 @@ scan2 = MRIScan(
     effective_echo_time=Decimal("0.0106666666666666998253276688046753406524658203125"),
     repetition_time=Decimal("0.5"),
     repetition_time_unit=TimeUnit.S,
-    scan_affine_transform=[
+    affine_transform=[
         Affine(
             affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
         ),
