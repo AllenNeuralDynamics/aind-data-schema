@@ -46,13 +46,13 @@ File format: _______ (e.g., .tif, .ims, .nd2)
 These paths will be used to extract acquisition timestamps and complete the file_name fields for both subjects.
 
 ### Q2: Hybridization Probe Mapping
-Which probe uses which fluorophore?
-- Probe XC2758: _______ (GFP / YFP / TxRed / Cy5?)
-- Probe XC2759: _______ (GFP / YFP / TxRed / Cy5?)
-- Probe XC2760: _______ (GFP / YFP / TxRed / Cy5?)
-- Probe YS221: _______ (GFP / YFP / TxRed / Cy5?)
+**Current assumptions** (need verification):
+- Probe XC2758: **GFP** (488nm, 100ms exposure)
+- Probe XC2759: **YFP** (514nm, 30ms exposure)
+- Probe XC2760: **TxRed** (561nm, 30ms exposure)
+- Probe YS221: **Cy5** (640nm, 20ms exposure)
 
-Once known, this will complete the laser device names and emission filter configurations for hybridization channels.
+These assumptions were made to structure the code properly and avoid duplication. The wavelengths and exposures are known from MMConfig, but the specific probe-to-fluorophore assignments need confirmation. Emission filter configurations remain as "PLACEHOLDER_FILTER_HYB" until verified.
 
 ### Q3: Specimen IDs
 What are the specimen identifiers for Subjects 780345 and 780346's brain sections?
