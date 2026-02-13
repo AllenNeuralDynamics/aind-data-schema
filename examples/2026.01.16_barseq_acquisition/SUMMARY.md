@@ -175,7 +175,7 @@ I chose approach #2 because the schema should document data assets that exist, n
 
 **Decision:**
 - Individual tiles: 3200 x 3200 pixels, 10 z-planes
-- Stitched max projection: 35,968 x 21,184 pixels, 10 z-planes (calculated)
+- Stitched max projection: 35,232 x 20,448 pixels, 10 z-planes (calculated)
 - Section thickness: 20 μm (coronal sections)
 - Sections per slide: 4 sections for BARseq
 

@@ -49,7 +49,7 @@ See `SUMMARY.md` for complete details.
 - **Instrument:** Nikon Ti2-E "Dogwood" with spinning disk confocal
 - **Imaging:** 14x8 tile grid (112 tiles/channel) with 23% overlap, max projected (10 z-planes)
 - **Tissue:** 51 sections (20μm coronal) through Locus Coeruleus, covering CCF plates 99-112
-- **Data:** Only stitched max projections are saved (~35,968 x 21,184 pixels per channel)
+- **Data:** Only stitched max projections are saved (35,232 x 20,448 pixels per channel)
 
 ## References
 
