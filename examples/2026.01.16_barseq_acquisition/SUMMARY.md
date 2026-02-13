@@ -116,16 +116,16 @@ Please confirm or correct:
 - Schema exploration: No dedicated tile/grid fields exist in the schema
 
 **Rationale:**
-The microscope acquires data as a tile grid (14x8 or 112 tiles per channel?), but these individual tiles are transient intermediate files that get deleted after stitching and max projection. There are two potential approaches I see for representing this in the metadataa:
+The microscope acquires data as a 14x8 tile grid (112 tiles per channel), but these individual tiles are transient intermediate files that get deleted after stitching and max projection. Two approaches were considered:
 
 1. **Create 112 ImageSPIM objects per channel** - One for each tile, even though the files don't exist
    - Pro: Explicitly documents the tiling structure in structured metadata
-   - Con: Results in much larger JSON files (~778KB vs ~18KB) documenting files that were deleted
+   - Con: Results in much larger JSON files (~20,600 lines vs ~457 lines) documenting files that were deleted
    - Con: Schema has no dedicated tile/grid fields; using ImageSPIM objects this way is an interpretation, not a requirement
 
 2. **Create 1 ImageSPIM object per channel** - One for the saved max projection (chosen approach)
    - Pro: Metadata documents actual data assets (files that exist)
-   - Pro: More concise JSON files (~18KB)
+   - Pro: More concise JSON files (~457 lines for gene/hyb, ~386 lines for barcode)
    - Pro: All tiling information can be documented in DataStream.notes field
    - Con: Tiling structure is in notes rather than structured fields
 
@@ -143,10 +143,9 @@ I chose approach #2 because the schema should document data assets that exist, n
   - Stitched dimensions: 35,968x21,184 pixels, 10 z-planes
 
 **Results:**
-- Gene sequencing: 5 ImageSPIM objects
-- Barcode sequencing: 4 ImageSPIM objects
-- Hybridization: 5 ImageSPIM objects
-- JSON file size: ~18KB per file
+- Gene sequencing: 5 ImageSPIM objects, ~457 lines
+- Barcode sequencing: 4 ImageSPIM objects, ~386 lines
+- Hybridization: 5 ImageSPIM objects, ~457 lines
 
 ---
 
@@ -286,7 +285,15 @@ I chose approach #2 because the schema should document data assets that exist, n
 
 - MMConfig_Ti2E-xc2.1.txt: Confirmed exposure times in channel preset configurations
 
-**Note:** Hyb fluorophore exposure times (GFP=100, YFP=30, TxRed=30, Cy5=20) are known but cannot be applied until probe-to-fluorophore mapping is determined.
+**Assumption:** Each of the 4 probes (Hyb_XC2758, Hyb_XC2759, Hyb_XC2760, Hyb_YS221) is assigned placeholder values (wavelength=9999nm, exposure=9999ms) in `HYB_PROBE_CONFIG` until the probe-to-fluorophore mapping is determined. Once known, simply replace the placeholder values with the correct fluorophore configuration for each probe:
+- GFP: wavelength_nm=488, exposure_ms=100.0
+- YFP: wavelength_nm=514, exposure_ms=30.0
+- TxRed: wavelength_nm=561, exposure_ms=30.0
+- Cy5: wavelength_nm=640, exposure_ms=20.0
+
+This structure ensures that when real values are obtained, only the numeric values in `constants.py` need updating—no variable names or code structure changes required. Simply regenerate the acquisition files after updating the constants.
+
+The probe identifiers (XC2758, XC2759, XC2760, YS221) appear to be internal lab codes not documented in public protocols or MMConfig files.
 
 ---
 

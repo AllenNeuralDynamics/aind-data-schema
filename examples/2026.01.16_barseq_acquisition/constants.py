@@ -121,10 +121,24 @@ HYB_PROBE_MEASUREMENTS = {
 
 # Known fluorophore exposure times (can't be applied until probe-to-fluorophore mapping is known)
 # GFP=100ms, YFP=30ms, TxRed=30ms, Cy5=20ms
-# Once mapping is determined, update the hyb builder to use these values
 HYB_FLUOROPHORE_EXPOSURE_MS = {
     "GFP": 100.0,
     "YFP": 30.0,
     "TxRed": 30.0,
     "Cy5": 20.0,
+}
+
+# Hybridization probe configuration
+# Each probe uses one of the 4 fluorophores, but the mapping is currently unknown.
+# ASSUMPTION: All probes set to placeholder (9999) until actual mapping is determined.
+# Once mapping is known, replace 9999 values with actual fluorophore values:
+#   GFP:   wavelength_nm=488,  exposure_ms=100.0
+#   YFP:   wavelength_nm=514,  exposure_ms=30.0
+#   TxRed: wavelength_nm=561,  exposure_ms=30.0
+#   Cy5:   wavelength_nm=640,  exposure_ms=20.0
+HYB_PROBE_CONFIG = {
+    "Hyb_XC2758": {"wavelength_nm": 9999, "exposure_ms": 9999.0},  # PLACEHOLDER
+    "Hyb_XC2759": {"wavelength_nm": 9999, "exposure_ms": 9999.0},  # PLACEHOLDER
+    "Hyb_XC2760": {"wavelength_nm": 9999, "exposure_ms": 9999.0},  # PLACEHOLDER
+    "Hyb_YS221": {"wavelength_nm": 9999, "exposure_ms": 9999.0},   # PLACEHOLDER
 }

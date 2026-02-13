@@ -16,7 +16,7 @@ from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import SizeUnit, TimeUnit
 
-from constants import HYB_DAPI_CONFIG, HYB_PROBE_MEASUREMENTS
+from constants import HYB_DAPI_CONFIG, HYB_PROBE_CONFIG, HYB_PROBE_MEASUREMENTS
 from utils import create_max_projection_image, create_tiling_description
 
 
@@ -139,9 +139,10 @@ def _create_hybridization_channels() -> List[Channel]:
 
     # Hybridization probes - fluorophore mapping unknown, using placeholders
     for channel_name, measurement in HYB_PROBE_MEASUREMENTS.items():
+        probe_config = HYB_PROBE_CONFIG[channel_name]
         detector = DetectorConfig(
             device_name="Camera-1",
-            exposure_time=9999.0,  # PLACEHOLDER - actual exposure depends on fluorophore
+            exposure_time=probe_config["exposure_ms"],
             exposure_time_unit=TimeUnit.MS,
             trigger_type=TriggerType.INTERNAL,
         )
@@ -152,7 +153,7 @@ def _create_hybridization_channels() -> List[Channel]:
                 light_sources=[
                     LaserConfig(
                         device_name="PLACEHOLDER_LASER_HYB",
-                        wavelength=9999,  # Could be 488, 514, 561, or 640nm
+                        wavelength=probe_config["wavelength_nm"],
                         wavelength_unit=SizeUnit.NM,
                     ),
                 ],
