@@ -16,13 +16,20 @@ Z_PLANES_PER_TILE = 10
 PIXEL_SIZE_UM = 0.33
 Z_STEP_UM = 1.5
 
-# DAPI channel configuration (from MMConfig presets)
+# Tiling configuration (from Aixin's email + Dan's estimate)
+TILE_OVERLAP_PERCENT = 0.23  # 23% overlap between tiles
+TILE_STEP_PX = int(TILE_WIDTH_PX * (1 - TILE_OVERLAP_PERCENT))  # 2464 pixels
+TILES_X = 14  # Estimated grid size
+TILES_Y = 8
+FIRST_TILE_OFFSET_PX = -736  # Starting position in pixels
+
+# DAPI channel configuration (from Aixin's email + MMConfig presets)
 # Note: Other fluorophore configs (GFP, YFP, TxRed, Cy5) will be needed once
 # probe-to-fluorophore mapping is determined
 DAPI_CONFIG = {
     "laser_wavelength_nm": 365,
     "filter_name": "DAPI/GFP/TxRed-69401",
-    "exposure_ms": 30.0,
+    "exposure_ms": 20.0,  # Updated from 30 per Aixin
 }
 
 from aind_data_schema.components.configs import (
@@ -42,18 +49,66 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 
 
-def _create_image_placeholder(channel_name: str) -> ImageSPIM:
-    """Create placeholder ImageSPIM for a single channel."""
-    return ImageSPIM(
+def _create_images_for_channel(channel_name: str) -> list[ImageSPIM]:
+    """
+    Create ImageSPIM objects for a channel: tiles + max projection.
+
+    The acquisition uses a 14×8 grid of tiles with 23% overlap. Individual tiles
+    are transient and deleted after stitching, but we document them in the acquisition
+    metadata. The final stitched max projection is saved.
+
+    Parameters
+    ----------
+    channel_name : str
+        Name of the channel this image corresponds to
+
+    Returns
+    -------
+    list[ImageSPIM]
+        List of image objects: 112 tiles + 1 max projection
+    """
+    images = []
+    
+    # Create 112 tile ImageSPIM objects (14×8 grid)
+    for y_idx in range(TILES_Y):
+        for x_idx in range(TILES_X):
+            # Calculate tile position in pixels
+            x_pos_px = FIRST_TILE_OFFSET_PX + x_idx * TILE_STEP_PX
+            y_pos_px = FIRST_TILE_OFFSET_PX + y_idx * TILE_STEP_PX
+            
+            # Convert to microns
+            x_pos_um = x_pos_px * PIXEL_SIZE_UM
+            y_pos_um = y_pos_px * PIXEL_SIZE_UM
+            
+            tile = ImageSPIM(
+                channel_name=channel_name,
+                file_name="not saved",  # Tiles are transient
+                dimensions_unit=SizeUnit.PX,
+                dimensions=Scale(scale=[TILE_WIDTH_PX, TILE_HEIGHT_PX, Z_PLANES_PER_TILE]),
+                image_to_acquisition_transform=[
+                    Translation(translation=[x_pos_um, y_pos_um, 0]),
+                    Scale(scale=[PIXEL_SIZE_UM, PIXEL_SIZE_UM, Z_STEP_UM]),
+                ],
+            )
+            images.append(tile)
+    
+    # Create max projection ImageSPIM (stitched result that is saved)
+    total_width_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
+    total_height_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
+    
+    max_proj = ImageSPIM(
         channel_name=channel_name,
-        file_name="PLACEHOLDER_raw_data_path",
+        file_name="PLACEHOLDER_max_projection_path",
         dimensions_unit=SizeUnit.PX,
-        dimensions=Scale(scale=[TILE_WIDTH_PX, TILE_HEIGHT_PX, Z_PLANES_PER_TILE]),
+        dimensions=Scale(scale=[total_width_px, total_height_px, Z_PLANES_PER_TILE]),
         image_to_acquisition_transform=[
-            Translation(translation=[0, 0, 0]),  # PLACEHOLDER tile position in microns
+            Translation(translation=[0, 0, 0]),
             Scale(scale=[PIXEL_SIZE_UM, PIXEL_SIZE_UM, Z_STEP_UM]),
         ],
     )
+    images.append(max_proj)
+    
+    return images
 
 
 def create_hyb_acquisition(
@@ -108,18 +163,16 @@ def create_hyb_acquisition(
     # Create hybridization channels (each with its own detector config)
     channels = _create_hybridization_channels()
 
-    # Create ImagingConfig with placeholder images
+    # Create ImagingConfig with tiles + max projections for each channel
+    all_images = []
+    for channel_name in ["Hyb_XC2758", "Hyb_XC2759", "Hyb_XC2760", "Hyb_YS221", "DAPI"]:
+        all_images.extend(_create_images_for_channel(channel_name))
+    
     imaging_config = ImagingConfig(
         device_name=instrument_id,
         channels=channels,
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-        images=[
-            _create_image_placeholder("Hyb_XC2758"),
-            _create_image_placeholder("Hyb_XC2759"),
-            _create_image_placeholder("Hyb_XC2760"),
-            _create_image_placeholder("Hyb_YS221"),
-            _create_image_placeholder("DAPI"),
-        ],
+        images=all_images,
     )
 
     # Create DataStream

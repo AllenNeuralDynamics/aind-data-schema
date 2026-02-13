@@ -2,6 +2,8 @@
 
 This directory contains scripts to generate acquisition metadata JSON files for BARseq experiments conducted at the Allen Institute for Neural Dynamics.
 
+**Subjects:** This metadata structure applies to both subjects 780345 and 780346. Both follow the same BARseq protocol with 20μm coronal sections through the Locus Coeruleus (LC). The example files currently demonstrate the structure using subject 780346.
+
 ## Overview
 
 BARseq (Barcoded Anatomy Resolved by Sequencing) is a technique for mapping neural projections using barcoded viral libraries and in situ sequencing. Each BARseq experiment generates **3 separate raw data assets**, each requiring its own acquisition.json file:
@@ -12,6 +14,11 @@ BARseq (Barcoded Anatomy Resolved by Sequencing) is a technique for mapping neur
 
 These 3 raw assets are later processed together to create a single derived asset.
 
+**Specimen Details:**
+- 20 μm coronal sections through Locus Coeruleus (LC)
+- 4 sections per slide (from lab notes 780345/780346)
+- Imaged on Nikon Ti2-E "Dogwood" with Crest X-Light V3 spinning disk confocal
+
 ## Files
 
 **Builder modules:**
@@ -19,18 +26,20 @@ These 3 raw assets are later processed together to create a single derived asset
 - `barseq_barcodeseq_builder.py` - Barcode sequencing acquisition builder
 - `barseq_hyb_builder.py` - Hybridization acquisition builder
 
-**Generator scripts for subject 780346:**
-- `generate_780346_geneseq_acquisition.py` - Generates gene seq acquisition
-- `generate_780346_barcodeseq_acquisition.py` - Generates barcode seq acquisition
-- `generate_780346_hyb_acquisition.py` - Generates hybridization acquisition
+**Generator scripts:**
+- `generate_geneseq_acquisition.py` - Gene seq acquisition (`--subject-id` defaults to 780346)
+- `generate_barcodeseq_acquisition.py` - Barcode seq acquisition (`--subject-id` defaults to 780346)
+- `generate_hyb_acquisition.py` - Hybridization acquisition (`--subject-id` defaults to 780346)
 
-**Generated acquisition JSON files:**
-- `barseq_780346_geneseq_acquisition.json` - Gene sequencing (8 placeholders)
-- `barseq_780346_barcodeseq_acquisition.json` - Barcode sequencing (7 placeholders)
-- `barseq_780346_hyb_acquisition.json` - Hybridization (16 placeholders)
+**Generated acquisition JSON files** (named `barseq_{subject_id}_*.json`):
+- `barseq_780346_geneseq_acquisition.json` - Gene sequencing (6 placeholders)
+- `barseq_780346_barcodeseq_acquisition.json` - Barcode sequencing (5 placeholders)
+- `barseq_780346_hyb_acquisition.json` - Hybridization (14 placeholders)
+- Same naming for 780345 when run with `--subject-id 780345`
+- Total: 25 placeholders per subject
 
 **Documentation:**
-- `PLACEHOLDERS_TO_FILL.md` - Detailed list of remaining placeholders
+- `SUMMARY.md` - Decisions made, sources, and remaining placeholders
 - `README.md` - This file
 
 ## Usage
@@ -38,10 +47,15 @@ These 3 raw assets are later processed together to create a single derived asset
 ### Generating Acquisition Files
 
 ```bash
-# Using uv (recommended)
-uv run python generate_780346_geneseq_acquisition.py
-uv run python generate_780346_barcodeseq_acquisition.py
-uv run python generate_780346_hyb_acquisition.py
+# Using uv (recommended) - defaults to subject 780346
+uv run python generate_geneseq_acquisition.py
+uv run python generate_barcodeseq_acquisition.py
+uv run python generate_hyb_acquisition.py
+
+# For subject 780345:
+uv run python generate_geneseq_acquisition.py --subject-id 780345
+uv run python generate_barcodeseq_acquisition.py --subject-id 780345
+uv run python generate_hyb_acquisition.py --subject-id 780345
 ```
 
 ### Validating Generated Files
@@ -53,33 +67,44 @@ The scripts automatically validate the generated JSON against the aind-data-sche
 
 ## What's Filled In
 
-**From instrument config files (MMConfig_Ti2E-xc2.1.txt and dogwood.json):**
-- Tile dimensions: 3200 × 3200 pixels, 10 z-planes
-- Pixel size: 0.33 μm
-- Z-step: 1.5 μm
+**From Aixin's email + instrument config files (MMConfig_Ti2E-xc2.1.txt and dogwood.json):**
+- Experimenters: "Imaging core"
+- Tile dimensions: 3200 × 3200 × 10 pixels (max projection)
+- Tile grid: 14 × 8 = 112 tiles per channel with 23% overlap
+- First tile position: (-736, -736) pixels
+- Pixel size: 0.33 μm (XY)
+- Z-step: 1.5 μm (from methods doc)
 - Laser wavelengths for gene/barcode bases (514, 561, 640 nm) and DAPI (365 nm)
 - Emission filter names for all gene/barcode channels
-- Exposure time estimates from presets
+- Exposure times: G=60ms, T=30ms, A=20ms, C=40ms, Hyb-DAPI=20ms
 
 ## Placeholders Remaining
 
-**Total: 31 placeholders across all 3 files** (reduced from 57 by removing optional/questionable fields)
-- Gene sequencing: 8
-- Barcode sequencing: 7
-- Hybridization: 16
+**Total: 25 placeholders per subject (50 total for 780345 and 780346)**
+- Gene sequencing: 6 (5 max projection file paths + 1 specimen ID)
+- Barcode sequencing: 5 (4 max projection file paths + 1 specimen ID)
+- Hybridization: 14 (5 max projection file paths + 8 hyb laser/filter + 1 specimen ID)
 
 ### What We Removed:
 - Laser power values (not available from config files)
 - Peak emission wavelengths (only filter ranges available)
-- Placeholder laser/filter device names from active_devices lists
 
 ### Priority Items:
 
-1. **File paths** (CRITICAL): Need paths to max projection files to extract acquisition timestamps and fill file_name fields (14 total)
-2. **Hybridization probe mapping** (CRITICAL): Which probe (XC2758/XC2759/XC2760/YS221) uses which fluorophore (GFP/YFP/TxRed/Cy5)? (8 placeholders: 4 lasers + 4 filters)
-3. **Personnel**: Experimenter names and specimen IDs (9 placeholders: 3 per file)
+1. **File paths** (CRITICAL): Need paths to max projection files to extract acquisition timestamps and fill file_name fields for both subjects
+   - Gene: 5 channels (GeneSeq_G/T/A/C, DAPI)
+   - Barcode: 4 channels (BarcodeSeq_G/T/A/C)
+   - Hyb: 5 channels (Hyb_XC2758/XC2759/XC2760/YS221, DAPI)
+   - **Total: 14 file paths per subject (28 for both 780345 and 780346)**
 
-See `PLACEHOLDERS_TO_FILL.md` for complete details.
+2. **Hybridization probe mapping** (CRITICAL): Which probe (XC2758/XC2759/XC2760/YS221) uses which fluorophore (GFP/YFP/TxRed/Cy5)? (8 placeholders: 4 lasers + 4 filters)
+
+3. **Specimen IDs**: Actual specimen identifiers for both subjects (6 placeholders: 3 per subject)
+
+### Note on Tiling:
+Images are acquired as a 14×8 tile grid (112 tiles per channel) with 23% overlap. Individual tiles are transient and deleted after stitching, but they are documented in the acquisition metadata with file_name="not saved" to capture the acquisition process. Only the final stitched max projection image is saved per channel.
+
+See `SUMMARY.md` for complete details on decisions made, data sources, and remaining placeholders.
 
 ## File Structure
 
@@ -87,25 +112,35 @@ Each acquisition JSON represents a single raw data asset:
 
 **Gene Sequencing:**
 - 1 DataStream with 5 channels (GeneSeq_G/T/A/C, DAPI)
-- 5 ImageSPIM placeholders (one per channel)
-- Tile dimensions: 3200×3200×10 pixels
+- 565 ImageSPIM objects per acquisition:
+  - 560 tiles (5 channels × 112 tiles, file_name="not saved")
+  - 5 max projections (1 per channel, file_name="PLACEHOLDER_max_projection_path")
 
 **Barcode Sequencing:**
 - 1 DataStream with 4 channels (BarcodeSeq_G/T/A/C)
-- 4 ImageSPIM placeholders
-- Same tile dimensions
+- 452 ImageSPIM objects per acquisition:
+  - 448 tiles (4 channels × 112 tiles, file_name="not saved")
+  - 4 max projections (1 per channel, file_name="PLACEHOLDER_max_projection_path")
 
 **Hybridization:**
 - 1 DataStream with 5 channels (Hyb_XC2758/XC2759/XC2760/YS221, DAPI)
-- 5 ImageSPIM placeholders
-- Same tile dimensions
+- 565 ImageSPIM objects per acquisition:
+  - 560 tiles (5 channels × 112 tiles, file_name="not saved")
+  - 5 max projections (1 per channel, file_name="PLACEHOLDER_max_projection_path")
+
+**Note:** Tiles document the acquisition process (14×8 grid with 23% overlap) even though they are transient and deleted after stitching. Max projections are the saved files.
+
+**Calculated dimensions:**
+- Individual tile: 3200 × 3200 × 10 pixels
+- Stitched max projection: 35,968 × 21,184 × 10 pixels (calculated from tile grid)
 
 ## Next Steps
 
-1. **Obtain file paths** to max projection files for each acquisition phase to extract actual timestamps
+1. **Obtain file paths** to max projection files for both subjects (780345 and 780346) to extract actual timestamps
 2. **Determine probe-to-fluorophore mapping** for hybridization channels (XC2758/XC2759/XC2760/YS221)
-3. **Gather remaining parameters** using `PLACEHOLDERS_TO_FILL.md` as a guide
-4. **Update generator scripts** with actual values and regenerate JSON files
+3. **Gather specimen IDs** for both subjects
+4. **Generate metadata for subject 780345** using the same builder scripts
+5. **Review `SUMMARY.md`** with the BARseq team for validation
 
 ## Dependencies
 
@@ -116,7 +151,7 @@ This project uses `uv` for dependency management:
 uv sync
 
 # Run generators
-uv run python generate_780346_geneseq_acquisition.py
+uv run python generate_geneseq_acquisition.py
 ```
 
 ## References

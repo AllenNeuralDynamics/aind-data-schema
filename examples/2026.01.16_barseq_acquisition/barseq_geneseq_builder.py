@@ -16,6 +16,13 @@ Z_PLANES_PER_TILE = 10
 PIXEL_SIZE_UM = 0.33
 Z_STEP_UM = 1.5
 
+# Tiling configuration (from Aixin's email + Dan's estimate)
+TILE_OVERLAP_PERCENT = 0.23  # 23% overlap between tiles
+TILE_STEP_PX = int(TILE_WIDTH_PX * (1 - TILE_OVERLAP_PERCENT))  # 2464 pixels
+TILES_X = 14  # Estimated grid size
+TILES_Y = 8
+FIRST_TILE_OFFSET_PX = -736  # Starting position in pixels
+
 # Gene sequencing channel configuration (from MMConfig presets)
 GENE_CHANNEL_CONFIG = {
     "G": {
@@ -62,13 +69,13 @@ from aind_data_schema.components.coordinates import (
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 
 
-def _create_image_placeholder(channel_name: str) -> ImageSPIM:
+def _create_images_for_channel(channel_name: str) -> list[ImageSPIM]:
     """
-    Create placeholder ImageSPIM for a single channel.
+    Create ImageSPIM objects for a channel: tiles + max projection.
 
-    Represents tiled imaging data for one channel. Once tile layout information
-    is available from the BARseq team, this should be replaced with individual
-    ImageSPIM objects for each tile with proper positions.
+    The acquisition uses a 14×8 grid of tiles with 23% overlap. Individual tiles
+    are transient and deleted after stitching, but we document them in the acquisition
+    metadata. The final stitched max projection is saved.
 
     Parameters
     ----------
@@ -77,19 +84,51 @@ def _create_image_placeholder(channel_name: str) -> ImageSPIM:
 
     Returns
     -------
-    ImageSPIM
-        Placeholder image object with known parameters filled in
+    list[ImageSPIM]
+        List of image objects: 112 tiles + 1 max projection
     """
-    return ImageSPIM(
+    images = []
+    
+    # Create 112 tile ImageSPIM objects (14×8 grid)
+    for y_idx in range(TILES_Y):
+        for x_idx in range(TILES_X):
+            # Calculate tile position in pixels
+            x_pos_px = FIRST_TILE_OFFSET_PX + x_idx * TILE_STEP_PX
+            y_pos_px = FIRST_TILE_OFFSET_PX + y_idx * TILE_STEP_PX
+            
+            # Convert to microns
+            x_pos_um = x_pos_px * PIXEL_SIZE_UM
+            y_pos_um = y_pos_px * PIXEL_SIZE_UM
+            
+            tile = ImageSPIM(
+                channel_name=channel_name,
+                file_name="not saved",  # Tiles are transient
+                dimensions_unit=SizeUnit.PX,
+                dimensions=Scale(scale=[TILE_WIDTH_PX, TILE_HEIGHT_PX, Z_PLANES_PER_TILE]),
+                image_to_acquisition_transform=[
+                    Translation(translation=[x_pos_um, y_pos_um, 0]),
+                    Scale(scale=[PIXEL_SIZE_UM, PIXEL_SIZE_UM, Z_STEP_UM]),
+                ],
+            )
+            images.append(tile)
+    
+    # Create max projection ImageSPIM (stitched result that is saved)
+    total_width_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
+    total_height_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
+    
+    max_proj = ImageSPIM(
         channel_name=channel_name,
-        file_name="PLACEHOLDER_raw_data_path",
+        file_name="PLACEHOLDER_max_projection_path",
         dimensions_unit=SizeUnit.PX,
-        dimensions=Scale(scale=[TILE_WIDTH_PX, TILE_HEIGHT_PX, Z_PLANES_PER_TILE]),
+        dimensions=Scale(scale=[total_width_px, total_height_px, Z_PLANES_PER_TILE]),
         image_to_acquisition_transform=[
-            Translation(translation=[0, 0, 0]),  # PLACEHOLDER tile position in microns
+            Translation(translation=[0, 0, 0]),
             Scale(scale=[PIXEL_SIZE_UM, PIXEL_SIZE_UM, Z_STEP_UM]),
         ],
     )
+    images.append(max_proj)
+    
+    return images
 
 
 def create_geneseq_acquisition(
@@ -143,18 +182,16 @@ def create_geneseq_acquisition(
     # Create gene sequencing channels (each with its own detector config)
     channels = _create_gene_sequencing_channels()
 
-    # Create ImagingConfig with placeholder images
+    # Create ImagingConfig with tiles + max projections for each channel
+    all_images = []
+    for channel_name in ["GeneSeq_G", "GeneSeq_T", "GeneSeq_A", "GeneSeq_C", "DAPI"]:
+        all_images.extend(_create_images_for_channel(channel_name))
+    
     imaging_config = ImagingConfig(
         device_name=instrument_id,
         channels=channels,
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-        images=[
-            _create_image_placeholder("GeneSeq_G"),
-            _create_image_placeholder("GeneSeq_T"),
-            _create_image_placeholder("GeneSeq_A"),
-            _create_image_placeholder("GeneSeq_C"),
-            _create_image_placeholder("DAPI"),
-        ],
+        images=all_images,
     )
 
     # Create DataStream

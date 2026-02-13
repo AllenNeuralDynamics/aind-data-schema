@@ -1,16 +1,29 @@
-"""Generate BARseq Barcode Sequencing acquisition metadata for subject 780346."""
+"""Generate BARseq Barcode Sequencing acquisition metadata."""
 
-import json
+import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
 from barseq_barcodeseq_builder import create_barcodeseq_acquisition
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Generate BARseq barcode sequencing acquisition metadata JSON."
+    )
+    parser.add_argument(
+        "--subject-id",
+        default="780346",
+        help="Subject ID (default: 780346)",
+    )
+    return parser.parse_args()
+
+
 def main():
-    """Generate barcode sequencing acquisition metadata for subject 780346."""
-    # Subject and specimen information
-    subject_id = "780346"
+    """Generate barcode sequencing acquisition metadata."""
+    args = parse_args()
+    subject_id = args.subject_id
     specimen_id = f"{subject_id}_PLACEHOLDER_SPECIMEN_ID"
 
     # Tissue information
@@ -19,10 +32,7 @@ def main():
     ccf_end_plate = 112
 
     # Personnel
-    experimenters = [
-        "PLACEHOLDER_EXPERIMENTER_1",
-        "PLACEHOLDER_EXPERIMENTER_2",
-    ]
+    experimenters = ["Imaging core"]
 
     # Acquisition timing - PLACEHOLDERS
     # TODO: Extract actual times from max projection files once file paths are known
@@ -42,7 +52,7 @@ def main():
     )
 
     # Validate and write to file
-    output_file = Path(__file__).parent / "barseq_780346_barcodeseq_acquisition.json"
+    output_file = Path(__file__).parent / f"barseq_{subject_id}_barcodeseq_acquisition.json"
 
     # Write JSON with validation
     json_str = acquisition.model_dump_json(indent=3)
@@ -58,7 +68,7 @@ def main():
     print("=" * 70)
     print(f"Subject ID: {subject_id}")
     print(f"Specimen ID: {specimen_id}")
-    print(f"Sections: {num_sections} × 20μm coronal sections")
+    print(f"Sections: {num_sections} x 20um coronal sections")
     print(f"CCF Range: plates {ccf_start_plate}-{ccf_end_plate}")
     print(f"Experiment Date: {barcode_seq_start.date()}")
     print(f"Instrument: Dogwood (Nikon Ti2-E + Crest X-Light V3)")
@@ -66,19 +76,21 @@ def main():
     print("Data Stream:")
     print("  Viral barcode sequencing (15 cycles)")
     print(f"  Channels: {len(acquisition.data_streams[0].configurations[0].channels)}")
-    print(
-        f"  Active Devices: {len(acquisition.data_streams[0].active_devices)}"
-    )
+    print(f"  Active Devices: {len(acquisition.data_streams[0].active_devices)}")
+    print(f"  ImageSPIM objects: {len(acquisition.data_streams[0].configurations[0].images)}")
+    print(f"    - Tiles (not saved): {json_str.count('not saved')}")
+    print(f"    - Max projections: {json_str.count('PLACEHOLDER_max_projection_path')}")
     print()
 
     # Count placeholders
     placeholder_count = json_str.count("PLACEHOLDER")
     print(f"PLACEHOLDER values to fill in: {placeholder_count}")
+    print("  - Max projection file paths: 4")
+    print("  - Specimen ID: 1")
     print()
     print("Next steps:")
     print("  1. Obtain file paths to max projection files to extract actual acquisition times")
-    print("  2. Fill in hardware configuration (lasers, filters, wavelengths, powers)")
-    print("  3. Fill in experimenter names and specimen ID")
+    print("  2. Fill in specimen ID")
     print()
 
 
