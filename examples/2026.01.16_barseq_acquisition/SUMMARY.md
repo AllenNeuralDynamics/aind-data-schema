@@ -1,8 +1,6 @@
 # BARseq Acquisition Metadata Summary
 
-This document summarizes the decisions made in creating the acquisition metadata files, their sources, and remaining information needed.
-
-**Note:** This metadata structure applies to both subjects 780345 and 780346. Both follow the same BARseq protocol with 20μm coronal sections through the Locus Coeruleus (LC), acquired using the same imaging parameters and tile grid configuration.
+This document summarizes the decisions made in creating BARseq acquisition metadata files for subjects 780345 and 780346. Both subjects follow the same BARseq protocol with 20μm coronal sections through the Locus Coeruleus (LC), acquired using the same imaging parameters and tile grid configuration.
 
 ## Information Still Needed
 
@@ -10,6 +8,8 @@ This document summarizes the decisions made in creating the acquisition metadata
 - Gene sequencing: 6 (5 max projection file paths + 1 specimen ID)
 - Barcode sequencing: 5 (4 max projection file paths + 1 specimen ID)
 - Hybridization: 14 (5 max projection file paths + 8 hyb probe mapping + 1 specimen ID)
+
+Each acquisition file contains ImageSPIM objects only for the saved max projection files (5 for gene/hyb, 4 for barcode). Tiling parameters are fully documented in DataStream.notes.
 
 ### Priority Items:
 
@@ -53,7 +53,7 @@ Once known, this will complete the laser device names and emission filter config
 ### Q3: Specimen IDs
 What are the specimen identifiers for Subjects 780345 and 780346's brain sections?
 - Current placeholders: "780345_PLACEHOLDER_SPECIMEN_ID" and "780346_PLACEHOLDER_SPECIMEN_ID"
-- Suggested format: "780345_LC_section" or similar (should these be unique per section or per subject?)
+- Suggested format: "780345_thin_slices_59-62" or similar (should these be unique per section or per subject?)
 
 ### Q4: DIC Channel
 Should the DIC (Differential Interference Contrast) channel be included in the hybridization acquisition metadata?
@@ -62,7 +62,7 @@ Should the DIC (Differential Interference Contrast) channel be included in the h
 
 ### Q5: Validation Questions
 Please confirm or correct:
-1. Is the 14×8 tile grid estimate correct?
+1. Is the 14x8 tile grid estimate correct?
 2. Is the SPIM_RPI coordinate system appropriate (Right-Posterior-Inferior)?
 3. Are the acquisition notes accurate regarding the experimental setup?
 
@@ -74,12 +74,10 @@ Please confirm or correct:
 
 **Decision:** Create 3 separate acquisition.json files (gene sequencing, barcode sequencing, hybridization)
 
-**Source:** Email from Saskia (2026-01-20)
+**Source:** Email from Saskia
 > "No, I don't agree. Each cycle has a folder of images. That is one asset with one acquisition. These different assets then get processed together to create a single derived asset."
 
-**Rationale:** Each phase produces a distinct raw data asset, even though they are later processed together.
-
-**Application:** This structure applies to both subjects 780345 and 780346. Each subject will have 3 acquisition.json files (gene sequencing, barcode sequencing, hybridization).
+**Rationale:** Each phase produces a distinct raw data asset, even though they are later processed together. Each subject has 3 acquisition.json files (gene sequencing, barcode sequencing, hybridization).
 
 ---
 
@@ -87,69 +85,95 @@ Please confirm or correct:
 
 **Decision:** Set experimenters to "Imaging core"
 
-**Source:** Email from Aixin (2026-02-09)
+**Source:** Email from Aixin
 > "I think now image core will help us collect data."
 
-**Note:** Dan flagged that this means nobody will be attributed for credit. Once specific names are available, this should be updated for both subjects.
+**Note:** This generic attribution means no individuals receive credit for the work. Specific experimenter names should be provided if available.
 
 ---
 
 ### 3. Tile Grid Structure
 
-**Decision:** 14×8 tile grid (112 tiles per channel) with 23% overlap, starting at (-736, -736) pixels
+**Decision:** 14x8 tile grid (112 tiles per channel) with 23% overlap, starting at (-736, -736) pixels
 
 **Sources:**
-- Dan's estimate (Slack, 2026-02-10): "I would guess that it's roughly 14 x 8 based on the size of typical brains and the amount of overlap they are using"
+- Dan's estimate (Teams DM): "I would guess that it's roughly 14 x 8 based on the size of typical brains and the amount of overlap they are using"
 - dogwood.json: Contains "stitch_overlap: 0.23"
 
 **Implementation:**
-- Tile step: 2464 pixels = 3200 × (1 - 0.23)
+- Tile step: 2464 pixels = 3200 x (1 - 0.23)
 - First tile offset: -736 pixels
 - Positions calculated for all 112 tiles in micron space
 
 ---
 
-### 4. Transient Tiles vs. Saved Max Projections
+### 4. Tile Representation
 
-**Decision:** Document both tiles (file_name="not saved") and max projections (file_name="PLACEHOLDER_max_projection_path")
+**Decision:** Document only saved max projections as ImageSPIM objects; document tiling parameters in DataStream.notes
 
 **Sources:**
-- Email clarification (2026-02-15): Tiles are transient and deleted after max projection
-- Aixin's email (2026-02-09):
-  > "We don't save the raw images only save the max projection images. The software will automatically delete the raw image stacks if the number of max projection matched with the required tile number."
+- Aixin's email: "We don't save the raw images only save the max projection images. The software will automatically delete the raw image stacks if the number of max projection matched with the required tile number."
+- Schema exploration: No dedicated tile/grid fields exist in the schema
 
-**Rationale:** Schema should document the acquisition process (what was acquired), not just what was saved to disk. Dan's request for tiling information supports documenting the tile grid even though tiles are deleted.
+**Rationale:**
+The microscope acquires data as a tile grid (14x8 or 112 tiles per channel?), but these individual tiles are transient intermediate files that get deleted after stitching and max projection. There are two potential approaches I see for representing this in the metadataa:
+
+1. **Create 112 ImageSPIM objects per channel** - One for each tile, even though the files don't exist
+   - Pro: Explicitly documents the tiling structure in structured metadata
+   - Con: Results in much larger JSON files (~778KB vs ~18KB) documenting files that were deleted
+   - Con: Schema has no dedicated tile/grid fields; using ImageSPIM objects this way is an interpretation, not a requirement
+
+2. **Create 1 ImageSPIM object per channel** - One for the saved max projection (chosen approach)
+   - Pro: Metadata documents actual data assets (files that exist)
+   - Pro: More concise JSON files (~18KB)
+   - Pro: All tiling information can be documented in DataStream.notes field
+   - Con: Tiling structure is in notes rather than structured fields
+
+I chose approach #2 because the schema should document data assets that exist, not transient intermediate files. All tiling information needed to recreate the experiment is preserved in DataStream.notes.
 
 **Implementation:**
-- 112 ImageSPIM objects per channel with tile positions and file_name="not saved"
 - 1 ImageSPIM object per channel for stitched max projection with file_name="PLACEHOLDER_max_projection_path"
+- Comprehensive tiling description in DataStream.notes including:
+  - Grid size: 14x8 (112 tiles per channel)
+  - Overlap: 23%
+  - Tile dimensions: 3200x3200 pixels, 10 z-planes
+  - Tile step: 2464 pixels
+  - First tile offset: (-736, -736) pixels
+  - Pixel size: 0.33 μm (XY), z-step: 1.5 μm
+  - Stitched dimensions: 35,968x21,184 pixels, 10 z-planes
+
+**Results:**
+- Gene sequencing: 5 ImageSPIM objects
+- Barcode sequencing: 4 ImageSPIM objects
+- Hybridization: 5 ImageSPIM objects
+- JSON file size: ~18KB per file
 
 ---
 
 ### 5. Image Dimensions and Section Thickness
 
 **Decision:**
-- Individual tiles: 3200 × 3200 × 10 pixels
-- Stitched max projection: 35,968 × 21,184 × 10 pixels (calculated)
+- Individual tiles: 3200 x 3200 pixels, 10 z-planes
+- Stitched max projection: 35,968 x 21,184 pixels, 10 z-planes (calculated)
 - Section thickness: 20 μm (coronal sections)
 - Sections per slide: 4 sections for BARseq
 
 **Sources:**
-- Aixin's email (2026-02-09):
+- Aixin's email:
   > "Dimensions of each tile before max projection is 3200x3200x100 in geneseq01 and bcseq01, 3200x3200x120 in any hyb cycle, 3200x3200x80 in any geneseq02+ and bcseq02+."
 
 - Methods document (MAPseq-BARseq methods_forSciComp.txt):
   > "10-plane maximum intensity projection"
 
 - Lab notes (780345 and 780346):
-  > "BARseq → 4 × 20μm Sections/Slide"
+  > "BARseq → 4 x 20μm Sections/Slide"
   > "BARseq → 20μm throughout LC"
 
 **Interpretation:** Raw z-stacks have 100/120/80 planes, but only the top 10 planes are kept in max projections. Brain sections are cut at 20 μm thickness and mounted 4 per slide.
 
 **Stitched dimensions calculation:**
-- Width = 736 + (14-1) × 2464 + 3200 = 35,968 pixels
-- Height = 736 + (8-1) × 2464 + 3200 = 21,184 pixels
+- Width = 736 + (14-1) x 2464 + 3200 = 35,968 pixels
+- Height = 736 + (8-1) x 2464 + 3200 = 21,184 pixels
 
 ---
 
@@ -160,10 +184,10 @@ Please confirm or correct:
 - Z-step: 1.5 μm
 
 **Sources:**
-- Aixin's email (2026-02-09): "Pixel size is 0.33"
+- Aixin's email: "Pixel size is 0.33"
 - Methods document (MAPseq-BARseq methods_forSciComp.txt): "1.5 μm z-spacing"
 
-**Note:** Dan's comment (2026-02-10) "Isotropic 0.33 um voxels (this is definitely wrong)" indicates the voxels are not isotropic. Z-step of 1.5 μm from methods doc differs from XY pixel size of 0.33 μm.
+**Note:** Dan's comment "Isotropic 0.33 um voxels (this is definitely wrong)" indicates the voxels are not isotropic. Z-step of 1.5 μm from methods doc differs from XY pixel size of 0.33 μm.
 
 ---
 
@@ -185,7 +209,7 @@ Please confirm or correct:
 - Hyb_YS221 → "Probe YS221"
 - DAPI → "Nuclear counterstain"
 
-**Source:** Reviewer feedback (Saskia, 2026-01-15)
+**Source:** Reviewer feedback (Saskia)
 > "This is not an appropriate intended measurement. DNA Base G is not a gene."
 > "I'd remove 'GeneSeq' since DAPI is not part of the sequencing."
 > "I think 'Guanine' is sufficient, personally."
@@ -202,18 +226,16 @@ Please confirm or correct:
 - Hybridization: Hyb-GFP, Hyb-YFP, Hyb-TxRed, Hyb-Cy5, Hyb-DAPI (5 channels, DIC not included)
 
 **Sources:**
-- Aixin's email (2026-02-09):
+- Aixin's email:
   > "Acquisition channel order:
   > Geneseq01 and bcseq01: G T A C Hyb-DAPI
   > Geneseq02+ and bc seq02+: G T A C
   > Hyb: Hyb-GFP Hyb-YFP Hyb-TxRed Hyb-Cy5 Hyb-DAPI DIC"
 
-- Xiaoyin's email (2025-12-12):
+- Xiaoyin's email:
   > "For the images, in cycles geneseq01 and bcseq01, the channels are G/T/A/C/DAPI. In other geneseq or bcseq cycles, the channels are GTAC. In hyb cycles, the channels are GFP/G/TxRed/Cy5/DAPI/DIC."
 
-**Implementation:** Modeling gene cycle 1 and barcode cycle 1 separately (as distinct acquisitions per Saskia's guidance). DIC channel mentioned in emails but not currently included in metadata.
-
-**Note:** DIC (Differential Interference Contrast) channel is mentioned in hyb acquisition but not currently modeled. Should confirm if DIC should be included.
+**Implementation:** Three separate acquisition files (gene sequencing, barcode sequencing, hybridization) per Saskia's guidance. Gene and barcode metadata includes DAPI channel (present in cycle 1), while subsequent cycles without DAPI share the same acquisition record. DIC channel mentioned in hyb emails but not currently included; confirmation needed if it should be modeled.
 
 ---
 
@@ -259,7 +281,7 @@ Please confirm or correct:
 - Detector average: Gene=40ms, Barcode=37.5ms, Hyb=30ms
 
 **Sources:**
-- Aixin's email (2026-02-09):
+- Aixin's email:
   > "exposure time is: G 60, T 30, A 20, C 40, DIC 20, Hyb-GFP 100, Hyb-YFP 30, Hyb-TxRed 30, Hyb-Cy5 20, Hyb-DAPI 20."
 
 - MMConfig_Ti2E-xc2.1.txt: Confirmed exposure times in channel preset configurations
@@ -286,7 +308,17 @@ Please confirm or correct:
 
 **Source:** exaspim_acquisition.py example in aind-data-schema repository
 
-**Note:** This assumes Right-Posterior-Inferior orientation. Should be confirmed with BARseq team.
+**Rationale:**
+- RPI (Right-Posterior-Inferior) orientation is appropriate for coronal brain sections:
+  - X axis: Left to right (within section plane)
+  - Y axis: Anterior to posterior (tracking section position along brain)
+  - Z axis: Superior to inferior (depth within section)
+- This matches standard neuroanatomy conventions for brain imaging
+- The "SPIM" prefix (Selective Plane Illumination Microscopy) is technically a misnomer since this is spinning disk confocal, not light sheet microscopy
+- However, SPIM_RPI is the available coordinate system in the schema that provides the correct RPI orientation we need
+- The coordinate system name is less important than having the correct axis orientations, which SPIM_RPI provides
+
+**Note:** The coordinate system applies to both the Acquisition object and the ImagingConfig within each DataStream.
 
 ---
 
@@ -325,11 +357,17 @@ Please confirm or correct:
 
 ### 17. Acquisition Type
 
-**Decision:** acquisition_type = "BarcodeSequencing" for all three phases
+**Decision:** acquisition_type = "BarcodeSequencing" for all three phases (gene sequencing, barcode sequencing, and hybridization)
 
 **Source:** Schema field description suggests this should be consistent across similar acquisitions for the same experiment.
 
-**Rationale:** All three phases are part of the same BARseq barcoding workflow.
+**Rationale:**
+- All three phases are part of the same BARseq (Barcoded Anatomy Resolved by Sequencing) workflow
+- The acquisition_type field is meant to group related acquisitions from the same experiment
+- While hybridization technically uses fluorescent in situ hybridization, it serves as anatomical reference for the barcode sequencing data and is an integral part of the BARseq protocol
+- Using the same acquisition_type makes it clear these three acquisitions belong together and will be processed as a unit
+
+**Implementation:** All three builders set `acquisition_type="BarcodeSequencing"`
 
 ---
 
@@ -340,10 +378,86 @@ Please confirm or correct:
 - ImagingConfig.device_name: "Dogwood"
 - DataStream.active_devices: "Ti2-E__0" (component-level)
 
-**Source:** Reviewer comment (Dan, 2026-01-14)
+**Source:** Reviewer comment (Dan)
 > "The 'device_name' should actually be the instrument_id, per a comment from Dan. In this case, that's 'Dogwood'."
 
 **Clarification:** instrument_id and ImagingConfig.device_name use system-level identifier, while active_devices uses component-level identifiers from instrument.json.
+
+---
+
+### 19. Specimen ID Strategy
+
+**Decision:** Use a single specimen_id per acquisition that represents the collection of sections imaged together
+
+**Context:**
+- The brain is cut into 51 sequential 20 μm coronal sections through the Locus Coeruleus
+- 4 sections are mounted per slide for BARseq imaging
+- All 4 sections on a slide are imaged together in a single imaging session
+- The same 4 sections go through all three acquisition phases (gene sequencing, barcode sequencing, hybridization)
+
+**Rationale:**
+Per the schema definition, an acquisition is "a single episode of data collection that creates one data asset." Since:
+1. The 4 sections are physically mounted together on one slide
+2. They are imaged together in one continuous microscopy session
+3. They produce one data asset (one set of stitched max projection files per channel)
+4. They cannot be imaged separately (you can't image one section without imaging the others)
+
+This constitutes **one acquisition per phase**, not four separate acquisitions.
+
+**Schema limitation:** The `specimen_id` field is `Optional[str]`, not a list. It can only hold one specimen ID at a time.
+
+**Implementation:**
+- Use a single specimen_id that represents the collection of sections
+- Format: `"<subject_id>_LC_sections"` or `"<subject_id>_LC_BARseq"`
+  - Example: `"780346_LC_sections"` or `"780346_LC_BARseq"`
+- Document which specific section numbers were imaged in `Acquisition.notes`
+- Once section numbers are confirmed with Polina, update to: `"<subject_id>_LC_sections_<first>-<last>"`
+  - Example: `"780346_LC_sections_27-30"`
+
+**Questions for Polina:**
+1. Which specific section numbers (out of 51 total) were imaged for subjects 780345 and 780346?
+2. Were the same 4 sections used for all three acquisition phases (gene seq, barcode seq, hyb)?
+3. What numbering system is used for the sections? (Sequential from anterior to posterior?)
+4. Are there specimen IDs already assigned to these sections, or should we create them?
+
+**Current placeholder:** `"780346_PLACEHOLDER_SPECIMEN_ID"` (to be replaced once Polina provides section details)
+
+---
+
+### 20. Code Organization
+
+**Decision:** Extract shared logic into separate modules to eliminate code duplication
+
+**Implementation:**
+
+The codebase is organized into 7 Python files:
+
+**Entry point:**
+- **generate_barseq_acquisitions.py**: Unified generator that creates all three acquisition JSON files for a given subject ID
+  - Usage: `python generate_barseq_acquisitions.py --subject-id 780346`
+  - Calls all three builder functions and writes output files
+
+**Builder modules:**
+- **barseq_geneseq_builder.py**: Creates gene sequencing acquisition metadata (5 channels)
+- **barseq_barcodeseq_builder.py**: Creates barcode sequencing acquisition metadata (4 channels)
+- **barseq_hyb_builder.py**: Creates hybridization acquisition metadata (5 channels)
+
+**Shared modules:**
+- **constants.py**: Hardware configuration and channel settings
+  - Shared tiling constants (dimensions, overlap, grid size, pixel size, z-step)
+  - Stage-specific channel configurations (GENESEQ_CHANNEL_CONFIG, BARCODESEQ_CHANNEL_CONFIG, HYB_DAPI_CONFIG, HYB_PROBE_MEASUREMENTS)
+- **utils.py**: Shared utility functions
+  - create_tiling_description(): Generates tiling parameter description for DataStream.notes
+  - create_max_projection_image(): Creates ImageSPIM objects for saved max projections
+- **experiment_params.py**: Subject-specific experiment parameters
+  - Dict structure mapping subject IDs to their experimental parameters (specimen ID, section count, CCF plates, timestamps)
+  - get_experiment_params(): Retrieves parameters with helpful error messages
+
+**Rationale:**
+- Three acquisition phases share ~150 lines of identical hardware configuration and utility code
+- Extracting shared logic ensures consistency and makes changes easier (modify once, not three times)
+- Separating hardware constants from subject-specific parameters makes the architecture clearer
+- Single entry point generator simplifies usage compared to three separate scripts
 
 ---
 
@@ -361,14 +475,14 @@ Please confirm or correct:
    - Exposure times (G=60, T=30, A=20, C=40, DAPI=30/20 ms)
 
 3. **Instrument metadata**: dogwood.json
-   - Tile dimensions: 3200×3200
+   - Tile dimensions: 3200x3200
    - Stitch overlap: 23%
 
-4. **Email correspondence**: 
-   - Aixin (2026-02-09): XY pixel size, channel order, exposure times
-   - Xiaoyin (2025-12-12): Channel lists, filter information
-   - Saskia (2026-01-20): Separate acquisition files per phase
-   - Dan (2026-02-10): Tile grid estimate, device naming
+4. **Email correspondence**:
+   - Aixin: XY pixel size, channel order, exposure times
+   - Xiaoyin: Channel lists, filter information
+   - Saskia: Separate acquisition files per phase
+   - Dan: Tile grid estimate, device naming
 
 5. **Lab notes** (780345 and 780346):
    - Section thickness: 20 μm coronal sections

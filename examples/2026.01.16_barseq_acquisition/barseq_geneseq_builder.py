@@ -3,132 +3,21 @@
 from datetime import datetime
 from typing import List, Optional
 
-from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import SizeUnit, TimeUnit
-
-# Hardware configuration from MMConfig_Ti2E-xc2.1.txt and dogwood.json
-# Tile dimensions (pixels)
-TILE_WIDTH_PX = 3200
-TILE_HEIGHT_PX = 3200
-Z_PLANES_PER_TILE = 10
-
-# Pixel size and z-step (micrometers)
-PIXEL_SIZE_UM = 0.33
-Z_STEP_UM = 1.5
-
-# Tiling configuration (from Aixin's email + Dan's estimate)
-TILE_OVERLAP_PERCENT = 0.23  # 23% overlap between tiles
-TILE_STEP_PX = int(TILE_WIDTH_PX * (1 - TILE_OVERLAP_PERCENT))  # 2464 pixels
-TILES_X = 14  # Estimated grid size
-TILES_Y = 8
-FIRST_TILE_OFFSET_PX = -736  # Starting position in pixels
-
-# Gene sequencing channel configuration (from MMConfig presets)
-GENE_CHANNEL_CONFIG = {
-    "G": {
-        "laser_wavelength_nm": 514,
-        "filter_name": "565/24",
-        "exposure_ms": 60.0,
-    },
-    "T": {
-        "laser_wavelength_nm": 561,
-        "filter_name": "441/511/593/684/817",
-        "exposure_ms": 30.0,
-    },
-    "A": {
-        "laser_wavelength_nm": 640,
-        "filter_name": "676/29",
-        "exposure_ms": 20.0,
-    },
-    "C": {
-        "laser_wavelength_nm": 640,
-        "filter_name": "775/140",
-        "exposure_ms": 40.0,
-    },
-    "DAPI": {
-        "laser_wavelength_nm": 365,
-        "filter_name": "DAPI/GFP/TxRed-69401",
-        "exposure_ms": 30.0,
-    },
-}
-
 from aind_data_schema.components.configs import (
     Channel,
     DetectorConfig,
     DeviceConfig,
     ImagingConfig,
-    ImageSPIM,
     LaserConfig,
     TriggerType,
 )
-from aind_data_schema.components.coordinates import (
-    CoordinateSystemLibrary,
-    Scale,
-    Translation,
-)
+from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.core.acquisition import Acquisition, DataStream
+from aind_data_schema_models.modalities import Modality
+from aind_data_schema_models.units import SizeUnit, TimeUnit
 
-
-def _create_images_for_channel(channel_name: str) -> list[ImageSPIM]:
-    """
-    Create ImageSPIM objects for a channel: tiles + max projection.
-
-    The acquisition uses a 14×8 grid of tiles with 23% overlap. Individual tiles
-    are transient and deleted after stitching, but we document them in the acquisition
-    metadata. The final stitched max projection is saved.
-
-    Parameters
-    ----------
-    channel_name : str
-        Name of the channel this image corresponds to
-
-    Returns
-    -------
-    list[ImageSPIM]
-        List of image objects: 112 tiles + 1 max projection
-    """
-    images = []
-    
-    # Create 112 tile ImageSPIM objects (14×8 grid)
-    for y_idx in range(TILES_Y):
-        for x_idx in range(TILES_X):
-            # Calculate tile position in pixels
-            x_pos_px = FIRST_TILE_OFFSET_PX + x_idx * TILE_STEP_PX
-            y_pos_px = FIRST_TILE_OFFSET_PX + y_idx * TILE_STEP_PX
-            
-            # Convert to microns
-            x_pos_um = x_pos_px * PIXEL_SIZE_UM
-            y_pos_um = y_pos_px * PIXEL_SIZE_UM
-            
-            tile = ImageSPIM(
-                channel_name=channel_name,
-                file_name="not saved",  # Tiles are transient
-                dimensions_unit=SizeUnit.PX,
-                dimensions=Scale(scale=[TILE_WIDTH_PX, TILE_HEIGHT_PX, Z_PLANES_PER_TILE]),
-                image_to_acquisition_transform=[
-                    Translation(translation=[x_pos_um, y_pos_um, 0]),
-                    Scale(scale=[PIXEL_SIZE_UM, PIXEL_SIZE_UM, Z_STEP_UM]),
-                ],
-            )
-            images.append(tile)
-    
-    # Create max projection ImageSPIM (stitched result that is saved)
-    total_width_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
-    total_height_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
-    
-    max_proj = ImageSPIM(
-        channel_name=channel_name,
-        file_name="PLACEHOLDER_max_projection_path",
-        dimensions_unit=SizeUnit.PX,
-        dimensions=Scale(scale=[total_width_px, total_height_px, Z_PLANES_PER_TILE]),
-        image_to_acquisition_transform=[
-            Translation(translation=[0, 0, 0]),
-            Scale(scale=[PIXEL_SIZE_UM, PIXEL_SIZE_UM, Z_STEP_UM]),
-        ],
-    )
-    images.append(max_proj)
-    
-    return images
+from constants import GENESEQ_CHANNEL_CONFIG
+from utils import create_max_projection_image, create_tiling_description
 
 
 def create_geneseq_acquisition(
@@ -179,22 +68,30 @@ def create_geneseq_acquisition(
     Acquisition
         Gene sequencing acquisition metadata object
     """
-    # Create gene sequencing channels (each with its own detector config)
+    # Create gene sequencing channels
     channels = _create_gene_sequencing_channels()
 
-    # Create ImagingConfig with tiles + max projections for each channel
-    all_images = []
+    # Create ImageSPIM objects only for saved max projections (1 per channel)
+    images = []
     for channel_name in ["GeneSeq_G", "GeneSeq_T", "GeneSeq_A", "GeneSeq_C", "DAPI"]:
-        all_images.extend(_create_images_for_channel(channel_name))
-    
+        images.append(create_max_projection_image(channel_name))
+
     imaging_config = ImagingConfig(
         device_name=instrument_id,
         channels=channels,
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
-        images=all_images,
+        images=images,
     )
 
-    # Create DataStream
+    # Generate tiling description for notes
+    tiling_description = create_tiling_description()
+
+    # Create DataStream with tiling details in notes
+    stream_notes = (
+        f"Gene barcode sequencing (7 cycles) using sequential base incorporation imaging. "
+        f"{tiling_description}"
+    )
+
     data_stream = DataStream(
         stream_start_time=acquisition_start_time,
         stream_end_time=acquisition_end_time,
@@ -206,11 +103,14 @@ def create_geneseq_acquisition(
             "XLIGHT Spinning Disk",
         ],
         configurations=[imaging_config],
-        notes="Gene barcode sequencing (7 cycles) using sequential base incorporation imaging",
+        notes=stream_notes,
     )
 
-    # Build acquisition notes - single succinct sentence
-    acq_notes = "BARseq gene sequencing for neural projection mapping from Locus Coeruleus."
+    # Build acquisition notes
+    acq_notes = (
+        f"BARseq gene sequencing for neural projection mapping from Locus Coeruleus. "
+        f"Imaged {num_sections} sections (20μm coronal) covering CCF plates {ccf_start_plate}-{ccf_end_plate}."
+    )
     if notes:
         acq_notes += f" {notes}"
 
@@ -236,11 +136,11 @@ def _create_gene_sequencing_channels() -> List[Channel]:
     """Create channels for gene sequencing (G, T, A, C, DAPI)."""
     channels = []
 
-    # Bases G, T, A, C - each with its own detector config
+    # Bases G, T, A, C
     base_names = {"G": "Guanine", "T": "Thymine", "A": "Adenine", "C": "Cytosine"}
 
     for base_code in ["G", "T", "A", "C"]:
-        config = GENE_CHANNEL_CONFIG[base_code]
+        config = GENESEQ_CHANNEL_CONFIG[base_code]
         detector = DetectorConfig(
             device_name="Camera-1",
             exposure_time=config["exposure_ms"],
@@ -265,8 +165,8 @@ def _create_gene_sequencing_channels() -> List[Channel]:
             )
         )
 
-    # DAPI channel with its own detector config
-    dapi_config = GENE_CHANNEL_CONFIG["DAPI"]
+    # DAPI channel
+    dapi_config = GENESEQ_CHANNEL_CONFIG["DAPI"]
     dapi_detector = DetectorConfig(
         device_name="Camera-1",
         exposure_time=dapi_config["exposure_ms"],
