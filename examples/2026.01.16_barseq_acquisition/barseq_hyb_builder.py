@@ -16,7 +16,12 @@ from aind_data_schema.core.acquisition import Acquisition, DataStream
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import SizeUnit, TimeUnit
 
-from constants import HYB_DAPI_CONFIG, HYB_PROBE_CONFIG, HYB_PROBE_MEASUREMENTS
+from constants import (
+    HYB_DAPI_CONFIG,
+    HYB_FLUOROPHORE_CONFIG,
+    HYB_PROBE_MEASUREMENTS,
+    HYB_PROBE_TO_FLUOROPHORE,
+)
 from utils import create_max_projection_image, create_tiling_description
 
 
@@ -137,12 +142,16 @@ def _create_hybridization_channels() -> List[Channel]:
     """Create channels for hybridization (4 probes + DAPI)."""
     channels = []
 
-    # Hybridization probes - fluorophore mapping unknown, using placeholders
+    # Hybridization probes - uses assumed probe-to-fluorophore mapping
     for channel_name, measurement in HYB_PROBE_MEASUREMENTS.items():
-        probe_config = HYB_PROBE_CONFIG[channel_name]
+        # Look up which fluorophore this probe uses (based on assumption)
+        fluorophore = HYB_PROBE_TO_FLUOROPHORE[channel_name]
+        # Get the config for that fluorophore
+        fluor_config = HYB_FLUOROPHORE_CONFIG[fluorophore]
+
         detector = DetectorConfig(
             device_name="Camera-1",
-            exposure_time=probe_config["exposure_ms"],
+            exposure_time=fluor_config["exposure_ms"],
             exposure_time_unit=TimeUnit.MS,
             trigger_type=TriggerType.INTERNAL,
         )
@@ -152,8 +161,8 @@ def _create_hybridization_channels() -> List[Channel]:
                 intended_measurement=measurement,
                 light_sources=[
                     LaserConfig(
-                        device_name="PLACEHOLDER_LASER_HYB",
-                        wavelength=probe_config["wavelength_nm"],
+                        device_name=f"Lumencor Celesta {fluor_config['wavelength_nm']}nm",
+                        wavelength=fluor_config["wavelength_nm"],
                         wavelength_unit=SizeUnit.NM,
                     ),
                 ],

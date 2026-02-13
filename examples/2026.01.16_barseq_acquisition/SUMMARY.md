@@ -4,10 +4,12 @@ This document summarizes the decisions made in creating BARseq acquisition metad
 
 ## Information Still Needed
 
-**Total placeholders: 25 per subject (50 total for 780345 and 780346)**
+**Total placeholders: 21 per subject (42 total for 780345 and 780346)**
 - Gene sequencing: 6 (5 max projection file paths + 1 specimen ID)
 - Barcode sequencing: 5 (4 max projection file paths + 1 specimen ID)
-- Hybridization: 14 (5 max projection file paths + 8 hyb probe mapping + 1 specimen ID)
+- Hybridization: 10 (5 max projection file paths + 4 filters + 1 specimen ID)
+
+**Note:** Hybridization wavelengths and exposures use an assumed probe-to-fluorophore mapping (see section 11). Once actual mapping is confirmed, only the mapping in `constants.py` needs updating.
 
 Each acquisition file contains ImageSPIM objects only for the saved max projection files (5 for gene/hyb, 4 for barcode). Tiling parameters are fully documented in DataStream.notes.
 
@@ -19,9 +21,11 @@ Each acquisition file contains ImageSPIM objects only for the saved max projecti
    - Hyb: Hyb_XC2758, Hyb_XC2759, Hyb_XC2760, Hyb_YS221, DAPI
    - **Why needed:** To extract acquisition timestamps and fill file_name fields
 
-2. **Hybridization probe-to-fluorophore mapping** (8 placeholders: 4 lasers + 4 filters)
-   - Which probe (XC2758/XC2759/XC2760/YS221) uses which fluorophore (GFP/YFP/TxRed/Cy5)?
-   - **Why needed:** To specify correct laser wavelengths and emission filters for each hyb channel
+2. **Hybridization probe-to-fluorophore mapping verification** (4 filter placeholders)
+   - **Current assumption:** XC2758→GFP, XC2759→YFP, XC2760→TxRed, YS221→Cy5
+   - **Needs confirmation:** Which probe actually uses which fluorophore?
+   - **Why needed:** To verify assumed mapping is correct and specify correct emission filters for each probe
+   - **Note:** Wavelengths and exposures use assumed mapping; filters still need actual mapping
 
 3. **Specimen IDs** (3 placeholders: 1 per file)
    - Current placeholder: "780346_PLACEHOLDER_SPECIMEN_ID"
@@ -285,13 +289,22 @@ I chose approach #2 because the schema should document data assets that exist, n
 
 - MMConfig_Ti2E-xc2.1.txt: Confirmed exposure times in channel preset configurations
 
-**Assumption:** Each of the 4 probes (Hyb_XC2758, Hyb_XC2759, Hyb_XC2760, Hyb_YS221) is assigned placeholder values (wavelength=9999nm, exposure=9999ms) in `HYB_PROBE_CONFIG` until the probe-to-fluorophore mapping is determined. Once known, simply replace the placeholder values with the correct fluorophore configuration for each probe:
-- GFP: wavelength_nm=488, exposure_ms=100.0
-- YFP: wavelength_nm=514, exposure_ms=30.0
-- TxRed: wavelength_nm=561, exposure_ms=30.0
-- Cy5: wavelength_nm=640, exposure_ms=20.0
+**CONFLICT - Hyb-DAPI Exposure Time:**
+- **MMConfig_Ti2E-xc2.1.txt**: Hyb-DAPI = 30.0ms
+- **Aixin's email**: Hyb-DAPI = 20ms
+- **Decision**: Using 20ms from Aixin's email as the authoritative source (more recent communication, direct from experimenter)
+- **Note**: Both gene sequencing and hybridization use the "Hyb-DAPI" channel configuration at 20ms exposure
 
-This structure ensures that when real values are obtained, only the numeric values in `constants.py` need updating—no variable names or code structure changes required. Simply regenerate the acquisition files after updating the constants.
+**ASSUMPTION - Probe-to-Fluorophore Mapping:**
+The actual probe-to-fluorophore mapping is unknown. We've made an arbitrary assignment in `HYB_PROBE_TO_FLUOROPHORE`:
+- Hyb_XC2758 → GFP (488nm, 100ms)
+- Hyb_XC2759 → YFP (514nm, 30ms)
+- Hyb_XC2760 → TxRed (561nm, 30ms)
+- Hyb_YS221 → Cy5 (640nm, 20ms)
+
+**Rationale:** This allows the metadata to be complete and reviewable. The fluorophore configurations (wavelengths and exposure times) are correct and come from MMConfig file. Only the mapping of which probe uses which fluorophore needs verification.
+
+**To update when actual mapping is known:** Simply change the fluorophore assignments in `HYB_PROBE_TO_FLUOROPHORE` in `constants.py`. The wavelengths and exposures are defined separately in `HYB_FLUOROPHORE_CONFIG` and will automatically be applied correctly. Then regenerate: `python generate_barseq_acquisitions.py --subject-id 780346`
 
 The probe identifiers (XC2758, XC2759, XC2760, YS221) appear to be internal lab codes not documented in public protocols or MMConfig files.
 

@@ -65,7 +65,7 @@ GENESEQ_CHANNEL_CONFIG = {
     "DAPI": {
         "laser_wavelength_nm": 365,
         "filter_name": "DAPI/GFP/TxRed-69401",
-        "exposure_ms": 30.0,
+        "exposure_ms": 20.0,  # Hyb-DAPI per Aixin's email
     },
 }
 
@@ -104,11 +104,12 @@ BARCODESEQ_CHANNEL_CONFIG = {
 # Channels: 4 probes (XC2758, XC2759, XC2760, YS221) + DAPI
 # Probe-to-fluorophore mapping is unknown, using placeholders
 
-# DAPI configuration for hybridization (updated exposure time per Aixin: 20ms vs 30ms in gene seq)
+# DAPI configuration for hybridization
+# Note: Gene sequencing also uses "Hyb-DAPI" with the same 20ms exposure
 HYB_DAPI_CONFIG = {
     "laser_wavelength_nm": 365,
     "filter_name": "DAPI/GFP/TxRed-69401",
-    "exposure_ms": 20.0,  # Different from gene sequencing (30ms)
+    "exposure_ms": 20.0,
 }
 
 # Hybridization probe measurements
@@ -119,26 +120,22 @@ HYB_PROBE_MEASUREMENTS = {
     "Hyb_YS221": "Probe YS221",
 }
 
-# Known fluorophore exposure times (can't be applied until probe-to-fluorophore mapping is known)
-# GFP=100ms, YFP=30ms, TxRed=30ms, Cy5=20ms
-HYB_FLUOROPHORE_EXPOSURE_MS = {
-    "GFP": 100.0,
-    "YFP": 30.0,
-    "TxRed": 30.0,
-    "Cy5": 20.0,
+# Hybridization fluorophore configurations (from MMConfig file)
+# These are the 4 known fluorophore configurations used in hybridization
+HYB_FLUOROPHORE_CONFIG = {
+    "GFP": {"wavelength_nm": 488, "exposure_ms": 100.0},
+    "YFP": {"wavelength_nm": 514, "exposure_ms": 30.0},
+    "TxRed": {"wavelength_nm": 561, "exposure_ms": 30.0},
+    "Cy5": {"wavelength_nm": 640, "exposure_ms": 20.0},
 }
 
-# Hybridization probe configuration
-# Each probe uses one of the 4 fluorophores, but the mapping is currently unknown.
-# ASSUMPTION: All probes set to placeholder (9999) until actual mapping is determined.
-# Once mapping is known, replace 9999 values with actual fluorophore values:
-#   GFP:   wavelength_nm=488,  exposure_ms=100.0
-#   YFP:   wavelength_nm=514,  exposure_ms=30.0
-#   TxRed: wavelength_nm=561,  exposure_ms=30.0
-#   Cy5:   wavelength_nm=640,  exposure_ms=20.0
-HYB_PROBE_CONFIG = {
-    "Hyb_XC2758": {"wavelength_nm": 9999, "exposure_ms": 9999.0},  # PLACEHOLDER
-    "Hyb_XC2759": {"wavelength_nm": 9999, "exposure_ms": 9999.0},  # PLACEHOLDER
-    "Hyb_XC2760": {"wavelength_nm": 9999, "exposure_ms": 9999.0},  # PLACEHOLDER
-    "Hyb_YS221": {"wavelength_nm": 9999, "exposure_ms": 9999.0},   # PLACEHOLDER
+# Probe-to-fluorophore mapping
+# ASSUMPTION: This mapping is unknown. Making an arbitrary assignment for now.
+# Once actual mapping is confirmed, simply update the fluorophore names below.
+# Do NOT change wavelengths or exposure times - those are defined in HYB_FLUOROPHORE_CONFIG.
+HYB_PROBE_TO_FLUOROPHORE = {
+    "Hyb_XC2758": "GFP",     # ASSUMPTION - update when known
+    "Hyb_XC2759": "YFP",     # ASSUMPTION - update when known
+    "Hyb_XC2760": "TxRed",   # ASSUMPTION - update when known
+    "Hyb_YS221": "Cy5",      # ASSUMPTION - update when known
 }

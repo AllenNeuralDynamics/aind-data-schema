@@ -212,7 +212,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 30.0,
+                        "exposure_time": 20.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null

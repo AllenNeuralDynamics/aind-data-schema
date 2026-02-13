@@ -72,7 +72,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 9999.0,
+                        "exposure_time": 100.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null
@@ -81,8 +81,8 @@
                      "light_sources": [
                         {
                            "object_type": "Laser config",
-                           "device_name": "PLACEHOLDER_LASER_HYB",
-                           "wavelength": 9999,
+                           "device_name": "Lumencor Celesta 488nm",
+                           "wavelength": 488,
                            "wavelength_unit": "nanometer",
                            "power": null,
                            "power_unit": null,
@@ -107,7 +107,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 9999.0,
+                        "exposure_time": 30.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null
@@ -116,8 +116,8 @@
                      "light_sources": [
                         {
                            "object_type": "Laser config",
-                           "device_name": "PLACEHOLDER_LASER_HYB",
-                           "wavelength": 9999,
+                           "device_name": "Lumencor Celesta 514nm",
+                           "wavelength": 514,
                            "wavelength_unit": "nanometer",
                            "power": null,
                            "power_unit": null,
@@ -142,7 +142,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 9999.0,
+                        "exposure_time": 30.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null
@@ -151,8 +151,8 @@
                      "light_sources": [
                         {
                            "object_type": "Laser config",
-                           "device_name": "PLACEHOLDER_LASER_HYB",
-                           "wavelength": 9999,
+                           "device_name": "Lumencor Celesta 561nm",
+                           "wavelength": 561,
                            "wavelength_unit": "nanometer",
                            "power": null,
                            "power_unit": null,
@@ -177,7 +177,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 9999.0,
+                        "exposure_time": 20.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null
@@ -186,8 +186,8 @@
                      "light_sources": [
                         {
                            "object_type": "Laser config",
-                           "device_name": "PLACEHOLDER_LASER_HYB",
-                           "wavelength": 9999,
+                           "device_name": "Lumencor Celesta 640nm",
+                           "wavelength": 640,
                            "wavelength_unit": "nanometer",
                            "power": null,
                            "power_unit": null,
