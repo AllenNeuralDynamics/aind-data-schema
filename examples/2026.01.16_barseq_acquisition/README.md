@@ -37,9 +37,9 @@ This generates 3 acquisition JSON files per subject:
 
 ## What's Still Needed
 
-**25 placeholders per subject** (50 total for both subjects):
+**21 placeholders per subject** (42 total for both subjects):
 - **File paths** (14 per subject): Max projection file paths for all channels to extract timestamps
-- **Probe mapping** (8): Which hybridization probe uses which fluorophore (GFP/YFP/TxRed/Cy5)
+- **Probe mapping verification** (4 filters): Confirm assumed probe-to-fluorophore mapping
 - **Specimen IDs** (3 per subject): Actual specimen identifiers
 
 See `SUMMARY.md` for complete details.

@@ -35,8 +35,8 @@ def create_tiling_description() -> str:
     str
         Comprehensive description of tiling parameters and process
     """
-    total_width_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
-    total_height_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
+    total_width_px = (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
+    total_height_px = (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
 
     return (
         f"Images acquired as {TILES_X}x{TILES_Y} tile grid ({TILES_X * TILES_Y} tiles per channel) "
@@ -72,8 +72,8 @@ def create_max_projection_image(channel_name: str) -> ImageSPIM:
         Image object for the stitched max projection with placeholder file path
     """
     # Calculate stitched dimensions from tile grid parameters
-    total_width_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
-    total_height_px = abs(FIRST_TILE_OFFSET_PX) + (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
+    total_width_px = (TILES_X - 1) * TILE_STEP_PX + TILE_WIDTH_PX
+    total_height_px = (TILES_Y - 1) * TILE_STEP_PX + TILE_HEIGHT_PX
 
     return ImageSPIM(
         channel_name=channel_name,

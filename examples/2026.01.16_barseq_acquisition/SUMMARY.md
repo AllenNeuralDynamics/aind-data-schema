@@ -62,12 +62,28 @@ What are the specimen identifiers for Subjects 780345 and 780346's brain section
 ### Q4: DIC Channel
 Should the DIC (Differential Interference Contrast) channel be included in the hybridization acquisition metadata?
 - Mentioned in emails but not currently modeled
-- If yes, need: laser wavelength, filter configuration, exposure time
+- **Impact if included:** Adds a 6th channel to hybridization (currently 5), requires additional laser wavelength, filter configuration, and exposure time
+- **Impact on placeholders:** Would add 1 more file path placeholder per subject
 
-### Q5: Validation Questions
+### Q5: Coordinate System Verification
+**Is SPIM_RPI the correct coordinate system for coronal section tiling?**
+
+SPIM_RPI defines:
+- X: Left_to_right
+- Y: Anterior_to_posterior
+- Z: Superior_to_inferior
+
+For coronal sections:
+- X (left-right on slide): matches ✓
+- Y (up-down on slide): should be Superior-Inferior, but SPIM_RPI has this as Z
+- Z (z-stack depth): should be Anterior-Posterior, but SPIM_RPI has this as Y
+
+**Question:** Does this coordinate system correctly represent your imaging setup, or should we use a different system?
+
+### Q6: Other Validation Questions
 Please confirm or correct:
-1. Is the 14x8 tile grid estimate correct?
-2. Is the SPIM_RPI coordinate system appropriate (Right-Posterior-Inferior)?
+1. Is the 14×8 tile grid estimate correct?
+2. Is the first tile offset position (-736, -736) pixels correct? Currently assuming this is 23% overlap applied to first tile positioning (3200 × 0.23 = 736), based on Dan's description.
 3. Are the acquisition notes accurate regarding the experimental setup?
 
 ---
@@ -98,16 +114,18 @@ Please confirm or correct:
 
 ### 3. Tile Grid Structure
 
-**Decision:** 14x8 tile grid (112 tiles per channel) with 23% overlap, starting at (-736, -736) pixels
+**Decision:** 14x8 tile grid (112 tiles per channel) with 23% overlap
 
 **Sources:**
 - Dan's estimate (Teams DM): "I would guess that it's roughly 14 x 8 based on the size of typical brains and the amount of overlap they are using"
-- dogwood.json: Contains "stitch_overlap: 0.23"
+- dogwood.json: Contains "stitch_overlap: 0.23", tile dimensions (3200×3200 pixels)
 
 **Implementation:**
-- Tile step: 2464 pixels = 3200 x (1 - 0.23)
-- First tile offset: -736 pixels
+- Tile step: 2464 pixels = 3200 × (1 - 0.23)
+- First tile offset: **ASSUMPTION: (-736, -736) pixels** - Derived by applying 23% overlap to first tile (3200 × 0.23 = 736). Based on Dan's DM describing the tiling setup.
 - Positions calculated for all 112 tiles in micron space
+
+**Note:** The first tile offset affects the coordinate system origin but not the stitched image dimensions (which depend only on tile count, step, and size).
 
 ---
 
@@ -144,7 +162,7 @@ I chose approach #2 because the schema should document data assets that exist, n
   - Tile step: 2464 pixels
   - First tile offset: (-736, -736) pixels
   - Pixel size: 0.33 μm (XY), z-step: 1.5 μm
-  - Stitched dimensions: 35,968x21,184 pixels, 10 z-planes
+  - Stitched dimensions: 35,232x20,448 pixels, 10 z-planes
 
 **Results:**
 - Gene sequencing: 5 ImageSPIM objects, ~457 lines
@@ -175,8 +193,10 @@ I chose approach #2 because the schema should document data assets that exist, n
 **Interpretation:** Raw z-stacks have 100/120/80 planes, but only the top 10 planes are kept in max projections. Brain sections are cut at 20 μm thickness and mounted 4 per slide.
 
 **Stitched dimensions calculation:**
-- Width = 736 + (14-1) x 2464 + 3200 = 35,968 pixels
-- Height = 736 + (8-1) x 2464 + 3200 = 21,184 pixels
+- Width = (14-1) × 2464 + 3200 = 35,232 pixels
+- Height = (8-1) × 2464 + 3200 = 20,448 pixels
+
+**Calculation explanation:** The total span is determined by the tile grid geometry: (NUM_TILES - 1) × TILE_STEP + TILE_SIZE. The first tile offset (assumed to be -736, -736) indicates where the grid starts in the coordinate system but doesn't affect the total span of the stitched image.
 
 ---
 
@@ -326,17 +346,28 @@ The probe identifiers (XC2758, XC2759, XC2760, YS221) appear to be internal lab 
 
 **Decision:** CoordinateSystemLibrary.SPIM_RPI for ImagingConfig
 
-**Source:** exaspim_acquisition.py example in aind-data-schema repository
+**Source:** Copied from exaspim_acquisition.py example in aind-data-schema repository
 
-**Rationale:**
-- RPI (Right-Posterior-Inferior) orientation is appropriate for coronal brain sections:
-  - X axis: Left to right (within section plane)
-  - Y axis: Anterior to posterior (tracking section position along brain)
-  - Z axis: Superior to inferior (depth within section)
-- This matches standard neuroanatomy conventions for brain imaging
-- The "SPIM" prefix (Selective Plane Illumination Microscopy) is technically a misnomer since this is spinning disk confocal, not light sheet microscopy
-- However, SPIM_RPI is the available coordinate system in the schema that provides the correct RPI orientation we need
-- The coordinate system name is less important than having the correct axis orientations, which SPIM_RPI provides
+**SPIM_RPI Definition:**
+- X axis: Left_to_right
+- Y axis: Anterior_to_posterior
+- Z axis: Superior_to_inferior
+
+**CONCERN - Potential Mismatch with Coronal Imaging:**
+
+For coronal sections being tiled and imaged:
+- **X (left-right on slide):** Medial-lateral → matches SPIM_RPI X (Left_to_right) ✓
+- **Y (up-down on slide):** Dorsal-ventral (superior-inferior) → but SPIM_RPI Y is Anterior_to_posterior ✗
+- **Z (z-stack through 20μm section):** Anterior-posterior direction → but SPIM_RPI Z is Superior_to_inferior ✗
+
+**The mismatch:** For single coronal sections with z-stacks through the section thickness, SPIM_RPI appears to have Y and Z swapped relative to the actual imaging coordinates.
+
+**Possible interpretations:**
+1. SPIM_RPI is intended for 3D volume reconstruction where Y tracks which coronal section you're at (anterior to posterior through the brain)
+2. A different coordinate system should be used for coronal section tiling
+3. The coordinate system is correct and our understanding of the mapping is wrong
+
+**NEEDS VERIFICATION:** Confirm with imaging team whether SPIM_RPI is the appropriate coordinate system for coronal section tiling, or if a different system should be used.
 
 **Note:** The coordinate system applies to both the Acquisition object and the ImagingConfig within each DataStream.
 
@@ -436,9 +467,10 @@ This constitutes **one acquisition per phase**, not four separate acquisitions.
 
 **Questions for Polina:**
 1. Which specific section numbers (out of 51 total) were imaged for subjects 780345 and 780346?
-2. Were the same 4 sections used for all three acquisition phases (gene seq, barcode seq, hyb)?
-3. What numbering system is used for the sections? (Sequential from anterior to posterior?)
-4. Are there specimen IDs already assigned to these sections, or should we create them?
+2. What numbering system is used for the sections? (Sequential from anterior to posterior?)
+3. Are there specimen IDs already assigned to these sections, or should we create them?
+
+**Note:** All three phases (gene sequencing, barcode sequencing, hybridization) are performed sequentially on the same sections per the BARseq protocol.
 
 **Current placeholder:** `"780346_PLACEHOLDER_SPECIMEN_ID"` (to be replaced once Polina provides section details)
 

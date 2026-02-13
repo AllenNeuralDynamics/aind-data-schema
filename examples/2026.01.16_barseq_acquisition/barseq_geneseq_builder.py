@@ -176,7 +176,7 @@ def _create_gene_sequencing_channels() -> List[Channel]:
     channels.append(
         Channel(
             channel_name="DAPI",
-            intended_measurement="DAPI counterstain",
+            intended_measurement="Nuclear counterstain",
             light_sources=[
                 LaserConfig(
                     device_name=f"Lumencor Celesta {dapi_config['laser_wavelength_nm']}nm",

@@ -31,9 +31,9 @@ Z_STEP_UM = 1.5
 # Tiling configuration (from Aixin's email + Dan's estimate)
 TILE_OVERLAP_PERCENT = 0.23  # 23% overlap between tiles
 TILE_STEP_PX = int(TILE_WIDTH_PX * (1 - TILE_OVERLAP_PERCENT))  # 2464 pixels
-TILES_X = 14  # Estimated grid size
+TILES_X = 14  # Estimated grid size (Dan's estimate)
 TILES_Y = 8
-FIRST_TILE_OFFSET_PX = -736  # Starting position in pixels
+FIRST_TILE_OFFSET_PX = -736  # ASSUMPTION - Derived from 23% overlap applied to first tile (3200 × 0.23 = 736), based on Dan's DM
 
 # =============================================================================
 # GENE SEQUENCING CHANNEL CONFIGURATION

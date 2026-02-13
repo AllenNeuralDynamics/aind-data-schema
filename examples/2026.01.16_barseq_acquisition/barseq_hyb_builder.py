@@ -128,7 +128,9 @@ def create_hyb_acquisition(
         instrument_id=instrument_id,
         acquisition_start_time=acquisition_start_time,
         acquisition_end_time=acquisition_end_time,
-        acquisition_type="BarcodeSequencing",  # All three phases use same type per SUMMARY.md
+        # All three phases (gene seq, barcode seq, hyb) use "BarcodeSequencing"
+        # Per Saskia: These are part of the same BARseq workflow and should be grouped together
+        acquisition_type="BarcodeSequencing",
         protocol_id=protocol_id or ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"],
         coordinate_system=CoordinateSystemLibrary.SPIM_RPI,
         data_streams=[data_stream],
@@ -183,7 +185,7 @@ def _create_hybridization_channels() -> List[Channel]:
     channels.append(
         Channel(
             channel_name="DAPI",
-            intended_measurement="DAPI counterstain",
+            intended_measurement="Nuclear counterstain",
             light_sources=[
                 LaserConfig(
                     device_name=f"Lumencor Celesta {HYB_DAPI_CONFIG['laser_wavelength_nm']}nm",
