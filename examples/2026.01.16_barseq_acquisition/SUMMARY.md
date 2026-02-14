@@ -10,8 +10,6 @@ Where are the stitched max projection files stored for Subjects 780345 and 78034
 - Barcode sequencing (4 channels: BarcodeSeq_G/T/A/C)
 - Hybridization (5 channels: Hyb_XC2758/XC2759/XC2760/YS221, DAPI)
 
-File format: _______ (e.g., .tif, .ims, .nd2)
-
 These paths will be used to extract acquisition timestamps and complete the file_name fields for both subjects.
 
 ### Q2: Hybridization Probe Mapping
