@@ -1,37 +1,6 @@
 # BARseq Acquisition Metadata Summary
 
-This document summarizes the decisions made in creating BARseq acquisition metadata files for subjects 780345 and 780346. Both subjects follow the same BARseq protocol with 20μm coronal sections through the Locus Coeruleus (LC), acquired using the same imaging parameters and tile grid configuration.
-
-## Information Still Needed
-
-**Total placeholders: 21 per subject (42 total for 780345 and 780346)**
-- Gene sequencing: 6 (5 max projection file paths + 1 specimen ID)
-- Barcode sequencing: 5 (4 max projection file paths + 1 specimen ID)
-- Hybridization: 10 (5 max projection file paths + 4 filters + 1 specimen ID)
-
-**Note:** Hybridization wavelengths and exposures use an assumed probe-to-fluorophore mapping (see section 11). Once actual mapping is confirmed, only the mapping in `constants.py` needs updating.
-
-Each acquisition file contains ImageSPIM objects only for the saved max projection files (5 for gene/hyb, 4 for barcode). Tiling parameters are fully documented in DataStream.notes.
-
-### Priority Items:
-
-1. **Max projection file paths** (14 total)
-   - Gene: GeneSeq_G, GeneSeq_T, GeneSeq_A, GeneSeq_C, DAPI
-   - Barcode: BarcodeSeq_G, BarcodeSeq_T, BarcodeSeq_A, BarcodeSeq_C
-   - Hyb: Hyb_XC2758, Hyb_XC2759, Hyb_XC2760, Hyb_YS221, DAPI
-   - **Why needed:** To extract acquisition timestamps and fill file_name fields
-
-2. **Hybridization probe-to-fluorophore mapping verification** (4 filter placeholders)
-   - **Current assumption:** XC2758→GFP, XC2759→YFP, XC2760→TxRed, YS221→Cy5
-   - **Needs confirmation:** Which probe actually uses which fluorophore?
-   - **Why needed:** To verify assumed mapping is correct and specify correct emission filters for each probe
-   - **Note:** Wavelengths and exposures use assumed mapping; filters still need actual mapping
-
-3. **Specimen IDs** (3 placeholders: 1 per file)
-   - Current placeholder: "780346_PLACEHOLDER_SPECIMEN_ID"
-   - **Why needed:** Required field for in vitro imaging modalities
-
----
+Please answer the following questions to complete the acquisition metadata for subjects 780345 and 780346.
 
 ## Questions for BARseq Team
 
@@ -82,6 +51,7 @@ For coronal sections:
 
 ### Q6: Other Validation Questions
 Please confirm or correct:
+
 1. Is the 14×8 tile grid estimate correct?
 2. Is the first tile offset position (-736, -736) pixels correct? Currently assuming this is 23% overlap applied to first tile positioning (3200 × 0.23 = 736), based on Dan's description.
 3. Number of sections and CCF plates: Currently using 51 sections covering CCF plates 99-112 (placeholder values that need confirmation)
@@ -90,9 +60,9 @@ Please confirm or correct:
 
 ---
 
-# ════════════════════════════════════════════════════════════════════════════════════════════════════════
+# ════════════════════════════════════════════════════════════════════════════════
 # IMPLEMENTATION DETAILS — Documentation of implementation decisions, sources and rationale
-# ════════════════════════════════════════════════════════════════════════════════════════════════════════
+# ════════════════════════════════════════════════════════════════════════════════
 
 ## Decisions and Assumptions Made
 
