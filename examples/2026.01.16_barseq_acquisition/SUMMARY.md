@@ -74,7 +74,7 @@ SPIM_RPI defines:
 - Z: Superior_to_inferior
 
 For coronal sections:
-- X (left-right on slide): matches ✓
+- X (left-right on slide): matches
 - Y (up-down on slide): should be Superior-Inferior, but SPIM_RPI has this as Z
 - Z (z-stack depth): should be Anterior-Posterior, but SPIM_RPI has this as Y
 
@@ -84,9 +84,15 @@ For coronal sections:
 Please confirm or correct:
 1. Is the 14×8 tile grid estimate correct?
 2. Is the first tile offset position (-736, -736) pixels correct? Currently assuming this is 23% overlap applied to first tile positioning (3200 × 0.23 = 736), based on Dan's description.
-3. Are the acquisition notes accurate regarding the experimental setup?
+3. Number of sections and CCF plates: Currently using 51 sections covering CCF plates 99-112 (placeholder values that need confirmation)
+4. Acquisition timestamps: All timestamps in the JSON files are placeholders (see experiment_params.py). These need to be extracted from the actual max projection file metadata.
+5. Are the acquisition notes accurate regarding the experimental setup?
 
 ---
+
+# ════════════════════════════════════════════════════════════════════════════════════════════════════════
+# IMPLEMENTATION DETAILS — Documentation of implementation decisions, sources and rationale
+# ════════════════════════════════════════════════════════════════════════════════════════════════════════
 
 ## Decisions and Assumptions Made
 
@@ -264,17 +270,11 @@ I chose approach #2 because the schema should document data assets that exist, n
 
 ### 9. Laser Wavelengths
 
-**Decision:**
-- Base G: 514 nm
-- Base T: 561 nm
-- Base A: 640 nm
-- Base C: 640 nm
-- DAPI: 365 nm
-- Hyb probes: PLACEHOLDER (wavelength 9999 until probe mapping known)
-
 **Source:** MMConfig_Ti2E-xc2.1.txt
-- Extracted from Property Browser sections for each laser configuration
-- Confirmed against Lumencor Celesta available wavelengths
+
+Gene/Barcode sequencing: G=514nm, T=561nm, A=640nm, C=640nm, DAPI=365nm
+
+Hybridization: Assumed probe mapping (GFP=488nm, YFP=514nm, TxRed=561nm, Cy5=640nm, DAPI=365nm). See Q2 for verification.
 
 ---
 
@@ -316,7 +316,7 @@ I chose approach #2 because the schema should document data assets that exist, n
 - **Note**: Both gene sequencing and hybridization use the "Hyb-DAPI" channel configuration at 20ms exposure
 
 **ASSUMPTION - Probe-to-Fluorophore Mapping:**
-The actual probe-to-fluorophore mapping is unknown. We've made an arbitrary assignment in `HYB_PROBE_TO_FLUOROPHORE`:
+I didn't know the actual probe-to-fluorophore mapping. I made an arbitrary assignment in `HYB_PROBE_TO_FLUOROPHORE`:
 - Hyb_XC2758 → GFP (488nm, 100ms)
 - Hyb_XC2759 → YFP (514nm, 30ms)
 - Hyb_XC2760 → TxRed (561nm, 30ms)
@@ -356,9 +356,9 @@ The probe identifiers (XC2758, XC2759, XC2760, YS221) appear to be internal lab 
 **CONCERN - Potential Mismatch with Coronal Imaging:**
 
 For coronal sections being tiled and imaged:
-- **X (left-right on slide):** Medial-lateral → matches SPIM_RPI X (Left_to_right) ✓
-- **Y (up-down on slide):** Dorsal-ventral (superior-inferior) → but SPIM_RPI Y is Anterior_to_posterior ✗
-- **Z (z-stack through 20μm section):** Anterior-posterior direction → but SPIM_RPI Z is Superior_to_inferior ✗
+- **X (left-right on slide):** Medial-lateral → matches SPIM_RPI X (Left_to_right)
+- **Y (up-down on slide):** Dorsal-ventral (superior-inferior) → but SPIM_RPI Y is Anterior_to_posterior
+- **Z (z-stack through 20μm section):** Anterior-posterior direction → but SPIM_RPI Z is Superior_to_inferior
 
 **The mismatch:** For single coronal sections with z-stacks through the section thickness, SPIM_RPI appears to have Y and Z swapped relative to the actual imaging coordinates.
 
@@ -395,18 +395,7 @@ For coronal sections being tiled and imaged:
 
 ---
 
-### 16. Ethics Review
-
-**Decision:** ethics_review_id = null (not included)
-
-**Source:** Reviewer comment
-> "there is no iacuc for in vitro experiments"
-
-**Rationale:** BARseq is performed on post-mortem brain tissue sections, which are in vitro preparations not requiring IACUC approval.
-
----
-
-### 17. Acquisition Type
+### 16. Acquisition Type
 
 **Decision:** acquisition_type = "BarcodeSequencing" for all three phases (gene sequencing, barcode sequencing, and hybridization)
 
@@ -422,94 +411,11 @@ For coronal sections being tiled and imaged:
 
 ---
 
-### 18. Instrument Identification
+### 17. Specimen ID Strategy
 
-**Decision:**
-- instrument_id: "Dogwood"
-- ImagingConfig.device_name: "Dogwood"
-- DataStream.active_devices: "Ti2-E__0" (component-level)
+**Decision:** Use single specimen_id per acquisition representing the collection of sections imaged together (schema limitation: field is `Optional[str]`, not a list).
 
-**Source:** Reviewer comment (Dan)
-> "The 'device_name' should actually be the instrument_id, per a comment from Dan. In this case, that's 'Dogwood'."
-
-**Clarification:** instrument_id and ImagingConfig.device_name use system-level identifier, while active_devices uses component-level identifiers from instrument.json.
-
----
-
-### 19. Specimen ID Strategy
-
-**Decision:** Use a single specimen_id per acquisition that represents the collection of sections imaged together
-
-**Context:**
-- The brain is cut into 51 sequential 20 μm coronal sections through the Locus Coeruleus
-- 4 sections are mounted per slide for BARseq imaging
-- All 4 sections on a slide are imaged together in a single imaging session
-- The same 4 sections go through all three acquisition phases (gene sequencing, barcode sequencing, hybridization)
-
-**Rationale:**
-Per the schema definition, an acquisition is "a single episode of data collection that creates one data asset." Since:
-1. The 4 sections are physically mounted together on one slide
-2. They are imaged together in one continuous microscopy session
-3. They produce one data asset (one set of stitched max projection files per channel)
-4. They cannot be imaged separately (you can't image one section without imaging the others)
-
-This constitutes **one acquisition per phase**, not four separate acquisitions.
-
-**Schema limitation:** The `specimen_id` field is `Optional[str]`, not a list. It can only hold one specimen ID at a time.
-
-**Implementation:**
-- Use a single specimen_id that represents the collection of sections
-- Format: `"<subject_id>_LC_sections"` or `"<subject_id>_LC_BARseq"`
-  - Example: `"780346_LC_sections"` or `"780346_LC_BARseq"`
-- Document which specific section numbers were imaged in `Acquisition.notes`
-- Once section numbers are confirmed with Polina, update to: `"<subject_id>_LC_sections_<first>-<last>"`
-  - Example: `"780346_LC_sections_27-30"`
-
-**Questions for Polina:**
-1. Which specific section numbers (out of 51 total) were imaged for subjects 780345 and 780346?
-2. What numbering system is used for the sections? (Sequential from anterior to posterior?)
-3. Are there specimen IDs already assigned to these sections, or should we create them?
-
-**Note:** All three phases (gene sequencing, barcode sequencing, hybridization) are performed sequentially on the same sections per the BARseq protocol.
-
-**Current placeholder:** `"780346_PLACEHOLDER_SPECIMEN_ID"` (to be replaced once Polina provides section details)
-
----
-
-### 20. Code Organization
-
-**Decision:** Extract shared logic into separate modules to eliminate code duplication
-
-**Implementation:**
-
-The codebase is organized into 7 Python files:
-
-**Entry point:**
-- **generate_barseq_acquisitions.py**: Unified generator that creates all three acquisition JSON files for a given subject ID
-  - Usage: `python generate_barseq_acquisitions.py --subject-id 780346`
-  - Calls all three builder functions and writes output files
-
-**Builder modules:**
-- **barseq_geneseq_builder.py**: Creates gene sequencing acquisition metadata (5 channels)
-- **barseq_barcodeseq_builder.py**: Creates barcode sequencing acquisition metadata (4 channels)
-- **barseq_hyb_builder.py**: Creates hybridization acquisition metadata (5 channels)
-
-**Shared modules:**
-- **constants.py**: Hardware configuration and channel settings
-  - Shared tiling constants (dimensions, overlap, grid size, pixel size, z-step)
-  - Stage-specific channel configurations (GENESEQ_CHANNEL_CONFIG, BARCODESEQ_CHANNEL_CONFIG, HYB_DAPI_CONFIG, HYB_PROBE_MEASUREMENTS)
-- **utils.py**: Shared utility functions
-  - create_tiling_description(): Generates tiling parameter description for DataStream.notes
-  - create_max_projection_image(): Creates ImageSPIM objects for saved max projections
-- **experiment_params.py**: Subject-specific experiment parameters
-  - Dict structure mapping subject IDs to their experimental parameters (specimen ID, section count, CCF plates, timestamps)
-  - get_experiment_params(): Retrieves parameters with helpful error messages
-
-**Rationale:**
-- Three acquisition phases share ~150 lines of identical hardware configuration and utility code
-- Extracting shared logic ensures consistency and makes changes easier (modify once, not three times)
-- Separating hardware constants from subject-specific parameters makes the architecture clearer
-- Single entry point generator simplifies usage compared to three separate scripts
+**Current placeholder:** `"780346_PLACEHOLDER_SPECIMEN_ID"` - see Q3 for details needed from team.
 
 ---
 

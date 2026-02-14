@@ -15,13 +15,13 @@ from datetime import datetime, timezone
 
 EXPERIMENT_PARAMS = {
     "780345": {
-        "specimen_id": "780345_PLACEHOLDER_SPECIMEN_ID",
-        "num_sections": 51,  # Number of 20μm coronal sections through LC
-        "ccf_start_plate": 99,  # Starting CCFv3 plate number
-        "ccf_end_plate": 112,  # Ending CCFv3 plate number
+        "specimen_id": "780345_PLACEHOLDER_SPECIMEN_ID",  # TODO: Get actual specimen ID from team
+        "num_sections": 51,  # PLACEHOLDER - Needs verification (total sections through LC)
+        "ccf_start_plate": 99,  # PLACEHOLDER - Needs verification (starting CCFv3 plate)
+        "ccf_end_plate": 112,  # PLACEHOLDER - Needs verification (ending CCFv3 plate)
         "experimenters": ["Imaging core"],
-        # Placeholder acquisition times
-        # TODO: Replace with actual times extracted from max projection file metadata
+        # PLACEHOLDER TIMESTAMPS - All times below are fabricated and need to be extracted from file metadata
+        # TODO: Replace with actual times from max projection file metadata
         "geneseq_start": datetime(2025, 6, 10, 12, 0, 0, tzinfo=timezone.utc),
         "geneseq_end": datetime(2025, 6, 10, 14, 0, 0, tzinfo=timezone.utc),
         "barcodeseq_start": datetime(2025, 6, 10, 14, 0, 0, tzinfo=timezone.utc),
@@ -30,13 +30,13 @@ EXPERIMENT_PARAMS = {
         "hyb_end": datetime(2025, 6, 10, 19, 0, 0, tzinfo=timezone.utc),
     },
     "780346": {
-        "specimen_id": "780346_PLACEHOLDER_SPECIMEN_ID",
-        "num_sections": 51,  # Number of 20μm coronal sections through LC
-        "ccf_start_plate": 99,  # Starting CCFv3 plate number
-        "ccf_end_plate": 112,  # Ending CCFv3 plate number
+        "specimen_id": "780346_PLACEHOLDER_SPECIMEN_ID",  # TODO: Get actual specimen ID from team
+        "num_sections": 51,  # PLACEHOLDER - Needs verification (total sections through LC)
+        "ccf_start_plate": 99,  # PLACEHOLDER - Needs verification (starting CCFv3 plate)
+        "ccf_end_plate": 112,  # PLACEHOLDER - Needs verification (ending CCFv3 plate)
         "experimenters": ["Imaging core"],
-        # Placeholder acquisition times
-        # TODO: Replace with actual times extracted from max projection file metadata
+        # PLACEHOLDER TIMESTAMPS - All times below are fabricated and need to be extracted from file metadata
+        # TODO: Replace with actual times from max projection file metadata
         "geneseq_start": datetime(2025, 6, 11, 12, 0, 0, tzinfo=timezone.utc),
         "geneseq_end": datetime(2025, 6, 11, 14, 0, 0, tzinfo=timezone.utc),
         "barcodeseq_start": datetime(2025, 6, 11, 14, 0, 0, tzinfo=timezone.utc),
