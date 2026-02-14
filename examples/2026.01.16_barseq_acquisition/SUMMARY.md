@@ -420,12 +420,3 @@ For coronal sections being tiled and imaged:
 5. **Schema examples**: exaspim_acquisition.py
    - ImageSPIM structure
    - Coordinate system usage
-
-### Team Members Consulted:
-- **Saskia de Vries**: Asset separation, channel naming, intended measurements
-- **Daniel Birman**: Device naming, tiling requirements, metadata structure
-- **Polina Kosillo**: Initial requirements gathering, workflow clarification
-- **Xiaoyin Chen**: Filter configurations, channel lists
-- **Aixin Zhang**: Instrument parameters, exposure times, pixel size
-- **Yoh Isogai**: CC'd on email thread
-- **Carolyn Eng**: CC'd on email thread
