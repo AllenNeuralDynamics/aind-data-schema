@@ -186,8 +186,6 @@ I chose approach #2 because the schema should document data assets that exist, n
 - Aixin's email: "Pixel size is 0.33"
 - Methods document (MAPseq-BARseq methods_forSciComp.txt): "1.5 μm z-spacing"
 
-**Note:** Dan's comment "Isotropic 0.33 um voxels (this is definitely wrong)" indicates the voxels are not isotropic. Z-step of 1.5 μm from methods doc differs from XY pixel size of 0.33 μm.
-
 ---
 
 ### 7. Channel Configuration
