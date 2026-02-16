@@ -33,7 +33,7 @@ TILE_OVERLAP_PERCENT = 0.23  # 23% overlap between tiles
 TILE_STEP_PX = int(TILE_WIDTH_PX * (1 - TILE_OVERLAP_PERCENT))  # 2464 pixels
 TILES_X = 14  # Estimated grid size (Dan's estimate)
 TILES_Y = 8
-FIRST_TILE_OFFSET_PX = -736  # ASSUMPTION - Derived from 23% overlap applied to first tile (3200 × 0.23 = 736), based on Dan's DM
+FIRST_TILE_OFFSET_PX = 0  # Confirmed by Xiaoyin (2026-02-13): First tile starts at (0,0)
 
 # =============================================================================
 # GENE SEQUENCING CHANNEL CONFIGURATION
@@ -130,12 +130,12 @@ HYB_FLUOROPHORE_CONFIG = {
 }
 
 # Probe-to-fluorophore mapping
-# ASSUMPTION: This mapping is unknown. Making an arbitrary assignment for now.
-# Once actual mapping is confirmed, simply update the fluorophore names below.
-# Do NOT change wavelengths or exposure times - those are defined in HYB_FLUOROPHORE_CONFIG.
+# Source: Email from Xiaoyin Chen (2026-02-13)
+# XC2758, XC2759 confirmed correct. XC2760 is Cy5, YS221 is TxRed.
+# Wavelengths and exposure times are defined in HYB_FLUOROPHORE_CONFIG.
 HYB_PROBE_TO_FLUOROPHORE = {
-    "Hyb_XC2758": "GFP",     # ASSUMPTION - update when known
-    "Hyb_XC2759": "YFP",     # ASSUMPTION - update when known
-    "Hyb_XC2760": "TxRed",   # ASSUMPTION - update when known
-    "Hyb_YS221": "Cy5",      # ASSUMPTION - update when known
+    "Hyb_XC2758": "GFP",     # Confirmed by Xiaoyin (2026-02-13)
+    "Hyb_XC2759": "YFP",     # Confirmed by Xiaoyin (2026-02-13)
+    "Hyb_XC2760": "Cy5",     # Confirmed by Xiaoyin (2026-02-13) - corrected from TxRed
+    "Hyb_YS221": "TxRed",    # Confirmed by Xiaoyin (2026-02-13) - corrected from Cy5
 }

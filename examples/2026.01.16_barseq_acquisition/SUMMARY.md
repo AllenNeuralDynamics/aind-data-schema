@@ -2,7 +2,24 @@
 
 Please answer the following questions to complete the acquisition metadata for subjects 780345 and 780346.
 
-## Questions for BARseq Team
+## Updates from Team Responses (2026-02-13)
+
+**Confirmed by Xiaoyin Chen:**
+- **Probe mapping (Q2):** XC2758 is GFP, XC2759 is YFP, XC2760 is Cy5, YS221 is TxRed (code updated)
+- **First tile offset (Q6.2):** First tile starts at (0, 0) not (-736, -736) (code updated)
+- **Tile grid (Q6.1):** Can be verified from filenames (structured as POS{n}_{xxx}_{yyy})
+
+**Pending from Dan Birman:**
+- **Specimen IDs (Q3):** Working on procedures, will provide specimen_ids next week
+
+**Still needs clarification:**
+- **DAPI vs DIC in gene/barcode sequencing (Q1):** Need Polina to check max projection images - is 5th channel DAPI or DIC? Is it present only in cycle 1 or all cycles?
+- **DIC channel details (Q4):** Should be included per Xiaoyin. LED transmitted light (no laser). Aixin can provide filter and exposure details.
+- **Coordinate system (Q5):** Varies by experiment, only standardized after CCF registration. Polina can check orientations for these subjects.
+
+---
+
+## Remaining Questions for BARseq Team
 
 ### Q1: Max Projection File Paths
 Where are the stitched max projection files stored for Subjects 780345 and 780346? Please provide file paths or directory structure for:
@@ -13,13 +30,13 @@ Where are the stitched max projection files stored for Subjects 780345 and 78034
 These paths will be used to extract acquisition timestamps and complete the file_name fields for both subjects.
 
 ### Q2: Hybridization Probe Mapping
-**Current assumptions** (need verification):
+**CONFIRMED by Xiaoyin Chen (2026-02-13):**
 - Probe XC2758: **GFP** (488nm, 100ms exposure)
 - Probe XC2759: **YFP** (514nm, 30ms exposure)
-- Probe XC2760: **TxRed** (561nm, 30ms exposure)
-- Probe YS221: **Cy5** (640nm, 20ms exposure)
+- Probe XC2760: **Cy5** (640nm, 20ms exposure)
+- Probe YS221: **TxRed** (561nm, 30ms exposure)
 
-These assumptions were made to structure the code properly and avoid duplication. The wavelengths and exposures are known from MMConfig, but the specific probe-to-fluorophore assignments need confirmation. Emission filter configurations remain as "PLACEHOLDER_FILTER_HYB" until verified.
+**Still needed:** Emission filter configurations remain as "PLACEHOLDER_FILTER_HYB". Aixin can provide these details.
 
 ### Q3: Specimen IDs
 What are the specimen identifiers for Subjects 780345 and 780346's brain sections?
@@ -50,8 +67,8 @@ For coronal sections:
 ### Q6: Other Validation Questions
 Please confirm or correct:
 
-1. Is the 14×8 tile grid estimate correct?
-2. Is the first tile offset position (-736, -736) pixels correct? Currently assuming this is 23% overlap applied to first tile positioning (3200 × 0.23 = 736), based on Dan's description.
+1. Is the 14×8 tile grid estimate correct? (Per Xiaoyin: Can be verified from filenames - structured as POS{n}_{xxx}_{yyy})
+2. **CONFIRMED:** First tile offset is (0, 0) pixels (Xiaoyin Chen, 2026-02-13)
 3. Number of sections and CCF plates: Currently using 51 sections covering CCF plates 99-112 (placeholder values that need confirmation)
 4. Acquisition timestamps: All timestamps in the JSON files are placeholders (see experiment_params.py). These need to be extracted from the actual max projection file metadata.
 5. Are the acquisition notes accurate regarding the experimental setup?
@@ -96,10 +113,10 @@ Please confirm or correct:
 
 **Implementation:**
 - Tile step: 2464 pixels = 3200 × (1 - 0.23)
-- First tile offset: **ASSUMPTION: (-736, -736) pixels** - Derived by applying 23% overlap to first tile (3200 × 0.23 = 736). Based on Dan's DM describing the tiling setup.
+- First tile offset: **(0, 0) pixels** - Confirmed by Xiaoyin Chen (2026-02-13)
 - Positions calculated for all 112 tiles in micron space
 
-**Note:** The first tile offset affects the coordinate system origin but not the stitched image dimensions (which depend only on tile count, step, and size).
+**Note:** The first tile offset indicates where the grid starts in the coordinate system but doesn't affect the stitched image dimensions (which depend only on tile count, step, and size).
 
 ---
 
@@ -134,7 +151,7 @@ I chose approach #2 because the schema should document data assets that exist, n
   - Overlap: 23%
   - Tile dimensions: 3200x3200 pixels, 10 z-planes
   - Tile step: 2464 pixels
-  - First tile offset: (-736, -736) pixels
+  - First tile offset: (0, 0) pixels
   - Pixel size: 0.33 μm (XY), z-step: 1.5 μm
   - Stitched dimensions: 35,232x20,448 pixels, 10 z-planes
 
@@ -170,7 +187,7 @@ I chose approach #2 because the schema should document data assets that exist, n
 - Width = (14-1) × 2464 + 3200 = 35,232 pixels
 - Height = (8-1) × 2464 + 3200 = 20,448 pixels
 
-**Calculation explanation:** The total span is determined by the tile grid geometry: (NUM_TILES - 1) × TILE_STEP + TILE_SIZE. The first tile offset (assumed to be -736, -736) indicates where the grid starts in the coordinate system but doesn't affect the total span of the stitched image.
+**Calculation explanation:** The total span is determined by the tile grid geometry: (NUM_TILES - 1) × TILE_STEP + TILE_SIZE. The first tile offset (0, 0) indicates where the grid starts in the coordinate system but doesn't affect the total span of the stitched image.
 
 ---
 

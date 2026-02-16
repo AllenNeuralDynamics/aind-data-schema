@@ -53,7 +53,7 @@
             }
          ],
          "code": null,
-         "notes": "Viral barcode sequencing (15 cycles) for neural projection tracing. Images acquired as 14x8 tile grid (112 tiles per channel) with 23% overlap. Individual tiles: 3200x3200 pixels, 10 z-planes. Tile step: 2464 pixels. First tile offset: (-736, -736) pixels. Pixel size: 0.33 μm (XY), z-step: 1.5 μm. Individual tile z-stacks were acquired, max-projected (10 planes), and stitched. Only stitched max projections were saved. Stitched dimensions: 35232x20448 pixels, 10 z-planes.",
+         "notes": "Viral barcode sequencing (15 cycles) for neural projection tracing. Images acquired as 14x8 tile grid (112 tiles per channel) with 23% overlap. Individual tiles: 3200x3200 pixels, 10 z-planes. Tile step: 2464 pixels. First tile offset: (0, 0) pixels. Pixel size: 0.33 μm (XY), z-step: 1.5 μm. Individual tile z-stacks were acquired, max-projected (10 planes), and stitched. Only stitched max projections were saved. Stitched dimensions: 35232x20448 pixels, 10 z-planes.",
          "active_devices": [
             "Ti2-E__0",
             "20x Objective",

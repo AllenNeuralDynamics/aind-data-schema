@@ -53,7 +53,7 @@
             }
          ],
          "code": null,
-         "notes": "Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference. Images acquired as 14x8 tile grid (112 tiles per channel) with 23% overlap. Individual tiles: 3200x3200 pixels, 10 z-planes. Tile step: 2464 pixels. First tile offset: (-736, -736) pixels. Pixel size: 0.33 μm (XY), z-step: 1.5 μm. Individual tile z-stacks were acquired, max-projected (10 planes), and stitched. Only stitched max projections were saved. Stitched dimensions: 35232x20448 pixels, 10 z-planes.",
+         "notes": "Fluorescent in situ hybridization with 4 probes (XC2758, XC2759, XC2760, YS221) for anatomical reference. Images acquired as 14x8 tile grid (112 tiles per channel) with 23% overlap. Individual tiles: 3200x3200 pixels, 10 z-planes. Tile step: 2464 pixels. First tile offset: (0, 0) pixels. Pixel size: 0.33 μm (XY), z-step: 1.5 μm. Individual tile z-stacks were acquired, max-projected (10 planes), and stitched. Only stitched max projections were saved. Stitched dimensions: 35232x20448 pixels, 10 z-planes.",
          "active_devices": [
             "Ti2-E__0",
             "20x Objective",
@@ -142,7 +142,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 30.0,
+                        "exposure_time": 20.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null
@@ -151,8 +151,8 @@
                      "light_sources": [
                         {
                            "object_type": "Laser config",
-                           "device_name": "Lumencor Celesta 561nm",
-                           "wavelength": 561,
+                           "device_name": "Lumencor Celesta 640nm",
+                           "wavelength": 640,
                            "wavelength_unit": "nanometer",
                            "power": null,
                            "power_unit": null,
@@ -177,7 +177,7 @@
                      "detector": {
                         "object_type": "Detector config",
                         "device_name": "Camera-1",
-                        "exposure_time": 20.0,
+                        "exposure_time": 30.0,
                         "exposure_time_unit": "millisecond",
                         "trigger_type": "Internal",
                         "compression": null
@@ -186,8 +186,8 @@
                      "light_sources": [
                         {
                            "object_type": "Laser config",
-                           "device_name": "Lumencor Celesta 640nm",
-                           "wavelength": 640,
+                           "device_name": "Lumencor Celesta 561nm",
+                           "wavelength": 561,
                            "wavelength_unit": "nanometer",
                            "power": null,
                            "power_unit": null,
