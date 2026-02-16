@@ -1,0 +1,387 @@
+{
+   "object_type": "Acquisition",
+   "describedBy": "https://raw.githubusercontent.com/AllenNeuralDynamics/aind-data-schema/main/src/aind_data_schema/core/acquisition.py",
+   "schema_version": "2.2.3",
+   "subject_id": "780346",
+   "specimen_id": "780346_PLACEHOLDER_SPECIMEN_ID",
+   "acquisition_start_time": "2025-06-11T14:00:00Z",
+   "acquisition_end_time": "2025-06-11T18:00:00Z",
+   "experimenters": [
+      "Imaging core"
+   ],
+   "protocol_id": [
+      "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"
+   ],
+   "ethics_review_id": null,
+   "instrument_id": "Dogwood",
+   "acquisition_type": "BarcodeSequencing",
+   "notes": "BARseq viral barcode sequencing for neural projection mapping from Locus Coeruleus. Imaged 51 sections (20μm coronal) covering CCF plates 99-112.",
+   "coordinate_system": {
+      "object_type": "Coordinate system",
+      "name": "SPIM_RPI",
+      "origin": "Origin",
+      "axes": [
+         {
+            "object_type": "Axis",
+            "name": "X",
+            "direction": "Left_to_right"
+         },
+         {
+            "object_type": "Axis",
+            "name": "Y",
+            "direction": "Anterior_to_posterior"
+         },
+         {
+            "object_type": "Axis",
+            "name": "Z",
+            "direction": "Superior_to_inferior"
+         }
+      ],
+      "axis_unit": "millimeter"
+   },
+   "calibrations": [],
+   "maintenance": [],
+   "data_streams": [
+      {
+         "object_type": "Data stream",
+         "stream_start_time": "2025-06-11T14:00:00Z",
+         "stream_end_time": "2025-06-11T18:00:00Z",
+         "modalities": [
+            {
+               "name": "Barcoded anatomy resolved by sequencing",
+               "abbreviation": "BARseq"
+            }
+         ],
+         "code": null,
+         "notes": "Viral barcode sequencing (15 cycles) for neural projection tracing. Images acquired as 14x8 tile grid (112 tiles per channel) with 23% overlap. Individual tiles: 3200x3200 pixels, 10 z-planes. Tile step: 2464 pixels. First tile offset: (0, 0) pixels. Pixel size: 0.33 μm (XY), z-step: 1.5 μm. Individual tile z-stacks were acquired, max-projected (10 planes), and stitched. Only stitched max projections were saved. Stitched dimensions: 35232x20448 pixels, 10 z-planes.",
+         "active_devices": [
+            "Ti2-E__0",
+            "20x Objective",
+            "Camera-1",
+            "XLIGHT Spinning Disk"
+         ],
+         "configurations": [
+            {
+               "object_type": "Imaging config",
+               "device_name": "Dogwood",
+               "channels": [
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "BarcodeSeq_G",
+                     "intended_measurement": "Guanine",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 60.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "Lumencor Celesta 514nm",
+                           "wavelength": 514,
+                           "wavelength_unit": "nanometer",
+                           "power": null,
+                           "power_unit": null,
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "565/24"
+                        }
+                     ],
+                     "emission_wavelength": null,
+                     "emission_wavelength_unit": null
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "BarcodeSeq_T",
+                     "intended_measurement": "Thymine",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 30.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "Lumencor Celesta 561nm",
+                           "wavelength": 561,
+                           "wavelength_unit": "nanometer",
+                           "power": null,
+                           "power_unit": null,
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "441/511/593/684/817"
+                        }
+                     ],
+                     "emission_wavelength": null,
+                     "emission_wavelength_unit": null
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "BarcodeSeq_A",
+                     "intended_measurement": "Adenine",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 20.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "Lumencor Celesta 640nm",
+                           "wavelength": 640,
+                           "wavelength_unit": "nanometer",
+                           "power": null,
+                           "power_unit": null,
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "676/29"
+                        }
+                     ],
+                     "emission_wavelength": null,
+                     "emission_wavelength_unit": null
+                  },
+                  {
+                     "object_type": "Channel",
+                     "channel_name": "BarcodeSeq_C",
+                     "intended_measurement": "Cytosine",
+                     "detector": {
+                        "object_type": "Detector config",
+                        "device_name": "Camera-1",
+                        "exposure_time": 40.0,
+                        "exposure_time_unit": "millisecond",
+                        "trigger_type": "Internal",
+                        "compression": null
+                     },
+                     "additional_device_names": null,
+                     "light_sources": [
+                        {
+                           "object_type": "Laser config",
+                           "device_name": "Lumencor Celesta 640nm",
+                           "wavelength": 640,
+                           "wavelength_unit": "nanometer",
+                           "power": null,
+                           "power_unit": null,
+                           "power_measured_at": null
+                        }
+                     ],
+                     "variable_power": false,
+                     "excitation_filters": null,
+                     "emission_filters": [
+                        {
+                           "object_type": "Device config",
+                           "device_name": "775/140"
+                        }
+                     ],
+                     "emission_wavelength": null,
+                     "emission_wavelength_unit": null
+                  }
+               ],
+               "coordinate_system": {
+                  "object_type": "Coordinate system",
+                  "name": "SPIM_RPI",
+                  "origin": "Origin",
+                  "axes": [
+                     {
+                        "object_type": "Axis",
+                        "name": "X",
+                        "direction": "Left_to_right"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Y",
+                        "direction": "Anterior_to_posterior"
+                     },
+                     {
+                        "object_type": "Axis",
+                        "name": "Z",
+                        "direction": "Superior_to_inferior"
+                     }
+                  ],
+                  "axis_unit": "millimeter"
+               },
+               "images": [
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_G",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           35232.0,
+                           20448.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_max_projection_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_T",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           35232.0,
+                           20448.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_max_projection_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_A",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           35232.0,
+                           20448.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_max_projection_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  },
+                  {
+                     "object_type": "Image spim",
+                     "channel_name": "BarcodeSeq_C",
+                     "dimensions_unit": "pixel",
+                     "image_to_acquisition_transform": [
+                        {
+                           "object_type": "Translation",
+                           "translation": [
+                              0.0,
+                              0.0,
+                              0.0
+                           ]
+                        },
+                        {
+                           "object_type": "Scale",
+                           "scale": [
+                              0.33,
+                              0.33,
+                              1.5
+                           ]
+                        }
+                     ],
+                     "dimensions": {
+                        "object_type": "Scale",
+                        "scale": [
+                           35232.0,
+                           20448.0,
+                           10.0
+                        ]
+                     },
+                     "file_name": "PLACEHOLDER_max_projection_path",
+                     "imaging_angle": 0,
+                     "imaging_angle_unit": "degrees",
+                     "image_start_time": null,
+                     "image_end_time": null
+                  }
+               ],
+               "sampling_strategy": null
+            }
+         ],
+         "connections": []
+      }
+   ],
+   "stimulus_epochs": [],
+   "manipulations": [],
+   "subject_details": null
+}
