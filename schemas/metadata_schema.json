@@ -6529,8 +6529,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.3.1",
-               "default": "2.3.1",
+               "const": "2.3.3",
+               "default": "2.3.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -26412,8 +26412,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.1",
-               "default": "2.2.1",
+               "const": "2.2.2",
+               "default": "2.2.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -39303,8 +39303,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.1",
-         "default": "2.3.1",
+         "const": "2.3.2",
+         "default": "2.3.2",
          "title": "Schema Version",
          "type": "string"
       },

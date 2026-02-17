@@ -1560,8 +1560,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.1",
-         "default": "2.3.1",
+         "const": "2.3.3",
+         "default": "2.3.3",
          "title": "Schema Version",
          "type": "string"
       },
