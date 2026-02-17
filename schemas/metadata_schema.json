@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.3",
-               "default": "2.2.3",
+               "const": "2.3.0",
+               "default": "2.3.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -41,9 +41,625 @@
                "title": "Specimen ID"
             },
             "acquisition_start_time": {
+               "description": "During validation, timezone information will be moved into the acquisition_start_tz field.",
                "format": "date-time",
                "title": "Acquisition start time",
                "type": "string"
+            },
+            "acquisition_start_tz": {
+               "anyOf": [
+                  {
+                     "enum": [
+                        "Africa/Abidjan",
+                        "Africa/Accra",
+                        "Africa/Addis_Ababa",
+                        "Africa/Algiers",
+                        "Africa/Asmara",
+                        "Africa/Asmera",
+                        "Africa/Bamako",
+                        "Africa/Bangui",
+                        "Africa/Banjul",
+                        "Africa/Bissau",
+                        "Africa/Blantyre",
+                        "Africa/Brazzaville",
+                        "Africa/Bujumbura",
+                        "Africa/Cairo",
+                        "Africa/Casablanca",
+                        "Africa/Ceuta",
+                        "Africa/Conakry",
+                        "Africa/Dakar",
+                        "Africa/Dar_es_Salaam",
+                        "Africa/Djibouti",
+                        "Africa/Douala",
+                        "Africa/El_Aaiun",
+                        "Africa/Freetown",
+                        "Africa/Gaborone",
+                        "Africa/Harare",
+                        "Africa/Johannesburg",
+                        "Africa/Juba",
+                        "Africa/Kampala",
+                        "Africa/Khartoum",
+                        "Africa/Kigali",
+                        "Africa/Kinshasa",
+                        "Africa/Lagos",
+                        "Africa/Libreville",
+                        "Africa/Lome",
+                        "Africa/Luanda",
+                        "Africa/Lubumbashi",
+                        "Africa/Lusaka",
+                        "Africa/Malabo",
+                        "Africa/Maputo",
+                        "Africa/Maseru",
+                        "Africa/Mbabane",
+                        "Africa/Mogadishu",
+                        "Africa/Monrovia",
+                        "Africa/Nairobi",
+                        "Africa/Ndjamena",
+                        "Africa/Niamey",
+                        "Africa/Nouakchott",
+                        "Africa/Ouagadougou",
+                        "Africa/Porto-Novo",
+                        "Africa/Sao_Tome",
+                        "Africa/Timbuktu",
+                        "Africa/Tripoli",
+                        "Africa/Tunis",
+                        "Africa/Windhoek",
+                        "America/Adak",
+                        "America/Anchorage",
+                        "America/Anguilla",
+                        "America/Antigua",
+                        "America/Araguaina",
+                        "America/Argentina/Buenos_Aires",
+                        "America/Argentina/Catamarca",
+                        "America/Argentina/ComodRivadavia",
+                        "America/Argentina/Cordoba",
+                        "America/Argentina/Jujuy",
+                        "America/Argentina/La_Rioja",
+                        "America/Argentina/Mendoza",
+                        "America/Argentina/Rio_Gallegos",
+                        "America/Argentina/Salta",
+                        "America/Argentina/San_Juan",
+                        "America/Argentina/San_Luis",
+                        "America/Argentina/Tucuman",
+                        "America/Argentina/Ushuaia",
+                        "America/Aruba",
+                        "America/Asuncion",
+                        "America/Atikokan",
+                        "America/Atka",
+                        "America/Bahia",
+                        "America/Bahia_Banderas",
+                        "America/Barbados",
+                        "America/Belem",
+                        "America/Belize",
+                        "America/Blanc-Sablon",
+                        "America/Boa_Vista",
+                        "America/Bogota",
+                        "America/Boise",
+                        "America/Buenos_Aires",
+                        "America/Cambridge_Bay",
+                        "America/Campo_Grande",
+                        "America/Cancun",
+                        "America/Caracas",
+                        "America/Catamarca",
+                        "America/Cayenne",
+                        "America/Cayman",
+                        "America/Chicago",
+                        "America/Chihuahua",
+                        "America/Ciudad_Juarez",
+                        "America/Coral_Harbour",
+                        "America/Cordoba",
+                        "America/Costa_Rica",
+                        "America/Coyhaique",
+                        "America/Creston",
+                        "America/Cuiaba",
+                        "America/Curacao",
+                        "America/Danmarkshavn",
+                        "America/Dawson",
+                        "America/Dawson_Creek",
+                        "America/Denver",
+                        "America/Detroit",
+                        "America/Dominica",
+                        "America/Edmonton",
+                        "America/Eirunepe",
+                        "America/El_Salvador",
+                        "America/Ensenada",
+                        "America/Fort_Nelson",
+                        "America/Fort_Wayne",
+                        "America/Fortaleza",
+                        "America/Glace_Bay",
+                        "America/Godthab",
+                        "America/Goose_Bay",
+                        "America/Grand_Turk",
+                        "America/Grenada",
+                        "America/Guadeloupe",
+                        "America/Guatemala",
+                        "America/Guayaquil",
+                        "America/Guyana",
+                        "America/Halifax",
+                        "America/Havana",
+                        "America/Hermosillo",
+                        "America/Indiana/Indianapolis",
+                        "America/Indiana/Knox",
+                        "America/Indiana/Marengo",
+                        "America/Indiana/Petersburg",
+                        "America/Indiana/Tell_City",
+                        "America/Indiana/Vevay",
+                        "America/Indiana/Vincennes",
+                        "America/Indiana/Winamac",
+                        "America/Indianapolis",
+                        "America/Inuvik",
+                        "America/Iqaluit",
+                        "America/Jamaica",
+                        "America/Jujuy",
+                        "America/Juneau",
+                        "America/Kentucky/Louisville",
+                        "America/Kentucky/Monticello",
+                        "America/Knox_IN",
+                        "America/Kralendijk",
+                        "America/La_Paz",
+                        "America/Lima",
+                        "America/Los_Angeles",
+                        "America/Louisville",
+                        "America/Lower_Princes",
+                        "America/Maceio",
+                        "America/Managua",
+                        "America/Manaus",
+                        "America/Marigot",
+                        "America/Martinique",
+                        "America/Matamoros",
+                        "America/Mazatlan",
+                        "America/Mendoza",
+                        "America/Menominee",
+                        "America/Merida",
+                        "America/Metlakatla",
+                        "America/Mexico_City",
+                        "America/Miquelon",
+                        "America/Moncton",
+                        "America/Monterrey",
+                        "America/Montevideo",
+                        "America/Montreal",
+                        "America/Montserrat",
+                        "America/Nassau",
+                        "America/New_York",
+                        "America/Nipigon",
+                        "America/Nome",
+                        "America/Noronha",
+                        "America/North_Dakota/Beulah",
+                        "America/North_Dakota/Center",
+                        "America/North_Dakota/New_Salem",
+                        "America/Nuuk",
+                        "America/Ojinaga",
+                        "America/Panama",
+                        "America/Pangnirtung",
+                        "America/Paramaribo",
+                        "America/Phoenix",
+                        "America/Port-au-Prince",
+                        "America/Port_of_Spain",
+                        "America/Porto_Acre",
+                        "America/Porto_Velho",
+                        "America/Puerto_Rico",
+                        "America/Punta_Arenas",
+                        "America/Rainy_River",
+                        "America/Rankin_Inlet",
+                        "America/Recife",
+                        "America/Regina",
+                        "America/Resolute",
+                        "America/Rio_Branco",
+                        "America/Rosario",
+                        "America/Santa_Isabel",
+                        "America/Santarem",
+                        "America/Santiago",
+                        "America/Santo_Domingo",
+                        "America/Sao_Paulo",
+                        "America/Scoresbysund",
+                        "America/Shiprock",
+                        "America/Sitka",
+                        "America/St_Barthelemy",
+                        "America/St_Johns",
+                        "America/St_Kitts",
+                        "America/St_Lucia",
+                        "America/St_Thomas",
+                        "America/St_Vincent",
+                        "America/Swift_Current",
+                        "America/Tegucigalpa",
+                        "America/Thule",
+                        "America/Thunder_Bay",
+                        "America/Tijuana",
+                        "America/Toronto",
+                        "America/Tortola",
+                        "America/Vancouver",
+                        "America/Virgin",
+                        "America/Whitehorse",
+                        "America/Winnipeg",
+                        "America/Yakutat",
+                        "America/Yellowknife",
+                        "Antarctica/Casey",
+                        "Antarctica/Davis",
+                        "Antarctica/DumontDUrville",
+                        "Antarctica/Macquarie",
+                        "Antarctica/Mawson",
+                        "Antarctica/McMurdo",
+                        "Antarctica/Palmer",
+                        "Antarctica/Rothera",
+                        "Antarctica/South_Pole",
+                        "Antarctica/Syowa",
+                        "Antarctica/Troll",
+                        "Antarctica/Vostok",
+                        "Arctic/Longyearbyen",
+                        "Asia/Aden",
+                        "Asia/Almaty",
+                        "Asia/Amman",
+                        "Asia/Anadyr",
+                        "Asia/Aqtau",
+                        "Asia/Aqtobe",
+                        "Asia/Ashgabat",
+                        "Asia/Ashkhabad",
+                        "Asia/Atyrau",
+                        "Asia/Baghdad",
+                        "Asia/Bahrain",
+                        "Asia/Baku",
+                        "Asia/Bangkok",
+                        "Asia/Barnaul",
+                        "Asia/Beirut",
+                        "Asia/Bishkek",
+                        "Asia/Brunei",
+                        "Asia/Calcutta",
+                        "Asia/Chita",
+                        "Asia/Choibalsan",
+                        "Asia/Chongqing",
+                        "Asia/Chungking",
+                        "Asia/Colombo",
+                        "Asia/Dacca",
+                        "Asia/Damascus",
+                        "Asia/Dhaka",
+                        "Asia/Dili",
+                        "Asia/Dubai",
+                        "Asia/Dushanbe",
+                        "Asia/Famagusta",
+                        "Asia/Gaza",
+                        "Asia/Harbin",
+                        "Asia/Hebron",
+                        "Asia/Ho_Chi_Minh",
+                        "Asia/Hong_Kong",
+                        "Asia/Hovd",
+                        "Asia/Irkutsk",
+                        "Asia/Istanbul",
+                        "Asia/Jakarta",
+                        "Asia/Jayapura",
+                        "Asia/Jerusalem",
+                        "Asia/Kabul",
+                        "Asia/Kamchatka",
+                        "Asia/Karachi",
+                        "Asia/Kashgar",
+                        "Asia/Kathmandu",
+                        "Asia/Katmandu",
+                        "Asia/Khandyga",
+                        "Asia/Kolkata",
+                        "Asia/Krasnoyarsk",
+                        "Asia/Kuala_Lumpur",
+                        "Asia/Kuching",
+                        "Asia/Kuwait",
+                        "Asia/Macao",
+                        "Asia/Macau",
+                        "Asia/Magadan",
+                        "Asia/Makassar",
+                        "Asia/Manila",
+                        "Asia/Muscat",
+                        "Asia/Nicosia",
+                        "Asia/Novokuznetsk",
+                        "Asia/Novosibirsk",
+                        "Asia/Omsk",
+                        "Asia/Oral",
+                        "Asia/Phnom_Penh",
+                        "Asia/Pontianak",
+                        "Asia/Pyongyang",
+                        "Asia/Qatar",
+                        "Asia/Qostanay",
+                        "Asia/Qyzylorda",
+                        "Asia/Rangoon",
+                        "Asia/Riyadh",
+                        "Asia/Saigon",
+                        "Asia/Sakhalin",
+                        "Asia/Samarkand",
+                        "Asia/Seoul",
+                        "Asia/Shanghai",
+                        "Asia/Singapore",
+                        "Asia/Srednekolymsk",
+                        "Asia/Taipei",
+                        "Asia/Tashkent",
+                        "Asia/Tbilisi",
+                        "Asia/Tehran",
+                        "Asia/Tel_Aviv",
+                        "Asia/Thimbu",
+                        "Asia/Thimphu",
+                        "Asia/Tokyo",
+                        "Asia/Tomsk",
+                        "Asia/Ujung_Pandang",
+                        "Asia/Ulaanbaatar",
+                        "Asia/Ulan_Bator",
+                        "Asia/Urumqi",
+                        "Asia/Ust-Nera",
+                        "Asia/Vientiane",
+                        "Asia/Vladivostok",
+                        "Asia/Yakutsk",
+                        "Asia/Yangon",
+                        "Asia/Yekaterinburg",
+                        "Asia/Yerevan",
+                        "Atlantic/Azores",
+                        "Atlantic/Bermuda",
+                        "Atlantic/Canary",
+                        "Atlantic/Cape_Verde",
+                        "Atlantic/Faeroe",
+                        "Atlantic/Faroe",
+                        "Atlantic/Jan_Mayen",
+                        "Atlantic/Madeira",
+                        "Atlantic/Reykjavik",
+                        "Atlantic/South_Georgia",
+                        "Atlantic/St_Helena",
+                        "Atlantic/Stanley",
+                        "Australia/ACT",
+                        "Australia/Adelaide",
+                        "Australia/Brisbane",
+                        "Australia/Broken_Hill",
+                        "Australia/Canberra",
+                        "Australia/Currie",
+                        "Australia/Darwin",
+                        "Australia/Eucla",
+                        "Australia/Hobart",
+                        "Australia/LHI",
+                        "Australia/Lindeman",
+                        "Australia/Lord_Howe",
+                        "Australia/Melbourne",
+                        "Australia/NSW",
+                        "Australia/North",
+                        "Australia/Perth",
+                        "Australia/Queensland",
+                        "Australia/South",
+                        "Australia/Sydney",
+                        "Australia/Tasmania",
+                        "Australia/Victoria",
+                        "Australia/West",
+                        "Australia/Yancowinna",
+                        "Brazil/Acre",
+                        "Brazil/DeNoronha",
+                        "Brazil/East",
+                        "Brazil/West",
+                        "CET",
+                        "CST6CDT",
+                        "Canada/Atlantic",
+                        "Canada/Central",
+                        "Canada/Eastern",
+                        "Canada/Mountain",
+                        "Canada/Newfoundland",
+                        "Canada/Pacific",
+                        "Canada/Saskatchewan",
+                        "Canada/Yukon",
+                        "Chile/Continental",
+                        "Chile/EasterIsland",
+                        "Cuba",
+                        "EET",
+                        "EST",
+                        "EST5EDT",
+                        "Egypt",
+                        "Eire",
+                        "Etc/GMT",
+                        "Etc/GMT+0",
+                        "Etc/GMT+1",
+                        "Etc/GMT+10",
+                        "Etc/GMT+11",
+                        "Etc/GMT+12",
+                        "Etc/GMT+2",
+                        "Etc/GMT+3",
+                        "Etc/GMT+4",
+                        "Etc/GMT+5",
+                        "Etc/GMT+6",
+                        "Etc/GMT+7",
+                        "Etc/GMT+8",
+                        "Etc/GMT+9",
+                        "Etc/GMT-0",
+                        "Etc/GMT-1",
+                        "Etc/GMT-10",
+                        "Etc/GMT-11",
+                        "Etc/GMT-12",
+                        "Etc/GMT-13",
+                        "Etc/GMT-14",
+                        "Etc/GMT-2",
+                        "Etc/GMT-3",
+                        "Etc/GMT-4",
+                        "Etc/GMT-5",
+                        "Etc/GMT-6",
+                        "Etc/GMT-7",
+                        "Etc/GMT-8",
+                        "Etc/GMT-9",
+                        "Etc/GMT0",
+                        "Etc/Greenwich",
+                        "Etc/UCT",
+                        "Etc/UTC",
+                        "Etc/Universal",
+                        "Etc/Zulu",
+                        "Europe/Amsterdam",
+                        "Europe/Andorra",
+                        "Europe/Astrakhan",
+                        "Europe/Athens",
+                        "Europe/Belfast",
+                        "Europe/Belgrade",
+                        "Europe/Berlin",
+                        "Europe/Bratislava",
+                        "Europe/Brussels",
+                        "Europe/Bucharest",
+                        "Europe/Budapest",
+                        "Europe/Busingen",
+                        "Europe/Chisinau",
+                        "Europe/Copenhagen",
+                        "Europe/Dublin",
+                        "Europe/Gibraltar",
+                        "Europe/Guernsey",
+                        "Europe/Helsinki",
+                        "Europe/Isle_of_Man",
+                        "Europe/Istanbul",
+                        "Europe/Jersey",
+                        "Europe/Kaliningrad",
+                        "Europe/Kiev",
+                        "Europe/Kirov",
+                        "Europe/Kyiv",
+                        "Europe/Lisbon",
+                        "Europe/Ljubljana",
+                        "Europe/London",
+                        "Europe/Luxembourg",
+                        "Europe/Madrid",
+                        "Europe/Malta",
+                        "Europe/Mariehamn",
+                        "Europe/Minsk",
+                        "Europe/Monaco",
+                        "Europe/Moscow",
+                        "Europe/Nicosia",
+                        "Europe/Oslo",
+                        "Europe/Paris",
+                        "Europe/Podgorica",
+                        "Europe/Prague",
+                        "Europe/Riga",
+                        "Europe/Rome",
+                        "Europe/Samara",
+                        "Europe/San_Marino",
+                        "Europe/Sarajevo",
+                        "Europe/Saratov",
+                        "Europe/Simferopol",
+                        "Europe/Skopje",
+                        "Europe/Sofia",
+                        "Europe/Stockholm",
+                        "Europe/Tallinn",
+                        "Europe/Tirane",
+                        "Europe/Tiraspol",
+                        "Europe/Ulyanovsk",
+                        "Europe/Uzhgorod",
+                        "Europe/Vaduz",
+                        "Europe/Vatican",
+                        "Europe/Vienna",
+                        "Europe/Vilnius",
+                        "Europe/Volgograd",
+                        "Europe/Warsaw",
+                        "Europe/Zagreb",
+                        "Europe/Zaporozhye",
+                        "Europe/Zurich",
+                        "Factory",
+                        "GB",
+                        "GB-Eire",
+                        "GMT",
+                        "GMT+0",
+                        "GMT-0",
+                        "GMT0",
+                        "Greenwich",
+                        "HST",
+                        "Hongkong",
+                        "Iceland",
+                        "Indian/Antananarivo",
+                        "Indian/Chagos",
+                        "Indian/Christmas",
+                        "Indian/Cocos",
+                        "Indian/Comoro",
+                        "Indian/Kerguelen",
+                        "Indian/Mahe",
+                        "Indian/Maldives",
+                        "Indian/Mauritius",
+                        "Indian/Mayotte",
+                        "Indian/Reunion",
+                        "Iran",
+                        "Israel",
+                        "Jamaica",
+                        "Japan",
+                        "Kwajalein",
+                        "Libya",
+                        "MET",
+                        "MST",
+                        "MST7MDT",
+                        "Mexico/BajaNorte",
+                        "Mexico/BajaSur",
+                        "Mexico/General",
+                        "NZ",
+                        "NZ-CHAT",
+                        "Navajo",
+                        "PRC",
+                        "PST8PDT",
+                        "Pacific/Apia",
+                        "Pacific/Auckland",
+                        "Pacific/Bougainville",
+                        "Pacific/Chatham",
+                        "Pacific/Chuuk",
+                        "Pacific/Easter",
+                        "Pacific/Efate",
+                        "Pacific/Enderbury",
+                        "Pacific/Fakaofo",
+                        "Pacific/Fiji",
+                        "Pacific/Funafuti",
+                        "Pacific/Galapagos",
+                        "Pacific/Gambier",
+                        "Pacific/Guadalcanal",
+                        "Pacific/Guam",
+                        "Pacific/Honolulu",
+                        "Pacific/Johnston",
+                        "Pacific/Kanton",
+                        "Pacific/Kiritimati",
+                        "Pacific/Kosrae",
+                        "Pacific/Kwajalein",
+                        "Pacific/Majuro",
+                        "Pacific/Marquesas",
+                        "Pacific/Midway",
+                        "Pacific/Nauru",
+                        "Pacific/Niue",
+                        "Pacific/Norfolk",
+                        "Pacific/Noumea",
+                        "Pacific/Pago_Pago",
+                        "Pacific/Palau",
+                        "Pacific/Pitcairn",
+                        "Pacific/Pohnpei",
+                        "Pacific/Ponape",
+                        "Pacific/Port_Moresby",
+                        "Pacific/Rarotonga",
+                        "Pacific/Saipan",
+                        "Pacific/Samoa",
+                        "Pacific/Tahiti",
+                        "Pacific/Tarawa",
+                        "Pacific/Tongatapu",
+                        "Pacific/Truk",
+                        "Pacific/Wake",
+                        "Pacific/Wallis",
+                        "Pacific/Yap",
+                        "Poland",
+                        "Portugal",
+                        "ROC",
+                        "ROK",
+                        "Singapore",
+                        "Turkey",
+                        "UCT",
+                        "US/Alaska",
+                        "US/Aleutian",
+                        "US/Arizona",
+                        "US/Central",
+                        "US/East-Indiana",
+                        "US/Eastern",
+                        "US/Hawaii",
+                        "US/Indiana-Starke",
+                        "US/Michigan",
+                        "US/Mountain",
+                        "US/Pacific",
+                        "US/Samoa",
+                        "UTC",
+                        "Universal",
+                        "W-SU",
+                        "WET",
+                        "Zulu",
+                        "localtime"
+                     ],
+                     "minLength": 1,
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Automatically populated by a validator based on acquisition_start_time.",
+               "title": "Acquisition start timezone"
             },
             "acquisition_end_time": {
                "format": "date-time",
@@ -271,6 +887,7 @@
                "title": "Anaesthesia"
             },
             "mouse_platform_name": {
+               "description": "The surface that the mouse is on during the acquisition",
                "title": "Mouse platform",
                "type": "string"
             },
@@ -354,6 +971,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -365,6 +983,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -395,6 +1014,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -434,9 +1054,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -500,6 +1122,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -531,6 +1156,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -621,6 +1249,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -740,6 +1371,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -747,6 +1381,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -1036,6 +1673,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -1047,6 +1685,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -1077,6 +1716,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -1116,9 +1756,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -1182,6 +1824,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -1213,6 +1858,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -1303,6 +1951,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -1422,6 +2073,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -1429,6 +2083,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -1647,6 +2304,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -1658,6 +2316,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -1688,6 +2347,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -1727,9 +2387,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -1793,6 +2455,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -1824,6 +2489,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -1914,6 +2582,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -2033,6 +2704,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -2040,6 +2714,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -2876,6 +3553,7 @@
                      "Other": "#/$defs/_Other",
                      "Spinnaker": "#/$defs/_Spinnaker",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Vieworks": "#/$defs/_Vieworks"
@@ -2906,6 +3584,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_The_Imaging_Source"
@@ -3406,6 +4087,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -3417,6 +4099,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -3447,6 +4130,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -3486,9 +4170,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -3552,6 +4238,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -3583,6 +4272,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -3673,6 +4365,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -3792,6 +4487,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -3799,6 +4497,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -4431,6 +5132,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -4442,6 +5144,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -4472,6 +5175,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -4511,9 +5215,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -4577,6 +5283,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -4608,6 +5317,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -4698,6 +5410,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -4817,6 +5532,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -4824,6 +5542,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -5444,6 +6165,7 @@
                   }
                ],
                "default": null,
+               "description": "Describes the measured value and the rule that links the value and status.",
                "title": "Metric description"
             },
             "reference": {
@@ -5807,8 +6529,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.3.0",
-               "default": "2.3.0",
+               "const": "2.3.1",
+               "default": "2.3.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -5862,8 +6584,8 @@
                   }
                ],
                "default": null,
-               "description": "Name of data, conventionally also the name of the directory containing all data and metadata",
-               "title": "Name"
+               "description": "When left blank, a name will be generated based on subject_id and creation_time. Conventionally also used as the name of the data folder.",
+               "title": "Data asset name"
             },
             "institution": {
                "description": "An established society, corporation, foundation or other organization that collected this data",
@@ -6443,6 +7165,7 @@
                         "Laser config": "#/$defs/LaserConfig",
                         "Lick spout config": "#/$defs/LickSpoutConfig",
                         "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig",
+                        "MIS camera config": "#/$defs/MISCameraConfig",
                         "MRI scan": "#/$defs/MRIScan",
                         "Manipulator config": "#/$defs/ManipulatorConfig",
                         "Patch cord config": "#/$defs/PatchCordConfig",
@@ -6470,6 +7193,9 @@
                      },
                      {
                         "$ref": "#/$defs/FiberAssemblyConfig"
+                     },
+                     {
+                        "$ref": "#/$defs/MISCameraConfig"
                      },
                      {
                         "$ref": "#/$defs/MRIScan"
@@ -6570,6 +7296,7 @@
                      "Other": "#/$defs/_Other",
                      "Spinnaker": "#/$defs/_Spinnaker",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "Thorlabs": "#/$defs/_Thorlabs",
                      "Vieworks": "#/$defs/_Vieworks"
@@ -6600,6 +7327,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_The_Imaging_Source"
@@ -7035,6 +7765,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -7046,6 +7777,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -7076,6 +7808,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -7115,9 +7848,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -7181,6 +7916,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -7212,6 +7950,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -7302,6 +8043,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -7421,6 +8165,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -7428,6 +8175,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -7598,6 +8348,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -7609,6 +8360,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -7639,6 +8391,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -7678,9 +8431,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -7744,6 +8499,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -7775,6 +8533,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -7865,6 +8626,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -7984,6 +8748,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -7991,6 +8758,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -8246,6 +9016,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -8257,6 +9028,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -8287,6 +9059,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -8326,9 +9099,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -8392,6 +9167,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -8423,6 +9201,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -8513,6 +9294,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -8632,6 +9416,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -8639,6 +9426,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -8858,6 +9648,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -8869,6 +9660,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -8899,6 +9691,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -8938,9 +9731,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -9004,6 +9799,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -9035,6 +9833,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -9125,6 +9926,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -9244,6 +10048,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -9251,6 +10058,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -9515,6 +10325,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -9526,6 +10337,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -9556,6 +10368,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -9595,9 +10408,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -9661,6 +10476,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -9692,6 +10510,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -9782,6 +10603,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -9901,6 +10725,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -9908,6 +10735,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -10148,6 +10978,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -10159,6 +10990,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -10189,6 +11021,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -10228,9 +11061,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -10294,6 +11129,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -10325,6 +11163,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -10415,6 +11256,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -10534,6 +11378,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -10541,6 +11388,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -10716,6 +11566,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -10727,6 +11578,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -10757,6 +11609,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -10796,9 +11649,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -10862,6 +11717,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -10893,6 +11751,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -10983,6 +11844,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -11102,6 +11966,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -11109,6 +11976,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -11489,6 +12359,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Bruker": "#/$defs/_Bruker",
                      "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -11500,6 +12371,7 @@
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
                      "Custom": "#/$defs/_Custom",
                      "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
@@ -11530,6 +12402,7 @@
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                      "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
@@ -11569,9 +12442,11 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -11635,6 +12510,9 @@
                      "$ref": "#/$defs/_Boston_University"
                   },
                   {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
                      "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
@@ -11666,6 +12544,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
                   },
                   {
                      "$ref": "#/$defs/_Custom"
@@ -11756,6 +12637,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   },
                   {
                      "$ref": "#/$defs/_Mbf_Bioscience"
@@ -11875,6 +12759,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
                      "$ref": "#/$defs/_Tamron"
                   },
                   {
@@ -11882,6 +12769,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -12227,6 +13117,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Bruker": "#/$defs/_Bruker",
                      "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -12238,6 +13129,7 @@
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
                      "Custom": "#/$defs/_Custom",
                      "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
@@ -12268,6 +13160,7 @@
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                      "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
@@ -12307,9 +13200,11 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -12373,6 +13268,9 @@
                      "$ref": "#/$defs/_Boston_University"
                   },
                   {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
                      "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
@@ -12404,6 +13302,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
                   },
                   {
                      "$ref": "#/$defs/_Custom"
@@ -12494,6 +13395,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   },
                   {
                      "$ref": "#/$defs/_Mbf_Bioscience"
@@ -12613,6 +13517,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
                      "$ref": "#/$defs/_Tamron"
                   },
                   {
@@ -12620,6 +13527,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -13026,6 +13936,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Bruker": "#/$defs/_Bruker",
                      "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -13037,6 +13948,7 @@
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
                      "Custom": "#/$defs/_Custom",
                      "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
@@ -13067,6 +13979,7 @@
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                      "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
@@ -13106,9 +14019,11 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -13172,6 +14087,9 @@
                      "$ref": "#/$defs/_Boston_University"
                   },
                   {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
                      "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
@@ -13203,6 +14121,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
                   },
                   {
                      "$ref": "#/$defs/_Custom"
@@ -13293,6 +14214,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   },
                   {
                      "$ref": "#/$defs/_Mbf_Bioscience"
@@ -13412,6 +14336,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
                      "$ref": "#/$defs/_Tamron"
                   },
                   {
@@ -13419,6 +14346,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -14532,8 +15462,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -14955,6 +15885,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -14966,6 +15897,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -14996,6 +15928,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -15035,9 +15968,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -15101,6 +16036,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -15132,6 +16070,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -15222,6 +16163,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -15341,6 +16285,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -15348,6 +16295,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -15525,6 +16475,7 @@
                      "Coherent Scientific": "#/$defs/_Coherent_Scientific",
                      "Hamamatsu": "#/$defs/_Hamamatsu",
                      "LASOS Lasertechnik": "#/$defs/_Lasos_Lasertechnik",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "Other": "#/$defs/_Other",
                      "Oxxius": "#/$defs/_Oxxius",
                      "Quantifi": "#/$defs/_Quantifi",
@@ -15561,6 +16512,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   }
                ],
                "title": "Manufacturer"
@@ -15975,6 +16929,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -15986,6 +16941,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -16016,6 +16972,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -16055,9 +17012,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -16121,6 +17080,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -16152,6 +17114,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -16242,6 +17207,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -16361,6 +17329,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -16368,6 +17339,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -16900,6 +17874,96 @@
          "title": "Liquid",
          "type": "string"
       },
+      "MISCameraConfig": {
+         "additionalProperties": false,
+         "description": "Configuration for a camera used in a New Scale modular insertion system",
+         "properties": {
+            "object_type": {
+               "const": "MIS camera config",
+               "default": "MIS camera config",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "relative_position": {
+               "items": {
+                  "$ref": "#/$defs/AnatomicalRelative"
+               },
+               "title": "Relative position",
+               "type": "array"
+            },
+            "coordinate_system": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Device coordinate system"
+            },
+            "transform": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "discriminator": {
+                           "mapping": {
+                              "Affine": "#/$defs/Affine",
+                              "Rotation": "#/$defs/Rotation",
+                              "Scale": "#/$defs/Scale",
+                              "Translation": "#/$defs/Translation"
+                           },
+                           "propertyName": "object_type"
+                        },
+                        "oneOf": [
+                           {
+                              "$ref": "#/$defs/Translation"
+                           },
+                           {
+                              "$ref": "#/$defs/Rotation"
+                           },
+                           {
+                              "$ref": "#/$defs/Scale"
+                           },
+                           {
+                              "$ref": "#/$defs/Affine"
+                           }
+                        ]
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Position and orientation of the device in the instrument coordinate system",
+               "title": "Device to instrument transform"
+            },
+            "device_name": {
+               "description": "Must match a device defined in the instrument.json",
+               "title": "Device name",
+               "type": "string"
+            },
+            "detector_config": {
+               "$ref": "#/$defs/DetectorConfig",
+               "title": "Detector configuration"
+            },
+            "module": {
+               "$ref": "#/$defs/MISModuleConfig",
+               "title": "Module"
+            }
+         },
+         "required": [
+            "relative_position",
+            "device_name",
+            "detector_config",
+            "module"
+         ],
+         "title": "MISCameraConfig",
+         "type": "object"
+      },
       "MISModuleConfig": {
          "additionalProperties": false,
          "description": "Modular insertion system module configuration",
@@ -16955,6 +18019,15 @@
          "title": "MISModuleConfig",
          "type": "object"
       },
+      "MRAcquisitionType": {
+         "description": "MRI acquisition type",
+         "enum": [
+            "2D",
+            "3D"
+         ],
+         "title": "MRAcquisitionType",
+         "type": "string"
+      },
       "MRIScan": {
          "additionalProperties": false,
          "description": "Configuration of a 3D scan",
@@ -16970,22 +18043,61 @@
                "title": "Device name",
                "type": "string"
             },
-            "scan_index": {
-               "title": "Scan index",
+            "index": {
+               "description": "Index of the scan in the session, starting at 1",
+               "title": "Index",
                "type": "integer"
             },
-            "scan_type": {
-               "$ref": "#/$defs/ScanType",
-               "title": "Scan type"
-            },
-            "primary_scan": {
-               "description": "Indicates the primary scan used for downstream analysis",
-               "title": "Primary scan",
+            "setup": {
+               "description": "Positioning, shim, and other pre-scan adjustments",
+               "title": "Setup",
                "type": "boolean"
             },
-            "scan_sequence_type": {
-               "$ref": "#/$defs/MriScanSequence",
+            "pulse_sequence_type": {
+               "$ref": "#/$defs/PulseSequenceType",
+               "description": "BIDS PulseSequenceType",
                "title": "Scan sequence"
+            },
+            "mr_acquisition_type": {
+               "$ref": "#/$defs/MRAcquisitionType",
+               "description": "BIDS MRAcquisitionType / DICOM Tag 0018,0023",
+               "title": "MR acquisition type"
+            },
+            "resolution": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Scale"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Voxel resolution"
+            },
+            "resolution_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Voxel resolution unit"
+            },
+            "additional_scan_parameters": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/_GenericModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Parameters"
             },
             "rare_factor": {
                "anyOf": [
@@ -17008,10 +18120,12 @@
                      "type": "string"
                   }
                ],
-               "title": "Echo time"
+               "description": "BIDS EchoTime / DICOM Tag 0018,0081",
+               "title": "Echo time (s)"
             },
             "echo_time_unit": {
                "$ref": "#/$defs/TimeUnit",
+               "default": "second",
                "title": "Echo time unit"
             },
             "effective_echo_time": {
@@ -17038,13 +18152,15 @@
                      "type": "string"
                   }
                ],
-               "title": "Repetition time"
+               "description": "BIDS RepetitionTime / DICOM Tag 0018,0080",
+               "title": "Repetition time (s)"
             },
             "repetition_time_unit": {
                "$ref": "#/$defs/TimeUnit",
+               "default": "second",
                "title": "Repetition time unit"
             },
-            "scan_coordinate_system": {
+            "scanner_coordinate_system": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/CoordinateSystem"
@@ -17056,7 +18172,7 @@
                "default": null,
                "title": "Scanner coordinate system"
             },
-            "scan_affine_transform": {
+            "affine_transform": {
                "anyOf": [
                   {
                      "items": {
@@ -17098,42 +18214,6 @@
                "$ref": "#/$defs/SubjectPosition",
                "title": "Subject position"
             },
-            "resolution": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/Scale"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Voxel resolution"
-            },
-            "resolution_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Voxel resolution unit"
-            },
-            "additional_scan_parameters": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/_GenericModel"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Parameters"
-            },
             "notes": {
                "anyOf": [
                   {
@@ -17149,14 +18229,12 @@
          },
          "required": [
             "device_name",
-            "scan_index",
-            "scan_type",
-            "primary_scan",
-            "scan_sequence_type",
+            "index",
+            "setup",
+            "pulse_sequence_type",
+            "mr_acquisition_type",
             "echo_time",
-            "echo_time_unit",
             "repetition_time",
-            "repetition_time_unit",
             "subject_position"
          ],
          "title": "MRIScan",
@@ -17521,6 +18599,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -17532,6 +18611,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -17562,6 +18642,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -17601,9 +18682,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -17667,6 +18750,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -17698,6 +18784,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -17788,6 +18877,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -17907,6 +18999,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -17914,6 +19009,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -18777,6 +19875,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -18788,6 +19887,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -18818,6 +19918,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -18857,9 +19958,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -18923,6 +20026,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -18954,6 +20060,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -19044,6 +20153,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -19163,6 +20275,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -19170,6 +20285,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -19586,15 +20704,6 @@
          "title": "MouseSubject",
          "type": "object"
       },
-      "MriScanSequence": {
-         "description": "MRI scan sequence",
-         "enum": [
-            "RARE",
-            "Other"
-         ],
-         "title": "MriScanSequence",
-         "type": "string"
-      },
       "MyomatrixArray": {
          "additionalProperties": false,
          "description": "Description of a Myomatrix array",
@@ -19641,6 +20750,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -19652,6 +20762,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -19682,6 +20793,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -19721,9 +20833,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -19787,6 +20901,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -19818,6 +20935,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -19908,6 +21028,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -20027,6 +21150,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -20034,6 +21160,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -20468,6 +21597,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Bruker": "#/$defs/_Bruker",
                      "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -20479,6 +21609,7 @@
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
                      "Custom": "#/$defs/_Custom",
                      "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
@@ -20509,6 +21640,7 @@
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                      "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
@@ -20548,9 +21680,11 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -20614,6 +21748,9 @@
                      "$ref": "#/$defs/_Boston_University"
                   },
                   {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
                      "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
@@ -20645,6 +21782,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
                   },
                   {
                      "$ref": "#/$defs/_Custom"
@@ -20735,6 +21875,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   },
                   {
                      "$ref": "#/$defs/_Mbf_Bioscience"
@@ -20854,6 +21997,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
                      "$ref": "#/$defs/_Tamron"
                   },
                   {
@@ -20861,6 +22007,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -21021,6 +22170,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -21032,6 +22182,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -21062,6 +22213,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -21101,9 +22253,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -21167,6 +22321,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -21198,6 +22355,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -21288,6 +22448,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -21407,6 +22570,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -21414,6 +22580,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -22751,6 +23920,114 @@
          "title": "PlanarImageStack",
          "type": "object"
       },
+      "PlanarSection": {
+         "additionalProperties": false,
+         "description": "Description of a single planar section of brain tissue",
+         "properties": {
+            "object_type": {
+               "const": "Planar section",
+               "default": "Planar section",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "output_specimen_id": {
+               "title": "Specimen ID",
+               "type": "string"
+            },
+            "targeted_structure": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/BrainStructureModel"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Targeted structure"
+            },
+            "includes_surrounding_tissue": {
+               "anyOf": [
+                  {
+                     "type": "boolean"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Whether the section includes additional tissue surrounding the targeted structure.",
+               "title": "Includes surrounding tissue"
+            },
+            "coordinate_system_name": {
+               "title": "Coordinate system name",
+               "type": "string"
+            },
+            "start_coordinate": {
+               "$ref": "#/$defs/Translation",
+               "title": "Start coordinate"
+            },
+            "end_coordinate": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Translation"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "End coordinate"
+            },
+            "thickness": {
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Slice thickness"
+            },
+            "thickness_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Slice thickness unit"
+            },
+            "partial_slice": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/AnatomicalRelative"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "If sectioning does not include the entire slice, indicate which part of the slice is retained.",
+               "title": "Partial slice"
+            }
+         },
+         "required": [
+            "output_specimen_id",
+            "coordinate_system_name",
+            "start_coordinate"
+         ],
+         "title": "PlanarSection",
+         "type": "object"
+      },
       "PlanarSectioning": {
          "additionalProperties": false,
          "description": "Description of a sectioning procedure performed on the coronal, sagittal, or transverse/axial plane",
@@ -22761,10 +24038,28 @@
                "title": "Object Type",
                "type": "string"
             },
+            "sections": {
+               "description": "Use PlanarSection for new implementations",
+               "items": {
+                  "anyOf": [
+                     {
+                        "$ref": "#/$defs/Section"
+                     },
+                     {
+                        "$ref": "#/$defs/PlanarSection"
+                     }
+                  ]
+               },
+               "title": "Planar sections",
+               "type": "array"
+            },
             "coordinate_system": {
                "anyOf": [
                   {
                      "$ref": "#/$defs/CoordinateSystem"
+                  },
+                  {
+                     "$ref": "#/$defs/Atlas"
                   },
                   {
                      "type": "null"
@@ -22773,13 +24068,6 @@
                "default": null,
                "description": "Only required if different from the Procedures.coordinate_system",
                "title": "Sectioning coordinate system"
-            },
-            "sections": {
-               "items": {
-                  "$ref": "#/$defs/Section"
-               },
-               "title": "Sections",
-               "type": "array"
             },
             "section_orientation": {
                "$ref": "#/$defs/SectionOrientation",
@@ -22880,6 +24168,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -22891,6 +24180,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -22921,6 +24211,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -22960,9 +24251,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -23026,6 +24319,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -23057,6 +24353,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -23147,6 +24446,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -23266,6 +24568,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -23273,6 +24578,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -23486,6 +24794,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -23497,6 +24806,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -23527,6 +24837,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -23566,9 +24877,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -23632,6 +24945,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -23663,6 +24979,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -23753,6 +25072,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -23872,6 +25194,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -23879,6 +25204,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -24388,6 +25716,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Bruker": "#/$defs/_Bruker",
                      "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -24399,6 +25728,7 @@
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
                      "Custom": "#/$defs/_Custom",
                      "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
@@ -24429,6 +25759,7 @@
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                      "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
@@ -24468,9 +25799,11 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -24534,6 +25867,9 @@
                      "$ref": "#/$defs/_Boston_University"
                   },
                   {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
                      "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
@@ -24565,6 +25901,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
                   },
                   {
                      "$ref": "#/$defs/_Custom"
@@ -24655,6 +25994,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   },
                   {
                      "$ref": "#/$defs/_Mbf_Bioscience"
@@ -24774,6 +26116,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
                      "$ref": "#/$defs/_Tamron"
                   },
                   {
@@ -24781,6 +26126,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -24901,8 +26249,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.0.36",
-               "default": "2.0.36",
+               "const": "2.1.0",
+               "default": "2.1.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25064,8 +26412,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.0",
-               "default": "2.2.0",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25251,6 +26599,17 @@
          "title": "ProteinProbe",
          "type": "object"
       },
+      "PulseSequenceType": {
+         "description": "MRI pulse sequence type",
+         "enum": [
+            "RARE",
+            "FLASH",
+            "MSME",
+            "Other"
+         ],
+         "title": "PulseSequenceType",
+         "type": "string"
+      },
       "QCMetric": {
          "additionalProperties": false,
          "description": "Description of a single quality control metric",
@@ -25381,6 +26740,7 @@
                   }
                ],
                "default": null,
+               "description": "Describes the measured value and the rule that links the value and status.",
                "title": "Metric description"
             },
             "reference": {
@@ -25478,8 +26838,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.4.0",
-               "default": "2.4.0",
+               "const": "2.4.1",
+               "default": "2.4.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -25613,6 +26973,7 @@
                      "Basler": "#/$defs/_Basler",
                      "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                      "Boston University": "#/$defs/_Boston_University",
+                     "Bruker": "#/$defs/_Bruker",
                      "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                      "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                      "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -25624,6 +26985,7 @@
                      "Columbia University": "#/$defs/_Columbia_University",
                      "Computar": "#/$defs/_Computar",
                      "Conoptics": "#/$defs/_Conoptics",
+                     "CrestOptics": "#/$defs/_Crestoptics",
                      "Custom": "#/$defs/_Custom",
                      "DigiKey": "#/$defs/_Digikey",
                      "Dodotronic": "#/$defs/_Dodotronic",
@@ -25654,6 +27016,7 @@
                      "Leica": "#/$defs/_Leica",
                      "LifeCanvas": "#/$defs/_Lifecanvas",
                      "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                     "Lumencor": "#/$defs/_Lumencor",
                      "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                      "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                      "MKS Newport": "#/$defs/_Mks_Newport",
@@ -25693,9 +27056,11 @@
                      "Simons Foundation": "#/$defs/_Simons_Foundation",
                      "Spectra-Physics": "#/$defs/_Spectra_Physics",
                      "Spinnaker": "#/$defs/_Spinnaker",
+                     "TE Connectivity": "#/$defs/_Te_Connectivity",
                      "Tamron": "#/$defs/_Tamron",
                      "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                      "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                     "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                      "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                      "The Imaging Source": "#/$defs/_The_Imaging_Source",
                      "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -25759,6 +27124,9 @@
                      "$ref": "#/$defs/_Boston_University"
                   },
                   {
+                     "$ref": "#/$defs/_Bruker"
+                  },
+                  {
                      "$ref": "#/$defs/_Cajal_Neuroscience"
                   },
                   {
@@ -25790,6 +27158,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Conoptics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Crestoptics"
                   },
                   {
                      "$ref": "#/$defs/_Custom"
@@ -25880,6 +27251,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Lumen_Dynamics"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lumencor"
                   },
                   {
                      "$ref": "#/$defs/_Mbf_Bioscience"
@@ -25999,6 +27373,9 @@
                      "$ref": "#/$defs/_Spinnaker"
                   },
                   {
+                     "$ref": "#/$defs/_Te_Connectivity"
+                  },
+                  {
                      "$ref": "#/$defs/_Tamron"
                   },
                   {
@@ -26006,6 +27383,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Teledyne_Flir"
+                  },
+                  {
+                     "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                   },
                   {
                      "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -26475,15 +27855,6 @@
          "title": "Scale",
          "type": "object"
       },
-      "ScanType": {
-         "description": "Type of scan",
-         "enum": [
-            "Set Up",
-            "3D Scan"
-         ],
-         "title": "ScanType",
-         "type": "string"
-      },
       "Scanner": {
          "additionalProperties": false,
          "description": "Description of a MRI Scanner",
@@ -26530,6 +27901,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -26541,6 +27913,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -26571,6 +27944,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -26610,9 +27984,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -26676,6 +28052,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -26707,6 +28086,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -26797,6 +28179,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -26916,6 +28301,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -26923,6 +28311,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -27071,6 +28462,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -27082,6 +28474,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -27112,6 +28505,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -27151,9 +28545,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -27217,6 +28613,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -27248,6 +28647,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -27338,6 +28740,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -27457,6 +28862,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -27464,6 +28872,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -27597,7 +29008,7 @@
       },
       "Section": {
          "additionalProperties": false,
-         "description": "Description of a slice of brain tissue",
+         "description": "Description of a single section of brain tissue. Slices should use PlanarSection.",
          "properties": {
             "object_type": {
                "const": "Section",
@@ -27621,12 +29032,43 @@
                "default": null,
                "title": "Targeted structure"
             },
+            "includes_surrounding_tissue": {
+               "anyOf": [
+                  {
+                     "type": "boolean"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Whether the section includes additional tissue surrounding the targeted structure.",
+               "title": "Includes surrounding tissue"
+            },
             "coordinate_system_name": {
-               "title": "Coordinate system name",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
+               "title": "Coordinate system name"
             },
             "start_coordinate": {
-               "$ref": "#/$defs/Translation",
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Translation"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "deprecated": true,
                "title": "Start coordinate"
             },
             "end_coordinate": {
@@ -27639,6 +29081,7 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "End coordinate"
             },
             "thickness": {
@@ -27651,6 +29094,7 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Slice thickness"
             },
             "thickness_unit": {
@@ -27663,6 +29107,7 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "title": "Slice thickness unit"
             },
             "partial_slice": {
@@ -27678,14 +29123,13 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "If sectioning does not include the entire slice, indicate which part of the slice is retained.",
                "title": "Partial slice"
             }
          },
          "required": [
-            "output_specimen_id",
-            "coordinate_system_name",
-            "start_coordinate"
+            "output_specimen_id"
          ],
          "title": "Section",
          "type": "object"
@@ -27699,6 +29143,30 @@
          ],
          "title": "SectionOrientation",
          "type": "string"
+      },
+      "Sectioning": {
+         "additionalProperties": false,
+         "description": "Description of a sectioning procedure targeting a specific structure",
+         "properties": {
+            "object_type": {
+               "const": "Sectioning",
+               "default": "Sectioning",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "sections": {
+               "items": {
+                  "$ref": "#/$defs/Section"
+               },
+               "title": "Sections",
+               "type": "array"
+            }
+         },
+         "required": [
+            "sections"
+         ],
+         "title": "Sectioning",
+         "type": "object"
       },
       "Sex": {
          "description": "Subject sex name",
@@ -28291,8 +29759,18 @@
                "title": "Procedure name"
             },
             "specimen_id": {
-               "title": "Specimen ID",
-               "type": "string"
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "items": {
+                        "type": "string"
+                     },
+                     "type": "array"
+                  }
+               ],
+               "title": "Specimen ID(s)"
             },
             "start_date": {
                "format": "date",
@@ -28355,7 +29833,8 @@
                         "HCR series": "#/$defs/HCRSeries",
                         "Planar sectioning": "#/$defs/PlanarSectioning",
                         "Probe reagent": "#/$defs/ProbeReagent",
-                        "Reagent": "#/$defs/Reagent"
+                        "Reagent": "#/$defs/Reagent",
+                        "Sectioning": "#/$defs/Sectioning"
                      },
                      "propertyName": "object_type"
                   },
@@ -28365,6 +29844,9 @@
                      },
                      {
                         "$ref": "#/$defs/FluorescentStain"
+                     },
+                     {
+                        "$ref": "#/$defs/Sectioning"
                      },
                      {
                         "$ref": "#/$defs/PlanarSectioning"
@@ -28663,8 +30145,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.1",
-               "default": "2.1.1",
+               "const": "2.1.2",
+               "default": "2.1.2",
                "title": "Schema Version",
                "type": "string"
             },
@@ -29204,6 +30686,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -29215,6 +30698,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -29245,6 +30729,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -29284,9 +30769,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -29350,6 +30837,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -29381,6 +30871,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -29471,6 +30964,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -29590,6 +31086,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -29597,6 +31096,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -29785,6 +31287,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -29796,6 +31299,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -29826,6 +31330,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -29865,9 +31370,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -29931,6 +31438,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -29962,6 +31472,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -30052,6 +31565,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -30171,6 +31687,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -30178,6 +31697,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -30679,6 +32201,7 @@
                            "Basler": "#/$defs/_Basler",
                            "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
                            "Boston University": "#/$defs/_Boston_University",
+                           "Bruker": "#/$defs/_Bruker",
                            "Cajal Neuroscience": "#/$defs/_Cajal_Neuroscience",
                            "Cambridge Technology": "#/$defs/_Cambridge_Technology",
                            "Carl Zeiss": "#/$defs/_Carl_Zeiss",
@@ -30690,6 +32213,7 @@
                            "Columbia University": "#/$defs/_Columbia_University",
                            "Computar": "#/$defs/_Computar",
                            "Conoptics": "#/$defs/_Conoptics",
+                           "CrestOptics": "#/$defs/_Crestoptics",
                            "Custom": "#/$defs/_Custom",
                            "DigiKey": "#/$defs/_Digikey",
                            "Dodotronic": "#/$defs/_Dodotronic",
@@ -30720,6 +32244,7 @@
                            "Leica": "#/$defs/_Leica",
                            "LifeCanvas": "#/$defs/_Lifecanvas",
                            "Lumen Dynamics": "#/$defs/_Lumen_Dynamics",
+                           "Lumencor": "#/$defs/_Lumencor",
                            "MBF Bioscience": "#/$defs/_Mbf_Bioscience",
                            "MIT Department of Brain and Cognitive Sciences": "#/$defs/_Mit_Department_Of_Brain_And_Cognitive_Sciences",
                            "MKS Newport": "#/$defs/_Mks_Newport",
@@ -30759,9 +32284,11 @@
                            "Simons Foundation": "#/$defs/_Simons_Foundation",
                            "Spectra-Physics": "#/$defs/_Spectra_Physics",
                            "Spinnaker": "#/$defs/_Spinnaker",
+                           "TE Connectivity": "#/$defs/_Te_Connectivity",
                            "Tamron": "#/$defs/_Tamron",
                            "Technical Manufacturing Corporation": "#/$defs/_Technical_Manufacturing_Corporation",
                            "Teledyne FLIR": "#/$defs/_Teledyne_Flir",
+                           "Teledyne Vision Solutions": "#/$defs/_Teledyne_Vision_Solutions",
                            "Templeton World Charity Foundation": "#/$defs/_Templeton_World_Charity_Foundation",
                            "The Imaging Source": "#/$defs/_The_Imaging_Source",
                            "The Lee Company": "#/$defs/_The_Lee_Company",
@@ -30825,6 +32352,9 @@
                            "$ref": "#/$defs/_Boston_University"
                         },
                         {
+                           "$ref": "#/$defs/_Bruker"
+                        },
+                        {
                            "$ref": "#/$defs/_Cajal_Neuroscience"
                         },
                         {
@@ -30856,6 +32386,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Conoptics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Crestoptics"
                         },
                         {
                            "$ref": "#/$defs/_Custom"
@@ -30946,6 +32479,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Lumen_Dynamics"
+                        },
+                        {
+                           "$ref": "#/$defs/_Lumencor"
                         },
                         {
                            "$ref": "#/$defs/_Mbf_Bioscience"
@@ -31065,6 +32601,9 @@
                            "$ref": "#/$defs/_Spinnaker"
                         },
                         {
+                           "$ref": "#/$defs/_Te_Connectivity"
+                        },
+                        {
                            "$ref": "#/$defs/_Tamron"
                         },
                         {
@@ -31072,6 +32611,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Teledyne_Flir"
+                        },
+                        {
+                           "$ref": "#/$defs/_Teledyne_Vision_Solutions"
                         },
                         {
                            "$ref": "#/$defs/_Templeton_World_Charity_Foundation"
@@ -32025,6 +33567,48 @@
          "title": "_Brightfield",
          "type": "object"
       },
+      "_Bruker": {
+         "description": "Model Bruker",
+         "properties": {
+            "name": {
+               "const": "Bruker",
+               "default": "Bruker",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "04r739x86",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Bruker",
+         "type": "object"
+      },
       "_C57Bl_6J": {
          "description": "Model C57BL/6J",
          "properties": {
@@ -32691,6 +34275,48 @@
             }
          },
          "title": "_Conoptics",
+         "type": "object"
+      },
+      "_Crestoptics": {
+         "description": "Model CrestOptics",
+         "properties": {
+            "name": {
+               "const": "CrestOptics",
+               "default": "CrestOptics",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Crestoptics",
          "type": "object"
       },
       "_Custom": {
@@ -34423,6 +36049,48 @@
             }
          },
          "title": "_Lumen_Dynamics",
+         "type": "object"
+      },
+      "_Lumencor": {
+         "description": "Model Lumencor",
+         "properties": {
+            "name": {
+               "const": "Lumencor",
+               "default": "Lumencor",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Lumencor",
          "type": "object"
       },
       "_Macaca_Mulatta": {
@@ -36666,6 +38334,48 @@
          "title": "_Tamron",
          "type": "object"
       },
+      "_Te_Connectivity": {
+         "description": "Model TE Connectivity",
+         "properties": {
+            "name": {
+               "const": "TE Connectivity",
+               "default": "TE Connectivity",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "Research Organization Registry (ROR)"
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "034frgp20",
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Te_Connectivity",
+         "type": "object"
+      },
       "_Technical_Manufacturing_Corporation": {
          "description": "Model Technical Manufacturing Corporation",
          "properties": {
@@ -36748,6 +38458,48 @@
             }
          },
          "title": "_Teledyne_Flir",
+         "type": "object"
+      },
+      "_Teledyne_Vision_Solutions": {
+         "description": "Model Teledyne Vision Solutions",
+         "properties": {
+            "name": {
+               "const": "Teledyne Vision Solutions",
+               "default": "Teledyne Vision Solutions",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Teledyne_Vision_Solutions",
          "type": "object"
       },
       "_Templeton_World_Charity_Foundation": {
@@ -37551,8 +39303,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.0",
-         "default": "2.3.0",
+         "const": "2.3.1",
+         "default": "2.3.1",
          "title": "Schema Version",
          "type": "string"
       },
