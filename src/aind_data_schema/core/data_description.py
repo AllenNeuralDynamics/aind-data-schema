@@ -37,7 +37,7 @@ class DataDescription(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/data_description.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.3.0"]] = Field(default="2.3.0")
+    schema_version: SkipValidation[Literal["2.3.3"]] = Field(default="2.3.3")
     license: License = Field(default=License.CC_BY_40, title="License")
 
     subject_id: Optional[str] = Field(
@@ -58,8 +58,11 @@ class DataDescription(DataCoreModel):
     )
     name: Optional[str] = Field(
         default=None,
-        description="Name of data, conventionally also the name of the directory containing all data and metadata",
-        title="Name",
+        description=(
+            "When left blank, a name will be generated based on subject_id and creation_time. "
+            "Conventionally also used as the name of the data folder."
+        ),
+        title="Data asset name",
         validate_default=True,
     )
     institution: Organization.RESEARCH_INSTITUTIONS = Field(

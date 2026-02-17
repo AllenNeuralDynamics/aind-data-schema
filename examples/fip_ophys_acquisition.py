@@ -1,10 +1,11 @@
 """ example FIP ophys acquisition """
 
+import argparse
 from datetime import datetime, timezone
 from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
-from aind_data_schema_models.units import TimeUnit, SizeUnit, PowerUnit, VolumeUnit
+from aind_data_schema_models.units import TimeUnit, SizeUnit, PowerUnit, VolumeUnit, FrequencyUnit
 
 from aind_data_schema.core.acquisition import (
     Acquisition,
@@ -23,6 +24,7 @@ from aind_data_schema.components.configs import (
     SpeakerConfig,
     DeviceConfig,
 )
+from aind_data_schema.components.identifiers import Code
 from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # The session date from the JSON file is 2024-01-15 with timezone -08:00
@@ -301,23 +303,26 @@ data_stream = DataStream(
         patch_cord_c_config,
         patch_cord_d_config,
     ],
-    connections=connections,  # Add the connections to the data stream
-    notes=(
-        "Fib modality: fib mode: Normal This record has been updated to include intended measurements. Fiber "
-        "connections are repeated for fibers with multiple channels. Disconnected fibers are marked with "
-        "fiber_name 'disconnected'."
-    ),
+    connections=connections,
 )
 
 # Create the stimulus epoch
 stimulus_epoch = StimulusEpoch(
     stimulus_start_time=t_start,
     stimulus_end_time=t_end,
-    stimulus_name="CS - auditory conditioned stimuli",
+    stimulus_name="Pavlovian conditioning",
     stimulus_modalities=[StimulusModality.AUDITORY],
     active_devices=["Stimulus Speaker"],
     configurations=[speaker_config],
-    notes="The duration of CSs is 1s. The frequency set:5kHz, 8kHz, 13kHz, WhiteNoise.",
+    code=Code(
+        url="github url",
+        parameters={
+            "stimulus_duration": 1.0,
+            "stimulus_duration_unit": TimeUnit.S,
+            "frequency": [5, 8, 13],
+            "frequency_unit": FrequencyUnit.KHZ,
+        },
+    ),
     performance_metrics=PerformanceMetrics(
         reward_consumed_during_epoch=Decimal("414"),
         reward_consumed_unit=VolumeUnit.UL,
@@ -336,7 +341,7 @@ acquisition = Acquisition(
     subject_id="687582",
     acquisition_start_time=t_start,
     acquisition_end_time=t_end,
-    acquisition_type="PavlovianConditioning",
+    acquisition_type="Pavlovian Conditioning",
     instrument_id="1_FIP1",
     protocol_id=[""],
     ethics_review_id=["2115"],
@@ -354,6 +359,10 @@ acquisition = Acquisition(
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="fip_ophys")
+    deserialized.write_standard_file(prefix="fip_ophys", output_directory=args.output_dir)

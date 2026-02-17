@@ -1,12 +1,17 @@
 """Generates an example JSON file for an ephys instrument"""
 
+import argparse
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import (
+    CoordinateSystemLibrary,
+    Affine,
+    Translation,
+)
 
 from aind_data_schema.components.devices import (
     Camera,
@@ -22,6 +27,7 @@ from aind_data_schema.components.devices import (
     LaserAssembly,
     Lens,
     Manipulator,
+    Monitor,
     NeuropixelsBasestation,
     FiberPatchCord,
     ProbePort,
@@ -311,6 +317,52 @@ camassm2 = CameraAssembly(
     lens=lens,
 )
 
+monitor = Monitor(
+    name="Stimulus Screen",
+    serial_number=None,
+    manufacturer=Organization.ASUS,
+    model="PA248Q",
+    notes="viewing distance is from screen normal to bregma",
+    refresh_rate=60,
+    width=1920,
+    height=1200,
+    size_unit="pixel",
+    viewing_distance=15.5,
+    viewing_distance_unit="centimeter",
+    relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
+    contrast=None,
+    brightness=None,
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+    transform=[
+        Affine(
+            affine_transform=[
+                [
+                    -0.80914,
+                    -0.58761,
+                    0,
+                ],
+                [
+                    -0.12391,
+                    0.17063,
+                    0.97751,
+                ],
+                [
+                    -0.5744,
+                    0.79095,
+                    -0.21087,
+                ],
+            ],
+        ),
+        Translation(
+            translation=[
+                0.08751,
+                -0.12079,
+                0.02298,
+            ],
+        ),
+    ],
+)
+
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
 
@@ -355,12 +407,17 @@ inst = Instrument(
         running_wheel,
         behavior_computer,
         ephys_computer,
+        monitor,
     ],
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = inst.model_dump_json()
     deserialized = Instrument.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="ephys")
+    deserialized.write_standard_file(prefix="ephys", output_directory=args.output_dir)

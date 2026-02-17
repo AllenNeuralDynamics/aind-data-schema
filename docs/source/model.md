@@ -19,7 +19,7 @@ Description of a machine learning model including architecture, training, and ev
 | `example_run_code` | [Code](components/identifiers.md#code) | Example run code (Code to run the model, possibly including example parameters/data) |
 | `architecture` | [ModelArchitecture](aind_data_schema_models/system_architecture.md#modelarchitecture) | architecture (Model architecture / type of model) |
 | `software_framework` | Optional[[Software](components/identifiers.md#software)] | Software framework  |
-| `architecture_parameters` | `dict` | Architecture parameters (Parameters of model architecture, such as input signature or number of layers.) |
+| `architecture_parameters` | `Optional[dict]` | Architecture parameters (Parameters of model architecture, such as input signature or number of layers.) |
 | `intended_use` | `str` | Intended model use (Semantic description of intended use) |
 | `limitations` | `Optional[str]` | Model limitations  |
 | `training` | List[[ModelTraining](model.md#modeltraining) or [ModelPretraining](model.md#modelpretraining)] | Training  |
@@ -45,7 +45,7 @@ Description of model evaluation
 | `start_date_time` | `datetime (timezone-aware)` | Start date time  |
 | `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
 | `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
-| `output_parameters` | `dict` | Outputs (Output parameters) |
+| `output_parameters` | `Optional[dict]` | Outputs (Output parameters) |
 | `notes` | `Optional[str]` | Notes  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
 
@@ -77,7 +77,7 @@ Description of model training
 | `start_date_time` | `datetime (timezone-aware)` | Start date time  |
 | `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
 | `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
-| `output_parameters` | `dict` | Outputs (Output parameters) |
+| `output_parameters` | `Optional[dict]` | Outputs (Output parameters) |
 | `notes` | `Optional[str]` | Notes  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
 

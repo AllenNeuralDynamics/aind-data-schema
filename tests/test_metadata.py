@@ -144,7 +144,10 @@ class TestMetadata(unittest.TestCase):
                 ),
                 subject=subject,
                 procedures=Procedures.model_construct(subject_procedures=[surgery2]),
-                acquisition=Acquisition.model_construct(subject_details=AcquisitionSubjectDetails.model_construct()),
+                acquisition=Acquisition.model_construct(
+                    acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
+                    subject_details=AcquisitionSubjectDetails.model_construct(),
+                ),
                 instrument=self.spim_instrument,
                 processing=Processing.model_construct(),
             )
@@ -172,7 +175,9 @@ class TestMetadata(unittest.TestCase):
                 instrument=ephys_inst,
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
-                    instrument_id="323_EPHYS1_20231003", subject_details=AcquisitionSubjectDetails.model_construct()
+                    instrument_id="323_EPHYS1_20231003",
+                    acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
+                    subject_details=AcquisitionSubjectDetails.model_construct(),
                 ),
             )
         self.assertIn("Injection is missing injection_materials.", str(context.exception))
@@ -203,6 +208,7 @@ class TestMetadata(unittest.TestCase):
                 processing=Processing.model_construct(),
                 acquisition=Acquisition.model_construct(
                     instrument_id="123_EPHYS2_20230101",
+                    acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
                     subject_details=AcquisitionSubjectDetails.model_construct(mouse_platform_name="platform1"),
                     data_streams=[],
                 ),
@@ -342,6 +348,7 @@ class TestMetadata(unittest.TestCase):
         )
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[
                 DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
             ],
@@ -359,6 +366,7 @@ class TestMetadata(unittest.TestCase):
         # Case where connection devices are missing
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[
                 DataStream.model_construct(
                     active_devices=["Probe A", "Laser A"],
@@ -385,6 +393,7 @@ class TestMetadata(unittest.TestCase):
         # Case where source device is missing
         acquisition_missing_source = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[
                 DataStream.model_construct(
                     active_devices=["Probe A", "Laser A"],
@@ -421,6 +430,7 @@ class TestMetadata(unittest.TestCase):
         )
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[
                 DataStream.model_construct(active_devices=["Probe A", "Laser A"], modalities=[], configurations=[]),
             ],
@@ -438,6 +448,7 @@ class TestMetadata(unittest.TestCase):
         # Case where active devices are missing from both instrument and procedures
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[
                 DataStream.model_construct(
                     active_devices=["Probe A", "Missing Device"], modalities=[], configurations=[]
@@ -468,6 +479,7 @@ class TestMetadata(unittest.TestCase):
         stimulus_epoch = StimulusEpoch.model_construct(training_protocol_name="Protocol A")
         acquisition = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             stimulus_epochs=[stimulus_epoch],
             data_streams=[],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -486,6 +498,7 @@ class TestMetadata(unittest.TestCase):
         stimulus_epoch_invalid = StimulusEpoch.model_construct(training_protocol_name="Missing Protocol")
         acquisition_invalid = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             stimulus_epochs=[stimulus_epoch_invalid],
             data_streams=[],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -535,6 +548,7 @@ class TestMetadata(unittest.TestCase):
         stimulus_epoch_none = StimulusEpoch.model_construct(training_protocol_name=None)
         acquisition_none = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[],
             stimulus_epochs=[stimulus_epoch_none],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -888,6 +902,7 @@ class TestMetadata(unittest.TestCase):
         # Case where specimen_id is provided - should pass without subject_details
         acquisition_with_specimen = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             subject_id="123456",
             specimen_id="123456-001",
             data_streams=[],
@@ -903,6 +918,7 @@ class TestMetadata(unittest.TestCase):
         # Case where specimen_id is not provided and subject_details is provided - should pass
         acquisition_with_details = Acquisition.model_construct(
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             subject_id="123456",
             data_streams=[],
             subject_details=AcquisitionSubjectDetails.model_construct(),
@@ -919,6 +935,7 @@ class TestMetadata(unittest.TestCase):
         acquisition_missing_both = Acquisition.model_construct(
             subject_id="123456",
             instrument_id="Test",
+            acquisition_start_time=datetime(2023, 10, 3, 12, 0, 0, tzinfo=timezone.utc),
             data_streams=[],
         )
         with self.assertRaises(ValueError) as context:

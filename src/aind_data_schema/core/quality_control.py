@@ -48,7 +48,11 @@ class QCMetric(DataModel):
     stage: Stage = Field(..., title="Evaluation stage")
     value: Any = Field(..., title="Metric value")
     status_history: List[QCStatus] = Field(default=[], title="Metric status history", min_length=1)
-    description: Optional[str] = Field(default=None, title="Metric description")
+    description: Optional[str] = Field(
+        default=None,
+        title="Metric description",
+        description="Describes the measured value and the rule that links the value and status.",
+    )
     reference: Optional[str] = Field(default=None, title="Metric reference image URL or plot type")
     tags: dict[str, str] = Field(
         default={},
@@ -119,7 +123,7 @@ class QualityControl(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.4.0"]] = Field(default="2.4.0")
+    schema_version: SkipValidation[Literal["2.4.1"]] = Field(default="2.4.1")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,

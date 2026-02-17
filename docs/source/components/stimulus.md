@@ -77,7 +77,7 @@ Description of opto stimulation parameters
 | `pulse_train_interval_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Pulse train interval unit  |
 | `baseline_duration` | `decimal.Decimal` | Baseline duration (s) (Duration of baseline recording prior to first pulse train) |
 | `baseline_duration_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Baseline duration unit  |
-| `other_parameters` | `dict` | Other parameters  |
+| `other_parameters` | `Optional[dict]` | Other parameters  |
 | `notes` | `Optional[str]` | Notes  |
 
 
@@ -92,7 +92,7 @@ Description of a photostimulation acquisition
 | `groups` | List[[PhotoStimulationGroup](#photostimulationgroup)] | Groups  |
 | `inter_trial_interval` | `decimal.Decimal` | Inter trial interval (s)  |
 | `inter_trial_interval_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Inter trial interval unit  |
-| `other_parameters` | `dict` | Other parameters  |
+| `other_parameters` | `Optional[dict]` | Other parameters  |
 | `notes` | `Optional[str]` | Notes  |
 
 
@@ -112,7 +112,7 @@ Description of a photostimulation group
 | `spiral_duration_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Spiral duration unit  |
 | `inter_spiral_interval` | `decimal.Decimal` | Inter trial interval (s)  |
 | `inter_spiral_interval_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Inter trial interval unit  |
-| `other_parameters` | `dict` | Other parameters  |
+| `other_parameters` | `Optional[dict]` | Other parameters  |
 | `notes` | `Optional[str]` | Notes  |
 
 
@@ -134,7 +134,7 @@ Description of visual stimulus parameters. Provides a high level description of 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `stimulus_name` | `str` | Stimulus name  |
-| `stimulus_parameters` | `dict` | Stimulus parameters (Define and list the parameter values used (e.g. all TF or orientation values)) |
+| `stimulus_parameters` | `Optional[dict]` | Stimulus parameters (Define and list the parameter values used (e.g. all TF or orientation values)) |
 | `stimulus_template_name` | `List[str]` | Stimulus template name (Name of image set or movie displayed) |
 | `notes` | `Optional[str]` | Notes  |
 

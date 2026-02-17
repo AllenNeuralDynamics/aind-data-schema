@@ -2,7 +2,7 @@
 
 from typing import List, Literal, Optional
 
-from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import DataCoreModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem
@@ -24,7 +24,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.0.36"]] = Field(default="2.0.36")
+    schema_version: SkipValidation[Literal["2.1.0"]] = Field(default="2.1.0")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",
@@ -71,18 +71,6 @@ class Procedures(DataCoreModel):
         #         device_names.add(spec_proc.implanted_device.name)
 
         return list(device_names)
-
-    @field_validator("specimen_procedures", mode="after")
-    def validate_identical_specimen_ids(cls, v, values):
-        """Validate that all specimen_id fields are identical in the specimen_procedures"""
-
-        if v:
-            specimen_ids = [spec_proc.specimen_id for spec_proc in v]
-
-            if any(spec_id != specimen_ids[0] for spec_id in specimen_ids):
-                raise ValueError("All specimen_id must be identical in the specimen_procedures.")
-
-        return v
 
     @model_validator(mode="after")
     def validate_subject_specimen_ids(self):

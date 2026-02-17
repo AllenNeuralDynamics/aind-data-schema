@@ -227,6 +227,20 @@ Solution names
 | `OTHER` | `Other` |
 
 
+### MISCameraConfig
+
+Configuration for a camera used in a New Scale modular insertion system
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `detector_config` | [DetectorConfig](#detectorconfig) | Detector configuration  |
+| `module` | [MISModuleConfig](#mismoduleconfig) | Module  |
+| `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
+| `relative_position` | List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] | Relative position  |
+| `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Device coordinate system  |
+| `transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | Device to instrument transform (Position and orientation of the device in the instrument coordinate system) |
+
+
 ### MISModuleConfig
 
 Modular insertion system module configuration
@@ -240,28 +254,38 @@ Modular insertion system module configuration
 | `notes` | `Optional[str]` | Notes  |
 
 
+### MRAcquisitionType
+
+MRI acquisition type
+
+| Name | Value |
+|------|-------|
+| `SCAN_2D` | `2D` |
+| `SCAN_3D` | `3D` |
+
+
 ### MRIScan
 
 Configuration of a 3D scan
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `scan_index` | `int` | Scan index  |
-| `scan_type` | [ScanType](#scantype) | Scan type  |
-| `primary_scan` | `bool` | Primary scan (Indicates the primary scan used for downstream analysis) |
-| `scan_sequence_type` | [MriScanSequence](#mriscansequence) | Scan sequence  |
-| `rare_factor` | `Optional[int]` | RARE factor  |
-| `echo_time` | `decimal.Decimal` | Echo time  |
-| `echo_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Echo time unit  |
-| `effective_echo_time` | `Optional[decimal.Decimal]` | Effective echo time  |
-| `repetition_time` | `decimal.Decimal` | Repetition time  |
-| `repetition_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Repetition time unit  |
-| `scan_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Scanner coordinate system  |
-| `scan_affine_transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | MRI Scan affine transform (NIFTI sform/qform, Bruker vc_transform, etc) |
-| `subject_position` | [SubjectPosition](#subjectposition) | Subject position  |
+| `index` | `int` | Index (Index of the scan in the session, starting at 1) |
+| `setup` | `bool` | Setup (Positioning, shim, and other pre-scan adjustments) |
+| `pulse_sequence_type` | [PulseSequenceType](#pulsesequencetype) | Scan sequence (BIDS PulseSequenceType) |
+| `mr_acquisition_type` | [MRAcquisitionType](#mracquisitiontype) | MR acquisition type (BIDS MRAcquisitionType / DICOM Tag 0018,0023) |
 | `resolution` | Optional[[Scale](coordinates.md#scale)] | Voxel resolution  |
 | `resolution_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Voxel resolution unit  |
-| `additional_scan_parameters` | `dict` | Parameters  |
+| `additional_scan_parameters` | `Optional[dict]` | Parameters  |
+| `rare_factor` | `Optional[int]` | RARE factor  |
+| `echo_time` | `decimal.Decimal` | Echo time (s) (BIDS EchoTime / DICOM Tag 0018,0081) |
+| `echo_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Echo time unit  |
+| `effective_echo_time` | `Optional[decimal.Decimal]` | Effective echo time  |
+| `repetition_time` | `decimal.Decimal` | Repetition time (s) (BIDS RepetitionTime / DICOM Tag 0018,0080) |
+| `repetition_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Repetition time unit  |
+| `scanner_coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Scanner coordinate system  |
+| `affine_transform` | Optional[List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)]] | MRI Scan affine transform (NIFTI sform/qform, Bruker vc_transform, etc) |
+| `subject_position` | [SubjectPosition](#subjectposition) | Subject position  |
 | `notes` | `Optional[str]` | Notes  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
@@ -286,16 +310,6 @@ Configuration for mouse platforms
 | `objects_in_arena` | `Optional[List[str]]` | Objects in area  |
 | `active_control` | `bool` | Active control (True when movement of the mouse platform is dynamically controlled by the experimenter) |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
-
-
-### MriScanSequence
-
-MRI scan sequence
-
-| Name | Value |
-|------|-------|
-| `RARE` | `RARE` |
-| `OTHER` | `Other` |
 
 
 ### OlfactometerChannelInfo
@@ -402,6 +416,18 @@ Configuration for a device inserted into a brain
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
+### PulseSequenceType
+
+MRI pulse sequence type
+
+| Name | Value |
+|------|-------|
+| `RARE` | `RARE` |
+| `FLASH` | `FLASH` |
+| `MSME` | `MSME` |
+| `OTHER` | `Other` |
+
+
 ### SampleChamberConfig
 
 Configuration of a sample chamber
@@ -421,16 +447,6 @@ Description of an image sampling strategy
 |-------|------|-------------|
 | `frame_rate` | `float` | Frame rate  |
 | `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) | Frame rate unit  |
-
-
-### ScanType
-
-Type of scan
-
-| Name | Value |
-|------|-------|
-| `SETUP` | `Set Up` |
-| `SCAN_3D` | `3D Scan` |
 
 
 ### SlapAcquisitionType

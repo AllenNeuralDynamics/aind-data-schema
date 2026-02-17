@@ -44,7 +44,7 @@ Description of a single processing step
 | `start_date_time` | `datetime (timezone-aware)` | Start date time  |
 | `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
 | `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
-| `output_parameters` | `dict` | Outputs (Output parameters) |
+| `output_parameters` | `Optional[dict]` | Outputs (Output parameters) |
 | `notes` | `Optional[str]` | Notes  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
 

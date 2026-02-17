@@ -179,6 +179,6 @@ When you are ready to open a pull request, please link any relevant issues and r
 - Manually increment the major/minor/patch versions of the core files as needed
 - Push the branch and open a PR into main
 - After this push, any last minute changes to the release-vX.Y.Z will have to done to via a PR
-- After review, use a merge commit to merge into main
-- Open a PR from main back into dev so they're synced again
+- After review, use a **merge commit** to merge into main, DO NOT SQUASH INTO MAIN
+- Open a PR from main back into dev so they're synced again, bypass the rules to use a **merge commit**, DO NOT SQUASH MAIN INTO DEV
 - Create a Github release with the corresponding tag, modify the auto-generated release notes to focus on the major changes that occurred
