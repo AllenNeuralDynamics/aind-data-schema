@@ -109,7 +109,7 @@ Details about the subject during an acquisition
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight (g) (Animal weight after procedure) |
 | `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) | Weight unit  |
 | `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia (Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia) |
-| `mouse_platform_name` | `str` | Mouse platform  |
+| `mouse_platform_name` | `str` | Mouse platform (The surface that the mouse is on during the acquisition) |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` | Total reward consumed (mL)  |
 | `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] | Reward consumed unit  |
 

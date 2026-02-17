@@ -86,7 +86,7 @@ acquisition = Acquisition(
     instrument_id="NA",
     coordinate_system=CoordinateSystemLibrary.MRI_LPS,
     subject_details=AcquisitionSubjectDetails(
-        mouse_platform_name="NA",
+        mouse_platform_name="cradle",
     ),
     data_streams=[stream],
     notes="There was some information about this scan acquisition",

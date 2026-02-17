@@ -83,7 +83,9 @@ class AcquisitionSubjectDetails(DataModel):
         title="Anaesthesia",
         description=("Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"),
     )
-    mouse_platform_name: str = Field(..., title="Mouse platform")
+    mouse_platform_name: str = Field(
+        ..., title="Mouse platform", description="The surface that the mouse is on during the acquisition"
+    )
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
