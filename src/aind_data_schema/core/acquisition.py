@@ -30,7 +30,6 @@ from aind_data_schema.components.configs import (
     PatchCordConfig,
     ProbeConfig,
     SampleChamberConfig,
-    SlapPlane,
     SpeakerConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
@@ -140,7 +139,6 @@ class DataStream(DataModel):
         | LickSpoutConfig
         | AirPuffConfig
         | ImagingConfig
-        | SlapPlane
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig

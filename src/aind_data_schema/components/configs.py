@@ -19,6 +19,7 @@ from aind_data_schema_models.units import (
     ConcentrationUnit,
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -51,13 +52,6 @@ class Valence(str, Enum):
     NEGATIVE = "Negative"
     NEUTRAL = "Neutral"
     UNKNOWN = "Unknown"
-
-
-class SlapAcquisitionType(str, Enum):
-    """Type of slap acquisition"""
-
-    PARENT = "Parent"
-    BRANCH = "Branch"
 
 
 class Liquid(str, Enum):
@@ -174,15 +168,6 @@ class Channel(DataModel):
     emission_wavelength_unit: Optional[SizeUnit] = Field(default=None, title="Emission wavelength unit")
 
 
-class SlapChannel(Channel):
-    """Configuration of a channel for Slap"""
-
-    dilation: int = Field(..., title="Dilation")
-    dilation_unit: SizeUnit = Field(..., title="Dilation unit")
-
-    description: Optional[str] = Field(default=None, title="Description")
-
-
 class PatchCordConfig(DeviceConfig):
     """Configuration of a patch cord and its output power to another device"""
 
@@ -222,18 +207,24 @@ class CoupledPlane(Plane):
     power_ratio: float = Field(..., title="Power ratio")
 
 
-class SlapPlane(Plane):
+class Slap2Plane(Plane):
     """Configuration of an imagine plane on a Slap microscope"""
 
-    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
+    name: Optional[str] = Field(default=None, title="Plane name")
+    slap_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap experiment type")
+    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+
+    mask_image_path: AssetPath = Field(
+        ..., title="Mask image path", description="Relative path from metadata json to file"
+    )
+
+    dilation_image_path: AssetPath = Field(
+        ..., title="Dilation image path", description="Relative path from metadata json to file"
+    )
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
 
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-    target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    framerate_image_path: AssetPath = Field(
+        ..., title="Framerate image path", description="Relative path from metadata json to file"
     )
 
 
@@ -269,7 +260,7 @@ class ImageSPIM(Image):
 class PlanarImage(Image):
     """Description of an N-D image acquired in a specific imaging plane"""
 
-    planes: DiscriminatedList[Plane | CoupledPlane | SlapPlane] = Field(..., title="Imaging planes")
+    planes: DiscriminatedList[Plane | CoupledPlane | Slap2Plane] = Field(..., title="Imaging planes")
 
     @model_validator(mode="after")
     def limit_plane_to_one(self):
@@ -314,7 +305,7 @@ class StackStrategy(SamplingStrategy):
 class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
-    channels: DiscriminatedList[Channel | SlapChannel] = Field()
+    channels: DiscriminatedList[Channel] = Field()
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
