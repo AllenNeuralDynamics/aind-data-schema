@@ -171,7 +171,7 @@ class NonHumanPrimateSubject(DataModel):
 
     species: Species.ONE_OF = Field(..., title="species")
     sex: Sex = Field(..., title="Sex")
-    date_of_birth: Optional[Annotated[date_type, TimeValidation.BEFORE]] = Field(deafult=None, title="Date of birth")
+    date_of_birth: Optional[Annotated[date_type, TimeValidation.BEFORE]] = Field(default=None, title="Date of birth")
     year_of_birth: int = Field(..., title="Year of birth")
     mating_status: MatingStatus = Field(..., title="Mating status")
     source: Organization.SUBJECT_SOURCES = Field(
