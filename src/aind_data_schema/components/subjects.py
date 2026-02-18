@@ -156,7 +156,7 @@ class MouseSubject(DataModel):
 class HumanSubject(DataModel):
     """Description of a human subject"""
 
-    species: Species.HUMAN = Field(..., title="Species")
+    species: Species.ONE_OF = Field(..., title="Species")
     sex: Sex = Field(..., title="Sex")
     year_of_birth: int = Field(..., title="Year of birth")
     source: Organization.SUBJECT_SOURCES = Field(
