@@ -23,6 +23,14 @@ class Sex(str, Enum):
     MALE = "Male"
 
 
+class MatingStatus(str, Enum):
+    """Subject mating status"""
+
+    MATED = "Mated"
+    UNMATED = "Un-mated"
+    UNKNOWN = "Unknown"
+
+
 class HomeCageEnrichment(str, Enum):
     """Materials provided in animal home cage"""
 
@@ -148,8 +156,24 @@ class MouseSubject(DataModel):
 class HumanSubject(DataModel):
     """Description of a human subject"""
 
+    species: Species.HUMAN
     sex: Sex = Field(..., title="Sex")
     year_of_birth: int = Field(..., title="Year of birth")
+    source: Organization.SUBJECT_SOURCES = Field(
+        ...,
+        description="Where the subject was acquired from.",
+        title="Source",
+    )
+
+
+class NonHumanPrimateSubject(DataModel):
+    """Description of a non-human primate subject"""
+
+    species: Species.ONE_OF = Field(..., title="species")
+    sex: Sex = Field(..., title="Sex")
+    date_of_birth: Optional[Annotated[date_type, TimeValidation.BEFORE]] = Field(deafult=None, title="Date of birth")
+    year_of_birth: int = Field(..., title="Year of birth")
+    mating_status: MatingStatus = Field(..., title="Mating status")
     source: Organization.SUBJECT_SOURCES = Field(
         ...,
         description="Where the subject was acquired from.",

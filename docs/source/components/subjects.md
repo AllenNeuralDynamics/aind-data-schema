@@ -58,6 +58,7 @@ Description of a human subject
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
+| `species` | 'Human' | Species |
 | `sex` | [Sex](#sex) | Sex  |
 | `year_of_birth` | `int` | Year of birth  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source (Where the subject was acquired from.) |
@@ -71,6 +72,17 @@ Description of vivarium light cycle times
 |-------|------|-------------|
 | `lights_on_time` | `datetime.time` | Lights on time (Time in UTC that lights were turned on) |
 | `lights_off_time` | `datetime.time` | Lights off time (Time in UTC that lights were turned off) |
+
+
+### MatingStatus
+
+ Subject mating status
+
+ | Name | Value |
+ |------|-------|
+ | `MATED` | `Mated` |
+ | `UNMATED` | `Unmated` |
+ | `UNKNWON` | `Unknown` |
 
 
 ### MouseSubject
@@ -91,6 +103,20 @@ Description of a mouse subject
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source (Where the subject was acquired from. If bred in-house, use Allen Institute.) |
 | `restrictions` | `Optional[str]` | Restrictions (Any restrictions on use or publishing based on subject source) |
 | `rrid` | Optional[[PIDName](../aind_data_schema_models/pid_names.md#pidname)] | RRID (RRID of mouse if acquired from supplier) |
+
+
+### NonHumanPrimateSubject
+
+Description of a non-human primate subject
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `species` | [Species](../aind_data_schema_models/species.md#species) | Species  |
+| `sex` | [Sex](#sex) | Sex  |
+| `date_of_birth` | `Optional[datetime.date]` | Date of birth  |
+| `year_of_birth` | `int` | Year of birth |
+| `mating_status` | `MatingStatus` | Mating status |
+| `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source (Where the subject was acquired from. If bred in-house, use Allen Institute.) |
 
 
 ### Sex
