@@ -340,7 +340,7 @@ Description of an enclosure
 
 ### EphysAssembly
 
-Named assembly for combining a manipulator and ephys probes
+Named assembly for combining a manipulator and extracellular ephys probes
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
@@ -351,7 +351,7 @@ Named assembly for combining a manipulator and ephys probes
 
 ### EphysProbe
 
-Probe used in an ephys experiment
+Probe used in an extracellular ephys experiment
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
@@ -374,6 +374,17 @@ Module for inserted fiber photometry recording
 | `name` | `str` | Fiber assembly name  |
 | `manipulator` | [Manipulator](#manipulator) | Manipulator  |
 | `fibers` | List[[FiberProbe](#fiberprobe)] | Probes that are held by this module  |
+
+
+### IcEphysAssembly
+
+Assembly combining a manipulator and headstage used for Intracellular ephys
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `name` | `str` | Fiber assembly name  |
+| `manipulator` | [Manipulator](#manipulator) | Manipulator  |
+| `headstage` | [Device](#device) | Headstage |
 
 
 ### FiberPatchCord
