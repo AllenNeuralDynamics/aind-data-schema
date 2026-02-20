@@ -376,13 +376,13 @@ Module for inserted fiber photometry recording
 | `fibers` | List[[FiberProbe](#fiberprobe)] | Probes that are held by this module  |
 
 
-### IcEphysAssembly
+### PatchClampEphysAssembly
 
-Assembly combining a manipulator and headstage used for Intracellular ephys
+Assembly combining a manipulator and headstage used for Patch clamp ephys
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `name` | `str` | Fiber assembly name  |
+| `name` | `str` | Patch clamp assembly name  |
 | `manipulator` | [Manipulator](#manipulator) | Manipulator  |
 | `headstage` | [Device](#device) | Headstage |
 

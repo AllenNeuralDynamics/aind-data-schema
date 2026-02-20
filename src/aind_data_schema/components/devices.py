@@ -487,10 +487,10 @@ class FiberAssembly(DataModel):
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
 
-class IcEphysAssembly(DataModel):
-    """Assembly combining a manipulator and headstage used for Intracellular ephys"""
+class PatchClampEphysAssembly(DataModel):
+    """Assembly combining a manipulator and headstage used for Patch clamp ephys"""
 
-    name: str = Field(..., title="IcEphys Assembly Name")
+    name: str = Field(..., title="Patch clamp Assembly Name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     headstage: Device = Field(..., title="Headstage")
 
