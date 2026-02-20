@@ -205,13 +205,13 @@ class CoupledPlane(Plane):
 
 
 class Slap2Plane(Plane):
-    """Configuration of an imagine plane on a Slap2 microscope"""
+    """Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)"""
 
-    slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap2 experiment type")
-    target_name: Optional[str] = Field(default=None, title="Target name")
+    slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="SLAP2 ROI acquisition type")
+    target_name: Optional[str] = Field(default=None, title="Name of imaged target")
 
-    superpixel_image_path: AssetPath = Field(
-        ..., title="Superpixel image path", description="Relative path from metadata json to file"
+    mask_image_path: AssetPath = Field(
+        ..., title="Mask image path", description="Relative path from metadata json to imaging ROI masks (numbered by superpixel)"
     )
 
     unique_y_dilations: List[int] = Field(..., title="Unique Y dilations")
