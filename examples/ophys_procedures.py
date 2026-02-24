@@ -1,5 +1,6 @@
 """ 0phys procedure mouse 625100 """
 
+import argparse
 import datetime
 
 from aind_data_schema_models.organizations import Organization
@@ -187,6 +188,10 @@ p = Procedures(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = p.model_dump_json()
     deserialized = Procedures.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="ophys")
+    deserialized.write_standard_file(prefix="ophys", output_directory=args.output_dir)
