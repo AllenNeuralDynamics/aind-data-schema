@@ -226,11 +226,11 @@ monaco_laser_config = LaserConfig(
 sipm_config = {
     "Red": DetectorConfig(
         device_name="Red SiPM",
-        trigger_type=TriggerType.INTERNAL,
+        trigger_type=TriggerType.ANALOG,
     ),
     "Green": DetectorConfig(
         device_name="Green SiPM",
-        trigger_type=TriggerType.INTERNAL,
+        trigger_type=TriggerType.ANALOG,
     ),
 }
 

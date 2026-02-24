@@ -69,6 +69,7 @@ class TriggerType(str, Enum):
 
     INTERNAL = "Internal"
     EXTERNAL = "External"
+    ANALOG = "Analog"
 
 
 class PulseSequenceType(str, Enum):
