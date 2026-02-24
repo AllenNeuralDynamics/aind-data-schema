@@ -28,7 +28,6 @@ from aind_data_schema.components.configs import (
     PatchCordConfig,
     ProbeConfig,
     SampleChamberConfig,
-    Slap2Plane,
     SpeakerConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
