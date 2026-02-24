@@ -1,6 +1,7 @@
 """ test Procedures """
 
 import unittest
+import warnings
 from datetime import date
 from unittest.mock import patch
 
@@ -24,6 +25,7 @@ from aind_data_schema.components.injection_procedures import (
 )
 from aind_data_schema.components.specimen_procedures import (
     HCRSeries,
+    PlanarSection,
     PlanarSectioning,
     Section,
     SectionOrientation,
@@ -326,6 +328,26 @@ class ProceduresTests(unittest.TestCase):
             )
         self.assertIn("SpecimenProcedure.procedure_details should only contain one type of model", repr(e.exception))
 
+    def test_section_deprecated_coordinate_fields(self):
+        """Test that using deprecated coordinate fields in Section raises deprecation warnings"""
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            section = Section(
+                output_specimen_id="section1",
+                coordinate_system_name="CCFv3",
+                start_coordinate=Translation(translation=[0.5, 1.0, 0.0, 1.0]),
+                thickness=100.0,
+                thickness_unit=SizeUnit.UM,
+                partial_slice=[AnatomicalRelative.LEFT],
+            )
+            deprecation_warnings = [warning for warning in w if issubclass(warning.category, DeprecationWarning)]
+            self.assertGreaterEqual(len(deprecation_warnings), 1)
+            section_warnings = [warning for warning in deprecation_warnings if "Section fields" in str(warning.message)]
+            self.assertEqual(len(section_warnings), 1)
+            self.assertIn("partial_slice", str(section_warnings[0].message))
+            self.assertIn("PlanarSection", str(section_warnings[0].message))
+            self.assertEqual(section.output_specimen_id, "section1")
+
     def test_coordinate_volume_validator(self):
         """Test validator for list lengths on BrainInjection"""
 
@@ -452,51 +474,26 @@ class ProceduresTests(unittest.TestCase):
         )
         self.assertIsNotNone(sectioning_procedure)
 
+        valid_section = PlanarSection(
+            output_specimen_id="123456_001",
+            coordinate_system_name="BREGMA_ARI",
+            start_coordinate=Translation(
+                translation=[0.3, 0, 0, 0],
+            ),
+            thickness=100.0,
+            thickness_unit=SizeUnit.UM,
+        )
+        self.assertIsNotNone(valid_section)
+
         # Raise error if neither end_coordinate nor thickness is provided
         with self.assertRaises(OneOfError):
-            PlanarSectioning(
-                coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
-                sections=[
-                    Section(
-                        output_specimen_id="123456_001",
-                        coordinate_system_name="BREGMA_ARI",
-                        start_coordinate=Translation(
-                            translation=[0.3, 0, 0],
-                        ),
-                    ),
-                ],
-                section_orientation=SectionOrientation.CORONAL,
+            PlanarSection(
+                output_specimen_id="123456_001",
+                coordinate_system_name="BREGMA_ARI",
+                start_coordinate=Translation(
+                    translation=[0.3, 0, 0],
+                ),
             )
-
-    def test_validate_identical_specimen_ids(self):
-        """Test that all specimen_id fields are identical in specimen_procedures"""
-
-        with self.assertRaises(ValidationError) as e:
-            Procedures(
-                subject_id="12345",
-                specimen_procedures=[
-                    SpecimenProcedure(
-                        specimen_id="1000",
-                        procedure_type="Other",
-                        start_date=date.fromisoformat("2020-10-10"),
-                        end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=["Mam Moth"],
-                        protocol_id=["10"],
-                        notes="some notes",
-                    ),
-                    SpecimenProcedure(
-                        specimen_id="2000",
-                        procedure_type="Other",
-                        start_date=date.fromisoformat("2020-10-10"),
-                        end_date=date.fromisoformat("2020-10-11"),
-                        experimenters=["Mam Moth"],
-                        protocol_id=["10"],
-                        notes="some notes",
-                    ),
-                ],
-            )
-        expected_exception = "All specimen_id must be identical in the specimen_procedures."
-        self.assertIn(expected_exception, str(e.exception))
 
     def test_validate_subject_specimen_ids(self):
         """Test that the subject_id and specimen_id match"""

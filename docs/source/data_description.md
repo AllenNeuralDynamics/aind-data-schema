@@ -27,7 +27,7 @@ Description of a logical collection of data files
 | `subject_id` | `Optional[str]` | Subject ID (Unique identifier for the subject of data acquisition) |
 | `creation_time` | `datetime (timezone-aware)` | Creation Time (Time that data files were created, used to uniquely identify the data) |
 | `tags` | `Optional[List[str]]` | Tags (Descriptive strings to help categorize and search for data) |
-| `name` | `Optional[str]` | Name (Name of data, conventionally also the name of the directory containing all data and metadata) |
+| `name` | `Optional[str]` | Data asset name (When left blank, a name will be generated based on subject_id and creation_time. Conventionally also used as the name of the data folder.) |
 | `institution` | [Organization](aind_data_schema_models/organizations.md#organization) | Institution (An established society, corporation, foundation or other organization that collected this data) |
 | `funding_source` | List[[Funding](data_description.md#funding)] | Funding source (Funding source. If internal funding, select 'Allen Institute') |
 | `data_level` | [DataLevel](aind_data_schema_models/data_name_patterns.md#datalevel) | Data Level (Level of processing that data has undergone) |

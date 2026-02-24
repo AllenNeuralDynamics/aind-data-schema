@@ -159,6 +159,7 @@
                   }
                ],
                "default": null,
+               "description": "Describes the measured value and the rule that links the value and status.",
                "title": "Metric description"
             },
             "reference": {
@@ -351,6 +352,7 @@
                   }
                ],
                "default": null,
+               "description": "Describes the measured value and the rule that links the value and status.",
                "title": "Metric description"
             },
             "reference": {
@@ -869,8 +871,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.4.0",
-         "default": "2.4.0",
+         "const": "2.4.1",
+         "default": "2.4.1",
          "title": "Schema Version",
          "type": "string"
       },
