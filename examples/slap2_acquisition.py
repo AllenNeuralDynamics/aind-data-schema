@@ -2,8 +2,6 @@
 
 from datetime import datetime, timezone
 from pathlib import Path
-from aind_data_schema_models.organizations import Organization, OrganizationModel
-from aind_data_schema_models.harp_types import HarpDeviceType, HarpDeviceTypeModel
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit, TimeUnit
@@ -39,15 +37,6 @@ instrument_json_path = "instrument.json"
 instrument_json = Path(instrument_json_path).read_text()
 instrument = Instrument.model_validate_json(instrument_json)
 instrument_components = instrument.get_component_names()
-
-# temporary fix to remove manufacturer and harp type names from instrument components (recent updates in main branch fix this)
-orgs = Organization()
-manufacturer_names = {getattr(orgs, attr).name for attr in dir(orgs) if isinstance(getattr(orgs, attr), OrganizationModel)}
-
-harp_types = HarpDeviceType()
-harp_type_names = {getattr(harp_types, attr).name for attr in dir(harp_types) if isinstance(getattr(harp_types, attr), HarpDeviceTypeModel)}
-
-instrument_components = [name for name in instrument_components if name not in manufacturer_names and name not in harp_type_names]
 
 harp_start_time = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 harp_end_time = datetime(2022, 7, 12, 7, 30, 00, tzinfo=timezone.utc)
