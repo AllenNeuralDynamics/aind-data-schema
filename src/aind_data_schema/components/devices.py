@@ -498,7 +498,7 @@ class DigitalMicromirrorDevice(Device):
     pixel_size: Decimal = Field(..., title="DMD Pixel size (fraction of line scan period)")
     start_phase: Decimal = Field(..., title="DMD Start phase (fraction of line scan period)")
     dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain (fraction of DMD scan period)")
-    line_shear_anchors: List[Decimal] = Field(..., title="Line shear (pixels)")
+    line_shear_anchors: List[Decimal] = Field(..., title="Line shear anchors at top and bottom of field of view (pixels)")
     line_shear_anchors_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear anchors unit")
 
 
