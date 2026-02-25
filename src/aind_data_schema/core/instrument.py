@@ -43,6 +43,7 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
+    PatchClampEphysAssembly,
     PockelsCell,
     PolygonalScanner,
     Scanner,
@@ -75,7 +76,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
+    schema_version: SkipValidation[Literal["2.2.1"]] = Field(default="2.2.1")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
@@ -142,6 +143,7 @@ class Instrument(DataCoreModel):
         | Filter
         | Lens
         | DigitalMicromirrorDevice
+        | PatchClampEphysAssembly
         | PolygonalScanner
         | PockelsCell
         | HarpDevice
