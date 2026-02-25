@@ -1,13 +1,13 @@
 """ example SLAP2 structure acquisition """
 
 from datetime import datetime, timezone
-from pathlib import Path
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit
+from aind_data_schema_models.devices import FilterType
+from aind_data_schema_models.organizations import Organization
 from aind_data_schema.components.devices import Filter
 from aind_data_schema.components.coordinates import Translation, Scale, CoordinateSystemLibrary, Origin
-from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.acquisition import (
     Acquisition,
     DataStream,
@@ -30,9 +30,34 @@ origin_ari.name = "Arbitrary Origin ARI"
 origin_ari.axis_unit = SizeUnit.UM
 origin_ari.origin = Origin.ORIGIN
 
-instrument_json_path = "instrument.json"
-instrument_json = Path(instrument_json_path).read_text()
-instrument = Instrument.model_validate_json(instrument_json)
+filter_red = Filter(
+    name="Red Emission Filters",
+    serial_number="None",
+    manufacturer=Organization.SEMROCK,
+    filter_type=FilterType.BANDPASS,
+    cut_off_wavelength=725,
+    cut_on_wavelength=585,
+    center_wavelength=655,
+    wavelength_unit=SizeUnit.NM,
+    notes="Includes 585 dichroic mirror and 650/150 filter"
+)
+
+filter_green = Filter(
+    name="Green Emission Filters",
+    serial_number="None",
+    manufacturer=Organization.SEMROCK,
+    filter_type=FilterType.BANDPASS,
+    cut_off_wavelength=580,
+    cut_on_wavelength=500,
+    center_wavelength=540,
+    wavelength_unit=SizeUnit.NM,
+    notes="Includes 585 dichroic mirror and 540/80 filter"
+)
+
+filters_by_name = {
+    "Red Emission Filters": filter_red,
+    "Green Emission Filters": filter_green,
+}
 
 harp_start_time = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
 harp_end_time = datetime(2022, 7, 12, 7, 30, 00, tzinfo=timezone.utc)
@@ -44,7 +69,7 @@ num_paths = 2
 active_channels = ["Red", "Green"]
 
 plane_depths = {"Path 1": [x+0.5 for x in range(-20,30)], "Path 2": [x+0.3 for x in range(0,50)]}
-hwp_laser_power = 75 # in percent
+hwp_laser_power = 75
 
 x_dilations = {"Path 1": 9, "Path 2": 9}
 
@@ -167,8 +192,8 @@ a = Acquisition(
                                 DeviceConfig(device_name="Polygonal Scanner"),
                             ],
                             emission_filters=[DeviceConfig(device_name=f"{channel_color} Emission Filters")],
-                            emission_wavelength=next((c for c in instrument.components if isinstance(c, Filter) and c.name == f"{channel_color} Emission Filters")).center_wavelength,
-                            emission_wavelength_unit=next((c for c in instrument.components if isinstance(c, Filter) and c.name == f"{channel_color} Emission Filters")).wavelength_unit,
+                            emission_wavelength=filters_by_name[f"{channel_color} Emission Filters"].center_wavelength,
+                            emission_wavelength_unit=filters_by_name[f"{channel_color} Emission Filters"].wavelength_unit,
                         ) for path_idx in range(num_paths) for channel_color in active_channels
                     ],
                     images=[
