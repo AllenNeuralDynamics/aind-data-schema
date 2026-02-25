@@ -9,6 +9,7 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species, Strain
 
 from aind_data_schema.components.subjects import (
+    CalibrationObject,
     Housing,
     HumanSubject,
     LightCycle,
@@ -17,6 +18,7 @@ from aind_data_schema.components.subjects import (
     Sex,
     MatingStatus
 )
+from aind_data_schema.components.devices import Device
 
 
 class TestMouseSubject(unittest.TestCase):
@@ -172,6 +174,33 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
 
         self.assertIsNone(subject.date_of_birth)
         self.assertEqual(subject.year_of_birth, 2021)
+
+
+class TestCalibrationObject(unittest.TestCase):
+    """Test the calibration object model"""
+
+    def test_calibration_object_with_description_only(self):
+        """Test creating a CalibrationObject with only description (minimal case)"""
+
+        calibration_obj = CalibrationObject(
+            description="Simple calibration sphere"
+        )
+
+        self.assertEqual(calibration_obj.description, "Simple calibration sphere")
+        self.assertFalse(calibration_obj.empty)  # Default should be False
+        self.assertIsNone(calibration_obj.objects)  # Default should be None
+
+    def test_calibration_object_empty(self):
+        """Test creating an empty CalibrationObject"""
+
+        calibration_obj = CalibrationObject(
+            empty=True,
+            description="Empty calibration - no object used"
+        )
+
+        self.assertTrue(calibration_obj.empty)
+        self.assertEqual(calibration_obj.description, "Empty calibration - no object used")
+        self.assertIsNone(calibration_obj.objects)
 
 
 if __name__ == "__main__":
