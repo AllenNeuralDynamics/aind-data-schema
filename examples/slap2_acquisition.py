@@ -1,4 +1,4 @@
-""" example SLAP2 acquisition """
+"""example SLAP2 acquisition"""
 
 import argparse
 from datetime import datetime, timezone
@@ -42,7 +42,7 @@ filter_red = Filter(
     cut_on_wavelength=585,
     center_wavelength=655,
     wavelength_unit=SizeUnit.NM,
-    notes="Includes 585 dichroic mirror and 650/150 filter"
+    notes="Includes 585 dichroic mirror and 650/150 filter",
 )
 
 filter_green = Filter(
@@ -54,7 +54,7 @@ filter_green = Filter(
     cut_on_wavelength=500,
     center_wavelength=540,
     wavelength_unit=SizeUnit.NM,
-    notes="Includes 585 dichroic mirror and 540/80 filter"
+    notes="Includes 585 dichroic mirror and 540/80 filter",
 )
 
 filters_by_name = {
@@ -116,9 +116,9 @@ stage_offset_from_origin = None
 
 imaging_target_name = "Neuron1"
 
-slap2_plane_rois_raster = {"Path 1":
-    [
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+slap2_plane_rois_raster = {
+    "Path 1": [
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 1"][0],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -135,7 +135,7 @@ slap2_plane_rois_raster = {"Path 1":
             x_dilation=x_dilations["Path 1"],
             dilation_unit=SizeUnit.PX,
         ),
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 1"][1],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -154,7 +154,7 @@ slap2_plane_rois_raster = {"Path 1":
         ),
     ],
     "Path 2": [
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 2"][0],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -171,7 +171,7 @@ slap2_plane_rois_raster = {"Path 1":
             x_dilation=x_dilations["Path 2"],
             dilation_unit=SizeUnit.PX,
         ),
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 2"][1],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -188,12 +188,12 @@ slap2_plane_rois_raster = {"Path 1":
             x_dilation=x_dilations["Path 2"],
             dilation_unit=SizeUnit.PX,
         ),
-    ]
+    ],
 }
 
-slap2_plane_rois_integration = {"Path 1": 
-    [
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+slap2_plane_rois_integration = {
+    "Path 1": [
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 1"][0],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -210,7 +210,7 @@ slap2_plane_rois_integration = {"Path 1":
             x_dilation=x_dilations["Path 1"],
             dilation_unit=SizeUnit.PX,
         ),
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 1"][1],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -229,7 +229,7 @@ slap2_plane_rois_integration = {"Path 1":
         ),
     ],
     "Path 2": [
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 2"][0],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -246,7 +246,7 @@ slap2_plane_rois_integration = {"Path 1":
             x_dilation=x_dilations["Path 2"],
             dilation_unit=SizeUnit.PX,
         ),
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=plane_depths["Path 2"][1],
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -321,8 +321,12 @@ a = Acquisition(
                             ],
                             emission_filters=[DeviceConfig(device_name=f"{channel_color} Emission Filters")],
                             emission_wavelength=filters_by_name[f"{channel_color} Emission Filters"].center_wavelength,
-                            emission_wavelength_unit=filters_by_name[f"{channel_color} Emission Filters"].wavelength_unit,
-                        ) for path_idx in range(num_paths) for channel_color in active_channels
+                            emission_wavelength_unit=filters_by_name[
+                                f"{channel_color} Emission Filters"
+                            ].wavelength_unit,
+                        )
+                        for path_idx in range(num_paths)
+                        for channel_color in active_channels
                     ],
                     images=[
                         PlanarImage(
@@ -331,9 +335,12 @@ a = Acquisition(
                                 Scale(
                                     scale=[0.25, 0.25],
                                 ),
-                                *([Translation(
-                                        translation=stage_offset_from_origin,
-                                    )]
+                                *(
+                                    [
+                                        Translation(
+                                            translation=stage_offset_from_origin,
+                                        )
+                                    ]
                                     if stage_offset_from_origin is not None
                                     else []
                                 ),
@@ -344,7 +351,12 @@ a = Acquisition(
                             dimensions_unit=SizeUnit.PX,
                             planes=[plane],
                         )
-                        for path_idx in range(num_paths) for plane in (slap2_plane_rois_raster[f"Path {path_idx+1}"]+slap2_plane_rois_integration[f"Path {path_idx+1}"]) for channel_color in active_channels
+                        for path_idx in range(num_paths)
+                        for plane in (
+                            slap2_plane_rois_raster[f"Path {path_idx+1}"]
+                            + slap2_plane_rois_integration[f"Path {path_idx+1}"]
+                        )
+                        for channel_color in active_channels
                     ],
                 ),
                 DetectorConfig(
@@ -375,10 +387,10 @@ a = Acquisition(
             stimulus_name="Shuffled 8-direction drifting gratings",
             code=Code(
                 url="https://github.com/AllenNeuralDynamics/ophys-passive-visual-stim/blob/main/src/RandomDriftingGratings_ContinuousTrials.bonsai",
-                version="168e4ef1923c535f6c4d914a126526cc11168ac7", # get git commit id
+                version="168e4ef1923c535f6c4d914a126526cc11168ac7",  # get git commit id
                 name="RandomDriftingGratings_ContinuousTrials.bonsai",
                 language="Bonsai",
-                language_version="2.9.0", # get from repo or code directly
+                language_version="2.9.0",  # get from repo or code directly
                 parameters={
                     "Initial Spont Int": 28,
                     "Num Trials": 40,
@@ -387,11 +399,11 @@ a = Acquisition(
                     "Screen_GreenColor (0-1)": 0,
                     "Screen_RedColor (0-1)": 0,
                     "Subject": "000000",
-                    "GratingTrialParametersFile": "ParameterFiles/8_direction_drifting_grating_params.csv"
-                }
+                    "GratingTrialParametersFile": "ParameterFiles/8_direction_drifting_grating_params.csv",
+                },
             ),
             stimulus_modalities=[StimulusModality.VISUAL],
-            notes="", # include description of stimulus here if code and/or parameters are not available
+            notes="",  # include description of stimulus here if code and/or parameters are not available
             active_devices=["Stimulus Screen"],
             configurations=[],
         ),

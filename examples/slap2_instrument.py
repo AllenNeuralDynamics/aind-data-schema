@@ -1,4 +1,4 @@
-""" example SLAP2 instrument """
+"""example SLAP2 instrument"""
 
 import argparse
 from datetime import datetime
@@ -44,8 +44,8 @@ from aind_data_schema.components.coordinates import (
 )
 
 computer_names = {
-    'VCO': 'w10dt714710',
-    'SLAP2': 'SLAP2-1-PC',
+    "VCO": "w10dt714710",
+    "SLAP2": "SLAP2-1-PC",
 }
 
 slap2_1_microscope = Microscope(
@@ -53,7 +53,7 @@ slap2_1_microscope = Microscope(
     manufacturer=Organization.MBF,
 )
 
-vco_1_computer = Computer(name=computer_names['VCO'])
+vco_1_computer = Computer(name=computer_names["VCO"])
 
 harp_behavior = HarpDevice(
     name="VCO1_Behavior",
@@ -78,7 +78,7 @@ cuttlefish_camtrigger = DAQDevice(
         DAQChannel(channel_name="PWM2", channel_type=DaqChannelType.DO),
         DAQChannel(channel_name="PWM4", channel_type=DaqChannelType.DO),
     ],
-    notes="Cuttlefish Cam Trigger"
+    notes="Cuttlefish Cam Trigger",
 )
 
 timestamp_generator = HarpDevice(
@@ -111,11 +111,7 @@ face_camera_assembly = CameraAssembly(
         data_interface=DataInterface.USB,
         serial_number="25092525",
     ),
-    lens=Lens(
-        name="FaceCamera Lens",
-        manufacturer=Organization.EDMUND_OPTICS,
-        model="86-604"
-    ),
+    lens=Lens(name="FaceCamera Lens", manufacturer=Organization.EDMUND_OPTICS, model="86-604"),
     filter=Filter(
         name="FaceCamera Filter",
         filter_type=FilterType.LONGPASS,
@@ -123,7 +119,7 @@ face_camera_assembly = CameraAssembly(
         cut_off_wavelength=715,
         wavelength_unit=SizeUnit.NM,
         model="FF01-715/LP-25",
-    )
+    ),
 )
 
 body_camera_assembly = CameraAssembly(
@@ -137,19 +133,15 @@ body_camera_assembly = CameraAssembly(
         data_interface=DataInterface.USB,
         serial_number="25092522",
     ),
-    lens=Lens(
-        name="BodyCamera Lens",
-        manufacturer=Organization.THORLABS,
-        model="MVL6WA"
-    ),
+    lens=Lens(name="BodyCamera Lens", manufacturer=Organization.THORLABS, model="MVL6WA"),
     filter=Filter(
         name="BodyCamera Filter",
         filter_type=FilterType.LONGPASS,
         manufacturer=Organization.SEMROCK,
         cut_off_wavelength=747,
         wavelength_unit=SizeUnit.NM,
-        model="FF01-747/33-25"
-    )
+        model="FF01-747/33-25",
+    ),
 )
 
 eye_camera_assembly = CameraAssembly(
@@ -163,14 +155,10 @@ eye_camera_assembly = CameraAssembly(
         data_interface=DataInterface.USB,
         serial_number="25092545",
     ),
-    lens=Lens(
-        name="EyeCamera Lens",
-        manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
-        model="213073"
-    ),
+    lens=Lens(name="EyeCamera Lens", manufacturer=Organization.INFINITY_PHOTO_OPTICAL, model="213073"),
 )
 
-monitor=Monitor(
+monitor = Monitor(
     name="Stimulus Screen",
     serial_number=None,
     manufacturer=Organization.LG,
@@ -184,14 +172,14 @@ monitor=Monitor(
     relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
 )
 
-photodiode=Device(
+photodiode = Device(
     name="Photodiode",
     manufacturer=Organization.AIND,
 )
 
-slap2_1_computer=Computer(name=computer_names['SLAP2'])
+slap2_1_computer = Computer(name=computer_names["SLAP2"])
 
-sipm_red=Detector(
+sipm_red = Detector(
     name="SiPM Red",
     detector_type=DetectorType.SiPM,
     manufacturer=Organization.HAMAMATSU,
@@ -199,10 +187,10 @@ sipm_red=Detector(
     serial_number="22C-002",
     data_interface=DataInterface.PCIE,
     cooling=Cooling.AIR,
-    notes="SiPM detector"
+    notes="SiPM detector",
 )
 
-sipm_green=Detector(
+sipm_green = Detector(
     name="SiPM Green",
     detector_type=DetectorType.SiPM,
     manufacturer=Organization.HAMAMATSU,
@@ -210,10 +198,10 @@ sipm_green=Detector(
     serial_number="16D-001",
     data_interface=DataInterface.PCIE,
     cooling=Cooling.AIR,
-    notes="SiPM detector"
+    notes="SiPM detector",
 )
 
-filter_red=Filter(
+filter_red = Filter(
     name="Red Emission Filters",
     serial_number="None",
     manufacturer=Organization.SEMROCK,
@@ -222,10 +210,10 @@ filter_red=Filter(
     cut_on_wavelength=585,
     center_wavelength=655,
     wavelength_unit=SizeUnit.NM,
-    notes="Includes 585 dichroic mirror and 650/150 filter"
+    notes="Includes 585 dichroic mirror and 650/150 filter",
 )
 
-filter_green=Filter(
+filter_green = Filter(
     name="Green Emission Filters",
     serial_number="None",
     manufacturer=Organization.SEMROCK,
@@ -234,12 +222,12 @@ filter_green=Filter(
     cut_on_wavelength=500,
     center_wavelength=540,
     wavelength_unit=SizeUnit.NM,
-    notes="Includes 585 dichroic mirror and 540/80 filter"
+    notes="Includes 585 dichroic mirror and 540/80 filter",
 )
 
 poly_scanner_rpm = 21500
 poly_scanner_number_faces = 28
-polygon=PolygonalScanner(
+polygon = PolygonalScanner(
     name="Polygonal Scanner",
     manufacturer=Organization.CAMBRIDGE_TECHNOLOGY,
     speed=poly_scanner_rpm,
@@ -247,10 +235,7 @@ polygon=PolygonalScanner(
     number_faces=poly_scanner_number_faces,
 )
 
-pockelscell=PockelsCell(
-    name="Pockels Cell",
-    polygonal_scanner="Polygonal Scanner"
-)
+pockelscell = PockelsCell(name="Pockels Cell", polygonal_scanner="Polygonal Scanner")
 
 dmds_serial_numbers = ["14117", "14116"]
 dmds_max_patterns = [800, 800]
@@ -276,7 +261,7 @@ for dmd_idx in range(2):
         line_shear_anchors=dmds_line_shear_anchors[dmd_idx],
         manufacturer=Organization.OTHER,
         serial_number=dmds_serial_numbers[dmd_idx],
-        notes="ViALUX DMD"
+        notes="ViALUX DMD",
     )
 
 objective = Objective(
@@ -286,24 +271,24 @@ objective = Objective(
     manufacturer=Organization.LEICA,
     immersion="water",
     serial_number="0119",
-    model="507704"
+    model="507704",
 )
 
-hwp=Device(
+hwp = Device(
     name="Half-Wave Plate",
     manufacturer=Organization.THORLABS,
 )
 
-twophoton_laser=Laser(
+twophoton_laser = Laser(
     name="Monaco 150",
     manufacturer=Organization.COHERENT_SCIENTIFIC,
     serial_number="S0124263226",
     model="Monaco 150",
     wavelength=1035,
-    notes="maximum power of 150W"
+    notes="maximum power of 150W",
 )
 
-vdaq=DAQDevice(
+vdaq = DAQDevice(
     name="vDAQ",
     serial_number=None,
     manufacturer=Organization.OTHER,
@@ -317,55 +302,24 @@ vdaq=DAQDevice(
     ],
 )
 
-connections=[
-    Connection(
-        source_device="FaceCamera",
-        target_device=computer_names['VCO']
+connections = [
+    Connection(source_device="FaceCamera", target_device=computer_names["VCO"]),
+    Connection(source_device="BodyCamera", target_device=computer_names["VCO"]),
+    Connection(source_device="EyeCamera", target_device=computer_names["VCO"]),
+    Connection(source_device="Stimulus Screen", target_device=computer_names["VCO"]),
+    Connection(source_device="VCO1_Behavior", target_device=computer_names["VCO"]),
+    Connection(source_device="Photodiode", target_device="VCO1_Behavior", target_port="AI0"),
+    Connection(  # "BCI signal"
+        source_device="vDAQ", source_port="AO5", target_device="VCO1_Behavior", target_port="AI1"
     ),
-    Connection(
-        source_device="BodyCamera",
-        target_device=computer_names['VCO']
+    Connection(  # START signal
+        source_device="VCO1_Behavior", source_port="DO0", target_device="vDAQ", target_port="D0.0"
     ),
-    Connection(
-        source_device="EyeCamera",
-        target_device=computer_names['VCO']
+    Connection(  # STOP signal
+        source_device="VCO1_Behavior", source_port="DO1", target_device="vDAQ", target_port="D0.1"
     ),
-    Connection(
-        source_device="Stimulus Screen",
-        target_device=computer_names['VCO']
-    ),
-    Connection(
-        source_device="VCO1_Behavior",
-        target_device=computer_names['VCO']
-    ),
-    Connection(
-        source_device="Photodiode",
-        target_device="VCO1_Behavior",
-        target_port="AI0"
-    ),
-    Connection( # "BCI signal"
-        source_device="vDAQ",
-        source_port="AO5",
-        target_device="VCO1_Behavior",
-        target_port="AI1"
-    ),
-    Connection( # START signal
-        source_device="VCO1_Behavior",
-        source_port="DO0",
-        target_device="vDAQ",
-        target_port="D0.0"
-    ),
-    Connection( # STOP signal
-        source_device="VCO1_Behavior",
-        source_port="DO1",
-        target_device="vDAQ",
-        target_port="D0.1"
-    ),
-    Connection( # SLAP2 cycle clock signal
-        source_device="vDAQ",
-        source_port="D0.4",
-        target_device="VCO1_Behavior",
-        target_port="DI3"
+    Connection(  # SLAP2 cycle clock signal
+        source_device="vDAQ", source_port="D0.4", target_device="VCO1_Behavior", target_port="DI3"
     ),
     Connection(
         source_device="VCO1_CuttlefishCamTrigger",
@@ -383,34 +337,16 @@ connections=[
         target_device="EyeCamera",
     ),
     Connection(
-        source_device=computer_names['SLAP2'],
+        source_device=computer_names["SLAP2"],
         target_device="vDAQ",
         send_and_receive=True,
     ),
-    Connection(
-        source_device="SiPM Red",
-        target_device="vDAQ"
-    ),
-    Connection(
-        source_device="SiPM Green",
-        target_device="vDAQ"
-    ),
-    Connection(
-        source_device=computer_names['SLAP2'],
-        target_device="Half-Wave Plate"
-    ),
-    Connection(
-        source_device="vDAQ",
-        target_device="DMD1"
-    ),
-    Connection(
-        source_device="vDAQ",
-        target_device="DMD2"
-    ),
-    Connection(
-        source_device="vDAQ",
-        target_device="Polygonal Scanner"
-    ),
+    Connection(source_device="SiPM Red", target_device="vDAQ"),
+    Connection(source_device="SiPM Green", target_device="vDAQ"),
+    Connection(source_device=computer_names["SLAP2"], target_device="Half-Wave Plate"),
+    Connection(source_device="vDAQ", target_device="DMD1"),
+    Connection(source_device="vDAQ", target_device="DMD2"),
+    Connection(source_device="vDAQ", target_device="Polygonal Scanner"),
 ]
 
 instrument = Instrument(

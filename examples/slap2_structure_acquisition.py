@@ -1,4 +1,4 @@
-""" example SLAP2 structure acquisition """
+"""example SLAP2 structure acquisition"""
 
 import argparse
 from datetime import datetime, timezone
@@ -40,7 +40,7 @@ filter_red = Filter(
     cut_on_wavelength=585,
     center_wavelength=655,
     wavelength_unit=SizeUnit.NM,
-    notes="Includes 585 dichroic mirror and 650/150 filter"
+    notes="Includes 585 dichroic mirror and 650/150 filter",
 )
 
 filter_green = Filter(
@@ -52,7 +52,7 @@ filter_green = Filter(
     cut_on_wavelength=500,
     center_wavelength=540,
     wavelength_unit=SizeUnit.NM,
-    notes="Includes 585 dichroic mirror and 540/80 filter"
+    notes="Includes 585 dichroic mirror and 540/80 filter",
 )
 
 filters_by_name = {
@@ -69,7 +69,7 @@ acquisition_type = "full-field raster structure"
 num_paths = 2
 active_channels = ["Red", "Green"]
 
-plane_depths = {"Path 1": [x+0.5 for x in range(-20,30)], "Path 2": [x+0.3 for x in range(0,50)]}
+plane_depths = {"Path 1": [x + 0.5 for x in range(-20, 30)], "Path 2": [x + 0.3 for x in range(0, 50)]}
 hwp_laser_power = 75
 
 x_dilations = {"Path 1": 9, "Path 2": 9}
@@ -79,13 +79,13 @@ channel_intended_measurements = {
     "Green": "iGluSnFR4s",
 }
 
-stage_offset_from_origin = None # or [x, y] in um
+stage_offset_from_origin = None  # or [x, y] in um
 
 imaging_target_name = "Neuron1"
 
-slap2_plane_full_field_raster = {"Path 1":
-    [
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+slap2_plane_full_field_raster = {
+    "Path 1": [
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=min(plane_depths["Path 1"]),
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -104,7 +104,7 @@ slap2_plane_full_field_raster = {"Path 1":
         )
     ],
     "Path 2": [
-        Slap2Plane( # each fastZ plane will get its own Slap2Plane
+        Slap2Plane(  # each fastZ plane will get its own Slap2Plane
             depth=min(plane_depths["Path 2"]),
             depth_unit=SizeUnit.UM,
             power=hwp_laser_power,
@@ -121,7 +121,7 @@ slap2_plane_full_field_raster = {"Path 1":
             x_dilation=x_dilations["Path 2"],
             dilation_unit=SizeUnit.PX,
         )
-    ]
+    ],
 }
 
 monaco_laser_config = LaserConfig(
@@ -194,24 +194,34 @@ a = Acquisition(
                             ],
                             emission_filters=[DeviceConfig(device_name=f"{channel_color} Emission Filters")],
                             emission_wavelength=filters_by_name[f"{channel_color} Emission Filters"].center_wavelength,
-                            emission_wavelength_unit=filters_by_name[f"{channel_color} Emission Filters"].wavelength_unit,
-                        ) for path_idx in range(num_paths) for channel_color in active_channels
+                            emission_wavelength_unit=filters_by_name[
+                                f"{channel_color} Emission Filters"
+                            ].wavelength_unit,
+                        )
+                        for path_idx in range(num_paths)
+                        for channel_color in active_channels
                     ],
                     images=[
                         PlanarImageStack(
                             power_function=PowerFunction.CONSTANT,
                             depth_start=min(plane_depths[f"Path {path_idx+1}"]),
                             depth_end=max(plane_depths[f"Path {path_idx+1}"]),
-                            depth_step=(max(plane_depths[f"Path {path_idx+1}"])-min(plane_depths[f"Path {path_idx+1}"]))/(len(plane_depths[f"Path {path_idx+1}"])-1),
+                            depth_step=(
+                                max(plane_depths[f"Path {path_idx+1}"]) - min(plane_depths[f"Path {path_idx+1}"])
+                            )
+                            / (len(plane_depths[f"Path {path_idx+1}"]) - 1),
                             depth_unit=SizeUnit.UM,
                             channel_name=f"Path {path_idx + 1} {channel_color} channel",
                             image_to_acquisition_transform=[
                                 Scale(
                                     scale=[0.25, 0.25],
                                 ),
-                                *([Translation(
-                                        translation=stage_offset_from_origin,
-                                    )]
+                                *(
+                                    [
+                                        Translation(
+                                            translation=stage_offset_from_origin,
+                                        )
+                                    ]
                                     if stage_offset_from_origin is not None
                                     else []
                                 ),
@@ -222,7 +232,8 @@ a = Acquisition(
                             dimensions_unit=SizeUnit.PX,
                             planes=slap2_plane_full_field_raster[f"Path {path_idx+1}"],
                         )
-                        for path_idx in range(num_paths) for channel_color in active_channels
+                        for path_idx in range(num_paths)
+                        for channel_color in active_channels
                     ],
                 ),
             ],
