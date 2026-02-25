@@ -8,7 +8,7 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species, Strain
 
-from aind_data_schema.components.subjects import Housing, LightCycle, MouseSubject, Sex
+from aind_data_schema.components.subjects import Housing, HumanSubject, LightCycle, MouseSubject, Sex
 
 
 class TestMouseSubject(unittest.TestCase):
@@ -61,6 +61,22 @@ class TestMouseSubject(unittest.TestCase):
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
         self.assertIn("The animal species and it's strain's species do not match", str(context.exception))
+
+
+class TestHumanSubject(unittest.TestCase):
+    """Test the human subject model"""
+
+    def test_validate_species_is_human(self):
+        """Test the species validator"""
+
+        with self.assertRaises(ValueError) as context:
+            HumanSubject(
+                sex=Sex.MALE,
+                species=Species.HOUSE_MOUSE,
+                year_of_birth=1962,
+                source=Organization.UCSD
+            )
+        self.assertIn("HumanSubject species must be HUMAN", str(context.exception))
 
 
 if __name__ == "__main__":
