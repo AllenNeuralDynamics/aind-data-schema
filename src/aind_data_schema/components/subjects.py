@@ -156,7 +156,15 @@ class MouseSubject(DataModel):
 class HumanSubject(DataModel):
     """Description of a human subject"""
 
-    species: Species.ONE_OF = Field(..., title="Species")
+    species: Species = Field(default=Species.HUMAN, title="Species")
+
+    @field_validator("species", mode='before')
+    @classmethod
+    def validate_species_is_human(cls, v):
+        """Ensure species is always human for HumanSubject"""
+        if v != Species.HUMAN:
+            raise ValueError("HumanSubject species must be HUMAN")
+        return v
     sex: Sex = Field(..., title="Sex")
     year_of_birth: int = Field(..., title="Year of birth")
     source: Organization.SUBJECT_SOURCES = Field(
