@@ -136,7 +136,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
             date_of_birth=birth_date,
             year_of_birth=2020,  # Matching year
             mating_status=MatingStatus.MATED,
-            source=Organization.UCSD
+            source=Organization.COLUMBIA
         )
 
         self.assertEqual(subject.date_of_birth, birth_date)
@@ -153,7 +153,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
                 date_of_birth=date(2019, 8, 10),  # Year 2019
                 year_of_birth=2020,  # Different year
                 mating_status=MatingStatus.UNMATED,
-                source=Organization.JAX
+                source=Organization.COLUMBIA
             )
 
         self.assertIn("Date of birth (2019) does not match year of birth (2020)", str(context.exception))
