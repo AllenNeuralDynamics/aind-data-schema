@@ -1,5 +1,6 @@
 """ example SLAP2 acquisition """
 
+import argparse
 from datetime import datetime, timezone
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
@@ -398,6 +399,10 @@ a = Acquisition(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = a.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="slap2")
+    deserialized.write_standard_file(prefix="slap2", output_directory=args.output_dir)
