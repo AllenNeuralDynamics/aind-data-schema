@@ -160,7 +160,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
 
     def test_validate_date_year_consistency_no_date(self):
         """Test that validation passes when date_of_birth is None"""
- 
+
         subject = NonHumanPrimateSubject(
             species=Species.RHESUS_MACAQUE,
             sex=Sex.FEMALE,
