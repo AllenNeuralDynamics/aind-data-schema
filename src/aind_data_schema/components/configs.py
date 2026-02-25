@@ -69,6 +69,7 @@ class TriggerType(str, Enum):
 
     INTERNAL = "Internal"
     EXTERNAL = "External"
+    ANALOG = "Analog"
 
 
 class PulseSequenceType(str, Enum):
@@ -106,7 +107,7 @@ class DeviceConfig(DataModel):
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
-    exposure_time: float = Field(..., title="Exposure time")
+    exposure_time: Optional[float] = Field(default=None, title="Exposure time")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
@@ -208,24 +209,27 @@ class CoupledPlane(Plane):
 
 
 class Slap2Plane(Plane):
-    """Configuration of an imagine plane on a Slap microscope"""
+    """Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)"""
 
-    name: Optional[str] = Field(default=None, title="Plane name")
-    slap_acquisition_type: Slap2AcquisitionType = Field(..., title="Slap experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
+    slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="SLAP2 ROI acquisition type")
+    target_name: Optional[str] = Field(default=None, title="Name of imaged target")
 
     mask_image_path: AssetPath = Field(
-        ..., title="Mask image path", description="Relative path from metadata json to file"
+        ..., title="Mask image path", description="Relative path from metadata json to imaging ROI masks (numbered by superpixel)"
     )
 
-    dilation_image_path: AssetPath = Field(
-        ..., title="Dilation image path", description="Relative path from metadata json to file"
+    unique_y_dilations: List[int] = Field(..., title="Unique Y dilations")
+    y_dilation_image_path: AssetPath = Field(
+        ..., title="Y dilation image path", description="Relative path from metadata json to file"
     )
+    x_dilation: int = Field(..., title="X dilation")
     dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
 
-    framerate_image_path: AssetPath = Field(
-        ..., title="Framerate image path", description="Relative path from metadata json to file"
+    unique_frame_rates: List[float] = Field(..., title="Unique frame rates")
+    frame_rate_image_path: AssetPath = Field(
+        ..., title="Frame rate image path", description="Relative path from metadata json to file"
     )
+    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
 
 
 class Image(DataModel):
