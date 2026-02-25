@@ -192,22 +192,22 @@ slap2_1_computer=Computer(name=computer_names['SLAP2'])
 
 sipm_red=Detector(
     name="SiPM Red",
-    detector_type=DetectorType.OTHER,
+    detector_type=DetectorType.SiPM,
     manufacturer=Organization.HAMAMATSU,
     model="C13366-1960",
     serial_number="22C-002",
-    data_interface=DataInterface.OTHER,
+    data_interface=DataInterface.PCIE,
     cooling=Cooling.AIR,
     notes="SiPM detector"
 )
 
 sipm_green=Detector(
     name="SiPM Green",
-    detector_type=DetectorType.OTHER,
+    detector_type=DetectorType.SiPM,
     manufacturer=Organization.HAMAMATSU,
     model="C13366-5286",
     serial_number="16D-001",
-    data_interface=DataInterface.OTHER,
+    data_interface=DataInterface.PCIE,
     cooling=Cooling.AIR,
     notes="SiPM detector"
 )
@@ -307,7 +307,7 @@ vdaq=DAQDevice(
     serial_number=None,
     manufacturer=Organization.OTHER,
     notes="Manufactured by MBF Bioscience",
-    data_interface="PCIe",
+    data_interface=DataInterface.PCIE,
     channels=[
         DAQChannel(channel_name="AO5", channel_type=DaqChannelType.AO),
         DAQChannel(channel_name="D0.0", channel_type=DaqChannelType.DI),
