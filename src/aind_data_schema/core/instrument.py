@@ -43,6 +43,7 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
+    PatchClampEphysAssembly,
     PockelsCell,
     PolygonalScanner,
     Scanner,
@@ -141,6 +142,7 @@ class Instrument(DataCoreModel):
         | Filter
         | Lens
         | DigitalMicromirrorDevice
+        | PatchClampEphysAssembly
         | PolygonalScanner
         | PockelsCell
         | HarpDevice
