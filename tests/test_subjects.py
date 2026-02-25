@@ -18,7 +18,6 @@ from aind_data_schema.components.subjects import (
     Sex,
     MatingStatus
 )
-from aind_data_schema.components.devices import Device
 
 
 class TestMouseSubject(unittest.TestCase):
