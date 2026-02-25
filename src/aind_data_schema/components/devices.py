@@ -495,10 +495,10 @@ class DigitalMicromirrorDevice(Device):
     motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
     motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
     padding_unit: SizeUnit = Field(default=SizeUnit.PX, title="Padding unit")
-    pixel_size: Decimal = Field(..., title="DMD Pixel size (fraction of line scan period)")
-    start_phase: Decimal = Field(..., title="DMD Start phase (fraction of line scan period)")
-    dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain (fraction of DMD scan period)")
-    line_shear_anchors: List[Decimal] = Field(..., title="Line shear anchors at top and bottom of field of view (pixels)")
+    pixel_size: float = Field(..., title="DMD Pixel size (fraction of line scan period)")
+    start_phase: float = Field(..., title="DMD Start phase (fraction of line scan period)")
+    dmd_curtain: List[float] = Field(..., title="DMD Curtain (fraction of DMD scan period)")
+    line_shear_anchors: List[float] = Field(..., title="Line shear anchors at top and bottom of field of view (pixels)")
     line_shear_anchors_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear anchors unit")
 
 
