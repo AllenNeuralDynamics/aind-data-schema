@@ -1,4 +1,4 @@
-""" Wrappers for Pydantic types."""
+"""Wrappers for Pydantic types."""
 
 from pathlib import PurePosixPath
 from typing import Any

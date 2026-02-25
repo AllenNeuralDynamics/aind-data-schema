@@ -1,4 +1,4 @@
-""" example fiber photometry acquisition """
+"""example fiber photometry acquisition"""
 
 import argparse
 from datetime import datetime, timezone

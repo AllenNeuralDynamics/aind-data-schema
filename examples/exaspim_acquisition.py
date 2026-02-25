@@ -1,4 +1,4 @@
-""" example ExaSPIM acquisition """
+"""example ExaSPIM acquisition"""
 
 from datetime import datetime, timezone
 import argparse

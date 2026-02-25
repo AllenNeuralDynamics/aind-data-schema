@@ -17,7 +17,6 @@ from aind_data_schema.components.configs import MRIScan, PulseSequenceType, MRAc
 
 from aind_data_schema_models.units import TimeUnit, SizeUnit, MagneticFieldUnit
 
-
 mri_scanner = Scanner(
     name="Scanner 72",
     magnetic_strength=7,
