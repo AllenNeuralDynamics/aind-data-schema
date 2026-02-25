@@ -6,13 +6,12 @@ from datetime import datetime
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit, SpeedUnit
+from aind_data_schema_models.units import SizeUnit, SpeedUnit
 from aind_data_schema_models.devices import CameraTarget, FilterType, DetectorType
 from aind_data_schema_models.coordinates import AnatomicalRelative
 
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.components.devices import (
-    BinMode,
     Camera,
     CameraAssembly,
     HarpDevice,
@@ -33,14 +32,11 @@ from aind_data_schema.components.devices import (
     Device,
     PolygonalScanner,
     DigitalMicromirrorDevice,
-    PockelsCell,
     Microscope,
 )
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.coordinates import (
     CoordinateSystemLibrary,
-    Affine,
-    Translation,
 )
 
 computer_names = {
@@ -355,7 +351,10 @@ instrument = Instrument(
     modification_date=datetime.now().date(),
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     modalities=[Modality.SLAP2, Modality.BEHAVIOR, Modality.BEHAVIOR_VIDEOS],
-    notes="Devices and connections not currently directly controlled or read out by the user may not be listed here. Refer to SLAP2 or VCO resources for detailed hardware descriptions.",
+    notes=(
+        "Devices and connections not currently directly controlled or read out by"
+        "the user may not be listed here. Refer to SLAP2 or VCO resources for detailed hardware descriptions."
+    ),
     temperature_control=True,
     components=[
         # slap2 components

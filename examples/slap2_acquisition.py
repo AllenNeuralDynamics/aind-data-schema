@@ -386,7 +386,10 @@ a = Acquisition(
             stimulus_end_time=harp_end_time,
             stimulus_name="Shuffled 8-direction drifting gratings",
             code=Code(
-                url="https://github.com/AllenNeuralDynamics/ophys-passive-visual-stim/blob/main/src/RandomDriftingGratings_ContinuousTrials.bonsai",
+                url=(
+                    "https://github.com/AllenNeuralDynamics/ophys-passive-visual-stim/"
+                    "blob/main/src/RandomDriftingGratings_ContinuousTrials.bonsai"
+                ),
                 version="168e4ef1923c535f6c4d914a126526cc11168ac7",  # get git commit id
                 name="RandomDriftingGratings_ContinuousTrials.bonsai",
                 language="Bonsai",
@@ -399,7 +402,9 @@ a = Acquisition(
                     "Screen_GreenColor (0-1)": 0,
                     "Screen_RedColor (0-1)": 0,
                     "Subject": "000000",
-                    "GratingTrialParametersFile": "ParameterFiles/8_direction_drifting_grating_params.csv",
+                    "GratingTrialParametersFile": (
+                        "ParameterFiles/8_direction_drifting_grating_params.csv"
+                    ),
                 },
             ),
             stimulus_modalities=[StimulusModality.VISUAL],

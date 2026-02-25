@@ -8,7 +8,7 @@ from unittest.mock import patch
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 from aind_data_schema_models.harp_types import HarpDeviceType
 from pydantic import ValidationError
 

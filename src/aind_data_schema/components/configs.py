@@ -215,7 +215,8 @@ class Slap2Plane(Plane):
     target_name: Optional[str] = Field(default=None, title="Name of imaged target")
 
     mask_image_path: AssetPath = Field(
-        ..., title="Mask image path", description="Relative path from metadata json to imaging ROI masks (numbered by superpixel)"
+        ..., title="Mask image path",
+        description="Relative path from metadata json to imaging ROI masks (numbered by superpixel)"
     )
 
     unique_y_dilations: List[int] = Field(..., title="Unique Y dilations")
