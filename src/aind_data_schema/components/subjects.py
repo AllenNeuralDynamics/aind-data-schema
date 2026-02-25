@@ -7,7 +7,7 @@ from typing import Annotated, List, Optional
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species, Strain
+from aind_data_schema_models.species import Species, SpeciesModel, Strain
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -156,7 +156,7 @@ class MouseSubject(DataModel):
 class HumanSubject(DataModel):
     """Description of a human subject"""
 
-    species: Species = Field(default=Species.HUMAN, title="Species")
+    species: SpeciesModel = Field(default=Species.HUMAN, title="Species")
 
     @field_validator("species", mode='before')
     @classmethod
