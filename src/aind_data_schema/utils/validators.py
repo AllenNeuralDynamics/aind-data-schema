@@ -1,4 +1,4 @@
-""" Validator utility functions """
+"""Validator utility functions"""
 
 import logging
 from datetime import date, datetime

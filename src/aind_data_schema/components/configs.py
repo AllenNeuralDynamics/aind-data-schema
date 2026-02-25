@@ -1,4 +1,4 @@
-""" Configurations for devices, software, and other components during acquisition """
+"""Configurations for devices, software, and other components during acquisition"""
 
 from decimal import Decimal
 from enum import Enum

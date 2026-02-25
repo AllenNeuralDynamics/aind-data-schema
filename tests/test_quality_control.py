@@ -1,4 +1,4 @@
-"""test quality metrics """
+"""test quality metrics"""
 
 import unittest
 from datetime import datetime
@@ -277,7 +277,7 @@ class QualityControlTests(unittest.TestCase):
             tags={"group": "Drift map"},
         )
 
-        qc = QualityControl(metrics=[metric], default_grouping=[("group")])
+        qc = QualityControl(metrics=[metric], default_grouping=["group"])
 
         # roundtrip to json to check that metric order is preserved
         json = qc.model_dump_json()

@@ -78,7 +78,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `subject_id` | `str` | Subject ID (Unique identifier for the subject) |
-| `specimen_id` | `Optional[str]` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
+| `specimen_id` | `Optional[str]` | Specimen ID (Required for in vitro modalities. Standard format is {subject_id} with a _### suffix, as needed) |
 | `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time (During validation, timezone information will be moved into the acquisition_start_tz field.) |
 | `acquisition_start_tz` | `Optional[pydantic_extra_types.timezone_name.TimeZoneName]` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time.) |
 | `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |

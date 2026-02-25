@@ -1,4 +1,4 @@
-""" example FIP ophys acquisition """
+"""example FIP ophys acquisition"""
 
 import argparse
 from datetime import datetime, timezone

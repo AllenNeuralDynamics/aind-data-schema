@@ -1,4 +1,4 @@
-""" Generic metadata classes for data """
+"""Generic metadata classes for data"""
 
 import re
 from datetime import datetime, timezone

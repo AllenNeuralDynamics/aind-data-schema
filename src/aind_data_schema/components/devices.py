@@ -1,4 +1,4 @@
-""" schema for various Devices """
+"""schema for various Devices"""
 
 from datetime import date
 from decimal import Decimal

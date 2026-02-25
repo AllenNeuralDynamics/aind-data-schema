@@ -1,4 +1,4 @@
-""" example SmartSPIM instrument """
+"""example SmartSPIM instrument"""
 
 import argparse
 from datetime import date

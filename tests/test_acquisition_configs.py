@@ -1,4 +1,4 @@
-""" Tests for the configs module """
+"""Tests for the configs module"""
 
 import unittest
 from decimal import Decimal

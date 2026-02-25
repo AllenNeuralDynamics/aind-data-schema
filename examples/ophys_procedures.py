@@ -1,4 +1,4 @@
-""" 0phys procedure mouse 625100 """
+"""0phys procedure mouse 625100"""
 
 import argparse
 import datetime

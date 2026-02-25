@@ -1,4 +1,4 @@
-""" example subject """
+"""example subject"""
 
 import argparse
 from datetime import datetime, timezone

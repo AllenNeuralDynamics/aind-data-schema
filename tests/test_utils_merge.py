@@ -1,4 +1,4 @@
-""" Tests for merge utilities """
+"""Tests for merge utilities"""
 
 import unittest
 from unittest.mock import Mock
