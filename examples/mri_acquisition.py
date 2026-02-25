@@ -13,48 +13,47 @@ from aind_data_schema.core.acquisition import (
     DataStream,
     AcquisitionSubjectDetails,
 )
-from aind_data_schema.components.configs import MRIScan, MriScanSequence, ScanType, SubjectPosition
+from aind_data_schema.components.configs import MRIScan, PulseSequenceType, MRAcquisitionType, SubjectPosition
 
-from aind_data_schema_models.units import TimeUnit, SizeUnit
+from aind_data_schema_models.units import TimeUnit, SizeUnit, MagneticFieldUnit
 
 
 mri_scanner = Scanner(
     name="Scanner 72",
     magnetic_strength=7,
-    magnetic_strength_unit="tesla",
+    magnetic_strength_unit=MagneticFieldUnit.T,
 )
 
 scan1 = MRIScan(
-    scan_index="1",
+    index=1,
     device_name="Scanner 72",
-    scan_type=ScanType.SETUP,
-    primary_scan=False,
-    scan_sequence_type=MriScanSequence.RARE,
+    setup=True,
+    mr_acquisition_type=MRAcquisitionType.SCAN_2D,
+    pulse_sequence_type=PulseSequenceType.RARE,
     rare_factor=8,
-    echo_time=Decimal("3.42"),
-    echo_time_unit=TimeUnit.MS,
+    echo_time=Decimal("0.00342"),
+    echo_time_unit=TimeUnit.S,
     repetition_time=Decimal("100.0"),
-    repetition_time_unit=TimeUnit.MS,
+    repetition_time_unit=TimeUnit.S,
     subject_position=SubjectPosition.SUPINE,
     resolution=Scale(scale=[0.5, 0.4375, 0.52]),
     resolution_unit=SizeUnit.MM,
-    additional_scan_parameters={},
     notes="Set up scan for the 3D scan.",
 )
 
 scan2 = MRIScan(
-    scan_index="2",
+    index=2,
     device_name="Scanner 72",
-    scan_type=ScanType.SCAN_3D,
-    primary_scan=True,
-    scan_sequence_type=MriScanSequence.RARE,
+    setup=False,
+    mr_acquisition_type=MRAcquisitionType.SCAN_3D,
+    pulse_sequence_type=PulseSequenceType.RARE,
     rare_factor=4,
-    echo_time=Decimal(5.33333333333333),
-    echo_time_unit=TimeUnit.MS,
-    effective_echo_time=Decimal("10.6666666666666998253276688046753406524658203125"),
-    repetition_time=Decimal("500.0"),
-    repetition_time_unit=TimeUnit.MS,
-    scan_affine_transform=[
+    echo_time=Decimal("0.00533333333333333"),
+    echo_time_unit=TimeUnit.S,
+    effective_echo_time=Decimal("0.0106666666666666998253276688046753406524658203125"),
+    repetition_time=Decimal("0.5"),
+    repetition_time_unit=TimeUnit.S,
+    affine_transform=[
         Affine(
             affine_transform=[[1.0, 0.0, 0.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
         ),
@@ -65,7 +64,6 @@ scan2 = MRIScan(
     subject_position=SubjectPosition.SUPINE,
     resolution=Scale(scale=[0.5, 0.4375, 0.52]),
     resolution_unit=SizeUnit.MM,
-    additional_scan_parameters={},
     notes=None,
 )
 
@@ -88,7 +86,7 @@ acquisition = Acquisition(
     instrument_id="NA",
     coordinate_system=CoordinateSystemLibrary.MRI_LPS,
     subject_details=AcquisitionSubjectDetails(
-        mouse_platform_name="NA",
+        mouse_platform_name="cradle",
     ),
     data_streams=[stream],
     notes="There was some information about this scan acquisition",

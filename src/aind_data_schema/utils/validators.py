@@ -238,7 +238,7 @@ def recursive_coord_system_check(data, coordinate_system_name: Optional[str], ax
 
 
 def recursive_get_all_names(obj: Any) -> List[str]:
-    """Recursively extract all 'name' fields from an object and its nested fields."""
+    """Recursively extract all 'name' fields from a DataModel object and its nested fields."""
     names = []
 
     if obj is None or isinstance(obj, Enum):  # Skip None and Enums
@@ -249,8 +249,13 @@ def recursive_get_all_names(obj: Any) -> List[str]:
             names.extend(recursive_get_all_names(item))
 
     elif hasattr(obj, "__dict__"):  # Handle objects (including Pydantic models)
+        if not hasattr(obj, "object_type"):
+            # All DataModel objects should have an object_type attribute
+            return names
         if hasattr(obj, "name") and isinstance(obj.name, str):  # Ensure name is a string
             names.append(obj.name)
+
+        # Continue recursion into fields
         for field_value in vars(obj).values():  # Use vars() for robustness
             names.extend(recursive_get_all_names(field_value))
 

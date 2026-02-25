@@ -79,7 +79,8 @@ while the StimulusEpoch represents all stimuli being presented.
 |-------|------|-------------|
 | `subject_id` | `str` | Subject ID (Unique identifier for the subject) |
 | `specimen_id` | `Optional[str]` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
-| `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time  |
+| `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time (During validation, timezone information will be moved into the acquisition_start_tz field.) |
+| `acquisition_start_tz` | `Optional[pydantic_extra_types.timezone_name.TimeZoneName]` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time.) |
 | `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |
 | `experimenters` | `List[str]` | experimenter(s)  |
 | `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
@@ -108,7 +109,7 @@ Details about the subject during an acquisition
 | `animal_weight_post` | `Optional[decimal.Decimal]` | Animal weight (g) (Animal weight after procedure) |
 | `weight_unit` | [MassUnit](aind_data_schema_models/units.md#massunit) | Weight unit  |
 | `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia (Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia) |
-| `mouse_platform_name` | `str` | Mouse platform  |
+| `mouse_platform_name` | `str` | Mouse platform (The surface that the mouse is on during the acquisition) |
 | `reward_consumed_total` | `Optional[decimal.Decimal]` | Total reward consumed (mL)  |
 | `reward_consumed_unit` | Optional[[VolumeUnit](aind_data_schema_models/units.md#volumeunit)] | Reward consumed unit  |
 
@@ -126,7 +127,7 @@ same time.
 | `code` | Optional[List[[Code](components/identifiers.md#code)]] | Acquisition code  |
 | `notes` | `Optional[str]` | Notes  |
 | `active_devices` | `List[str]` | Active devices (Device names must match devices in the Instrument) |
-| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig) or [CatheterConfig](components/configs.md#catheterconfig)] | Device configurations (Configurations are parameters controlling active devices during this stream) |
+| `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MISCameraConfig](components/configs.md#miscameraconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SlapPlane](components/configs.md#slapplane) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig) or [CatheterConfig](components/configs.md#catheterconfig)] | Device configurations (Configurations are parameters controlling active devices during this stream) |
 | `connections` | List[[Connection](components/connections.md#connection)] | Connections (Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument)) |
 
 

@@ -24,6 +24,7 @@ from aind_data_schema.components.configs import (
     LightEmittingDiodeConfig,
     ManipulatorConfig,
     MousePlatformConfig,
+    MISCameraConfig,
     MRIScan,
     OlfactometerConfig,
     PatchCordConfig,
@@ -37,7 +38,13 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    remove_duplicates,
+    merge_coordinate_systems,
+    merge_str_alphabetical,
+)
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
@@ -76,7 +83,9 @@ class AcquisitionSubjectDetails(DataModel):
         title="Anaesthesia",
         description=("Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"),
     )
-    mouse_platform_name: str = Field(..., title="Mouse platform")
+    mouse_platform_name: str = Field(
+        ..., title="Mouse platform", description="The surface that the mouse is on during the acquisition"
+    )
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
@@ -126,6 +135,7 @@ class DataStream(DataModel):
         | DetectorConfig
         | PatchCordConfig
         | FiberAssemblyConfig
+        | MISCameraConfig
         | MRIScan
         | LickSpoutConfig
         | AirPuffConfig
@@ -318,7 +328,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
+    schema_version: SkipValidation[Literal["2.3.0"]] = Field(default="2.3.0")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
@@ -472,16 +482,17 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        if any([subj_check, spec_check, inst_check, exp_type_check]):
+        if any([subj_check, spec_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
+
+        # Combine instrument_id
+        instrument_id = merge_str_alphabetical(self.instrument_id, other.instrument_id)
 
         details_check = self.subject_details and other.subject_details
         if details_check:
@@ -516,7 +527,7 @@ class Acquisition(DataCoreModel):
             experimenters=experimenters,
             protocol_id=protocol_id,
             ethics_review_id=ethics_review_id,
-            instrument_id=self.instrument_id,
+            instrument_id=instrument_id,
             calibrations=calibrations,
             coordinate_system=coordinate_system,
             maintenance=maintenance,
