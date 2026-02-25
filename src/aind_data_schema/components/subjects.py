@@ -188,6 +188,18 @@ class NonHumanPrimateSubject(DataModel):
         title="Source",
     )
 
+    @model_validator(mode="after")
+    def validate_date_year_consistency(self):
+        """Ensure that date_of_birth year matches year_of_birth when date_of_birth is provided"""
+        
+        if self.date_of_birth is not None:
+            if self.date_of_birth.year != self.year_of_birth:
+                raise ValueError(
+                    f"Date of birth year ({self.date_of_birth.year}) does not match year of birth ({self.year_of_birth})"
+                )
+        
+        return self
+
 
 class CalibrationObject(DataModel):
     """Description of a calibration object"""
