@@ -79,9 +79,15 @@ class Procedures(DataCoreModel):
         # Return if no specimen procedures
         if self.specimen_procedures:
             subject_id = self.subject_id
-            specimen_ids = [spec_proc.specimen_id for spec_proc in self.specimen_procedures]
+            flat_specimen_ids = []
+            for spec_proc in self.specimen_procedures:
+                sid = spec_proc.specimen_id
+                if isinstance(sid, list):
+                    flat_specimen_ids.extend(sid)
+                else:
+                    flat_specimen_ids.append(sid)
 
-            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
+            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in flat_specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
 
         return self

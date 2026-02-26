@@ -1,7 +1,9 @@
 """Examples of BarSEQ/MapSEQ sectioning procedures"""
 
+import csv
 from datetime import date
-from typing import List, Optional
+from pathlib import Path
+from typing import Dict, List, Optional
 
 from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.units import SizeUnit
@@ -10,6 +12,7 @@ from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema.components.coordinates import AtlasLibrary, Translation
 from aind_data_schema.components.specimen_procedures import (
     PlanarSectioning,
+    PlanarSection,
     Section,
     Sectioning,
     SectionOrientation,
@@ -18,22 +21,90 @@ from aind_data_schema.components.specimen_procedures import (
 from aind_data_schema.core.procedures import Procedures
 
 
-def create_section(
+
+def _load_slide_regions() -> Dict[int, dict]:
+    csv_path = Path(__file__).parent / "mapseq_slide_regions.csv"
+    slides: Dict[int, dict] = {}
+    with open(csv_path, newline="") as f:
+        for row in csv.DictReader(f):
+            slide = int(row["slide_num"])
+            if slide not in slides:
+                slides[slide] = {
+                    "section_start": int(row["section_start"]),
+                    "section_end": int(row["section_end"]),
+                    "chunks": [],
+                }
+            slides[slide]["chunks"].append({
+                "chunk_name": row["chunk_name"],
+                "ccf_acronym": row["ccf_acronym"],
+                "includes_surrounding_tissue": row["includes_surrounding_tissue"] == "True",
+                "notes": row["notes"],
+            })
+    return slides
+
+
+def generate_mapseq_slide_chunks(specimen_id: str) -> List[SpecimenProcedure]:
+    slides = _load_slide_regions()
+    procedures = []
+    for slide_num, slide_data in slides.items():
+        section_start = slide_data["section_start"]
+        section_end = slide_data["section_end"]
+        chunks = slide_data["chunks"]
+
+        input_ids = [
+            f"{specimen_id}_map{i:03d}"
+            for i in range(section_start, section_end + 1)
+        ]
+
+        output_sections = []
+        for chunk_idx, chunk in enumerate(chunks, start=1):
+            structure = CCFv3.by_acronym(chunk["ccf_acronym"])
+            surrounding = True if chunk["includes_surrounding_tissue"] else None
+            for sec_id in input_ids:
+                output_sections.append(
+                    Section(
+                        output_specimen_id=f"{sec_id}_{chunk_idx:03d}",
+                        targeted_structure=structure,
+                        includes_surrounding_tissue=surrounding,
+                    )
+                )
+
+        chunk_names = ", ".join(c["chunk_name"] for c in chunks)
+        ctx_notes = "; ".join(
+            c["notes"] for c in chunks if c["ccf_acronym"] == "CTX"
+        )
+        note = f"Slide {slide_num}: sections {section_start}-{section_end} chunked into [{chunk_names}]"
+        if ctx_notes:
+            note += f". CTX chunks: {ctx_notes}"
+
+        procedures.append(
+            SpecimenProcedure(
+                procedure_type="Sectioning",
+                specimen_id=input_ids,
+                start_date=date(2024, 1, 1),
+                end_date=date(2024, 1, 1),
+                experimenters=["Polina Kosillo"],
+                procedure_details=[Sectioning(sections=output_sections)],
+                notes=note,
+            )
+        )
+    return procedures
+
+
+def create_planar_section(
     specimen_id: str,
     section_id: str,
     coordinate_system_name: str,
     start_um: float,
     thickness: float,
     thickness_unit: SizeUnit,
-    partial_slice: Optional[List[AnatomicalRelative]] = None,
-) -> Section:
-    return Section(
+) -> PlanarSection:
+    return PlanarSection(
         output_specimen_id=f"{specimen_id}_{section_id}",
         coordinate_system_name=coordinate_system_name,
         start_coordinate=Translation(translation=[round(start_um), 0, 0]),
         thickness=thickness,
         thickness_unit=thickness_unit,
-        partial_slice=partial_slice,
     )
 
 
@@ -46,17 +117,15 @@ def create_uniform_sections(
     thickness_unit: SizeUnit,
     coordinate_system_name: str = "CCF",
     section_prefix: str = "sec",
-    partial_slice: Optional[List[AnatomicalRelative]] = None,
-) -> List[Section]:
+) -> List[PlanarSection]:
     return [
-        create_section(
+        create_planar_section(
             specimen_id=specimen_id,
             section_id=f"{section_prefix}{start_section_num + i:03d}",
             coordinate_system_name=coordinate_system_name,
             start_um=start_um + i * thickness,
             thickness=thickness,
             thickness_unit=thickness_unit,
-            partial_slice=partial_slice,
         )
         for i in range(num_sections)
     ]
@@ -70,28 +139,26 @@ def create_nonuniform_sections(
     thickness_unit: SizeUnit,
     coordinate_system_name: str = "CCF",
     section_prefix: str = "sec",
-    partial_slice: Optional[List[AnatomicalRelative]] = None,
     start_section_num: int = 1,
-) -> List[Section]:
+) -> List[PlanarSection]:
     if num_sections != len(start_positions_um):
         raise ValueError("num_sections and start_positions_um must have same length")
 
     return [
-        create_section(
+        create_planar_section(
             specimen_id=specimen_id,
             section_id=f"{section_prefix}{start_section_num + i:03d}",
             coordinate_system_name=coordinate_system_name,
             start_um=start_um,
             thickness=thickness,
             thickness_unit=thickness_unit,
-            partial_slice=partial_slice,
         )
         for i, start_um in enumerate(start_positions_um)
     ]
 
 
 def create_planar_sectioning(
-    sections: List[Section],
+    sections: List[PlanarSection],
     section_orientation: SectionOrientation = SectionOrientation.CORONAL,
 ) -> PlanarSectioning:
     return PlanarSectioning(
@@ -110,7 +177,6 @@ def generate_mapseq_slides_780345_first_batch(start_section_num: int = 1) -> Pla
         thickness=300,
         thickness_unit=SizeUnit.UM,
         section_prefix="map",
-        partial_slice=[AnatomicalRelative.LEFT],
         start_section_num=start_section_num,
     )
 
@@ -141,7 +207,6 @@ def generate_mapseq_slides_780345_second_batch(start_section_num: int = 28) -> P
         thickness=300,
         thickness_unit=SizeUnit.UM,
         section_prefix="map",
-        partial_slice=[AnatomicalRelative.LEFT],
         start_section_num=start_section_num,
     )
     
@@ -154,6 +219,20 @@ def generate_mapseq_spinal_780345() -> Sectioning:
             Section(
                 output_specimen_id="780345_spinal",
                 targeted_structure=CCFv3.CST,
+                thickness=1000,
+                thickness_unit=SizeUnit.UM,
+            ),
+            Section(
+                output_specimen_id="780345_spinal",
+                targeted_structure=CCFv3.CST,
+                thickness=1000,
+                thickness_unit=SizeUnit.UM,
+            ),
+            Section(
+                output_specimen_id="780345_spinal",
+                targeted_structure=CCFv3.CST,
+                thickness=1000,
+                thickness_unit=SizeUnit.UM,
             )
         ]
     )
@@ -169,7 +248,6 @@ def generate_mapseq_slides_780346_first_batch(start_section_num: int = 1) -> Pla
         thickness=300,
         thickness_unit=SizeUnit.UM,
         section_prefix="map",
-        partial_slice=[AnatomicalRelative.LEFT],
         start_section_num=start_section_num,
     )
     
@@ -200,7 +278,6 @@ def generate_mapseq_slides_780346_second_batch(start_section_num: int = 31) -> P
         thickness=300,
         thickness_unit=SizeUnit.UM,
         section_prefix="map",
-        partial_slice=[AnatomicalRelative.LEFT],
         start_section_num=start_section_num,
     )
     
@@ -213,6 +290,8 @@ def generate_mapseq_spinal_780346() -> Sectioning:
             Section(
                 output_specimen_id="780346_spinal",
                 targeted_structure=CCFv3.CST,
+                thickness=1000,
+                thickness_unit=SizeUnit.UM,
             )
         ]
     )
@@ -257,8 +336,9 @@ def generate_procedures_780345() -> Procedures:
                 end_date=date(2024, 1, 1),
                 experimenters=["Polina Kosillo"],
                 procedure_details=[generate_mapseq_spinal_780345()],
-                notes="MAPseq spinal cord CST section, 1mm length",
+                notes="MAPseq spinal cord sections, size is approximate (1/3rd length each)",
             ),
+            *generate_mapseq_slide_chunks("780345"),
         ],
     )
 
@@ -302,8 +382,9 @@ def generate_procedures_780346() -> Procedures:
                 end_date=date(2024, 1, 1),
                 experimenters=["Polina Kosillo"],
                 procedure_details=[generate_mapseq_spinal_780346()],
-                notes="MAPseq spinal cord CST section, 1mm length",
+                notes="MAPseq spinal cord sections, size is approximate (1/3rd length each)",
             ),
+            *generate_mapseq_slide_chunks("780346"),
         ],
     )
 

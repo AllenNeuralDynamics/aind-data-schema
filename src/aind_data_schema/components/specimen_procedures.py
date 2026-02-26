@@ -197,7 +197,7 @@ class SpecimenProcedure(DataModel):
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_fluorescent_stain = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
         has_protein_probe = any(isinstance(detail, ProbeReagent) for detail in self.procedure_details)
-        has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
+        has_sectioning = any(isinstance(detail, Sectioning) for detail in self.procedure_details)
         has_geneprobeset = any(isinstance(detail, GeneProbeSet) for detail in self.procedure_details)
 
         if has_hcr_series + has_fluorescent_stain + has_sectioning + has_geneprobeset + has_protein_probe > 1:

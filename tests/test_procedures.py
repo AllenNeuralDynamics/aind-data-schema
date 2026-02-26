@@ -28,6 +28,7 @@ from aind_data_schema.components.specimen_procedures import (
     PlanarSection,
     PlanarSectioning,
     Section,
+    Sectioning,
     SectionOrientation,
     SpecimenProcedure,
 )
@@ -306,6 +307,19 @@ class ProceduresTests(unittest.TestCase):
                 experimenters=["Mam Moth"],
                 protocol_id=["10"],
                 notes="some extra information",
+            )
+        )
+
+        self.assertIsNotNone(
+            SpecimenProcedure(
+                specimen_id="1000",
+                procedure_type="Sectioning",
+                start_date=date.fromisoformat("2020-10-10"),
+                end_date=date.fromisoformat("2020-10-11"),
+                experimenters=["Mam Moth"],
+                protocol_id=["10"],
+                notes=None,
+                procedure_details=[Sectioning(sections=[Section(output_specimen_id="1000_spinal")])],
             )
         )
 

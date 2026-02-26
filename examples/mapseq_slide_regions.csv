@@ -1,0 +1,46 @@
+slide_num,section_start,section_end,chunk_name,ccf_acronym,includes_surrounding_tissue,notes
+1,1,3,MOB,MOB,False,Main olfactory bulb
+2,4,6,MOB,MOB,False,Main olfactory bulb
+3,7,9,ORB,ORB,False,Orbital area (orbitofrontal cortex)
+3,7,9,MO,MO,False,Somatomotor areas (motor cortex)
+3,7,9,AON,AON,False,Anterior olfactory nucleus
+4,10,12,ORB,ORB,False,Orbital area (orbitofrontal cortex)
+4,10,12,MO,MO,False,Somatomotor areas (motor cortex)
+4,10,12,AON,AON,False,Anterior olfactory nucleus
+5,13,15,CP,CP,False,Caudoputamen
+5,13,15,ACB,ACB,False,Nucleus accumbens
+5,13,15,LSX,LSX,False,Lateral septal complex
+5,13,15,ctx_1,CTX,True,Superior/dorsal cortex ribbon (ctx 1 in figure)
+5,13,15,ctx_2,CTX,True,Lateral cortex ribbon (ctx 2 in figure)
+5,13,15,ctx_3,CTX,True,Inferior/ventrolateral cortex ribbon (ctx 3 in figure)
+6,16,18,CP,CP,False,Caudoputamen
+6,16,18,ACB,ACB,False,Nucleus accumbens
+6,16,18,LSX,LSX,False,Lateral septal complex
+6,16,18,ctx_1,CTX,True,Superior/dorsal cortex ribbon (ctx 1 in figure)
+6,16,18,ctx_2,CTX,True,Lateral cortex ribbon (ctx 2 in figure)
+6,16,18,ctx_3,CTX,True,Inferior/ventrolateral cortex ribbon (ctx 3 in figure)
+7,19,21,CP,CP,False,Caudoputamen
+7,19,21,LSX,LSX,False,Lateral septal complex
+7,19,21,BST,BST,False,Bed nuclei of the stria terminalis (BNST)
+7,19,21,ctx_1,CTX,True,Superior/dorsal cortex ribbon (ctx 1 in figure)
+7,19,21,ctx_2,CTX,True,Lateral cortex ribbon (ctx 2 in figure)
+7,19,21,ctx_3,CTX,True,Inferior/ventrolateral cortex ribbon (ctx 3 in figure)
+8,22,24,HPF,HPF,False,Hippocampal formation
+8,22,24,TH,TH,False,Thalamus
+8,22,24,HY,HY,False,Hypothalamus
+8,22,24,amygdala,BLA,True,Amygdala (targeting whole structure via BLA + surrounding tissue)
+8,22,24,GPE,GPe,False,Globus pallidus external segment (GPe)
+8,22,24,ctx_1,CTX,True,Superior/dorsal cortex ribbon (ctx 1 in figure)
+8,22,24,ctx_2,CTX,True,Lateral cortex ribbon (ctx 2 in figure)
+8,22,24,ctx_3,CTX,True,Inferior/ventrolateral cortex ribbon (ctx 3 in figure)
+9,25,27,MB,MB,False,Midbrain
+9,25,27,ctx_1,CTX,True,Superior/dorsal cortex ribbon (ctx 1 in figure)
+9,25,27,ctx_2,CTX,True,Lateral cortex ribbon (ctx 2 in figure)
+9,25,27,ctx_3,CTX,True,Inferior/ventrolateral cortex ribbon (ctx 3 in figure)
+10,28,30,MB,MB,False,Midbrain (more caudal)
+10,28,30,HB,HB,False,Hindbrain
+11,31,33,MB,MB,False,Midbrain (most caudal)
+11,31,33,HB,HB,False,Hindbrain
+12,34,36,CB,CB,False,Cerebellum
+12,34,36,MY,MY,False,Medulla
+13,37,39,MY,MY,False,Medulla
