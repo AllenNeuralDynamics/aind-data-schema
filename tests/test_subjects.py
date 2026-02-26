@@ -12,7 +12,6 @@ from aind_data_schema_models.species import Species, Strain
 from aind_data_schema.components.subjects import (
     BreedingInfo,
     CalibrationObject,
-    HomeCageEnrichment,
     Housing,
     HumanSubject,
     LightCycle,
@@ -20,9 +19,8 @@ from aind_data_schema.components.subjects import (
     NonHumanPrimateSubject,
     Sex,
     MatingStatus,
-    WellnessReport
 )
-from aind_data_schema.components.devices import Device
+
 
 class TestMouseSubject(unittest.TestCase):
     """Test the mouse subject model"""
@@ -75,6 +73,7 @@ class TestMouseSubject(unittest.TestCase):
             )
         self.assertIn("The animal species and it's strain's species do not match", str(context.exception))
 
+
 class TestHumanSubject(unittest.TestCase):
     """Test the human subject model"""
 
@@ -89,6 +88,7 @@ class TestHumanSubject(unittest.TestCase):
                 source=Organization.UCSD
             )
         self.assertIn("HumanSubject species must be HUMAN", str(context.exception))
+
 
 class TestNonHumanPrimateSubject(unittest.TestCase):
     """Test the non-human primate subject model"""
@@ -176,6 +176,7 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
         self.assertIsNone(subject.date_of_birth)
         self.assertEqual(subject.year_of_birth, 2021)
 
+
 class TestCalibrationObject(unittest.TestCase):
     """Test the calibration object model"""
 
@@ -234,7 +235,7 @@ class TestBreedingInfo(unittest.TestCase):
 
         breeding_info = BreedingInfo(
             maternal_id="M001",
-            maternal_genotype="wt/wt", 
+            maternal_genotype="wt/wt",
             paternal_id="P001",
             paternal_genotype="wt/wt"
         )
@@ -244,6 +245,7 @@ class TestBreedingInfo(unittest.TestCase):
         self.assertEqual(breeding_info.paternal_id, "P001")
         self.assertEqual(breeding_info.paternal_genotype, "wt/wt")
         self.assertIsNone(breeding_info.breeding_group)
+
 
 if __name__ == "__main__":
     unittest.main()
