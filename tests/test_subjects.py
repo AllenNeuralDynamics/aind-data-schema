@@ -1,6 +1,7 @@
 """Tests for subjects details models"""
 
 import unittest
+import warnings
 from datetime import datetime
 
 from aind_data_schema_models.organizations import Organization
@@ -9,16 +10,19 @@ from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species, Strain
 
 from aind_data_schema.components.subjects import (
+    BreedingInfo,
     CalibrationObject,
+    HomeCageEnrichment,
     Housing,
     HumanSubject,
     LightCycle,
     MouseSubject,
     NonHumanPrimateSubject,
     Sex,
-    MatingStatus
+    MatingStatus,
+    WellnessReport
 )
-
+from aind_data_schema.components.devices import Device
 
 class TestMouseSubject(unittest.TestCase):
     """Test the mouse subject model"""
@@ -71,7 +75,6 @@ class TestMouseSubject(unittest.TestCase):
             )
         self.assertIn("The animal species and it's strain's species do not match", str(context.exception))
 
-
 class TestHumanSubject(unittest.TestCase):
     """Test the human subject model"""
 
@@ -86,7 +89,6 @@ class TestHumanSubject(unittest.TestCase):
                 source=Organization.UCSD
             )
         self.assertIn("HumanSubject species must be HUMAN", str(context.exception))
-
 
 class TestNonHumanPrimateSubject(unittest.TestCase):
     """Test the non-human primate subject model"""
@@ -174,7 +176,6 @@ class TestNonHumanPrimateSubject(unittest.TestCase):
         self.assertIsNone(subject.date_of_birth)
         self.assertEqual(subject.year_of_birth, 2021)
 
-
 class TestCalibrationObject(unittest.TestCase):
     """Test the calibration object model"""
 
@@ -201,6 +202,48 @@ class TestCalibrationObject(unittest.TestCase):
         self.assertEqual(calibration_obj.description, "Empty calibration - no object used")
         self.assertIsNone(calibration_obj.objects)
 
+
+class TestBreedingInfo(unittest.TestCase):
+    """Test the breeding info model"""
+
+    def test_breeding_info_deprecated_field_warning(self):
+        """Test that breeding_group field triggers deprecation warning and is cleared"""
+
+        # Capture warnings
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")  # Ensure all warnings are triggered
+
+            breeding_info = BreedingInfo(
+                breeding_group="test_group",  # This should trigger warning and be cleared
+                maternal_id="M001",
+                maternal_genotype="wt/wt",
+                paternal_id="P001",
+                paternal_genotype="wt/wt"
+            )
+
+            # Check that warning was issued
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[0].category, DeprecationWarning))
+            self.assertIn("breeding_group", str(w[0].message))
+
+            # Check that the field was cleared to None
+            self.assertIsNone(breeding_info.breeding_group)
+
+    def test_breeding_info_without_deprecated_field(self):
+        """Test creating BreedingInfo without the deprecated breeding_group field"""
+
+        breeding_info = BreedingInfo(
+            maternal_id="M001",
+            maternal_genotype="wt/wt", 
+            paternal_id="P001",
+            paternal_genotype="wt/wt"
+        )
+
+        self.assertEqual(breeding_info.maternal_id, "M001")
+        self.assertEqual(breeding_info.maternal_genotype, "wt/wt")
+        self.assertEqual(breeding_info.paternal_id, "P001")
+        self.assertEqual(breeding_info.paternal_genotype, "wt/wt")
+        self.assertIsNone(breeding_info.breeding_group)
 
 if __name__ == "__main__":
     unittest.main()
