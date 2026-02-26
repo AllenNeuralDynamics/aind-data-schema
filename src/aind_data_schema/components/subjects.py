@@ -7,7 +7,7 @@ from typing import Annotated, List, Optional
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
-from aind_data_schema_models.species import Species, Strain
+from aind_data_schema_models.species import Species, SpeciesModel, Strain
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -21,6 +21,14 @@ class Sex(str, Enum):
 
     FEMALE = "Female"
     MALE = "Male"
+
+
+class MatingStatus(str, Enum):
+    """Subject mating status"""
+
+    MATED = "Mated"
+    UNMATED = "Un-mated"
+    UNKNOWN = "Unknown"
 
 
 class HomeCageEnrichment(str, Enum):
@@ -148,6 +156,15 @@ class MouseSubject(DataModel):
 class HumanSubject(DataModel):
     """Description of a human subject"""
 
+    species: SpeciesModel = Field(default=Species.HUMAN, title="Species")
+
+    @field_validator("species", mode='before')
+    @classmethod
+    def validate_species_is_human(cls, v):
+        """Ensure species is always human for HumanSubject"""
+        if v != Species.HUMAN:
+            raise ValueError("HumanSubject species must be HUMAN")
+        return v
     sex: Sex = Field(..., title="Sex")
     year_of_birth: int = Field(..., title="Year of birth")
     source: Organization.SUBJECT_SOURCES = Field(
@@ -155,6 +172,33 @@ class HumanSubject(DataModel):
         description="Where the subject was acquired from.",
         title="Source",
     )
+
+
+class NonHumanPrimateSubject(DataModel):
+    """Description of a non-human primate subject"""
+
+    species: Species.ONE_OF = Field(..., title="species")
+    sex: Sex = Field(..., title="Sex")
+    date_of_birth: Optional[Annotated[date_type, TimeValidation.BEFORE]] = Field(default=None, title="Date of birth")
+    year_of_birth: int = Field(..., title="Year of birth")
+    mating_status: MatingStatus = Field(..., title="Mating status")
+    source: Organization.SUBJECT_SOURCES = Field(
+        ...,
+        description="Where the subject was acquired from.",
+        title="Source",
+    )
+
+    @model_validator(mode="after")
+    def validate_date_year_consistency(self):
+        """Ensure that date_of_birth year matches year_of_birth when date_of_birth is provided"""
+
+        if self.date_of_birth is not None:
+            if self.date_of_birth.year != self.year_of_birth:
+                raise ValueError(
+                    f"Date of birth ({self.date_of_birth.year}) does not match year of birth ({self.year_of_birth})"
+                )
+
+        return self
 
 
 class CalibrationObject(DataModel):

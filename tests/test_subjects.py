@@ -1,6 +1,7 @@
 """Tests for subjects details models"""
 
 import unittest
+import warnings
 from datetime import datetime
 
 from aind_data_schema_models.organizations import Organization
@@ -8,7 +9,17 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.registries import Registry
 from aind_data_schema_models.species import Species, Strain
 
-from aind_data_schema.components.subjects import Housing, LightCycle, MouseSubject, Sex
+from aind_data_schema.components.subjects import (
+    BreedingInfo,
+    CalibrationObject,
+    Housing,
+    HumanSubject,
+    LightCycle,
+    MouseSubject,
+    NonHumanPrimateSubject,
+    Sex,
+    MatingStatus,
+)
 
 
 class TestMouseSubject(unittest.TestCase):
@@ -61,6 +72,179 @@ class TestMouseSubject(unittest.TestCase):
                 alleles=[PIDName(registry_identifier="12345", name="adsf", registry=Registry.MGI)],
             )
         self.assertIn("The animal species and it's strain's species do not match", str(context.exception))
+
+
+class TestHumanSubject(unittest.TestCase):
+    """Test the human subject model"""
+
+    def test_validate_species_is_human(self):
+        """Test the species validator"""
+
+        with self.assertRaises(ValueError) as context:
+            HumanSubject(
+                sex=Sex.MALE,
+                species=Species.HOUSE_MOUSE,
+                year_of_birth=1962,
+                source=Organization.UCSD
+            )
+        self.assertIn("HumanSubject species must be HUMAN", str(context.exception))
+
+
+class TestNonHumanPrimateSubject(unittest.TestCase):
+    """Test the non-human primate subject model"""
+
+    def setUp(self):
+        """Set up the tests"""
+        self.now = datetime.now()
+
+    def test_non_human_primate_without_date_of_birth(self):
+        """Test creating NonHumanPrimateSubject without optional date_of_birth"""
+
+        subject = NonHumanPrimateSubject(
+            species=Species.RHESUS_MACAQUE,
+            sex=Sex.MALE,
+            year_of_birth=2019,
+            mating_status=MatingStatus.UNMATED,
+            source=Organization.JAX
+        )
+
+        self.assertEqual(subject.species, Species.RHESUS_MACAQUE)
+        self.assertEqual(subject.sex, Sex.MALE)
+        self.assertIsNone(subject.date_of_birth)
+        self.assertEqual(subject.year_of_birth, 2019)
+        self.assertEqual(subject.mating_status, MatingStatus.UNMATED)
+        self.assertEqual(subject.source, Organization.JAX)
+
+    def test_non_human_primate_mating_status_unknown(self):
+        """Test NonHumanPrimateSubject with unknown mating status"""
+
+        subject = NonHumanPrimateSubject(
+            species=Species.RHESUS_MACAQUE,
+            sex=Sex.FEMALE,
+            year_of_birth=2021,
+            mating_status=MatingStatus.UNKNOWN,
+            source=Organization.AI
+        )
+
+        self.assertEqual(subject.mating_status, MatingStatus.UNKNOWN)
+
+    def test_validate_date_year_consistency_valid(self):
+        """Test that date_of_birth year matching year_of_birth is valid"""
+        from datetime import date
+
+        birth_date = date(2020, 5, 15)
+        subject = NonHumanPrimateSubject(
+            species=Species.RHESUS_MACAQUE,
+            sex=Sex.FEMALE,
+            date_of_birth=birth_date,
+            year_of_birth=2020,  # Matching year
+            mating_status=MatingStatus.MATED,
+            source=Organization.COLUMBIA
+        )
+
+        self.assertEqual(subject.date_of_birth, birth_date)
+        self.assertEqual(subject.year_of_birth, 2020)
+
+    def test_validate_date_year_consistency_invalid(self):
+        """Test that mismatched date_of_birth year and year_of_birth raises ValueError"""
+        from datetime import date
+
+        with self.assertRaises(ValueError) as context:
+            NonHumanPrimateSubject(
+                species=Species.RHESUS_MACAQUE,
+                sex=Sex.MALE,
+                date_of_birth=date(2019, 8, 10),  # Year 2019
+                year_of_birth=2020,  # Different year
+                mating_status=MatingStatus.UNMATED,
+                source=Organization.COLUMBIA
+            )
+
+        self.assertIn("Date of birth (2019) does not match year of birth (2020)", str(context.exception))
+
+    def test_validate_date_year_consistency_no_date(self):
+        """Test that validation passes when date_of_birth is None"""
+
+        subject = NonHumanPrimateSubject(
+            species=Species.RHESUS_MACAQUE,
+            sex=Sex.FEMALE,
+            date_of_birth=None,  # No date provided
+            year_of_birth=2021,
+            mating_status=MatingStatus.UNKNOWN,
+            source=Organization.AI
+        )
+
+        self.assertIsNone(subject.date_of_birth)
+        self.assertEqual(subject.year_of_birth, 2021)
+
+
+class TestCalibrationObject(unittest.TestCase):
+    """Test the calibration object model"""
+
+    def test_calibration_object_with_description_only(self):
+        """Test creating a CalibrationObject with only description (minimal case)"""
+
+        calibration_obj = CalibrationObject(
+            description="Simple calibration sphere"
+        )
+
+        self.assertEqual(calibration_obj.description, "Simple calibration sphere")
+        self.assertFalse(calibration_obj.empty)  # Default should be False
+        self.assertIsNone(calibration_obj.objects)  # Default should be None
+
+    def test_calibration_object_empty(self):
+        """Test creating an empty CalibrationObject"""
+
+        calibration_obj = CalibrationObject(
+            empty=True,
+            description="Empty calibration - no object used"
+        )
+
+        self.assertTrue(calibration_obj.empty)
+        self.assertEqual(calibration_obj.description, "Empty calibration - no object used")
+        self.assertIsNone(calibration_obj.objects)
+
+
+class TestBreedingInfo(unittest.TestCase):
+    """Test the breeding info model"""
+
+    def test_breeding_info_deprecated_field_warning(self):
+        """Test that breeding_group field triggers deprecation warning and is cleared"""
+
+        # Capture warnings
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")  # Ensure all warnings are triggered
+
+            breeding_info = BreedingInfo(
+                breeding_group="test_group",  # This should trigger warning and be cleared
+                maternal_id="M001",
+                maternal_genotype="wt/wt",
+                paternal_id="P001",
+                paternal_genotype="wt/wt"
+            )
+
+            # Check that warning was issued
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[0].category, DeprecationWarning))
+            self.assertIn("breeding_group", str(w[0].message))
+
+            # Check that the field was cleared to None
+            self.assertIsNone(breeding_info.breeding_group)
+
+    def test_breeding_info_without_deprecated_field(self):
+        """Test creating BreedingInfo without the deprecated breeding_group field"""
+
+        breeding_info = BreedingInfo(
+            maternal_id="M001",
+            maternal_genotype="wt/wt",
+            paternal_id="P001",
+            paternal_genotype="wt/wt"
+        )
+
+        self.assertEqual(breeding_info.maternal_id, "M001")
+        self.assertEqual(breeding_info.maternal_genotype, "wt/wt")
+        self.assertEqual(breeding_info.paternal_id, "P001")
+        self.assertEqual(breeding_info.paternal_genotype, "wt/wt")
+        self.assertIsNone(breeding_info.breeding_group)
 
 
 if __name__ == "__main__":
