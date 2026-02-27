@@ -374,6 +374,4 @@ def extract_timezone_from_datetime(dt: datetime) -> Union[int, TimeZoneName]:
         return TimeZoneName(key)
 
     offset = dt.utcoffset()
-    if offset is None:
-        raise ValueError("datetime must be timezone-aware")
     return int(offset.total_seconds() // 60)
