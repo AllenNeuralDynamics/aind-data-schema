@@ -430,7 +430,6 @@ class Acquisition(DataCoreModel):
             tz = ZoneInfo(str(self.acquisition_start_tz))
         return self.acquisition_start_time.astimezone(tz)
 
-
     @model_validator(mode="after")
     def extract_timezone(self):
         """Extract timezone information from acquisition_start_time and set acquisition_start_tz"""
