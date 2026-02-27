@@ -8,6 +8,7 @@ from typing import Annotated
 from unittest.mock import MagicMock, patch
 
 from pydantic import BaseModel
+from pydantic_extra_types.timezone_name import TimeZoneName
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.coordinates import Rotation, Scale, Translation
@@ -782,34 +783,45 @@ class TestConvertToComparable(unittest.TestCase):
 class TestExtractTimezoneFromDatetime(unittest.TestCase):
     """Tests for extract_timezone_from_datetime function"""
 
-    def test_extract_utc_timezone(self):
-        """Test extracting UTC timezone"""
+    def test_zoneinfo_timezone_returns_timezone_name(self):
+        """Test that a ZoneInfo-backed datetime returns a proper TimeZoneName"""
+        from zoneinfo import ZoneInfo
+
+        dt = datetime(2023, 1, 1, 12, 0, 0, tzinfo=ZoneInfo("America/Los_Angeles"))
+        result = extract_timezone_from_datetime(dt)
+        self.assertIsInstance(result, TimeZoneName)
+        self.assertEqual(result, "America/Los_Angeles")
+
+    def test_utc_fixed_offset_returns_int(self):
+        """Test that timezone.utc (fixed offset of 0) returns integer 0"""
         dt = datetime(2023, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
-        from pydantic_extra_types.timezone_name import TimeZoneName
-
         result = extract_timezone_from_datetime(dt)
-        self.assertIsInstance(result, TimeZoneName)
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, 0)
 
-    def test_extract_offset_timezone(self):
-        """Test extracting timezone with offset"""
-        est = timezone(timedelta(hours=-5))
-        dt = datetime(2023, 1, 1, 7, 0, 0, tzinfo=est)
-        from pydantic_extra_types.timezone_name import TimeZoneName
-
+    def test_negative_fixed_offset_returns_int(self):
+        """Test that a negative fixed-offset timezone returns the offset in minutes"""
+        dt = datetime(2023, 1, 1, 7, 0, 0, tzinfo=timezone(timedelta(hours=-7)))
         result = extract_timezone_from_datetime(dt)
-        self.assertIsInstance(result, TimeZoneName)
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, -420)
+
+    def test_positive_fixed_offset_returns_int(self):
+        """Test that a positive fixed-offset timezone returns the offset in minutes"""
+        dt = datetime(2023, 1, 1, 17, 30, 0, tzinfo=timezone(timedelta(hours=5, minutes=30)))
+        result = extract_timezone_from_datetime(dt)
+        self.assertIsInstance(result, int)
+        self.assertEqual(result, 330)
+
+    def test_local_timezone_from_astimezone_returns_int_or_timezone_name(self):
+        """Test that a datetime from astimezone() returns either int or TimeZoneName"""
+        dt = datetime(2023, 1, 1, 12, 0, 0).astimezone()
+        result = extract_timezone_from_datetime(dt)
+        self.assertIsInstance(result, (int, TimeZoneName))
 
     def test_naive_datetime_raises_error(self):
         """Test that naive datetime raises ValueError"""
         dt = datetime(2023, 1, 1, 12, 0, 0)
-        with self.assertRaises(ValueError) as context:
-            extract_timezone_from_datetime(dt)
-        self.assertIn("must be timezone-aware", str(context.exception))
-
-    def test_none_tzinfo_raises_error(self):
-        """Test that datetime with None tzinfo raises ValueError"""
-        dt = datetime(2023, 1, 1, 12, 0, 0)
-        dt.replace(tzinfo=None)
         with self.assertRaises(ValueError) as context:
             extract_timezone_from_datetime(dt)
         self.assertIn("must be timezone-aware", str(context.exception))

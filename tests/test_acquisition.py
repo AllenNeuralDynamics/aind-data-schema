@@ -2,8 +2,9 @@
 
 import inspect
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import get_args
+from zoneinfo import ZoneInfo
 
 import pydantic
 from aind_data_schema_models.brain_atlas import CCFv3
@@ -499,6 +500,39 @@ class AcquisitionTest(unittest.TestCase):
         self.assertIsNotNone(combined_stream)
         self.assertIn(Modality.SPIM, combined_stream.modalities)
         self.assertEqual(len(combined_stream.active_devices), 6)
+
+    def test_acquisition_start_time_local_with_zoneinfo(self):
+        """acquisition_start_time_local converts correctly using a ZoneInfo IANA name"""
+        from pydantic_extra_types.timezone_name import TimeZoneName
+
+        dt = datetime(2023, 6, 15, 20, 0, 0, tzinfo=timezone.utc)
+        acq = Acquisition.model_construct(
+            acquisition_start_time=dt,
+            acquisition_start_tz=TimeZoneName("America/Los_Angeles"),
+        )
+        local = acq.acquisition_start_time_local
+        self.assertEqual(local.tzinfo, ZoneInfo("America/Los_Angeles"))
+        self.assertEqual(local.hour, 13)
+
+    def test_acquisition_start_time_local_with_int_offset(self):
+        """acquisition_start_time_local converts correctly using an integer UTC offset in minutes"""
+        dt = datetime(2023, 6, 15, 20, 0, 0, tzinfo=timezone.utc)
+        acq = Acquisition.model_construct(
+            acquisition_start_time=dt,
+            acquisition_start_tz=-420,
+        )
+        local = acq.acquisition_start_time_local
+        self.assertEqual(local.utcoffset(), timedelta(minutes=-420))
+        self.assertEqual(local.hour, 13)
+
+    def test_acquisition_start_time_local_with_no_tz(self):
+        """acquisition_start_time_local returns acquisition_start_time unchanged when tz is None"""
+        dt = datetime(2023, 6, 15, 20, 0, 0, tzinfo=timezone.utc)
+        acq = Acquisition.model_construct(
+            acquisition_start_time=dt,
+            acquisition_start_tz=None,
+        )
+        self.assertEqual(acq.acquisition_start_time_local, dt)
 
 
 if __name__ == "__main__":
