@@ -394,17 +394,37 @@ a = Acquisition(
                 name="RandomDriftingGratings_ContinuousTrials.bonsai",
                 language="Bonsai",
                 language_version="2.9.0",  # get from repo or code directly
-                parameters={
-                    "Initial Spont Int": 28,
-                    "Num Trials": 40,
-                    "PortName": "COM7",
-                    "Screen_BlueColor (0-1)": 1,
-                    "Screen_GreenColor (0-1)": 0,
-                    "Screen_RedColor (0-1)": 0,
-                    "Subject": "000000",
-                    "GratingTrialParametersFile": (
-                        "ParameterFiles/8_direction_drifting_grating_params.csv"
-                    ),
+                parameters={"CodeParameters": {
+                        "Initial Spont Int": 28,
+                        "Num Trials": 40,
+                        "PortName": "COM7",
+                        "Screen_BlueColor (0-1)": 1,
+                        "Screen_GreenColor (0-1)": 0,
+                        "Screen_RedColor (0-1)": 0,
+                        "Subject": "000000",
+                        "GratingTrialParametersFile": (
+                            "ParameterFiles/8_direction_drifting_grating_params.csv"
+                        ),
+                    },
+                    "GratingTrialParameters": {
+                        "Contrast": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0],
+                        "Delay": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+                        "DelayUnit": "second",
+                        "Diameter": [360.0, 360.0, 360.0, 360.0, 360.0, 360.0, 360.0, 360.0, 360.0],
+                        "DiameterUnit": "degree",
+                        "Duration": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+                        "DurationUnit": "second",
+                        "Orientation": [0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0, 359.0],
+                        "OrientationUnit": "degree",
+                        "SpatialFrequency": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02],
+                        "SpatialFrequencyUnit": "cycle/degree",
+                        "TemporalFrequency": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+                        "TemporalFrequencyUnit": "Hz",
+                        "X": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                        "XUnit": "degree",
+                        "Y": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                        "YUnit": "degree",
+                    },
                 },
             ),
             stimulus_modalities=[StimulusModality.VISUAL],
