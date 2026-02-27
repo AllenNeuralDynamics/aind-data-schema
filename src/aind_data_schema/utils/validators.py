@@ -351,7 +351,7 @@ def extract_timezone_from_datetime(dt: datetime) -> Union[int, TimeZoneName]:
     -------
     Union[int, TimeZoneName]
         A TimeZoneName (IANA name string) if the tzinfo is a ZoneInfo-backed timezone,
-        or an integer representing the UTC offset in minutes for fixed-offset timezones
+        or an integer representing the UTC offset in hours for fixed-offset timezones
         such as datetime.timezone.utc or datetime.timezone(timedelta(...)).
 
     Raises
@@ -364,7 +364,7 @@ def extract_timezone_from_datetime(dt: datetime) -> Union[int, TimeZoneName]:
     Prefer using ZoneInfo (from the zoneinfo standard library) when constructing
     timezone-aware datetimes so that the IANA timezone name is preserved.
     Fixed-offset timezones (e.g. timezone.utc, timezone(timedelta(hours=-7))) will
-    be stored as integer UTC offsets in minutes and lose their named identity.
+    be stored as integer UTC offsets in hours and lose their named identity.
     """
     if not hasattr(dt, "tzinfo") or dt.tzinfo is None:
         raise ValueError("datetime must be timezone-aware")
@@ -374,4 +374,4 @@ def extract_timezone_from_datetime(dt: datetime) -> Union[int, TimeZoneName]:
         return TimeZoneName(key)
 
     offset = dt.utcoffset()
-    return int(offset.total_seconds() // 60)
+    return int(offset.total_seconds() // 3600)

@@ -1,4 +1,4 @@
-""" Test for the acquisition.json """
+"""Test for the acquisition.json"""
 
 import inspect
 import unittest
@@ -515,14 +515,14 @@ class AcquisitionTest(unittest.TestCase):
         self.assertEqual(local.hour, 13)
 
     def test_acquisition_start_time_local_with_int_offset(self):
-        """acquisition_start_time_local converts correctly using an integer UTC offset in minutes"""
+        """acquisition_start_time_local converts correctly using an integer UTC offset in hours"""
         dt = datetime(2023, 6, 15, 20, 0, 0, tzinfo=timezone.utc)
         acq = Acquisition.model_construct(
             acquisition_start_time=dt,
-            acquisition_start_tz=-420,
+            acquisition_start_tz=-7,
         )
         local = acq.acquisition_start_time_local
-        self.assertEqual(local.utcoffset(), timedelta(minutes=-420))
+        self.assertEqual(local.utcoffset(), timedelta(hours=-7))
         self.assertEqual(local.hour, 13)
 
     def test_acquisition_start_time_local_with_no_tz(self):
@@ -533,6 +533,31 @@ class AcquisitionTest(unittest.TestCase):
             acquisition_start_tz=None,
         )
         self.assertEqual(acq.acquisition_start_time_local, dt)
+
+    def test_acquisition_start_time_local_round_trip(self):
+        """acquisition_start_time_local preserves the original wall-clock time after round-tripping
+        through Acquisition validation with a ZoneInfo timezone"""
+        from examples.exaspim_acquisition import t as exaspim_t
+
+        acq = exaspim_acquisition.model_copy()
+        local = acq.acquisition_start_time_local
+        self.assertEqual(local.year, exaspim_t.year)
+        self.assertEqual(local.month, exaspim_t.month)
+        self.assertEqual(local.day, exaspim_t.day)
+        self.assertEqual(local.hour, exaspim_t.hour)
+        self.assertEqual(local.minute, exaspim_t.minute)
+        self.assertEqual(local.second, exaspim_t.second)
+        self.assertEqual(local.tzinfo, exaspim_t.tzinfo)
+
+    def test_coerce_fixed_offset_tz_string(self):
+        """Legacy '-07:00' strings are coerced to integer hour offsets"""
+        self.assertEqual(Acquisition.coerce_fixed_offset_tz_string("-07:00"), -7)
+        self.assertEqual(Acquisition.coerce_fixed_offset_tz_string("+05:30"), 5)
+        self.assertEqual(Acquisition.coerce_fixed_offset_tz_string("+00:00"), 0)
+        self.assertEqual(Acquisition.coerce_fixed_offset_tz_string("00:00"), 0)
+        self.assertIsNone(Acquisition.coerce_fixed_offset_tz_string(None))
+        self.assertEqual(Acquisition.coerce_fixed_offset_tz_string(-7), -7)
+        self.assertEqual(Acquisition.coerce_fixed_offset_tz_string("America/Los_Angeles"), "America/Los_Angeles")
 
 
 if __name__ == "__main__":

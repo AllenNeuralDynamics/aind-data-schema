@@ -800,18 +800,18 @@ class TestExtractTimezoneFromDatetime(unittest.TestCase):
         self.assertEqual(result, 0)
 
     def test_negative_fixed_offset_returns_int(self):
-        """Test that a negative fixed-offset timezone returns the offset in minutes"""
+        """Test that a negative fixed-offset timezone returns the offset in hours"""
         dt = datetime(2023, 1, 1, 7, 0, 0, tzinfo=timezone(timedelta(hours=-7)))
         result = extract_timezone_from_datetime(dt)
         self.assertIsInstance(result, int)
-        self.assertEqual(result, -420)
+        self.assertEqual(result, -7)
 
     def test_positive_fixed_offset_returns_int(self):
-        """Test that a positive fixed-offset timezone returns the offset in minutes"""
+        """Test that a positive fixed-offset timezone returns the offset in hours"""
         dt = datetime(2023, 1, 1, 17, 30, 0, tzinfo=timezone(timedelta(hours=5, minutes=30)))
         result = extract_timezone_from_datetime(dt)
         self.assertIsInstance(result, int)
-        self.assertEqual(result, 330)
+        self.assertEqual(result, 5)
 
     def test_local_timezone_from_astimezone_returns_int_or_timezone_name(self):
         """Test that a datetime from astimezone() returns either int or TimeZoneName"""
