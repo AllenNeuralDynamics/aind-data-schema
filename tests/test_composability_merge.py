@@ -2,6 +2,7 @@
 
 import unittest
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 
@@ -135,7 +136,7 @@ class TestComposability(unittest.TestCase):
     def test_merge_acquisition(self):
         """Test merging two Acquisition objects"""
 
-        t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+        t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=ZoneInfo("America/Los_Angeles"))
 
         acq1 = self.exaspim_acquisition.model_copy()
         acq2 = self.exaspim_acquisition.model_copy()

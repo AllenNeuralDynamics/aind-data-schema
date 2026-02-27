@@ -1,14 +1,17 @@
 """Schema describing data acquisition metadata and configurations"""
 
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import logging
-from typing import Annotated, List, Literal, Optional
+import re
+from typing import Annotated, List, Literal, Optional, Union
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from aind_data_schema.utils.validators import TimeValidation
-from pydantic import Field, SkipValidation, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_extra_types.timezone_name import TimeZoneName
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
@@ -342,12 +345,29 @@ class Acquisition(DataCoreModel):
         title="Acquisition start time",
         description="During validation, timezone information will be moved into the acquisition_start_tz field.",
     )
-    acquisition_start_tz: Optional[TimeZoneName] = Field(
+    acquisition_start_tz: Optional[Union[int, TimeZoneName]] = Field(
         default=None,
         title="Acquisition start timezone",
-        description="Automatically populated by a validator based on acquisition_start_time.",
+        description=(
+            "Automatically populated by a validator based on acquisition_start_time. "
+            "Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, "
+            "or an integer UTC offset in hours for fixed-offset timezones. "
+            "Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone."
+        ),
     )
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
+
+    @field_validator("acquisition_start_tz", mode="before")
+    @classmethod
+    def coerce_fixed_offset_tz_string(cls, v):
+        """Convert legacy fixed-offset strings like '-07:00' or '+05:30' to integer minutes."""
+        if isinstance(v, str):
+            m = re.fullmatch(r"([+-]?)(\d{2}):(\d{2})", v)
+            if m:
+                sign = -1 if m.group(1) == "-" else 1
+                return sign * (int(m.group(2)) * 60 + int(m.group(3))) // 60
+        return v
+
     experimenters: List[str] = Field(
         default=[],
         title="experimenter(s)",
@@ -406,6 +426,22 @@ class Acquisition(DataCoreModel):
         default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
+
+    @property
+    def acquisition_start_time_local(self) -> datetime:
+        """Return acquisition_start_time converted to the timezone stored in acquisition_start_tz.
+
+        If acquisition_start_tz is a TimeZoneName (IANA name), uses ZoneInfo to construct the timezone.
+        If acquisition_start_tz is an int (UTC offset in hours), uses a fixed-offset timezone.
+        If acquisition_start_tz is None, returns acquisition_start_time as-is.
+        """
+        if self.acquisition_start_tz is None:
+            return self.acquisition_start_time
+        if isinstance(self.acquisition_start_tz, int):
+            tz = timezone(timedelta(hours=self.acquisition_start_tz))
+        else:
+            tz = ZoneInfo(str(self.acquisition_start_tz))
+        return self.acquisition_start_time.astimezone(tz)
 
     @model_validator(mode="after")
     def extract_timezone(self):
