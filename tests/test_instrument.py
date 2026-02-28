@@ -8,7 +8,7 @@ from unittest.mock import patch
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 from aind_data_schema_models.harp_types import HarpDeviceType
 from pydantic import ValidationError
 
@@ -22,7 +22,6 @@ from aind_data_schema.components.devices import (
     Detector,
     DetectorType,
     Device,
-    DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -49,6 +48,9 @@ from aind_data_schema.core.instrument import (
     Instrument,
 )
 from examples.ephys_instrument import inst as ephys_instrument
+from examples.slap2_instrument import dmds
+
+dmd = dmds[0]
 
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
@@ -202,25 +204,6 @@ scan_stage = ScanningStage(
     stage_axis_direction="Detection axis",
     stage_axis_name="Z",
     travel=50,
-)
-
-# Example of a DigitalMicromirrorDevice
-dmd = DigitalMicromirrorDevice(
-    name="Example DMD",
-    max_dmd_patterns=1024,
-    double_bounce_design=True,
-    invert_pixel_values=False,
-    motion_padding_x=10,
-    motion_padding_y=10,
-    padding_unit=SizeUnit.PX,
-    pixel_size=13.68,
-    pixel_size_unit=SizeUnit.UM,
-    start_phase=0.5,
-    dmd_flip=True,
-    dmd_curtain=[0.1, 0.2, 0.3],
-    dmd_curtain_unit=SizeUnit.PX,
-    line_shear=[1, 2, 3],
-    line_shear_unit=SizeUnit.PX,
 )
 
 stick_microscopes = [
