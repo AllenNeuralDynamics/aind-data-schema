@@ -80,7 +80,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | `subject_id` | `str` | Subject ID (Unique identifier for the subject) |
 | `specimen_id` | `Optional[str]` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
 | `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time (During validation, timezone information will be moved into the acquisition_start_tz field.) |
-| `acquisition_start_tz` | `Optional[pydantic_extra_types.timezone_name.TimeZoneName]` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time.) |
+| `acquisition_start_tz` | `int or pydantic_extra_types.timezone_name.TimeZoneName or NoneType` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time. Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, or an integer UTC offset in hours for fixed-offset timezones. Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone.) |
 | `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |
 | `experimenters` | `List[str]` | experimenter(s)  |
 | `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |

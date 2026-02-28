@@ -3971,6 +3971,7 @@
          "enum": [
             "Camera",
             "Photomultiplier Tube",
+            "Silicon Photomultiplier",
             "Other"
          ],
          "title": "DetectorType",
@@ -6432,7 +6433,7 @@
       },
       "EphysAssembly": {
          "additionalProperties": false,
-         "description": "Named assembly for combining a manipulator and ephys probes",
+         "description": "Named assembly for combining a manipulator and extracellular ephys probes",
          "properties": {
             "object_type": {
                "const": "Ephys assembly",
@@ -6465,7 +6466,7 @@
       },
       "EphysProbe": {
          "additionalProperties": false,
-         "description": "Probe used in an ephys experiment",
+         "description": "Probe used in an extracellular ephys experiment",
          "properties": {
             "object_type": {
                "const": "Ephys probe",
@@ -13932,6 +13933,36 @@
          ],
          "title": "Origin",
          "type": "string"
+      },
+      "PatchClampEphysAssembly": {
+         "additionalProperties": false,
+         "description": "Assembly combining a manipulator and headstage used for Patch clamp ephys",
+         "properties": {
+            "object_type": {
+               "const": "Patch clamp ephys assembly",
+               "default": "Patch clamp ephys assembly",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "name": {
+               "title": "Patch clamp Assembly Name",
+               "type": "string"
+            },
+            "manipulator": {
+               "$ref": "#/$defs/Manipulator"
+            },
+            "headstage": {
+               "$ref": "#/$defs/Device",
+               "title": "Headstage"
+            }
+         },
+         "required": [
+            "name",
+            "manipulator",
+            "headstage"
+         ],
+         "title": "PatchClampEphysAssembly",
+         "type": "object"
       },
       "PockelsCell": {
          "additionalProperties": false,
@@ -24817,8 +24848,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.1",
-         "default": "2.2.1",
+         "const": "2.2.2",
+         "default": "2.2.2",
          "title": "Schema Version",
          "type": "string"
       },
@@ -25049,6 +25080,7 @@
                   "Objective": "#/$defs/Objective",
                   "Olfactometer": "#/$defs/Olfactometer",
                   "Open ephys acquisition board": "#/$defs/OpenEphysAcquisitionBoard",
+                  "Patch clamp ephys assembly": "#/$defs/PatchClampEphysAssembly",
                   "Pockels cell": "#/$defs/PockelsCell",
                   "Polygonal scanner": "#/$defs/PolygonalScanner",
                   "Scanner": "#/$defs/Scanner",
@@ -25126,6 +25158,9 @@
                },
                {
                   "$ref": "#/$defs/DigitalMicromirrorDevice"
+               },
+               {
+                  "$ref": "#/$defs/PatchClampEphysAssembly"
                },
                {
                   "$ref": "#/$defs/PolygonalScanner"

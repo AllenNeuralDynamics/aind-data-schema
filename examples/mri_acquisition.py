@@ -1,7 +1,8 @@
 """example MRIAcquisition and MRIScan"""
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
@@ -68,8 +69,8 @@ scan2 = MRIScan(
 )
 
 stream = DataStream(
-    stream_start_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
-    stream_end_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
+    stream_start_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=ZoneInfo("America/Los_Angeles")),
+    stream_end_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=ZoneInfo("America/Los_Angeles")),
     active_devices=["Scanner 72"],
     configurations=[scan1, scan2],
     modalities=[Modality.MRI],
@@ -77,8 +78,8 @@ stream = DataStream(
 
 acquisition = Acquisition(
     subject_id="123456",
-    acquisition_start_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
-    acquisition_end_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=timezone.utc),
+    acquisition_start_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=ZoneInfo("America/Los_Angeles")),
+    acquisition_end_time=datetime(2024, 3, 12, 16, 27, 55, 584892, tzinfo=ZoneInfo("America/Los_Angeles")),
     experimenters=["John Smith"],
     protocol_id=["dx.doi.org/10.57824/protocols.io.bh7kl4n6"],
     ethics_review_id=["1234"],
