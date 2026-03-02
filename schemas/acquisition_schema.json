@@ -11640,8 +11640,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.0",
-         "default": "2.3.0",
+         "const": "2.3.1",
+         "default": "2.3.1",
          "title": "Schema Version",
          "type": "string"
       },
@@ -11671,6 +11671,9 @@
       },
       "acquisition_start_tz": {
          "anyOf": [
+            {
+               "type": "integer"
+            },
             {
                "enum": [
                   "Africa/Abidjan",
@@ -12281,7 +12284,7 @@
             }
          ],
          "default": null,
-         "description": "Automatically populated by a validator based on acquisition_start_time.",
+         "description": "Automatically populated by a validator based on acquisition_start_time. Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, or an integer UTC offset in hours for fixed-offset timezones. Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone.",
          "title": "Acquisition start timezone"
       },
       "acquisition_end_time": {
