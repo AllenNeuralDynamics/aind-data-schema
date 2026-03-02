@@ -690,7 +690,7 @@ class OlfactometerChannel(DataModel):
 
     channel_index: int = Field(..., title="Channel index")
     channel_type: OlfactometerChannelType = Field(..., title="Channel type")
-    flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
+    flow_capacity: int = Field(default=100, gt=0, title="Flow capacity")
     flow_unit: str = Field(default="mL/min", title="Flow unit")
 
 
