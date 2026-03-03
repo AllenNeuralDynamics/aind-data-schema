@@ -89,6 +89,22 @@ class TestHumanSubject(unittest.TestCase):
             )
         self.assertIn("HumanSubject species must be HUMAN", str(context.exception))
 
+    def test_validate_species_is_human_success(self):
+        """Test the species validator with valid human species"""
+        
+        # This test covers line 173 - the successful return path
+        subject = HumanSubject(
+            sex=Sex.FEMALE,
+            species=Species.HUMAN,
+            year_of_birth=1990,
+            source=Organization.AI
+        )
+        
+        self.assertEqual(subject.species, Species.HUMAN)
+        self.assertEqual(subject.sex, Sex.FEMALE)
+        self.assertEqual(subject.year_of_birth, 1990)
+        self.assertEqual(subject.source, Organization.AI)
+
 
 class TestNonHumanPrimateSubject(unittest.TestCase):
     """Test the non-human primate subject model"""
