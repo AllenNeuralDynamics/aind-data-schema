@@ -1,4 +1,4 @@
-""" example ExaSPIM instrument """
+"""example ExaSPIM instrument"""
 
 import datetime
 import argparse

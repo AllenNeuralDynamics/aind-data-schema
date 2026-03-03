@@ -32,7 +32,6 @@ from aind_data_schema.core.acquisition import StimulusEpoch
 from examples.data_description import d as data_description
 from examples.subject import s as subject
 
-
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
     manipulator=Manipulator(
