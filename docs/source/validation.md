@@ -4,7 +4,15 @@ To ensure that your metadata is valid you need to construct the full [Metadata](
 
 ## Instrument and Acquisition
 
-If you are validating your `Instrument` and `Acquisition` on your rig, you may not have access to the other metadata files like the procedures. To allow for partial validation of these files we include an `InstrumentAcquisitionCompatibility` class. Construct it as follows:
+If you are validating your `Instrument` and `Acquisition` on your rig, you may not have access to the other metadata files like the procedures. To allow for partial validation of these files we include an `InstrumentAcquisitionCompatibility` class.
+
+The following consistency rules are enforced:
+
+- `Acquisition.instrument_id` must match `Instrument.instrument_id`
+- Device names in `DataStream.active_devices` must match device names in the `Instrument`
+- Device names in `StimulusEpoch.active_devices` must match device names in the `Instrument`
+
+Construct it as follows:
 
 ```{python}
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
