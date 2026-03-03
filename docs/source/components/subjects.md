@@ -58,7 +58,7 @@ Description of a human subject
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `species` | 'Human' | Species |
+| `species` | `aind_data_schema_models.species.SpeciesModel` | Species  |
 | `sex` | [Sex](#sex) | Sex  |
 | `year_of_birth` | `int` | Year of birth  |
 | `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source (Where the subject was acquired from.) |
@@ -76,13 +76,13 @@ Description of vivarium light cycle times
 
 ### MatingStatus
 
- Subject mating status
+Subject mating status
 
- | Name | Value |
- |------|-------|
- | `MATED` | `Mated` |
- | `UNMATED` | `Unmated` |
- | `UNKNWON` | `Unknown` |
+| Name | Value |
+|------|-------|
+| `MATED` | `Mated` |
+| `UNMATED` | `Un-mated` |
+| `UNKNOWN` | `Unknown` |
 
 
 ### MouseSubject
@@ -111,12 +111,12 @@ Description of a non-human primate subject
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `species` | [Species](../aind_data_schema_models/species.md#species) | Species  |
+| `species` | [Species](../aind_data_schema_models/species.md#species) | species  |
 | `sex` | [Sex](#sex) | Sex  |
 | `date_of_birth` | `Optional[datetime.date]` | Date of birth  |
-| `year_of_birth` | `int` | Year of birth |
-| `mating_status` | `MatingStatus` | Mating status |
-| `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source (Where the subject was acquired from. If bred in-house, use Allen Institute.) |
+| `year_of_birth` | `int` | Year of birth  |
+| `mating_status` | [MatingStatus](#matingstatus) | Mating status  |
+| `source` | [Organization](../aind_data_schema_models/organizations.md#organization) | Source (Where the subject was acquired from.) |
 
 
 ### Sex

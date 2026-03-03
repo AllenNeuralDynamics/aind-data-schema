@@ -760,7 +760,7 @@ description of a Olfactometer channel
 |-------|------|-------------|
 | `channel_index` | `int` | Channel index  |
 | `channel_type` | [OlfactometerChannelType](#olfactometerchanneltype) | Channel type  |
-| `flow_capacity` | `100 or 1000` | Flow capacity  |
+| `flow_capacity` | `int` | Flow capacity  |
 | `flow_unit` | `str` | Flow unit  |
 
 
@@ -781,7 +781,7 @@ Multichannel electrophysiology DAQ
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `ports` | List[[ProbePort](#probeport)] | Acquisition board ports  |
-| `data_interface` | `"USB"` |   |
+| `data_interface` | `"DataInterface.USB"` |   |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
 | `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
 | `firmware_version` | `Optional[str]` | Firmware version  |
