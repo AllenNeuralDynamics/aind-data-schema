@@ -59,8 +59,6 @@ active_channels = ["Red", "Green"]
 plane_depths = {"Path 1": [x + 0.5 for x in range(-20, 30)], "Path 2": [x + 0.3 for x in range(0, 50)]}
 hwp_laser_power = 75
 
-x_dilations = {"Path 1": 9, "Path 2": 9}
-
 channel_intended_measurements = {
     "Red": "RCaMP3",
     "Green": "iGluSnFR4s",
@@ -92,14 +90,10 @@ slap2_plane_full_field_raster = {
             targeted_structure=CCFv3.VISPL2_3,
             target_name=imaging_target_name,
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
-            mask_image_path="path/to/mask.tif",
-            unique_frame_rates=[],
-            frame_rate_unit=FrequencyUnit.HZ,
-            frame_rate_image_path="path/to/frame_rate_image.tif",
-            unique_y_dilations=[],
-            y_dilation_image_path="path/to/dilation_image.tif",
-            x_dilation=x_dilations["Path 1"],
-            dilation_unit=SizeUnit.PX,
+            frame_rates=[],
+            frame_rates_unit=FrequencyUnit.HZ,
+            y_dilations=[],
+            y_dilations_unit=SizeUnit.PX,
         )
     ],
     "Path 2": [
@@ -111,14 +105,10 @@ slap2_plane_full_field_raster = {
             targeted_structure=CCFv3.VISPL2_3,
             target_name=imaging_target_name,
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
-            mask_image_path="path/to/mask.tif",
-            unique_frame_rates=[],
-            frame_rate_unit=FrequencyUnit.HZ,
-            frame_rate_image_path="path/to/frame_rate_image.tif",
-            unique_y_dilations=[],
-            y_dilation_image_path="path/to/dilation_image.tif",
-            x_dilation=x_dilations["Path 2"],
-            dilation_unit=SizeUnit.PX,
+            frame_rates=[],
+            frame_rates_unit=FrequencyUnit.HZ,
+            y_dilations=[],
+            y_dilations_unit=SizeUnit.PX,
         )
     ],
 }

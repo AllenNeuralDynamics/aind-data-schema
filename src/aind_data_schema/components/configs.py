@@ -1,4 +1,4 @@
-""" Configurations for devices, software, and other components during acquisition """
+"""Configurations for devices, software, and other components during acquisition"""
 
 from decimal import Decimal
 from enum import Enum
@@ -93,6 +93,15 @@ class SubjectPosition(str, Enum):
 
     PRONE = "Prone"
     SUPINE = "Supine"
+
+
+class NeuronStructure(str, Enum):
+    """Neuronal structures captured in imaging planes"""
+
+    SOMA = "Soma"
+    DENDRITE = "Dendrite"
+    AXON = "Axon"
+    OTHER = "Other"
 
 
 class DeviceConfig(DataModel):
@@ -212,25 +221,25 @@ class Slap2Plane(Plane):
     """Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)"""
 
     slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="SLAP2 ROI acquisition type")
+
+    specimen_id: Optional[str] = Field(
+        default=None,
+        title="Specimen ID",
+        description="Unique index identifying the cell being imaged: <subject_id>_###",
+    )
+    fov_index: Optional[int] = Field(
+        default=None,
+        title="Field of view index",
+        description="For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV",
+    )
+    structure_types: Optional[List[NeuronStructure]] = Field(default=None, title="Structure type")
     target_name: Optional[str] = Field(default=None, title="Name of imaged target")
 
-    mask_image_path: AssetPath = Field(
-        ..., title="Mask image path",
-        description="Relative path from metadata json to imaging ROI masks (numbered by superpixel)"
-    )
+    y_dilations: List[int] = Field(..., title="Unique Y dilations")
+    y_dilations_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
 
-    unique_y_dilations: List[int] = Field(..., title="Unique Y dilations")
-    y_dilation_image_path: AssetPath = Field(
-        ..., title="Y dilation image path", description="Relative path from metadata json to file"
-    )
-    x_dilation: int = Field(..., title="X dilation")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
-
-    unique_frame_rates: List[float] = Field(..., title="Unique frame rates")
-    frame_rate_image_path: AssetPath = Field(
-        ..., title="Frame rate image path", description="Relative path from metadata json to file"
-    )
-    frame_rate_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
+    frame_rates: List[float] = Field(..., title="Unique frame rates")
+    frame_rates_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
 
 
 class Image(DataModel):
