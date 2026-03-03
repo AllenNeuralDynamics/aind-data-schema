@@ -1,7 +1,8 @@
 """ example fiber photometry acquisition """
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import PowerUnit, SizeUnit, FrequencyUnit, VolumeUnit
@@ -30,7 +31,7 @@ from aind_data_schema_models.brain_atlas import CCFv3
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
-t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=ZoneInfo("America/Los_Angeles"))
 
 # Define the sampling strategy
 sampling_strategy = SamplingStrategy(

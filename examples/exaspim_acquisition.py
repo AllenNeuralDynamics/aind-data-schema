@@ -1,6 +1,7 @@
 """ example ExaSPIM acquisition """
 
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import argparse
 
 from aind_data_schema_models.organizations import Organization
@@ -27,7 +28,7 @@ from aind_data_schema.components.measurements import Calibration, Maintenance
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
-t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=ZoneInfo("America/Los_Angeles"))
 
 tile_scale = Scale(
     scale=[0.748, 0.748, 1],
