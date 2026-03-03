@@ -19,7 +19,6 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: |
-          sudo apt install graphviz libgraphviz-dev -y
           python -m pip install -e .[dev] -e .[docs] --no-cache-dir
       - name: Generate docs
         run: |
