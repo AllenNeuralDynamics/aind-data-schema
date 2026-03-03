@@ -1,6 +1,8 @@
 """example Bergamo ophys acquisition"""
 
-from datetime import datetime, timezone
+import argparse
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.units import FrequencyUnit
@@ -28,7 +30,7 @@ from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
-t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=timezone.utc)
+t = datetime(2022, 7, 12, 7, 00, 00, tzinfo=ZoneInfo("America/Los_Angeles"))
 
 laser_config_a = LaserConfig(
     device_name="Laser A",
@@ -150,6 +152,10 @@ a = Acquisition(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = a.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="bergamo_ophys")
+    deserialized.write_standard_file(prefix="bergamo_ophys", output_directory=args.output_dir)

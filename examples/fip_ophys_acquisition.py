@@ -1,6 +1,8 @@
 """example FIP ophys acquisition"""
 
-from datetime import datetime, timezone
+import argparse
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from decimal import Decimal
 
 from aind_data_schema_models.modalities import Modality
@@ -27,7 +29,7 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema_models.stimulus_modality import StimulusModality
 
 # The session date from the JSON file is 2024-01-15 with timezone -08:00
-t_start = datetime(2024, 1, 15, 15, 56, 28, tzinfo=timezone.utc)
+t_start = datetime(2024, 1, 15, 15, 56, 28, tzinfo=ZoneInfo("America/Los_Angeles"))
 t_end = t_start  # Set end time same as start since it's not specified in the JSON
 
 # Define detector configurations
@@ -316,10 +318,10 @@ stimulus_epoch = StimulusEpoch(
     code=Code(
         url="github url",
         parameters={
-            'stimulus_duration': 1.0,
-            'stimulus_duration_unit': TimeUnit.S,
-            'frequency': [5, 8, 13],
-            'frequency_unit': FrequencyUnit.KHZ,
+            "stimulus_duration": 1.0,
+            "stimulus_duration_unit": TimeUnit.S,
+            "frequency": [5, 8, 13],
+            "frequency_unit": FrequencyUnit.KHZ,
         },
     ),
     performance_metrics=PerformanceMetrics(
@@ -358,6 +360,10 @@ acquisition = Acquisition(
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="fip_ophys")
+    deserialized.write_standard_file(prefix="fip_ophys", output_directory=args.output_dir)

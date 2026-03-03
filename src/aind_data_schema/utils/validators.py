@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, List, Optional, Union
 
 from aind_data_schema.components.wrappers import AssetPath
+from pydantic_extra_types.timezone_name import TimeZoneName
 
 # Fields that should have the same length as the coordinate system axes
 AXIS_TYPES = ["Translation", "Rotation", "Scale"]
@@ -237,7 +238,7 @@ def recursive_coord_system_check(data, coordinate_system_name: Optional[str], ax
 
 
 def recursive_get_all_names(obj: Any) -> List[str]:
-    """Recursively extract all 'name' fields from an object and its nested fields."""
+    """Recursively extract all 'name' fields from a DataModel object and its nested fields."""
     names = []
 
     if obj is None or isinstance(obj, Enum):  # Skip None and Enums
@@ -248,8 +249,13 @@ def recursive_get_all_names(obj: Any) -> List[str]:
             names.extend(recursive_get_all_names(item))
 
     elif hasattr(obj, "__dict__"):  # Handle objects (including Pydantic models)
+        if not hasattr(obj, "object_type"):
+            # All DataModel objects should have an object_type attribute
+            return names
         if hasattr(obj, "name") and isinstance(obj.name, str):  # Ensure name is a string
             names.append(obj.name)
+
+        # Continue recursion into fields
         for field_value in vars(obj).values():  # Use vars() for robustness
             names.extend(recursive_get_all_names(field_value))
 
@@ -331,3 +337,41 @@ def validate_creation_time_after_midnight(
             f"Creation time ({creation_time}) "
             f"must be on or after midnight of the reference day ({midnight_of_reference_day})"
         )
+
+
+def extract_timezone_from_datetime(dt: datetime) -> Union[int, TimeZoneName]:
+    """Extract timezone information from a datetime object.
+
+    Parameters
+    ----------
+    dt : datetime
+        A timezone-aware datetime object
+
+    Returns
+    -------
+    Union[int, TimeZoneName]
+        A TimeZoneName (IANA name string) if the tzinfo is a ZoneInfo-backed timezone,
+        or an integer representing the UTC offset in hours for fixed-offset timezones
+        such as datetime.timezone.utc or datetime.timezone(timedelta(...)).
+
+    Raises
+    ------
+    ValueError
+        If the datetime is not timezone-aware
+
+    Notes
+    -----
+    Prefer using ZoneInfo (from the zoneinfo standard library) when constructing
+    timezone-aware datetimes so that the IANA timezone name is preserved.
+    Fixed-offset timezones (e.g. timezone.utc, timezone(timedelta(hours=-7))) will
+    be stored as integer UTC offsets in hours and lose their named identity.
+    """
+    if not hasattr(dt, "tzinfo") or dt.tzinfo is None:
+        raise ValueError("datetime must be timezone-aware")
+
+    key = getattr(dt.tzinfo, "key", None)
+    if key is not None:
+        return TimeZoneName(key)
+
+    offset = dt.utcoffset()
+    return int(offset.total_seconds() // 3600)

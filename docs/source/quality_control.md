@@ -117,7 +117,7 @@ Description of a curation metric
 | `modality` | [Modality](aind_data_schema_models/modalities.md#modality) | Modality  |
 | `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |
 | `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
-| `description` | `Optional[str]` | Metric description  |
+| `description` | `Optional[str]` | Metric description (Describes the measured value and the rule that links the value and status.) |
 | `reference` | `Optional[str]` | Metric reference image URL or plot type  |
 | `tags` | `Dict[str, str]` | Tags (Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.) |
 | `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |
@@ -134,7 +134,7 @@ Description of a single quality control metric
 | `stage` | [Stage](quality_control.md#stage) | Evaluation stage  |
 | `value` | `typing.Any` | Metric value  |
 | `status_history` | List[[QCStatus](quality_control.md#qcstatus)] | Metric status history  |
-| `description` | `Optional[str]` | Metric description  |
+| `description` | `Optional[str]` | Metric description (Describes the measured value and the rule that links the value and status.) |
 | `reference` | `Optional[str]` | Metric reference image URL or plot type  |
 | `tags` | `Dict[str, str]` | Tags (Tags group QCMetric objects. Unique keys define groups of tags, for example {'probe': 'probeA'}.) |
 | `evaluated_assets` | `Optional[List[str]]` | List of asset names that this metric depends on (Set to None except when a metric's calculation required data coming from a different data asset.) |

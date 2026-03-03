@@ -1,6 +1,8 @@
 """Generates an example JSON file for an ephys acquisition"""
 
-from datetime import datetime, timezone
+import argparse
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 
@@ -98,8 +100,12 @@ ephys_assembly_b_config = EphysAssemblyConfig(
 acquisition = Acquisition(
     experimenters=["John Smith"],
     subject_id="664484",
-    acquisition_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
-    acquisition_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
+    acquisition_start_time=datetime(
+        year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+    ),
+    acquisition_end_time=datetime(
+        year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+    ),
     acquisition_type="Receptive field mapping",
     instrument_id="EPHYS1",
     ethics_review_id=["2109"],
@@ -111,8 +117,12 @@ acquisition = Acquisition(
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
             stimulus_modalities=[StimulusModality.VISUAL],
-            stimulus_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
-            stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
+            stimulus_start_time=datetime(
+                year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
+            stimulus_end_time=datetime(
+                year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 core_dependency=bonsai_software,
@@ -130,9 +140,13 @@ acquisition = Acquisition(
         StimulusEpoch(
             stimulus_name="Visual Stimulation",
             stimulus_modalities=[StimulusModality.VISUAL],
-            stimulus_start_time=datetime(year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=timezone.utc),
-            stimulus_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
-            active_devices=['Stimulus Screen'],
+            stimulus_start_time=datetime(
+                year=2023, month=4, day=25, hour=3, minute=10, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
+            stimulus_end_time=datetime(
+                year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
+            active_devices=["Stimulus Screen"],
             code=Code(
                 url="https://github.com/fakeorg/GratingAndFlashes/gratings_and_flashes.bonsai",
                 core_dependency=bonsai_software,
@@ -150,8 +164,12 @@ acquisition = Acquisition(
     ],
     data_streams=[
         DataStream(
-            stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
-            stream_end_time=datetime(year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=timezone.utc),
+            stream_start_time=datetime(
+                year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
+            stream_end_time=datetime(
+                year=2023, month=4, day=25, hour=3, minute=16, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
             modalities=[Modality.ECEPHYS],
             active_devices=[
                 "Basestation Slot 3",
@@ -164,8 +182,12 @@ acquisition = Acquisition(
             ],
         ),
         DataStream(
-            stream_start_time=datetime(year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=timezone.utc),
-            stream_end_time=datetime(year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=timezone.utc),
+            stream_start_time=datetime(
+                year=2023, month=4, day=25, hour=2, minute=35, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
+            stream_end_time=datetime(
+                year=2023, month=4, day=25, hour=2, minute=45, second=0, tzinfo=ZoneInfo("America/Los_Angeles")
+            ),
             modalities=[Modality.ECEPHYS],
             notes="664484_2023-04-24_20-06-37; Surface Finding",
             active_devices=[
@@ -182,6 +204,10 @@ acquisition = Acquisition(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = acquisition.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="ephys")
+    deserialized.write_standard_file(prefix="ephys", output_directory=args.output_dir)

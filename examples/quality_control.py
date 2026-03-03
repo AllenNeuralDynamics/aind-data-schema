@@ -1,6 +1,7 @@
 """Example quality control processing"""
 
 from datetime import datetime, timezone
+import argparse
 
 from aind_data_schema_models.modalities import Modality
 
@@ -139,6 +140,10 @@ q = QualityControl(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = q.model_dump_json()
     deserialized = QualityControl.model_validate_json(serialized)
-    q.write_standard_file()
+    q.write_standard_file(output_directory=args.output_dir)

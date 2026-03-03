@@ -1,14 +1,18 @@
 """Schema describing data acquisition metadata and configurations"""
 
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import logging
-from typing import Annotated, List, Literal, Optional
+import re
+from typing import Annotated, List, Literal, Optional, Union
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from aind_data_schema.utils.validators import TimeValidation
-from pydantic import Field, SkipValidation, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic_extra_types.timezone_name import TimeZoneName
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
@@ -23,6 +27,7 @@ from aind_data_schema.components.configs import (
     LightEmittingDiodeConfig,
     ManipulatorConfig,
     MousePlatformConfig,
+    MISCameraConfig,
     MRIScan,
     OlfactometerConfig,
     PatchCordConfig,
@@ -36,8 +41,14 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    remove_duplicates,
+    merge_coordinate_systems,
+    merge_str_alphabetical,
+)
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
 # Define the requirements for each modality
@@ -75,7 +86,9 @@ class AcquisitionSubjectDetails(DataModel):
         title="Anaesthesia",
         description=("Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"),
     )
-    mouse_platform_name: str = Field(..., title="Mouse platform")
+    mouse_platform_name: str = Field(
+        ..., title="Mouse platform", description="The surface that the mouse is on during the acquisition"
+    )
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
@@ -125,6 +138,7 @@ class DataStream(DataModel):
         | DetectorConfig
         | PatchCordConfig
         | FiberAssemblyConfig
+        | MISCameraConfig
         | MRIScan
         | LickSpoutConfig
         | AirPuffConfig
@@ -317,7 +331,7 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
+    schema_version: SkipValidation[Literal["2.3.1"]] = Field(default="2.3.1")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
@@ -326,8 +340,34 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition metadata
-    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
+    acquisition_start_time: AwareDatetimeWithDefault = Field(
+        ...,
+        title="Acquisition start time",
+        description="During validation, timezone information will be moved into the acquisition_start_tz field.",
+    )
+    acquisition_start_tz: Optional[Union[int, TimeZoneName]] = Field(
+        default=None,
+        title="Acquisition start timezone",
+        description=(
+            "Automatically populated by a validator based on acquisition_start_time. "
+            "Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, "
+            "or an integer UTC offset in hours for fixed-offset timezones. "
+            "Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone."
+        ),
+    )
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
+
+    @field_validator("acquisition_start_tz", mode="before")
+    @classmethod
+    def coerce_fixed_offset_tz_string(cls, v):
+        """Convert legacy fixed-offset strings like '-07:00' or '+05:30' to integer minutes."""
+        if isinstance(v, str):
+            m = re.fullmatch(r"([+-]?)(\d{2}):(\d{2})", v)
+            if m:
+                sign = -1 if m.group(1) == "-" else 1
+                return sign * (int(m.group(2)) * 60 + int(m.group(3))) // 60
+        return v
+
     experimenters: List[str] = Field(
         default=[],
         title="experimenter(s)",
@@ -386,6 +426,29 @@ class Acquisition(DataCoreModel):
         default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
     subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
+
+    @property
+    def acquisition_start_time_local(self) -> datetime:
+        """Return acquisition_start_time converted to the timezone stored in acquisition_start_tz.
+
+        If acquisition_start_tz is a TimeZoneName (IANA name), uses ZoneInfo to construct the timezone.
+        If acquisition_start_tz is an int (UTC offset in hours), uses a fixed-offset timezone.
+        If acquisition_start_tz is None, returns acquisition_start_time as-is.
+        """
+        if self.acquisition_start_tz is None:
+            return self.acquisition_start_time
+        if isinstance(self.acquisition_start_tz, int):
+            tz = timezone(timedelta(hours=self.acquisition_start_tz))
+        else:
+            tz = ZoneInfo(str(self.acquisition_start_tz))
+        return self.acquisition_start_time.astimezone(tz)
+
+    @model_validator(mode="after")
+    def extract_timezone(self):
+        """Extract timezone information from acquisition_start_time and set acquisition_start_tz"""
+        if self.acquisition_start_tz is None and hasattr(self, "acquisition_start_time"):
+            self.acquisition_start_tz = extract_timezone_from_datetime(self.acquisition_start_time)
+        return self
 
     @model_validator(mode="after")
     def check_subject_specimen_id(self):
@@ -455,16 +518,17 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        if any([subj_check, spec_check, inst_check, exp_type_check]):
+        if any([subj_check, spec_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
+
+        # Combine instrument_id
+        instrument_id = merge_str_alphabetical(self.instrument_id, other.instrument_id)
 
         details_check = self.subject_details and other.subject_details
         if details_check:
@@ -499,7 +563,7 @@ class Acquisition(DataCoreModel):
             experimenters=experimenters,
             protocol_id=protocol_id,
             ethics_review_id=ethics_review_id,
-            instrument_id=self.instrument_id,
+            instrument_id=instrument_id,
             calibrations=calibrations,
             coordinate_system=coordinate_system,
             maintenance=maintenance,

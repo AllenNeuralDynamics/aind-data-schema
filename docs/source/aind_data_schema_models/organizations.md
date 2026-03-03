@@ -22,6 +22,7 @@ Organization
 | `ASUS` | `None` | `ASUS` | `Research Organization Registry (ROR)` | `00bxkz165` |
 | `BASLER` | `None` | `Basler` | `None` | `None` |
 | `BCM` | `BCM` | `Baylor College of Medicine` | `Research Organization Registry (ROR)` | `02pttbw34` |
+| `BRUKER` | `None` | `Bruker` | `Research Organization Registry (ROR)` | `04r739x86` |
 | `BU` | `BU` | `Boston University` | `Research Organization Registry (ROR)` | `05qwgg493` |
 | `CAJAL` | `Cajal` | `Cajal Neuroscience` | `Research Organization Registry (ROR)` | `05pdc0q70` |
 | `CAMBRIDGE_TECHNOLOGY` | `None` | `Cambridge Technology` | `None` | `None` |

@@ -453,14 +453,14 @@ class LaserAssembly(DataModel):
 
 
 class EphysProbe(Device):
-    """Probe used in an ephys experiment"""
+    """Probe used in an extracellular ephys experiment"""
 
     probe_model: ProbeModel = Field(..., title="Probe model")
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
 class EphysAssembly(DataModel):
-    """Named assembly for combining a manipulator and ephys probes"""
+    """Named assembly for combining a manipulator and extracellular ephys probes"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -485,6 +485,14 @@ class FiberAssembly(DataModel):
     name: str = Field(..., title="Fiber assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
+
+
+class PatchClampEphysAssembly(DataModel):
+    """Assembly combining a manipulator and headstage used for Patch clamp ephys"""
+
+    name: str = Field(..., title="Patch clamp Assembly Name")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    headstage: Device = Field(..., title="Headstage")
 
 
 class DigitalMicromirrorDevice(Device):

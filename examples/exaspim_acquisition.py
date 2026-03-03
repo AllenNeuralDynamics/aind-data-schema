@@ -1,6 +1,8 @@
 """example ExaSPIM acquisition"""
 
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
+import argparse
 
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.pid_names import PIDName
@@ -26,7 +28,7 @@ from aind_data_schema.components.measurements import Calibration, Maintenance
 
 # If a timezone isn't specified, the timezone of the computer running this
 # script will be used as default
-t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=ZoneInfo("America/Los_Angeles"))
 
 tile_scale = Scale(
     scale=[0.748, 0.748, 1],
@@ -167,6 +169,10 @@ acq = Acquisition(
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = acq.model_dump_json()
     deserialized = Acquisition.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="exaspim")
+    deserialized.write_standard_file(prefix="exaspim", output_directory=args.output_dir)
