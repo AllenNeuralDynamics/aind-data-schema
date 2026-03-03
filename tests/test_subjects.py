@@ -91,7 +91,7 @@ class TestHumanSubject(unittest.TestCase):
 
     def test_validate_species_is_human_success(self):
         """Test the species validator with valid human species"""
-        
+
         # This test covers line 173 - the successful return path
         subject = HumanSubject(
             sex=Sex.FEMALE,
@@ -99,7 +99,7 @@ class TestHumanSubject(unittest.TestCase):
             year_of_birth=1990,
             source=Organization.AI
         )
-        
+
         self.assertEqual(subject.species, Species.HUMAN)
         self.assertEqual(subject.sex, Sex.FEMALE)
         self.assertEqual(subject.year_of_birth, 1990)
