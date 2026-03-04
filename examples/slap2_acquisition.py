@@ -95,8 +95,14 @@ active_channels = ["Red", "Green"]
 
 plane_depths = {"Path 1": [184, 160], "Path 2": [100, 105]}
 fov_indices = {"Path 1": [1, 1], "Path 2": [1, 1]}
-structure_types_raster = {"Path 1": [[NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]], "Path 2": [[NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]]}
-structure_types_integration = {"Path 1": [[NeuronStructure.SOMA,NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]], "Path 2": [[NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]]}
+structure_types_raster = {
+    "Path 1": [[NeuronStructure.DENDRITE], [NeuronStructure.DENDRITE]],
+    "Path 2": [[NeuronStructure.DENDRITE], [NeuronStructure.DENDRITE]],
+}
+structure_types_integration = {
+    "Path 1": [[NeuronStructure.SOMA, NeuronStructure.DENDRITE], [NeuronStructure.DENDRITE]],
+    "Path 2": [[NeuronStructure.DENDRITE], [NeuronStructure.DENDRITE]],
+}
 hwp_laser_power = 75
 
 channel_intended_measurements = {
@@ -367,7 +373,8 @@ a = Acquisition(
                 name="RandomDriftingGratings_ContinuousTrials.bonsai",
                 language="Bonsai",
                 language_version="2.9.0",  # get from repo or code directly
-                parameters={"CodeParameters": {
+                parameters={
+                    "CodeParameters": {
                         "Initial Spont Int": 28,
                         "Num Trials": 40,
                         "PortName": "COM7",
@@ -375,9 +382,7 @@ a = Acquisition(
                         "Screen_GreenColor (0-1)": 0,
                         "Screen_RedColor (0-1)": 0,
                         "Subject": "000000",
-                        "GratingTrialParametersFile": (
-                            "ParameterFiles/8_direction_drifting_grating_params.csv"
-                        ),
+                        "GratingTrialParametersFile": ("ParameterFiles/8_direction_drifting_grating_params.csv"),
                     },
                     "GratingTrialParameters": {
                         "Contrast": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0],
