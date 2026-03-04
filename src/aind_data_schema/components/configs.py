@@ -246,7 +246,6 @@ class Slap2Plane(Plane):
         description="For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV",
     )
     structure_types: Optional[List[NeuronStructure]] = Field(default=None, title="Structure type")
-    target_name: Optional[str] = Field(default=None, title="Name of imaged target")
 
     y_dilations: List[int] = Field(..., title="Unique Y dilations")
     y_dilations_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
