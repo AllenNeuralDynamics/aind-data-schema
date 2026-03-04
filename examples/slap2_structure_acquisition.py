@@ -28,6 +28,7 @@ from aind_data_schema.components.configs import (
     PlanarImageStack,
     DeviceConfig,
     PowerFunction,
+    NeuronStructure,
 )
 from aind_data_schema_models.brain_atlas import CCFv3
 
@@ -52,6 +53,8 @@ harp_end_time = datetime(2022, 7, 12, 7, 30, 00, tzinfo=timezone.utc)
 
 project_name = "SLAP2"
 acquisition_type = "full-field raster structure"
+
+mouse_id = "12345"
 
 num_paths = 2
 active_channels = ["Red", "Green"]
@@ -88,11 +91,13 @@ slap2_plane_full_field_raster = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=0,
+            structure_types=[NeuronStructure.DENDRITE, NeuronStructure.SOMA, NeuronStructure.AXON],
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
-            frame_rates=[],
+            frame_rates=[5],
             frame_rates_unit=FrequencyUnit.HZ,
-            y_dilations=[],
+            y_dilations=[5],
             y_dilations_unit=SizeUnit.PX,
         )
     ],
@@ -103,11 +108,13 @@ slap2_plane_full_field_raster = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=0,
+            structure_types=[NeuronStructure.DENDRITE, NeuronStructure.SOMA, NeuronStructure.AXON],
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
-            frame_rates=[],
+            frame_rates=[5],
             frame_rates_unit=FrequencyUnit.HZ,
-            y_dilations=[],
+            y_dilations=[7],
             y_dilations_unit=SizeUnit.PX,
         )
     ],
@@ -134,7 +141,7 @@ sipm_config = {
 
 
 a = Acquisition(
-    subject_id="12345",
+    subject_id=mouse_id,
     acquisition_start_time=harp_start_time,
     acquisition_end_time=harp_end_time,
     experimenters=["John Smith"],
