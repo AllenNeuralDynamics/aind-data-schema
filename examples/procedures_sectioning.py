@@ -1,8 +1,6 @@
 """Examples of BarSEQ/MapSEQ sectioning procedures"""
 
-import csv
 from datetime import date
-from pathlib import Path
 from typing import Dict, List, Optional
 
 from aind_data_schema_models.brain_atlas import CCFv3
@@ -22,24 +20,71 @@ from aind_data_schema.core.procedures import Procedures
 
 
 
+_SLIDE_REGIONS = [
+    {"slide_num": 1, "section_start": 1, "section_end": 3, "chunk_name": "MOB", "ccf_acronym": "MOB", "includes_surrounding_tissue": False, "notes": "Main olfactory bulb"},
+    {"slide_num": 2, "section_start": 4, "section_end": 6, "chunk_name": "MOB", "ccf_acronym": "MOB", "includes_surrounding_tissue": False, "notes": "Main olfactory bulb"},
+    {"slide_num": 3, "section_start": 7, "section_end": 9, "chunk_name": "ORB", "ccf_acronym": "ORB", "includes_surrounding_tissue": False, "notes": "Orbital area (orbitofrontal cortex)"},
+    {"slide_num": 3, "section_start": 7, "section_end": 9, "chunk_name": "MO", "ccf_acronym": "MO", "includes_surrounding_tissue": False, "notes": "Somatomotor areas (motor cortex)"},
+    {"slide_num": 3, "section_start": 7, "section_end": 9, "chunk_name": "AON", "ccf_acronym": "AON", "includes_surrounding_tissue": False, "notes": "Anterior olfactory nucleus"},
+    {"slide_num": 4, "section_start": 10, "section_end": 12, "chunk_name": "ORB", "ccf_acronym": "ORB", "includes_surrounding_tissue": False, "notes": "Orbital area (orbitofrontal cortex)"},
+    {"slide_num": 4, "section_start": 10, "section_end": 12, "chunk_name": "MO", "ccf_acronym": "MO", "includes_surrounding_tissue": False, "notes": "Somatomotor areas (motor cortex)"},
+    {"slide_num": 4, "section_start": 10, "section_end": 12, "chunk_name": "AON", "ccf_acronym": "AON", "includes_surrounding_tissue": False, "notes": "Anterior olfactory nucleus"},
+    {"slide_num": 5, "section_start": 13, "section_end": 15, "chunk_name": "CP", "ccf_acronym": "CP", "includes_surrounding_tissue": False, "notes": "Caudoputamen"},
+    {"slide_num": 5, "section_start": 13, "section_end": 15, "chunk_name": "ACB", "ccf_acronym": "ACB", "includes_surrounding_tissue": False, "notes": "Nucleus accumbens"},
+    {"slide_num": 5, "section_start": 13, "section_end": 15, "chunk_name": "LSX", "ccf_acronym": "LSX", "includes_surrounding_tissue": False, "notes": "Lateral septal complex"},
+    {"slide_num": 5, "section_start": 13, "section_end": 15, "chunk_name": "ctx_1", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Superior/dorsal cortex ribbon (ctx 1 in figure)"},
+    {"slide_num": 5, "section_start": 13, "section_end": 15, "chunk_name": "ctx_2", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Lateral cortex ribbon (ctx 2 in figure)"},
+    {"slide_num": 5, "section_start": 13, "section_end": 15, "chunk_name": "ctx_3", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Inferior/ventrolateral cortex ribbon (ctx 3 in figure)"},
+    {"slide_num": 6, "section_start": 16, "section_end": 18, "chunk_name": "CP", "ccf_acronym": "CP", "includes_surrounding_tissue": False, "notes": "Caudoputamen"},
+    {"slide_num": 6, "section_start": 16, "section_end": 18, "chunk_name": "ACB", "ccf_acronym": "ACB", "includes_surrounding_tissue": False, "notes": "Nucleus accumbens"},
+    {"slide_num": 6, "section_start": 16, "section_end": 18, "chunk_name": "LSX", "ccf_acronym": "LSX", "includes_surrounding_tissue": False, "notes": "Lateral septal complex"},
+    {"slide_num": 6, "section_start": 16, "section_end": 18, "chunk_name": "ctx_1", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Superior/dorsal cortex ribbon (ctx 1 in figure)"},
+    {"slide_num": 6, "section_start": 16, "section_end": 18, "chunk_name": "ctx_2", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Lateral cortex ribbon (ctx 2 in figure)"},
+    {"slide_num": 6, "section_start": 16, "section_end": 18, "chunk_name": "ctx_3", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Inferior/ventrolateral cortex ribbon (ctx 3 in figure)"},
+    {"slide_num": 7, "section_start": 19, "section_end": 21, "chunk_name": "CP", "ccf_acronym": "CP", "includes_surrounding_tissue": False, "notes": "Caudoputamen"},
+    {"slide_num": 7, "section_start": 19, "section_end": 21, "chunk_name": "LSX", "ccf_acronym": "LSX", "includes_surrounding_tissue": False, "notes": "Lateral septal complex"},
+    {"slide_num": 7, "section_start": 19, "section_end": 21, "chunk_name": "BST", "ccf_acronym": "BST", "includes_surrounding_tissue": False, "notes": "Bed nuclei of the stria terminalis (BNST)"},
+    {"slide_num": 7, "section_start": 19, "section_end": 21, "chunk_name": "ctx_1", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Superior/dorsal cortex ribbon (ctx 1 in figure)"},
+    {"slide_num": 7, "section_start": 19, "section_end": 21, "chunk_name": "ctx_2", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Lateral cortex ribbon (ctx 2 in figure)"},
+    {"slide_num": 7, "section_start": 19, "section_end": 21, "chunk_name": "ctx_3", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Inferior/ventrolateral cortex ribbon (ctx 3 in figure)"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "HPF", "ccf_acronym": "HPF", "includes_surrounding_tissue": False, "notes": "Hippocampal formation"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "TH", "ccf_acronym": "TH", "includes_surrounding_tissue": False, "notes": "Thalamus"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "HY", "ccf_acronym": "HY", "includes_surrounding_tissue": False, "notes": "Hypothalamus"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "amygdala", "ccf_acronym": "BLA", "includes_surrounding_tissue": True, "notes": "Amygdala (targeting whole structure via BLA + surrounding tissue)"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "GPE", "ccf_acronym": "GPe", "includes_surrounding_tissue": False, "notes": "Globus pallidus external segment (GPe)"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "ctx_1", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Superior/dorsal cortex ribbon (ctx 1 in figure)"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "ctx_2", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Lateral cortex ribbon (ctx 2 in figure)"},
+    {"slide_num": 8, "section_start": 22, "section_end": 24, "chunk_name": "ctx_3", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Inferior/ventrolateral cortex ribbon (ctx 3 in figure)"},
+    {"slide_num": 9, "section_start": 25, "section_end": 27, "chunk_name": "MB", "ccf_acronym": "MB", "includes_surrounding_tissue": False, "notes": "Midbrain"},
+    {"slide_num": 9, "section_start": 25, "section_end": 27, "chunk_name": "ctx_1", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Superior/dorsal cortex ribbon (ctx 1 in figure)"},
+    {"slide_num": 9, "section_start": 25, "section_end": 27, "chunk_name": "ctx_2", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Lateral cortex ribbon (ctx 2 in figure)"},
+    {"slide_num": 9, "section_start": 25, "section_end": 27, "chunk_name": "ctx_3", "ccf_acronym": "CTX", "includes_surrounding_tissue": True, "notes": "Inferior/ventrolateral cortex ribbon (ctx 3 in figure)"},
+    {"slide_num": 10, "section_start": 28, "section_end": 30, "chunk_name": "MB", "ccf_acronym": "MB", "includes_surrounding_tissue": False, "notes": "Midbrain (more caudal)"},
+    {"slide_num": 10, "section_start": 28, "section_end": 30, "chunk_name": "HB", "ccf_acronym": "HB", "includes_surrounding_tissue": False, "notes": "Hindbrain"},
+    {"slide_num": 11, "section_start": 31, "section_end": 33, "chunk_name": "MB", "ccf_acronym": "MB", "includes_surrounding_tissue": False, "notes": "Midbrain (most caudal)"},
+    {"slide_num": 11, "section_start": 31, "section_end": 33, "chunk_name": "HB", "ccf_acronym": "HB", "includes_surrounding_tissue": False, "notes": "Hindbrain"},
+    {"slide_num": 12, "section_start": 34, "section_end": 36, "chunk_name": "CB", "ccf_acronym": "CB", "includes_surrounding_tissue": False, "notes": "Cerebellum"},
+    {"slide_num": 12, "section_start": 34, "section_end": 36, "chunk_name": "MY", "ccf_acronym": "MY", "includes_surrounding_tissue": False, "notes": "Medulla"},
+    {"slide_num": 13, "section_start": 37, "section_end": 39, "chunk_name": "MY", "ccf_acronym": "MY", "includes_surrounding_tissue": False, "notes": "Medulla"},
+]
+
+
 def _load_slide_regions() -> Dict[int, dict]:
-    csv_path = Path(__file__).parent / "mapseq_slide_regions.csv"
     slides: Dict[int, dict] = {}
-    with open(csv_path, newline="") as f:
-        for row in csv.DictReader(f):
-            slide = int(row["slide_num"])
-            if slide not in slides:
-                slides[slide] = {
-                    "section_start": int(row["section_start"]),
-                    "section_end": int(row["section_end"]),
-                    "chunks": [],
-                }
-            slides[slide]["chunks"].append({
-                "chunk_name": row["chunk_name"],
-                "ccf_acronym": row["ccf_acronym"],
-                "includes_surrounding_tissue": row["includes_surrounding_tissue"] == "True",
-                "notes": row["notes"],
-            })
+    for row in _SLIDE_REGIONS:
+        slide = row["slide_num"]
+        if slide not in slides:
+            slides[slide] = {
+                "section_start": row["section_start"],
+                "section_end": row["section_end"],
+                "chunks": [],
+            }
+        slides[slide]["chunks"].append({
+            "chunk_name": row["chunk_name"],
+            "ccf_acronym": row["ccf_acronym"],
+            "includes_surrounding_tissue": row["includes_surrounding_tissue"],
+            "notes": row["notes"],
+        })
     return slides
 
 
