@@ -317,6 +317,18 @@ Configuration for mouse platforms
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
+### NeuronStructure
+
+Neuronal structures captured in imaging planes
+
+| Name | Value |
+|------|-------|
+| `SOMA` | `Soma` |
+| `DENDRITE` | `Dendrite` |
+| `AXON` | `Axon` |
+| `OTHER` | `Other` |
+
+
 ### OlfactometerChannelInfo
 
 Configuration of a channel in an olfactometer
@@ -461,15 +473,14 @@ Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisiti
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `slap2_acquisition_type` | {Slap2AcquisitionType} | SLAP2 ROI acquisition type  |
+| `specimen_id` | `Optional[str]` | Specimen ID (Unique index identifying the cell being imaged: <subject_id>_###) |
+| `fov_index` | `Optional[int]` | Field of view index (For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV) |
+| `structure_types` | Optional[List[[NeuronStructure](#neuronstructure)]] | Structure type  |
 | `target_name` | `Optional[str]` | Name of imaged target  |
-| `mask_image_path` | `AssetPath` | Mask image path (Relative path from metadata json to imaging ROI masks (numbered by superpixel)) |
-| `unique_y_dilations` | `List[int]` | Unique Y dilations  |
-| `y_dilation_image_path` | `AssetPath` | Y dilation image path (Relative path from metadata json to file) |
-| `x_dilation` | `int` | X dilation  |
-| `dilation_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dilation unit  |
-| `unique_frame_rates` | `List[float]` | Unique frame rates  |
-| `frame_rate_image_path` | `AssetPath` | Frame rate image path (Relative path from metadata json to file) |
-| `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) | Frame rate unit  |
+| `y_dilations` | `List[int]` | Unique Y dilations  |
+| `y_dilations_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dilation unit  |
+| `frame_rates` | `List[float]` | Unique frame rates  |
+| `frame_rates_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) | Frame rate unit  |
 | `depth` | `float` | Depth  |
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Depth unit  |
 | `power` | `float` | Power  |
