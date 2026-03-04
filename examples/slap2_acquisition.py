@@ -30,6 +30,7 @@ from aind_data_schema.components.configs import (
     Slap2Plane,
     PlanarImage,
     DeviceConfig,
+    NeuronStructure,
 )
 from aind_data_schema_models.brain_atlas import CCFv3
 from aind_data_schema_models.stimulus_modality import StimulusModality
@@ -87,10 +88,15 @@ eye_camera_exposure = 10
 project_name = "SLAP2"
 acquisition_type = "multi-roi raster drifting gratings"
 
+mouse_id = "12345"
+
 num_paths = 2
 active_channels = ["Red", "Green"]
 
 plane_depths = {"Path 1": [184, 160], "Path 2": [100, 105]}
+fov_indices = {"Path 1": [1, 1], "Path 2": [1, 1]}
+structure_types_raster = {"Path 1": [[NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]], "Path 2": [[NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]]}
+structure_types_integration = {"Path 1": [[NeuronStructure.SOMA,NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]], "Path 2": [[NeuronStructure.DENDRITE],[NeuronStructure.DENDRITE]]}
 hwp_laser_power = 75
 
 channel_intended_measurements = {
@@ -122,7 +128,9 @@ slap2_plane_rois_raster = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_raster["Path 1"][0],
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
             frame_rates=[100],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -135,7 +143,9 @@ slap2_plane_rois_raster = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_raster["Path 1"][1],
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
             frame_rates=[100],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -150,7 +160,9 @@ slap2_plane_rois_raster = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_raster["Path 2"][0],
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
             frame_rates=[120],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -163,7 +175,9 @@ slap2_plane_rois_raster = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_raster["Path 2"][1],
             slap2_acquisition_type=Slap2AcquisitionType.RASTER,
             frame_rates=[120],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -181,7 +195,9 @@ slap2_plane_rois_integration = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_integration["Path 1"][0],
             slap2_acquisition_type=Slap2AcquisitionType.INTEGRATION,
             frame_rates=[200],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -194,7 +210,9 @@ slap2_plane_rois_integration = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_integration["Path 1"][1],
             slap2_acquisition_type=Slap2AcquisitionType.INTEGRATION,
             frame_rates=[200],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -209,7 +227,9 @@ slap2_plane_rois_integration = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_integration["Path 2"][0],
             slap2_acquisition_type=Slap2AcquisitionType.INTEGRATION,
             frame_rates=[240],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -222,7 +242,9 @@ slap2_plane_rois_integration = {
             power=hwp_laser_power,
             power_unit=PowerUnit.PERCENT,
             targeted_structure=CCFv3.VISPL2_3,
-            target_name=imaging_target_name,
+            specimen_id=f"{mouse_id}_{imaging_target_name}",
+            fov_index=1,
+            structure_types=structure_types_integration["Path 2"][1],
             slap2_acquisition_type=Slap2AcquisitionType.INTEGRATION,
             frame_rates=[240],
             frame_rates_unit=FrequencyUnit.HZ,
@@ -253,7 +275,7 @@ sipm_config = {
 
 
 a = Acquisition(
-    subject_id="12345",
+    subject_id=mouse_id,
     acquisition_start_time=harp_start_time,
     acquisition_end_time=harp_end_time,
     experimenters=["John Smith"],
