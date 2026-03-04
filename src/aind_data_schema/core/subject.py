@@ -1,4 +1,4 @@
-""" schema for mostly mouse metadata """
+"""schema for mostly mouse metadata"""
 
 from typing import Literal, Optional
 

@@ -125,6 +125,19 @@ class DetectorConfig(DeviceConfig):
         title="Compression",
         description="Compression algorithm used during acquisition",
     )
+    crop_offset_x: Optional[int] = Field(
+        default=None, title="Crop offset x", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_offset_y: Optional[int] = Field(
+        default=None, title="Crop offset y", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_width: Optional[int] = Field(
+        default=None, title="Crop width", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_height: Optional[int] = Field(
+        default=None, title="Crop height", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_unit: Optional[SizeUnit] = Field(default=SizeUnit.PX, title="Crop size unit")
 
 
 class LaserConfig(DeviceConfig):
