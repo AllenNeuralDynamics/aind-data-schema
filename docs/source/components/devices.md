@@ -781,7 +781,7 @@ Multichannel electrophysiology DAQ
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `ports` | List[[ProbePort](#probeport)] | Acquisition board ports  |
-| `data_interface` | `"DataInterface.USB"` |   |
+| `data_interface` | `"USB"` |   |
 | `manufacturer` | [Organization](../aind_data_schema_models/organizations.md#organization) |   |
 | `channels` | List[[DAQChannel](#daqchannel)] | DAQ channels  |
 | `firmware_version` | `Optional[str]` | Firmware version  |
