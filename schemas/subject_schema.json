@@ -761,7 +761,8 @@
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "New York University": "#/$defs/_New_York_University",
                      "Other": "#/$defs/_Other",
-                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   "propertyName": "name"
                },
@@ -792,6 +793,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   }
                ],
                "title": "Source"
@@ -991,7 +995,8 @@
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "New York University": "#/$defs/_New_York_University",
                      "Other": "#/$defs/_Other",
-                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   "propertyName": "name"
                },
@@ -1022,6 +1027,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   }
                ],
                "title": "Source"
@@ -6569,8 +6577,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.0",
-         "default": "2.2.0",
+         "const": "2.2.1",
+         "default": "2.2.1",
          "title": "Schema Version",
          "type": "string"
       },
