@@ -1,4 +1,4 @@
-""" Helper functions for composability """
+"""Helper functions for composability"""
 
 import logging
 from typing import Any, List, Optional

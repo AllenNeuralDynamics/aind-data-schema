@@ -17,8 +17,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.3.1",
-               "default": "2.3.1",
+               "const": "2.4.0",
+               "default": "2.4.0",
                "title": "Schema Version",
                "type": "string"
             },
@@ -7173,8 +7173,7 @@
                         "Manipulator config": "#/$defs/ManipulatorConfig",
                         "Patch cord config": "#/$defs/PatchCordConfig",
                         "Probe config": "#/$defs/ProbeConfig",
-                        "Sample chamber config": "#/$defs/SampleChamberConfig",
-                        "Slap plane": "#/$defs/SlapPlane"
+                        "Sample chamber config": "#/$defs/SampleChamberConfig"
                      },
                      "propertyName": "object_type"
                   },
@@ -7211,9 +7210,6 @@
                      },
                      {
                         "$ref": "#/$defs/ImagingConfig"
-                     },
-                     {
-                        "$ref": "#/$defs/SlapPlane"
                      },
                      {
                         "$ref": "#/$defs/SampleChamberConfig"
@@ -7678,8 +7674,16 @@
                "type": "string"
             },
             "exposure_time": {
-               "title": "Exposure time",
-               "type": "number"
+               "anyOf": [
+                  {
+                     "type": "number"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Exposure time"
             },
             "exposure_time_unit": {
                "$ref": "#/$defs/TimeUnit",
@@ -7702,11 +7706,74 @@
                "default": null,
                "description": "Compression algorithm used during acquisition",
                "title": "Compression"
+            },
+            "crop_offset_x": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Overrides any value set in the Instrument metadata",
+               "title": "Crop offset x"
+            },
+            "crop_offset_y": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Overrides any value set in the Instrument metadata",
+               "title": "Crop offset y"
+            },
+            "crop_width": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Overrides any value set in the Instrument metadata",
+               "title": "Crop width"
+            },
+            "crop_height": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Overrides any value set in the Instrument metadata",
+               "title": "Crop height"
+            },
+            "crop_unit": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/SizeUnit"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": "pixel",
+               "title": "Crop size unit"
             }
          },
          "required": [
             "device_name",
-            "exposure_time",
             "trigger_type"
          ],
          "title": "DetectorConfig",
@@ -8854,10 +8921,6 @@
                "title": "Max DMD patterns",
                "type": "integer"
             },
-            "double_bounce_design": {
-               "title": "Double bounce design",
-               "type": "boolean"
-            },
             "invert_pixel_values": {
                "title": "Invert pixel values",
                "type": "boolean"
@@ -8876,80 +8939,43 @@
                "title": "Padding unit"
             },
             "pixel_size": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "DMD Pixel size"
-            },
-            "pixel_size_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
-               "title": "Pixel size unit"
+               "title": "DMD Pixel size (fraction of line scan period)",
+               "type": "number"
             },
             "start_phase": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "DMD Start phase (fraction of cycle)"
-            },
-            "dmd_flip": {
-               "title": "DMD Flip",
-               "type": "boolean"
+               "title": "DMD Start phase (fraction of line scan period)",
+               "type": "number"
             },
             "dmd_curtain": {
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "title": "DMD Curtain",
+               "title": "DMD Curtain (fraction of DMD scan period)",
                "type": "array"
             },
-            "dmd_curtain_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "pixel",
-               "title": "dmd_curtain_unit"
-            },
-            "line_shear": {
+            "line_shear_anchors": {
                "items": {
-                  "type": "integer"
+                  "type": "number"
                },
-               "title": "Line shear (pixels)",
+               "title": "Line shear anchors at top and bottom of field of view (pixels)",
                "type": "array"
             },
-            "line_shear_unit": {
+            "line_shear_anchors_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
-               "title": "Line shear unit"
+               "title": "Line shear anchors unit"
             }
          },
          "required": [
             "name",
             "max_dmd_patterns",
-            "double_bounce_design",
             "invert_pixel_values",
             "motion_padding_x",
             "motion_padding_y",
             "pixel_size",
             "start_phase",
-            "dmd_flip",
             "dmd_curtain",
-            "line_shear"
+            "line_shear_anchors"
          ],
          "title": "DigitalMicromirrorDevice",
          "type": "object"
@@ -14861,6 +14887,16 @@
                "title": "Object Type",
                "type": "string"
             },
+            "species": {
+               "$ref": "#/$defs/SpeciesModel",
+               "default": {
+                  "name": "Homo sapiens",
+                  "common_name": "Human",
+                  "registry": "National Center for Biotechnology Information (NCBI)",
+                  "registry_identifier": "NCBI:txid9606"
+               },
+               "title": "Species"
+            },
             "sex": {
                "$ref": "#/$defs/Sex"
             },
@@ -14880,7 +14916,8 @@
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "New York University": "#/$defs/_New_York_University",
                      "Other": "#/$defs/_Other",
-                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   "propertyName": "name"
                },
@@ -14911,6 +14948,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   }
                ],
                "title": "Source"
@@ -15107,17 +15147,13 @@
                "items": {
                   "discriminator": {
                      "mapping": {
-                        "Channel": "#/$defs/Channel",
-                        "Slap channel": "#/$defs/SlapChannel"
+                        "Channel": "#/$defs/Channel"
                      },
                      "propertyName": "object_type"
                   },
                   "oneOf": [
                      {
                         "$ref": "#/$defs/Channel"
-                     },
-                     {
-                        "$ref": "#/$defs/SlapChannel"
                      }
                   ]
                },
@@ -15466,8 +15502,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.2",
-               "default": "2.2.2",
+               "const": "2.2.3",
+               "default": "2.2.3",
                "title": "Schema Version",
                "type": "string"
             },
@@ -20639,7 +20675,8 @@
                      "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
                      "New York University": "#/$defs/_New_York_University",
                      "Other": "#/$defs/_Other",
-                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania"
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   },
                   "propertyName": "name"
                },
@@ -20670,6 +20707,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
                   }
                ],
                "title": "Source"
@@ -21392,6 +21432,17 @@
          ],
          "title": "MyomatrixThread",
          "type": "object"
+      },
+      "NeuronStructure": {
+         "description": "Neuronal structures captured in imaging planes",
+         "enum": [
+            "Soma",
+            "Dendrite",
+            "Axon",
+            "Other"
+         ],
+         "title": "NeuronStructure",
+         "type": "string"
       },
       "NeuropixelsBasestation": {
          "additionalProperties": false,
@@ -23118,10 +23169,7 @@
             },
             "flow_capacity": {
                "default": 100,
-               "enum": [
-                  100,
-                  1000
-               ],
+               "exclusiveMinimum": 0,
                "title": "Flow capacity",
                "type": "integer"
             },
@@ -23810,7 +23858,7 @@
                      "mapping": {
                         "Coupled plane": "#/$defs/CoupledPlane",
                         "Plane": "#/$defs/Plane",
-                        "Slap plane": "#/$defs/SlapPlane"
+                        "Slap2 plane": "#/$defs/Slap2Plane"
                      },
                      "propertyName": "object_type"
                   },
@@ -23822,7 +23870,7 @@
                         "$ref": "#/$defs/CoupledPlane"
                      },
                      {
-                        "$ref": "#/$defs/SlapPlane"
+                        "$ref": "#/$defs/Slap2Plane"
                      }
                   ]
                },
@@ -23905,7 +23953,7 @@
                      "mapping": {
                         "Coupled plane": "#/$defs/CoupledPlane",
                         "Plane": "#/$defs/Plane",
-                        "Slap plane": "#/$defs/SlapPlane"
+                        "Slap2 plane": "#/$defs/Slap2Plane"
                      },
                      "propertyName": "object_type"
                   },
@@ -23917,7 +23965,7 @@
                         "$ref": "#/$defs/CoupledPlane"
                      },
                      {
-                        "$ref": "#/$defs/SlapPlane"
+                        "$ref": "#/$defs/Slap2Plane"
                      }
                   ]
                },
@@ -26450,8 +26498,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.2.3",
-               "default": "2.2.3",
+               "const": "2.2.5",
+               "default": "2.2.5",
                "title": "Schema Version",
                "type": "string"
             },
@@ -29229,188 +29277,22 @@
          "title": "SizeUnit",
          "type": "string"
       },
-      "SlapAcquisitionType": {
-         "description": "Type of slap acquisition",
+      "Slap2AcquisitionType": {
+         "description": "Stimulus modalities",
          "enum": [
-            "Parent",
-            "Branch"
+            "integration",
+            "raster"
          ],
-         "title": "SlapAcquisitionType",
+         "title": "Slap2AcquisitionType",
          "type": "string"
       },
-      "SlapChannel": {
+      "Slap2Plane": {
          "additionalProperties": false,
-         "description": "Configuration of a channel for Slap",
+         "description": "Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)",
          "properties": {
             "object_type": {
-               "const": "Slap channel",
-               "default": "Slap channel",
-               "title": "Object Type",
-               "type": "string"
-            },
-            "channel_name": {
-               "title": "Channel",
-               "type": "string"
-            },
-            "intended_measurement": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "What signal is this channel measuring",
-               "title": "Intended measurement"
-            },
-            "detector": {
-               "$ref": "#/$defs/DetectorConfig",
-               "title": "Detector configuration"
-            },
-            "additional_device_names": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "$ref": "#/$defs/DeviceConfig"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "description": "Mirrors, dichroics, etc",
-               "title": "Additional device names"
-            },
-            "light_sources": {
-               "default": [],
-               "items": {
-                  "discriminator": {
-                     "mapping": {
-                        "Laser config": "#/$defs/LaserConfig",
-                        "Light emitting diode config": "#/$defs/LightEmittingDiodeConfig"
-                     },
-                     "propertyName": "object_type"
-                  },
-                  "oneOf": [
-                     {
-                        "$ref": "#/$defs/LaserConfig"
-                     },
-                     {
-                        "$ref": "#/$defs/LightEmittingDiodeConfig"
-                     }
-                  ]
-               },
-               "title": "Light source configurations",
-               "type": "array"
-            },
-            "variable_power": {
-               "anyOf": [
-                  {
-                     "type": "boolean"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": false,
-               "description": "Set to true when the power varies across Planes -- put the power in the Plane.power field",
-               "title": "Variable power"
-            },
-            "excitation_filters": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "$ref": "#/$defs/DeviceConfig"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Excitation filters"
-            },
-            "emission_filters": {
-               "anyOf": [
-                  {
-                     "items": {
-                        "$ref": "#/$defs/DeviceConfig"
-                     },
-                     "type": "array"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Emission filters"
-            },
-            "emission_wavelength": {
-               "anyOf": [
-                  {
-                     "type": "integer"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Emission wavelength"
-            },
-            "emission_wavelength_unit": {
-               "anyOf": [
-                  {
-                     "$ref": "#/$defs/SizeUnit"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Emission wavelength unit"
-            },
-            "dilation": {
-               "title": "Dilation",
-               "type": "integer"
-            },
-            "dilation_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "title": "Dilation unit"
-            },
-            "description": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Description"
-            }
-         },
-         "required": [
-            "channel_name",
-            "detector",
-            "dilation",
-            "dilation_unit"
-         ],
-         "title": "SlapChannel",
-         "type": "object"
-      },
-      "SlapPlane": {
-         "additionalProperties": false,
-         "description": "Configuration of an imagine plane on a Slap microscope",
-         "properties": {
-            "object_type": {
-               "const": "Slap plane",
-               "default": "Slap plane",
+               "const": "Slap2 plane",
+               "default": "Slap2 plane",
                "title": "Object Type",
                "type": "string"
             },
@@ -29434,52 +29316,74 @@
                "$ref": "#/$defs/BrainStructureModel",
                "title": "Targeted structure"
             },
-            "dmd_dilation_x": {
-               "title": "DMD Dilation X (pixels)",
-               "type": "integer"
+            "slap2_acquisition_type": {
+               "$ref": "#/$defs/Slap2AcquisitionType",
+               "title": "SLAP2 ROI acquisition type"
             },
-            "dmd_dilation_y": {
-               "title": "DMD Dilation Y (pixels)",
-               "type": "integer"
+            "specimen_id": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Unique index identifying the cell being imaged: <subject_id>_###",
+               "title": "Specimen ID"
             },
-            "dilation_unit": {
+            "fov_index": {
+               "anyOf": [
+                  {
+                     "type": "integer"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV",
+               "title": "Field of view index"
+            },
+            "structure_types": {
+               "anyOf": [
+                  {
+                     "items": {
+                        "$ref": "#/$defs/NeuronStructure"
+                     },
+                     "type": "array"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Structure type"
+            },
+            "y_dilations": {
+               "items": {
+                  "type": "integer"
+               },
+               "title": "Unique Y dilations",
+               "type": "array"
+            },
+            "y_dilations_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
                "title": "Dilation unit"
             },
-            "slap_acquisition_type": {
-               "$ref": "#/$defs/SlapAcquisitionType",
-               "title": "Slap experiment type"
+            "frame_rates": {
+               "items": {
+                  "type": "number"
+               },
+               "title": "Unique frame rates",
+               "type": "array"
             },
-            "target_neuron": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Target neuron"
-            },
-            "target_branch": {
-               "anyOf": [
-                  {
-                     "type": "string"
-                  },
-                  {
-                     "type": "null"
-                  }
-               ],
-               "default": null,
-               "title": "Target branch"
-            },
-            "path_to_array_of_frame_rates": {
-               "description": "Relative path from metadata json to file",
-               "format": "uri-reference",
-               "title": "Array of frame rates",
-               "type": "string"
+            "frame_rates_unit": {
+               "$ref": "#/$defs/FrequencyUnit",
+               "default": "hertz",
+               "title": "Frame rate unit"
             }
          },
          "required": [
@@ -29488,12 +29392,11 @@
             "power",
             "power_unit",
             "targeted_structure",
-            "dmd_dilation_x",
-            "dmd_dilation_y",
-            "slap_acquisition_type",
-            "path_to_array_of_frame_rates"
+            "slap2_acquisition_type",
+            "y_dilations",
+            "frame_rates"
          ],
-         "title": "SlapPlane",
+         "title": "Slap2Plane",
          "type": "object"
       },
       "SmallMoleculeProbe": {
@@ -29768,6 +29671,34 @@
             "device_name"
          ],
          "title": "SpeakerConfig",
+         "type": "object"
+      },
+      "SpeciesModel": {
+         "description": "Base model for species",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "title": "Common Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/Registry"
+            },
+            "registry_identifier": {
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "common_name",
+            "registry",
+            "registry_identifier"
+         ],
+         "title": "SpeciesModel",
          "type": "object"
       },
       "SpecimenProcedure": {
@@ -30183,8 +30114,8 @@
                "type": "string"
             },
             "schema_version": {
-               "const": "2.1.2",
-               "default": "2.1.2",
+               "const": "2.2.1",
+               "default": "2.2.1",
                "title": "Schema Version",
                "type": "string"
             },
@@ -31274,7 +31205,8 @@
          "description": "Types of detector triggers",
          "enum": [
             "Internal",
-            "External"
+            "External",
+            "Analog"
          ],
          "title": "TriggerType",
          "type": "string"
@@ -39341,8 +39273,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.3.3",
-         "default": "2.3.3",
+         "const": "2.6.1",
+         "default": "2.6.1",
          "title": "Schema Version",
          "type": "string"
       },

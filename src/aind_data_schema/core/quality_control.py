@@ -1,4 +1,4 @@
-""" Schemas for Quality Metrics """
+"""Schemas for Quality Metrics"""
 
 from datetime import datetime, timezone
 from enum import Enum
