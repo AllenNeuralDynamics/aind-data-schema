@@ -732,6 +732,16 @@
                "title": "Object Type",
                "type": "string"
             },
+            "species": {
+               "$ref": "#/$defs/SpeciesModel",
+               "default": {
+                  "name": "Homo sapiens",
+                  "common_name": "Human",
+                  "registry": "National Center for Biotechnology Information (NCBI)",
+                  "registry_identifier": "NCBI:txid9606"
+               },
+               "title": "Species"
+            },
             "sex": {
                "$ref": "#/$defs/Sex"
             },
@@ -1133,6 +1143,34 @@
          ],
          "title": "Sex",
          "type": "string"
+      },
+      "SpeciesModel": {
+         "description": "Base model for species",
+         "properties": {
+            "name": {
+               "title": "Name",
+               "type": "string"
+            },
+            "common_name": {
+               "title": "Common Name",
+               "type": "string"
+            },
+            "registry": {
+               "$ref": "#/$defs/Registry"
+            },
+            "registry_identifier": {
+               "title": "Registry Identifier",
+               "type": "string"
+            }
+         },
+         "required": [
+            "name",
+            "common_name",
+            "registry",
+            "registry_identifier"
+         ],
+         "title": "SpeciesModel",
+         "type": "object"
       },
       "WellnessReport": {
          "additionalProperties": false,
@@ -6531,8 +6569,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.1.2",
-         "default": "2.1.2",
+         "const": "2.2.0",
+         "default": "2.2.0",
          "title": "Schema Version",
          "type": "string"
       },
