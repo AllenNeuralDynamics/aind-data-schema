@@ -1,4 +1,4 @@
-""" schema for acquisition stimulus """
+"""schema for acquisition stimulus"""
 
 from decimal import Decimal
 from enum import Enum

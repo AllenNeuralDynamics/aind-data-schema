@@ -275,19 +275,15 @@ Description of a Digital Micromirror Device (DMD)
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `max_dmd_patterns` | `int` | Max DMD patterns  |
-| `double_bounce_design` | `bool` | Double bounce design  |
 | `invert_pixel_values` | `bool` | Invert pixel values  |
 | `motion_padding_x` | `int` | Motion padding X (pixels)  |
 | `motion_padding_y` | `int` | Motion padding Y (pixels)  |
 | `padding_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Padding unit  |
-| `pixel_size` | `decimal.Decimal` | DMD Pixel size  |
-| `pixel_size_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Pixel size unit  |
-| `start_phase` | `decimal.Decimal` | DMD Start phase (fraction of cycle)  |
-| `dmd_flip` | `bool` | DMD Flip  |
-| `dmd_curtain` | `List[decimal.Decimal]` | DMD Curtain  |
-| `dmd_curtain_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | dmd_curtain_unit  |
-| `line_shear` | `List[int]` | Line shear (pixels)  |
-| `line_shear_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Line shear unit  |
+| `pixel_size` | `float` | DMD Pixel size (fraction of line scan period)  |
+| `start_phase` | `float` | DMD Start phase (fraction of line scan period)  |
+| `dmd_curtain` | `List[float]` | DMD Curtain (fraction of DMD scan period)  |
+| `line_shear_anchors` | `List[float]` | Line shear anchors at top and bottom of field of view (pixels)  |
+| `line_shear_anchors_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Line shear anchors unit  |
 | `name` | `str` | Device name  |
 | `serial_number` | `Optional[str]` | Serial number  |
 | `manufacturer` | Optional[[Organization](../aind_data_schema_models/organizations.md#organization)] | Manufacturer  |

@@ -1,4 +1,4 @@
-""" Tests for compatibility check utilities """
+"""Tests for compatibility check utilities"""
 
 import unittest
 from datetime import date, datetime, timezone, timedelta

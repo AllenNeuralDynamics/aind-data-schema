@@ -68,10 +68,15 @@ Configuration of detector settings
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `exposure_time` | `float` | Exposure time  |
+| `exposure_time` | `Optional[float]` | Exposure time  |
 | `exposure_time_unit` | [TimeUnit](../aind_data_schema_models/units.md#timeunit) | Exposure time unit  |
 | `trigger_type` | [TriggerType](#triggertype) | Trigger type  |
 | `compression` | Optional[[Code](identifiers.md#code)] | Compression (Compression algorithm used during acquisition) |
+| `crop_offset_x` | `Optional[int]` | Crop offset x (Overrides any value set in the Instrument metadata) |
+| `crop_offset_y` | `Optional[int]` | Crop offset y (Overrides any value set in the Instrument metadata) |
+| `crop_width` | `Optional[int]` | Crop width (Overrides any value set in the Instrument metadata) |
+| `crop_height` | `Optional[int]` | Crop height (Overrides any value set in the Instrument metadata) |
+| `crop_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Crop size unit  |
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
@@ -143,7 +148,7 @@ Configuration of an imaging instrument
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `channels` | List[[Channel](#channel) or [SlapChannel](#slapchannel)] |   |
+| `channels` | `List[typing.Annotated[aind_data_schema.components.configs.Channel, FieldInfo(annotation=NoneType, required=True, discriminator='object_type')]]` |   |
 | `coordinate_system` | Optional[[CoordinateSystem](coordinates.md#coordinatesystem)] | Coordinate system (Required for ImageSPIM objects and when the imaging coordinate system differs from the Acquisition.coordinate_system) |
 | `images` | List[[PlanarImage](#planarimage) or [PlanarImageStack](#planarimagestack) or [ImageSPIM](#imagespim)] | Images  |
 | `sampling_strategy` | Optional[[SamplingStrategy](#samplingstrategy)] | Sampling strategy  |
@@ -312,6 +317,18 @@ Configuration for mouse platforms
 | `device_name` | `str` | Device name (Must match a device defined in the instrument.json) |
 
 
+### NeuronStructure
+
+Neuronal structures captured in imaging planes
+
+| Name | Value |
+|------|-------|
+| `SOMA` | `Soma` |
+| `DENDRITE` | `Dendrite` |
+| `AXON` | `Axon` |
+| `OTHER` | `Other` |
+
+
 ### OlfactometerChannelInfo
 
 Configuration of a channel in an olfactometer
@@ -350,7 +367,7 @@ Description of an N-D image acquired in a specific imaging plane
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `planes` | List[[Plane](#plane) or [CoupledPlane](#coupledplane) or [SlapPlane](#slapplane)] | Imaging planes  |
+| `planes` | List[[Plane](#plane) or [CoupledPlane](#coupledplane) or [Slap2Plane](#slap2plane)] | Imaging planes  |
 | `channel_name` | `str` | Channel name  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dimensions unit  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Image to acquisition transform (Position, rotation, and scale of the image. Note that depth should be in the planes.) |
@@ -368,7 +385,7 @@ Description of a stack of images acquired in a specific imaging plane
 | `depth_end` | `float` | Ending depth  |
 | `depth_step` | `float` | Step size  |
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Depth unit  |
-| `planes` | List[[Plane](#plane) or [CoupledPlane](#coupledplane) or [SlapPlane](#slapplane)] | Imaging planes  |
+| `planes` | List[[Plane](#plane) or [CoupledPlane](#coupledplane) or [Slap2Plane](#slap2plane)] | Imaging planes  |
 | `channel_name` | `str` | Channel name  |
 | `dimensions_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dimensions unit  |
 | `image_to_acquisition_transform` | List[[Translation](coordinates.md#translation) or [Rotation](coordinates.md#rotation) or [Scale](coordinates.md#scale) or [Affine](coordinates.md#affine)] | Image to acquisition transform (Position, rotation, and scale of the image. Note that depth should be in the planes.) |
@@ -449,50 +466,21 @@ Description of an image sampling strategy
 | `frame_rate_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) | Frame rate unit  |
 
 
-### SlapAcquisitionType
+### Slap2Plane
 
-Type of slap acquisition
-
-| Name | Value |
-|------|-------|
-| `PARENT` | `Parent` |
-| `BRANCH` | `Branch` |
-
-
-### SlapChannel
-
-Configuration of a channel for Slap
+Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `dilation` | `int` | Dilation  |
-| `dilation_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dilation unit  |
-| `description` | `Optional[str]` | Description  |
-| `channel_name` | `str` | Channel  |
-| `intended_measurement` | `Optional[str]` | Intended measurement (What signal is this channel measuring) |
-| `detector` | [DetectorConfig](#detectorconfig) | Detector configuration  |
-| `additional_device_names` | Optional[List[[DeviceConfig](#deviceconfig)]] | Additional device names (Mirrors, dichroics, etc) |
-| `light_sources` | List[[LaserConfig](#laserconfig) or [LightEmittingDiodeConfig](#lightemittingdiodeconfig)] | Light source configurations  |
-| `variable_power` | `Optional[bool]` | Variable power (Set to true when the power varies across Planes -- put the power in the Plane.power field) |
-| `excitation_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] | Excitation filters  |
-| `emission_filters` | Optional[List[[DeviceConfig](#deviceconfig)]] | Emission filters  |
-| `emission_wavelength` | `Optional[int]` | Emission wavelength  |
-| `emission_wavelength_unit` | Optional[[SizeUnit](../aind_data_schema_models/units.md#sizeunit)] | Emission wavelength unit  |
-
-
-### SlapPlane
-
-Configuration of an imagine plane on a Slap microscope
-
-| Field | Type | Title (Description) |
-|-------|------|-------------|
-| `dmd_dilation_x` | `int` | DMD Dilation X (pixels)  |
-| `dmd_dilation_y` | `int` | DMD Dilation Y (pixels)  |
-| `dilation_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dilation unit  |
-| `slap_acquisition_type` | [SlapAcquisitionType](#slapacquisitiontype) | Slap experiment type  |
-| `target_neuron` | `Optional[str]` | Target neuron  |
-| `target_branch` | `Optional[str]` | Target branch  |
-| `path_to_array_of_frame_rates` | `AssetPath` | Array of frame rates (Relative path from metadata json to file) |
+| `slap2_acquisition_type` | {Slap2AcquisitionType} | SLAP2 ROI acquisition type  |
+| `specimen_id` | `Optional[str]` | Specimen ID (Unique index identifying the cell being imaged: <subject_id>_###) |
+| `fov_index` | `Optional[int]` | Field of view index (For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV) |
+| `structure_types` | Optional[List[[NeuronStructure](#neuronstructure)]] | Structure type  |
+| `target_name` | `Optional[str]` | Name of imaged target  |
+| `y_dilations` | `List[int]` | Unique Y dilations  |
+| `y_dilations_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dilation unit  |
+| `frame_rates` | `List[float]` | Unique frame rates  |
+| `frame_rates_unit` | [FrequencyUnit](../aind_data_schema_models/units.md#frequencyunit) | Frame rate unit  |
 | `depth` | `float` | Depth  |
 | `depth_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Depth unit  |
 | `power` | `float` | Power  |
@@ -541,6 +529,7 @@ Types of detector triggers
 |------|-------|
 | `INTERNAL` | `Internal` |
 | `EXTERNAL` | `External` |
+| `ANALOG` | `Analog` |
 
 
 ### Valence

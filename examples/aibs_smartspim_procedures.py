@@ -1,4 +1,4 @@
-""" example for specimen procedures """
+"""example for specimen procedures"""
 
 import argparse
 from datetime import date
