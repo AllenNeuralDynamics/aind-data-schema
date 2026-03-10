@@ -65,7 +65,6 @@ DEVICES_REQUIRED = {
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP2.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
@@ -76,7 +75,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.2"]] = Field(default="2.2.2")
+    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")

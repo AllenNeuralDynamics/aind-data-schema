@@ -5086,10 +5086,6 @@
                "title": "Max DMD patterns",
                "type": "integer"
             },
-            "double_bounce_design": {
-               "title": "Double bounce design",
-               "type": "boolean"
-            },
             "invert_pixel_values": {
                "title": "Invert pixel values",
                "type": "boolean"
@@ -5108,80 +5104,43 @@
                "title": "Padding unit"
             },
             "pixel_size": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "DMD Pixel size"
-            },
-            "pixel_size_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "micrometer",
-               "title": "Pixel size unit"
+               "title": "DMD Pixel size (fraction of line scan period)",
+               "type": "number"
             },
             "start_phase": {
-               "anyOf": [
-                  {
-                     "type": "number"
-                  },
-                  {
-                     "type": "string"
-                  }
-               ],
-               "title": "DMD Start phase (fraction of cycle)"
-            },
-            "dmd_flip": {
-               "title": "DMD Flip",
-               "type": "boolean"
+               "title": "DMD Start phase (fraction of line scan period)",
+               "type": "number"
             },
             "dmd_curtain": {
                "items": {
-                  "anyOf": [
-                     {
-                        "type": "number"
-                     },
-                     {
-                        "type": "string"
-                     }
-                  ]
+                  "type": "number"
                },
-               "title": "DMD Curtain",
+               "title": "DMD Curtain (fraction of DMD scan period)",
                "type": "array"
             },
-            "dmd_curtain_unit": {
-               "$ref": "#/$defs/SizeUnit",
-               "default": "pixel",
-               "title": "dmd_curtain_unit"
-            },
-            "line_shear": {
+            "line_shear_anchors": {
                "items": {
-                  "type": "integer"
+                  "type": "number"
                },
-               "title": "Line shear (pixels)",
+               "title": "Line shear anchors at top and bottom of field of view (pixels)",
                "type": "array"
             },
-            "line_shear_unit": {
+            "line_shear_anchors_unit": {
                "$ref": "#/$defs/SizeUnit",
                "default": "pixel",
-               "title": "Line shear unit"
+               "title": "Line shear anchors unit"
             }
          },
          "required": [
             "name",
             "max_dmd_patterns",
-            "double_bounce_design",
             "invert_pixel_values",
             "motion_padding_x",
             "motion_padding_y",
             "pixel_size",
             "start_phase",
-            "dmd_flip",
             "dmd_curtain",
-            "line_shear"
+            "line_shear_anchors"
          ],
          "title": "DigitalMicromirrorDevice",
          "type": "object"
@@ -13713,10 +13672,7 @@
             },
             "flow_capacity": {
                "default": 100,
-               "enum": [
-                  100,
-                  1000
-               ],
+               "exclusiveMinimum": 0,
                "title": "Flow capacity",
                "type": "integer"
             },
@@ -24848,8 +24804,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.2",
-         "default": "2.2.2",
+         "const": "2.2.3",
+         "default": "2.2.3",
          "title": "Schema Version",
          "type": "string"
       },
