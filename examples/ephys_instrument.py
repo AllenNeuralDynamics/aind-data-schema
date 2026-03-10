@@ -204,14 +204,12 @@ probe_camera_4 = Camera(
     chroma="Color",
 )
 
-stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
-
 microscope_1 = CameraAssembly(
     name="Stick_assembly_1",
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_1,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 1", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 microscope_2 = CameraAssembly(
@@ -219,7 +217,7 @@ microscope_2 = CameraAssembly(
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_2,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 2", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 microscope_3 = CameraAssembly(
@@ -227,7 +225,7 @@ microscope_3 = CameraAssembly(
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_3,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 3", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 microscope_4 = CameraAssembly(
@@ -235,7 +233,7 @@ microscope_4 = CameraAssembly(
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_4,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 4", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 probeA = EphysProbe(name="Probe A", serial_number="9291019", probe_model="Neuropixels 1.0")
@@ -258,19 +256,6 @@ ephys_assemblyB = EphysAssembly(
     probes=[probeB],
 )
 
-filt = Filter(
-    name="LP filter",
-    filter_type="Long pass",
-    manufacturer=Organization.THORLABS,
-    cut_on_wavelength=850,
-    wavelength_unit=SizeUnit.NM,
-)
-
-lens = Lens(
-    name="Camera lens",
-    manufacturer=Organization.EDMUND_OPTICS,
-)
-
 face_camera = Camera(
     name="Face Camera",
     detector_type="Camera",
@@ -290,8 +275,14 @@ camassm1 = CameraAssembly(
     camera=face_camera,
     target=CameraTarget.FACE,
     relative_position=[AnatomicalRelative.LEFT],
-    filter=filt,
-    lens=lens,
+    filter=Filter(
+        name="LP filter face",
+        filter_type="Long pass",
+        manufacturer=Organization.THORLABS,
+        cut_on_wavelength=850,
+        wavelength_unit=SizeUnit.NM,
+    ),
+    lens=Lens(name="Camera lens face", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 body_camera = Camera(
@@ -313,8 +304,14 @@ camassm2 = CameraAssembly(
     target=CameraTarget.BODY,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=body_camera,
-    filter=filt,
-    lens=lens,
+    filter=Filter(
+        name="LP filter body",
+        filter_type="Long pass",
+        manufacturer=Organization.THORLABS,
+        cut_on_wavelength=850,
+        wavelength_unit=SizeUnit.NM,
+    ),
+    lens=Lens(name="Camera lens body", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 monitor = Monitor(

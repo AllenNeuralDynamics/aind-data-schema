@@ -824,6 +824,39 @@ class InstrumentTests(unittest.TestCase):
 
         self.assertEqual(len(combined.components), 3)
 
+    def test_validate_unique_component_names(self):
+        """Test that duplicate component names log a warning"""
+        duplicate_component = ephys_instrument.components[0].model_copy(deep=True)
+        inst_with_dup = Instrument.model_construct(
+            instrument_id=ephys_instrument.instrument_id,
+            modification_date=ephys_instrument.modification_date,
+            modalities=ephys_instrument.modalities,
+            coordinate_system=ephys_instrument.coordinate_system,
+            components=list(ephys_instrument.components) + [duplicate_component],
+            connections=ephys_instrument.connections or [],
+            calibrations=ephys_instrument.calibrations,
+        )
+
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            inst_with_dup.validate_unique_component_names()
+            mock_logging.warning.assert_called_once()
+            warning_msg = mock_logging.warning.call_args[0][0]
+            self.assertIn(duplicate_component.name, warning_msg)
+
+        inst_no_dup = Instrument.model_construct(
+            instrument_id=ephys_instrument.instrument_id,
+            modification_date=ephys_instrument.modification_date,
+            modalities=ephys_instrument.modalities,
+            coordinate_system=ephys_instrument.coordinate_system,
+            components=list(ephys_instrument.components),
+            connections=ephys_instrument.connections or [],
+            calibrations=ephys_instrument.calibrations,
+        )
+
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            inst_no_dup.validate_unique_component_names()
+            mock_logging.warning.assert_not_called()
+
 
 class ConnectionTest(unittest.TestCase):
     """Test the Connection schema"""
