@@ -83,10 +83,10 @@ def _validate_time_constraint(field_value, time_validation, start_time, end_time
                 f"Field '{field_name}' with value {field_value} must be between {start_time} and {end_time}"
             )
     elif time_validation == TimeValidation.AFTER:
-        if comparable_field_value <= start_time:
+        if comparable_field_value < start_time:
             raise ValueError(f"Field '{field_name}' with value {field_value} must be after {start_time}")
     elif time_validation == TimeValidation.BEFORE:
-        if comparable_field_value >= end_time:
+        if comparable_field_value > end_time:
             raise ValueError(f"Field '{field_name}' with value {field_value} must be before {end_time}")
 
 

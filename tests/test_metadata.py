@@ -34,7 +34,6 @@ from examples.subject import s as subject
 from examples.exaspim_acquisition import acq as exaspim_acq
 from examples.exaspim_instrument import inst as exaspim_inst
 from examples.exaspim_quality_control import quality_control as exaspim_qc
-from examples.ephys_acquisition import acquisition as ephys_acq
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -954,13 +953,10 @@ class TestMetadata(unittest.TestCase):
         """Tests that modality consistency validator issues correct warnings."""
         import warnings as warnings_module
 
-        dd_ecephys = data_description.model_copy(update={"modalities": [Modality.ECEPHYS]})
         dd_spim = data_description.model_copy(update={"modalities": [Modality.SPIM]})
-        dd_ecephys_spim = data_description.model_copy(update={"modalities": [Modality.ECEPHYS, Modality.SPIM]})
-        dd_ecephys_bv = data_description.model_copy(
-            update={"modalities": [Modality.ECEPHYS, Modality.BEHAVIOR_VIDEOS]}
-        )
-        inst_no_cal = ephys_inst.model_copy(update={"calibrations": None})
+        dd_ecephys = data_description.model_copy(update={"modalities": [Modality.ECEPHYS]})
+        dd_spim_ecephys = data_description.model_copy(update={"modalities": [Modality.SPIM, Modality.ECEPHYS]})
+        inst_no_cal = exaspim_inst.model_copy(update={"calibrations": None})
 
         # Case 1: acquisition modalities match data_description - no warning
         with warnings_module.catch_warnings(record=True) as w:
@@ -969,9 +965,9 @@ class TestMetadata(unittest.TestCase):
                 name="Test",
                 location="loc",
                 subject=subject,
-                data_description=dd_ecephys,
+                data_description=dd_spim,
                 instrument=inst_no_cal,
-                acquisition=ephys_acq,
+                acquisition=exaspim_acq,
             )
         modality_warnings = [str(x.message) for x in w if "Modality mismatch" in str(x.message)]
         self.assertEqual([], modality_warnings)
@@ -982,9 +978,9 @@ class TestMetadata(unittest.TestCase):
                 name="Test",
                 location="loc",
                 subject=subject,
-                data_description=dd_spim,
+                data_description=dd_ecephys,
                 instrument=inst_no_cal,
-                acquisition=ephys_acq,
+                acquisition=exaspim_acq,
             )
         warning_messages = [str(x.message) for x in w.warnings]
         self.assertTrue(any("Modality mismatch" in m for m in warning_messages))
@@ -996,9 +992,9 @@ class TestMetadata(unittest.TestCase):
                 name="Test",
                 location="loc",
                 subject=subject,
-                data_description=dd_ecephys_spim,
+                data_description=dd_spim_ecephys,
                 instrument=inst_no_cal,
-                acquisition=ephys_acq,
+                acquisition=exaspim_acq,
             )
         warning_messages = [str(x.message) for x in w.warnings]
         self.assertTrue(any("Modality mismatch" in m for m in warning_messages))
@@ -1011,8 +1007,8 @@ class TestMetadata(unittest.TestCase):
                 name="Test",
                 location="loc",
                 subject=subject,
-                data_description=dd_ecephys,
-                instrument=ephys_inst,
+                data_description=dd_spim,
+                instrument=exaspim_inst,
             )
         inst_warnings = [str(x.message) for x in w if "superset" in str(x.message)]
         self.assertEqual([], inst_warnings)
@@ -1023,8 +1019,8 @@ class TestMetadata(unittest.TestCase):
                 name="Test",
                 location="loc",
                 subject=subject,
-                data_description=dd_spim,
-                instrument=ephys_inst,
+                data_description=dd_spim_ecephys,
+                instrument=exaspim_inst,
             )
         warning_messages = [str(x.message) for x in w.warnings]
         self.assertTrue(any("superset" in m for m in warning_messages))
