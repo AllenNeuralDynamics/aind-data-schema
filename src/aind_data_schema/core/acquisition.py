@@ -423,7 +423,9 @@ class Acquisition(DataCoreModel):
     manipulations: List[Manipulation] = Field(
         default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
-    subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
+    subject_details: Optional[AcquisitionSubjectDetails] = Field(
+        default=None, title="Subject details", description="Required for in vivo acquisitions."
+    )
 
     @property
     def acquisition_start_time_local(self) -> datetime:
