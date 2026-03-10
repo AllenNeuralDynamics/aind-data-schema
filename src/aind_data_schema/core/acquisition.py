@@ -334,7 +334,7 @@ class Acquisition(DataCoreModel):
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
     specimen_id: Optional[Union[str, List[str]]] = Field(
-        default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
+        default=None, title="Specimen ID", description="Specimen ID(s) used in this acquisition. Required for in vitro imaging modalities."
     )
 
     # Acquisition metadata
