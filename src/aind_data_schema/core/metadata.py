@@ -373,7 +373,9 @@ class Metadata(DataCoreModel):
                 parts.append(f"in acquisition but not data_description: {acq_modalities - dd_modalities}")
             if dd_modalities - acq_modalities:
                 parts.append(f"in data_description but not acquisition: {dd_modalities - acq_modalities}")
-            warnings.warn(f"Modality mismatch between acquisition.data_streams and data_description. {'; '.join(parts)}")
+            warnings.warn(
+                f"Modality mismatch between acquisition.data_streams and data_description. {'; '.join(parts)}"
+            )
 
     def _check_instrument_modalities(self, dd_modalities):
         """Warn if instrument modalities are not a superset of data_description modalities."""
