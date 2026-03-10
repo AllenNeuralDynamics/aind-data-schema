@@ -63,6 +63,28 @@ class AcquisitionTest(unittest.TestCase):
 
         self.assertIn("Expected 123456 to appear in 654321", str(context.exception))
 
+    def test_specimen_id_list_valid(self):
+        """Test that specimen_id accepts a list of strings when all contain subject_id"""
+        acq = exaspim_acquisition.model_copy()
+        acq.specimen_id = ["SP123456_slide1", "SP123456_slide2"]
+        validated = Acquisition.model_validate_json(acq.model_dump_json())
+        self.assertEqual(validated.specimen_id, ["SP123456_slide1", "SP123456_slide2"])
+
+    def test_specimen_id_list_invalid(self):
+        """Test that specimen_id list raises ValueError if any entry does not contain subject_id"""
+        with self.assertRaises(ValueError) as context:
+            acq = exaspim_acquisition.model_copy()
+            acq.specimen_id = ["SP123456_slide1", "SP654321_slide2"]
+            Acquisition.model_validate_json(acq.model_dump_json())
+        self.assertIn("Expected 123456 to appear in SP654321_slide2", str(context.exception))
+
+    def test_specimen_id_none(self):
+        """Test that specimen_id=None is valid for non-specimen modalities"""
+        acq = ephys_acquisition.model_copy()
+        acq.specimen_id = None
+        validated = Acquisition.model_validate_json(acq.model_dump_json())
+        self.assertIsNone(validated.specimen_id)
+
     def test_specimen_required(self):
         """Test that specimen ID is required for in vitro imaging modalities"""
         with self.assertRaises(ValueError):

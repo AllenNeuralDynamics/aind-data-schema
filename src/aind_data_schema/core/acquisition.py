@@ -329,11 +329,11 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.4.0"]] = Field(default="2.4.0")
+    schema_version: SkipValidation[Literal["2.5.0"]] = Field(default="2.5.0")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
-    specimen_id: Optional[str] = Field(
+    specimen_id: Optional[Union[str, List[str]]] = Field(
         default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
     )
 
@@ -452,8 +452,10 @@ class Acquisition(DataCoreModel):
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
-            if not subject_specimen_id_compatibility(self.subject_id, self.specimen_id):
-                raise ValueError(f"Expected {self.subject_id} to appear in {self.specimen_id}")
+            ids = self.specimen_id if isinstance(self.specimen_id, list) else [self.specimen_id]
+            for sid in ids:
+                if not subject_specimen_id_compatibility(self.subject_id, sid):
+                    raise ValueError(f"Expected {self.subject_id} to appear in {sid}")
 
         return self
 
