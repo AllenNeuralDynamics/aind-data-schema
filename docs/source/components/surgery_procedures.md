@@ -147,7 +147,7 @@ Description of a perfusion procedure that creates a specimen
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
-| `output_specimen_ids` | `List[str]` | Specimen ID (IDs of specimens resulting from this procedure.) |
+| `output_specimen_ids` | `List[str]` | Specimen ID (IDs of specimens resulting from this procedure. Single IDs should use the {subject_id}, multiple IDs should use a suffix format such as {subject_id}_###) |
 
 
 ### ProbeImplant
