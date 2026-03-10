@@ -14,7 +14,7 @@ The following consistency rules are enforced:
 
 Construct it as follows:
 
-```{python}
+```python
 from aind_data_schema.utils.compatibility_check import InstrumentAcquisitionCompatibility
 
 # Construct your Instrument and Acquisition objects
