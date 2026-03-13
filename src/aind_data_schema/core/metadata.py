@@ -360,6 +360,56 @@ class Metadata(DataCoreModel):
 
         return self
 
+    def _check_acquisition_modalities(self, dd_modalities):
+        """Warn if acquisition.data_streams modalities do not exactly match data_description modalities."""
+        if not (self.acquisition and self.acquisition.data_streams):
+            return
+        acq_modalities = set()
+        for data_stream in self.acquisition.data_streams:
+            acq_modalities.update(data_stream.modalities)
+        if acq_modalities != dd_modalities:
+            parts = []
+            if acq_modalities - dd_modalities:
+                parts.append(f"in acquisition but not data_description: {acq_modalities - dd_modalities}")
+            if dd_modalities - acq_modalities:
+                parts.append(f"in data_description but not acquisition: {dd_modalities - acq_modalities}")
+            warnings.warn(
+                f"Modality mismatch between acquisition.data_streams and data_description. {'; '.join(parts)}"
+            )
+
+    def _check_instrument_modalities(self, dd_modalities):
+        """Warn if instrument modalities are not a superset of data_description modalities."""
+        if not (self.instrument and hasattr(self.instrument, "modalities")):
+            return
+        missing = dd_modalities - set(self.instrument.modalities)
+        if missing:
+            warnings.warn(
+                f"Instrument modalities are not a superset of data_description modalities. "
+                f"Missing from instrument: {missing}"
+            )
+
+    def _check_quality_control_modalities(self, dd_modalities):
+        """Warn if any QualityControl metric modalities are not present in data_description modalities."""
+        if not (self.quality_control and hasattr(self.quality_control, "modalities")):
+            return
+        extra = set(self.quality_control.modalities) - dd_modalities
+        if extra:
+            warnings.warn(
+                f"QualityControl metric modalities {extra} are not present"
+                f" in data_description modalities {dd_modalities}"
+            )
+
+    @model_validator(mode="after")
+    def validate_modality_consistency(self):
+        """Validate that modalities are consistent across core files relative to data_description"""
+        if not self.data_description or not hasattr(self.data_description, "modalities"):
+            return self
+        dd_modalities = set(self.data_description.modalities)
+        self._check_acquisition_modalities(dd_modalities)
+        self._check_instrument_modalities(dd_modalities)
+        self._check_quality_control_modalities(dd_modalities)
+        return self
+
     @model_validator(mode="after")
     def validate_data_description_name_time_consistency(self):
         """Validate that the creation_time from data_description.name is on or after midnight

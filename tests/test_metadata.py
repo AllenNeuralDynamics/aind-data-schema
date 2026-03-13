@@ -31,6 +31,9 @@ from aind_data_schema.core.acquisition import StimulusEpoch
 
 from examples.data_description import d as data_description
 from examples.subject import s as subject
+from examples.exaspim_acquisition import acq as exaspim_acq
+from examples.exaspim_instrument import inst as exaspim_inst
+from examples.exaspim_quality_control import quality_control as exaspim_qc
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -945,6 +948,121 @@ class TestMetadata(unittest.TestCase):
                 acquisition=acquisition_missing_both,
             )
         self.assertIn("Acquisition.subject_details are required for in vivo experiments", str(context.exception))
+
+    def test_validate_modality_consistency(self):
+        """Tests that modality consistency validator issues correct warnings."""
+        import warnings as warnings_module
+
+        dd_spim = data_description.model_copy(update={"modalities": [Modality.SPIM]})
+        dd_ecephys = data_description.model_copy(update={"modalities": [Modality.ECEPHYS]})
+        dd_spim_ecephys = data_description.model_copy(update={"modalities": [Modality.SPIM, Modality.ECEPHYS]})
+        inst_no_cal = exaspim_inst.model_copy(update={"calibrations": None})
+
+        # Case 1: acquisition modalities match data_description - no warning
+        with warnings_module.catch_warnings(record=True) as w:
+            warnings_module.simplefilter("always")
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_spim,
+                instrument=inst_no_cal,
+                acquisition=exaspim_acq,
+            )
+        modality_warnings = [str(x.message) for x in w if "Modality mismatch" in str(x.message)]
+        self.assertEqual([], modality_warnings)
+
+        # Case 2: acquisition has modality not in data_description - warns
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_ecephys,
+                instrument=inst_no_cal,
+                acquisition=exaspim_acq,
+            )
+        warning_messages = [str(x.message) for x in w.warnings]
+        self.assertTrue(any("Modality mismatch" in m for m in warning_messages))
+        self.assertTrue(any("in acquisition but not data_description" in m for m in warning_messages))
+
+        # Case 3: data_description has modality not in acquisition - warns
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_spim_ecephys,
+                instrument=inst_no_cal,
+                acquisition=exaspim_acq,
+            )
+        warning_messages = [str(x.message) for x in w.warnings]
+        self.assertTrue(any("Modality mismatch" in m for m in warning_messages))
+        self.assertTrue(any("in data_description but not acquisition" in m for m in warning_messages))
+
+        # Case 4: instrument modalities are a superset of data_description - no warning
+        with warnings_module.catch_warnings(record=True) as w:
+            warnings_module.simplefilter("always")
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_spim,
+                instrument=exaspim_inst,
+            )
+        inst_warnings = [str(x.message) for x in w if "superset" in str(x.message)]
+        self.assertEqual([], inst_warnings)
+
+        # Case 5: instrument modalities missing a modality from data_description - warns
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_spim_ecephys,
+                instrument=exaspim_inst,
+            )
+        warning_messages = [str(x.message) for x in w.warnings]
+        self.assertTrue(any("superset" in m for m in warning_messages))
+
+        # Case 6: QC modalities are a subset of data_description - no warning
+        with warnings_module.catch_warnings(record=True) as w:
+            warnings_module.simplefilter("always")
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_spim,
+                quality_control=exaspim_qc,
+            )
+        qc_warnings = [str(x.message) for x in w if "QualityControl" in str(x.message)]
+        self.assertEqual([], qc_warnings)
+
+        # Case 7: QC has modality not in data_description - warns
+        with self.assertWarns(UserWarning) as w:
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+                data_description=dd_ecephys,
+                quality_control=exaspim_qc,
+            )
+        warning_messages = [str(x.message) for x in w.warnings]
+        self.assertTrue(any("QualityControl" in m for m in warning_messages))
+
+        # Case 8: no data_description - no modality warnings
+        with warnings_module.catch_warnings(record=True) as w:
+            warnings_module.simplefilter("always")
+            Metadata(
+                name="Test",
+                location="loc",
+                subject=subject,
+            )
+        modality_warnings = [
+            str(x.message) for x in w
+            if any(kw in str(x.message) for kw in ["Modality mismatch", "superset", "QualityControl metric"])
+        ]
+        self.assertEqual([], modality_warnings)
 
 
 if __name__ == "__main__":
