@@ -95,7 +95,6 @@ Detector type name
 |------|-------|
 | `CAMERA` | `Camera` |
 | `PMT` | `Photomultiplier Tube` |
-| `SiPM` | `Silicon Photomultiplier` |
 | `OTHER` | `Other` |
 
 

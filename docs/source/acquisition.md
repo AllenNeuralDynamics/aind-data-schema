@@ -19,9 +19,9 @@ Because the start and stop times are independent for data streams and stimulus e
 
 ## Uniqueness
 
-You can uniquely identify acquisition sessions (and therefore a specific data asset) by their acquisition datetime (`Acquisition.acquisition_end_time`). In addition, the `Acquisition.acquisition_type` is an open `str` field where you can put conceptual information that groups similar acquisitions together. This should not be completely redundant with project names, modalities, stimulus names, or any other fields in the metadata.
+You can uniquely identify acquisition sessions (and therefore a specific data asset) by their acquisition datetime (`Acquisition.acquisition_start_time`). In addition, the `Acquisition.acquisition_type` is an open `str` field where you can put conceptual information that groups similar acquisitions together. This should not be completely redundant with project names, modalities, stimulus names, or any other fields in the metadata.
 
-For example, in the `"Brain Computer Interface"` project name, good acquisition types would be strings like: `"BCI: Single neuron stim"` and `"BCI: Group neuron stim"`. These phrases clearly identify what part of a project these acquisitions belong to, without being overly redundant with controlled fields in the metadata.
+For example, in the `"Brain Computer Interface"` project name, good acquisition types would be strings like: `"Single neuron stim"` and `"Group neuron stim"`. These phrases clearly identify what part of a project these acquisitions belong to, without being overly redundant with controlled fields in the metadata.
 
 ## Stimulus parameters
 
@@ -78,7 +78,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `subject_id` | `str` | Subject ID (Unique identifier for the subject) |
-| `specimen_id` | `Optional[str]` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
+| `specimen_id` | `str or List[str] or NoneType` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
 | `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time (During validation, timezone information will be moved into the acquisition_start_tz field.) |
 | `acquisition_start_tz` | `int or pydantic_extra_types.timezone_name.TimeZoneName or NoneType` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time. Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, or an integer UTC offset in hours for fixed-offset timezones. Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone.) |
 | `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |
@@ -94,7 +94,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | `data_streams` | List[[DataStream](acquisition.md#datastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.) |
 | `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | Stimulus (A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.) |
 | `manipulations` | List[[Manipulation](acquisition.md#manipulation)] | Manipulations (Procedures performed during the acquisition.) |
-| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details  |
+| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details (Required for in vivo acquisitions.) |
 
 
 ## Model definitions

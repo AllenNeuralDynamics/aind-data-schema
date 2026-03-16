@@ -199,6 +199,20 @@ class Instrument(DataCoreModel):
         return self
 
     @model_validator(mode="after")
+    def validate_unique_component_names(self):
+        """Warn if any component names are duplicated"""
+        names = self.get_component_names()
+        if len(set(names)) != len(names):
+            seen = set()
+            duplicates = set()
+            for name in names:
+                if name in seen:
+                    duplicates.add(name)
+                seen.add(name)
+            logging.warning(f"Duplicate component names found: {sorted(duplicates)}")
+        return self
+
+    @model_validator(mode="after")
     def validate_connections(self):
         """validate that all connections map between devices that actually exist"""
         device_names = self.get_component_names()
