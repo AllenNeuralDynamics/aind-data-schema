@@ -62,10 +62,11 @@ SUBJECTS = {
         # Processed output file location on S3.
         # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
         "output_path": "s3://aind-private-data-prod-o5171v/780345_2025-02-20_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
-        # TODO: Replace with actual specimen IDs from BARseq procedures (PR #1763).
-        # Slides imaged (from folder names at BARSEQ_RAW_DATA_PATH):
-        # slide1, slide1a, slide1a_cont2, slide1b, slide2, slide4, slide5, slide6, slide7, slide8, slide9
-        "specimen_id": "780345_PLACEHOLDER_SPECIMEN_ID",
+        # BARseq LC section IDs from PR #1763 (procedures_sectioning.py, generate_barseq_lc_780345).
+        # Format: {subject_id}_bar{n:03d}, 44 sections covering CCF plates 99-112 (20um thick).
+        # NOTE: Naming convention (bar vs. slice) and whether to list all IDs here is an open question
+        # raised with Dan Birman and Polina Kosillo (2026-03-20 Teams, MapSeq/BARseq metadata channel).
+        "specimen_id": [f"780345_bar{i:03d}" for i in range(1, 45)],
     },
     "780346": {
         # Experimenters from experiment_detail.txt files in raw data slide folders.
@@ -84,10 +85,11 @@ SUBJECTS = {
         # Processed output file location on S3.
         # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
         "output_path": "s3://aind-private-data-prod-o5171v/780346_2025-06-11_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
-        # TODO: Replace with actual specimen IDs from BARseq procedures (PR #1763).
-        # Slides imaged (from folder names at BARSEQ_RAW_DATA_PATH):
-        # slide3, slide5, slide5_cont, slide9, slide10, slide11, slide12, slide13, slide14, slide15
-        "specimen_id": "780346_PLACEHOLDER_SPECIMEN_ID",
+        # BARseq LC section IDs from PR #1763 (procedures_sectioning.py, generate_barseq_lc_780346).
+        # Format: {subject_id}_bar{n:03d}, 51 sections covering CCF plates 99-112 (20um thick).
+        # NOTE: Naming convention (bar vs. slice) and whether to list all IDs here is an open question
+        # raised with Dan Birman and Polina Kosillo (2026-03-20 Teams, MapSeq/BARseq metadata channel).
+        "specimen_id": [f"780346_bar{i:03d}" for i in range(1, 52)],
     },
 }
 
