@@ -14,7 +14,7 @@ processed output is a single cell x gene x barcode table registered to CCFv3,
 stored on S3.
 
 Timestamps are derived from folder names and experiment_detail.txt files in
-the raw data at smb://allen/aind/stage/barseq/. Per Polina Kosillo, the folder
+the raw data at /allen/aind/stage/barseq/. Per Polina Kosillo, the folder
 date is the day the sequencing run started.
 
 Specimen IDs follow the convention {subject_id}_bar{n:03d}, matching the
@@ -30,7 +30,7 @@ from aind_data_schema.core.acquisition import Acquisition, DataStream
 
 # Raw data location on allen network share.
 # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
-BARSEQ_RAW_DATA_PATH = "smb://allen/aind/stage/barseq/"
+BARSEQ_RAW_DATA_PATH = "/allen/aind/stage/barseq/"
 
 # Source: MAPseq-BARseq methods_forSciComp.pdf, header section
 BARSEQ_PROTOCOL_ID = ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"]
@@ -51,9 +51,9 @@ ACQUISITION_NOTE = (
 SUBJECTS = {
     "780345": {
         # Experimenters from experiment_detail.txt files in raw data slide folders.
-        # Source: smb://allen/aind/stage/barseq/20250303_780345_slide7_maxprojection/experiment_detail.txt
-        #         smb://allen/aind/stage/barseq/20250305_780345_slide8_maxprojection/experiment_detail.txt
-        #         smb://allen/aind/stage/barseq/20250317_780345_slide9_maxprojection/experiment_detail.txt
+        # Source: /allen/aind/stage/barseq/20250303_780345_slide7_maxprojection/experiment_detail.txt
+        #         /allen/aind/stage/barseq/20250305_780345_slide8_maxprojection/experiment_detail.txt
+        #         /allen/aind/stage/barseq/20250317_780345_slide9_maxprojection/experiment_detail.txt
         "experimenters": ["Mara Rue", "Shannon Khem", "Tracy"],
         # Start: first folder date 20250224_780345_slide4_maxprojection (no experiment_detail.txt).
         # End: last folder date 20250321_780345_slide1a_maxprojection (no experiment_detail.txt).
@@ -69,20 +69,18 @@ SUBJECTS = {
         "output_path": "s3://aind-private-data-prod-o5171v/780345_2025-02-20_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
         # BARseq LC section IDs from PR #1763 (procedures_sectioning.py, generate_barseq_lc_780345).
         # Format: {subject_id}_bar{n:03d}, 44 sections covering CCF plates 99-112 (20um thick).
-        # NOTE: Naming convention (bar vs. slice) and whether to list all IDs here is an open question
-        # raised with Dan Birman and Polina Kosillo (2026-03-20 Teams, MapSeq/BARseq metadata channel).
         "specimen_id": [f"780345_bar{i:03d}" for i in range(1, 45)],
     },
     "780346": {
         # Experimenters from experiment_detail.txt files in raw data slide folders.
-        # Source: smb://allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
-        #         smb://allen/aind/stage/barseq/20250623_780346_slide9_maxprojection/experiment_detail.txt
-        #         smb://allen/aind/stage/barseq/20250703_780346_slide15_maxprojection/experiment_detail.txt
-        #         smb://allen/aind/stage/barseq/20250707_780346_slide13_maxprojection/experiment_detail.txt
-        #         smb://allen/aind/stage/barseq/20250709_780346_slide14_maxprojection/experiment_detail.txt
+        # Source: /allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
+        #         /allen/aind/stage/barseq/20250623_780346_slide9_maxprojection/experiment_detail.txt
+        #         /allen/aind/stage/barseq/20250703_780346_slide15_maxprojection/experiment_detail.txt
+        #         /allen/aind/stage/barseq/20250707_780346_slide13_maxprojection/experiment_detail.txt
+        #         /allen/aind/stage/barseq/20250709_780346_slide14_maxprojection/experiment_detail.txt
         "experimenters": ["Mara Rue", "Shannon Khem"],
         # Start: confirmed from experiment_detail.txt in first slide folder.
-        # Source: smb://allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
+        # Source: /allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
         # End: last folder date 20250711_780346_slide3_maxprojection (no experiment_detail.txt).
         # End time is end of day (conservative estimate).
         "acquisition_start": datetime(2025, 6, 13, 16, 39, 31, tzinfo=timezone.utc),
@@ -92,8 +90,6 @@ SUBJECTS = {
         "output_path": "s3://aind-private-data-prod-o5171v/780346_2025-06-11_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
         # BARseq LC section IDs from PR #1763 (procedures_sectioning.py, generate_barseq_lc_780346).
         # Format: {subject_id}_bar{n:03d}, 51 sections covering CCF plates 99-112 (20um thick).
-        # NOTE: Naming convention (bar vs. slice) and whether to list all IDs here is an open question
-        # raised with Dan Birman and Polina Kosillo (2026-03-20 Teams, MapSeq/BARseq metadata channel).
         "specimen_id": [f"780346_bar{i:03d}" for i in range(1, 52)],
     },
 }
