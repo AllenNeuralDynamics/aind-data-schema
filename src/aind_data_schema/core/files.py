@@ -1,6 +1,8 @@
 import fnmatch
+import json
+import re
 from pathlib import Path
-from typing import List, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import Field, SkipValidation
 
@@ -12,9 +14,27 @@ class FileSet(DataModel):
 
     name: str = Field(..., title="Name")
     description: Optional[str] = Field(default=None, title="Description")
-    encoding_format: Optional[str] = Field(default=None, title="Encoding format (MIME type)")
+    encoding_format: str = Field(..., title="Encoding format (MIME type)")
     includes: Union[str, List[str]] = Field(..., title="Glob pattern(s) for included files")
     excludes: Optional[Union[str, List[str]]] = Field(default=None, title="Glob pattern(s) for excluded files")
+
+    def _croissant_id(self) -> str:
+        return re.sub(r"[^a-z0-9]+", "-", self.name.lower()).strip("-")
+
+    def to_croissant(self) -> Dict[str, Any]:
+        entry: Dict[str, Any] = {
+            "@type": "cr:FileSet",
+            "@id": self._croissant_id(),
+            "name": self.name,
+            "includes": self.includes,
+        }
+        if self.description:
+            entry["description"] = self.description
+        if self.encoding_format:
+            entry["encodingFormat"] = self.encoding_format
+        if self.excludes:
+            entry["excludes"] = self.excludes
+        return entry
 
 
 class Files(DataCoreModel):
@@ -47,6 +67,66 @@ class Files(DataCoreModel):
                     )
         return errors
 
+    def to_croissant(self) -> Dict[str, Any]:
+        """Convert this Files instance to a Croissant JSON-LD dict."""
+        return {
+            "@context": {
+                "@language": "en",
+                "@vocab": "https://schema.org/",
+                "sc": "https://schema.org/",
+                "cr": "http://mlcommons.org/croissant/",
+                "rai": "http://mlcommons.org/croissant/RAI/",
+                "dct": "http://purl.org/dc/terms/",
+                "citeAs": "cr:citeAs",
+                "column": "cr:column",
+                "conformsTo": "dct:conformsTo",
+                "data": {"@id": "cr:data", "@type": "@json"},
+                "dataType": {"@id": "cr:dataType", "@type": "@vocab"},
+                "examples": {"@id": "cr:examples", "@type": "@json"},
+                "extract": "cr:extract",
+                "field": "cr:field",
+                "fileProperty": "cr:fileProperty",
+                "fileObject": "cr:fileObject",
+                "fileSet": "cr:fileSet",
+                "format": "cr:format",
+                "includes": "cr:includes",
+                "excludes": "cr:excludes",
+                "isLiveDataset": "cr:isLiveDataset",
+                "jsonPath": "cr:jsonPath",
+                "key": "cr:key",
+                "md5": "cr:md5",
+                "parentField": "cr:parentField",
+                "path": "cr:path",
+                "recordSet": "cr:recordSet",
+                "references": "cr:references",
+                "regex": "cr:regex",
+                "repeated": "cr:repeated",
+                "replace": "cr:replace",
+                "samplingRate": "cr:samplingRate",
+                "separator": "cr:separator",
+                "source": "cr:source",
+                "subField": "cr:subField",
+                "transform": "cr:transform",
+            },
+            "@type": "sc:Dataset",
+            "conformsTo": "http://mlcommons.org/croissant/1.0",
+            "name": self.default_filename().replace(".json", ""),
+            "version": self.schema_version,
+            "distribution": [fs.to_croissant() for fs in self.file_sets],
+        }
+
+    def to_croissant_json(self) -> str:
+        """Serialize the Croissant JSON-LD to a string."""
+        return json.dumps(self.to_croissant(), indent=3)
+
+    def write_croissant_file(self, output_directory: Path) -> Path:
+        """Write a Croissant JSON-LD file alongside the data."""
+        output_directory = Path(output_directory)
+        output_directory.mkdir(parents=True, exist_ok=True)
+        out = output_directory / "files_croissant.json"
+        out.write_text(self.to_croissant_json())
+        return out
+
 
 class BehaviorVideoFiles(Files):
     """File organization for AIND behavior videos.
@@ -71,6 +151,7 @@ class BehaviorVideoFiles(Files):
                 FileSet(
                     name="Video Files",
                     description="Per-camera video files",
+                    encoding_format="video/mp4",
                     includes="*/video.*",
                 ),
             ],

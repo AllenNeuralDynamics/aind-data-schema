@@ -27,6 +27,7 @@ dev = [
     'dictdiffer',
     'semver',
     'argparse',
+    'mlcroissant',
 ]
 
 linters = [
