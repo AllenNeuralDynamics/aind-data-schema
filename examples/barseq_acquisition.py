@@ -1,19 +1,24 @@
-"""BARseq acquisition metadata (black-box approach)
+"""BARseq acquisition metadata for subjects 780345 and 780346.
 
-Creates one acquisition.json per subject for BARseq subjects 780345 and 780346.
+BARseq (Barcoded Anatomy Resolved by Sequencing) is a multi-day imaging
+protocol in which brain sections are sequentially imaged across gene sequencing
+cycles, barcode sequencing cycles, and a hybridization cycle. Each cycle images
+all sections on the Nikon Ti2-E "Dogwood" spinning disk confocal at the Allen
+Institute.
 
-This uses a "black-box" approach: each acquisition is described by its inputs
-(brain sections) and approximate timeframe without attempting to capture the
-detailed multi-day, multi-slide imaging process. This decision was made because
-fully describing the acquisition would require more coordination with the BARseq
-team than is currently feasible.
+This script produces one acquisition.json per subject. Because the full
+acquisition spans multiple slides imaged over multiple days, and the detailed
+per-slide parameters are not fully documented, the acquisition is described at
+a high level: inputs (brain sections), timeframe, and experimenters. The
+processed output is a single cell x gene x barcode table registered to CCFv3,
+stored on S3.
 
-For the detailed (abandoned) approach, see PR #1690:
-https://github.com/AllenNeuralDynamics/aind-data-schema/pull/1690
+Timestamps are derived from folder names and experiment_detail.txt files in
+the raw data at smb://allen/aind/stage/barseq/. Per Polina Kosillo, the folder
+date is the day the sequencing run started.
 
-Remaining placeholders:
-- specimen_id: Pending from BARseq procedures (see PR #1763:
-  https://github.com/AllenNeuralDynamics/aind-data-schema/pull/1763)
+Specimen IDs follow the convention {subject_id}_bar{n:03d}, matching the
+section IDs defined in the companion procedures metadata.
 """
 
 import argparse
