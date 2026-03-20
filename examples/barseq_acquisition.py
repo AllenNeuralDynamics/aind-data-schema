@@ -55,8 +55,13 @@ SUBJECTS = {
         # Per Polina Kosillo (2026-02-16 Teams): "Dates on the folder are the day the sequencing run was started."
         # Start time is beginning of day (no experiment_detail.txt for first slide).
         # End time is end of day (conservative estimate, no experiment_detail.txt for last slide).
+        # NOTE: The S3 asset date (2025-02-20) is 4 days before the first imaging folder date (2025-02-24).
+        # This discrepancy is unresolved — it may reflect when the asset was registered or when library prep began.
         "acquisition_start": datetime(2025, 2, 24, 0, 0, 0, tzinfo=timezone.utc),
         "acquisition_end": datetime(2025, 3, 21, 23, 59, 59, tzinfo=timezone.utc),
+        # Processed output file location on S3.
+        # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
+        "output_path": "s3://aind-private-data-prod-o5171v/780345_2025-02-20_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
         # TODO: Replace with actual specimen IDs from BARseq procedures (PR #1763).
         # Slides imaged (from folder names at BARSEQ_RAW_DATA_PATH):
         # slide1, slide1a, slide1a_cont2, slide1b, slide2, slide4, slide5, slide6, slide7, slide8, slide9
@@ -76,6 +81,9 @@ SUBJECTS = {
         # End time is end of day (conservative estimate).
         "acquisition_start": datetime(2025, 6, 13, 16, 39, 31, tzinfo=timezone.utc),
         "acquisition_end": datetime(2025, 7, 11, 23, 59, 59, tzinfo=timezone.utc),
+        # Processed output file location on S3.
+        # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
+        "output_path": "s3://aind-private-data-prod-o5171v/780346_2025-06-11_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
         # TODO: Replace with actual specimen IDs from BARseq procedures (PR #1763).
         # Slides imaged (from folder names at BARSEQ_RAW_DATA_PATH):
         # slide3, slide5, slide5_cont, slide9, slide10, slide11, slide12, slide13, slide14, slide15
@@ -88,6 +96,8 @@ def build_acquisition(subject_id: str) -> Acquisition:
     """Build a black-box BARseq acquisition for a given subject."""
     params = SUBJECTS[subject_id]
 
+    notes = ACQUISITION_NOTE + f" Processed output: {params['output_path']}."
+
     return Acquisition(
         subject_id=subject_id,
         specimen_id=params["specimen_id"],
@@ -97,7 +107,7 @@ def build_acquisition(subject_id: str) -> Acquisition:
         experimenters=params["experimenters"],
         protocol_id=BARSEQ_PROTOCOL_ID,
         acquisition_type="BarcodeSequencing",
-        notes=ACQUISITION_NOTE,
+        notes=notes,
         data_streams=[
             DataStream(
                 stream_start_time=params["acquisition_start"],
