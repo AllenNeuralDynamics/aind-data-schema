@@ -5,7 +5,7 @@ from typing import Literal, Optional
 from pydantic import Field, SkipValidation
 
 from aind_data_schema.base import DataCoreModel, Discriminated
-from aind_data_schema.components.subjects import HumanSubject, MouseSubject, CalibrationObject
+from aind_data_schema.components.subjects import HumanSubject, MouseSubject, NonHumanPrimateSubject, CalibrationObject
 
 
 class Subject(DataCoreModel):
@@ -20,7 +20,7 @@ class Subject(DataCoreModel):
         title="Subject ID",
     )
 
-    subject_details: Discriminated[MouseSubject | HumanSubject | CalibrationObject] = Field(
+    subject_details: Discriminated[MouseSubject | HumanSubject | NonHumanPrimateSubject | CalibrationObject] = Field(
         ..., title="Subject Details"
     )
 
