@@ -82,7 +82,9 @@ class Procedures(DataCoreModel):
         if self.specimen_procedures:
             subject_id = self.subject_id
             specimen_ids = [spec_proc.specimen_id for spec_proc in self.specimen_procedures]
-            specimen_ids = list(itertools.chain.from_iterable(specimen_ids))
+            specimen_ids = list(itertools.chain.from_iterable(
+                itertools.repeat(spec_id, 1) if isinstance(spec_id, str) else spec_id
+                for spec_id in specimen_ids))
 
             if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
