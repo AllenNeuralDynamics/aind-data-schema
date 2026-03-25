@@ -53,9 +53,7 @@
    "acquisition_start_tz": "America/Los_Angeles",
    "acquisition_end_time": "2025-03-21T23:59:59-07:00",
    "experimenters": [
-      "Mara Rue",
-      "Shannon Khem",
-      "Tracy"
+      "Barseq team"
    ],
    "protocol_id": [
       "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"

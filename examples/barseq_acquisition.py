@@ -51,11 +51,8 @@ ACQUISITION_NOTE = (
 
 SUBJECTS = {
     "780345": {
-        # Experimenters from experiment_detail.txt files in raw data slide folders.
-        # Source: /allen/aind/stage/barseq/20250303_780345_slide7_maxprojection/experiment_detail.txt
-        #         /allen/aind/stage/barseq/20250305_780345_slide8_maxprojection/experiment_detail.txt
-        #         /allen/aind/stage/barseq/20250317_780345_slide9_maxprojection/experiment_detail.txt
-        "experimenters": ["Mara Rue", "Shannon Khem", "Tracy"],
+        # Experimenters will simply be "Barseq team"
+        "experimenters": ["Barseq team"],
         # Start: first folder date 20250224_780345_slide4_maxprojection (no experiment_detail.txt).
         # End: last folder date 20250321_780345_slide1a_maxprojection (no experiment_detail.txt).
         # Per Polina Kosillo (2026-02-16 Teams): "Dates on the folder are the day the sequencing run was started."
@@ -79,7 +76,7 @@ SUBJECTS = {
         #         /allen/aind/stage/barseq/20250703_780346_slide15_maxprojection/experiment_detail.txt
         #         /allen/aind/stage/barseq/20250707_780346_slide13_maxprojection/experiment_detail.txt
         #         /allen/aind/stage/barseq/20250709_780346_slide14_maxprojection/experiment_detail.txt
-        "experimenters": ["Mara Rue", "Shannon Khem"],
+        "experimenters": ["Barseq team"],
         # Start: confirmed from experiment_detail.txt in first slide folder.
         # Source: /allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
         # End: last folder date 20250711_780346_slide3_maxprojection (no experiment_detail.txt).
