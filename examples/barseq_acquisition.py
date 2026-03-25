@@ -22,7 +22,8 @@ section IDs defined in the companion procedures metadata.
 """
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 
@@ -62,8 +63,8 @@ SUBJECTS = {
         # End time is end of day (conservative estimate, no experiment_detail.txt for last slide).
         # NOTE: The S3 asset date (2025-02-20) is 4 days before the first imaging folder date (2025-02-24).
         # This discrepancy is unresolved — it may reflect when the asset was registered or when library prep began.
-        "acquisition_start": datetime(2025, 2, 24, 0, 0, 0, tzinfo=timezone.utc),
-        "acquisition_end": datetime(2025, 3, 21, 23, 59, 59, tzinfo=timezone.utc),
+        "acquisition_start": datetime(2025, 2, 24, 0, 0, 0, tzinfo=ZoneInfo("America/Los_Angeles")),
+        "acquisition_end": datetime(2025, 3, 21, 23, 59, 59, tzinfo=ZoneInfo("America/Los_Angeles")),
         # Processed output file location on S3.
         # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
         "output_path": "s3://aind-private-data-prod-o5171v/780345_2025-02-20_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
@@ -83,8 +84,8 @@ SUBJECTS = {
         # Source: /allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
         # End: last folder date 20250711_780346_slide3_maxprojection (no experiment_detail.txt).
         # End time is end of day (conservative estimate).
-        "acquisition_start": datetime(2025, 6, 13, 16, 39, 31, tzinfo=timezone.utc),
-        "acquisition_end": datetime(2025, 7, 11, 23, 59, 59, tzinfo=timezone.utc),
+        "acquisition_start": datetime(2025, 6, 13, 16, 39, 31, tzinfo=ZoneInfo("America/Los_Angeles")),
+        "acquisition_end": datetime(2025, 7, 11, 23, 59, 59, tzinfo=ZoneInfo("America/Los_Angeles")),
         # Processed output file location on S3.
         # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
         "output_path": "s3://aind-private-data-prod-o5171v/780346_2025-06-11_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
