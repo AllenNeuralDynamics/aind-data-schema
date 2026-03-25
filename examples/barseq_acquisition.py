@@ -29,10 +29,6 @@ from aind_data_schema_models.modalities import Modality
 
 from aind_data_schema.core.acquisition import Acquisition, DataStream
 
-# Raw data location on allen network share.
-# Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
-BARSEQ_RAW_DATA_PATH = "/allen/aind/stage/barseq/"
-
 # Source: MAPseq-BARseq methods_forSciComp.pdf, header section
 BARSEQ_PROTOCOL_ID = ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"]
 
@@ -43,7 +39,7 @@ INSTRUMENT_ID = "Dogwood"
 # Acquisition note template applied to all subjects.
 ACQUISITION_NOTE = (
     "BARseq acquisition performed across multiple slides imaged over multiple days "
-    f"on the Dogwood spinning disk confocal. Raw data stored at {BARSEQ_RAW_DATA_PATH}. "
+    f"on the Dogwood barseq instrument."
     "Full acquisition includes gene sequencing (7 cycles), barcode sequencing (15 cycles), "
     "and one hybridization cycle. Each slide folder contains all three acquisition types. "
     "Final processed output is a cell x gene x barcode table registered to Allen CCFv3."
@@ -58,24 +54,13 @@ SUBJECTS = {
         # Per Polina Kosillo (2026-02-16 Teams): "Dates on the folder are the day the sequencing run was started."
         # Start time is beginning of day (no experiment_detail.txt for first slide).
         # End time is end of day (conservative estimate, no experiment_detail.txt for last slide).
-        # NOTE: The S3 asset date (2025-02-20) is 4 days before the first imaging folder date (2025-02-24).
-        # This discrepancy is unresolved — it may reflect when the asset was registered or when library prep began.
         "acquisition_start": datetime(2025, 2, 24, 0, 0, 0, tzinfo=ZoneInfo("America/Los_Angeles")),
         "acquisition_end": datetime(2025, 3, 21, 23, 59, 59, tzinfo=ZoneInfo("America/Los_Angeles")),
-        # Processed output file location on S3.
-        # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
-        "output_path": "s3://aind-private-data-prod-o5171v/780345_2025-02-20_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
         # BARseq LC section IDs from PR #1763 (procedures_sectioning.py, generate_barseq_lc_780345).
         # Format: {subject_id}_bar{n:03d}, 44 sections covering CCF plates 99-112 (20um thick).
         "specimen_id": [f"780345_bar{i:03d}" for i in range(1, 45)],
     },
     "780346": {
-        # Experimenters from experiment_detail.txt files in raw data slide folders.
-        # Source: /allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
-        #         /allen/aind/stage/barseq/20250623_780346_slide9_maxprojection/experiment_detail.txt
-        #         /allen/aind/stage/barseq/20250703_780346_slide15_maxprojection/experiment_detail.txt
-        #         /allen/aind/stage/barseq/20250707_780346_slide13_maxprojection/experiment_detail.txt
-        #         /allen/aind/stage/barseq/20250709_780346_slide14_maxprojection/experiment_detail.txt
         "experimenters": ["Barseq team"],
         # Start: confirmed from experiment_detail.txt in first slide folder.
         # Source: /allen/aind/stage/barseq/20250613_780346_slide11_maxprojection/experiment_detail.txt
@@ -83,9 +68,6 @@ SUBJECTS = {
         # End time is end of day (conservative estimate).
         "acquisition_start": datetime(2025, 6, 13, 16, 39, 31, tzinfo=ZoneInfo("America/Los_Angeles")),
         "acquisition_end": datetime(2025, 7, 11, 23, 59, 59, tzinfo=ZoneInfo("America/Los_Angeles")),
-        # Processed output file location on S3.
-        # Source: Polina Kosillo, 2026-02-16 Teams chat (MapSeq/BARseq metadata channel)
-        "output_path": "s3://aind-private-data-prod-o5171v/780346_2025-06-11_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat",
         # BARseq LC section IDs from PR #1763 (procedures_sectioning.py, generate_barseq_lc_780346).
         # Format: {subject_id}_bar{n:03d}, 51 sections covering CCF plates 99-112 (20um thick).
         "specimen_id": [f"780346_bar{i:03d}" for i in range(1, 52)],
@@ -97,7 +79,7 @@ def build_acquisition(subject_id: str) -> Acquisition:
     """Build a black-box BARseq acquisition for a given subject."""
     params = SUBJECTS[subject_id]
 
-    notes = ACQUISITION_NOTE + f" Processed output: {params['output_path']}."
+    notes = ACQUISITION_NOTE
 
     return Acquisition(
         subject_id=subject_id,

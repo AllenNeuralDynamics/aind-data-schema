@@ -61,7 +61,7 @@
    "ethics_review_id": null,
    "instrument_id": "Dogwood",
    "acquisition_type": "BarcodeSequencing",
-   "notes": "BARseq acquisition performed across multiple slides imaged over multiple days on the Dogwood spinning disk confocal. Raw data stored at /allen/aind/stage/barseq/. Full acquisition includes gene sequencing (7 cycles), barcode sequencing (15 cycles), and one hybridization cycle. Each slide folder contains all three acquisition types. Final processed output is a cell x gene x barcode table registered to Allen CCFv3. Processed output: s3://aind-private-data-prod-o5171v/780345_2025-02-20_00-00-00/BARseq/combined_neurons_clust_CCFv2.mat.",
+   "notes": "BARseq acquisition performed across multiple slides imaged over multiple days on the Dogwood barseq instrument.Full acquisition includes gene sequencing (7 cycles), barcode sequencing (15 cycles), and one hybridization cycle. Each slide folder contains all three acquisition types. Final processed output is a cell x gene x barcode table registered to Allen CCFv3.",
    "coordinate_system": null,
    "calibrations": [],
    "maintenance": [],
