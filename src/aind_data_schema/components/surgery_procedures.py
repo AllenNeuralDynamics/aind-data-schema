@@ -223,7 +223,7 @@ class Perfusion(DataModel):
         title="Specimen ID",
         description=(
             "IDs of specimens resulting from this procedure."
-            " Single IDs should use the {subject_id}, multiple IDs should use a suffix format such as {subject_id}_###"
+            " Whole brain should use the {subject_id}, all other sections should include a suffix {subject_id}_###"
         ),
     )
 
