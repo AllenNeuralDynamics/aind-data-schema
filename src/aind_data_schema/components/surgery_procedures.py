@@ -223,7 +223,7 @@ class Perfusion(DataModel):
         title="Specimen ID",
         description=(
             "IDs of specimens resulting from this procedure."
-            " Whole brain should use the {subject_id}, all other sections should include a suffix {subject_id}_###"
+            " Whole brains can use the {subject_id}, partial sections should always include a suffix {subject_id}_###"
         ),
     )
 
