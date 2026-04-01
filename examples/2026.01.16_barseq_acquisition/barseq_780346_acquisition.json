@@ -66,15 +66,15 @@
       "https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"
    ],
    "ethics_review_id": null,
-   "instrument_id": "Dogwood",
+   "instrument_id": null,
    "acquisition_type": "BarcodeSequencing",
-   "notes": "BARseq acquisition performed across multiple slides imaged over multiple days on the Dogwood barseq instrument.Full acquisition includes gene sequencing (7 cycles), barcode sequencing (15 cycles), and one hybridization cycle. Each slide folder contains all three acquisition types. Final processed output is a cell x gene x barcode table registered to Allen CCFv3.",
+   "notes": "BARseq acquisition performed across multiple slides imaged over multiple days. Full acquisition includes gene sequencing (7 cycles), barcode sequencing (15 cycles), and one hybridization cycle. Each slide folder contains all three acquisition types. Final processed output is a cell x gene x barcode table registered to Allen CCFv3.",
    "coordinate_system": null,
    "calibrations": [],
    "maintenance": [],
    "data_streams": [
       {
-         "object_type": "Data stream",
+         "object_type": "External data stream",
          "stream_start_time": "2025-06-13T16:39:31-07:00",
          "stream_end_time": "2025-07-11T23:59:59-07:00",
          "modalities": [
@@ -83,11 +83,7 @@
                "abbreviation": "BARseq"
             }
          ],
-         "code": null,
-         "notes": "Acquired externally by BARseq imaging team.",
-         "active_devices": [],
-         "configurations": [],
-         "connections": []
+         "notes": "Acquired externally by BARseq imaging team."
       }
    ],
    "stimulus_epochs": [],
