@@ -22,7 +22,7 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
-from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream, StimulusEpoch
+from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream, ExternalDataStream, StimulusEpoch
 from aind_data_schema.components.connections import Connection
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.exaspim_acquisition import acq as exaspim_acquisition
@@ -52,6 +52,46 @@ class AcquisitionTest(unittest.TestCase):
             scan1_dict["pulse_sequence_type"] = "Other"
             scan1_dict["notes"] = ""
             MRIScan.model_validate(scan1_dict)
+
+    def test_external_data_stream(self):
+        """Test ExternalDataStream: valid without instrument_id, and DataStream requires instrument_id"""
+        start = datetime(2025, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+        end = datetime(2025, 1, 2, 0, 0, 0, tzinfo=timezone.utc)
+
+        # ExternalDataStream without instrument_id should succeed
+        acq = Acquisition(
+            subject_id="123456",
+            acquisition_start_time=start,
+            acquisition_end_time=end,
+            acquisition_type="Test",
+            data_streams=[
+                ExternalDataStream(
+                    stream_start_time=start,
+                    stream_end_time=end,
+                    modalities=[Modality.BARSEQ],
+                )
+            ],
+        )
+        self.assertIsNone(acq.instrument_id)
+
+        # DataStream without instrument_id should fail
+        with self.assertRaises(ValidationError) as context:
+            Acquisition(
+                subject_id="123456",
+                acquisition_start_time=start,
+                acquisition_end_time=end,
+                acquisition_type="Test",
+                data_streams=[
+                    DataStream(
+                        stream_start_time=start,
+                        stream_end_time=end,
+                        modalities=[Modality.BARSEQ],
+                        active_devices=[],
+                        configurations=[],
+                    )
+                ],
+            )
+        self.assertIn("instrument_id is required", str(context.exception))
 
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""

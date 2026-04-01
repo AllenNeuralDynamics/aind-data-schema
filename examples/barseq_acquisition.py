@@ -27,19 +27,14 @@ from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 
-from aind_data_schema.core.acquisition import Acquisition, DataStream
+from aind_data_schema.core.acquisition import Acquisition, ExternalDataStream
 
 # Source: MAPseq-BARseq methods_forSciComp.pdf, header section
 BARSEQ_PROTOCOL_ID = ["https://www.protocols.io/view/barseq-2-5-kqdg3ke9qv25/v1"]
 
-# Instrument ID for the Nikon Ti2-E "Dogwood" spinning disk confocal.
-# Source: aind-data-schema barseq instrument PR #1685
-INSTRUMENT_ID = "Dogwood"
-
 # Acquisition note template applied to all subjects.
 ACQUISITION_NOTE = (
-    "BARseq acquisition performed across multiple slides imaged over multiple days "
-    f"on the Dogwood barseq instrument."
+    "BARseq acquisition performed across multiple slides imaged over multiple days. "
     "Full acquisition includes gene sequencing (7 cycles), barcode sequencing (15 cycles), "
     "and one hybridization cycle. Each slide folder contains all three acquisition types. "
     "Final processed output is a cell x gene x barcode table registered to Allen CCFv3."
@@ -84,7 +79,6 @@ def build_acquisition(subject_id: str) -> Acquisition:
     return Acquisition(
         subject_id=subject_id,
         specimen_id=params["specimen_id"],
-        instrument_id=INSTRUMENT_ID,
         acquisition_start_time=params["acquisition_start"],
         acquisition_end_time=params["acquisition_end"],
         experimenters=params["experimenters"],
@@ -92,12 +86,10 @@ def build_acquisition(subject_id: str) -> Acquisition:
         acquisition_type="BarcodeSequencing",
         notes=notes,
         data_streams=[
-            DataStream(
+            ExternalDataStream(
                 stream_start_time=params["acquisition_start"],
                 stream_end_time=params["acquisition_end"],
                 modalities=[Modality.BARSEQ],
-                active_devices=[],
-                configurations=[],
                 notes="Acquired externally by BARseq imaging team.",
             )
         ],
@@ -109,9 +101,11 @@ if __name__ == "__main__":
     parser.add_argument("--output-dir", default=None, help="Output directory for JSON files")
     args = parser.parse_args()
 
-    for subject_id in SUBJECTS:
+    for i, subject_id in enumerate(SUBJECTS):
         acq = build_acquisition(subject_id)
         serialized = acq.model_dump_json()
         deserialized = Acquisition.model_validate_json(serialized)
         deserialized.write_standard_file(prefix=f"barseq_{subject_id}", output_directory=args.output_dir)
         print(f"Written: barseq_{subject_id}_acquisition.json")
+        if i == 0:
+            deserialized.write_standard_file(prefix="barseq", output_directory=args.output_dir)

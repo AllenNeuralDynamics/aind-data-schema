@@ -250,6 +250,25 @@ class DataStream(DataModel):
         )
 
 
+class ExternalDataStream(DataModel):
+    """A simplified data stream for acquisitions performed externally, where full instrument metadata is unavailable."""
+
+    stream_start_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream start time"),
+        TimeValidation.BETWEEN,
+    ]
+    stream_end_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream stop time"),
+        TimeValidation.BETWEEN,
+    ]
+    modalities: List[Modality.ONE_OF] = Field(
+        ..., title="Modalities", description="Modalities that are acquired in this stream"
+    )
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
 class StimulusEpoch(DataModel):
     """All stimuli being presented to the subject. starting and stopping at approximately the
     same time. Not all acquisitions have StimulusEpochs.
@@ -374,7 +393,7 @@ class Acquisition(DataCoreModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
-    instrument_id: str = Field(..., title="Instrument ID", description="Should match the Instrument.instrument_id")
+    instrument_id: Optional[str] = Field(default=None, title="Instrument ID", description="Should match the Instrument.instrument_id. Required when data_streams contains a DataStream.")
     acquisition_type: str = Field(
         ...,
         title="Acquisition type",
@@ -406,12 +425,13 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition data
-    data_streams: List[DataStream] = Field(
+    data_streams: List[Union[DataStream, ExternalDataStream]] = Field(
         ...,
         title="Data streams",
         description=(
             "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
-            "include multiple streams. Streams should be split when configurations are changed."
+            "include multiple streams. Streams should be split when configurations are changed. "
+            "Use ExternalDataStream for acquisitions performed externally where full instrument metadata is unavailable."
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(
@@ -464,6 +484,16 @@ class Acquisition(DataCoreModel):
         return self
 
     @model_validator(mode="after")
+    def instrument_id_required_for_data_streams(self):
+        """Require instrument_id when any standard DataStream is present"""
+        if not hasattr(self, "data_streams"):
+            return self
+        if any(isinstance(stream, DataStream) for stream in self.data_streams):
+            if not self.instrument_id:
+                raise ValueError("instrument_id is required when data_streams contains a DataStream")
+        return self
+
+    @model_validator(mode="after")
     def specimen_required(self):
         """Check if specimen ID is required for in vitro imaging modalities"""
 
@@ -478,8 +508,12 @@ class Acquisition(DataCoreModel):
         return self
 
     @classmethod
-    def _merge_data_streams(cls, streams: List[DataStream], overlap_s: int = 120) -> List[DataStream]:
-        """Merge two lists of data streams"""
+    def _merge_data_streams(
+        cls, streams: List[Union[DataStream, ExternalDataStream]], overlap_s: int = 120
+    ) -> List[Union[DataStream, ExternalDataStream]]:
+        """Merge two lists of data streams. ExternalDataStream objects are not merged and are appended as-is."""
+        external_streams = [s for s in streams if isinstance(s, ExternalDataStream)]
+        streams = [s for s in streams if isinstance(s, DataStream)]
         groups = []
         visited = set()
         for i in range(len(streams)):
@@ -504,7 +538,7 @@ class Acquisition(DataCoreModel):
                     merged_stream = merged_stream + stream
                 merged_streams.append(merged_stream)
 
-        return merged_streams
+        return merged_streams + external_streams
 
     def __add__(self, other: "Acquisition") -> "Acquisition":
         """Combine two Acquisition objects"""
