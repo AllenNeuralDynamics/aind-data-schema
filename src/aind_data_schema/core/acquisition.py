@@ -393,7 +393,11 @@ class Acquisition(DataCoreModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
-    instrument_id: Optional[str] = Field(default=None, title="Instrument ID", description="Should match the Instrument.instrument_id. Required when data_streams contains a DataStream.")
+    instrument_id: Optional[str] = Field(
+        default=None,
+        title="Instrument ID",
+        description="Should match the Instrument.instrument_id. Required when data_streams contains a DataStream.",
+    )
     acquisition_type: str = Field(
         ...,
         title="Acquisition type",
@@ -431,7 +435,7 @@ class Acquisition(DataCoreModel):
         description=(
             "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
             "include multiple streams. Streams should be split when configurations are changed. "
-            "Use ExternalDataStream for acquisitions performed externally where full instrument metadata is unavailable."
+            "Use ExternalDataStream for acquisitions performed externally where full instrument metadata is unavailable."  # noqa: E501
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(

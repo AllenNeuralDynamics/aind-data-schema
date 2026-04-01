@@ -22,7 +22,13 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
-from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream, ExternalDataStream, StimulusEpoch
+from aind_data_schema.core.acquisition import (
+    Acquisition,
+    AcquisitionSubjectDetails,
+    DataStream,
+    ExternalDataStream,
+    StimulusEpoch,
+)
 from aind_data_schema.components.connections import Connection
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.exaspim_acquisition import acq as exaspim_acquisition
