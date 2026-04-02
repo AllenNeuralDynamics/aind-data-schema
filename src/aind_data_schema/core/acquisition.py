@@ -514,12 +514,8 @@ class Acquisition(DataCoreModel):
         return self
 
     @classmethod
-    def _merge_data_streams(
-        cls, streams: List[DataStream | ExternalDataStream], overlap_s: int = 120
-    ) -> List[DataStream | ExternalDataStream]:
-        """Merge two lists of data streams. ExternalDataStream objects are not merged and are appended as-is."""
-        external_streams = [s for s in streams if isinstance(s, ExternalDataStream)]
-        streams = [s for s in streams if isinstance(s, DataStream)]
+    def _merge_data_streams(cls, streams: List[DataStream], overlap_s: int = 120) -> List[DataStream]:
+        """Merge two lists of data streams"""
         groups = []
         visited = set()
         for i in range(len(streams)):
@@ -544,7 +540,7 @@ class Acquisition(DataCoreModel):
                     merged_stream = merged_stream + stream
                 merged_streams.append(merged_stream)
 
-        return merged_streams + external_streams
+        return merged_streams
 
     def __add__(self, other: "Acquisition") -> "Acquisition":
         """Combine two Acquisition objects"""
@@ -586,7 +582,10 @@ class Acquisition(DataCoreModel):
         ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        data_streams = Acquisition._merge_data_streams(self.data_streams + other.data_streams)
+        all_streams = self.data_streams + other.data_streams
+        external_streams = [s for s in all_streams if isinstance(s, ExternalDataStream)]
+        regular_streams = [s for s in all_streams if isinstance(s, DataStream)]
+        data_streams = Acquisition._merge_data_streams(regular_streams) + external_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
         # Remove duplicates
