@@ -108,6 +108,7 @@ class DataStream(DataModel):
     same time.
     """
 
+    object_type: Literal["DataStream"] = "DataStream"
     stream_start_time: Annotated[
         AwareDatetimeWithDefault,
         Field(..., title="Stream start time"),
@@ -253,6 +254,7 @@ class DataStream(DataModel):
 class ExternalDataStream(DataModel):
     """A simplified data stream for acquisitions performed externally, where full instrument metadata is unavailable."""
 
+    object_type: Literal["ExternalDataStream"] = "ExternalDataStream"
     stream_start_time: Annotated[
         AwareDatetimeWithDefault,
         Field(..., title="Stream start time"),
@@ -429,7 +431,7 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition data
-    data_streams: List[Union[DataStream, ExternalDataStream]] = Field(
+    data_streams: DiscriminatedList[DataStream | ExternalDataStream] = Field(
         ...,
         title="Data streams",
         description=(
@@ -513,8 +515,8 @@ class Acquisition(DataCoreModel):
 
     @classmethod
     def _merge_data_streams(
-        cls, streams: List[Union[DataStream, ExternalDataStream]], overlap_s: int = 120
-    ) -> List[Union[DataStream, ExternalDataStream]]:
+        cls, streams: List[DataStream | ExternalDataStream], overlap_s: int = 120
+    ) -> List[DataStream | ExternalDataStream]:
         """Merge two lists of data streams. ExternalDataStream objects are not merged and are appended as-is."""
         external_streams = [s for s in streams if isinstance(s, ExternalDataStream)]
         streams = [s for s in streams if isinstance(s, DataStream)]
