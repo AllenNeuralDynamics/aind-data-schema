@@ -2,6 +2,7 @@
 
 import unittest
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 
@@ -135,7 +136,7 @@ class TestComposability(unittest.TestCase):
     def test_merge_acquisition(self):
         """Test merging two Acquisition objects"""
 
-        t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=timezone.utc)
+        t = datetime(2022, 11, 22, 8, 43, 00, tzinfo=ZoneInfo("America/Los_Angeles"))
 
         acq1 = self.exaspim_acquisition.model_copy()
         acq2 = self.exaspim_acquisition.model_copy()
@@ -149,6 +150,7 @@ class TestComposability(unittest.TestCase):
         self.assertEqual(merged_acq.acquisition_start_time, t)
         self.assertEqual(merged_acq.acquisition_end_time, t)
         self.assertEqual(merged_acq.acquisition_type, "ExaSPIM")
+        self.assertEqual(merged_acq.instrument_id, acq1.instrument_id)
 
         # Test duplicate removal in merging
         acq3 = self.exaspim_acquisition.model_copy()
@@ -194,8 +196,16 @@ class TestComposability(unittest.TestCase):
             acq1 + acq2
         self.assertTrue("Cannot combine Acquisition objects that differ in key fields" in repr(context.exception))
 
-        # Test incompatible SubjectDetails
+        # Test instrument_id merging
         acq2.subject_id = acq1.subject_id
+        acq1.instrument_id = "instrument_zebra"
+        acq2.instrument_id = "instrument_apple"
+        merged_acq_instruments = acq1 + acq2
+        self.assertEqual(merged_acq_instruments.instrument_id, "instrument_apple_instrument_zebra")
+
+        # Test incompatible SubjectDetails
+        acq1 = self.exaspim_acquisition.model_copy()
+        acq2 = self.exaspim_acquisition.model_copy()
         subject_details = AcquisitionSubjectDetails(
             mouse_platform_name="mouse_platform_name",
         )

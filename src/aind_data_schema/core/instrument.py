@@ -43,6 +43,7 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
+    PatchClampEphysAssembly,
     PockelsCell,
     PolygonalScanner,
     Scanner,
@@ -53,7 +54,7 @@ from aind_data_schema.components.devices import (
     Wheel,
 )
 from aind_data_schema.components.measurements import CALIBRATIONS
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list
+from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_str_alphabetical
 from aind_data_schema.utils.validators import recursive_get_all_names
 
 # Define the mapping of modalities to their required device types
@@ -64,7 +65,6 @@ DEVICES_REQUIRED = {
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP2.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
@@ -75,7 +75,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
+    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
@@ -142,6 +142,7 @@ class Instrument(DataCoreModel):
         | Filter
         | Lens
         | DigitalMicromirrorDevice
+        | PatchClampEphysAssembly
         | PolygonalScanner
         | PockelsCell
         | HarpDevice
@@ -195,6 +196,20 @@ class Instrument(DataCoreModel):
                         f"Describe the camera target from ({component.name}) in the notes field"
                     )
 
+        return self
+
+    @model_validator(mode="after")
+    def validate_unique_component_names(self):
+        """Warn if any component names are duplicated"""
+        names = self.get_component_names()
+        if len(set(names)) != len(names):
+            seen = set()
+            duplicates = set()
+            for name in names:
+                if name in seen:
+                    duplicates.add(name)
+                seen.add(name)
+            logging.warning(f"Duplicate component names found: {sorted(duplicates)}")
         return self
 
     @model_validator(mode="after")
@@ -322,19 +337,20 @@ class Instrument(DataCoreModel):
             )
 
         # Check for incompatible key fields
-        inst_id_check = self.instrument_id != other.instrument_id
         location_check = self.location != other.location
         coord_sys_check = self.coordinate_system != other.coordinate_system
         temp_control_check = self.temperature_control != other.temperature_control
 
-        if any([inst_id_check, location_check, coord_sys_check, temp_control_check]):
+        if any([location_check, coord_sys_check, temp_control_check]):
             raise ValueError(
                 "Cannot combine Instrument objects that differ in key fields:\n"
-                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"location: {self.location}/{other.location}\n"
                 f"coordinate_system: {self.coordinate_system}/{other.coordinate_system}\n"
                 f"temperature_control: {self.temperature_control}/{other.temperature_control}"
             )
+
+        # Combine instrument_id
+        instrument_id = merge_str_alphabetical(self.instrument_id, other.instrument_id)
 
         # Combine modalities and sort
         combined_modalities = list(set(self.modalities + other.modalities))
@@ -357,7 +373,7 @@ class Instrument(DataCoreModel):
 
         return Instrument(
             location=self.location,
-            instrument_id=self.instrument_id,
+            instrument_id=instrument_id,
             modification_date=latest_modification_date,
             modalities=combined_modalities,
             calibrations=combined_calibrations,

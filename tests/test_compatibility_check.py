@@ -1,4 +1,4 @@
-""" Unit tests for compatibility_check."""
+"""Unit tests for compatibility_check."""
 
 import unittest
 from unittest.mock import MagicMock

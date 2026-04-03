@@ -1,4 +1,4 @@
-""" test Instrument """
+"""test Instrument"""
 
 import json
 import unittest
@@ -8,7 +8,7 @@ from unittest.mock import patch
 from aind_data_schema_models.coordinates import AnatomicalRelative
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit, SizeUnit
+from aind_data_schema_models.units import FrequencyUnit, PowerUnit
 from aind_data_schema_models.harp_types import HarpDeviceType
 from pydantic import ValidationError
 
@@ -22,7 +22,6 @@ from aind_data_schema.components.devices import (
     Detector,
     DetectorType,
     Device,
-    DigitalMicromirrorDevice,
     Disc,
     EphysAssembly,
     EphysProbe,
@@ -49,6 +48,9 @@ from aind_data_schema.core.instrument import (
     Instrument,
 )
 from examples.ephys_instrument import inst as ephys_instrument
+from examples.slap2_instrument import dmds
+
+dmd = dmds[0]
 
 computer_foo = Computer(name="foo")
 computer_ASDF = Computer(name="ASDF")
@@ -202,25 +204,6 @@ scan_stage = ScanningStage(
     stage_axis_direction="Detection axis",
     stage_axis_name="Z",
     travel=50,
-)
-
-# Example of a DigitalMicromirrorDevice
-dmd = DigitalMicromirrorDevice(
-    name="Example DMD",
-    max_dmd_patterns=1024,
-    double_bounce_design=True,
-    invert_pixel_values=False,
-    motion_padding_x=10,
-    motion_padding_y=10,
-    padding_unit=SizeUnit.PX,
-    pixel_size=13.68,
-    pixel_size_unit=SizeUnit.UM,
-    start_phase=0.5,
-    dmd_flip=True,
-    dmd_curtain=[0.1, 0.2, 0.3],
-    dmd_curtain_unit=SizeUnit.PX,
-    line_shear=[1, 2, 3],
-    line_shear_unit=SizeUnit.PX,
 )
 
 stick_microscopes = [
@@ -681,11 +664,10 @@ class InstrumentTests(unittest.TestCase):
         # Restore schema version for next tests
         inst1.schema_version = inst1_orig_schema_v
 
-        # Test incompatible instrument IDs
-        inst2.instrument_id = "different_instrument_id"
-        with self.assertRaises(ValueError) as context:
-            inst1 + inst2
-        self.assertIn("Cannot combine Instrument objects that differ in key fields", str(context.exception))
+        # Test that instrument_id differences are merged in alphabetical order
+        inst2.instrument_id = "different-instrument-id"
+        inst3 = inst1 + inst2
+        self.assertEqual(inst3.instrument_id, "EPHYS1_different-instrument-id")
 
         # Test incompatible locations
         inst2.instrument_id = inst1.instrument_id  # Reset to same
@@ -841,6 +823,39 @@ class InstrumentTests(unittest.TestCase):
             self.assertIn("duplicated", error_call_args)
 
         self.assertEqual(len(combined.components), 3)
+
+    def test_validate_unique_component_names(self):
+        """Test that duplicate component names log a warning"""
+        duplicate_component = ephys_instrument.components[0].model_copy(deep=True)
+        inst_with_dup = Instrument.model_construct(
+            instrument_id=ephys_instrument.instrument_id,
+            modification_date=ephys_instrument.modification_date,
+            modalities=ephys_instrument.modalities,
+            coordinate_system=ephys_instrument.coordinate_system,
+            components=list(ephys_instrument.components) + [duplicate_component],
+            connections=ephys_instrument.connections or [],
+            calibrations=ephys_instrument.calibrations,
+        )
+
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            inst_with_dup.validate_unique_component_names()
+            mock_logging.warning.assert_called_once()
+            warning_msg = mock_logging.warning.call_args[0][0]
+            self.assertIn(duplicate_component.name, warning_msg)
+
+        inst_no_dup = Instrument.model_construct(
+            instrument_id=ephys_instrument.instrument_id,
+            modification_date=ephys_instrument.modification_date,
+            modalities=ephys_instrument.modalities,
+            coordinate_system=ephys_instrument.coordinate_system,
+            components=list(ephys_instrument.components),
+            connections=ephys_instrument.connections or [],
+            calibrations=ephys_instrument.calibrations,
+        )
+
+        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+            inst_no_dup.validate_unique_component_names()
+            mock_logging.warning.assert_not_called()
 
 
 class ConnectionTest(unittest.TestCase):

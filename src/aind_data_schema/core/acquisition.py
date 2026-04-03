@@ -1,14 +1,18 @@
 """Schema describing data acquisition metadata and configurations"""
 
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import logging
-from typing import Annotated, List, Literal, Optional
+import re
+from typing import Annotated, List, Literal, Optional, Union
+from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
 from aind_data_schema.utils.validators import TimeValidation
-from pydantic import Field, SkipValidation, model_validator
+from pydantic import Field, SkipValidation, field_validator, model_validator
+from pydantic_extra_types.timezone_name import TimeZoneName
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, DiscriminatedList, GenericModel
 from aind_data_schema.components.configs import (
@@ -23,12 +27,12 @@ from aind_data_schema.components.configs import (
     LightEmittingDiodeConfig,
     ManipulatorConfig,
     MousePlatformConfig,
+    MISCameraConfig,
     MRIScan,
     OlfactometerConfig,
     PatchCordConfig,
     ProbeConfig,
     SampleChamberConfig,
-    SlapPlane,
     SpeakerConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystem
@@ -36,8 +40,14 @@ from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
-from aind_data_schema.utils.merge import merge_notes, merge_optional_list, remove_duplicates, merge_coordinate_systems
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility
+from aind_data_schema.utils.merge import (
+    merge_notes,
+    merge_optional_list,
+    remove_duplicates,
+    merge_coordinate_systems,
+    merge_str_alphabetical,
+)
+from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
 from aind_data_schema.components.subject_procedures import Injection, BrainInjection
 
 # Define the requirements for each modality
@@ -75,7 +85,9 @@ class AcquisitionSubjectDetails(DataModel):
         title="Anaesthesia",
         description=("Anaesthesia present during entire acquisition, use Manipulation for partial anaesthesia"),
     )
-    mouse_platform_name: str = Field(..., title="Mouse platform")
+    mouse_platform_name: str = Field(
+        ..., title="Mouse platform", description="The surface that the mouse is on during the acquisition"
+    )
     reward_consumed_total: Optional[Decimal] = Field(default=None, title="Total reward consumed (mL)")
     reward_consumed_unit: Optional[VolumeUnit] = Field(default=None, title="Reward consumed unit")
 
@@ -96,6 +108,7 @@ class DataStream(DataModel):
     same time.
     """
 
+    object_type: Literal["DataStream"] = "DataStream"
     stream_start_time: Annotated[
         AwareDatetimeWithDefault,
         Field(..., title="Stream start time"),
@@ -125,11 +138,11 @@ class DataStream(DataModel):
         | DetectorConfig
         | PatchCordConfig
         | FiberAssemblyConfig
+        | MISCameraConfig
         | MRIScan
         | LickSpoutConfig
         | AirPuffConfig
         | ImagingConfig
-        | SlapPlane
         | SampleChamberConfig
         | ProbeConfig
         | EphysAssemblyConfig
@@ -238,6 +251,26 @@ class DataStream(DataModel):
         )
 
 
+class ExternalDataStream(DataModel):
+    """A simplified data stream for acquisitions where instrument metadata is unavailable."""
+
+    object_type: Literal["ExternalDataStream"] = "ExternalDataStream"
+    stream_start_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream start time"),
+        TimeValidation.BETWEEN,
+    ]
+    stream_end_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream stop time"),
+        TimeValidation.BETWEEN,
+    ]
+    modalities: List[Modality.ONE_OF] = Field(
+        ..., title="Modalities", description="Modalities that are acquired in this stream"
+    )
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
 class StimulusEpoch(DataModel):
     """All stimuli being presented to the subject. starting and stopping at approximately the
     same time. Not all acquisitions have StimulusEpochs.
@@ -317,24 +350,56 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
+    schema_version: SkipValidation[Literal["2.5.0"]] = Field(default="2.5.0")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
-    specimen_id: Optional[str] = Field(
-        default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
+    specimen_id: Optional[Union[str, List[str]]] = Field(
+        default=None,
+        title="Specimen ID",
+        description="Specimen ID(s) used in this acquisition. Required for in vitro imaging modalities.",
     )
 
     # Acquisition metadata
-    acquisition_start_time: AwareDatetimeWithDefault = Field(..., title="Acquisition start time")
+    acquisition_start_time: AwareDatetimeWithDefault = Field(
+        ...,
+        title="Acquisition start time",
+        description="During validation, timezone information will be moved into the acquisition_start_tz field.",
+    )
+    acquisition_start_tz: Optional[Union[int, TimeZoneName]] = Field(
+        default=None,
+        title="Acquisition start timezone",
+        description=(
+            "Automatically populated by a validator based on acquisition_start_time. "
+            "Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, "
+            "or an integer UTC offset in hours for fixed-offset timezones. "
+            "Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone."
+        ),
+    )
     acquisition_end_time: AwareDatetimeWithDefault = Field(..., title="Acquisition end time")
+
+    @field_validator("acquisition_start_tz", mode="before")
+    @classmethod
+    def coerce_fixed_offset_tz_string(cls, v):
+        """Convert legacy fixed-offset strings like '-07:00' or '+05:30' to integer minutes."""
+        if isinstance(v, str):
+            m = re.fullmatch(r"([+-]?)(\d{2}):(\d{2})", v)
+            if m:
+                sign = -1 if m.group(1) == "-" else 1
+                return sign * (int(m.group(2)) * 60 + int(m.group(3))) // 60
+        return v
+
     experimenters: List[str] = Field(
         default=[],
         title="experimenter(s)",
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
-    instrument_id: str = Field(..., title="Instrument ID", description="Should match the Instrument.instrument_id")
+    instrument_id: Optional[str] = Field(
+        default=None,
+        title="Instrument ID",
+        description="Should match the Instrument.instrument_id. Required when instrument metadata is available.",
+    )
     acquisition_type: str = Field(
         ...,
         title="Acquisition type",
@@ -366,12 +431,13 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition data
-    data_streams: List[DataStream] = Field(
+    data_streams: DiscriminatedList[DataStream | ExternalDataStream] = Field(
         ...,
         title="Data streams",
         description=(
             "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
-            "include multiple streams. Streams should be split when configurations are changed."
+            "include multiple streams. Streams should be split when configurations are changed. "
+            "Use ExternalDataStream for acquisitions where instrument metadata is unavailable."
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(
@@ -385,15 +451,52 @@ class Acquisition(DataCoreModel):
     manipulations: List[Manipulation] = Field(
         default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
-    subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
+    subject_details: Optional[AcquisitionSubjectDetails] = Field(
+        default=None, title="Subject details", description="Required for in vivo acquisitions."
+    )
+
+    @property
+    def acquisition_start_time_local(self) -> datetime:
+        """Return acquisition_start_time converted to the timezone stored in acquisition_start_tz.
+
+        If acquisition_start_tz is a TimeZoneName (IANA name), uses ZoneInfo to construct the timezone.
+        If acquisition_start_tz is an int (UTC offset in hours), uses a fixed-offset timezone.
+        If acquisition_start_tz is None, returns acquisition_start_time as-is.
+        """
+        if self.acquisition_start_tz is None:
+            return self.acquisition_start_time
+        if isinstance(self.acquisition_start_tz, int):
+            tz = timezone(timedelta(hours=self.acquisition_start_tz))
+        else:
+            tz = ZoneInfo(str(self.acquisition_start_tz))
+        return self.acquisition_start_time.astimezone(tz)
+
+    @model_validator(mode="after")
+    def extract_timezone(self):
+        """Extract timezone information from acquisition_start_time and set acquisition_start_tz"""
+        if self.acquisition_start_tz is None and hasattr(self, "acquisition_start_time"):
+            self.acquisition_start_tz = extract_timezone_from_datetime(self.acquisition_start_time)
+        return self
 
     @model_validator(mode="after")
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
-            if not subject_specimen_id_compatibility(self.subject_id, self.specimen_id):
-                raise ValueError(f"Expected {self.subject_id} to appear in {self.specimen_id}")
+            ids = self.specimen_id if isinstance(self.specimen_id, list) else [self.specimen_id]
+            for sid in ids:
+                if not subject_specimen_id_compatibility(self.subject_id, sid):
+                    raise ValueError(f"Expected {self.subject_id} to appear in {sid}")
 
+        return self
+
+    @model_validator(mode="after")
+    def instrument_id_required_for_data_streams(self):
+        """Require instrument_id when any standard DataStream is present"""
+        if not hasattr(self, "data_streams"):
+            return self
+        if any(isinstance(stream, DataStream) for stream in self.data_streams):
+            if not self.instrument_id:
+                raise ValueError("instrument_id is required when data_streams contains a DataStream")
         return self
 
     @model_validator(mode="after")
@@ -455,16 +558,17 @@ class Acquisition(DataCoreModel):
         # Check for incompatible key fields
         subj_check = self.subject_id != other.subject_id
         spec_check = self.specimen_id != other.specimen_id
-        inst_check = self.instrument_id != other.instrument_id
         exp_type_check = self.acquisition_type != other.acquisition_type
-        if any([subj_check, spec_check, inst_check, exp_type_check]):
+        if any([subj_check, spec_check, exp_type_check]):
             raise ValueError(
                 "Cannot combine Acquisition objects that differ in key fields:\n"
                 f"subject_id: {self.subject_id}/{other.subject_id}\n"
                 f"specimen_id: {self.specimen_id}/{other.specimen_id}\n"
-                f"instrument_id: {self.instrument_id}/{other.instrument_id}\n"
                 f"acquisition_type: {self.acquisition_type}/{other.acquisition_type}"
             )
+
+        # Combine instrument_id
+        instrument_id = merge_str_alphabetical(self.instrument_id, other.instrument_id)
 
         details_check = self.subject_details and other.subject_details
         if details_check:
@@ -478,7 +582,10 @@ class Acquisition(DataCoreModel):
         ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        data_streams = Acquisition._merge_data_streams(self.data_streams + other.data_streams)
+        all_streams = self.data_streams + other.data_streams
+        external_streams = [s for s in all_streams if isinstance(s, ExternalDataStream)]
+        regular_streams = [s for s in all_streams if isinstance(s, DataStream)]
+        data_streams = Acquisition._merge_data_streams(regular_streams) + external_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
         # Remove duplicates
@@ -499,7 +606,7 @@ class Acquisition(DataCoreModel):
             experimenters=experimenters,
             protocol_id=protocol_id,
             ethics_review_id=ethics_review_id,
-            instrument_id=self.instrument_id,
+            instrument_id=instrument_id,
             calibrations=calibrations,
             coordinate_system=coordinate_system,
             maintenance=maintenance,

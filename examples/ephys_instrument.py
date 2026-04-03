@@ -1,12 +1,17 @@
 """Generates an example JSON file for an ephys instrument"""
 
+import argparse
 from datetime import date, datetime, timezone
 
 from aind_data_schema_models.harp_types import HarpDeviceType
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
 from aind_data_schema_models.units import FrequencyUnit, SizeUnit
-from aind_data_schema.components.coordinates import CoordinateSystemLibrary
+from aind_data_schema.components.coordinates import (
+    CoordinateSystemLibrary,
+    Affine,
+    Translation,
+)
 
 from aind_data_schema.components.devices import (
     Camera,
@@ -22,6 +27,7 @@ from aind_data_schema.components.devices import (
     LaserAssembly,
     Lens,
     Manipulator,
+    Monitor,
     NeuropixelsBasestation,
     FiberPatchCord,
     ProbePort,
@@ -198,14 +204,12 @@ probe_camera_4 = Camera(
     chroma="Color",
 )
 
-stick_lens = Lens(name="Probe lens", manufacturer=Organization.EDMUND_OPTICS)
-
 microscope_1 = CameraAssembly(
     name="Stick_assembly_1",
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_1,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 1", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 microscope_2 = CameraAssembly(
@@ -213,7 +217,7 @@ microscope_2 = CameraAssembly(
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_2,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 2", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 microscope_3 = CameraAssembly(
@@ -221,7 +225,7 @@ microscope_3 = CameraAssembly(
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_3,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 3", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 microscope_4 = CameraAssembly(
@@ -229,7 +233,7 @@ microscope_4 = CameraAssembly(
     target=CameraTarget.BRAIN,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=probe_camera_4,
-    lens=stick_lens,
+    lens=Lens(name="Probe lens 4", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 probeA = EphysProbe(name="Probe A", serial_number="9291019", probe_model="Neuropixels 1.0")
@@ -252,19 +256,6 @@ ephys_assemblyB = EphysAssembly(
     probes=[probeB],
 )
 
-filt = Filter(
-    name="LP filter",
-    filter_type="Long pass",
-    manufacturer=Organization.THORLABS,
-    cut_on_wavelength=850,
-    wavelength_unit=SizeUnit.NM,
-)
-
-lens = Lens(
-    name="Camera lens",
-    manufacturer=Organization.EDMUND_OPTICS,
-)
-
 face_camera = Camera(
     name="Face Camera",
     detector_type="Camera",
@@ -284,8 +275,14 @@ camassm1 = CameraAssembly(
     camera=face_camera,
     target=CameraTarget.FACE,
     relative_position=[AnatomicalRelative.LEFT],
-    filter=filt,
-    lens=lens,
+    filter=Filter(
+        name="LP filter face",
+        filter_type="Long pass",
+        manufacturer=Organization.THORLABS,
+        cut_on_wavelength=850,
+        wavelength_unit=SizeUnit.NM,
+    ),
+    lens=Lens(name="Camera lens face", manufacturer=Organization.EDMUND_OPTICS),
 )
 
 body_camera = Camera(
@@ -307,8 +304,60 @@ camassm2 = CameraAssembly(
     target=CameraTarget.BODY,
     relative_position=[AnatomicalRelative.SUPERIOR],
     camera=body_camera,
-    filter=filt,
-    lens=lens,
+    filter=Filter(
+        name="LP filter body",
+        filter_type="Long pass",
+        manufacturer=Organization.THORLABS,
+        cut_on_wavelength=850,
+        wavelength_unit=SizeUnit.NM,
+    ),
+    lens=Lens(name="Camera lens body", manufacturer=Organization.EDMUND_OPTICS),
+)
+
+monitor = Monitor(
+    name="Stimulus Screen",
+    serial_number=None,
+    manufacturer=Organization.ASUS,
+    model="PA248Q",
+    notes="viewing distance is from screen normal to bregma",
+    refresh_rate=60,
+    width=1920,
+    height=1200,
+    size_unit="pixel",
+    viewing_distance=15.5,
+    viewing_distance_unit="centimeter",
+    relative_position=[AnatomicalRelative.ANTERIOR, AnatomicalRelative.RIGHT],
+    contrast=None,
+    brightness=None,
+    coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
+    transform=[
+        Affine(
+            affine_transform=[
+                [
+                    -0.80914,
+                    -0.58761,
+                    0,
+                ],
+                [
+                    -0.12391,
+                    0.17063,
+                    0.97751,
+                ],
+                [
+                    -0.5744,
+                    0.79095,
+                    -0.21087,
+                ],
+            ],
+        ),
+        Translation(
+            translation=[
+                0.08751,
+                -0.12079,
+                0.02298,
+            ],
+        ),
+    ],
 )
 
 # If a timezone isn't specified, the timezone of the computer running this
@@ -355,12 +404,17 @@ inst = Instrument(
         running_wheel,
         behavior_computer,
         ephys_computer,
+        monitor,
     ],
     connections=connections,
     calibrations=[red_laser_calibration, blue_laser_calibration],
 )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", default=None, help="Output directory for generated JSON file")
+    args = parser.parse_args()
+
     serialized = inst.model_dump_json()
     deserialized = Instrument.model_validate_json(serialized)
-    deserialized.write_standard_file(prefix="ephys")
+    deserialized.write_standard_file(prefix="ephys", output_directory=args.output_dir)

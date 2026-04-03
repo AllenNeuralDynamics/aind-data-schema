@@ -1,4 +1,4 @@
-""" test Device models"""
+"""test Device models"""
 
 import unittest
 import warnings

@@ -1,4 +1,4 @@
-""" Configurations for devices, software, and other components during acquisition """
+"""Configurations for devices, software, and other components during acquisition"""
 
 from decimal import Decimal
 from enum import Enum
@@ -19,6 +19,7 @@ from aind_data_schema_models.units import (
     ConcentrationUnit,
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -30,6 +31,7 @@ from aind_data_schema.components.coordinates import (
     Scale,
     Translation,
 )
+from aind_data_schema.components.devices import DevicePosition
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.wrappers import AssetPath
 
@@ -52,13 +54,6 @@ class Valence(str, Enum):
     UNKNOWN = "Unknown"
 
 
-class SlapAcquisitionType(str, Enum):
-    """Type of slap acquisition"""
-
-    PARENT = "Parent"
-    BRANCH = "Branch"
-
-
 class Liquid(str, Enum):
     """Solution names"""
 
@@ -74,20 +69,23 @@ class TriggerType(str, Enum):
 
     INTERNAL = "Internal"
     EXTERNAL = "External"
+    ANALOG = "Analog"
 
 
-class MriScanSequence(str, Enum):
-    """MRI scan sequence"""
+class PulseSequenceType(str, Enum):
+    """MRI pulse sequence type"""
 
     RARE = "RARE"
+    FLASH = "FLASH"
+    MSME = "MSME"
     OTHER = "Other"
 
 
-class ScanType(str, Enum):
-    """Type of scan"""
+class MRAcquisitionType(str, Enum):
+    """MRI acquisition type"""
 
-    SETUP = "Set Up"
-    SCAN_3D = "3D Scan"
+    SCAN_2D = "2D"
+    SCAN_3D = "3D"
 
 
 class SubjectPosition(str, Enum):
@@ -95,6 +93,15 @@ class SubjectPosition(str, Enum):
 
     PRONE = "Prone"
     SUPINE = "Supine"
+
+
+class NeuronStructure(str, Enum):
+    """Neuronal structures captured in imaging planes"""
+
+    SOMA = "Soma"
+    DENDRITE = "Dendrite"
+    AXON = "Axon"
+    OTHER = "Other"
 
 
 class DeviceConfig(DataModel):
@@ -109,7 +116,7 @@ class DeviceConfig(DataModel):
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
-    exposure_time: float = Field(..., title="Exposure time")
+    exposure_time: Optional[float] = Field(default=None, title="Exposure time")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
@@ -118,6 +125,19 @@ class DetectorConfig(DeviceConfig):
         title="Compression",
         description="Compression algorithm used during acquisition",
     )
+    crop_offset_x: Optional[int] = Field(
+        default=None, title="Crop offset x", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_offset_y: Optional[int] = Field(
+        default=None, title="Crop offset y", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_width: Optional[int] = Field(
+        default=None, title="Crop width", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_height: Optional[int] = Field(
+        default=None, title="Crop height", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_unit: Optional[SizeUnit] = Field(default=SizeUnit.PX, title="Crop size unit")
 
 
 class LaserConfig(DeviceConfig):
@@ -171,15 +191,6 @@ class Channel(DataModel):
     emission_wavelength_unit: Optional[SizeUnit] = Field(default=None, title="Emission wavelength unit")
 
 
-class SlapChannel(Channel):
-    """Configuration of a channel for Slap"""
-
-    dilation: int = Field(..., title="Dilation")
-    dilation_unit: SizeUnit = Field(..., title="Dilation unit")
-
-    description: Optional[str] = Field(default=None, title="Description")
-
-
 class PatchCordConfig(DeviceConfig):
     """Configuration of a patch cord and its output power to another device"""
 
@@ -219,19 +230,28 @@ class CoupledPlane(Plane):
     power_ratio: float = Field(..., title="Power ratio")
 
 
-class SlapPlane(Plane):
-    """Configuration of an imagine plane on a Slap microscope"""
+class Slap2Plane(Plane):
+    """Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)"""
 
-    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="SLAP2 ROI acquisition type")
 
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-    target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    specimen_id: Optional[str] = Field(
+        default=None,
+        title="Specimen ID",
+        description="Unique index identifying the cell being imaged: <subject_id>_###",
     )
+    fov_index: Optional[int] = Field(
+        default=None,
+        title="Field of view index",
+        description="For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV",
+    )
+    structure_types: Optional[List[NeuronStructure]] = Field(default=None, title="Structure type")
+
+    y_dilations: List[int] = Field(..., title="Unique Y dilations")
+    y_dilations_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+
+    frame_rates: List[float] = Field(..., title="Unique frame rates")
+    frame_rates_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
 
 
 class Image(DataModel):
@@ -266,7 +286,7 @@ class ImageSPIM(Image):
 class PlanarImage(Image):
     """Description of an N-D image acquired in a specific imaging plane"""
 
-    planes: DiscriminatedList[Plane | CoupledPlane | SlapPlane] = Field(..., title="Imaging planes")
+    planes: DiscriminatedList[Plane | CoupledPlane | Slap2Plane] = Field(..., title="Imaging planes")
 
     @model_validator(mode="after")
     def limit_plane_to_one(self):
@@ -311,7 +331,7 @@ class StackStrategy(SamplingStrategy):
 class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
-    channels: DiscriminatedList[Channel | SlapChannel] = Field()
+    channels: DiscriminatedList[Channel] = Field()
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",
@@ -505,6 +525,13 @@ class EphysAssemblyConfig(DeviceConfig):
     )
 
 
+class MISCameraConfig(DeviceConfig, DevicePosition):
+    """Configuration for a camera used in a New Scale modular insertion system"""
+
+    detector_config: DetectorConfig = Field(..., title="Detector configuration")
+    module: MISModuleConfig = Field(..., title="Module")
+
+
 class FiberAssemblyConfig(DeviceConfig):
     """Inserted fiber photometry probe recorded in a stream"""
 
@@ -519,50 +546,56 @@ class FiberAssemblyConfig(DeviceConfig):
 class MRIScan(DeviceConfig):
     """Configuration of a 3D scan"""
 
-    scan_index: int = Field(..., title="Scan index")
-    scan_type: ScanType = Field(..., title="Scan type")
-    primary_scan: bool = Field(
-        ..., title="Primary scan", description="Indicates the primary scan used for downstream analysis"
+    # Meta-metadata
+    index: int = Field(..., title="Index", description="Index of the scan in the session, starting at 1")
+    setup: bool = Field(..., title="Setup", description="Positioning, shim, and other pre-scan adjustments")
+
+    # Scan info
+    pulse_sequence_type: PulseSequenceType = Field(..., title="Scan sequence", description="BIDS PulseSequenceType")
+    mr_acquisition_type: MRAcquisitionType = Field(
+        ..., title="MR acquisition type", description="BIDS MRAcquisitionType / DICOM Tag 0018,0023"
     )
-    scan_sequence_type: MriScanSequence = Field(..., title="Scan sequence")
+    resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
+    resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
+    additional_scan_parameters: Optional[GenericModel] = Field(default=None, title="Parameters")
+
+    # Pulse sequence properties
     rare_factor: Optional[int] = Field(default=None, title="RARE factor")
-    echo_time: Decimal = Field(..., title="Echo time")
-    echo_time_unit: TimeUnit = Field(..., title="Echo time unit")
+    echo_time: Decimal = Field(..., title="Echo time (s)", description="BIDS EchoTime / DICOM Tag 0018,0081")
+    echo_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Echo time unit")
     effective_echo_time: Optional[Decimal] = Field(default=None, title="Effective echo time")
-    repetition_time: Decimal = Field(..., title="Repetition time")
-    repetition_time_unit: TimeUnit = Field(..., title="Repetition time unit")
+    repetition_time: Decimal = Field(
+        ..., title="Repetition time (s)", description="BIDS RepetitionTime / DICOM Tag 0018,0080"
+    )
+    repetition_time_unit: TimeUnit = Field(default=TimeUnit.S, title="Repetition time unit")
 
     # fields required to get correct orientation
-    scan_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Scanner coordinate system")
-    scan_affine_transform: Optional[TRANSFORM_TYPES] = Field(
+    scanner_coordinate_system: Optional[CoordinateSystem] = Field(default=None, title="Scanner coordinate system")
+    affine_transform: Optional[TRANSFORM_TYPES] = Field(
         default=None, title="MRI Scan affine transform", description="NIFTI sform/qform, Bruker vc_transform, etc"
     )
     subject_position: SubjectPosition = Field(..., title="Subject position")
 
     # other fields
-    resolution: Optional[Scale] = Field(default=None, title="Voxel resolution")
-    resolution_unit: Optional[SizeUnit] = Field(default=None, title="Voxel resolution unit")
-    additional_scan_parameters: Optional[GenericModel] = Field(default=None, title="Parameters")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
         """Validator for other/notes"""
 
-        if info.data.get("scan_sequence_type") == MriScanSequence.OTHER and not value:
+        if info.data.get("pulse_sequence_type") == PulseSequenceType.OTHER and not value:
             raise ValueError(
-                "Notes cannot be empty if scan_sequence_type is Other."
-                " Describe the scan_sequence_type in the notes field."
+                "Notes cannot be empty if pulse_sequence_type is Other."
+                " Describe the pulse_sequence_type in the notes field."
             )
         return value
 
     @model_validator(mode="after")
-    def validate_primary_scan(self):
-        """Validate that primary scan has scan_affine_transform and resolution fields"""
+    def validate_non_setup(self):
+        """Validate that non-setup scans have affine_transform and resolution fields"""
 
-        if self.primary_scan:
-            if not self.scan_affine_transform or not self.resolution:
-                raise ValueError("Primary scan must have scan_affine_transform and resolution fields")
+        if not self.setup and (not self.affine_transform or not self.resolution):
+            raise ValueError("Primary scan must have affine_transform and resolution fields")
 
         return self
 

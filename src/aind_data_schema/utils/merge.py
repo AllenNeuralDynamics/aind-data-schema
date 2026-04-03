@@ -1,4 +1,4 @@
-""" Helper functions for composability """
+"""Helper functions for composability"""
 
 import logging
 from typing import Any, List, Optional
@@ -76,6 +76,16 @@ def remove_duplicates(lst: List[Any]) -> List[Any]:
     if len(output_list) != len(lst):
         logging.info(f"Removed {len(lst) - len(output_list)} duplicates from list")
     return output_list
+
+
+def merge_str_alphabetical(a: Optional[str], b: Optional[str]) -> Optional[str]:
+    """Merge two strings alphabetically"""
+
+    if a and b:
+        merged = "_".join(sorted({a, b}))
+    else:
+        merged = a if a else b
+    return merged
 
 
 def merge_optional_list(a: Optional[List[Any]], b: Optional[List[Any]]) -> Optional[List[Any]]:

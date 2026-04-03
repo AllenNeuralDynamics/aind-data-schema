@@ -85,7 +85,7 @@ Some notes: the position is *negative* because in BREGMA_ARI the AP axis points 
 
 ## Rotations
 
-Rotations are applied using the [scipy Euler angle conventions](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.transform.Rotation.from_euler.html#scipy.spatial.transform.Rotation.from_euler), in "xyz" order. Positive angles rotate counter-clockwise.
+Rotations are applied using the [scipy Euler angle conventions](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.transform.Rotation.from_euler.html#scipy.spatial.transform.Rotation.from_euler), in "xyz" order. Positive angles rotate around the extrinsic axes counter-clockwise (right-hand rule).
 
 It can be complicated to translate your rotations into the default conventions in situations where you aren't in control of the coordinate system definition. In that situation, it is preferable to construct an affine rotation matrix directly and pass it using the [Affine](components/coordinates.md#affine) object.
 
