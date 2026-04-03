@@ -1,4 +1,4 @@
-""" ephys procedure mouse 625100 """
+"""ephys procedure mouse 625100"""
 
 import argparse
 from datetime import datetime, timezone

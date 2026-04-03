@@ -1,4 +1,4 @@
-""" Tests for the coordinates module """
+"""Tests for the coordinates module"""
 
 import unittest
 

@@ -1,1 +1,1 @@
-""" Core schemas """
+"""Core schemas"""

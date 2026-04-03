@@ -1,4 +1,4 @@
-""" test Procedures """
+"""test Procedures"""
 
 import unittest
 import warnings
@@ -529,6 +529,25 @@ class ProceduresTests(unittest.TestCase):
             )
         expected_exception = "specimen_id must be an extension of the subject_id."
         self.assertIn(expected_exception, str(e.exception))
+
+    def test_validate_subject_specimen_id_list_valid(self):
+        """Test that specimen_id accepts a list of strings when all contain subject_id"""
+
+        valid_procedure = Procedures(
+                subject_id="12345",
+                specimen_procedures=[
+                    SpecimenProcedure(
+                        specimen_id=["12345_001", "12345_002"],
+                        procedure_type="Other",
+                        start_date=date.fromisoformat("2020-10-10"),
+                        end_date=date.fromisoformat("2020-10-11"),
+                        experimenters=["Mam Moth"],
+                        protocol_id=["10"],
+                        notes="some notes",
+                    )
+                ],
+            )
+        self.assertIsNotNone(valid_procedure)
 
     def test_craniotomy_position_validation(self):
         """Test validation for craniotomy position"""

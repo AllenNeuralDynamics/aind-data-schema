@@ -8,7 +8,9 @@ The `procedures.json` file contains anything done to the subject or specimen pri
 
 **Subject** procedures are performed on a live subject (e.g. injections, surgeries, implants, perfusions, etc.) whereas **specimen** procedures are performed on tissue extracted after perfusion (e.g. tissue processing, immunolabeling, sectioning, etc.).
 
-Sectioned specimens must have a unique number appended as a suffix to the subject ID: `<subject_id>_<###>`.
+### SpecimenProcedure.specimen_id
+
+After perfusion or death we refer to specimens by the `specimen_id` field. When the tissue has not been sectioned in some way the `specimen_id` should be identical to the `subject_id`. Sectioned specimens should have a unique number appended as a suffix to the subject ID: `<subject_id>_<###>`. 
 
 ## Examples
 

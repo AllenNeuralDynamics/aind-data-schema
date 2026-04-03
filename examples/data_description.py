@@ -1,4 +1,4 @@
-""" example data description """
+"""example data description"""
 
 import argparse
 from datetime import datetime, timezone

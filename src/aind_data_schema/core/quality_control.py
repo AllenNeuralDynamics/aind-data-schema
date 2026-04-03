@@ -1,4 +1,4 @@
-""" Schemas for Quality Metrics """
+"""Schemas for Quality Metrics"""
 
 from datetime import datetime, timezone
 from enum import Enum
@@ -123,7 +123,7 @@ class QualityControl(DataCoreModel):
 
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/quality_control.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.4.0"]] = Field(default="2.4.0")
+    schema_version: SkipValidation[Literal["2.4.1"]] = Field(default="2.4.1")
     metrics: DiscriminatedList[QCMetric | CurationMetric] = Field(..., title="Evaluations")
     key_experimenters: Optional[List[str]] = Field(
         default=None,

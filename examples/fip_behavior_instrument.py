@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-""" example FIP ophys instrument """
+"""example FIP ophys instrument"""
+
 import argparse
 from datetime import date, datetime, timezone
 

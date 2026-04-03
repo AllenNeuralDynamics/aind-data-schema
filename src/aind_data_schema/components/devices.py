@@ -1,4 +1,4 @@
-""" schema for various Devices """
+"""schema for various Devices"""
 
 from datetime import date
 from decimal import Decimal
@@ -453,14 +453,14 @@ class LaserAssembly(DataModel):
 
 
 class EphysProbe(Device):
-    """Probe used in an ephys experiment"""
+    """Probe used in an extracellular ephys experiment"""
 
     probe_model: ProbeModel = Field(..., title="Probe model")
     headstage: Optional[Device] = Field(default=None, title="Headstage for this probe")
 
 
 class EphysAssembly(DataModel):
-    """Named assembly for combining a manipulator and ephys probes"""
+    """Named assembly for combining a manipulator and extracellular ephys probes"""
 
     name: str = Field(..., title="Ephys assembly name")
     manipulator: Manipulator = Field(..., title="Manipulator")
@@ -487,23 +487,27 @@ class FiberAssembly(DataModel):
     fibers: List[FiberProbe] = Field(..., title="Probes that are held by this module")
 
 
+class PatchClampEphysAssembly(DataModel):
+    """Assembly combining a manipulator and headstage used for Patch clamp ephys"""
+
+    name: str = Field(..., title="Patch clamp Assembly Name")
+    manipulator: Manipulator = Field(..., title="Manipulator")
+    headstage: Device = Field(..., title="Headstage")
+
+
 class DigitalMicromirrorDevice(Device):
     """Description of a Digital Micromirror Device (DMD)"""
 
     max_dmd_patterns: int = Field(..., title="Max DMD patterns")
-    double_bounce_design: bool = Field(..., title="Double bounce design")
     invert_pixel_values: bool = Field(..., title="Invert pixel values")
     motion_padding_x: int = Field(..., title="Motion padding X (pixels)")
     motion_padding_y: int = Field(..., title="Motion padding Y (pixels)")
     padding_unit: SizeUnit = Field(default=SizeUnit.PX, title="Padding unit")
-    pixel_size: Decimal = Field(..., title="DMD Pixel size")
-    pixel_size_unit: SizeUnit = Field(default=SizeUnit.UM, title="Pixel size unit")
-    start_phase: Decimal = Field(..., title="DMD Start phase (fraction of cycle)")
-    dmd_flip: bool = Field(..., title="DMD Flip")
-    dmd_curtain: List[Decimal] = Field(..., title="DMD Curtain")
-    dmd_curtain_unit: SizeUnit = Field(default=SizeUnit.PX, title="dmd_curtain_unit")
-    line_shear: List[int] = Field(..., title="Line shear (pixels)")
-    line_shear_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear unit")
+    pixel_size: float = Field(..., title="DMD Pixel size (fraction of line scan period)")
+    start_phase: float = Field(..., title="DMD Start phase (fraction of line scan period)")
+    dmd_curtain: List[float] = Field(..., title="DMD Curtain (fraction of DMD scan period)")
+    line_shear_anchors: List[float] = Field(..., title="Line shear anchors at top and bottom of field of view (pixels)")
+    line_shear_anchors_unit: SizeUnit = Field(default=SizeUnit.PX, title="Line shear anchors unit")
 
 
 class PolygonalScanner(Device):
@@ -682,7 +686,7 @@ class OlfactometerChannel(DataModel):
 
     channel_index: int = Field(..., title="Channel index")
     channel_type: OlfactometerChannelType = Field(..., title="Channel type")
-    flow_capacity: Literal[100, 1000] = Field(default=100, title="Flow capacity")
+    flow_capacity: int = Field(default=100, gt=0, title="Flow capacity")
     flow_unit: str = Field(default="mL/min", title="Flow unit")
 
 

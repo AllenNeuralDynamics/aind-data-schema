@@ -382,7 +382,7 @@ class CoordinateSystemLibrary:
         origin=Origin.ORIGIN,
         axis_unit=SizeUnit.MM,
         axes=[
-            Axis(name=AxisName.X, direction=Direction.LR),
+            Axis(name=AxisName.X, direction=Direction.RL),
             Axis(name=AxisName.Y, direction=Direction.AP),
             Axis(name=AxisName.Z, direction=Direction.IS),
         ],

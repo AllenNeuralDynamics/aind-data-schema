@@ -1,4 +1,4 @@
-""" test round trip (de)serialization behavior of GenericModel models"""
+"""test round trip (de)serialization behavior of GenericModel models"""
 
 import unittest
 

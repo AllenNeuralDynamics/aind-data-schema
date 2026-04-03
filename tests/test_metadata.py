@@ -29,9 +29,9 @@ from examples.ephys_instrument import inst as ephys_inst
 from aind_data_schema.components.subject_procedures import TrainingProtocol
 from aind_data_schema.core.acquisition import StimulusEpoch
 
+from examples.barseq_acquisition import acquisition as barseq_acquisition
 from examples.data_description import d as data_description
 from examples.subject import s as subject
-
 
 ephys_assembly = EphysAssembly(
     probes=[EphysProbe(probe_model="Neuropixels 1.0", name="Probe A")],
@@ -334,6 +334,19 @@ class TestMetadata(unittest.TestCase):
             "Metadata must contain at least one of the following files: subject, processing, model",
             str(context.exception),
         )
+
+    def test_external_data_stream_no_instrument_warning(self):
+        """Test that ExternalDataStream-only acquisitions do not warn about missing instrument"""
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            Metadata(
+                name="655019_2023-04-03T181709",
+                location="bucket",
+                subject=subject,
+                acquisition=barseq_acquisition,
+            )
+        instrument_warnings = [str(warning.message) for warning in w if "instrument" in str(warning.message)]
+        self.assertEqual([], instrument_warnings)
 
     def test_validate_acquisition_connections(self):
         """Tests that acquisition connections are validated correctly."""

@@ -1,4 +1,4 @@
-""" Configurations for devices, software, and other components during acquisition """
+"""Configurations for devices, software, and other components during acquisition"""
 
 from decimal import Decimal
 from enum import Enum
@@ -19,6 +19,7 @@ from aind_data_schema_models.units import (
     ConcentrationUnit,
 )
 from aind_data_schema_models.mouse_anatomy import MouseAnatomyModel
+from aind_data_schema_models.slap2_acquisition_type import Slap2AcquisitionType
 from pydantic import Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 
@@ -53,13 +54,6 @@ class Valence(str, Enum):
     UNKNOWN = "Unknown"
 
 
-class SlapAcquisitionType(str, Enum):
-    """Type of slap acquisition"""
-
-    PARENT = "Parent"
-    BRANCH = "Branch"
-
-
 class Liquid(str, Enum):
     """Solution names"""
 
@@ -75,6 +69,7 @@ class TriggerType(str, Enum):
 
     INTERNAL = "Internal"
     EXTERNAL = "External"
+    ANALOG = "Analog"
 
 
 class PulseSequenceType(str, Enum):
@@ -100,6 +95,15 @@ class SubjectPosition(str, Enum):
     SUPINE = "Supine"
 
 
+class NeuronStructure(str, Enum):
+    """Neuronal structures captured in imaging planes"""
+
+    SOMA = "Soma"
+    DENDRITE = "Dendrite"
+    AXON = "Axon"
+    OTHER = "Other"
+
+
 class DeviceConfig(DataModel):
     """Parent class for all configurations"""
 
@@ -112,7 +116,7 @@ class DeviceConfig(DataModel):
 class DetectorConfig(DeviceConfig):
     """Configuration of detector settings"""
 
-    exposure_time: float = Field(..., title="Exposure time")
+    exposure_time: Optional[float] = Field(default=None, title="Exposure time")
     exposure_time_unit: TimeUnit = Field(default=TimeUnit.MS, title="Exposure time unit")
     trigger_type: TriggerType = Field(..., title="Trigger type")
 
@@ -121,6 +125,19 @@ class DetectorConfig(DeviceConfig):
         title="Compression",
         description="Compression algorithm used during acquisition",
     )
+    crop_offset_x: Optional[int] = Field(
+        default=None, title="Crop offset x", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_offset_y: Optional[int] = Field(
+        default=None, title="Crop offset y", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_width: Optional[int] = Field(
+        default=None, title="Crop width", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_height: Optional[int] = Field(
+        default=None, title="Crop height", description="Overrides any value set in the Instrument metadata"
+    )
+    crop_unit: Optional[SizeUnit] = Field(default=SizeUnit.PX, title="Crop size unit")
 
 
 class LaserConfig(DeviceConfig):
@@ -174,15 +191,6 @@ class Channel(DataModel):
     emission_wavelength_unit: Optional[SizeUnit] = Field(default=None, title="Emission wavelength unit")
 
 
-class SlapChannel(Channel):
-    """Configuration of a channel for Slap"""
-
-    dilation: int = Field(..., title="Dilation")
-    dilation_unit: SizeUnit = Field(..., title="Dilation unit")
-
-    description: Optional[str] = Field(default=None, title="Description")
-
-
 class PatchCordConfig(DeviceConfig):
     """Configuration of a patch cord and its output power to another device"""
 
@@ -222,19 +230,28 @@ class CoupledPlane(Plane):
     power_ratio: float = Field(..., title="Power ratio")
 
 
-class SlapPlane(Plane):
-    """Configuration of an imagine plane on a Slap microscope"""
+class Slap2Plane(Plane):
+    """Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisition type at a particular depth)"""
 
-    dmd_dilation_x: int = Field(..., title="DMD Dilation X (pixels)")
-    dmd_dilation_y: int = Field(..., title="DMD Dilation Y (pixels)")
-    dilation_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+    slap2_acquisition_type: Slap2AcquisitionType = Field(..., title="SLAP2 ROI acquisition type")
 
-    slap_acquisition_type: SlapAcquisitionType = Field(..., title="Slap experiment type")
-    target_neuron: Optional[str] = Field(default=None, title="Target neuron")
-    target_branch: Optional[str] = Field(default=None, title="Target branch")
-    path_to_array_of_frame_rates: AssetPath = Field(
-        ..., title="Array of frame rates", description="Relative path from metadata json to file"
+    specimen_id: Optional[str] = Field(
+        default=None,
+        title="Specimen ID",
+        description="Unique index identifying the cell being imaged: <subject_id>_###",
     )
+    fov_index: Optional[int] = Field(
+        default=None,
+        title="Field of view index",
+        description="For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV",
+    )
+    structure_types: Optional[List[NeuronStructure]] = Field(default=None, title="Structure type")
+
+    y_dilations: List[int] = Field(..., title="Unique Y dilations")
+    y_dilations_unit: SizeUnit = Field(default=SizeUnit.PX, title="Dilation unit")
+
+    frame_rates: List[float] = Field(..., title="Unique frame rates")
+    frame_rates_unit: FrequencyUnit = Field(default=FrequencyUnit.HZ, title="Frame rate unit")
 
 
 class Image(DataModel):
@@ -269,7 +286,7 @@ class ImageSPIM(Image):
 class PlanarImage(Image):
     """Description of an N-D image acquired in a specific imaging plane"""
 
-    planes: DiscriminatedList[Plane | CoupledPlane | SlapPlane] = Field(..., title="Imaging planes")
+    planes: DiscriminatedList[Plane | CoupledPlane | Slap2Plane] = Field(..., title="Imaging planes")
 
     @model_validator(mode="after")
     def limit_plane_to_one(self):
@@ -314,7 +331,7 @@ class StackStrategy(SamplingStrategy):
 class ImagingConfig(DeviceConfig):
     """Configuration of an imaging instrument"""
 
-    channels: DiscriminatedList[Channel | SlapChannel] = Field()
+    channels: DiscriminatedList[Channel] = Field()
     coordinate_system: Optional[CoordinateSystem] = Field(
         default=None,
         title="Coordinate system",

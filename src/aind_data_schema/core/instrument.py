@@ -43,6 +43,7 @@ from aind_data_schema.components.devices import (
     Objective,
     Olfactometer,
     OpenEphysAcquisitionBoard,
+    PatchClampEphysAssembly,
     PockelsCell,
     PolygonalScanner,
     Scanner,
@@ -64,7 +65,6 @@ DEVICES_REQUIRED = {
     Modality.POPHYS.abbreviation: [[Laser], [Detector], [Objective]],
     Modality.SLAP2.abbreviation: [[Laser], [Detector], [Objective], [DigitalMicromirrorDevice], [Microscope]],
     Modality.BEHAVIOR_VIDEOS.abbreviation: [CameraAssembly],
-    Modality.BEHAVIOR.abbreviation: [[LickSpoutAssembly]],
     Modality.SPIM.abbreviation: [[Laser], [Objective], [ScanningStage]],
 }
 
@@ -75,7 +75,7 @@ class Instrument(DataCoreModel):
     # metametadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/instrument.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
+    schema_version: SkipValidation[Literal["2.2.3"]] = Field(default="2.2.3")
 
     # instrument definition
     location: Optional[str] = Field(default=None, title="Location", description="Location of the instrument")
@@ -142,6 +142,7 @@ class Instrument(DataCoreModel):
         | Filter
         | Lens
         | DigitalMicromirrorDevice
+        | PatchClampEphysAssembly
         | PolygonalScanner
         | PockelsCell
         | HarpDevice
@@ -195,6 +196,20 @@ class Instrument(DataCoreModel):
                         f"Describe the camera target from ({component.name}) in the notes field"
                     )
 
+        return self
+
+    @model_validator(mode="after")
+    def validate_unique_component_names(self):
+        """Warn if any component names are duplicated"""
+        names = self.get_component_names()
+        if len(set(names)) != len(names):
+            seen = set()
+            duplicates = set()
+            for name in names:
+                if name in seen:
+                    duplicates.add(name)
+                seen.add(name)
+            logging.warning(f"Duplicate component names found: {sorted(duplicates)}")
         return self
 
     @model_validator(mode="after")

@@ -1,0 +1,34 @@
+name: Update docs for dev PR
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  update_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.SERVICE_TOKEN }}
+          ref: ${{ github.head_ref }}
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install -e .[dev] -e .[docs] --no-cache-dir
+      - name: Generate docs
+        run: |
+          python src/aind_data_schema/utils/docs/model_generator.py
+          python src/aind_data_schema/utils/docs/registries_generator.py
+          python src/aind_data_schema/utils/docs/doc_generator.py
+          sphinx-build -b html docs/source/ docs/build/html
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "update docs [skip actions]"
+          add: '["docs"]'
