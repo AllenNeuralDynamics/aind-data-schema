@@ -252,7 +252,7 @@ class DataStream(DataModel):
 
 
 class ExternalDataStream(DataModel):
-    """A simplified data stream for acquisitions performed externally, where full instrument metadata is unavailable."""
+    """A simplified data stream for acquisitions where instrument metadata is unavailable."""
 
     object_type: Literal["ExternalDataStream"] = "ExternalDataStream"
     stream_start_time: Annotated[
@@ -398,7 +398,7 @@ class Acquisition(DataCoreModel):
     instrument_id: Optional[str] = Field(
         default=None,
         title="Instrument ID",
-        description="Should match the Instrument.instrument_id. Required when data_streams contains a DataStream.",
+        description="Should match the Instrument.instrument_id. Required when instrument metadata is available.",
     )
     acquisition_type: str = Field(
         ...,
@@ -437,7 +437,7 @@ class Acquisition(DataCoreModel):
         description=(
             "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
             "include multiple streams. Streams should be split when configurations are changed. "
-            "Use ExternalDataStream for acquisitions performed externally where full instrument metadata is unavailable."  # noqa: E501
+            "Use ExternalDataStream for acquisitions where instrument metadata is unavailable."
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(

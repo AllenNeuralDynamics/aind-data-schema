@@ -85,13 +85,13 @@ while the StimulusEpoch represents all stimuli being presented.
 | `experimenters` | `List[str]` | experimenter(s)  |
 | `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
 | `ethics_review_id` | `Optional[List[str]]` | Ethics review ID  |
-| `instrument_id` | `Optional[str]` | Instrument ID (Should match the Instrument.instrument_id. Required when data_streams contains a DataStream.) |
+| `instrument_id` | `Optional[str]` | Instrument ID (Should match the Instrument.instrument_id. Required when instrument metadata is available.) |
 | `acquisition_type` | `str` | Acquisition type (Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.) |
 | `notes` | `Optional[str]` | Notes  |
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Coordinate system (Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition) |
 | `calibrations` | List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)] | Calibrations (List of calibration measurements taken prior to acquisition.) |
 | `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | Maintenance (List of maintenance on instrument prior to acquisition.) |
-| `data_streams` | List[[DataStream](acquisition.md#datastream) or [ExternalDataStream](acquisition.md#externaldatastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. Use ExternalDataStream for acquisitions performed externally where full instrument metadata is unavailable.) |
+| `data_streams` | List[[DataStream](acquisition.md#datastream) or [ExternalDataStream](acquisition.md#externaldatastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. Use ExternalDataStream for acquisitions where instrument metadata is unavailable.) |
 | `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | Stimulus (A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.) |
 | `manipulations` | List[[Manipulation](acquisition.md#manipulation)] | Manipulations (Procedures performed during the acquisition.) |
 | `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details (Required for in vivo acquisitions.) |
@@ -133,7 +133,7 @@ same time.
 
 ### ExternalDataStream
 
-A simplified data stream for acquisitions performed externally, where full instrument metadata is unavailable.
+A simplified data stream for acquisitions where instrument metadata is unavailable.
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
