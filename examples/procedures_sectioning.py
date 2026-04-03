@@ -427,6 +427,7 @@ _SLIDE_REGIONS = [
 
 
 def _load_slide_regions() -> Dict[int, dict]:
+    """Load slide region data from _SLIDE_REGIONS and organize by slide number"""
     slides: Dict[int, dict] = {}
     for row in _SLIDE_REGIONS:
         slide = row["slide_num"]
@@ -448,6 +449,7 @@ def _load_slide_regions() -> Dict[int, dict]:
 
 
 def generate_mapseq_slide_chunks(specimen_id: str) -> List[SpecimenProcedure]:
+    """Generate specimen procedures for the MAPseq slide chunking based on _SLIDE_REGIONS data"""
     slides = _load_slide_regions()
     procedures = []
     for slide_num, slide_data in slides.items():
@@ -498,6 +500,7 @@ def create_planar_section(
     thickness: float,
     thickness_unit: SizeUnit,
 ) -> PlanarSection:
+    """Helper function to create a PlanarSection with the given parameters"""
     return PlanarSection(
         output_specimen_id=f"{specimen_id}_{section_id}",
         coordinate_system_name=coordinate_system_name,
@@ -517,6 +520,7 @@ def create_uniform_sections(
     coordinate_system_name: str = "CCF",
     section_prefix: str = "sec",
 ) -> List[PlanarSection]:
+    """Create a list of PlanarSections with uniform spacing based on the given parameters"""
     return [
         create_planar_section(
             specimen_id=specimen_id,
@@ -540,6 +544,7 @@ def create_nonuniform_sections(
     section_prefix: str = "sec",
     start_section_num: int = 1,
 ) -> List[PlanarSection]:
+    """Create a list of PlanarSections with non-uniform spacing based on the given parameters"""
     if num_sections != len(start_positions_um):
         raise ValueError("num_sections and start_positions_um must have same length")
 
@@ -560,6 +565,7 @@ def create_planar_sectioning(
     sections: List[PlanarSection],
     section_orientation: SectionOrientation = SectionOrientation.CORONAL,
 ) -> PlanarSectioning:
+    """Helper function to create a PlanarSectioning procedure with the given sections and orientation"""
     return PlanarSectioning(
         sections=sections,
         section_orientation=section_orientation,
@@ -567,6 +573,7 @@ def create_planar_sectioning(
 
 
 def generate_mapseq_slides_780345_first_batch(start_section_num: int = 1) -> PlanarSectioning:
+    """Generate the first batch of MAPseq slides for specimen 780345 with non-uniform section spacing based on plate boundaries"""
     start_positions = [i * (9800 / 27) for i in range(27)]
 
     sections = create_nonuniform_sections(
@@ -583,6 +590,7 @@ def generate_mapseq_slides_780345_first_batch(start_section_num: int = 1) -> Pla
 
 
 def generate_barseq_lc_780345(start_section_num: int = 1) -> PlanarSectioning:
+    """Generate the BARseq LC slides for specimen 780345 with uniform section spacing (20um)"""
     sections = create_uniform_sections(
         specimen_id="780345",
         start_section_num=start_section_num,
@@ -597,6 +605,7 @@ def generate_barseq_lc_780345(start_section_num: int = 1) -> PlanarSectioning:
 
 
 def generate_mapseq_slides_780345_second_batch(start_section_num: int = 28) -> PlanarSectioning:
+    """Generate the second batch of MAPseq slides for specimen 780345 with non-uniform section spacing based on plate boundaries"""
     start_positions = [11200 + i * (2000 / 12) for i in range(12)]
 
     sections = create_nonuniform_sections(
@@ -613,6 +622,7 @@ def generate_mapseq_slides_780345_second_batch(start_section_num: int = 28) -> P
 
 
 def generate_mapseq_spinal_780345() -> Sectioning:
+    """Generate the MAPseq spinal cord sections for specimen 780345, with approximate size (1/3rd length each)"""
     return Sectioning(
         sections=[
             Section(
@@ -638,6 +648,7 @@ def generate_mapseq_spinal_780345() -> Sectioning:
 
 
 def generate_mapseq_slides_780346_first_batch(start_section_num: int = 1) -> PlanarSectioning:
+    """Generate the first batch of MAPseq slides for specimen 780346 with non-uniform section spacing based on plate boundaries"""
     start_positions = [i * (9800 / 30) for i in range(30)]
 
     sections = create_nonuniform_sections(
@@ -654,6 +665,7 @@ def generate_mapseq_slides_780346_first_batch(start_section_num: int = 1) -> Pla
 
 
 def generate_barseq_lc_780346(start_section_num: int = 1) -> PlanarSectioning:
+    """Generate the BARseq LC slides for specimen 780346 with uniform section spacing (20um)"""
     sections = create_uniform_sections(
         specimen_id="780346",
         start_section_num=start_section_num,
@@ -668,6 +680,7 @@ def generate_barseq_lc_780346(start_section_num: int = 1) -> PlanarSectioning:
 
 
 def generate_mapseq_slides_780346_second_batch(start_section_num: int = 31) -> PlanarSectioning:
+    """Generate the second batch of MAPseq slides for specimen 780346 with non-uniform section spacing based on plate boundaries"""
     start_positions = [11200 + i * (2000 / 9) for i in range(9)]
 
     sections = create_nonuniform_sections(
@@ -684,6 +697,7 @@ def generate_mapseq_slides_780346_second_batch(start_section_num: int = 31) -> P
 
 
 def generate_mapseq_spinal_780346() -> Sectioning:
+    """Generate the MAPseq spinal cord sections for specimen 780346, with approximate size (1/3rd length each)"""
     return Sectioning(
         sections=[
             Section(
@@ -697,6 +711,7 @@ def generate_mapseq_spinal_780346() -> Sectioning:
 
 
 def generate_procedures_780345() -> Procedures:
+    """Generate the Procedures for specimen 780345, including multiple sectioning procedures with different parameters and notes"""
     return Procedures(
         subject_id="780345",
         coordinate_system=AtlasLibrary.CCFv3_10um,
@@ -743,6 +758,7 @@ def generate_procedures_780345() -> Procedures:
 
 
 def generate_procedures_780346() -> Procedures:
+    """Generate the Procedures for specimen 780346, including multiple sectioning procedures with different parameters and notes"""
     return Procedures(
         subject_id="780346",
         coordinate_system=AtlasLibrary.CCFv3_10um,
