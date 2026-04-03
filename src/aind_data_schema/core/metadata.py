@@ -21,7 +21,7 @@ from pydantic import (
 from aind_data_schema.base import DataCoreModel
 from aind_data_schema.components.identifiers import DatabaseIdentifiers
 from aind_data_schema.components.subjects import CalibrationObject
-from aind_data_schema.core.acquisition import Acquisition
+from aind_data_schema.core.acquisition import Acquisition, DataStream, ExternalDataStream
 from aind_data_schema.core.data_description import DataDescription
 from aind_data_schema.core.instrument import Instrument
 from aind_data_schema.core.model import Model
@@ -149,9 +149,16 @@ class Metadata(DataCoreModel):
 
         for file in REQUIRED_FILE_SETS.keys():
             if getattr(self, file):
-                for file in REQUIRED_FILE_SETS[file]:
-                    if not getattr(self, file):
-                        warnings.warn(f"Metadata missing required file: {file}")
+                for required_file in REQUIRED_FILE_SETS[file]:
+                    if not getattr(self, required_file):
+                        # Skip instrument warning when acquisition only has ExternalDataStream
+                        if (
+                            required_file == "instrument"
+                            and self.acquisition
+                            and all(isinstance(s, ExternalDataStream) for s in self.acquisition.data_streams)
+                        ):
+                            continue
+                        warnings.warn(f"Metadata missing required file: {required_file}")
 
         return self
 
@@ -218,7 +225,8 @@ class Metadata(DataCoreModel):
 
         if self.acquisition:
             for data_stream in self.acquisition.data_streams:
-                active_devices.extend(data_stream.active_devices)
+                if isinstance(data_stream, DataStream):
+                    active_devices.extend(data_stream.active_devices)
 
         device_names = []
 
@@ -253,6 +261,8 @@ class Metadata(DataCoreModel):
         if self.acquisition:
             data_streams = self.acquisition.data_streams
             for data_stream in data_streams:
+                if not isinstance(data_stream, DataStream):
+                    continue
                 for connection in data_stream.connections:
                     # Check both source and target devices exist
                     missing_devices = []
