@@ -869,6 +869,18 @@ class QualityControlTests(unittest.TestCase):
         # Tags should remain as dict
         self.assertEqual(qc_new.metrics[0].tags, {"group": "test_group", "probe": "probeA", "shank": "shank1"})
 
+    def test_empty_metrics_does_not_convert_default_grouping(self):
+        """Test that fix_default_grouping_list does not alter default_grouping when metrics is empty"""
+
+        empty_metrics_dict = {
+            "metrics": [],
+            "default_grouping": ["group1", "group2"],
+        }
+
+        qc = QualityControl.model_validate(empty_metrics_dict)
+
+        self.assertEqual(qc.default_grouping, ["group1", "group2"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -301,10 +301,10 @@ class QualityControl(DataCoreModel):
         This function is for backwards compatibility with v2.2.X where default_grouping was stored as a list of strings.
         Remove this function in aind-data-schema v3.X
         """
-        if "default_grouping" not in value:
+        if "default_grouping" not in value or "metrics" not in value or len(value["metrics"]) == 0:
             return value
 
-        if all(isinstance(item, str) for item in value["default_grouping"]) and value.get("metrics"):
+        if all(isinstance(item, str) for item in value["default_grouping"]):
             first_metric = value["metrics"][0]
             if isinstance(first_metric, dict) and "tags" in first_metric:
                 if isinstance(first_metric["tags"], list):
