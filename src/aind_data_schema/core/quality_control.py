@@ -304,7 +304,7 @@ class QualityControl(DataCoreModel):
         if "default_grouping" not in value:
             return value
 
-        if all(isinstance(item, str) for item in value["default_grouping"]):
+        if all(isinstance(item, str) for item in value["default_grouping"]) and value.get("metrics"):
             first_metric = value["metrics"][0]
             if isinstance(first_metric, dict) and "tags" in first_metric:
                 if isinstance(first_metric["tags"], list):
