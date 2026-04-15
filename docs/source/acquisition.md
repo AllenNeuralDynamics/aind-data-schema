@@ -151,7 +151,7 @@ Description of procedures performed during an acquisition.
 |-------|------|-------------|
 | `start_time` | `datetime (timezone-aware)` | Manipulation start time (Must be between the acquisition start and end times) |
 | `end_time` | `datetime (timezone-aware)` | Manipulation end time (Must be between the acquisition start and end times) |
-| `procedures` | Optional[List[[Injection](components/injection_procedures.md#injection) or [BrainInjection](components/surgery_procedures.md#braininjection)]] | Procedures (Procedures performed during the manipulation) |
+| `procedures` | Optional[List[[Injection](components/injection_procedures.md#injection) or [BrainInjection](components/surgery_procedures.md#braininjection) or [SpecimenProcedure](components/specimen_procedures.md#specimenprocedure)]] | Procedures (Procedures performed during the manipulation) |
 | `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia  |
 | `notes` | `Optional[str]` | Notes  |
 
