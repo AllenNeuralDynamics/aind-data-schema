@@ -39,6 +39,7 @@ from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
 from aind_data_schema.components.connections import Connection
+from aind_data_schema.components.specimen_procedures import SpecimenProcedure
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import (
     merge_notes,
@@ -333,7 +334,7 @@ class Manipulation(DataModel):
     end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
         ..., title="Manipulation end time", description="Must be between the acquisition start and end times"
     )
-    procedures: Optional[DiscriminatedList[Injection | BrainInjection]] = Field(
+    procedures: Optional[DiscriminatedList[Injection | BrainInjection | SpecimenProcedure]] = Field(
         default=None, title="Procedures", description="Procedures performed during the manipulation"
     )
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
