@@ -45,7 +45,7 @@ class InjectionProcedure(DataModel):
     start_date: date = Field(..., title="Start date")
     ethics_review_id: str = Field(..., title="Ethics review ID")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
-    injections: DiscriminatedList[Injection | BrainInjection] = Field(..., title="Injections", min_length=1)
+    injections: List[Injection] = Field(..., title="Injections", min_length=1)
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     notes: Optional[str] = Field(default=None, title="Notes")
 
