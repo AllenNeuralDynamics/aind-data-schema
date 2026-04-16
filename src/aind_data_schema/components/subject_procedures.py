@@ -39,6 +39,15 @@ class GenericSubjectProcedure(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
+class InjectionProcedure(DataModel):
+    """Injection procedure, which may include one or more injections at different locations/depths"""
+
+    start_date: date = Field(..., title="Start date")
+    injections: DiscriminatedList[Injection | BrainInjection] = Field(..., title="Injections", min_length=1)
+    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
+    notes: Optional[str] = Field(default=None, title="Notes")
+
+
 class TrainingProtocol(DataModel):
     """Description of an animal training protocol"""
 

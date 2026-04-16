@@ -1,10 +1,11 @@
 """schema for various Procedures"""
 
+from datetime import date
 from typing import List, Literal, Optional
 
 from pydantic import Field, SkipValidation, model_validator
 
-from aind_data_schema.base import DataCoreModel, DiscriminatedList
+from aind_data_schema.base import DataCoreModel, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.injection_procedures import Injection
 from aind_data_schema.components.specimen_procedures import SpecimenProcedure
@@ -13,6 +14,7 @@ from aind_data_schema.components.subject_procedures import (
     Surgery,
     TrainingProtocol,
     WaterRestriction,
+    InjectionProcedure,
 )
 from aind_data_schema.utils.merge import merge_notes, merge_coordinate_systems
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
@@ -31,7 +33,7 @@ class Procedures(DataCoreModel):
         title="Subject ID",
     )
     subject_procedures: DiscriminatedList[
-        Surgery | Injection | TrainingProtocol | WaterRestriction | GenericSubjectProcedure
+        Surgery | InjectionProcedure | TrainingProtocol | WaterRestriction | GenericSubjectProcedure
     ] = Field(default=[], title="Subject Procedures", description="Procedures performed on a live subject")
     specimen_procedures: List[SpecimenProcedure] = Field(
         default=[], title="Specimen Procedures", description="Procedures performed on tissue extracted after perfusion"
