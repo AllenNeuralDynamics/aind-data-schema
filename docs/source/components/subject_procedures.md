@@ -16,6 +16,20 @@ Description of a non-surgical procedure performed on a subject
 | `notes` | `Optional[str]` | Notes  |
 
 
+### InjectionProcedure
+
+Injection procedure, which may include one or more injections at different locations/depths
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `start_date` | `datetime.date` | Start date  |
+| `ethics_review_id` | `str` | Ethics review ID  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
+| `injections` | List[[Injection](injection_procedures.md#injection)] | Injections  |
+| `anaesthesia` | Optional[[Anaesthetic](surgery_procedures.md#anaesthetic)] | Anaesthesia  |
+| `notes` | `Optional[str]` | Notes  |
+
+
 ### Surgery
 
 Description of subject procedures performed at one time
