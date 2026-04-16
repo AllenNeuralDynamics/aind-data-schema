@@ -5,7 +5,7 @@ import logging
 import re
 import warnings
 from pathlib import Path
-from typing import Any, ClassVar, List, Literal, Optional, TypeVar, get_args, Annotated
+from typing import Annotated, Any, ClassVar, List, Literal, Optional, TypeVar, get_args
 
 from pydantic import (
     AwareDatetime,
@@ -14,16 +14,18 @@ from pydantic import (
     Field,
     NaiveDatetime,
     PrivateAttr,
+    SerializeAsAny,
     ValidationError,
     ValidatorFunctionWrapHandler,
     create_model,
     field_validator,
     model_validator,
-    SerializeAsAny,
 )
 from pydantic.functional_validators import WrapValidator
 
 from aind_data_schema.utils.validators import recursive_check_paths, recursive_coord_system_check
+
+logger = logging.getLogger(__name__)
 
 MAX_FILE_SIZE = 500 * 1024  # 500KB
 
@@ -257,7 +259,7 @@ class DataCoreModel(DataModel):
 
         # Check that size doesn't exceed the maximum
         if len(self.model_dump_json(indent=3)) > MAX_FILE_SIZE:
-            logging.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
+            logger.warning(f"File size exceeds {MAX_FILE_SIZE / 1024} KB: {filename}")
 
     @model_validator(mode="after")
     def coordinate_system_validator(self):

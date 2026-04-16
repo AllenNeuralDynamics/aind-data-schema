@@ -3,6 +3,8 @@
 import logging
 from typing import Any, List, Optional
 
+logger = logging.getLogger(__name__)
+
 
 def merge_process_graph(
     graph1: Optional[dict],
@@ -74,7 +76,7 @@ def remove_duplicates(lst: List[Any]) -> List[Any]:
     output_list = [x for x in lst if not (x in seen or seen.add(x))]
 
     if len(output_list) != len(lst):
-        logging.info(f"Removed {len(lst) - len(output_list)} duplicates from list")
+        logger.info(f"Removed {len(lst) - len(output_list)} duplicates from list")
     return output_list
 
 

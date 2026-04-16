@@ -13,12 +13,7 @@ from pydantic import Field, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
-from aind_data_schema.components.reagent import (
-    FluorescentStain,
-    GeneProbeSet,
-    ProbeReagent,
-    Reagent,
-)
+from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, ProbeReagent, Reagent
 from aind_data_schema.utils.exceptions import OneOfError
 
 
