@@ -14,7 +14,7 @@ from aind_data_schema.components.subject_procedures import (
     TrainingProtocol,
     WaterRestriction,
 )
-from aind_data_schema.utils.merge import merge_notes, merge_coordinate_systems
+from aind_data_schema.utils.merge import merge_coordinate_systems, merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
 
 

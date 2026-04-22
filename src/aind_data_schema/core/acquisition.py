@@ -1,16 +1,15 @@
 """Schema describing data acquisition metadata and configurations"""
 
-from datetime import datetime, timedelta, timezone
-from decimal import Decimal
 import logging
 import re
+from datetime import datetime, timedelta, timezone
+from decimal import Decimal
 from typing import Annotated, List, Literal, Optional, Union
 from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
-from aind_data_schema.utils.validators import TimeValidation
 from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_extra_types.timezone_name import TimeZoneName
 
@@ -26,8 +25,8 @@ from aind_data_schema.components.configs import (
     LickSpoutConfig,
     LightEmittingDiodeConfig,
     ManipulatorConfig,
-    MousePlatformConfig,
     MISCameraConfig,
+    MousePlatformConfig,
     MRIScan,
     OlfactometerConfig,
     PatchCordConfig,
@@ -35,33 +34,39 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
     SpeakerConfig,
 )
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code, ProtocolListMixin
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
-from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.reagent import Reagent
+from aind_data_schema.components.subject_procedures import BrainInjection, Injection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import (
+    merge_coordinate_systems,
     merge_notes,
     merge_optional_list,
-    remove_duplicates,
-    merge_coordinate_systems,
     merge_str_alphabetical,
+    remove_duplicates,
 )
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
-from aind_data_schema.components.subject_procedures import Injection, BrainInjection
+from aind_data_schema.utils.validators import (
+    TimeValidation,
+    extract_timezone_from_datetime,
+    subject_specimen_id_compatibility,
+)
+
+logger = logging.getLogger(__name__)
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[EphysAssemblyConfig, ProbeConfig, ManipulatorConfig]],
-    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
-    Modality.POPHYS: [[ImagingConfig]],
-    Modality.MRI: [[MRIScan]],
-    Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
-    Modality.SLAP2: [[ImagingConfig]],
+    Modality.ECEPHYS.abbreviation: [[EphysAssemblyConfig, ProbeConfig, ManipulatorConfig]],
+    Modality.FIB.abbreviation: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
+    Modality.POPHYS.abbreviation: [[ImagingConfig]],
+    Modality.MRI.abbreviation: [[MRIScan]],
+    Modality.SPIM.abbreviation: [[ImagingConfig], [SampleChamberConfig]],
+    Modality.SLAP2.abbreviation: [[ImagingConfig]],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
@@ -167,11 +172,11 @@ class DataStream(DataModel):
     def check_modality_config_requirements(self):
         """Check that the required devices are present for the modalities"""
         for modality in self.modalities:
-            if modality not in CONFIG_REQUIREMENTS.keys():
+            if modality.abbreviation not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
                 continue  # pragma: no cover
 
-            for group in CONFIG_REQUIREMENTS[modality]:
+            for group in CONFIG_REQUIREMENTS[modality.abbreviation]:
                 if not any(isinstance(config, device_type) for config in self.configurations for device_type in group):
                     # Get the types of all configurations
                     group_types = [device_type.__name__ for device_type in group]
@@ -228,7 +233,7 @@ class DataStream(DataModel):
         len_orig_devices = len(active_devices)
         active_devices = remove_duplicates(active_devices)
         if len(active_devices) < len_orig_devices:
-            logging.warning(
+            logger.warning(
                 "Duplicate active devices were removed. Only DAQ devices should be shared in overlapped " "DataStreams."
             )
 
@@ -358,7 +363,7 @@ class Acquisition(ProtocolListMixin, DataCoreModel):
     specimen_id: Optional[Union[str, List[str]]] = Field(
         default=None,
         title="Specimen ID",
-        description="Specimen ID(s) used in this acquisition. Required for in vitro imaging modalities.",
+        description="Required for in vitro modalities. Standard format is {subject_id} with a _### suffix, as needed",
     )
 
     # Acquisition metadata
