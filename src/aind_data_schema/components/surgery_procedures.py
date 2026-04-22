@@ -14,6 +14,7 @@ from aind_data_schema.base import AwareDatetimeWithDefault, DataModel
 from aind_data_schema.components.configs import CatheterConfig, ProbeConfig
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, Translation
 from aind_data_schema.components.devices import Catheter, EphysProbe, FiberProbe, MyomatrixArray
+from aind_data_schema.components.identifiers import ProtocolMixin
 from aind_data_schema.components.injection_procedures import Injection
 
 
@@ -82,18 +83,16 @@ class Anaesthetic(DataModel):
     level: Optional[float] = Field(default=None, title="Level (percent)", ge=1, le=5)
 
 
-class GenericSurgeryProcedure(DataModel):
+class GenericSurgeryProcedure(ProtocolMixin, DataModel):
     """Description of a surgery procedure performed on a subject"""
 
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     description: str = Field(..., title="Description")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Craniotomy(DataModel):
+class Craniotomy(ProtocolMixin, DataModel):
     """Description of craniotomy procedure"""
 
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     craniotomy_type: CraniotomyType = Field(..., title="Craniotomy type")
 
     coordinate_system_name: Optional[str] = Field(default=None, title="Coordinate system name")
@@ -135,10 +134,9 @@ class Craniotomy(DataModel):
         return self
 
 
-class ProbeImplant(DataModel):
+class ProbeImplant(ProtocolMixin, DataModel):
     """Description of a probe (fiber, ephys) implant procedure"""
 
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     implanted_device: Union[EphysProbe, FiberProbe] = Field(
         ...,
         title="Implanted device",
@@ -149,10 +147,9 @@ class ProbeImplant(DataModel):
     )  # note: exact field name is used by a validator
 
 
-class Headframe(DataModel):
+class Headframe(ProtocolMixin, DataModel):
     """Description of headframe procedure"""
 
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     headframe_type: str = Field(..., title="Headframe type")
     headframe_part_number: Optional[str] = Field(default=None, title="Headframe part number")
     headframe_material: Optional[HeadframeMaterial] = Field(default=None, title="Headframe material")
@@ -201,10 +198,8 @@ class SampleCollection(DataModel):
     collection_method: Optional[str] = Field(default=None, title="Collection method for terminal collection")
 
 
-class MyomatrixInsertion(DataModel):
+class MyomatrixInsertion(ProtocolMixin, DataModel):
     """Description of a Myomatrix array insertion for EMG"""
-
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
     ground_electrode: GroundWireImplant = Field(..., title="Ground electrode")
 
@@ -214,10 +209,9 @@ class MyomatrixInsertion(DataModel):
     )  # note: exact field name is used by a validator
 
 
-class Perfusion(DataModel):
+class Perfusion(ProtocolMixin, DataModel):
     """Description of a perfusion procedure that creates a specimen"""
 
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     output_specimen_ids: List[str] = Field(
         ...,
         title="Specimen ID",

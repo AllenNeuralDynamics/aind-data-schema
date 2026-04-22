@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from aind_data_schema_models.registries import Registry
-from pydantic import Field
+from pydantic import BaseModel, Field
 
 from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
 
@@ -92,3 +92,15 @@ class Code(DataModel):
         title="Core dependency",
         description="For code with a core software package dependency, e.g. Bonsai",
     )
+
+
+class ProtocolMixin(BaseModel):
+    """Mixin that adds a protocol_id field (single DOI string)"""
+
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+
+
+class ProtocolListMixin(BaseModel):
+    """Mixin that adds a protocol_id field (list of DOI strings)"""
+
+    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")

@@ -13,6 +13,7 @@ from pydantic import Field, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
+from aind_data_schema.components.identifiers import ProtocolListMixin
 from aind_data_schema.components.reagent import (
     FluorescentStain,
     GeneProbeSet,
@@ -161,7 +162,7 @@ class HCRSeries(DataModel):
     cell_id: Optional[str] = Field(default=None, title="Cell ID")
 
 
-class SpecimenProcedure(DataModel):
+class SpecimenProcedure(ProtocolListMixin, DataModel):
     """Description of surgical or other procedure performed on a specimen"""
 
     procedure_type: SpecimenProcedureType = Field(..., title="Procedure type")
@@ -173,7 +174,6 @@ class SpecimenProcedure(DataModel):
         default=[],
         title="experimenter(s)",
     )
-    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     protocol_parameters: Optional[Dict[str, str]] = Field(
         default=None,
         title="Protocol parameters",
