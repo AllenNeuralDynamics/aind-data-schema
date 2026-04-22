@@ -16,7 +16,7 @@ Description of a non-surgical procedure performed on a subject
 | `notes` | `Optional[str]` | Notes  |
 
 
-### InjectionProcedure
+### NonSurgicalInjection
 
 Injection procedure, which may include one or more injections at different locations/depths
 

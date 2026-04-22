@@ -39,14 +39,15 @@ class GenericSubjectProcedure(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class InjectionProcedure(DataModel):
-    """Injection procedure, which may include one or more injections at different locations/depths"""
+class NonSurgicalInjection(DataModel):
+    """Injection procedure performed outside of surgery,
+    which may include one or more injections at different locations/depths
+    """
 
     start_date: date = Field(..., title="Start date")
     ethics_review_id: str = Field(..., title="Ethics review ID")
     protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     injections: List[Injection] = Field(..., title="Injections", min_length=1)
-    anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
