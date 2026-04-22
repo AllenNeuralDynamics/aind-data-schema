@@ -26,7 +26,7 @@ If you find yourself computing a value for something smaller than an entire moda
 
 `tags` are groups of descriptors that define how metrics are organized hierarchically, making it easier to visualize metrics. Good tag keys (groups) are things like "probe" and good tag values are things like "Probe A" or just "A".
 
-```{python}
+```python
 # For an electrophysiology metric
 tags = {
     "probe": "A",

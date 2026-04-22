@@ -1,7 +1,7 @@
 """Core Instrument model"""
 
-from datetime import date
 import logging
+from datetime import date
 from typing import List, Literal, Optional
 
 from aind_data_schema_models.modalities import Modality
@@ -56,6 +56,8 @@ from aind_data_schema.components.devices import (
 from aind_data_schema.components.measurements import CALIBRATIONS
 from aind_data_schema.utils.merge import merge_notes, merge_optional_list, merge_str_alphabetical
 from aind_data_schema.utils.validators import recursive_get_all_names
+
+logger = logging.getLogger(__name__)
 
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
@@ -199,6 +201,20 @@ class Instrument(DataCoreModel):
         return self
 
     @model_validator(mode="after")
+    def validate_unique_component_names(self):
+        """Warn if any component names are duplicated"""
+        names = self.get_component_names()
+        if len(set(names)) != len(names):
+            seen = set()
+            duplicates = set()
+            for name in names:
+                if name in seen:
+                    duplicates.add(name)
+                seen.add(name)
+            logger.warning(f"Duplicate component names found: {sorted(duplicates)}")
+        return self
+
+    @model_validator(mode="after")
     def validate_connections(self):
         """validate that all connections map between devices that actually exist"""
         device_names = self.get_component_names()
@@ -297,12 +313,12 @@ class Instrument(DataCoreModel):
                     and self._is_harp_clock_generator(matching_component)
                     and self._is_harp_clock_generator(other_component)
                 ):
-                    logging.info(
+                    logger.info(
                         f"{other_component.name} is a HarpDevice clock generator, "
                         f"only one instance will be kept in the combined instrument."
                     )
                 else:
-                    logging.error(
+                    logger.error(
                         f"Instruments should not have duplicated components,"
                         f" this will raise an error in future versions: {other_component.name}"
                     )

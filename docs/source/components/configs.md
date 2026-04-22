@@ -476,7 +476,6 @@ Configuration of a SLAP2 imaging plane (all imaging ROIs of a specific acquisiti
 | `specimen_id` | `Optional[str]` | Specimen ID (Unique index identifying the cell being imaged: <subject_id>_###) |
 | `fov_index` | `Optional[int]` | Field of view index (For FOVs that are imaged multiple times, assign a shared index to each instance of the FOV) |
 | `structure_types` | Optional[List[[NeuronStructure](#neuronstructure)]] | Structure type  |
-| `target_name` | `Optional[str]` | Name of imaged target  |
 | `y_dilations` | `List[int]` | Unique Y dilations  |
 | `y_dilations_unit` | [SizeUnit](../aind_data_schema_models/units.md#sizeunit) | Dilation unit  |
 | `frame_rates` | `List[float]` | Unique frame rates  |
