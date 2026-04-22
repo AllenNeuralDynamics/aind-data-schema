@@ -11,9 +11,9 @@ Description of a non-surgical procedure performed on a subject
 | `start_date` | `datetime.date` | Start date  |
 | `experimenters` | `Optional[List[str]]` | experimenter(s)  |
 | `ethics_review_id` | `str` | Ethics review ID  |
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `description` | `str` | Description  |
 | `notes` | `Optional[str]` | Notes  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### Surgery
@@ -22,7 +22,6 @@ Description of subject procedures performed at one time
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `start_date` | `datetime.date` | Start date  |
 | `experimenters` | `Optional[List[str]]` | experimenter(s)  |
 | `ethics_review_id` | `Optional[str]` | Ethics review ID  |
@@ -35,6 +34,7 @@ Description of subject procedures performed at one time
 | `measured_coordinates` | Optional[Dict[[Origin](../aind_data_schema_models/coordinates.md#origin), [Translation](coordinates.md#translation)]] | Measured coordinates (Coordinates measured during the procedure, for example Bregma and Lambda) |
 | `procedures` | List[[CatheterImplant](surgery_procedures.md#catheterimplant) or [Craniotomy](surgery_procedures.md#craniotomy) or [ProbeImplant](surgery_procedures.md#probeimplant) or [Headframe](surgery_procedures.md#headframe) or [BrainInjection](surgery_procedures.md#braininjection) or [Injection](injection_procedures.md#injection) or [MyomatrixInsertion](surgery_procedures.md#myomatrixinsertion) or [GenericSurgeryProcedure](surgery_procedures.md#genericsurgeryprocedure) or [Perfusion](surgery_procedures.md#perfusion) or [SampleCollection](surgery_procedures.md#samplecollection)] | Procedures  |
 | `notes` | `Optional[str]` | Notes  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### TrainingProtocol
