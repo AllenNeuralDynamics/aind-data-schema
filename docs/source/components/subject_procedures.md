@@ -18,7 +18,8 @@ Description of a non-surgical procedure performed on a subject
 
 ### NonSurgicalInjection
 
-Injection procedure, which may include one or more injections at different locations/depths
+Injection procedure performed outside of surgery,
+which may include one or more injections at different locations/depths
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
@@ -26,7 +27,6 @@ Injection procedure, which may include one or more injections at different locat
 | `ethics_review_id` | `str` | Ethics review ID  |
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `injections` | List[[Injection](injection_procedures.md#injection)] | Injections  |
-| `anaesthesia` | Optional[[Anaesthetic](surgery_procedures.md#anaesthetic)] | Anaesthesia  |
 | `notes` | `Optional[str]` | Notes  |
 
 

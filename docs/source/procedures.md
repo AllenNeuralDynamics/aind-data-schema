@@ -27,7 +27,7 @@ Description of all procedures performed on a subject, including surgeries, injec
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `subject_id` | `str` | Subject ID (Unique identifier for the subject of data acquisition) |
-| `subject_procedures` | List[[Surgery](components/subject_procedures.md#surgery) or [NonSurgicalInjection](components/subject_procedures.md#NonSurgicalInjection) or [TrainingProtocol](components/subject_procedures.md#trainingprotocol) or [WaterRestriction](components/subject_procedures.md#waterrestriction) or [GenericSubjectProcedure](components/subject_procedures.md#genericsubjectprocedure)] | Subject Procedures (Procedures performed on a live subject) |
+| `subject_procedures` | List[[Surgery](components/subject_procedures.md#surgery) or [Injection](components/injection_procedures.md#injection) or [NonSurgicalInjection](components/subject_procedures.md#nonsurgicalinjection) or [TrainingProtocol](components/subject_procedures.md#trainingprotocol) or [WaterRestriction](components/subject_procedures.md#waterrestriction) or [GenericSubjectProcedure](components/subject_procedures.md#genericsubjectprocedure)] | Subject Procedures (Procedures performed on a live subject) |
 | `specimen_procedures` | List[[SpecimenProcedure](components/specimen_procedures.md#specimenprocedure)] | Specimen Procedures (Procedures performed on tissue extracted after perfusion) |
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Coordinate System (Origin and axis definitions for determining the configured position of devices implanted during procedures. Required when coordinates are provided within the Procedures) |
 | `notes` | `Optional[str]` | Notes  |
