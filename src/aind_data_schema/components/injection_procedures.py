@@ -116,4 +116,9 @@ class Injection(DataModel):
     dynamics: List[InjectionDynamics] = Field(
         ..., title="Injection dynamics", description="List of injection events, one per location/depth"
     )
-    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+    protocol_id: Optional[str] = Field(
+        default=None,
+        title="Protocol ID",
+        description="DOI for protocols.io",
+        deprecated="Use protocol_id in Surgery or NonSurgicalInjection instead",
+    )
