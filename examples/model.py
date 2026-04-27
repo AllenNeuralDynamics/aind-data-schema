@@ -46,7 +46,7 @@ m = Model(
                     "augmentation": True,
                 },
             ),
-            output_path="./trained_model.h5",
+            output_path=["./trained_model.h5"],
             start_date_time=now,
             end_date_time=now,
             train_performance=[

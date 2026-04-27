@@ -8,6 +8,7 @@ from aind_data_schema_models.system_architecture import CPUArchitecture, Operati
 from aind_data_schema_models.units import MemoryUnit
 
 from aind_data_schema.components.identifiers import Code, DataAsset
+from aind_data_schema.components.wrappers import AssetPath
 from aind_data_schema.core.processing import (
     DataProcess,
     Processing,
@@ -117,6 +118,57 @@ class ProcessingTest(unittest.TestCase):
         # Test with no data_processes
         # p = Processing(data_processes=[])
         # self.assertIsNotNone(p)
+
+    def _make_data_process(self, **kwargs) -> DataProcess:
+        """Helper to create a minimal DataProcess with overridable fields"""
+        defaults = dict(
+            experimenters=["Dr. Dan"],
+            process_type=ProcessName.COMPRESSION,
+            stage=ProcessStage.PROCESSING,
+            code=code,
+            start_date_time=t,
+            end_date_time=t,
+        )
+        defaults.update(kwargs)
+        return DataProcess(**defaults)
+
+    def test_output_path_none(self):
+        """output_path defaults to None when not provided"""
+        dp = self._make_data_process()
+        self.assertIsNone(dp.output_path)
+
+    def test_output_path_single_string(self):
+        """A single string is wrapped into a one-element list of AssetPath"""
+        dp = self._make_data_process(output_path="./outputs/result.nwb")
+        self.assertIsInstance(dp.output_path, list)
+        self.assertEqual(len(dp.output_path), 1)
+        self.assertIsInstance(dp.output_path[0], AssetPath)
+        self.assertEqual(str(dp.output_path[0]), "outputs/result.nwb")
+
+    def test_output_path_single_asset_path(self):
+        """A single AssetPath is wrapped into a one-element list"""
+        dp = self._make_data_process(output_path=AssetPath("outputs/result.nwb"))
+        self.assertIsInstance(dp.output_path, list)
+        self.assertEqual(len(dp.output_path), 1)
+        self.assertIsInstance(dp.output_path[0], AssetPath)
+
+    def test_output_path_list_of_strings(self):
+        """A list of strings is converted to a list of AssetPath"""
+        paths = ["outputs/a.nwb", "outputs/b.nwb"]
+        dp = self._make_data_process(output_path=paths)
+        self.assertIsInstance(dp.output_path, list)
+        self.assertEqual(len(dp.output_path), 2)
+        for item in dp.output_path:
+            self.assertIsInstance(item, AssetPath)
+        self.assertEqual([str(p) for p in dp.output_path], paths)
+
+    def test_output_path_list_of_asset_paths(self):
+        """A list of AssetPath objects passes through unchanged"""
+        paths = [AssetPath("outputs/a.nwb"), AssetPath("outputs/b.nwb")]
+        dp = self._make_data_process(output_path=paths)
+        self.assertEqual(len(dp.output_path), 2)
+        for item in dp.output_path:
+            self.assertIsInstance(item, AssetPath)
 
     def test_unique_process_names(self):
         """Test that process names are unique within a Processing object"""

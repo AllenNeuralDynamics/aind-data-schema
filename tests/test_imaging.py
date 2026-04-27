@@ -113,7 +113,7 @@ class ImagingTests(unittest.TestCase):
             experimenters=["Dr. Dan"],
             start_date_time=datetime.now(tz=timezone.utc),
             end_date_time=datetime.now(tz=timezone.utc),
-            output_path="/some/path",
+            output_path=["./some/path"],
             code=Code(
                 url="https://github.com/abcd",
                 parameters=parameters,

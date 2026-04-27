@@ -68,12 +68,22 @@ class DataProcess(DataModel):
     end_date_time: Optional[Annotated[AwareDatetimeWithDefault, TimeValidation.AFTER]] = Field(
         default=None, title="End date time"
     )
-    output_path: Optional[AssetPath] = Field(
+    output_path: Optional[List[AssetPath]] = Field(
         default=None, title="Output path", description="Path to processing outputs, if stored."
     )
     output_parameters: Optional[GenericModel] = Field(default=None, description="Output parameters", title="Outputs")
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
+
+    @field_validator("output_path", mode="before")
+    def validate_output_path(cls, value) -> Optional[List[AssetPath]]:
+        """Validator for output_path to ensure it's a list even if a single path is provided
+        """
+        if value is None:
+            return value
+        if not isinstance(value, list):
+            value = [value]
+        return [AssetPath(path) for path in value]
 
     @field_validator("notes", mode="after")
     def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:

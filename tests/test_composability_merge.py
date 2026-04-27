@@ -254,7 +254,7 @@ class TestComposability(unittest.TestCase):
                     experimenters=["Dr. Dan"],
                     process_type=ProcessName.ANALYSIS,
                     stage=ProcessStage.PROCESSING,
-                    output_path="/path/to/outputs1",
+                    output_path=["./path/to/output"],
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
@@ -272,7 +272,7 @@ class TestComposability(unittest.TestCase):
                     experimenters=["Dr. Jane"],
                     process_type=ProcessName.COMPRESSION,
                     stage=ProcessStage.PROCESSING,
-                    output_path="/path/to/outputs2",
+                    output_path=["./path/to/output"],
                     start_date_time=t,
                     end_date_time=t,
                     code=Code(
