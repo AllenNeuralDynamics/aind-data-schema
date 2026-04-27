@@ -44,7 +44,7 @@ Description of model evaluation
 | `pipeline_name` | `Optional[str]` | Pipeline name (Pipeline names must exist in Processing.pipelines) |
 | `start_date_time` | `datetime (timezone-aware)` | Start date time  |
 | `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
-| `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
+| `output_path` | `Optional[List[AssetPath]]` | Output path (Path to processing outputs, if stored.) |
 | `output_parameters` | `Optional[dict]` | Outputs (Output parameters) |
 | `notes` | `Optional[str]` | Notes  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
@@ -76,7 +76,7 @@ Description of model training
 | `pipeline_name` | `Optional[str]` | Pipeline name (Pipeline names must exist in Processing.pipelines) |
 | `start_date_time` | `datetime (timezone-aware)` | Start date time  |
 | `end_date_time` | `Optional[datetime (timezone-aware)]` | End date time  |
-| `output_path` | `Optional[AssetPath]` | Output path (Path to processing outputs, if stored.) |
+| `output_path` | `Optional[List[AssetPath]]` | Output path (Path to processing outputs, if stored.) |
 | `output_parameters` | `Optional[dict]` | Outputs (Output parameters) |
 | `notes` | `Optional[str]` | Notes  |
 | `resources` | Optional[[ResourceUsage](processing.md#resourceusage)] | Process resource usage  |
