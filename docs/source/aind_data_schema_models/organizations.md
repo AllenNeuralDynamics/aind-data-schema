@@ -86,6 +86,7 @@ Organization
 | `MIT_BCS` | `MIT-BCS` | `MIT Department of Brain and Cognitive Sciences` | `None` | `None` |
 | `MJFF` | `MJFF` | `Michael J. Fox Foundation for Parkinson's Research` | `Research Organization Registry (ROR)` | `03arq3225` |
 | `MKS_NEWPORT` | `None` | `MKS Newport` | `Research Organization Registry (ROR)` | `00k17f049` |
+| `MOLECULAR_INSTRUMENTS` | `None` | `Molecular Instruments` | `None` | `None` |
 | `MONITOR_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `MPI` | `MPI` | `MPI` | `None` | `None` |
 | `NATIONAL_INSTRUMENTS` | `None` | `National Instruments` | `Research Organization Registry (ROR)` | `026exqw73` |

@@ -12,7 +12,7 @@ Description of an injection procedure
 | `targeted_structure` | Optional[[MouseAnatomyModel](../aind_data_schema_models/external.md#mouseanatomymodel)] | Injection target (Use InjectionTargets) |
 | `relative_position` | Optional[List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)]] | Relative position  |
 | `dynamics` | List[[InjectionDynamics](#injectiondynamics)] | Injection dynamics (List of injection events, one per location/depth) |
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
+| <del>`protocol_id`</del> | `Optional[str]` | **[DEPRECATED]** Use protocol_id in Surgery or NonSurgicalInjection instead. Protocol ID (DOI for protocols.io) |
 
 
 ### InjectionDynamics

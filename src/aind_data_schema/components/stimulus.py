@@ -4,7 +4,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 
-from aind_data_schema_models.units import FrequencyUnit, PowerUnit, TimeUnit, ConcentrationUnit
+from aind_data_schema_models.units import ConcentrationUnit, FrequencyUnit, PowerUnit, TimeUnit
 from pydantic import Field, model_validator
 
 from aind_data_schema.base import DataModel, GenericModel

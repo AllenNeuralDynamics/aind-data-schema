@@ -55,6 +55,29 @@ class ProceduresTests(unittest.TestCase):
         self.assertEqual("12345", p.subject_id)
 
     @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
+    def test_unwrapped_injection_warns(self, mock_get_emapa_id):
+        """Unwrapped Injection in subject_procedures should emit a UserWarning"""
+        mock_get_emapa_id.return_value = "123456"
+        with self.assertWarns(UserWarning):
+            Procedures(
+                subject_id="12345",
+                subject_procedures=[
+                    Injection(
+                        injection_materials=[NonViralMaterial(name="saline", source=Organization.OTHER)],
+                        dynamics=[
+                            InjectionDynamics(
+                                volume=1,
+                                volume_unit=VolumeUnit.UL,
+                                duration=1,
+                                duration_unit=TimeUnit.S,
+                                profile=InjectionProfile.BOLUS,
+                            )
+                        ],
+                    )
+                ],
+            )
+
+    @patch("aind_data_schema_models.mouse_anatomy.get_emapa_id")
     def test_injection_material_check(self, mock_get_emapa_id):
         """Check for validation error when injection_materials is empty"""
 
