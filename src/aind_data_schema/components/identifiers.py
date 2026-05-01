@@ -7,6 +7,9 @@ from typing import Dict, List, Optional
 from aind_data_schema_models.registries import Registry
 from pydantic import Field
 
+
+from typing import Annotated
+from pydantic import StringConstraints
 from aind_data_schema.base import DataModel, DiscriminatedList, GenericModel
 
 
@@ -67,12 +70,24 @@ class Container(DataModel):
     uri: str = Field(..., title="URI", description="URI of the container, e.g. Docker Hub URL")
 
 
+GitHash = Annotated[
+    str,
+    StringConstraints(
+        pattern=r"^[0-9a-fA-F]{7,40}$",
+        strip_whitespace=True,
+    ),
+]
+
+
 class Code(DataModel):
     """Code or script identifier"""
 
     url: str = Field(..., title="Code URL", description="URL to code repository")
     name: Optional[str] = Field(default=None, title="Name")
     version: Optional[str] = Field(default=None, title="Code version")
+    git_hash: Optional[GitHash] = Field(
+        default=None, title="Git hash", description="Git hash of the code repository state"
+    )
 
     container: Optional[Container] = Field(default=None, title="Container")
     run_script: Optional[Path] = Field(default=None, title="Run script", description="Path to run script")
