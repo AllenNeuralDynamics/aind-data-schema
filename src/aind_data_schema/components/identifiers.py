@@ -73,7 +73,7 @@ class Container(DataModel):
 GitHash = Annotated[
     str,
     StringConstraints(
-        pattern=r"^[0-9a-fA-F]{7,40}$",
+        pattern=r"^[0-9a-fA-F]{7,60}$",
         strip_whitespace=True,
     ),
 ]
