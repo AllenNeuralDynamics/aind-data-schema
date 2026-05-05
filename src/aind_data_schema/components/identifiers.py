@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from aind_data_schema_models.registries import Registry
-from pydantic import Field
-
+from pydantic import Field, model_validator
+import warnings
 
 from typing import Annotated
 from pydantic import StringConstraints
@@ -85,9 +85,7 @@ class Code(DataModel):
     url: str = Field(..., title="Code URL", description="URL to code repository")
     name: Optional[str] = Field(default=None, title="Name")
     version: Optional[str] = Field(default=None, title="Code version")
-    git_hash: Optional[GitHash] = Field(
-        default=None, title="Git hash", description="Git hash of the code repository state"
-    )
+    commit_hash: Optional[GitHash] = Field(default=None, title="Commit hash", description="Commit hash of the code.")
 
     container: Optional[Container] = Field(default=None, title="Container")
     run_script: Optional[Path] = Field(default=None, title="Run script", description="Path to run script")
@@ -107,3 +105,12 @@ class Code(DataModel):
         title="Core dependency",
         description="For code with a core software package dependency, e.g. Bonsai",
     )
+
+    @model_validator(mode="after")
+    def _ensure_commit_hash_or_version(self) -> "Code":
+        """Ensure that at least one of commit_hash or version is provided for code identification"""
+        if not self.commit_hash and not self.version:
+            warnings.warn(
+                "Neither commit_hash nor version provided for Code. It's recommended to provide at least one to ensure reproducibility. In the future, we will require at least one of these fields."
+            )
+        return self

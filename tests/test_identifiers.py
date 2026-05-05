@@ -37,8 +37,8 @@ class TestGitHash(unittest.TestCase):
         ]
         for git_hash, expected in cases:
             with self.subTest(git_hash=git_hash):
-                code = Code(url="https://github.com/org/repo", git_hash=git_hash)
-                self.assertEqual(code.git_hash, expected)
+                code = Code(url="https://github.com/org/repo", commit_hash=git_hash)
+                self.assertEqual(code.commit_hash, expected)
 
     def test_git_hash_invalid(self):
         """Invalid git hashes raise ValidationError"""
@@ -50,7 +50,7 @@ class TestGitHash(unittest.TestCase):
         for git_hash in cases:
             with self.subTest(git_hash=git_hash):
                 with self.assertRaises(ValidationError):
-                    Code(url="https://github.com/org/repo", git_hash=git_hash)
+                    Code(url="https://github.com/org/repo", commit_hash=git_hash)
 
 
 if __name__ == "__main__":
