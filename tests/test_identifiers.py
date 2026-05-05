@@ -31,6 +31,7 @@ class TestGitHash(unittest.TestCase):
         cases = [
             ("abc1234", "abc1234"),
             ("a" * 40, "a" * 40),
+            ("a" * 60, "a" * 60),
             ("aBcDeF1", "aBcDeF1"),
             ("deadbeef1234", "deadbeef1234"),
             ("  abc1234  ", "abc1234"),  # strip_whitespace=True strips before validation
@@ -44,7 +45,7 @@ class TestGitHash(unittest.TestCase):
         """Invalid git hashes raise ValidationError"""
         cases = [
             "abc123",  # too short (6 chars)
-            "a" * 41,  # too long (41 chars)
+            "a" * 61,  # too long (61 chars)
             "xyz12345",  # non-hex characters
         ]
         for git_hash in cases:
