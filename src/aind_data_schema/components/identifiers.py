@@ -111,6 +111,8 @@ class Code(DataModel):
         """Ensure that at least one of commit_hash or version is provided for code identification"""
         if not self.commit_hash and not self.version:
             warnings.warn(
-                "Neither commit_hash nor version provided for Code. It's recommended to provide at least one to ensure reproducibility. In the future, we will require at least one of these fields."
+                "Neither commit_hash nor version provided for Code. "
+                "It's recommended to provide at least one to ensure reproducibility. "
+                "In the future, we will require at least one of these fields."
             )
         return self
