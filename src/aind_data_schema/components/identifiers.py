@@ -70,7 +70,7 @@ class Container(DataModel):
     uri: str = Field(..., title="URI", description="URI of the container, e.g. Docker Hub URL")
 
 
-GitHash = Annotated[
+CommitHash = Annotated[
     str,
     StringConstraints(
         pattern=r"^[0-9a-fA-F]{7,60}$",
@@ -85,7 +85,7 @@ class Code(DataModel):
     url: str = Field(..., title="Code URL", description="URL to code repository")
     name: Optional[str] = Field(default=None, title="Name")
     version: Optional[str] = Field(default=None, title="Code version")
-    commit_hash: Optional[GitHash] = Field(default=None, title="Commit hash", description="Commit hash of the code.")
+    commit_hash: Optional[CommitHash] = Field(default=None, title="Commit hash", description="Commit hash of the code.")
 
     container: Optional[Container] = Field(default=None, title="Container")
     run_script: Optional[Path] = Field(default=None, title="Run script", description="Path to run script")
