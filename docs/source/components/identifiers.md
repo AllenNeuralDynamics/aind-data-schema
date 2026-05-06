@@ -11,6 +11,7 @@ Code or script identifier
 | `url` | `str` | Code URL (URL to code repository) |
 | `name` | `Optional[str]` | Name  |
 | `version` | `Optional[str]` | Code version  |
+| `commit_hash` | `Optional[str]` | Commit hash (Commit hash of the code.) |
 | `container` | Optional[[Container](#container)] | Container  |
 | `run_script` | `Optional[pathlib.Path]` | Run script (Path to run script) |
 | `language` | `Optional[str]` | Programming language (Programming language used) |
