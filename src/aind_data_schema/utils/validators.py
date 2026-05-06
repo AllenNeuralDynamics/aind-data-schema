@@ -6,8 +6,11 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, List, Optional, Union
 
-from aind_data_schema.components.wrappers import AssetPath
 from pydantic_extra_types.timezone_name import TimeZoneName
+
+from aind_data_schema.components.wrappers import AssetPath
+
+logger = logging.getLogger(__name__)
 
 # Fields that should have the same length as the coordinate system axes
 AXIS_TYPES = ["Translation", "Rotation", "Scale"]
@@ -279,12 +282,12 @@ def recursive_check_paths(obj: Any, directory: Optional[Path] = None):
 
     if isinstance(obj, AssetPath):
         if obj.is_absolute():
-            logging.warning(f"AssetPath {obj} is absolute, ensure file paths are relative to the metadata directory")
+            logger.warning(f"AssetPath {obj} is absolute, ensure file paths are relative to the metadata directory")
 
         full_path = directory / obj if directory else obj
         full_path = Path(full_path)
         if not full_path.exists():
-            logging.warning(
+            logger.warning(
                 f"AssetPath {full_path} does not exist, ensure file paths are relative to the metadata directory"
             )
     elif isinstance(obj, (list, tuple, set, dict)):

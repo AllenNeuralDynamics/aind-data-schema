@@ -714,10 +714,10 @@ class InstrumentTests(unittest.TestCase):
             components=[Computer(name="Computer1")],
         )
 
-        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+        with patch("aind_data_schema.core.instrument.logger") as mock_logger:
             combined = inst1 + inst2
-            mock_logging.error.assert_called_once()
-            error_call_args = mock_logging.error.call_args[0][0]
+            mock_logger.error.assert_called_once()
+            error_call_args = mock_logger.error.call_args[0][0]
             self.assertIn("Computer1", error_call_args)
             self.assertIn("duplicated", error_call_args)
 
@@ -749,10 +749,10 @@ class InstrumentTests(unittest.TestCase):
             components=[harp_clock_gen.model_copy(deep=True)],
         )
 
-        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+        with patch("aind_data_schema.core.instrument.logger") as mock_logger:
             combined = inst1 + inst2
-            mock_logging.info.assert_called_once()
-            info_call_args = mock_logging.info.call_args[0][0]
+            mock_logger.info.assert_called_once()
+            info_call_args = mock_logger.info.call_args[0][0]
             self.assertIn("Harp Clock Generator", info_call_args)
 
         self.assertEqual(len(combined.components), 1)
@@ -815,10 +815,10 @@ class InstrumentTests(unittest.TestCase):
             ],
         )
 
-        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+        with patch("aind_data_schema.core.instrument.logger") as mock_logger:
             combined = inst1 + inst2
-            mock_logging.error.assert_called_once()
-            error_call_args = mock_logging.error.call_args[0][0]
+            mock_logger.error.assert_called_once()
+            error_call_args = mock_logger.error.call_args[0][0]
             self.assertIn("CustomClockGenerator", error_call_args)
             self.assertIn("duplicated", error_call_args)
 
@@ -837,10 +837,10 @@ class InstrumentTests(unittest.TestCase):
             calibrations=ephys_instrument.calibrations,
         )
 
-        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+        with patch("aind_data_schema.core.instrument.logger") as mock_logger:
             inst_with_dup.validate_unique_component_names()
-            mock_logging.warning.assert_called_once()
-            warning_msg = mock_logging.warning.call_args[0][0]
+            mock_logger.warning.assert_called_once()
+            warning_msg = mock_logger.warning.call_args[0][0]
             self.assertIn(duplicate_component.name, warning_msg)
 
         inst_no_dup = Instrument.model_construct(
@@ -853,9 +853,9 @@ class InstrumentTests(unittest.TestCase):
             calibrations=ephys_instrument.calibrations,
         )
 
-        with patch("aind_data_schema.core.instrument.logging") as mock_logging:
+        with patch("aind_data_schema.core.instrument.logger") as mock_logger:
             inst_no_dup.validate_unique_component_names()
-            mock_logging.warning.assert_not_called()
+            mock_logger.warning.assert_not_called()
 
 
 class ConnectionTest(unittest.TestCase):
