@@ -192,6 +192,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -449,6 +450,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -839,6 +843,16 @@
          "title": "LightCycle",
          "type": "object"
       },
+      "MatingStatus": {
+         "description": "Subject mating status",
+         "enum": [
+            "Mated",
+            "Un-mated",
+            "Unknown"
+         ],
+         "title": "MatingStatus",
+         "type": "string"
+      },
       "MouseSubject": {
          "additionalProperties": false,
          "description": "Description of a mouse subject",
@@ -1070,6 +1084,160 @@
             "source"
          ],
          "title": "MouseSubject",
+         "type": "object"
+      },
+      "NonHumanPrimateSubject": {
+         "additionalProperties": false,
+         "description": "Description of a non-human primate subject",
+         "properties": {
+            "object_type": {
+               "const": "Non human primate subject",
+               "default": "Non human primate subject",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "species": {
+               "discriminator": {
+                  "mapping": {
+                     "Callithrix jacchus": "#/$defs/_Callithrix_Jacchus",
+                     "Carpa hircus": "#/$defs/_Carpa_Hircus",
+                     "Cavia porcellus": "#/$defs/_Cavia_Porcellus",
+                     "Equus asinus": "#/$defs/_Equus_Asinus",
+                     "Gallus gallus": "#/$defs/_Gallus_Gallus",
+                     "Homo sapiens": "#/$defs/_Homo_Sapiens",
+                     "Lama glama": "#/$defs/_Lama_Glama",
+                     "Macaca mulatta": "#/$defs/_Macaca_Mulatta",
+                     "Mus musculus": "#/$defs/_Mus_Musculus",
+                     "Oryctolagus cuniculus": "#/$defs/_Oryctolagus_Cuniculus",
+                     "Rattus norvegicus": "#/$defs/_Rattus_Norvegicus",
+                     "Vicuna pacos": "#/$defs/_Vicuna_Pacos"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Callithrix_Jacchus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Carpa_Hircus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Cavia_Porcellus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Equus_Asinus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Gallus_Gallus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Homo_Sapiens"
+                  },
+                  {
+                     "$ref": "#/$defs/_Lama_Glama"
+                  },
+                  {
+                     "$ref": "#/$defs/_Macaca_Mulatta"
+                  },
+                  {
+                     "$ref": "#/$defs/_Mus_Musculus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Oryctolagus_Cuniculus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Rattus_Norvegicus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Vicuna_Pacos"
+                  }
+               ],
+               "title": "species"
+            },
+            "sex": {
+               "$ref": "#/$defs/Sex"
+            },
+            "date_of_birth": {
+               "anyOf": [
+                  {
+                     "format": "date",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Date of birth"
+            },
+            "year_of_birth": {
+               "title": "Year of birth",
+               "type": "integer"
+            },
+            "mating_status": {
+               "$ref": "#/$defs/MatingStatus",
+               "title": "Mating status"
+            },
+            "source": {
+               "description": "Where the subject was acquired from.",
+               "discriminator": {
+                  "mapping": {
+                     "Allen Institute": "#/$defs/_Allen_Institute",
+                     "Baylor College of Medicine": "#/$defs/_Baylor_College_Of_Medicine",
+                     "Columbia University": "#/$defs/_Columbia_University",
+                     "Huazhong University of Science and Technology": "#/$defs/_Huazhong_University_Of_Science_And_Technology",
+                     "Jackson Laboratory": "#/$defs/_Jackson_Laboratory",
+                     "Janelia Research Campus": "#/$defs/_Janelia_Research_Campus",
+                     "New York University": "#/$defs/_New_York_University",
+                     "Other": "#/$defs/_Other",
+                     "University of Pennsylvania": "#/$defs/_University_Of_Pennsylvania",
+                     "Unknown": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  },
+                  "propertyName": "name"
+               },
+               "oneOf": [
+                  {
+                     "$ref": "#/$defs/_Allen_Institute"
+                  },
+                  {
+                     "$ref": "#/$defs/_Baylor_College_Of_Medicine"
+                  },
+                  {
+                     "$ref": "#/$defs/_Columbia_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_Huazhong_University_Of_Science_And_Technology"
+                  },
+                  {
+                     "$ref": "#/$defs/_Janelia_Research_Campus"
+                  },
+                  {
+                     "$ref": "#/$defs/_Jackson_Laboratory"
+                  },
+                  {
+                     "$ref": "#/$defs/_New_York_University"
+                  },
+                  {
+                     "$ref": "#/$defs/_University_Of_Pennsylvania"
+                  },
+                  {
+                     "$ref": "#/$defs/_Other"
+                  },
+                  {
+                     "$ref": "#/$defs/aind_data_schema_models__organizations___Unknown"
+                  }
+               ],
+               "title": "Source"
+            }
+         },
+         "required": [
+            "species",
+            "sex",
+            "year_of_birth",
+            "mating_status",
+            "source"
+         ],
+         "title": "NonHumanPrimateSubject",
          "type": "object"
       },
       "PIDName": {
@@ -4428,6 +4596,48 @@
          "title": "_Mks_Newport",
          "type": "object"
       },
+      "_Molecular_Instruments": {
+         "description": "Model Molecular Instruments",
+         "properties": {
+            "name": {
+               "const": "Molecular Instruments",
+               "default": "Molecular Instruments",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Molecular_Instruments",
+         "type": "object"
+      },
       "_Mpi": {
          "description": "Model MPI",
          "properties": {
@@ -6577,8 +6787,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.1",
-         "default": "2.2.1",
+         "const": "2.3.0",
+         "default": "2.3.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -6592,7 +6802,8 @@
             "mapping": {
                "Calibration object": "#/$defs/CalibrationObject",
                "Human subject": "#/$defs/HumanSubject",
-               "Mouse subject": "#/$defs/MouseSubject"
+               "Mouse subject": "#/$defs/MouseSubject",
+               "Non human primate subject": "#/$defs/NonHumanPrimateSubject"
             },
             "propertyName": "object_type"
          },
@@ -6602,6 +6813,9 @@
             },
             {
                "$ref": "#/$defs/HumanSubject"
+            },
+            {
+               "$ref": "#/$defs/NonHumanPrimateSubject"
             },
             {
                "$ref": "#/$defs/CalibrationObject"
