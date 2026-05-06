@@ -540,6 +540,7 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "DOI for protocols.io",
                "title": "Protocol ID"
             },
@@ -1111,6 +1112,20 @@
                ],
                "default": null,
                "title": "Code version"
+            },
+            "commit_hash": {
+               "anyOf": [
+                  {
+                     "pattern": "^[0-9a-fA-F]{7,60}$",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Commit hash of the code.",
+               "title": "Commit hash"
             },
             "container": {
                "anyOf": [
@@ -1993,6 +2008,141 @@
          "title": "EphysAssemblyConfig",
          "type": "object"
       },
+      "ExternalDataStream": {
+         "additionalProperties": false,
+         "description": "A simplified data stream for acquisitions where instrument metadata is unavailable.",
+         "properties": {
+            "object_type": {
+               "const": "External data stream",
+               "default": "External data stream",
+               "title": "Object Type",
+               "type": "string"
+            },
+            "stream_start_time": {
+               "format": "date-time",
+               "title": "Stream start time",
+               "type": "string"
+            },
+            "stream_end_time": {
+               "format": "date-time",
+               "title": "Stream stop time",
+               "type": "string"
+            },
+            "modalities": {
+               "description": "Modalities that are acquired in this stream",
+               "items": {
+                  "discriminator": {
+                     "mapping": {
+                        "BARseq": "#/$defs/_Barseq",
+                        "EM": "#/$defs/_Em",
+                        "EMG": "#/$defs/_Emg",
+                        "ISI": "#/$defs/_Isi",
+                        "MAPseq": "#/$defs/_Mapseq",
+                        "MRI": "#/$defs/_Mri",
+                        "SPIM": "#/$defs/_Spim",
+                        "STPT": "#/$defs/_Stpt",
+                        "behavior": "#/$defs/_Behavior",
+                        "behavior-videos": "#/$defs/_Behavior_Videos",
+                        "brightfield": "#/$defs/_Brightfield",
+                        "confocal": "#/$defs/_Confocal",
+                        "ecephys": "#/$defs/_Ecephys",
+                        "fMOST": "#/$defs/_Fmost",
+                        "fib": "#/$defs/_Fib",
+                        "icephys": "#/$defs/_Icephys",
+                        "merfish": "#/$defs/_Merfish",
+                        "pophys": "#/$defs/_Pophys",
+                        "scRNAseq": "#/$defs/_Scrnaseq",
+                        "slap2": "#/$defs/_Slap2"
+                     },
+                     "propertyName": "abbreviation"
+                  },
+                  "oneOf": [
+                     {
+                        "$ref": "#/$defs/_Barseq"
+                     },
+                     {
+                        "$ref": "#/$defs/_Behavior"
+                     },
+                     {
+                        "$ref": "#/$defs/_Behavior_Videos"
+                     },
+                     {
+                        "$ref": "#/$defs/_Brightfield"
+                     },
+                     {
+                        "$ref": "#/$defs/_Confocal"
+                     },
+                     {
+                        "$ref": "#/$defs/_Emg"
+                     },
+                     {
+                        "$ref": "#/$defs/_Em"
+                     },
+                     {
+                        "$ref": "#/$defs/_Ecephys"
+                     },
+                     {
+                        "$ref": "#/$defs/_Fib"
+                     },
+                     {
+                        "$ref": "#/$defs/_Fmost"
+                     },
+                     {
+                        "$ref": "#/$defs/_Icephys"
+                     },
+                     {
+                        "$ref": "#/$defs/_Isi"
+                     },
+                     {
+                        "$ref": "#/$defs/_Mri"
+                     },
+                     {
+                        "$ref": "#/$defs/_Mapseq"
+                     },
+                     {
+                        "$ref": "#/$defs/_Merfish"
+                     },
+                     {
+                        "$ref": "#/$defs/_Pophys"
+                     },
+                     {
+                        "$ref": "#/$defs/_Slap2"
+                     },
+                     {
+                        "$ref": "#/$defs/_Spim"
+                     },
+                     {
+                        "$ref": "#/$defs/_Stpt"
+                     },
+                     {
+                        "$ref": "#/$defs/_Scrnaseq"
+                     }
+                  ]
+               },
+               "title": "Modalities",
+               "type": "array"
+            },
+            "notes": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Notes"
+            }
+         },
+         "required": [
+            "stream_start_time",
+            "stream_end_time",
+            "modalities"
+         ],
+         "title": "ExternalDataStream",
+         "type": "object"
+      },
       "FiberAssemblyConfig": {
          "additionalProperties": false,
          "description": "Inserted fiber photometry probe recorded in a stream",
@@ -2380,6 +2530,7 @@
                   }
                ],
                "default": null,
+               "deprecated": true,
                "description": "DOI for protocols.io",
                "title": "Protocol ID"
             }
@@ -3511,6 +3662,7 @@
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                      "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                      "NResearch Inc": "#/$defs/_Nresearch_Inc",
                      "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                      "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -3768,6 +3920,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Molecular_Instruments"
                   },
                   {
                      "$ref": "#/$defs/_Nresearch_Inc"
@@ -4887,6 +5042,7 @@
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                      "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                      "NResearch Inc": "#/$defs/_Nresearch_Inc",
                      "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                      "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -5144,6 +5300,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Mitutuyo"
+                  },
+                  {
+                     "$ref": "#/$defs/_Molecular_Instruments"
                   },
                   {
                      "$ref": "#/$defs/_Nresearch_Inc"
@@ -9459,6 +9618,48 @@
          "title": "_Mks_Newport",
          "type": "object"
       },
+      "_Molecular_Instruments": {
+         "description": "Model Molecular Instruments",
+         "properties": {
+            "name": {
+               "const": "Molecular Instruments",
+               "default": "Molecular Instruments",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Molecular_Instruments",
+         "type": "object"
+      },
       "_Mpi": {
          "description": "Model MPI",
          "properties": {
@@ -11570,8 +11771,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.4.0",
-         "default": "2.4.0",
+         "const": "2.5.0",
+         "default": "2.5.0",
          "title": "Schema Version",
          "type": "string"
       },
@@ -11586,11 +11787,17 @@
                "type": "string"
             },
             {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            {
                "type": "null"
             }
          ],
          "default": null,
-         "description": "Specimen ID is required for in vitro imaging modalities",
+         "description": "Required for in vitro modalities. Standard format is {subject_id} with a _### suffix, as needed",
          "title": "Specimen ID"
       },
       "acquisition_start_time": {
@@ -12262,9 +12469,17 @@
          "title": "Ethics review ID"
       },
       "instrument_id": {
-         "description": "Should match the Instrument.instrument_id",
-         "title": "Instrument ID",
-         "type": "string"
+         "anyOf": [
+            {
+               "type": "string"
+            },
+            {
+               "type": "null"
+            }
+         ],
+         "default": null,
+         "description": "Should match the Instrument.instrument_id. Required when instrument metadata is available.",
+         "title": "Instrument ID"
       },
       "acquisition_type": {
          "description": "Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.",
@@ -12333,9 +12548,23 @@
          "type": "array"
       },
       "data_streams": {
-         "description": "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.",
+         "description": "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. Use ExternalDataStream for acquisitions where instrument metadata is unavailable.",
          "items": {
-            "$ref": "#/$defs/DataStream"
+            "discriminator": {
+               "mapping": {
+                  "Data stream": "#/$defs/DataStream",
+                  "External data stream": "#/$defs/ExternalDataStream"
+               },
+               "propertyName": "object_type"
+            },
+            "oneOf": [
+               {
+                  "$ref": "#/$defs/DataStream"
+               },
+               {
+                  "$ref": "#/$defs/ExternalDataStream"
+               }
+            ]
          },
          "title": "Data streams",
          "type": "array"
@@ -12368,6 +12597,7 @@
             }
          ],
          "default": null,
+         "description": "Required for in vivo acquisitions.",
          "title": "Subject details"
       }
    },
@@ -12375,7 +12605,6 @@
       "subject_id",
       "acquisition_start_time",
       "acquisition_end_time",
-      "instrument_id",
       "acquisition_type",
       "data_streams"
    ],

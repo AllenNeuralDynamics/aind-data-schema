@@ -100,6 +100,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -357,6 +358,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -683,6 +687,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -940,6 +945,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -1269,6 +1277,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -1526,6 +1535,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -2697,6 +2709,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -2954,6 +2967,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -4077,6 +4093,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -4334,6 +4351,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -4638,6 +4658,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -4895,6 +4916,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -5265,6 +5289,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -5522,6 +5547,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -5897,6 +5925,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -6154,6 +6183,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -6523,6 +6555,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -6780,6 +6813,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -7133,6 +7169,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -7390,6 +7427,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -7721,6 +7761,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -7978,6 +8019,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -8542,6 +8586,7 @@
                      "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                      "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                      "Mitutuyo": "#/$defs/_Mitutuyo",
+                     "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                      "NResearch Inc": "#/$defs/_Nresearch_Inc",
                      "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                      "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -8801,6 +8846,9 @@
                      "$ref": "#/$defs/_Mitutuyo"
                   },
                   {
+                     "$ref": "#/$defs/_Molecular_Instruments"
+                  },
+                  {
                      "$ref": "#/$defs/_Nresearch_Inc"
                   },
                   {
@@ -9022,16 +9070,19 @@
                   "mapping": {
                      "AnalogInput": "#/$defs/_Analoginput",
                      "Archimedes": "#/$defs/_Archimedes",
+                     "AudioSwitch": "#/$defs/_Audioswitch",
                      "Behavior": "#/$defs/aind_data_schema_models__harp_types___Behavior",
                      "CameraController": "#/$defs/_Cameracontroller",
                      "CameraControllerGen2": "#/$defs/_Cameracontrollergen2",
                      "ClockSynchronizer": "#/$defs/_Clocksynchronizer",
+                     "CurrentDriver": "#/$defs/_Currentdriver",
                      "Driver12Volts": "#/$defs/_Driver12Volts",
                      "EnvironmentSensor": "#/$defs/_Environmentsensor",
                      "FlyPad": "#/$defs/_Flypad",
                      "Hobgoblin": "#/$defs/_Hobgoblin",
                      "Ibl_behavior_control": "#/$defs/_Ibl_Behavior_Control",
                      "InputExpander": "#/$defs/_Inputexpander",
+                     "LaserDriverController": "#/$defs/_Laserdrivercontroller",
                      "LedController": "#/$defs/_Ledcontroller",
                      "LicketySplit": "#/$defs/_Licketysplit",
                      "LoadCells": "#/$defs/_Loadcells",
@@ -9072,6 +9123,9 @@
                      "$ref": "#/$defs/_Archimedes"
                   },
                   {
+                     "$ref": "#/$defs/_Audioswitch"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__harp_types___Behavior"
                   },
                   {
@@ -9082,6 +9136,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Clocksynchronizer"
+                  },
+                  {
+                     "$ref": "#/$defs/_Currentdriver"
                   },
                   {
                      "$ref": "#/$defs/_Driver12Volts"
@@ -9100,6 +9157,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Inputexpander"
+                  },
+                  {
+                     "$ref": "#/$defs/_Laserdrivercontroller"
                   },
                   {
                      "$ref": "#/$defs/_Ledcontroller"
@@ -9364,6 +9424,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -9621,6 +9682,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -10330,6 +10394,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -10587,6 +10652,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -11233,6 +11301,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -11490,6 +11559,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -12026,6 +12098,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -12283,6 +12356,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -12786,6 +12862,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -13043,6 +13120,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -13446,16 +13526,19 @@
                   "mapping": {
                      "AnalogInput": "#/$defs/_Analoginput",
                      "Archimedes": "#/$defs/_Archimedes",
+                     "AudioSwitch": "#/$defs/_Audioswitch",
                      "Behavior": "#/$defs/aind_data_schema_models__harp_types___Behavior",
                      "CameraController": "#/$defs/_Cameracontroller",
                      "CameraControllerGen2": "#/$defs/_Cameracontrollergen2",
                      "ClockSynchronizer": "#/$defs/_Clocksynchronizer",
+                     "CurrentDriver": "#/$defs/_Currentdriver",
                      "Driver12Volts": "#/$defs/_Driver12Volts",
                      "EnvironmentSensor": "#/$defs/_Environmentsensor",
                      "FlyPad": "#/$defs/_Flypad",
                      "Hobgoblin": "#/$defs/_Hobgoblin",
                      "Ibl_behavior_control": "#/$defs/_Ibl_Behavior_Control",
                      "InputExpander": "#/$defs/_Inputexpander",
+                     "LaserDriverController": "#/$defs/_Laserdrivercontroller",
                      "LedController": "#/$defs/_Ledcontroller",
                      "LicketySplit": "#/$defs/_Licketysplit",
                      "LoadCells": "#/$defs/_Loadcells",
@@ -13496,6 +13579,9 @@
                      "$ref": "#/$defs/_Archimedes"
                   },
                   {
+                     "$ref": "#/$defs/_Audioswitch"
+                  },
+                  {
                      "$ref": "#/$defs/aind_data_schema_models__harp_types___Behavior"
                   },
                   {
@@ -13506,6 +13592,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Clocksynchronizer"
+                  },
+                  {
+                     "$ref": "#/$defs/_Currentdriver"
                   },
                   {
                      "$ref": "#/$defs/_Driver12Volts"
@@ -13524,6 +13613,9 @@
                   },
                   {
                      "$ref": "#/$defs/_Inputexpander"
+                  },
+                  {
+                     "$ref": "#/$defs/_Laserdrivercontroller"
                   },
                   {
                      "$ref": "#/$defs/_Ledcontroller"
@@ -14020,6 +14112,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -14277,6 +14370,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -14646,6 +14742,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -14903,6 +15000,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -15481,6 +15581,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -15738,6 +15839,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -16042,6 +16146,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -16299,6 +16404,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -16915,6 +17023,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -17172,6 +17281,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -17507,6 +17619,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -17764,6 +17877,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -18229,6 +18345,7 @@
                            "Michael J. Fox Foundation for Parkinson's Research": "#/$defs/_Michael_J_Fox_Foundation_For_Parkinson_S_Research",
                            "Midwest Optical Systems, Inc.": "#/$defs/_Midwest_Optical_Systems_Inc_",
                            "Mitutuyo": "#/$defs/_Mitutuyo",
+                           "Molecular Instruments": "#/$defs/_Molecular_Instruments",
                            "NResearch Inc": "#/$defs/_Nresearch_Inc",
                            "National Center for Complementary and Integrative Health": "#/$defs/_National_Center_For_Complementary_And_Integrative_Health",
                            "National Institute of Mental Health": "#/$defs/_National_Institute_Of_Mental_Health",
@@ -18486,6 +18603,9 @@
                         },
                         {
                            "$ref": "#/$defs/_Mitutuyo"
+                        },
+                        {
+                           "$ref": "#/$defs/_Molecular_Instruments"
                         },
                         {
                            "$ref": "#/$defs/_Nresearch_Inc"
@@ -19313,6 +19433,25 @@
          "title": "_Asus",
          "type": "object"
       },
+      "_Audioswitch": {
+         "description": "Model AudioSwitch",
+         "properties": {
+            "whoami": {
+               "const": 1248,
+               "default": 1248,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "AudioSwitch",
+               "default": "AudioSwitch",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Audioswitch",
+         "type": "object"
+      },
       "_Barseq": {
          "additionalProperties": false,
          "description": "Model BARseq",
@@ -20120,6 +20259,25 @@
             }
          },
          "title": "_Crestoptics",
+         "type": "object"
+      },
+      "_Currentdriver": {
+         "description": "Model CurrentDriver",
+         "properties": {
+            "whoami": {
+               "const": 1282,
+               "default": 1282,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "CurrentDriver",
+               "default": "CurrentDriver",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Currentdriver",
          "type": "object"
       },
       "_Custom": {
@@ -21471,6 +21629,25 @@
          "title": "_Kowa",
          "type": "object"
       },
+      "_Laserdrivercontroller": {
+         "description": "Model LaserDriverController",
+         "properties": {
+            "whoami": {
+               "const": 1298,
+               "default": 1298,
+               "title": "Whoami",
+               "type": "integer"
+            },
+            "name": {
+               "const": "LaserDriverController",
+               "default": "LaserDriverController",
+               "title": "Name",
+               "type": "string"
+            }
+         },
+         "title": "_Laserdrivercontroller",
+         "type": "object"
+      },
       "_Lasos_Lasertechnik": {
          "description": "Model LASOS Lasertechnik",
          "properties": {
@@ -22196,6 +22373,48 @@
             }
          },
          "title": "_Mks_Newport",
+         "type": "object"
+      },
+      "_Molecular_Instruments": {
+         "description": "Model Molecular Instruments",
+         "properties": {
+            "name": {
+               "const": "Molecular Instruments",
+               "default": "Molecular Instruments",
+               "title": "Name",
+               "type": "string"
+            },
+            "abbreviation": {
+               "const": null,
+               "default": null,
+               "title": "Abbreviation",
+               "type": "null"
+            },
+            "registry": {
+               "anyOf": [
+                  {
+                     "$ref": "#/$defs/Registry"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null
+            },
+            "registry_identifier": {
+               "anyOf": [
+                  {
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "title": "Registry Identifier"
+            }
+         },
+         "title": "_Molecular_Instruments",
          "type": "object"
       },
       "_Mpi": {
@@ -23276,8 +23495,8 @@
          "description": "Model RgbArray",
          "properties": {
             "whoami": {
-               "const": 1248,
-               "default": 1248,
+               "const": 1264,
+               "default": 1264,
                "title": "Whoami",
                "type": "integer"
             },
@@ -24804,8 +25023,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.3",
-         "default": "2.2.3",
+         "const": "2.2.4",
+         "default": "2.2.4",
          "title": "Schema Version",
          "type": "string"
       },
