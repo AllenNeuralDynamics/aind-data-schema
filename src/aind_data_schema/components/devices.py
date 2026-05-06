@@ -46,6 +46,8 @@ from aind_data_schema.base import DataModel, Discriminated, GenericModel
 from aind_data_schema.components.coordinates import TRANSFORM_TYPES, AxisName, CoordinateSystem, Scale
 from aind_data_schema.components.identifiers import Software
 
+logger = logging.getLogger(__name__)
+
 
 class CatheterMaterial(str, Enum):
     """Type of catheter material"""
@@ -632,11 +634,11 @@ class Monitor(Device, DevicePosition):
         """
 
         if "contrast" in data and data["contrast"] is not None and "contrast_unit" not in data:
-            logging.warning("Adding default unit 'percent' for Monitor.contrast_unit")
+            logger.warning("Adding default unit 'percent' for Monitor.contrast_unit")
             data["contrast_unit"] = UnitlessUnit.PERCENT
 
         if "brightness" in data and data["brightness"] is not None and "brightness_unit" not in data:
-            logging.warning("Adding default unit 'percent' for Monitor.brightness_unit")
+            logger.warning("Adding default unit 'percent' for Monitor.brightness_unit")
             data["brightness_unit"] = UnitlessUnit.PERCENT
 
         return data

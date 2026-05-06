@@ -17,6 +17,7 @@ dependencies = [
     'aind-data-schema-models>=5.4.1,<6',
     'pydantic>=2.7, <2.12',
     'pydantic-extra-types',
+    'tzdata',
 ]
 
 [project.optional-dependencies]

@@ -49,7 +49,7 @@ from aind_data_schema_models.pid_names import PIDName
 from aind_data_schema_models.process_names import ProcessName
 
 # Reagent models
-from aind_data_schema_models.reagent import StainType, FluorophoreType
+from aind_data_schema_models.reagent import FluorophoreType, StainType
 
 # Registries
 from aind_data_schema_models.registries import Registry
@@ -73,10 +73,10 @@ from aind_data_schema_models.units import (
     PressureUnit,
     SizeUnit,
     SoundIntensityUnit,
+    SpeedUnit,
     TemperatureUnit,
     TimeUnit,
     UnitlessUnit,
-    SpeedUnit,
     VoltageUnit,
     VolumeUnit,
 )

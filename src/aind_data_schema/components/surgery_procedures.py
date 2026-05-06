@@ -221,7 +221,10 @@ class Perfusion(DataModel):
     output_specimen_ids: List[str] = Field(
         ...,
         title="Specimen ID",
-        description="IDs of specimens resulting from this procedure.",
+        description=(
+            "IDs of specimens resulting from this procedure."
+            " Whole brains can use the {subject_id}, partial sections should always include a suffix {subject_id}_###"
+        ),
     )
 
     @field_validator("output_specimen_ids", mode="before")

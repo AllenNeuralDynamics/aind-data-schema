@@ -19,9 +19,9 @@ Because the start and stop times are independent for data streams and stimulus e
 
 ## Uniqueness
 
-You can uniquely identify acquisition sessions (and therefore a specific data asset) by their acquisition datetime (`Acquisition.acquisition_end_time`). In addition, the `Acquisition.acquisition_type` is an open `str` field where you can put conceptual information that groups similar acquisitions together. This should not be completely redundant with project names, modalities, stimulus names, or any other fields in the metadata.
+You can uniquely identify acquisition sessions (and therefore a specific data asset) by their acquisition datetime (`Acquisition.acquisition_start_time`). In addition, the `Acquisition.acquisition_type` is an open `str` field where you can put conceptual information that groups similar acquisitions together. This should not be completely redundant with project names, modalities, stimulus names, or any other fields in the metadata.
 
-For example, in the `"Brain Computer Interface"` project name, good acquisition types would be strings like: `"BCI: Single neuron stim"` and `"BCI: Group neuron stim"`. These phrases clearly identify what part of a project these acquisitions belong to, without being overly redundant with controlled fields in the metadata.
+For example, in the `"Brain Computer Interface"` project name, good acquisition types would be strings like: `"Single neuron stim"` and `"Group neuron stim"`. These phrases clearly identify what part of a project these acquisitions belong to, without being overly redundant with controlled fields in the metadata.
 
 ## Stimulus parameters
 
@@ -78,23 +78,23 @@ while the StimulusEpoch represents all stimuli being presented.
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `subject_id` | `str` | Subject ID (Unique identifier for the subject) |
-| `specimen_id` | `Optional[str]` | Specimen ID (Specimen ID is required for in vitro imaging modalities) |
+| `specimen_id` | `str or List[str] or NoneType` | Specimen ID (Required for in vitro modalities. Standard format is {subject_id} with a _### suffix, as needed) |
 | `acquisition_start_time` | `datetime (timezone-aware)` | Acquisition start time (During validation, timezone information will be moved into the acquisition_start_tz field.) |
 | `acquisition_start_tz` | `int or pydantic_extra_types.timezone_name.TimeZoneName or NoneType` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time. Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, or an integer UTC offset in hours for fixed-offset timezones. Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone.) |
 | `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |
 | `experimenters` | `List[str]` | experimenter(s)  |
 | `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
 | `ethics_review_id` | `Optional[List[str]]` | Ethics review ID  |
-| `instrument_id` | `str` | Instrument ID (Should match the Instrument.instrument_id) |
+| `instrument_id` | `Optional[str]` | Instrument ID (Should match the Instrument.instrument_id. Required when instrument metadata is available.) |
 | `acquisition_type` | `str` | Acquisition type (Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.) |
 | `notes` | `Optional[str]` | Notes  |
 | `coordinate_system` | Optional[[CoordinateSystem](components/coordinates.md#coordinatesystem)] | Coordinate system (Origin and axis definitions for determining the configured position of devices during acquisition. Required when coordinates are provided within the Acquisition) |
 | `calibrations` | List[[Calibration](components/measurements.md#calibration) or [VolumeCalibration](components/measurements.md#volumecalibration) or [PowerCalibration](components/measurements.md#powercalibration)] | Calibrations (List of calibration measurements taken prior to acquisition.) |
 | `maintenance` | List[[Maintenance](components/measurements.md#maintenance)] | Maintenance (List of maintenance on instrument prior to acquisition.) |
-| `data_streams` | List[[DataStream](acquisition.md#datastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed.) |
+| `data_streams` | List[[DataStream](acquisition.md#datastream) or [ExternalDataStream](acquisition.md#externaldatastream)] | Data streams (A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can include multiple streams. Streams should be split when configurations are changed. Use ExternalDataStream for acquisitions where instrument metadata is unavailable.) |
 | `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | Stimulus (A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.) |
 | `manipulations` | List[[Manipulation](acquisition.md#manipulation)] | Manipulations (Procedures performed during the acquisition.) |
-| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details  |
+| `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details (Required for in vivo acquisitions.) |
 
 
 ## Model definitions
@@ -129,6 +129,18 @@ same time.
 | `active_devices` | `List[str]` | Active devices (Device names must match devices in the Instrument) |
 | `configurations` | List[[LightEmittingDiodeConfig](components/configs.md#lightemittingdiodeconfig) or [LaserConfig](components/configs.md#laserconfig) or [ManipulatorConfig](components/configs.md#manipulatorconfig) or [DetectorConfig](components/configs.md#detectorconfig) or [PatchCordConfig](components/configs.md#patchcordconfig) or [FiberAssemblyConfig](components/configs.md#fiberassemblyconfig) or [MISCameraConfig](components/configs.md#miscameraconfig) or [MRIScan](components/configs.md#mriscan) or [LickSpoutConfig](components/configs.md#lickspoutconfig) or [AirPuffConfig](components/configs.md#airpuffconfig) or [ImagingConfig](components/configs.md#imagingconfig) or [SampleChamberConfig](components/configs.md#samplechamberconfig) or [ProbeConfig](components/configs.md#probeconfig) or [EphysAssemblyConfig](components/configs.md#ephysassemblyconfig) or [CatheterConfig](components/configs.md#catheterconfig)] | Device configurations (Configurations are parameters controlling active devices during this stream) |
 | `connections` | List[[Connection](components/connections.md#connection)] | Connections (Connections are links between devices that are specific to this acquisition (i.e. not already defined in the Instrument)) |
+
+
+### ExternalDataStream
+
+A simplified data stream for acquisitions where instrument metadata is unavailable.
+
+| Field | Type | Title (Description) |
+|-------|------|-------------|
+| `stream_start_time` | `datetime (timezone-aware)` | Stream start time  |
+| `stream_end_time` | `datetime (timezone-aware)` | Stream stop time  |
+| `modalities` | List[[Modality](aind_data_schema_models/modalities.md#modality)] | Modalities (Modalities that are acquired in this stream) |
+| `notes` | `Optional[str]` | Notes  |
 
 
 ### Manipulation

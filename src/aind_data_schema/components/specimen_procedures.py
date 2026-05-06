@@ -13,12 +13,7 @@ from pydantic import Field, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataModel, DiscriminatedList
 from aind_data_schema.components.coordinates import Atlas, CoordinateSystem, Translation
-from aind_data_schema.components.reagent import (
-    FluorescentStain,
-    GeneProbeSet,
-    ProbeReagent,
-    Reagent,
-)
+from aind_data_schema.components.reagent import FluorescentStain, GeneProbeSet, ProbeReagent, Reagent
 from aind_data_schema.utils.exceptions import OneOfError
 
 
@@ -33,7 +28,9 @@ class SectionOrientation(str, Enum):
 class Section(DataModel):
     """Description of a single section of brain tissue. Slices should use PlanarSection."""
 
-    output_specimen_id: str = Field(..., title="Specimen ID")
+    output_specimen_id: str = Field(
+        ..., title="Specimen ID", description="Output IDs should generally follow the format {input_specimen_id}_###"
+    )
     targeted_structure: Optional[BrainStructureModel] = Field(default=None, title="Targeted structure")
     includes_surrounding_tissue: Optional[bool] = Field(
         default=None,
@@ -197,7 +194,10 @@ class SpecimenProcedure(DataModel):
         has_hcr_series = any(isinstance(detail, HCRSeries) for detail in self.procedure_details)
         has_fluorescent_stain = any(isinstance(detail, FluorescentStain) for detail in self.procedure_details)
         has_protein_probe = any(isinstance(detail, ProbeReagent) for detail in self.procedure_details)
-        has_sectioning = any(isinstance(detail, PlanarSectioning) for detail in self.procedure_details)
+        has_sectioning = any(
+            (isinstance(detail, PlanarSectioning) or isinstance(detail, Sectioning))
+            for detail in self.procedure_details
+        )
         has_geneprobeset = any(isinstance(detail, GeneProbeSet) for detail in self.procedure_details)
 
         if has_hcr_series + has_fluorescent_stain + has_sectioning + has_geneprobeset + has_protein_probe > 1:

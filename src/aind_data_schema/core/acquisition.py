@@ -1,16 +1,15 @@
 """Schema describing data acquisition metadata and configurations"""
 
-from datetime import datetime, timedelta, timezone
-from decimal import Decimal
 import logging
 import re
+from datetime import datetime, timedelta, timezone
+from decimal import Decimal
 from typing import Annotated, List, Literal, Optional, Union
 from zoneinfo import ZoneInfo
 
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.stimulus_modality import StimulusModality
 from aind_data_schema_models.units import MassUnit, VolumeUnit
-from aind_data_schema.utils.validators import TimeValidation
 from pydantic import Field, SkipValidation, field_validator, model_validator
 from pydantic_extra_types.timezone_name import TimeZoneName
 
@@ -26,8 +25,8 @@ from aind_data_schema.components.configs import (
     LickSpoutConfig,
     LightEmittingDiodeConfig,
     ManipulatorConfig,
-    MousePlatformConfig,
     MISCameraConfig,
+    MousePlatformConfig,
     MRIScan,
     OlfactometerConfig,
     PatchCordConfig,
@@ -35,32 +34,38 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
     SpeakerConfig,
 )
+from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.coordinates import CoordinateSystem
 from aind_data_schema.components.identifiers import Code
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
-from aind_data_schema.components.connections import Connection
+from aind_data_schema.components.subject_procedures import BrainInjection, Injection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import (
+    merge_coordinate_systems,
     merge_notes,
     merge_optional_list,
-    remove_duplicates,
-    merge_coordinate_systems,
     merge_str_alphabetical,
+    remove_duplicates,
 )
-from aind_data_schema.utils.validators import subject_specimen_id_compatibility, extract_timezone_from_datetime
-from aind_data_schema.components.subject_procedures import Injection, BrainInjection
+from aind_data_schema.utils.validators import (
+    TimeValidation,
+    extract_timezone_from_datetime,
+    subject_specimen_id_compatibility,
+)
+
+logger = logging.getLogger(__name__)
 
 # Define the requirements for each modality
 # Define the mapping of modalities to their required device types
 # The list of list pattern is used to allow for multiple options within a group, so e.g.
 # FIB requires a light config (one of the options) plus a fiber connection config and a fiber module
 CONFIG_REQUIREMENTS = {
-    Modality.ECEPHYS: [[EphysAssemblyConfig, ProbeConfig, ManipulatorConfig]],
-    Modality.FIB: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
-    Modality.POPHYS: [[ImagingConfig]],
-    Modality.MRI: [[MRIScan]],
-    Modality.SPIM: [[ImagingConfig], [SampleChamberConfig]],
-    Modality.SLAP2: [[ImagingConfig]],
+    Modality.ECEPHYS.abbreviation: [[EphysAssemblyConfig, ProbeConfig, ManipulatorConfig]],
+    Modality.FIB.abbreviation: [[LightEmittingDiodeConfig, LaserConfig], [PatchCordConfig, FiberAssemblyConfig]],
+    Modality.POPHYS.abbreviation: [[ImagingConfig]],
+    Modality.MRI.abbreviation: [[MRIScan]],
+    Modality.SPIM.abbreviation: [[ImagingConfig], [SampleChamberConfig]],
+    Modality.SLAP2.abbreviation: [[ImagingConfig]],
 }
 
 SPECIMEN_MODALITIES = [Modality.SPIM.abbreviation, Modality.CONFOCAL.abbreviation]
@@ -108,6 +113,7 @@ class DataStream(DataModel):
     same time.
     """
 
+    object_type: Literal["DataStream"] = "DataStream"
     stream_start_time: Annotated[
         AwareDatetimeWithDefault,
         Field(..., title="Stream start time"),
@@ -165,11 +171,11 @@ class DataStream(DataModel):
     def check_modality_config_requirements(self):
         """Check that the required devices are present for the modalities"""
         for modality in self.modalities:
-            if modality not in CONFIG_REQUIREMENTS.keys():
+            if modality.abbreviation not in CONFIG_REQUIREMENTS.keys():
                 # No configuration requirements for this modality
                 continue  # pragma: no cover
 
-            for group in CONFIG_REQUIREMENTS[modality]:
+            for group in CONFIG_REQUIREMENTS[modality.abbreviation]:
                 if not any(isinstance(config, device_type) for config in self.configurations for device_type in group):
                     # Get the types of all configurations
                     group_types = [device_type.__name__ for device_type in group]
@@ -226,7 +232,7 @@ class DataStream(DataModel):
         len_orig_devices = len(active_devices)
         active_devices = remove_duplicates(active_devices)
         if len(active_devices) < len_orig_devices:
-            logging.warning(
+            logger.warning(
                 "Duplicate active devices were removed. Only DAQ devices should be shared in overlapped " "DataStreams."
             )
 
@@ -248,6 +254,26 @@ class DataStream(DataModel):
             connections=connections,
             notes=notes,
         )
+
+
+class ExternalDataStream(DataModel):
+    """A simplified data stream for acquisitions where instrument metadata is unavailable."""
+
+    object_type: Literal["ExternalDataStream"] = "ExternalDataStream"
+    stream_start_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream start time"),
+        TimeValidation.BETWEEN,
+    ]
+    stream_end_time: Annotated[
+        AwareDatetimeWithDefault,
+        Field(..., title="Stream stop time"),
+        TimeValidation.BETWEEN,
+    ]
+    modalities: List[Modality.ONE_OF] = Field(
+        ..., title="Modalities", description="Modalities that are acquired in this stream"
+    )
+    notes: Optional[str] = Field(default=None, title="Notes")
 
 
 class StimulusEpoch(DataModel):
@@ -329,12 +355,14 @@ class Acquisition(DataCoreModel):
     # Meta metadata
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/acquisition.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
-    schema_version: SkipValidation[Literal["2.4.0"]] = Field(default="2.4.0")
+    schema_version: SkipValidation[Literal["2.5.0"]] = Field(default="2.5.0")
 
     # ID
     subject_id: str = Field(default=..., title="Subject ID", description="Unique identifier for the subject")
-    specimen_id: Optional[str] = Field(
-        default=None, title="Specimen ID", description="Specimen ID is required for in vitro imaging modalities"
+    specimen_id: Optional[Union[str, List[str]]] = Field(
+        default=None,
+        title="Specimen ID",
+        description="Required for in vitro modalities. Standard format is {subject_id} with a _### suffix, as needed",
     )
 
     # Acquisition metadata
@@ -372,7 +400,11 @@ class Acquisition(DataCoreModel):
     )
     protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
-    instrument_id: str = Field(..., title="Instrument ID", description="Should match the Instrument.instrument_id")
+    instrument_id: Optional[str] = Field(
+        default=None,
+        title="Instrument ID",
+        description="Should match the Instrument.instrument_id. Required when instrument metadata is available.",
+    )
     acquisition_type: str = Field(
         ...,
         title="Acquisition type",
@@ -404,12 +436,13 @@ class Acquisition(DataCoreModel):
     )
 
     # Acquisition data
-    data_streams: List[DataStream] = Field(
+    data_streams: DiscriminatedList[DataStream | ExternalDataStream] = Field(
         ...,
         title="Data streams",
         description=(
             "A data stream is a collection of devices that are acquiring data simultaneously. Each acquisition can "
-            "include multiple streams. Streams should be split when configurations are changed."
+            "include multiple streams. Streams should be split when configurations are changed. "
+            "Use ExternalDataStream for acquisitions where instrument metadata is unavailable."
         ),
     )
     stimulus_epochs: List[StimulusEpoch] = Field(
@@ -423,7 +456,9 @@ class Acquisition(DataCoreModel):
     manipulations: List[Manipulation] = Field(
         default=[], title="Manipulations", description="Procedures performed during the acquisition."
     )
-    subject_details: Optional[AcquisitionSubjectDetails] = Field(default=None, title="Subject details")
+    subject_details: Optional[AcquisitionSubjectDetails] = Field(
+        default=None, title="Subject details", description="Required for in vivo acquisitions."
+    )
 
     @property
     def acquisition_start_time_local(self) -> datetime:
@@ -452,9 +487,21 @@ class Acquisition(DataCoreModel):
     def check_subject_specimen_id(self):
         """Check that the subject and specimen IDs match"""
         if self.specimen_id and self.subject_id:
-            if not subject_specimen_id_compatibility(self.subject_id, self.specimen_id):
-                raise ValueError(f"Expected {self.subject_id} to appear in {self.specimen_id}")
+            ids = self.specimen_id if isinstance(self.specimen_id, list) else [self.specimen_id]
+            for sid in ids:
+                if not subject_specimen_id_compatibility(self.subject_id, sid):
+                    raise ValueError(f"Expected {self.subject_id} to appear in {sid}")
 
+        return self
+
+    @model_validator(mode="after")
+    def instrument_id_required_for_data_streams(self):
+        """Require instrument_id when any standard DataStream is present"""
+        if not hasattr(self, "data_streams"):
+            return self
+        if any(isinstance(stream, DataStream) for stream in self.data_streams):
+            if not self.instrument_id:
+                raise ValueError("instrument_id is required when data_streams contains a DataStream")
         return self
 
     @model_validator(mode="after")
@@ -540,7 +587,10 @@ class Acquisition(DataCoreModel):
         ethics_review_id = merge_optional_list(self.ethics_review_id, other.ethics_review_id)
         calibrations = self.calibrations + other.calibrations
         maintenance = self.maintenance + other.maintenance
-        data_streams = Acquisition._merge_data_streams(self.data_streams + other.data_streams)
+        all_streams = self.data_streams + other.data_streams
+        external_streams = [s for s in all_streams if isinstance(s, ExternalDataStream)]
+        regular_streams = [s for s in all_streams if isinstance(s, DataStream)]
+        data_streams = Acquisition._merge_data_streams(regular_streams) + external_streams
         stimulus_epochs = self.stimulus_epochs + other.stimulus_epochs
 
         # Remove duplicates

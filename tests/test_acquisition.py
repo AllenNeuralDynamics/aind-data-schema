@@ -22,8 +22,14 @@ from aind_data_schema.components.configs import (
     SampleChamberConfig,
 )
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary, Translation
-from aind_data_schema.core.acquisition import Acquisition, AcquisitionSubjectDetails, DataStream, StimulusEpoch
+from aind_data_schema.core.acquisition import (
+    Acquisition,
+    AcquisitionSubjectDetails,
+    DataStream,
+    StimulusEpoch,
+)
 from aind_data_schema.components.connections import Connection
+from examples.barseq_acquisition import acquisition as barseq_acquisition
 from examples.ephys_acquisition import acquisition as ephys_acquisition
 from examples.exaspim_acquisition import acq as exaspim_acquisition
 from examples.mri_acquisition import acquisition as mri_acquisition, scan1
@@ -53,6 +59,33 @@ class AcquisitionTest(unittest.TestCase):
             scan1_dict["notes"] = ""
             MRIScan.model_validate(scan1_dict)
 
+    def test_external_data_stream(self):
+        """Test ExternalDataStream: valid without instrument_id, and DataStream requires instrument_id"""
+        # Happy path: BARseq example uses ExternalDataStream and has no instrument_id
+        self.assertIsNotNone(barseq_acquisition)
+        self.assertIsNone(barseq_acquisition.instrument_id)
+
+        # Guard: DataStream without instrument_id should fail
+        start = datetime(2025, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+        end = datetime(2025, 1, 2, 0, 0, 0, tzinfo=timezone.utc)
+        with self.assertRaises(ValidationError) as context:
+            Acquisition(
+                subject_id="123456",
+                acquisition_start_time=start,
+                acquisition_end_time=end,
+                acquisition_type="Test",
+                data_streams=[
+                    DataStream(
+                        stream_start_time=start,
+                        stream_end_time=end,
+                        modalities=[Modality.BARSEQ],
+                        active_devices=[],
+                        configurations=[],
+                    )
+                ],
+            )
+        self.assertIn("instrument_id is required", str(context.exception))
+
     def test_check_subject_specimen_id(self):
         """Test that subject and specimen IDs match"""
         with self.assertRaises(ValueError) as context:
@@ -62,6 +95,21 @@ class AcquisitionTest(unittest.TestCase):
             Acquisition.model_validate_json(acq.model_dump_json())
 
         self.assertIn("Expected 123456 to appear in 654321", str(context.exception))
+
+    def test_specimen_id_list_valid(self):
+        """Test that specimen_id accepts a list of strings when all contain subject_id"""
+        acq = exaspim_acquisition.model_copy()
+        acq.specimen_id = ["123456_slide1", "123456_slide2"]
+        validated = Acquisition.model_validate_json(acq.model_dump_json())
+        self.assertEqual(validated.specimen_id, ["123456_slide1", "123456_slide2"])
+
+    def test_specimen_id_list_invalid(self):
+        """Test that specimen_id list raises ValueError if any entry does not contain subject_id"""
+        with self.assertRaises(ValueError) as context:
+            acq = exaspim_acquisition.model_copy()
+            acq.specimen_id = ["123456_slide1", "654321_slide2"]
+            Acquisition.model_validate_json(acq.model_dump_json())
+        self.assertIn("Expected 123456 to appear in 654321_slide2", str(context.exception))
 
     def test_specimen_required(self):
         """Test that specimen ID is required for in vitro imaging modalities"""

@@ -6,6 +6,8 @@ from typing import Optional
 from aind_data_schema.core.acquisition import Acquisition
 from aind_data_schema.core.instrument import Instrument
 
+logger = logging.getLogger(__name__)
+
 
 class InstrumentAcquisitionCompatibility:
     """Class of methods to check compatibility between instrument and acquisition"""
@@ -62,7 +64,7 @@ class InstrumentAcquisitionCompatibility:
                     f"Note: These devices may be valid if they exist in Procedures."
                 )
             else:
-                logging.error(
+                logger.error(
                     f"Active devices {set(missing_from_instrument)} were not found in Instrument.components. "
                     f"Note: These devices may be valid if they exist in Procedures."
                 )

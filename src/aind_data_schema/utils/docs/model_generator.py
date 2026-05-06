@@ -6,7 +6,7 @@ import json
 import os
 import re
 from enum import Enum
-from typing import Dict, List, Optional, Type, get_origin, get_args
+from typing import Dict, List, Optional, Type, get_args, get_origin
 
 from pydantic import BaseModel
 
