@@ -1,4 +1,4 @@
-""" example processing """
+"""example processing"""
 
 import argparse
 from datetime import datetime, timezone

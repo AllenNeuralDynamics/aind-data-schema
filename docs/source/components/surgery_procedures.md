@@ -26,7 +26,7 @@ Description of an injection procedure into a brain
 | `injection_materials` | List[[ViralMaterial](injection_procedures.md#viralmaterial) or [NonViralMaterial](injection_procedures.md#nonviralmaterial)] | Injection material  |
 | `relative_position` | Optional[List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)]] | Relative position  |
 | `dynamics` | List[[InjectionDynamics](injection_procedures.md#injectiondynamics)] | Injection dynamics (List of injection events, one per location/depth) |
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
+| <del>`protocol_id`</del> | `Optional[str]` | **[DEPRECATED]** Use protocol_id in Surgery or NonSurgicalInjection instead. Protocol ID (DOI for protocols.io) |
 
 
 ### CatheterImplant
@@ -147,7 +147,7 @@ Description of a perfusion procedure that creates a specimen
 | Field | Type | Title (Description) |
 |-------|------|-------------|
 | `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
-| `output_specimen_ids` | `List[str]` | Specimen ID (IDs of specimens resulting from this procedure.) |
+| `output_specimen_ids` | `List[str]` | Specimen ID (IDs of specimens resulting from this procedure. Whole brains can use the {subject_id}, partial sections should always include a suffix {subject_id}_###) |
 
 
 ### ProbeImplant
