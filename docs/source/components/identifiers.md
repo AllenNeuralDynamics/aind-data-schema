@@ -13,7 +13,7 @@ Code or script identifier
 | `version` | `Optional[str]` | Code version  |
 | `commit_hash` | `Optional[str]` | Commit hash (Commit hash of the code.) |
 | `container` | Optional[[Container](#container)] | Container  |
-| `run_script` | `Optional[pathlib.Path]` | Run script (Path to run script) |
+| `run_script` | `Optional[pathlib._local.Path]` | Run script (Path to run script) |
 | `language` | `Optional[str]` | Programming language (Programming language used) |
 | `language_version` | `Optional[str]` | Programming language version  |
 | `input_data` | Optional[List[[DataAsset](#dataasset) or [CombinedData](#combineddata)]] | Input data (Input data used in the code or script) |

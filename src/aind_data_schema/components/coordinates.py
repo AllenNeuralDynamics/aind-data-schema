@@ -1,15 +1,44 @@
 """Classes to define device positions, orientations, and coordinates"""
 
 import math
-from typing import List, Union
+from enum import Enum
+from typing import List, Optional, Union
 
 from aind_data_schema_models.atlas import AtlasName
 from aind_data_schema_models.coordinates import AxisName, Direction, Origin
 from aind_data_schema_models.units import AngleUnit, SizeUnit
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from aind_data_schema.base import DataModel, DiscriminatedList
 from aind_data_schema.components.wrappers import AssetPath
+
+
+class TransformFrame(str, Enum):
+    """Reference frame for applying transforms"""
+
+    EXTRINSIC = "extrinsic"
+    INTRINSIC = "intrinsic"
+
+
+class RotationDirection(str, Enum):
+    """Rotation direction convention"""
+
+    RIGHT_HAND = "right_hand"
+    LEFT_HAND = "left_hand"
+
+
+class RotationPivot(str, Enum):
+    """Rotation pivot point"""
+
+    GLOBAL_ORIGIN = "global_origin"
+    LOCAL_ORIGIN = "local_origin"
+
+
+class Handedness(str, Enum):
+    """Coordinate system handedness"""
+
+    RIGHT = "right"
+    LEFT = "left"
 
 
 class Axis(DataModel):
@@ -50,6 +79,11 @@ class Translation(DataModel):
     """Translation"""
 
     translation: List[float] = Field(..., title="Translation parameters")
+    frame: TransformFrame = Field(
+        default=TransformFrame.EXTRINSIC,
+        title="Reference frame",
+        description="Extrinsic applies in the global frame; intrinsic applies in the local device frame",
+    )
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine translation matrix for arbitrary sized lists.
@@ -75,15 +109,44 @@ class Translation(DataModel):
 class Rotation(DataModel):
     """Rotation
 
-    Rotations are applied as Euler angles in order X/Y/Z
+    Rotations are applied as Euler angles in the specified axis order.
 
-    Angles follow right-hand rule, with positive angles rotating counter-clockwise.
+    The default convention is extrinsic (fixed global axes), right-hand rule (positive angles rotate
+    counter-clockwise when looking along the positive axis), xyz axis order, pivoting around the global origin.
     """
 
     angles: List[float] = Field(
         ..., title="Angles and axes in 3D space", description="Right-hand rule, positive angles rotate CCW"
     )
     angles_unit: AngleUnit = Field(default=AngleUnit.DEG, title="Angle unit")
+    axis_order: str = Field(
+        default="xyz",
+        title="Axis order",
+        description="Order of rotation axes as a string (e.g. 'xyz', 'zyx'). Must match the length of angles.",
+    )
+    frame: TransformFrame = Field(
+        default=TransformFrame.EXTRINSIC,
+        title="Reference frame",
+        description="Extrinsic applies around fixed global axes; intrinsic applies around the rotating local axes",
+    )
+    rotation_direction: RotationDirection = Field(
+        default=RotationDirection.RIGHT_HAND,
+        title="Rotation direction",
+        description="Right-hand rule: positive angles rotate CCW when looking along the positive axis",
+    )
+    pivot: RotationPivot = Field(
+        default=RotationPivot.GLOBAL_ORIGIN,
+        title="Rotation pivot",
+        description="Whether to rotate around the global origin or the local origin of the device",
+    )
+
+    @field_validator("axis_order")
+    @classmethod
+    def validate_axis_order(cls, v: str) -> str:
+        valid_chars = set("xyzXYZ")
+        if not v or not all(c in valid_chars for c in v):
+            raise ValueError(f"axis_order must only contain axis characters (x, y, z), got '{v}'")
+        return v.lower()
 
     def to_matrix(self) -> List[List[float]]:
         """Return the affine rotation matrix for arbitrary sized lists.
@@ -105,7 +168,17 @@ class Rotation(DataModel):
         angles = [angle if self.angles_unit == AngleUnit.RAD else math.radians(angle) for angle in self.angles]
 
         # Create the rotation matrix
-        order = "xyz"[: len(self.angles)]
+        # Apply left-hand rule by negating angles
+        if self.rotation_direction == RotationDirection.LEFT_HAND:
+            angles = [-a for a in angles]
+
+        # Use specified axis order, truncated to the number of angles
+        order = self.axis_order[: len(self.angles)]
+
+        # Intrinsic rotations use uppercase axis letters in scipy
+        if self.frame == TransformFrame.INTRINSIC:
+            order = order.upper()
+
         rotation = R.from_euler(order, angles)
         rotation_matrix = rotation.as_matrix().tolist()
 
@@ -194,13 +267,18 @@ TRANSFORM_TYPES_NONLINEAR = DiscriminatedList[Translation | Rotation | Scale | A
 
 
 class CoordinateSystem(DataModel):
-    """Definition of a coordinate system relative to a brain"""
+    """Definition of a coordinate system"""
 
     name: str = Field(..., title="Name")
 
     origin: Origin = Field(..., title="Origin", description="Defines the position of (0,0,0) in the coordinate system")
     axes: List[Axis] = Field(..., title="Axis names", description="Axis names and directions")
     axis_unit: SizeUnit = Field(..., title="Size unit")
+    handedness: Optional[Handedness] = Field(
+        default=None,
+        title="Handedness",
+        description="Whether the coordinate system is right-handed or left-handed",
+    )
 
 
 class Atlas(CoordinateSystem):

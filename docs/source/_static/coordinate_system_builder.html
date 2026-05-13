@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AIND Coordinate System Builder</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/"
+    }
+  }
+  </script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { display: flex; min-width: 700px; min-height: 600px; height: 100vh; font: 13px/1.5 system-ui, sans-serif; background: #f5f5f5; overflow: auto; }
+
+    #sidebar {
+      width: 360px; min-width: 300px; flex-shrink: 0; overflow-y: auto; overflow-x: hidden;
+      background: #fff; border-right: 1px solid #ddd; padding: 12px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    h1 { font-size: 14px; font-weight: 700; color: #333; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+    h2 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #888; margin-bottom: 6px; }
+
+    .section { border: 1px solid #e0e0e0; border-radius: 6px; flex-shrink: 0; }
+    .section-header {
+      padding: 8px 10px; background: #fafafa; border-bottom: 1px solid #e0e0e0;
+      font-weight: 600; font-size: 12px; color: #444;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .section-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
+
+    .field-row { display: flex; align-items: center; gap: 8px; }
+    .field-label { width: 120px; flex-shrink: 0; font-size: 12px; color: #555; }
+    .field-row select, .field-row input[type=text], .field-row input[type=number] {
+      flex: 1; border: 1px solid #ccc; border-radius: 3px; padding: 3px 6px; font-size: 12px;
+    }
+    .field-row input[type=number] { width: 70px; flex: none; }
+
+    .xform-list { display: flex; flex-direction: column; gap: 4px; }
+    .xform-item {
+      display: flex; align-items: center; gap: 6px; padding: 5px 8px;
+      border: 1px solid #e0e0e0; border-radius: 4px; background: #fafafa;
+      cursor: pointer;
+    }
+    .xform-item:hover { background: #f0f0f0; }
+    .xform-item.selected { border-color: #4a90e2; background: #eaf2ff; }
+    .xform-badge {
+      font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .xform-badge.T { background: #e8f5e9; color: #2e7d32; }
+    .xform-badge.R { background: #e3f0ff; color: #1a6fc4; }
+    .xform-vals { font-size: 11px; font-family: monospace; color: #555; flex: 1; }
+    .xform-del {
+      cursor: pointer; color: #bbb; font-size: 14px; padding: 0 2px;
+      flex-shrink: 0; line-height: 1;
+    }
+    .xform-del:hover { color: #e53e3e; }
+
+    .xform-edit-panel {
+      border: 1px solid #e0e0e0; border-radius: 6px; background: #fff; padding: 10px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .xform-edit-panel.hidden { display: none; }
+
+    .btn {
+      cursor: pointer; border: none; border-radius: 4px;
+      padding: 5px 10px; font-size: 12px; font-weight: 600;
+    }
+    .btn-primary { background: #4a90e2; color: #fff; }
+    .btn-primary:hover { background: #357abd; }
+    .btn-secondary { background: #e8e8e8; color: #333; }
+    .btn-secondary:hover { background: #d0d0d0; }
+    .btn-success { background: #2e7d32; color: #fff; }
+    .btn-success:hover { background: #1b5e20; }
+    .btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    #export-panel {
+      border: 1px solid #e0e0e0; border-radius: 6px; flex-shrink: 0;
+    }
+    #export-code {
+      font-family: monospace; font-size: 11px; color: #222;
+      background: #f8f8f8; border: none; outline: none;
+      width: 100%; padding: 8px; resize: vertical; min-height: 120px;
+      white-space: pre;
+    }
+
+    #canvas-wrap { flex: 1; position: relative; overflow: hidden; background: #fff; }
+    canvas { display: block; }
+    #status {
+      position: absolute; bottom: 10px; left: 12px;
+      font: 11px monospace; color: #555; pointer-events: none;
+    }
+    #legend {
+      position: absolute; top: 10px; right: 12px;
+      font: 11px monospace; background: rgba(255,255,255,.85);
+      padding: 8px 10px; border-radius: 4px; line-height: 2.0;
+      border: 1px solid #ddd; max-width: 240px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div>
+    <h1>AIND Coordinate System Builder</h1>
+    <p style="font-size:11px;color:#888;margin-top:4px">
+      Set up your instrument coordinate system, add a device, then build the transform list.
+      The Export panel generates ready-to-use aind-data-schema Python code.
+    </p>
+  </div>
+
+  <!-- ── 1. Instrument Coordinate System ───────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      1. Instrument Coordinate System
+      <span style="font-size:10px;color:#aaa;font-weight:400">BREGMA_RAS default</span>
+    </div>
+    <div class="section-body">
+      <div class="field-row">
+        <span class="field-label">Preset</span>
+        <select id="cs-preset">
+          <option value="BREGMA_RAS">BREGMA_RAS (R, A, S)</option>
+          <option value="BREGMA_ARI">BREGMA_ARI (A, R, I)</option>
+          <option value="BREGMA_LPS">BREGMA_LPS (L, P, S)</option>
+          <option value="CUSTOM">Custom…</option>
+        </select>
+      </div>
+      <div id="cs-custom" style="display:none; flex-direction:column; gap:4px;">
+        <div class="field-row">
+          <span class="field-label">Name</span>
+          <input type="text" id="cs-name" value="MY_CS" style="flex:1" />
+        </div>
+        <div class="field-row">
+          <span class="field-label">Origin</span>
+          <select id="cs-origin">
+            <option>BREGMA</option><option>LAMBDA</option><option>MIDPOINT</option>
+            <option>TIP</option><option>FRONT_CENTER</option><option>ARENA_CENTER</option><option>ORIGIN</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Unit</span>
+          <select id="cs-unit"><option>mm</option><option>um</option><option>cm</option></select>
+        </div>
+        <div class="field-row">
+          <span class="field-label">+X direction</span>
+          <select id="cs-x-dir">
+            <option>LR</option><option>RL</option><option>PA</option><option>AP</option>
+            <option>SI</option><option>IS</option><option>DU</option><option>UD</option>
+            <option>FB</option><option>BF</option><option>POS</option><option>NEG</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <span class="field-label">+Y direction</span>
+          <select id="cs-y-dir">
+            <option>PA</option><option>AP</option><option>LR</option><option>RL</option>
+            <option>SI</option><option>IS</option><option>DU</option><option>UD</option>
+            <option>FB</option><option>BF</option><option>POS</option><option>NEG</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <span class="field-label">+Z direction</span>
+          <select id="cs-z-dir">
+            <option>SI</option><option>IS</option><option>PA</option><option>AP</option>
+            <option>LR</option><option>RL</option><option>DU</option><option>UD</option>
+            <option>FB</option><option>BF</option><option>POS</option><option>NEG</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Handedness</span>
+          <select id="cs-handedness" disabled>
+            <option value="">— auto —</option>
+            <option value="right">Right-handed</option>
+            <option value="left">Left-handed</option>
+          </select>
+          <span id="cs-handedness-auto" style="font-size:11px;color:#888;margin-left:4px"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 2. Device ─────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">2. Device</div>
+    <div class="section-body">
+      <div class="field-row">
+        <span class="field-label">Type</span>
+        <select id="dev-type">
+          <option value="probe">Probe (long rectangle)</option>
+          <option value="monitor">Monitor (flat rectangle)</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Name</span>
+        <input type="text" id="dev-name" value="probe_A" />
+      </div>
+      <div style="margin-top:2px">
+        <h2>Device coordinate system</h2>
+      </div>
+      <div class="field-row">
+        <span class="field-label">CS Name</span>
+        <input type="text" id="dev-cs-name" value="PROBE_CS" />
+      </div>
+      <div class="field-row">
+        <span class="field-label">CS Origin</span>
+        <select id="dev-cs-origin">
+          <option>TIP</option><option>ORIGIN</option><option>FRONT_CENTER</option><option>BREGMA</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <span class="field-label">CS Unit</span>
+        <select id="dev-cs-unit"><option>mm</option><option>um</option><option>cm</option></select>
+      </div>
+      <div style="margin-top:4px">
+        <h2>At-rest orientation (in instrument CS)</h2>
+        <div style="font-size:11px;color:#888;margin-bottom:4px">Which instrument axis does each device axis point along at rest?</div>
+      </div>
+      <div class="field-row">
+        <span class="field-label" id="dev-long-label">Long axis (probe Y)</span>
+        <select id="dev-long-dir">
+          <option value="PA">+Anterior</option><option value="AP">+Posterior</option>
+          <option value="IS">+Superior</option><option value="SI">+Inferior</option>
+          <option value="LR">+Right</option><option value="RL">+Left</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Width axis (+X)</span>
+        <select id="dev-wid-dir">
+          <option value="LR">+Right</option><option value="RL">+Left</option>
+          <option value="PA">+Anterior</option><option value="AP">+Posterior</option>
+          <option value="IS">+Superior</option><option value="SI">+Inferior</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <span class="field-label" id="dev-nor-label">Normal (+Z)</span>
+        <input type="text" id="dev-nor-dir" readonly disabled style="width:140px;color:#888;background:#f0f0f0">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Handedness</span>
+        <select id="dev-cs-handedness" disabled>
+          <option value="">— auto —</option>
+          <option value="right">Right-handed</option>
+          <option value="left">Left-handed</option>
+        </select>
+        <span id="dev-handedness-auto" style="font-size:11px;color:#888;margin-left:4px"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. Transforms ─────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      3. Device → Instrument Transforms
+      <span style="font-size:10px;color:#aaa;font-weight:400">applied top-to-bottom</span>
+    </div>
+    <div class="section-body">
+      <div id="xform-list" class="xform-list"></div>
+
+      <!-- edit panel shown when an item is selected or "Add" is clicked -->
+      <div id="xform-edit" class="xform-edit-panel hidden">
+        <div class="field-row">
+          <span class="field-label">Type</span>
+          <select id="xf-type">
+            <option value="T">Translation</option>
+            <option value="R">Rotation</option>
+          </select>
+        </div>
+        <div id="xf-translation-fields" style="display:flex;flex-direction:column;gap:4px;">
+          <div class="field-row">
+            <span class="field-label" id="xf-t-label">Axis0 / Axis1 / Axis2</span>
+            <input type="number" id="xf-tx" value="0" step="0.1" style="width:65px">
+            <input type="number" id="xf-ty" value="0" step="0.1" style="width:65px">
+            <input type="number" id="xf-tz" value="0" step="0.1" style="width:65px">
+          </div>
+          <div class="field-row">
+            <span class="field-label">Frame</span>
+            <select id="xf-t-frame">
+              <option value="extrinsic">Extrinsic (global)</option>
+              <option value="intrinsic">Intrinsic (local)</option>
+            </select>
+          </div>
+        </div>
+        <div id="xf-rotation-fields" style="display:none;flex-direction:column;gap:4px;">
+          <div class="field-row">
+            <span class="field-label" id="xf-rot-label">R0 / R1 / R2</span>
+            <input type="number" id="xf-rx" value="0" step="1" style="width:65px">
+            <input type="number" id="xf-ry" value="0" step="1" style="width:65px">
+            <input type="number" id="xf-rz" value="0" step="1" style="width:65px">
+          </div>
+          <div class="field-row">
+            <span class="field-label">Direction</span>
+            <select id="xf-r-dir">
+              <option value="right_hand">Right-hand (CCW positive)</option>
+              <option value="left_hand">Left-hand (CW positive)</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Pivot</span>
+            <select id="xf-pivot">
+              <option value="global_origin">Global origin</option>
+              <option value="local_origin">Local origin</option>
+            </select>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="xf-apply-btn">Apply</button>
+          <button class="btn btn-secondary" id="xf-cancel-btn">Cancel</button>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:4px">
+        <button class="btn btn-secondary" id="add-translation-btn">+ Translation</button>
+        <button class="btn btn-secondary" id="add-rotation-btn">+ Rotation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. Export ─────────────────────────────────────────────── -->
+  <div id="export-panel" class="section">
+    <div class="section-header">
+      4. Export
+      <button class="btn btn-success" id="copy-btn" style="font-size:11px;padding:2px 8px">Copy</button>
+    </div>
+    <textarea id="export-code" readonly></textarea>
+  </div>
+</div>
+
+<!-- ── 3D viewport ─────────────────────────────────────────────── -->
+<div id="canvas-wrap">
+  <div id="status">Loading brain mesh…</div>
+  <div id="legend"></div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+// ── Orbit controls (from probe-transform-debug / orbit-controls.js) ────────
+function createOrbitControls(camera, target, initCamUp, domEl, options = {}) {
+  const ROTATE_SPEED = options.rotateSpeed ?? 0.007;
+  const ZOOM_SPEED   = options.zoomSpeed   ?? 0.03;
+  const MIN_RADIUS   = options.minRadius   ?? 3;
+  const MAX_RADIUS   = options.maxRadius   ?? 80;
+
+  const axisX = new THREE.Vector3(1, 0, 0);
+  const axisZ = new THREE.Vector3(0, 0, 1);
+
+  const initCamDir = camera.position.clone().sub(target).normalize();
+  let camRadius = camera.position.distanceTo(target);
+  let totalPitch = 0, totalRoll = 0;
+  let dragging = false, sx = 0, sy = 0;
+
+  function updateCamera() {
+    const qRoll  = new THREE.Quaternion().setFromAxisAngle(axisZ, totalRoll);
+    const qPitch = new THREE.Quaternion().setFromAxisAngle(axisX, totalPitch);
+    const totalQ = new THREE.Quaternion().multiplyQuaternions(qRoll, qPitch);
+    camera.position.copy(target).addScaledVector(initCamDir.clone().applyQuaternion(totalQ), camRadius);
+    camera.up.copy(initCamUp).applyQuaternion(totalQ);
+    camera.lookAt(target);
+  }
+
+  const startDrag = (x, y) => { dragging = true;  sx = x; sy = y; };
+  const stopDrag  = ()      => { dragging = false; };
+  const doDrag    = (x, y)  => {
+    if (!dragging) return;
+    totalPitch += (y - sy) * ROTATE_SPEED;
+    totalRoll  -= (x - sx) * ROTATE_SPEED;
+    sx = x; sy = y;
+    updateCamera();
+  };
+  const doZoom = (delta) => {
+    camRadius = Math.max(MIN_RADIUS, Math.min(MAX_RADIUS, camRadius + delta * ZOOM_SPEED));
+    updateCamera();
+  };
+
+  domEl.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY));
+  window.addEventListener('mouseup',  stopDrag);
+  window.addEventListener('mousemove', e => doDrag(e.clientX, e.clientY));
+  domEl.addEventListener('touchstart', e => startDrag(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  window.addEventListener('touchend',  stopDrag);
+  window.addEventListener('touchmove', e => { e.preventDefault(); doDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+  domEl.addEventListener('wheel', e => { e.preventDefault(); doZoom(e.deltaY); }, { passive: false });
+}
+
+// ── Coordinate system presets ──────────────────────────────────
+// Each preset maps (x-axis, y-axis, z-axis) to THREE.js vectors.
+// Three.js convention here: R=−X, A=+Z, S=+Y  (same as probe-transform-debug)
+// Maps each Direction enum value to three.js world-space vectors.
+// three.js convention (matching CCF matrix): R=(-1,0,0), A=(0,0,1), S=(0,1,0)
+// Direction names are "from→to", so positive axis points toward the second word.
+// e.g. LR = Left→Right means positive points Right = (-1,0,0) in three.js.
+const DIR_TO_THREEJS = {
+  LR: [-1, 0, 0],  RL: [1, 0, 0],   // Left→Right=R, Right→Left=L
+  PA: [0, 0, 1],   AP: [0, 0, -1],  // Post→Ant=A, Ant→Post=P
+  IS: [0, 1, 0],   SI: [0, -1, 0],  // Inf→Sup=S, Sup→Inf=I
+  DU: [0, 1, 0],   UD: [0, -1, 0],  // Down→Up=S, Up→Down=I
+  FB: [0, 0, -1],  BF: [0, 0, 1],   // Front→Back=P, Back→Front=A
+  POS: [1, 0, 0],  NEG: [-1, 0, 0],
+};
+
+const PRESETS = {
+  BREGMA_RAS: {
+    name: 'BREGMA_RAS', origin: 'BREGMA', unit: 'mm', handedness: 'right',
+    axes: [
+      { name: 'ML', direction: 'LR' },  // +X = Right
+      { name: 'AP', direction: 'PA' },  // +Y = Anterior
+      { name: 'SI', direction: 'IS' },  // +Z = Superior
+    ],
+  },
+  BREGMA_ARI: {
+    name: 'BREGMA_ARI', origin: 'BREGMA', unit: 'mm', handedness: 'right',
+    axes: [
+      { name: 'AP', direction: 'PA' },  // +X = Anterior
+      { name: 'ML', direction: 'LR' },  // +Y = Right
+      { name: 'SI', direction: 'SI' },  // +Z = Inferior
+    ],
+  },
+  BREGMA_LPS: {
+    name: 'BREGMA_LPS', origin: 'BREGMA', unit: 'mm', handedness: 'left',
+    axes: [
+      { name: 'ML', direction: 'RL' },  // +X = Left
+      { name: 'AP', direction: 'AP' },  // +Y = Posterior
+      { name: 'SI', direction: 'IS' },  // +Z = Superior
+    ],
+  },
+};
+
+// ── State ──────────────────────────────────────────────────────
+let state = {
+  cs: { ...PRESETS.BREGMA_RAS },
+  device: {
+    type: 'probe', name: 'probe_A',
+    csName: 'PROBE_CS', csOrigin: 'TIP', csUnit: 'mm',
+    longDir: 'PA',  // device +Y (long axis) points along this instrument direction at rest
+    widDir:  'LR',  // device +X (width axis) points along this instrument direction at rest
+  },
+  transforms: [],
+};
+
+function inferHandedness(axes) {
+  const v = axes.map(a => DIR_TO_THREEJS[a.direction] || [1, 0, 0]);
+  if (v.length < 3) return null;
+  const cross = [
+    v[0][1]*v[1][2] - v[0][2]*v[1][1],
+    v[0][2]*v[1][0] - v[0][0]*v[1][2],
+    v[0][0]*v[1][1] - v[0][1]*v[1][0],
+  ];
+  const dot = cross[0]*v[2][0] + cross[1]*v[2][1] + cross[2]*v[2][2];
+  return dot > 0 ? 'right' : 'left';
+}
+
+function inferDevHandedness() {
+  const lv = DIR_TO_THREEJS[state.device.longDir] || [0,0,1];
+  const wv = DIR_TO_THREEJS[state.device.widDir]  || [1,0,0];
+  const nv = [wv[1]*lv[2]-wv[2]*lv[1], wv[2]*lv[0]-wv[0]*lv[2], wv[0]*lv[1]-wv[1]*lv[0]];
+  // nv = wid × long; right-handed when nv = +normal by convention
+  const mag = Math.sqrt(nv[0]**2+nv[1]**2+nv[2]**2);
+  return mag < 1e-6 ? null : 'right'; // cross product always gives right-hand triple
+}
+
+function updateHandednessDisplays() {
+  const csH = inferHandedness(state.cs.axes);
+  document.getElementById('cs-handedness-auto').textContent = csH ? `(${csH}-handed)` : '';
+  const dH = 'right'; // device CS is always right-handed by cross-product construction
+  document.getElementById('dev-handedness-auto').textContent = `(${dH}-handed)`;
+  updateDevNormalDisplay();
+}
+
+let editIdx = null; // index into state.transforms being edited, or null for "new"
+
+function vecToDir(v) {
+  return Object.entries(DIR_TO_THREEJS).find(([k,d]) =>
+    Math.abs(d[0]-v[0])<0.01 && Math.abs(d[1]-v[1])<0.01 && Math.abs(d[2]-v[2])<0.01)?.[0] || null;
+}
+
+const DIR_LABELS = {
+  LR:'+Right', RL:'+Left', PA:'+Anterior', AP:'+Posterior',
+  IS:'+Superior', SI:'+Inferior', DU:'+Up', UD:'+Down', FB:'+Back', BF:'+Forward',
+};
+
+function updateDevNormalDisplay() {
+  const lv = DIR_TO_THREEJS[state.device.longDir] || [0,0,1];
+  const wv = DIR_TO_THREEJS[state.device.widDir]  || [1,0,0];
+  const nv = [wv[1]*lv[2]-wv[2]*lv[1], wv[2]*lv[0]-wv[0]*lv[2], wv[0]*lv[1]-wv[1]*lv[0]];
+  const key = vecToDir(nv);
+  const label = key ? (DIR_LABELS[key] || key) : '(parallel axes)';
+  const isMonitor = state.device.type === 'monitor';
+  document.getElementById('dev-nor-label').textContent = isMonitor ? 'Up/Height (+Y)' : 'Normal (+Z)';
+  document.getElementById('dev-nor-dir').value = label;
+}
+
+function updateTranslationLabel() {
+  const frame = document.getElementById('xf-t-frame').value;
+  const axNames = state.cs.axes.map(a => a.name);
+  const tLabel = document.getElementById('xf-t-label');
+  if (!tLabel) return;
+  const editPos = editIdx !== null ? editIdx : state.transforms.length;
+  const hasPriorRotation = state.transforms.slice(0, editPos).some(xf => xf.type === 'R');
+  if (frame === 'intrinsic' && hasPriorRotation) {
+    tLabel.textContent = 'X / Y / Z';
+  } else {
+    tLabel.textContent = axNames.length >= 3
+      ? `${axNames[0]} / ${axNames[1]} / ${axNames[2]}`
+      : 'Axis0 / Axis1 / Axis2';
+  }
+}
+
+function getBasis(cs) {
+  const dirs = cs.axes.map(a => DIR_TO_THREEJS[a.direction] || [1, 0, 0]);
+  return dirs; // [xVec, yVec, zVec] in three.js space
+}
+
+// ── Three.js scene ─────────────────────────────────────────────
+const wrap = document.getElementById('canvas-wrap');
+const statusEl = document.getElementById('status');
+const legendEl = document.getElementById('legend');
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
+const camera = new THREE.PerspectiveCamera(38, wrap.clientWidth / wrap.clientHeight, 0.1, 300);
+camera.position.set(0, 18, -10);
+camera.up.set(0, 1, 0); // +Y = superior = up
+const TARGET = new THREE.Vector3(0, -3.668, -1.2); // roughly brain center
+camera.lookAt(TARGET);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+wrap.appendChild(renderer.domElement);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+const key = new THREE.DirectionalLight(0xffffff, 0.6);
+key.position.set(4, 12, 14);
+scene.add(key);
+
+createOrbitControls(camera, TARGET, camera.up.clone(), renderer.domElement, { rotateSpeed: 0.007 });
+
+// Bregma marker
+const bregmaMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.2, 16, 16),
+  new THREE.MeshBasicMaterial({ color: 0xaaa39f })
+);
+scene.add(bregmaMarker);
+
+// Axis arrows group (rebuilt when CS changes)
+const axisArrowGroup = new THREE.Group();
+scene.add(axisArrowGroup);
+
+function mkArrow(dir3, color, label, group) {
+  const normDir = new THREE.Vector3(...dir3).normalize();
+  const arr = new THREE.ArrowHelper(normDir, new THREE.Vector3(0,0,0), 6, color, 0.8, 0.4);
+  group.add(arr);
+  const c = document.createElement('canvas');
+  c.width = 64; c.height = 32;
+  const ctx = c.getContext('2d');
+  ctx.font = 'bold 24px sans-serif';
+  ctx.fillStyle = '#' + color.toString(16).padStart(6,'0');
+  ctx.fillText(label, 4, 26);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), depthTest: false }));
+  sp.scale.set(1.8, 0.9, 1);
+  sp.position.copy(normDir.clone().multiplyScalar(6.8));
+  group.add(sp);
+}
+
+function mkArrowAt(origin, dir3, color, label, len, group) {
+  const normDir = new THREE.Vector3(...dir3).normalize();
+  const arr = new THREE.ArrowHelper(normDir, origin, len, color, len * 0.13, len * 0.07);
+  group.add(arr);
+  const c = document.createElement('canvas');
+  c.width = 64; c.height = 32;
+  const ctx = c.getContext('2d');
+  ctx.font = 'bold 24px sans-serif';
+  ctx.fillStyle = '#' + color.toString(16).padStart(6,'0');
+  ctx.fillText(label, 4, 26);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), depthTest: false }));
+  sp.scale.set(1.8, 0.9, 1);
+  sp.position.copy(origin.clone().addScaledVector(normDir, len * 1.15));
+  group.add(sp);
+}
+
+// Brain group (loaded once, fixed in anatomical position)
+const brainGroup = new THREE.Group();
+scene.add(brainGroup);
+
+const CCF_MATRIX = new THREE.Matrix4().set(
+   0,        0,     1/1000, -5.7,
+   0,    -1/1000,   0,       0.332,
+  -1/1000,  0,      0,       5.4,
+   0,        0,     0,       1,
+);
+
+const loader = new OBJLoader();
+const MESH_BASE = 'https://allen-data-views.s3.amazonaws.com/data-asset-cache/meshes/';
+loader.load(MESH_BASE + '997.obj', (group) => {
+  group.traverse(c => {
+    if (!c.isMesh) return;
+    c.geometry.applyMatrix4(CCF_MATRIX);
+    c.material = new THREE.MeshPhongMaterial({
+      color: 0x737373, transparent: true, opacity: 0.12,
+      side: THREE.DoubleSide, depthWrite: false
+    });
+    c.renderOrder = 1;
+  });
+  brainGroup.add(group);
+  statusEl.textContent = 'Drag to rotate · Scroll to zoom';
+  rebuildScene();
+}, undefined, () => {
+  statusEl.textContent = 'Brain mesh unavailable (needs network)';
+  rebuildScene();
+});
+
+// Device geometry
+const devGroup = new THREE.Group();
+scene.add(devGroup);
+const stepGroup = new THREE.Group();
+scene.add(stepGroup);
+
+// ── Rotation/translation helpers (from coord-systems.js) ──────
+// Rodrigues' rotation formula — pure math, no THREE.js dependency.
+function _axisAngleRotate(v, axis, angle) {
+  const c = Math.cos(angle), s = Math.sin(angle);
+  const [ax, ay, az] = axis;
+  const [vx, vy, vz] = v;
+  const dot = ax * vx + ay * vy + az * vz;
+  return [
+    vx * c + (ay * vz - az * vy) * s + ax * dot * (1 - c),
+    vy * c + (az * vx - ax * vz) * s + ay * dot * (1 - c),
+    vz * c + (ax * vy - ay * vx) * s + az * dot * (1 - c),
+  ];
+}
+
+function applyExtrinsicRotation(v, angles, basisColumns, direction) {
+  const deg = Math.PI / 180;
+  const sign = direction === 'left_hand' ? -1 : 1;
+  let result = [v[0], v[1], v[2]];
+  for (let i = 0; i < 3 && i < basisColumns.length; i++) {
+    const a = sign * (angles[i] ?? 0) * deg;
+    if (Math.abs(a) < 1e-12) continue;
+    result = _axisAngleRotate(result, basisColumns[i], a);
+  }
+  return result;
+}
+
+function applyBasisTranslation(pos, translation, basisColumns) {
+  const result = [pos[0], pos[1], pos[2]];
+  for (let i = 0; i < 3 && i < translation.length; i++) {
+    const v = translation[i] ?? 0;
+    result[0] += v * basisColumns[i][0];
+    result[1] += v * basisColumns[i][1];
+    result[2] += v * basisColumns[i][2];
+  }
+  return result;
+}
+
+function applyTransformToState(pos, dir, wid, xf, basis) {
+  if (xf.type === 'T') {
+    const t = xf.translation;
+    if (xf.frame === 'intrinsic') {
+      const localUp = [
+        wid[1]*dir[2] - wid[2]*dir[1],
+        wid[2]*dir[0] - wid[0]*dir[2],
+        wid[0]*dir[1] - wid[1]*dir[0],
+      ];
+      pos = applyBasisTranslation(pos, t, [wid, dir, localUp]);
+    } else {
+      pos = applyBasisTranslation(pos, t, basis);
+    }
+  } else if (xf.type === 'R') {
+    dir = applyExtrinsicRotation(dir, xf.angles, basis, xf.direction);
+    wid = applyExtrinsicRotation(wid, xf.angles, basis, xf.direction);
+    if (xf.pivot !== 'local_origin') {
+      pos = applyExtrinsicRotation(pos, xf.angles, basis, xf.direction);
+    }
+  }
+  return { pos, dir, wid };
+}
+
+function computeSteps() {
+  const basis = getBasis(state.cs);
+  let pos = [0, 0, 0];
+  // Device at-rest axes are determined by the device's own CS axis directions
+  let dir = [...(DIR_TO_THREEJS[state.device.longDir] || basis[1])]; // long axis (+Y)
+  let wid = [...(DIR_TO_THREEJS[state.device.widDir]  || basis[0])]; // width axis (+X)
+
+  const steps = [{ pos: [...pos], dir: [...dir], wid: [...wid], type: 'initial', label: 'at rest' }];
+  for (const xf of state.transforms) {
+    const res = applyTransformToState([...pos], [...dir], [...wid], xf, basis);
+    pos = res.pos; dir = res.dir; wid = res.wid;
+    steps.push({ pos: [...pos], dir: [...dir], wid: [...wid], type: xf.type, label: xfLabel(xf) });
+  }
+  return steps;
+}
+
+function xfLabel(xf) {
+  if (xf.type === 'T') {
+    return `T=[${xf.translation.map(v => v.toFixed(2)).join(', ')}]`;
+  } else {
+    const dir = xf.direction === 'left_hand' ? ' LH' : '';
+    return `R=[${xf.angles.map(v => v.toFixed(1)).join(', ')}]°${dir}`;
+  }
+}
+
+function norm3(v) {
+  const [x,y,z] = v;
+  const l = Math.sqrt(x*x+y*y+z*z) || 1;
+  return [x/l, y/l, z/l];
+}
+
+function rebuildScene() {
+  devGroup.clear();
+  stepGroup.clear();
+  axisArrowGroup.clear();
+
+  // Axis arrows
+  const basis = getBasis(state.cs);
+  const axLabels = state.cs.axes.map(a => '+' + a.name);
+  const axColors = [0xff4444, 0x44aa44, 0x4488ff];
+  basis.forEach((b, i) => mkArrow(b, axColors[i], axLabels[i], axisArrowGroup));
+
+  // Update rotation and translation input labels to match CS axis names
+  const axNames = state.cs.axes.map(a => a.name);
+  const rotLabel = document.getElementById('xf-rot-label');
+  if (rotLabel) {
+    rotLabel.textContent = axNames.length >= 3
+      ? `R(${axNames[0]}) / R(${axNames[1]}) / R(${axNames[2]})`
+      : 'R0 / R1 / R2';
+  }
+  updateTranslationLabel();
+
+  const steps = computeSteps();
+  const finalStep = steps[steps.length - 1];
+  const [px, py, pz] = finalStep.pos;
+  const [dx, dy, dz] = norm3(finalStep.dir);
+  const [wx, wy, wz] = norm3(finalStep.wid);
+  const probeDir = new THREE.Vector3(dx, dy, dz).normalize();
+  const probeWid = new THREE.Vector3(wx, wy, wz).normalize();
+  // up = wid × dir  (right-hand rule: gives correct "up" for both probe and monitor)
+  const probeUp  = new THREE.Vector3().crossVectors(probeWid, probeDir).normalize();
+
+  const devColor = 0x4a90e2;
+  const mat = new THREE.MeshPhongMaterial({ color: devColor, transparent: true, opacity: 0.85 });
+
+  if (state.device.type === 'probe') {
+    const PROBE_W = 0.7, PROBE_T = 0.12, PROBE_L = 8;
+    const box = new THREE.Mesh(new THREE.BoxGeometry(PROBE_W, PROBE_T, PROBE_L), mat);
+    box.matrixAutoUpdate = false;
+    box.matrix.makeBasis(probeWid, probeUp, probeDir);
+    box.matrix.setPosition(new THREE.Vector3(px, py, pz).addScaledVector(probeDir, PROBE_L / 2));
+    devGroup.add(box);
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.25, 10, 10), new THREE.MeshPhongMaterial({ color: devColor }));
+    tip.position.set(px, py, pz);
+    devGroup.add(tip);
+    // Device CS axis arrows at tip: X=width, Y=long/insertion, Z=normal
+    const tipPos = new THREE.Vector3(px, py, pz);
+    mkArrowAt(tipPos, [probeWid.x, probeWid.y, probeWid.z],   0x000000, '+X', 2.5, devGroup);
+    mkArrowAt(tipPos, [probeDir.x, probeDir.y, probeDir.z],   0x000000, '+Y', 2.5, devGroup);
+    mkArrowAt(tipPos, [probeUp.x,  probeUp.y,  probeUp.z],    0x000000, '+Z', 2.5, devGroup);
+  } else {
+    const W = 8, H = 6, T = 0.15;
+    const box = new THREE.Mesh(new THREE.BoxGeometry(W, H, T), mat);
+    box.matrixAutoUpdate = false;
+    box.matrix.makeBasis(probeWid, probeUp, probeDir);
+    box.matrix.setPosition(new THREE.Vector3(px, py, pz));
+    devGroup.add(box);
+    // Device CS axis arrows at center: X=width, Y=up/height, Z=facing
+    const ctrPos = new THREE.Vector3(px, py, pz);
+    mkArrowAt(ctrPos, [probeWid.x, probeWid.y, probeWid.z],  0x000000, '+X', 4, devGroup);
+    mkArrowAt(ctrPos, [probeUp.x,  probeUp.y,  probeUp.z],   0x000000, '+Y', 4, devGroup);
+    mkArrowAt(ctrPos, [probeDir.x, probeDir.y, probeDir.z],  0x000000, '+Z', 4, devGroup);
+  }
+
+  // Step markers
+  const rgb = [74, 144, 226];
+  for (let s = 1; s < steps.length; s++) {
+    const step = steps[s];
+    const [spx, spy, spz] = step.pos;
+    const [sdx, sdy, sdz] = norm3(step.dir);
+    const origin = new THREE.Vector3(spx, spy, spz);
+    const sDir = new THREE.Vector3(sdx, sdy, sdz);
+    const frac = s / (steps.length);
+    const col = new THREE.Color(0.2 + 0.6 * frac, 0.4 + 0.4 * frac, 0.9);
+
+    if (step.type === 'T') {
+      const sp = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 10), new THREE.MeshBasicMaterial({ color: col }));
+      sp.position.copy(origin);
+      stepGroup.add(sp);
+    } else {
+      const cyl = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.12, 0.12, 2.5, 8),
+        new THREE.MeshBasicMaterial({ color: col })
+      );
+      cyl.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), sDir);
+      cyl.position.copy(origin).addScaledVector(sDir, 1.25);
+      stepGroup.add(cyl);
+    }
+  }
+
+  // Legend
+  const lines = [`<span style="color:#4a90e2">■</span> ${state.device.name} (${state.device.type})`];
+  steps.slice(1).forEach((s, i) => {
+    const icon = s.type === 'T' ? '●' : '↻';
+    lines.push(`  ${icon} step ${i+1}: ${s.label}`);
+  });
+  lines.push(`<span style="color:#aaa39f">●</span> Bregma`);
+  legendEl.innerHTML = lines.join('<br>');
+
+  buildExport();
+}
+
+// ── Export ─────────────────────────────────────────────────────
+function buildExport() {
+  const cs = state.cs;
+  const axLines = cs.axes.map(a => `        Axis(name=AxisName.${a.name}, direction=Direction.${a.direction}),`).join('\n');
+  const csInferred = inferHandedness(cs.axes);
+  const handed = csInferred ? `\n    handedness=Handedness.${csInferred.toUpperCase()},` : '';
+
+  const devCs = state.device;
+  // up = wid × long/facing (same right-hand rule as rendering)
+  const lv = DIR_TO_THREEJS[devCs.longDir] || [0,0,1];
+  const wv = DIR_TO_THREEJS[devCs.widDir]  || [1,0,0];
+  const upv = [wv[1]*lv[2]-wv[2]*lv[1], wv[2]*lv[0]-wv[0]*lv[2], wv[0]*lv[1]-wv[1]*lv[0]];
+  const upDir = vecToDir(upv) || 'POS';
+  let devAxLines;
+  if (state.device.type === 'probe') {
+    // Probe: X=width, Y=long(insertion), Z=normal/thickness
+    devAxLines = [
+      `        Axis(name=AxisName.X, direction=Direction.${devCs.widDir}),  # width`,
+      `        Axis(name=AxisName.Y, direction=Direction.${devCs.longDir}),  # long/insertion`,
+      `        Axis(name=AxisName.Z, direction=Direction.${upDir}),  # normal/thickness`,
+    ].join('\n');
+  } else {
+    // Monitor: X=width, Y=up/height, Z=facing (normal to screen)
+    devAxLines = [
+      `        Axis(name=AxisName.X, direction=Direction.${devCs.widDir}),  # width`,
+      `        Axis(name=AxisName.Y, direction=Direction.${upDir}),  # up/height`,
+      `        Axis(name=AxisName.Z, direction=Direction.${devCs.longDir}),  # facing (normal to screen)`,
+    ].join('\n');
+  }
+  const devHanded = `\n    handedness=Handedness.RIGHT,`;
+
+  const xfLines = state.transforms.map(xf => {
+    if (xf.type === 'T') {
+      const vals = xf.translation.map(v => v.toFixed(4)).join(', ');
+      const frame = xf.frame !== 'extrinsic' ? `\n        frame=TransformFrame.INTRINSIC,` : '';
+      return `    Translation(\n        translation=[${vals}],${frame}\n    ),`;
+    } else {
+      const vals = xf.angles.map(v => v.toFixed(4)).join(', ');
+      const extras = [];
+      if (xf.direction && xf.direction !== 'right_hand') extras.push(`        rotation_direction=RotationDirection.LEFT_HAND,`);
+      if (xf.pivot && xf.pivot !== 'global_origin') extras.push(`        pivot=RotationPivot.LOCAL_ORIGIN,`);
+      const ex = extras.length ? '\n' + extras.join('\n') : '';
+      return `    Rotation(\n        angles=[${vals}],\n        angles_unit=AngleUnit.DEG,${ex}\n    ),`;
+    }
+  }).join('\n');
+
+  const code = `from aind_data_schema.components.coordinates import (
+    Axis, AxisName, CoordinateSystem, Direction,
+    Handedness, Origin, Rotation, RotationDirection,
+    RotationPivot, Scale, SizeUnit, Translation, TransformFrame,
+)
+from aind_data_schema_models.units import AngleUnit, SizeUnit
+
+# Instrument coordinate system
+instrument_cs = CoordinateSystem(
+    name="${cs.name}",
+    origin=Origin.${cs.origin},
+    axis_unit=SizeUnit.${cs.unit.toUpperCase()},${handed}
+    axes=[
+${axLines}
+    ],
+)
+
+# Device coordinate system
+device_cs = CoordinateSystem(
+    name="${devCs.csName}",
+    origin=Origin.${devCs.csOrigin},
+    axis_unit=SizeUnit.${devCs.csUnit.toUpperCase()},${devHanded}
+    axes=[
+${devAxLines}
+    ],
+)
+
+# Device-to-instrument transform list
+transform = [
+${xfLines}
+]
+`;
+  document.getElementById('export-code').value = code;
+}
+
+// ── Sidebar event handlers ─────────────────────────────────────
+document.getElementById('cs-preset').addEventListener('change', e => {
+  const val = e.target.value;
+  const customDiv = document.getElementById('cs-custom');
+  if (val === 'CUSTOM') {
+    customDiv.style.display = 'flex';
+    state.cs = {
+      name: document.getElementById('cs-name').value,
+      origin: document.getElementById('cs-origin').value,
+      unit: document.getElementById('cs-unit').value,
+      axes: [
+        { name: 'X', direction: document.getElementById('cs-x-dir').value },
+        { name: 'Y', direction: document.getElementById('cs-y-dir').value },
+        { name: 'Z', direction: document.getElementById('cs-z-dir').value },
+      ],
+    };
+  } else {
+    customDiv.style.display = 'none';
+    state.cs = { ...PRESETS[val] };
+  }
+  updateHandednessDisplays();
+  rebuildScene();
+});
+
+['cs-name','cs-origin','cs-unit','cs-x-dir','cs-y-dir','cs-z-dir'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    if (document.getElementById('cs-preset').value !== 'CUSTOM') return;
+    state.cs = {
+      name: document.getElementById('cs-name').value,
+      origin: document.getElementById('cs-origin').value,
+      unit: document.getElementById('cs-unit').value,
+      axes: [
+        { name: 'X', direction: document.getElementById('cs-x-dir').value },
+        { name: 'Y', direction: document.getElementById('cs-y-dir').value },
+        { name: 'Z', direction: document.getElementById('cs-z-dir').value },
+      ],
+    };
+    updateHandednessDisplays();
+    rebuildScene();
+  });
+});
+
+['dev-type','dev-name','dev-cs-name','dev-cs-origin','dev-cs-unit','dev-long-dir','dev-wid-dir'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    state.device.type    = document.getElementById('dev-type').value;
+    state.device.name    = document.getElementById('dev-name').value;
+    state.device.csName  = document.getElementById('dev-cs-name').value;
+    state.device.csOrigin = document.getElementById('dev-cs-origin').value;
+    state.device.csUnit  = document.getElementById('dev-cs-unit').value;
+    state.device.longDir = document.getElementById('dev-long-dir').value;
+    state.device.widDir  = document.getElementById('dev-wid-dir').value;
+    const isMonitor = state.device.type === 'monitor';
+    document.getElementById('dev-long-label').textContent = isMonitor ? 'Facing dir (Z)' : 'Long axis (Y)';
+    updateHandednessDisplays();
+    rebuildScene();
+  });
+});
+
+// ── Transform edit panel ───────────────────────────────────────
+document.getElementById('xf-type').addEventListener('change', e => {
+  document.getElementById('xf-translation-fields').style.display = e.target.value === 'T' ? 'flex' : 'none';
+  document.getElementById('xf-rotation-fields').style.display    = e.target.value === 'R' ? 'flex' : 'none';
+});
+
+function openEditPanel(xf) {
+  const panel = document.getElementById('xform-edit');
+  panel.classList.remove('hidden');
+  const typeEl = document.getElementById('xf-type');
+  typeEl.value = xf ? xf.type : 'T';
+  typeEl.dispatchEvent(new Event('change'));
+
+  if (xf && xf.type === 'T') {
+    document.getElementById('xf-tx').value = xf.translation[0] ?? 0;
+    document.getElementById('xf-ty').value = xf.translation[1] ?? 0;
+    document.getElementById('xf-tz').value = xf.translation[2] ?? 0;
+    document.getElementById('xf-t-frame').value = xf.frame || 'extrinsic';
+  } else if (xf && xf.type === 'R') {
+    document.getElementById('xf-rx').value = xf.angles[0] ?? 0;
+    document.getElementById('xf-ry').value = xf.angles[1] ?? 0;
+    document.getElementById('xf-rz').value = xf.angles[2] ?? 0;
+    document.getElementById('xf-r-dir').value = xf.direction || 'right_hand';
+    document.getElementById('xf-pivot').value = xf.pivot || 'global_origin';
+  }
+  updateTranslationLabel();
+}
+
+document.getElementById('xf-t-frame').addEventListener('change', updateTranslationLabel);
+
+document.getElementById('add-translation-btn').addEventListener('click', () => {
+  editIdx = null;
+  document.getElementById('xf-type').value = 'T';
+  document.getElementById('xf-type').dispatchEvent(new Event('change'));
+  document.getElementById('xf-tx').value = 0;
+  document.getElementById('xf-ty').value = 0;
+  document.getElementById('xf-tz').value = 0;
+  document.getElementById('xf-t-frame').value = 'extrinsic';
+  document.getElementById('xform-edit').classList.remove('hidden');
+  updateTranslationLabel();
+  clearSelection();
+});
+
+document.getElementById('add-rotation-btn').addEventListener('click', () => {
+  editIdx = null;
+  document.getElementById('xf-type').value = 'R';
+  document.getElementById('xf-type').dispatchEvent(new Event('change'));
+  document.getElementById('xf-rx').value = 0;
+  document.getElementById('xf-ry').value = 0;
+  document.getElementById('xf-rz').value = 0;
+  document.getElementById('xf-r-dir').value = 'right_hand';
+  document.getElementById('xf-pivot').value = 'global_origin';
+  document.getElementById('xform-edit').classList.remove('hidden');
+  clearSelection();
+});
+
+document.getElementById('xf-apply-btn').addEventListener('click', () => {
+  const type = document.getElementById('xf-type').value;
+  let xf;
+  if (type === 'T') {
+    xf = {
+      type: 'T',
+      translation: [
+        parseFloat(document.getElementById('xf-tx').value) || 0,
+        parseFloat(document.getElementById('xf-ty').value) || 0,
+        parseFloat(document.getElementById('xf-tz').value) || 0,
+      ],
+      frame: document.getElementById('xf-t-frame').value,
+    };
+  } else {
+    xf = {
+      type: 'R',
+      angles: [
+        parseFloat(document.getElementById('xf-rx').value) || 0,
+        parseFloat(document.getElementById('xf-ry').value) || 0,
+        parseFloat(document.getElementById('xf-rz').value) || 0,
+      ],
+      direction: document.getElementById('xf-r-dir').value,
+      pivot: document.getElementById('xf-pivot').value,
+    };
+  }
+
+  if (editIdx !== null) {
+    state.transforms[editIdx] = xf;
+  } else {
+    state.transforms.push(xf);
+  }
+  document.getElementById('xform-edit').classList.add('hidden');
+  editIdx = null;
+  buildXformList();
+  rebuildScene();
+});
+
+document.getElementById('xf-cancel-btn').addEventListener('click', () => {
+  document.getElementById('xform-edit').classList.add('hidden');
+  editIdx = null;
+  clearSelection();
+});
+
+function clearSelection() {
+  document.querySelectorAll('.xform-item').forEach(el => el.classList.remove('selected'));
+}
+
+function buildXformList() {
+  const list = document.getElementById('xform-list');
+  list.innerHTML = '';
+  state.transforms.forEach((xf, i) => {
+    const item = document.createElement('div');
+    item.className = 'xform-item';
+    const badge = document.createElement('span');
+    badge.className = `xform-badge ${xf.type}`;
+    badge.textContent = xf.type === 'T' ? 'T' : 'R';
+    const vals = document.createElement('span');
+    vals.className = 'xform-vals';
+    vals.textContent = xfLabel(xf);
+    const del = document.createElement('span');
+    del.className = 'xform-del';
+    del.textContent = '×';
+    del.title = 'Remove';
+    del.addEventListener('click', (e) => {
+      e.stopPropagation();
+      state.transforms.splice(i, 1);
+      if (editIdx === i) { document.getElementById('xform-edit').classList.add('hidden'); editIdx = null; }
+      else if (editIdx !== null && editIdx > i) editIdx--;
+      buildXformList();
+      rebuildScene();
+    });
+    item.appendChild(badge);
+    item.appendChild(vals);
+    item.appendChild(del);
+    item.addEventListener('click', () => {
+      clearSelection();
+      item.classList.add('selected');
+      editIdx = i;
+      openEditPanel(xf);
+    });
+    list.appendChild(item);
+  });
+}
+
+// ── Copy export ────────────────────────────────────────────────
+document.getElementById('copy-btn').addEventListener('click', () => {
+  const code = document.getElementById('export-code').value;
+  navigator.clipboard.writeText(code).catch(() => {
+    document.getElementById('export-code').select();
+    document.execCommand('copy');
+  });
+  const btn = document.getElementById('copy-btn');
+  const orig = btn.textContent;
+  btn.textContent = 'Copied!';
+  setTimeout(() => { btn.textContent = orig; }, 1500);
+});
+
+// ── Resize ─────────────────────────────────────────────────────
+new ResizeObserver(() => {
+  camera.aspect = wrap.clientWidth / wrap.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+}).observe(wrap);
+
+// ── Init ───────────────────────────────────────────────────────
+updateHandednessDisplays();
+buildXformList();
+rebuildScene();
+
+// ── Render loop ────────────────────────────────────────────────
+(function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); })();
+</script>
+</body>
+</html>
