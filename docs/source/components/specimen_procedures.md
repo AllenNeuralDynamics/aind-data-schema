@@ -108,7 +108,7 @@ Description of surgical or other procedure performed on a specimen
 | `experimenters` | `List[str]` | experimenter(s)  |
 | `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
 | `protocol_parameters` | `Optional[Dict[str, str]]` | Protocol parameters (Parameters defined in the protocol and their value during this procedure) |
-| `procedure_details` | List[[HCRSeries](#hcrseries) or [FluorescentStain](reagent.md#fluorescentstain) or [Sectioning](#sectioning) or [PlanarSectioning](#planarsectioning) or [ProbeReagent](reagent.md#probereagent) or [Reagent](reagent.md#reagent) or [GeneProbeSet](reagent.md#geneprobeset)] | Procedure details (Details of the procedures, including reagents and sectioning information.) |
+| `procedure_details` | List[[HCRSeries](#hcrseries) or [FluorescentStain](reagent.md#fluorescentstain) or [Sectioning](#sectioning) or [PlanarSectioning](#planarsectioning) or [ProbeReagent](reagent.md#probereagent) or [Reagent](reagent.md#reagent) or [GeneProbeSet](reagent.md#geneprobeset) or [Solution](reagent.md#solution)] | Procedure details (Details of the procedures, including reagents and sectioning information.) |
 | `notes` | `Optional[str]` | Notes  |
 
 
