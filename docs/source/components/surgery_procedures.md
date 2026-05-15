@@ -26,7 +26,7 @@ Description of an injection procedure into a brain
 | `injection_materials` | List[[ViralMaterial](injection_procedures.md#viralmaterial) or [NonViralMaterial](injection_procedures.md#nonviralmaterial)] | Injection material  |
 | `relative_position` | Optional[List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)]] | Relative position  |
 | `dynamics` | List[[InjectionDynamics](injection_procedures.md#injectiondynamics)] | Injection dynamics (List of injection events, one per location/depth) |
-| <del>`protocol_id`</del> | `Optional[str]` | **[DEPRECATED]** Use protocol_id in Surgery or NonSurgicalInjection instead. Protocol ID (DOI for protocols.io) |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### CatheterImplant
@@ -46,7 +46,6 @@ Description of craniotomy procedure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `craniotomy_type` | [CraniotomyType](#craniotomytype) | Craniotomy type  |
 | `coordinate_system_name` | `Optional[str]` | Coordinate system name  |
 | `position` | [Translation](coordinates.md#translation) or List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)] or NoneType | Craniotomy position  |
@@ -55,6 +54,7 @@ Description of craniotomy procedure
 | `protective_material` | Optional[[ProtectiveMaterial](#protectivematerial)] | Protective material  |
 | `implant_part_number` | `Optional[str]` | Implant part number  |
 | `dura_removed` | `Optional[bool]` | Dura removed  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### CraniotomyType
@@ -76,9 +76,9 @@ Description of a surgery procedure performed on a subject
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `description` | `str` | Description  |
 | `notes` | `Optional[str]` | Notes  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### GroundWireImplant
@@ -110,12 +110,12 @@ Description of headframe procedure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `headframe_type` | `str` | Headframe type  |
 | `headframe_part_number` | `Optional[str]` | Headframe part number  |
 | `headframe_material` | Optional[[HeadframeMaterial](#headframematerial)] | Headframe material  |
 | `well_part_number` | `Optional[str]` | Well part number  |
 | `well_type` | `Optional[str]` | Well type  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### HeadframeMaterial
@@ -135,9 +135,9 @@ Description of a Myomatrix array insertion for EMG
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `ground_electrode` | [GroundWireImplant](#groundwireimplant) | Ground electrode  |
 | `implanted_device` | [MyomatrixArray](devices.md#myomatrixarray) | Implanted device  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### Perfusion
@@ -146,8 +146,8 @@ Description of a perfusion procedure that creates a specimen
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `output_specimen_ids` | `List[str]` | Specimen ID (IDs of specimens resulting from this procedure. Whole brains can use the {subject_id}, partial sections should always include a suffix {subject_id}_###) |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### ProbeImplant
@@ -156,9 +156,9 @@ Description of a probe (fiber, ephys) implant procedure
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 | `implanted_device` | [EphysProbe](devices.md#ephysprobe) or [FiberProbe](devices.md#fiberprobe) | Implanted device  |
 | `device_config` | [ProbeConfig](configs.md#probeconfig) | Device configuration  |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### ProtectiveMaterial

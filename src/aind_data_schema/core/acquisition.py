@@ -36,8 +36,9 @@ from aind_data_schema.components.configs import (
 )
 from aind_data_schema.components.connections import Connection
 from aind_data_schema.components.coordinates import CoordinateSystem
-from aind_data_schema.components.identifiers import Code
+from aind_data_schema.components.identifiers import Code, ProtocolListMixin
 from aind_data_schema.components.measurements import CALIBRATIONS, Maintenance
+from aind_data_schema.components.reagent import Reagent
 from aind_data_schema.components.subject_procedures import BrainInjection, Injection
 from aind_data_schema.components.surgery_procedures import Anaesthetic
 from aind_data_schema.utils.merge import (
@@ -329,7 +330,7 @@ class StimulusEpoch(DataModel):
     )
 
 
-class Manipulation(DataModel):
+class Manipulation(ProtocolListMixin, DataModel):
     """Description of procedures performed during an acquisition."""
 
     start_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
@@ -338,14 +339,14 @@ class Manipulation(DataModel):
     end_time: Annotated[AwareDatetimeWithDefault, TimeValidation.BETWEEN] = Field(
         ..., title="Manipulation end time", description="Must be between the acquisition start and end times"
     )
-    procedures: Optional[DiscriminatedList[Injection | BrainInjection]] = Field(
+    procedures: Optional[DiscriminatedList[Injection | BrainInjection | Reagent]] = Field(
         default=None, title="Procedures", description="Procedures performed during the manipulation"
     )
     anaesthesia: Optional[Anaesthetic] = Field(default=None, title="Anaesthesia")
     notes: Optional[str] = Field(default=None, title="Notes")
 
 
-class Acquisition(DataCoreModel):
+class Acquisition(ProtocolListMixin, DataCoreModel):
     """Description of data acquisition metadata including streams, stimuli, and experimental setup.
 
     The acquisition metadata is split into two parallel pieces: the DataStream and the StimulusEpoch.
@@ -398,7 +399,6 @@ class Acquisition(DataCoreModel):
         default=[],
         title="experimenter(s)",
     )
-    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
     ethics_review_id: Optional[List[str]] = Field(default=None, title="Ethics review ID")
     instrument_id: Optional[str] = Field(
         default=None,

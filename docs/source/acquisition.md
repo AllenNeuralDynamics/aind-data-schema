@@ -83,7 +83,6 @@ while the StimulusEpoch represents all stimuli being presented.
 | `acquisition_start_tz` | `int or pydantic_extra_types.timezone_name.TimeZoneName or NoneType` | Acquisition start timezone (Automatically populated by a validator based on acquisition_start_time. Will be a TimeZoneName (IANA name) when the datetime uses a ZoneInfo timezone, or an integer UTC offset in hours for fixed-offset timezones. Use ZoneInfo (from the zoneinfo standard library) to preserve the named timezone.) |
 | `acquisition_end_time` | `datetime (timezone-aware)` | Acquisition end time  |
 | `experimenters` | `List[str]` | experimenter(s)  |
-| `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
 | `ethics_review_id` | `Optional[List[str]]` | Ethics review ID  |
 | `instrument_id` | `Optional[str]` | Instrument ID (Should match the Instrument.instrument_id. Required when instrument metadata is available.) |
 | `acquisition_type` | `str` | Acquisition type (Descriptive string detailing the type of acquisition, should be consistent across similar acquisitions for the same experiment.) |
@@ -95,6 +94,7 @@ while the StimulusEpoch represents all stimuli being presented.
 | `stimulus_epochs` | List[[StimulusEpoch](acquisition.md#stimulusepoch)] | Stimulus (A stimulus epoch captures all stimuli being presented during an acquisition. Epochs should be split when the purpose of the stimulus changes.) |
 | `manipulations` | List[[Manipulation](acquisition.md#manipulation)] | Manipulations (Procedures performed during the acquisition.) |
 | `subject_details` | Optional[[AcquisitionSubjectDetails](acquisition.md#acquisitionsubjectdetails)] | Subject details (Required for in vivo acquisitions.) |
+| `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
 
 
 ## Model definitions
@@ -151,9 +151,10 @@ Description of procedures performed during an acquisition.
 |-------|------|-------------|
 | `start_time` | `datetime (timezone-aware)` | Manipulation start time (Must be between the acquisition start and end times) |
 | `end_time` | `datetime (timezone-aware)` | Manipulation end time (Must be between the acquisition start and end times) |
-| `procedures` | Optional[List[[Injection](components/injection_procedures.md#injection) or [BrainInjection](components/surgery_procedures.md#braininjection)]] | Procedures (Procedures performed during the manipulation) |
+| `procedures` | Optional[List[[Injection](components/injection_procedures.md#injection) or [BrainInjection](components/surgery_procedures.md#braininjection) or [Reagent](components/reagent.md#reagent)]] | Procedures (Procedures performed during the manipulation) |
 | `anaesthesia` | Optional[[Anaesthetic](components/surgery_procedures.md#anaesthetic)] | Anaesthesia  |
 | `notes` | `Optional[str]` | Notes  |
+| `protocol_id` | `Optional[List[str]]` | Protocol ID (DOI for protocols.io) |
 
 
 ### PerformanceMetrics
