@@ -165,7 +165,7 @@ class HumanSubject(DataModel):
         title="Source",
     )
 
-    @field_validator("species", mode='before')
+    @field_validator("species", mode="before")
     def validate_species_is_human(cls, v):
         """Ensure species is always human for HumanSubject"""
         if v != Species.HUMAN:

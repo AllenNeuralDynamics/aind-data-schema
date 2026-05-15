@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from aind_data_schema_models.registries import Registry
-from pydantic import Field, model_validator
+from pydantic import Field, BaseModel, model_validator
 import warnings
 
 from typing import Annotated
@@ -51,6 +51,18 @@ class Person(DataModel):
 
     registry: Registry = Field(default=Registry.ORCID, title="Registry")
     registry_identifier: Optional[str] = Field(default=None, title="ORCID ID")
+
+
+class ProtocolMixin(BaseModel):
+    """Mixin that adds a protocol_id field (single DOI string)"""
+
+    protocol_id: Optional[str] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
+
+
+class ProtocolListMixin(BaseModel):
+    """Mixin that adds a protocol_id field (list of DOI strings)"""
+
+    protocol_id: Optional[List[str]] = Field(default=None, title="Protocol ID", description="DOI for protocols.io")
 
 
 class Software(DataModel):
