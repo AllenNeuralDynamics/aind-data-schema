@@ -24,7 +24,7 @@ from aind_data_schema_models.devices import (
 )
 from aind_data_schema_models.modalities import Modality
 from aind_data_schema_models.organizations import Organization
-from aind_data_schema_models.units import FrequencyUnit, SizeUnit
+from aind_data_schema_models.units import SizeUnit
 
 from aind_data_schema.components.coordinates import CoordinateSystemLibrary
 from aind_data_schema.components.devices import (
@@ -43,12 +43,10 @@ from aind_data_schema.core.instrument import Instrument
 
 acquisition_computer = Computer(
     name="Acquisition Computer",
-    notes="3U custom rackmount, Intel Xeon E5-1620v3 3.5GHz, Nvidia GT 730 2GB, Advantech PCIE-1672PC frame grabber, 240GB SSD + 2x1TB HDD. Pogo Linux quote 90846.",
 )
 
 stim_computer = Computer(
     name="Stim Computer",
-    notes="Intel Xeon E5-1620v3 3.5GHz, 16GB DDR4 ECC, Western Digital RE4 500GB. Pogo Linux quote 90854.",
 )
 
 ni_daq = DAQDevice(
@@ -213,12 +211,12 @@ physiosuite = Device(
 
 inst = Instrument(
     location="",
-    instrument_id="ISI1",
-    modification_date=date(2016, 7, 18),
+    instrument_id="ISIV.1",
+    modification_date=date(2026, 5, 15),
     modalities=[Modality.ISI],
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     temperature_control=True,
-    notes="AIBS Intrinsic Signal Imaging full rig (0113_000-00, Rev A). ",
+    notes="",
     components=[
         acquisition_computer,
         stim_computer,
