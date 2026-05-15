@@ -47,6 +47,7 @@ Organization
 | `EDMUND_OPTICS` | `None` | `Edmund Optics` | `Research Organization Registry (ROR)` | `01j1gwp17` |
 | `EMORY` | `Emory` | `Emory University` | `Research Organization Registry (ROR)` | `03czfpz43` |
 | `EURESYS` | `None` | `Euresys` | `None` | `None` |
+| `EXCELITAS_TECHNOLOGIES` | `None` | `Excelitas Technologies` | `Research Organization Registry (ROR)` | `01tpbbf75` |
 | `FILTER_MANUFACTURERS` | `N/A` | `N/A` | `N/A` | `N/A` |
 | `FLIR` | `FLIR` | `Teledyne FLIR` | `Research Organization Registry (ROR)` | `01j1gwp17` |
 | `FUJINON` | `None` | `Fujinon` | `None` | `None` |
