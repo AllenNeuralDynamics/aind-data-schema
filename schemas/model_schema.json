@@ -39,6 +39,20 @@
                "default": null,
                "title": "Code version"
             },
+            "commit_hash": {
+               "anyOf": [
+                  {
+                     "pattern": "^[0-9a-fA-F]{7,60}$",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Commit hash of the code.",
+               "title": "Commit hash"
+            },
             "container": {
                "anyOf": [
                   {

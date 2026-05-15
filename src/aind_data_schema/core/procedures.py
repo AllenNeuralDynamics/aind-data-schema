@@ -1,5 +1,6 @@
 """schema for various Procedures"""
 
+import warnings
 from typing import List, Literal, Optional
 
 from pydantic import Field, SkipValidation, model_validator
@@ -13,6 +14,7 @@ from aind_data_schema.components.subject_procedures import (
     Surgery,
     TrainingProtocol,
     WaterRestriction,
+    NonSurgicalInjection,
 )
 from aind_data_schema.utils.merge import merge_coordinate_systems, merge_notes
 from aind_data_schema.utils.validators import subject_specimen_id_compatibility
@@ -24,14 +26,14 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.1.1"]] = Field(default="2.1.1")
+    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",
         title="Subject ID",
     )
     subject_procedures: DiscriminatedList[
-        Surgery | Injection | TrainingProtocol | WaterRestriction | GenericSubjectProcedure
+        Surgery | Injection | NonSurgicalInjection | TrainingProtocol | WaterRestriction | GenericSubjectProcedure
     ] = Field(default=[], title="Subject Procedures", description="Procedures performed on a live subject")
     specimen_procedures: List[SpecimenProcedure] = Field(
         default=[], title="Specimen Procedures", description="Procedures performed on tissue extracted after perfusion"
@@ -73,21 +75,37 @@ class Procedures(DataCoreModel):
         return list(device_names)
 
     @model_validator(mode="after")
+    def reject_injections(self):
+        """Raise a warning for injections since they should now be wrapped
+        in a Surgery or NonSurgicalInjection procedure
+        """
+
+        for procedure in self.subject_procedures:
+            if isinstance(procedure, Injection):
+                warnings.warn(
+                    "Injection procedures should be wrapped in a Surgery or NonSurgicalInjection procedure.",
+                    UserWarning,
+                    stacklevel=2,
+                )
+
+        return self
+
+    @model_validator(mode="after")
     def validate_subject_specimen_ids(self):
         """Validate that the subject_id and specimen_id match"""
 
         # Return if no specimen procedures
         if self.specimen_procedures:
             subject_id = self.subject_id
-            specimen_id_vars = [spec_proc.specimen_id for spec_proc in self.specimen_procedures]
-            specimen_ids = []
-            for spec_id_var in specimen_id_vars:
-                if isinstance(spec_id_var, str):
-                    specimen_ids.append(spec_id_var)
+            flat_specimen_ids = []
+            for spec_proc in self.specimen_procedures:
+                sid = spec_proc.specimen_id
+                if isinstance(sid, list):
+                    flat_specimen_ids.extend(sid)
                 else:
-                    specimen_ids.extend(spec_id_var)
+                    flat_specimen_ids.append(sid)
 
-            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
+            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in flat_specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
 
         return self
