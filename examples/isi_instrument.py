@@ -64,39 +64,36 @@ newport_linear_stage = MotorizedStage(
     model="M-ILS100PP",
     travel=100,
     travel_unit=SizeUnit.MM,
-    notes="High performance linear stage, 100 mm travel, stepper motor, metric. Controlled by Newport SMC100PP.",
+    notes="Controlled by Newport SMC100PP.",
 )
 
 newport_motor_controller = Device(
     name="Newport SMC100PP Motor Controller",
     manufacturer=Organization.MKS_NEWPORT,
     model="SMC100PP",
-    notes="Single-axis stepper motor controller/driver for Newport M-ILS100PP stage. USB interface.",
 )
 
 isi_camera = Camera(
     name="Andor Zyla 5.5 sCMOS",
-    manufacturer=Organization.OTHER,
+    manufacturer=Organization.OXFORD_INSTRUMENTS,
     model="Zyla 5.5 sCMOS",
     detector_type=DetectorType.CAMERA,
     data_interface=DataInterface.USB,
     chroma=CameraChroma.BW,
-    notes="Andor Technology Zyla 5.5 sCMOS scientific camera used for intrinsic signal imaging. "
-    "Vendor part: Zyla 5.5 sCMOS. Manufacturer is Andor (Oxford Instruments).",
 )
 
 isi_lens_35mm = Lens(
     name="Nikon NIKKOR 35mm f/1.4",
     manufacturer=Organization.NIKON,
     model="NIKKOR 35mm f/1.4",
-    notes="Front lens of tandem-lens assembly for ISI. B&H part NI3514.",
+    notes="Front lens of tandem-lens assembly.",
 )
 
 isi_lens_105mm = Lens(
     name="Nikon Micro-NIKKOR 105mm f/2.8",
     manufacturer=Organization.NIKON,
     model="Micro-NIKKOR 105mm f/2.8",
-    notes="Rear lens of tandem-lens assembly for ISI, facing the camera. B&H part NI10528M.",
+    notes="Rear lens of tandem-lens assembly, facing the camera.",
 )
 
 isi_bandpass_filter = Filter(
@@ -106,7 +103,6 @@ isi_bandpass_filter = Filter(
     filter_type=FilterType.BANDPASS,
     center_wavelength=630,
     wavelength_unit=SizeUnit.NM,
-    notes="630/92 nm BrightLine single-band bandpass filter, 50 mm diameter, housed and mounted.",
 )
 
 isi_camera_assembly = CameraAssembly(
@@ -125,15 +121,12 @@ eye_tracking_camera = Camera(
     detector_type=DetectorType.CAMERA,
     data_interface=DataInterface.ETH,
     chroma=CameraChroma.BW,
-    notes="Allied Vision Technologies GigE camera, PoE, 1.2 MP, 30 fps. Used for eye tracking. "
-    "1st Vision part AVT-GK-125C.",
 )
 
 eye_tracking_lens = Lens(
     name="InfiniStix 130mm W.D. 0.73x",
     manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
-    model="InfiniStix Proximity Series 130mm W.D./0.73x",
-    notes="Infinity Photo-Optical InfiniStix proximity series lens for eye tracking camera.",
+    model="Proximity Series 130mm W.D./0.73x",
 )
 
 eye_tracking_camera_assembly = CameraAssembly(
@@ -151,25 +144,21 @@ eye_tracking_dichroic = Filter(
     filter_type=FilterType.DICHROIC,
     cut_off_wavelength=750,
     wavelength_unit=SizeUnit.NM,
-    notes="Dichroic beamsplitter used in eye tracking light path to separate 850 nm IR illumination.",
+    notes="Separates 850 nm IR illumination for eye tracking.",
 )
 
 eye_tracking_ir_led = LightEmittingDiode(
     name="Eye Tracking IR LED 850nm",
-    manufacturer=Organization.OTHER,
+    manufacturer=Organization.AMS_OSRAM,
     model="LZ4-40R608-0000",
     wavelength=850,
     wavelength_unit=SizeUnit.NM,
-    notes="LED Engin Inc. (now ams OSRAM) LZ4-40R608-0000 infrared LED for eye tracking illumination. "
-    "Digikey part 1537-1045-ND.",
 )
 
 eye_tracking_collimating_lens = Lens(
     name="Thorlabs LB1092-B-ML Bi-Convex Lens",
     manufacturer=Organization.THORLABS,
     model="LB1092-B-ML",
-    notes="Mounted N-BK7 bi-convex lens, 1/2 inch diameter, f=15.0 mm, ARC 650-1050 nm. "
-    "Used in eye tracking IR illumination path.",
 )
 
 led_ring_green = LightEmittingDiode(
@@ -178,8 +167,7 @@ led_ring_green = LightEmittingDiode(
     model="C503B-GCN-CY0C0791",
     wavelength=527,
     wavelength_unit=SizeUnit.NM,
-    notes="Cree Inc. 5mm green clear LED, 527 nm, 30 deg. 19 units in LED light ring assembly (0113_530-00). "
-    "Digikey part C503B-GCN-CY0C0791-ND.",
+    notes="19 units in LED light ring assembly (0113_530-00).",
 )
 
 led_ring_red = LightEmittingDiode(
@@ -188,8 +176,7 @@ led_ring_red = LightEmittingDiode(
     model="HLMP-EG08-Y2000",
     wavelength=635,
     wavelength_unit=SizeUnit.NM,
-    notes="Avago Technologies 5mm red clear LED, 635 nm. 9 units in LED light ring assembly (0113_530-00). "
-    "Digikey part 516-1377-ND.",
+    notes="9 units in LED light ring assembly (0113_530-00).",
 )
 
 stimulus_monitor = Monitor(
@@ -203,45 +190,35 @@ stimulus_monitor = Monitor(
     viewing_distance=15,
     viewing_distance_unit=SizeUnit.CM,
     relative_position=[AnatomicalRelative.ANTERIOR],
-    notes="24-inch widescreen LED-backlit LCD monitor used for visual stimulation. "
-    "2 units per rig. Viewing distance must be set at time of use.",
 )
 
 temperature_controller = Device(
     name="WPI ATC2000 Animal Temperature Controller",
-    manufacturer=Organization.OTHER,
+    manufacturer=Organization.WPI,
     model="ATC2000",
-    notes="World Precision Instruments ATC2000 animal temperature controller. "
-    "Regulates heating plate temperature during imaging.",
 )
 
 somnosuite = Device(
     name="Kent Scientific SomnoSuite",
-    manufacturer=Organization.OTHER,
+    manufacturer=Organization.KENT_SCIENTIFIC_CORPORATION,
     model="SOMNO",
-    notes="Kent Scientific SomnoSuite low-flow digital vaporizer for isoflurane anesthesia delivery. "
-    "Used with low profile facemasks (SOMNO-0801) and induction chamber (SOMNO-0705).",
+    notes="Used with accessory facemasks (SOMNO-0801) and induction chamber (SOMNO-0705).",
 )
 
 physiosuite = Device(
     name="Kent Scientific PhysioSuite",
-    manufacturer=Organization.OTHER,
+    manufacturer=Organization.KENT_SCIENTIFIC_CORPORATION,
     model="PS-MSTAT-RT",
-    notes="Kent Scientific PhysioSuite with MouseSTAT pulse oximeter and heart rate monitor. "
-    "Includes RightTemp module for temperature monitoring.",
 )
 
 inst = Instrument(
-    location="ISI Full Rig",
+    location="",
     instrument_id="ISI1",
     modification_date=date(2016, 7, 18),
     modalities=[Modality.ISI],
     coordinate_system=CoordinateSystemLibrary.BREGMA_ARI,
     temperature_control=True,
-    notes="AIBS Intrinsic Signal Imaging full rig (0113_000-00, Rev A). "
-    "Tandem-lens ISI camera assembly uses Nikon 35mm f/1.4 (front) face-to-face with Nikon 105mm f/2.8 (rear). "
-    "Eye tracking arm (0123_500-00) uses 850 nm IR illumination with dichroic beamsplitter. "
-    "LED light ring contains 19x green (527 nm) and 9x red (635 nm) LEDs for cortical illumination.",
+    notes="AIBS Intrinsic Signal Imaging full rig (0113_000-00, Rev A). ",
     components=[
         acquisition_computer,
         stim_computer,
