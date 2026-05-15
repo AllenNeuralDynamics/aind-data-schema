@@ -26,7 +26,7 @@ class Procedures(DataCoreModel):
     _DESCRIBED_BY_URL = DataCoreModel._DESCRIBED_BY_BASE_URL.default + "aind_data_schema/core/procedures.py"
     describedBy: str = Field(default=_DESCRIBED_BY_URL, json_schema_extra={"const": _DESCRIBED_BY_URL})
 
-    schema_version: SkipValidation[Literal["2.1.1"]] = Field(default="2.1.1")
+    schema_version: SkipValidation[Literal["2.2.0"]] = Field(default="2.2.0")
     subject_id: str = Field(
         ...,
         description="Unique identifier for the subject of data acquisition",
@@ -97,15 +97,15 @@ class Procedures(DataCoreModel):
         # Return if no specimen procedures
         if self.specimen_procedures:
             subject_id = self.subject_id
-            specimen_id_vars = [spec_proc.specimen_id for spec_proc in self.specimen_procedures]
-            specimen_ids = []
-            for spec_id_var in specimen_id_vars:
-                if isinstance(spec_id_var, str):
-                    specimen_ids.append(spec_id_var)
+            flat_specimen_ids = []
+            for spec_proc in self.specimen_procedures:
+                sid = spec_proc.specimen_id
+                if isinstance(sid, list):
+                    flat_specimen_ids.extend(sid)
                 else:
-                    specimen_ids.extend(spec_id_var)
+                    flat_specimen_ids.append(sid)
 
-            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in specimen_ids):
+            if any(not subject_specimen_id_compatibility(subject_id, spec_id) for spec_id in flat_specimen_ids):
                 raise ValueError("specimen_id must be an extension of the subject_id.")
 
         return self

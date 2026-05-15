@@ -39,6 +39,20 @@
                "default": null,
                "title": "Code version"
             },
+            "commit_hash": {
+               "anyOf": [
+                  {
+                     "pattern": "^[0-9a-fA-F]{7,60}$",
+                     "type": "string"
+                  },
+                  {
+                     "type": "null"
+                  }
+               ],
+               "default": null,
+               "description": "Commit hash of the code.",
+               "title": "Commit hash"
+            },
             "container": {
                "anyOf": [
                   {
@@ -743,8 +757,8 @@
          "type": "string"
       },
       "schema_version": {
-         "const": "2.2.5",
-         "default": "2.2.5",
+         "const": "2.2.7",
+         "default": "2.2.7",
          "title": "Schema Version",
          "type": "string"
       },
