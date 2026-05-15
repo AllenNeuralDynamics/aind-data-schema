@@ -25,6 +25,5 @@ Specimen procedures
 | `SOAK` | `Soak` |
 | `STORAGE` | `Storage` |
 | `STRIPPING` | `Stripping` |
-| `TAMOXIFEN_INDUCTION` | `Tamoxifen induction` |
 
 
