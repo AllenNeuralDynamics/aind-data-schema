@@ -26,7 +26,7 @@ Description of an injection procedure into a brain
 | `injection_materials` | List[[ViralMaterial](injection_procedures.md#viralmaterial) or [NonViralMaterial](injection_procedures.md#nonviralmaterial)] | Injection material  |
 | `relative_position` | Optional[List[[AnatomicalRelative](../aind_data_schema_models/coordinates.md#anatomicalrelative)]] | Relative position  |
 | `dynamics` | List[[InjectionDynamics](injection_procedures.md#injectiondynamics)] | Injection dynamics (List of injection events, one per location/depth) |
-| <del>`protocol_id`</del> | `Optional[str]` | **[DEPRECATED]** Use protocol_id in Surgery or NonSurgicalInjection instead. Protocol ID (DOI for protocols.io) |
+| `protocol_id` | `Optional[str]` | Protocol ID (DOI for protocols.io) |
 
 
 ### CatheterImplant
