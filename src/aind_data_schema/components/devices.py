@@ -662,7 +662,6 @@ class Speaker(Device, DevicePosition):
     """Description of a speaker for auditory stimuli"""
 
 
-
 class OlfactometerChannelType(Enum):
     """Olfactometer channel types"""
 
