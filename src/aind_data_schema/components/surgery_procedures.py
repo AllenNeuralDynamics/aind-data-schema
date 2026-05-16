@@ -63,7 +63,7 @@ class HeadframeMaterial(str, Enum):
 class CatheterImplant(DataModel):
     """Description of a catheter implant procedure"""
 
-    where_performed: Organization.CATHETER_IMPLANT_INSTITUTIONS = Field(..., title="Where performed")
+    where_performed: Organization.ONE_OF = Field(..., title="Where performed")
     implanted_device: Catheter = Field(
         ...,
         title="Implanted device",
