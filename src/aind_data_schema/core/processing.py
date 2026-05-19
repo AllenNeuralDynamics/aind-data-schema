@@ -7,7 +7,7 @@ from typing import Annotated, Dict, List, Literal, Optional
 
 from aind_data_schema_models.process_names import ProcessName
 from aind_data_schema_models.units import MemoryUnit, UnitlessUnit
-from pydantic import Field, SkipValidation, ValidationInfo, field_validator, model_validator
+from pydantic import Field, SkipValidation, model_validator
 
 from aind_data_schema.base import AwareDatetimeWithDefault, DataCoreModel, DataModel, GenericModel
 from aind_data_schema.components.identifiers import Code
@@ -75,13 +75,11 @@ class DataProcess(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
-
     @model_validator(mode="after")
     def validate_generic_processtype(self) -> "DataProcess":
         """Validate to be sure OTHER types are pinned down in name or notes"""
 
-        if (self.process_type in [ProcessName.OTHER, ProcessName.ANALYSIS] and 
-            not (self.notes or self.name)):
+        if self.process_type in [ProcessName.OTHER, ProcessName.ANALYSIS] and not (self.notes or self.name):
             raise ValueError(
                 "If 'process_type' is Other or Analysis, either 'name' or 'notes' must specify process details."
             )
