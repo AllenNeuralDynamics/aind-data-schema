@@ -50,7 +50,8 @@ Description of a single data asset
 
 | Field | Type | Title (Description) |
 |-------|------|-------------|
-| `url` | `str` | Asset location (URL pointing to the data asset) |
+| `name` | `Optional[str]` | Asset name (Name of the data asset) |
+| `url` | `Optional[str]` | Asset location (URL pointing to the data asset) |
 
 
 ### Database
