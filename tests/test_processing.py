@@ -55,7 +55,6 @@ class ProcessingTest(unittest.TestCase):
         self.assertIsNotNone(p)
         self.assertEqual(p.data_processes[0].name, ProcessName.ANALYSIS)
 
-
     def test_resource_usage(self):
         """Test the ResourceUsage class"""
 
