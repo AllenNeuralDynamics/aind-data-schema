@@ -52,6 +52,8 @@ class TestGitHash(unittest.TestCase):
             with self.subTest(git_hash=git_hash):
                 with self.assertRaises(ValidationError):
                     Code(url="https://github.com/org/repo", commit_hash=git_hash)
+
+
 class TestDataAsset(unittest.TestCase):
     """Test DataAsset validator"""
 
