@@ -50,14 +50,14 @@ stim_computer = Computer(
 )
 
 ni_daq = DAQDevice(
-    name="NI USB-6008",
+    name="DAQ",
     manufacturer=Organization.NATIONAL_INSTRUMENTS,
     model="USB-6008",
     data_interface=DataInterface.USB,
 )
 
 newport_linear_stage = MotorizedStage(
-    name="Newport M-ILS100PP Linear Stage",
+    name="Linear Stage",
     manufacturer=Organization.MKS_NEWPORT,
     model="M-ILS100PP",
     travel=100,
@@ -66,13 +66,13 @@ newport_linear_stage = MotorizedStage(
 )
 
 newport_motor_controller = Device(
-    name="Newport SMC100PP Motor Controller",
+    name="Motor Controller",
     manufacturer=Organization.MKS_NEWPORT,
     model="SMC100PP",
 )
 
 isi_camera = Camera(
-    name="Andor Zyla 5.5 sCMOS",
+    name="ISI Camera",
     manufacturer=Organization.OXFORD_INSTRUMENTS,
     model="Zyla 5.5 sCMOS",
     detector_type=DetectorType.CAMERA,
@@ -81,21 +81,21 @@ isi_camera = Camera(
 )
 
 isi_lens_35mm = Lens(
-    name="Nikon NIKKOR 35mm f/1.4",
+    name="Front Lens",
     manufacturer=Organization.NIKON,
     model="NIKKOR 35mm f/1.4",
     notes="Front lens of tandem-lens assembly.",
 )
 
 isi_lens_105mm = Lens(
-    name="Nikon Micro-NIKKOR 105mm f/2.8",
+    name="Rear Lens",
     manufacturer=Organization.NIKON,
     model="Micro-NIKKOR 105mm f/2.8",
     notes="Rear lens of tandem-lens assembly, facing the camera.",
 )
 
 isi_bandpass_filter = Filter(
-    name="Semrock FF01-630/92-50 Bandpass Filter",
+    name="Bandpass Filter",
     manufacturer=Organization.SEMROCK,
     model="FF01-630/92-50",
     filter_type=FilterType.BANDPASS,
@@ -113,7 +113,7 @@ isi_camera_assembly = CameraAssembly(
 )
 
 eye_tracking_camera = Camera(
-    name="Allied Vision MAKO G-125C",
+    name="Eye Tracking Camera",
     manufacturer=Organization.ALLIED,
     model="MAKO G-125C",
     detector_type=DetectorType.CAMERA,
@@ -122,7 +122,7 @@ eye_tracking_camera = Camera(
 )
 
 eye_tracking_lens = Lens(
-    name="InfiniStix 130mm W.D. 0.73x",
+    name="Eye Tracking Lens",
     manufacturer=Organization.INFINITY_PHOTO_OPTICAL,
     model="Proximity Series 130mm W.D./0.73x",
 )
@@ -136,7 +136,7 @@ eye_tracking_camera_assembly = CameraAssembly(
 )
 
 eye_tracking_dichroic = Filter(
-    name="Semrock FF750-SDi02-25x36 Dichroic",
+    name="Dichroic Filter",
     manufacturer=Organization.SEMROCK,
     model="FF750-SDi02-25x36",
     filter_type=FilterType.DICHROIC,
@@ -146,7 +146,7 @@ eye_tracking_dichroic = Filter(
 )
 
 eye_tracking_ir_led = LightEmittingDiode(
-    name="Eye Tracking IR LED 850nm",
+    name="Eye Tracking IR LED",
     manufacturer=Organization.AMS_OSRAM,
     model="LZ4-40R608-0000",
     wavelength=850,
@@ -154,13 +154,13 @@ eye_tracking_ir_led = LightEmittingDiode(
 )
 
 eye_tracking_collimating_lens = Lens(
-    name="Thorlabs LB1092-B-ML Bi-Convex Lens",
+    name="Collimating Lens",
     manufacturer=Organization.THORLABS,
     model="LB1092-B-ML",
 )
 
 led_ring_green = LightEmittingDiode(
-    name="LED Ring Green 527nm",
+    name="LED Ring Green",
     manufacturer=Organization.OTHER,
     model="C503B-GCN-CY0C0791",
     wavelength=527,
@@ -169,7 +169,7 @@ led_ring_green = LightEmittingDiode(
 )
 
 led_ring_red = LightEmittingDiode(
-    name="LED Ring Red 635nm",
+    name="LED Ring Red",
     manufacturer=Organization.OTHER,
     model="HLMP-EG08-Y2000",
     wavelength=635,
@@ -178,7 +178,7 @@ led_ring_red = LightEmittingDiode(
 )
 
 stimulus_monitor = Monitor(
-    name="ASUS PA248Q Stimulus Monitor",
+    name="Stimulus Monitor",
     manufacturer=Organization.ASUS,
     model="PA248Q",
     refresh_rate=60,
@@ -191,20 +191,20 @@ stimulus_monitor = Monitor(
 )
 
 temperature_controller = Device(
-    name="WPI ATC2000 Animal Temperature Controller",
+    name="Temperature Controller",
     manufacturer=Organization.WPI,
     model="ATC2000",
 )
 
 somnosuite = Device(
-    name="Kent Scientific SomnoSuite",
+    name="SomnoSuite",
     manufacturer=Organization.KENT_SCIENTIFIC_CORPORATION,
     model="SOMNO",
     notes="Used with accessory facemasks (SOMNO-0801) and induction chamber (SOMNO-0705).",
 )
 
 physiosuite = Device(
-    name="Kent Scientific PhysioSuite",
+    name="PhysioSuite",
     manufacturer=Organization.KENT_SCIENTIFIC_CORPORATION,
     model="PS-MSTAT-RT",
 )
