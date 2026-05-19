@@ -25,7 +25,7 @@ from aind_data_schema.components.identifiers import Person
 class Funding(DataModel):
     """Description of funding sources"""
 
-    funder: Organization.FUNDERS = Field(..., title="Funder")
+    funder: Organization.ONE_OF = Field(..., title="Funder")
     grant_number: Optional[str] = Field(default=None, title="Grant number")
     fundee: Optional[List[Person]] = Field(
         default=None, title="Fundee", description="Person(s) funded by this mechanism"
@@ -65,7 +65,7 @@ class DataDescription(DataCoreModel):
         title="Data asset name",
         validate_default=True,
     )
-    institution: Organization.RESEARCH_INSTITUTIONS = Field(
+    institution: Organization.ONE_OF = Field(
         ...,
         description="An established society, corporation, foundation or other organization that collected this data",
         title="Institution",
