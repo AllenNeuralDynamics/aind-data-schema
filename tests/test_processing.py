@@ -55,13 +55,6 @@ class ProcessingTest(unittest.TestCase):
         self.assertIsNotNone(p)
         self.assertEqual(p.data_processes[0].name, ProcessName.ANALYSIS)
 
-        with self.assertRaises(pydantic.ValidationError) as e:
-            DataProcess(process_type=ProcessName.OTHER, notes="")
-        self.assertIn("stage", repr(e.exception))
-        self.assertIn("code", repr(e.exception))
-        self.assertIn("start_date_time", repr(e.exception))
-        self.assertIn("notes", repr(e.exception))
-
     def test_resource_usage(self):
         """Test the ResourceUsage class"""
 
@@ -476,6 +469,69 @@ class ProcessingTest(unittest.TestCase):
         p4 = Processing(data_processes=[], dependency_graph={})
         self.assertEqual(len(p4.data_processes), 0)
         self.assertIsNone(p4.notes)
+
+
+class TestDataProcessValidateOther(unittest.TestCase):
+    """Tests for DataProcess.validate_other"""
+
+    def _make(self, process_type, **kwargs):
+        """Helper method to create a DataProcess with default values and override with kwargs"""
+        return DataProcess(
+            process_type=process_type,
+            stage=ProcessStage.PROCESSING,
+            experimenters=["Dr. Dan"],
+            code=code,
+            start_date_time=t,
+            **kwargs,
+        )
+
+    # --- ProcessName.OTHER ---
+
+    def test_other_with_name_passes(self):
+        """OTHER is allowed when a custom name is provided"""
+        dp = self._make(ProcessName.OTHER, name="my custom step")
+        self.assertEqual(dp.process_type, ProcessName.OTHER)
+
+    def test_other_with_notes_passes(self):
+        """OTHER is allowed when notes describe the process"""
+        dp = self._make(ProcessName.OTHER, notes="some detail")
+        self.assertEqual(dp.process_type, ProcessName.OTHER)
+
+    def test_other_with_name_and_notes_passes(self):
+        """OTHER is allowed when both name and notes are provided"""
+        dp = self._make(ProcessName.OTHER, name="step", notes="detail")
+        self.assertEqual(dp.process_type, ProcessName.OTHER)
+
+    def test_other_without_name_or_notes_fails(self):
+        """OTHER without name or notes should raise a ValidationError"""
+        with self.assertRaises(pydantic.ValidationError) as ctx:
+            self._make(ProcessName.OTHER)
+        self.assertIn("name' or 'notes' must specify process details", str(ctx.exception))
+
+    # --- ProcessName.ANALYSIS ---
+
+    def test_analysis_with_name_passes(self):
+        """ANALYSIS is allowed when a custom name is provided"""
+        dp = self._make(ProcessName.ANALYSIS, name="my analysis")
+        self.assertEqual(dp.process_type, ProcessName.ANALYSIS)
+
+    def test_analysis_with_notes_passes(self):
+        """ANALYSIS is allowed when notes are provided"""
+        dp = self._make(ProcessName.ANALYSIS, notes="analysis detail")
+        self.assertEqual(dp.process_type, ProcessName.ANALYSIS)
+
+    def test_analysis_without_name_or_notes_fails(self):
+        """ANALYSIS without name or notes should raise a ValidationError"""
+        with self.assertRaises(pydantic.ValidationError) as ctx:
+            self._make(ProcessName.ANALYSIS)
+        self.assertIn("name' or 'notes' must specify process details", str(ctx.exception))
+
+    # --- Other process types are not affected ---
+
+    def test_compression_without_name_or_notes_passes(self):
+        """Non-OTHER/ANALYSIS types do not require name or notes"""
+        dp = self._make(ProcessName.COMPRESSION)
+        self.assertEqual(dp.process_type, ProcessName.COMPRESSION)
 
 
 if __name__ == "__main__":
