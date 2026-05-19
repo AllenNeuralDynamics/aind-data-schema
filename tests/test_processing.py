@@ -475,6 +475,7 @@ class TestDataProcessValidateOther(unittest.TestCase):
     """Tests for DataProcess.validate_other"""
 
     def _make(self, process_type, **kwargs):
+        """Helper method to create a DataProcess with default values and override with kwargs"""
         return DataProcess(
             process_type=process_type,
             stage=ProcessStage.PROCESSING,
