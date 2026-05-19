@@ -75,15 +75,17 @@ class DataProcess(DataModel):
     notes: Optional[str] = Field(default=None, title="Notes", validate_default=True)
     resources: Optional[ResourceUsage] = Field(default=None, title="Process resource usage")
 
-    @field_validator("notes", mode="after")
-    def validate_other(cls, value: Optional[str], info: ValidationInfo) -> Optional[str]:
-        """Validator for other/notes"""
 
-        if info.data.get("process_type") == ProcessName.OTHER and not value:
+    @model_validator(mode="after")
+    def validate_generic_processtype(self) -> "DataProcess":
+        """Validate to be sure OTHER types are pinned down in name or notes"""
+
+        if (self.process_type in [ProcessName.OTHER, ProcessName.ANALYSIS] and 
+            not (self.notes or self.name)):
             raise ValueError(
-                "Notes cannot be empty if 'process_type' is Other. Describe the type of processing in the notes field."
+                "If 'process_type' is Other or Analysis, either 'name' or 'notes' must specify process details."
             )
-        return value
+        return self
 
     @model_validator(mode="after")
     def fill_default_name(self) -> "DataProcess":
