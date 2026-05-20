@@ -599,6 +599,7 @@ class Arena(Device):
 class Monitor(Device, DevicePosition):
     """Description of visual display for visual stimuli"""
 
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     refresh_rate: int = Field(..., title="Refresh rate (Hz)", ge=60)
     width: int = Field(..., title="Width (pixels)")
     height: int = Field(..., title="Height (pixels)")
