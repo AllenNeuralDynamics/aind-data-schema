@@ -12,10 +12,15 @@ from aind_data_schema.components.coordinates import (
     Atlas,
     Axis,
     AxisName,
+    CoordinateSystem,
     Direction,
+    Handedness,
     Origin,
     Rotation,
+    RotationDirection,
+    RotationPivot,
     Scale,
+    TransformFrame,
     Translation,
 )
 
@@ -177,6 +182,121 @@ class TestAffineWithAffineTransforms(unittest.TestCase):
         composed_transform = Affine.compose([affine1, affine2])
         expected_matrix = np.matmul(affine1.affine_transform, affine2.affine_transform).tolist()
         self.assertEqual(composed_transform.affine_transform, expected_matrix)
+
+
+class TestTranslationFrame(unittest.TestCase):
+    """Tests for Translation frame field"""
+
+    def test_default_frame_is_extrinsic(self):
+        t = Translation(translation=[1, 2, 3])
+        self.assertEqual(t.frame, TransformFrame.EXTRINSIC)
+
+    def test_intrinsic_frame(self):
+        t = Translation(translation=[1, 2, 3], frame=TransformFrame.INTRINSIC)
+        self.assertEqual(t.frame, TransformFrame.INTRINSIC)
+
+    def test_matrix_unaffected_by_frame(self):
+        t_ext = Translation(translation=[1, 2, 3], frame=TransformFrame.EXTRINSIC)
+        t_int = Translation(translation=[1, 2, 3], frame=TransformFrame.INTRINSIC)
+        self.assertEqual(t_ext.to_matrix(), t_int.to_matrix())
+
+
+class TestRotationNewFields(unittest.TestCase):
+    """Tests for new Rotation fields"""
+
+    def test_default_fields(self):
+        r = Rotation(angles=[45, 0, 0])
+        self.assertEqual(r.frame, TransformFrame.EXTRINSIC)
+        self.assertEqual(r.rotation_direction, RotationDirection.RIGHT_HAND)
+        self.assertEqual(r.pivot, RotationPivot.GLOBAL_ORIGIN)
+        self.assertEqual(r.axis_order, "xyz")
+
+    def test_custom_axis_order(self):
+        r = Rotation(angles=[45, 30, 15], axis_order="zyx")
+        self.assertEqual(r.axis_order, "zyx")
+        expected = R.from_euler("zyx", [45, 30, 15], degrees=True).as_matrix().tolist()
+        expected = [row + [0.0] for row in expected] + [[0.0, 0.0, 0.0, 1.0]]
+        self.maxDiff = None
+        self.assertEqual(r.to_matrix(), expected)
+
+    def test_axis_order_normalized_to_lowercase(self):
+        r = Rotation(angles=[45, 0, 0], axis_order="XYZ")
+        self.assertEqual(r.axis_order, "xyz")
+
+    def test_invalid_axis_order_raises(self):
+        with self.assertRaises(Exception):
+            Rotation(angles=[45, 0, 0], axis_order="abc")
+
+    def test_left_hand_rule_negates_angles(self):
+        angles = [30, 45, 60]
+        r_right = Rotation(angles=angles, rotation_direction=RotationDirection.RIGHT_HAND)
+        r_left = Rotation(angles=angles, rotation_direction=RotationDirection.LEFT_HAND)
+        expected_left = R.from_euler("xyz", [-30, -45, -60], degrees=True).as_matrix().tolist()
+        expected_left = [row + [0.0] for row in expected_left] + [[0.0, 0.0, 0.0, 1.0]]
+        self.maxDiff = None
+        self.assertNotEqual(r_right.to_matrix(), r_left.to_matrix())
+        self.assertEqual(r_left.to_matrix(), expected_left)
+
+    def test_intrinsic_frame(self):
+        angles = [30, 45, 60]
+        r_ext = Rotation(angles=angles, frame=TransformFrame.EXTRINSIC)
+        r_int = Rotation(angles=angles, frame=TransformFrame.INTRINSIC)
+        expected_ext = R.from_euler("xyz", angles, degrees=True).as_matrix().tolist()
+        expected_int = R.from_euler("XYZ", angles, degrees=True).as_matrix().tolist()
+        expected_ext = [row + [0.0] for row in expected_ext] + [[0.0, 0.0, 0.0, 1.0]]
+        expected_int = [row + [0.0] for row in expected_int] + [[0.0, 0.0, 0.0, 1.0]]
+        self.maxDiff = None
+        self.assertEqual(r_ext.to_matrix(), expected_ext)
+        self.assertEqual(r_int.to_matrix(), expected_int)
+
+    def test_pivot_field_stored(self):
+        r = Rotation(angles=[0, 0, 90], pivot=RotationPivot.LOCAL_ORIGIN)
+        self.assertEqual(r.pivot, RotationPivot.LOCAL_ORIGIN)
+
+
+class TestCoordinateSystemHandedness(unittest.TestCase):
+    """Tests for CoordinateSystem handedness field"""
+
+    def test_default_handedness_is_none(self):
+        cs = CoordinateSystem(
+            name="TEST",
+            origin=Origin.BREGMA,
+            axis_unit=SizeUnit.MM,
+            axes=[
+                Axis(name=AxisName.AP, direction=Direction.PA),
+                Axis(name=AxisName.ML, direction=Direction.LR),
+                Axis(name=AxisName.SI, direction=Direction.SI),
+            ],
+        )
+        self.assertIsNone(cs.handedness)
+
+    def test_right_handedness(self):
+        cs = CoordinateSystem(
+            name="TEST_R",
+            origin=Origin.BREGMA,
+            axis_unit=SizeUnit.MM,
+            handedness=Handedness.RIGHT,
+            axes=[
+                Axis(name=AxisName.AP, direction=Direction.PA),
+                Axis(name=AxisName.ML, direction=Direction.LR),
+                Axis(name=AxisName.SI, direction=Direction.SI),
+            ],
+        )
+        self.assertEqual(cs.handedness, Handedness.RIGHT)
+
+    def test_left_handedness(self):
+        cs = CoordinateSystem(
+            name="TEST_L",
+            origin=Origin.BREGMA,
+            axis_unit=SizeUnit.MM,
+            handedness=Handedness.LEFT,
+            axes=[
+                Axis(name=AxisName.AP, direction=Direction.PA),
+                Axis(name=AxisName.ML, direction=Direction.LR),
+                Axis(name=AxisName.SI, direction=Direction.SI),
+            ],
+        )
+        self.assertEqual(cs.handedness, Handedness.LEFT)
 
     def test_compose_with_affine_and_other_transforms(self):
         """Test compose method with an Affine transform and other transforms"""
