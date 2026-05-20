@@ -368,6 +368,7 @@ class Laser(Device):
 class LightEmittingDiode(Device):
     """Description of a Light Emitting Diode (LED) device"""
 
+    manufacturer: Organization.ONE_OF = Field(..., title="Manufacturer")
     wavelength: int = Field(..., title="Wavelength (nm)")
     wavelength_unit: SizeUnit = Field(default=SizeUnit.NM, title="Wavelength unit")
     bandwidth: Optional[int] = Field(default=None, title="Bandwidth (FWHM)")
